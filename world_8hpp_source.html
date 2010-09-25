@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -32,7 +33,7 @@
 <a name="l00006"></a>00006 
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;boost/filesystem.hpp&gt;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;components/esm_store/cell_store.hpp&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;<a class="code" href="cell__store_8hpp.html">components/esm_store/cell_store.hpp</a>&gt;</span>
 <a name="l00010"></a>00010 
 <a name="l00011"></a>00011 <span class="preprocessor">#include &quot;../mwrender/playerpos.hpp&quot;</span>
 <a name="l00012"></a>00012 <span class="preprocessor">#include &quot;../mwrender/mwscene.hpp&quot;</span>
@@ -75,13 +76,13 @@
 <a name="l00050"></a><a class="code" href="classMWWorld_1_1World.html#a65f3ce09aae04707966e16fe39f8bee1">00050</a>             <a class="code" href="classMWRender_1_1SkyManager.html">MWRender::SkyManager</a>* <a class="code" href="classMWWorld_1_1World.html#a65f3ce09aae04707966e16fe39f8bee1">mSkyManager</a>;
 <a name="l00051"></a><a class="code" href="classMWWorld_1_1World.html#a84f334291b80f4ee28391d66ed57f5da">00051</a>             <a class="code" href="classMWRender_1_1MWScene.html">MWRender::MWScene</a> <a class="code" href="classMWWorld_1_1World.html#a84f334291b80f4ee28391d66ed57f5da">mScene</a>;
 <a name="l00052"></a><a class="code" href="classMWWorld_1_1World.html#a682f83d3e7c94d5c1c51dedc54be5ffb">00052</a>             <a class="code" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> *<a class="code" href="classMWWorld_1_1World.html#a682f83d3e7c94d5c1c51dedc54be5ffb">mPlayerPos</a>;
-<a name="l00053"></a><a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">00053</a>             <a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">mCurrentCell</a>; <span class="comment">// the cell, the player is in</span>
+<a name="l00053"></a><a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">00053</a>             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">mCurrentCell</a>; <span class="comment">// the cell, the player is in</span>
 <a name="l00054"></a><a class="code" href="classMWWorld_1_1World.html#ac850b2174e503c5684e05322dce08770">00054</a>             <a class="code" href="classMWWorld_1_1World.html#a4e468f62b9750d218aa883b4ba3cda0c">CellRenderCollection</a> <a class="code" href="classMWWorld_1_1World.html#ac850b2174e503c5684e05322dce08770">mActiveCells</a>;
 <a name="l00055"></a><a class="code" href="classMWWorld_1_1World.html#a23288abe49af607535ab94f12d21073a">00055</a>             <a class="code" href="classMWWorld_1_1World.html#a4e468f62b9750d218aa883b4ba3cda0c">CellRenderCollection</a> <a class="code" href="classMWWorld_1_1World.html#a23288abe49af607535ab94f12d21073a">mBufferedCells</a>; <span class="comment">// loaded, but not active (buffering not implementd yet)</span>
-<a name="l00056"></a><a class="code" href="classMWWorld_1_1World.html#a54f9300eb417347c6ab4dcf130267fcf">00056</a>             ESM::ESMReader <a class="code" href="classMWWorld_1_1World.html#a54f9300eb417347c6ab4dcf130267fcf">mEsm</a>;
-<a name="l00057"></a><a class="code" href="classMWWorld_1_1World.html#a06f7f3806062fdea715cb4ec9a7626c4">00057</a>             ESMS::ESMStore <a class="code" href="classMWWorld_1_1World.html#a06f7f3806062fdea715cb4ec9a7626c4">mStore</a>;
+<a name="l00056"></a><a class="code" href="classMWWorld_1_1World.html#a54f9300eb417347c6ab4dcf130267fcf">00056</a>             <a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> <a class="code" href="classMWWorld_1_1World.html#a54f9300eb417347c6ab4dcf130267fcf">mEsm</a>;
+<a name="l00057"></a><a class="code" href="classMWWorld_1_1World.html#a06f7f3806062fdea715cb4ec9a7626c4">00057</a>             <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> <a class="code" href="classMWWorld_1_1World.html#a06f7f3806062fdea715cb4ec9a7626c4">mStore</a>;
 <a name="l00058"></a><a class="code" href="classMWWorld_1_1World.html#aed9a892982900d7ad0671bfdf28cf856">00058</a>             std::map&lt;std::string, Ptr::CellStore&gt; <a class="code" href="classMWWorld_1_1World.html#aed9a892982900d7ad0671bfdf28cf856">mInteriors</a>;
-<a name="l00059"></a><a class="code" href="classMWWorld_1_1World.html#a1315c8d6f1fad33be982779effb57dce">00059</a>             std::map&lt;std::pair&lt;int, int&gt;, <a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a>&gt; <a class="code" href="classMWWorld_1_1World.html#a1315c8d6f1fad33be982779effb57dce">mExteriors</a>;
+<a name="l00059"></a><a class="code" href="classMWWorld_1_1World.html#a1315c8d6f1fad33be982779effb57dce">00059</a>             std::map&lt;std::pair&lt;int, int&gt;, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&gt; <a class="code" href="classMWWorld_1_1World.html#a1315c8d6f1fad33be982779effb57dce">mExteriors</a>;
 <a name="l00060"></a><a class="code" href="classMWWorld_1_1World.html#aaab14d6b79b04b62dde45246f372d1b6">00060</a>             <a class="code" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">ScriptList</a> <a class="code" href="classMWWorld_1_1World.html#aaab14d6b79b04b62dde45246f372d1b6">mLocalScripts</a>;
 <a name="l00061"></a><a class="code" href="classMWWorld_1_1World.html#af2470eb47a9a46b59ac9b4593204bb9c">00061</a>             <a class="code" href="classMWWorld_1_1Globals.html">MWWorld::Globals</a> *<a class="code" href="classMWWorld_1_1World.html#af2470eb47a9a46b59ac9b4593204bb9c">mGlobalVariables</a>;
 <a name="l00062"></a><a class="code" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">00062</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">mSky</a>;
@@ -92,36 +93,36 @@
 <a name="l00067"></a>00067             <a class="code" href="classMWWorld_1_1World.html#a1f3ff9681241a597f0694d251f3c83f6">World</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp;);
 <a name="l00068"></a>00068             <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a05ea2bca3c7a83ebadf2a36c84c6d999">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp;);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a8bc182d40d4d7645c6e99b5b0bad73a6">insertInteriorScripts</a> (ESMS::CellStore&lt;RefData&gt;&amp; cell);
+<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a8bc182d40d4d7645c6e99b5b0bad73a6">insertInteriorScripts</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">ESMS::CellStore&lt;RefData&gt;</a>&amp; cell);
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aa77738f50927ce0b6fd5e790fc2b5d39">getPtr</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00072"></a>00072             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aa77738f50927ce0b6fd5e790fc2b5d39">getPtr</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
 <a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aedb559d06222cd81ee211e58478342f1">getPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle, <a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00074"></a>00074             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aedb559d06222cd81ee211e58478342f1">getPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
 <a name="l00075"></a>00075 
-<a name="l00076"></a>00076             <a class="code" href="classMWRender_1_1CellRender.html">MWRender::CellRender</a> *<a class="code" href="classMWWorld_1_1World.html#a603abbfb77553cde1c9934ab3f40a173">searchRender</a> (<a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a> *store);
+<a name="l00076"></a>00076             <a class="code" href="classMWRender_1_1CellRender.html">MWRender::CellRender</a> *<a class="code" href="classMWWorld_1_1World.html#a603abbfb77553cde1c9934ab3f40a173">searchRender</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *store);
 <a name="l00077"></a>00077 
 <a name="l00078"></a>00078             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a1192c73fc885c896ecbf923f1004a664">getDaysPerMonth</a> (<span class="keywordtype">int</span> month) <span class="keyword">const</span>;
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0634207d027333692a47b62b4d3a9203">removeScripts</a> (<a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a> *cell);
+<a name="l00080"></a>00080             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0634207d027333692a47b62b4d3a9203">removeScripts</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *cell);
 <a name="l00081"></a>00081 
 <a name="l00082"></a>00082             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a1bcaf23028657a99714d85b929d3af30">unloadCell</a> (CellRenderCollection::iterator iter);
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ac62843927f7152e63b8bc934eba4faa8">loadCell</a> (<a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a> *cell, <a class="code" href="classMWRender_1_1CellRender.html">MWRender::CellRender</a> *render);
+<a name="l00084"></a>00084             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ac62843927f7152e63b8bc934eba4faa8">loadCell</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *cell, <a class="code" href="classMWRender_1_1CellRender.html">MWRender::CellRender</a> *render);
 <a name="l00085"></a>00085 
-<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2999c2069f7b9f0a258e896652795171">playerCellChange</a> (<a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">Ptr::CellStore</a> *cell, <span class="keyword">const</span> ESM::Position&amp; position);
+<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2999c2069f7b9f0a258e896652795171">playerCellChange</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *cell, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00087"></a>00087 
 <a name="l00088"></a>00088             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#adaf454f5097e4527eae9cb4d36bb66e6">adjustSky</a>();
 <a name="l00089"></a>00089 
 <a name="l00090"></a>00090         <span class="keyword">public</span>:
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092            <a class="code" href="classMWWorld_1_1World.html#a1f3ff9681241a597f0694d251f3c83f6">World</a> (OEngine::Render::OgreRenderer&amp; renderer, <span class="keyword">const</span> boost::filesystem::path&amp; master,
+<a name="l00092"></a>00092            <a class="code" href="classMWWorld_1_1World.html#a1f3ff9681241a597f0694d251f3c83f6">World</a> (<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; renderer, <span class="keyword">const</span> boost::filesystem::path&amp; master,
 <a name="l00093"></a>00093                 <span class="keyword">const</span> std::string&amp; dataDir, <span class="keywordtype">bool</span> newGame, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">Environment</a>&amp; environment);
 <a name="l00094"></a>00094 
 <a name="l00095"></a>00095             <a class="code" href="classMWWorld_1_1World.html#ad637ebfccb400fd51839e8d2955a2b92">~World</a>();
 <a name="l00096"></a>00096 
 <a name="l00097"></a>00097             <a class="code" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a>&amp; <a class="code" href="classMWWorld_1_1World.html#ac46add69129e7f67aeb32d2c9d9bb6b6">getPlayerPos</a>();
 <a name="l00098"></a>00098 
-<a name="l00099"></a>00099             ESMS::ESMStore&amp; <a class="code" href="classMWWorld_1_1World.html#aace199ae239bd201724e31d394143d52">getStore</a>();
+<a name="l00099"></a>00099             <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWWorld_1_1World.html#aace199ae239bd201724e31d394143d52">getStore</a>();
 <a name="l00100"></a>00100 
 <a name="l00101"></a>00101             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">ScriptList</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a8643388378e961f679f72fa5499a9f21" title="Names and local variable state of all local scripts in active cells.">getLocalScripts</a>() <span class="keyword">const</span>;
 <a name="l00103"></a>00103 
@@ -157,13 +158,13 @@
 <a name="l00138"></a>00138 
 <a name="l00139"></a>00139             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a4826b6f8c185cd5207e7912ab89ac4a5">getTimeScaleFactor</a>() <span class="keyword">const</span>;
 <a name="l00140"></a>00140 
-<a name="l00141"></a>00141             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keyword">const</span> std::string&amp; cellName, <span class="keyword">const</span> ESM::Position&amp; position);
+<a name="l00141"></a>00141             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keyword">const</span> std::string&amp; cellName, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00143"></a>00143 
-<a name="l00144"></a>00144             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keywordtype">int</span> X, <span class="keywordtype">int</span> Y, <span class="keyword">const</span> ESM::Position&amp; position);
+<a name="l00144"></a>00144             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keywordtype">int</span> X, <span class="keywordtype">int</span> Y, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00145"></a>00145 
-<a name="l00146"></a>00146             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2b2e20b1f8308f25a7b748300757081c">changeToExteriorCell</a> (<span class="keyword">const</span> ESM::Position&amp; position);
+<a name="l00146"></a>00146             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2b2e20b1f8308f25a7b748300757081c">changeToExteriorCell</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00147"></a>00147 
-<a name="l00148"></a>00148             <span class="keyword">const</span> ESM::Cell *<a class="code" href="classMWWorld_1_1World.html#ae643d53a3566903518cde427f673cd64" title="Return a cell matching the given name or a 0-pointer, if there is no such cell.">getExterior</a> (<span class="keyword">const</span> std::string&amp; cellName) <span class="keyword">const</span>;
+<a name="l00148"></a>00148             <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1World.html#ae643d53a3566903518cde427f673cd64" title="Return a cell matching the given name or a 0-pointer, if there is no such cell.">getExterior</a> (<span class="keyword">const</span> std::string&amp; cellName) <span class="keyword">const</span>;
 <a name="l00150"></a>00150 
 <a name="l00151"></a>00151             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9c84bcb7db8f2217da9f41e2a85e9a69">markCellAsUnchanged</a>();
 <a name="l00152"></a>00152 
@@ -181,7 +182,7 @@
 <a name="l00167"></a>00167 
 <a name="l00168"></a>00168 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

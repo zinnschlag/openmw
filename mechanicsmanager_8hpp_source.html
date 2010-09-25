@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -35,7 +36,7 @@
 <a name="l00009"></a>00009 
 <a name="l00010"></a><a class="code" href="namespaceESMS.html">00010</a> <span class="keyword">namespace </span>ESMS
 <a name="l00011"></a>00011 {
-<a name="l00012"></a>00012     <span class="keyword">struct </span>ESMStore;
+<a name="l00012"></a>00012     <span class="keyword">struct </span><a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a>;
 <a name="l00013"></a>00013 }
 <a name="l00014"></a>00014 
 <a name="l00015"></a>00015 <span class="keyword">namespace </span>MWGui
@@ -47,7 +48,7 @@
 <a name="l00021"></a>00021 {
 <a name="l00022"></a><a class="code" href="classMWMechanics_1_1MechanicsManager.html">00022</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1MechanicsManager.html">MechanicsManager</a>
 <a name="l00023"></a>00023     {
-<a name="l00024"></a><a class="code" href="classMWMechanics_1_1MechanicsManager.html#acdfbdd5e21ab021c211e7dab09d4a6df">00024</a>             <span class="keyword">const</span> ESMS::ESMStore&amp; <a class="code" href="classMWMechanics_1_1MechanicsManager.html#acdfbdd5e21ab021c211e7dab09d4a6df">mStore</a>;
+<a name="l00024"></a><a class="code" href="classMWMechanics_1_1MechanicsManager.html#acdfbdd5e21ab021c211e7dab09d4a6df">00024</a>             <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWMechanics_1_1MechanicsManager.html#acdfbdd5e21ab021c211e7dab09d4a6df">mStore</a>;
 <a name="l00025"></a><a class="code" href="classMWMechanics_1_1MechanicsManager.html#ad7acec1ae6c23f09bbd0e6789d54707f">00025</a>             <a class="code" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a>&amp; <a class="code" href="classMWMechanics_1_1MechanicsManager.html#ad7acec1ae6c23f09bbd0e6789d54707f">mWindowManager</a>;
 <a name="l00026"></a><a class="code" href="classMWMechanics_1_1MechanicsManager.html#ae3465f2ee86f6ee4a76f77d7ea4956c8">00026</a>             std::set&lt;MWWorld::Ptr&gt; <a class="code" href="classMWMechanics_1_1MechanicsManager.html#ae3465f2ee86f6ee4a76f77d7ea4956c8">mActors</a>;
 <a name="l00027"></a><a class="code" href="classMWMechanics_1_1MechanicsManager.html#aece62caa2c5c80c213d9731293918f00">00027</a>             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWMechanics_1_1MechanicsManager.html#aece62caa2c5c80c213d9731293918f00">mWatched</a>;
@@ -55,7 +56,7 @@
 <a name="l00029"></a>00029     
 <a name="l00030"></a>00030         <span class="keyword">public</span>:
 <a name="l00031"></a>00031         
-<a name="l00032"></a>00032             <a class="code" href="classMWMechanics_1_1MechanicsManager.html#a1745279191f95c2da473e9a7a3cfa627">MechanicsManager</a> (<span class="keyword">const</span> ESMS::ESMStore&amp; store, <a class="code" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a>&amp; windowManager);
+<a name="l00032"></a>00032             <a class="code" href="classMWMechanics_1_1MechanicsManager.html#a1745279191f95c2da473e9a7a3cfa627">MechanicsManager</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <a class="code" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a>&amp; windowManager);
 <a name="l00033"></a>00033             
 <a name="l00034"></a>00034             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MechanicsManager.html#ab0d27f0a52a501cc20eef79dad18096a">configureGUI</a>();
 <a name="l00035"></a>00035             
@@ -63,7 +64,7 @@
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MechanicsManager.html#a1f3de074e20c59a53af360a50cb1c203" title="Deregister an actor for stats management.">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00041"></a>00041                         
-<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MechanicsManager.html#a389977e5e9e0a7f80702fbba381d32dc" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">MWWorld::Ptr::CellStore</a> *cellStore);
+<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MechanicsManager.html#a389977e5e9e0a7f80702fbba381d32dc" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cellStore);
 <a name="l00044"></a>00044             
 <a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MechanicsManager.html#a69ec2b3bcdc3da96241556ddb939388f">watchActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00048"></a>00048             
@@ -74,7 +75,7 @@
 <a name="l00054"></a>00054 <span class="preprocessor">#endif</span>
 <a name="l00055"></a>00055 <span class="preprocessor"></span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

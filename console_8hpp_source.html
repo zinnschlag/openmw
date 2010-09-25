@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -27,17 +28,17 @@
 <h1>apps/openmw/mwgui/console.hpp</h1><a href="console_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MWGUI_CONSOLE_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MWGUI_CONSOLE_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;openengine/gui/layout.hpp&gt;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;<a class="code" href="layout_8hpp.html">openengine/gui/layout.hpp</a>&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;list&gt;</span>
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;components/compiler/errorhandler.hpp&gt;</span>
-<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;components/compiler/lineparser.hpp&gt;</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;components/compiler/scanner.hpp&gt;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;components/compiler/locals.hpp&gt;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;components/compiler/output.hpp&gt;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;components/interpreter/interpreter.hpp&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;<a class="code" href="errorhandler_8hpp.html">components/compiler/errorhandler.hpp</a>&gt;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;<a class="code" href="lineparser_8hpp.html">components/compiler/lineparser.hpp</a>&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;<a class="code" href="scanner_8hpp.html">components/compiler/scanner.hpp</a>&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;<a class="code" href="components_2compiler_2locals_8hpp.html">components/compiler/locals.hpp</a>&gt;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;<a class="code" href="components_2compiler_2output_8hpp.html">components/compiler/output.hpp</a>&gt;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;<a class="code" href="interpreter_8hpp.html">components/interpreter/interpreter.hpp</a>&gt;</span>
 <a name="l00015"></a>00015 
 <a name="l00016"></a>00016 <span class="preprocessor">#include &quot;../mwscript/compilercontext.hpp&quot;</span>
 <a name="l00017"></a>00017 <span class="preprocessor">#include &quot;../mwscript/interpretercontext.hpp&quot;</span>
@@ -51,11 +52,11 @@
 <a name="l00025"></a><a class="code" href="classMWGui_1_1Console.html#a1cd973561cf05548624ea29e3d4a9b78">00025</a>         <a class="code" href="classMWScript_1_1CompilerContext.html">MWScript::CompilerContext</a> <a class="code" href="classMWGui_1_1Console.html#a1cd973561cf05548624ea29e3d4a9b78">mCompilerContext</a>;
 <a name="l00026"></a><a class="code" href="classMWGui_1_1Console.html#adaf3796baafc5e065769d61196230cce">00026</a>         <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1Console.html#adaf3796baafc5e065769d61196230cce">mEnvironment</a>;
 <a name="l00027"></a>00027         
-<a name="l00028"></a>00028         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1Console.html#a7739da471e02953030e691d140957fff">compile</a> (<span class="keyword">const</span> std::string&amp; cmd, Compiler::Output&amp; output);
+<a name="l00028"></a>00028         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1Console.html#a7739da471e02953030e691d140957fff">compile</a> (<span class="keyword">const</span> std::string&amp; cmd, <a class="code" href="classCompiler_1_1Output.html">Compiler::Output</a>&amp; <a class="code" href="to__utf8_8cpp.html#aab6e7d894410ef19f19fa9d4ae362158">output</a>);
 <a name="l00029"></a>00029 
-<a name="l00031"></a>00031         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a0ab14243fadd9887b4d8784386750492" title="Report error to the user.">report</a> (<span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> Compiler::TokenLoc&amp; loc, Type type);
+<a name="l00031"></a>00031         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a0ab14243fadd9887b4d8784386750492" title="Report error to the user.">report</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1ErrorHandler.html#a2aa56cded3ac6c154e0c0319cfcce658">Type</a> type);
 <a name="l00032"></a>00032 
-<a name="l00034"></a>00034         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a0ab14243fadd9887b4d8784386750492" title="Report error to the user.">report</a> (<span class="keyword">const</span> std::string&amp; message, Type type);
+<a name="l00034"></a>00034         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a0ab14243fadd9887b4d8784386750492" title="Report error to the user.">report</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <a class="code" href="classCompiler_1_1ErrorHandler.html#a2aa56cded3ac6c154e0c0319cfcce658">Type</a> type);
 <a name="l00035"></a>00035                     
 <a name="l00036"></a>00036   <span class="keyword">public</span>:
 <a name="l00037"></a><a class="code" href="classMWGui_1_1Console.html#accd3c1250b3e810fe92c2e7c9320de05">00037</a>     MyGUI::EditPtr <a class="code" href="classMWGui_1_1Console.html#accd3c1250b3e810fe92c2e7c9320de05">command</a>;
@@ -68,7 +69,7 @@
 <a name="l00044"></a><a class="code" href="classMWGui_1_1Console.html#a0f50c3a02f76b885874383c879f26cca">00044</a>     StringList::iterator <a class="code" href="classMWGui_1_1Console.html#a0f50c3a02f76b885874383c879f26cca">current</a>;
 <a name="l00045"></a><a class="code" href="classMWGui_1_1Console.html#a041d29c20919a9e222547e8810a08ce6">00045</a>     std::string <a class="code" href="classMWGui_1_1Console.html#a041d29c20919a9e222547e8810a08ce6">editString</a>;
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047     <a class="code" href="classMWGui_1_1Console.html#acda23c3aaf89537b73543e44febf2768">Console</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment, <span class="keyword">const</span> Compiler::Extensions&amp; extensions);
+<a name="l00047"></a>00047     <a class="code" href="classMWGui_1_1Console.html#acda23c3aaf89537b73543e44febf2768">Console</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment, <span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions);
 <a name="l00048"></a>00048 
 <a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#ae4425c24d7103861184f62118bb8f9af">enable</a>();
 <a name="l00050"></a>00050 
@@ -99,7 +100,7 @@
 <a name="l00077"></a>00077 }
 <a name="l00078"></a>00078 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -37,15 +38,15 @@
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#af408f88134b2a5749858fb8ba2529f2d">CellRenderImp</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">~CellRenderImp</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575">insertBegin</a> (ESM::CellRef &amp;ref)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575">insertBegin</a> (<a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">start inserting a new reference.  <a href="#ad052a46db4c5efea5a4923cf120cc575"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a3aa2fc0696a20505891c6bf727cf3b04">insertMesh</a> (const std::string &amp;mesh)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a3aa2fc0696a20505891c6bf727cf3b04">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a mesh related to the most recent insertBegin call.  <a href="#a3aa2fc0696a20505891c6bf727cf3b04"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a2202eaa95d78c266d815aa9bc50f3995">insertLight</a> (float r, float g, float b, float radius)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a light related to the most recent insertBegin call.  <a href="#a2202eaa95d78c266d815aa9bc50f3995"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a75817f52fd311c763ac8cf06b2442dc2">insertEnd</a> (bool Enable)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">finish inserting a new reference and return a handle to it.  <a href="#a75817f52fd311c763ac8cf06b2442dc2"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a053c75443c7dd663029f7210104240be">insertCell</a> (ESMS::CellStore&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;cell, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a053c75443c7dd663029f7210104240be">insertCell</a> (<a class="el" href="classESMS_1_1CellStore.html">ESMS::CellStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;cell, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Base class for cell render, that implements inserting references into a cell in a cell type- and render-engine-independent way. </p>
@@ -92,7 +93,7 @@
         <tr>
           <td class="memname">virtual void MWRender::CellRenderImp::insertBegin </td>
           <td>(</td>
-          <td class="paramtype">ESM::CellRef &amp;&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>ref</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [pure virtual]</code></td>
@@ -114,7 +115,7 @@
         <tr>
           <td class="memname">void CellRenderImp::insertCell </td>
           <td>(</td>
-          <td class="paramtype">ESMS::CellStore&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classESMS_1_1CellStore.html">ESMS::CellStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;&nbsp;</td>
           <td class="paramname"> <em>cell</em>, </td>
         </tr>
         <tr>
@@ -226,7 +227,7 @@
 <li>apps/openmw/mwrender/<a class="el" href="cellimp_8cpp.html">cellimp.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -29,8 +30,8 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;boost/any.hpp&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;components/esm_store/cell_store.hpp&gt;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;components/esm_store/store.hpp&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="cell__store_8hpp.html">components/esm_store/cell_store.hpp</a>&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;<a class="code" href="store_8hpp.html">components/esm_store/store.hpp</a>&gt;</span>
 <a name="l00008"></a>00008 
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="ptr_8hpp.html">ptr.hpp</a>&quot;</span>
 <a name="l00010"></a>00010 
@@ -45,15 +46,15 @@
 <a name="l00020"></a>00020             <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#a177ab26b23ec2b77ef07a9c17796359a">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp;);
 <a name="l00021"></a>00021 
 <a name="l00022"></a>00022             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00023"></a><a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">00023</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (<span class="keyword">const</span> ESMS::RecListT&lt;T&gt;&amp; list, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00023"></a><a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">00023</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1RecListT.html">ESMS::RecListT&lt;T&gt;</a>&amp; list, <span class="keyword">const</span> std::string&amp; name)
 <a name="l00024"></a>00024             {
-<a name="l00025"></a>00025                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.search (name))
+<a name="l00025"></a>00025                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.<a class="code" href="structESMS_1_1RecListT.html#a87982a3a1e1112a6e33e18fccf1022d9">search</a> (name))
 <a name="l00026"></a>00026                 {
-<a name="l00027"></a>00027                     ESMS::LiveCellRef&lt;T, RefData&gt; ref;
-<a name="l00028"></a>00028                     ref.base = instance;
+<a name="l00027"></a>00027                     <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">ESMS::LiveCellRef&lt;T, RefData&gt;</a> ref;
+<a name="l00028"></a>00028                     ref.<a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a> = instance;
 <a name="l00029"></a>00029 
 <a name="l00030"></a>00030                     <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a> = ref;
-<a name="l00031"></a>00031                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;ESMS::LiveCellRef&lt;T, RefData&gt;&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
+<a name="l00031"></a>00031                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;<a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">ESMS::LiveCellRef&lt;T, RefData&gt;</a>&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00034"></a>00034                 }
@@ -62,15 +63,15 @@
 <a name="l00037"></a>00037             }
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00040"></a><a class="code" href="classMWWorld_1_1ManualRef.html#aaf931d951d1999bc0350e83a425c2f37">00040</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (<span class="keyword">const</span> ESMS::RecListWithIDT&lt;T&gt;&amp; list, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00040"></a><a class="code" href="classMWWorld_1_1ManualRef.html#aaf931d951d1999bc0350e83a425c2f37">00040</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1RecListWithIDT.html" title="Modified version of RecListT for records, that need to store their own ID.">ESMS::RecListWithIDT&lt;T&gt;</a>&amp; list, <span class="keyword">const</span> std::string&amp; name)
 <a name="l00041"></a>00041             {
-<a name="l00042"></a>00042                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.search (name))
+<a name="l00042"></a>00042                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.<a class="code" href="structESMS_1_1RecListWithIDT.html#afb20f969526d1de2999a56636b07a1e1">search</a> (name))
 <a name="l00043"></a>00043                 {
-<a name="l00044"></a>00044                     ESMS::LiveCellRef&lt;T, RefData&gt; ref;
-<a name="l00045"></a>00045                     ref.base = instance;
+<a name="l00044"></a>00044                     <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">ESMS::LiveCellRef&lt;T, RefData&gt;</a> ref;
+<a name="l00045"></a>00045                     ref.<a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a> = instance;
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047                     <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a> = ref;
-<a name="l00048"></a>00048                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;ESMS::LiveCellRef&lt;T, RefData&gt;&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
+<a name="l00048"></a>00048                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;<a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">ESMS::LiveCellRef&lt;T, RefData&gt;</a>&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
 <a name="l00049"></a>00049 
 <a name="l00050"></a>00050                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00051"></a>00051                 }
@@ -80,42 +81,42 @@
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056         <span class="keyword">public</span>:
 <a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a5b964cd43e9b020251a483de67d33b9f">00058</a>             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> ESMS::ESMStore&amp; store, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00058"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a5b964cd43e9b020251a483de67d33b9f">00058</a>             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; name)
 <a name="l00059"></a>00059             {
 <a name="l00060"></a>00060                 <span class="comment">// create</span>
-<a name="l00061"></a>00061                 <span class="keywordflow">if</span> (!<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.activators, name) &amp;&amp;
-<a name="l00062"></a>00062                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.potions, name) &amp;&amp;
-<a name="l00063"></a>00063                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.appas, name) &amp;&amp;
-<a name="l00064"></a>00064                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.armors, name) &amp;&amp;
-<a name="l00065"></a>00065                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.books, name) &amp;&amp;
-<a name="l00066"></a>00066                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.clothes, name) &amp;&amp;
-<a name="l00067"></a>00067                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.containers, name) &amp;&amp;
-<a name="l00068"></a>00068                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.creatures, name) &amp;&amp;
-<a name="l00069"></a>00069                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.doors, name) &amp;&amp;
-<a name="l00070"></a>00070                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.ingreds, name) &amp;&amp;
-<a name="l00071"></a>00071                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.creatureLists, name) &amp;&amp;
-<a name="l00072"></a>00072                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.itemLists, name) &amp;&amp;
-<a name="l00073"></a>00073                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.lights, name) &amp;&amp;
-<a name="l00074"></a>00074                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.lockpicks, name) &amp;&amp;
-<a name="l00075"></a>00075                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.miscItems, name) &amp;&amp;
-<a name="l00076"></a>00076                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.npcs, name) &amp;&amp;
-<a name="l00077"></a>00077                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.probes, name) &amp;&amp;
-<a name="l00078"></a>00078                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.repairs, name) &amp;&amp;
-<a name="l00079"></a>00079                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.statics, name) &amp;&amp;
-<a name="l00080"></a>00080                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.weapons, name))
+<a name="l00061"></a>00061                 <span class="keywordflow">if</span> (!<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#af0845a05784c720e40603b76285c8838">activators</a>, name) &amp;&amp;
+<a name="l00062"></a>00062                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a818e550f0c863b28953a01682dca92f0">potions</a>, name) &amp;&amp;
+<a name="l00063"></a>00063                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ac8a4177466dd89bc2bd6015a401ca13d">appas</a>, name) &amp;&amp;
+<a name="l00064"></a>00064                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a7e0373859db8f894a0c59828d315c7e1">armors</a>, name) &amp;&amp;
+<a name="l00065"></a>00065                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a27f0c617f3e79f8ee74943466b2dd2ac">books</a>, name) &amp;&amp;
+<a name="l00066"></a>00066                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a9766c9a0a2f534da624517c94b2a5562">clothes</a>, name) &amp;&amp;
+<a name="l00067"></a>00067                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#acd93ce60ec3a2e8698f24d80012ce5f7">containers</a>, name) &amp;&amp;
+<a name="l00068"></a>00068                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a0dfdb5147e9db14db0ec2d0b4a1d94b3">creatures</a>, name) &amp;&amp;
+<a name="l00069"></a>00069                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a9fd3f0f7fa0789164042612ff680aeb7">doors</a>, name) &amp;&amp;
+<a name="l00070"></a>00070                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a85d4d0f60532c87908343e736f7c6453">ingreds</a>, name) &amp;&amp;
+<a name="l00071"></a>00071                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ad47657a3e620f8533539ee5524c169a9">creatureLists</a>, name) &amp;&amp;
+<a name="l00072"></a>00072                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ab62e75064765dbc8efe8ddeb771c6294">itemLists</a>, name) &amp;&amp;
+<a name="l00073"></a>00073                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a7bda857d44ab9732e4eadd06ba15739a">lights</a>, name) &amp;&amp;
+<a name="l00074"></a>00074                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a1222b11585153303449e942aa12fc3d2">lockpicks</a>, name) &amp;&amp;
+<a name="l00075"></a>00075                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a14a2946ff9970620acdcf8b72c71a839">miscItems</a>, name) &amp;&amp;
+<a name="l00076"></a>00076                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a540fd76cbfd0ccd9ebfcbe22168bf506">npcs</a>, name) &amp;&amp;
+<a name="l00077"></a>00077                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a309eef5525f4c702975214c2ba99ce80">probes</a>, name) &amp;&amp;
+<a name="l00078"></a>00078                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ad4d6171b6c3614c0c2205456e8c8892f">repairs</a>, name) &amp;&amp;
+<a name="l00079"></a>00079                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#abc637fadaf4dd0c51c92c124cbcb0620">statics</a>, name) &amp;&amp;
+<a name="l00080"></a>00080                     !<a class="code" href="classMWWorld_1_1ManualRef.html#acb63f232c4eab5f39bdee5e09be45e8f">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#aadde42a9e9c577c72f242e3b2ce556bd">weapons</a>, name))
 <a name="l00081"></a>00081                     <span class="keywordflow">throw</span> std::logic_error (<span class="stringliteral">&quot;failed to create manual cell ref for &quot;</span> + name);
 <a name="l00082"></a>00082 
 <a name="l00083"></a>00083                 <span class="comment">// initialise</span>
-<a name="l00084"></a>00084                 ESM::CellRef&amp; cellRef = <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>.<a class="code" href="classMWWorld_1_1Ptr.html#a2f34d091998360e49278c4acbecc8dcb">getCellRef</a>();
-<a name="l00085"></a>00085                 cellRef.refnum = -1;
-<a name="l00086"></a>00086                 cellRef.scale = 1;
-<a name="l00087"></a>00087                 cellRef.factIndex = 0;
-<a name="l00088"></a>00088                 cellRef.charge = 0;
-<a name="l00089"></a>00089                 cellRef.intv = 0;
-<a name="l00090"></a>00090                 cellRef.nam9 = 0;
-<a name="l00091"></a>00091                 cellRef.teleport = <span class="keyword">false</span>;
-<a name="l00092"></a>00092                 cellRef.lockLevel = 0;
-<a name="l00093"></a>00093                 cellRef.unam = 0;
+<a name="l00084"></a>00084                 <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; cellRef = <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>.<a class="code" href="classMWWorld_1_1Ptr.html#a2f34d091998360e49278c4acbecc8dcb">getCellRef</a>();
+<a name="l00085"></a>00085                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a3471c3c0db671f7a89236c9091c9df4f">refnum</a> = -1;
+<a name="l00086"></a>00086                 cellRef.<a class="code" href="classESM_1_1CellRef.html#aafbf463a70efcff1f670f4594de17755">scale</a> = 1;
+<a name="l00087"></a>00087                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a38f3b845eba8d50e25f0f674cc846871">factIndex</a> = 0;
+<a name="l00088"></a>00088                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a20b8609b3388ee9fe4b2e52ce1dbcf2d">charge</a> = 0;
+<a name="l00089"></a>00089                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a35049808178b70996917cc3efc563676">intv</a> = 0;
+<a name="l00090"></a>00090                 cellRef.<a class="code" href="classESM_1_1CellRef.html#adf6272432aa9e63caed2e8a01a79d8ff">nam9</a> = 0;
+<a name="l00091"></a>00091                 cellRef.<a class="code" href="classESM_1_1CellRef.html#ace2475a38a8ea98630a9afdcc2fd433b">teleport</a> = <span class="keyword">false</span>;
+<a name="l00092"></a>00092                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a954748137df05a03e803f6a748c7d754">lockLevel</a> = 0;
+<a name="l00093"></a>00093                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a6b28f2027eec1fd76ff254481262acc8">unam</a> = 0;
 <a name="l00094"></a>00094             }
 <a name="l00095"></a>00095 
 <a name="l00096"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">00096</a>             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">getPtr</a>()<span class="keyword"> const</span>
@@ -127,7 +128,7 @@
 <a name="l00102"></a>00102 
 <a name="l00103"></a>00103 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

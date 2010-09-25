@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -64,7 +65,7 @@
 <a name="l00044"></a>00044 
 <a name="l00045"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a3e3b3f6588218141c81bb4e3ca916f45">00045</a>     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1InteriorCellRender.html#a3e3b3f6588218141c81bb4e3ca916f45">lightOutQuadInLin</a>;
 <a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a3f2406284db0759d1c9f341f2dc1759f">00047</a>     ESMS::CellStore&lt;MWWorld::RefData&gt; &amp;<a class="code" href="classMWRender_1_1InteriorCellRender.html#a3f2406284db0759d1c9f341f2dc1759f">cell</a>;
+<a name="l00047"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a3f2406284db0759d1c9f341f2dc1759f">00047</a>     <a class="code" href="classESMS_1_1CellStore.html">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;<a class="code" href="classMWRender_1_1InteriorCellRender.html#a3f2406284db0759d1c9f341f2dc1759f">cell</a>;
 <a name="l00048"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a1b07f275a4e94262d19009d40f5629da">00048</a>     <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a> &amp;<a class="code" href="classMWRender_1_1InteriorCellRender.html#a1b07f275a4e94262d19009d40f5629da">mEnvironment</a>;
 <a name="l00049"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#ab02814b262e801e5aa3f4bd28e48f00e">00049</a>     <a class="code" href="classMWRender_1_1MWScene.html">MWScene</a> &amp;<a class="code" href="classMWRender_1_1InteriorCellRender.html#ab02814b262e801e5aa3f4bd28e48f00e">scene</a>;
 <a name="l00050"></a>00050 
@@ -77,9 +78,9 @@
 <a name="l00059"></a>00059 
 <a name="l00060"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a979192ed55d60e4aff64739166f3055b">00060</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1InteriorCellRender.html#a979192ed55d60e4aff64739166f3055b">ambientColor</a>;
 <a name="l00061"></a>00061 
-<a name="l00063"></a>00063     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1InteriorCellRender.html#a5a2537ad283eee77061c61bc21d8eedf" title="start inserting a new reference.">insertBegin</a> (ESM::CellRef &amp;ref);
+<a name="l00063"></a>00063     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1InteriorCellRender.html#a5a2537ad283eee77061c61bc21d8eedf" title="start inserting a new reference.">insertBegin</a> (<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref);
 <a name="l00064"></a>00064 
-<a name="l00066"></a>00066     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1InteriorCellRender.html#acfaca36415e9ec9db09022df33788e0a" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;mesh);
+<a name="l00066"></a>00066     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1InteriorCellRender.html#acfaca36415e9ec9db09022df33788e0a" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>);
 <a name="l00067"></a>00067 
 <a name="l00069"></a>00069     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1InteriorCellRender.html#a101b9735a1d9388e707c3edd50f587dd" title="insert a light related to the most recent insertBegin call.">insertLight</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> radius);
 <a name="l00070"></a>00070 
@@ -93,7 +94,7 @@
 <a name="l00081"></a>00081 
 <a name="l00082"></a>00082   <span class="keyword">public</span>:
 <a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a1a19de71991c9603c654ffd75ab18b59">00084</a>     <a class="code" href="classMWRender_1_1InteriorCellRender.html#a1a19de71991c9603c654ffd75ab18b59">InteriorCellRender</a>(ESMS::CellStore&lt;MWWorld::RefData&gt; &amp;_cell, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment,
+<a name="l00084"></a><a class="code" href="classMWRender_1_1InteriorCellRender.html#a1a19de71991c9603c654ffd75ab18b59">00084</a>     <a class="code" href="classMWRender_1_1InteriorCellRender.html#a1a19de71991c9603c654ffd75ab18b59">InteriorCellRender</a>(<a class="code" href="classESMS_1_1CellStore.html">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;_cell, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment,
 <a name="l00085"></a>00085         <a class="code" href="classMWRender_1_1MWScene.html">MWScene</a> &amp;_scene)
 <a name="l00086"></a>00086     : <a class="code" href="classMWRender_1_1InteriorCellRender.html#a3f2406284db0759d1c9f341f2dc1759f">cell</a>(_cell), <a class="code" href="classMWRender_1_1InteriorCellRender.html#a1b07f275a4e94262d19009d40f5629da">mEnvironment</a> (environment), <a class="code" href="classMWRender_1_1InteriorCellRender.html#ab02814b262e801e5aa3f4bd28e48f00e">scene</a>(_scene), <a class="code" href="classMWRender_1_1InteriorCellRender.html#ae690ea2184a9465ffa10e875232c5e7f">base</a>(NULL), <a class="code" href="classMWRender_1_1InteriorCellRender.html#a6de89a094251afb60dbebac028de174b">insert</a>(NULL), <a class="code" href="classMWRender_1_1InteriorCellRender.html#a437ef389034d86fc10ca20c1617936cb">ambientMode</a> (0) {}
 <a name="l00087"></a>00087 
@@ -117,7 +118,7 @@
 <a name="l00113"></a>00113 
 <a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

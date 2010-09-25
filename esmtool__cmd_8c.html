@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -28,7 +29,7 @@
 <div class="contents">
 <h1>apps/esmtool/esmtool_cmd.c File Reference</h1><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
-<code>#include &lt;string.h&gt;</code><br/>
+<code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br/>
 <code>#include &quot;<a class="el" href="esmtool__cmd_8h_source.html">esmtool_cmd.h</a>&quot;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Classes</h2></td></tr>
@@ -39,9 +40,11 @@
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a3bc1d5f667b5b4ca4b4abb685dc874ce">no_argument</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a6ece8d8dfa8378778f7290fdaba5b8bc">required_argument</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#acca06c0a947656bd8b395bf1084ffb72">optional_argument</a>&nbsp;&nbsp;&nbsp;2</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a71ceb8911d64b39b402041ba5ea8453c">NONOPTION_P</a>&nbsp;&nbsp;&nbsp;(argv[d-&gt;<a class="el" href="esmtool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][0] != '-' || argv[d-&gt;<a class="el" href="esmtool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][1] == '\0')</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a71ceb8911d64b39b402041ba5ea8453c">NONOPTION_P</a>&nbsp;&nbsp;&nbsp;(argv[d-&gt;<a class="el" href="bsatool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][0] != '-' || argv[d-&gt;<a class="el" href="bsatool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][1] == '\0')</td></tr>
 <tr><td colspan="2"><h2>Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a88e31a859f36efa57ad64e6ae13332a1">cmdline_parser_arg_type</a> { <a class="el" href="esmtool__cmd_8c.html#a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada">ARG_NO</a>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a88e31a859f36efa57ad64e6ae13332a1">cmdline_parser_arg_type</a> { <a class="el" href="esmtool__cmd_8c.html#a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada">ARG_NO</a>, 
+<a class="el" href="bsatool__cmd_8c.html#a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada">ARG_NO</a>, 
+<a class="el" href="bsatool__cmd_8c.html#a88e31a859f36efa57ad64e6ae13332a1a1e0904ee5e3baf2aa4070ab0718a3afa">ARG_STRING</a>
  }</td></tr>
 <tr><td colspan="2"><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="esmtool__cmd_8c.html#a48968b912c47767e9f057f5bc11634cb">clear_given</a> (struct <a class="el" href="structgengetopt__args__info.html">gengetopt_args_info</a> *args_info)</td></tr>
@@ -126,7 +129,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NONOPTION_P&nbsp;&nbsp;&nbsp;(argv[d-&gt;<a class="el" href="esmtool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][0] != '-' || argv[d-&gt;<a class="el" href="esmtool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][1] == '\0')</td>
+          <td class="memname">#define NONOPTION_P&nbsp;&nbsp;&nbsp;(argv[d-&gt;<a class="el" href="bsatool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][0] != '-' || argv[d-&gt;<a class="el" href="bsatool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a>][1] == '\0')</td>
         </tr>
       </table>
 </div>
@@ -173,6 +176,10 @@
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada"></a><!-- doxytag: member="ARG_NO" ref="a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada" args="" -->ARG_NO</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada"></a><!-- doxytag: member="ARG_NO" ref="a88e31a859f36efa57ad64e6ae13332a1a67dd250fb3e23862523b667407868ada" args="" -->ARG_NO</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a88e31a859f36efa57ad64e6ae13332a1a1e0904ee5e3baf2aa4070ab0718a3afa"></a><!-- doxytag: member="ARG_STRING" ref="a88e31a859f36efa57ad64e6ae13332a1a1e0904ee5e3baf2aa4070ab0718a3afa" args="" -->ARG_STRING</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dd>
@@ -1246,7 +1253,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="esmtool__cmd_8c.html#a14b2a04054a2096eb62681e39f20207c">custom_optarg</a><code> [static]</code></td>
+          <td class="memname">char* <a class="el" href="bsatool__cmd_8c.html#a14b2a04054a2096eb62681e39f20207c">custom_optarg</a><code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -1259,7 +1266,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="esmtool__cmd_8c.html#a32a97c8be84d07a9df32e0eb94920ae4">custom_opterr</a> = 1<code> [static]</code></td>
+          <td class="memname">int <a class="el" href="bsatool__cmd_8c.html#a32a97c8be84d07a9df32e0eb94920ae4">custom_opterr</a> = 1<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -1272,7 +1279,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="esmtool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a> = 1<code> [static]</code></td>
+          <td class="memname">int <a class="el" href="bsatool__cmd_8c.html#a0a6e267158ed304bcabf7a29505420d9">custom_optind</a> = 1<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -1285,7 +1292,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="esmtool__cmd_8c.html#a501f6a30dcc784792b254224f0d18185">custom_optopt</a> = '?'<code> [static]</code></td>
+          <td class="memname">int <a class="el" href="bsatool__cmd_8c.html#a501f6a30dcc784792b254224f0d18185">custom_optopt</a> = '?'<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -1298,7 +1305,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* <a class="el" href="esmtool__cmd_8c.html#accad6107ca685f6eba555f6ce63d355d">gengetopt_args_info_description</a> = &quot;&quot;</td>
+          <td class="memname">const char* <a class="el" href="bsatool__cmd_8c.html#accad6107ca685f6eba555f6ce63d355d">gengetopt_args_info_description</a> = &quot;&quot;</td>
         </tr>
       </table>
 </div>
@@ -1311,7 +1318,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* <a class="el" href="esmtool__cmd_8h.html#a6af7a6b7fb37c0abaa916ee1cfa0a41f">gengetopt_args_info_help</a>[]</td>
+          <td class="memname">const char* <a class="el" href="bsatool__cmd_8h.html#a6af7a6b7fb37c0abaa916ee1cfa0a41f">gengetopt_args_info_help</a>[]</td>
         </tr>
       </table>
 </div>
@@ -1335,7 +1342,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* <a class="el" href="esmtool__cmd_8h.html#a610c3307abce5a8fd304b86b018ae60b">gengetopt_args_info_purpose</a> = &quot;Inspect and extract from Morrowind ES files (ESM, ESP, ESS)&quot;</td>
+          <td class="memname">const char* <a class="el" href="bsatool__cmd_8h.html#a610c3307abce5a8fd304b86b018ae60b">gengetopt_args_info_purpose</a> = &quot;Inspect and extract from Morrowind ES files (ESM, ESP, ESS)&quot;</td>
         </tr>
       </table>
 </div>
@@ -1350,7 +1357,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* <a class="el" href="esmtool__cmd_8h.html#a9f397a306f363bfdebb611e86acf36d5">gengetopt_args_info_usage</a> = &quot;Usage: esmtool [OPTIONS]... [ES-FILE]...&quot;</td>
+          <td class="memname">const char* <a class="el" href="bsatool__cmd_8h.html#a9f397a306f363bfdebb611e86acf36d5">gengetopt_args_info_usage</a> = &quot;Usage: esmtool [OPTIONS]... [ES-FILE]...&quot;</td>
         </tr>
       </table>
 </div>
@@ -1365,7 +1372,7 @@
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="esmtool__cmd_8c.html#a08f16a026de44b77c5e7be490fb9e32b">package_name</a> = 0<code> [static]</code></td>
+          <td class="memname">char* <a class="el" href="bsatool__cmd_8c.html#a08f16a026de44b77c5e7be490fb9e32b">package_name</a> = 0<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -1374,7 +1381,7 @@
 </div>
 </div>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

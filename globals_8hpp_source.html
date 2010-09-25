@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -30,7 +31,7 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;map&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;components/interpreter/types.hpp&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">components/interpreter/types.hpp</a>&gt;</span>
 <a name="l00008"></a>00008 
 <a name="l00009"></a>00009 <span class="keyword">namespace </span>ESMS
 <a name="l00010"></a>00010 {
@@ -45,9 +46,9 @@
 <a name="l00019"></a>00019         
 <a name="l00020"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">00020</a>             <span class="keyword">union </span><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">Data</a>
 <a name="l00021"></a>00021             {
-<a name="l00022"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#a1701eda18de341b709078f0c3796de86">00022</a>                 Interpreter::Type_Float <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#a1701eda18de341b709078f0c3796de86">mFloat</a>;
-<a name="l00023"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#aca00cc436f11ba69b478eaa15d63d103">00023</a>                 Interpreter::Type_Float <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#aca00cc436f11ba69b478eaa15d63d103">mLong</a>; <span class="comment">// Why Morrowind, why? :(</span>
-<a name="l00024"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#ac609af0d78be26c9e14d76396cae3571">00024</a>                 Interpreter::Type_Float <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#ac609af0d78be26c9e14d76396cae3571">mShort</a>;
+<a name="l00022"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#a1701eda18de341b709078f0c3796de86">00022</a>                 <a class="code" href="namespaceInterpreter.html#abd3418551637652a80542b1c1ea29bc7">Interpreter::Type_Float</a> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#a1701eda18de341b709078f0c3796de86">mFloat</a>;
+<a name="l00023"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#aca00cc436f11ba69b478eaa15d63d103">00023</a>                 <a class="code" href="namespaceInterpreter.html#abd3418551637652a80542b1c1ea29bc7">Interpreter::Type_Float</a> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#aca00cc436f11ba69b478eaa15d63d103">mLong</a>; <span class="comment">// Why Morrowind, why? :(</span>
+<a name="l00024"></a><a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#ac609af0d78be26c9e14d76396cae3571">00024</a>                 <a class="code" href="namespaceInterpreter.html#abd3418551637652a80542b1c1ea29bc7">Interpreter::Type_Float</a> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html#ac609af0d78be26c9e14d76396cae3571">mShort</a>;
 <a name="l00025"></a>00025             };
 <a name="l00026"></a>00026         
 <a name="l00027"></a><a class="code" href="classMWWorld_1_1Globals.html#a3f93b5ebe82af6917ea771fc23350f2d">00027</a>             <span class="keyword">typedef</span> std::map&lt;std::string, std::pair&lt;char, Data&gt; &gt; <a class="code" href="classMWWorld_1_1Globals.html#a3f93b5ebe82af6917ea771fc23350f2d">Collection</a>;
@@ -62,7 +63,7 @@
 <a name="l00036"></a>00036         
 <a name="l00037"></a>00037         <span class="keyword">public</span>:
 <a name="l00038"></a>00038         
-<a name="l00039"></a>00039             <a class="code" href="classMWWorld_1_1Globals.html#a69b206820def94f17caf5895f483766b">Globals</a> (<span class="keyword">const</span> ESMS::ESMStore&amp; store);
+<a name="l00039"></a>00039             <a class="code" href="classMWWorld_1_1Globals.html#a69b206820def94f17caf5895f483766b">Globals</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store);
 <a name="l00040"></a>00040         
 <a name="l00041"></a>00041             <span class="keyword">const</span> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">Data</a>&amp; <a class="code" href="classMWWorld_1_1Globals.html#a0cbd68f18e5767351a56093c8b291492">operator[] </a>(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
 <a name="l00042"></a>00042 
@@ -82,7 +83,7 @@
 <a name="l00061"></a>00061 
 <a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

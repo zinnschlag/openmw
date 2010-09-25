@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -29,13 +30,13 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;components/esm_store/cell_store.hpp&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="cell__store_8hpp.html">components/esm_store/cell_store.hpp</a>&quot;</span>
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwworld/refdata.hpp&quot;</span>
 <a name="l00009"></a>00009 
 <a name="l00010"></a><a class="code" href="namespaceESM.html">00010</a> <span class="keyword">namespace </span>ESM
 <a name="l00011"></a>00011 {
-<a name="l00012"></a>00012   <span class="keyword">class </span>CellRef;
+<a name="l00012"></a>00012   <span class="keyword">class </span><a class="code" href="classESM_1_1CellRef.html">CellRef</a>;
 <a name="l00013"></a>00013 }
 <a name="l00014"></a>00014 
 <a name="l00015"></a>00015 <span class="keyword">namespace </span>MWWorld
@@ -52,15 +53,15 @@
 <a name="l00028"></a><a class="code" href="classMWRender_1_1CellRenderImp.html#af408f88134b2a5749858fb8ba2529f2d">00028</a>     <a class="code" href="classMWRender_1_1CellRenderImp.html#af408f88134b2a5749858fb8ba2529f2d">CellRenderImp</a>() {}
 <a name="l00029"></a><a class="code" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">00029</a>     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">~CellRenderImp</a>() {}
 <a name="l00030"></a>00030 
-<a name="l00032"></a>00032     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575" title="start inserting a new reference.">insertBegin</a> (ESM::CellRef &amp;ref) = 0;
+<a name="l00032"></a>00032     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575" title="start inserting a new reference.">insertBegin</a> (<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref) = 0;
 <a name="l00033"></a>00033 
-<a name="l00035"></a>00035     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a3aa2fc0696a20505891c6bf727cf3b04" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;mesh) = 0;
+<a name="l00035"></a>00035     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a3aa2fc0696a20505891c6bf727cf3b04" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>) = 0;
 <a name="l00036"></a>00036 
 <a name="l00038"></a>00038     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a2202eaa95d78c266d815aa9bc50f3995" title="insert a light related to the most recent insertBegin call.">insertLight</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> radius) = 0;
 <a name="l00039"></a>00039 
 <a name="l00041"></a>00041     <span class="keyword">virtual</span> std::string <a class="code" href="classMWRender_1_1CellRenderImp.html#a75817f52fd311c763ac8cf06b2442dc2" title="finish inserting a new reference and return a handle to it.">insertEnd</a> (<span class="keywordtype">bool</span> Enable) = 0;
 <a name="l00042"></a>00042 
-<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a053c75443c7dd663029f7210104240be">insertCell</a>(ESMS::CellStore&lt;MWWorld::RefData&gt; &amp;cell, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a053c75443c7dd663029f7210104240be">insertCell</a>(<a class="code" href="classESMS_1_1CellStore.html">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;cell, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045   };
 <a name="l00046"></a>00046 
@@ -75,7 +76,7 @@
 <a name="l00056"></a>00056 
 <a name="l00057"></a>00057         <span class="keyword">public</span>:
 <a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="classMWRender_1_1Rendering.html#a819e6c54b90bd7cf7dd8e5423fd74e3d">00059</a>             <a class="code" href="classMWRender_1_1Rendering.html#aa1d3460f2d323512da3299e24af0badc">Rendering</a> (<a class="code" href="classMWRender_1_1CellRenderImp.html">CellRenderImp</a>&amp; cellRender, ESM::CellRef &amp;ref)
+<a name="l00059"></a><a class="code" href="classMWRender_1_1Rendering.html#a819e6c54b90bd7cf7dd8e5423fd74e3d">00059</a>             <a class="code" href="classMWRender_1_1Rendering.html#aa1d3460f2d323512da3299e24af0badc">Rendering</a> (<a class="code" href="classMWRender_1_1CellRenderImp.html">CellRenderImp</a>&amp; cellRender, <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref)
 <a name="l00060"></a>00060             : <a class="code" href="classMWRender_1_1Rendering.html#adba2ef1591071924381f0e84bb872c2a">mCellRender</a> (cellRender), <a class="code" href="classMWRender_1_1Rendering.html#af92946ff300d7bbbb66b31788dce2a2c">mEnd</a> (false)
 <a name="l00061"></a>00061             {
 <a name="l00062"></a>00062                 <a class="code" href="classMWRender_1_1Rendering.html#adba2ef1591071924381f0e84bb872c2a">mCellRender</a>.<a class="code" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575" title="start inserting a new reference.">insertBegin</a> (ref);
@@ -87,7 +88,7 @@
 <a name="l00068"></a>00068                     <a class="code" href="classMWRender_1_1Rendering.html#adba2ef1591071924381f0e84bb872c2a">mCellRender</a>.<a class="code" href="classMWRender_1_1CellRenderImp.html#a75817f52fd311c763ac8cf06b2442dc2" title="finish inserting a new reference and return a handle to it.">insertEnd</a> (<span class="keyword">false</span>);
 <a name="l00069"></a>00069             }
 <a name="l00070"></a>00070 
-<a name="l00071"></a><a class="code" href="classMWRender_1_1Rendering.html#a07e447cc24d02a746100cfba9ffa7c82">00071</a>             std::string <a class="code" href="classMWRender_1_1Rendering.html#a07e447cc24d02a746100cfba9ffa7c82">end</a> (<span class="keywordtype">bool</span> enable)
+<a name="l00071"></a><a class="code" href="classMWRender_1_1Rendering.html#a07e447cc24d02a746100cfba9ffa7c82">00071</a>             std::string <a class="code" href="classMWRender_1_1Rendering.html#a07e447cc24d02a746100cfba9ffa7c82">end</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a0d5e41e02741d24cb489529c446a8c18">enable</a>)
 <a name="l00072"></a>00072             {
 <a name="l00073"></a>00073                 assert (!<a class="code" href="classMWRender_1_1Rendering.html#af92946ff300d7bbbb66b31788dce2a2c">mEnd</a>);
 <a name="l00074"></a>00074                 <a class="code" href="classMWRender_1_1Rendering.html#af92946ff300d7bbbb66b31788dce2a2c">mEnd</a> = <span class="keyword">true</span>;
@@ -98,7 +99,7 @@
 <a name="l00079"></a>00079 
 <a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

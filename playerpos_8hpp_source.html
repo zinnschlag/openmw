@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -29,7 +30,7 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;OgreCamera.h&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;components/esm_store/cell_store.hpp&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="cell__store_8hpp.html">components/esm_store/cell_store.hpp</a>&gt;</span>
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwworld/refdata.hpp&quot;</span>
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
@@ -46,23 +47,23 @@
 <a name="l00020"></a>00020   <span class="comment">// (to be done).</span>
 <a name="l00021"></a><a class="code" href="classMWRender_1_1PlayerPos.html">00021</a>   <span class="keyword">class </span><a class="code" href="classMWRender_1_1PlayerPos.html">PlayerPos</a>
 <a name="l00022"></a>00022   {
-<a name="l00023"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">00023</a>     ESMS::LiveCellRef&lt;ESM::NPC, MWWorld::RefData&gt; <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>;
-<a name="l00024"></a><a class="code" href="classMWRender_1_1PlayerPos.html#ac15892d7954d393b843e0cf928697d9f">00024</a>     <a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">MWWorld::Ptr::CellStore</a> *<a class="code" href="classMWRender_1_1PlayerPos.html#ac15892d7954d393b843e0cf928697d9f">mCellStore</a>;
+<a name="l00023"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">00023</a>     <a class="code" href="structESMS_1_1LiveCellRef.html">ESMS::LiveCellRef&lt;ESM::NPC, MWWorld::RefData&gt;</a> <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>;
+<a name="l00024"></a><a class="code" href="classMWRender_1_1PlayerPos.html#ac15892d7954d393b843e0cf928697d9f">00024</a>     <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *<a class="code" href="classMWRender_1_1PlayerPos.html#ac15892d7954d393b843e0cf928697d9f">mCellStore</a>;
 <a name="l00025"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a9a919f8e9ff46a973034cb4274864d86">00025</a>     Ogre::Camera *<a class="code" href="classMWRender_1_1PlayerPos.html#a9a919f8e9ff46a973034cb4274864d86">camera</a>;
 <a name="l00026"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a60c3368756fc544f571969fcacf8b0d0">00026</a>     <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; <a class="code" href="classMWRender_1_1PlayerPos.html#a60c3368756fc544f571969fcacf8b0d0">mWorld</a>;
 <a name="l00027"></a>00027 
 <a name="l00028"></a>00028   <span class="keyword">public</span>:
-<a name="l00029"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a416ffa04fc10f748e9bc47b22c5690a2">00029</a>     <a class="code" href="classMWRender_1_1PlayerPos.html#a416ffa04fc10f748e9bc47b22c5690a2">PlayerPos</a>(Ogre::Camera *cam, <span class="keyword">const</span> ESM::NPC *player, <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world) :
+<a name="l00029"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a416ffa04fc10f748e9bc47b22c5690a2">00029</a>     <a class="code" href="classMWRender_1_1PlayerPos.html#a416ffa04fc10f748e9bc47b22c5690a2">PlayerPos</a>(Ogre::Camera *cam, <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player, <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world) :
 <a name="l00030"></a>00030       <a class="code" href="classMWRender_1_1PlayerPos.html#ac15892d7954d393b843e0cf928697d9f">mCellStore</a> (0), <a class="code" href="classMWRender_1_1PlayerPos.html#a9a919f8e9ff46a973034cb4274864d86">camera</a>(cam), <a class="code" href="classMWRender_1_1PlayerPos.html#a60c3368756fc544f571969fcacf8b0d0">mWorld</a> (world)
 <a name="l00031"></a>00031     {
-<a name="l00032"></a>00032         <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.base = player;
-<a name="l00033"></a>00033         <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.ref.pos.pos[0] = <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.ref.pos.pos[1] = <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.ref.pos.pos[2] = 0;
+<a name="l00032"></a>00032         <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.<a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a> = player;
+<a name="l00033"></a>00033         <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.<a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a>.pos.pos[0] = <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.<a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a>.pos.pos[1] = <a class="code" href="classMWRender_1_1PlayerPos.html#a790ca155f4af76b1aca170e6e8edee82">mPlayer</a>.<a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a>.pos.pos[2] = 0;
 <a name="l00034"></a>00034     }
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036     <span class="comment">// Set the player position. Uses Morrowind coordinates.</span>
 <a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1PlayerPos.html#afd26d3f2216f50e71c3e38e0ae56a9de">setPos</a>(<span class="keywordtype">float</span> _x, <span class="keywordtype">float</span> _y, <span class="keywordtype">float</span> _z, <span class="keywordtype">bool</span> updateCamera = <span class="keyword">false</span>);
 <a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a34fd5ffa7bb1ae82c822238c2a0c1834">00039</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1PlayerPos.html#a34fd5ffa7bb1ae82c822238c2a0c1834">setCell</a> (<a class="code" href="classMWWorld_1_1Ptr.html#a84cffb2f5745fa4abeaeeaaefddb936e">MWWorld::Ptr::CellStore</a> *cellStore)
+<a name="l00039"></a><a class="code" href="classMWRender_1_1PlayerPos.html#a34fd5ffa7bb1ae82c822238c2a0c1834">00039</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1PlayerPos.html#a34fd5ffa7bb1ae82c822238c2a0c1834">setCell</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cellStore)
 <a name="l00040"></a>00040     {
 <a name="l00041"></a>00041         <a class="code" href="classMWRender_1_1PlayerPos.html#ac15892d7954d393b843e0cf928697d9f">mCellStore</a> = cellStore;
 <a name="l00042"></a>00042     }
@@ -103,7 +104,7 @@
 <a name="l00077"></a>00077 }
 <a name="l00078"></a>00078 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

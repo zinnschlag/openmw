@@ -13,6 +13,7 @@
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -28,7 +29,7 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _GAME_RENDER_MWSCENE_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;utility&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;openengine/ogre/renderer.hpp&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;<a class="code" href="renderer_8hpp.html">openengine/ogre/renderer.hpp</a>&gt;</span>
 <a name="l00006"></a>00006 
 <a name="l00007"></a>00007 <span class="keyword">namespace </span>Ogre
 <a name="l00008"></a>00008 {
@@ -48,7 +49,7 @@
 <a name="l00022"></a>00022 {
 <a name="l00028"></a><a class="code" href="classMWRender_1_1MWScene.html">00028</a>   <span class="keyword">class </span><a class="code" href="classMWRender_1_1MWScene.html">MWScene</a>
 <a name="l00029"></a>00029   {
-<a name="l00030"></a><a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">00030</a>     OEngine::Render::OgreRenderer &amp;<a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>;
+<a name="l00030"></a><a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">00030</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>;
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032     <span class="comment">// Root node for all objects added to the scene. This is rotated so</span>
 <a name="l00033"></a>00033     <span class="comment">// that the OGRE coordinate system matches that used internally in</span>
@@ -57,12 +58,12 @@
 <a name="l00036"></a><a class="code" href="classMWRender_1_1MWScene.html#ae768a226373e9063287d590fe9fde7e2">00036</a>     Ogre::RaySceneQuery *<a class="code" href="classMWRender_1_1MWScene.html#ae768a226373e9063287d590fe9fde7e2">mRaySceneQuery</a>;
 <a name="l00037"></a>00037 
 <a name="l00038"></a>00038   <span class="keyword">public</span>:
-<a name="l00039"></a>00039     <a class="code" href="classMWRender_1_1MWScene.html#a616ca5f5a739214d929dc71e35c36f08">MWScene</a>(OEngine::Render::OgreRenderer &amp;_rend);
+<a name="l00039"></a>00039     <a class="code" href="classMWRender_1_1MWScene.html#a616ca5f5a739214d929dc71e35c36f08">MWScene</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend);
 <a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="classMWRender_1_1MWScene.html#a10c96b873c794007155b2649d0826014">00041</a>     Ogre::Camera *<a class="code" href="classMWRender_1_1MWScene.html#a10c96b873c794007155b2649d0826014">getCamera</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>.getCamera(); }
+<a name="l00041"></a><a class="code" href="classMWRender_1_1MWScene.html#a10c96b873c794007155b2649d0826014">00041</a>     Ogre::Camera *<a class="code" href="classMWRender_1_1MWScene.html#a10c96b873c794007155b2649d0826014">getCamera</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>.<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0" title="Camera.">getCamera</a>(); }
 <a name="l00042"></a><a class="code" href="classMWRender_1_1MWScene.html#a81ab796546560e86d88069e217fe87fd">00042</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1MWScene.html#a81ab796546560e86d88069e217fe87fd">getRoot</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#ab4c225b3bf9b04471a89e1e0cfe3aa1c">mwRoot</a>; }
-<a name="l00043"></a><a class="code" href="classMWRender_1_1MWScene.html#a4fe5cd4148ff1fff941875a043076bb1">00043</a>     Ogre::SceneManager *<a class="code" href="classMWRender_1_1MWScene.html#a4fe5cd4148ff1fff941875a043076bb1">getMgr</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>.getScene(); }
-<a name="l00044"></a><a class="code" href="classMWRender_1_1MWScene.html#a85e353fb5be42d0a12b2819bbbcccb1c">00044</a>     Ogre::Viewport *<a class="code" href="classMWRender_1_1MWScene.html#a85e353fb5be42d0a12b2819bbbcccb1c">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>.getViewport(); }
+<a name="l00043"></a><a class="code" href="classMWRender_1_1MWScene.html#a4fe5cd4148ff1fff941875a043076bb1">00043</a>     Ogre::SceneManager *<a class="code" href="classMWRender_1_1MWScene.html#a4fe5cd4148ff1fff941875a043076bb1">getMgr</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>.<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277" title="Get the scene manager.">getScene</a>(); }
+<a name="l00044"></a><a class="code" href="classMWRender_1_1MWScene.html#a85e353fb5be42d0a12b2819bbbcccb1c">00044</a>     Ogre::Viewport *<a class="code" href="classMWRender_1_1MWScene.html#a85e353fb5be42d0a12b2819bbbcccb1c">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a>.<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>(); }
 <a name="l00045"></a><a class="code" href="classMWRender_1_1MWScene.html#ab95d08f0a48b4e10fe67417670663034">00045</a>     Ogre::RaySceneQuery *<a class="code" href="classMWRender_1_1MWScene.html#ab95d08f0a48b4e10fe67417670663034">getRaySceneQuery</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1MWScene.html#ae768a226373e9063287d590fe9fde7e2">mRaySceneQuery</a>; }
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047     <span class="comment">//gets the handle of the object the player is looking at</span>
@@ -75,7 +76,7 @@
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 14:20:38 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
