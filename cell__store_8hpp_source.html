@@ -53,7 +53,7 @@
 <a name="l00027"></a><a class="code" href="structESMS_1_1LiveCellRef.html">00027</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveCellRef</a>
 <a name="l00028"></a>00028   {
 <a name="l00029"></a>00029     <span class="comment">// The object that this instance is based on.</span>
-<a name="l00030"></a><a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">00030</a>     <span class="keyword">const</span> X* <a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a>;
+<a name="l00030"></a><a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">00030</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a>;
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032     <span class="comment">/* Information about this instance, such as 3D location and</span>
 <a name="l00033"></a>00033 <span class="comment">       rotation and individual type-dependent data.</span>
@@ -74,9 +74,9 @@
 <a name="l00050"></a>00050     <span class="comment">// ESMStore. Insert the reference into the list if a match is</span>
 <a name="l00051"></a>00051     <span class="comment">// found. If not, throw an exception.</span>
 <a name="l00052"></a>00052     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Y&gt;
-<a name="l00053"></a><a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">00053</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(<a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref, <span class="keyword">const</span> Y&amp; recList)
+<a name="l00053"></a><a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">00053</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(<a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref, <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>&amp; recList)
 <a name="l00054"></a>00054     {
-<a name="l00055"></a>00055       <span class="keyword">const</span> X* obj = recList.find(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
+<a name="l00055"></a>00055       <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* obj = recList.find(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
 <a name="l00056"></a>00056       <span class="keywordflow">if</span>(obj == NULL)
 <a name="l00057"></a>00057         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error resolving cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
 <a name="l00058"></a>00058 
@@ -141,7 +141,7 @@
 <a name="l00120"></a>00120         <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(store, esm);
 <a name="l00121"></a>00121     }
 <a name="l00122"></a>00122 
-<a name="l00124"></a><a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">00124</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">loadExt</a>(<span class="keywordtype">int</span> X, <span class="keywordtype">int</span> Y, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00124"></a><a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">00124</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">loadExt</a>(<span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, <span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
 <a name="l00125"></a>00125     {
 <a name="l00126"></a>00126         std::cout &lt;&lt; <span class="stringliteral">&quot;loading exterior cell &#39;&quot;</span> &lt;&lt; X &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; Y &lt;&lt; <span class="stringliteral">&quot;&#39;\n&quot;</span>;
 <a name="l00127"></a>00127 
@@ -208,7 +208,7 @@
 <a name="l00188"></a>00188 
 <a name="l00189"></a>00189 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

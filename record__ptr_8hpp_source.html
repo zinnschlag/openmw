@@ -61,7 +61,7 @@
 <a name="l00038"></a><a class="code" href="classNif_1_1RecordPtrT.html">00038</a> <span class="keyword">class </span><a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT</a>
 <a name="l00039"></a>00039 {
 <a name="l00040"></a><a class="code" href="classNif_1_1RecordPtrT.html#a45e9a32d23fbab8206df2061e0657114">00040</a>   <span class="keywordtype">int</span> <a class="code" href="classNif_1_1RecordPtrT.html#a45e9a32d23fbab8206df2061e0657114">index</a>;
-<a name="l00041"></a><a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">00041</a>   X* <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
+<a name="l00041"></a><a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">00041</a>   <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
 <a name="l00042"></a><a class="code" href="classNif_1_1RecordPtrT.html#a4cf9e09dd838b38cbdc6039288509cba">00042</a>   <a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *<a class="code" href="classNif_1_1RecordPtrT.html#a4cf9e09dd838b38cbdc6039288509cba">nif</a>;
 <a name="l00043"></a>00043 
 <a name="l00044"></a>00044  <span class="keyword">public</span>:
@@ -80,13 +80,13 @@
 <a name="l00058"></a>00058     <a class="code" href="classNif_1_1RecordPtrT.html#a45e9a32d23fbab8206df2061e0657114">index</a> = <a class="code" href="classNif_1_1RecordPtrT.html#a4cf9e09dd838b38cbdc6039288509cba">nif</a>-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
 <a name="l00059"></a>00059   }
 <a name="l00060"></a>00060 
-<a name="l00064"></a><a class="code" href="classNif_1_1RecordPtrT.html#a77f4250c4e1fc157ed4daaf1b005cc21">00064</a>   <span class="keywordtype">void</span> <span class="keyword">set</span>(X *p)
+<a name="l00064"></a><a class="code" href="classNif_1_1RecordPtrT.html#a77f4250c4e1fc157ed4daaf1b005cc21">00064</a>   <span class="keywordtype">void</span> <span class="keyword">set</span>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> *p)
 <a name="l00065"></a>00065   {
 <a name="l00066"></a>00066     <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> = p;
 <a name="l00067"></a>00067     <a class="code" href="classNif_1_1RecordPtrT.html#a45e9a32d23fbab8206df2061e0657114">index</a> = -1;
 <a name="l00068"></a>00068   }
 <a name="l00069"></a>00069 
-<a name="l00071"></a><a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d">00071</a>   X* <a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d" title="Look up the actual object from the index.">getPtr</a>()
+<a name="l00071"></a><a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d">00071</a>   <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d" title="Look up the actual object from the index.">getPtr</a>()
 <a name="l00072"></a>00072   {
 <a name="l00073"></a>00073     <span class="comment">// Have we found the pointer already?</span>
 <a name="l00074"></a>00074     <span class="keywordflow">if</span>(<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> == NULL)
@@ -96,14 +96,14 @@
 <a name="l00078"></a>00078         <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *r = <a class="code" href="classNif_1_1RecordPtrT.html#a4cf9e09dd838b38cbdc6039288509cba">nif</a>-&gt;<a class="code" href="classNif_1_1NIFFile.html#a38e8d72234b8534a32988cfcada6a373" title="Get a given record.">getRecord</a>(<a class="code" href="classNif_1_1RecordPtrT.html#a45e9a32d23fbab8206df2061e0657114">index</a>);
 <a name="l00079"></a>00079 
 <a name="l00080"></a>00080         <span class="comment">// And cast it</span>
-<a name="l00081"></a>00081         <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> = <span class="keyword">dynamic_cast&lt;</span>X*<span class="keyword">&gt;</span>(r);
+<a name="l00081"></a>00081         <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>*<span class="keyword">&gt;</span>(r);
 <a name="l00082"></a>00082         assert(<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> != NULL);
 <a name="l00083"></a>00083       }
 <a name="l00084"></a>00084     <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
 <a name="l00085"></a>00085   }
 <a name="l00086"></a>00086 
-<a name="l00088"></a><a class="code" href="classNif_1_1RecordPtrT.html#a3a263d47e09ee3c935ec21202f92ca62">00088</a>   X* <a class="code" href="classNif_1_1RecordPtrT.html#a3a263d47e09ee3c935ec21202f92ca62" title="Syntactic sugar.">operator-&gt;</a>() { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d" title="Look up the actual object from the index.">getPtr</a>(); }
-<a name="l00089"></a><a class="code" href="classNif_1_1RecordPtrT.html#aaf3dbbb4aa65adf6397c3fa45103341b">00089</a>   X&amp; <span class="keyword">get</span>() { <span class="keywordflow">return</span> *<a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d" title="Look up the actual object from the index.">getPtr</a>(); }
+<a name="l00088"></a><a class="code" href="classNif_1_1RecordPtrT.html#a3a263d47e09ee3c935ec21202f92ca62">00088</a>   <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="classNif_1_1RecordPtrT.html#a3a263d47e09ee3c935ec21202f92ca62" title="Syntactic sugar.">operator-&gt;</a>() { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d" title="Look up the actual object from the index.">getPtr</a>(); }
+<a name="l00089"></a><a class="code" href="classNif_1_1RecordPtrT.html#aaf3dbbb4aa65adf6397c3fa45103341b">00089</a>   <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>&amp; <span class="keyword">get</span>() { <span class="keywordflow">return</span> *<a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d" title="Look up the actual object from the index.">getPtr</a>(); }
 <a name="l00090"></a>00090 
 <a name="l00092"></a><a class="code" href="classNif_1_1RecordPtrT.html#a153b83aad63b3e8c43ee4c1a67227929">00092</a>   <span class="keywordtype">bool</span> <a class="code" href="classNif_1_1RecordPtrT.html#a153b83aad63b3e8c43ee4c1a67227929" title="Pointers are allowed to be empty.">empty</a>() { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a45e9a32d23fbab8206df2061e0657114">index</a> == -1 &amp;&amp; <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> == NULL; }
 <a name="l00093"></a>00093 
@@ -128,7 +128,7 @@
 <a name="l00116"></a>00116       <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>[i].<a class="code" href="classNif_1_1RecordListT.html#aaa5904e4a508625071547ce714955b5e">read</a>(nif);
 <a name="l00117"></a>00117   }
 <a name="l00118"></a>00118 
-<a name="l00119"></a><a class="code" href="classNif_1_1RecordListT.html#a8a3b6a28e11666c1d6d9423b37485235">00119</a>   X&amp; <a class="code" href="classNif_1_1RecordListT.html#a8a3b6a28e11666c1d6d9423b37485235">operator[]</a>(<span class="keywordtype">int</span> index)
+<a name="l00119"></a><a class="code" href="classNif_1_1RecordListT.html#a8a3b6a28e11666c1d6d9423b37485235">00119</a>   <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>&amp; <a class="code" href="classNif_1_1RecordListT.html#a8a3b6a28e11666c1d6d9423b37485235">operator[]</a>(<span class="keywordtype">int</span> index)
 <a name="l00120"></a>00120     {
 <a name="l00121"></a>00121       assert(index &gt;= 0 &amp;&amp; index &lt; static_cast&lt;int&gt; (<a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size()));
 <a name="l00122"></a>00122       <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>[index].get();
@@ -195,7 +195,7 @@
 <a name="l00183"></a>00183 } <span class="comment">// Namespace</span>
 <a name="l00184"></a>00184 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -41,6 +41,8 @@
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classNIFLoader.html">NIFLoader</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#aefd57f51f9d38cc65901b0bceef0c2e8">getSingleton</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classNIFLoader.html">NIFLoader</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a29767ca15aa44c3139f4d8fa1aefe3b1">getSingletonPtr</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static Ogre::MeshPtr&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a6a33a4080e9b3f25af4d553be948ed95">load</a> (const std::string &amp;name, const std::string &amp;<a class="el" href="ogre__resource__test_8cpp.html#a2da4114d14f8f2479eb54d3a64bcb31c">group</a>=&quot;General&quot;)</td></tr>
+<tr><td colspan="2"><h2>Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#ac592d059aa8d39882a777505076ee13f">numberOfMeshes</a></td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a1853185528333d0e43801b1c03e36bca">NIFLoader</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a3011b1595e1336e01ebb074f8cca4485">NIFLoader</a> (<a class="el" href="classNIFLoader.html">NIFLoader</a> &amp;n)</td></tr>
@@ -57,6 +59,14 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMangle_1_1VFS_1_1OgreVFS.html">Mangle::VFS::OgreVFS</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a61edd1428d7bc1064483077df256b144">vfs</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">resourceName</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">resourceGroup</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a8d871ea4b728661b6101032dea9c660f">skincounter</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a81b24810de653b21dd1f4d048e0faea2">isChest</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a925551f2e6105d2090f5ada50b4d65c4">isBeast</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a2f487773dbfe7e38b006356af6248870">isHands</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a2d89261b44d2c26a3301353ac42f6647">isFeet</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a92339683a379caba16f589ac63091229">counter</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#abf16cb84098a41ebffd299ff80542769">numbers</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#aa7e4d97c72c73b6f951f6252e324e610">stack</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Mesh *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#ac1ee2c6cd9a4999d3347ea40e63ba1fa">mesh</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SkeletonPtr&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNIFLoader.html#a3d578a812c95f514632d7cafca43c236">skel</a></td></tr>
 </table>
@@ -493,12 +503,103 @@
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a92339683a379caba16f589ac63091229"></a><!-- doxytag: member="NIFLoader::counter" ref="a92339683a379caba16f589ac63091229" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classNIFLoader.html#a92339683a379caba16f589ac63091229">NIFLoader::counter</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a925551f2e6105d2090f5ada50b4d65c4"></a><!-- doxytag: member="NIFLoader::isBeast" ref="a925551f2e6105d2090f5ada50b4d65c4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classNIFLoader.html#a925551f2e6105d2090f5ada50b4d65c4">NIFLoader::isBeast</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a81b24810de653b21dd1f4d048e0faea2"></a><!-- doxytag: member="NIFLoader::isChest" ref="a81b24810de653b21dd1f4d048e0faea2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classNIFLoader.html#a81b24810de653b21dd1f4d048e0faea2">NIFLoader::isChest</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2d89261b44d2c26a3301353ac42f6647"></a><!-- doxytag: member="NIFLoader::isFeet" ref="a2d89261b44d2c26a3301353ac42f6647" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classNIFLoader.html#a2d89261b44d2c26a3301353ac42f6647">NIFLoader::isFeet</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2f487773dbfe7e38b006356af6248870"></a><!-- doxytag: member="NIFLoader::isHands" ref="a2f487773dbfe7e38b006356af6248870" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classNIFLoader.html#a2f487773dbfe7e38b006356af6248870">NIFLoader::isHands</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ac1ee2c6cd9a4999d3347ea40e63ba1fa"></a><!-- doxytag: member="NIFLoader::mesh" ref="ac1ee2c6cd9a4999d3347ea40e63ba1fa" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Ogre::Mesh* <a class="el" href="classNIFLoader.html#ac1ee2c6cd9a4999d3347ea40e63ba1fa">NIFLoader::mesh</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac592d059aa8d39882a777505076ee13f"></a><!-- doxytag: member="NIFLoader::numberOfMeshes" ref="ac592d059aa8d39882a777505076ee13f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classNIFLoader.html#ac592d059aa8d39882a777505076ee13f">NIFLoader::numberOfMeshes</a><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abf16cb84098a41ebffd299ff80542769"></a><!-- doxytag: member="NIFLoader::numbers" ref="abf16cb84098a41ebffd299ff80542769" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classNIFLoader.html#abf16cb84098a41ebffd299ff80542769">NIFLoader::numbers</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -545,6 +646,32 @@
 
 </div>
 </div>
+<a class="anchor" id="a8d871ea4b728661b6101032dea9c660f"></a><!-- doxytag: member="NIFLoader::skincounter" ref="a8d871ea4b728661b6101032dea9c660f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classNIFLoader.html#a8d871ea4b728661b6101032dea9c660f">NIFLoader::skincounter</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa7e4d97c72c73b6f951f6252e324e610"></a><!-- doxytag: member="NIFLoader::stack" ref="aa7e4d97c72c73b6f951f6252e324e610" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classNIFLoader.html#aa7e4d97c72c73b6f951f6252e324e610">NIFLoader::stack</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a61edd1428d7bc1064483077df256b144"></a><!-- doxytag: member="NIFLoader::vfs" ref="a61edd1428d7bc1064483077df256b144" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -563,7 +690,7 @@
 <li>components/nifogre/<a class="el" href="ogre__nif__loader_8cpp.html">ogre_nif_loader.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

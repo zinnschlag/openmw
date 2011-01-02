@@ -310,7 +310,7 @@
 <a name="l00294"></a>00294 
 <a name="l00295"></a>00295   <span class="comment">// Read data of a given type, stored in a subrecord of a given name</span>
 <a name="l00296"></a>00296   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00297"></a><a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">00297</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(X &amp;x, <span class="keyword">const</span> <span class="keywordtype">char</span>* name)
+<a name="l00297"></a><a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">00297</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &amp;x, <span class="keyword">const</span> <span class="keywordtype">char</span>* name)
 <a name="l00298"></a>00298   {
 <a name="l00299"></a>00299     <a class="code" href="classESM_1_1ESMReader.html#ab60b38a81482ba22cac72e334055988f">getSubNameIs</a>(name);
 <a name="l00300"></a>00300     <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(x);
@@ -318,7 +318,7 @@
 <a name="l00302"></a>00302 
 <a name="l00303"></a>00303   <span class="comment">// Optional version of getHNT</span>
 <a name="l00304"></a>00304   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00305"></a><a class="code" href="classESM_1_1ESMReader.html#a412c4679a46205fa9a5edd2dd59fe6bc">00305</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a412c4679a46205fa9a5edd2dd59fe6bc">getHNOT</a>(X &amp;x, <span class="keyword">const</span> <span class="keywordtype">char</span>* name)
+<a name="l00305"></a><a class="code" href="classESM_1_1ESMReader.html#a412c4679a46205fa9a5edd2dd59fe6bc">00305</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a412c4679a46205fa9a5edd2dd59fe6bc">getHNOT</a>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &amp;x, <span class="keyword">const</span> <span class="keywordtype">char</span>* name)
 <a name="l00306"></a>00306   {
 <a name="l00307"></a>00307     <span class="keywordflow">if</span>(<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(name))
 <a name="l00308"></a>00308       <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(x);
@@ -327,9 +327,9 @@
 <a name="l00311"></a>00311   <span class="comment">// Version with extra size checking, to make sure the compiler</span>
 <a name="l00312"></a>00312   <span class="comment">// doesn&#39;t mess up our struct padding.</span>
 <a name="l00313"></a>00313   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00314"></a><a class="code" href="classESM_1_1ESMReader.html#a0149d5b1a49b0966cd764e6d4079258d">00314</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(X &amp;x, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
+<a name="l00314"></a><a class="code" href="classESM_1_1ESMReader.html#a0149d5b1a49b0966cd764e6d4079258d">00314</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &amp;x, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
 <a name="l00315"></a>00315   {
-<a name="l00316"></a>00316     assert(<span class="keyword">sizeof</span>(X) == size);
+<a name="l00316"></a>00316     assert(<span class="keyword">sizeof</span>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>) == size);
 <a name="l00317"></a>00317     <a class="code" href="classESM_1_1ESMReader.html#ab60b38a81482ba22cac72e334055988f">getSubNameIs</a>(name);
 <a name="l00318"></a>00318     <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(x);
 <a name="l00319"></a>00319   }
@@ -343,10 +343,10 @@
 <a name="l00327"></a>00327 
 <a name="l00328"></a>00328   <span class="comment">// Get data of a given type/size, including subrecord header</span>
 <a name="l00329"></a>00329   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00330"></a><a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">00330</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(X &amp;x)
+<a name="l00330"></a><a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">00330</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &amp;x)
 <a name="l00331"></a>00331   {
 <a name="l00332"></a>00332     <a class="code" href="classESM_1_1ESMReader.html#a365650896a89c3dcb43b2f240e6d5653">getSubHeader</a>();
-<a name="l00333"></a>00333     <span class="keywordflow">if</span>(<a class="code" href="classESM_1_1ESMReader.html#aecc4495f481a0827e5464702b216560a">c</a>.<a class="code" href="structESM_1_1ESM__Context.html#a71763c3281920d747a01812797fbf18c">leftSub</a> != <span class="keyword">sizeof</span>(X))
+<a name="l00333"></a>00333     <span class="keywordflow">if</span>(<a class="code" href="classESM_1_1ESMReader.html#aecc4495f481a0827e5464702b216560a">c</a>.<a class="code" href="structESM_1_1ESM__Context.html#a71763c3281920d747a01812797fbf18c">leftSub</a> != <span class="keyword">sizeof</span>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>))
 <a name="l00334"></a>00334       <a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;getHT(): subrecord size mismatch&quot;</span>);
 <a name="l00335"></a>00335     <a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>(x);
 <a name="l00336"></a>00336   }
@@ -354,9 +354,9 @@
 <a name="l00338"></a>00338   <span class="comment">// Version with extra size checking, to make sure the compiler</span>
 <a name="l00339"></a>00339   <span class="comment">// doesn&#39;t mess up our struct padding.</span>
 <a name="l00340"></a>00340   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00341"></a><a class="code" href="classESM_1_1ESMReader.html#ac52b0486edc6a26b168bb5c9d5b8bd29">00341</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(X &amp;x, <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
+<a name="l00341"></a><a class="code" href="classESM_1_1ESMReader.html#ac52b0486edc6a26b168bb5c9d5b8bd29">00341</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &amp;x, <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
 <a name="l00342"></a>00342   {
-<a name="l00343"></a>00343     assert(<span class="keyword">sizeof</span>(X) == size);
+<a name="l00343"></a>00343     assert(<span class="keyword">sizeof</span>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>) == size);
 <a name="l00344"></a>00344     <a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(x);
 <a name="l00345"></a>00345   }
 <a name="l00346"></a>00346 
@@ -587,7 +587,7 @@
 <a name="l00578"></a>00578 <span class="comment">   *************************************************************************/</span>
 <a name="l00579"></a>00579 
 <a name="l00580"></a>00580   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00581"></a><a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">00581</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>(X &amp;x) { <a class="code" href="classESM_1_1ESMReader.html#a623f3d4d7107adf94aeb7c234d01bc9e">getExact</a>(&amp;x, <span class="keyword">sizeof</span>(X)); }
+<a name="l00581"></a><a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">00581</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &amp;x) { <a class="code" href="classESM_1_1ESMReader.html#a623f3d4d7107adf94aeb7c234d01bc9e">getExact</a>(&amp;x, <span class="keyword">sizeof</span>(<a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>)); }
 <a name="l00582"></a>00582 
 <a name="l00583"></a><a class="code" href="classESM_1_1ESMReader.html#a623f3d4d7107adf94aeb7c234d01bc9e">00583</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a623f3d4d7107adf94aeb7c234d01bc9e">getExact</a>(<span class="keywordtype">void</span>*x, <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
 <a name="l00584"></a>00584   {
@@ -641,7 +641,7 @@
 <a name="l00633"></a>00633 }
 <a name="l00634"></a>00634 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

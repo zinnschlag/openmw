@@ -65,8 +65,8 @@
 <a name="l00039"></a>00039 
 <a name="l00040"></a><a class="code" href="classMWWorld_1_1World.html">00040</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>
 <a name="l00041"></a>00041     {
-<a name="l00042"></a>00042         <span class="keyword">public</span>:
-<a name="l00043"></a>00043 
+<a name="l00042"></a>00042             
+<a name="l00043"></a>00043         <span class="keyword">public</span>:
 <a name="l00044"></a><a class="code" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">00044</a>             <span class="keyword">typedef</span> std::list&lt;std::pair&lt;std::string, Ptr&gt; &gt; <a class="code" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">ScriptList</a>;
 <a name="l00045"></a>00045 
 <a name="l00046"></a>00046         <span class="keyword">private</span>:
@@ -76,7 +76,7 @@
 <a name="l00050"></a><a class="code" href="classMWWorld_1_1World.html#a65f3ce09aae04707966e16fe39f8bee1">00050</a>             <a class="code" href="classMWRender_1_1SkyManager.html">MWRender::SkyManager</a>* <a class="code" href="classMWWorld_1_1World.html#a65f3ce09aae04707966e16fe39f8bee1">mSkyManager</a>;
 <a name="l00051"></a><a class="code" href="classMWWorld_1_1World.html#a84f334291b80f4ee28391d66ed57f5da">00051</a>             <a class="code" href="classMWRender_1_1MWScene.html">MWRender::MWScene</a> <a class="code" href="classMWWorld_1_1World.html#a84f334291b80f4ee28391d66ed57f5da">mScene</a>;
 <a name="l00052"></a><a class="code" href="classMWWorld_1_1World.html#a682f83d3e7c94d5c1c51dedc54be5ffb">00052</a>             <a class="code" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> *<a class="code" href="classMWWorld_1_1World.html#a682f83d3e7c94d5c1c51dedc54be5ffb">mPlayerPos</a>;
-<a name="l00053"></a><a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">00053</a>             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">mCurrentCell</a>; <span class="comment">// the cell, the player is in</span>
+<a name="l00053"></a><a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">00053</a>                         <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">mCurrentCell</a>; <span class="comment">// the cell, the player is in</span>
 <a name="l00054"></a><a class="code" href="classMWWorld_1_1World.html#ac850b2174e503c5684e05322dce08770">00054</a>             <a class="code" href="classMWWorld_1_1World.html#a4e468f62b9750d218aa883b4ba3cda0c">CellRenderCollection</a> <a class="code" href="classMWWorld_1_1World.html#ac850b2174e503c5684e05322dce08770">mActiveCells</a>;
 <a name="l00055"></a><a class="code" href="classMWWorld_1_1World.html#a23288abe49af607535ab94f12d21073a">00055</a>             <a class="code" href="classMWWorld_1_1World.html#a4e468f62b9750d218aa883b4ba3cda0c">CellRenderCollection</a> <a class="code" href="classMWWorld_1_1World.html#a23288abe49af607535ab94f12d21073a">mBufferedCells</a>; <span class="comment">// loaded, but not active (buffering not implementd yet)</span>
 <a name="l00056"></a><a class="code" href="classMWWorld_1_1World.html#a54f9300eb417347c6ab4dcf130267fcf">00056</a>             <a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> <a class="code" href="classMWWorld_1_1World.html#a54f9300eb417347c6ab4dcf130267fcf">mEsm</a>;
@@ -122,7 +122,7 @@
 <a name="l00096"></a>00096 
 <a name="l00097"></a>00097             <a class="code" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a>&amp; <a class="code" href="classMWWorld_1_1World.html#ac46add69129e7f67aeb32d2c9d9bb6b6">getPlayerPos</a>();
 <a name="l00098"></a>00098 
-<a name="l00099"></a>00099             <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWWorld_1_1World.html#aace199ae239bd201724e31d394143d52">getStore</a>();
+<a name="l00099"></a>00099                         <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWWorld_1_1World.html#aace199ae239bd201724e31d394143d52">getStore</a>();
 <a name="l00100"></a>00100 
 <a name="l00101"></a>00101             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">ScriptList</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a8643388378e961f679f72fa5499a9f21" title="Names and local variable state of all local scripts in active cells.">getLocalScripts</a>() <span class="keyword">const</span>;
 <a name="l00103"></a>00103 
@@ -160,7 +160,7 @@
 <a name="l00140"></a>00140 
 <a name="l00141"></a>00141             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keyword">const</span> std::string&amp; cellName, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00143"></a>00143 
-<a name="l00144"></a>00144             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keywordtype">int</span> X, <span class="keywordtype">int</span> Y, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
+<a name="l00144"></a>00144             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7" title="works only for interior cells currently.">changeCell</a> (<span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, <span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00145"></a>00145 
 <a name="l00146"></a>00146             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2b2e20b1f8308f25a7b748300757081c">changeToExteriorCell</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00147"></a>00147 
@@ -182,7 +182,7 @@
 <a name="l00167"></a>00167 
 <a name="l00168"></a>00168 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:45 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

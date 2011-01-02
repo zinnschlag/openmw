@@ -36,7 +36,7 @@
 <p><a href="classMWMechanics_1_1MechanicsManager-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1745279191f95c2da473e9a7a3cfa627">MechanicsManager</a> (const <a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;store, <a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a> &amp;windowManager)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a8f2bfd1b8c08584af3487d220da62fa6">MechanicsManager</a> (<a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ab0d27f0a52a501cc20eef79dad18096a">configureGUI</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ab1a440591f2389bf72c4cd202e1b7241">addActor</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Register an actor for stats management.  <a href="#ab1a440591f2389bf72c4cd202e1b7241"></a><br/></td></tr>
@@ -47,34 +47,42 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a69ec2b3bcdc3da96241556ddb939388f">watchActor</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a4002121735f9eb886797764c398abe0a">update</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update actor stats.  <a href="#a4002121735f9eb886797764c398abe0a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a222c4716b4cb2e6e69457ec7ade8745d">setPlayerName</a> (const std::string &amp;name)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set player name.  <a href="#a222c4716b4cb2e6e69457ec7ade8745d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1605f42f7700abdd4d3e0963188813b1">setPlayerRace</a> (const std::string &amp;id, bool male)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set player race.  <a href="#a1605f42f7700abdd4d3e0963188813b1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a8bb81b01284b91cf17ad6245805ad1c4">setPlayerBirthsign</a> (const std::string &amp;id)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set player birthsign.  <a href="#a8bb81b01284b91cf17ad6245805ad1c4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a466d672ca027794db3b1f0cb889bb3d9">setPlayerClass</a> (const std::string &amp;id)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set player class to stock class.  <a href="#a466d672ca027794db3b1f0cb889bb3d9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a994dfe829c40096b926f5271d2f4b16a">setPlayerClass</a> (const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> &amp;class_)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set player class to custom class.  <a href="#a994dfe829c40096b926f5271d2f4b16a"></a><br/></td></tr>
+<tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ac23cfdb32ea2282daf63c0c6f2f8b86e">buildPlayer</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a24cbc1c3b46e5481f0ba057111bd2693">insertSpell</a> (const std::string &amp;id, <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;creature)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a81d13f9964f3b91ed67f1f378c5a70fb">adjustMagicEffects</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;creature)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#acdfbdd5e21ab021c211e7dab09d4a6df">mStore</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ad7acec1ae6c23f09bbd0e6789d54707f">mWindowManager</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a70d470d2fcd07f0071b601dec9b669b2">mEnvironment</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::set&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ae3465f2ee86f6ee4a76f77d7ea4956c8">mActors</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#aece62caa2c5c80c213d9731293918f00">mWatched</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWMechanics_1_1CreatureStats.html">CreatureStats</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#af1e35e654e449753c8c011fbcae6eeee">mWatchedCreature</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWMechanics_1_1NpcStats.html">NpcStats</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a0cc43ded7612fbec325238d765e57f75">mWatchedNpc</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#aebb0440f0993e9a70c1e1326157a1968">mUpdatePlayer</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1feb141bfb12f9ca4ecfa94ae47af769">mClassSelected</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a5280eacfd028e0df1c0f2f7d2e3cead5">mRaceSelected</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a1745279191f95c2da473e9a7a3cfa627"></a><!-- doxytag: member="MWMechanics::MechanicsManager::MechanicsManager" ref="a1745279191f95c2da473e9a7a3cfa627" args="(const ESMS::ESMStore &amp;store, MWGui::WindowManager &amp;windowManager)" -->
+<a class="anchor" id="a8f2bfd1b8c08584af3487d220da62fa6"></a><!-- doxytag: member="MWMechanics::MechanicsManager::MechanicsManager" ref="a8f2bfd1b8c08584af3487d220da62fa6" args="(MWWorld::Environment &amp;environment)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">MWMechanics::MechanicsManager::MechanicsManager </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>store</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>environment</em></td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>windowManager</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -100,6 +108,42 @@
 <div class="memdoc">
 
 <p>Register an actor for stats management. </p>
+
+</div>
+</div>
+<a class="anchor" id="a81d13f9964f3b91ed67f1f378c5a70fb"></a><!-- doxytag: member="MWMechanics::MechanicsManager::adjustMagicEffects" ref="a81d13f9964f3b91ed67f1f378c5a70fb" args="(MWWorld::Ptr &amp;creature)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::adjustMagicEffects </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>creature</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac23cfdb32ea2282daf63c0c6f2f8b86e"></a><!-- doxytag: member="MWMechanics::MechanicsManager::buildPlayer" ref="ac23cfdb32ea2282daf63c0c6f2f8b86e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::buildPlayer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>build player according to stored class/race/birthsign information. Will default to the values of the <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> object, if no explicit information is given. </p>
 
 </div>
 </div>
@@ -140,6 +184,33 @@
 
 </div>
 </div>
+<a class="anchor" id="a24cbc1c3b46e5481f0ba057111bd2693"></a><!-- doxytag: member="MWMechanics::MechanicsManager::insertSpell" ref="a24cbc1c3b46e5481f0ba057111bd2693" args="(const std::string &amp;id, MWWorld::Ptr &amp;creature)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::insertSpell </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>creature</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a1f3de074e20c59a53af360a50cb1c203"></a><!-- doxytag: member="MWMechanics::MechanicsManager::removeActor" ref="a1f3de074e20c59a53af360a50cb1c203" args="(const MWWorld::Ptr &amp;ptr)" -->
 <div class="memitem">
 <div class="memproto">
@@ -157,6 +228,115 @@
 <div class="memdoc">
 
 <p>Deregister an actor for stats management. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8bb81b01284b91cf17ad6245805ad1c4"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerBirthsign" ref="a8bb81b01284b91cf17ad6245805ad1c4" args="(const std::string &amp;id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::setPlayerBirthsign </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>id</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set player birthsign. </p>
+
+</div>
+</div>
+<a class="anchor" id="a994dfe829c40096b926f5271d2f4b16a"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerClass" ref="a994dfe829c40096b926f5271d2f4b16a" args="(const ESM::Class &amp;class_)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::setPlayerClass </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>class_</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set player class to custom class. </p>
+
+</div>
+</div>
+<a class="anchor" id="a466d672ca027794db3b1f0cb889bb3d9"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerClass" ref="a466d672ca027794db3b1f0cb889bb3d9" args="(const std::string &amp;id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::setPlayerClass </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>id</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set player class to stock class. </p>
+
+</div>
+</div>
+<a class="anchor" id="a222c4716b4cb2e6e69457ec7ade8745d"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerName" ref="a222c4716b4cb2e6e69457ec7ade8745d" args="(const std::string &amp;name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::setPlayerName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>name</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set player name. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1605f42f7700abdd4d3e0963188813b1"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerRace" ref="a1605f42f7700abdd4d3e0963188813b1" args="(const std::string &amp;id, bool male)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWMechanics::MechanicsManager::setPlayerRace </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>male</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set player race. </p>
 
 </div>
 </div>
@@ -212,12 +392,51 @@
 
 </div>
 </div>
-<a class="anchor" id="acdfbdd5e21ab021c211e7dab09d4a6df"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mStore" ref="acdfbdd5e21ab021c211e7dab09d4a6df" args="" -->
+<a class="anchor" id="a1feb141bfb12f9ca4ecfa94ae47af769"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mClassSelected" ref="a1feb141bfb12f9ca4ecfa94ae47af769" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="el" href="classMWMechanics_1_1MechanicsManager.html#acdfbdd5e21ab021c211e7dab09d4a6df">MWMechanics::MechanicsManager::mStore</a><code> [private]</code></td>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1feb141bfb12f9ca4ecfa94ae47af769">MWMechanics::MechanicsManager::mClassSelected</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a70d470d2fcd07f0071b601dec9b669b2"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mEnvironment" ref="a70d470d2fcd07f0071b601dec9b669b2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a>&amp; <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a70d470d2fcd07f0071b601dec9b669b2">MWMechanics::MechanicsManager::mEnvironment</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5280eacfd028e0df1c0f2f7d2e3cead5"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mRaceSelected" ref="a5280eacfd028e0df1c0f2f7d2e3cead5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a5280eacfd028e0df1c0f2f7d2e3cead5">MWMechanics::MechanicsManager::mRaceSelected</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aebb0440f0993e9a70c1e1326157a1968"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mUpdatePlayer" ref="aebb0440f0993e9a70c1e1326157a1968" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1MechanicsManager.html#aebb0440f0993e9a70c1e1326157a1968">MWMechanics::MechanicsManager::mUpdatePlayer</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -251,12 +470,12 @@
 
 </div>
 </div>
-<a class="anchor" id="ad7acec1ae6c23f09bbd0e6789d54707f"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mWindowManager" ref="ad7acec1ae6c23f09bbd0e6789d54707f" args="" -->
+<a class="anchor" id="a0cc43ded7612fbec325238d765e57f75"></a><!-- doxytag: member="MWMechanics::MechanicsManager::mWatchedNpc" ref="a0cc43ded7612fbec325238d765e57f75" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a>&amp; <a class="el" href="classMWMechanics_1_1MechanicsManager.html#ad7acec1ae6c23f09bbd0e6789d54707f">MWMechanics::MechanicsManager::mWindowManager</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="structMWMechanics_1_1NpcStats.html">NpcStats</a> <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a0cc43ded7612fbec325238d765e57f75">MWMechanics::MechanicsManager::mWatchedNpc</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -269,7 +488,7 @@
 <li>apps/openmw/mwmechanics/<a class="el" href="mechanicsmanager_8cpp.html">mechanicsmanager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

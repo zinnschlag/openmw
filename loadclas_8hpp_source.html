@@ -62,35 +62,45 @@
 <a name="l00035"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da69a6622a563e2f09203eae507e6c268e">00035</a>       <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da69a6622a563e2f09203eae507e6c268e">RepairItem</a>        = 0x20000
 <a name="l00036"></a>00036     };
 <a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">00038</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a>
-<a name="l00039"></a>00039   {
-<a name="l00040"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a367d674fd3737eeec0a88166c7230bfc">00040</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a367d674fd3737eeec0a88166c7230bfc">attribute</a>[2];   <span class="comment">// Attributes that get class bonus</span>
-<a name="l00041"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a8fc8c9d0f7561a9c6138f2875ac77dc4">00041</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a8fc8c9d0f7561a9c6138f2875ac77dc4">specialization</a>; <span class="comment">// 0 = Combat, 1 = Magic, 2 = Stealth</span>
-<a name="l00042"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#adf6336fe799739a7a99365808272f6fc">00042</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#adf6336fe799739a7a99365808272f6fc">skills</a>[5][2];   <span class="comment">// Minor and major skills.</span>
-<a name="l00043"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">00043</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">isPlayable</a>;     <span class="comment">// 0x0001 - Playable class</span>
+<a name="l00038"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">00038</a>   <span class="keyword">enum</span> <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">Specialization</a>
+<a name="l00039"></a>00039     {
+<a name="l00040"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a48b82f6c74da77539de244dd86d4f6cb">00040</a>       <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a48b82f6c74da77539de244dd86d4f6cb">Combat</a> = 0,
+<a name="l00041"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36aebd8ac295d2583371e3b5939f5a05a60">00041</a>       <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36aebd8ac295d2583371e3b5939f5a05a60">Magic</a> = 1,
+<a name="l00042"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a536e9b1c63a472ed8cfa86c30dd16180">00042</a>       <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a536e9b1c63a472ed8cfa86c30dd16180">Stealth</a> = 2
+<a name="l00043"></a>00043     };
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045     <span class="comment">// I have no idea how to autocalculate these items...</span>
-<a name="l00046"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a61fdf5cf52f528f5c8c9185b73254eef">00046</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a61fdf5cf52f528f5c8c9185b73254eef">calc</a>;
-<a name="l00047"></a>00047   }; <span class="comment">// 60 bytes</span>
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">00049</a>   std::string <a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">name</a>, <a class="code" href="structESM_1_1Class.html#a327d615adcd78244ca0a9f4f3a70273e">description</a>;
-<a name="l00050"></a><a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">00050</a>   <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a> <a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>;
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">00052</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00053"></a>00053     {
-<a name="l00054"></a>00054       <a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">name</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a0389fd3553a1e7a7da94b869780bca02">getHNString</a>(<span class="stringliteral">&quot;FNAM&quot;</span>);
-<a name="l00055"></a>00055       esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>, <span class="stringliteral">&quot;CLDT&quot;</span>, 60);
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057       <span class="keywordflow">if</span>(<a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>.<a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">isPlayable</a> &gt; 1)
-<a name="l00058"></a>00058         esm.<a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;Unknown bool value&quot;</span>);
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060       <a class="code" href="structESM_1_1Class.html#a327d615adcd78244ca0a9f4f3a70273e">description</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;DESC&quot;</span>);
-<a name="l00061"></a>00061     }
-<a name="l00062"></a>00062 };
-<a name="l00063"></a>00063 }
-<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
+<a name="l00045"></a><a class="code" href="structESM_1_1Class.html#a9ad2f9b158a1c7883d1755f097b5a023">00045</a>   <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">Specialization</a> <a class="code" href="structESM_1_1Class.html#a9ad2f9b158a1c7883d1755f097b5a023">specializationIds</a>[3];
+<a name="l00046"></a><a class="code" href="structESM_1_1Class.html#a91952d180ba8dc9600c6f39e3240bbde">00046</a>   <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structESM_1_1Class.html#a91952d180ba8dc9600c6f39e3240bbde">gmstSpecializationIds</a>[3];
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">00048</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a>
+<a name="l00049"></a>00049   {
+<a name="l00050"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a367d674fd3737eeec0a88166c7230bfc">00050</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a367d674fd3737eeec0a88166c7230bfc">attribute</a>[2];   <span class="comment">// Attributes that get class bonus</span>
+<a name="l00051"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a8fc8c9d0f7561a9c6138f2875ac77dc4">00051</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a8fc8c9d0f7561a9c6138f2875ac77dc4">specialization</a>; <span class="comment">// 0 = Combat, 1 = Magic, 2 = Stealth</span>
+<a name="l00052"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#adf6336fe799739a7a99365808272f6fc">00052</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#adf6336fe799739a7a99365808272f6fc">skills</a>[5][2];   <span class="comment">// Minor and major skills.</span>
+<a name="l00053"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">00053</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">isPlayable</a>;     <span class="comment">// 0x0001 - Playable class</span>
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055     <span class="comment">// I have no idea how to autocalculate these items...</span>
+<a name="l00056"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a61fdf5cf52f528f5c8c9185b73254eef">00056</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a61fdf5cf52f528f5c8c9185b73254eef">calc</a>;
+<a name="l00057"></a>00057   }; <span class="comment">// 60 bytes</span>
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">00059</a>   std::string <a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">name</a>, <a class="code" href="structESM_1_1Class.html#a327d615adcd78244ca0a9f4f3a70273e">description</a>;
+<a name="l00060"></a><a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">00060</a>   <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a> <a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>;
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">00062</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00063"></a>00063     {
+<a name="l00064"></a>00064       <a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">name</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a0389fd3553a1e7a7da94b869780bca02">getHNString</a>(<span class="stringliteral">&quot;FNAM&quot;</span>);
+<a name="l00065"></a>00065       esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>, <span class="stringliteral">&quot;CLDT&quot;</span>, 60);
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067       <span class="keywordflow">if</span>(<a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>.<a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">isPlayable</a> &gt; 1)
+<a name="l00068"></a>00068         esm.<a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;Unknown bool value&quot;</span>);
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070       <a class="code" href="structESM_1_1Class.html#a327d615adcd78244ca0a9f4f3a70273e">description</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;DESC&quot;</span>);
+<a name="l00071"></a>00071     }
+<a name="l00072"></a>00072 };
+<a name="l00073"></a>00073 }
+<a name="l00074"></a>00074 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -40,8 +40,12 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">~CellRenderImp</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575">insertBegin</a> (<a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">start inserting a new reference.  <a href="#ad052a46db4c5efea5a4923cf120cc575"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a4f766f55cde88a7b61c68eb9d3630583">rotateMesh</a> (Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName[], int elements)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#aea3272496eac73987f7d688db72bd217">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements, bool translateFirst)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a mesh related to the most recent insertBegin call.  <a href="#aea3272496eac73987f7d688db72bd217"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a957bbdd2b956064dc2948184cef5e8c9">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a3aa2fc0696a20505891c6bf727cf3b04">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>)=0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a mesh related to the most recent insertBegin call.  <a href="#a3aa2fc0696a20505891c6bf727cf3b04"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a30e80a176435ae5c0885438ae97e087c">scaleMesh</a> (Ogre::Vector3 axis, std::string sceneNodeName[], int elements)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a2202eaa95d78c266d815aa9bc50f3995">insertLight</a> (float r, float g, float b, float radius)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a light related to the most recent insertBegin call.  <a href="#a2202eaa95d78c266d815aa9bc50f3995"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a75817f52fd311c763ac8cf06b2442dc2">insertEnd</a> (bool Enable)=0</td></tr>
@@ -216,9 +220,209 @@
 </div>
 <div class="memdoc">
 
+<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#aefe7f5de66210718c9baccf4dee2950b">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#acfaca36415e9ec9db09022df33788e0a">MWRender::InteriorCellRender</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a957bbdd2b956064dc2948184cef5e8c9"></a><!-- doxytag: member="MWRender::CellRenderImp::insertMesh" ref="a957bbdd2b956064dc2948184cef5e8c9" args="(const std::string &amp;mesh, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MWRender::CellRenderImp::insertMesh </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3&nbsp;</td>
+          <td class="paramname"> <em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3&nbsp;</td>
+          <td class="paramname"> <em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Radian&nbsp;</td>
+          <td class="paramname"> <em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>sceneNodeName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>sceneParent</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>elements</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#a860752c4ea606a8b9b1483251c3a9830">MWRender::InteriorCellRender</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea3272496eac73987f7d688db72bd217"></a><!-- doxytag: member="MWRender::CellRenderImp::insertMesh" ref="aea3272496eac73987f7d688db72bd217" args="(const std::string &amp;mesh, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements, bool translateFirst)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MWRender::CellRenderImp::insertMesh </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3&nbsp;</td>
+          <td class="paramname"> <em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3&nbsp;</td>
+          <td class="paramname"> <em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Radian&nbsp;</td>
+          <td class="paramname"> <em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>sceneNodeName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>sceneParent</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>elements</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>translateFirst</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
 <p>insert a mesh related to the most recent insertBegin call. </p>
 
-<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#aefe7f5de66210718c9baccf4dee2950b">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#acfaca36415e9ec9db09022df33788e0a">MWRender::InteriorCellRender</a>.</p>
+<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#a3ba09a997fe305eed6980565aef3d280">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#ac4b3cb9f444e2fd939b683cb88ef9202">MWRender::InteriorCellRender</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4f766f55cde88a7b61c68eb9d3630583"></a><!-- doxytag: member="MWRender::CellRenderImp::rotateMesh" ref="a4f766f55cde88a7b61c68eb9d3630583" args="(Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName[], int elements)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MWRender::CellRenderImp::rotateMesh </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Vector3&nbsp;</td>
+          <td class="paramname"> <em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Radian&nbsp;</td>
+          <td class="paramname"> <em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>sceneNodeName</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>elements</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#ac17c33a4c1992931e983c7677acf940e">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#a4cad689d121082b16085053fee807aa8">MWRender::InteriorCellRender</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a30e80a176435ae5c0885438ae97e087c"></a><!-- doxytag: member="MWRender::CellRenderImp::scaleMesh" ref="a30e80a176435ae5c0885438ae97e087c" args="(Ogre::Vector3 axis, std::string sceneNodeName[], int elements)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MWRender::CellRenderImp::scaleMesh </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Vector3&nbsp;</td>
+          <td class="paramname"> <em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>sceneNodeName</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>elements</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#a85335057c61602fbd4658603f960743d">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#a79b00c8d90aef963d6109ae65455e028">MWRender::InteriorCellRender</a>.</p>
 
 </div>
 </div>
@@ -227,7 +431,7 @@
 <li>apps/openmw/mwrender/<a class="el" href="cellimp_8cpp.html">cellimp.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

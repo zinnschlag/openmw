@@ -79,68 +79,80 @@
 <a name="l00067"></a><a class="code" href="classNIFLoader.html">00067</a> <span class="keyword">class </span><a class="code" href="classNIFLoader.html">NIFLoader</a> : Ogre::ManualResourceLoader
 <a name="l00068"></a>00068 {
 <a name="l00069"></a>00069     <span class="keyword">public</span>:
-<a name="l00070"></a>00070         <span class="keyword">static</span> <a class="code" href="classNIFLoader.html">NIFLoader</a>&amp; <a class="code" href="classNIFLoader.html#aefd57f51f9d38cc65901b0bceef0c2e8">getSingleton</a>();
-<a name="l00071"></a>00071         <span class="keyword">static</span> <a class="code" href="classNIFLoader.html">NIFLoader</a>* <a class="code" href="classNIFLoader.html#a29767ca15aa44c3139f4d8fa1aefe3b1">getSingletonPtr</a>();
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a33048ebd4d17dedeab2ecd2e82b9e5b0">loadResource</a>(Ogre::Resource *resource);
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075         <span class="keyword">static</span> Ogre::MeshPtr <a class="code" href="classNIFLoader.html#a6a33a4080e9b3f25af4d553be948ed95">load</a>(<span class="keyword">const</span> std::string &amp;name,
-<a name="l00076"></a>00076                                   <span class="keyword">const</span> std::string &amp;<a class="code" href="ogre__resource__test_8cpp.html#a2da4114d14f8f2479eb54d3a64bcb31c">group</a>=<span class="stringliteral">&quot;General&quot;</span>);
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078         Ogre::Vector3 <a class="code" href="classNIFLoader.html#adcf909e47bbf2e4fc415b0635a72362a">convertVector3</a>(<span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a>&amp; vec);
-<a name="l00079"></a>00079         Ogre::Quaternion <a class="code" href="classNIFLoader.html#ab89720ef991fb8f5e1404f52a29cd128">convertRotation</a>(<span class="keyword">const</span> <a class="code" href="structNif_1_1Matrix.html">Nif::Matrix</a>&amp; rot);
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081     <span class="keyword">private</span>:
-<a name="l00082"></a><a class="code" href="classNIFLoader.html#a1853185528333d0e43801b1c03e36bca">00082</a>         <a class="code" href="classNIFLoader.html#a1853185528333d0e43801b1c03e36bca">NIFLoader</a>() : <a class="code" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">resourceGroup</a>(<span class="stringliteral">&quot;General&quot;</span>) {}
-<a name="l00083"></a><a class="code" href="classNIFLoader.html#a3011b1595e1336e01ebb074f8cca4485">00083</a>         <a class="code" href="classNIFLoader.html#a3011b1595e1336e01ebb074f8cca4485">NIFLoader</a>(<a class="code" href="classNIFLoader.html">NIFLoader</a>&amp; n) {}
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#aa3e6d6682157341eff895d4806b2d095">warn</a>(std::string msg);
-<a name="l00086"></a>00086         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a8c8bc53a1465ab548565ab65a9f27f6a">fail</a>(std::string msg);
+<a name="l00070"></a><a class="code" href="classNIFLoader.html#ac592d059aa8d39882a777505076ee13f">00070</a>                 <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classNIFLoader.html#ac592d059aa8d39882a777505076ee13f">numberOfMeshes</a>;
+<a name="l00071"></a>00071         <span class="keyword">static</span> <a class="code" href="classNIFLoader.html">NIFLoader</a>&amp; <a class="code" href="classNIFLoader.html#aefd57f51f9d38cc65901b0bceef0c2e8">getSingleton</a>();
+<a name="l00072"></a>00072         <span class="keyword">static</span> <a class="code" href="classNIFLoader.html">NIFLoader</a>* <a class="code" href="classNIFLoader.html#a29767ca15aa44c3139f4d8fa1aefe3b1">getSingletonPtr</a>();
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a33048ebd4d17dedeab2ecd2e82b9e5b0">loadResource</a>(Ogre::Resource *resource);
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076                 <span class="keyword">static</span> Ogre::MeshPtr <a class="code" href="classNIFLoader.html#a6a33a4080e9b3f25af4d553be948ed95">load</a>(<span class="keyword">const</span> std::string &amp;name, 
+<a name="l00077"></a>00077                                     <span class="keyword">const</span> std::string &amp;<a class="code" href="ogre__resource__test_8cpp.html#a2da4114d14f8f2479eb54d3a64bcb31c">group</a>=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080                 
+<a name="l00081"></a>00081         Ogre::Vector3 <a class="code" href="classNIFLoader.html#adcf909e47bbf2e4fc415b0635a72362a">convertVector3</a>(<span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a>&amp; vec);
+<a name="l00082"></a>00082         Ogre::Quaternion <a class="code" href="classNIFLoader.html#ab89720ef991fb8f5e1404f52a29cd128">convertRotation</a>(<span class="keyword">const</span> <a class="code" href="structNif_1_1Matrix.html">Nif::Matrix</a>&amp; rot);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <span class="keyword">private</span>:
+<a name="l00085"></a><a class="code" href="classNIFLoader.html#a1853185528333d0e43801b1c03e36bca">00085</a>         <a class="code" href="classNIFLoader.html#a1853185528333d0e43801b1c03e36bca">NIFLoader</a>() : <a class="code" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">resourceGroup</a>(<span class="stringliteral">&quot;General&quot;</span>) { <a class="code" href="classNIFLoader.html#a8d871ea4b728661b6101032dea9c660f">skincounter</a> = 0; <a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">resourceName</a> = <span class="stringliteral">&quot;&quot;</span>;}
+<a name="l00086"></a><a class="code" href="classNIFLoader.html#a3011b1595e1336e01ebb074f8cca4485">00086</a>         <a class="code" href="classNIFLoader.html#a3011b1595e1336e01ebb074f8cca4485">NIFLoader</a>(<a class="code" href="classNIFLoader.html">NIFLoader</a>&amp; n) {}
 <a name="l00087"></a>00087 
-<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a254e4c6888db55310425390668ee105f">handleNode</a>( <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node, <span class="keywordtype">int</span> flags,
-<a name="l00089"></a>00089                         <span class="keyword">const</span> <a class="code" href="structNif_1_1Transformation.html">Nif::Transformation</a> *trafo, <a class="code" href="classBoundsFinder.html">BoundsFinder</a> &amp;bounds, Ogre::Bone *parentBone);
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#aa3e6d6682157341eff895d4806b2d095">warn</a>(std::string msg);
+<a name="l00089"></a>00089         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a8c8bc53a1465ab548565ab65a9f27f6a">fail</a>(std::string msg);
 <a name="l00090"></a>00090 
-<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#adda6a5005243a0b9c4d6466932649fe0">handleNiTriShape</a>(<a class="code" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, <span class="keywordtype">int</span> flags, <a class="code" href="classBoundsFinder.html">BoundsFinder</a> &amp;bounds);
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a686c2a9d96b460d5a68d714cf1ec7c0e">createOgreSubMesh</a>(<a class="code" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, <span class="keyword">const</span> Ogre::String &amp;material, std::list&lt;Ogre::VertexBoneAssignment&gt; &amp;vertexBoneAssignments);
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#ad22d0f9fcdd4d080a6a0c9fea446e28b">createMaterial</a>(<span class="keyword">const</span> Ogre::String &amp;name,
-<a name="l00096"></a>00096                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;ambient,
-<a name="l00097"></a>00097                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;diffuse,
-<a name="l00098"></a>00098                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;specular,
-<a name="l00099"></a>00099                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;emissive,
-<a name="l00100"></a>00100                             <span class="keywordtype">float</span> glossiness, <span class="keywordtype">float</span> alpha,
-<a name="l00101"></a>00101                             <span class="keywordtype">int</span> alphaFlags, <span class="keywordtype">float</span> alphaTest,
-<a name="l00102"></a>00102                             <span class="keyword">const</span> Ogre::String &amp;texName);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a77026d4998cdf56d89845909f382aa0b">findRealTexture</a>(Ogre::String &amp;texName);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106         Ogre::String <a class="code" href="classNIFLoader.html#a1acfb849975dfc9732b93dc0f378a187">getUniqueName</a>(<span class="keyword">const</span> Ogre::String &amp;<a class="code" href="common_8cpp.html#a840a0d7531fdd6c6aa7569032c82b831">input</a>);
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108         <span class="comment">//returns the skeleton name of this mesh</span>
-<a name="l00109"></a><a class="code" href="classNIFLoader.html#a02693aa0772d2bfc94faee55a7d6ccef">00109</a>         std::string <a class="code" href="classNIFLoader.html#a02693aa0772d2bfc94faee55a7d6ccef">getSkeletonName</a>()
-<a name="l00110"></a>00110         {
-<a name="l00111"></a>00111             <span class="keywordflow">return</span> <a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">resourceName</a> + <span class="stringliteral">&quot;.skel&quot;</span>;
-<a name="l00112"></a>00112         }
-<a name="l00113"></a>00113         
-<a name="l00114"></a>00114         <span class="comment">// This is the interface to the Ogre resource system. It allows us to</span>
-<a name="l00115"></a>00115         <span class="comment">// load NIFs from BSAs, in the file system and in any other place we</span>
-<a name="l00116"></a>00116         <span class="comment">// tell Ogre to look (eg. in zip or rar files.) It&#39;s also used to</span>
-<a name="l00117"></a>00117         <span class="comment">// check for the existence of texture files, so we can exchange the</span>
-<a name="l00118"></a>00118         <span class="comment">// extension from .tga to .dds if the texture is missing.</span>
-<a name="l00119"></a><a class="code" href="classNIFLoader.html#a61edd1428d7bc1064483077df256b144">00119</a>         <a class="code" href="classMangle_1_1VFS_1_1OgreVFS.html" title="An interface into the OGRE VFS system.">Mangle::VFS::OgreVFS</a> *<a class="code" href="classNIFLoader.html#a61edd1428d7bc1064483077df256b144">vfs</a>;
-<a name="l00120"></a>00120 
-<a name="l00121"></a><a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">00121</a>         std::string <a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">resourceName</a>;
-<a name="l00122"></a><a class="code" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">00122</a>         std::string <a class="code" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">resourceGroup</a>;
+<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a254e4c6888db55310425390668ee105f">handleNode</a>( <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node, <span class="keywordtype">int</span> flags,
+<a name="l00092"></a>00092                         <span class="keyword">const</span> <a class="code" href="structNif_1_1Transformation.html">Nif::Transformation</a> *trafo, <a class="code" href="classBoundsFinder.html">BoundsFinder</a> &amp;bounds, Ogre::Bone *parentBone);
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#adda6a5005243a0b9c4d6466932649fe0">handleNiTriShape</a>(<a class="code" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, <span class="keywordtype">int</span> flags, <a class="code" href="classBoundsFinder.html">BoundsFinder</a> &amp;bounds);
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a686c2a9d96b460d5a68d714cf1ec7c0e">createOgreSubMesh</a>(<a class="code" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, <span class="keyword">const</span> Ogre::String &amp;material, std::list&lt;Ogre::VertexBoneAssignment&gt; &amp;vertexBoneAssignments);
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#ad22d0f9fcdd4d080a6a0c9fea446e28b">createMaterial</a>(<span class="keyword">const</span> Ogre::String &amp;name,
+<a name="l00099"></a>00099                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;ambient,
+<a name="l00100"></a>00100                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;diffuse,
+<a name="l00101"></a>00101                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;specular,
+<a name="l00102"></a>00102                             <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a> &amp;emissive,
+<a name="l00103"></a>00103                             <span class="keywordtype">float</span> glossiness, <span class="keywordtype">float</span> alpha,
+<a name="l00104"></a>00104                             <span class="keywordtype">int</span> alphaFlags, <span class="keywordtype">float</span> alphaTest,
+<a name="l00105"></a>00105                             <span class="keyword">const</span> Ogre::String &amp;texName);
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107         <span class="keywordtype">void</span> <a class="code" href="classNIFLoader.html#a77026d4998cdf56d89845909f382aa0b">findRealTexture</a>(Ogre::String &amp;texName);
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109         Ogre::String <a class="code" href="classNIFLoader.html#a1acfb849975dfc9732b93dc0f378a187">getUniqueName</a>(<span class="keyword">const</span> Ogre::String &amp;<a class="code" href="common_8cpp.html#a840a0d7531fdd6c6aa7569032c82b831">input</a>);
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111         <span class="comment">//returns the skeleton name of this mesh</span>
+<a name="l00112"></a><a class="code" href="classNIFLoader.html#a02693aa0772d2bfc94faee55a7d6ccef">00112</a>         std::string <a class="code" href="classNIFLoader.html#a02693aa0772d2bfc94faee55a7d6ccef">getSkeletonName</a>()
+<a name="l00113"></a>00113         {
+<a name="l00114"></a>00114             <span class="keywordflow">return</span> <a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">resourceName</a> + <span class="stringliteral">&quot;.skel&quot;</span>;
+<a name="l00115"></a>00115         }
+<a name="l00116"></a>00116         
+<a name="l00117"></a>00117         <span class="comment">// This is the interface to the Ogre resource system. It allows us to</span>
+<a name="l00118"></a>00118         <span class="comment">// load NIFs from BSAs, in the file system and in any other place we</span>
+<a name="l00119"></a>00119         <span class="comment">// tell Ogre to look (eg. in zip or rar files.) It&#39;s also used to</span>
+<a name="l00120"></a>00120         <span class="comment">// check for the existence of texture files, so we can exchange the</span>
+<a name="l00121"></a>00121         <span class="comment">// extension from .tga to .dds if the texture is missing.</span>
+<a name="l00122"></a><a class="code" href="classNIFLoader.html#a61edd1428d7bc1064483077df256b144">00122</a>         <a class="code" href="classMangle_1_1VFS_1_1OgreVFS.html" title="An interface into the OGRE VFS system.">Mangle::VFS::OgreVFS</a> *<a class="code" href="classNIFLoader.html#a61edd1428d7bc1064483077df256b144">vfs</a>;
 <a name="l00123"></a>00123 
-<a name="l00124"></a>00124         <span class="comment">// pointer to the ogre mesh which is currently build</span>
-<a name="l00125"></a><a class="code" href="classNIFLoader.html#ac1ee2c6cd9a4999d3347ea40e63ba1fa">00125</a>         Ogre::Mesh *<a class="code" href="classNIFLoader.html#ac1ee2c6cd9a4999d3347ea40e63ba1fa">mesh</a>;
-<a name="l00126"></a><a class="code" href="classNIFLoader.html#a3d578a812c95f514632d7cafca43c236">00126</a>         Ogre::SkeletonPtr <a class="code" href="classNIFLoader.html#a3d578a812c95f514632d7cafca43c236">skel</a>;
-<a name="l00127"></a>00127 };
-<a name="l00128"></a>00128 
-<a name="l00129"></a>00129 <span class="preprocessor">#endif</span>
+<a name="l00124"></a><a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">00124</a>         std::string <a class="code" href="classNIFLoader.html#a0bb60dad6efa2eea53ba631b9962c4ba">resourceName</a>;
+<a name="l00125"></a><a class="code" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">00125</a>         std::string <a class="code" href="classNIFLoader.html#a9543031cf2a523cca8fb8a0799e7e81b">resourceGroup</a>;
+<a name="l00126"></a><a class="code" href="classNIFLoader.html#a8d871ea4b728661b6101032dea9c660f">00126</a>                 <span class="keywordtype">int</span> <a class="code" href="classNIFLoader.html#a8d871ea4b728661b6101032dea9c660f">skincounter</a>;
+<a name="l00127"></a><a class="code" href="classNIFLoader.html#a81b24810de653b21dd1f4d048e0faea2">00127</a>                 <span class="keywordtype">bool</span> <a class="code" href="classNIFLoader.html#a81b24810de653b21dd1f4d048e0faea2">isChest</a>;
+<a name="l00128"></a><a class="code" href="classNIFLoader.html#a925551f2e6105d2090f5ada50b4d65c4">00128</a>                 <span class="keywordtype">bool</span> <a class="code" href="classNIFLoader.html#a925551f2e6105d2090f5ada50b4d65c4">isBeast</a>;
+<a name="l00129"></a><a class="code" href="classNIFLoader.html#a2f487773dbfe7e38b006356af6248870">00129</a>                 <span class="keywordtype">bool</span> <a class="code" href="classNIFLoader.html#a2f487773dbfe7e38b006356af6248870">isHands</a>;
+<a name="l00130"></a><a class="code" href="classNIFLoader.html#a2d89261b44d2c26a3301353ac42f6647">00130</a>                 <span class="keywordtype">bool</span> <a class="code" href="classNIFLoader.html#a2d89261b44d2c26a3301353ac42f6647">isFeet</a>;
+<a name="l00131"></a><a class="code" href="classNIFLoader.html#a92339683a379caba16f589ac63091229">00131</a>                 <span class="keywordtype">int</span> <a class="code" href="classNIFLoader.html#a92339683a379caba16f589ac63091229">counter</a>;
+<a name="l00132"></a><a class="code" href="classNIFLoader.html#abf16cb84098a41ebffd299ff80542769">00132</a>                 <span class="keywordtype">int</span> <a class="code" href="classNIFLoader.html#abf16cb84098a41ebffd299ff80542769">numbers</a>;
+<a name="l00133"></a><a class="code" href="classNIFLoader.html#aa7e4d97c72c73b6f951f6252e324e610">00133</a>                 <span class="keywordtype">int</span> <a class="code" href="classNIFLoader.html#aa7e4d97c72c73b6f951f6252e324e610">stack</a>;
+<a name="l00134"></a>00134                 
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136         <span class="comment">// pointer to the ogre mesh which is currently build</span>
+<a name="l00137"></a><a class="code" href="classNIFLoader.html#ac1ee2c6cd9a4999d3347ea40e63ba1fa">00137</a>         Ogre::Mesh *<a class="code" href="classNIFLoader.html#ac1ee2c6cd9a4999d3347ea40e63ba1fa">mesh</a>;
+<a name="l00138"></a><a class="code" href="classNIFLoader.html#a3d578a812c95f514632d7cafca43c236">00138</a>         Ogre::SkeletonPtr <a class="code" href="classNIFLoader.html#a3d578a812c95f514632d7cafca43c236">skel</a>;
+<a name="l00139"></a>00139 };
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

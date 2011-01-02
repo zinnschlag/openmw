@@ -28,45 +28,82 @@
 <h1>components/esm/loadskil.hpp</h1><a href="loadskil_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_SKIL_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_SKIL_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="defs_8hpp.html">defs.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM {
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;boost/array.hpp&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="defs_8hpp.html">defs.hpp</a>&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="comment">/*</span>
-<a name="l00010"></a>00010 <span class="comment"> * Skill information</span>
-<a name="l00011"></a>00011 <span class="comment"> *</span>
-<a name="l00012"></a>00012 <span class="comment"> */</span>
-<a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="structESM_1_1Skill.html">00014</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Skill.html">Skill</a>
-<a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html">00016</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html">SKDTstruct</a>
-<a name="l00017"></a>00017   {
-<a name="l00018"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a6b382a44069581eebf33fd2b59618b69">00018</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a6b382a44069581eebf33fd2b59618b69">attribute</a>;     <span class="comment">// see defs.hpp</span>
-<a name="l00019"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a32297218634f6f5dc53c02f5233beafa">00019</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a32297218634f6f5dc53c02f5233beafa">specialization</a>;<span class="comment">// 0 - Combat, 1 - Magic, 2 - Stealth</span>
-<a name="l00020"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a0526415b073b14d56041cd0aa55b7b1c">00020</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a0526415b073b14d56041cd0aa55b7b1c">useValue</a>[4]; <span class="comment">// How much skill improves through use. Meaning</span>
-<a name="l00021"></a>00021                        <span class="comment">// of each field depends on what skill this</span>
-<a name="l00022"></a>00022                        <span class="comment">// is. We should document this better later.</span>
-<a name="l00023"></a>00023   }; <span class="comment">// Total size: 24 bytes</span>
-<a name="l00024"></a><a class="code" href="structESM_1_1Skill.html#a96e4a1d594bf1c26bb40b949d72f9f5a">00024</a>   <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html">SKDTstruct</a> <a class="code" href="structESM_1_1Skill.html#a96e4a1d594bf1c26bb40b949d72f9f5a">data</a>;
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026   <span class="comment">// Skill index. Skils don&#39;t have an id (&quot;NAME&quot;) like most records,</span>
-<a name="l00027"></a>00027   <span class="comment">// they only have a numerical index that matches one of the</span>
-<a name="l00028"></a>00028   <span class="comment">// hard-coded skills in the game.</span>
-<a name="l00029"></a><a class="code" href="structESM_1_1Skill.html#a6bac6d8c0a99e0234c492fcc55c29cc7">00029</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Skill.html#a6bac6d8c0a99e0234c492fcc55c29cc7">index</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="structESM_1_1Skill.html#ab775aac3e443bc4edae5eba108173421">00031</a>   std::string <a class="code" href="structESM_1_1Skill.html#ab775aac3e443bc4edae5eba108173421">description</a>;
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>ESM {
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="comment">/*</span>
+<a name="l00012"></a>00012 <span class="comment"> * Skill information</span>
+<a name="l00013"></a>00013 <span class="comment"> *</span>
+<a name="l00014"></a>00014 <span class="comment"> */</span>
+<a name="l00015"></a>00015 
+<a name="l00016"></a><a class="code" href="structESM_1_1Skill.html">00016</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Skill.html">Skill</a>
+<a name="l00017"></a>00017 {
+<a name="l00018"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html">00018</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html">SKDTstruct</a>
+<a name="l00019"></a>00019   {
+<a name="l00020"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a6b382a44069581eebf33fd2b59618b69">00020</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a6b382a44069581eebf33fd2b59618b69">attribute</a>;     <span class="comment">// see defs.hpp</span>
+<a name="l00021"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a32297218634f6f5dc53c02f5233beafa">00021</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a32297218634f6f5dc53c02f5233beafa">specialization</a>;<span class="comment">// 0 - Combat, 1 - Magic, 2 - Stealth</span>
+<a name="l00022"></a><a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a0526415b073b14d56041cd0aa55b7b1c">00022</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html#a0526415b073b14d56041cd0aa55b7b1c">useValue</a>[4]; <span class="comment">// How much skill improves through use. Meaning</span>
+<a name="l00023"></a>00023                        <span class="comment">// of each field depends on what skill this</span>
+<a name="l00024"></a>00024                        <span class="comment">// is. We should document this better later.</span>
+<a name="l00025"></a>00025   }; <span class="comment">// Total size: 24 bytes</span>
+<a name="l00026"></a><a class="code" href="structESM_1_1Skill.html#a96e4a1d594bf1c26bb40b949d72f9f5a">00026</a>   <a class="code" href="structESM_1_1Skill_1_1SKDTstruct.html">SKDTstruct</a> <a class="code" href="structESM_1_1Skill.html#a96e4a1d594bf1c26bb40b949d72f9f5a">data</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028   <span class="comment">// Skill index. Skils don&#39;t have an id (&quot;NAME&quot;) like most records,</span>
+<a name="l00029"></a>00029   <span class="comment">// they only have a numerical index that matches one of the</span>
+<a name="l00030"></a>00030   <span class="comment">// hard-coded skills in the game.</span>
+<a name="l00031"></a><a class="code" href="structESM_1_1Skill.html#a6bac6d8c0a99e0234c492fcc55c29cc7">00031</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Skill.html#a6bac6d8c0a99e0234c492fcc55c29cc7">index</a>;
 <a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="structESM_1_1Skill.html#a84f062561cd1d2605a52ae7aec4d1d50">00033</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Skill.html#a84f062561cd1d2605a52ae7aec4d1d50">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00034"></a>00034     {
-<a name="l00035"></a>00035       esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Skill.html#a96e4a1d594bf1c26bb40b949d72f9f5a">data</a>, <span class="stringliteral">&quot;SKDT&quot;</span>, 24);
-<a name="l00036"></a>00036       <a class="code" href="structESM_1_1Skill.html#ab775aac3e443bc4edae5eba108173421">description</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;DESC&quot;</span>);
-<a name="l00037"></a>00037     }
-<a name="l00038"></a>00038 };
-<a name="l00039"></a>00039 }
-<a name="l00040"></a>00040 <span class="preprocessor">#endif</span>
+<a name="l00033"></a><a class="code" href="structESM_1_1Skill.html#ab775aac3e443bc4edae5eba108173421">00033</a>   std::string <a class="code" href="structESM_1_1Skill.html#ab775aac3e443bc4edae5eba108173421">description</a>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">00035</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">SkillEnum</a>
+<a name="l00036"></a>00036     {
+<a name="l00037"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a8f531046639aa87efc711baf2fdc8f52">00037</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a8f531046639aa87efc711baf2fdc8f52">Block</a> = 0,
+<a name="l00038"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a59e816a38955bb1e1ad56c02b12470ee">00038</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a59e816a38955bb1e1ad56c02b12470ee">Armorer</a> = 1,
+<a name="l00039"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a7f3ac646ef8ef0811bc9c77ad0d291bb">00039</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a7f3ac646ef8ef0811bc9c77ad0d291bb">MediumArmor</a> = 2,
+<a name="l00040"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ab980a7a87534ef146f61e97e76868cc0">00040</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ab980a7a87534ef146f61e97e76868cc0">HeavyArmor</a> = 3,
+<a name="l00041"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a83b1192932eb64c3f3e92b1cd623611c">00041</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a83b1192932eb64c3f3e92b1cd623611c">BluntWeapon</a> = 4,
+<a name="l00042"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229acf4744a54d0798b8c25a0344b5e8a13f">00042</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229acf4744a54d0798b8c25a0344b5e8a13f">LongBlade</a> = 5,
+<a name="l00043"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a06a18a1745428ff2fe4093f6269d1e7b">00043</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a06a18a1745428ff2fe4093f6269d1e7b">Axe</a> = 6,
+<a name="l00044"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a5170b7140ed3ba85d9f197399722ba1e">00044</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a5170b7140ed3ba85d9f197399722ba1e">Spear</a> = 7,
+<a name="l00045"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ae903de671a99ab0bd54982cc2030de89">00045</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ae903de671a99ab0bd54982cc2030de89">Athletics</a> = 8,
+<a name="l00046"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a1f0a66570ddb9338973efa1441927227">00046</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a1f0a66570ddb9338973efa1441927227">Enchant</a> = 9,
+<a name="l00047"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ac3d8de3db2f63b6babbced9f33d287b7">00047</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ac3d8de3db2f63b6babbced9f33d287b7">Destruction</a> = 10,
+<a name="l00048"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ad4f62c0157753ded87f0921e8b2887bb">00048</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ad4f62c0157753ded87f0921e8b2887bb">Alteration</a> = 11,
+<a name="l00049"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a108faaa6eabc356b6322a9f8c9f1cc0d">00049</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a108faaa6eabc356b6322a9f8c9f1cc0d">Illusion</a> = 12,
+<a name="l00050"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a7fd88260468aa4468abf42178f13259a">00050</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a7fd88260468aa4468abf42178f13259a">Conjuration</a> = 13,
+<a name="l00051"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a3cc0741e445009ade8045f66ab6d43de">00051</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a3cc0741e445009ade8045f66ab6d43de">Mysticism</a> = 14,
+<a name="l00052"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229af421309beae69f91b9f3240914872f16">00052</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229af421309beae69f91b9f3240914872f16">Restoration</a> = 15,
+<a name="l00053"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a3a8fc450ccb2dd3e7376a224edadc1b0">00053</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a3a8fc450ccb2dd3e7376a224edadc1b0">Alchemy</a> = 16,
+<a name="l00054"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a3f3da6c09d339c42fa37688c0f59cbef">00054</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a3f3da6c09d339c42fa37688c0f59cbef">Unarmored</a> = 17,
+<a name="l00055"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a083d8e732c54d143c92c27b0d90c2d76">00055</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a083d8e732c54d143c92c27b0d90c2d76">Security</a> = 18,
+<a name="l00056"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a8a715b663cbf7668a6b0eebb3b59fc23">00056</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a8a715b663cbf7668a6b0eebb3b59fc23">Sneak</a> = 19,
+<a name="l00057"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a4773e7c21163a5af6b371040a722ee72">00057</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a4773e7c21163a5af6b371040a722ee72">Acrobatics</a> = 20,
+<a name="l00058"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ab2f5e5b60334129f980a35c39216e15e">00058</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ab2f5e5b60334129f980a35c39216e15e">LightArmor</a> = 21,
+<a name="l00059"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a7295cf4e9b1cc2730f175731373908a5">00059</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a7295cf4e9b1cc2730f175731373908a5">ShortBlade</a> = 22,
+<a name="l00060"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a4cdcb6a1f0e8f3be6191011872d2a6f9">00060</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a4cdcb6a1f0e8f3be6191011872d2a6f9">Marksman</a> = 23,
+<a name="l00061"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ade1ad7361a468a35bd18583019d33121">00061</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ade1ad7361a468a35bd18583019d33121">Mercantile</a> = 24,
+<a name="l00062"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ae1a978cc6b7264ccb1b61bbf4bcd498b">00062</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229ae1a978cc6b7264ccb1b61bbf4bcd498b">Speechcraft</a> = 25,
+<a name="l00063"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a57e195c0081e9b3cdb6f3becbec73c1e">00063</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a57e195c0081e9b3cdb6f3becbec73c1e">HandToHand</a> = 26,
+<a name="l00064"></a><a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a831624ef3642a7f3915a5b6e1406b42c">00064</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a831624ef3642a7f3915a5b6e1406b42c">Length</a>
+<a name="l00065"></a>00065     };
+<a name="l00066"></a><a class="code" href="structESM_1_1Skill.html#a4066edefcfcd68da025ac5cfe943a159">00066</a>   <span class="keyword">static</span> <span class="keyword">const</span> std::string <a class="code" href="structESM_1_1Skill.html#a4066edefcfcd68da025ac5cfe943a159">sSkillNameIds</a>[<a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229a831624ef3642a7f3915a5b6e1406b42c">Length</a>];
+<a name="l00067"></a><a class="code" href="structESM_1_1Skill.html#acec1ab4f8f8b114ade1d64b1e946ca77">00067</a>   <span class="keyword">static</span> <span class="keyword">const</span> boost::array&lt;SkillEnum, Length&gt; <a class="code" href="structESM_1_1Skill.html#acec1ab4f8f8b114ade1d64b1e946ca77">skillIds</a>;
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="structESM_1_1Skill.html#a84f062561cd1d2605a52ae7aec4d1d50">00069</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Skill.html#a84f062561cd1d2605a52ae7aec4d1d50">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00070"></a>00070     {
+<a name="l00071"></a>00071       esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Skill.html#a6bac6d8c0a99e0234c492fcc55c29cc7">index</a>, <span class="stringliteral">&quot;INDX&quot;</span>);
+<a name="l00072"></a>00072       esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Skill.html#a96e4a1d594bf1c26bb40b949d72f9f5a">data</a>, <span class="stringliteral">&quot;SKDT&quot;</span>, 24);
+<a name="l00073"></a>00073       <a class="code" href="structESM_1_1Skill.html#ab775aac3e443bc4edae5eba108173421">description</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;DESC&quot;</span>);
+<a name="l00074"></a>00074     }
+<a name="l00075"></a>00075 };
+<a name="l00076"></a>00076 }
+<a name="l00077"></a>00077 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -52,33 +52,34 @@
 <a name="l00025"></a>00025   {
 <a name="l00026"></a>00026     <span class="comment">// Get the grid location</span>
 <a name="l00027"></a>00027     esm.<a class="code" href="classESM_1_1ESMReader.html#ab60b38a81482ba22cac72e334055988f">getSubNameIs</a>(<span class="stringliteral">&quot;INTV&quot;</span>);
-<a name="l00028"></a>00028     esm.<a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>(<a class="code" href="structESM_1_1Land.html#a9e68356a663d6b6c7c3868276678e7e5">X</a>);
-<a name="l00029"></a>00029     esm.<a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>(<a class="code" href="structESM_1_1Land.html#a4629ca9cecba0ebd30865abf6c64229f">Y</a>);
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031     esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Land.html#aa4ca6c56f4434498659d07fb0f71f550">flags</a>, <span class="stringliteral">&quot;DATA&quot;</span>);
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033     <span class="comment">// Store the file position</span>
-<a name="l00034"></a>00034     <a class="code" href="structESM_1_1Land.html#ae12c6e4ec2ccc9176af4f20a31e578d2">context</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a5a6937e8a2d8fbc7e4bf6ddfc0342d4e">getContext</a>();
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036     <a class="code" href="structESM_1_1Land.html#acf1f4fa73bb8790dd68096340ae2b872">hasData</a> = <span class="keyword">false</span>;
-<a name="l00037"></a>00037     <span class="keywordtype">int</span> cnt = 0;
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <span class="comment">// Skip these here. Load the actual data when the cell is loaded.</span>
-<a name="l00040"></a>00040     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VNML&quot;</span>)) {esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(12675);cnt++;}
-<a name="l00041"></a>00041     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VHGT&quot;</span>)) {esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(4232);cnt++;}
-<a name="l00042"></a>00042     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;WNAM&quot;</span>)) esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(81);
-<a name="l00043"></a>00043     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VCLR&quot;</span>)) esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(12675);
-<a name="l00044"></a>00044     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VTEX&quot;</span>)) {esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(512);cnt++;}
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046     <span class="comment">// We need all three of VNML, VHGT and VTEX in order to use the</span>
-<a name="l00047"></a>00047     <span class="comment">// landscape.</span>
-<a name="l00048"></a>00048     <a class="code" href="structESM_1_1Land.html#acf1f4fa73bb8790dd68096340ae2b872">hasData</a> = (cnt == 3);
-<a name="l00049"></a>00049   }
-<a name="l00050"></a>00050 };
-<a name="l00051"></a>00051 }
-<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
+<a name="l00028"></a>00028     esm.<a class="code" href="classESM_1_1ESMReader.html#a06766bb670184977db15f7ec2240e1d8">getSubHeaderIs</a>(8);
+<a name="l00029"></a>00029     esm.<a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>&lt;<span class="keywordtype">int</span>&gt;(<a class="code" href="structESM_1_1Land.html#a9e68356a663d6b6c7c3868276678e7e5">X</a>);
+<a name="l00030"></a>00030     esm.<a class="code" href="classESM_1_1ESMReader.html#abbef3a11eac41f96b349ec63f061e957">getT</a>&lt;<span class="keywordtype">int</span>&gt;(<a class="code" href="structESM_1_1Land.html#a4629ca9cecba0ebd30865abf6c64229f">Y</a>);
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Land.html#aa4ca6c56f4434498659d07fb0f71f550">flags</a>, <span class="stringliteral">&quot;DATA&quot;</span>);
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034     <span class="comment">// Store the file position</span>
+<a name="l00035"></a>00035     <a class="code" href="structESM_1_1Land.html#ae12c6e4ec2ccc9176af4f20a31e578d2">context</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a5a6937e8a2d8fbc7e4bf6ddfc0342d4e">getContext</a>();
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037     <a class="code" href="structESM_1_1Land.html#acf1f4fa73bb8790dd68096340ae2b872">hasData</a> = <span class="keyword">false</span>;
+<a name="l00038"></a>00038     <span class="keywordtype">int</span> cnt = 0;
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="comment">// Skip these here. Load the actual data when the cell is loaded.</span>
+<a name="l00041"></a>00041     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VNML&quot;</span>)) {esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(12675);cnt++;}
+<a name="l00042"></a>00042     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VHGT&quot;</span>)) {esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(4232);cnt++;}
+<a name="l00043"></a>00043     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;WNAM&quot;</span>)) esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(81);
+<a name="l00044"></a>00044     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VCLR&quot;</span>)) esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(12675);
+<a name="l00045"></a>00045     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;VTEX&quot;</span>)) {esm.<a class="code" href="classESM_1_1ESMReader.html#a91366fc3522e6e24929aeeb6a4e6b0e3">skipHSubSize</a>(512);cnt++;}
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="comment">// We need all three of VNML, VHGT and VTEX in order to use the</span>
+<a name="l00048"></a>00048     <span class="comment">// landscape.</span>
+<a name="l00049"></a>00049     <a class="code" href="structESM_1_1Land.html#acf1f4fa73bb8790dd68096340ae2b872">hasData</a> = (cnt == 3);
+<a name="l00050"></a>00050   }
+<a name="l00051"></a>00051 };
+<a name="l00052"></a>00052 }
+<a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Sep 25 20:04:46 2010 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
