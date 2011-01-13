@@ -170,6 +170,20 @@ namespace MWGui
                   MyGUI::KeyCode key,
                   MyGUI::Char _char)
     {
+        if(key == MyGUI::KeyCode::Tab)
+        {
+                printOK("Printing mNames\n");
+                std::vector<std::string>::iterator iter = mNames.begin();
+
+                while(iter != mNames.end())
+                {
+                    printOK(*iter);
+                    ++iter;
+                }
+
+                printOK("Done!\n");
+        }
+ 
         if(command_history.empty()) return;
 
         // Traverse history with up and down arrows
@@ -198,7 +212,7 @@ namespace MWGui
                     command->setCaption(editString);
             }
         }
-    }
+   }
 
     void Console::acceptCommand(MyGUI::EditPtr _sender)
     {
