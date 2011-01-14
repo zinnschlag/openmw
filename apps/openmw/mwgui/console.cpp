@@ -106,6 +106,7 @@ namespace MWGui
         mCompilerContext (MWScript::CompilerContext::Type_Console, environment),
         mEnvironment (environment)
     {
+
         setCoord(10,10, w-10, h/2);
 
         getWidget(command, "edit_Command");
@@ -124,6 +125,7 @@ namespace MWGui
 
         // compiler
         mCompilerContext.setExtensions (&extensions);
+        listNames(); // We can have tab_completion before the first call to Console::compile
     }
 
     void Console::enable()
@@ -172,16 +174,34 @@ namespace MWGui
     {
         if(key == MyGUI::KeyCode::Tab)
         {
-                printOK("Printing mNames\n");
-                std::vector<std::string>::iterator iter = mNames.begin();
 
-                while(iter != mNames.end())
+                editString = command->getCaption(); // TODO: Split this up(space-delimited) and match for each substring
+                if(editString.empty())
+                    return;
+
+                std::vector<std::string> matches;
+                unsigned int lastMatch;
+                unsigned int index = 0;
+
+                while(index != mNames.size())
                 {
-                    printOK(*iter);
-                    ++iter;
+                    lastMatch = mNames[index].find(editString);
+                    if(lastMatch != std::string::npos)
+                        matches.push_back(mNames[index]);
+                    index++;
                 }
 
-                printOK("Done!\n");
+                std::vector<std::string>::iterator iter = matches.begin();
+
+                if(!matches.empty() && matches.size() > 1)
+                {
+                    printOK("Possible Matches: ");
+                    while(iter != matches.end())
+                    {
+                        printOK(*iter);
+                        iter++;
+                    }
+                }
         }
  
         if(command_history.empty()) return;
