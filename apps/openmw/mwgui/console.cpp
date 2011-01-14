@@ -186,7 +186,7 @@ namespace MWGui
                 while(index != mNames.size())
                 {
                     lastMatch = mNames[index].find(editString);
-                    if(lastMatch != std::string::npos)
+                    if(lastMatch != std::string::npos && lastMatch == 0)
                         matches.push_back(mNames[index]);
                     index++;
                 }
