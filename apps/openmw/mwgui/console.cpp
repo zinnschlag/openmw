@@ -3,6 +3,8 @@
 
 #include <algorithm>
 
+#include <iostream>
+
 #include <components/compiler/exception.hpp>
 
 #include "../mwscript/extensions.hpp"
@@ -175,7 +177,19 @@ namespace MWGui
         if(key == MyGUI::KeyCode::Tab)
         {
 
-                editString = command->getCaption(); // TODO: Split this up(space-delimited) and match for each substring
+                editString = command->getCaption();
+                std::stringstream editString_strm(editString);
+
+                // Get the last argument(space-delimited)
+                while(!editString_strm.eof())
+                {
+                    if(editString[0] != '"')
+                        std::getline(editString_strm, editString, ' ');
+                    else
+                        std::getline(editString_strm, editString, '"');
+                }
+                // TODO: Remove quotes from input before matching
+
                 if(editString.empty())
                     return;
 
@@ -185,7 +199,12 @@ namespace MWGui
 
                 while(index != mNames.size())
                 {
-                    lastMatch = mNames[index].find(editString);
+
+                    if(editString.find_last_of(" ") != std::string::npos)
+                        lastMatch = mNames[index].find(editString.substr(editString.find_last_of(" ")));
+                    else
+                        lastMatch = mNames[index].find(editString);
+
                     if(lastMatch != std::string::npos && lastMatch == 0)
                         matches.push_back(mNames[index]);
                     index++;
@@ -193,10 +212,13 @@ namespace MWGui
 
                 std::vector<std::string>::iterator iter = matches.begin();
 
-                if(!matches.empty() && matches.size() > 1)
+                if(!matches.empty())
                 {
-                    printOK("Possible Matches: ");
-                    while(iter != matches.end())
+                    if(matches.size() > 1)
+                        printOK("Possible Matches: ");
+                    else
+                        printOK("Only Match: " + *iter);
+                    while(iter != matches.end() && matches.size() > 1)
                     {
                         printOK(*iter);
                         iter++;
