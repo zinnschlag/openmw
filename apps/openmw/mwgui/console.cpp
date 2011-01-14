@@ -195,22 +195,22 @@ namespace MWGui
 
                 std::vector<std::string> matches;
                 unsigned int lastMatch;
-                unsigned int index = 0;
+                std::vector<std::string>::iterator iter = mNames.begin();
 
-                while(index != mNames.size())
+                while(iter != mNames.end())
                 {
 
                     if(editString.find_last_of(" ") != std::string::npos)
-                        lastMatch = mNames[index].find(editString.substr(editString.find_last_of(" ")));
+                        lastMatch = (*iter).find(editString.substr(editString.find_last_of(" ")));
                     else
-                        lastMatch = mNames[index].find(editString);
+                        lastMatch = (*iter).find(editString);
 
                     if(lastMatch != std::string::npos && lastMatch == 0)
-                        matches.push_back(mNames[index]);
-                    index++;
+                        matches.push_back((*iter));
+                    iter++;
                 }
 
-                std::vector<std::string>::iterator iter = matches.begin();
+                iter = matches.begin();
 
                 if(!matches.empty())
                 {
