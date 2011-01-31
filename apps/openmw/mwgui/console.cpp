@@ -176,54 +176,11 @@ namespace MWGui
     {
         if(key == MyGUI::KeyCode::Tab)
         {
-
-                editString = command->getCaption();
-                std::stringstream editString_strm(editString);
-
-                // Get the last argument(space-delimited)
-                while(!editString_strm.eof())
-                {
-                    if(editString[0] != '"')
-                        std::getline(editString_strm, editString, ' ');
-                    else
-                        std::getline(editString_strm, editString, '"');
-                }
-                // TODO: Remove quotes from input before matching
-
-                if(editString.empty())
-                    return;
-
-                std::vector<std::string> matches;
-                unsigned int lastMatch;
-                std::vector<std::string>::iterator iter = mNames.begin();
-
-                while(iter != mNames.end())
-                {
-
-                    if(editString.find_last_of(" ") != std::string::npos)
-                        lastMatch = (*iter).find(editString.substr(editString.find_last_of(" ")));
-                    else
-                        lastMatch = (*iter).find(editString);
-
-                    if(lastMatch != std::string::npos && lastMatch == 0)
-                        matches.push_back((*iter));
-                    iter++;
-                }
-
-                iter = matches.begin();
-
-                if(!matches.empty())
-                {
-                    if(matches.size() > 1)
-                        printOK("Possible Matches: ");
-                    else
-                        printOK("Only Match: " + *iter);
-                    while(iter != matches.end() && matches.size() > 1)
-                    {
-                        printOK(*iter);
-                        iter++;
-                    }
-                }
+            editString = command->getCaption();
+            // TODO:
+            // Split editString into an vector delimited by spaces.
+            // Parse the vector, if it has a quote(and no matching end quote)
+            // use this as the string to match.
         }
  
         if(command_history.empty()) return;
