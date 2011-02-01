@@ -39,6 +39,8 @@ namespace MWGui
         /// \note If mNames is not empty, this function is a no-op.
         /// \note The list may contain duplicates (if a name is a keyword and an identifier at the same
         /// time).
+        
+        std::vector<std::string> delimitString(std::string string, char delimit);
 
   public:
     MyGUI::EditPtr command;

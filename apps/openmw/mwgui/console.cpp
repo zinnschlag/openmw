@@ -170,6 +170,21 @@ namespace MWGui
         print("#FF2222" + msg + "\n");
     }
 
+    std::vector<std::string> Console::delimitString(std::string string, char delimit)
+    {
+        std::vector<std::string> delimitedStrings;
+        size_t lastIndex = 0;
+        size_t curIndex = string.find(delimit, curIndex); // current Index into 'string'
+
+        while(curIndex != std::string::npos)
+        {
+            delimitedStrings.push_back(string.substr(lastIndex, curIndex));
+            curIndex = string.find(delimit, curIndex);
+            lastIndex = curIndex;
+        }
+        return delimitedStrings;
+    }
+
     void Console::keyPress(MyGUI::WidgetPtr _sender,
                   MyGUI::KeyCode key,
                   MyGUI::Char _char)
@@ -178,9 +193,13 @@ namespace MWGui
         {
             editString = command->getCaption();
             // TODO:
-            // Split editString into an vector delimited by spaces.
             // Parse the vector, if it has a quote(and no matching end quote)
             // use this as the string to match.
+            // Otherwise just use the last element of the expression.
+
+            // Split editString into an vector delimited by spaces.
+            std::vector<std::string> strings = delimitString(editString, ' ');
+
         }
  
         if(command_history.empty()) return;
