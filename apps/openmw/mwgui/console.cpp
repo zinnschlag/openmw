@@ -1,7 +1,7 @@
 
 #include "console.hpp"
 
-#include <algorithm>
+#include <algorithm> 
 
 #include <iostream>
 
@@ -174,14 +174,20 @@ namespace MWGui
     {
         std::vector<std::string> delimitedStrings;
         size_t lastIndex = 0;
-        size_t curIndex = string.find(delimit, curIndex); // current Index into 'string'
+        size_t curIndex = string.find(delimit, 0); // current Index into 'string'
+        delimitedStrings.push_back(string.substr(lastIndex, curIndex));
 
-        while(curIndex != std::string::npos)
+        while(curIndex != std::string::npos and lastIndex != std::string::npos)
         {
-            delimitedStrings.push_back(string.substr(lastIndex, curIndex));
-            curIndex = string.find(delimit, curIndex);
-            lastIndex = curIndex;
+            curIndex = string.find(delimit, lastIndex);
+            delimitedStrings.push_back(string.substr(lastIndex, curIndex - 1));
+            lastIndex = curIndex + 1;
+            std::cout << delimitedStrings.back() << std::endl;
         }
+
+        if(delimitedStrings.empty())
+            delimitedStrings.push_back(string);
+
         return delimitedStrings;
     }
 
@@ -199,7 +205,15 @@ namespace MWGui
 
             // Split editString into an vector delimited by spaces.
             std::vector<std::string> strings = delimitString(editString, ' ');
-
+            // Find the last element
+            if(editString.find('"', 0) != std::string::npos)
+            {
+            }
+            else
+            {
+                editString = strings.back();
+                printOK(editString);
+            }
         }
  
         if(command_history.empty()) return;
