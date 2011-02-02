@@ -182,7 +182,6 @@ namespace MWGui
             curIndex = string.find(delimit, lastIndex);
             delimitedStrings.push_back(string.substr(lastIndex, curIndex - 1));
             lastIndex = curIndex + 1;
-            std::cout << delimitedStrings.back() << std::endl;
         }
 
         if(delimitedStrings.empty())
@@ -198,10 +197,6 @@ namespace MWGui
         if(key == MyGUI::KeyCode::Tab)
         {
             editString = command->getCaption();
-            // TODO:
-            // Parse the vector, if it has a quote(and no matching end quote)
-            // use this as the string to match.
-            // Otherwise just use the last element of the expression.
 
            // Find the last element
             if(editString.find('"', 0) != std::string::npos)
@@ -216,7 +211,6 @@ namespace MWGui
                     if(quote == std::string::npos)
                     {
                         editString = editString.substr(oldquote + 1, quote);
-                        printOK(editString);
                     }
                 }
             }
@@ -226,7 +220,32 @@ namespace MWGui
                 // Split editString into an vector delimited by spaces.
                 std::vector<std::string> strings = delimitString(editString, ' ');
                 editString = strings.back();
-                printOK(editString);
+            }
+
+            std::vector<std::string> matches;
+            std::vector<std::string>::iterator mNames_iter = mNames.begin();
+
+            while(mNames_iter != mNames.end())
+            {
+                size_t curMatch = (*mNames_iter).find(editString);
+                if(curMatch != std::string::npos)
+                    matches.push_back((*mNames_iter));
+                mNames_iter++;
+            }
+
+            std::vector<std::string>::iterator iter = matches.begin();
+
+            if(!matches.empty())
+            {
+                printOK("Matches: ");
+                if(matches.size() <= 1)
+                    printOK(*iter);
+
+                while(iter != matches.end() && matches.size() > 1)
+                {
+                    printOK(*iter);
+                    iter++;
+                }
             }
         }
  
