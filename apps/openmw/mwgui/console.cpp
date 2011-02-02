@@ -203,14 +203,28 @@ namespace MWGui
             // use this as the string to match.
             // Otherwise just use the last element of the expression.
 
-            // Split editString into an vector delimited by spaces.
-            std::vector<std::string> strings = delimitString(editString, ' ');
-            // Find the last element
+           // Find the last element
             if(editString.find('"', 0) != std::string::npos)
             {
+                size_t quote = editString.find('"', 0);
+                size_t oldquote;
+
+                while(quote != std::string::npos) 
+                {
+                    oldquote = quote;
+                    quote = editString.find('"', quote + 1);
+                    if(quote == std::string::npos)
+                    {
+                        editString = editString.substr(oldquote + 1, quote);
+                        printOK(editString);
+                    }
+                }
             }
+
             else
             {
+                // Split editString into an vector delimited by spaces.
+                std::vector<std::string> strings = delimitString(editString, ' ');
                 editString = strings.back();
                 printOK(editString);
             }
