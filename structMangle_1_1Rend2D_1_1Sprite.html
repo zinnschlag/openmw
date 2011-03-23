@@ -42,6 +42,9 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#a4d50460f982905006081893e797d0b8a">width</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#aedfc432a85e9bed3c876085073614d1e">height</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#aeb7ab6ad7fa295ccb13ec824bd1213e2">fill</a> (int value)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#a3e808917c2a1a486b0e7fe5bdfdafd5d">pixel</a> (int x, int y, int value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#aeb99015ae33120cbfefd52ed4e381acd">lock</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#af45b0fdd29d59581e72e6e26fc60029b">unlock</a> ()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>A <a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a> is either a bitmap to be drawn or an output of area for blitting other bitmaps, or both. They are created by the <a class="el" href="structMangle_1_1Rend2D_1_1Driver.html">Driver</a>. </p>
@@ -165,6 +168,81 @@
 
 </div>
 </div>
+<a class="anchor" id="aeb99015ae33120cbfefd52ed4e381acd"></a><!-- doxytag: member="Mangle::Rend2D::Sprite::lock" ref="aeb99015ae33120cbfefd52ed4e381acd" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a>* Mangle::Rend2D::Sprite::lock </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Lock sprite for direct drawing, and return a struct containing the necessary pointer. When finished, unlock the sprite with <a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#af45b0fdd29d59581e72e6e26fc60029b">unlock()</a>. May return NULL, if so then direct drawing is not possible. </p>
+
+<p>Reimplemented in <a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#adb754d128676ff1d16b1061965180d55">Mangle::Rend2D::SDL_Sprite</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3e808917c2a1a486b0e7fe5bdfdafd5d"></a><!-- doxytag: member="Mangle::Rend2D::Sprite::pixel" ref="a3e808917c2a1a486b0e7fe5bdfdafd5d" args="(int x, int y, int value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Mangle::Rend2D::Sprite::pixel </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Set one pixel value. The pixel format depends on the sprite format. This is not expected to be fast, and in some implementations may not work at all. </p>
+
+<p>Reimplemented in <a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aae344cbbf69b1ce9b82c2f2404193772">Mangle::Rend2D::SDL_Sprite</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af45b0fdd29d59581e72e6e26fc60029b"></a><!-- doxytag: member="Mangle::Rend2D::Sprite::unlock" ref="af45b0fdd29d59581e72e6e26fc60029b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Mangle::Rend2D::Sprite::unlock </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aa23cd5a90f0394ae27cd537c78eb55f8">Mangle::Rend2D::SDL_Sprite</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4d50460f982905006081893e797d0b8a"></a><!-- doxytag: member="Mangle::Rend2D::Sprite::width" ref="a4d50460f982905006081893e797d0b8a" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +266,7 @@
 <li>libs/mangle/rend2d/<a class="el" href="sprite_8hpp_source.html">sprite.hpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

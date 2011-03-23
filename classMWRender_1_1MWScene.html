@@ -31,28 +31,51 @@
 </div>
 <div class="contents">
 <h1>MWRender::MWScene Class Reference</h1><!-- doxytag: class="MWRender::MWScene" -->
+<p>3D-scene (rendering and physics)  
+<a href="#_details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mwscene_8hpp_source.html">mwscene.hpp</a>&gt;</code></p>
 
 <p><a href="classMWRender_1_1MWScene-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a616ca5f5a739214d929dc71e35c36f08">MWScene</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#adb827289e6809ad9852a066d41699403">MWScene</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend, <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *physEng)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#af2e0a10b50ba1f47adff2c82f40bcd5f">~MWScene</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Camera *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a10c96b873c794007155b2649d0826014">getCamera</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a81ab796546560e86d88069e217fe87fd">getRoot</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneManager *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a4fe5cd4148ff1fff941875a043076bb1">getMgr</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Viewport *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a85e353fb5be42d0a12b2819bbbcccb1c">getViewport</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::RaySceneQuery *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#ab95d08f0a48b4e10fe67417670663034">getRaySceneQuery</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a033d73703b1e8d57d28462596046cf43">getPlayer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, float &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#add6ac536958800096539281744e1a622">getFacedHandle</a> (<a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;world)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a2071e81edf97226ae978c964f3b939df">doPhysics</a> (float duration, <a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;world, const std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;actors)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Run physics simulation and modify <em>world</em> accordingly.  <a href="#a2071e81edf97226ae978c964f3b939df"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a2cf154e9e4cb79d1c60a26acf04b4621">addObject</a> (const std::string &amp;handle, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, const Ogre::Quaternion &amp;rotation, float scale, const Ogre::Vector3 &amp;position)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add object to physics system.  <a href="#a2cf154e9e4cb79d1c60a26acf04b4621"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#ae632457ac5253443cdc46c60539297be">addActor</a> (const std::string &amp;handle, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, const Ogre::Vector3 &amp;position)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add actor to physics system.  <a href="#ae632457ac5253443cdc46c60539297be"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a8ae655aa285d7419c5c3cb679fce6439">removeObject</a> (const std::string &amp;handle)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Remove object from physic systems.  <a href="#a8ae655aa285d7419c5c3cb679fce6439"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#ade1331aa980d4a010ca7fb31e04b1ecf">moveObject</a> (const std::string &amp;handle, const Ogre::Vector3 &amp;position, bool updatePhysics)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Move object.  <a href="#ade1331aa980d4a010ca7fb31e04b1ecf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#ab8321e4b5c4c5acbb6105459d0860eb2">rotateObject</a> (const std::string &amp;handle, const Ogre::Quaternion &amp;rotation)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Change object's orientation.  <a href="#ab8321e4b5c4c5acbb6105459d0860eb2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a6ab5d2d03bc25cf4e90006c2ef599c2d">scaleObject</a> (const std::string &amp;handle, float scale)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Change object's scale.  <a href="#a6ab5d2d03bc25cf4e90006c2ef599c2d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a0bf3a3ce47360247d782d6ad7077401b">toggleCollisionMode</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a369753e4c05b5ad9d8103493ca1a2e36">toggleRenderMode</a> (int mode)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a2a3ccca47de341b38a8bdfa4645ccf71">rend</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#ab4c225b3bf9b04471a89e1e0cfe3aa1c">mwRoot</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::RaySceneQuery *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#ae768a226373e9063287d590fe9fde7e2">mRaySceneQuery</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a5bf653c076eb44213a2033bab60ded82">eng</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#aa0e0d6a72b50759cdc9481ac245b2aa1">mPlayer</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1MWScene.html#a1c9ea930a44a848ab43ec2acaa7e9aa3">mFreeFly</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>Class responsible for Morrowind-specific interfaces to OGRE.</p>
-<p>This might be refactored partially into a non-mw specific counterpart in ogre/ at some point. </p>
+<p>3D-scene (rendering and physics) </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a616ca5f5a739214d929dc71e35c36f08"></a><!-- doxytag: member="MWRender::MWScene::MWScene" ref="a616ca5f5a739214d929dc71e35c36f08" args="(OEngine::Render::OgreRenderer &amp;_rend)" -->
+<a class="anchor" id="adb827289e6809ad9852a066d41699403"></a><!-- doxytag: member="MWRender::MWScene::MWScene" ref="adb827289e6809ad9852a066d41699403" args="(OEngine::Render::OgreRenderer &amp;_rend, OEngine::Physic::PhysicEngine *physEng)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -60,7 +83,33 @@
           <td class="memname">MWScene::MWScene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>_rend</em></td>
+          <td class="paramname"> <em>_rend</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *&nbsp;</td>
+          <td class="paramname"> <em>physEng</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af2e0a10b50ba1f47adff2c82f40bcd5f"></a><!-- doxytag: member="MWRender::MWScene::~MWScene" ref="af2e0a10b50ba1f47adff2c82f40bcd5f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MWScene::~MWScene </td>
+          <td>(</td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -71,6 +120,123 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ae632457ac5253443cdc46c60539297be"></a><!-- doxytag: member="MWRender::MWScene::addActor" ref="ae632457ac5253443cdc46c60539297be" args="(const std::string &amp;handle, const std::string &amp;mesh, const Ogre::Vector3 &amp;position)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::addActor </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ogre::Vector3 &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Add actor to physics system. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2cf154e9e4cb79d1c60a26acf04b4621"></a><!-- doxytag: member="MWRender::MWScene::addObject" ref="a2cf154e9e4cb79d1c60a26acf04b4621" args="(const std::string &amp;handle, const std::string &amp;mesh, const Ogre::Quaternion &amp;rotation, float scale, const Ogre::Vector3 &amp;position)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::addObject </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ogre::Quaternion &amp;&nbsp;</td>
+          <td class="paramname"> <em>rotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>scale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ogre::Vector3 &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Add object to physics system. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2071e81edf97226ae978c964f3b939df"></a><!-- doxytag: member="MWRender::MWScene::doPhysics" ref="a2071e81edf97226ae978c964f3b939df" args="(float duration, MWWorld::World &amp;world, const std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;actors)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::doPhysics </td>
+          <td>(</td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>actors</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Run physics simulation and modify <em>world</em> accordingly. </p>
+
+</div>
+</div>
 <a class="anchor" id="a10c96b873c794007155b2649d0826014"></a><!-- doxytag: member="MWRender::MWScene::getCamera" ref="a10c96b873c794007155b2649d0826014" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -103,6 +269,7 @@
       </table>
 </div>
 <div class="memdoc">
+<p>Gets the handle of the object the player is looking at pair&lt;name, distance&gt; name is empty and distance = -1 if there is no object which can be faced </p>
 
 </div>
 </div>
@@ -112,6 +279,23 @@
       <table class="memname">
         <tr>
           <td class="memname">Ogre::SceneManager* MWRender::MWScene::getMgr </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a033d73703b1e8d57d28462596046cf43"></a><!-- doxytag: member="MWRender::MWScene::getPlayer" ref="a033d73703b1e8d57d28462596046cf43" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a>* MWRender::MWScene::getPlayer </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -174,7 +358,197 @@
 
 </div>
 </div>
+<a class="anchor" id="ade1331aa980d4a010ca7fb31e04b1ecf"></a><!-- doxytag: member="MWRender::MWScene::moveObject" ref="ade1331aa980d4a010ca7fb31e04b1ecf" args="(const std::string &amp;handle, const Ogre::Vector3 &amp;position, bool updatePhysics)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::moveObject </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ogre::Vector3 &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>updatePhysics</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Move object. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8ae655aa285d7419c5c3cb679fce6439"></a><!-- doxytag: member="MWRender::MWScene::removeObject" ref="a8ae655aa285d7419c5c3cb679fce6439" args="(const std::string &amp;handle)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::removeObject </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>handle</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Remove object from physic systems. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab8321e4b5c4c5acbb6105459d0860eb2"></a><!-- doxytag: member="MWRender::MWScene::rotateObject" ref="ab8321e4b5c4c5acbb6105459d0860eb2" args="(const std::string &amp;handle, const Ogre::Quaternion &amp;rotation)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::rotateObject </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ogre::Quaternion &amp;&nbsp;</td>
+          <td class="paramname"> <em>rotation</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Change object's orientation. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6ab5d2d03bc25cf4e90006c2ef599c2d"></a><!-- doxytag: member="MWRender::MWScene::scaleObject" ref="a6ab5d2d03bc25cf4e90006c2ef599c2d" args="(const std::string &amp;handle, float scale)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::scaleObject </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>scale</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Change object's scale. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0bf3a3ce47360247d782d6ad7077401b"></a><!-- doxytag: member="MWRender::MWScene::toggleCollisionMode" ref="a0bf3a3ce47360247d782d6ad7077401b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::toggleCollisionMode </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Toggle collision mode for player. If disabled player object should ignore collisions and gravity. </p>
+
+</div>
+</div>
+<a class="anchor" id="a369753e4c05b5ad9d8103493ca1a2e36"></a><!-- doxytag: member="MWRender::MWScene::toggleRenderMode" ref="a369753e4c05b5ad9d8103493ca1a2e36" args="(int mode)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWScene::toggleRenderMode </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Toggle render mode </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Using an int instead of a enum here to avoid cyclic includes. Will be fixed when the mw*-refactoring is done. </dd></dl>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a5bf653c076eb44213a2033bab60ded82"></a><!-- doxytag: member="MWRender::MWScene::eng" ref="a5bf653c076eb44213a2033bab60ded82" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="el" href="classMWRender_1_1MWScene.html#a5bf653c076eb44213a2033bab60ded82">MWRender::MWScene::eng</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1c9ea930a44a848ab43ec2acaa7e9aa3"></a><!-- doxytag: member="MWRender::MWScene::mFreeFly" ref="a1c9ea930a44a848ab43ec2acaa7e9aa3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1MWScene.html#a1c9ea930a44a848ab43ec2acaa7e9aa3">MWRender::MWScene::mFreeFly</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa0e0d6a72b50759cdc9481ac245b2aa1"></a><!-- doxytag: member="MWRender::MWScene::mPlayer" ref="aa0e0d6a72b50759cdc9481ac245b2aa1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a>* <a class="el" href="classMWRender_1_1MWScene.html#aa0e0d6a72b50759cdc9481ac245b2aa1">MWRender::MWScene::mPlayer</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae768a226373e9063287d590fe9fde7e2"></a><!-- doxytag: member="MWRender::MWScene::mRaySceneQuery" ref="ae768a226373e9063287d590fe9fde7e2" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -198,6 +572,7 @@
       </table>
 </div>
 <div class="memdoc">
+<p>Root node for all objects added to the scene. This is rotated so that the OGRE coordinate system matches that used internally in Morrowind. </p>
 
 </div>
 </div>
@@ -219,7 +594,7 @@
 <li>apps/openmw/mwrender/<a class="el" href="mwscene_8cpp.html">mwscene.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -37,85 +37,108 @@
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="containerstore_8hpp.html">containerstore.hpp</a>&quot;</span>
 <a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="refdata_8hpp.html">refdata.hpp</a>&quot;</span>
 <a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWRender
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>Ogre
 <a name="l00014"></a>00014 {
-<a name="l00015"></a>00015     <span class="keyword">class </span>CellRenderImp;
+<a name="l00015"></a>00015     <span class="keyword">class </span>Vector3;
 <a name="l00016"></a>00016 }
 <a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">namespace </span>MWMechanics
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>MWRender
 <a name="l00019"></a>00019 {
-<a name="l00020"></a>00020     <span class="keyword">struct </span>CreatureStats;
-<a name="l00021"></a>00021     <span class="keyword">struct </span>NpcStats;
-<a name="l00022"></a>00022 }
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">namespace </span>MWWorld
-<a name="l00025"></a>00025 {
-<a name="l00026"></a>00026     <span class="keyword">class </span>Ptr;
-<a name="l00027"></a>00027     <span class="keyword">class </span>Environment;
-<a name="l00028"></a>00028 
-<a name="l00030"></a><a class="code" href="classMWWorld_1_1Class.html">00030</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>
-<a name="l00031"></a>00031     {
-<a name="l00032"></a><a class="code" href="classMWWorld_1_1Class.html#ac3eb485d0bcb0b24e5c6a193513e42ad">00032</a>             <span class="keyword">static</span> std::map&lt;std::string, boost::shared_ptr&lt;Class&gt; &gt; <a class="code" href="classMWWorld_1_1Class.html#ac3eb485d0bcb0b24e5c6a193513e42ad">sClasses</a>;
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034             <span class="comment">// not implemented</span>
-<a name="l00035"></a>00035             <a class="code" href="classMWWorld_1_1Class.html#af2cced1d2d07d68440cea481108c9520">Class</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp;);
-<a name="l00036"></a>00036             <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a7f0ff32eff8082153c96d5f25b18854b">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp;);
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038         <span class="keyword">protected</span>:
+<a name="l00020"></a>00020     <span class="keyword">class </span>CellRenderImp;
+<a name="l00021"></a>00021 }
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="keyword">namespace </span>MWMechanics
+<a name="l00024"></a>00024 {
+<a name="l00025"></a>00025     <span class="keyword">struct </span>CreatureStats;
+<a name="l00026"></a>00026     <span class="keyword">struct </span>NpcStats;
+<a name="l00027"></a>00027     <span class="keyword">struct </span>Movement;
+<a name="l00028"></a>00028 }
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">namespace </span>MWWorld
+<a name="l00031"></a>00031 {
+<a name="l00032"></a>00032     <span class="keyword">class </span>Ptr;
+<a name="l00033"></a>00033     <span class="keyword">class </span>Environment;
+<a name="l00034"></a>00034 
+<a name="l00036"></a><a class="code" href="classMWWorld_1_1Class.html">00036</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>
+<a name="l00037"></a>00037     {
+<a name="l00038"></a><a class="code" href="classMWWorld_1_1Class.html#ac3eb485d0bcb0b24e5c6a193513e42ad">00038</a>             <span class="keyword">static</span> std::map&lt;std::string, boost::shared_ptr&lt;Class&gt; &gt; <a class="code" href="classMWWorld_1_1Class.html#ac3eb485d0bcb0b24e5c6a193513e42ad">sClasses</a>;
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040             <a class="code" href="classMWWorld_1_1Class.html#af2cced1d2d07d68440cea481108c9520">Class</a>();
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keyword">public</span>:
+<a name="l00040"></a>00040             <span class="comment">// not implemented</span>
+<a name="l00041"></a>00041             <a class="code" href="classMWWorld_1_1Class.html#af2cced1d2d07d68440cea481108c9520">Class</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp;);
+<a name="l00042"></a>00042             <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a7f0ff32eff8082153c96d5f25b18854b">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp;);
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Class.html#a10274e6072a1d12387e9df4562d20f6d">~Class</a>();
+<a name="l00044"></a>00044         <span class="keyword">protected</span>:
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#a87df3eed6dd34432222d697b86d47b80">getId</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00046"></a>00046             <a class="code" href="classMWWorld_1_1Class.html#af2cced1d2d07d68440cea481108c9520">Class</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keyword">public</span>:
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#aa8f64c7cbdf590690bee36f7cfa66231" title="Add reference into a cell for rendering (default implementation: don&amp;#39;t render...">insertObj</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWRender_1_1CellRenderImp.html">MWRender::CellRenderImp</a>&amp; cellRender,
-<a name="l00051"></a>00051                 <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a97fdd732f3818c68fef06f4a864d7f5d">enable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#ae5313788e747e50bb18db2147f1cc3e4">disable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#a9bb333ba7a376100bf2a6be12e4b11ad">getName</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span> = 0;
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068             <span class="keyword">virtual</span> <a class="code" href="structMWMechanics_1_1CreatureStats.html">MWMechanics::CreatureStats</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a5095a30e5baa5742b3d393610fd73d60">getCreatureStats</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072             <span class="keyword">virtual</span> <a class="code" href="structMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">MWMechanics::NpcStats</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a288815e0879a88ccd87b4871be64202b">getNpcStats</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00051"></a><a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">00051</a>             <span class="keyword">enum</span> <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7" title="NPC-stances.">Stance</a>
+<a name="l00052"></a>00052             {
+<a name="l00053"></a><a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7a4bb8fc7974b21bebeb47238f5b0e084c">00053</a>                 <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7a4883495ca1583fcf748194eeffc7fc8e">Run</a>, <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7a4bb8fc7974b21bebeb47238f5b0e084c">Sneak</a>, <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7a28bac4984817b65699afc4db5693ea79">Combat</a>
+<a name="l00054"></a>00054             };
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Class.html#a10274e6072a1d12387e9df4562d20f6d">~Class</a>();
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#a87df3eed6dd34432222d697b86d47b80">getId</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#aa8f64c7cbdf590690bee36f7cfa66231" title="Add reference into a cell for rendering (default implementation: don&amp;#39;t render...">insertObj</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWRender_1_1CellRenderImp.html">MWRender::CellRenderImp</a>&amp; cellRender,
+<a name="l00063"></a>00063                 <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a97fdd732f3818c68fef06f4a864d7f5d">enable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#ae5313788e747e50bb18db2147f1cc3e4">disable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
 <a name="l00075"></a>00075 
-<a name="l00076"></a>00076             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Class.html#a035d847bc3caaaf4923d6eed143b3fbb">hasItemHealth</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1Class.html#ac230262e8f77d5fb656404c3022f8418">getItemMaxHealth</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083             <span class="keyword">virtual</span> boost::shared_ptr&lt;Action&gt; <a class="code" href="classMWWorld_1_1Class.html#a238fad88603547ad7c7a30b07e851ace" title="Generate action for activation (default implementation: return a null action).">activate</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; actor,
-<a name="l00084"></a>00084                 <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">Environment</a>&amp; environment) <span class="keyword">const</span>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087             <span class="keyword">virtual</span> boost::shared_ptr&lt;Action&gt; <a class="code" href="classMWWorld_1_1Class.html#a10744454514e45aa336655647c4eafc9">use</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">Environment</a>&amp; environment)
-<a name="l00088"></a>00088                 <span class="keyword">const</span>;
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092             <span class="keyword">virtual</span> <a class="code" href="structMWWorld_1_1ContainerStore.html">ContainerStore&lt;RefData&gt;</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a416e7d417e01318922609a074ed21f08">getContainerStore</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a2004bc07586a96b06f4c7b14a779aed9">insertIntoContainer</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="structMWWorld_1_1ContainerStore.html">ContainerStore&lt;RefData&gt;</a>&amp; containerStore)
-<a name="l00097"></a>00097                 <span class="keyword">const</span>;
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#abf575ffd3200705cc6665afa69f2f0bd" title="Lock object (default implementation: throw an exception).">lock</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">int</span> lockLevel) <span class="keyword">const</span>;
+<a name="l00076"></a>00076             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#a9bb333ba7a376100bf2a6be12e4b11ad">getName</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span> = 0;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080             <span class="keyword">virtual</span> <a class="code" href="structMWMechanics_1_1CreatureStats.html">MWMechanics::CreatureStats</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a5095a30e5baa5742b3d393610fd73d60">getCreatureStats</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084             <span class="keyword">virtual</span> <a class="code" href="structMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">MWMechanics::NpcStats</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a288815e0879a88ccd87b4871be64202b">getNpcStats</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Class.html#a035d847bc3caaaf4923d6eed143b3fbb">hasItemHealth</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1Class.html#ac230262e8f77d5fb656404c3022f8418">getItemMaxHealth</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095             <span class="keyword">virtual</span> boost::shared_ptr&lt;Action&gt; <a class="code" href="classMWWorld_1_1Class.html#a238fad88603547ad7c7a30b07e851ace" title="Generate action for activation (default implementation: return a null action).">activate</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; actor,
+<a name="l00096"></a>00096                 <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099             <span class="keyword">virtual</span> boost::shared_ptr&lt;Action&gt; <a class="code" href="classMWWorld_1_1Class.html#a10744454514e45aa336655647c4eafc9">use</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">Environment</a>&amp; environment)
+<a name="l00100"></a>00100                 <span class="keyword">const</span>;
 <a name="l00103"></a>00103 
-<a name="l00104"></a>00104             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a657f3de0d5662f790ecdff83f5601293" title="Unlock object (default implementation: throw an exception).">unlock</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#aff912237c7051d796e3a1b19e537792f">getScript</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00110"></a>00110 
-<a name="l00111"></a>00111             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> std::string&amp; key);
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117             <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a4f8e8532e7eb1e0dcb09e2def1ea7d1e">registerClass</a> (<span class="keyword">const</span> std::string&amp; key,  boost::shared_ptr&lt;Class&gt; instance);
-<a name="l00118"></a>00118     };
-<a name="l00119"></a>00119 }
-<a name="l00120"></a>00120 
-<a name="l00121"></a>00121 <span class="preprocessor">#endif</span>
+<a name="l00104"></a>00104             <span class="keyword">virtual</span> <a class="code" href="structMWWorld_1_1ContainerStore.html">ContainerStore&lt;RefData&gt;</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a416e7d417e01318922609a074ed21f08">getContainerStore</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a2004bc07586a96b06f4c7b14a779aed9">insertIntoContainer</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="structMWWorld_1_1ContainerStore.html">ContainerStore&lt;RefData&gt;</a>&amp; containerStore)
+<a name="l00109"></a>00109                 <span class="keyword">const</span>;
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#abf575ffd3200705cc6665afa69f2f0bd" title="Lock object (default implementation: throw an exception).">lock</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">int</span> lockLevel) <span class="keyword">const</span>;
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a657f3de0d5662f790ecdff83f5601293" title="Unlock object (default implementation: throw an exception).">unlock</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#aff912237c7051d796e3a1b19e537792f">getScript</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a03caae33b57121be224e25cf8848c231" title="Force or unforce a stance.">setForceStance</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7" title="NPC-stances.">Stance</a> stance, <span class="keywordtype">bool</span> force) <span class="keyword">const</span>;
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a610b51f87c8c6bce03d84c8bd5b47b4f" title="Set or unset a stance.">setStance</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7" title="NPC-stances.">Stance</a> stance, <span class="keywordtype">bool</span> <span class="keyword">set</span>) <span class="keyword">const</span>;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Class.html#a975375ce1eb192bade669ccb63b105ee">getStance</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7" title="NPC-stances.">Stance</a> stance, <span class="keywordtype">bool</span> ignoreForce = <span class="keyword">false</span>) <span class="keyword">const</span>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Class.html#a3088ab933971be70239a2e09ade4e9ef" title="Return movement speed.">getSpeed</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135             <span class="keyword">virtual</span> <a class="code" href="structMWMechanics_1_1Movement.html" title="Desired movement for an actor.">MWMechanics::Movement</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a2fe5e15560aa224f5e5ef4e92bda540b" title="Return desired movement.">getMovementSettings</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138             <span class="keyword">virtual</span> Ogre::Vector3 <a class="code" href="classMWWorld_1_1Class.html#acd0718e72d5652a053e7886f8a58fb38">getMovementVector</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> std::string&amp; key);
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148             <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a4f8e8532e7eb1e0dcb09e2def1ea7d1e">registerClass</a> (<span class="keyword">const</span> std::string&amp; key,  boost::shared_ptr&lt;Class&gt; instance);
+<a name="l00149"></a>00149     };
+<a name="l00150"></a>00150 }
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

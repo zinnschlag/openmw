@@ -46,8 +46,12 @@
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a91e858f668eb1862d983be96648bfaed">height</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a9cf49e1f453e0de2818495bfefd08719">getSurface</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ad02fb53ca92de4c7ffdb719fde870c9c">fill</a> (int value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aae344cbbf69b1ce9b82c2f2404193772">pixel</a> (int x, int y, int value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#adb754d128676ff1d16b1061965180d55">lock</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aa23cd5a90f0394ae27cd537c78eb55f8">unlock</a> ()</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SDL_Surface *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ace4307550b0dd9b42b5d751201e19415">surface</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a131f991dbd70d733c8240f486e51596a">data</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a28b5fc8f80f260268ced6665804804e7">autoDel</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
@@ -215,6 +219,81 @@
 
 </div>
 </div>
+<a class="anchor" id="adb754d128676ff1d16b1061965180d55"></a><!-- doxytag: member="Mangle::Rend2D::SDL_Sprite::lock" ref="adb754d128676ff1d16b1061965180d55" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a> * SDL_Sprite::lock </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Lock sprite for direct drawing, and return a struct containing the necessary pointer. When finished, unlock the sprite with <a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aa23cd5a90f0394ae27cd537c78eb55f8">unlock()</a>. May return NULL, if so then direct drawing is not possible. </p>
+
+<p>Reimplemented from <a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#aeb99015ae33120cbfefd52ed4e381acd">Mangle::Rend2D::Sprite</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aae344cbbf69b1ce9b82c2f2404193772"></a><!-- doxytag: member="Mangle::Rend2D::SDL_Sprite::pixel" ref="aae344cbbf69b1ce9b82c2f2404193772" args="(int x, int y, int value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SDL_Sprite::pixel </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Set one pixel value. The pixel format depends on the sprite format. This is not expected to be fast, and in some implementations may not work at all. </p>
+
+<p>Reimplemented from <a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#a3e808917c2a1a486b0e7fe5bdfdafd5d">Mangle::Rend2D::Sprite</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa23cd5a90f0394ae27cd537c78eb55f8"></a><!-- doxytag: member="Mangle::Rend2D::SDL_Sprite::unlock" ref="aa23cd5a90f0394ae27cd537c78eb55f8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SDL_Sprite::unlock </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="structMangle_1_1Rend2D_1_1Sprite.html#af45b0fdd29d59581e72e6e26fc60029b">Mangle::Rend2D::Sprite</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ab9896c8cfebdbb4401dc7cd647e58498"></a><!-- doxytag: member="Mangle::Rend2D::SDL_Sprite::width" ref="ab9896c8cfebdbb4401dc7cd647e58498" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -248,6 +327,19 @@
 
 </div>
 </div>
+<a class="anchor" id="a131f991dbd70d733c8240f486e51596a"></a><!-- doxytag: member="Mangle::Rend2D::SDL_Sprite::data" ref="a131f991dbd70d733c8240f486e51596a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a> <a class="el" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a131f991dbd70d733c8240f486e51596a">Mangle::Rend2D::SDL_Sprite::data</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ace4307550b0dd9b42b5d751201e19415"></a><!-- doxytag: member="Mangle::Rend2D::SDL_Sprite::surface" ref="ace4307550b0dd9b42b5d751201e19415" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +358,7 @@
 <li>libs/mangle/rend2d/servers/<a class="el" href="rend2d_2servers_2sdl__driver_8cpp.html">sdl_driver.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

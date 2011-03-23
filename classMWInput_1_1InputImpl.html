@@ -34,7 +34,7 @@
 <p><a href="classMWInput_1_1InputImpl-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a3243ca8a126edc351c4c2215b4ca2426">InputImpl</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_ogre, <a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> &amp;_player, <a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a> &amp;_windows, bool debug, <a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;engine)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#af9f4770b051ffdf22a4c75027b118a76">InputImpl</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_ogre, <a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> &amp;_player, <a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a> &amp;_windows, bool debug, <a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;engine)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a035e5ffe6ba569a2d639fafc431a14cd">frameStarted</a> (const Ogre::FrameEvent &amp;evt)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#acfff7f25cf5c0412d9a13a5c9827935d">setGuiMode</a> (<a class="el" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">MWGui::GuiMode</a> mode)</td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
@@ -42,6 +42,8 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#ad8ee3129025238ce985d2b6de68039fd">toggleInventory</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#ab272660b3ccdaf6b0ee2be44965c8672">toggleConsole</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#aa5ec3f63f7d81ba43377cc09519b2b26">activate</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a539e486030697aef9c431abf020933fd">toggleAutoMove</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a5e5cbc6810a23e152f9d8bd14a48449a">toggleWalking</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a45912713d8472b1a085cda87ad046ac2">exitNow</a> ()</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceOEngine_1_1Input.html#a31560c923fba7c5404e07e24b879e8c9">OEngine::Input::DispatcherPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a3419f445d934d36e028a5150c554323c">disp</a></td></tr>
@@ -51,13 +53,13 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structOEngine_1_1Input_1_1Poller.html">OEngine::Input::Poller</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#abb4a385193b15abbfce99c4d3144c6b2">poller</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceOEngine_1_1Render.html#afa4f4b100be59002f05d4dce02cbe5b1">OEngine::Render::MouseLookEventPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#ac3b6d1b60fd571468c4a00a56af6a663">mouse</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceOEngine_1_1GUI.html#a9fac9cedb7d59288a40b7863cb5de211">OEngine::GUI::EventInjectorPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#afdbc3f9423f56847c6495185ee705e24">guiEvents</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a6377fd38a07b8f8eef7323ebc9ed287d">player</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a08cdb9740853c6e67e3f732313b75293">player</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1WindowManager.html">MWGui::WindowManager</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#aa5a0e91e4a5b2a2649200318e18d89bc">windows</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a1ca6c93c045e7a0192fa7b3366b76428">mEngine</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputImpl.html#a35c28971e68bb9f4a68cb04b4411fb28">shotCount</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a3243ca8a126edc351c4c2215b4ca2426"></a><!-- doxytag: member="MWInput::InputImpl::InputImpl" ref="a3243ca8a126edc351c4c2215b4ca2426" args="(OEngine::Render::OgreRenderer &amp;_ogre, MWRender::PlayerPos &amp;_player, MWGui::WindowManager &amp;_windows, bool debug, OMW::Engine &amp;engine)" -->
+<a class="anchor" id="af9f4770b051ffdf22a4c75027b118a76"></a><!-- doxytag: member="MWInput::InputImpl::InputImpl" ref="af9f4770b051ffdf22a4c75027b118a76" args="(OEngine::Render::OgreRenderer &amp;_ogre, MWWorld::Player &amp;_player, MWGui::WindowManager &amp;_windows, bool debug, OMW::Engine &amp;engine)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -70,7 +72,7 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> &amp;&nbsp;</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>_player</em>, </td>
         </tr>
         <tr>
@@ -190,6 +192,23 @@
 
 </div>
 </div>
+<a class="anchor" id="a539e486030697aef9c431abf020933fd"></a><!-- doxytag: member="MWInput::InputImpl::toggleAutoMove" ref="a539e486030697aef9c431abf020933fd" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWInput::InputImpl::toggleAutoMove </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ab272660b3ccdaf6b0ee2be44965c8672"></a><!-- doxytag: member="MWInput::InputImpl::toggleConsole" ref="ab272660b3ccdaf6b0ee2be44965c8672" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -213,6 +232,23 @@
       <table class="memname">
         <tr>
           <td class="memname">void MWInput::InputImpl::toggleInventory </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5e5cbc6810a23e152f9d8bd14a48449a"></a><!-- doxytag: member="MWInput::InputImpl::toggleWalking" ref="a5e5cbc6810a23e152f9d8bd14a48449a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWInput::InputImpl::toggleWalking </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -316,12 +352,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a6377fd38a07b8f8eef7323ebc9ed287d"></a><!-- doxytag: member="MWInput::InputImpl::player" ref="a6377fd38a07b8f8eef7323ebc9ed287d" args="" -->
+<a class="anchor" id="a08cdb9740853c6e67e3f732313b75293"></a><!-- doxytag: member="MWInput::InputImpl::player" ref="a08cdb9740853c6e67e3f732313b75293" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a>&amp; <a class="el" href="classMWInput_1_1InputImpl.html#a6377fd38a07b8f8eef7323ebc9ed287d">MWInput::InputImpl::player</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a>&amp; <a class="el" href="classMWInput_1_1InputImpl.html#a08cdb9740853c6e67e3f732313b75293">MWInput::InputImpl::player</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -372,7 +408,7 @@
 <li>apps/openmw/mwinput/<a class="el" href="inputmanager_8cpp.html">inputmanager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

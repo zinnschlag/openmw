@@ -30,30 +30,32 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;<a class="code" href="layout_8hpp.html">openengine/gui/layout.hpp</a>&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>MWWorld
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>MWGui
 <a name="l00007"></a>00007 {
-<a name="l00008"></a>00008     <span class="keyword">class </span>Environment;
-<a name="l00009"></a>00009 }
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">namespace </span>MWGui
-<a name="l00012"></a>00012 {
-<a name="l00013"></a><a class="code" href="classMWGui_1_1WindowBase.html">00013</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>: <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00014"></a>00014     {
-<a name="l00015"></a>00015         <span class="keyword">public</span>:
-<a name="l00016"></a>00016         <a class="code" href="classMWGui_1_1WindowBase.html#acefc91ec1fd968b8643edd3e5008ef73">WindowBase</a>(<span class="keyword">const</span> std::string&amp; parLayout, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; parEnvironment);
+<a name="l00008"></a>00008     <span class="keyword">class </span>WindowManager;
+<a name="l00009"></a>00009 
+<a name="l00010"></a><a class="code" href="classMWGui_1_1WindowBase.html">00010</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>: <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00011"></a>00011     {
+<a name="l00012"></a>00012         <span class="keyword">public</span>:
+<a name="l00013"></a>00013         <a class="code" href="classMWGui_1_1WindowBase.html#a223edebdb6fde6b88703b1e3d00ea8f4">WindowBase</a>(<span class="keyword">const</span> std::string&amp; parLayout, <a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>&amp; parWindowManager);
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015         <span class="comment">// Events</span>
+<a name="l00016"></a><a class="code" href="classMWGui_1_1WindowBase.html#ad15cc1120f5eb85272c08e557a97a7a4">00016</a>         <span class="keyword">typedef</span> MyGUI::delegates::CDelegate1&lt;WindowBase*&gt; <a class="code" href="classMWGui_1_1WindowBase.html#ad15cc1120f5eb85272c08e557a97a7a4">EventHandle_WindowBase</a>;
 <a name="l00017"></a>00017 
 <a name="l00018"></a>00018         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a0cf279550a85234d2d171c05294ff558">open</a>();
 <a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a619c3722639059076d24ae157fdaa18c">center</a>();
 <a name="l00020"></a>00020 
-<a name="l00021"></a>00021         <span class="keyword">protected</span>:
-<a name="l00022"></a><a class="code" href="classMWGui_1_1WindowBase.html#ac33679412b4c2d7aab60d2d89ac0bb5c">00022</a>         <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#ac33679412b4c2d7aab60d2d89ac0bb5c">environment</a>;
-<a name="l00023"></a>00023     };
-<a name="l00024"></a>00024 }
+<a name="l00024"></a><a class="code" href="classMWGui_1_1WindowBase.html#ad992d4cbb1aac0e2a880824fef6537c4">00024</a>         <a class="code" href="classMWGui_1_1WindowBase.html#ad15cc1120f5eb85272c08e557a97a7a4">EventHandle_WindowBase</a> <a class="code" href="classMWGui_1_1WindowBase.html#ad992d4cbb1aac0e2a880824fef6537c4">eventDone</a>;
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="preprocessor">#endif</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span>
+<a name="l00026"></a>00026         <span class="keyword">protected</span>:
+<a name="l00027"></a><a class="code" href="classMWGui_1_1WindowBase.html#a0f009173e3d96b5cc6f525fb1ceba349">00027</a>         <a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#a0f009173e3d96b5cc6f525fb1ceba349">mWindowManager</a>;
+<a name="l00028"></a>00028     };
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

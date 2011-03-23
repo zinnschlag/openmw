@@ -60,11 +60,13 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Report error to the user.  <a href="#a0ab14243fadd9887b4d8784386750492"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#aedf5a5a7845c988baff4613ddc3179de">report</a> (const std::string &amp;message, <a class="el" href="classCompiler_1_1ErrorHandler.html#a2aa56cded3ac6c154e0c0319cfcce658">Type</a> type)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Report a file related error.  <a href="#aedf5a5a7845c988baff4613ddc3179de"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#ae6d40a7c7a7449ff95f42a16b1f18888">listNames</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a6cdd782d608d8e18330baa1e4debe563">keyPress</a> (MyGUI::WidgetPtr _sender, MyGUI::KeyCode key, MyGUI::Char _char)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a4a4be8e320d92b7f442db1fa4e73e4f4">acceptCommand</a> (MyGUI::EditPtr _sender)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWScript_1_1CompilerContext.html">MWScript::CompilerContext</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a1cd973561cf05548624ea29e3d4a9b78">mCompilerContext</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#adaf3796baafc5e065769d61196230cce">mEnvironment</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a2d7886102aa5cbb47fe1d98367023e1e">mNames</a></td></tr>
 </table>
 <hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="a650d87880ba0b4ac74be89986a4b5cae"></a><!-- doxytag: member="MWGui::Console::StringList" ref="a650d87880ba0b4ac74be89986a4b5cae" args="" -->
@@ -247,6 +249,27 @@
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae6d40a7c7a7449ff95f42a16b1f18888"></a><!-- doxytag: member="MWGui::Console::listNames" ref="ae6d40a7c7a7449ff95f42a16b1f18888" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWGui::Console::listNames </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Write all valid identifiers and keywords into mNames and sort them. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>If mNames is not empty, this function is a no-op. </dd>
+<dd>
+The list may contain duplicates (if a name is a keyword and an identifier at the same time). </dd></dl>
 
 </div>
 </div>
@@ -486,12 +509,25 @@
 
 </div>
 </div>
+<a class="anchor" id="a2d7886102aa5cbb47fe1d98367023e1e"></a><!-- doxytag: member="MWGui::Console::mNames" ref="a2d7886102aa5cbb47fe1d98367023e1e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="classMWGui_1_1Console.html#a2d7886102aa5cbb47fe1d98367023e1e">MWGui::Console::mNames</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>apps/openmw/mwgui/<a class="el" href="console_8hpp_source.html">console.hpp</a></li>
 <li>apps/openmw/mwgui/<a class="el" href="console_8cpp.html">console.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

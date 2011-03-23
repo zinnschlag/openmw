@@ -59,6 +59,16 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Generate action for activation.  <a href="#a97be97a68377156a4fc8c7f2428482d5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a1bbf72d7d18373011b906b78af34e38f">getScript</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return name of the script attached to ptr.  <a href="#a1bbf72d7d18373011b906b78af34e38f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a25b3072d651d9f0c89f732fdb3b39bbf">setForceStance</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">Stance</a> stance, bool force) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Force or unforce a stance.  <a href="#a25b3072d651d9f0c89f732fdb3b39bbf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a70b06f6d3c519400a165c08428b4a0b4">setStance</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">Stance</a> stance, bool set) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set or unset a stance.  <a href="#a70b06f6d3c519400a165c08428b4a0b4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#ac95b780b99a507fec84f4f369ad0cb70">getStance</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">Stance</a> stance, bool ignoreForce=false) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#acaf825c7d2108eb7707911c1abf97284">getSpeed</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return movement speed.  <a href="#acaf825c7d2108eb7707911c1abf97284"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structMWMechanics_1_1Movement.html">MWMechanics::Movement</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a0eb8ea9da7025a9869a92dd3e7e1369d">getMovementSettings</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return desired movement.  <a href="#a0eb8ea9da7025a9869a92dd3e7e1369d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a4cc2529dc7c297b6f24a6286ee4829d3">getMovementVector</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#afcb45fff1dfd3cdc577d5de4957a8b7a">registerSelf</a> ()</td></tr>
 </table>
@@ -228,6 +238,49 @@
 
 </div>
 </div>
+<a class="anchor" id="a0eb8ea9da7025a9869a92dd3e7e1369d"></a><!-- doxytag: member="MWClass::Npc::getMovementSettings" ref="a0eb8ea9da7025a9869a92dd3e7e1369d" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structMWMechanics_1_1Movement.html">MWMechanics::Movement</a> &amp; MWClass::Npc::getMovementSettings </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return desired movement. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a2fe5e15560aa224f5e5ef4e92bda540b">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4cc2529dc7c297b6f24a6286ee4829d3"></a><!-- doxytag: member="MWClass::Npc::getMovementVector" ref="a4cc2529dc7c297b6f24a6286ee4829d3" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::Vector3 MWClass::Npc::getMovementVector </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return desired movement vector (determined based on movement settings, stance and stats). </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#acd0718e72d5652a053e7886f8a58fb38">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a56b0b9ad7af29387d051b9dc85cf001c"></a><!-- doxytag: member="MWClass::Npc::getName" ref="a56b0b9ad7af29387d051b9dc85cf001c" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -293,6 +346,63 @@
 
 </div>
 </div>
+<a class="anchor" id="acaf825c7d2108eb7707911c1abf97284"></a><!-- doxytag: member="MWClass::Npc::getSpeed" ref="acaf825c7d2108eb7707911c1abf97284" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MWClass::Npc::getSpeed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return movement speed. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a3088ab933971be70239a2e09ade4e9ef">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac95b780b99a507fec84f4f369ad0cb70"></a><!-- doxytag: member="MWClass::Npc::getStance" ref="ac95b780b99a507fec84f4f369ad0cb70" args="(const MWWorld::Ptr &amp;ptr, Stance stance, bool ignoreForce=false) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MWClass::Npc::getStance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">Stance</a>&nbsp;</td>
+          <td class="paramname"> <em>stance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>ignoreForce</em> = <code>false</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a975375ce1eb192bade669ccb63b105ee">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ae1f730532aabfb39884e0ec7df7b221a"></a><!-- doxytag: member="MWClass::Npc::insertObj" ref="ae1f730532aabfb39884e0ec7df7b221a" args="(const MWWorld::Ptr &amp;ptr, MWRender::CellRenderImp &amp;cellRender, MWWorld::Environment &amp;environment) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -347,12 +457,86 @@
 
 </div>
 </div>
+<a class="anchor" id="a25b3072d651d9f0c89f732fdb3b39bbf"></a><!-- doxytag: member="MWClass::Npc::setForceStance" ref="a25b3072d651d9f0c89f732fdb3b39bbf" args="(const MWWorld::Ptr &amp;ptr, Stance stance, bool force) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWClass::Npc::setForceStance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">Stance</a>&nbsp;</td>
+          <td class="paramname"> <em>stance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>force</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Force or unforce a stance. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a03caae33b57121be224e25cf8848c231">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a70b06f6d3c519400a165c08428b4a0b4"></a><!-- doxytag: member="MWClass::Npc::setStance" ref="a70b06f6d3c519400a165c08428b4a0b4" args="(const MWWorld::Ptr &amp;ptr, Stance stance, bool set) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWClass::Npc::setStance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Class.html#a0a4233b4e21774cfb8b82a140c2476d7">Stance</a>&nbsp;</td>
+          <td class="paramname"> <em>stance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>set</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Set or unset a stance. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a610b51f87c8c6bce03d84c8bd5b47b4f">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>apps/openmw/mwclass/<a class="el" href="npc_8hpp_source.html">npc.hpp</a></li>
 <li>apps/openmw/mwclass/<a class="el" href="npc_8cpp.html">npc.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -30,65 +30,60 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>MWWorld
-<a name="l00007"></a>00007 {
-<a name="l00008"></a>00008     <span class="keyword">class </span>Environment;
-<a name="l00009"></a>00009 }
+<a name="l00006"></a>00006 <span class="comment">/*</span>
+<a name="l00007"></a>00007 <span class="comment">  This file contains the dialog for choosing a birth sign.</span>
+<a name="l00008"></a>00008 <span class="comment">  Layout is defined by resources/mygui/openmw_chargen_race_layout.xml.</span>
+<a name="l00009"></a>00009 <span class="comment"> */</span>
 <a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="comment">/*</span>
-<a name="l00012"></a>00012 <span class="comment">  This file contains the dialog for choosing a birth sign.</span>
-<a name="l00013"></a>00013 <span class="comment">  Layout is defined by resources/mygui/openmw_chargen_race_layout.xml.</span>
-<a name="l00014"></a>00014 <span class="comment"> */</span>
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016 <span class="keyword">namespace </span>MWGui
-<a name="l00017"></a>00017 {
-<a name="l00018"></a>00018     <span class="keyword">using namespace </span>MyGUI;
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="classMWGui_1_1BirthDialog.html">00020</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1BirthDialog.html">BirthDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00021"></a>00021     {
-<a name="l00022"></a>00022     <span class="keyword">public</span>:
-<a name="l00023"></a>00023         <a class="code" href="classMWGui_1_1BirthDialog.html#aba93abac353bb4784731e9a9e8707089">BirthDialog</a>(<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#ac33679412b4c2d7aab60d2d89ac0bb5c">environment</a>);
-<a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583b">00025</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583b">Gender</a>
-<a name="l00026"></a>00026         {
-<a name="l00027"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583ba7e1e1d45bd8e26e519d9425c87e6f9de">00027</a>             <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583ba7e1e1d45bd8e26e519d9425c87e6f9de">GM_Male</a>,
-<a name="l00028"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583bac90cc891df3a316dad3a4a9d5b9e13bf">00028</a>             <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583bac90cc891df3a316dad3a4a9d5b9e13bf">GM_Female</a>
-<a name="l00029"></a>00029         };
+<a name="l00011"></a>00011 <span class="keyword">namespace </span>MWGui
+<a name="l00012"></a>00012 {
+<a name="l00013"></a>00013     <span class="keyword">using namespace </span>MyGUI;
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015     <span class="keyword">class </span>WindowManager;
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="classMWGui_1_1BirthDialog.html">00017</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1BirthDialog.html">BirthDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00018"></a>00018     {
+<a name="l00019"></a>00019     <span class="keyword">public</span>:
+<a name="l00020"></a>00020         <a class="code" href="classMWGui_1_1BirthDialog.html#ab4b6f689ee3b42fa41a51823cdf6708f">BirthDialog</a>(<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>&amp; parWindowManager);
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583b">00022</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583b">Gender</a>
+<a name="l00023"></a>00023         {
+<a name="l00024"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583ba7e1e1d45bd8e26e519d9425c87e6f9de">00024</a>             <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583ba7e1e1d45bd8e26e519d9425c87e6f9de">GM_Male</a>,
+<a name="l00025"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583bac90cc891df3a316dad3a4a9d5b9e13bf">00025</a>             <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583bac90cc891df3a316dad3a4a9d5b9e13bf">GM_Female</a>
+<a name="l00026"></a>00026         };
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="classMWGui_1_1BirthDialog.html#ac9c099d3334acf604ae3bed691575470">00028</a>         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1BirthDialog.html#ac9c099d3334acf604ae3bed691575470">getBirthId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a5dcf84693a20f528d8179ec253a3cf61">currentBirthId</a>; }
+<a name="l00029"></a>00029         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a34580ade6979dc4d4ef159e7e5b176d3">setBirthId</a>(<span class="keyword">const</span> std::string &amp;raceId);
 <a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classMWGui_1_1BirthDialog.html#ac9c099d3334acf604ae3bed691575470">00031</a>         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1BirthDialog.html#ac9c099d3334acf604ae3bed691575470">getBirthId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a5dcf84693a20f528d8179ec253a3cf61">currentBirthId</a>; }
-<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a34580ade6979dc4d4ef159e7e5b176d3">setBirthId</a>(<span class="keyword">const</span> std::string &amp;raceId);
+<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a32d929cd5f75168e363d88d8732fd594">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#af3ba6e33650297ef044045b29fb73f5e">open</a>();
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a32d929cd5f75168e363d88d8732fd594">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
-<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#af3ba6e33650297ef044045b29fb73f5e">open</a>();
+<a name="l00034"></a>00034         <span class="comment">// Events</span>
+<a name="l00035"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">00035</a>         <span class="keyword">typedef</span> delegates::CDelegate0 <a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">EventHandle_Void</a>;
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037         <span class="comment">// Events</span>
-<a name="l00038"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">00038</a>         <span class="keyword">typedef</span> delegates::CDelegate0 <a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">EventHandle_Void</a>;
-<a name="l00039"></a>00039 
-<a name="l00043"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a847b6211cd3a1b483ba84b92e6a7aae6">00043</a>         <a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">EventHandle_Void</a> <a class="code" href="classMWGui_1_1BirthDialog.html#a847b6211cd3a1b483ba84b92e6a7aae6">eventBack</a>;
+<a name="l00040"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a847b6211cd3a1b483ba84b92e6a7aae6">00040</a>         <a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">EventHandle_Void</a> <a class="code" href="classMWGui_1_1BirthDialog.html#a847b6211cd3a1b483ba84b92e6a7aae6">eventBack</a>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042     <span class="keyword">protected</span>:
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a9fe9203fefbaa49c7bc116efa4c7b140">onSelectBirth</a>(MyGUI::List* _sender, <span class="keywordtype">size_t</span> _index);
 <a name="l00044"></a>00044 
-<a name="l00048"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a677605bd99cbcdac35ebb2fbfa0d1300">00048</a>         <a class="code" href="classMWGui_1_1BirthDialog.html#a7133dd5301fc80519a4d22cd62094be6">EventHandle_Void</a> <a class="code" href="classMWGui_1_1BirthDialog.html#a677605bd99cbcdac35ebb2fbfa0d1300">eventDone</a>;
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="keyword">protected</span>:
-<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a9fe9203fefbaa49c7bc116efa4c7b140">onSelectBirth</a>(MyGUI::List* _sender, <span class="keywordtype">size_t</span> _index);
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a23257180dafd4d0261cd202cfc51492b">onOkClicked</a>(MyGUI::Widget* _sender);
-<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a4abc8acfac6586f453bb6bd4e04980f0">onBackClicked</a>(MyGUI::Widget* _sender);
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <span class="keyword">private</span>:
-<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a320680e488ffd9576f76354ca9bc78a7">updateBirths</a>();
-<a name="l00058"></a>00058         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#aba96782e90906f1608324f27bd11a96e">updateSpells</a>();
-<a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="classMWGui_1_1BirthDialog.html#aaa7952026d2763e67a3c900bd0893f4c">00060</a>         MyGUI::ListPtr    <a class="code" href="classMWGui_1_1BirthDialog.html#aaa7952026d2763e67a3c900bd0893f4c">birthList</a>;
-<a name="l00061"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a8d67998d486abd5824eb49d90ba6abbc">00061</a>         MyGUI::WidgetPtr  <a class="code" href="classMWGui_1_1BirthDialog.html#a8d67998d486abd5824eb49d90ba6abbc">spellArea</a>;
-<a name="l00062"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a4e7e6849b81b26b091cddca712b9a3d3">00062</a>         MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1BirthDialog.html#a4e7e6849b81b26b091cddca712b9a3d3">birthImage</a>;
-<a name="l00063"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a88c5acbe700dbbf3141a12d3f79954cb">00063</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1BirthDialog.html#a88c5acbe700dbbf3141a12d3f79954cb">spellItems</a>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a5dcf84693a20f528d8179ec253a3cf61">00065</a>         std::string <a class="code" href="classMWGui_1_1BirthDialog.html#a5dcf84693a20f528d8179ec253a3cf61">currentBirthId</a>;
-<a name="l00066"></a>00066     };
-<a name="l00067"></a>00067 }
-<a name="l00068"></a>00068 <span class="preprocessor">#endif</span>
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a23257180dafd4d0261cd202cfc51492b">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a4abc8acfac6586f453bb6bd4e04980f0">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keyword">private</span>:
+<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a320680e488ffd9576f76354ca9bc78a7">updateBirths</a>();
+<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#aba96782e90906f1608324f27bd11a96e">updateSpells</a>();
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classMWGui_1_1BirthDialog.html#aaa7952026d2763e67a3c900bd0893f4c">00052</a>         MyGUI::ListPtr    <a class="code" href="classMWGui_1_1BirthDialog.html#aaa7952026d2763e67a3c900bd0893f4c">birthList</a>;
+<a name="l00053"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a8d67998d486abd5824eb49d90ba6abbc">00053</a>         MyGUI::WidgetPtr  <a class="code" href="classMWGui_1_1BirthDialog.html#a8d67998d486abd5824eb49d90ba6abbc">spellArea</a>;
+<a name="l00054"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a4e7e6849b81b26b091cddca712b9a3d3">00054</a>         MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1BirthDialog.html#a4e7e6849b81b26b091cddca712b9a3d3">birthImage</a>;
+<a name="l00055"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a88c5acbe700dbbf3141a12d3f79954cb">00055</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1BirthDialog.html#a88c5acbe700dbbf3141a12d3f79954cb">spellItems</a>;
+<a name="l00056"></a>00056 
+<a name="l00057"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a5dcf84693a20f528d8179ec253a3cf61">00057</a>         std::string <a class="code" href="classMWGui_1_1BirthDialog.html#a5dcf84693a20f528d8179ec253a3cf61">currentBirthId</a>;
+<a name="l00058"></a>00058     };
+<a name="l00059"></a>00059 }
+<a name="l00060"></a>00060 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -39,12 +39,14 @@
 <p><a href="classMWWorld_1_1World-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#abe50ce75d075f6053821c5ec41834e7a">RenderMode</a> { <a class="el" href="classMWWorld_1_1World.html#abe50ce75d075f6053821c5ec41834e7aac82b68ed1b33a87532f714e1e604e474">Render_CollisionDebug</a>
+ }</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::list&lt; std::pair<br class="typebreak"/>
 &lt; std::string, <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">ScriptList</a></td></tr>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a1e06d67556d36207dd4d80d022befb40">World</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;renderer, const boost::filesystem::path &amp;master, const std::string &amp;dataDir, bool newGame, <a class="el" href="classMWWorld_1_1Environment.html">Environment</a> &amp;environment)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a49c639a4cb700ea663598417f0f112ac">World</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;renderer, <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *physEng, const boost::filesystem::path &amp;dataDir, const std::string &amp;master, const boost::filesystem::path &amp;resDir, bool newGame, <a class="el" href="classMWWorld_1_1Environment.html">Environment</a> &amp;environment)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ad637ebfccb400fd51839e8d2955a2b92">~World</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ac46add69129e7f67aeb32d2c9d9bb6b6">getPlayerPos</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#affaceb7547f7e4cc462ae612b8c1f78b">getPlayer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#aace199ae239bd201724e31d394143d52">getStore</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classMWWorld_1_1World.html#aeb2b5fdb449b76639d929f00d6d3e791">ScriptList</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a8643388378e961f679f72fa5499a9f21">getLocalScripts</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Names and local variable state of all local scripts in active cells.  <a href="#a8643388378e961f679f72fa5499a9f21"></a><br/></td></tr>
@@ -67,10 +69,10 @@
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#aa8693bbbb2b5e7cafb48515a9ec18ad2">getSecundaPhase</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#acb1c65c5538c1ac7fe610c9c396e5799">setMoonColour</a> (bool red)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a4826b6f8c185cd5207e7912ab89ac4a5">getTimeScaleFactor</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ab566754667c069eeb4c13198d54130b7">changeCell</a> (const std::string &amp;cellName, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">works only for interior cells currently.  <a href="#ab566754667c069eeb4c13198d54130b7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a98a35969c51f435b5d5bd2116f81d9dd">changeCell</a> (int <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, int <a class="el" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a0c0965b4f3f2e2548eaee58be76fd879">changeToInteriorCell</a> (const std::string &amp;cellName, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Move to interior cell.  <a href="#a0c0965b4f3f2e2548eaee58be76fd879"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a2b2e20b1f8308f25a7b748300757081c">changeToExteriorCell</a> (const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Move to exterior cell.  <a href="#a2b2e20b1f8308f25a7b748300757081c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESM_1_1Cell.html">ESM::Cell</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ae643d53a3566903518cde427f673cd64">getExterior</a> (const std::string &amp;cellName) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a cell matching the given name or a 0-pointer, if there is no such cell.  <a href="#ae643d53a3566903518cde427f673cd64"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a9c84bcb7db8f2217da9f41e2a85e9a69">markCellAsUnchanged</a> ()</td></tr>
@@ -82,6 +84,11 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert cell numbers to position.  <a href="#a7cca3cbc0855627d830d33dc4f68e23b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a465203a7a0a534083b490b9ea4a887de">positionToIndex</a> (float x, float y, int &amp;cellX, int &amp;cellY) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Convert position to cell numbers.  <a href="#a465203a7a0a534083b490b9ea4a887de"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a76253a1de8de0674a99299ae7a97a0ba">doPhysics</a> (const std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;actors, float duration)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Run physics simulation and modify <em>world</em> accordingly.  <a href="#a76253a1de8de0674a99299ae7a97a0ba"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a2bf560071cb005471d1cde587fe4e53e">toggleCollisionMode</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a8c6b7f2b65ea87b9878ebf2be0aaa99d">toggleRenderMode</a> (<a class="el" href="classMWWorld_1_1World.html#abe50ce75d075f6053821c5ec41834e7a">RenderMode</a> mode)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Toggle a render mode.  <a href="#a8c6b7f2b65ea87b9878ebf2be0aaa99d"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::map<br class="typebreak"/>
 &lt; <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> <br class="typebreak"/>
@@ -97,12 +104,13 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a0634207d027333692a47b62b4d3a9203">removeScripts</a> (<a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *cell)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a1bcaf23028657a99714d85b929d3af30">unloadCell</a> (CellRenderCollection::iterator iter)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ac62843927f7152e63b8bc934eba4faa8">loadCell</a> (<a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *cell, <a class="el" href="classMWRender_1_1CellRender.html">MWRender::CellRender</a> *render)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a2999c2069f7b9f0a258e896652795171">playerCellChange</a> (<a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *cell, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#aa8b8411c9680ad1c273604fa38db3f26">playerCellChange</a> (<a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *cell, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#adaf454f5097e4527eae9cb4d36bb66e6">adjustSky</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#aa68a19d4d24b03ff3e492d031927056e">changeCell</a> (int <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, int <a class="el" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1SkyManager.html">MWRender::SkyManager</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a65f3ce09aae04707966e16fe39f8bee1">mSkyManager</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1MWScene.html">MWRender::MWScene</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a84f334291b80f4ee28391d66ed57f5da">mScene</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a682f83d3e7c94d5c1c51dedc54be5ffb">mPlayerPos</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#afac933655ef9ffcf51b6304ada7ba61e">mPlayer</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a073a8fbe3f1cc5777bf5da9e3610d224">mCurrentCell</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1World.html#a4e468f62b9750d218aa883b4ba3cda0c">CellRenderCollection</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ac850b2174e503c5684e05322dce08770">mActiveCells</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1World.html#a4e468f62b9750d218aa883b4ba3cda0c">CellRenderCollection</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a23288abe49af607535ab94f12d21073a">mBufferedCells</a></td></tr>
@@ -117,6 +125,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">mSky</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ad1de835713d5b1c528194caed7d0cf51">mCellChanged</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Environment.html">Environment</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#aa82dad8e4efa2e936f0ea5637586a302">mEnvironment</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ab6324bbf9d4ed2ee93919f9157eaf73a">mPhysEngine</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>The game world and its visual representation. </p>
@@ -147,6 +156,26 @@
 
 </div>
 </div>
+<hr/><h2>Member Enumeration Documentation</h2>
+<a class="anchor" id="abe50ce75d075f6053821c5ec41834e7a"></a><!-- doxytag: member="MWWorld::World::RenderMode" ref="abe50ce75d075f6053821c5ec41834e7a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classMWWorld_1_1World.html#abe50ce75d075f6053821c5ec41834e7a">MWWorld::World::RenderMode</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="abe50ce75d075f6053821c5ec41834e7aac82b68ed1b33a87532f714e1e604e474"></a><!-- doxytag: member="Render_CollisionDebug" ref="abe50ce75d075f6053821c5ec41834e7aac82b68ed1b33a87532f714e1e604e474" args="" -->Render_CollisionDebug</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1f3ff9681241a597f0694d251f3c83f6"></a><!-- doxytag: member="MWWorld::World::World" ref="a1f3ff9681241a597f0694d251f3c83f6" args="(const World &amp;)" -->
 <div class="memitem">
@@ -166,7 +195,7 @@
 
 </div>
 </div>
-<a class="anchor" id="a1e06d67556d36207dd4d80d022befb40"></a><!-- doxytag: member="MWWorld::World::World" ref="a1e06d67556d36207dd4d80d022befb40" args="(OEngine::Render::OgreRenderer &amp;renderer, const boost::filesystem::path &amp;master, const std::string &amp;dataDir, bool newGame, Environment &amp;environment)" -->
+<a class="anchor" id="a49c639a4cb700ea663598417f0f112ac"></a><!-- doxytag: member="MWWorld::World::World" ref="a49c639a4cb700ea663598417f0f112ac" args="(OEngine::Render::OgreRenderer &amp;renderer, OEngine::Physic::PhysicEngine *physEng, const boost::filesystem::path &amp;dataDir, const std::string &amp;master, const boost::filesystem::path &amp;resDir, bool newGame, Environment &amp;environment)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -179,14 +208,26 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *&nbsp;</td>
+          <td class="paramname"> <em>physEng</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const boost::filesystem::path &amp;&nbsp;</td>
-          <td class="paramname"> <em>master</em>, </td>
+          <td class="paramname"> <em>dataDir</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>dataDir</em>, </td>
+          <td class="paramname"> <em>master</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::filesystem::path &amp;&nbsp;</td>
+          <td class="paramname"> <em>resDir</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -264,7 +305,7 @@
 
 </div>
 </div>
-<a class="anchor" id="a98a35969c51f435b5d5bd2116f81d9dd"></a><!-- doxytag: member="MWWorld::World::changeCell" ref="a98a35969c51f435b5d5bd2116f81d9dd" args="(int X, int Y, const ESM::Position &amp;position)" -->
+<a class="anchor" id="aa68a19d4d24b03ff3e492d031927056e"></a><!-- doxytag: member="MWWorld::World::changeCell" ref="aa68a19d4d24b03ff3e492d031927056e" args="(int X, int Y, const ESM::Position &amp;position, bool adjustPlayerPos)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -284,25 +325,52 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>position</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>adjustPlayerPos</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td></td>
+          <td></td><td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Move from exterior to interior or from interior cell to a different interior cell. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2b2e20b1f8308f25a7b748300757081c"></a><!-- doxytag: member="MWWorld::World::changeToExteriorCell" ref="a2b2e20b1f8308f25a7b748300757081c" args="(const ESM::Position &amp;position)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::World::changeToExteriorCell </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>position</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
+<p>Move to exterior cell. </p>
+
 </div>
 </div>
-<a class="anchor" id="ab566754667c069eeb4c13198d54130b7"></a><!-- doxytag: member="MWWorld::World::changeCell" ref="ab566754667c069eeb4c13198d54130b7" args="(const std::string &amp;cellName, const ESM::Position &amp;position)" -->
+<a class="anchor" id="a0c0965b4f3f2e2548eaee58be76fd879"></a><!-- doxytag: member="MWWorld::World::changeToInteriorCell" ref="a0c0965b4f3f2e2548eaee58be76fd879" args="(const std::string &amp;cellName, const ESM::Position &amp;position)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWWorld::World::changeCell </td>
+          <td class="memname">void MWWorld::World::changeToInteriorCell </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>cellName</em>, </td>
@@ -322,25 +390,7 @@
 </div>
 <div class="memdoc">
 
-<p>works only for interior cells currently. </p>
-
-</div>
-</div>
-<a class="anchor" id="a2b2e20b1f8308f25a7b748300757081c"></a><!-- doxytag: member="MWWorld::World::changeToExteriorCell" ref="a2b2e20b1f8308f25a7b748300757081c" args="(const ESM::Position &amp;position)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MWWorld::World::changeToExteriorCell </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>position</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<p>Move to interior cell. </p>
 
 </div>
 </div>
@@ -377,6 +427,35 @@
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a76253a1de8de0674a99299ae7a97a0ba"></a><!-- doxytag: member="MWWorld::World::doPhysics" ref="a76253a1de8de0674a99299ae7a97a0ba" args="(const std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;actors, float duration)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::World::doPhysics </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>actors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>duration</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Run physics simulation and modify <em>world</em> accordingly. </p>
 
 </div>
 </div>
@@ -529,12 +608,12 @@
 
 </div>
 </div>
-<a class="anchor" id="ac46add69129e7f67aeb32d2c9d9bb6b6"></a><!-- doxytag: member="MWWorld::World::getPlayerPos" ref="ac46add69129e7f67aeb32d2c9d9bb6b6" args="()" -->
+<a class="anchor" id="affaceb7547f7e4cc462ae612b8c1f78b"></a><!-- doxytag: member="MWWorld::World::getPlayer" ref="affaceb7547f7e4cc462ae612b8c1f78b" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a> &amp; MWWorld::World::getPlayerPos </td>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> &amp; MWWorld::World::getPlayer </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -890,7 +969,7 @@
 
 </div>
 </div>
-<a class="anchor" id="a2999c2069f7b9f0a258e896652795171"></a><!-- doxytag: member="MWWorld::World::playerCellChange" ref="a2999c2069f7b9f0a258e896652795171" args="(Ptr::CellStore *cell, const ESM::Position &amp;position)" -->
+<a class="anchor" id="aa8b8411c9680ad1c273604fa38db3f26"></a><!-- doxytag: member="MWWorld::World::playerCellChange" ref="aa8b8411c9680ad1c273604fa38db3f26" args="(Ptr::CellStore *cell, const ESM::Position &amp;position, bool adjustPlayerPos=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -904,7 +983,13 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>position</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>adjustPlayerPos</em> = <code>true</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -1063,6 +1148,44 @@
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2bf560071cb005471d1cde587fe4e53e"></a><!-- doxytag: member="MWWorld::World::toggleCollisionMode" ref="a2bf560071cb005471d1cde587fe4e53e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::World::toggleCollisionMode </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Toggle collision mode for player. If disabled player object should ignore collisions and gravity. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8c6b7f2b65ea87b9878ebf2be0aaa99d"></a><!-- doxytag: member="MWWorld::World::toggleRenderMode" ref="a8c6b7f2b65ea87b9878ebf2be0aaa99d" args="(RenderMode mode)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::World::toggleRenderMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1World.html#abe50ce75d075f6053821c5ec41834e7a">RenderMode</a>&nbsp;</td>
+          <td class="paramname"> <em>mode</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Toggle a render mode. </p>
 
 </div>
 </div>
@@ -1232,12 +1355,25 @@
 
 </div>
 </div>
-<a class="anchor" id="a682f83d3e7c94d5c1c51dedc54be5ffb"></a><!-- doxytag: member="MWWorld::World::mPlayerPos" ref="a682f83d3e7c94d5c1c51dedc54be5ffb" args="" -->
+<a class="anchor" id="ab6324bbf9d4ed2ee93919f9157eaf73a"></a><!-- doxytag: member="MWWorld::World::mPhysEngine" ref="ab6324bbf9d4ed2ee93919f9157eaf73a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1PlayerPos.html">MWRender::PlayerPos</a>* <a class="el" href="classMWWorld_1_1World.html#a682f83d3e7c94d5c1c51dedc54be5ffb">MWWorld::World::mPlayerPos</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="el" href="classMWWorld_1_1World.html#ab6324bbf9d4ed2ee93919f9157eaf73a">MWWorld::World::mPhysEngine</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afac933655ef9ffcf51b6304ada7ba61e"></a><!-- doxytag: member="MWWorld::World::mPlayer" ref="afac933655ef9ffcf51b6304ada7ba61e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a>* <a class="el" href="classMWWorld_1_1World.html#afac933655ef9ffcf51b6304ada7ba61e">MWWorld::World::mPlayer</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -1302,7 +1438,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="world_8cpp.html">world.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:44 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

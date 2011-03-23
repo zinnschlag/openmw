@@ -41,7 +41,7 @@
 <a name="l00014"></a>00014   {
 <a name="l00015"></a><a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#aed03c9dab057b71ee39112dbda8af6e8">00015</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#a2b9d5642e781fe2c9eb4cf91e99ea754">x</a>, <a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#aed03c9dab057b71ee39112dbda8af6e8">y</a>; <span class="comment">// Grid location, matches cell for exterior cells</span>
 <a name="l00016"></a><a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#acd259fd46d2606f1d9b83948f4850808">00016</a>     <span class="keywordtype">short</span> <a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#acd259fd46d2606f1d9b83948f4850808">s1</a>; <span class="comment">// ?? Usually but not always a power of 2. Doesn&#39;t seem</span>
-<a name="l00017"></a>00017               <span class="comment">// to have any relation to the size of PGRC.</span>
+<a name="l00017"></a>00017           <span class="comment">// to have any relation to the size of PGRC.</span>
 <a name="l00018"></a><a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#a36de8cfa7c58c48cd2c2a43408720078">00018</a>     <span class="keywordtype">short</span> <a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#a36de8cfa7c58c48cd2c2a43408720078">s2</a>; <span class="comment">// Number of path points? Size of PGRP block is always 16 * s2;</span>
 <a name="l00019"></a>00019   }; <span class="comment">// 12 bytes</span>
 <a name="l00020"></a>00020 
@@ -62,9 +62,9 @@
 <a name="l00035"></a>00035     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;PGRP&quot;</span>))
 <a name="l00036"></a>00036       {
 <a name="l00037"></a>00037         esm.<a class="code" href="classESM_1_1ESMReader.html#a1b4ca455240f53cfa6d49f9a4a084354">skipHSub</a>();
-<a name="l00038"></a>00038         <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a41b85b7feeb5f0796b84c5f8df08f9fd">getSubSize</a>();
-<a name="l00039"></a>00039         <span class="keywordflow">if</span>(size != 16*<a class="code" href="structESM_1_1PathGrid.html#a05c1e172f3b1af72f1f99eb702bd079f">data</a>.<a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#a36de8cfa7c58c48cd2c2a43408720078">s2</a>)
-<a name="l00040"></a>00040           esm.<a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;Path grid table size mismatch&quot;</span>);
+<a name="l00038"></a>00038     <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a41b85b7feeb5f0796b84c5f8df08f9fd">getSubSize</a>();
+<a name="l00039"></a>00039     <span class="keywordflow">if</span>(size != 16*<a class="code" href="structESM_1_1PathGrid.html#a05c1e172f3b1af72f1f99eb702bd079f">data</a>.<a class="code" href="structESM_1_1PathGrid_1_1DATAstruct.html#a36de8cfa7c58c48cd2c2a43408720078">s2</a>)
+<a name="l00040"></a>00040       esm.<a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;Path grid table size mismatch&quot;</span>);
 <a name="l00041"></a>00041       }
 <a name="l00042"></a>00042 
 <a name="l00043"></a>00043     <span class="comment">// Size varies. Path grid chances? Connections? Multiples of 4</span>
@@ -72,17 +72,17 @@
 <a name="l00045"></a>00045     <span class="comment">// it later.</span>
 <a name="l00046"></a>00046     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;PGRC&quot;</span>))
 <a name="l00047"></a>00047       {
-<a name="l00048"></a>00048         esm.<a class="code" href="classESM_1_1ESMReader.html#a1b4ca455240f53cfa6d49f9a4a084354">skipHSub</a>();
-<a name="l00049"></a>00049         <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a41b85b7feeb5f0796b84c5f8df08f9fd">getSubSize</a>();
-<a name="l00050"></a>00050         <span class="keywordflow">if</span>(size % 4 != 0)
-<a name="l00051"></a>00051           esm.<a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;PGRC size not a multiple of 4&quot;</span>);
+<a name="l00048"></a>00048     esm.<a class="code" href="classESM_1_1ESMReader.html#a1b4ca455240f53cfa6d49f9a4a084354">skipHSub</a>();
+<a name="l00049"></a>00049     <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a41b85b7feeb5f0796b84c5f8df08f9fd">getSubSize</a>();
+<a name="l00050"></a>00050     <span class="keywordflow">if</span>(size % 4 != 0)
+<a name="l00051"></a>00051       esm.<a class="code" href="classESM_1_1ESMReader.html#a641a33a8cba2fc61d6431505391c5975" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;PGRC size not a multiple of 4&quot;</span>);
 <a name="l00052"></a>00052       }
 <a name="l00053"></a>00053   }
 <a name="l00054"></a>00054 };
 <a name="l00055"></a>00055 }
 <a name="l00056"></a>00056 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

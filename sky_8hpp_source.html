@@ -28,40 +28,43 @@
 <h1>apps/openmw/mwrender/sky.hpp</h1><a href="sky_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _GAME_RENDER_SKY_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _GAME_RENDER_SKY_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="keyword">namespace </span>Ogre
-<a name="l00005"></a>00005 {
-<a name="l00006"></a>00006     <span class="keyword">class </span>RenderWindow;
-<a name="l00007"></a>00007     <span class="keyword">class </span>Camera;
-<a name="l00008"></a>00008 }
-<a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWRender
-<a name="l00011"></a>00011 {
-<a name="l00015"></a><a class="code" href="classMWRender_1_1SkyManager.html">00015</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>
-<a name="l00016"></a>00016     {
-<a name="l00017"></a>00017     <span class="keyword">public</span>:
-<a name="l00018"></a>00018         <span class="keyword">static</span> <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a1ca43a957c804ba0318bfcbaec745899">create</a> (Ogre::RenderWindow* pRenderWindow, 
-<a name="l00019"></a>00019                                    Ogre::Camera* pCamera);
-<a name="l00020"></a><a class="code" href="classMWRender_1_1SkyManager.html#a9d364152c66bdc0d3b4f2214ae84b66a">00020</a>         <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1SkyManager.html#a9d364152c66bdc0d3b4f2214ae84b66a">~SkyManager</a>() {}
-<a name="l00021"></a>00021         
-<a name="l00022"></a>00022         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a3ee1b5e5dba3ed59f622f70291bd6fcf">enable</a>() = 0;
-<a name="l00023"></a>00023         
-<a name="l00024"></a>00024         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a50db7622e167bf1177af48f2876b05f1">disable</a>() = 0;
-<a name="l00025"></a>00025         
-<a name="l00026"></a>00026         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a72b4eae975bfc0de27da8fc042bc491d">setHour</a> (<span class="keywordtype">double</span> hour) = 0;
-<a name="l00027"></a>00027         
-<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac6c579b46c106e0c4aac2dca84f32b60">setDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month) = 0;
-<a name="l00029"></a>00029         
-<a name="l00030"></a>00030         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a669675e11ef8d4a1f29bcfc2bf327194">getMasserPhase</a>() <span class="keyword">const</span> = 0;
-<a name="l00031"></a>00031         
-<a name="l00032"></a>00032         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#af1456626a6d43e8f59e22e00945d97c0">getSecundaPhase</a>() <span class="keyword">const</span> = 0;
-<a name="l00033"></a>00033         
-<a name="l00034"></a>00034         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#af177029fbe6e90f99c3069f2681ee99c">setMoonColour</a> (<span class="keywordtype">bool</span> red) = 0;
-<a name="l00035"></a>00035     };
-<a name="l00036"></a>00036 }
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#endif // _GAME_RENDER_SKY_H</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;boost/filesystem.hpp&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>Ogre
+<a name="l00007"></a>00007 {
+<a name="l00008"></a>00008     <span class="keyword">class </span>RenderWindow;
+<a name="l00009"></a>00009     <span class="keyword">class </span>Camera;
+<a name="l00010"></a>00010 }
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>MWRender
+<a name="l00013"></a>00013 {
+<a name="l00017"></a><a class="code" href="classMWRender_1_1SkyManager.html">00017</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>
+<a name="l00018"></a>00018     {
+<a name="l00019"></a>00019     <span class="keyword">public</span>:
+<a name="l00020"></a>00020         <span class="keyword">static</span> <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a9ff64f35c2f735c285cc46b00c5cd486">create</a> (Ogre::RenderWindow* pRenderWindow, 
+<a name="l00021"></a>00021                                    Ogre::Camera* pCamera,
+<a name="l00022"></a>00022                                    <span class="keyword">const</span> boost::filesystem::path&amp; resDir);
+<a name="l00023"></a><a class="code" href="classMWRender_1_1SkyManager.html#a9d364152c66bdc0d3b4f2214ae84b66a">00023</a>         <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1SkyManager.html#a9d364152c66bdc0d3b4f2214ae84b66a">~SkyManager</a>() {}
+<a name="l00024"></a>00024         
+<a name="l00025"></a>00025         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a3ee1b5e5dba3ed59f622f70291bd6fcf">enable</a>() = 0;
+<a name="l00026"></a>00026         
+<a name="l00027"></a>00027         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a50db7622e167bf1177af48f2876b05f1">disable</a>() = 0;
+<a name="l00028"></a>00028         
+<a name="l00029"></a>00029         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a72b4eae975bfc0de27da8fc042bc491d">setHour</a> (<span class="keywordtype">double</span> hour) = 0;
+<a name="l00030"></a>00030         
+<a name="l00031"></a>00031         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac6c579b46c106e0c4aac2dca84f32b60">setDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month) = 0;
+<a name="l00032"></a>00032         
+<a name="l00033"></a>00033         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a669675e11ef8d4a1f29bcfc2bf327194">getMasserPhase</a>() <span class="keyword">const</span> = 0;
+<a name="l00034"></a>00034         
+<a name="l00035"></a>00035         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#af1456626a6d43e8f59e22e00945d97c0">getSecundaPhase</a>() <span class="keyword">const</span> = 0;
+<a name="l00036"></a>00036         
+<a name="l00037"></a>00037         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#af177029fbe6e90f99c3069f2681ee99c">setMoonColour</a> (<span class="keywordtype">bool</span> red) = 0;
+<a name="l00038"></a>00038     };
+<a name="l00039"></a>00039 }
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="preprocessor">#endif // _GAME_RENDER_SKY_H</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

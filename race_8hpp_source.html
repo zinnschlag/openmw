@@ -34,9 +34,9 @@
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="preprocessor">#include &lt;boost/array.hpp&gt;</span>
 <a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWWorld
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWGui
 <a name="l00011"></a>00011 {
-<a name="l00012"></a>00012     <span class="keyword">class </span>Environment;
+<a name="l00012"></a>00012     <span class="keyword">class </span>WindowManager;
 <a name="l00013"></a>00013 }
 <a name="l00014"></a>00014 
 <a name="l00015"></a>00015 <span class="comment">/*</span>
@@ -51,7 +51,7 @@
 <a name="l00024"></a><a class="code" href="classMWGui_1_1RaceDialog.html">00024</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1RaceDialog.html">RaceDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
 <a name="l00025"></a>00025     {
 <a name="l00026"></a>00026     <span class="keyword">public</span>:
-<a name="l00027"></a>00027         <a class="code" href="classMWGui_1_1RaceDialog.html#abed9d68567c88e38bb5ff62195d64e47">RaceDialog</a>(<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#ac33679412b4c2d7aab60d2d89ac0bb5c">environment</a>);
+<a name="l00027"></a>00027         <a class="code" href="classMWGui_1_1RaceDialog.html#a7894a9092f5520325cc120558b1c7caa">RaceDialog</a>(<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>&amp; parWindowManager);
 <a name="l00028"></a>00028 
 <a name="l00029"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a80b37d559642afd75b74261e3e8851ab">00029</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a80b37d559642afd75b74261e3e8851ab">Gender</a>
 <a name="l00030"></a>00030         {
@@ -77,49 +77,47 @@
 <a name="l00050"></a>00050 
 <a name="l00054"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ac207f86d78329d928d114619952ea47f">00054</a>         <a class="code" href="classMWGui_1_1RaceDialog.html#abbfcffbbca83b0caef019b0857cb4439">EventHandle_Void</a> <a class="code" href="classMWGui_1_1RaceDialog.html#ac207f86d78329d928d114619952ea47f">eventBack</a>;
 <a name="l00055"></a>00055 
-<a name="l00059"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a8bcd43535a0fa42ecd45a1b16740c439">00059</a>         <a class="code" href="classMWGui_1_1RaceDialog.html#abbfcffbbca83b0caef019b0857cb4439">EventHandle_Void</a> <a class="code" href="classMWGui_1_1RaceDialog.html#a8bcd43535a0fa42ecd45a1b16740c439">eventDone</a>;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="keyword">protected</span>:
-<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a68d5466c87ecd238c4ded91a7dc2dddf">onHeadRotate</a>(MyGUI::VScroll* _sender, <span class="keywordtype">size_t</span> _position);
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a67e9cdd415f51568d65da66d0015e86b">onSelectPreviousGender</a>(MyGUI::Widget* _sender);
-<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a5a3c95de705c42e7d05e4b04bc7aac95">onSelectNextGender</a>(MyGUI::Widget* _sender);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a6b0eca6e869cdedac995d38b1add2f69">onSelectPreviousFace</a>(MyGUI::Widget* _sender);
-<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a045b649f342e0a9a3bf8dca5ec8ffdbe">onSelectNextFace</a>(MyGUI::Widget* _sender);
+<a name="l00056"></a>00056     <span class="keyword">protected</span>:
+<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a68d5466c87ecd238c4ded91a7dc2dddf">onHeadRotate</a>(MyGUI::VScroll* _sender, <span class="keywordtype">size_t</span> _position);
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a67e9cdd415f51568d65da66d0015e86b">onSelectPreviousGender</a>(MyGUI::Widget* _sender);
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a5a3c95de705c42e7d05e4b04bc7aac95">onSelectNextGender</a>(MyGUI::Widget* _sender);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a6b0eca6e869cdedac995d38b1add2f69">onSelectPreviousFace</a>(MyGUI::Widget* _sender);
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a045b649f342e0a9a3bf8dca5ec8ffdbe">onSelectNextFace</a>(MyGUI::Widget* _sender);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a3610c9c253f2ecfbbdf6102b0b5b2cc8">onSelectPreviousHair</a>(MyGUI::Widget* _sender);
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#ac094233c777386f49fbe1c5fbc46eaf6">onSelectNextHair</a>(MyGUI::Widget* _sender);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a74f3b26f3f97d851e4ec928376c53a75">onSelectRace</a>(MyGUI::List* _sender, <span class="keywordtype">size_t</span> _index);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a3610c9c253f2ecfbbdf6102b0b5b2cc8">onSelectPreviousHair</a>(MyGUI::Widget* _sender);
-<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#ac094233c777386f49fbe1c5fbc46eaf6">onSelectNextHair</a>(MyGUI::Widget* _sender);
+<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#acf6ff204ca73141100bda3064c18667a">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#aaf5815779d3d162f19768af44bd1ccac">onBackClicked</a>(MyGUI::Widget* _sender);
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a74f3b26f3f97d851e4ec928376c53a75">onSelectRace</a>(MyGUI::List* _sender, <span class="keywordtype">size_t</span> _index);
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#acf6ff204ca73141100bda3064c18667a">onOkClicked</a>(MyGUI::Widget* _sender);
-<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#aaf5815779d3d162f19768af44bd1ccac">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00073"></a>00073     <span class="keyword">private</span>:
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#ac9880e3e90349f16efeba3ea819b9305">updateRaces</a>();
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a8974b17e7b262e7fcaa604798babd086">updateSkills</a>();
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a108ff52c7a8b2895bac4d65a1ee1853c">updateSpellPowers</a>();
 <a name="l00077"></a>00077 
-<a name="l00078"></a>00078     <span class="keyword">private</span>:
-<a name="l00079"></a>00079         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#ac9880e3e90349f16efeba3ea819b9305">updateRaces</a>();
-<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a8974b17e7b262e7fcaa604798babd086">updateSkills</a>();
-<a name="l00081"></a>00081         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a108ff52c7a8b2895bac4d65a1ee1853c">updateSpellPowers</a>();
-<a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a04fbc21b26b95f9176f40a548399300c">00083</a>         MyGUI::CanvasPtr  <a class="code" href="classMWGui_1_1RaceDialog.html#a04fbc21b26b95f9176f40a548399300c">appearanceBox</a>;
-<a name="l00084"></a><a class="code" href="classMWGui_1_1RaceDialog.html#abddc3ba998f5bf4abb50eb810b46768b">00084</a>         MyGUI::ListPtr    <a class="code" href="classMWGui_1_1RaceDialog.html#abddc3ba998f5bf4abb50eb810b46768b">raceList</a>;
-<a name="l00085"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a1e33988631b4bd67aacb1f25f24d9805">00085</a>         MyGUI::HScrollPtr <a class="code" href="classMWGui_1_1RaceDialog.html#a1e33988631b4bd67aacb1f25f24d9805">headRotate</a>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="classMWGui_1_1RaceDialog.html#aa013d1f76220ac7496fd3c0ade29d5b6">00087</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1RaceDialog.html#aa013d1f76220ac7496fd3c0ade29d5b6">skillList</a>;
-<a name="l00088"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ac6da3e3d2517ff70fa3244c9a0f5ebba">00088</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1RaceDialog.html#ac6da3e3d2517ff70fa3244c9a0f5ebba">skillItems</a>;
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classMWGui_1_1RaceDialog.html#afbaca81c75da53819864f9373237e5f2">00090</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1RaceDialog.html#afbaca81c75da53819864f9373237e5f2">spellPowerList</a>;
-<a name="l00091"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ac5464469d2d1d4ab8ccac10ca7e38e1f">00091</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1RaceDialog.html#ac5464469d2d1d4ab8ccac10ca7e38e1f">spellPowerItems</a>;
-<a name="l00092"></a>00092 
-<a name="l00093"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ad5cdc7b7148d196dd3bff23744e1f5ac">00093</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a9b86c55598163897db4c08872351f6cc">genderIndex</a>, <a class="code" href="classMWGui_1_1RaceDialog.html#a7c13c19092fc0aab8c0099c6fb4419a9">faceIndex</a>, <a class="code" href="classMWGui_1_1RaceDialog.html#ad5cdc7b7148d196dd3bff23744e1f5ac">hairIndex</a>;
-<a name="l00094"></a><a class="code" href="classMWGui_1_1RaceDialog.html#acf915b39d8c7e9769732a11b0c2731a4">00094</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a1868b5d6f96bd71467f64152681ca430">faceCount</a>, <a class="code" href="classMWGui_1_1RaceDialog.html#acf915b39d8c7e9769732a11b0c2731a4">hairCount</a>;
-<a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a07d90205a86995c33b295097f33d3f7f">00096</a>         std::string <a class="code" href="classMWGui_1_1RaceDialog.html#a07d90205a86995c33b295097f33d3f7f">currentRaceId</a>;
-<a name="l00097"></a>00097     };
-<a name="l00098"></a>00098 }
-<a name="l00099"></a>00099 <span class="preprocessor">#endif</span>
+<a name="l00078"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a04fbc21b26b95f9176f40a548399300c">00078</a>         MyGUI::CanvasPtr  <a class="code" href="classMWGui_1_1RaceDialog.html#a04fbc21b26b95f9176f40a548399300c">appearanceBox</a>;
+<a name="l00079"></a><a class="code" href="classMWGui_1_1RaceDialog.html#abddc3ba998f5bf4abb50eb810b46768b">00079</a>         MyGUI::ListPtr    <a class="code" href="classMWGui_1_1RaceDialog.html#abddc3ba998f5bf4abb50eb810b46768b">raceList</a>;
+<a name="l00080"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a1e33988631b4bd67aacb1f25f24d9805">00080</a>         MyGUI::HScrollPtr <a class="code" href="classMWGui_1_1RaceDialog.html#a1e33988631b4bd67aacb1f25f24d9805">headRotate</a>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a><a class="code" href="classMWGui_1_1RaceDialog.html#aa013d1f76220ac7496fd3c0ade29d5b6">00082</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1RaceDialog.html#aa013d1f76220ac7496fd3c0ade29d5b6">skillList</a>;
+<a name="l00083"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ac6da3e3d2517ff70fa3244c9a0f5ebba">00083</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1RaceDialog.html#ac6da3e3d2517ff70fa3244c9a0f5ebba">skillItems</a>;
+<a name="l00084"></a>00084 
+<a name="l00085"></a><a class="code" href="classMWGui_1_1RaceDialog.html#afbaca81c75da53819864f9373237e5f2">00085</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1RaceDialog.html#afbaca81c75da53819864f9373237e5f2">spellPowerList</a>;
+<a name="l00086"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ac5464469d2d1d4ab8ccac10ca7e38e1f">00086</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1RaceDialog.html#ac5464469d2d1d4ab8ccac10ca7e38e1f">spellPowerItems</a>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classMWGui_1_1RaceDialog.html#ad5cdc7b7148d196dd3bff23744e1f5ac">00088</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a9b86c55598163897db4c08872351f6cc">genderIndex</a>, <a class="code" href="classMWGui_1_1RaceDialog.html#a7c13c19092fc0aab8c0099c6fb4419a9">faceIndex</a>, <a class="code" href="classMWGui_1_1RaceDialog.html#ad5cdc7b7148d196dd3bff23744e1f5ac">hairIndex</a>;
+<a name="l00089"></a><a class="code" href="classMWGui_1_1RaceDialog.html#acf915b39d8c7e9769732a11b0c2731a4">00089</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1RaceDialog.html#a1868b5d6f96bd71467f64152681ca430">faceCount</a>, <a class="code" href="classMWGui_1_1RaceDialog.html#acf915b39d8c7e9769732a11b0c2731a4">hairCount</a>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classMWGui_1_1RaceDialog.html#a07d90205a86995c33b295097f33d3f7f">00091</a>         std::string <a class="code" href="classMWGui_1_1RaceDialog.html#a07d90205a86995c33b295097f33d3f7f">currentRaceId</a>;
+<a name="l00092"></a>00092     };
+<a name="l00093"></a>00093 }
+<a name="l00094"></a>00094 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

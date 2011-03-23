@@ -60,37 +60,50 @@
 <a name="l00033"></a>00033       : <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">mRoot</a>(NULL), <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>(NULL), <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>(NULL) {}
 <a name="l00034"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa41e75e5f8bb32afdd727ffa84da5773">00034</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa41e75e5f8bb32afdd727ffa84da5773">~OgreRenderer</a>() { <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>(); }
 <a name="l00035"></a>00035 
-<a name="l00038"></a>00038     <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#abd7a37569da094710d132bf5233e75c9">configure</a>(<span class="keywordtype">bool</span> showConfig,     <span class="comment">// Show config dialog box?</span>
-<a name="l00039"></a>00039                    <span class="keyword">const</span> std::string &amp;pluginCfg, <span class="comment">// plugin.cfg file</span>
-<a name="l00040"></a>00040                    <span class="keywordtype">bool</span> _logging);      <span class="comment">// Enable or disable logging</span>
-<a name="l00041"></a>00041 
-<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aaa614ab18db72c71e606010a468a0e57" title="Create a window with the given title.">createWindow</a>(<span class="keyword">const</span> std::string &amp;title);
-<a name="l00044"></a>00044 
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aba6454c3da098a7010b033c0a0e2a5c5" title="Set up the scene manager, camera and viewport.">createScene</a>(<span class="keyword">const</span> std::string camName=<span class="stringliteral">&quot;Camera&quot;</span>,<span class="comment">// Camera name</span>
-<a name="l00047"></a>00047                      <span class="keywordtype">float</span> fov=55,                      <span class="comment">// Field of view angle</span>
-<a name="l00048"></a>00048                      <span class="keywordtype">float</span> nearClip=5                   <span class="comment">// Near clip distance</span>
-<a name="l00049"></a>00049                      );
-<a name="l00050"></a>00050 
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>();
-<a name="l00053"></a>00053 
-<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6130d0c6d317fef7e173d8500fc232bd" title="Start the main rendering loop.">start</a>();
-<a name="l00056"></a>00056 
-<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9dee535f72fbf42a35cf6b17025994db" title="Write a screenshot to file.">screenshot</a>(<span class="keyword">const</span> std::string &amp;file);
-<a name="l00059"></a>00059 
-<a name="l00061"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962">00061</a>     Ogre::Root *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962" title="Get the Root.">getRoot</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">mRoot</a>; }
-<a name="l00062"></a>00062 
-<a name="l00064"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122">00064</a>     Ogre::RenderWindow *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122" title="Get the rendering window.">getWindow</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>; }
-<a name="l00065"></a>00065 
-<a name="l00067"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277">00067</a>     Ogre::SceneManager *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277" title="Get the scene manager.">getScene</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>; }
-<a name="l00068"></a>00068 
-<a name="l00070"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0">00070</a>     Ogre::Camera *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0" title="Camera.">getCamera</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>; }
-<a name="l00071"></a>00071 
-<a name="l00073"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f">00073</a>     Ogre::Viewport *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>; }
-<a name="l00074"></a>00074   };
-<a name="l00075"></a>00075 }}
-<a name="l00076"></a>00076 <span class="preprocessor">#endif</span>
+<a name="l00038"></a>00038     <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1dde5e84c3a6ebacae542af7c766425e">configure</a>(<span class="keywordtype">bool</span> showConfig,     <span class="comment">// Show config dialog box?</span>
+<a name="l00039"></a>00039                    <span class="keyword">const</span> std::string &amp;cfgPath, <span class="comment">// Path to directory where to store config files</span>
+<a name="l00040"></a>00040                    <span class="keyword">const</span> std::string &amp;logPath, <span class="comment">// Path to directory where to store log files</span>
+<a name="l00041"></a>00041                    <span class="keyword">const</span> std::string &amp;pluginCfg, <span class="comment">// plugin.cfg file</span>
+<a name="l00042"></a>00042                    <span class="keywordtype">bool</span> _logging);      <span class="comment">// Enable or disable logging</span>
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044     <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1dde5e84c3a6ebacae542af7c766425e">configure</a>(<span class="keywordtype">bool</span> showConfig,     <span class="comment">// Show config dialog box?</span>
+<a name="l00045"></a>00045                    <span class="keyword">const</span> std::string &amp;cfgPath, <span class="comment">// Path to directory where to store config files</span>
+<a name="l00046"></a>00046                    <span class="keyword">const</span> std::string &amp;pluginCfg, <span class="comment">// plugin.cfg file</span>
+<a name="l00047"></a>00047                    <span class="keywordtype">bool</span> _logging);      <span class="comment">// Enable or disable logging</span>
+<a name="l00048"></a>00048 
+<a name="l00051"></a>00051     <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1dde5e84c3a6ebacae542af7c766425e">configure</a>(<span class="keywordtype">bool</span> showConfig,     <span class="comment">// Show config dialog box?</span>
+<a name="l00052"></a>00052                    <span class="keyword">const</span> std::string &amp;pluginCfg, <span class="comment">// plugin.cfg file</span>
+<a name="l00053"></a>00053                    <span class="keywordtype">bool</span> _logging);      <span class="comment">// Enable or disable logging</span>
+<a name="l00054"></a>00054 
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aaa614ab18db72c71e606010a468a0e57" title="Create a window with the given title.">createWindow</a>(<span class="keyword">const</span> std::string &amp;title);
+<a name="l00057"></a>00057 
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aba6454c3da098a7010b033c0a0e2a5c5" title="Set up the scene manager, camera and viewport.">createScene</a>(<span class="keyword">const</span> std::string camName=<span class="stringliteral">&quot;Camera&quot;</span>,<span class="comment">// Camera name</span>
+<a name="l00060"></a>00060                      <span class="keywordtype">float</span> fov=55,                      <span class="comment">// Field of view angle</span>
+<a name="l00061"></a>00061                      <span class="keywordtype">float</span> nearClip=5                   <span class="comment">// Near clip distance</span>
+<a name="l00062"></a>00062                      );
+<a name="l00063"></a>00063 
+<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>();
+<a name="l00066"></a>00066 
+<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6130d0c6d317fef7e173d8500fc232bd" title="Start the main rendering loop.">start</a>();
+<a name="l00069"></a>00069 
+<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9dee535f72fbf42a35cf6b17025994db" title="Write a screenshot to file.">screenshot</a>(<span class="keyword">const</span> std::string &amp;file);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keywordtype">float</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa8d8a7014bf994b6ebdca899187671a8">getFPS</a>();
+<a name="l00074"></a>00074 
+<a name="l00076"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962">00076</a>     Ogre::Root *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962" title="Get the Root.">getRoot</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">mRoot</a>; }
+<a name="l00077"></a>00077 
+<a name="l00079"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122">00079</a>     Ogre::RenderWindow *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122" title="Get the rendering window.">getWindow</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>; }
+<a name="l00080"></a>00080 
+<a name="l00082"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277">00082</a>     Ogre::SceneManager *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277" title="Get the scene manager.">getScene</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>; }
+<a name="l00083"></a>00083 
+<a name="l00085"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0">00085</a>     Ogre::Camera *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0" title="Camera.">getCamera</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>; }
+<a name="l00086"></a>00086 
+<a name="l00088"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f">00088</a>     Ogre::Viewport *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>; }
+<a name="l00089"></a>00089   };
+<a name="l00090"></a>00090 }}
+<a name="l00091"></a>00091 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

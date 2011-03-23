@@ -57,68 +57,77 @@
 <a name="l00034"></a>00034       <span class="comment">// Fill with a given pixel value</span>
 <a name="l00035"></a>00035       <span class="keywordtype">void</span> <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ad02fb53ca92de4c7ffdb719fde870c9c">fill</a>(<span class="keywordtype">int</span> value);
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <span class="keyword">private</span>:
-<a name="l00038"></a>00038       <span class="comment">// The SDL surface</span>
-<a name="l00039"></a><a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ace4307550b0dd9b42b5d751201e19415">00039</a>       SDL_Surface* <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ace4307550b0dd9b42b5d751201e19415">surface</a>;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041       <span class="comment">// If true, delete this surface when the canvas is destructed</span>
-<a name="l00042"></a><a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a28b5fc8f80f260268ced6665804804e7">00042</a>       <span class="keywordtype">bool</span> <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a28b5fc8f80f260268ced6665804804e7">autoDel</a>;
-<a name="l00043"></a>00043     };
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html">00045</a>     <span class="keyword">class </span><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html">SDLDriver</a> : <span class="keyword">public</span> <a class="code" href="structMangle_1_1Rend2D_1_1Driver.html">Driver</a>
-<a name="l00046"></a>00046     {
-<a name="l00047"></a>00047       <span class="comment">// The main display surface</span>
-<a name="l00048"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">00048</a>       <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html" title="SDL-implementation of Sprite.">SDL_Sprite</a> *<a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>;
+<a name="l00037"></a>00037       <span class="comment">// Set one pixel</span>
+<a name="l00038"></a>00038       <span class="keywordtype">void</span> <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aae344cbbf69b1ce9b82c2f2404193772">pixel</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> value);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040       <span class="keyword">const</span> <a class="code" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a> *<a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#adb754d128676ff1d16b1061965180d55">lock</a>();
+<a name="l00041"></a>00041       <span class="keywordtype">void</span> <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#aa23cd5a90f0394ae27cd537c78eb55f8">unlock</a>();
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     <span class="keyword">private</span>:
+<a name="l00044"></a>00044       <span class="comment">// The SDL surface</span>
+<a name="l00045"></a><a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ace4307550b0dd9b42b5d751201e19415">00045</a>       SDL_Surface* <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ace4307550b0dd9b42b5d751201e19415">surface</a>;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047       <span class="comment">// Used for locking</span>
+<a name="l00048"></a><a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a131f991dbd70d733c8240f486e51596a">00048</a>       <a class="code" href="structMangle_1_1Rend2D_1_1SpriteData.html">SpriteData</a> <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a131f991dbd70d733c8240f486e51596a">data</a>;
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050       <span class="comment">// The actual display surface. May or may not be the same</span>
-<a name="l00051"></a>00051       <span class="comment">// surface pointed to by &#39;display&#39; above, depending on the</span>
-<a name="l00052"></a>00052       <span class="comment">// softDouble flag.</span>
-<a name="l00053"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9c9ac9ef52891f92babb923daa486a7c">00053</a>       SDL_Surface *<a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9c9ac9ef52891f92babb923daa486a7c">realDisp</a>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055       <span class="comment">// If true, we do software double buffering.</span>
-<a name="l00056"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a11ae10df4c93a8ed1519a8e8e1de1fc9">00056</a>       <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a11ae10df4c93a8ed1519a8e8e1de1fc9">softDouble</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <span class="keyword">public</span>:
-<a name="l00059"></a>00059       <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a88f576257e0ae7f85886566e82898c2c">SDLDriver</a>();
-<a name="l00060"></a>00060       <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af1e799af84ad4d29287a1a61bd2d8f48">~SDLDriver</a>();
-<a name="l00061"></a>00061 
-<a name="l00065"></a>00065       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a157c436fc1a6051118962400faa43480">setVideoMode</a>(<span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a76ee445e5009867d252137837dbd07e7" title="Get screen width.">width</a>, <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9100f3f43e34525eb4a2601e46e94dce" title="Get screen height.">height</a>, <span class="keywordtype">int</span> bpp=0, <span class="keywordtype">bool</span> fullscreen=<span class="keyword">false</span>);
+<a name="l00050"></a>00050       <span class="comment">// If true, delete this surface when the canvas is destructed</span>
+<a name="l00051"></a><a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a28b5fc8f80f260268ced6665804804e7">00051</a>       <span class="keywordtype">bool</span> <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a28b5fc8f80f260268ced6665804804e7">autoDel</a>;
+<a name="l00052"></a>00052     };
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html">00054</a>     <span class="keyword">class </span><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html">SDLDriver</a> : <span class="keyword">public</span> <a class="code" href="structMangle_1_1Rend2D_1_1Driver.html">Driver</a>
+<a name="l00055"></a>00055     {
+<a name="l00056"></a>00056       <span class="comment">// The main display surface</span>
+<a name="l00057"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">00057</a>       <a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html" title="SDL-implementation of Sprite.">SDL_Sprite</a> *<a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059       <span class="comment">// The actual display surface. May or may not be the same</span>
+<a name="l00060"></a>00060       <span class="comment">// surface pointed to by &#39;display&#39; above, depending on the</span>
+<a name="l00061"></a>00061       <span class="comment">// softDouble flag.</span>
+<a name="l00062"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9c9ac9ef52891f92babb923daa486a7c">00062</a>       SDL_Surface *<a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9c9ac9ef52891f92babb923daa486a7c">realDisp</a>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064       <span class="comment">// If true, we do software double buffering.</span>
+<a name="l00065"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a11ae10df4c93a8ed1519a8e8e1de1fc9">00065</a>       <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a11ae10df4c93a8ed1519a8e8e1de1fc9">softDouble</a>;
 <a name="l00066"></a>00066 
-<a name="l00068"></a>00068       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a8c47a57cd266e09588a5fbddab5acdea" title="Update the screen.">update</a>();
-<a name="l00069"></a>00069 
-<a name="l00072"></a>00072       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a81d54b29ee1a050bbc28b8e149c29372">setWindowTitle</a>(<span class="keyword">const</span> std::string &amp;title,
-<a name="l00073"></a>00073                           <span class="keyword">const</span> std::string &amp;icon);
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075       <span class="comment">// Include overloads from our Glorious parent</span>
-<a name="l00076"></a>00076       <span class="keyword">using</span> <a class="code" href="structMangle_1_1Rend2D_1_1Driver.html#ad1fefce348d5fe725e234d6da4f9b4d0">Driver::setWindowTitle</a>;
-<a name="l00077"></a>00077 
-<a name="l00079"></a>00079       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af441d7e742bcda7ccfade53d96cd8d99" title="Load sprite from an image file, using SDL_image.">loadImage</a>(<span class="keyword">const</span> std::string &amp;file);
-<a name="l00080"></a>00080 
-<a name="l00083"></a>00083       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af441d7e742bcda7ccfade53d96cd8d99" title="Load sprite from an image file, using SDL_image.">loadImage</a>(SDL_RWops *src, <span class="keywordtype">bool</span> autoFree=<span class="keyword">false</span>);
-<a name="l00084"></a>00084 
-<a name="l00087"></a>00087       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af441d7e742bcda7ccfade53d96cd8d99" title="Load sprite from an image file, using SDL_image.">loadImage</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <span class="keywordtype">size_t</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>);
-<a name="l00088"></a>00088 
-<a name="l00090"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76">00090</a>       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76" title="Set gamma value.">setGamma</a>(<span class="keywordtype">float</span> gamma) { <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76" title="Set gamma value.">setGamma</a>(gamma,gamma,gamma); }
-<a name="l00091"></a>00091 
-<a name="l00093"></a>00093       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76" title="Set gamma value.">setGamma</a>(<span class="keywordtype">float</span> red, <span class="keywordtype">float</span> green, <span class="keywordtype">float</span> blue);
-<a name="l00094"></a>00094 
-<a name="l00096"></a>00096       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#ad347c0c56020c01c91e3380629e152fe" title="Convert an existing SDL surface into a sprite.">spriteFromSDL</a>(SDL_Surface *surf, <span class="keywordtype">bool</span> autoFree = <span class="keyword">true</span>);
+<a name="l00067"></a>00067     <span class="keyword">public</span>:
+<a name="l00068"></a>00068       <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a88f576257e0ae7f85886566e82898c2c">SDLDriver</a>();
+<a name="l00069"></a>00069       <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af1e799af84ad4d29287a1a61bd2d8f48">~SDLDriver</a>();
+<a name="l00070"></a>00070 
+<a name="l00074"></a>00074       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a157c436fc1a6051118962400faa43480">setVideoMode</a>(<span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a76ee445e5009867d252137837dbd07e7" title="Get screen width.">width</a>, <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9100f3f43e34525eb4a2601e46e94dce" title="Get screen height.">height</a>, <span class="keywordtype">int</span> bpp=0, <span class="keywordtype">bool</span> fullscreen=<span class="keyword">false</span>);
+<a name="l00075"></a>00075 
+<a name="l00077"></a>00077       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a8c47a57cd266e09588a5fbddab5acdea" title="Update the screen.">update</a>();
+<a name="l00078"></a>00078 
+<a name="l00081"></a>00081       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a81d54b29ee1a050bbc28b8e149c29372">setWindowTitle</a>(<span class="keyword">const</span> std::string &amp;title,
+<a name="l00082"></a>00082                           <span class="keyword">const</span> std::string &amp;icon);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084       <span class="comment">// Include overloads from our Glorious parent</span>
+<a name="l00085"></a>00085       <span class="keyword">using</span> <a class="code" href="structMangle_1_1Rend2D_1_1Driver.html#ad1fefce348d5fe725e234d6da4f9b4d0">Driver::setWindowTitle</a>;
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af441d7e742bcda7ccfade53d96cd8d99" title="Load sprite from an image file, using SDL_image.">loadImage</a>(<span class="keyword">const</span> std::string &amp;file);
+<a name="l00089"></a>00089 
+<a name="l00092"></a>00092       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af441d7e742bcda7ccfade53d96cd8d99" title="Load sprite from an image file, using SDL_image.">loadImage</a>(SDL_RWops *src, <span class="keywordtype">bool</span> autoFree=<span class="keyword">false</span>);
+<a name="l00093"></a>00093 
+<a name="l00096"></a>00096       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#af441d7e742bcda7ccfade53d96cd8d99" title="Load sprite from an image file, using SDL_image.">loadImage</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, <span class="keywordtype">size_t</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>);
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098       <span class="comment">// Get width and height</span>
-<a name="l00099"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a76ee445e5009867d252137837dbd07e7">00099</a>       <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a76ee445e5009867d252137837dbd07e7" title="Get screen width.">width</a>()  { <span class="keywordflow">return</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a> ? <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>-&gt;<a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ab9896c8cfebdbb4401dc7cd647e58498">width</a>()  : 0; }
-<a name="l00100"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9100f3f43e34525eb4a2601e46e94dce">00100</a>       <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9100f3f43e34525eb4a2601e46e94dce" title="Get screen height.">height</a>() { <span class="keywordflow">return</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a> ? <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>-&gt;<a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a91e858f668eb1862d983be96648bfaed">height</a>() : 0; }
-<a name="l00101"></a>00101 
-<a name="l00103"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a942180658c4526968db05e1eb626fe04">00103</a>       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a> *<a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a942180658c4526968db05e1eb626fe04" title="Get the screen sprite.">getScreen</a>() { <span class="keywordflow">return</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>; }
-<a name="l00104"></a>00104 
-<a name="l00108"></a>00108       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a17f67c31c4bdbb623d7f1d7ef02d7043">sleep</a>(<span class="keywordtype">int</span> ms);
-<a name="l00109"></a>00109 
-<a name="l00112"></a>00112       <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#adf165bdae8d07815bea462c564cf4a7f">ticks</a>();
-<a name="l00113"></a>00113     };
-<a name="l00114"></a>00114   }
-<a name="l00115"></a>00115 }
-<a name="l00116"></a>00116 <span class="preprocessor">#endif</span>
+<a name="l00099"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76">00099</a>       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76" title="Set gamma value.">setGamma</a>(<span class="keywordtype">float</span> gamma) { <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76" title="Set gamma value.">setGamma</a>(gamma,gamma,gamma); }
+<a name="l00100"></a>00100 
+<a name="l00102"></a>00102       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a2d2bc673cb8a0d73f4dc5f45f7d6cf76" title="Set gamma value.">setGamma</a>(<span class="keywordtype">float</span> red, <span class="keywordtype">float</span> green, <span class="keywordtype">float</span> blue);
+<a name="l00103"></a>00103 
+<a name="l00105"></a>00105       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a>* <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#ad347c0c56020c01c91e3380629e152fe" title="Convert an existing SDL surface into a sprite.">spriteFromSDL</a>(SDL_Surface *surf, <span class="keywordtype">bool</span> autoFree = <span class="keyword">true</span>);
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107       <span class="comment">// Get width and height</span>
+<a name="l00108"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a76ee445e5009867d252137837dbd07e7">00108</a>       <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a76ee445e5009867d252137837dbd07e7" title="Get screen width.">width</a>()  { <span class="keywordflow">return</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a> ? <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>-&gt;<a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#ab9896c8cfebdbb4401dc7cd647e58498">width</a>()  : 0; }
+<a name="l00109"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9100f3f43e34525eb4a2601e46e94dce">00109</a>       <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a9100f3f43e34525eb4a2601e46e94dce" title="Get screen height.">height</a>() { <span class="keywordflow">return</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a> ? <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>-&gt;<a class="code" href="structMangle_1_1Rend2D_1_1SDL__Sprite.html#a91e858f668eb1862d983be96648bfaed">height</a>() : 0; }
+<a name="l00110"></a>00110 
+<a name="l00112"></a><a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a942180658c4526968db05e1eb626fe04">00112</a>       <a class="code" href="structMangle_1_1Rend2D_1_1Sprite.html">Sprite</a> *<a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a942180658c4526968db05e1eb626fe04" title="Get the screen sprite.">getScreen</a>() { <span class="keywordflow">return</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a57e96fc43f257eb2f369a8b2cebbc89b">display</a>; }
+<a name="l00113"></a>00113 
+<a name="l00117"></a>00117       <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#a17f67c31c4bdbb623d7f1d7ef02d7043">sleep</a>(<span class="keywordtype">int</span> ms);
+<a name="l00118"></a>00118 
+<a name="l00121"></a>00121       <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMangle_1_1Rend2D_1_1SDLDriver.html#adf165bdae8d07815bea462c564cf4a7f">ticks</a>();
+<a name="l00122"></a>00122     };
+<a name="l00123"></a>00123   }
+<a name="l00124"></a>00124 }
+<a name="l00125"></a>00125 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

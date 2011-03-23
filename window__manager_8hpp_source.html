@@ -62,231 +62,250 @@
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 <span class="keyword">namespace </span>MWGui
 <a name="l00046"></a>00046 {
-<a name="l00047"></a>00047   <span class="keyword">class </span>HUD;
-<a name="l00048"></a>00048   <span class="keyword">class </span>MapWindow;
-<a name="l00049"></a>00049   <span class="keyword">class </span>MainMenu;
-<a name="l00050"></a>00050   <span class="keyword">class </span>StatsWindow;
-<a name="l00051"></a>00051   <span class="keyword">class </span>InventoryWindow;
-<a name="l00052"></a>00052   <span class="keyword">class </span>Console;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054   <span class="keyword">class </span>TextInputDialog;
-<a name="l00055"></a>00055   <span class="keyword">class </span>InfoBoxDialog;
-<a name="l00056"></a>00056   <span class="keyword">class </span>RaceDialog;
-<a name="l00057"></a>00057   <span class="keyword">class </span>DialogueWindow;
-<a name="l00058"></a>00058   <span class="keyword">class </span>ClassChoiceDialog;
-<a name="l00059"></a>00059   <span class="keyword">class </span>GenerateClassResultDialog;
-<a name="l00060"></a>00060   <span class="keyword">class </span>PickClassDialog;
-<a name="l00061"></a>00061   <span class="keyword">class </span>CreateClassDialog;
-<a name="l00062"></a>00062   <span class="keyword">class </span>BirthDialog;
-<a name="l00063"></a>00063   <span class="keyword">class </span>ReviewDialog;
-<a name="l00064"></a>00064 
-<a name="l00065"></a><a class="code" href="classMWGui_1_1WindowManager.html">00065</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>
-<a name="l00066"></a>00066   {
-<a name="l00067"></a>00067   <span class="keyword">public</span>:
-<a name="l00068"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">00068</a>     <span class="keyword">typedef</span> std::pair&lt;std::string, int&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">Faction</a>;
-<a name="l00069"></a><a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">00069</a>     <span class="keyword">typedef</span> std::vector&lt;Faction&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">FactionList</a>;
-<a name="l00070"></a><a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">00070</a>     <span class="keyword">typedef</span> std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072   <span class="keyword">private</span>:
-<a name="l00073"></a><a class="code" href="classMWGui_1_1WindowManager.html#a965fadef0300e227eec22da6f6982914">00073</a>     <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#a965fadef0300e227eec22da6f6982914">environment</a>;
-<a name="l00074"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1db26e24efa346dd00f770f565b148f7">00074</a>     <a class="code" href="classMWGui_1_1HUD.html">HUD</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a1db26e24efa346dd00f770f565b148f7">hud</a>;
-<a name="l00075"></a><a class="code" href="classMWGui_1_1WindowManager.html#a3e9acc380783f5315b0d32abbc106103">00075</a>     <a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a3e9acc380783f5315b0d32abbc106103">map</a>;
-<a name="l00076"></a><a class="code" href="classMWGui_1_1WindowManager.html#a82197e648388690b77bb7827eb2d2b9a">00076</a>     <a class="code" href="classMWGui_1_1MainMenu.html">MainMenu</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a82197e648388690b77bb7827eb2d2b9a">menu</a>;
-<a name="l00077"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa96acabd7e9e0168cf82ac273d8a6a51">00077</a>     <a class="code" href="classMWGui_1_1StatsWindow.html">StatsWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#aa96acabd7e9e0168cf82ac273d8a6a51">stats</a>;
-<a name="l00078"></a>00078 <span class="preprocessor">#if 0</span>
-<a name="l00079"></a>00079 <span class="preprocessor"></span>    InventoryWindow *inventory;
-<a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
-<a name="l00081"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab649eefeb434b7a55a054aba36bdd4ef">00081</a> <span class="preprocessor"></span>    <a class="code" href="classMWGui_1_1Console.html">Console</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ab649eefeb434b7a55a054aba36bdd4ef">console</a>;
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083     <span class="comment">// Character creation</span>
-<a name="l00084"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac92ff048f7711cfd99fc8354e8ce726f">00084</a>     <a class="code" href="classMWGui_1_1TextInputDialog.html">TextInputDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ac92ff048f7711cfd99fc8354e8ce726f">nameDialog</a>;
-<a name="l00085"></a><a class="code" href="classMWGui_1_1WindowManager.html#acbb672beebc81238332d066fadd4fc9b">00085</a>     <a class="code" href="classMWGui_1_1RaceDialog.html">RaceDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#acbb672beebc81238332d066fadd4fc9b">raceDialog</a>;
-<a name="l00086"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2d058178019c72c88c4294973d3e5db5">00086</a>     <a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a2d058178019c72c88c4294973d3e5db5">dialogueWindow</a>;
-<a name="l00087"></a><a class="code" href="classMWGui_1_1WindowManager.html#a30593174977993f672f22a714e82e342">00087</a>     <a class="code" href="classMWGui_1_1ClassChoiceDialog.html">ClassChoiceDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a30593174977993f672f22a714e82e342">classChoiceDialog</a>;
-<a name="l00088"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9e341e631c0d020baf9d1f24c4b16253">00088</a>     <a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a9e341e631c0d020baf9d1f24c4b16253">generateClassQuestionDialog</a>;
-<a name="l00089"></a><a class="code" href="classMWGui_1_1WindowManager.html#acba3b47b5489912b7982396d7c014815">00089</a>     <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">GenerateClassResultDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#acba3b47b5489912b7982396d7c014815">generateClassResultDialog</a>;
-<a name="l00090"></a><a class="code" href="classMWGui_1_1WindowManager.html#af0dada50a1836a9a669ed1a2be886fdd">00090</a>     <a class="code" href="classMWGui_1_1PickClassDialog.html">PickClassDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af0dada50a1836a9a669ed1a2be886fdd">pickClassDialog</a>;
-<a name="l00091"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9761c2d8032cf8f09f1069fa329d73d1">00091</a>     <a class="code" href="classMWGui_1_1CreateClassDialog.html">CreateClassDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a9761c2d8032cf8f09f1069fa329d73d1">createClassDialog</a>;
-<a name="l00092"></a><a class="code" href="classMWGui_1_1WindowManager.html#a44d1fb39ddf7be9f197027a22b19d8f6">00092</a>     <a class="code" href="classMWGui_1_1BirthDialog.html">BirthDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a44d1fb39ddf7be9f197027a22b19d8f6">birthSignDialog</a>;
-<a name="l00093"></a><a class="code" href="classMWGui_1_1WindowManager.html#a55ab37405e1e6c941310c6ccb19a51db">00093</a>     <a class="code" href="classMWGui_1_1ReviewDialog.html">ReviewDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a55ab37405e1e6c941310c6ccb19a51db">reviewDialog</a>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095     <span class="comment">// Which dialogs have been shown, controls back/next/ok buttons</span>
-<a name="l00096"></a><a class="code" href="classMWGui_1_1WindowManager.html#a159790a323ae8168122ed7a47de0aa6d">00096</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a159790a323ae8168122ed7a47de0aa6d">nameChosen</a>;
-<a name="l00097"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4ddd03216eff17d1df6217ee202666fb">00097</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4ddd03216eff17d1df6217ee202666fb">raceChosen</a>;
-<a name="l00098"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae9e9b7e61ca680e77ab72d0e81136cc8">00098</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae9e9b7e61ca680e77ab72d0e81136cc8">classChosen</a>;
-<a name="l00099"></a><a class="code" href="classMWGui_1_1WindowManager.html#aed5d010e990e704e95535d77a1dc6e9a">00099</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aed5d010e990e704e95535d77a1dc6e9a">birthSignChosen</a>;
-<a name="l00100"></a>00100     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aba4601cd372e32940b7728cba966f524" title="If true then any click on Next will cause the summary to be shown.">reviewNext</a>;
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103     <span class="comment">// Keeps track of current step in Generate Class dialogs</span>
-<a name="l00104"></a><a class="code" href="classMWGui_1_1WindowManager.html#aee1ef7198dc2d7d7f6e4026695742733">00104</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1WindowManager.html#aee1ef7198dc2d7d7f6e4026695742733">generateClassStep</a>;
-<a name="l00105"></a>00105     <span class="comment">// A counter for each specialization which is increased when an answer is chosen, in order: Stealth, Combat, Magic</span>
-<a name="l00106"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad1411fdcfd6a258d795eb5f39c32f2ff">00106</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad1411fdcfd6a258d795eb5f39c32f2ff">generateClassSpecializations</a>[3];
-<a name="l00107"></a><a class="code" href="classMWGui_1_1WindowManager.html#a11bd02389a03cfabc901558186154659">00107</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a11bd02389a03cfabc901558186154659">generateClass</a>;
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109     <span class="comment">// Various stats about player as needed by window manager</span>
-<a name="l00110"></a><a class="code" href="classMWGui_1_1WindowManager.html#af77ed2e47965a0113fc824fbfe9bff1f">00110</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#af77ed2e47965a0113fc824fbfe9bff1f">playerName</a>;
-<a name="l00111"></a><a class="code" href="classMWGui_1_1WindowManager.html#a09defa73d17becc197b19fd7701a3ab4">00111</a>     <a class="code" href="structESM_1_1Class.html">ESM::Class</a> <a class="code" href="classMWGui_1_1WindowManager.html#a09defa73d17becc197b19fd7701a3ab4">playerClass</a>;
-<a name="l00112"></a><a class="code" href="classMWGui_1_1WindowManager.html#a608912c9205f5cc2463db2c3c0716473">00112</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a608912c9205f5cc2463db2c3c0716473">playerRaceId</a>, <a class="code" href="classMWGui_1_1WindowManager.html#ad05bfbbff88f898672ab72eebeff6787">playerBirthSignId</a>;
-<a name="l00113"></a><a class="code" href="classMWGui_1_1WindowManager.html#af818325c3f28787cbd174a1988cc520e">00113</a>     std::map&lt;ESM::Attribute::AttributeID, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#af818325c3f28787cbd174a1988cc520e">playerAttributes</a>;
-<a name="l00114"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac7fee10c0aa8479db46441f3fe33b31b">00114</a>     <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#af683917f5e607f574a88484974da24fc">playerMajorSkills</a>, <a class="code" href="classMWGui_1_1WindowManager.html#ac7fee10c0aa8479db46441f3fe33b31b">playerMinorSkills</a>;
-<a name="l00115"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4fff5a4f799ae3de3604333ad860dc7a">00115</a>     std::map&lt;ESM::Skill::SkillEnum, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a4fff5a4f799ae3de3604333ad860dc7a">playerSkillValues</a>;
-<a name="l00116"></a><a class="code" href="classMWGui_1_1WindowManager.html#a16b1b501a40bcc459870d621243cff7f">00116</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1WindowManager.html#a9cff981f07adf3b4ce01f2b5ad7d3736">playerHealth</a>, <a class="code" href="classMWGui_1_1WindowManager.html#a16b1b501a40bcc459870d621243cff7f">playerMagicka</a>, <a class="code" href="classMWGui_1_1WindowManager.html#a9b8eaa38dc73334ffe0d5f87d556b2ef">playerFatigue</a>;
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118     <span class="comment">// Gui</span>
-<a name="l00119"></a><a class="code" href="classMWGui_1_1WindowManager.html#a60063a9a2776af3a76b01ee06c160dcc">00119</a>     MyGUI::Gui *<a class="code" href="classMWGui_1_1WindowManager.html#a60063a9a2776af3a76b01ee06c160dcc">gui</a>;
-<a name="l00120"></a>00120 
-<a name="l00121"></a>00121     <span class="comment">// Current gui mode</span>
-<a name="l00122"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">00122</a>     <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">mode</a>;
-<a name="l00123"></a>00123 
-<a name="l00127"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2b8c69f4bb1ebdefb32b7010bd6a07b2">00127</a>     <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#a2b8c69f4bb1ebdefb32b7010bd6a07b2">nextMode</a>;
-<a name="l00132"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4d38f2d3b94479f3973c2efc969bf4ea">00132</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4d38f2d3b94479f3973c2efc969bf4ea">needModeChange</a>;
-<a name="l00133"></a>00133 
-<a name="l00134"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad4743af56d90be63ebe011a26384e8fc">00134</a>     std::vector&lt;OEngine::GUI::Layout*&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ad4743af56d90be63ebe011a26384e8fc">garbageDialogs</a>;
-<a name="l00135"></a>00135     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a69c0ade4914eda189d72623c6868cfe4">cleanupGarbage</a>();
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137     <span class="comment">// Currently shown windows in inventory mode</span>
-<a name="l00138"></a><a class="code" href="classMWGui_1_1WindowManager.html#a788326ee7724efa2991c8630a3c41809">00138</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#a788326ee7724efa2991c8630a3c41809">shown</a>;
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140     <span class="comment">/* Currently ALLOWED windows in inventory mode. This is used at</span>
-<a name="l00141"></a>00141 <span class="comment">       the start of the game, when windows are enabled one by one</span>
-<a name="l00142"></a>00142 <span class="comment">       through script commands. You can manipulate this through using</span>
-<a name="l00143"></a>00143 <span class="comment">       allow() and disableAll().</span>
-<a name="l00144"></a>00144 <span class="comment"></span>
-<a name="l00145"></a>00145 <span class="comment">       The setting should also affect visibility of certain HUD</span>
-<a name="l00146"></a>00146 <span class="comment">       elements, but this is not done yet.</span>
-<a name="l00147"></a>00147 <span class="comment">     */</span>
-<a name="l00148"></a><a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">00148</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a>;
-<a name="l00149"></a>00149 
-<a name="l00150"></a>00150     <span class="comment">// Update visibility of all windows based on mode, shown and</span>
-<a name="l00151"></a>00151     <span class="comment">// allowed settings.</span>
-<a name="l00152"></a>00152     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
-<a name="l00153"></a>00153 
-<a name="l00154"></a>00154     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5b45be12caa73b327a2df33d9b201dae">setGuiMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> newMode);
-<a name="l00155"></a>00155 
-<a name="l00156"></a>00156   <span class="keyword">public</span>:
-<a name="l00158"></a>00158     <a class="code" href="classMWGui_1_1WindowManager.html#a1cefe7b3b5447567747c03c45057cce8" title="The constructor needs the main Gui object.">WindowManager</a>(MyGUI::Gui *_gui, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#a965fadef0300e227eec22da6f6982914">environment</a>,
-<a name="l00159"></a>00159         <span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions, <span class="keywordtype">bool</span> newGame);
-<a name="l00160"></a>00160     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1WindowManager.html#a19fd6e41c42760af82460d9851780d82">~WindowManager</a>();
-<a name="l00161"></a>00161 
-<a name="l00167"></a>00167     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2f4cf0c33b385871bcd8daec214f526f">update</a>();
-<a name="l00168"></a>00168 
-<a name="l00169"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1daefb8ae0fb841298ed580914735cd0">00169</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1daefb8ae0fb841298ed580914735cd0">setMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> newMode)
-<a name="l00170"></a>00170     {
-<a name="l00171"></a>00171       <span class="keywordflow">if</span> (newMode==<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249aa5c130462b03249c0d66e5857ef654262">GM_Inventory</a> &amp;&amp; <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a>==<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35ddab6f7e638bcd97beec14915ceccafe53b">GW_None</a>)
-<a name="l00172"></a>00172         <span class="keywordflow">return</span>;
-<a name="l00173"></a>00173 
-<a name="l00174"></a>00174       <a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">mode</a> = newMode;
-<a name="l00175"></a>00175       <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
-<a name="l00176"></a>00176     }
-<a name="l00177"></a>00177     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a275ee6395fd00d307dd304933fada6a0">setNextMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> newMode);
-<a name="l00178"></a>00178 
-<a name="l00179"></a><a class="code" href="classMWGui_1_1WindowManager.html#a89a289a7416fa54aaf5d83163444c1b7">00179</a>     <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#a89a289a7416fa54aaf5d83163444c1b7">getMode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">mode</a>; }
-<a name="l00180"></a>00180 
-<a name="l00181"></a>00181     <span class="comment">// Everything that is not game mode is considered &quot;gui mode&quot;</span>
-<a name="l00182"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">00182</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">isGuiMode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#a89a289a7416fa54aaf5d83163444c1b7">getMode</a>() != <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249aa47ebbe9aca6c8e02ecb23a5d83991d71">GM_Game</a>; }
-<a name="l00183"></a>00183 
-<a name="l00184"></a>00184     <span class="comment">// Disallow all inventory mode windows</span>
-<a name="l00185"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d">00185</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d">disallowAll</a>()
-<a name="l00186"></a>00186     {
-<a name="l00187"></a>00187       <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a> = <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35ddab6f7e638bcd97beec14915ceccafe53b">GW_None</a>;
-<a name="l00188"></a>00188       <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
-<a name="l00189"></a>00189     }
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191     <span class="comment">// Allow one or more windows</span>
-<a name="l00192"></a><a class="code" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5">00192</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5">allow</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd)
-<a name="l00193"></a>00193     {
-<a name="l00194"></a>00194       <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a> = (<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a>)(<a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a> | wnd);
-<a name="l00195"></a>00195       <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
-<a name="l00196"></a>00196     }
-<a name="l00197"></a>00197 
-<a name="l00198"></a><a class="code" href="classMWGui_1_1WindowManager.html#a3ad3ba58929502ca7a0a6af9132c416f">00198</a>     MyGUI::Gui* <a class="code" href="classMWGui_1_1WindowManager.html#a3ad3ba58929502ca7a0a6af9132c416f">getGui</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#a60063a9a2776af3a76b01ee06c160dcc">gui</a>; }
-<a name="l00199"></a>00199 
-<a name="l00200"></a>00200     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
-<a name="l00202"></a>00202 
-<a name="l00203"></a>00203     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
+<a name="l00047"></a>00047   <span class="keyword">class </span>WindowBase;
+<a name="l00048"></a>00048   <span class="keyword">class </span>HUD;
+<a name="l00049"></a>00049   <span class="keyword">class </span>MapWindow;
+<a name="l00050"></a>00050   <span class="keyword">class </span>MainMenu;
+<a name="l00051"></a>00051   <span class="keyword">class </span>StatsWindow;
+<a name="l00052"></a>00052   <span class="keyword">class </span>InventoryWindow;
+<a name="l00053"></a>00053   <span class="keyword">class </span>Console;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055   <span class="keyword">class </span>TextInputDialog;
+<a name="l00056"></a>00056   <span class="keyword">class </span>InfoBoxDialog;
+<a name="l00057"></a>00057   <span class="keyword">class </span>RaceDialog;
+<a name="l00058"></a>00058   <span class="keyword">class </span>DialogueWindow;
+<a name="l00059"></a>00059   <span class="keyword">class </span>ClassChoiceDialog;
+<a name="l00060"></a>00060   <span class="keyword">class </span>GenerateClassResultDialog;
+<a name="l00061"></a>00061   <span class="keyword">class </span>PickClassDialog;
+<a name="l00062"></a>00062   <span class="keyword">class </span>CreateClassDialog;
+<a name="l00063"></a>00063   <span class="keyword">class </span>BirthDialog;
+<a name="l00064"></a>00064   <span class="keyword">class </span>ReviewDialog;
+<a name="l00065"></a>00065 
+<a name="l00066"></a><a class="code" href="structMWGui_1_1ClassPoint.html">00066</a>   <span class="keyword">struct </span><a class="code" href="structMWGui_1_1ClassPoint.html">ClassPoint</a>
+<a name="l00067"></a>00067   {
+<a name="l00068"></a><a class="code" href="structMWGui_1_1ClassPoint.html#ad1e173c14711094683e0cbdd0a64ffc1">00068</a>       <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structMWGui_1_1ClassPoint.html#ad1e173c14711094683e0cbdd0a64ffc1">id</a>;
+<a name="l00069"></a>00069       <span class="comment">// Specialization points to match, in order: Stealth, Combat, Magic</span>
+<a name="l00070"></a>00070       <span class="comment">// Note: Order is taken from http://www.uesp.net/wiki/Morrowind:Class_Quiz</span>
+<a name="l00071"></a><a class="code" href="structMWGui_1_1ClassPoint.html#a8f031a1e188d393433ec27e5b8a285ae">00071</a>       <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structMWGui_1_1ClassPoint.html#a8f031a1e188d393433ec27e5b8a285ae">points</a>[3];
+<a name="l00072"></a>00072   };
+<a name="l00073"></a>00073 
+<a name="l00074"></a><a class="code" href="classMWGui_1_1WindowManager.html">00074</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>
+<a name="l00075"></a>00075   {
+<a name="l00076"></a>00076   <span class="keyword">public</span>:
+<a name="l00077"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">00077</a>     <span class="keyword">typedef</span> std::pair&lt;std::string, int&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">Faction</a>;
+<a name="l00078"></a><a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">00078</a>     <span class="keyword">typedef</span> std::vector&lt;Faction&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">FactionList</a>;
+<a name="l00079"></a><a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">00079</a>     <span class="keyword">typedef</span> std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a>;
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081   <span class="keyword">private</span>:
+<a name="l00082"></a><a class="code" href="classMWGui_1_1WindowManager.html#a965fadef0300e227eec22da6f6982914">00082</a>     <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#a965fadef0300e227eec22da6f6982914">environment</a>;
+<a name="l00083"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1db26e24efa346dd00f770f565b148f7">00083</a>     <a class="code" href="classMWGui_1_1HUD.html">HUD</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a1db26e24efa346dd00f770f565b148f7">hud</a>;
+<a name="l00084"></a><a class="code" href="classMWGui_1_1WindowManager.html#a3e9acc380783f5315b0d32abbc106103">00084</a>     <a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a3e9acc380783f5315b0d32abbc106103">map</a>;
+<a name="l00085"></a><a class="code" href="classMWGui_1_1WindowManager.html#a82197e648388690b77bb7827eb2d2b9a">00085</a>     <a class="code" href="classMWGui_1_1MainMenu.html">MainMenu</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a82197e648388690b77bb7827eb2d2b9a">menu</a>;
+<a name="l00086"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa96acabd7e9e0168cf82ac273d8a6a51">00086</a>     <a class="code" href="classMWGui_1_1StatsWindow.html">StatsWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#aa96acabd7e9e0168cf82ac273d8a6a51">stats</a>;
+<a name="l00087"></a>00087 <span class="preprocessor">#if 0</span>
+<a name="l00088"></a>00088 <span class="preprocessor"></span>    InventoryWindow *inventory;
+<a name="l00089"></a>00089 <span class="preprocessor">#endif</span>
+<a name="l00090"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab649eefeb434b7a55a054aba36bdd4ef">00090</a> <span class="preprocessor"></span>    <a class="code" href="classMWGui_1_1Console.html">Console</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ab649eefeb434b7a55a054aba36bdd4ef">console</a>;
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <span class="comment">// Character creation</span>
+<a name="l00093"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac92ff048f7711cfd99fc8354e8ce726f">00093</a>     <a class="code" href="classMWGui_1_1TextInputDialog.html">TextInputDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ac92ff048f7711cfd99fc8354e8ce726f">nameDialog</a>;
+<a name="l00094"></a><a class="code" href="classMWGui_1_1WindowManager.html#acbb672beebc81238332d066fadd4fc9b">00094</a>     <a class="code" href="classMWGui_1_1RaceDialog.html">RaceDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#acbb672beebc81238332d066fadd4fc9b">raceDialog</a>;
+<a name="l00095"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2d058178019c72c88c4294973d3e5db5">00095</a>     <a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a2d058178019c72c88c4294973d3e5db5">dialogueWindow</a>;
+<a name="l00096"></a><a class="code" href="classMWGui_1_1WindowManager.html#a30593174977993f672f22a714e82e342">00096</a>     <a class="code" href="classMWGui_1_1ClassChoiceDialog.html">ClassChoiceDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a30593174977993f672f22a714e82e342">classChoiceDialog</a>;
+<a name="l00097"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9e341e631c0d020baf9d1f24c4b16253">00097</a>     <a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a9e341e631c0d020baf9d1f24c4b16253">generateClassQuestionDialog</a>;
+<a name="l00098"></a><a class="code" href="classMWGui_1_1WindowManager.html#acba3b47b5489912b7982396d7c014815">00098</a>     <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">GenerateClassResultDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#acba3b47b5489912b7982396d7c014815">generateClassResultDialog</a>;
+<a name="l00099"></a><a class="code" href="classMWGui_1_1WindowManager.html#af0dada50a1836a9a669ed1a2be886fdd">00099</a>     <a class="code" href="classMWGui_1_1PickClassDialog.html">PickClassDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af0dada50a1836a9a669ed1a2be886fdd">pickClassDialog</a>;
+<a name="l00100"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9761c2d8032cf8f09f1069fa329d73d1">00100</a>     <a class="code" href="classMWGui_1_1CreateClassDialog.html">CreateClassDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a9761c2d8032cf8f09f1069fa329d73d1">createClassDialog</a>;
+<a name="l00101"></a><a class="code" href="classMWGui_1_1WindowManager.html#a44d1fb39ddf7be9f197027a22b19d8f6">00101</a>     <a class="code" href="classMWGui_1_1BirthDialog.html">BirthDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a44d1fb39ddf7be9f197027a22b19d8f6">birthSignDialog</a>;
+<a name="l00102"></a><a class="code" href="classMWGui_1_1WindowManager.html#a55ab37405e1e6c941310c6ccb19a51db">00102</a>     <a class="code" href="classMWGui_1_1ReviewDialog.html">ReviewDialog</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a55ab37405e1e6c941310c6ccb19a51db">reviewDialog</a>;
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="comment">// Keeps track of current step in Generate Class dialogs</span>
+<a name="l00105"></a><a class="code" href="classMWGui_1_1WindowManager.html#aee1ef7198dc2d7d7f6e4026695742733">00105</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1WindowManager.html#aee1ef7198dc2d7d7f6e4026695742733">generateClassStep</a>;
+<a name="l00106"></a>00106     <span class="comment">// A counter for each specialization which is increased when an answer is chosen, in order: Stealth, Combat, Magic</span>
+<a name="l00107"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad1411fdcfd6a258d795eb5f39c32f2ff">00107</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad1411fdcfd6a258d795eb5f39c32f2ff">generateClassSpecializations</a>[3];
+<a name="l00108"></a><a class="code" href="classMWGui_1_1WindowManager.html#a11bd02389a03cfabc901558186154659">00108</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a11bd02389a03cfabc901558186154659">generateClass</a>;
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110     <span class="comment">// Various stats about player as needed by window manager</span>
+<a name="l00111"></a><a class="code" href="classMWGui_1_1WindowManager.html#af77ed2e47965a0113fc824fbfe9bff1f">00111</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#af77ed2e47965a0113fc824fbfe9bff1f">playerName</a>;
+<a name="l00112"></a><a class="code" href="classMWGui_1_1WindowManager.html#a09defa73d17becc197b19fd7701a3ab4">00112</a>     <a class="code" href="structESM_1_1Class.html">ESM::Class</a> <a class="code" href="classMWGui_1_1WindowManager.html#a09defa73d17becc197b19fd7701a3ab4">playerClass</a>;
+<a name="l00113"></a><a class="code" href="classMWGui_1_1WindowManager.html#a608912c9205f5cc2463db2c3c0716473">00113</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a608912c9205f5cc2463db2c3c0716473">playerRaceId</a>, <a class="code" href="classMWGui_1_1WindowManager.html#ad05bfbbff88f898672ab72eebeff6787">playerBirthSignId</a>;
+<a name="l00114"></a><a class="code" href="classMWGui_1_1WindowManager.html#af818325c3f28787cbd174a1988cc520e">00114</a>     std::map&lt;ESM::Attribute::AttributeID, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#af818325c3f28787cbd174a1988cc520e">playerAttributes</a>;
+<a name="l00115"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac7fee10c0aa8479db46441f3fe33b31b">00115</a>     <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#af683917f5e607f574a88484974da24fc">playerMajorSkills</a>, <a class="code" href="classMWGui_1_1WindowManager.html#ac7fee10c0aa8479db46441f3fe33b31b">playerMinorSkills</a>;
+<a name="l00116"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4fff5a4f799ae3de3604333ad860dc7a">00116</a>     std::map&lt;ESM::Skill::SkillEnum, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a4fff5a4f799ae3de3604333ad860dc7a">playerSkillValues</a>;
+<a name="l00117"></a><a class="code" href="classMWGui_1_1WindowManager.html#a16b1b501a40bcc459870d621243cff7f">00117</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1WindowManager.html#a9cff981f07adf3b4ce01f2b5ad7d3736">playerHealth</a>, <a class="code" href="classMWGui_1_1WindowManager.html#a16b1b501a40bcc459870d621243cff7f">playerMagicka</a>, <a class="code" href="classMWGui_1_1WindowManager.html#a9b8eaa38dc73334ffe0d5f87d556b2ef">playerFatigue</a>;
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119     <span class="comment">// Gui</span>
+<a name="l00120"></a><a class="code" href="classMWGui_1_1WindowManager.html#a60063a9a2776af3a76b01ee06c160dcc">00120</a>     MyGUI::Gui *<a class="code" href="classMWGui_1_1WindowManager.html#a60063a9a2776af3a76b01ee06c160dcc">gui</a>;
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     <span class="comment">// Current gui mode</span>
+<a name="l00123"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">00123</a>     <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">mode</a>;
+<a name="l00124"></a>00124 
+<a name="l00128"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2b8c69f4bb1ebdefb32b7010bd6a07b2">00128</a>     <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#a2b8c69f4bb1ebdefb32b7010bd6a07b2">nextMode</a>;
+<a name="l00133"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4d38f2d3b94479f3973c2efc969bf4ea">00133</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4d38f2d3b94479f3973c2efc969bf4ea">needModeChange</a>;
+<a name="l00134"></a>00134 
+<a name="l00135"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad4743af56d90be63ebe011a26384e8fc">00135</a>     std::vector&lt;OEngine::GUI::Layout*&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ad4743af56d90be63ebe011a26384e8fc">garbageDialogs</a>;
+<a name="l00136"></a>00136     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a69c0ade4914eda189d72623c6868cfe4">cleanupGarbage</a>();
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     <span class="comment">// Currently shown windows in inventory mode</span>
+<a name="l00139"></a><a class="code" href="classMWGui_1_1WindowManager.html#a788326ee7724efa2991c8630a3c41809">00139</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#a788326ee7724efa2991c8630a3c41809">shown</a>;
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141     <span class="comment">/* Currently ALLOWED windows in inventory mode. This is used at</span>
+<a name="l00142"></a>00142 <span class="comment">       the start of the game, when windows are enabled one by one</span>
+<a name="l00143"></a>00143 <span class="comment">       through script commands. You can manipulate this through using</span>
+<a name="l00144"></a>00144 <span class="comment">       allow() and disableAll().</span>
+<a name="l00145"></a>00145 <span class="comment"></span>
+<a name="l00146"></a>00146 <span class="comment">       The setting should also affect visibility of certain HUD</span>
+<a name="l00147"></a>00147 <span class="comment">       elements, but this is not done yet.</span>
+<a name="l00148"></a>00148 <span class="comment">     */</span>
+<a name="l00149"></a><a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">00149</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a>;
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151     <span class="comment">// Update visibility of all windows based on mode, shown and</span>
+<a name="l00152"></a>00152     <span class="comment">// allowed settings.</span>
+<a name="l00153"></a>00153     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5b45be12caa73b327a2df33d9b201dae">setGuiMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> newMode);
+<a name="l00156"></a>00156 
+<a name="l00157"></a><a class="code" href="classMWGui_1_1WindowManager.html#a72c760523193f11ecadf4bdf316d918e">00157</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a72c760523193f11ecadf4bdf316d918e">showFPSCounter</a>;
+<a name="l00158"></a><a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">00158</a>     <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">mFPS</a>;
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160   <span class="keyword">public</span>:
+<a name="l00162"></a>00162     <a class="code" href="classMWGui_1_1WindowManager.html#a9c256059dd2412b3f2b3c8e15c447d40" title="The constructor needs the main Gui object.">WindowManager</a>(MyGUI::Gui *_gui, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#a965fadef0300e227eec22da6f6982914">environment</a>,
+<a name="l00163"></a>00163         <span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions, <span class="keywordtype">bool</span> fpsSwitch, <span class="keywordtype">bool</span> newGame);
+<a name="l00164"></a>00164     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1WindowManager.html#a19fd6e41c42760af82460d9851780d82">~WindowManager</a>();
+<a name="l00165"></a>00165 
+<a name="l00171"></a>00171     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2f4cf0c33b385871bcd8daec214f526f">update</a>();
+<a name="l00172"></a>00172 
+<a name="l00173"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1daefb8ae0fb841298ed580914735cd0">00173</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1daefb8ae0fb841298ed580914735cd0">setMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> newMode)
+<a name="l00174"></a>00174     {
+<a name="l00175"></a>00175       <span class="keywordflow">if</span> (newMode==<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249aa5c130462b03249c0d66e5857ef654262">GM_Inventory</a> &amp;&amp; <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a>==<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35ddab6f7e638bcd97beec14915ceccafe53b">GW_None</a>)
+<a name="l00176"></a>00176         <span class="keywordflow">return</span>;
+<a name="l00177"></a>00177 
+<a name="l00178"></a>00178       <a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">mode</a> = newMode;
+<a name="l00179"></a>00179       <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
+<a name="l00180"></a>00180     }
+<a name="l00181"></a>00181     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a275ee6395fd00d307dd304933fada6a0">setNextMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> newMode);
+<a name="l00182"></a>00182 
+<a name="l00183"></a><a class="code" href="classMWGui_1_1WindowManager.html#a89a289a7416fa54aaf5d83163444c1b7">00183</a>     <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#a89a289a7416fa54aaf5d83163444c1b7">getMode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#ac5ce0b458f4cb6005156326fb7e69c87">mode</a>; }
+<a name="l00184"></a>00184 
+<a name="l00185"></a>00185     <span class="comment">// Everything that is not game mode is considered &quot;gui mode&quot;</span>
+<a name="l00186"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">00186</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">isGuiMode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#a89a289a7416fa54aaf5d83163444c1b7">getMode</a>() != <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249aa47ebbe9aca6c8e02ecb23a5d83991d71">GM_Game</a>; }
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188     <span class="comment">// Disallow all inventory mode windows</span>
+<a name="l00189"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d">00189</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d">disallowAll</a>()
+<a name="l00190"></a>00190     {
+<a name="l00191"></a>00191       <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a> = <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35ddab6f7e638bcd97beec14915ceccafe53b">GW_None</a>;
+<a name="l00192"></a>00192       <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
+<a name="l00193"></a>00193     }
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195     <span class="comment">// Allow one or more windows</span>
+<a name="l00196"></a><a class="code" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5">00196</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5">allow</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd)
+<a name="l00197"></a>00197     {
+<a name="l00198"></a>00198       <a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a> = (<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a>)(<a class="code" href="classMWGui_1_1WindowManager.html#adb3334339d13990c41a6e49cae36b767">allowed</a> | wnd);
+<a name="l00199"></a>00199       <a class="code" href="classMWGui_1_1WindowManager.html#aa88572ba621ca5f2da20bed5c313f932">updateVisible</a>();
+<a name="l00200"></a>00200     }
+<a name="l00201"></a>00201 
+<a name="l00202"></a><a class="code" href="classMWGui_1_1WindowManager.html#a3ad3ba58929502ca7a0a6af9132c416f">00202</a>     MyGUI::Gui* <a class="code" href="classMWGui_1_1WindowManager.html#a3ad3ba58929502ca7a0a6af9132c416f">getGui</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#a60063a9a2776af3a76b01ee06c160dcc">gui</a>; }
+<a name="l00203"></a>00203 
+<a name="l00204"></a><a class="code" href="classMWGui_1_1WindowManager.html#a6e5c0fbdfabe0ec4969da5653abf75ef">00204</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6e5c0fbdfabe0ec4969da5653abf75ef">wmSetFPS</a>(<span class="keywordtype">float</span> fps) { <a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">mFPS</a> = fps; }
 <a name="l00205"></a>00205 
-<a name="l00206"></a>00206     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
+<a name="l00206"></a>00206     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
 <a name="l00208"></a>00208 
-<a name="l00209"></a>00209     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; value);
+<a name="l00209"></a>00209     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> parSkill, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
 <a name="l00211"></a>00211 
-<a name="l00212"></a>00212     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> value);
+<a name="l00212"></a>00212     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
 <a name="l00214"></a>00214 
-<a name="l00215"></a>00215     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad28c356a1c4fd12556a3769adb4b60c3" title="set current class of player">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a> &amp;class_);
+<a name="l00215"></a>00215     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; value);
 <a name="l00217"></a>00217 
-<a name="l00218"></a>00218     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1c5b60ad1c2af5d3ef474f426e1ac682" title="configure skill groups, each set contains the skill ID for that group.">configureSkills</a> (<span class="keyword">const</span> <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a>&amp; minor);
+<a name="l00218"></a>00218     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> value);
 <a name="l00220"></a>00220 
-<a name="l00221"></a>00221     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae87aa044516e1398963debb41c6206fd" title="set faction and rank to display on stat window, use an empty vector to disable">setFactions</a> (<span class="keyword">const</span> <a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">FactionList</a>&amp; factions);
+<a name="l00221"></a>00221     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad28c356a1c4fd12556a3769adb4b60c3" title="set current class of player">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a> &amp;class_);
 <a name="l00223"></a>00223 
-<a name="l00224"></a>00224     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ac856c51c89578b25d302279454cb1333" title="set birth sign to display on stat window, use an empty string to disable.">setBirthSign</a> (<span class="keyword">const</span> std::string &amp;signId);
+<a name="l00224"></a>00224     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1c5b60ad1c2af5d3ef474f426e1ac682" title="configure skill groups, each set contains the skill ID for that group.">configureSkills</a> (<span class="keyword">const</span> <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWGui_1_1WindowManager.html#a774bb81b0dc6d5379e2543e4d483d49c">SkillList</a>&amp; minor);
 <a name="l00226"></a>00226 
-<a name="l00227"></a>00227     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a085162f8751777079a86d4ce0d6dba13" title="set the current reputation value">setReputation</a> (<span class="keywordtype">int</span> reputation);
+<a name="l00227"></a>00227     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae87aa044516e1398963debb41c6206fd" title="set faction and rank to display on stat window, use an empty vector to disable">setFactions</a> (<span class="keyword">const</span> <a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">FactionList</a>&amp; factions);
 <a name="l00229"></a>00229 
-<a name="l00230"></a>00230     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a99600ac1daa291c85eb8bb13345dcec6" title="set the current bounty value">setBounty</a> (<span class="keywordtype">int</span> bounty);
+<a name="l00230"></a>00230     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ac856c51c89578b25d302279454cb1333" title="set birth sign to display on stat window, use an empty string to disable.">setBirthSign</a> (<span class="keyword">const</span> std::string &amp;signId);
 <a name="l00232"></a>00232 
-<a name="l00233"></a>00233     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a26ef5d995e1cfeed90eea60107d5db79" title="update display of skills, factions, birth sign, reputation and bounty">updateSkillArea</a>();
+<a name="l00233"></a>00233     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a085162f8751777079a86d4ce0d6dba13" title="set the current reputation value">setReputation</a> (<span class="keywordtype">int</span> reputation);
 <a name="l00235"></a>00235 
-<a name="l00236"></a>00236     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00237"></a>00237     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">removeDialog</a>(T*&amp; dialog);
-<a name="l00239"></a>00239 
-<a name="l00240"></a>00240     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">removeDialog</a>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* dialog);
-<a name="l00242"></a>00242 
-<a name="l00243"></a>00243     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2566e7b84addc9d4f87cb3e8237983b2">messageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons);
-<a name="l00244"></a>00244 
-<a name="l00252"></a>00252     <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1WindowManager.html#a74ce68de439b45eb9e56851bc35e4261">getGameSettingString</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>, <span class="keyword">const</span> std::string &amp;default_);
-<a name="l00253"></a>00253 
-<a name="l00254"></a>00254   <span class="keyword">private</span>:
-<a name="l00255"></a>00255 
-<a name="l00256"></a>00256     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8af2e8d096e2a444207b1f40e7c76530">onDialogueWindowBye</a>();
-<a name="l00257"></a>00257 
-<a name="l00258"></a>00258     <span class="comment">// Character generation: Name dialog</span>
-<a name="l00259"></a>00259     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ade320a2258e0aa276e2ac8328b914007">onNameDialogDone</a>();
-<a name="l00260"></a>00260 
-<a name="l00261"></a>00261     <span class="comment">// Character generation: Race dialog</span>
-<a name="l00262"></a>00262     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a36f9cd44ae76140c18c01904346f9d29">onRaceDialogDone</a>();
-<a name="l00263"></a>00263     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5a50bd53190845f0fdbf19d6effc2f55">onRaceDialogBack</a>();
-<a name="l00264"></a>00264 
-<a name="l00265"></a>00265     <span class="comment">// Character generation: Choose class process</span>
-<a name="l00266"></a>00266     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4f9bd8439dc1fb5ba82160cf8bc28b8c">onClassChoice</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _index);
-<a name="l00267"></a>00267 
-<a name="l00268"></a>00268     <span class="comment">// Character generation: Generate Class</span>
-<a name="l00269"></a>00269     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae797b3c2d64924a7d8159f9713400e6c">showClassQuestionDialog</a>();
-<a name="l00270"></a>00270     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#af3b21851aff3c16da170286aec38297d">onClassQuestionChosen</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _index);
-<a name="l00271"></a>00271     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a411621d42da3998058718dc3927f2190">onGenerateClassBack</a>();
-<a name="l00272"></a>00272     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a76f0f9f25d82d33e4ab8ab45f26c85a5">onGenerateClassDone</a>();
-<a name="l00273"></a>00273 
-<a name="l00274"></a>00274     <span class="comment">// Character generation: Pick Class dialog</span>
-<a name="l00275"></a>00275     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a603f21573116f1ca79abb6e329eee8f3">onPickClassDialogDone</a>();
-<a name="l00276"></a>00276     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a620f9695710153b37f568ad0e1382351">onPickClassDialogBack</a>();
-<a name="l00277"></a>00277 
-<a name="l00278"></a>00278     <span class="comment">// Character generation: Create Class dialog</span>
-<a name="l00279"></a>00279     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5d7e88db2f3d4bb67e042490cecba8de">onCreateClassDialogDone</a>();
-<a name="l00280"></a>00280     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a285a39f7d2a66e911cf5776ca5934cb0">onCreateClassDialogBack</a>();
+<a name="l00236"></a>00236     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a99600ac1daa291c85eb8bb13345dcec6" title="set the current bounty value">setBounty</a> (<span class="keywordtype">int</span> bounty);
+<a name="l00238"></a>00238 
+<a name="l00239"></a>00239     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a26ef5d995e1cfeed90eea60107d5db79" title="update display of skills, factions, birth sign, reputation and bounty">updateSkillArea</a>();
+<a name="l00241"></a>00241 
+<a name="l00242"></a>00242     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00243"></a>00243     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">removeDialog</a>(T*&amp; dialog);
+<a name="l00245"></a>00245 
+<a name="l00246"></a>00246     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">removeDialog</a>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* dialog);
+<a name="l00248"></a>00248 
+<a name="l00249"></a>00249     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2566e7b84addc9d4f87cb3e8237983b2">messageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons);
+<a name="l00250"></a>00250 
+<a name="l00258"></a>00258     <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1WindowManager.html#a74ce68de439b45eb9e56851bc35e4261">getGameSettingString</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>, <span class="keyword">const</span> std::string &amp;default_);
+<a name="l00259"></a>00259 
+<a name="l00260"></a>00260     <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#aaf2f03047fc01f39557864277bd32a1f">getStore</a>();
+<a name="l00261"></a>00261 
+<a name="l00262"></a>00262   <span class="keyword">private</span>:
+<a name="l00263"></a>00263 
+<a name="l00264"></a>00264     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8af2e8d096e2a444207b1f40e7c76530">onDialogueWindowBye</a>();
+<a name="l00265"></a>00265 
+<a name="l00266"></a>00266     <span class="comment">// Character generation: Name dialog</span>
+<a name="l00267"></a>00267     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5a6dc6bdf430f692e564c4f5e0f419dc">onNameDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00268"></a>00268 
+<a name="l00269"></a>00269     <span class="comment">// Character generation: Race dialog</span>
+<a name="l00270"></a>00270     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#acd5fc3f971f61c291b63bb7423015015">onRaceDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00271"></a>00271     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5a50bd53190845f0fdbf19d6effc2f55">onRaceDialogBack</a>();
+<a name="l00272"></a>00272 
+<a name="l00273"></a>00273     <span class="comment">// Character generation: Choose class process</span>
+<a name="l00274"></a>00274     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a804f96dd4e65f792d6bb2cbeebdb3508">onClassChoice</a>(<span class="keywordtype">int</span> _index);
+<a name="l00275"></a>00275 
+<a name="l00276"></a>00276     <span class="comment">// Character generation: Generate Class</span>
+<a name="l00277"></a>00277     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae797b3c2d64924a7d8159f9713400e6c">showClassQuestionDialog</a>();
+<a name="l00278"></a>00278     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5a86454be162cb54d84768c7458d7479">onClassQuestionChosen</a>(<span class="keywordtype">int</span> _index);
+<a name="l00279"></a>00279     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a411621d42da3998058718dc3927f2190">onGenerateClassBack</a>();
+<a name="l00280"></a>00280     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5dce12af3a384b8e91d0c56e65fe3266">onGenerateClassDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
 <a name="l00281"></a>00281 
-<a name="l00282"></a>00282     <span class="comment">// Character generation: Birth sign dialog</span>
-<a name="l00283"></a>00283     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1a556031da5a0726566a45928fabc88e">onBirthSignDialogDone</a>();
-<a name="l00284"></a>00284     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0127ea2c8417191323279d199c8502d0">onBirthSignDialogBack</a>();
+<a name="l00282"></a>00282     <span class="comment">// Character generation: Pick Class dialog</span>
+<a name="l00283"></a>00283     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4b663e183771629b39e1b0631d1d49b9">onPickClassDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00284"></a>00284     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a620f9695710153b37f568ad0e1382351">onPickClassDialogBack</a>();
 <a name="l00285"></a>00285 
-<a name="l00286"></a>00286     <span class="comment">// Character generation: Review dialog</span>
-<a name="l00287"></a>00287     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a37d51de3d15d15ab67dfac41043badd9">onReviewDialogDone</a>();
-<a name="l00288"></a>00288     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad1108a250820272a9f029ee383b30b7b">onReviewDialogBack</a>();
-<a name="l00289"></a>00289     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a860924911c77d9d1202b5b049bdfed76">onNameDialogActivate</a>();
-<a name="l00290"></a>00290     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a355daec7c43a2a4db2eaf12bbdb2196d">onRaceDialogActivate</a>();
-<a name="l00291"></a>00291     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5ef10a766fa87589131cec94b53f46a2">onClassDialogActivate</a>();
-<a name="l00292"></a>00292     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#affb32b045d5485da57ff8496ce4e25c9">onBirthSignDialogActivate</a>();
-<a name="l00293"></a>00293   };
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00296"></a><a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917">00296</a>   <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">WindowManager::removeDialog</a>(T*&amp; dialog)
-<a name="l00297"></a>00297   {
-<a name="l00298"></a>00298       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *d = <span class="keyword">static_cast&lt;</span><a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>*<span class="keyword">&gt;</span>(dialog);
-<a name="l00299"></a>00299       <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">removeDialog</a>(d);
-<a name="l00300"></a>00300       dialog = 0;
-<a name="l00301"></a>00301   }
-<a name="l00302"></a>00302 }
-<a name="l00303"></a>00303 
-<a name="l00304"></a>00304 <span class="preprocessor">#endif</span>
+<a name="l00286"></a>00286     <span class="comment">// Character generation: Create Class dialog</span>
+<a name="l00287"></a>00287     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0cfb3df71b6b28786e50cf44dde3caa8">onCreateClassDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00288"></a>00288     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a285a39f7d2a66e911cf5776ca5934cb0">onCreateClassDialogBack</a>();
+<a name="l00289"></a>00289 
+<a name="l00290"></a>00290     <span class="comment">// Character generation: Birth sign dialog</span>
+<a name="l00291"></a>00291     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8a7be00f67745aeb6aac17dd9542fe7e">onBirthSignDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00292"></a>00292     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0127ea2c8417191323279d199c8502d0">onBirthSignDialogBack</a>();
+<a name="l00293"></a>00293 
+<a name="l00294"></a>00294     <span class="comment">// Character generation: Review dialog</span>
+<a name="l00295"></a>00295     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa25387a020f9b45582bcf6a59f135564">onReviewDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00296"></a>00296     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad1108a250820272a9f029ee383b30b7b">onReviewDialogBack</a>();
+<a name="l00297"></a>00297     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a86b4cea05a61cff5939b1470bb398f04">onReviewActivateDialog</a>(<span class="keywordtype">int</span> parDialog);
+<a name="l00298"></a>00298 
+<a name="l00299"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994">00299</a>     <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994">CreationStageEnum</a>
+<a name="l00300"></a>00300     {
+<a name="l00301"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a3df20453c6035334f7d135f3c6088e75">00301</a>         <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a3df20453c6035334f7d135f3c6088e75">NotStarted</a>,
+<a name="l00302"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a69127feb8d1e9b0f429f72266373cec0">00302</a>         <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a69127feb8d1e9b0f429f72266373cec0">NameChosen</a>,
+<a name="l00303"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a8d5f83d8d6ffc478634da1cc3e917ffa">00303</a>         <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a8d5f83d8d6ffc478634da1cc3e917ffa">RaceChosen</a>,
+<a name="l00304"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994ad35a687881d4318a71991a3cf8aa9306">00304</a>         <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994ad35a687881d4318a71991a3cf8aa9306">ClassChosen</a>,
+<a name="l00305"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a40e6db3bd28a5f2e239a8725fb194c78">00305</a>         <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994a40e6db3bd28a5f2e239a8725fb194c78">BirthSignChosen</a>,
+<a name="l00306"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994ac2865b76f19874e0c885f5b135f46b8f">00306</a>         <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994ac2865b76f19874e0c885f5b135f46b8f">ReviewNext</a>
+<a name="l00307"></a>00307     };
+<a name="l00308"></a>00308 
+<a name="l00309"></a>00309     <span class="comment">// Which state the character creating is in, controls back/next/ok buttons</span>
+<a name="l00310"></a><a class="code" href="classMWGui_1_1WindowManager.html#af3c055aad30b5f22ce1ccebd63dcc1c9">00310</a>     <a class="code" href="classMWGui_1_1WindowManager.html#a0526abe2273b55edd88e738903fe1994">CreationStageEnum</a> <a class="code" href="classMWGui_1_1WindowManager.html#af3c055aad30b5f22ce1ccebd63dcc1c9">creationStage</a>;
+<a name="l00311"></a>00311   };
+<a name="l00312"></a>00312 
+<a name="l00313"></a>00313   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00314"></a><a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917">00314</a>   <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">WindowManager::removeDialog</a>(T*&amp; dialog)
+<a name="l00315"></a>00315   {
+<a name="l00316"></a>00316       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *d = <span class="keyword">static_cast&lt;</span><a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>*<span class="keyword">&gt;</span>(dialog);
+<a name="l00317"></a>00317       <a class="code" href="classMWGui_1_1WindowManager.html#a005710e49f7b30186014c9e31267b917" title="Casts to OEngine::GUI::Layout and calls removeDialog, then resets pointer to nullptr...">removeDialog</a>(d);
+<a name="l00318"></a>00318       dialog = 0;
+<a name="l00319"></a>00319   }
+<a name="l00320"></a>00320 }
+<a name="l00321"></a>00321 
+<a name="l00322"></a>00322 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

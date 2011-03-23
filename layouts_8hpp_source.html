@@ -30,366 +30,212 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;<a class="code" href="store_8hpp.html">components/esm_store/store.hpp</a>&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="layout_8hpp.html">openengine/gui/layout.hpp</a>&gt;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;boost/array.hpp&gt;</span>
-<a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;sstream&gt;</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;set&gt;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;utility&gt;</span>
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;../mwmechanics/stat.hpp&quot;</span>
-<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;../mwworld/environment.hpp&quot;</span>
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;../mwworld/world.hpp&quot;</span>
-<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="comment">/*</span>
-<a name="l00021"></a>00021 <span class="comment">  This file contains classes corresponding to all the window layouts</span>
-<a name="l00022"></a>00022 <span class="comment">  defined in resources/mygui/ *.xml.</span>
-<a name="l00023"></a>00023 <span class="comment"></span>
-<a name="l00024"></a>00024 <span class="comment">  Each class inherites GUI::Layout and loads the XML file, and</span>
-<a name="l00025"></a>00025 <span class="comment">  provides some helper functions to manipulate the elements of the</span>
-<a name="l00026"></a>00026 <span class="comment">  window.</span>
-<a name="l00027"></a>00027 <span class="comment"></span>
-<a name="l00028"></a>00028 <span class="comment">  The windows are never created or destroyed (except at startup and</span>
-<a name="l00029"></a>00029 <span class="comment">  shutdown), they are only hid. You can control visibility with</span>
-<a name="l00030"></a>00030 <span class="comment">  setVisible().</span>
-<a name="l00031"></a>00031 <span class="comment"> */</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="keyword">namespace </span>MWGui
-<a name="l00034"></a>00034 {
-<a name="l00035"></a><a class="code" href="classMWGui_1_1HUD.html">00035</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1HUD.html">HUD</a> : <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00036"></a>00036   {
-<a name="l00037"></a>00037   <span class="keyword">public</span>:
-<a name="l00038"></a><a class="code" href="classMWGui_1_1HUD.html#a06ccd0aa5d7d8c115955392da478ec98">00038</a>     <a class="code" href="classMWGui_1_1HUD.html#a06ccd0aa5d7d8c115955392da478ec98">HUD</a>(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height)
-<a name="l00039"></a>00039       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">Layout</a>(<span class="stringliteral">&quot;openmw_hud_layout.xml&quot;</span>)
-<a name="l00040"></a>00040     {
-<a name="l00041"></a>00041       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">setCoord</a>(0,0, width, height);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043       <span class="comment">// Energy bars</span>
-<a name="l00044"></a>00044       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>, <span class="stringliteral">&quot;Health&quot;</span>);
-<a name="l00045"></a>00045       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>, <span class="stringliteral">&quot;Magicka&quot;</span>);
-<a name="l00046"></a>00046       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>, <span class="stringliteral">&quot;Stamina&quot;</span>);
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048       <span class="comment">// Item and spell images and status bars</span>
-<a name="l00049"></a>00049       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#af3b143d866de6573da5664476329ae62">weapImage</a>, <span class="stringliteral">&quot;WeapImage&quot;</span>);
-<a name="l00050"></a>00050       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">weapStatus</a>, <span class="stringliteral">&quot;WeapStatus&quot;</span>);
-<a name="l00051"></a>00051       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#add35896f76c9cac334f33cf6536e464c">spellImage</a>, <span class="stringliteral">&quot;SpellImage&quot;</span>);
-<a name="l00052"></a>00052       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#abe80124e77de74fca0230aab52b672c0">spellStatus</a>, <span class="stringliteral">&quot;SpellStatus&quot;</span>);
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;boost/array.hpp&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;boost/lexical_cast.hpp&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;sstream&gt;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;set&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;utility&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;../mwmechanics/stat.hpp&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="comment">/*</span>
+<a name="l00018"></a>00018 <span class="comment">  This file contains classes corresponding to window layouts</span>
+<a name="l00019"></a>00019 <span class="comment">  defined in resources/mygui/ *.xml.</span>
+<a name="l00020"></a>00020 <span class="comment"></span>
+<a name="l00021"></a>00021 <span class="comment">  Each class inherites GUI::Layout and loads the XML file, and</span>
+<a name="l00022"></a>00022 <span class="comment">  provides some helper functions to manipulate the elements of the</span>
+<a name="l00023"></a>00023 <span class="comment">  window.</span>
+<a name="l00024"></a>00024 <span class="comment"></span>
+<a name="l00025"></a>00025 <span class="comment">  The windows are never created or destroyed (except at startup and</span>
+<a name="l00026"></a>00026 <span class="comment">  shutdown), they are only hid. You can control visibility with</span>
+<a name="l00027"></a>00027 <span class="comment">  setVisible().</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">namespace </span>MWGui
+<a name="l00031"></a>00031 {
+<a name="l00032"></a><a class="code" href="classMWGui_1_1HUD.html">00032</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1HUD.html">HUD</a> : <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00033"></a>00033   {
+<a name="l00034"></a>00034   <span class="keyword">public</span>:
+<a name="l00035"></a>00035     <a class="code" href="classMWGui_1_1HUD.html#abfcac43ca79f7d8d86eec9bdd3f64991">HUD</a>(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <span class="keywordtype">bool</span> fpsSwitch);
+<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ad2ebb88e8047bc3704e8f55b3c56e5b4">setStats</a>(<span class="keywordtype">int</span> h, <span class="keywordtype">int</span> hmax, <span class="keywordtype">int</span> <a class="code" href="sound__3d__test_8cpp.html#a50b145ddaadd65b368b07c9d21cb31a8">m</a>, <span class="keywordtype">int</span> mmax, <span class="keywordtype">int</span> s, <span class="keywordtype">int</span> smax);
+<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a7db6ae2f521b130def217615601b5f6a">setWeapIcon</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a56a1e913a4cb7b7cafeb2f68aafe9be0">setSpellIcon</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a19d21a92ff19d9f7e5eec5687e6a713d">setWeapStatus</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> smax);
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a84803f419ca8260114fc066df82a270a">setSpellStatus</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> smax);
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a88930f70eca297b4af3849a88deaea23">setEffect</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *img);
+<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a9d5853cd25027df760186b39c98ad859">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#af28b07eae5474f2767ad3d33d01457af">setFPS</a>(<span class="keywordtype">float</span> fps);
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">00045</a>     MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>, <a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>, <a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>;
+<a name="l00046"></a><a class="code" href="classMWGui_1_1HUD.html#af3b143d866de6573da5664476329ae62">00046</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#af3b143d866de6573da5664476329ae62">weapImage</a>, <a class="code" href="classMWGui_1_1HUD.html#add35896f76c9cac334f33cf6536e464c">spellImage</a>;
+<a name="l00047"></a><a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">00047</a>     MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">weapStatus</a>, <a class="code" href="classMWGui_1_1HUD.html#abe80124e77de74fca0230aab52b672c0">spellStatus</a>;
+<a name="l00048"></a><a class="code" href="classMWGui_1_1HUD.html#af7147256ef805fc9c2f53eaf9195d679">00048</a>     MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1HUD.html#af7147256ef805fc9c2f53eaf9195d679">effectBox</a>;
+<a name="l00049"></a><a class="code" href="classMWGui_1_1HUD.html#aa93863a0bd0c1cf22e8723bcac7b8b7a">00049</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#aa93863a0bd0c1cf22e8723bcac7b8b7a">effect1</a>;
+<a name="l00050"></a><a class="code" href="classMWGui_1_1HUD.html#ace9fae06dd9347f45bb8aa1cce71798d">00050</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#ace9fae06dd9347f45bb8aa1cce71798d">minimap</a>;
+<a name="l00051"></a><a class="code" href="classMWGui_1_1HUD.html#a37e71eb58550d5e2922ca0020bc3b7f5">00051</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#a37e71eb58550d5e2922ca0020bc3b7f5">compass</a>;
+<a name="l00052"></a><a class="code" href="classMWGui_1_1HUD.html#aa333a92a43883105fb7750f541511974">00052</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#aa333a92a43883105fb7750f541511974">crosshair</a>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#af7147256ef805fc9c2f53eaf9195d679">effectBox</a>, <span class="stringliteral">&quot;EffectBox&quot;</span>);
-<a name="l00055"></a>00055       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#aa93863a0bd0c1cf22e8723bcac7b8b7a">effect1</a>, <span class="stringliteral">&quot;Effect1&quot;</span>);
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#ace9fae06dd9347f45bb8aa1cce71798d">minimap</a>, <span class="stringliteral">&quot;MiniMap&quot;</span>);
-<a name="l00058"></a>00058       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#a37e71eb58550d5e2922ca0020bc3b7f5">compass</a>, <span class="stringliteral">&quot;Compass&quot;</span>);
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(<a class="code" href="classMWGui_1_1HUD.html#aa333a92a43883105fb7750f541511974">crosshair</a>, <span class="stringliteral">&quot;Crosshair&quot;</span>);
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062       <a class="code" href="classMWGui_1_1HUD.html#a37e71eb58550d5e2922ca0020bc3b7f5">compass</a>-&gt;setImageTexture(<span class="stringliteral">&quot;textures\\compass.dds&quot;</span>);
-<a name="l00063"></a>00063       <a class="code" href="classMWGui_1_1HUD.html#aa333a92a43883105fb7750f541511974">crosshair</a>-&gt;setImageTexture(<span class="stringliteral">&quot;textures\\target.dds&quot;</span>);
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065       <span class="comment">// These are just demo values, you should replace these with</span>
-<a name="l00066"></a>00066       <span class="comment">// real calls from outside the class later.</span>
-<a name="l00067"></a>00067       <a class="code" href="classMWGui_1_1HUD.html#a0d8d3af8972baf6db0dcd9f68f445ab6">setWeapIcon</a>(<span class="stringliteral">&quot;icons\\w\\tx_knife_iron.dds&quot;</span>);
-<a name="l00068"></a>00068       <a class="code" href="classMWGui_1_1HUD.html#ad3a95e9134e2a0c22896aef911815151">setWeapStatus</a>(90, 100);
-<a name="l00069"></a>00069       <a class="code" href="classMWGui_1_1HUD.html#a8585aa6b82c7ff21561bc27b170ac490">setSpellIcon</a>(<span class="stringliteral">&quot;icons\\s\\b_tx_s_rstor_health.dds&quot;</span>);
-<a name="l00070"></a>00070       <a class="code" href="classMWGui_1_1HUD.html#ae56e5047050156b96b6e9b825dfc645c">setSpellStatus</a>(65, 100);
-<a name="l00071"></a>00071       <a class="code" href="classMWGui_1_1HUD.html#aa922714b8185090d40f0b98013b32dfb">setEffect</a>(<span class="stringliteral">&quot;icons\\s\\tx_s_chameleon.dds&quot;</span>);
-<a name="l00072"></a>00072     }
-<a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="classMWGui_1_1HUD.html#a3a16fe710d3881005f0d45a44a1ddeeb">00074</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a3a16fe710d3881005f0d45a44a1ddeeb">setStats</a>(<span class="keywordtype">int</span> h, <span class="keywordtype">int</span> hmax, <span class="keywordtype">int</span> <a class="code" href="sound__3d__test_8cpp.html#a50b145ddaadd65b368b07c9d21cb31a8">m</a>, <span class="keywordtype">int</span> mmax, <span class="keywordtype">int</span> s, <span class="keywordtype">int</span> smax)
-<a name="l00075"></a>00075     {
-<a name="l00076"></a>00076       <a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>-&gt;setProgressRange(hmax);
-<a name="l00077"></a>00077       <a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>-&gt;setProgressPosition(h);
-<a name="l00078"></a>00078       <a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>-&gt;setProgressRange(mmax);
-<a name="l00079"></a>00079       <a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>-&gt;setProgressPosition(m);
-<a name="l00080"></a>00080       <a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>-&gt;setProgressRange(smax);
-<a name="l00081"></a>00081       <a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>-&gt;setProgressPosition(s);
-<a name="l00082"></a>00082     }
-<a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classMWGui_1_1HUD.html#a0d8d3af8972baf6db0dcd9f68f445ab6">00084</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a0d8d3af8972baf6db0dcd9f68f445ab6">setWeapIcon</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str)
-<a name="l00085"></a>00085     { <a class="code" href="classMWGui_1_1HUD.html#af3b143d866de6573da5664476329ae62">weapImage</a>-&gt;setImageTexture(str); }
-<a name="l00086"></a><a class="code" href="classMWGui_1_1HUD.html#a8585aa6b82c7ff21561bc27b170ac490">00086</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a8585aa6b82c7ff21561bc27b170ac490">setSpellIcon</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str)
-<a name="l00087"></a>00087     { <a class="code" href="classMWGui_1_1HUD.html#add35896f76c9cac334f33cf6536e464c">spellImage</a>-&gt;setImageTexture(str); }
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classMWGui_1_1HUD.html#ad3a95e9134e2a0c22896aef911815151">00089</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ad3a95e9134e2a0c22896aef911815151">setWeapStatus</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> smax)
-<a name="l00090"></a>00090     {
-<a name="l00091"></a>00091       <a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">weapStatus</a>-&gt;setProgressRange(smax);
-<a name="l00092"></a>00092       <a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">weapStatus</a>-&gt;setProgressPosition(s);
-<a name="l00093"></a>00093     }
-<a name="l00094"></a><a class="code" href="classMWGui_1_1HUD.html#ae56e5047050156b96b6e9b825dfc645c">00094</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ae56e5047050156b96b6e9b825dfc645c">setSpellStatus</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> smax)
-<a name="l00095"></a>00095     {
-<a name="l00096"></a>00096       <a class="code" href="classMWGui_1_1HUD.html#abe80124e77de74fca0230aab52b672c0">spellStatus</a>-&gt;setProgressRange(smax);
-<a name="l00097"></a>00097       <a class="code" href="classMWGui_1_1HUD.html#abe80124e77de74fca0230aab52b672c0">spellStatus</a>-&gt;setProgressPosition(s);
-<a name="l00098"></a>00098     }
-<a name="l00099"></a>00099 
-<a name="l00100"></a><a class="code" href="classMWGui_1_1HUD.html#aa922714b8185090d40f0b98013b32dfb">00100</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#aa922714b8185090d40f0b98013b32dfb">setEffect</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *img)
-<a name="l00101"></a>00101     { <a class="code" href="classMWGui_1_1HUD.html#aa93863a0bd0c1cf22e8723bcac7b8b7a">effect1</a>-&gt;setImageTexture(img); }
-<a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="classMWGui_1_1HUD.html#ab193c21e3abd051e4c5411f774aa7b6c">00103</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ab193c21e3abd051e4c5411f774aa7b6c">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value)
-<a name="l00104"></a>00104     {
-<a name="l00105"></a>00105         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *ids[] =
-<a name="l00106"></a>00106         {
-<a name="l00107"></a>00107             <span class="stringliteral">&quot;HBar&quot;</span>, <span class="stringliteral">&quot;MBar&quot;</span>, <span class="stringliteral">&quot;FBar&quot;</span>,
-<a name="l00108"></a>00108             0
-<a name="l00109"></a>00109         };
+<a name="l00054"></a><a class="code" href="classMWGui_1_1HUD.html#a005fd362ddac6d3eb93f3a63f0c96ce8">00054</a>     MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1HUD.html#a005fd362ddac6d3eb93f3a63f0c96ce8">fpsbox</a>;
+<a name="l00055"></a><a class="code" href="classMWGui_1_1HUD.html#aec8cc7db7155afbdecf422cb3465c943">00055</a>     MyGUI::StaticTextPtr <a class="code" href="classMWGui_1_1HUD.html#aec8cc7db7155afbdecf422cb3465c943">fpscounter</a>;
+<a name="l00056"></a>00056   };
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classMWGui_1_1MapWindow.html">00058</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> : <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00059"></a>00059   {
+<a name="l00060"></a>00060   <span class="keyword">public</span>:
+<a name="l00061"></a><a class="code" href="classMWGui_1_1MapWindow.html#a294e8f23668e1d3ec8c82bf3998c60e6">00061</a>     <a class="code" href="classMWGui_1_1MapWindow.html#a294e8f23668e1d3ec8c82bf3998c60e6">MapWindow</a>()
+<a name="l00062"></a>00062       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">Layout</a>(<span class="stringliteral">&quot;openmw_map_window_layout.xml&quot;</span>)
+<a name="l00063"></a>00063     {
+<a name="l00064"></a>00064       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">setCoord</a>(500,0,320,300);
+<a name="l00065"></a>00065       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa0e7c5061e37ff34611ce22683152483">setText</a>(<span class="stringliteral">&quot;WorldButton&quot;</span>, <span class="stringliteral">&quot;World&quot;</span>);
+<a name="l00066"></a>00066       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aff731fe7b76f202a88600e4094d89719">setImage</a>(<span class="stringliteral">&quot;Compass&quot;</span>, <span class="stringliteral">&quot;compass.dds&quot;</span>);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068       <span class="comment">// Obviously you should override this later on</span>
+<a name="l00069"></a>00069       <a class="code" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">setCellName</a>(<span class="stringliteral">&quot;No Cell Loaded&quot;</span>);
+<a name="l00070"></a>00070     }
+<a name="l00071"></a>00071 
+<a name="l00072"></a><a class="code" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">00072</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">setCellName</a>(<span class="keyword">const</span> std::string&amp; cellName)
+<a name="l00073"></a>00073     {
+<a name="l00074"></a>00074       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>-&gt;setCaption(cellName);
+<a name="l00075"></a>00075     }
+<a name="l00076"></a>00076   };
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classMWGui_1_1MainMenu.html">00078</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1MainMenu.html">MainMenu</a> : <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00079"></a>00079   {
+<a name="l00080"></a>00080   <span class="keyword">public</span>:
+<a name="l00081"></a><a class="code" href="classMWGui_1_1MainMenu.html#abe8f28013c32edf3486c86a43c4f04a2">00081</a>     <a class="code" href="classMWGui_1_1MainMenu.html#abe8f28013c32edf3486c86a43c4f04a2">MainMenu</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h)
+<a name="l00082"></a>00082       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">Layout</a>(<span class="stringliteral">&quot;openmw_mainmenu_layout.xml&quot;</span>)
+<a name="l00083"></a>00083     {
+<a name="l00084"></a>00084       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">setCoord</a>(0,0,w,h);
+<a name="l00085"></a>00085     }
+<a name="l00086"></a>00086   };
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 <span class="preprocessor">#if 0</span>
+<a name="l00089"></a>00089 <span class="preprocessor"></span>  <span class="keyword">class </span>InventoryWindow : <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00090"></a>00090   {
+<a name="l00091"></a>00091   <span class="keyword">public</span>:
+<a name="l00092"></a>00092     <span class="keyword">enum</span> CategoryMode
+<a name="l00093"></a>00093       {
+<a name="l00094"></a>00094         CM_All = 0,      <span class="comment">// All items</span>
+<a name="l00095"></a>00095         CM_Weapon = 1,   <span class="comment">// Only weapons</span>
+<a name="l00096"></a>00096         CM_Apparel = 2,  <span class="comment">// Apparel</span>
+<a name="l00097"></a>00097         CM_Magic = 3,    <span class="comment">// Magic</span>
+<a name="l00098"></a>00098         CM_Misc = 4      <span class="comment">// Misc</span>
+<a name="l00099"></a>00099       };
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     InventoryWindow ()
+<a name="l00102"></a>00102       : Layout(<span class="stringliteral">&quot;openmw_inventory_window_layout.xml&quot;</span>)
+<a name="l00103"></a>00103       , categoryMode(CM_All)
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105       <span class="comment">// color should be fetched from skin</span>
+<a name="l00106"></a>00106       , activeColor(0, 0, 1)
+<a name="l00107"></a>00107       , inactiveColor(0.7, 0.7, 0.7)
+<a name="l00108"></a>00108     {
+<a name="l00109"></a>00109       setCoord(0, 200, 600, 400);
 <a name="l00110"></a>00110 
-<a name="l00111"></a>00111         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; ids[i]; ++i)
-<a name="l00112"></a>00112             <span class="keywordflow">if</span> (ids[i]==<span class="keywordtype">id</span>)
-<a name="l00113"></a>00113             {
-<a name="l00114"></a>00114                 <span class="keywordflow">switch</span> (i)
-<a name="l00115"></a>00115                 {
-<a name="l00116"></a>00116                     <span class="keywordflow">case</span> 0:
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118                       <a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>-&gt;setProgressRange (value.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a03c6dab9a06e4c3b533a3eedf7f05ee3">getModified</a>());
-<a name="l00119"></a>00119                       <a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>-&gt;setProgressPosition (value.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>());
-<a name="l00120"></a>00120                       <span class="keywordflow">break</span>;
+<a name="l00111"></a>00111       <span class="comment">// These are just demo values, you should replace these with</span>
+<a name="l00112"></a>00112       <span class="comment">// real calls from outside the class later.</span>
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114       mMainWidget-&gt;setCaption(<span class="stringliteral">&quot;Glass Frostsword&quot;</span>);
+<a name="l00115"></a>00115       setText(<span class="stringliteral">&quot;EncumbranceBarT&quot;</span>, <span class="stringliteral">&quot;176/210&quot;</span>);
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117       MyGUI::ProgressPtr pt;
+<a name="l00118"></a>00118       getWidget(pt, <span class="stringliteral">&quot;EncumbranceBar&quot;</span>);
+<a name="l00119"></a>00119       pt-&gt;setProgressRange(210);
+<a name="l00120"></a>00120       pt-&gt;setProgressPosition(176);
 <a name="l00121"></a>00121 
-<a name="l00122"></a>00122                     <span class="keywordflow">case</span> 1:
-<a name="l00123"></a>00123 
-<a name="l00124"></a>00124                       <a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>-&gt;setProgressRange (value.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a03c6dab9a06e4c3b533a3eedf7f05ee3">getModified</a>());
-<a name="l00125"></a>00125                       <a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>-&gt;setProgressPosition (value.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>());
-<a name="l00126"></a>00126                       <span class="keywordflow">break</span>;
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128                     <span class="keywordflow">case</span> 2:
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130                       <a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>-&gt;setProgressRange (value.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a03c6dab9a06e4c3b533a3eedf7f05ee3">getModified</a>());
-<a name="l00131"></a>00131                       <a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>-&gt;setProgressPosition (value.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>());
-<a name="l00132"></a>00132                       <span class="keywordflow">break</span>;
-<a name="l00133"></a>00133                 }
-<a name="l00134"></a>00134             }
-<a name="l00135"></a>00135     }
-<a name="l00136"></a>00136 
-<a name="l00137"></a><a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">00137</a>     MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1HUD.html#a4ca97825a5d2c8e096002772faf5f2ef">health</a>, <a class="code" href="classMWGui_1_1HUD.html#af4e754573aa02dc87398dd1c3f710411">magicka</a>, <a class="code" href="classMWGui_1_1HUD.html#ae837210d36706e9c4a435fcc538eb2d7">stamina</a>;
+<a name="l00122"></a>00122       MyGUI::WidgetPtr avatar;
+<a name="l00123"></a>00123       getWidget(avatar, <span class="stringliteral">&quot;Avatar&quot;</span>);
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125       <span class="comment">// Adjust armor rating text to bottom of avatar widget</span>
+<a name="l00126"></a>00126       MyGUI::StaticTextPtr armor_rating;
+<a name="l00127"></a>00127       getWidget(armor_rating, <span class="stringliteral">&quot;ArmorRating&quot;</span>);
+<a name="l00128"></a>00128       armor_rating-&gt;setCaption(<span class="stringliteral">&quot;Armor: 11&quot;</span>);
+<a name="l00129"></a>00129       MyGUI::IntCoord coord = armor_rating-&gt;getCoord();
+<a name="l00130"></a>00130       coord.top = avatar-&gt;getCoord().height - 4 - coord.height;
+<a name="l00131"></a>00131       armor_rating-&gt;setCoord(coord);
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133       names[0] = <span class="stringliteral">&quot;All&quot;</span>;
+<a name="l00134"></a>00134       names[1] = <span class="stringliteral">&quot;Weapon&quot;</span>;
+<a name="l00135"></a>00135       names[2] = <span class="stringliteral">&quot;Apparel&quot;</span>;
+<a name="l00136"></a>00136       names[3] = <span class="stringliteral">&quot;Magic&quot;</span>;
+<a name="l00137"></a>00137       names[4] = <span class="stringliteral">&quot;Misc&quot;</span>;
 <a name="l00138"></a>00138 
-<a name="l00139"></a><a class="code" href="classMWGui_1_1HUD.html#af3b143d866de6573da5664476329ae62">00139</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#af3b143d866de6573da5664476329ae62">weapImage</a>, <a class="code" href="classMWGui_1_1HUD.html#add35896f76c9cac334f33cf6536e464c">spellImage</a>;
-<a name="l00140"></a><a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">00140</a>     MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1HUD.html#a0300a7389ef0228a7e751a4b24361270">weapStatus</a>, <a class="code" href="classMWGui_1_1HUD.html#abe80124e77de74fca0230aab52b672c0">spellStatus</a>;
-<a name="l00141"></a>00141 
-<a name="l00142"></a><a class="code" href="classMWGui_1_1HUD.html#af7147256ef805fc9c2f53eaf9195d679">00142</a>     MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1HUD.html#af7147256ef805fc9c2f53eaf9195d679">effectBox</a>;
-<a name="l00143"></a><a class="code" href="classMWGui_1_1HUD.html#aa93863a0bd0c1cf22e8723bcac7b8b7a">00143</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#aa93863a0bd0c1cf22e8723bcac7b8b7a">effect1</a>;
-<a name="l00144"></a>00144 
-<a name="l00145"></a><a class="code" href="classMWGui_1_1HUD.html#ace9fae06dd9347f45bb8aa1cce71798d">00145</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#ace9fae06dd9347f45bb8aa1cce71798d">minimap</a>;
-<a name="l00146"></a><a class="code" href="classMWGui_1_1HUD.html#a37e71eb58550d5e2922ca0020bc3b7f5">00146</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#a37e71eb58550d5e2922ca0020bc3b7f5">compass</a>;
-<a name="l00147"></a>00147 
-<a name="l00148"></a><a class="code" href="classMWGui_1_1HUD.html#aa333a92a43883105fb7750f541511974">00148</a>     MyGUI::StaticImagePtr <a class="code" href="classMWGui_1_1HUD.html#aa333a92a43883105fb7750f541511974">crosshair</a>;
-<a name="l00149"></a>00149   };
-<a name="l00150"></a>00150 
-<a name="l00151"></a><a class="code" href="classMWGui_1_1MapWindow.html">00151</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> : <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00152"></a>00152   {
-<a name="l00153"></a>00153   <span class="keyword">public</span>:
-<a name="l00154"></a><a class="code" href="classMWGui_1_1MapWindow.html#a294e8f23668e1d3ec8c82bf3998c60e6">00154</a>     <a class="code" href="classMWGui_1_1MapWindow.html#a294e8f23668e1d3ec8c82bf3998c60e6">MapWindow</a>()
-<a name="l00155"></a>00155       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">Layout</a>(<span class="stringliteral">&quot;openmw_map_window_layout.xml&quot;</span>)
-<a name="l00156"></a>00156     {
-<a name="l00157"></a>00157       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">setCoord</a>(500,0,320,300);
-<a name="l00158"></a>00158       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa0e7c5061e37ff34611ce22683152483">setText</a>(<span class="stringliteral">&quot;WorldButton&quot;</span>, <span class="stringliteral">&quot;World&quot;</span>);
-<a name="l00159"></a>00159       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aff731fe7b76f202a88600e4094d89719">setImage</a>(<span class="stringliteral">&quot;Compass&quot;</span>, <span class="stringliteral">&quot;compass.dds&quot;</span>);
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161       <span class="comment">// Obviously you should override this later on</span>
-<a name="l00162"></a>00162       <a class="code" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">setCellName</a>(<span class="stringliteral">&quot;No Cell Loaded&quot;</span>);
-<a name="l00163"></a>00163     }
-<a name="l00164"></a>00164 
-<a name="l00165"></a><a class="code" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">00165</a>     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">setCellName</a>(<span class="keyword">const</span> std::string&amp; cellName)
-<a name="l00166"></a>00166     {
-<a name="l00167"></a>00167       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>-&gt;setCaption(cellName);
-<a name="l00168"></a>00168     }
-<a name="l00169"></a>00169   };
-<a name="l00170"></a>00170 
-<a name="l00171"></a><a class="code" href="classMWGui_1_1MainMenu.html">00171</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1MainMenu.html">MainMenu</a> : <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00172"></a>00172   {
-<a name="l00173"></a>00173   <span class="keyword">public</span>:
-<a name="l00174"></a><a class="code" href="classMWGui_1_1MainMenu.html#abe8f28013c32edf3486c86a43c4f04a2">00174</a>     <a class="code" href="classMWGui_1_1MainMenu.html#abe8f28013c32edf3486c86a43c4f04a2">MainMenu</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h)
-<a name="l00175"></a>00175       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">Layout</a>(<span class="stringliteral">&quot;openmw_mainmenu_layout.xml&quot;</span>)
-<a name="l00176"></a>00176     {
-<a name="l00177"></a>00177       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">setCoord</a>(0,0,w,h);
-<a name="l00178"></a>00178     }
-<a name="l00179"></a>00179   };
-<a name="l00180"></a>00180 
-<a name="l00181"></a><a class="code" href="classMWGui_1_1StatsWindow.html">00181</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1StatsWindow.html">StatsWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00182"></a>00182     {
-<a name="l00183"></a>00183     <span class="keyword">public</span>:
-<a name="l00184"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a5bc30465f1c7c55dccc9a76347b6eb55">00184</a>         <span class="keyword">typedef</span> std::pair&lt;std::string, int&gt; <a class="code" href="classMWGui_1_1StatsWindow.html#a5bc30465f1c7c55dccc9a76347b6eb55">Faction</a>;
-<a name="l00185"></a><a class="code" href="classMWGui_1_1StatsWindow.html#acd9db0399986559d6d068570aadf082b">00185</a>         <span class="keyword">typedef</span> std::vector&lt;Faction&gt; <a class="code" href="classMWGui_1_1StatsWindow.html#acd9db0399986559d6d068570aadf082b">FactionList</a>;
-<a name="l00186"></a>00186 
-<a name="l00187"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a3ff54468fb042bf245d7148a67dbebba">00187</a>         <span class="keyword">typedef</span> std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1StatsWindow.html#a3ff54468fb042bf245d7148a67dbebba">SkillList</a>;
+<a name="l00139"></a>00139       boost::array&lt;CategoryMode, 5&gt; categories = { {
+<a name="l00140"></a>00140         CM_All, CM_Weapon, CM_Apparel, CM_Magic, CM_Misc
+<a name="l00141"></a>00141       } };
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143       <span class="comment">// Initialize buttons with text and adjust sizes, also mark All as active button</span>
+<a name="l00144"></a>00144       <span class="keywordtype">int</span> margin = 2;
+<a name="l00145"></a>00145       <span class="keywordtype">int</span> last_x = 0;
+<a name="l00146"></a>00146       <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; categories.size(); ++i)
+<a name="l00147"></a>00147       {
+<a name="l00148"></a>00148           CategoryMode mode = categories[i];
+<a name="l00149"></a>00149           std::string name = names[mode];
+<a name="l00150"></a>00150           name += <span class="stringliteral">&quot;Button&quot;</span>;
+<a name="l00151"></a>00151           setText(name, names[mode]);
+<a name="l00152"></a>00152           getWidget(buttons[mode], name);
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154           MyGUI::ButtonPtr &amp;button_pt = buttons[mode];
+<a name="l00155"></a>00155           <span class="keywordflow">if</span> (mode == CM_All)
+<a name="l00156"></a>00156               button_pt-&gt;setTextColour(activeColor);
+<a name="l00157"></a>00157           <span class="keywordflow">else</span>
+<a name="l00158"></a>00158               button_pt-&gt;setTextColour(inactiveColor);
+<a name="l00159"></a>00159           MyGUI::IntCoord coord = button_pt-&gt;getCoord();
+<a name="l00160"></a>00160           coord.left = last_x;
+<a name="l00161"></a>00161           last_x += coord.width + margin;
+<a name="l00162"></a>00162           button_pt-&gt;setCoord(coord);
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164           button_pt-&gt;eventMouseButtonClick = MyGUI::newDelegate(<span class="keyword">this</span>, &amp;InventoryWindow::onCategorySelected);
+<a name="l00165"></a>00165       }
+<a name="l00166"></a>00166     }
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168     <span class="keywordtype">void</span> setCategory(CategoryMode mode)
+<a name="l00169"></a>00169     {
+<a name="l00170"></a>00170         MyGUI::ButtonPtr pt = getCategoryButton(categoryMode);
+<a name="l00171"></a>00171         pt-&gt;setTextColour(inactiveColor);
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173         pt = getCategoryButton(mode);
+<a name="l00174"></a>00174         pt-&gt;setTextColour(activeColor);
+<a name="l00175"></a>00175         categoryMode = mode;
+<a name="l00176"></a>00176     }
+<a name="l00177"></a>00177 
+<a name="l00178"></a>00178     MyGUI::ButtonPtr getCategoryButton(CategoryMode mode)
+<a name="l00179"></a>00179     {
+<a name="l00180"></a>00180         <span class="keywordflow">return</span> buttons[mode];
+<a name="l00181"></a>00181     }
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183     <span class="keywordtype">void</span> onCategorySelected(MyGUI::Widget *widget)
+<a name="l00184"></a>00184     {
+<a name="l00185"></a>00185         boost::array&lt;CategoryMode, 5&gt; categories = { {
+<a name="l00186"></a>00186         CM_All, CM_Weapon, CM_Apparel, CM_Magic, CM_Misc
+<a name="l00187"></a>00187         } };
 <a name="l00188"></a>00188 
-<a name="l00189"></a>00189         <a class="code" href="classMWGui_1_1StatsWindow.html#a5b00c79560d47e5ee1e7e0c97357bfdf">StatsWindow</a> (<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#ac33679412b4c2d7aab60d2d89ac0bb5c">environment</a>);
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a7cc3fa7fa9aa0f51327e815ba346d74c">setBar</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; tname, <span class="keywordtype">int</span> val, <span class="keywordtype">int</span> max);
-<a name="l00192"></a>00192         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a335a0484cd565721431d10848e76f598">setPlayerName</a>(<span class="keyword">const</span> std::string&amp; playerName);
-<a name="l00193"></a>00193 
-<a name="l00195"></a>00195         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a46f59099d57b9282df14392caaa6f397" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
-<a name="l00196"></a>00196         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a46f59099d57b9282df14392caaa6f397" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
-<a name="l00197"></a>00197         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a46f59099d57b9282df14392caaa6f397" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; value);
-<a name="l00198"></a>00198         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a46f59099d57b9282df14392caaa6f397" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> value);
+<a name="l00189"></a>00189         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; categories.size(); ++i)
+<a name="l00190"></a>00190         {
+<a name="l00191"></a>00191             CategoryMode mode = categories[i];
+<a name="l00192"></a>00192             <span class="keywordflow">if</span> (widget == buttons[mode])
+<a name="l00193"></a>00193             {
+<a name="l00194"></a>00194                 setCategory(mode);
+<a name="l00195"></a>00195                 <span class="keywordflow">return</span>;
+<a name="l00196"></a>00196             }
+<a name="l00197"></a>00197         }
+<a name="l00198"></a>00198     }
 <a name="l00199"></a>00199 
-<a name="l00200"></a>00200         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a46f59099d57b9282df14392caaa6f397" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
-<a name="l00201"></a>00201 
-<a name="l00202"></a>00202         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a8712ad5862abaf4f6d1e0b41e7647d05">configureSkills</a> (<span class="keyword">const</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a3ff54468fb042bf245d7148a67dbebba">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a3ff54468fb042bf245d7148a67dbebba">SkillList</a>&amp; minor);
-<a name="l00203"></a>00203         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a0d8fc93b482115d5f2486b4ed23c50f5">setFactions</a> (<span class="keyword">const</span> std::vector&lt;Faction&gt;&amp; <a class="code" href="classMWGui_1_1StatsWindow.html#a29b2a1e59d446cb60e083d235be1e943" title="Stores a list of factions and the current rank.">factions</a>);
-<a name="l00204"></a>00204         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a955a565f3a3b76c441268981621279d1">setBirthSign</a> (<span class="keyword">const</span> std::string &amp;signId);
-<a name="l00205"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a4ae514cf27c2c658f10f801cc7ef8c6c">00205</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a4ae514cf27c2c658f10f801cc7ef8c6c">setReputation</a> (<span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1StatsWindow.html#abac3587daff1530feb4d6b11a0483fbf">reputation</a>) { this-&gt;reputation = reputation; }
-<a name="l00206"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a08e357ef496f46272f5f2bf22bafe48c">00206</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a08e357ef496f46272f5f2bf22bafe48c">setBounty</a> (<span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1StatsWindow.html#aca4d28b8502677ed1281e3f2b2598665">bounty</a>) { this-&gt;bounty = bounty; }
-<a name="l00207"></a>00207         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#aaf79b27305972edfb5157a5d9b167d46">updateSkillArea</a>();
-<a name="l00208"></a>00208 
-<a name="l00209"></a>00209     <span class="keyword">private</span>:
-<a name="l00210"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96">00210</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96">ColorStyle</a>
-<a name="l00211"></a>00211         {
-<a name="l00212"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96a0376c96ecca5123fa2225f7a277680fc">00212</a>           <a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96a0376c96ecca5123fa2225f7a277680fc">CS_Sub</a>,
-<a name="l00213"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96ad868a7b6fd6c000fc1e01d8f03dd5dad">00213</a>           <a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96ad868a7b6fd6c000fc1e01d8f03dd5dad">CS_Normal</a>,
-<a name="l00214"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96a436e31adff3a02b3f86f6c0dae1bd16e">00214</a>           <a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96a436e31adff3a02b3f86f6c0dae1bd16e">CS_Super</a>
-<a name="l00215"></a>00215         };
-<a name="l00216"></a>00216         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#ab46f9d2816647e57fa64383a38b52046">setStyledText</a>(MyGUI::StaticTextPtr widget, <a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96">ColorStyle</a> style, <span class="keyword">const</span> std::string &amp;value);
-<a name="l00217"></a>00217         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#aa1372f087f32a0a197fd878004069bd6">addSkills</a>(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a3ff54468fb042bf245d7148a67dbebba">SkillList</a> &amp;skills, <span class="keyword">const</span> std::string &amp;titleId, <span class="keyword">const</span> std::string &amp;titleDefault, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00218"></a>00218         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#aacab333ce8916569012d93b626453bac">addSeparator</a>(MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00219"></a>00219         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a17f671637a93999d62ab7f21e1ef3ce2">addGroup</a>(<span class="keyword">const</span> std::string &amp;label, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00220"></a>00220         MyGUI::StaticTextPtr <a class="code" href="classMWGui_1_1StatsWindow.html#a70ba51c4ce9edac026c33e1c6c5d5a4b">addValueItem</a>(<span class="keyword">const</span> std::string text, <span class="keyword">const</span> std::string &amp;value, <a class="code" href="classMWGui_1_1StatsWindow.html#a0181b8c69302550cd050e1294c67ca96">ColorStyle</a> style, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00221"></a>00221         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#ad24c4cb8ae62b92078d3082a29e3b91b">addItem</a>(<span class="keyword">const</span> std::string text, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00222"></a>00222         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a4523b960a9e524827ebbf73418203bd1">updateScroller</a>();
-<a name="l00223"></a>00223 
-<a name="l00224"></a>00224         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a19482fdd31c714e157e523671b894fcf">onScrollChangePosition</a>(MyGUI::VScrollPtr scroller, <span class="keywordtype">size_t</span> pos);
-<a name="l00225"></a>00225         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1StatsWindow.html#ada8a3d67a98f2d9a3f9662d7fffeda5d">onWindowResize</a>(MyGUI::WidgetPtr <a class="code" href="ogre__common_8cpp.html#ae1f8b65b3ad5afe5312d8963e3cc7f60">window</a>);
-<a name="l00226"></a>00226 
-<a name="l00227"></a><a class="code" href="classMWGui_1_1StatsWindow.html#ad4d0809773f18aec2dc62b9f4f05fcd3">00227</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1StatsWindow.html#ad4d0809773f18aec2dc62b9f4f05fcd3">lineHeight</a>;
-<a name="l00228"></a>00228 
-<a name="l00229"></a><a class="code" href="classMWGui_1_1StatsWindow.html#aba39a630e4af51c8b707743014d9f484">00229</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1StatsWindow.html#a9b12b79caece593c9694642b9669c257">skillAreaWidget</a>, <a class="code" href="classMWGui_1_1StatsWindow.html#aba39a630e4af51c8b707743014d9f484">skillClientWidget</a>;
-<a name="l00230"></a><a class="code" href="classMWGui_1_1StatsWindow.html#afe9683ee8b2f54cc686e45d85d5a4883">00230</a>         MyGUI::VScrollPtr <a class="code" href="classMWGui_1_1StatsWindow.html#afe9683ee8b2f54cc686e45d85d5a4883">skillScrollerWidget</a>;
-<a name="l00231"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a467d822832aa7cdb6bc2ac149c9b6cd9">00231</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1StatsWindow.html#a467d822832aa7cdb6bc2ac149c9b6cd9">lastPos</a>, <a class="code" href="classMWGui_1_1StatsWindow.html#ad543cb5f368efc06cb1baad4ba339a95">clientHeight</a>;
-<a name="l00232"></a>00232 
-<a name="l00233"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a5455f57cd3992b2d1a4ef5dfcdeb6db4">00233</a>         <a class="code" href="classMWGui_1_1StatsWindow.html#a3ff54468fb042bf245d7148a67dbebba">SkillList</a> <a class="code" href="classMWGui_1_1StatsWindow.html#a606d9e11fb4a3b636eeae9feb3d58e09">majorSkills</a>, <a class="code" href="classMWGui_1_1StatsWindow.html#a56b1d2c9c4ba92b910b9e1ce2a93d82c">minorSkills</a>, <a class="code" href="classMWGui_1_1StatsWindow.html#a5455f57cd3992b2d1a4ef5dfcdeb6db4">miscSkills</a>;
-<a name="l00234"></a><a class="code" href="classMWGui_1_1StatsWindow.html#ad6c04b007bbba2398afa20d6c3a0f226">00234</a>         std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1StatsWindow.html#ad6c04b007bbba2398afa20d6c3a0f226">skillValues</a>;
-<a name="l00235"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a10198af3c04c4eca7a4d447d08e0ce34">00235</a>         std::map&lt;int, MyGUI::StaticTextPtr&gt; <a class="code" href="classMWGui_1_1StatsWindow.html#a10198af3c04c4eca7a4d447d08e0ce34">skillWidgetMap</a>;
-<a name="l00236"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a07872b3d33b0e40839959d9ac02b32c4">00236</a>         std::map&lt;std::string, MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1StatsWindow.html#a07872b3d33b0e40839959d9ac02b32c4">factionWidgetMap</a>;
-<a name="l00237"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a29b2a1e59d446cb60e083d235be1e943">00237</a>         <a class="code" href="classMWGui_1_1StatsWindow.html#acd9db0399986559d6d068570aadf082b">FactionList</a> <a class="code" href="classMWGui_1_1StatsWindow.html#a29b2a1e59d446cb60e083d235be1e943" title="Stores a list of factions and the current rank.">factions</a>; 
-<a name="l00238"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a18849e95d7e4dd264c80bdfea1ae1f29">00238</a>         std::string <a class="code" href="classMWGui_1_1StatsWindow.html#a18849e95d7e4dd264c80bdfea1ae1f29">birthSignId</a>;
-<a name="l00239"></a><a class="code" href="classMWGui_1_1StatsWindow.html#abac3587daff1530feb4d6b11a0483fbf">00239</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1StatsWindow.html#abac3587daff1530feb4d6b11a0483fbf">reputation</a>, <a class="code" href="classMWGui_1_1StatsWindow.html#aca4d28b8502677ed1281e3f2b2598665">bounty</a>;
-<a name="l00240"></a><a class="code" href="classMWGui_1_1StatsWindow.html#a1ce8fb6cb348e0fc72ee3d8372c475b7">00240</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1StatsWindow.html#a1ce8fb6cb348e0fc72ee3d8372c475b7">skillWidgets</a>; <span class="comment">//&lt; Skills and other information</span>
-<a name="l00241"></a>00241     };
-<a name="l00242"></a>00242 
-<a name="l00243"></a>00243 <span class="preprocessor">#if 0</span>
-<a name="l00244"></a>00244 <span class="preprocessor"></span>  <span class="keyword">class </span>InventoryWindow : <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00245"></a>00245   {
-<a name="l00246"></a>00246   <span class="keyword">public</span>:
-<a name="l00247"></a>00247     <span class="keyword">enum</span> CategoryMode
-<a name="l00248"></a>00248       {
-<a name="l00249"></a>00249         CM_All = 0,      <span class="comment">// All items</span>
-<a name="l00250"></a>00250         CM_Weapon = 1,   <span class="comment">// Only weapons</span>
-<a name="l00251"></a>00251         CM_Apparel = 2,  <span class="comment">// Apparel</span>
-<a name="l00252"></a>00252         CM_Magic = 3,    <span class="comment">// Magic</span>
-<a name="l00253"></a>00253         CM_Misc = 4      <span class="comment">// Misc</span>
-<a name="l00254"></a>00254       };
-<a name="l00255"></a>00255 
-<a name="l00256"></a>00256     InventoryWindow ()
-<a name="l00257"></a>00257       : Layout(<span class="stringliteral">&quot;openmw_inventory_window_layout.xml&quot;</span>)
-<a name="l00258"></a>00258       , categoryMode(CM_All)
-<a name="l00259"></a>00259 
-<a name="l00260"></a>00260       <span class="comment">// color should be fetched from skin</span>
-<a name="l00261"></a>00261       , activeColor(0, 0, 1)
-<a name="l00262"></a>00262       , inactiveColor(0.7, 0.7, 0.7)
-<a name="l00263"></a>00263     {
-<a name="l00264"></a>00264       setCoord(0, 200, 600, 400);
-<a name="l00265"></a>00265 
-<a name="l00266"></a>00266       <span class="comment">// These are just demo values, you should replace these with</span>
-<a name="l00267"></a>00267       <span class="comment">// real calls from outside the class later.</span>
-<a name="l00268"></a>00268 
-<a name="l00269"></a>00269       mMainWidget-&gt;setCaption(<span class="stringliteral">&quot;Glass Frostsword&quot;</span>);
-<a name="l00270"></a>00270       setText(<span class="stringliteral">&quot;EncumbranceBarT&quot;</span>, <span class="stringliteral">&quot;176/210&quot;</span>);
-<a name="l00271"></a>00271 
-<a name="l00272"></a>00272       MyGUI::ProgressPtr pt;
-<a name="l00273"></a>00273       getWidget(pt, <span class="stringliteral">&quot;EncumbranceBar&quot;</span>);
-<a name="l00274"></a>00274       pt-&gt;setProgressRange(210);
-<a name="l00275"></a>00275       pt-&gt;setProgressPosition(176);
-<a name="l00276"></a>00276 
-<a name="l00277"></a>00277       MyGUI::WidgetPtr avatar;
-<a name="l00278"></a>00278       getWidget(avatar, <span class="stringliteral">&quot;Avatar&quot;</span>);
-<a name="l00279"></a>00279 
-<a name="l00280"></a>00280       <span class="comment">// Adjust armor rating text to bottom of avatar widget</span>
-<a name="l00281"></a>00281       MyGUI::StaticTextPtr armor_rating;
-<a name="l00282"></a>00282       getWidget(armor_rating, <span class="stringliteral">&quot;ArmorRating&quot;</span>);
-<a name="l00283"></a>00283       armor_rating-&gt;setCaption(<span class="stringliteral">&quot;Armor: 11&quot;</span>);
-<a name="l00284"></a>00284       MyGUI::IntCoord coord = armor_rating-&gt;getCoord();
-<a name="l00285"></a>00285       coord.top = avatar-&gt;getCoord().height - 4 - coord.height;
-<a name="l00286"></a>00286       armor_rating-&gt;setCoord(coord);
-<a name="l00287"></a>00287 
-<a name="l00288"></a>00288       names[0] = <span class="stringliteral">&quot;All&quot;</span>;
-<a name="l00289"></a>00289       names[1] = <span class="stringliteral">&quot;Weapon&quot;</span>;
-<a name="l00290"></a>00290       names[2] = <span class="stringliteral">&quot;Apparel&quot;</span>;
-<a name="l00291"></a>00291       names[3] = <span class="stringliteral">&quot;Magic&quot;</span>;
-<a name="l00292"></a>00292       names[4] = <span class="stringliteral">&quot;Misc&quot;</span>;
-<a name="l00293"></a>00293 
-<a name="l00294"></a>00294       boost::array&lt;CategoryMode, 5&gt; categories = { {
-<a name="l00295"></a>00295         CM_All, CM_Weapon, CM_Apparel, CM_Magic, CM_Misc
-<a name="l00296"></a>00296       } };
-<a name="l00297"></a>00297 
-<a name="l00298"></a>00298       <span class="comment">// Initialize buttons with text and adjust sizes, also mark All as active button</span>
-<a name="l00299"></a>00299       <span class="keywordtype">int</span> margin = 2;
-<a name="l00300"></a>00300       <span class="keywordtype">int</span> last_x = 0;
-<a name="l00301"></a>00301       <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; categories.size(); ++i)
-<a name="l00302"></a>00302       {
-<a name="l00303"></a>00303           CategoryMode mode = categories[i];
-<a name="l00304"></a>00304           std::string name = names[mode];
-<a name="l00305"></a>00305           name += <span class="stringliteral">&quot;Button&quot;</span>;
-<a name="l00306"></a>00306           setText(name, names[mode]);
-<a name="l00307"></a>00307           getWidget(buttons[mode], name);
-<a name="l00308"></a>00308 
-<a name="l00309"></a>00309           MyGUI::ButtonPtr &amp;button_pt = buttons[mode];
-<a name="l00310"></a>00310           <span class="keywordflow">if</span> (mode == CM_All)
-<a name="l00311"></a>00311               button_pt-&gt;setTextColour(activeColor);
-<a name="l00312"></a>00312           <span class="keywordflow">else</span>
-<a name="l00313"></a>00313               button_pt-&gt;setTextColour(inactiveColor);
-<a name="l00314"></a>00314           MyGUI::IntCoord coord = button_pt-&gt;getCoord();
-<a name="l00315"></a>00315           coord.left = last_x;
-<a name="l00316"></a>00316           last_x += coord.width + margin;
-<a name="l00317"></a>00317           button_pt-&gt;setCoord(coord);
-<a name="l00318"></a>00318 
-<a name="l00319"></a>00319           button_pt-&gt;eventMouseButtonClick = MyGUI::newDelegate(<span class="keyword">this</span>, &amp;InventoryWindow::onCategorySelected);
-<a name="l00320"></a>00320       }
-<a name="l00321"></a>00321     }
-<a name="l00322"></a>00322 
-<a name="l00323"></a>00323     <span class="keywordtype">void</span> setCategory(CategoryMode mode)
-<a name="l00324"></a>00324     {
-<a name="l00325"></a>00325         MyGUI::ButtonPtr pt = getCategoryButton(categoryMode);
-<a name="l00326"></a>00326         pt-&gt;setTextColour(inactiveColor);
-<a name="l00327"></a>00327 
-<a name="l00328"></a>00328         pt = getCategoryButton(mode);
-<a name="l00329"></a>00329         pt-&gt;setTextColour(activeColor);
-<a name="l00330"></a>00330         categoryMode = mode;
-<a name="l00331"></a>00331     }
-<a name="l00332"></a>00332 
-<a name="l00333"></a>00333     MyGUI::ButtonPtr getCategoryButton(CategoryMode mode)
-<a name="l00334"></a>00334     {
-<a name="l00335"></a>00335         <span class="keywordflow">return</span> buttons[mode];
-<a name="l00336"></a>00336     }
-<a name="l00337"></a>00337 
-<a name="l00338"></a>00338     <span class="keywordtype">void</span> onCategorySelected(MyGUI::Widget *widget)
-<a name="l00339"></a>00339     {
-<a name="l00340"></a>00340         boost::array&lt;CategoryMode, 5&gt; categories = { {
-<a name="l00341"></a>00341         CM_All, CM_Weapon, CM_Apparel, CM_Magic, CM_Misc
-<a name="l00342"></a>00342         } };
-<a name="l00343"></a>00343 
-<a name="l00344"></a>00344         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; categories.size(); ++i)
-<a name="l00345"></a>00345         {
-<a name="l00346"></a>00346             CategoryMode mode = categories[i];
-<a name="l00347"></a>00347             <span class="keywordflow">if</span> (widget == buttons[mode])
-<a name="l00348"></a>00348             {
-<a name="l00349"></a>00349                 setCategory(mode);
-<a name="l00350"></a>00350                 <span class="keywordflow">return</span>;
-<a name="l00351"></a>00351             }
-<a name="l00352"></a>00352         }
-<a name="l00353"></a>00353     }
-<a name="l00354"></a>00354 
-<a name="l00355"></a>00355     CategoryMode categoryMode;        <span class="comment">// Current category filter</span>
-<a name="l00356"></a>00356     MyGUI::ButtonPtr buttons[5];    <span class="comment">// Button pointers</span>
-<a name="l00357"></a>00357     std::string names[5];            <span class="comment">// Names of category buttons</span>
-<a name="l00358"></a>00358 
-<a name="l00359"></a>00359     MyGUI::Colour activeColor;
-<a name="l00360"></a>00360     MyGUI::Colour inactiveColor;
-<a name="l00361"></a>00361   };
-<a name="l00362"></a>00362 <span class="preprocessor">#endif</span>
-<a name="l00363"></a>00363 <span class="preprocessor"></span>}
-<a name="l00364"></a>00364 <span class="preprocessor">#endif</span>
+<a name="l00200"></a>00200     CategoryMode categoryMode;        <span class="comment">// Current category filter</span>
+<a name="l00201"></a>00201     MyGUI::ButtonPtr buttons[5];    <span class="comment">// Button pointers</span>
+<a name="l00202"></a>00202     std::string names[5];            <span class="comment">// Names of category buttons</span>
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204     MyGUI::Colour activeColor;
+<a name="l00205"></a>00205     MyGUI::Colour inactiveColor;
+<a name="l00206"></a>00206   };
+<a name="l00207"></a>00207 <span class="preprocessor">#endif</span>
+<a name="l00208"></a>00208 <span class="preprocessor"></span>}
+<a name="l00209"></a>00209 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:09 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

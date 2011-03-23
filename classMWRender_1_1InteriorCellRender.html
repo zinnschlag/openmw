@@ -61,6 +61,8 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a860752c4ea606a8b9b1483251c3a9830">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#ac4b3cb9f444e2fd939b683cb88ef9202">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements, bool translateFirst)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a mesh related to the most recent insertBegin call.  <a href="#ac4b3cb9f444e2fd939b683cb88ef9202"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#aea040e10e305b852012cb8c58ef04e34">insertObjectPhysics</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a2442c115b254e51c56f1e2c1553881c4">insertActorPhysics</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a101b9735a1d9388e707c3edd50f587dd">insertLight</a> (float r, float g, float b, float radius)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a light related to the most recent insertBegin call.  <a href="#a101b9735a1d9388e707c3edd50f587dd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a06d276c791411b6c4c5791442a65d24f">insertEnd</a> (bool Enable)</td></tr>
@@ -77,6 +79,7 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1MWScene.html">MWScene</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#ab02814b262e801e5aa3f4bd28e48f00e">scene</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#ae690ea2184a9465ffa10e875232c5e7f">base</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a6de89a094251afb60dbebac028de174b">insert</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#af0c9b15db86349b3fc15626ff4af596a">mInsertMesh</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a74c71fd6bc76661b4387b5d4fd2bd77c">npcPart</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a437ef389034d86fc10ca20c1617936cb">ambientMode</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::ColourValue&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InteriorCellRender.html#a979192ed55d60e4aff64739166f3055b">ambientColor</a></td></tr>
@@ -289,6 +292,25 @@
 <p>Remove the cell from rendering, but don't remove it from memory. </p>
 
 <p>Implements <a class="el" href="classMWRender_1_1CellRender.html#aa2b135d0ed519dbfa5b7e07f2ebe7662">MWRender::CellRender</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2442c115b254e51c56f1e2c1553881c4"></a><!-- doxytag: member="MWRender::InteriorCellRender::insertActorPhysics" ref="a2442c115b254e51c56f1e2c1553881c4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InteriorCellRender::insertActorPhysics </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classMWRender_1_1CellRenderImp.html#aa003f703d006edcf3f2b74a98c3d83a0">MWRender::CellRenderImp</a>.</p>
 
 </div>
 </div>
@@ -524,6 +546,25 @@
 <p>insert a mesh related to the most recent insertBegin call. </p>
 
 <p>Implements <a class="el" href="classMWRender_1_1CellRenderImp.html#a3aa2fc0696a20505891c6bf727cf3b04">MWRender::CellRenderImp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea040e10e305b852012cb8c58ef04e34"></a><!-- doxytag: member="MWRender::InteriorCellRender::insertObjectPhysics" ref="aea040e10e305b852012cb8c58ef04e34" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InteriorCellRender::insertObjectPhysics </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classMWRender_1_1CellRenderImp.html#a9831b2a28e6f47583e90a527fb8694f4">MWRender::CellRenderImp</a>.</p>
 
 </div>
 </div>
@@ -883,6 +924,19 @@
 
 </div>
 </div>
+<a class="anchor" id="af0c9b15db86349b3fc15626ff4af596a"></a><!-- doxytag: member="MWRender::InteriorCellRender::mInsertMesh" ref="af0c9b15db86349b3fc15626ff4af596a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWRender_1_1InteriorCellRender.html#af0c9b15db86349b3fc15626ff4af596a">MWRender::InteriorCellRender::mInsertMesh</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a74c71fd6bc76661b4387b5d4fd2bd77c"></a><!-- doxytag: member="MWRender::InteriorCellRender::npcPart" ref="a74c71fd6bc76661b4387b5d4fd2bd77c" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -914,7 +968,7 @@
 <li>apps/openmw/mwrender/<a class="el" href="interior_8cpp.html">interior.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jan 2 10:10:10 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
