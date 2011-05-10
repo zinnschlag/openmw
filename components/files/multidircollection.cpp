@@ -55,10 +55,18 @@ namespace Files
             {
                 boost::filesystem::path path = *iter;
 
+// TODO: Remove
+#if !defined(BOOST_FILESYSTEM_VERSION) || BOOST_FILESYSTEM_VERSION == 2
                 if (!equal (extension, path.extension()))
                     continue;
 
                 std::string filename = path.filename();
+#else
+                if (!equal (extension, path.extension().string()))
+                    continue;
+
+                std::string filename = path.filename().string();
+#endif
 
                 TIter result = mFiles.find (filename);
 
