@@ -44,209 +44,217 @@
 <a name="l00017"></a>00017 
 <a name="l00018"></a>00018 <span class="preprocessor">#include &lt;iostream&gt;</span>
 <a name="l00019"></a>00019 <span class="preprocessor">#include &lt;stdexcept&gt;</span>
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="keyword">namespace </span>ESMS
-<a name="l00022"></a>00022 {
-<a name="l00023"></a>00023   <span class="keyword">using namespace </span>ESM;
-<a name="l00024"></a>00024 
-<a name="l00026"></a>00026   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X, <span class="keyword">typename</span> D&gt;
-<a name="l00027"></a><a class="code" href="structESMS_1_1LiveCellRef.html">00027</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveCellRef</a>
-<a name="l00028"></a>00028   {
-<a name="l00029"></a>00029     <span class="comment">// The object that this instance is based on.</span>
-<a name="l00030"></a><a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">00030</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="comment">/* Information about this instance, such as 3D location and</span>
-<a name="l00033"></a>00033 <span class="comment">       rotation and individual type-dependent data.</span>
-<a name="l00034"></a>00034 <span class="comment">    */</span>
-<a name="l00035"></a><a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">00035</a>     <a class="code" href="classESM_1_1CellRef.html">CellRef</a> <a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a>;
-<a name="l00036"></a>00036 
-<a name="l00038"></a><a class="code" href="structESMS_1_1LiveCellRef.html#a31a35bceafce189570c714f6a884dfde">00038</a>     D <a class="code" href="structESMS_1_1LiveCellRef.html#a31a35bceafce189570c714f6a884dfde" title="runtime-data">mData</a>;
-<a name="l00039"></a>00039   };
-<a name="l00040"></a>00040 
-<a name="l00042"></a>00042   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X, <span class="keyword">typename</span> D&gt;
-<a name="l00043"></a><a class="code" href="structESMS_1_1CellRefList.html">00043</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1CellRefList.html" title="A list of cell references.">CellRefList</a>
-<a name="l00044"></a>00044   {
-<a name="l00045"></a><a class="code" href="structESMS_1_1CellRefList.html#a7bc4674c2b78467d79d0745016eb7eed">00045</a>     <span class="keyword">typedef</span> <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveCellRef&lt;X, D&gt;</a> <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveRef</a>;
-<a name="l00046"></a><a class="code" href="structESMS_1_1CellRefList.html#a652de7135cab552c80870d8d8460055f">00046</a>     <span class="keyword">typedef</span> std::list&lt;LiveRef&gt; <a class="code" href="structESMS_1_1CellRefList.html#a652de7135cab552c80870d8d8460055f">List</a>;
-<a name="l00047"></a><a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">00047</a>     <a class="code" href="structESMS_1_1CellRefList.html#a652de7135cab552c80870d8d8460055f">List</a> <a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049     <span class="comment">// Search for the given reference in the given reclist from</span>
-<a name="l00050"></a>00050     <span class="comment">// ESMStore. Insert the reference into the list if a match is</span>
-<a name="l00051"></a>00051     <span class="comment">// found. If not, throw an exception.</span>
-<a name="l00052"></a>00052     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Y&gt;
-<a name="l00053"></a><a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">00053</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(<a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref, <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>&amp; recList)
-<a name="l00054"></a>00054     {
-<a name="l00055"></a>00055       <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* obj = recList.find(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
-<a name="l00056"></a>00056       <span class="keywordflow">if</span>(obj == NULL)
-<a name="l00057"></a>00057         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error resolving cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059       <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveRef</a> lr;
-<a name="l00060"></a>00060       lr.<a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a> = ref;
-<a name="l00061"></a>00061       lr.<a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a> = obj;
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063       <a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>.push_back(lr);
-<a name="l00064"></a>00064     }
-<a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="structESMS_1_1CellRefList.html#aa928e92a271b3761efbe03f0ae928049">00066</a>     <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveRef</a> *<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a> (<span class="keyword">const</span> std::string&amp; name)
-<a name="l00067"></a>00067     {
-<a name="l00068"></a>00068         <span class="keywordflow">for</span> (<span class="keyword">typename</span> std::list&lt;LiveRef&gt;::iterator iter (<a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>.begin()); iter!=<a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>.end(); ++iter)
-<a name="l00069"></a>00069         {
-<a name="l00070"></a>00070             <span class="keywordflow">if</span> (iter-&gt;ref.refID==name)
-<a name="l00071"></a>00071                 <span class="keywordflow">return</span> &amp;*iter;
-<a name="l00072"></a>00072         }
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074         <span class="keywordflow">return</span> 0;
-<a name="l00075"></a>00075     }
-<a name="l00076"></a>00076   };
-<a name="l00077"></a>00077 
-<a name="l00079"></a>00079   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> D&gt;
-<a name="l00080"></a><a class="code" href="classESMS_1_1CellStore.html">00080</a>   <span class="keyword">class </span><a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>
-<a name="l00081"></a>00081   {
-<a name="l00082"></a>00082   <span class="keyword">public</span>:
-<a name="l00083"></a><a class="code" href="classESMS_1_1CellStore.html#a151b51aef0cafb79403ed75c869f750d">00083</a>     <a class="code" href="classESMS_1_1CellStore.html#a151b51aef0cafb79403ed75c869f750d">CellStore</a>() : <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> (0) {}
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">00085</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087     <span class="comment">// Lists for each individual object type</span>
-<a name="l00088"></a><a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">00088</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Activator, D&gt;</a>         <a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">activators</a>;
-<a name="l00089"></a><a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">00089</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Potion, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">potions</a>;
-<a name="l00090"></a><a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">00090</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Apparatus, D&gt;</a>         <a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">appas</a>;
-<a name="l00091"></a><a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">00091</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Armor, D&gt;</a>             <a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">armors</a>;
-<a name="l00092"></a><a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">00092</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Book, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">books</a>;
-<a name="l00093"></a><a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">00093</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Clothing, D&gt;</a>          <a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">clothes</a>;
-<a name="l00094"></a><a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">00094</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Container, D&gt;</a>         <a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">containers</a>;
-<a name="l00095"></a><a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">00095</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Creature, D&gt;</a>          <a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">creatures</a>;
-<a name="l00096"></a><a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">00096</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Door, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">doors</a>;
-<a name="l00097"></a><a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">00097</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Ingredient, D&gt;</a>        <a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">ingreds</a>;
-<a name="l00098"></a><a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">00098</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;CreatureLevList, D&gt;</a>   <a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">creatureLists</a>;
-<a name="l00099"></a><a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">00099</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;ItemLevList, D&gt;</a>       <a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">itemLists</a>;
-<a name="l00100"></a><a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">00100</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;ESM::Light, D&gt;</a>        <a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">lights</a>;
-<a name="l00101"></a><a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">00101</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Tool, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">lockpicks</a>;
-<a name="l00102"></a><a class="code" href="classESMS_1_1CellStore.html#a3ac810215fa6b3b2ca3a8be3111c4c1b">00102</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Misc, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a3ac810215fa6b3b2ca3a8be3111c4c1b">miscItems</a>;
-<a name="l00103"></a><a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">00103</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;NPC, D&gt;</a>               <a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">npcs</a>;
-<a name="l00104"></a><a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">00104</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Probe, D&gt;</a>             <a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">probes</a>;
-<a name="l00105"></a><a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">00105</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Repair, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">repairs</a>;
-<a name="l00106"></a><a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">00106</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Static, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">statics</a>;
-<a name="l00107"></a><a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">00107</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Weapon, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">weapons</a>;
-<a name="l00108"></a>00108 
-<a name="l00111"></a><a class="code" href="classESMS_1_1CellStore.html#a706d2c19d6af6dfc15c8ec2c348c664d">00111</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#a706d2c19d6af6dfc15c8ec2c348c664d">loadInt</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00112"></a>00112     {
-<a name="l00113"></a>00113         std::cout &lt;&lt; <span class="stringliteral">&quot;loading cell &#39;&quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;&#39;\n&quot;</span>;
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115         <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> = store.<a class="code" href="structESMS_1_1ESMStore.html#a1b2cc8730981b7dbab7ced576cdf29d5">cells</a>.<a class="code" href="structESMS_1_1CellList.html#a6c1accabda7a068979b6e9d0a8b4c774">findInt</a>(name);
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117         <span class="keywordflow">if</span>(<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> == NULL)
-<a name="l00118"></a>00118             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cell not found - &quot;</span> + name);
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120         <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(store, esm);
-<a name="l00121"></a>00121     }
-<a name="l00122"></a>00122 
-<a name="l00124"></a><a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">00124</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">loadExt</a>(<span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, <span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00125"></a>00125     {
-<a name="l00126"></a>00126         std::cout &lt;&lt; <span class="stringliteral">&quot;loading exterior cell &#39;&quot;</span> &lt;&lt; X &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; Y &lt;&lt; <span class="stringliteral">&quot;&#39;\n&quot;</span>;
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128         <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> = store.<a class="code" href="structESMS_1_1ESMStore.html#a1b2cc8730981b7dbab7ced576cdf29d5">cells</a>.<a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">searchExt</a> (X, Y);
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130         <span class="keywordflow">if</span>(<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> == NULL)
-<a name="l00131"></a>00131             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Exterior cell not found&quot;</span>);
-<a name="l00132"></a>00132 
-<a name="l00133"></a>00133         <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(store, esm);
-<a name="l00134"></a>00134     }
-<a name="l00135"></a>00135 
-<a name="l00139"></a>00139     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Functor&gt;
-<a name="l00140"></a><a class="code" href="classESMS_1_1CellStore.html#af2181ae70bc3f9ccb9e65c00997f5b14">00140</a>     <span class="keywordtype">bool</span> <a class="code" href="classESMS_1_1CellStore.html#af2181ae70bc3f9ccb9e65c00997f5b14">forEach</a> (Functor&amp; functor)
-<a name="l00141"></a>00141     {
-<a name="l00142"></a>00142         <span class="keywordflow">return</span>
-<a name="l00143"></a>00143             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">activators</a>) &amp;&amp;
-<a name="l00144"></a>00144             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">potions</a>) &amp;&amp;
-<a name="l00145"></a>00145             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">appas</a>) &amp;&amp;
-<a name="l00146"></a>00146             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">armors</a>) &amp;&amp;
-<a name="l00147"></a>00147             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">books</a>) &amp;&amp;
-<a name="l00148"></a>00148             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">clothes</a>) &amp;&amp;
-<a name="l00149"></a>00149             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">containers</a>) &amp;&amp;
-<a name="l00150"></a>00150             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">creatures</a>) &amp;&amp;
-<a name="l00151"></a>00151             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">doors</a>) &amp;&amp;
-<a name="l00152"></a>00152             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">ingreds</a>) &amp;&amp;
-<a name="l00153"></a>00153             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">creatureLists</a>) &amp;&amp;
-<a name="l00154"></a>00154             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">itemLists</a>) &amp;&amp;
-<a name="l00155"></a>00155             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">lights</a>) &amp;&amp;
-<a name="l00156"></a>00156             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">lockpicks</a>) &amp;&amp;
-<a name="l00157"></a>00157             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a3ac810215fa6b3b2ca3a8be3111c4c1b">miscItems</a>) &amp;&amp;
-<a name="l00158"></a>00158             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">npcs</a>) &amp;&amp;
-<a name="l00159"></a>00159             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">probes</a>) &amp;&amp;
-<a name="l00160"></a>00160             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">repairs</a>) &amp;&amp;
-<a name="l00161"></a>00161             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">statics</a>) &amp;&amp;
-<a name="l00162"></a>00162             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">weapons</a>);
-<a name="l00163"></a>00163     }
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165   <span class="keyword">private</span>:
-<a name="l00166"></a>00166 
-<a name="l00167"></a>00167     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Functor, <span class="keyword">class</span> List&gt;
-<a name="l00168"></a><a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">00168</a>     <span class="keywordtype">bool</span> <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (Functor&amp; functor, List&amp; list)
-<a name="l00169"></a>00169     {
-<a name="l00170"></a>00170         <span class="keywordflow">for</span> (<span class="keyword">typename</span> List::List::iterator iter (list.list.begin()); iter!=list.list.end();
-<a name="l00171"></a>00171             ++iter)
-<a name="l00172"></a>00172             <span class="keywordflow">if</span> (!functor (iter-&gt;ref, iter-&gt;mData))
-<a name="l00173"></a>00173                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00174"></a>00174 
-<a name="l00175"></a>00175         <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00176"></a>00176     }
-<a name="l00177"></a>00177 
-<a name="l00178"></a><a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">00178</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00179"></a>00179     {
-<a name="l00180"></a>00180       assert (<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>);
-<a name="l00181"></a>00181 
-<a name="l00182"></a>00182       <span class="comment">// Reopen the ESM reader and seek to the right position.</span>
-<a name="l00183"></a>00183       <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#a2a57e897741d50fdfe393f5377110f68">restore</a>(esm);
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185       <a class="code" href="classESM_1_1CellRef.html">CellRef</a> ref;
-<a name="l00186"></a>00186 
-<a name="l00187"></a>00187       <span class="comment">// Get each reference in turn</span>
-<a name="l00188"></a>00188       <span class="keywordflow">while</span>(<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#aba209b283fe74801f441508c07ac8a7b">getNextRef</a>(esm, ref))
-<a name="l00189"></a>00189         {
-<a name="l00190"></a>00190           <span class="keywordtype">int</span> rec = store.<a class="code" href="structESMS_1_1ESMStore.html#adc08aba96e8017df1f8f66ebc6108d9b">find</a>(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
-<a name="l00191"></a>00191 
-<a name="l00192"></a>00192           <span class="comment">/* We can optimize this further by storing the pointer to the</span>
-<a name="l00193"></a>00193 <span class="comment">             record itself in store.all, so that we don&#39;t need to look it</span>
-<a name="l00194"></a>00194 <span class="comment">             up again here. However, never optimize. There are infinite</span>
-<a name="l00195"></a>00195 <span class="comment">             opportunities to do that later.</span>
-<a name="l00196"></a>00196 <span class="comment">           */</span>
-<a name="l00197"></a>00197           <span class="keywordflow">switch</span>(rec)
-<a name="l00198"></a>00198             {
-<a name="l00199"></a>00199             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">REC_ACTI</a>: <a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">activators</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#af0845a05784c720e40603b76285c8838">activators</a>); <span class="keywordflow">break</span>;
-<a name="l00200"></a>00200             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8fd0427003a6e3cb9858405f6f4b648c">REC_ALCH</a>: <a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">potions</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a818e550f0c863b28953a01682dca92f0">potions</a>); <span class="keywordflow">break</span>;
-<a name="l00201"></a>00201             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a96a8004725cc04e11f4ef4d52ae2793b">REC_APPA</a>: <a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">appas</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ac8a4177466dd89bc2bd6015a401ca13d">appas</a>); <span class="keywordflow">break</span>;
-<a name="l00202"></a>00202             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afbe071c34a2771eb347c7451843442a8">REC_ARMO</a>: <a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">armors</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a7e0373859db8f894a0c59828d315c7e1">armors</a>); <span class="keywordflow">break</span>;
-<a name="l00203"></a>00203             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ad2fb03dc49e49c229663fca8bc9fa95e">REC_BOOK</a>: <a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">books</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a27f0c617f3e79f8ee74943466b2dd2ac">books</a>); <span class="keywordflow">break</span>;
-<a name="l00204"></a>00204             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a1bd73e3df7317ebb2c33d4c5c0964680">REC_CLOT</a>: <a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">clothes</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a9766c9a0a2f534da624517c94b2a5562">clothes</a>); <span class="keywordflow">break</span>;
-<a name="l00205"></a>00205             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af518bf6b90a438ee36de184b403ca252">REC_CONT</a>: <a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">containers</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#acd93ce60ec3a2e8698f24d80012ce5f7">containers</a>); <span class="keywordflow">break</span>;
-<a name="l00206"></a>00206             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac2c265c0a95d5c938979e390a49e75b5">REC_CREA</a>: <a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">creatures</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a0dfdb5147e9db14db0ec2d0b4a1d94b3">creatures</a>); <span class="keywordflow">break</span>;
-<a name="l00207"></a>00207             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8ae6843f612237bf11e955a336a11c6f">REC_DOOR</a>: <a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">doors</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a9fd3f0f7fa0789164042612ff680aeb7">doors</a>); <span class="keywordflow">break</span>;
-<a name="l00208"></a>00208             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9aba2344fc64fa7cd701b59d14d241fe">REC_INGR</a>: <a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">ingreds</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a85d4d0f60532c87908343e736f7c6453">ingreds</a>); <span class="keywordflow">break</span>;
-<a name="l00209"></a>00209             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae4c5dbb3b9c5ceb3b0480de749084b22">REC_LEVC</a>: <a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">creatureLists</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ad47657a3e620f8533539ee5524c169a9">creatureLists</a>); <span class="keywordflow">break</span>;
-<a name="l00210"></a>00210             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d855e2fb119fd85f6cda0e8b88b4017">REC_LEVI</a>: <a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">itemLists</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ab62e75064765dbc8efe8ddeb771c6294">itemLists</a>); <span class="keywordflow">break</span>;
-<a name="l00211"></a>00211             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa3dc65b732272a23303ea53d617719ff">REC_LIGH</a>: <a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">lights</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a7bda857d44ab9732e4eadd06ba15739a">lights</a>); <span class="keywordflow">break</span>;
-<a name="l00212"></a>00212             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac1527acf9780db28fef92ba6c7227bec">REC_LOCK</a>: <a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">lockpicks</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a1222b11585153303449e942aa12fc3d2">lockpicks</a>); <span class="keywordflow">break</span>;
-<a name="l00213"></a>00213             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a83e212eeded4404d765164492207118a">REC_MISC</a>: <a class="code" href="classESMS_1_1CellStore.html#a3ac810215fa6b3b2ca3a8be3111c4c1b">miscItems</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a14a2946ff9970620acdcf8b72c71a839">miscItems</a>); <span class="keywordflow">break</span>;
-<a name="l00214"></a>00214             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">REC_NPC_</a>: <a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">npcs</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a540fd76cbfd0ccd9ebfcbe22168bf506">npcs</a>); <span class="keywordflow">break</span>;
-<a name="l00215"></a>00215             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4e6b7c59294ef919246988da47c7aaff">REC_PROB</a>: <a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">probes</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a309eef5525f4c702975214c2ba99ce80">probes</a>); <span class="keywordflow">break</span>;
-<a name="l00216"></a>00216             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af84813a4e6aa5159ba895062d920bdac">REC_REPA</a>: <a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">repairs</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ad4d6171b6c3614c0c2205456e8c8892f">repairs</a>); <span class="keywordflow">break</span>;
-<a name="l00217"></a>00217             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">REC_STAT</a>: <a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">statics</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#abc637fadaf4dd0c51c92c124cbcb0620">statics</a>); <span class="keywordflow">break</span>;
-<a name="l00218"></a>00218             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">REC_WEAP</a>: <a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">weapons</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#aadde42a9e9c577c72f242e3b2ce556bd">weapons</a>); <span class="keywordflow">break</span>;
-<a name="l00219"></a>00219 
-<a name="l00220"></a>00220             <span class="keywordflow">case</span> 0: std::cout &lt;&lt; <span class="stringliteral">&quot;Cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a> + <span class="stringliteral">&quot; not found!\n&quot;</span>; <span class="keywordflow">break</span>;
-<a name="l00221"></a>00221             <span class="keywordflow">default</span>:
-<a name="l00222"></a>00222               std::cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Ignoring reference &#39;&quot;</span> &lt;&lt; ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a> &lt;&lt; <span class="stringliteral">&quot;&#39; of unhandled type\n&quot;</span>;
-<a name="l00223"></a>00223             }
-<a name="l00224"></a>00224         }
-<a name="l00225"></a>00225     }
-<a name="l00226"></a>00226 
-<a name="l00227"></a>00227   };
-<a name="l00228"></a>00228 }
-<a name="l00229"></a>00229 
-<a name="l00230"></a>00230 <span class="preprocessor">#endif</span>
+<a name="l00020"></a>00020 <span class="preprocessor">#include &lt;algorithm&gt;</span>
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keyword">namespace </span>ESMS
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024   <span class="keyword">using namespace </span>ESM;
+<a name="l00025"></a>00025 
+<a name="l00027"></a>00027   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X, <span class="keyword">typename</span> D&gt;
+<a name="l00028"></a><a class="code" href="structESMS_1_1LiveCellRef.html">00028</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveCellRef</a>
+<a name="l00029"></a>00029   {
+<a name="l00030"></a>00030     <span class="comment">// The object that this instance is based on.</span>
+<a name="l00031"></a><a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">00031</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="comment">/* Information about this instance, such as 3D location and</span>
+<a name="l00034"></a>00034 <span class="comment">       rotation and individual type-dependent data.</span>
+<a name="l00035"></a>00035 <span class="comment">    */</span>
+<a name="l00036"></a><a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">00036</a>     <a class="code" href="classESM_1_1CellRef.html">CellRef</a> <a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a>;
+<a name="l00037"></a>00037 
+<a name="l00039"></a><a class="code" href="structESMS_1_1LiveCellRef.html#a31a35bceafce189570c714f6a884dfde">00039</a>     D <a class="code" href="structESMS_1_1LiveCellRef.html#a31a35bceafce189570c714f6a884dfde" title="runtime-data">mData</a>;
+<a name="l00040"></a>00040   };
+<a name="l00041"></a>00041 
+<a name="l00043"></a>00043   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X, <span class="keyword">typename</span> D&gt;
+<a name="l00044"></a><a class="code" href="structESMS_1_1CellRefList.html">00044</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1CellRefList.html" title="A list of cell references.">CellRefList</a>
+<a name="l00045"></a>00045   {
+<a name="l00046"></a><a class="code" href="structESMS_1_1CellRefList.html#a7bc4674c2b78467d79d0745016eb7eed">00046</a>     <span class="keyword">typedef</span> <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveCellRef&lt;X, D&gt;</a> <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveRef</a>;
+<a name="l00047"></a><a class="code" href="structESMS_1_1CellRefList.html#a652de7135cab552c80870d8d8460055f">00047</a>     <span class="keyword">typedef</span> std::list&lt;LiveRef&gt; <a class="code" href="structMisc_1_1List.html">List</a>;
+<a name="l00048"></a><a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">00048</a>     <a class="code" href="structMisc_1_1List.html">List</a> <a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <span class="comment">// Search for the given reference in the given reclist from</span>
+<a name="l00051"></a>00051     <span class="comment">// ESMStore. Insert the reference into the list if a match is</span>
+<a name="l00052"></a>00052     <span class="comment">// found. If not, throw an exception.</span>
+<a name="l00053"></a>00053     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Y&gt;
+<a name="l00054"></a><a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">00054</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(<a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref, <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>&amp; recList)
+<a name="l00055"></a>00055     {
+<a name="l00056"></a>00056       <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* obj = recList.find(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
+<a name="l00057"></a>00057       <span class="keywordflow">if</span>(obj == NULL)
+<a name="l00058"></a>00058         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error resolving cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060       <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveRef</a> lr;
+<a name="l00061"></a>00061       lr.<a class="code" href="structESMS_1_1LiveCellRef.html#acb2322d1af5ad7c390cf831f50bb27e1">ref</a> = ref;
+<a name="l00062"></a>00062       lr.<a class="code" href="structESMS_1_1LiveCellRef.html#a26909b83f3abea217e66aea210eefc2a">base</a> = obj;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064       <a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>.push_back(lr);
+<a name="l00065"></a>00065     }
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="structESMS_1_1CellRefList.html#aa928e92a271b3761efbe03f0ae928049">00067</a>     <a class="code" href="structESMS_1_1LiveCellRef.html" title="A reference to one object (of any type) in a cell.">LiveRef</a> *<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a> (<span class="keyword">const</span> std::string&amp; name)
+<a name="l00068"></a>00068     {
+<a name="l00069"></a>00069         <span class="keywordflow">for</span> (<span class="keyword">typename</span> std::list&lt;LiveRef&gt;::iterator iter (<a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>.begin()); iter!=<a class="code" href="structESMS_1_1CellRefList.html#a9a1df0a85302feec472c7192801102e9">list</a>.end(); ++iter)
+<a name="l00070"></a>00070         {
+<a name="l00071"></a>00071             <span class="keywordflow">if</span> (iter-&gt;ref.refID==name)
+<a name="l00072"></a>00072                 <span class="keywordflow">return</span> &amp;*iter;
+<a name="l00073"></a>00073         }
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075         <span class="keywordflow">return</span> 0;
+<a name="l00076"></a>00076     }
+<a name="l00077"></a>00077   };
+<a name="l00078"></a>00078 
+<a name="l00080"></a>00080   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> D&gt;
+<a name="l00081"></a><a class="code" href="classESMS_1_1CellStore.html">00081</a>   <span class="keyword">class </span><a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>
+<a name="l00082"></a>00082   {
+<a name="l00083"></a>00083   <span class="keyword">public</span>:
+<a name="l00084"></a><a class="code" href="classESMS_1_1CellStore.html#a151b51aef0cafb79403ed75c869f750d">00084</a>     <a class="code" href="classESMS_1_1CellStore.html#a151b51aef0cafb79403ed75c869f750d">CellStore</a>() : <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> (0) {}
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">00086</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088     <span class="comment">// Lists for each individual object type</span>
+<a name="l00089"></a><a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">00089</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Activator, D&gt;</a>         <a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">activators</a>;
+<a name="l00090"></a><a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">00090</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Potion, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">potions</a>;
+<a name="l00091"></a><a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">00091</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Apparatus, D&gt;</a>         <a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">appas</a>;
+<a name="l00092"></a><a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">00092</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Armor, D&gt;</a>             <a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">armors</a>;
+<a name="l00093"></a><a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">00093</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Book, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">books</a>;
+<a name="l00094"></a><a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">00094</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Clothing, D&gt;</a>          <a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">clothes</a>;
+<a name="l00095"></a><a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">00095</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Container, D&gt;</a>         <a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">containers</a>;
+<a name="l00096"></a><a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">00096</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Creature, D&gt;</a>          <a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">creatures</a>;
+<a name="l00097"></a><a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">00097</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Door, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">doors</a>;
+<a name="l00098"></a><a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">00098</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Ingredient, D&gt;</a>        <a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">ingreds</a>;
+<a name="l00099"></a><a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">00099</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;CreatureLevList, D&gt;</a>   <a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">creatureLists</a>;
+<a name="l00100"></a><a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">00100</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;ItemLevList, D&gt;</a>       <a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">itemLists</a>;
+<a name="l00101"></a><a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">00101</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;ESM::Light, D&gt;</a>        <a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">lights</a>;
+<a name="l00102"></a><a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">00102</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Tool, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">lockpicks</a>;
+<a name="l00103"></a><a class="code" href="classESMS_1_1CellStore.html#a71ae69f88bc33b5d89d209b4edb13974">00103</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Miscellaneous, D&gt;</a>              <a class="code" href="classESMS_1_1CellStore.html#a71ae69f88bc33b5d89d209b4edb13974">miscItems</a>;
+<a name="l00104"></a><a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">00104</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;NPC, D&gt;</a>               <a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">npcs</a>;
+<a name="l00105"></a><a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">00105</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Probe, D&gt;</a>             <a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">probes</a>;
+<a name="l00106"></a><a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">00106</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Repair, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">repairs</a>;
+<a name="l00107"></a><a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">00107</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Static, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">statics</a>;
+<a name="l00108"></a><a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">00108</a>     <a class="code" href="structESMS_1_1CellRefList.html">CellRefList&lt;Weapon, D&gt;</a>            <a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">weapons</a>;
+<a name="l00109"></a>00109 
+<a name="l00112"></a><a class="code" href="classESMS_1_1CellStore.html#a706d2c19d6af6dfc15c8ec2c348c664d">00112</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#a706d2c19d6af6dfc15c8ec2c348c664d">loadInt</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00113"></a>00113     {
+<a name="l00114"></a>00114         std::cout &lt;&lt; <span class="stringliteral">&quot;loading cell &#39;&quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;&#39;\n&quot;</span>;
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116         <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> = store.<a class="code" href="structESMS_1_1ESMStore.html#a1b2cc8730981b7dbab7ced576cdf29d5">cells</a>.<a class="code" href="structESMS_1_1CellList.html#a6c1accabda7a068979b6e9d0a8b4c774">findInt</a>(name);
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118         <span class="keywordflow">if</span>(<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> == NULL)
+<a name="l00119"></a>00119             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cell not found - &quot;</span> + name);
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121         <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(store, esm);
+<a name="l00122"></a>00122     }
+<a name="l00123"></a>00123 
+<a name="l00125"></a><a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">00125</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#aea6f6400888b964349007649e527249a">loadExt</a>(<span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, <span class="keywordtype">int</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00126"></a>00126     {
+<a name="l00127"></a>00127         std::cout &lt;&lt; <span class="stringliteral">&quot;loading exterior cell &#39;&quot;</span> &lt;&lt; X &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; Y &lt;&lt; <span class="stringliteral">&quot;&#39;\n&quot;</span>;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> = store.<a class="code" href="structESMS_1_1ESMStore.html#a1b2cc8730981b7dbab7ced576cdf29d5">cells</a>.<a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">searchExt</a> (X, Y);
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131         <span class="keywordflow">if</span>(<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a> == NULL)
+<a name="l00132"></a>00132             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Exterior cell not found&quot;</span>);
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134         <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(store, esm);
+<a name="l00135"></a>00135     }
+<a name="l00136"></a>00136 
+<a name="l00140"></a>00140     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Functor&gt;
+<a name="l00141"></a><a class="code" href="classESMS_1_1CellStore.html#af2181ae70bc3f9ccb9e65c00997f5b14">00141</a>     <span class="keywordtype">bool</span> <a class="code" href="classESMS_1_1CellStore.html#af2181ae70bc3f9ccb9e65c00997f5b14">forEach</a> (Functor&amp; functor)
+<a name="l00142"></a>00142     {
+<a name="l00143"></a>00143         <span class="keywordflow">return</span>
+<a name="l00144"></a>00144             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">activators</a>) &amp;&amp;
+<a name="l00145"></a>00145             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">potions</a>) &amp;&amp;
+<a name="l00146"></a>00146             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">appas</a>) &amp;&amp;
+<a name="l00147"></a>00147             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">armors</a>) &amp;&amp;
+<a name="l00148"></a>00148             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">books</a>) &amp;&amp;
+<a name="l00149"></a>00149             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">clothes</a>) &amp;&amp;
+<a name="l00150"></a>00150             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">containers</a>) &amp;&amp;
+<a name="l00151"></a>00151             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">creatures</a>) &amp;&amp;
+<a name="l00152"></a>00152             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">doors</a>) &amp;&amp;
+<a name="l00153"></a>00153             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">ingreds</a>) &amp;&amp;
+<a name="l00154"></a>00154             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">creatureLists</a>) &amp;&amp;
+<a name="l00155"></a>00155             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">itemLists</a>) &amp;&amp;
+<a name="l00156"></a>00156             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">lights</a>) &amp;&amp;
+<a name="l00157"></a>00157             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">lockpicks</a>) &amp;&amp;
+<a name="l00158"></a>00158             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a71ae69f88bc33b5d89d209b4edb13974">miscItems</a>) &amp;&amp;
+<a name="l00159"></a>00159             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">npcs</a>) &amp;&amp;
+<a name="l00160"></a>00160             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">probes</a>) &amp;&amp;
+<a name="l00161"></a>00161             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">repairs</a>) &amp;&amp;
+<a name="l00162"></a>00162             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">statics</a>) &amp;&amp;
+<a name="l00163"></a>00163             <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (functor, <a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">weapons</a>);
+<a name="l00164"></a>00164     }
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166   <span class="keyword">private</span>:
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Functor, <span class="keyword">class</span> List&gt;
+<a name="l00169"></a><a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">00169</a>     <span class="keywordtype">bool</span> <a class="code" href="classESMS_1_1CellStore.html#a0be67b83c310a6785c220abd3f821f7f">forEachImp</a> (Functor&amp; functor, <a class="code" href="structMisc_1_1List.html">List</a>&amp; list)
+<a name="l00170"></a>00170     {
+<a name="l00171"></a>00171         <span class="keywordflow">for</span> (<span class="keyword">typename</span> List::List::iterator iter (list.list.begin()); iter!=list.list.end();
+<a name="l00172"></a>00172             ++iter)
+<a name="l00173"></a>00173             <span class="keywordflow">if</span> (!functor (iter-&gt;ref, iter-&gt;mData))
+<a name="l00174"></a>00174                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00175"></a>00175 
+<a name="l00176"></a>00176         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00177"></a>00177     }
+<a name="l00178"></a>00178 
+<a name="l00179"></a><a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">00179</a>     <span class="keywordtype">void</span> <a class="code" href="classESMS_1_1CellStore.html#a42c70be3d0cb9292319ffb172563fed8">loadRefs</a>(<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMStore</a> &amp;store, <a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00180"></a>00180     {
+<a name="l00181"></a>00181       assert (<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>);
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183       <span class="comment">// Reopen the ESM reader and seek to the right position.</span>
+<a name="l00184"></a>00184       <a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#a2a57e897741d50fdfe393f5377110f68">restore</a>(esm);
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186       <a class="code" href="classESM_1_1CellRef.html">CellRef</a> ref;
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188       <span class="comment">// Get each reference in turn</span>
+<a name="l00189"></a>00189       <span class="keywordflow">while</span>(<a class="code" href="classESMS_1_1CellStore.html#a0c5315a2c28c3ade67736d586fa0649b">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#ac5c1acf3ab162a2db21f3a03e9f95b38">getNextRef</a>(esm, ref))
+<a name="l00190"></a>00190         {
+<a name="l00191"></a>00191             std::string lowerCase;
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193             std::transform (ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>.begin(), ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>.end(), std::back_inserter (lowerCase),
+<a name="l00194"></a>00194                 (int(*)(int)) std::tolower);
+<a name="l00195"></a>00195 
+<a name="l00196"></a>00196             <span class="keywordtype">int</span> rec = store.<a class="code" href="structESMS_1_1ESMStore.html#adc08aba96e8017df1f8f66ebc6108d9b">find</a>(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
+<a name="l00197"></a>00197 
+<a name="l00198"></a>00198             ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a> = lowerCase;
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200           <span class="comment">/* We can optimize this further by storing the pointer to the</span>
+<a name="l00201"></a>00201 <span class="comment">             record itself in store.all, so that we don&#39;t need to look it</span>
+<a name="l00202"></a>00202 <span class="comment">             up again here. However, never optimize. There are infinite</span>
+<a name="l00203"></a>00203 <span class="comment">             opportunities to do that later.</span>
+<a name="l00204"></a>00204 <span class="comment">           */</span>
+<a name="l00205"></a>00205           <span class="keywordflow">switch</span>(rec)
+<a name="l00206"></a>00206             {
+<a name="l00207"></a>00207             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">REC_ACTI</a>: <a class="code" href="classESMS_1_1CellStore.html#aef05b8bc73b679a69bd5df71ad5d7748">activators</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#af0845a05784c720e40603b76285c8838">activators</a>); <span class="keywordflow">break</span>;
+<a name="l00208"></a>00208             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8fd0427003a6e3cb9858405f6f4b648c">REC_ALCH</a>: <a class="code" href="classESMS_1_1CellStore.html#a35834e38e85fb96508ac385154cb2cef">potions</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a818e550f0c863b28953a01682dca92f0">potions</a>); <span class="keywordflow">break</span>;
+<a name="l00209"></a>00209             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a96a8004725cc04e11f4ef4d52ae2793b">REC_APPA</a>: <a class="code" href="classESMS_1_1CellStore.html#aa11a2fbec2427277db22141a3e89f6f0">appas</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ac8a4177466dd89bc2bd6015a401ca13d">appas</a>); <span class="keywordflow">break</span>;
+<a name="l00210"></a>00210             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afbe071c34a2771eb347c7451843442a8">REC_ARMO</a>: <a class="code" href="classESMS_1_1CellStore.html#a860afe3390a1d7eeff9681889fff6fca">armors</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a7e0373859db8f894a0c59828d315c7e1">armors</a>); <span class="keywordflow">break</span>;
+<a name="l00211"></a>00211             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ad2fb03dc49e49c229663fca8bc9fa95e">REC_BOOK</a>: <a class="code" href="classESMS_1_1CellStore.html#a9d8df004f577162bd77e427711e75cd6">books</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a27f0c617f3e79f8ee74943466b2dd2ac">books</a>); <span class="keywordflow">break</span>;
+<a name="l00212"></a>00212             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a1bd73e3df7317ebb2c33d4c5c0964680">REC_CLOT</a>: <a class="code" href="classESMS_1_1CellStore.html#a909a2bf5d02f3c84d413ce555b0c9a8f">clothes</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a9766c9a0a2f534da624517c94b2a5562">clothes</a>); <span class="keywordflow">break</span>;
+<a name="l00213"></a>00213             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af518bf6b90a438ee36de184b403ca252">REC_CONT</a>: <a class="code" href="classESMS_1_1CellStore.html#ac2135d348acd62a9a2adbf4abb0eeece">containers</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#acd93ce60ec3a2e8698f24d80012ce5f7">containers</a>); <span class="keywordflow">break</span>;
+<a name="l00214"></a>00214             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac2c265c0a95d5c938979e390a49e75b5">REC_CREA</a>: <a class="code" href="classESMS_1_1CellStore.html#a7345ee2d1a316b7ba8d4c4a9b1ac8337">creatures</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a0dfdb5147e9db14db0ec2d0b4a1d94b3">creatures</a>); <span class="keywordflow">break</span>;
+<a name="l00215"></a>00215             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8ae6843f612237bf11e955a336a11c6f">REC_DOOR</a>: <a class="code" href="classESMS_1_1CellStore.html#a9377e7989587ffefd8583a9197be5438">doors</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a9fd3f0f7fa0789164042612ff680aeb7">doors</a>); <span class="keywordflow">break</span>;
+<a name="l00216"></a>00216             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9aba2344fc64fa7cd701b59d14d241fe">REC_INGR</a>: <a class="code" href="classESMS_1_1CellStore.html#afcd665753ed10993d0f8934a7f697831">ingreds</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a85d4d0f60532c87908343e736f7c6453">ingreds</a>); <span class="keywordflow">break</span>;
+<a name="l00217"></a>00217             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae4c5dbb3b9c5ceb3b0480de749084b22">REC_LEVC</a>: <a class="code" href="classESMS_1_1CellStore.html#ab154922b91d0699edb3041b3a34ec5b4">creatureLists</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ad47657a3e620f8533539ee5524c169a9">creatureLists</a>); <span class="keywordflow">break</span>;
+<a name="l00218"></a>00218             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d855e2fb119fd85f6cda0e8b88b4017">REC_LEVI</a>: <a class="code" href="classESMS_1_1CellStore.html#af09ae2345c7d7a11c769037aebb2bda9">itemLists</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ab62e75064765dbc8efe8ddeb771c6294">itemLists</a>); <span class="keywordflow">break</span>;
+<a name="l00219"></a>00219             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa3dc65b732272a23303ea53d617719ff">REC_LIGH</a>: <a class="code" href="classESMS_1_1CellStore.html#ae12e98c551e782671dca7d2ada0b98b2">lights</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a7bda857d44ab9732e4eadd06ba15739a">lights</a>); <span class="keywordflow">break</span>;
+<a name="l00220"></a>00220             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac1527acf9780db28fef92ba6c7227bec">REC_LOCK</a>: <a class="code" href="classESMS_1_1CellStore.html#a4000ef1d21f022c72abc91b2556449f6">lockpicks</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a1222b11585153303449e942aa12fc3d2">lockpicks</a>); <span class="keywordflow">break</span>;
+<a name="l00221"></a>00221             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a83e212eeded4404d765164492207118a">REC_MISC</a>: <a class="code" href="classESMS_1_1CellStore.html#a71ae69f88bc33b5d89d209b4edb13974">miscItems</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ae764c4405c3a1d3c7aca084c1ac67805">miscItems</a>); <span class="keywordflow">break</span>;
+<a name="l00222"></a>00222             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">REC_NPC_</a>: <a class="code" href="classESMS_1_1CellStore.html#a2d438e5e9d26b0d994b05f1c66b564a4">npcs</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a540fd76cbfd0ccd9ebfcbe22168bf506">npcs</a>); <span class="keywordflow">break</span>;
+<a name="l00223"></a>00223             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4e6b7c59294ef919246988da47c7aaff">REC_PROB</a>: <a class="code" href="classESMS_1_1CellStore.html#a0a3457cb79cfcc91d7b8bea6c22b9231">probes</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#a309eef5525f4c702975214c2ba99ce80">probes</a>); <span class="keywordflow">break</span>;
+<a name="l00224"></a>00224             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af84813a4e6aa5159ba895062d920bdac">REC_REPA</a>: <a class="code" href="classESMS_1_1CellStore.html#aa8fa0d985470f570ce98b6d0d0be801c">repairs</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#ad4d6171b6c3614c0c2205456e8c8892f">repairs</a>); <span class="keywordflow">break</span>;
+<a name="l00225"></a>00225             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">REC_STAT</a>: <a class="code" href="classESMS_1_1CellStore.html#abf0ec5eb181f96738a26d179cac325d1">statics</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#abc637fadaf4dd0c51c92c124cbcb0620">statics</a>); <span class="keywordflow">break</span>;
+<a name="l00226"></a>00226             <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">REC_WEAP</a>: <a class="code" href="classESMS_1_1CellStore.html#a862192b1f2617b695e07c9c0f62ff2a8">weapons</a>.<a class="code" href="structESMS_1_1CellRefList.html#abc6e0fa67e10857d1f78958f8150a810">find</a>(ref, store.<a class="code" href="structESMS_1_1ESMStore.html#aadde42a9e9c577c72f242e3b2ce556bd">weapons</a>); <span class="keywordflow">break</span>;
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228             <span class="keywordflow">case</span> 0: std::cout &lt;&lt; <span class="stringliteral">&quot;Cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a> + <span class="stringliteral">&quot; not found!\n&quot;</span>; <span class="keywordflow">break</span>;
+<a name="l00229"></a>00229             <span class="keywordflow">default</span>:
+<a name="l00230"></a>00230               std::cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Ignoring reference &#39;&quot;</span> &lt;&lt; ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a> &lt;&lt; <span class="stringliteral">&quot;&#39; of unhandled type\n&quot;</span>;
+<a name="l00231"></a>00231             }
+<a name="l00232"></a>00232         }
+<a name="l00233"></a>00233     }
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235   };
+<a name="l00236"></a>00236 }
+<a name="l00237"></a>00237 
+<a name="l00238"></a>00238 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -37,50 +37,50 @@
 <a name="l00010"></a>00010 {
 <a name="l00011"></a>00011     <span class="keyword">class </span>Context;
 <a name="l00012"></a>00012 
-<a name="l00014"></a>00014     
+<a name="l00014"></a>00014 
 <a name="l00015"></a><a class="code" href="classInterpreter_1_1Runtime.html">00015</a>     <span class="keyword">class </span><a class="code" href="classInterpreter_1_1Runtime.html" title="Runtime data and engine interface.">Runtime</a>
 <a name="l00016"></a>00016     {
-<a name="l00017"></a><a class="code" href="classInterpreter_1_1Runtime.html#af6dba76d0665a7efbed49e2c18578c65">00017</a>             <a class="code" href="classInterpreter_1_1Context.html">Context</a>&amp; <a class="code" href="classInterpreter_1_1Runtime.html#af6dba76d0665a7efbed49e2c18578c65">mContext</a>;
+<a name="l00017"></a><a class="code" href="classInterpreter_1_1Runtime.html#ab2da0d6e391a9cb9e6d826bdd325abba">00017</a>             <a class="code" href="classInterpreter_1_1Context.html">Context</a> *<a class="code" href="classInterpreter_1_1Runtime.html#ab2da0d6e391a9cb9e6d826bdd325abba">mContext</a>;
 <a name="l00018"></a><a class="code" href="classInterpreter_1_1Runtime.html#adfc3fe6a8a724a9de9f5d2d4111c18d5">00018</a>             <span class="keyword">const</span> <a class="code" href="namespaceInterpreter.html#a4e3835dc7f60eb2ebfe308342e61b152">Type_Code</a> *<a class="code" href="classInterpreter_1_1Runtime.html#adfc3fe6a8a724a9de9f5d2d4111c18d5">mCode</a>;
 <a name="l00019"></a><a class="code" href="classInterpreter_1_1Runtime.html#a8a955f895f6cba055330274a27db54ee">00019</a>             <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Runtime.html#a8a955f895f6cba055330274a27db54ee">mCodeSize</a>;
 <a name="l00020"></a><a class="code" href="classInterpreter_1_1Runtime.html#aa795a8192cdb389189752ba6afdba754">00020</a>             <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Runtime.html#aa795a8192cdb389189752ba6afdba754">mPC</a>;
 <a name="l00021"></a><a class="code" href="classInterpreter_1_1Runtime.html#a6ca99ca4c94ed4eda29d0b0760577e30">00021</a>             std::vector&lt;Data&gt; <a class="code" href="classInterpreter_1_1Runtime.html#a6ca99ca4c94ed4eda29d0b0760577e30">mStack</a>;
-<a name="l00022"></a>00022             
+<a name="l00022"></a>00022 
 <a name="l00023"></a>00023         <span class="keyword">public</span>:
-<a name="l00024"></a>00024         
-<a name="l00025"></a>00025             <a class="code" href="classInterpreter_1_1Runtime.html#a66ceaf6ffbbe59a46d21e3040d856ae3">Runtime</a> (<a class="code" href="classInterpreter_1_1Context.html">Context</a>&amp; context);
-<a name="l00026"></a>00026         
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025             <a class="code" href="classInterpreter_1_1Runtime.html#a228b6e17afc5112e262ec9fec1f48880">Runtime</a> ();
+<a name="l00026"></a>00026 
 <a name="l00027"></a>00027             <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Runtime.html#a899076c709aa38dccf56c605b73c7be4" title="return program counter.">getPC</a>() <span class="keyword">const</span>;
-<a name="l00029"></a>00029         
+<a name="l00029"></a>00029 
 <a name="l00030"></a>00030             <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Runtime.html#aa21d7bf62d747595c51efe016bf23e74">getIntegerLiteral</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
-<a name="l00031"></a>00031         
+<a name="l00031"></a>00031 
 <a name="l00032"></a>00032             <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Runtime.html#a348457b6441ecc593c239b8dadef04c1">getFloatLiteral</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
-<a name="l00033"></a>00033               
+<a name="l00033"></a>00033 
 <a name="l00034"></a>00034             std::string <a class="code" href="classInterpreter_1_1Runtime.html#a48ee08f88ec29e0b2f5432b685b89f83">getStringLiteral</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
-<a name="l00035"></a>00035                                 
-<a name="l00036"></a>00036             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a67870b37b108ed4c3f0bcba5635cd6f8">configure</a> (<span class="keyword">const</span> <a class="code" href="namespaceInterpreter.html#a4e3835dc7f60eb2ebfe308342e61b152">Type_Code</a> *code, <span class="keywordtype">int</span> codeSize);
-<a name="l00039"></a>00039             
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#ae47a61f7ad2d7cf2e7ed0b1d23be4f72">configure</a> (<span class="keyword">const</span> <a class="code" href="namespaceInterpreter.html#a4e3835dc7f60eb2ebfe308342e61b152">Type_Code</a> *code, <span class="keywordtype">int</span> codeSize, <a class="code" href="classInterpreter_1_1Context.html">Context</a>&amp; context);
+<a name="l00039"></a>00039 
 <a name="l00040"></a>00040             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a45f77ba83a8f72d3f374fc1c66c4da6c">clear</a>();
-<a name="l00041"></a>00041             
+<a name="l00041"></a>00041 
 <a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a31ec12f0e0324b77a9e632a42d2d1a44" title="set program counter.">setPC</a> (<span class="keywordtype">int</span> PC);
-<a name="l00044"></a>00044             
+<a name="l00044"></a>00044 
 <a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a891b8bca22d1cee61ff80f9ce7939bde" title="push data on stack">push</a> (<span class="keyword">const</span> <a class="code" href="unionInterpreter_1_1Data.html">Data</a>&amp; data);
-<a name="l00047"></a>00047             
+<a name="l00047"></a>00047 
 <a name="l00048"></a>00048             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a891b8bca22d1cee61ff80f9ce7939bde" title="push data on stack">push</a> (<a class="code" href="namespaceInterpreter.html#a96cb9485dd3710e7e391d9a434978251">Type_Integer</a> value);
-<a name="l00050"></a>00050             
+<a name="l00050"></a>00050 
 <a name="l00051"></a>00051             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a891b8bca22d1cee61ff80f9ce7939bde" title="push data on stack">push</a> (<a class="code" href="namespaceInterpreter.html#abd3418551637652a80542b1c1ea29bc7">Type_Float</a> value);
-<a name="l00053"></a>00053             
+<a name="l00053"></a>00053 
 <a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Runtime.html#a51d21562a9d97d65c78410e5d0e43e64" title="pop stack">pop</a>();
-<a name="l00056"></a>00056             
+<a name="l00056"></a>00056 
 <a name="l00057"></a>00057             <a class="code" href="unionInterpreter_1_1Data.html">Data</a>&amp; <a class="code" href="classInterpreter_1_1Runtime.html#ae60420bf274c282b5be9e9cb7ef7895a" title="Access stack member, counted from the top.">operator[] </a>(<span class="keywordtype">int</span> Index);
-<a name="l00059"></a>00059             
+<a name="l00059"></a>00059 
 <a name="l00060"></a>00060             <a class="code" href="classInterpreter_1_1Context.html">Context</a>&amp; <a class="code" href="classInterpreter_1_1Runtime.html#aa223afbad1aa6668168b74de61c92e0a">getContext</a>();
 <a name="l00061"></a>00061     };
 <a name="l00062"></a>00062 }
 <a name="l00063"></a>00063 
 <a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -48,8 +48,8 @@
 <a name="l00021"></a>00021 <span class="comment"></span>
 <a name="l00022"></a>00022 <span class="comment"> */</span>
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="preprocessor">#ifndef _BSA_FILE_H_</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define _BSA_FILE_H_</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#ifndef BSA_BSA_FILE_H</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define BSA_BSA_FILE_H</span>
 <a name="l00026"></a>00026 <span class="preprocessor"></span>
 <a name="l00027"></a>00027 <span class="preprocessor">#include &lt;<a class="code" href="stream_8hpp.html">libs/mangle/stream/stream.hpp</a>&gt;</span>
 <a name="l00028"></a>00028 <span class="preprocessor">#include &lt;<a class="code" href="stdint_8h.html">libs/platform/stdint.h</a>&gt;</span>
@@ -58,80 +58,85 @@
 <a name="l00031"></a>00031 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00032"></a>00032 <span class="preprocessor">#include &lt;map&gt;</span>
 <a name="l00033"></a>00033 
-<a name="l00037"></a><a class="code" href="classBSAFile.html">00037</a> <span class="keyword">class </span><a class="code" href="classBSAFile.html">BSAFile</a>
-<a name="l00038"></a>00038 {
-<a name="l00039"></a>00039  <span class="keyword">public</span>:
-<a name="l00040"></a>00040 
-<a name="l00042"></a><a class="code" href="structBSAFile_1_1FileStruct.html">00042</a>   <span class="keyword">struct </span><a class="code" href="structBSAFile_1_1FileStruct.html" title="Represents one file entry in the archive.">FileStruct</a>
-<a name="l00043"></a>00043   {
-<a name="l00044"></a>00044     <span class="comment">// File size and offset in file. We store the offset from the</span>
-<a name="l00045"></a>00045     <span class="comment">// beginning of the file, not the offset into the data buffer</span>
-<a name="l00046"></a>00046     <span class="comment">// (which is what is stored in the archive.)</span>
-<a name="l00047"></a><a class="code" href="structBSAFile_1_1FileStruct.html#a7e1a23bdf3d8ac45612d8bc10a8e6541">00047</a>     uint32_t <a class="code" href="structBSAFile_1_1FileStruct.html#a00c0e36335943d571c33c1a17eaf6185">fileSize</a>, <a class="code" href="structBSAFile_1_1FileStruct.html#a7e1a23bdf3d8ac45612d8bc10a8e6541">offset</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049     <span class="comment">// Zero-terminated file name</span>
-<a name="l00050"></a><a class="code" href="structBSAFile_1_1FileStruct.html#a6bf28834cd8f8012a7eeff72c82ee380">00050</a>     <span class="keywordtype">char</span>* <a class="code" href="structBSAFile_1_1FileStruct.html#a6bf28834cd8f8012a7eeff72c82ee380">name</a>;
-<a name="l00051"></a>00051   };
-<a name="l00052"></a>00052 
-<a name="l00053"></a><a class="code" href="classBSAFile.html#a8a8a83cf40ab27490fb914b42ff0aded">00053</a>   <span class="keyword">typedef</span> std::vector&lt;FileStruct&gt; <a class="code" href="classBSAFile.html#a8a8a83cf40ab27490fb914b42ff0aded">FileList</a>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055  <span class="keyword">private</span>:
-<a name="l00056"></a>00056 
-<a name="l00058"></a><a class="code" href="classBSAFile.html#a0962db9b122221b3710ed031163e8ba1">00058</a>   <a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Mangle::Stream::StreamPtr</a> <a class="code" href="classBSAFile.html#a0962db9b122221b3710ed031163e8ba1" title="The archive source.">input</a>;
+<a name="l00034"></a>00034 <span class="keyword">namespace </span>Bsa
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036 
+<a name="l00040"></a><a class="code" href="classBsa_1_1BSAFile.html">00040</a> <span class="keyword">class </span><a class="code" href="classBsa_1_1BSAFile.html">BSAFile</a>
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042  <span class="keyword">public</span>:
+<a name="l00043"></a>00043 
+<a name="l00045"></a><a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html">00045</a>   <span class="keyword">struct </span><a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html" title="Represents one file entry in the archive.">FileStruct</a>
+<a name="l00046"></a>00046   {
+<a name="l00047"></a>00047     <span class="comment">// File size and offset in file. We store the offset from the</span>
+<a name="l00048"></a>00048     <span class="comment">// beginning of the file, not the offset into the data buffer</span>
+<a name="l00049"></a>00049     <span class="comment">// (which is what is stored in the archive.)</span>
+<a name="l00050"></a><a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html#a171a0ac64c0542f0d79415c8dba58814">00050</a>     uint32_t <a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html#a7bbd2bdea8f9d30c7738f8408308129b">fileSize</a>, <a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html#a171a0ac64c0542f0d79415c8dba58814">offset</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <span class="comment">// Zero-terminated file name</span>
+<a name="l00053"></a><a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html#a4612f4ab21a2dd35600094527f651a39">00053</a>     <span class="keywordtype">char</span>* <a class="code" href="structBsa_1_1BSAFile_1_1FileStruct.html#a4612f4ab21a2dd35600094527f651a39">name</a>;
+<a name="l00054"></a>00054   };
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="classBsa_1_1BSAFile.html#ae6a6e808767366eaaa85f3457fe52f8e">00056</a>   <span class="keyword">typedef</span> std::vector&lt;FileStruct&gt; <a class="code" href="classBsa_1_1BSAFile.html#ae6a6e808767366eaaa85f3457fe52f8e">FileList</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058  <span class="keyword">private</span>:
 <a name="l00059"></a>00059 
-<a name="l00061"></a><a class="code" href="classBSAFile.html#a8e57123cd6847461e321b5129efa7457">00061</a>   <a class="code" href="classBSAFile.html#a8a8a83cf40ab27490fb914b42ff0aded">FileList</a> <a class="code" href="classBSAFile.html#a8e57123cd6847461e321b5129efa7457" title="Table of files in this archive.">files</a>;
+<a name="l00061"></a><a class="code" href="classBsa_1_1BSAFile.html#a35f41a40c22acf6efc3afdaaefe8f7fa">00061</a>   <a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Mangle::Stream::StreamPtr</a> <a class="code" href="classBsa_1_1BSAFile.html#a35f41a40c22acf6efc3afdaaefe8f7fa" title="The archive source.">input</a>;
 <a name="l00062"></a>00062 
-<a name="l00064"></a><a class="code" href="classBSAFile.html#a6b34885dbcf9d993875a3894c5734a70">00064</a>   std::vector&lt;char&gt; <a class="code" href="classBSAFile.html#a6b34885dbcf9d993875a3894c5734a70" title="Filename string buffer.">stringBuf</a>;
+<a name="l00064"></a><a class="code" href="classBsa_1_1BSAFile.html#a66118023437b97b4b19cde0ffbc04955">00064</a>   <a class="code" href="classBsa_1_1BSAFile.html#ae6a6e808767366eaaa85f3457fe52f8e">FileList</a> <a class="code" href="classBsa_1_1BSAFile.html#a66118023437b97b4b19cde0ffbc04955" title="Table of files in this archive.">files</a>;
 <a name="l00065"></a>00065 
-<a name="l00067"></a><a class="code" href="classBSAFile.html#ad1b70bfde0bffa94aeb24e024dc61d78">00067</a>   <span class="keywordtype">bool</span> <a class="code" href="classBSAFile.html#ad1b70bfde0bffa94aeb24e024dc61d78" title="True when an archive has been loaded.">isLoaded</a>;
+<a name="l00067"></a><a class="code" href="classBsa_1_1BSAFile.html#a4f910406e0728505919eb549b758678d">00067</a>   std::vector&lt;char&gt; <a class="code" href="classBsa_1_1BSAFile.html#a4f910406e0728505919eb549b758678d" title="Filename string buffer.">stringBuf</a>;
 <a name="l00068"></a>00068 
-<a name="l00070"></a><a class="code" href="classBSAFile.html#a3a56bdb962d675173a7804ed5811eaa0">00070</a>   std::string <a class="code" href="classBSAFile.html#a3a56bdb962d675173a7804ed5811eaa0" title="Used for error messages.">filename</a>;
+<a name="l00070"></a><a class="code" href="classBsa_1_1BSAFile.html#aa460901ec2de5dc76430c64df553b6cc">00070</a>   <span class="keywordtype">bool</span> <a class="code" href="classBsa_1_1BSAFile.html#aa460901ec2de5dc76430c64df553b6cc" title="True when an archive has been loaded.">isLoaded</a>;
 <a name="l00071"></a>00071 
-<a name="l00073"></a><a class="code" href="structBSAFile_1_1iltstr.html">00073</a>   <span class="keyword">struct </span><a class="code" href="structBSAFile_1_1iltstr.html" title="Case insensitive string comparison.">iltstr</a>
-<a name="l00074"></a>00074   {
-<a name="l00075"></a><a class="code" href="structBSAFile_1_1iltstr.html#af8769d17627c047d5eff7ffcf904b2ed">00075</a>     <span class="keywordtype">bool</span> <a class="code" href="structBSAFile_1_1iltstr.html#af8769d17627c047d5eff7ffcf904b2ed">operator()</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s1, <span class="keyword">const</span> <span class="keywordtype">char</span> *s2)<span class="keyword"> const</span>
-<a name="l00076"></a>00076 <span class="keyword">    </span>{ <span class="keywordflow">return</span> strcasecmp(s1,s2) &lt; 0; }
-<a name="l00077"></a>00077   };
-<a name="l00078"></a>00078 
-<a name="l00083"></a><a class="code" href="classBSAFile.html#af237a75b0777d3471cc4983189c81cbe">00083</a>   <span class="keyword">typedef</span> std::map&lt;const char*, int, iltstr&gt; <a class="code" href="classBSAFile.html#af237a75b0777d3471cc4983189c81cbe">Lookup</a>;
-<a name="l00084"></a><a class="code" href="classBSAFile.html#a14649ca4489b49dfa9581e2ad4de9970">00084</a>   <a class="code" href="classBSAFile.html#af237a75b0777d3471cc4983189c81cbe">Lookup</a> <a class="code" href="classBSAFile.html#a14649ca4489b49dfa9581e2ad4de9970">lookup</a>;
-<a name="l00085"></a>00085 
-<a name="l00087"></a>00087   <span class="keywordtype">void</span> <a class="code" href="classBSAFile.html#a82bc739b5188c1038a601975ffdd214d" title="Error handling.">fail</a>(<span class="keyword">const</span> std::string &amp;msg);
+<a name="l00073"></a><a class="code" href="classBsa_1_1BSAFile.html#acc41171cecfc1ffa7e7d88802d84c8d2">00073</a>   std::string <a class="code" href="classBsa_1_1BSAFile.html#acc41171cecfc1ffa7e7d88802d84c8d2" title="Used for error messages.">filename</a>;
+<a name="l00074"></a>00074 
+<a name="l00076"></a><a class="code" href="structBsa_1_1BSAFile_1_1iltstr.html">00076</a>   <span class="keyword">struct </span><a class="code" href="structBsa_1_1BSAFile_1_1iltstr.html" title="Case insensitive string comparison.">iltstr</a>
+<a name="l00077"></a>00077   {
+<a name="l00078"></a><a class="code" href="structBsa_1_1BSAFile_1_1iltstr.html#a18b72f9d528c3c6675d23413039a565b">00078</a>     <span class="keywordtype">bool</span> <a class="code" href="structBsa_1_1BSAFile_1_1iltstr.html#a18b72f9d528c3c6675d23413039a565b">operator()</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s1, <span class="keyword">const</span> <span class="keywordtype">char</span> *s2)<span class="keyword"> const</span>
+<a name="l00079"></a>00079 <span class="keyword">    </span>{ <span class="keywordflow">return</span> strcasecmp(s1,s2) &lt; 0; }
+<a name="l00080"></a>00080   };
+<a name="l00081"></a>00081 
+<a name="l00086"></a><a class="code" href="classBsa_1_1BSAFile.html#a0bbbd2273bfbf276be944ee632bc50cf">00086</a>   <span class="keyword">typedef</span> std::map&lt;const char*, int, iltstr&gt; <a class="code" href="classBsa_1_1BSAFile.html#a0bbbd2273bfbf276be944ee632bc50cf">Lookup</a>;
+<a name="l00087"></a><a class="code" href="classBsa_1_1BSAFile.html#aa1376a1606f4a660739725cae9d8d1eb">00087</a>   <a class="code" href="classBsa_1_1BSAFile.html#a0bbbd2273bfbf276be944ee632bc50cf">Lookup</a> <a class="code" href="classBsa_1_1BSAFile.html#aa1376a1606f4a660739725cae9d8d1eb">lookup</a>;
 <a name="l00088"></a>00088 
-<a name="l00090"></a>00090   <span class="keywordtype">void</span> <a class="code" href="classBSAFile.html#a1fb9d39804ac8e6289e0a9cb068eed6b" title="Read header information from the input source.">readHeader</a>();
+<a name="l00090"></a>00090   <span class="keywordtype">void</span> <a class="code" href="classBsa_1_1BSAFile.html#a93c09827bb1c8771617d1f1eeae94c2e" title="Error handling.">fail</a>(<span class="keyword">const</span> std::string &amp;msg);
 <a name="l00091"></a>00091 
-<a name="l00093"></a>00093   <span class="keywordtype">int</span> <a class="code" href="classBSAFile.html#a1b99f5c248b1394fdeeaa6cc95776741" title="Get the index of a given file name, or -1 if not found.">getIndex</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);
+<a name="l00093"></a>00093   <span class="keywordtype">void</span> <a class="code" href="classBsa_1_1BSAFile.html#a1fb9d39804ac8e6289e0a9cb068eed6b" title="Read header information from the input source.">readHeader</a>();
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095  <span class="keyword">public</span>:
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097   <span class="comment">/* -----------------------------------</span>
-<a name="l00098"></a>00098 <span class="comment">   * BSA management methods</span>
-<a name="l00099"></a>00099 <span class="comment">   * -----------------------------------</span>
-<a name="l00100"></a>00100 <span class="comment">   */</span>
-<a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="classBSAFile.html#aa32008810bfca631d18b4f562c555041">00102</a>   <a class="code" href="classBSAFile.html#aa32008810bfca631d18b4f562c555041">BSAFile</a>()
-<a name="l00103"></a>00103     : <a class="code" href="classBSAFile.html#a0962db9b122221b3710ed031163e8ba1" title="The archive source.">input</a>(), <a class="code" href="classBSAFile.html#ad1b70bfde0bffa94aeb24e024dc61d78" title="True when an archive has been loaded.">isLoaded</a>(false) {}
+<a name="l00096"></a>00096   <span class="keywordtype">int</span> <a class="code" href="classBsa_1_1BSAFile.html#a1b99f5c248b1394fdeeaa6cc95776741" title="Get the index of a given file name, or -1 if not found.">getIndex</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098  <span class="keyword">public</span>:
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100   <span class="comment">/* -----------------------------------</span>
+<a name="l00101"></a>00101 <span class="comment">   * BSA management methods</span>
+<a name="l00102"></a>00102 <span class="comment">   * -----------------------------------</span>
+<a name="l00103"></a>00103 <span class="comment">   */</span>
 <a name="l00104"></a>00104 
-<a name="l00106"></a>00106   <span class="keywordtype">void</span> <a class="code" href="classBSAFile.html#a5c854bff3a97dc947761e9a263b5a754" title="Open an archive file.">open</a>(<span class="keyword">const</span> std::string &amp;file);
+<a name="l00105"></a><a class="code" href="classBsa_1_1BSAFile.html#a12700618856ab2bcc2b97dcb1e7e3b86">00105</a>   <a class="code" href="classBsa_1_1BSAFile.html#a12700618856ab2bcc2b97dcb1e7e3b86">BSAFile</a>()
+<a name="l00106"></a>00106     : <a class="code" href="classBsa_1_1BSAFile.html#a35f41a40c22acf6efc3afdaaefe8f7fa" title="The archive source.">input</a>(), <a class="code" href="classBsa_1_1BSAFile.html#aa460901ec2de5dc76430c64df553b6cc" title="True when an archive has been loaded.">isLoaded</a>(false) {}
 <a name="l00107"></a>00107 
-<a name="l00111"></a>00111   <span class="keywordtype">void</span> <a class="code" href="classBSAFile.html#a5c854bff3a97dc947761e9a263b5a754" title="Open an archive file.">open</a>(<a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Mangle::Stream::StreamPtr</a> inp, <span class="keyword">const</span> std::string &amp;name);
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113   <span class="comment">/* -----------------------------------</span>
-<a name="l00114"></a>00114 <span class="comment">   * Archive file routines</span>
-<a name="l00115"></a>00115 <span class="comment">   * -----------------------------------</span>
-<a name="l00116"></a>00116 <span class="comment">   */</span>
-<a name="l00117"></a>00117 
-<a name="l00119"></a><a class="code" href="classBSAFile.html#a5a08e9e631f90d6ac621e3707028a0c5">00119</a>   <span class="keywordtype">bool</span> <a class="code" href="classBSAFile.html#a5a08e9e631f90d6ac621e3707028a0c5" title="Check if a file exists.">exists</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file) { <span class="keywordflow">return</span> <a class="code" href="classBSAFile.html#a1b99f5c248b1394fdeeaa6cc95776741" title="Get the index of a given file name, or -1 if not found.">getIndex</a>(file) != -1; }
+<a name="l00109"></a>00109   <span class="keywordtype">void</span> <a class="code" href="classBsa_1_1BSAFile.html#a69f90f39b6a869e7f4aaddb7cf605338" title="Open an archive file.">open</a>(<span class="keyword">const</span> std::string &amp;file);
+<a name="l00110"></a>00110 
+<a name="l00114"></a>00114   <span class="keywordtype">void</span> <a class="code" href="classBsa_1_1BSAFile.html#a69f90f39b6a869e7f4aaddb7cf605338" title="Open an archive file.">open</a>(<a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Mangle::Stream::StreamPtr</a> inp, <span class="keyword">const</span> std::string &amp;name);
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116   <span class="comment">/* -----------------------------------</span>
+<a name="l00117"></a>00117 <span class="comment">   * Archive file routines</span>
+<a name="l00118"></a>00118 <span class="comment">   * -----------------------------------</span>
+<a name="l00119"></a>00119 <span class="comment">   */</span>
 <a name="l00120"></a>00120 
-<a name="l00127"></a>00127   <a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Mangle::Stream::StreamPtr</a> <a class="code" href="classBSAFile.html#a4ce19e52dfdfee23f3b51820f8bcdf7a">getFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file);
-<a name="l00128"></a>00128 
-<a name="l00130"></a><a class="code" href="classBSAFile.html#a76c50edf9f8c0c6df554a77758a8b365">00130</a>   <span class="keyword">const</span> <a class="code" href="classBSAFile.html#a8a8a83cf40ab27490fb914b42ff0aded">FileList</a> &amp;<a class="code" href="classBSAFile.html#a76c50edf9f8c0c6df554a77758a8b365" title="Get a list of all files.">getList</a>()<span class="keyword"> const</span>
-<a name="l00131"></a>00131 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classBSAFile.html#a8e57123cd6847461e321b5129efa7457" title="Table of files in this archive.">files</a>; }
-<a name="l00132"></a>00132 };
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134 <span class="preprocessor">#endif</span>
+<a name="l00122"></a><a class="code" href="classBsa_1_1BSAFile.html#a0299b722f9c5dd025014ea518ac98403">00122</a>   <span class="keywordtype">bool</span> <a class="code" href="classBsa_1_1BSAFile.html#a0299b722f9c5dd025014ea518ac98403" title="Check if a file exists.">exists</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file) { <span class="keywordflow">return</span> <a class="code" href="classBsa_1_1BSAFile.html#a1b99f5c248b1394fdeeaa6cc95776741" title="Get the index of a given file name, or -1 if not found.">getIndex</a>(file) != -1; }
+<a name="l00123"></a>00123 
+<a name="l00130"></a>00130   <a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Mangle::Stream::StreamPtr</a> <a class="code" href="classBsa_1_1BSAFile.html#a4ce19e52dfdfee23f3b51820f8bcdf7a">getFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file);
+<a name="l00131"></a>00131 
+<a name="l00133"></a><a class="code" href="classBsa_1_1BSAFile.html#ad7972a16602af590be0ed8401b9413c2">00133</a>   <span class="keyword">const</span> <a class="code" href="classBsa_1_1BSAFile.html#ae6a6e808767366eaaa85f3457fe52f8e">FileList</a> &amp;<a class="code" href="classBsa_1_1BSAFile.html#ad7972a16602af590be0ed8401b9413c2" title="Get a list of all files.">getList</a>()<span class="keyword"> const</span>
+<a name="l00134"></a>00134 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classBsa_1_1BSAFile.html#a66118023437b97b4b19cde0ffbc04955" title="Table of files in this archive.">files</a>; }
+<a name="l00135"></a>00135 };
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137 }
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -30,107 +30,90 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM {
-<a name="l00007"></a>00007 
-<a name="l00008"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">00008</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">PartReferenceType</a>
-<a name="l00009"></a>00009   {
-<a name="l00010"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">00010</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">PRT_Head</a>            = 0,
-<a name="l00011"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">00011</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">PRT_Hair</a>            = 1,
-<a name="l00012"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">00012</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">PRT_Neck</a>            = 2,
-<a name="l00013"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">00013</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">PRT_Cuirass</a>         = 3,
-<a name="l00014"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">00014</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">PRT_Groin</a>           = 4,
-<a name="l00015"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">00015</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">PRT_Skirt</a>           = 5,
-<a name="l00016"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">00016</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">PRT_RHand</a>           = 6,
-<a name="l00017"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">00017</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">PRT_LHand</a>           = 7,
-<a name="l00018"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">00018</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">PRT_RWrist</a>          = 8,
-<a name="l00019"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">00019</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">PRT_LWrist</a>          = 9,
-<a name="l00020"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">00020</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">PRT_Shield</a>          = 10,
-<a name="l00021"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">00021</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">PRT_RForearm</a>        = 11,
-<a name="l00022"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">00022</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">PRT_LForearm</a>        = 12,
-<a name="l00023"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">00023</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">PRT_RUpperarm</a>       = 13,
-<a name="l00024"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">00024</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">PRT_LUpperarm</a>       = 14,
-<a name="l00025"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">00025</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">PRT_RFoot</a>           = 15,
-<a name="l00026"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">00026</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">PRT_LFoot</a>           = 16,
-<a name="l00027"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">00027</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">PRT_RAnkle</a>          = 17,
-<a name="l00028"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">00028</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">PRT_LAnkle</a>          = 18,
-<a name="l00029"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">00029</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">PRT_RKnee</a>           = 19,
-<a name="l00030"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">00030</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">PRT_LKnee</a>           = 20,
-<a name="l00031"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">00031</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">PRT_RLeg</a>            = 21,
-<a name="l00032"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">00032</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">PRT_LLeg</a>            = 22,
-<a name="l00033"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">00033</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">PRT_RPauldron</a>       = 23,
-<a name="l00034"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">00034</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">PRT_LPauldron</a>       = 24,
-<a name="l00035"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">00035</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">PRT_Weapon</a>          = 25,
-<a name="l00036"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">00036</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">PRT_Tail</a>            = 26    
-<a name="l00037"></a>00037   };
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="comment">// Reference to body parts</span>
-<a name="l00040"></a><a class="code" href="structESM_1_1PartReference.html">00040</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1PartReference.html">PartReference</a>
-<a name="l00041"></a>00041 {
-<a name="l00042"></a><a class="code" href="structESM_1_1PartReference.html#a2b0a99a1388f8919d7a184ff46fa7174">00042</a>   <span class="keywordtype">char</span> <a class="code" href="structESM_1_1PartReference.html#a2b0a99a1388f8919d7a184ff46fa7174">part</a>;
-<a name="l00043"></a><a class="code" href="structESM_1_1PartReference.html#af0e0bd98b1aec2c3ea429922df5f147b">00043</a>   std::string <a class="code" href="structESM_1_1PartReference.html#af0e0bd98b1aec2c3ea429922df5f147b">male</a>, <a class="code" href="structESM_1_1PartReference.html#aa1393fe7210ca6a616b2748c98884ee4">female</a>;
-<a name="l00044"></a>00044 };
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046 <span class="comment">// A list of references to body parts</span>
-<a name="l00047"></a><a class="code" href="structESM_1_1PartReferenceList.html">00047</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1PartReferenceList.html">PartReferenceList</a>
-<a name="l00048"></a>00048 {
-<a name="l00049"></a><a class="code" href="structESM_1_1PartReferenceList.html#ad9f47afd841a102fc9f6ccf77d3447ac">00049</a>   std::vector&lt;PartReference&gt; <a class="code" href="structESM_1_1PartReferenceList.html#ad9f47afd841a102fc9f6ccf77d3447ac">parts</a>;
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="structESM_1_1PartReferenceList.html#a657a9076d859b71871ad2a3d60243cb1">00051</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1PartReferenceList.html#a657a9076d859b71871ad2a3d60243cb1">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00052"></a>00052   {
-<a name="l00053"></a>00053     <span class="keywordflow">while</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;INDX&quot;</span>))
-<a name="l00054"></a>00054       {
-<a name="l00055"></a>00055         <a class="code" href="structESM_1_1PartReference.html">PartReference</a> pr;
-<a name="l00056"></a>00056         esm.<a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(pr.<a class="code" href="structESM_1_1PartReference.html#a2b0a99a1388f8919d7a184ff46fa7174">part</a>); <span class="comment">// The INDX byte</span>
-<a name="l00057"></a>00057         pr.<a class="code" href="structESM_1_1PartReference.html#af0e0bd98b1aec2c3ea429922df5f147b">male</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;BNAM&quot;</span>);
-<a name="l00058"></a>00058         pr.<a class="code" href="structESM_1_1PartReference.html#aa1393fe7210ca6a616b2748c98884ee4">female</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;CNAM&quot;</span>);
-<a name="l00059"></a>00059       }
-<a name="l00060"></a>00060   }
-<a name="l00061"></a>00061 };
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="structESM_1_1Armor.html">00063</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Armor.html">Armor</a>
-<a name="l00064"></a>00064 {
-<a name="l00065"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81">00065</a>   <span class="keyword">enum</span> <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81">Type</a>
-<a name="l00066"></a>00066   {
-<a name="l00067"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a154424f63b3e512afec27862c66133a5">00067</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a154424f63b3e512afec27862c66133a5">Helmet</a>      = 0,
-<a name="l00068"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a457bd784338fec504d223b3f3f96ef58">00068</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a457bd784338fec504d223b3f3f96ef58">Cuirass</a>     = 1,
-<a name="l00069"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81aa67248bcf6ed32f86c0e11458e916e24">00069</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81aa67248bcf6ed32f86c0e11458e916e24">LPauldron</a>       = 2,
-<a name="l00070"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81ac74cb6b019e435143197e8ea53729b91">00070</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81ac74cb6b019e435143197e8ea53729b91">RPauldron</a>       = 3,
-<a name="l00071"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a79ab356daa050b02b09bf35c643bad2d">00071</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a79ab356daa050b02b09bf35c643bad2d">Greaves</a>     = 4,
-<a name="l00072"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a10975348e42a5d5d77527accbe07d2cb">00072</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a10975348e42a5d5d77527accbe07d2cb">Boots</a>       = 5,
-<a name="l00073"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a57dde26a82b6d4db1635dbd4a4fe4901">00073</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a57dde26a82b6d4db1635dbd4a4fe4901">LGauntlet</a>       = 6,
-<a name="l00074"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a8961dcf99004b3948ea747c4a1e1c6ff">00074</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a8961dcf99004b3948ea747c4a1e1c6ff">RGauntlet</a>       = 7,
-<a name="l00075"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a88437e7a6e888a6ed6e310290da06b9f">00075</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a88437e7a6e888a6ed6e310290da06b9f">Shield</a>      = 8,
-<a name="l00076"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a52e44cba691288dcb39b608969705569">00076</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a52e44cba691288dcb39b608969705569">LBracer</a>     = 9,
-<a name="l00077"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a6e09ecc5234c5c13fce2a22d32492b62">00077</a>     <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a6e09ecc5234c5c13fce2a22d32492b62">RBracer</a>     = 10
-<a name="l00078"></a>00078   };
-<a name="l00079"></a>00079 
-<a name="l00080"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html">00080</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html">AODTstruct</a>
-<a name="l00081"></a>00081   {
-<a name="l00082"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#af5cde9a4efbd394606ca5f5034c9e2e4">00082</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#af5cde9a4efbd394606ca5f5034c9e2e4">type</a>;
-<a name="l00083"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a3311651060f9ddbef7cf391e79ea18e6">00083</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a3311651060f9ddbef7cf391e79ea18e6">weight</a>;
-<a name="l00084"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a30623391012a345c8954f63566e88d10">00084</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a30623391012a345c8954f63566e88d10">value</a>, <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#ab723d1ad7ecb10e01decb07d6e3f4e8a">health</a>, <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a23bb639670d2242c0b8cc61b005a28a5">enchant</a>, <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a0f2b37072c216cdce6d7688c49f3f8c0">armor</a>;
-<a name="l00085"></a>00085   };
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="structESM_1_1Armor.html#a67111c4ef08cebaaa7966344662f734f">00087</a>   <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html">AODTstruct</a> <a class="code" href="structESM_1_1Armor.html#a67111c4ef08cebaaa7966344662f734f">data</a>;
-<a name="l00088"></a><a class="code" href="structESM_1_1Armor.html#ad3f0324b6806381284a021282f567f24">00088</a>   <a class="code" href="structESM_1_1PartReferenceList.html">PartReferenceList</a> <a class="code" href="structESM_1_1Armor.html#ad3f0324b6806381284a021282f567f24">parts</a>;
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="structESM_1_1Armor.html#a79b53324b6b2a0422269df19734407b6">00090</a>   std::string <a class="code" href="structESM_1_1Armor.html#a5582a3187109071234928e2c30b4d3f0">name</a>, <a class="code" href="structESM_1_1Armor.html#acfc44ca3925091d17fc4e64f6208449d">model</a>, <a class="code" href="structESM_1_1Armor.html#a95eccced25c634d082ae50997d64e785">icon</a>, <a class="code" href="structESM_1_1Armor.html#a79b53324b6b2a0422269df19734407b6">script</a>, <a class="code" href="structESM_1_1Armor.html#a73e0a2d0da9deecca8d0379f38d45143">enchant</a>;
-<a name="l00091"></a>00091 
-<a name="l00092"></a><a class="code" href="structESM_1_1Armor.html#a75900b23e9ddd0563ecd102b61c5572c">00092</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Armor.html#a75900b23e9ddd0563ecd102b61c5572c">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00093"></a>00093   {
-<a name="l00094"></a>00094     <a class="code" href="structESM_1_1Armor.html#acfc44ca3925091d17fc4e64f6208449d">model</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a0389fd3553a1e7a7da94b869780bca02">getHNString</a>(<span class="stringliteral">&quot;MODL&quot;</span>);
-<a name="l00095"></a>00095     <a class="code" href="structESM_1_1Armor.html#a5582a3187109071234928e2c30b4d3f0">name</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a0389fd3553a1e7a7da94b869780bca02">getHNString</a>(<span class="stringliteral">&quot;FNAM&quot;</span>);
-<a name="l00096"></a>00096     <a class="code" href="structESM_1_1Armor.html#a79b53324b6b2a0422269df19734407b6">script</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;SCRI&quot;</span>);
-<a name="l00097"></a>00097     esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Armor.html#a67111c4ef08cebaaa7966344662f734f">data</a>, <span class="stringliteral">&quot;AODT&quot;</span>, 24);
-<a name="l00098"></a>00098     <a class="code" href="structESM_1_1Armor.html#a95eccced25c634d082ae50997d64e785">icon</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;ITEX&quot;</span>);
-<a name="l00099"></a>00099     <a class="code" href="structESM_1_1Armor.html#ad3f0324b6806381284a021282f567f24">parts</a>.<a class="code" href="structESM_1_1PartReferenceList.html#a657a9076d859b71871ad2a3d60243cb1">load</a>(esm);
-<a name="l00100"></a>00100     <a class="code" href="structESM_1_1Armor.html#a73e0a2d0da9deecca8d0379f38d45143">enchant</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;ENAM&quot;</span>);
-<a name="l00101"></a>00101   }
-<a name="l00102"></a>00102 };
-<a name="l00103"></a>00103 }
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
+<a name="l00007"></a>00007 {
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">00009</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">PartReferenceType</a>
+<a name="l00010"></a>00010 {
+<a name="l00011"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">00011</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">PRT_Head</a> = 0,
+<a name="l00012"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">00012</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">PRT_Hair</a> = 1,
+<a name="l00013"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">00013</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">PRT_Neck</a> = 2,
+<a name="l00014"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">00014</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">PRT_Cuirass</a> = 3,
+<a name="l00015"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">00015</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">PRT_Groin</a> = 4,
+<a name="l00016"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">00016</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">PRT_Skirt</a> = 5,
+<a name="l00017"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">00017</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">PRT_RHand</a> = 6,
+<a name="l00018"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">00018</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">PRT_LHand</a> = 7,
+<a name="l00019"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">00019</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">PRT_RWrist</a> = 8,
+<a name="l00020"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">00020</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">PRT_LWrist</a> = 9,
+<a name="l00021"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">00021</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">PRT_Shield</a> = 10,
+<a name="l00022"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">00022</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">PRT_RForearm</a> = 11,
+<a name="l00023"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">00023</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">PRT_LForearm</a> = 12,
+<a name="l00024"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">00024</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">PRT_RUpperarm</a> = 13,
+<a name="l00025"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">00025</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">PRT_LUpperarm</a> = 14,
+<a name="l00026"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">00026</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">PRT_RFoot</a> = 15,
+<a name="l00027"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">00027</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">PRT_LFoot</a> = 16,
+<a name="l00028"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">00028</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">PRT_RAnkle</a> = 17,
+<a name="l00029"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">00029</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">PRT_LAnkle</a> = 18,
+<a name="l00030"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">00030</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">PRT_RKnee</a> = 19,
+<a name="l00031"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">00031</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">PRT_LKnee</a> = 20,
+<a name="l00032"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">00032</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">PRT_RLeg</a> = 21,
+<a name="l00033"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">00033</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">PRT_LLeg</a> = 22,
+<a name="l00034"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">00034</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">PRT_RPauldron</a> = 23,
+<a name="l00035"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">00035</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">PRT_LPauldron</a> = 24,
+<a name="l00036"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">00036</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">PRT_Weapon</a> = 25,
+<a name="l00037"></a><a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">00037</a>     <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">PRT_Tail</a> = 26
+<a name="l00038"></a>00038 };
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="comment">// Reference to body parts</span>
+<a name="l00041"></a><a class="code" href="structESM_1_1PartReference.html">00041</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1PartReference.html">PartReference</a>
+<a name="l00042"></a>00042 {
+<a name="l00043"></a><a class="code" href="structESM_1_1PartReference.html#a2b0a99a1388f8919d7a184ff46fa7174">00043</a>     <span class="keywordtype">char</span> <a class="code" href="structESM_1_1PartReference.html#a2b0a99a1388f8919d7a184ff46fa7174">part</a>;
+<a name="l00044"></a><a class="code" href="structESM_1_1PartReference.html#af0e0bd98b1aec2c3ea429922df5f147b">00044</a>     std::string <a class="code" href="structESM_1_1PartReference.html#af0e0bd98b1aec2c3ea429922df5f147b">male</a>, <a class="code" href="structESM_1_1PartReference.html#aa1393fe7210ca6a616b2748c98884ee4">female</a>;
+<a name="l00045"></a>00045 };
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 <span class="comment">// A list of references to body parts</span>
+<a name="l00048"></a><a class="code" href="structESM_1_1PartReferenceList.html">00048</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1PartReferenceList.html">PartReferenceList</a>
+<a name="l00049"></a>00049 {
+<a name="l00050"></a><a class="code" href="structESM_1_1PartReferenceList.html#ad9f47afd841a102fc9f6ccf77d3447ac">00050</a>     std::vector&lt;PartReference&gt; <a class="code" href="structESM_1_1PartReferenceList.html#ad9f47afd841a102fc9f6ccf77d3447ac">parts</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1PartReferenceList.html#a657a9076d859b71871ad2a3d60243cb1">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00053"></a>00053 };
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="structESM_1_1Armor.html">00055</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Armor.html">Armor</a>
+<a name="l00056"></a>00056 {
+<a name="l00057"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81">00057</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81">Type</a>
+<a name="l00058"></a>00058     {
+<a name="l00059"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a154424f63b3e512afec27862c66133a5">00059</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a154424f63b3e512afec27862c66133a5">Helmet</a> = 0,
+<a name="l00060"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a457bd784338fec504d223b3f3f96ef58">00060</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a457bd784338fec504d223b3f3f96ef58">Cuirass</a> = 1,
+<a name="l00061"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81aa67248bcf6ed32f86c0e11458e916e24">00061</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81aa67248bcf6ed32f86c0e11458e916e24">LPauldron</a> = 2,
+<a name="l00062"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81ac74cb6b019e435143197e8ea53729b91">00062</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81ac74cb6b019e435143197e8ea53729b91">RPauldron</a> = 3,
+<a name="l00063"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a79ab356daa050b02b09bf35c643bad2d">00063</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a79ab356daa050b02b09bf35c643bad2d">Greaves</a> = 4,
+<a name="l00064"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a10975348e42a5d5d77527accbe07d2cb">00064</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a10975348e42a5d5d77527accbe07d2cb">Boots</a> = 5,
+<a name="l00065"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a57dde26a82b6d4db1635dbd4a4fe4901">00065</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a57dde26a82b6d4db1635dbd4a4fe4901">LGauntlet</a> = 6,
+<a name="l00066"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a8961dcf99004b3948ea747c4a1e1c6ff">00066</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a8961dcf99004b3948ea747c4a1e1c6ff">RGauntlet</a> = 7,
+<a name="l00067"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a88437e7a6e888a6ed6e310290da06b9f">00067</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a88437e7a6e888a6ed6e310290da06b9f">Shield</a> = 8,
+<a name="l00068"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a52e44cba691288dcb39b608969705569">00068</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a52e44cba691288dcb39b608969705569">LBracer</a> = 9,
+<a name="l00069"></a><a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a6e09ecc5234c5c13fce2a22d32492b62">00069</a>         <a class="code" href="structESM_1_1Armor.html#abe294e7cf296c3d987b217776688ff81a6e09ecc5234c5c13fce2a22d32492b62">RBracer</a> = 10
+<a name="l00070"></a>00070     };
+<a name="l00071"></a>00071 
+<a name="l00072"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html">00072</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html">AODTstruct</a>
+<a name="l00073"></a>00073     {
+<a name="l00074"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#af5cde9a4efbd394606ca5f5034c9e2e4">00074</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#af5cde9a4efbd394606ca5f5034c9e2e4">type</a>;
+<a name="l00075"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a3311651060f9ddbef7cf391e79ea18e6">00075</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a3311651060f9ddbef7cf391e79ea18e6">weight</a>;
+<a name="l00076"></a><a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a30623391012a345c8954f63566e88d10">00076</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a30623391012a345c8954f63566e88d10">value</a>, <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#ab723d1ad7ecb10e01decb07d6e3f4e8a">health</a>, <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a23bb639670d2242c0b8cc61b005a28a5">enchant</a>, <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html#a0f2b37072c216cdce6d7688c49f3f8c0">armor</a>;
+<a name="l00077"></a>00077     };
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="structESM_1_1Armor.html#a67111c4ef08cebaaa7966344662f734f">00079</a>     <a class="code" href="structESM_1_1Armor_1_1AODTstruct.html">AODTstruct</a> <a class="code" href="structESM_1_1Armor.html#a67111c4ef08cebaaa7966344662f734f">data</a>;
+<a name="l00080"></a><a class="code" href="structESM_1_1Armor.html#ad3f0324b6806381284a021282f567f24">00080</a>     <a class="code" href="structESM_1_1PartReferenceList.html">PartReferenceList</a> <a class="code" href="structESM_1_1Armor.html#ad3f0324b6806381284a021282f567f24">parts</a>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a><a class="code" href="structESM_1_1Armor.html#a79b53324b6b2a0422269df19734407b6">00082</a>     std::string <a class="code" href="structESM_1_1Armor.html#a5582a3187109071234928e2c30b4d3f0">name</a>, <a class="code" href="structESM_1_1Armor.html#acfc44ca3925091d17fc4e64f6208449d">model</a>, <a class="code" href="structESM_1_1Armor.html#a95eccced25c634d082ae50997d64e785">icon</a>, <a class="code" href="structESM_1_1Armor.html#a79b53324b6b2a0422269df19734407b6">script</a>, <a class="code" href="structESM_1_1Armor.html#a73e0a2d0da9deecca8d0379f38d45143">enchant</a>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Armor.html#a75900b23e9ddd0563ecd102b61c5572c">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00085"></a>00085 };
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

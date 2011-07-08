@@ -30,82 +30,68 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM {
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="comment">/*</span>
-<a name="l00009"></a>00009 <span class="comment"> * Leveled lists. Since these have identical layout, I only bothered</span>
-<a name="l00010"></a>00010 <span class="comment"> * to implement it once.</span>
-<a name="l00011"></a>00011 <span class="comment"> *</span>
-<a name="l00012"></a>00012 <span class="comment"> * We should later implement the ability to merge leveled lists from</span>
-<a name="l00013"></a>00013 <span class="comment"> * several files. </span>
-<a name="l00014"></a>00014 <span class="comment"> */</span>
-<a name="l00015"></a>00015 
-<a name="l00016"></a><a class="code" href="structESM_1_1LeveledListBase.html">00016</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1LeveledListBase.html">LeveledListBase</a>
-<a name="l00017"></a>00017 {
-<a name="l00018"></a><a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9ed">00018</a>   <span class="keyword">enum</span> <a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9ed">Flags</a>
-<a name="l00019"></a>00019     {
-<a name="l00020"></a><a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9edac5e9bc4e1da8868cef380bef0dcbc571">00020</a>       <a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9edac5e9bc4e1da8868cef380bef0dcbc571">AllLevels</a>         = 0x01, <span class="comment">// Calculate from all levels &lt;= player</span>
-<a name="l00021"></a>00021                                 <span class="comment">// level, not just the closest below</span>
-<a name="l00022"></a>00022                                 <span class="comment">// player.</span>
-<a name="l00023"></a><a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9eda145c4f6c0a58ae568d306988746716db">00023</a>       <a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9eda145c4f6c0a58ae568d306988746716db">Each</a>              = 0x02  <span class="comment">// Select a new item each time this</span>
-<a name="l00024"></a>00024                                 <span class="comment">// list is instantiated, instead of</span>
-<a name="l00025"></a>00025                                 <span class="comment">// giving several identical items</span>
-<a name="l00026"></a>00026     };                          <span class="comment">// (used when a container has more</span>
-<a name="l00027"></a>00027                                 <span class="comment">// than one instance of one leveled</span>
-<a name="l00028"></a>00028                                 <span class="comment">// list.)</span>
-<a name="l00029"></a><a class="code" href="structESM_1_1LeveledListBase.html#a957e18812705a40b5a55827db67ab864">00029</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1LeveledListBase.html#a957e18812705a40b5a55827db67ab864">flags</a>;
-<a name="l00030"></a><a class="code" href="structESM_1_1LeveledListBase.html#a27113e76664f7ea822718acc98364c6d">00030</a>   <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="structESM_1_1LeveledListBase.html#a27113e76664f7ea822718acc98364c6d">chanceNone</a>; <span class="comment">// Chance that none are selected (0-255?)</span>
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032   <span class="comment">// Record name used to read references. Must be set before load() is</span>
-<a name="l00033"></a>00033   <span class="comment">// called.</span>
-<a name="l00034"></a><a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">00034</a>   <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a>;
-<a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html">00036</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html">LevelItem</a>
-<a name="l00037"></a>00037   {
-<a name="l00038"></a><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#adea3165c052fc7a0ea41e68cacf62482">00038</a>     std::string <a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#adea3165c052fc7a0ea41e68cacf62482">id</a>;
-<a name="l00039"></a><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#a1711eb6ac7b0636955ce378753ea1a1d">00039</a>     <span class="keywordtype">short</span> <a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#a1711eb6ac7b0636955ce378753ea1a1d">level</a>;
-<a name="l00040"></a>00040   };
-<a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">00042</a>   std::vector&lt;LevelItem&gt; <a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">list</a>;
-<a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="structESM_1_1LeveledListBase.html#a612d4dbd2f748d5c66c75384a28b0ede">00044</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1LeveledListBase.html#a612d4dbd2f748d5c66c75384a28b0ede">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00045"></a>00045   {
-<a name="l00046"></a>00046     esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1LeveledListBase.html#a957e18812705a40b5a55827db67ab864">flags</a>, <span class="stringliteral">&quot;DATA&quot;</span>);
-<a name="l00047"></a>00047     esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1LeveledListBase.html#a27113e76664f7ea822718acc98364c6d">chanceNone</a>, <span class="stringliteral">&quot;NNAM&quot;</span>);
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049     <span class="keywordflow">if</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;INDX&quot;</span>))
-<a name="l00050"></a>00050       {
-<a name="l00051"></a>00051         <span class="keywordtype">int</span> len;
-<a name="l00052"></a>00052         esm.<a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(len);
-<a name="l00053"></a>00053         <a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">list</a>.resize(len);
-<a name="l00054"></a>00054       }
-<a name="l00055"></a>00055     <span class="keywordflow">else</span> <span class="keywordflow">return</span>;
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057     <span class="comment">// TODO: Merge with an existing lists here. This can be done</span>
-<a name="l00058"></a>00058     <span class="comment">// simply by adding the lists together, making sure that they are</span>
-<a name="l00059"></a>00059     <span class="comment">// sorted by level. A better way might be to exclude repeated</span>
-<a name="l00060"></a>00060     <span class="comment">// items. Also, some times we don&#39;t want to merge lists, just</span>
-<a name="l00061"></a>00061     <span class="comment">// overwrite. Figure out a way to give the user this option.</span>
-<a name="l00062"></a>00062  
-<a name="l00063"></a>00063     <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i=0; i&lt;<a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">list</a>.size(); i++)
-<a name="l00064"></a>00064       {
-<a name="l00065"></a>00065         <a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html">LevelItem</a> &amp;li = <a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">list</a>[i];
-<a name="l00066"></a>00066         li.<a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#adea3165c052fc7a0ea41e68cacf62482">id</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a0389fd3553a1e7a7da94b869780bca02">getHNString</a>(<a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a>);
-<a name="l00067"></a>00067         esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(li.<a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#a1711eb6ac7b0636955ce378753ea1a1d">level</a>, <span class="stringliteral">&quot;INTV&quot;</span>);
-<a name="l00068"></a>00068       }
-<a name="l00069"></a>00069   }
-<a name="l00070"></a>00070 };
-<a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="structESM_1_1CreatureLevList.html">00072</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1CreatureLevList.html">CreatureLevList</a> : <a class="code" href="structESM_1_1LeveledListBase.html">LeveledListBase</a>
-<a name="l00073"></a><a class="code" href="structESM_1_1CreatureLevList.html#aee1c33f70b0104d3b1fc91556e2dde70">00073</a> { <a class="code" href="structESM_1_1CreatureLevList.html#aee1c33f70b0104d3b1fc91556e2dde70">CreatureLevList</a>() { <a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a> = <span class="stringliteral">&quot;CNAM&quot;</span>; } };
-<a name="l00074"></a>00074 
-<a name="l00075"></a><a class="code" href="structESM_1_1ItemLevList.html">00075</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ItemLevList.html">ItemLevList</a> : <a class="code" href="structESM_1_1LeveledListBase.html">LeveledListBase</a>
-<a name="l00076"></a><a class="code" href="structESM_1_1ItemLevList.html#aeb8da79be8b2888f02f6a366530317fb">00076</a> { <a class="code" href="structESM_1_1ItemLevList.html#aeb8da79be8b2888f02f6a366530317fb">ItemLevList</a>() { <a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a> = <span class="stringliteral">&quot;INAM&quot;</span>; } };
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 }
-<a name="l00079"></a>00079 <span class="preprocessor">#endif</span>
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
+<a name="l00007"></a>00007 {
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="comment">/*</span>
+<a name="l00010"></a>00010 <span class="comment"> * Leveled lists. Since these have identical layout, I only bothered</span>
+<a name="l00011"></a>00011 <span class="comment"> * to implement it once.</span>
+<a name="l00012"></a>00012 <span class="comment"> *</span>
+<a name="l00013"></a>00013 <span class="comment"> * We should later implement the ability to merge leveled lists from</span>
+<a name="l00014"></a>00014 <span class="comment"> * several files. </span>
+<a name="l00015"></a>00015 <span class="comment"> */</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="structESM_1_1LeveledListBase.html">00017</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1LeveledListBase.html">LeveledListBase</a>
+<a name="l00018"></a>00018 {
+<a name="l00019"></a><a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9ed">00019</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9ed">Flags</a>
+<a name="l00020"></a>00020     {
+<a name="l00021"></a><a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9edac5e9bc4e1da8868cef380bef0dcbc571">00021</a>         <a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9edac5e9bc4e1da8868cef380bef0dcbc571">AllLevels</a> = 0x01, <span class="comment">// Calculate from all levels &lt;= player</span>
+<a name="l00022"></a>00022                           <span class="comment">// level, not just the closest below</span>
+<a name="l00023"></a>00023                           <span class="comment">// player.</span>
+<a name="l00024"></a><a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9eda145c4f6c0a58ae568d306988746716db">00024</a>         <a class="code" href="structESM_1_1LeveledListBase.html#a6d625efee96dd1ad7e26a832b7cce9eda145c4f6c0a58ae568d306988746716db">Each</a> = 0x02       <span class="comment">// Select a new item each time this</span>
+<a name="l00025"></a>00025                           <span class="comment">// list is instantiated, instead of</span>
+<a name="l00026"></a>00026                           <span class="comment">// giving several identical items</span>
+<a name="l00027"></a>00027     };                    <span class="comment">// (used when a container has more</span>
+<a name="l00028"></a>00028                           <span class="comment">// than one instance of one leveled</span>
+<a name="l00029"></a>00029                           <span class="comment">// list.)</span>
+<a name="l00030"></a><a class="code" href="structESM_1_1LeveledListBase.html#a957e18812705a40b5a55827db67ab864">00030</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1LeveledListBase.html#a957e18812705a40b5a55827db67ab864">flags</a>;
+<a name="l00031"></a><a class="code" href="structESM_1_1LeveledListBase.html#a27113e76664f7ea822718acc98364c6d">00031</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="structESM_1_1LeveledListBase.html#a27113e76664f7ea822718acc98364c6d">chanceNone</a>; <span class="comment">// Chance that none are selected (0-255?)</span>
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="comment">// Record name used to read references. Must be set before load() is</span>
+<a name="l00034"></a>00034     <span class="comment">// called.</span>
+<a name="l00035"></a><a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">00035</a>     <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a>;
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html">00037</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html">LevelItem</a>
+<a name="l00038"></a>00038     {
+<a name="l00039"></a><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#adea3165c052fc7a0ea41e68cacf62482">00039</a>         std::string <a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#adea3165c052fc7a0ea41e68cacf62482">id</a>;
+<a name="l00040"></a><a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#a1711eb6ac7b0636955ce378753ea1a1d">00040</a>         <span class="keywordtype">short</span> <a class="code" href="structESM_1_1LeveledListBase_1_1LevelItem.html#a1711eb6ac7b0636955ce378753ea1a1d">level</a>;
+<a name="l00041"></a>00041     };
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">00043</a>     std::vector&lt;LevelItem&gt; <a class="code" href="structESM_1_1LeveledListBase.html#aa85bc7a0420000dd1376b2a862e32ea2">list</a>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1LeveledListBase.html#a612d4dbd2f748d5c66c75384a28b0ede">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00046"></a>00046 };
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="structESM_1_1CreatureLevList.html">00048</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1CreatureLevList.html">CreatureLevList</a>: <a class="code" href="structESM_1_1LeveledListBase.html">LeveledListBase</a>
+<a name="l00049"></a>00049 {
+<a name="l00050"></a><a class="code" href="structESM_1_1CreatureLevList.html#aee1c33f70b0104d3b1fc91556e2dde70">00050</a>     <a class="code" href="structESM_1_1CreatureLevList.html#aee1c33f70b0104d3b1fc91556e2dde70">CreatureLevList</a>()
+<a name="l00051"></a>00051     {
+<a name="l00052"></a>00052         <a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a> = <span class="stringliteral">&quot;CNAM&quot;</span>;
+<a name="l00053"></a>00053     }
+<a name="l00054"></a>00054 };
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="structESM_1_1ItemLevList.html">00056</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ItemLevList.html">ItemLevList</a>: <a class="code" href="structESM_1_1LeveledListBase.html">LeveledListBase</a>
+<a name="l00057"></a>00057 {
+<a name="l00058"></a><a class="code" href="structESM_1_1ItemLevList.html#aeb8da79be8b2888f02f6a366530317fb">00058</a>     <a class="code" href="structESM_1_1ItemLevList.html#aeb8da79be8b2888f02f6a366530317fb">ItemLevList</a>()
+<a name="l00059"></a>00059     {
+<a name="l00060"></a>00060         <a class="code" href="structESM_1_1LeveledListBase.html#a8c00078c105597f01c470ef1402626ee">recName</a> = <span class="stringliteral">&quot;INAM&quot;</span>;
+<a name="l00061"></a>00061     }
+<a name="l00062"></a>00062 };
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 }
+<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -48,56 +48,61 @@
 <a name="l00021"></a>00021 <span class="comment"></span>
 <a name="l00022"></a>00022 <span class="comment"> */</span>
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="preprocessor">#ifndef _SLICE_ARRAY_H_</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define _SLICE_ARRAY_H_</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#ifndef MISC_SLICE_ARRAY_H</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define MISC_SLICE_ARRAY_H</span>
 <a name="l00026"></a>00026 <span class="preprocessor"></span>
 <a name="l00027"></a>00027 <span class="comment">// A simple array implementation containing a pointer and a</span>
 <a name="l00028"></a>00028 <span class="comment">// length. Used for holding slices into a data buffer.</span>
 <a name="l00029"></a>00029 <span class="preprocessor">#include &lt;<a class="code" href="string_8h.html">string.h</a>&gt;</span>
 <a name="l00030"></a>00030 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
-<a name="l00033"></a><a class="code" href="structSliceArray.html">00033</a> <span class="keyword">struct </span><a class="code" href="structSliceArray.html">SliceArray</a>
-<a name="l00034"></a>00034 {
-<a name="l00035"></a><a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">00035</a>   <span class="keyword">const</span> T* <a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>;
-<a name="l00036"></a><a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">00036</a>   <span class="keywordtype">size_t</span> <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>;
-<a name="l00037"></a>00037 
-<a name="l00039"></a><a class="code" href="structSliceArray.html#af63fa8a0a16c83eccfc7144da4076251">00039</a>   <a class="code" href="structSliceArray.html#af63fa8a0a16c83eccfc7144da4076251" title="Initialize to zero length.">SliceArray</a>() : <a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>(0), <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>(0) {}
+<a name="l00032"></a>00032 <span class="keyword">namespace </span>Misc
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
+<a name="l00036"></a><a class="code" href="structMisc_1_1SliceArray.html">00036</a> <span class="keyword">struct </span><a class="code" href="structMisc_1_1SliceArray.html">SliceArray</a>
+<a name="l00037"></a>00037 {
+<a name="l00038"></a><a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">00038</a>   <span class="keyword">const</span> T* <a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>;
+<a name="l00039"></a><a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">00039</a>   <span class="keywordtype">size_t</span> <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>;
 <a name="l00040"></a>00040 
-<a name="l00042"></a><a class="code" href="structSliceArray.html#aba6c98c0adfcefffcedca902307ccedc">00042</a>   <a class="code" href="structSliceArray.html#af63fa8a0a16c83eccfc7144da4076251" title="Initialize to zero length.">SliceArray</a>(<span class="keyword">const</span> T* _ptr, <span class="keywordtype">size_t</span> _length)
-<a name="l00043"></a>00043     : <a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>(_ptr), <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>(_length) {}
-<a name="l00044"></a>00044 
-<a name="l00046"></a><a class="code" href="structSliceArray.html#af069286baa878303eecca4ae313f5605">00046</a>   <a class="code" href="structSliceArray.html#af63fa8a0a16c83eccfc7144da4076251" title="Initialize to zero length.">SliceArray</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)
-<a name="l00047"></a>00047   {
-<a name="l00048"></a>00048     <a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a> = str;
-<a name="l00049"></a>00049     <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a> = strlen(str);
-<a name="l00050"></a>00050   }
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="structSliceArray.html#aab94368c040a67e8bf4272120603e6af">00052</a>   <span class="keywordtype">bool</span> <a class="code" href="structSliceArray.html#aab94368c040a67e8bf4272120603e6af">operator==</a>(<a class="code" href="structSliceArray.html">SliceArray</a> &amp;t)
-<a name="l00053"></a>00053   {
-<a name="l00054"></a>00054     <span class="keywordflow">return</span>
-<a name="l00055"></a>00055       <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a> == t.<a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a> &amp;&amp;
-<a name="l00056"></a>00056       (memcmp(<a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>,t.<a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>, <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>*<span class="keyword">sizeof</span>(T)) == 0);
-<a name="l00057"></a>00057   }
-<a name="l00058"></a>00058 
-<a name="l00060"></a><a class="code" href="structSliceArray.html#a9bd7d24c8a84f68fbeaec84f5cdc485a">00060</a>   <span class="keywordtype">bool</span> <a class="code" href="structSliceArray.html#aab94368c040a67e8bf4272120603e6af">operator==</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)
-<a name="l00061"></a>00061   {
-<a name="l00062"></a>00062     <span class="keywordflow">return</span>
-<a name="l00063"></a>00063       str[<a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>] == 0 &amp;&amp;
-<a name="l00064"></a>00064       (strncmp(<a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>, str, <a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>) == 0);
-<a name="l00065"></a>00065   }
-<a name="l00066"></a>00066 
-<a name="l00069"></a><a class="code" href="structSliceArray.html#a5d7edb5d7c7f7b3d144bfc2d862f755a">00069</a>   std::string <a class="code" href="structSliceArray.html#a5d7edb5d7c7f7b3d144bfc2d862f755a">toString</a>()
-<a name="l00070"></a>00070   { <span class="keywordflow">return</span> std::string(<a class="code" href="structSliceArray.html#a71c133942c45c00099111ffab9e92540">ptr</a>,<a class="code" href="structSliceArray.html#a54b518204431afae5198d6d66a2e24fc">length</a>); }
-<a name="l00071"></a>00071 };
-<a name="l00072"></a>00072 
-<a name="l00073"></a><a class="code" href="slice__array_8hpp.html#a97745ab8e91c4652f0944f3d4136ba85">00073</a> <span class="keyword">typedef</span> <a class="code" href="structSliceArray.html">SliceArray&lt;char&gt;</a> <a class="code" href="structSliceArray.html">SString</a>;
-<a name="l00074"></a><a class="code" href="slice__array_8hpp.html#a5c619f7ba724de24435943194118313d">00074</a> <span class="keyword">typedef</span> <a class="code" href="structSliceArray.html">SliceArray&lt;int&gt;</a> <a class="code" href="structSliceArray.html">IntArray</a>;
-<a name="l00075"></a><a class="code" href="slice__array_8hpp.html#a4876bd8010934ec8ac8f6aa252106041">00075</a> <span class="keyword">typedef</span> <a class="code" href="structSliceArray.html">SliceArray&lt;float&gt;</a> <a class="code" href="structSliceArray.html">FloatArray</a>;
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077 <span class="preprocessor">#endif</span>
+<a name="l00042"></a><a class="code" href="structMisc_1_1SliceArray.html#a80b382b7c3260a93b917be312fdec5e2">00042</a>   <a class="code" href="structMisc_1_1SliceArray.html#a80b382b7c3260a93b917be312fdec5e2" title="Initialize to zero length.">SliceArray</a>() : <a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>(0), <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>(0) {}
+<a name="l00043"></a>00043 
+<a name="l00045"></a><a class="code" href="structMisc_1_1SliceArray.html#a8780188ed5e27b812709f5d96beb2253">00045</a>   <a class="code" href="structMisc_1_1SliceArray.html#a80b382b7c3260a93b917be312fdec5e2" title="Initialize to zero length.">SliceArray</a>(<span class="keyword">const</span> T* _ptr, <span class="keywordtype">size_t</span> _length)
+<a name="l00046"></a>00046     : <a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>(_ptr), <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>(_length) {}
+<a name="l00047"></a>00047 
+<a name="l00049"></a><a class="code" href="structMisc_1_1SliceArray.html#ae0be165644cad6cad4386e9f24ef266c">00049</a>   <a class="code" href="structMisc_1_1SliceArray.html#a80b382b7c3260a93b917be312fdec5e2" title="Initialize to zero length.">SliceArray</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)
+<a name="l00050"></a>00050   {
+<a name="l00051"></a>00051     <a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a> = str;
+<a name="l00052"></a>00052     <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a> = strlen(str);
+<a name="l00053"></a>00053   }
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="structMisc_1_1SliceArray.html#ae832bc5ed428d8e72b14d1c98fa55fab">00055</a>   <span class="keywordtype">bool</span> <a class="code" href="structMisc_1_1SliceArray.html#ae832bc5ed428d8e72b14d1c98fa55fab">operator==</a>(<a class="code" href="structMisc_1_1SliceArray.html">SliceArray</a> &amp;t)
+<a name="l00056"></a>00056   {
+<a name="l00057"></a>00057     <span class="keywordflow">return</span>
+<a name="l00058"></a>00058       <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a> == t.<a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a> &amp;&amp;
+<a name="l00059"></a>00059       (memcmp(<a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>,t.<a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>, <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>*<span class="keyword">sizeof</span>(T)) == 0);
+<a name="l00060"></a>00060   }
+<a name="l00061"></a>00061 
+<a name="l00063"></a><a class="code" href="structMisc_1_1SliceArray.html#abd39091cb512c0ffc84e7f95f35c0b77">00063</a>   <span class="keywordtype">bool</span> <a class="code" href="structMisc_1_1SliceArray.html#ae832bc5ed428d8e72b14d1c98fa55fab">operator==</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)
+<a name="l00064"></a>00064   {
+<a name="l00065"></a>00065     <span class="keywordflow">return</span>
+<a name="l00066"></a>00066       str[<a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>] == 0 &amp;&amp;
+<a name="l00067"></a>00067       (strncmp(<a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>, str, <a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>) == 0);
+<a name="l00068"></a>00068   }
+<a name="l00069"></a>00069 
+<a name="l00072"></a><a class="code" href="structMisc_1_1SliceArray.html#acfd549993ef9c46adf406f0e84c42836">00072</a>   std::string <a class="code" href="structMisc_1_1SliceArray.html#acfd549993ef9c46adf406f0e84c42836">toString</a>()
+<a name="l00073"></a>00073   { <span class="keywordflow">return</span> std::string(<a class="code" href="structMisc_1_1SliceArray.html#af144f44ffbff93fe32a09b74db225f9a">ptr</a>,<a class="code" href="structMisc_1_1SliceArray.html#aea9cccf6c971ad8e012196d8178f2109">length</a>); }
+<a name="l00074"></a>00074 };
+<a name="l00075"></a>00075 
+<a name="l00076"></a><a class="code" href="namespaceMisc.html#a174f112e8a541e212c8c46891815e11b">00076</a> <span class="keyword">typedef</span> <a class="code" href="structMisc_1_1SliceArray.html">SliceArray&lt;char&gt;</a> <a class="code" href="structMisc_1_1SliceArray.html">SString</a>;
+<a name="l00077"></a><a class="code" href="namespaceMisc.html#afa05f34304f2c217014e68e43ccd892f">00077</a> <span class="keyword">typedef</span> <a class="code" href="structMisc_1_1SliceArray.html">SliceArray&lt;int&gt;</a> <a class="code" href="structMisc_1_1SliceArray.html">IntArray</a>;
+<a name="l00078"></a><a class="code" href="namespaceMisc.html#a2a0269959dd7ab1c13a2d0fe0845b498">00078</a> <span class="keyword">typedef</span> <a class="code" href="structMisc_1_1SliceArray.html">SliceArray&lt;float&gt;</a> <a class="code" href="structMisc_1_1SliceArray.html">FloatArray</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 }
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

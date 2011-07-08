@@ -38,8 +38,8 @@
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#af408f88134b2a5749858fb8ba2529f2d">CellRenderImp</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">~CellRenderImp</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575">insertBegin</a> (<a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref)=0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">start inserting a new reference.  <a href="#ad052a46db4c5efea5a4923cf120cc575"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a1805f272782d6d58f0fdf4d1633e5bef">insertBegin</a> (<a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, bool static_=false)=0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">start inserting a new reference.  <a href="#a1805f272782d6d58f0fdf4d1633e5bef"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#a4f766f55cde88a7b61c68eb9d3630583">rotateMesh</a> (Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName[], int elements)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRenderImp.html#aea3272496eac73987f7d688db72bd217">insertMesh</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], int elements, bool translateFirst)=0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">insert a mesh related to the most recent insertBegin call.  <a href="#aea3272496eac73987f7d688db72bd217"></a><br/></td></tr>
@@ -111,7 +111,7 @@
 
 </div>
 </div>
-<a class="anchor" id="ad052a46db4c5efea5a4923cf120cc575"></a><!-- doxytag: member="MWRender::CellRenderImp::insertBegin" ref="ad052a46db4c5efea5a4923cf120cc575" args="(ESM::CellRef &amp;ref)=0" -->
+<a class="anchor" id="a1805f272782d6d58f0fdf4d1633e5bef"></a><!-- doxytag: member="MWRender::CellRenderImp::insertBegin" ref="a1805f272782d6d58f0fdf4d1633e5bef" args="(ESM::CellRef &amp;ref, bool static_=false)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -119,9 +119,18 @@
           <td class="memname">virtual void MWRender::CellRenderImp::insertBegin </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>ref</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [pure virtual]</code></td>
+          <td class="paramname"> <em>ref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>static_</em> = <code>false</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -129,7 +138,7 @@
 
 <p>start inserting a new reference. </p>
 
-<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#a87f28aff0ecc0cf55822ba94c372d863">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#a5a2537ad283eee77061c61bc21d8eedf">MWRender::InteriorCellRender</a>.</p>
+<p>Implemented in <a class="el" href="classMWRender_1_1ExteriorCellRender.html#a1d86cab7b075143169e1153ba1bd329f">MWRender::ExteriorCellRender</a>, and <a class="el" href="classMWRender_1_1InteriorCellRender.html#ab3c5a3d96692f11e1182ecfb0c624be1">MWRender::InteriorCellRender</a>.</p>
 
 </div>
 </div>
@@ -471,7 +480,7 @@
 <li>apps/openmw/mwrender/<a class="el" href="cellimp_8cpp.html">cellimp.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:43 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:46 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

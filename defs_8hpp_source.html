@@ -30,94 +30,95 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM {
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="comment">// Pixel color value. Standard four-byte rr,gg,bb,aa format.</span>
-<a name="l00009"></a><a class="code" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">00009</a> <span class="keyword">typedef</span> <a class="code" href="namespaceMangle_1_1Sound.html#ad34e9cb80e40e2e1297c505f6279b73e">int32_t</a> <a class="code" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">Color</a>;
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3">00011</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3">VarType</a>
-<a name="l00012"></a>00012   {
-<a name="l00013"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a5fb6fdce1850aa2529b0dd654656b611">00013</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a5fb6fdce1850aa2529b0dd654656b611">VT_Unknown</a>,
-<a name="l00014"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aba366bd1d877155d4509ce218936344b">00014</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aba366bd1d877155d4509ce218936344b">VT_None</a>,
-<a name="l00015"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a694d1f9dc8c05f836a5cf5a7143b68a8">00015</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a694d1f9dc8c05f836a5cf5a7143b68a8">VT_Short</a>,
-<a name="l00016"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a67e2e56a0f8045b76de6a0ab5c49bd62">00016</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a67e2e56a0f8045b76de6a0ab5c49bd62">VT_Int</a>,
-<a name="l00017"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aa1d8c1972bdd8d174a402b9dd2aee334">00017</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aa1d8c1972bdd8d174a402b9dd2aee334">VT_Long</a>,
-<a name="l00018"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ac92ad886d9dd151050f9072e7448623d">00018</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ac92ad886d9dd151050f9072e7448623d">VT_Float</a>,
-<a name="l00019"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a95df60952bfee1bb4dffbcf2dee8125e">00019</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a95df60952bfee1bb4dffbcf2dee8125e">VT_String</a>,
-<a name="l00020"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ab50de33b692b411980a0d78b90a21035">00020</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ab50de33b692b411980a0d78b90a21035">VT_Ignored</a>
-<a name="l00021"></a>00021   };
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08">00023</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08">Specialization</a>
-<a name="l00024"></a>00024   {
-<a name="l00025"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a83c7601f592fd8499060fa3b1637e2ed">00025</a>     <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a83c7601f592fd8499060fa3b1637e2ed">SPC_Combat</a>  = 0,
-<a name="l00026"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08ac3eb1095659b6624a5ebe9084ed5aa5a">00026</a>     <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08ac3eb1095659b6624a5ebe9084ed5aa5a">SPC_Magic</a>   = 1,
-<a name="l00027"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a22e4f41e355b868ea8c98ead5bd4f423">00027</a>     <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a22e4f41e355b868ea8c98ead5bd4f423">SPC_Stealth</a> = 2
-<a name="l00028"></a>00028   };
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9">00030</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9">RangeType</a>
-<a name="l00031"></a>00031   {
-<a name="l00032"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a84b3a5815f7a99b5143e173c7195c91a">00032</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a84b3a5815f7a99b5143e173c7195c91a">RT_Self</a> = 0,
-<a name="l00033"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a6b9058dbfb3ec738c530ff64389dbd05">00033</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a6b9058dbfb3ec738c530ff64389dbd05">RT_Touch</a> = 1,
-<a name="l00034"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">00034</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">RT_Target</a> = 2
-<a name="l00035"></a>00035   };
-<a name="l00036"></a>00036 
-<a name="l00040"></a><a class="code" href="structESM_1_1SpellList.html">00040</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1SpellList.html">SpellList</a>
-<a name="l00041"></a>00041 {
-<a name="l00042"></a><a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">00042</a>   std::vector&lt;std::string&gt; <a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">list</a>;
-<a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="structESM_1_1SpellList.html#ac40710bdbbecc138b67004f926902f48">00044</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1SpellList.html#ac40710bdbbecc138b67004f926902f48">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00045"></a>00045   {
-<a name="l00046"></a>00046     <span class="keywordflow">while</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;NPCS&quot;</span>))
-<a name="l00047"></a>00047       <a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">list</a>.push_back(esm.<a class="code" href="classESM_1_1ESMReader.html#ab0b044c1028b117dfb0aae39135af948">getHString</a>());
-<a name="l00048"></a>00048   }
-<a name="l00049"></a>00049 };
-<a name="l00050"></a>00050 
-<a name="l00054"></a>00054 <span class="preprocessor">#pragma pack(push)</span>
-<a name="l00055"></a>00055 <span class="preprocessor"></span><span class="preprocessor">#pragma pack(1)</span>
-<a name="l00056"></a>00056 <span class="preprocessor"></span>
-<a name="l00057"></a>00057 <span class="comment">// Position and rotation</span>
-<a name="l00058"></a><a class="code" href="structESM_1_1Position.html">00058</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Position.html">Position</a>
-<a name="l00059"></a>00059 {
-<a name="l00060"></a><a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">00060</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">pos</a>[3];
-<a name="l00061"></a><a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">00061</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">rot</a>[3];
-<a name="l00062"></a>00062 };
-<a name="l00063"></a>00063 
-<a name="l00064"></a><a class="code" href="structESM_1_1ENAMstruct.html">00064</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ENAMstruct.html">ENAMstruct</a>
-<a name="l00065"></a>00065 {
-<a name="l00066"></a>00066   <span class="comment">// Magical effect, hard-coded ID</span>
-<a name="l00067"></a><a class="code" href="structESM_1_1ENAMstruct.html#ae11587427b00038a17a75c9fd6d67c4f">00067</a>   <span class="keywordtype">short</span> <a class="code" href="structESM_1_1ENAMstruct.html#ae11587427b00038a17a75c9fd6d67c4f">effectID</a>;
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069   <span class="comment">// Which skills/attributes are affected (for restore/drain spells</span>
-<a name="l00070"></a>00070   <span class="comment">// etc.)</span>
-<a name="l00071"></a><a class="code" href="structESM_1_1ENAMstruct.html#a38a23ccaf7d0bdbc4b4e7ae3609144b4">00071</a>   <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structESM_1_1ENAMstruct.html#a38a23ccaf7d0bdbc4b4e7ae3609144b4">skill</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a8201ea6acdd7900cb3e369578f1be477">attribute</a>; <span class="comment">// -1 if N/A</span>
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073   <span class="comment">// Other spell parameters</span>
-<a name="l00074"></a><a class="code" href="structESM_1_1ENAMstruct.html#a528460cfc46321ccc53f90797d872923">00074</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ENAMstruct.html#a528460cfc46321ccc53f90797d872923">range</a>; <span class="comment">// 0 - self, 1 - touch, 2 - target (RangeType enum)</span>
-<a name="l00075"></a><a class="code" href="structESM_1_1ENAMstruct.html#a4527a953531fda08aaccebce4cad3f98">00075</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ENAMstruct.html#accf616c8da86d15dbdc1cbf470090b2c">area</a>, <a class="code" href="structESM_1_1ENAMstruct.html#afe241d5a556842d5ea5936bf1774300d">duration</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a4527a953531fda08aaccebce4cad3f98">magnMin</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a6f1ae3b3127e5efdd3bb17b205f8f6e8">magnMax</a>;
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077   <span class="comment">// Struct size should be 24 bytes</span>
-<a name="l00078"></a>00078 };
-<a name="l00079"></a>00079 <span class="preprocessor">#pragma pack(pop)</span>
-<a name="l00080"></a>00080 <span class="preprocessor"></span>
-<a name="l00081"></a><a class="code" href="structESM_1_1EffectList.html">00081</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1EffectList.html">EffectList</a>
-<a name="l00082"></a>00082 {
-<a name="l00083"></a><a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">00083</a>   std::vector&lt;ENAMstruct&gt; <a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">list</a>;
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">00085</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00086"></a>00086   {
-<a name="l00087"></a>00087     <a class="code" href="structESM_1_1ENAMstruct.html">ENAMstruct</a> s;
-<a name="l00088"></a>00088     <span class="keywordflow">while</span>(esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;ENAM&quot;</span>))
-<a name="l00089"></a>00089       {
-<a name="l00090"></a>00090         esm.<a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(s, 24);
-<a name="l00091"></a>00091         <a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">list</a>.push_back(s);
-<a name="l00092"></a>00092       }
-<a name="l00093"></a>00093   }
-<a name="l00094"></a>00094 };
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 }
-<a name="l00097"></a>00097 <span class="preprocessor">#endif</span>
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
+<a name="l00007"></a>00007 {
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="comment">// Pixel color value. Standard four-byte rr,gg,bb,aa format.</span>
+<a name="l00010"></a><a class="code" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">00010</a> <span class="keyword">typedef</span> <a class="code" href="namespaceMangle_1_1Sound.html#ad34e9cb80e40e2e1297c505f6279b73e">int32_t</a> <a class="code" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">Color</a>;
+<a name="l00011"></a>00011 
+<a name="l00012"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3">00012</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3">VarType</a>
+<a name="l00013"></a>00013 {
+<a name="l00014"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a5fb6fdce1850aa2529b0dd654656b611">00014</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a5fb6fdce1850aa2529b0dd654656b611">VT_Unknown</a>,
+<a name="l00015"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aba366bd1d877155d4509ce218936344b">00015</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aba366bd1d877155d4509ce218936344b">VT_None</a>,
+<a name="l00016"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a694d1f9dc8c05f836a5cf5a7143b68a8">00016</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a694d1f9dc8c05f836a5cf5a7143b68a8">VT_Short</a>,
+<a name="l00017"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a67e2e56a0f8045b76de6a0ab5c49bd62">00017</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a67e2e56a0f8045b76de6a0ab5c49bd62">VT_Int</a>,
+<a name="l00018"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aa1d8c1972bdd8d174a402b9dd2aee334">00018</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aa1d8c1972bdd8d174a402b9dd2aee334">VT_Long</a>,
+<a name="l00019"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ac92ad886d9dd151050f9072e7448623d">00019</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ac92ad886d9dd151050f9072e7448623d">VT_Float</a>,
+<a name="l00020"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a95df60952bfee1bb4dffbcf2dee8125e">00020</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a95df60952bfee1bb4dffbcf2dee8125e">VT_String</a>,
+<a name="l00021"></a><a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ab50de33b692b411980a0d78b90a21035">00021</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ab50de33b692b411980a0d78b90a21035">VT_Ignored</a>
+<a name="l00022"></a>00022 };
+<a name="l00023"></a>00023 
+<a name="l00024"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08">00024</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08">Specialization</a>
+<a name="l00025"></a>00025 {
+<a name="l00026"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a83c7601f592fd8499060fa3b1637e2ed">00026</a>     <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a83c7601f592fd8499060fa3b1637e2ed">SPC_Combat</a> = 0,
+<a name="l00027"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08ac3eb1095659b6624a5ebe9084ed5aa5a">00027</a>     <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08ac3eb1095659b6624a5ebe9084ed5aa5a">SPC_Magic</a> = 1,
+<a name="l00028"></a><a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a22e4f41e355b868ea8c98ead5bd4f423">00028</a>     <a class="code" href="namespaceESM.html#a87830e41f5c8f54bf551b87c08e32f08a22e4f41e355b868ea8c98ead5bd4f423">SPC_Stealth</a> = 2
+<a name="l00029"></a>00029 };
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9">00031</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9">RangeType</a>
+<a name="l00032"></a>00032 {
+<a name="l00033"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a84b3a5815f7a99b5143e173c7195c91a">00033</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a84b3a5815f7a99b5143e173c7195c91a">RT_Self</a> = 0,
+<a name="l00034"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a6b9058dbfb3ec738c530ff64389dbd05">00034</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a6b9058dbfb3ec738c530ff64389dbd05">RT_Touch</a> = 1,
+<a name="l00035"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">00035</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">RT_Target</a> = 2
+<a name="l00036"></a>00036 };
+<a name="l00037"></a>00037 
+<a name="l00041"></a><a class="code" href="structESM_1_1SpellList.html">00041</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1SpellList.html">SpellList</a>
+<a name="l00042"></a>00042 {
+<a name="l00043"></a><a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">00043</a>     std::vector&lt;std::string&gt; <a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">list</a>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="structESM_1_1SpellList.html#ac40710bdbbecc138b67004f926902f48">00045</a>     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1SpellList.html#ac40710bdbbecc138b67004f926902f48">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00046"></a>00046     {
+<a name="l00047"></a>00047         <span class="keywordflow">while</span> (esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;NPCS&quot;</span>))
+<a name="l00048"></a>00048             <a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">list</a>.push_back(esm.<a class="code" href="classESM_1_1ESMReader.html#ab0b044c1028b117dfb0aae39135af948">getHString</a>());
+<a name="l00049"></a>00049     }
+<a name="l00050"></a>00050 };
+<a name="l00051"></a>00051 
+<a name="l00055"></a>00055 <span class="preprocessor">#pragma pack(push)</span>
+<a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#pragma pack(1)</span>
+<a name="l00057"></a>00057 <span class="preprocessor"></span>
+<a name="l00058"></a>00058 <span class="comment">// Position and rotation</span>
+<a name="l00059"></a><a class="code" href="structESM_1_1Position.html">00059</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Position.html">Position</a>
+<a name="l00060"></a>00060 {
+<a name="l00061"></a><a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">00061</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">pos</a>[3];
+<a name="l00062"></a><a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">00062</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">rot</a>[3];
+<a name="l00063"></a>00063 };
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="structESM_1_1ENAMstruct.html">00065</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ENAMstruct.html">ENAMstruct</a>
+<a name="l00066"></a>00066 {
+<a name="l00067"></a>00067     <span class="comment">// Magical effect, hard-coded ID</span>
+<a name="l00068"></a><a class="code" href="structESM_1_1ENAMstruct.html#ae11587427b00038a17a75c9fd6d67c4f">00068</a>     <span class="keywordtype">short</span> <a class="code" href="structESM_1_1ENAMstruct.html#ae11587427b00038a17a75c9fd6d67c4f">effectID</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="comment">// Which skills/attributes are affected (for restore/drain spells</span>
+<a name="l00071"></a>00071     <span class="comment">// etc.)</span>
+<a name="l00072"></a><a class="code" href="structESM_1_1ENAMstruct.html#a38a23ccaf7d0bdbc4b4e7ae3609144b4">00072</a>     <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structESM_1_1ENAMstruct.html#a38a23ccaf7d0bdbc4b4e7ae3609144b4">skill</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a8201ea6acdd7900cb3e369578f1be477">attribute</a>; <span class="comment">// -1 if N/A</span>
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074     <span class="comment">// Other spell parameters</span>
+<a name="l00075"></a><a class="code" href="structESM_1_1ENAMstruct.html#a528460cfc46321ccc53f90797d872923">00075</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ENAMstruct.html#a528460cfc46321ccc53f90797d872923">range</a>; <span class="comment">// 0 - self, 1 - touch, 2 - target (RangeType enum)</span>
+<a name="l00076"></a><a class="code" href="structESM_1_1ENAMstruct.html#a4527a953531fda08aaccebce4cad3f98">00076</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ENAMstruct.html#accf616c8da86d15dbdc1cbf470090b2c">area</a>, <a class="code" href="structESM_1_1ENAMstruct.html#afe241d5a556842d5ea5936bf1774300d">duration</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a4527a953531fda08aaccebce4cad3f98">magnMin</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a6f1ae3b3127e5efdd3bb17b205f8f6e8">magnMax</a>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="comment">// Struct size should be 24 bytes</span>
+<a name="l00079"></a>00079 };
+<a name="l00080"></a>00080 <span class="preprocessor">#pragma pack(pop)</span>
+<a name="l00081"></a>00081 <span class="preprocessor"></span>
+<a name="l00082"></a><a class="code" href="structESM_1_1EffectList.html">00082</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1EffectList.html">EffectList</a>
+<a name="l00083"></a>00083 {
+<a name="l00084"></a><a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">00084</a>     std::vector&lt;ENAMstruct&gt; <a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">list</a>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">00086</a>     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00087"></a>00087     {
+<a name="l00088"></a>00088         <a class="code" href="structESM_1_1ENAMstruct.html">ENAMstruct</a> s;
+<a name="l00089"></a>00089         <span class="keywordflow">while</span> (esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;ENAM&quot;</span>))
+<a name="l00090"></a>00090         {
+<a name="l00091"></a>00091             esm.<a class="code" href="classESM_1_1ESMReader.html#a7205bfae7a29ec357c8b2d38098e99ce">getHT</a>(s, 24);
+<a name="l00092"></a>00092             <a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">list</a>.push_back(s);
+<a name="l00093"></a>00093         }
+<a name="l00094"></a>00094     }
+<a name="l00095"></a>00095 };
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 }
+<a name="l00098"></a>00098 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

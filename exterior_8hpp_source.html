@@ -76,62 +76,69 @@
 <a name="l00057"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6906701c62f04c7e3393f2db6ebf69cc">00057</a>     std::string <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6906701c62f04c7e3393f2db6ebf69cc">mInsertMesh</a>;
 <a name="l00058"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a2f41f8bc77909b9f8f9901542cc9ad48">00058</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1ExteriorCellRender.html#a2f41f8bc77909b9f8f9901542cc9ad48">mNpcPart</a>;
 <a name="l00059"></a>00059 
-<a name="l00060"></a>00060     <span class="comment">// 0 normal, 1 more bright, 2 max</span>
-<a name="l00061"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6e764e5a44a7ac890112e14fabdac945">00061</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6e764e5a44a7ac890112e14fabdac945">mAmbientMode</a>;
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#aa0ad5cf5134a2b5a49b3c14d6f5f3379">00063</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1ExteriorCellRender.html#aa0ad5cf5134a2b5a49b3c14d6f5f3379">mAmbientColor</a>;
-<a name="l00064"></a>00064 
-<a name="l00066"></a>00066     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a87f28aff0ecc0cf55822ba94c372d863" title="start inserting a new reference.">insertBegin</a> (<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref);
-<a name="l00067"></a>00067 
-<a name="l00069"></a>00069     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec,  Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], <span class="keywordtype">int</span> elements);
-<a name="l00070"></a>00070     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], <span class="keywordtype">int</span> elements, <span class="keywordtype">bool</span> translateFirst);
+<a name="l00060"></a>00060     <span class="comment">//the static geometry</span>
+<a name="l00061"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a0fd36a07979d324303f2a0fc326274ba">00061</a>     Ogre::StaticGeometry *<a class="code" href="classMWRender_1_1ExteriorCellRender.html#a0fd36a07979d324303f2a0fc326274ba">sg</a>;
+<a name="l00062"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a43f187db4089caff4513ea6961e11367">00062</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a43f187db4089caff4513ea6961e11367">isStatic</a>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="comment">// 0 normal, 1 more bright, 2 max</span>
+<a name="l00065"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6e764e5a44a7ac890112e14fabdac945">00065</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6e764e5a44a7ac890112e14fabdac945">mAmbientMode</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#aa0ad5cf5134a2b5a49b3c14d6f5f3379">00067</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1ExteriorCellRender.html#aa0ad5cf5134a2b5a49b3c14d6f5f3379">mAmbientColor</a>;
+<a name="l00068"></a>00068 
+<a name="l00070"></a>00070     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a1d86cab7b075143169e1153ba1bd329f" title="start inserting a new reference.">insertBegin</a> (<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, <span class="keywordtype">bool</span> static_ = <span class="keyword">false</span>);
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>);
-<a name="l00073"></a>00073      <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac17c33a4c1992931e983c7677acf940e">rotateMesh</a>(Ogre::Vector3 axis, Ogre::Radian angle,  std::string sceneNodeName[], <span class="keywordtype">int</span> elements);
-<a name="l00074"></a>00074      <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a85335057c61602fbd4658603f960743d">scaleMesh</a>(Ogre::Vector3 axis,  std::string sceneNodeName[], <span class="keywordtype">int</span> elements);
+<a name="l00073"></a>00073     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec,  Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], <span class="keywordtype">int</span> elements);
+<a name="l00074"></a>00074     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], <span class="keywordtype">int</span> elements, <span class="keywordtype">bool</span> translateFirst);
 <a name="l00075"></a>00075 
-<a name="l00076"></a>00076     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a4084923ad24d0a57ea254bd24a2c0182">insertObjectPhysics</a>();
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a58556f3558d98ade9a6d09df8d4e1bf1">insertActorPhysics</a>();
+<a name="l00076"></a>00076     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac7bc9f5e297b76e8a79dd27ddc3198dd" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>);
+<a name="l00077"></a>00077      <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac17c33a4c1992931e983c7677acf940e">rotateMesh</a>(Ogre::Vector3 axis, Ogre::Radian angle,  std::string sceneNodeName[], <span class="keywordtype">int</span> elements);
+<a name="l00078"></a>00078      <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a85335057c61602fbd4658603f960743d">scaleMesh</a>(Ogre::Vector3 axis,  std::string sceneNodeName[], <span class="keywordtype">int</span> elements);
 <a name="l00079"></a>00079 
-<a name="l00081"></a>00081     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad27b57179d5f05b658e9d40745b13d32" title="insert a light related to the most recent insertBegin call.">insertLight</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> radius);
-<a name="l00082"></a>00082 
-<a name="l00084"></a>00084     <span class="keyword">virtual</span> std::string <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a044ef9c38f42c66e9f8bca80a1f6ec30" title="finish inserting a new reference and return a handle to it.">insertEnd</a> (<span class="keywordtype">bool</span> Enable);
-<a name="l00085"></a>00085 
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a3646c2afb9213ddc5cd2a9729f3fd1ec" title="configure lighting according to cell">configureAmbient</a>();
-<a name="l00088"></a>00088 
-<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a0cd4946177994da5a940d875a857e503" title="configure fog according to cell">configureFog</a>();
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad8f06a03d838a28c8c9e6da2caf272b7">setAmbientMode</a>();
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095   <span class="keyword">public</span>:
-<a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#abea1e290ce79648535758136c53004f0">00097</a>     <a class="code" href="classMWRender_1_1ExteriorCellRender.html#abea1e290ce79648535758136c53004f0">ExteriorCellRender</a>(<a class="code" href="classESMS_1_1CellStore.html">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;_cell, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment,
-<a name="l00098"></a>00098         <a class="code" href="classMWRender_1_1MWScene.html" title="3D-scene (rendering and physics)">MWScene</a> &amp;_scene)
-<a name="l00099"></a>00099     : <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad0240204e564bf7d89732b8977e7df06">mCell</a>(_cell), <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a1861cc8a3452feb0807aec6bfe45ec34">mEnvironment</a> (environment), <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a7854ca3660856f5592c535ea4da8673f">mScene</a>(_scene), <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ac4c6c93e705493236da5c9a7741ebf63">mBase</a>(NULL), <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a285779e1959609989171246f3a4c3c2b">mInsert</a>(NULL), <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a6e764e5a44a7ac890112e14fabdac945">mAmbientMode</a> (0) {}
+<a name="l00080"></a>00080     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a4084923ad24d0a57ea254bd24a2c0182">insertObjectPhysics</a>();
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a58556f3558d98ade9a6d09df8d4e1bf1">insertActorPhysics</a>();
+<a name="l00083"></a>00083 
+<a name="l00085"></a>00085     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad27b57179d5f05b658e9d40745b13d32" title="insert a light related to the most recent insertBegin call.">insertLight</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> radius);
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088     <span class="keyword">virtual</span> std::string <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a044ef9c38f42c66e9f8bca80a1f6ec30" title="finish inserting a new reference and return a handle to it.">insertEnd</a> (<span class="keywordtype">bool</span> Enable);
+<a name="l00089"></a>00089 
+<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a3646c2afb9213ddc5cd2a9729f3fd1ec" title="configure lighting according to cell">configureAmbient</a>();
+<a name="l00092"></a>00092 
+<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a0cd4946177994da5a940d875a857e503" title="configure fog according to cell">configureFog</a>();
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad8f06a03d838a28c8c9e6da2caf272b7">setAmbientMode</a>();
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099   <span class="keyword">public</span>:
 <a name="l00100"></a>00100 
-<a name="l00101"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a29bfc6f9c2759a20bd98d30e6d4d08c6">00101</a>     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a29bfc6f9c2759a20bd98d30e6d4d08c6">~ExteriorCellRender</a>() { <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ab79f83c5cc214d0761aa69dd90cd04e3" title="Destroy all rendering objects connected with this cell.">destroy</a>(); }
-<a name="l00102"></a>00102 
-<a name="l00104"></a>00104     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a146429f44df16f64e5d7eea8c2b1eed1" title="Make the cell visible. Load the cell if necessary.">show</a>();
+<a name="l00101"></a>00101     <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a93cf3ea02141b899751b3db2dfb8ccbc">ExteriorCellRender</a>(<a class="code" href="classESMS_1_1CellStore.html">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;_cell, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment,
+<a name="l00102"></a>00102         <a class="code" href="classMWRender_1_1MWScene.html" title="3D-scene (rendering and physics)">MWScene</a> &amp;_scene);
+<a name="l00103"></a>00103 
+<a name="l00104"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a29bfc6f9c2759a20bd98d30e6d4d08c6">00104</a>     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a29bfc6f9c2759a20bd98d30e6d4d08c6">~ExteriorCellRender</a>() { <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ab79f83c5cc214d0761aa69dd90cd04e3" title="Destroy all rendering objects connected with this cell.">destroy</a>(); }
 <a name="l00105"></a>00105 
-<a name="l00108"></a>00108     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a168a2b2ff243885dd54e36935d2c2585">hide</a>();
-<a name="l00109"></a>00109 
-<a name="l00111"></a>00111     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ab79f83c5cc214d0761aa69dd90cd04e3" title="Destroy all rendering objects connected with this cell.">destroy</a>(); <span class="comment">// comment by Zini: shouldn&#39;t this go into the destructor?</span>
+<a name="l00107"></a>00107     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a146429f44df16f64e5d7eea8c2b1eed1" title="Make the cell visible. Load the cell if necessary.">show</a>();
+<a name="l00108"></a>00108 
+<a name="l00111"></a>00111     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a168a2b2ff243885dd54e36935d2c2585">hide</a>();
 <a name="l00112"></a>00112 
-<a name="l00114"></a>00114     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a29b1140f92d61838dd4abb5ada7d7e19" title="Switch through lighting modes.">toggleLight</a>();
+<a name="l00114"></a>00114     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ab79f83c5cc214d0761aa69dd90cd04e3" title="Destroy all rendering objects connected with this cell.">destroy</a>(); <span class="comment">// comment by Zini: shouldn&#39;t this go into the destructor?</span>
 <a name="l00115"></a>00115 
-<a name="l00117"></a>00117     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad7404cc5a854b4da9b08bddde45197ed" title="Make the reference with the given handle visible.">enable</a> (<span class="keyword">const</span> std::string&amp; handle);
+<a name="l00117"></a>00117     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a29b1140f92d61838dd4abb5ada7d7e19" title="Switch through lighting modes.">toggleLight</a>();
 <a name="l00118"></a>00118 
-<a name="l00120"></a>00120     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a0e9cc55dfdb645cf167b292a4e75e25e" title="Make the reference with the given handle invisible.">disable</a> (<span class="keyword">const</span> std::string&amp; handle);
+<a name="l00120"></a>00120     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#ad7404cc5a854b4da9b08bddde45197ed" title="Make the reference with the given handle visible.">enable</a> (<span class="keyword">const</span> std::string&amp; handle);
 <a name="l00121"></a>00121 
-<a name="l00123"></a>00123     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a5f4ccc753ef041055d60c1adcf8f661f" title="Remove the reference with the given handle permanently from the scene.">deleteObject</a> (<span class="keyword">const</span> std::string&amp; handle);
-<a name="l00124"></a>00124   };
-<a name="l00125"></a>00125 }
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127 <span class="preprocessor">#endif</span>
+<a name="l00123"></a>00123     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a0e9cc55dfdb645cf167b292a4e75e25e" title="Make the reference with the given handle invisible.">disable</a> (<span class="keyword">const</span> std::string&amp; handle);
+<a name="l00124"></a>00124 
+<a name="l00126"></a>00126     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a5f4ccc753ef041055d60c1adcf8f661f" title="Remove the reference with the given handle permanently from the scene.">deleteObject</a> (<span class="keyword">const</span> std::string&amp; handle);
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a20d2f403007e059010bb790f4d14e991">destroyAllAttachedMovableObjects</a>(Ogre::SceneNode* i_pSceneNode);
+<a name="l00129"></a>00129 
+<a name="l00130"></a><a class="code" href="classMWRender_1_1ExteriorCellRender.html#a086d32a0e53d0deaf9d3d9120a013d86">00130</a>     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1ExteriorCellRender.html#a086d32a0e53d0deaf9d3d9120a013d86">uniqueID</a>;
+<a name="l00131"></a>00131   };
+<a name="l00132"></a>00132 }
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:44 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

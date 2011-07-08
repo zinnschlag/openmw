@@ -59,12 +59,12 @@
 <a name="l00032"></a>00032 <span class="keyword">class </span><a class="code" href="classNif_1_1NiSourceTexture.html">NiSourceTexture</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">Named</a>
 <a name="l00033"></a><a class="code" href="classNif_1_1NiSourceTexture.html#aa89393fb3370a697a743770fc4b484c2">00033</a> {
 <a name="l00034"></a>00034 <span class="keyword">public</span>:
-<a name="l00035"></a><a class="code" href="classNif_1_1NiSourceTexture.html#a89df520f64651e72c7dd0edb69fd51f1">00035</a> 
+<a name="l00035"></a><a class="code" href="classNif_1_1NiSourceTexture.html#a1b737320aa57970851aea2ce600bfa3d">00035</a> 
 <a name="l00036"></a><a class="code" href="classNif_1_1NiSourceTexture.html#adb9f01168efecc7d61e09404515c9c58">00036</a>   <span class="comment">// Is this an external (references a separate texture file) or</span>
 <a name="l00037"></a>00037   <span class="comment">// internal (data is inside the nif itself) texture?</span>
 <a name="l00038"></a>00038   <span class="keywordtype">bool</span> <a class="code" href="classNif_1_1NiSourceTexture.html#aa89393fb3370a697a743770fc4b484c2">external</a>;
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040   <a class="code" href="structSliceArray.html">SString</a> <a class="code" href="classNif_1_1NiSourceTexture.html#a89df520f64651e72c7dd0edb69fd51f1">filename</a>;    <span class="comment">// In case of external textures</span>
+<a name="l00040"></a>00040   <a class="code" href="structMisc_1_1SliceArray.html">Misc::SString</a> <a class="code" href="classNif_1_1NiSourceTexture.html#a1b737320aa57970851aea2ce600bfa3d">filename</a>;    <span class="comment">// In case of external textures</span>
 <a name="l00041"></a>00041   <a class="code" href="classNif_1_1RecordPtrT.html">NiPixelDataPtr</a> <a class="code" href="classNif_1_1NiSourceTexture.html#adb9f01168efecc7d61e09404515c9c58">data</a>; <span class="comment">// In case of internal textures</span>
 <a name="l00042"></a>00042 
 <a name="l00043"></a>00043   <span class="comment">/* Pixel layout</span>
@@ -96,7 +96,7 @@
 <a name="l00069"></a>00069 
 <a name="l00070"></a>00070     <a class="code" href="classNif_1_1NiSourceTexture.html#aa89393fb3370a697a743770fc4b484c2">external</a> = !!nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a23f773a6b68454f026f1f7089c171d22">getByte</a>();
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072     <span class="keywordflow">if</span>(<a class="code" href="classNif_1_1NiSourceTexture.html#aa89393fb3370a697a743770fc4b484c2">external</a>) <a class="code" href="classNif_1_1NiSourceTexture.html#a89df520f64651e72c7dd0edb69fd51f1">filename</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a54b297d6150cbcf249fc7f854be65c14">getString</a>();
+<a name="l00072"></a>00072     <span class="keywordflow">if</span>(<a class="code" href="classNif_1_1NiSourceTexture.html#aa89393fb3370a697a743770fc4b484c2">external</a>) <a class="code" href="classNif_1_1NiSourceTexture.html#a1b737320aa57970851aea2ce600bfa3d">filename</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae41f33f47f7a1d5bf0711e19b5640329">getString</a>();
 <a name="l00073"></a>00073     <span class="keywordflow">else</span>
 <a name="l00074"></a>00074       {
 <a name="l00075"></a>00075         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a23f773a6b68454f026f1f7089c171d22">getByte</a>(); <span class="comment">// always 1</span>
@@ -113,9 +113,9 @@
 <a name="l00086"></a><a class="code" href="classNif_1_1ShapeData.html">00086</a> 
 <a name="l00087"></a>00087 <span class="comment">// Common ancestor for several data classes</span>
 <a name="l00088"></a>00088 <span class="keyword">class </span><a class="code" href="classNif_1_1ShapeData.html">ShapeData</a> : <span class="keyword">public</span> <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a>
-<a name="l00089"></a><a class="code" href="classNif_1_1ShapeData.html#a0a563e27163202b767be4b7be4de8b80">00089</a> {
+<a name="l00089"></a><a class="code" href="classNif_1_1ShapeData.html#ad0c2068cac023566d1cd0282ddbb298f">00089</a> {
 <a name="l00090"></a><a class="code" href="classNif_1_1ShapeData.html#a8c967365ba511f5cffaadd546b6e0653">00090</a> <span class="keyword">public</span>:
-<a name="l00091"></a><a class="code" href="classNif_1_1ShapeData.html#a8ca63276dd365610cac7c7e3f7f738fc">00091</a>   <a class="code" href="structSliceArray.html">FloatArray</a> <a class="code" href="classNif_1_1ShapeData.html#a0a563e27163202b767be4b7be4de8b80">vertices</a>, <a class="code" href="classNif_1_1ShapeData.html#a5b838f3e332d90360dc36f4924cc7812">normals</a>, <a class="code" href="classNif_1_1ShapeData.html#a98ae939e005b774c4bdba2c9df6c2632">colors</a>, <a class="code" href="classNif_1_1ShapeData.html#a27032d39a008c9446cf19a6d918b6f5b">uvlist</a>;
+<a name="l00091"></a><a class="code" href="classNif_1_1ShapeData.html#a8ca63276dd365610cac7c7e3f7f738fc">00091</a>   <a class="code" href="structMisc_1_1SliceArray.html">Misc::FloatArray</a> <a class="code" href="classNif_1_1ShapeData.html#ad0c2068cac023566d1cd0282ddbb298f">vertices</a>, <a class="code" href="classNif_1_1ShapeData.html#a49db4c6ce3ed29af57cde20fc099fe77">normals</a>, <a class="code" href="classNif_1_1ShapeData.html#aa62e4411e1f8e0cdc0d60a492f78721b">colors</a>, <a class="code" href="classNif_1_1ShapeData.html#a430630342bd936531e5a2b8d9c22be0f">uvlist</a>;
 <a name="l00092"></a>00092   <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Vector</a> *<a class="code" href="classNif_1_1ShapeData.html#a8c967365ba511f5cffaadd546b6e0653">center</a>;
 <a name="l00093"></a><a class="code" href="classNif_1_1ShapeData.html#a525b0df3ca417af07158d0a6272612f7">00093</a>   <span class="keywordtype">float</span> <a class="code" href="classNif_1_1ShapeData.html#a8ca63276dd365610cac7c7e3f7f738fc">radius</a>;
 <a name="l00094"></a>00094 
@@ -124,16 +124,16 @@
 <a name="l00097"></a>00097     <span class="keywordtype">int</span> verts = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#abb8f4b45d684533ef57564bb525bd9bb">getShort</a>();
 <a name="l00098"></a>00098 
 <a name="l00099"></a>00099     <span class="keywordflow">if</span>(nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>())
-<a name="l00100"></a>00100       <a class="code" href="classNif_1_1ShapeData.html#a0a563e27163202b767be4b7be4de8b80">vertices</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(verts*3);
+<a name="l00100"></a>00100       <a class="code" href="classNif_1_1ShapeData.html#ad0c2068cac023566d1cd0282ddbb298f">vertices</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(verts*3);
 <a name="l00101"></a>00101 
 <a name="l00102"></a>00102     <span class="keywordflow">if</span>(nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>())
-<a name="l00103"></a>00103       <a class="code" href="classNif_1_1ShapeData.html#a5b838f3e332d90360dc36f4924cc7812">normals</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(verts*3);
+<a name="l00103"></a>00103       <a class="code" href="classNif_1_1ShapeData.html#a49db4c6ce3ed29af57cde20fc099fe77">normals</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(verts*3);
 <a name="l00104"></a>00104 
 <a name="l00105"></a>00105     <a class="code" href="classNif_1_1ShapeData.html#a8c967365ba511f5cffaadd546b6e0653">center</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aed91c4c3f4ec9de2ea31f052e74a4dc2">getVector</a>();
 <a name="l00106"></a>00106     <a class="code" href="classNif_1_1ShapeData.html#a8ca63276dd365610cac7c7e3f7f738fc">radius</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
 <a name="l00107"></a>00107 
 <a name="l00108"></a>00108     <span class="keywordflow">if</span>(nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>())
-<a name="l00109"></a>00109       <a class="code" href="classNif_1_1ShapeData.html#a98ae939e005b774c4bdba2c9df6c2632">colors</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(verts*4);
+<a name="l00109"></a>00109       <a class="code" href="classNif_1_1ShapeData.html#aa62e4411e1f8e0cdc0d60a492f78721b">colors</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(verts*4);
 <a name="l00110"></a>00110 
 <a name="l00111"></a>00111     <span class="keywordtype">int</span> uvs = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#abb8f4b45d684533ef57564bb525bd9bb">getShort</a>();
 <a name="l00112"></a>00112 
@@ -142,15 +142,15 @@
 <a name="l00115"></a>00115     uvs &amp;= 0x3f;
 <a name="l00116"></a>00116 
 <a name="l00117"></a>00117     <span class="keywordflow">if</span>(nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>())
-<a name="l00118"></a>00118       <a class="code" href="classNif_1_1ShapeData.html#a27032d39a008c9446cf19a6d918b6f5b">uvlist</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(uvs*verts*2);
+<a name="l00118"></a>00118       <a class="code" href="classNif_1_1ShapeData.html#a430630342bd936531e5a2b8d9c22be0f">uvlist</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(uvs*verts*2);
 <a name="l00119"></a>00119   }
 <a name="l00120"></a><a class="code" href="classNif_1_1NiTriShapeData.html">00120</a> };
 <a name="l00121"></a>00121 
 <a name="l00122"></a>00122 <span class="keyword">class </span><a class="code" href="classNif_1_1NiTriShapeData.html">NiTriShapeData</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1ShapeData.html">ShapeData</a>
 <a name="l00123"></a>00123 {
-<a name="l00124"></a><a class="code" href="classNif_1_1NiTriShapeData.html#aa82a4ee026b65630e427801fb4ad305e">00124</a> <span class="keyword">public</span>:
+<a name="l00124"></a><a class="code" href="classNif_1_1NiTriShapeData.html#a0db7f872526b502bff43a22114c95ff5">00124</a> <span class="keyword">public</span>:
 <a name="l00125"></a>00125   <span class="comment">// Triangles, three vertex indices per triangle</span>
-<a name="l00126"></a><a class="code" href="classNif_1_1NiTriShapeData.html#a3d68eacc6fff6d2451b1944bc980ca15">00126</a>   <a class="code" href="structSliceArray.html">SliceArray&lt;short&gt;</a> <a class="code" href="classNif_1_1NiTriShapeData.html#aa82a4ee026b65630e427801fb4ad305e">triangles</a>;
+<a name="l00126"></a><a class="code" href="classNif_1_1NiTriShapeData.html#a3d68eacc6fff6d2451b1944bc980ca15">00126</a>   <a class="code" href="structMisc_1_1SliceArray.html">Misc::SliceArray&lt;short&gt;</a> <a class="code" href="classNif_1_1NiTriShapeData.html#a0db7f872526b502bff43a22114c95ff5">triangles</a>;
 <a name="l00127"></a>00127 
 <a name="l00128"></a>00128   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiTriShapeData.html#a3d68eacc6fff6d2451b1944bc980ca15" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00129"></a>00129   {
@@ -162,7 +162,7 @@
 <a name="l00135"></a>00135         <span class="comment">// We have three times as many vertices as triangles, so this</span>
 <a name="l00136"></a>00136         <span class="comment">// is always equal to tris*3.</span>
 <a name="l00137"></a>00137         <span class="keywordtype">int</span> cnt = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
-<a name="l00138"></a>00138         <a class="code" href="classNif_1_1NiTriShapeData.html#aa82a4ee026b65630e427801fb4ad305e">triangles</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa8ab61577e75258a6165d554739d9baf">getArrayLen</a>&lt;<span class="keywordtype">short</span>&gt;(cnt);
+<a name="l00138"></a>00138         <a class="code" href="classNif_1_1NiTriShapeData.html#a0db7f872526b502bff43a22114c95ff5">triangles</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad1c2d5a2d96b5095158992958eb23288">getArrayLen</a>&lt;<span class="keywordtype">short</span>&gt;(cnt);
 <a name="l00139"></a>00139       }
 <a name="l00140"></a>00140 
 <a name="l00141"></a>00141     <span class="comment">// Read the match list, which lists the vertices that are equal to</span>
@@ -199,7 +199,7 @@
 <a name="l00172"></a>00172 
 <a name="l00173"></a>00173     <span class="keywordflow">if</span>(nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>())
 <a name="l00174"></a>00174       <span class="comment">// Particle sizes</span>
-<a name="l00175"></a>00175       nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(<a class="code" href="classNif_1_1NiAutoNormalParticlesData.html#a40698b8d9b63cae3fc7eeaa58e47f378">activeCount</a>);
+<a name="l00175"></a>00175       nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(<a class="code" href="classNif_1_1NiAutoNormalParticlesData.html#a40698b8d9b63cae3fc7eeaa58e47f378">activeCount</a>);
 <a name="l00176"></a>00176   }
 <a name="l00177"></a><a class="code" href="classNif_1_1NiRotatingParticlesData.html">00177</a> };
 <a name="l00178"></a>00178 
@@ -214,7 +214,7 @@
 <a name="l00187"></a>00187       <span class="comment">// Rotation quaternions. I THINK activeCount is correct here,</span>
 <a name="l00188"></a>00188       <span class="comment">// but verts (vertex number) might also be correct, if there is</span>
 <a name="l00189"></a>00189       <span class="comment">// any case where the two don&#39;t match.</span>
-<a name="l00190"></a>00190       nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa8ab61577e75258a6165d554739d9baf">getArrayLen</a>&lt;<a class="code" href="structNif_1_1Vector4.html">Vector4</a>&gt;(<a class="code" href="classNif_1_1NiAutoNormalParticlesData.html#a40698b8d9b63cae3fc7eeaa58e47f378">activeCount</a>);
+<a name="l00190"></a>00190       nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad1c2d5a2d96b5095158992958eb23288">getArrayLen</a>&lt;<a class="code" href="structNif_1_1Vector4.html">Vector4</a>&gt;(<a class="code" href="classNif_1_1NiAutoNormalParticlesData.html#a40698b8d9b63cae3fc7eeaa58e47f378">activeCount</a>);
 <a name="l00191"></a>00191   }
 <a name="l00192"></a><a class="code" href="classNif_1_1NiPosData.html">00192</a> };
 <a name="l00193"></a>00193 
@@ -261,7 +261,7 @@
 <a name="l00234"></a>00234         <span class="keywordflow">if</span>(count)
 <a name="l00235"></a>00235           {
 <a name="l00236"></a>00236             nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// always 2</span>
-<a name="l00237"></a>00237             nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa8ab61577e75258a6165d554739d9baf">getArrayLen</a>&lt;<a class="code" href="structNif_1_1Vector4.html">Vector4</a>&gt;(count); <span class="comment">// Really one time float + one vector</span>
+<a name="l00237"></a>00237             nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad1c2d5a2d96b5095158992958eb23288">getArrayLen</a>&lt;<a class="code" href="structNif_1_1Vector4.html">Vector4</a>&gt;(count); <span class="comment">// Really one time float + one vector</span>
 <a name="l00238"></a>00238           }
 <a name="l00239"></a>00239       }
 <a name="l00240"></a>00240     <span class="comment">// Always 0</span>
@@ -277,7 +277,7 @@
 <a name="l00250"></a>00250   {
 <a name="l00251"></a>00251     <span class="keywordtype">int</span> count = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
 <a name="l00252"></a>00252     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// always 2</span>
-<a name="l00253"></a>00253     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa8ab61577e75258a6165d554739d9baf">getArrayLen</a>&lt;<a class="code" href="structNif_1_1Vector4.html">Vector4</a>&gt;(count); <span class="comment">// Really one time float + one vector</span>
+<a name="l00253"></a>00253     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad1c2d5a2d96b5095158992958eb23288">getArrayLen</a>&lt;<a class="code" href="structNif_1_1Vector4.html">Vector4</a>&gt;(count); <span class="comment">// Really one time float + one vector</span>
 <a name="l00254"></a>00254   }
 <a name="l00255"></a><a class="code" href="classNif_1_1NiPixelData.html">00255</a> };
 <a name="l00256"></a>00256 
@@ -402,9 +402,9 @@
 <a name="l00375"></a>00375 <span class="preprocessor"></span>
 <a name="l00376"></a><a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#a2e02bb64436037fa101817d519a74c9c">00376</a>   <span class="keyword">struct </span><a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html">BoneInfo</a>
 <a name="l00377"></a><a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#a216b5f2f23ed7f2b74bc7b964ca06db5">00377</a>   {
-<a name="l00378"></a><a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#aec5c663d5a4563dc02a320340c0ae63f">00378</a>     <span class="keyword">const</span> <a class="code" href="structNif_1_1NiSkinData_1_1BoneTrafo.html">BoneTrafo</a> *<a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#a2e02bb64436037fa101817d519a74c9c">trafo</a>;
+<a name="l00378"></a><a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#aae107a735540373a4ab11e89c59dc9a9">00378</a>     <span class="keyword">const</span> <a class="code" href="structNif_1_1NiSkinData_1_1BoneTrafo.html">BoneTrafo</a> *<a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#a2e02bb64436037fa101817d519a74c9c">trafo</a>;
 <a name="l00379"></a>00379     <span class="keyword">const</span> <a class="code" href="structNif_1_1Vector4.html">Vector4</a> *<a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#a216b5f2f23ed7f2b74bc7b964ca06db5">unknown</a>;
-<a name="l00380"></a>00380     <a class="code" href="structSliceArray.html">SliceArray&lt;VertWeight&gt;</a> <a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#aec5c663d5a4563dc02a320340c0ae63f">weights</a>;
+<a name="l00380"></a>00380     <a class="code" href="structMisc_1_1SliceArray.html">Misc::SliceArray&lt;VertWeight&gt;</a> <a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#aae107a735540373a4ab11e89c59dc9a9">weights</a>;
 <a name="l00381"></a><a class="code" href="classNif_1_1NiSkinData.html#abd28959ff57296e6813d65afc0a4b83a">00381</a>   };
 <a name="l00382"></a><a class="code" href="classNif_1_1NiSkinData.html#a279c80e81a28ff71390b92111449bede">00382</a> 
 <a name="l00383"></a>00383   <span class="keyword">const</span> <a class="code" href="structNif_1_1NiSkinData_1_1BoneTrafo.html">BoneTrafo</a> *<a class="code" href="classNif_1_1NiSkinData.html#abd28959ff57296e6813d65afc0a4b83a">trafo</a>;
@@ -431,7 +431,7 @@
 <a name="l00404"></a>00404 
 <a name="l00405"></a>00405         <span class="comment">// Number of vertex weights</span>
 <a name="l00406"></a>00406         <span class="keywordtype">int</span> count = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#abb8f4b45d684533ef57564bb525bd9bb">getShort</a>();
-<a name="l00407"></a>00407         bi.<a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#aec5c663d5a4563dc02a320340c0ae63f">weights</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa8ab61577e75258a6165d554739d9baf">getArrayLen</a>&lt;<a class="code" href="structNif_1_1NiSkinData_1_1VertWeight.html">VertWeight</a>&gt;(count);
+<a name="l00407"></a>00407         bi.<a class="code" href="structNif_1_1NiSkinData_1_1BoneInfo.html#aae107a735540373a4ab11e89c59dc9a9">weights</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad1c2d5a2d96b5095158992958eb23288">getArrayLen</a>&lt;<a class="code" href="structNif_1_1NiSkinData_1_1VertWeight.html">VertWeight</a>&gt;(count);
 <a name="l00408"></a>00408       }
 <a name="l00409"></a>00409   }
 <a name="l00410"></a><a class="code" href="classNif_1_1NiMorphData.html">00410</a> };
@@ -451,9 +451,9 @@
 <a name="l00424"></a>00424         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
 <a name="l00425"></a>00425         <span class="keywordflow">if</span>(magic)
 <a name="l00426"></a>00426           <span class="comment">// Time, data, forward, backward tangents</span>
-<a name="l00427"></a>00427           nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(4*magic);
+<a name="l00427"></a>00427           nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(4*magic);
 <a name="l00428"></a>00428 
-<a name="l00429"></a>00429         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(vertCount*3);
+<a name="l00429"></a>00429         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(vertCount*3);
 <a name="l00430"></a>00430       }
 <a name="l00431"></a>00431   }
 <a name="l00432"></a><a class="code" href="classNif_1_1NiKeyframeData.html">00432</a> };
@@ -499,11 +499,11 @@
 <a name="l00472"></a>00472       {
 <a name="l00473"></a>00473         <span class="keywordtype">int</span> type = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
 <a name="l00474"></a>00474 
-<a name="l00475"></a>00475         <span class="keywordflow">if</span>(type == 1) nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(count*4); <span class="comment">// time + translation</span>
+<a name="l00475"></a>00475         <span class="keywordflow">if</span>(type == 1) nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(count*4); <span class="comment">// time + translation</span>
 <a name="l00476"></a>00476         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == 2)
-<a name="l00477"></a>00477           nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(count*10); <span class="comment">// trans1 + forward + backward</span>
+<a name="l00477"></a>00477           nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(count*10); <span class="comment">// trans1 + forward + backward</span>
 <a name="l00478"></a>00478         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == 3)
-<a name="l00479"></a>00479           nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(count*7); <span class="comment">// trans1 + tension,bias,continuity</span>
+<a name="l00479"></a>00479           nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(count*7); <span class="comment">// trans1 + tension,bias,continuity</span>
 <a name="l00480"></a>00480         <span class="keywordflow">else</span> nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;Unknown translation type&quot;</span>);
 <a name="l00481"></a>00481       }
 <a name="l00482"></a>00482 
@@ -518,7 +518,7 @@
 <a name="l00491"></a>00491         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == 2) size = 4; <span class="comment">// 1 + forward + backward (floats)</span>
 <a name="l00492"></a>00492         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == 3) size = 5; <span class="comment">// 1 + tbc</span>
 <a name="l00493"></a>00493         <span class="keywordflow">else</span> nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191" title="Used for error handling.">fail</a>(<span class="stringliteral">&quot;Unknown scaling type&quot;</span>);
-<a name="l00494"></a>00494         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(count*size);
+<a name="l00494"></a>00494         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(count*size);
 <a name="l00495"></a>00495       }
 <a name="l00496"></a>00496   }
 <a name="l00497"></a>00497 };
@@ -526,7 +526,7 @@
 <a name="l00499"></a>00499 } <span class="comment">// Namespace</span>
 <a name="l00500"></a>00500 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

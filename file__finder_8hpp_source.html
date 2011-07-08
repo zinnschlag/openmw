@@ -47,7 +47,7 @@
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021     <span class="keywordtype">void</span> <a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#a4d641d50abdd5f39f2978c7ec24dca0b">add</a>(<span class="keyword">const</span> boost::filesystem::path &amp;pth)
 <a name="l00022"></a><a class="code" href="classFileFinder_1_1FileFinderT.html#a70b992a7830839f87b70ccf188936a81">00022</a>     {
-<a name="l00023"></a>00023       std::string file = pth.file_string();
+<a name="l00023"></a>00023       std::string file = pth.string();
 <a name="l00024"></a>00024       std::string key = file.substr(<a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#a4c983ea520bf9292dfbe3c157fbf813a">cut</a>);
 <a name="l00025"></a><a class="code" href="classFileFinder_1_1FileFinderT.html#ac93c6def698d406011a6c281b1a990cd">00025</a>       <a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#abe695234cb26b298900e33c33e9954ea">owner</a>-&gt;table[key] = file;
 <a name="l00026"></a>00026     }
@@ -62,7 +62,7 @@
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036     <span class="comment">// Remember the original path length, so we can cut it away from</span>
 <a name="l00037"></a>00037     <span class="comment">// the relative paths used as keys</span>
-<a name="l00038"></a>00038     std::string pstring = path.file_string();
+<a name="l00038"></a>00038     std::string pstring = path.string();
 <a name="l00039"></a>00039     <a class="code" href="classFileFinder_1_1FileFinderT.html#a70b992a7830839f87b70ccf188936a81">inserter</a>.<a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#a4c983ea520bf9292dfbe3c157fbf813a">cut</a> = pstring.size();
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041     <span class="comment">// If the path does not end in a slash, then boost will add one</span>
@@ -92,7 +92,7 @@
 <a name="l00065"></a>00065 }
 <a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

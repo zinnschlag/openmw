@@ -31,39 +31,32 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="defs_8hpp.html">defs.hpp</a>&quot;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM {
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="comment">/*</span>
-<a name="l00010"></a>00010 <span class="comment"> * Alchemy item (potions)</span>
-<a name="l00011"></a>00011 <span class="comment"> */</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="structESM_1_1Potion.html">00013</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Potion.html">Potion</a>
-<a name="l00014"></a>00014 {
-<a name="l00015"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html">00015</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html">ALDTstruct</a>
-<a name="l00016"></a>00016   {
-<a name="l00017"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a24a4026fe65b6fca0a078469324394e6">00017</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a24a4026fe65b6fca0a078469324394e6">weight</a>;
-<a name="l00018"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#aed362baea28b2469c62a009c4a33c925">00018</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#aed362baea28b2469c62a009c4a33c925">value</a>;
-<a name="l00019"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a45ccdd01911e3fccc2cc8f0c400ebb2c">00019</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a45ccdd01911e3fccc2cc8f0c400ebb2c">autoCalc</a>;
-<a name="l00020"></a>00020   };
-<a name="l00021"></a><a class="code" href="structESM_1_1Potion.html#aac60284e047768276d39f13cbc06721d">00021</a>   <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html">ALDTstruct</a> <a class="code" href="structESM_1_1Potion.html#aac60284e047768276d39f13cbc06721d">data</a>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="structESM_1_1Potion.html#a223b457adffd0380aa624ae92994e837">00023</a>   std::string <a class="code" href="structESM_1_1Potion.html#a90c925b4ed017c0bc4f15d440681b0d2">name</a>, <a class="code" href="structESM_1_1Potion.html#a842eaf76ca2fbdbb4372791188555952">model</a>, <a class="code" href="structESM_1_1Potion.html#ae8b4e1e5aa0bdfb27e268de03ed2a507">icon</a>, <a class="code" href="structESM_1_1Potion.html#a223b457adffd0380aa624ae92994e837">script</a>;
-<a name="l00024"></a><a class="code" href="structESM_1_1Potion.html#a00a8e684fffab95fa328378096f0ab33">00024</a>   <a class="code" href="structESM_1_1EffectList.html">EffectList</a> <a class="code" href="structESM_1_1Potion.html#a00a8e684fffab95fa328378096f0ab33">effects</a>;
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="structESM_1_1Potion.html#aa521e091422a8d715e8590327a661db8">00026</a>   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Potion.html#aa521e091422a8d715e8590327a661db8">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00027"></a>00027   {
-<a name="l00028"></a>00028     <a class="code" href="structESM_1_1Potion.html#a842eaf76ca2fbdbb4372791188555952">model</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a0389fd3553a1e7a7da94b869780bca02">getHNString</a>(<span class="stringliteral">&quot;MODL&quot;</span>);
-<a name="l00029"></a>00029     <a class="code" href="structESM_1_1Potion.html#ae8b4e1e5aa0bdfb27e268de03ed2a507">icon</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;TEXT&quot;</span>); <span class="comment">// not ITEX here for some reason</span>
-<a name="l00030"></a>00030     <a class="code" href="structESM_1_1Potion.html#a223b457adffd0380aa624ae92994e837">script</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;SCRI&quot;</span>);
-<a name="l00031"></a>00031     <a class="code" href="structESM_1_1Potion.html#a90c925b4ed017c0bc4f15d440681b0d2">name</a> = esm.<a class="code" href="classESM_1_1ESMReader.html#a126070ed257a9c3751eb4c188e72e036">getHNOString</a>(<span class="stringliteral">&quot;FNAM&quot;</span>);
-<a name="l00032"></a>00032     esm.<a class="code" href="classESM_1_1ESMReader.html#aec31b579f5312b106b5609f9307b00bf">getHNT</a>(<a class="code" href="structESM_1_1Potion.html#aac60284e047768276d39f13cbc06721d">data</a>, <span class="stringliteral">&quot;ALDT&quot;</span>, 12);
-<a name="l00033"></a>00033     <a class="code" href="structESM_1_1Potion.html#a00a8e684fffab95fa328378096f0ab33">effects</a>.<a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">load</a>(esm);
-<a name="l00034"></a>00034   }
-<a name="l00035"></a>00035 };
-<a name="l00036"></a>00036 }
-<a name="l00037"></a>00037 <span class="preprocessor">#endif</span>
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="comment">/*</span>
+<a name="l00011"></a>00011 <span class="comment"> * Alchemy item (potions)</span>
+<a name="l00012"></a>00012 <span class="comment"> */</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a><a class="code" href="structESM_1_1Potion.html">00014</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Potion.html">Potion</a>
+<a name="l00015"></a>00015 {
+<a name="l00016"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html">00016</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html">ALDTstruct</a>
+<a name="l00017"></a>00017     {
+<a name="l00018"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a24a4026fe65b6fca0a078469324394e6">00018</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a24a4026fe65b6fca0a078469324394e6">weight</a>;
+<a name="l00019"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#aed362baea28b2469c62a009c4a33c925">00019</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#aed362baea28b2469c62a009c4a33c925">value</a>;
+<a name="l00020"></a><a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a45ccdd01911e3fccc2cc8f0c400ebb2c">00020</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html#a45ccdd01911e3fccc2cc8f0c400ebb2c">autoCalc</a>;
+<a name="l00021"></a>00021     };
+<a name="l00022"></a><a class="code" href="structESM_1_1Potion.html#aac60284e047768276d39f13cbc06721d">00022</a>     <a class="code" href="structESM_1_1Potion_1_1ALDTstruct.html">ALDTstruct</a> <a class="code" href="structESM_1_1Potion.html#aac60284e047768276d39f13cbc06721d">data</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a><a class="code" href="structESM_1_1Potion.html#a223b457adffd0380aa624ae92994e837">00024</a>     std::string <a class="code" href="structESM_1_1Potion.html#a90c925b4ed017c0bc4f15d440681b0d2">name</a>, <a class="code" href="structESM_1_1Potion.html#a842eaf76ca2fbdbb4372791188555952">model</a>, <a class="code" href="structESM_1_1Potion.html#ae8b4e1e5aa0bdfb27e268de03ed2a507">icon</a>, <a class="code" href="structESM_1_1Potion.html#a223b457adffd0380aa624ae92994e837">script</a>;
+<a name="l00025"></a><a class="code" href="structESM_1_1Potion.html#a00a8e684fffab95fa328378096f0ab33">00025</a>     <a class="code" href="structESM_1_1EffectList.html">EffectList</a> <a class="code" href="structESM_1_1Potion.html#a00a8e684fffab95fa328378096f0ab33">effects</a>;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Potion.html#aa521e091422a8d715e8590327a661db8">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00028"></a>00028 };
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

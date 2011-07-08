@@ -78,7 +78,7 @@
 <a name="l00055"></a>00055     <span class="comment">/*int i =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
 <a name="l00056"></a>00056     <span class="keywordtype">int</span> s = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#abb8f4b45d684533ef57564bb525bd9bb">getShort</a>(); <span class="comment">// number of vertices</span>
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#afdf7a503d8eb972014ffdfd4a543c1e9">getFloatLen</a>(s);     <span class="comment">// vertex weights I guess</span>
+<a name="l00058"></a>00058     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aeb86f9f029da3f199731f1ff7c968fdd">getFloatLen</a>(s);     <span class="comment">// vertex weights I guess</span>
 <a name="l00059"></a>00059   }
 <a name="l00060"></a>00060 };
 <a name="l00061"></a>00061 
@@ -88,7 +88,7 @@
 <a name="l00065"></a><a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html">00065</a>   <span class="keyword">struct </span><a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html">TextKey</a>
 <a name="l00066"></a>00066   {
 <a name="l00067"></a><a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html#aa4457bdc4a784e78bfd7b82a7a48069d">00067</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html#aa4457bdc4a784e78bfd7b82a7a48069d">time</a>;
-<a name="l00068"></a><a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html#a84e0281e057f2fc0b181f995c0352353">00068</a>     <a class="code" href="structSliceArray.html">SString</a> <a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html#a84e0281e057f2fc0b181f995c0352353">text</a>;
+<a name="l00068"></a><a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html#aa8d4dae1373742300ee83f821ba56e99">00068</a>     <a class="code" href="structMisc_1_1SliceArray.html">Misc::SString</a> <a class="code" href="structNif_1_1NiTextKeyExtraData_1_1TextKey.html#aa8d4dae1373742300ee83f821ba56e99">text</a>;
 <a name="l00069"></a>00069   };
 <a name="l00070"></a>00070 
 <a name="l00071"></a><a class="code" href="classNif_1_1NiTextKeyExtraData.html#acbdff5fde670772fd856ab22febade1e">00071</a>   std::vector&lt;TextKey&gt; <a class="code" href="classNif_1_1NiTextKeyExtraData.html#acbdff5fde670772fd856ab22febade1e">list</a>;
@@ -104,7 +104,7 @@
 <a name="l00081"></a>00081     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i&lt;keynum; i++)
 <a name="l00082"></a>00082       {
 <a name="l00083"></a>00083         <a class="code" href="classNif_1_1NiTextKeyExtraData.html#acbdff5fde670772fd856ab22febade1e">list</a>[i].time = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00084"></a>00084         <a class="code" href="classNif_1_1NiTextKeyExtraData.html#acbdff5fde670772fd856ab22febade1e">list</a>[i].text = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a54b297d6150cbcf249fc7f854be65c14">getString</a>();
+<a name="l00084"></a>00084         <a class="code" href="classNif_1_1NiTextKeyExtraData.html#acbdff5fde670772fd856ab22febade1e">list</a>[i].text = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae41f33f47f7a1d5bf0711e19b5640329">getString</a>();
 <a name="l00085"></a>00085       }
 <a name="l00086"></a>00086   }
 <a name="l00087"></a>00087 };
@@ -116,21 +116,21 @@
 <a name="l00093"></a>00093 <span class="comment">     &quot;MRK&quot; - marker, only visible in the editor, not rendered in-game</span>
 <a name="l00094"></a>00094 <span class="comment">     &quot;NCO&quot; - no collision</span>
 <a name="l00095"></a>00095 <span class="comment">   */</span>
-<a name="l00096"></a><a class="code" href="classNif_1_1NiStringExtraData.html#a06e2ab6b1df4c34eaae5ee833c10233f">00096</a>   <a class="code" href="structSliceArray.html">SString</a> <a class="code" href="classNif_1_1NiStringExtraData.html#a06e2ab6b1df4c34eaae5ee833c10233f">string</a>;
+<a name="l00096"></a><a class="code" href="classNif_1_1NiStringExtraData.html#a1750d26f312d07a355a0ecced50941c9">00096</a>   <a class="code" href="structMisc_1_1SliceArray.html">Misc::SString</a> <a class="code" href="classNif_1_1NiStringExtraData.html#a1750d26f312d07a355a0ecced50941c9">string</a>;
 <a name="l00097"></a>00097 
 <a name="l00098"></a><a class="code" href="classNif_1_1NiStringExtraData.html#aab55c552490320847868e4a144f93e52">00098</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiStringExtraData.html#aab55c552490320847868e4a144f93e52" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00099"></a>00099   {
 <a name="l00100"></a>00100     <a class="code" href="classNif_1_1NiStringExtraData.html#aab55c552490320847868e4a144f93e52" title="Parses the record from file.">Extra::read</a>(nif);
 <a name="l00101"></a>00101 
 <a name="l00102"></a>00102     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// size of string + 4. Really useful...</span>
-<a name="l00103"></a>00103     <span class="keywordtype">string</span> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a54b297d6150cbcf249fc7f854be65c14">getString</a>();
+<a name="l00103"></a>00103     <span class="keywordtype">string</span> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae41f33f47f7a1d5bf0711e19b5640329">getString</a>();
 <a name="l00104"></a>00104   }
 <a name="l00105"></a>00105 };
 <a name="l00106"></a>00106 
 <a name="l00107"></a>00107 } <span class="comment">// Namespace</span>
 <a name="l00108"></a>00108 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

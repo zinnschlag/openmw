@@ -59,7 +59,7 @@
 <a name="l00034"></a><a class="code" href="classMWRender_1_1CellRenderImp.html#af408f88134b2a5749858fb8ba2529f2d">00034</a>     <a class="code" href="classMWRender_1_1CellRenderImp.html#af408f88134b2a5749858fb8ba2529f2d">CellRenderImp</a>() {}
 <a name="l00035"></a><a class="code" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">00035</a>     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#ad51e65dafe5af832616d23a46ceb4e8a">~CellRenderImp</a>() {}
 <a name="l00036"></a>00036 
-<a name="l00038"></a>00038     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575" title="start inserting a new reference.">insertBegin</a> (<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref) = 0;
+<a name="l00038"></a>00038     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a1805f272782d6d58f0fdf4d1633e5bef" title="start inserting a new reference.">insertBegin</a> (<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, <span class="keywordtype">bool</span> static_ = <span class="keyword">false</span>) = 0;
 <a name="l00039"></a>00039 
 <a name="l00040"></a>00040     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#a4f766f55cde88a7b61c68eb9d3630583">rotateMesh</a>(Ogre::Vector3 axis, Ogre::Radian angle,  std::string sceneNodeName[], <span class="keywordtype">int</span> elements) = 0;
 <a name="l00042"></a>00042     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1CellRenderImp.html#aea3272496eac73987f7d688db72bd217" title="insert a mesh related to the most recent insertBegin call.">insertMesh</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, Ogre::Vector3 vec, Ogre::Vector3 axis, Ogre::Radian angle, std::string sceneNodeName, std::string sceneParent[], <span class="keywordtype">int</span> elements, <span class="keywordtype">bool</span> translateFirst) = 0;
@@ -91,10 +91,10 @@
 <a name="l00071"></a>00071 
 <a name="l00072"></a>00072         <span class="keyword">public</span>:
 <a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="classMWRender_1_1Rendering.html#a819e6c54b90bd7cf7dd8e5423fd74e3d">00074</a>             <a class="code" href="classMWRender_1_1Rendering.html#aa1d3460f2d323512da3299e24af0badc">Rendering</a> (<a class="code" href="classMWRender_1_1CellRenderImp.html">CellRenderImp</a>&amp; cellRender, <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref)
+<a name="l00074"></a><a class="code" href="classMWRender_1_1Rendering.html#a365a3ef765cb0773712ed09ffc9453cd">00074</a>             <a class="code" href="classMWRender_1_1Rendering.html#aa1d3460f2d323512da3299e24af0badc">Rendering</a> (<a class="code" href="classMWRender_1_1CellRenderImp.html">CellRenderImp</a>&amp; cellRender, <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, <span class="keywordtype">bool</span> static_ = <span class="keyword">false</span>)
 <a name="l00075"></a>00075             : <a class="code" href="classMWRender_1_1Rendering.html#adba2ef1591071924381f0e84bb872c2a">mCellRender</a> (cellRender), <a class="code" href="classMWRender_1_1Rendering.html#af92946ff300d7bbbb66b31788dce2a2c">mEnd</a> (false)
 <a name="l00076"></a>00076             {
-<a name="l00077"></a>00077                 <a class="code" href="classMWRender_1_1Rendering.html#adba2ef1591071924381f0e84bb872c2a">mCellRender</a>.<a class="code" href="classMWRender_1_1CellRenderImp.html#ad052a46db4c5efea5a4923cf120cc575" title="start inserting a new reference.">insertBegin</a> (ref);
+<a name="l00077"></a>00077                 <a class="code" href="classMWRender_1_1Rendering.html#adba2ef1591071924381f0e84bb872c2a">mCellRender</a>.<a class="code" href="classMWRender_1_1CellRenderImp.html#a1805f272782d6d58f0fdf4d1633e5bef" title="start inserting a new reference.">insertBegin</a> (ref, static_);
 <a name="l00078"></a>00078             }
 <a name="l00079"></a>00079 
 <a name="l00080"></a><a class="code" href="classMWRender_1_1Rendering.html#a1aff25ad8f071ed5d4c0b83a53f5c49b">00080</a>             <a class="code" href="classMWRender_1_1Rendering.html#a1aff25ad8f071ed5d4c0b83a53f5c49b">~Rendering</a>()
@@ -114,7 +114,7 @@
 <a name="l00094"></a>00094 
 <a name="l00095"></a>00095 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 23 23:35:42 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:44 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
