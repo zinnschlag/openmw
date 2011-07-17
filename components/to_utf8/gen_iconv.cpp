@@ -91,6 +91,9 @@ int main()
   // English
   write_table("WINDOWS-1252", "windows_1252");
 
+  // Polish and Central European languages
+  write_table("WINDOWS-1250", "windows_1250");
+
   // Close namespace
   cout << "\n}\n\n";
 
