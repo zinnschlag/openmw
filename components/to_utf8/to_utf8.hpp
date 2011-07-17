@@ -8,8 +8,9 @@ namespace ToUTF8
   // These are all the currently supported code pages
   enum FromType
     {
-      WINDOWS_1252      // Used by English version of Morrowind (and
-                        // probably others)
+      WINDOWS_1252,      // Used by English version of Morrowind (and
+                         // probably others)
+      WINDOWS_1250       // Polish and Central European languages
     };
 
   // Return a writable buffer of at least 'size' bytes. The buffer

@@ -82,6 +82,10 @@ bool parseOptions (int argc, char**argv, OMW::Engine& engine)
         ( "fs-strict", boost::program_options::value<bool>()->
             implicit_value (true)->default_value (false),
             "strict file system handling (no case folding)")
+
+        ( "encoding", boost::program_options::value<std::string>()->
+            default_value("en"),
+            "Font encoding used in OpenMW game messages (currently available are: en, pl)")
         ;
 
     bpo::variables_map variables;
@@ -114,6 +118,19 @@ bool parseOptions (int argc, char**argv, OMW::Engine& engine)
     {
         std::cout << desc << std::endl;
         return false;
+    }
+
+    // Font encoding settings
+    std::string encoding(variables["encoding"].as<std::string>());
+    if (encoding == "pl")
+    {
+      std::cout << "Using Polish font encoding." << std::endl;
+      engine.setEncoding(encoding);
+    }
+    else
+    {
+      std::cout << "Using default (English) font encoding." << std::endl;
+      engine.setEncoding("en");
     }
 
     // directory settings
