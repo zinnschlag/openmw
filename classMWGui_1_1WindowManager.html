@@ -83,6 +83,9 @@ int &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a3d505dd79e939c072c5c58f5e1b21ba1">removeDialog</a> (<a class="el" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *dialog)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Hides dialog and schedules dialog to be deleted.  <a href="#a3d505dd79e939c072c5c58f5e1b21ba1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a2566e7b84addc9d4f87cb3e8237983b2">messageBox</a> (const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a682fd81cc7d39293ab5085e257c5e035">readPressedButton</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;<a class="el" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a>)  <a href="#a682fd81cc7d39293ab5085e257c5e035"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a1f46d928eb3132d95cbec12a8044ab5f">onFrame</a> (float frameDuration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a74ce68de439b45eb9e56851bc35e4261">getGameSettingString</a> (const std::string &amp;id, const std::string &amp;default_)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a72b3c6d6a2b15ecb1ff4679264303a55">getStore</a> () const </td></tr>
 <tr><td colspan="2"><h2>Private Types</h2></td></tr>
@@ -124,6 +127,7 @@ int &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1MapWindow.html">MapWindow</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a3e9acc380783f5315b0d32abbc106103">map</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1MainMenu.html">MainMenu</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a82197e648388690b77bb7827eb2d2b9a">menu</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1StatsWindow.html">StatsWindow</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#aa96acabd7e9e0168cf82ac273d8a6a51">stats</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#a02ea5a6aa6512ae1428c529bda056871">mMessageBoxManager</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Console.html">Console</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#ab649eefeb434b7a55a054aba36bdd4ef">console</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1TextInputDialog.html">TextInputDialog</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#ac92ff048f7711cfd99fc8354e8ce726f">nameDialog</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1RaceDialog.html">RaceDialog</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1WindowManager.html#acbb672beebc81238332d066fadd4fc9b">raceDialog</a></td></tr>
@@ -635,6 +639,24 @@ int &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 
 </div>
 </div>
+<a class="anchor" id="a1f46d928eb3132d95cbec12a8044ab5f"></a><!-- doxytag: member="MWGui::WindowManager::onFrame" ref="a1f46d928eb3132d95cbec12a8044ab5f" args="(float frameDuration)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WindowManager::onFrame </td>
+          <td>(</td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>frameDuration</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a411621d42da3998058718dc3927f2190"></a><!-- doxytag: member="MWGui::WindowManager::onGenerateClassBack" ref="a411621d42da3998058718dc3927f2190" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -808,6 +830,25 @@ int &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a682fd81cc7d39293ab5085e257c5e035"></a><!-- doxytag: member="MWGui::WindowManager::readPressedButton" ref="a682fd81cc7d39293ab5085e257c5e035" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int WindowManager::readPressedButton </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;<a class="el" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a>) </p>
 
 </div>
 </div>
@@ -1489,6 +1530,19 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a02ea5a6aa6512ae1428c529bda056871"></a><!-- doxytag: member="MWGui::WindowManager::mMessageBoxManager" ref="a02ea5a6aa6512ae1428c529bda056871" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>* <a class="el" href="classMWGui_1_1WindowManager.html#a02ea5a6aa6512ae1428c529bda056871">MWGui::WindowManager::mMessageBoxManager</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ac5ce0b458f4cb6005156326fb7e69c87"></a><!-- doxytag: member="MWGui::WindowManager::mode" ref="ac5ce0b458f4cb6005156326fb7e69c87" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1769,7 +1823,7 @@ template&lt;typename T &gt; </div>
 <li>apps/openmw/mwgui/<a class="el" href="window__manager_8cpp.html">window_manager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:46 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:39 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

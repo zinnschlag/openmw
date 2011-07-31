@@ -88,11 +88,11 @@
 <a name="l00076"></a>00076 
 <a name="l00077"></a>00077         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NIFLoader.html#a83c6ee8685f9069d81ca2fcf1b4711f1">loadResource</a>(Ogre::Resource *resource);
 <a name="l00078"></a>00078 
-<a name="l00079"></a>00079         <span class="keyword">static</span> Ogre::MeshPtr <a class="code" href="classNifOgre_1_1NIFLoader.html#a6a33a4080e9b3f25af4d553be948ed95">load</a>(<span class="keyword">const</span> std::string &amp;name, 
+<a name="l00079"></a>00079         <span class="keyword">static</span> Ogre::MeshPtr <a class="code" href="classNifOgre_1_1NIFLoader.html#a6a33a4080e9b3f25af4d553be948ed95">load</a>(<span class="keyword">const</span> std::string &amp;name,
 <a name="l00080"></a>00080                                     <span class="keyword">const</span> std::string &amp;<a class="code" href="ogre__resource__test_8cpp.html#a2da4114d14f8f2479eb54d3a64bcb31c">group</a>=<span class="stringliteral">&quot;General&quot;</span>);
 <a name="l00081"></a>00081 
 <a name="l00082"></a>00082 
-<a name="l00083"></a>00083         
+<a name="l00083"></a>00083 
 <a name="l00084"></a>00084         Ogre::Vector3 <a class="code" href="classNifOgre_1_1NIFLoader.html#adcf909e47bbf2e4fc415b0635a72362a">convertVector3</a>(<span class="keyword">const</span> <a class="code" href="structNif_1_1Vector.html">Nif::Vector</a>&amp; vec);
 <a name="l00085"></a>00085         Ogre::Quaternion <a class="code" href="classNifOgre_1_1NIFLoader.html#ab89720ef991fb8f5e1404f52a29cd128">convertRotation</a>(<span class="keyword">const</span> <a class="code" href="structNif_1_1Matrix.html">Nif::Matrix</a>&amp; rot);
 <a name="l00086"></a>00086 
@@ -128,7 +128,7 @@
 <a name="l00116"></a>00116         {
 <a name="l00117"></a>00117             <span class="keywordflow">return</span> <a class="code" href="classNifOgre_1_1NIFLoader.html#a7f86b69695abc6625fbadec0d17a16d4">resourceName</a> + <span class="stringliteral">&quot;.skel&quot;</span>;
 <a name="l00118"></a>00118         }
-<a name="l00119"></a>00119         
+<a name="l00119"></a>00119 
 <a name="l00120"></a>00120         <span class="comment">// This is the interface to the Ogre resource system. It allows us to</span>
 <a name="l00121"></a>00121         <span class="comment">// load NIFs from BSAs, in the file system and in any other place we</span>
 <a name="l00122"></a>00122         <span class="comment">// tell Ogre to look (eg. in zip or rar files.) It&#39;s also used to</span>
@@ -146,19 +146,18 @@
 <a name="l00134"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#ab4ff775c7530797c3518da7035110a79">00134</a>         <span class="keywordtype">int</span> <a class="code" href="classNifOgre_1_1NIFLoader.html#ab4ff775c7530797c3518da7035110a79">counter</a>;
 <a name="l00135"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#a61c636c0cff66f88ee24b75839a167e0">00135</a>         <span class="keywordtype">int</span> <a class="code" href="classNifOgre_1_1NIFLoader.html#a61c636c0cff66f88ee24b75839a167e0">numbers</a>;
 <a name="l00136"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#a2e7d3dd42bc573a5913af109c3a82ea1">00136</a>         <span class="keywordtype">int</span> <a class="code" href="classNifOgre_1_1NIFLoader.html#a2e7d3dd42bc573a5913af109c3a82ea1">stack</a>;
-<a name="l00137"></a>00137         
-<a name="l00138"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#aa9690e995f16aa8fded524650ba0c77c">00138</a>          std::multimap&lt;std::string,std::string&gt; <a class="code" href="classNifOgre_1_1NIFLoader.html#aa9690e995f16aa8fded524650ba0c77c">MaterialMap</a>;
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140         <span class="comment">// pointer to the ogre mesh which is currently build</span>
-<a name="l00141"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#aba1ab4cafddb6b537c32f0d2f3a8778d">00141</a>         Ogre::Mesh *<a class="code" href="classNifOgre_1_1NIFLoader.html#aba1ab4cafddb6b537c32f0d2f3a8778d">mesh</a>;
-<a name="l00142"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#a744312b0d36a315f7deb2372f4aa161f">00142</a>         Ogre::SkeletonPtr <a class="code" href="classNifOgre_1_1NIFLoader.html#a744312b0d36a315f7deb2372f4aa161f">mSkel</a>;
-<a name="l00143"></a>00143 };
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145 }
-<a name="l00146"></a>00146 
-<a name="l00147"></a>00147 <span class="preprocessor">#endif</span>
+<a name="l00137"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#aa9690e995f16aa8fded524650ba0c77c">00137</a>         std::multimap&lt;std::string,std::string&gt; <a class="code" href="classNifOgre_1_1NIFLoader.html#aa9690e995f16aa8fded524650ba0c77c">MaterialMap</a>;
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139         <span class="comment">// pointer to the ogre mesh which is currently build</span>
+<a name="l00140"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#aba1ab4cafddb6b537c32f0d2f3a8778d">00140</a>         Ogre::Mesh *<a class="code" href="classNifOgre_1_1NIFLoader.html#aba1ab4cafddb6b537c32f0d2f3a8778d">mesh</a>;
+<a name="l00141"></a><a class="code" href="classNifOgre_1_1NIFLoader.html#a744312b0d36a315f7deb2372f4aa161f">00141</a>         Ogre::SkeletonPtr <a class="code" href="classNifOgre_1_1NIFLoader.html#a744312b0d36a315f7deb2372f4aa161f">mSkel</a>;
+<a name="l00142"></a>00142 };
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 }
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

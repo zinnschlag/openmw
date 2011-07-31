@@ -71,11 +71,46 @@
 <a name="l00044"></a>00044     <span class="keywordflow">return</span> <a class="code" href="structFileFinder_1_1path__less.html#a6e3ffb3c7e0c3f95ac20e690e1803aab">compareString</a>(a.c_str(), b.c_str()) &lt; 0;
 <a name="l00045"></a>00045   }
 <a name="l00046"></a>00046 };
-<a name="l00047"></a>00047  
-<a name="l00048"></a>00048 }
-<a name="l00049"></a>00049 <span class="preprocessor">#endif</span>
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="structFileFinder_1_1path__slash.html">00048</a> <span class="keyword">struct </span><a class="code" href="structFileFinder_1_1path__slash.html">path_slash</a>
+<a name="l00049"></a>00049 {
+<a name="l00050"></a><a class="code" href="structFileFinder_1_1path__slash.html#a0f55718063042eaeb5e9a940a79e9eee">00050</a>   <span class="keywordtype">int</span> <a class="code" href="structFileFinder_1_1path__slash.html#a0f55718063042eaeb5e9a940a79e9eee">compareChar</a>(<span class="keywordtype">char</span> a, <span class="keywordtype">char</span> b)<span class="keyword"> const</span>
+<a name="l00051"></a>00051 <span class="keyword">  </span>{
+<a name="l00052"></a>00052     <span class="keywordflow">if</span>(a&gt;b) <span class="keywordflow">return</span> 1;
+<a name="l00053"></a>00053     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(a&lt;b) <span class="keywordflow">return</span> -1;
+<a name="l00054"></a>00054     <span class="keywordflow">return</span> 0;
+<a name="l00055"></a>00055   }
+<a name="l00056"></a>00056 
+<a name="l00057"></a><a class="code" href="structFileFinder_1_1path__slash.html#a9ac85e5034669df146087062a01d425e">00057</a>   <span class="keywordtype">int</span> <a class="code" href="structFileFinder_1_1path__slash.html#a9ac85e5034669df146087062a01d425e">comparePathChar</a>(<span class="keywordtype">char</span> a, <span class="keywordtype">char</span> b)<span class="keyword"> const</span>
+<a name="l00058"></a>00058 <span class="keyword">  </span>{
+<a name="l00059"></a>00059    <span class="keywordflow">if</span>(a == <span class="charliteral">&#39;\\&#39;</span>) a = <span class="charliteral">&#39;/&#39;</span>;
+<a name="l00060"></a>00060    <span class="keywordflow">if</span>(b == <span class="charliteral">&#39;\\&#39;</span>) b = <span class="charliteral">&#39;/&#39;</span>;
+<a name="l00061"></a>00061     <span class="keywordflow">return</span> <a class="code" href="structFileFinder_1_1path__slash.html#a0f55718063042eaeb5e9a940a79e9eee">compareChar</a>(a,b);
+<a name="l00062"></a>00062   }
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="structFileFinder_1_1path__slash.html#a5e243831a167e5b5d1ed460aed9ba976">00064</a>   <span class="keywordtype">int</span> <a class="code" href="structFileFinder_1_1path__slash.html#a5e243831a167e5b5d1ed460aed9ba976">compareString</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *a, <span class="keyword">const</span> <span class="keywordtype">char</span> *b)<span class="keyword"> const</span>
+<a name="l00065"></a>00065 <span class="keyword">  </span>{
+<a name="l00066"></a>00066     <span class="keywordflow">while</span>(*a &amp;&amp; *b)
+<a name="l00067"></a>00067       {
+<a name="l00068"></a>00068         <span class="keywordtype">int</span> i = <a class="code" href="structFileFinder_1_1path__slash.html#a9ac85e5034669df146087062a01d425e">comparePathChar</a>(*a,*b);
+<a name="l00069"></a>00069         <span class="keywordflow">if</span>(i != 0) <span class="keywordflow">return</span> i;
+<a name="l00070"></a>00070         a++; b++;
+<a name="l00071"></a>00071       }
+<a name="l00072"></a>00072     <span class="comment">// At this point, one or both of the chars is a null terminator.</span>
+<a name="l00073"></a>00073     <span class="comment">// Normal char comparison will get the correct final result here.</span>
+<a name="l00074"></a>00074     <span class="keywordflow">return</span> <a class="code" href="structFileFinder_1_1path__slash.html#a0f55718063042eaeb5e9a940a79e9eee">compareChar</a>(*a,*b);
+<a name="l00075"></a>00075   }
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="structFileFinder_1_1path__slash.html#a28b59b109cc596cf06e98c21eb8ae68f">00077</a>   <span class="keywordtype">bool</span> <a class="code" href="structFileFinder_1_1path__slash.html#a28b59b109cc596cf06e98c21eb8ae68f">operator() </a>(<span class="keyword">const</span> std::string&amp; a, <span class="keyword">const</span> std::string&amp; b)<span class="keyword"> const</span>
+<a name="l00078"></a>00078 <span class="keyword">  </span>{
+<a name="l00079"></a>00079     <span class="keywordflow">return</span> <a class="code" href="structFileFinder_1_1path__slash.html#a5e243831a167e5b5d1ed460aed9ba976">compareString</a>(a.c_str(), b.c_str()) &lt; 0;
+<a name="l00080"></a>00080   }
+<a name="l00081"></a>00081 };
+<a name="l00082"></a>00082  
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

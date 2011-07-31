@@ -47,9 +47,9 @@
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021     <span class="keywordtype">void</span> <a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#a4d641d50abdd5f39f2978c7ec24dca0b">add</a>(<span class="keyword">const</span> boost::filesystem::path &amp;pth)
 <a name="l00022"></a><a class="code" href="classFileFinder_1_1FileFinderT.html#a70b992a7830839f87b70ccf188936a81">00022</a>     {
-<a name="l00023"></a>00023       std::string file = pth.string();
-<a name="l00024"></a>00024       std::string key = file.substr(<a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#a4c983ea520bf9292dfbe3c157fbf813a">cut</a>);
-<a name="l00025"></a><a class="code" href="classFileFinder_1_1FileFinderT.html#ac93c6def698d406011a6c281b1a990cd">00025</a>       <a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#abe695234cb26b298900e33c33e9954ea">owner</a>-&gt;table[key] = file;
+<a name="l00023"></a>00023         std::string file = pth.string();
+<a name="l00024"></a>00024         std::string key = file.substr(<a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#a4c983ea520bf9292dfbe3c157fbf813a">cut</a>);
+<a name="l00025"></a><a class="code" href="classFileFinder_1_1FileFinderT.html#ac93c6def698d406011a6c281b1a990cd">00025</a>         <a class="code" href="structFileFinder_1_1FileFinderT_1_1Inserter.html#abe695234cb26b298900e33c33e9954ea">owner</a>-&gt;table[key] = file;
 <a name="l00026"></a>00026     }
 <a name="l00027"></a>00027   };
 <a name="l00028"></a>00028 
@@ -77,22 +77,23 @@
 <a name="l00050"></a><a class="code" href="classFileFinder_1_1FileFinderT.html#a7c7cd8cf0133535e59727a4e13eeb377">00050</a> 
 <a name="l00051"></a>00051   <span class="keywordtype">bool</span> <a class="code" href="classFileFinder_1_1FileFinderT.html#a920c164c27c8d2581ad9fd0c765ee4f8">has</a>(<span class="keyword">const</span> std::string&amp; file)<span class="keyword"> const</span>
 <a name="l00052"></a>00052 <span class="keyword">  </span>{
-<a name="l00053"></a>00053     <span class="keywordflow">return</span> <a class="code" href="classFileFinder_1_1FileFinderT.html#a09507a70368b5654cd30f8c41b87ba4b">table</a>.find(file) != <a class="code" href="classFileFinder_1_1FileFinderT.html#a09507a70368b5654cd30f8c41b87ba4b">table</a>.end();
+<a name="l00053"></a>00053         <span class="keywordflow">return</span> <a class="code" href="classFileFinder_1_1FileFinderT.html#a09507a70368b5654cd30f8c41b87ba4b">table</a>.find(file) != <a class="code" href="classFileFinder_1_1FileFinderT.html#a09507a70368b5654cd30f8c41b87ba4b">table</a>.end();
 <a name="l00054"></a>00054   }
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056   <span class="comment">// Find the full path from a relative path.</span>
 <a name="l00057"></a>00057   <span class="keyword">const</span> std::string &amp;<a class="code" href="classFileFinder_1_1FileFinderT.html#a7c7cd8cf0133535e59727a4e13eeb377">lookup</a>(<span class="keyword">const</span> std::string&amp; file)<span class="keyword"> const</span>
 <a name="l00058"></a>00058 <span class="keyword">  </span>{
-<a name="l00059"></a>00059     <span class="keywordflow">return</span> <a class="code" href="classFileFinder_1_1FileFinderT.html#a09507a70368b5654cd30f8c41b87ba4b">table</a>.find(file)-&gt;second;
+<a name="l00059"></a>00059         <span class="keywordflow">return</span> <a class="code" href="classFileFinder_1_1FileFinderT.html#a09507a70368b5654cd30f8c41b87ba4b">table</a>.find(file)-&gt;second;
 <a name="l00060"></a>00060   }
 <a name="l00061"></a><a class="code" href="namespaceFileFinder.html#aacd435fe69fad52bcf4ead360495fb4c">00061</a> };
-<a name="l00062"></a>00062 
+<a name="l00062"></a><a class="code" href="namespaceFileFinder.html#a21915f5141965bf1be363df60cce4101">00062</a> 
 <a name="l00063"></a>00063 <span class="comment">// The default is to use path_less for equality checks</span>
-<a name="l00064"></a>00064 <span class="keyword">typedef</span> FileFinderT&lt;path_less&gt; <a class="code" href="namespaceFileFinder.html#aacd435fe69fad52bcf4ead360495fb4c">FileFinder</a>;
-<a name="l00065"></a>00065 }
-<a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
+<a name="l00064"></a>00064 <span class="keyword">typedef</span> <a class="code" href="classFileFinder_1_1FileFinderT.html">FileFinderT&lt;path_less&gt;</a> <a class="code" href="classFileFinder_1_1FileFinderT.html">FileFinder</a>;
+<a name="l00065"></a>00065 <span class="keyword">typedef</span> <a class="code" href="classFileFinder_1_1FileFinderT.html">FileFinderT&lt;path_slash&gt;</a> <a class="code" href="classFileFinder_1_1FileFinderT.html">FileFinderStrict</a>;
+<a name="l00066"></a>00066 }
+<a name="l00067"></a>00067 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:21:45 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

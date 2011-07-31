@@ -39,14 +39,17 @@
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a195b4480ded9a3a0b7a2735836e94029">MessageBoxManager</a> (<a class="el" href="classMWGui_1_1WindowManager.html">WindowManager</a> *windowManager)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#affc2275cf7875715fb00f1b81e1b0651">onFrame</a> (float frameDuration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a107ad1e87f443f56a04751324d10570e">createMessageBox</a> (const std::string &amp;message)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#af4d5a6ac0b934d2c54c9cdb314829fd5">createInteractiveMessageBox</a> (const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a3f9da8001777eb75d4e3927bf8e5f588">createInteractiveMessageBox</a> (const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a09ee64f0f31f2cf37fb30f54261c5cc4">isInteractiveMessageBox</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a6e928eb97800c3f82cb17f3c0ff6f892">removeMessageBox</a> (float time, <a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a> *msgbox)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a72804da0d1569fbfe2ee1f5b50464992">removeMessageBox</a> (<a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a> *msgbox)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#affbdba6104441b9cde6c2ce172f45df4">setMessageBoxSpeed</a> (int speed)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a5e22fe984bda1bd8304b9f5186b41a48">readPressedButton</a> ()</td></tr>
 <tr><td colspan="2"><h2>Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1WindowManager.html">WindowManager</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#ae7c858d6b29106f3d3c60d24649b3916">mWindowManager</a></td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a> * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a52e76fb51ff7f9765d4ff8e7cba97047">mMessageBoxes</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">mInterMessageBoxe</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector<br class="typebreak"/>
 &lt; <a class="el" href="structMWGui_1_1MessageBoxManagerTimer.html">MessageBoxManagerTimer</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#abcdb6a5bb017b13760b7bd605f449a21">mTimers</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#ad9c0f7d1b8e1c9879309e75ce5172080">mMessageBoxSpeed</a></td></tr>
@@ -71,12 +74,12 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="af4d5a6ac0b934d2c54c9cdb314829fd5"></a><!-- doxytag: member="MWGui::MessageBoxManager::createInteractiveMessageBox" ref="af4d5a6ac0b934d2c54c9cdb314829fd5" args="(const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)" -->
+<a class="anchor" id="a3f9da8001777eb75d4e3927bf8e5f588"></a><!-- doxytag: member="MWGui::MessageBoxManager::createInteractiveMessageBox" ref="a3f9da8001777eb75d4e3927bf8e5f588" args="(const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MessageBoxManager::createInteractiveMessageBox </td>
+          <td class="memname">bool MessageBoxManager::createInteractiveMessageBox </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>message</em>, </td>
@@ -116,6 +119,23 @@
 
 </div>
 </div>
+<a class="anchor" id="a09ee64f0f31f2cf37fb30f54261c5cc4"></a><!-- doxytag: member="MWGui::MessageBoxManager::isInteractiveMessageBox" ref="a09ee64f0f31f2cf37fb30f54261c5cc4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MessageBoxManager::isInteractiveMessageBox </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="affc2275cf7875715fb00f1b81e1b0651"></a><!-- doxytag: member="MWGui::MessageBoxManager::onFrame" ref="affc2275cf7875715fb00f1b81e1b0651" args="(float frameDuration)" -->
 <div class="memitem">
 <div class="memproto">
@@ -125,6 +145,23 @@
           <td>(</td>
           <td class="paramtype">float&nbsp;</td>
           <td class="paramname"> <em>frameDuration</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5e22fe984bda1bd8304b9f5186b41a48"></a><!-- doxytag: member="MWGui::MessageBoxManager::readPressedButton" ref="a5e22fe984bda1bd8304b9f5186b41a48" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MessageBoxManager::readPressedButton </td>
+          <td>(</td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -198,6 +235,19 @@
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="af900e1108d131b951029ea504f76c6f5"></a><!-- doxytag: member="MWGui::MessageBoxManager::mInterMessageBoxe" ref="af900e1108d131b951029ea504f76c6f5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a>* <a class="el" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">MWGui::MessageBoxManager::mInterMessageBoxe</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a52e76fb51ff7f9765d4ff8e7cba97047"></a><!-- doxytag: member="MWGui::MessageBoxManager::mMessageBoxes" ref="a52e76fb51ff7f9765d4ff8e7cba97047" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +305,7 @@
 <li>apps/openmw/mwgui/<a class="el" href="messagebox_8cpp.html">messagebox.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Jul 8 13:19:46 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:39 2011 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
