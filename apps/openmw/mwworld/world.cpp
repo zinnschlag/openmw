@@ -145,7 +145,7 @@ namespace MWWorld
 
     World::World (OEngine::Render::OgreRenderer& renderer, OEngine::Physic::PhysicEngine* physEng,
         const Files::Collections& fileCollections,
-        const std::string& master, const boost::filesystem::path& resDir,
+        const Files::PathContainer& masterFiles, const boost::filesystem::path& resDir,
         bool newGame, Environment& environment, const std::string& encoding)
     : mRendering (renderer,resDir, physEng, environment),mPlayer (0), mLocalScripts (mStore), mGlobalVariables (0),
       mSky (false), mEnvironment (environment), mNextDynamicRecord (0), mCells (mStore, mEsm, *this)
@@ -153,15 +153,19 @@ namespace MWWorld
         mPhysEngine = physEng;
 
         mPhysics = new PhysicsSystem(renderer, physEng);
+        boost::filesystem::path masterPath;
+        Files::PathContainer::const_iterator it = masterFiles.begin();
+        for (; it != masterFiles.end(); ++it)
+        {
+            masterPath = fileCollections.getCollection (".esm").getPath (it->string());
 
-        boost::filesystem::path masterPath (fileCollections.getCollection (".esm").getPath (master));
+            std::cout << "Loading ESM " << masterPath.string() << std::endl;
 
-        std::cout << "Loading ESM " << masterPath.string() << "\n";
-
-        // This parses the ESM file and loads a sample cell
-        mEsm.setEncoding(encoding);
-        mEsm.open (masterPath.string());
-        mStore.load (mEsm);
+            // This parses the ESM file and loads a sample cell
+            mEsm.setEncoding(encoding);
+            mEsm.open (masterPath.string());
+            mStore.load (mEsm);
+        }
 
         MWRender::Player* play = &(mRendering.getPlayer());
         mPlayer = new MWWorld::Player (play, mStore.npcs.find ("player"), *this);

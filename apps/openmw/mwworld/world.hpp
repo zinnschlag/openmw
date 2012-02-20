@@ -7,6 +7,7 @@
 #include <boost/filesystem.hpp>
 
 #include <components/esm_store/cell_store.hpp>
+#include <components/files/multidircollection.hpp>
 
 #include "../mwrender/debugging.hpp"
 #include "../mwrender/renderingmanager.hpp"
@@ -97,7 +98,7 @@ namespace MWWorld
 
            World (OEngine::Render::OgreRenderer& renderer, OEngine::Physic::PhysicEngine* physEng,
                 const Files::Collections& fileCollections,
-                const std::string& master, const boost::filesystem::path& resDir, bool newGame,
+                const Files::PathContainer& masterFiles, const boost::filesystem::path& resDir, bool newGame,
                 Environment& environment, const std::string& encoding);
 
             ~World();

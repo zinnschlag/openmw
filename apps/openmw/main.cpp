@@ -184,13 +184,11 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Cfg::Configuratio
         master.push_back("Morrowind");
     }
 
-    if (master.size() > 1)
+    StringsVector::const_iterator it = master.begin();
+    for (; it != master.end(); ++it)
     {
-        std::cout
-            << "Ignoring all but the first master file (multiple master files not yet supported)."
-            << std::endl;
+        engine.addMaster(*it);
     }
-    engine.addMaster(master[0]);
 
     StringsVector plugin = variables["plugin"].as<StringsVector>();
     if (!plugin.empty())
