@@ -268,14 +268,15 @@ void OMW::Engine::setCell (const std::string& cellName)
 
 void OMW::Engine::addMaster (const std::string& master)
 {
-    assert (mMaster.empty());
-    mMaster = master;
-
     // Append .esm if not already there
-    std::string::size_type sep = mMaster.find_last_of (".");
+    std::string::size_type sep = master.find_last_of (".");
     if (sep == std::string::npos)
     {
-        mMaster += ".esm";
+        mMasterFiles.push_back(Files::PathContainer::value_type(master + ".esm"));
+    }
+    else
+    {
+        mMasterFiles.push_back(Files::PathContainer::value_type(master));
     }
 }
 
@@ -306,7 +307,7 @@ void OMW::Engine::go()
     mFocusTDiff = 0;
     assert (!mEnvironment.mWorld);
     assert (!mCellName.empty());
-    assert (!mMaster.empty());
+    assert (!mMasterFiles.empty());
     assert (!mOgre);
 
     mOgre = new OEngine::Render::OgreRenderer;
@@ -339,7 +340,7 @@ void OMW::Engine::go()
     mPhysicEngine = new OEngine::Physic::PhysicEngine(shapeLoader);
 
     // Create the world
-    mEnvironment.mWorld = new MWWorld::World (*mOgre, mPhysicEngine, mFileCollections, mMaster,
+    mEnvironment.mWorld = new MWWorld::World (*mOgre, mPhysicEngine, mFileCollections, mMasterFiles,
         mResDir, mNewGame, mEnvironment, mEncoding);
 
     /// \todo move this into the GUI manager (a.k.a WindowManager)

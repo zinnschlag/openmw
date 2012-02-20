@@ -59,6 +59,7 @@ namespace OMW
     /// \brief Main engine class, that brings together all the components of OpenMW
     class Engine : private Ogre::FrameListener
     {
+            Files::PathContainer mMasterFiles;
             std::string mEncoding;
             boost::filesystem::path mDataDir;
             boost::filesystem::path mResDir;
