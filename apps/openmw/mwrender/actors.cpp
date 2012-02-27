@@ -103,7 +103,11 @@ void Actors::removeCell(MWWorld::Ptr::CellStore* store){
     {
         if(iter->first.getCell() == store){
             delete iter->second;
+#ifdef _WIN32
+            iter = mAllActors.erase(iter);
+#else
             mAllActors.erase(iter++);
+#endif
         }
         else
             ++iter;
