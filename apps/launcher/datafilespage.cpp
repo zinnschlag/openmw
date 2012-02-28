@@ -180,7 +180,7 @@ void DataFilesPage::setupDataFiles()
 
     desc.add_options()
         ("data", boost::program_options::value<Files::PathContainer>()->default_value(Files::PathContainer(), "data")->multitoken())
-        ("data-local", boost::program_options::value<std::string>()->default_value(""))
+//        ("data-local", boost::program_options::value<std::string>()->default_value(""))
         ("fs-strict", boost::program_options::value<bool>()->implicit_value(true)->default_value(false))
         ("encoding", boost::program_options::value<std::string>()->default_value("win1252"));
 
@@ -188,17 +188,15 @@ void DataFilesPage::setupDataFiles()
 
     // Put the paths in a boost::filesystem vector to use with Files::Collections
     Files::PathContainer dataDirs(variables["data"].as<Files::PathContainer>());
- 
-    std::string local(variables["data-local"].as<std::string>());
-    if (!local.empty())
-    {
-        dataDirs.push_back(Files::PathContainer::value_type(local));
-    }
 
-    if (dataDirs.empty())
-    {
-        dataDirs.push_back(mCfgMgr.getLocalPath());
-    }
+//    std::string local(variables["data-local"].as<std::string>());
+//    if (!local.empty())
+//    {
+//        dataDirs.push_back(Files::PathContainer::value_type(local));
+//    }
+
+    if (dataDirs.size()>1)
+        dataDirs.resize (1);
 
     mCfgMgr.processPaths(dataDirs);
 
@@ -989,8 +987,8 @@ void DataFilesPage::readConfig()
 
 void DataFilesPage::writeConfig(QString profile)
 {
-    // Don't overwrite the config if no plugins are found
-    if (mPluginsModel->rowCount() < 1) {
+    // Don't overwrite the config if no masters are found
+    if (mMastersWidget->rowCount() < 1) {
         return;
     }
 
@@ -1003,9 +1001,15 @@ void DataFilesPage::writeConfig(QString profile)
     }
 
     // Prepare the OpenMW config
+    QString config = QString::fromStdString((mCfgMgr.getLocalPath() / "openmw.cfg").string());
+    QFile file(config);
+
+    if (!file.exists()) {
+        config = QString::fromStdString((mCfgMgr.getUserPath() / "openmw.cfg").string());
+    }
 
     // Open the config as a QFile
-    QFile file(QString::fromStdString((mCfgMgr.getUserPath()/"openmw.cfg").string()));
+    file.setFileName(config);
 
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         // File cannot be opened or created
@@ -1017,7 +1021,8 @@ void DataFilesPage::writeConfig(QString profile)
         Please make sure you have the right permissions and try again.<br>").arg(file.fileName()));
         msgBox.exec();
 
-        QApplication::exit(1);
+        qApp->exit(1);
+        return;
     }
 
     QTextStream in(&file);
@@ -1043,7 +1048,8 @@ void DataFilesPage::writeConfig(QString profile)
         Please make sure you have the right permissions and try again.<br>").arg(file.fileName()));
         msgBox.exec();
 
-        QApplication::exit(1);
+        qApp->exit(1);
+        return;
     }
 
     file.write(buffer);
@@ -1086,5 +1092,5 @@ void DataFilesPage::writeConfig(QString profile)
     file.close();
     mLauncherConfig->endGroup();
     mLauncherConfig->endGroup();
-
+    mLauncherConfig->sync();
 }
