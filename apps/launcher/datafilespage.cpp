@@ -987,8 +987,8 @@ void DataFilesPage::readConfig()
 
 void DataFilesPage::writeConfig(QString profile)
 {
-    // Don't overwrite the config if no plugins are found
-    if (mPluginsModel->rowCount() < 1) {
+    // Don't overwrite the config if no masters are found
+    if (mMastersWidget->rowCount() < 1) {
         return;
     }
 
@@ -1001,9 +1001,15 @@ void DataFilesPage::writeConfig(QString profile)
     }
 
     // Prepare the OpenMW config
+    QString config = QString::fromStdString((mCfgMgr.getLocalPath() / "openmw.cfg").string());
+    QFile file(config);
+
+    if (!file.exists()) {
+        config = QString::fromStdString((mCfgMgr.getUserPath() / "openmw.cfg").string());
+    }
 
     // Open the config as a QFile
-    QFile file(QString::fromStdString((mCfgMgr.getUserPath()/"openmw.cfg").string()));
+    file.setFileName(config);
 
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         // File cannot be opened or created
@@ -1015,7 +1021,8 @@ void DataFilesPage::writeConfig(QString profile)
         Please make sure you have the right permissions and try again.<br>").arg(file.fileName()));
         msgBox.exec();
 
-        QApplication::exit(1);
+        qApp->exit(1);
+        return;
     }
 
     QTextStream in(&file);
@@ -1041,7 +1048,8 @@ void DataFilesPage::writeConfig(QString profile)
         Please make sure you have the right permissions and try again.<br>").arg(file.fileName()));
         msgBox.exec();
 
-        QApplication::exit(1);
+        qApp->exit(1);
+        return;
     }
 
     file.write(buffer);
@@ -1084,5 +1092,5 @@ void DataFilesPage::writeConfig(QString profile)
     file.close();
     mLauncherConfig->endGroup();
     mLauncherConfig->endGroup();
-
+    mLauncherConfig->sync();
 }
