@@ -158,8 +158,6 @@ public:
 };
 
 // Conversion of blend / test mode from NIF -> OGRE.
-// Not in use yet, so let's comment it out.
-/*
 static SceneBlendFactor getBlendFactor(int mode)
 {
   switch(mode)
@@ -199,7 +197,6 @@ static CompareFunction getTestMode(int mode)
       return CMPF_ALWAYS_PASS;
     }
 }
-*/
 
 void NIFLoader::setOutputAnimFiles(bool output){
     mOutputAnimFiles = output;
@@ -242,51 +239,29 @@ void NIFLoader::createMaterial(const String &name,
         Pass *pass = material->getTechnique(0)->getPass(0);
         /*TextureUnitState *txt =*/
         pass->createTextureUnitState(texName);
-
-        // As of yet UNTESTED code from Chris:
-        /*pass->setTextureFiltering(Ogre::TFO_ANISOTROPIC);
-        pass->setDepthFunction(Ogre::CMPF_LESS_EQUAL);
-        pass->setDepthCheckEnabled(true);
-
+        
         // Add transparency if NiAlphaProperty was present
+        
+        // Note by scrawl:
+        // These alpha settings do not look correct with static geometry (and never will)
+        // because static geometry cannot be transparency-sorted.
+        // This isn't too important now, but later we'll have to decide between: 
+        // - dropping the static geometry approach
+        //  OR
+        // - using ONLY alpha rejection and no alpha blending
+        //   (although this is going to look a bit worse on vegetation, and definitely horrible
+        //   on semi-transparent objects)
         if (alphaFlags != -1)
         {
-            std::cout << "Alpha flags set!" << endl;
-            if ((alphaFlags&1))
-            {
-                pass->setDepthWriteEnabled(false);
-                pass->setSceneBlending(getBlendFactor((alphaFlags>>1)&0xf),
-                                       getBlendFactor((alphaFlags>>5)&0xf));
-            }
-            else
-                pass->setDepthWriteEnabled(true);
+            pass->setDepthWriteEnabled(false);
+            pass->setSceneBlending(getBlendFactor((alphaFlags>>1)&0xf),
+                                   getBlendFactor((alphaFlags>>5)&0xf));
 
             if ((alphaFlags>>9)&1)
                 pass->setAlphaRejectSettings(getTestMode((alphaFlags>>10)&0x7),
                                              alphaTest);
 
             pass->setTransparentSortingEnabled(!((alphaFlags>>13)&1));
-        }
-        else
-            pass->setDepthWriteEnabled(true); */
-
-
-        // Add transparency if NiAlphaProperty was present
-        if (alphaFlags != -1)
-        {
-            // The 237 alpha flags are by far the most common. Check
-            // NiAlphaProperty in nif/property.h if you need to decode
-            // other values. 237 basically means normal transparencly.
-            if (alphaFlags == 237)
-            {
-                // Enable transparency
-                pass->setSceneBlending(SBT_TRANSPARENT_ALPHA);
-
-                //pass->setDepthCheckEnabled(false);
-                pass->setDepthWriteEnabled(false);
-            }
-            else
-                warn("Unhandled alpha setting for texture " + texName);
         }
     }
 
@@ -296,8 +271,6 @@ void NIFLoader::createMaterial(const String &name,
     material->setSpecular(specular.array[0], specular.array[1], specular.array[2], alpha);
     material->setSelfIllumination(emissive.array[0], emissive.array[1], emissive.array[2]);
     material->setShininess(glossiness);
-
-
 }
 
 // Takes a name and adds a unique part to it. This is just used to
