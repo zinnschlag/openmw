@@ -116,103 +116,140 @@
 <a name="l00093"></a>00093   }
 <a name="l00094"></a>00094 };
 <a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="structNif_1_1NiNode.html">00096</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiNode.html">NiNode</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00096"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html">00096</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiTriShapeCopy.html">NiTriShapeCopy</a>
 <a name="l00097"></a>00097 {
-<a name="l00098"></a><a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">00098</a>   <a class="code" href="classNif_1_1RecordListT.html">NodeList</a> <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>;
-<a name="l00099"></a><a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">00099</a>   <a class="code" href="classNif_1_1RecordListT.html">NodeList</a> <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>;
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101   <span class="comment">/* Known NiNode flags:</span>
-<a name="l00102"></a>00102 <span class="comment"></span>
-<a name="l00103"></a>00103 <span class="comment">     0x01 hidden</span>
-<a name="l00104"></a>00104 <span class="comment">     0x02 use mesh for collision</span>
-<a name="l00105"></a>00105 <span class="comment">     0x04 use bounding box for collision (?)</span>
-<a name="l00106"></a>00106 <span class="comment">     0x08 unknown, but common</span>
-<a name="l00107"></a>00107 <span class="comment">     0x20, 0x40, 0x80 unknown</span>
-<a name="l00108"></a>00108 <span class="comment">   */</span>
+<a name="l00098"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#af898e9d555c6f651cb376807f100d102">00098</a>  std::string <a class="code" href="structNif_1_1NiTriShapeCopy.html#af898e9d555c6f651cb376807f100d102">sname</a>;
+<a name="l00099"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#a81a4023cacee5412743e00f45947c44d">00099</a>  std::vector&lt;std::string&gt; <a class="code" href="structNif_1_1NiTriShapeCopy.html#a81a4023cacee5412743e00f45947c44d">boneSequence</a>;
+<a name="l00100"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#acbaa18923a6adaffdb8785b6c2e1c58b">00100</a>  <a class="code" href="structNif_1_1NiSkinData_1_1BoneTrafoCopy.html">Nif::NiSkinData::BoneTrafoCopy</a> <a class="code" href="structNif_1_1NiTriShapeCopy.html#acbaa18923a6adaffdb8785b6c2e1c58b">trafo</a>;
+<a name="l00101"></a>00101  <span class="comment">//Ogre::Quaternion initialBoneRotation;</span>
+<a name="l00102"></a>00102  <span class="comment">//Ogre::Vector3 initialBoneTranslation;</span>
+<a name="l00103"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#ac184d06a15c4d890b432630db05b0dc8">00103</a>  std::vector&lt;Ogre::Vector3&gt; <a class="code" href="structNif_1_1NiTriShapeCopy.html#ac184d06a15c4d890b432630db05b0dc8">vertices</a>;
+<a name="l00104"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#a4cf0bb745496e0e8f5c1289e29b47792">00104</a>  std::vector&lt;Ogre::Vector3&gt; <a class="code" href="structNif_1_1NiTriShapeCopy.html#a4cf0bb745496e0e8f5c1289e29b47792">normals</a>;
+<a name="l00105"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#ae0c8bbf0826053576d4efd3c930deed2">00105</a>  std::vector&lt;Nif::NiSkinData::BoneInfoCopy&gt; <a class="code" href="structNif_1_1NiTriShapeCopy.html#ae0c8bbf0826053576d4efd3c930deed2">boneinfo</a>;
+<a name="l00106"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#aa0eeb61bb67732936bde30bb725e52bc">00106</a>  std::map&lt;int, std::vector&lt;Nif::NiSkinData::IndividualWeight&gt; &gt; <a class="code" href="structNif_1_1NiTriShapeCopy.html#aa0eeb61bb67732936bde30bb725e52bc">vertsToWeights</a>;
+<a name="l00107"></a><a class="code" href="structNif_1_1NiTriShapeCopy.html#abfc997048a633f6b7cbfbc5460129977">00107</a>  <a class="code" href="classNif_1_1NiMorphData.html">Nif::NiMorphData</a> <a class="code" href="structNif_1_1NiTriShapeCopy.html#abfc997048a633f6b7cbfbc5460129977">morph</a>;
+<a name="l00108"></a>00108 };
 <a name="l00109"></a>00109 
-<a name="l00110"></a><a class="code" href="structNif_1_1NiNode.html#a14d51d8e885468b04ece0a6d31dbaf72">00110</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiNode.html#a14d51d8e885468b04ece0a6d31dbaf72" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00111"></a>00111   {
-<a name="l00112"></a>00112     <a class="code" href="structNif_1_1NiNode.html#a14d51d8e885468b04ece0a6d31dbaf72" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00113"></a>00113     <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#aaa5904e4a508625071547ce714955b5e">read</a>(nif);
-<a name="l00114"></a>00114     <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>.<a class="code" href="classNif_1_1RecordListT.html#aaa5904e4a508625071547ce714955b5e">read</a>(nif);
-<a name="l00115"></a>00115   }
-<a name="l00116"></a>00116 };
-<a name="l00117"></a>00117 
-<a name="l00118"></a><a class="code" href="structNif_1_1NiTriShape.html">00118</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiTriShape.html">NiTriShape</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00119"></a>00119 {
-<a name="l00120"></a>00120   <span class="comment">/* Possible flags:</span>
-<a name="l00121"></a>00121 <span class="comment">     0x40 - mesh has no vertex normals ?</span>
-<a name="l00122"></a>00122 <span class="comment"></span>
-<a name="l00123"></a>00123 <span class="comment">     Only flags included in 0x47 (ie. 0x01, 0x02, 0x04 and 0x40) have</span>
-<a name="l00124"></a>00124 <span class="comment">     been observed so far.</span>
-<a name="l00125"></a>00125 <span class="comment">   */</span>
-<a name="l00126"></a>00126 
-<a name="l00127"></a><a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">00127</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiTriShapeDataPtr</a> <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>;
-<a name="l00128"></a><a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">00128</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiSkinInstancePtr</a> <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>;
-<a name="l00129"></a>00129 
-<a name="l00130"></a><a class="code" href="structNif_1_1NiTriShape.html#a87c7fde48eb32750f558a5fe8439d867">00130</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTriShape.html#a87c7fde48eb32750f558a5fe8439d867" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00131"></a>00131   {
-<a name="l00132"></a>00132     <a class="code" href="structNif_1_1NiTriShape.html#a87c7fde48eb32750f558a5fe8439d867" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00133"></a>00133     <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
-<a name="l00134"></a>00134     <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
-<a name="l00135"></a>00135   }
-<a name="l00136"></a>00136 };
-<a name="l00137"></a>00137 
-<a name="l00138"></a><a class="code" href="structNif_1_1NiCamera.html">00138</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera.html">NiCamera</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00139"></a>00139 {
-<a name="l00140"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">00140</a>   <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a>
-<a name="l00141"></a>00141   {
-<a name="l00142"></a>00142     <span class="comment">// Camera frustrum</span>
-<a name="l00143"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">00143</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6690b417a290f94163149ff8e0c6535c">left</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#aa61b8a06c8ddf6fa6ad979fdc509da3b">right</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">top</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a8219b41f6564058767763711a6ed2aaf">bottom</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a62181c13f3855f7d3a9481ea38c176cf">nearDist</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a51a664ca6efb2444605fb7e28b0102f0">farDist</a>;
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145     <span class="comment">// Viewport</span>
-<a name="l00146"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">00146</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5b2c3166910913d0d5e890c0d5257bf9">vleft</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a695773fb28e86ca2ba96457d1b661e8b">vright</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">vtop</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6784ca20551e43eea49188bd4c94e536">vbottom</a>;
-<a name="l00147"></a>00147 
-<a name="l00148"></a>00148     <span class="comment">// Level of detail modifier</span>
-<a name="l00149"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">00149</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">LOD</a>;
-<a name="l00150"></a>00150   };
-<a name="l00151"></a>00151 
-<a name="l00152"></a><a class="code" href="structNif_1_1NiCamera.html#a8acf77174222ee9fbd1af38007837d3b">00152</a>   <span class="keyword">const</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a> *<a class="code" href="structNif_1_1NiCamera.html#a8acf77174222ee9fbd1af38007837d3b">cam</a>;
-<a name="l00153"></a>00153 
-<a name="l00154"></a><a class="code" href="structNif_1_1NiCamera.html#a03356ef816e5105d33191479037beebc">00154</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiCamera.html#a03356ef816e5105d33191479037beebc" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00155"></a>00155   {
-<a name="l00156"></a>00156     <a class="code" href="structNif_1_1NiCamera.html#a03356ef816e5105d33191479037beebc" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00157"></a>00157 
-<a name="l00158"></a>00158     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9be7f6b484b67d81d922db7061bc42bd">getPtr</a>&lt;<a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a>&gt;();
-<a name="l00159"></a>00159 
-<a name="l00160"></a>00160     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// -1</span>
-<a name="l00161"></a>00161     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// 0</span>
-<a name="l00162"></a>00162   }
-<a name="l00163"></a>00163 };
-<a name="l00164"></a>00164 
-<a name="l00165"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html">00165</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiAutoNormalParticles.html">NiAutoNormalParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00166"></a>00166 {
-<a name="l00167"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">00167</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiAutoNormalParticlesDataPtr</a> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>;
+<a name="l00110"></a><a class="code" href="structNif_1_1NiNode.html">00110</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiNode.html">NiNode</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00111"></a>00111 {
+<a name="l00112"></a><a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">00112</a>   <a class="code" href="classNif_1_1RecordListT.html">NodeList</a> <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>;
+<a name="l00113"></a><a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">00113</a>   <a class="code" href="classNif_1_1RecordListT.html">NodeList</a> <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115   <span class="comment">/* Known NiNode flags:</span>
+<a name="l00116"></a>00116 <span class="comment"></span>
+<a name="l00117"></a>00117 <span class="comment">     0x01 hidden</span>
+<a name="l00118"></a>00118 <span class="comment">     0x02 use mesh for collision</span>
+<a name="l00119"></a>00119 <span class="comment">     0x04 use bounding box for collision (?)</span>
+<a name="l00120"></a>00120 <span class="comment">     0x08 unknown, but common</span>
+<a name="l00121"></a>00121 <span class="comment">     0x20, 0x40, 0x80 unknown</span>
+<a name="l00122"></a>00122 <span class="comment">   */</span>
+<a name="l00123"></a>00123 
+<a name="l00124"></a><a class="code" href="structNif_1_1NiNode.html#a14d51d8e885468b04ece0a6d31dbaf72">00124</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiNode.html#a14d51d8e885468b04ece0a6d31dbaf72" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00125"></a>00125   {
+<a name="l00126"></a>00126     <a class="code" href="structNif_1_1NiNode.html#a14d51d8e885468b04ece0a6d31dbaf72" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00127"></a>00127     <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#aaa5904e4a508625071547ce714955b5e">read</a>(nif);
+<a name="l00128"></a>00128     <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>.<a class="code" href="classNif_1_1RecordListT.html#aaa5904e4a508625071547ce714955b5e">read</a>(nif);
+<a name="l00129"></a>00129   }
+<a name="l00130"></a>00130 };
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="structNif_1_1NiTriShape.html">00132</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiTriShape.html">NiTriShape</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00133"></a>00133 {
+<a name="l00134"></a>00134   <span class="comment">/* Possible flags:</span>
+<a name="l00135"></a>00135 <span class="comment">     0x40 - mesh has no vertex normals ?</span>
+<a name="l00136"></a>00136 <span class="comment"></span>
+<a name="l00137"></a>00137 <span class="comment">     Only flags included in 0x47 (ie. 0x01, 0x02, 0x04 and 0x40) have</span>
+<a name="l00138"></a>00138 <span class="comment">     been observed so far.</span>
+<a name="l00139"></a>00139 <span class="comment">   */</span>
+<a name="l00140"></a>00140 
+<a name="l00141"></a><a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">00141</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiTriShapeDataPtr</a> <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>;
+<a name="l00142"></a><a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">00142</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiSkinInstancePtr</a> <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>;
+<a name="l00143"></a>00143 
+<a name="l00144"></a><a class="code" href="structNif_1_1NiTriShape.html#a87c7fde48eb32750f558a5fe8439d867">00144</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTriShape.html#a87c7fde48eb32750f558a5fe8439d867" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00145"></a>00145   {
+<a name="l00146"></a>00146     <a class="code" href="structNif_1_1NiTriShape.html#a87c7fde48eb32750f558a5fe8439d867" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00147"></a>00147     <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
+<a name="l00148"></a>00148     <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
+<a name="l00149"></a>00149   }
+<a name="l00150"></a>00150 
+<a name="l00151"></a><a class="code" href="structNif_1_1NiTriShape.html#a928c55c0433c312acc86ce8956322eb9">00151</a>   <a class="code" href="structNif_1_1NiTriShapeCopy.html">NiTriShapeCopy</a> <a class="code" href="structNif_1_1NiTriShape.html#a928c55c0433c312acc86ce8956322eb9">clone</a>(){
+<a name="l00152"></a>00152           <a class="code" href="structNif_1_1NiTriShapeCopy.html">NiTriShapeCopy</a> copy;
+<a name="l00153"></a>00153       copy.<a class="code" href="structNif_1_1NiTriShapeCopy.html#af898e9d555c6f651cb376807f100d102">sname</a> = <a class="code" href="classNif_1_1Named.html#adf0e55d718a902c64ab5ea303a0b211c">name</a>.<a class="code" href="structMisc_1_1SliceArray.html#acfd549993ef9c46adf406f0e84c42836">toString</a>();
+<a name="l00154"></a>00154           <span class="keywordtype">float</span> *ptr = (<span class="keywordtype">float</span>*)<a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>-&gt;vertices.<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
+<a name="l00155"></a>00155           <span class="keywordtype">float</span> *ptrNormals = (<span class="keywordtype">float</span>*)<a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>-&gt;normals.<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
+<a name="l00156"></a>00156           <span class="keywordtype">int</span> numVerts = <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>-&gt;vertices.length / 3;
+<a name="l00157"></a>00157           <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; numVerts; i++)
+<a name="l00158"></a>00158           {
+<a name="l00159"></a>00159                    <span class="keywordtype">float</span> *current = (<span class="keywordtype">float</span>*) (ptr + i * 3);
+<a name="l00160"></a>00160                    copy.<a class="code" href="structNif_1_1NiTriShapeCopy.html#ac184d06a15c4d890b432630db05b0dc8">vertices</a>.push_back(Ogre::Vector3(*current, *(current + 1), *(current + 2)));
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162                    <span class="keywordflow">if</span>(ptrNormals){
+<a name="l00163"></a>00163                         <span class="keywordtype">float</span> *currentNormals = (<span class="keywordtype">float</span>*) (ptrNormals + i * 3);
+<a name="l00164"></a>00164                    copy.<a class="code" href="structNif_1_1NiTriShapeCopy.html#a4cf0bb745496e0e8f5c1289e29b47792">normals</a>.push_back(Ogre::Vector3(*currentNormals, *(currentNormals + 1), *(currentNormals + 2)));
+<a name="l00165"></a>00165                           }
+<a name="l00166"></a>00166       }
+<a name="l00167"></a>00167 
 <a name="l00168"></a>00168 
-<a name="l00169"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#ad054fab79f65084f6da53c6b6375a75e">00169</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#ad054fab79f65084f6da53c6b6375a75e" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00170"></a>00170   {
-<a name="l00171"></a>00171     <a class="code" href="structNif_1_1NiAutoNormalParticles.html#ad054fab79f65084f6da53c6b6375a75e" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00172"></a>00172     <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
-<a name="l00173"></a>00173     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// -1</span>
-<a name="l00174"></a>00174   }
-<a name="l00175"></a>00175 };
-<a name="l00176"></a>00176 
-<a name="l00177"></a><a class="code" href="structNif_1_1NiRotatingParticles.html">00177</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiRotatingParticles.html">NiRotatingParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00178"></a>00178 {
-<a name="l00179"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">00179</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiRotatingParticlesDataPtr</a> <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>;
-<a name="l00180"></a>00180 
-<a name="l00181"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a9c1e3afd47068fbcb43091426f6f784f">00181</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiRotatingParticles.html#a9c1e3afd47068fbcb43091426f6f784f" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00182"></a>00182   {
-<a name="l00183"></a>00183     <a class="code" href="structNif_1_1NiRotatingParticles.html#a9c1e3afd47068fbcb43091426f6f784f" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00184"></a>00184     <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
-<a name="l00185"></a>00185     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// -1</span>
-<a name="l00186"></a>00186   }
-<a name="l00187"></a>00187 };
+<a name="l00169"></a>00169   <span class="keywordflow">return</span> copy;
+<a name="l00170"></a>00170   }
+<a name="l00171"></a>00171 };
+<a name="l00172"></a>00172 
+<a name="l00173"></a><a class="code" href="structNif_1_1NiCamera.html">00173</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera.html">NiCamera</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00174"></a>00174 {
+<a name="l00175"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">00175</a>   <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a>
+<a name="l00176"></a>00176   {
+<a name="l00177"></a>00177     <span class="comment">// Camera frustrum</span>
+<a name="l00178"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">00178</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6690b417a290f94163149ff8e0c6535c">left</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#aa61b8a06c8ddf6fa6ad979fdc509da3b">right</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">top</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a8219b41f6564058767763711a6ed2aaf">bottom</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a62181c13f3855f7d3a9481ea38c176cf">nearDist</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a51a664ca6efb2444605fb7e28b0102f0">farDist</a>;
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180     <span class="comment">// Viewport</span>
+<a name="l00181"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">00181</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5b2c3166910913d0d5e890c0d5257bf9">vleft</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a695773fb28e86ca2ba96457d1b661e8b">vright</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">vtop</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6784ca20551e43eea49188bd4c94e536">vbottom</a>;
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183     <span class="comment">// Level of detail modifier</span>
+<a name="l00184"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">00184</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">LOD</a>;
+<a name="l00185"></a>00185   };
+<a name="l00186"></a>00186 
+<a name="l00187"></a><a class="code" href="structNif_1_1NiCamera.html#a8acf77174222ee9fbd1af38007837d3b">00187</a>   <span class="keyword">const</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a> *<a class="code" href="structNif_1_1NiCamera.html#a8acf77174222ee9fbd1af38007837d3b">cam</a>;
 <a name="l00188"></a>00188 
-<a name="l00189"></a>00189 } <span class="comment">// Namespace</span>
-<a name="l00190"></a>00190 <span class="preprocessor">#endif</span>
+<a name="l00189"></a><a class="code" href="structNif_1_1NiCamera.html#a03356ef816e5105d33191479037beebc">00189</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiCamera.html#a03356ef816e5105d33191479037beebc" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00190"></a>00190   {
+<a name="l00191"></a>00191     <a class="code" href="structNif_1_1NiCamera.html#a03356ef816e5105d33191479037beebc" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9be7f6b484b67d81d922db7061bc42bd">getPtr</a>&lt;<a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a>&gt;();
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// -1</span>
+<a name="l00196"></a>00196     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// 0</span>
+<a name="l00197"></a>00197   }
+<a name="l00198"></a>00198 };
+<a name="l00199"></a>00199 
+<a name="l00200"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html">00200</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiAutoNormalParticles.html">NiAutoNormalParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00201"></a>00201 {
+<a name="l00202"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">00202</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiAutoNormalParticlesDataPtr</a> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>;
+<a name="l00203"></a>00203 
+<a name="l00204"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#ad054fab79f65084f6da53c6b6375a75e">00204</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#ad054fab79f65084f6da53c6b6375a75e" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00205"></a>00205   {
+<a name="l00206"></a>00206     <a class="code" href="structNif_1_1NiAutoNormalParticles.html#ad054fab79f65084f6da53c6b6375a75e" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00207"></a>00207     <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
+<a name="l00208"></a>00208     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// -1</span>
+<a name="l00209"></a>00209   }
+<a name="l00210"></a>00210 };
+<a name="l00211"></a>00211 
+<a name="l00212"></a><a class="code" href="structNif_1_1NiRotatingParticles.html">00212</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiRotatingParticles.html">NiRotatingParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00213"></a>00213 {
+<a name="l00214"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">00214</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiRotatingParticlesDataPtr</a> <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>;
+<a name="l00215"></a>00215 
+<a name="l00216"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a9c1e3afd47068fbcb43091426f6f784f">00216</a>   <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiRotatingParticles.html#a9c1e3afd47068fbcb43091426f6f784f" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00217"></a>00217   {
+<a name="l00218"></a>00218     <a class="code" href="structNif_1_1NiRotatingParticles.html#a9c1e3afd47068fbcb43091426f6f784f" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00219"></a>00219     <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
+<a name="l00220"></a>00220     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>(); <span class="comment">// -1</span>
+<a name="l00221"></a>00221   }
+<a name="l00222"></a>00222 };
+<a name="l00223"></a>00223 
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225 
+<a name="l00226"></a>00226 } <span class="comment">// Namespace</span>
+<a name="l00227"></a>00227 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

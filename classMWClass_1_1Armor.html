@@ -36,8 +36,10 @@
 <p><a href="classMWClass_1_1Armor-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Armor.html#a5253f4eb35099e53ed24fb8069cd4e62">insertObj</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWRender_1_1CellRenderImp.html">MWRender::CellRenderImp</a> &amp;cellRender, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering.  <a href="#a5253f4eb35099e53ed24fb8069cd4e62"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Armor.html#a8d500094362e9eec34e013cde0eda26d">insertObjectRendering</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWRender_1_1RenderingInterface.html">MWRender::RenderingInterface</a> &amp;renderingInterface) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering.  <a href="#a8d500094362e9eec34e013cde0eda26d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Armor.html#aabb9358368bc3f91418e33468e417ecb">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#aabb9358368bc3f91418e33468e417ecb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Armor.html#aabaa0bf2e39a9db209388d94022d5da7">getName</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Armor.html#ab71ccfd924aba2a2e4d457baa4301e32">activate</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
@@ -207,12 +209,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a5253f4eb35099e53ed24fb8069cd4e62"></a><!-- doxytag: member="MWClass::Armor::insertObj" ref="a5253f4eb35099e53ed24fb8069cd4e62" args="(const MWWorld::Ptr &amp;ptr, MWRender::CellRenderImp &amp;cellRender, MWWorld::Environment &amp;environment) const " -->
+<a class="anchor" id="aabb9358368bc3f91418e33468e417ecb"></a><!-- doxytag: member="MWClass::Armor::insertObject" ref="aabb9358368bc3f91418e33468e417ecb" args="(const MWWorld::Ptr &amp;ptr, MWWorld::PhysicsSystem &amp;physics, MWWorld::Environment &amp;environment) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWClass::Armor::insertObj </td>
+          <td class="memname">void MWClass::Armor::insertObject </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>ptr</em>, </td>
@@ -220,8 +222,8 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMWRender_1_1CellRenderImp.html">MWRender::CellRenderImp</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>cellRender</em>, </td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>physics</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -238,9 +240,40 @@
 </div>
 <div class="memdoc">
 
+<p>Add reference into a cell for rendering (default implementation: don't render anything). </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a286d0aba5de3fdb7304b60dc894f1ce7">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d500094362e9eec34e013cde0eda26d"></a><!-- doxytag: member="MWClass::Armor::insertObjectRendering" ref="a8d500094362e9eec34e013cde0eda26d" args="(const MWWorld::Ptr &amp;ptr, MWRender::RenderingInterface &amp;renderingInterface) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWClass::Armor::insertObjectRendering </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWRender_1_1RenderingInterface.html">MWRender::RenderingInterface</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>renderingInterface</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
 <p>Add reference into a cell for rendering. </p>
 
-<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#aa8f64c7cbdf590690bee36f7cfa66231">MWWorld::Class</a>.</p>
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a10f0bdde3e3d6e955585dd5d26e390ed">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -266,7 +299,7 @@
 <li>apps/openmw/mwclass/<a class="el" href="armor_8cpp.html">armor.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:39 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:03 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

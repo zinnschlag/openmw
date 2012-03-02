@@ -54,61 +54,61 @@
 <a name="l00027"></a>00027 <span class="preprocessor">#include &quot;<a class="code" href="extra_8hpp.html">extra.hpp</a>&quot;</span>
 <a name="l00028"></a>00028 
 <a name="l00029"></a><a class="code" href="namespaceNif.html">00029</a> <span class="keyword">namespace </span>Nif
-<a name="l00030"></a><a class="code" href="classNif_1_1Controlled.html#a5e5f68cbb804e5039857b7aadfe14a94">00030</a> {
-<a name="l00031"></a><a class="code" href="classNif_1_1Controlled.html">00031</a> 
-<a name="l00033"></a>00033 <span class="keyword">class </span><a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Extra.html">Extra</a>
+<a name="l00030"></a>00030 {
+<a name="l00031"></a>00031 
+<a name="l00033"></a><a class="code" href="classNif_1_1Controlled.html">00033</a> <span class="keyword">class </span><a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Extra.html">Extra</a>
 <a name="l00034"></a>00034 {
 <a name="l00035"></a>00035 <span class="keyword">public</span>:
-<a name="l00036"></a>00036   <a class="code" href="classNif_1_1RecordPtrT.html">ControllerPtr</a> <a class="code" href="classNif_1_1Controlled.html#a5e5f68cbb804e5039857b7aadfe14a94">controller</a>;
+<a name="l00036"></a><a class="code" href="classNif_1_1Controlled.html#a5e5f68cbb804e5039857b7aadfe14a94">00036</a>   <a class="code" href="classNif_1_1RecordPtrT.html">ControllerPtr</a> <a class="code" href="classNif_1_1Controlled.html#a5e5f68cbb804e5039857b7aadfe14a94">controller</a>;
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Controlled.html#a05f9e9dbff686024bf1f5c6c6256ee94" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00038"></a><a class="code" href="classNif_1_1Controlled.html#a05f9e9dbff686024bf1f5c6c6256ee94">00038</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Controlled.html#a05f9e9dbff686024bf1f5c6c6256ee94" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00039"></a>00039   {
 <a name="l00040"></a>00040     <a class="code" href="classNif_1_1Controlled.html#a05f9e9dbff686024bf1f5c6c6256ee94" title="Parses the record from file.">Extra::read</a>(nif);
 <a name="l00041"></a>00041     <a class="code" href="classNif_1_1Controlled.html#a5e5f68cbb804e5039857b7aadfe14a94">controller</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
 <a name="l00042"></a>00042   }
 <a name="l00043"></a>00043 };
-<a name="l00044"></a><a class="code" href="classNif_1_1Named.html">00044</a> 
-<a name="l00046"></a>00046 <span class="keyword">class </span><a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">Named</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
-<a name="l00047"></a><a class="code" href="classNif_1_1Named.html#adf0e55d718a902c64ab5ea303a0b211c">00047</a> {
+<a name="l00044"></a>00044 
+<a name="l00046"></a><a class="code" href="classNif_1_1Named.html">00046</a> <span class="keyword">class </span><a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">Named</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
+<a name="l00047"></a>00047 {
 <a name="l00048"></a>00048 <span class="keyword">public</span>:
-<a name="l00049"></a><a class="code" href="classNif_1_1Named.html#a19ac7d420cd2c9b1f14a348db2be44f3">00049</a>   <a class="code" href="structMisc_1_1SliceArray.html">Misc::SString</a> <a class="code" href="classNif_1_1Named.html#adf0e55d718a902c64ab5ea303a0b211c">name</a>;
+<a name="l00049"></a><a class="code" href="classNif_1_1Named.html#adf0e55d718a902c64ab5ea303a0b211c">00049</a>   <a class="code" href="structMisc_1_1SliceArray.html">Misc::SString</a> <a class="code" href="classNif_1_1Named.html#adf0e55d718a902c64ab5ea303a0b211c">name</a>;
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Named.html#a19ac7d420cd2c9b1f14a348db2be44f3" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00051"></a><a class="code" href="classNif_1_1Named.html#a19ac7d420cd2c9b1f14a348db2be44f3">00051</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Named.html#a19ac7d420cd2c9b1f14a348db2be44f3" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00052"></a>00052   {
 <a name="l00053"></a>00053     <a class="code" href="classNif_1_1Named.html#adf0e55d718a902c64ab5ea303a0b211c">name</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae41f33f47f7a1d5bf0711e19b5640329">getString</a>();
 <a name="l00054"></a>00054     <a class="code" href="classNif_1_1Named.html#a19ac7d420cd2c9b1f14a348db2be44f3" title="Parses the record from file.">Controlled::read</a>(nif);
-<a name="l00055"></a><a class="code" href="namespaceNif.html#a72d839ead193ecbfd34f387dd18918fe">00055</a>   }
+<a name="l00055"></a>00055   }
 <a name="l00056"></a>00056 };
-<a name="l00057"></a><a class="code" href="classNif_1_1NiParticleGrowFade.html">00057</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">Named</a> <a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">NiSequenceStreamHelper</a>;
+<a name="l00057"></a><a class="code" href="namespaceNif.html#a72d839ead193ecbfd34f387dd18918fe">00057</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">Named</a> <a class="code" href="classNif_1_1Named.html" title="Has name, extra-data and controller.">NiSequenceStreamHelper</a>;
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="keyword">class </span><a class="code" href="classNif_1_1NiParticleGrowFade.html">NiParticleGrowFade</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
-<a name="l00060"></a><a class="code" href="classNif_1_1NiParticleGrowFade.html#ab0bcffc2983d4521980bd4845afd7f63">00060</a> {
+<a name="l00059"></a><a class="code" href="classNif_1_1NiParticleGrowFade.html">00059</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiParticleGrowFade.html">NiParticleGrowFade</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
+<a name="l00060"></a>00060 {
 <a name="l00061"></a>00061 <span class="keyword">public</span>:
-<a name="l00062"></a>00062   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiParticleGrowFade.html#ab0bcffc2983d4521980bd4845afd7f63" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00062"></a><a class="code" href="classNif_1_1NiParticleGrowFade.html#ab0bcffc2983d4521980bd4845afd7f63">00062</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiParticleGrowFade.html#ab0bcffc2983d4521980bd4845afd7f63" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00063"></a>00063   {
 <a name="l00064"></a>00064     <a class="code" href="classNif_1_1NiParticleGrowFade.html#ab0bcffc2983d4521980bd4845afd7f63" title="Parses the record from file.">Controlled::read</a>(nif);
 <a name="l00065"></a>00065 
 <a name="l00066"></a>00066     <span class="comment">// Two floats.</span>
 <a name="l00067"></a>00067     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(8);
 <a name="l00068"></a>00068   }
-<a name="l00069"></a><a class="code" href="classNif_1_1NiParticleColorModifier.html">00069</a> };
+<a name="l00069"></a>00069 };
 <a name="l00070"></a>00070 
-<a name="l00071"></a>00071 <span class="keyword">class </span><a class="code" href="classNif_1_1NiParticleColorModifier.html">NiParticleColorModifier</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
-<a name="l00072"></a><a class="code" href="classNif_1_1NiParticleColorModifier.html#ae250c22473ab1ad80d6ac8b9f1402f21">00072</a> {
+<a name="l00071"></a><a class="code" href="classNif_1_1NiParticleColorModifier.html">00071</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiParticleColorModifier.html">NiParticleColorModifier</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
+<a name="l00072"></a>00072 {
 <a name="l00073"></a>00073 <span class="keyword">public</span>:
-<a name="l00074"></a><a class="code" href="classNif_1_1NiParticleColorModifier.html#a02d90143a976adf64d361ed44e870b92">00074</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiColorDataPtr</a> <a class="code" href="classNif_1_1NiParticleColorModifier.html#ae250c22473ab1ad80d6ac8b9f1402f21">data</a>;
+<a name="l00074"></a><a class="code" href="classNif_1_1NiParticleColorModifier.html#ae250c22473ab1ad80d6ac8b9f1402f21">00074</a>   <a class="code" href="classNif_1_1RecordPtrT.html">NiColorDataPtr</a> <a class="code" href="classNif_1_1NiParticleColorModifier.html#ae250c22473ab1ad80d6ac8b9f1402f21">data</a>;
 <a name="l00075"></a>00075 
-<a name="l00076"></a>00076   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiParticleColorModifier.html#a02d90143a976adf64d361ed44e870b92" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00076"></a><a class="code" href="classNif_1_1NiParticleColorModifier.html#a02d90143a976adf64d361ed44e870b92">00076</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiParticleColorModifier.html#a02d90143a976adf64d361ed44e870b92" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00077"></a>00077   {
 <a name="l00078"></a>00078     <a class="code" href="classNif_1_1NiParticleColorModifier.html#a02d90143a976adf64d361ed44e870b92" title="Parses the record from file.">Controlled::read</a>(nif);
 <a name="l00079"></a>00079     <a class="code" href="classNif_1_1NiParticleColorModifier.html#ae250c22473ab1ad80d6ac8b9f1402f21">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a90aae241a4cbecb28e56ae9c11401409" title="Read the index from the nif.">read</a>(nif);
 <a name="l00080"></a>00080   }
-<a name="l00081"></a><a class="code" href="classNif_1_1NiGravity.html">00081</a> };
+<a name="l00081"></a>00081 };
 <a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="keyword">class </span><a class="code" href="classNif_1_1NiGravity.html">NiGravity</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
-<a name="l00084"></a><a class="code" href="classNif_1_1NiGravity.html#abeb8fcbbd84aa79d8a8ba1d5d6d1d1db">00084</a> {
+<a name="l00083"></a><a class="code" href="classNif_1_1NiGravity.html">00083</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiGravity.html">NiGravity</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
+<a name="l00084"></a>00084 {
 <a name="l00085"></a>00085 <span class="keyword">public</span>:
-<a name="l00086"></a>00086   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiGravity.html#abeb8fcbbd84aa79d8a8ba1d5d6d1d1db" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00086"></a><a class="code" href="classNif_1_1NiGravity.html#abeb8fcbbd84aa79d8a8ba1d5d6d1d1db">00086</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiGravity.html#abeb8fcbbd84aa79d8a8ba1d5d6d1d1db" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00087"></a>00087   {
 <a name="l00088"></a>00088     <a class="code" href="classNif_1_1NiGravity.html#abeb8fcbbd84aa79d8a8ba1d5d6d1d1db" title="Parses the record from file.">Controlled::read</a>(nif);
 <a name="l00089"></a>00089 
@@ -116,24 +116,24 @@
 <a name="l00091"></a>00091     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(9*4);
 <a name="l00092"></a>00092   }
 <a name="l00093"></a>00093 };
-<a name="l00094"></a><a class="code" href="classNif_1_1NiPlanarCollider.html">00094</a> 
+<a name="l00094"></a>00094 
 <a name="l00095"></a>00095 <span class="comment">// NiPinaColada</span>
-<a name="l00096"></a>00096 <span class="keyword">class </span><a class="code" href="classNif_1_1NiPlanarCollider.html">NiPlanarCollider</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
-<a name="l00097"></a><a class="code" href="classNif_1_1NiPlanarCollider.html#a6c92fb4b64d7c0b077f4f80e46e86be0">00097</a> {
+<a name="l00096"></a><a class="code" href="classNif_1_1NiPlanarCollider.html">00096</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiPlanarCollider.html">NiPlanarCollider</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
+<a name="l00097"></a>00097 {
 <a name="l00098"></a>00098 <span class="keyword">public</span>:
-<a name="l00099"></a>00099   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiPlanarCollider.html#a6c92fb4b64d7c0b077f4f80e46e86be0" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00099"></a><a class="code" href="classNif_1_1NiPlanarCollider.html#a6c92fb4b64d7c0b077f4f80e46e86be0">00099</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiPlanarCollider.html#a6c92fb4b64d7c0b077f4f80e46e86be0" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00100"></a>00100   {
 <a name="l00101"></a>00101     <a class="code" href="classNif_1_1NiPlanarCollider.html#a6c92fb4b64d7c0b077f4f80e46e86be0" title="Parses the record from file.">Controlled::read</a>(nif);
 <a name="l00102"></a>00102 
 <a name="l00103"></a>00103     <span class="comment">// (I think) 4 floats + 4 vectors</span>
 <a name="l00104"></a>00104     nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(4*16);
 <a name="l00105"></a>00105   }
-<a name="l00106"></a><a class="code" href="classNif_1_1NiParticleRotation.html">00106</a> };
+<a name="l00106"></a>00106 };
 <a name="l00107"></a>00107 
-<a name="l00108"></a>00108 <span class="keyword">class </span><a class="code" href="classNif_1_1NiParticleRotation.html">NiParticleRotation</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
-<a name="l00109"></a><a class="code" href="classNif_1_1NiParticleRotation.html#a6724ce076245631102c3987e8059aca5">00109</a> {
+<a name="l00108"></a><a class="code" href="classNif_1_1NiParticleRotation.html">00108</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiParticleRotation.html">NiParticleRotation</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controlled.html" title="Anything that has a controller.">Controlled</a>
+<a name="l00109"></a>00109 {
 <a name="l00110"></a>00110 <span class="keyword">public</span>:
-<a name="l00111"></a>00111   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiParticleRotation.html#a6724ce076245631102c3987e8059aca5" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00111"></a><a class="code" href="classNif_1_1NiParticleRotation.html#a6724ce076245631102c3987e8059aca5">00111</a>   <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiParticleRotation.html#a6724ce076245631102c3987e8059aca5" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
 <a name="l00112"></a>00112   {
 <a name="l00113"></a>00113     <a class="code" href="classNif_1_1NiParticleRotation.html#a6724ce076245631102c3987e8059aca5" title="Parses the record from file.">Controlled::read</a>(nif);
 <a name="l00114"></a>00114 
@@ -149,7 +149,7 @@
 <a name="l00124"></a>00124 } <span class="comment">// Namespace</span>
 <a name="l00125"></a>00125 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

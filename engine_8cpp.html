@@ -31,7 +31,6 @@
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;boost/filesystem.hpp&gt;</code><br/>
 <code>#include &lt;OgreFrameListener.h&gt;</code><br/>
-<code>#include &lt;<a class="el" href="renderer_8hpp_source.html">openengine/ogre/renderer.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="physic_8hpp_source.html">openengine/bullet/physic.hpp</a>&gt;</code><br/>
 <code>#include &lt;map&gt;</code><br/>
 <code>#include &lt;vector&gt;</code><br/>
@@ -47,20 +46,42 @@
 <code>#include &lt;iostream&gt;</code><br/>
 <code>#include &lt;algorithm&gt;</code><br/>
 <code>#include &quot;<a class="el" href="refdata_8hpp_source.html">refdata.hpp</a>&quot;</code><br/>
-<code>#include &lt;boost/timer.hpp&gt;</code><br/>
 <code>#include &quot;<a class="el" href="loadcell_8hpp_source.html">components/esm/loadcell.hpp</a>&quot;</code><br/>
 <code>#include &lt;utility&gt;</code><br/>
-<code>#include &lt;OgreVector3.h&gt;</code><br/>
-<code>#include &lt;Ogre.h&gt;</code><br/>
+<code>#include &lt;OgreRoot.h&gt;</code><br/>
+<code>#include &lt;OgreRenderWindow.h&gt;</code><br/>
+<code>#include &lt;MyGUI_WidgetManager.h&gt;</code><br/>
+<code>#include &lt;<a class="el" href="renderer_8hpp_source.html">openengine/ogre/renderer.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="manager_8hpp_source.html">openengine/gui/manager.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="cell__store_8hpp_source.html">components/esm_store/cell_store.hpp</a>&gt;</code><br/>
 <code>#include &lt;boost/algorithm/string.hpp&gt;</code><br/>
-<code>#include &lt;<a class="el" href="path_8hpp_source.html">components/files/path.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="manager_8hpp_source.html">openengine/gui/manager.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="fixedpath_8hpp_source.html">components/files/fixedpath.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="configurationmanager_8hpp_source.html">components/files/configurationmanager.hpp</a>&gt;</code><br/>
+<code>#include &lt;OgreMesh.h&gt;</code><br/>
+<code>#include &lt;assert.h&gt;</code><br/>
+<code>#include &lt;BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h&gt;</code><br/>
+<code>#include &lt;BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h&gt;</code><br/>
+<code>#include &lt;btBulletDynamicsCommon.h&gt;</code><br/>
+<code>#include &lt;btBulletCollisionCommon.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="BulletShapeLoader_8h_source.html">openengine/bullet/BulletShapeLoader.h</a>&quot;</code><br/>
+<code>#include &lt;limits&gt;</code><br/>
+<code>#include &lt;OgreResource.h&gt;</code><br/>
+<code>#include &lt;Ogre.h&gt;</code><br/>
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &quot;../vfs.hpp&quot;</code><br/>
+<code>#include &lt;OgreResourceGroupManager.h&gt;</code><br/>
+<code>#include &quot;../nif/nif_file.hpp&quot;</code><br/>
+<code>#include &quot;../nif/node.hpp&quot;</code><br/>
+<code>#include &quot;../nif/data.hpp&quot;</code><br/>
+<code>#include &quot;../nif/property.hpp&quot;</code><br/>
+<code>#include &quot;../nif/controller.hpp&quot;</code><br/>
+<code>#include &quot;../nif/extra.hpp&quot;</code><br/>
+<code>#include &lt;<a class="el" href="strings_8h_source.html">strings.h</a>&gt;</code><br/>
+<code>#include &quot;../mwgui/mode.hpp&quot;</code><br/>
 <code>#include &lt;set&gt;</code><br/>
 <code>#include &quot;<a class="el" href="reclists_8hpp_source.html">reclists.hpp</a>&quot;</code><br/>
 <code>#include &quot;../mwmechanics/stat.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mode_8hpp_source.html">mode.hpp</a>&quot;</code><br/>
-<code>#include &quot;../mwgui/mode.hpp&quot;</code><br/>
 <code>#include &lt;ostream&gt;</code><br/>
 <code>#include &quot;<a class="el" href="errorhandler_8hpp_source.html">errorhandler.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="parser_8hpp_source.html">parser.hpp</a>&quot;</code><br/>
@@ -74,13 +95,21 @@
 <code>#include &quot;../mwworld/environment.hpp&quot;</code><br/>
 <code>#include &quot;../mwworld/world.hpp&quot;</code><br/>
 <code>#include &quot;../mwworld/action.hpp&quot;</code><br/>
+<code>#include &lt;boost/timer.hpp&gt;</code><br/>
 <code>#include &lt;<a class="el" href="sndmanager_8hpp_source.html">openengine/sound/sndmanager.hpp</a>&gt;</code><br/>
-<code>#include &quot;../mwrender/mwscene.hpp&quot;</code><br/>
+<code>#include &lt;<a class="el" href="multidircollection_8hpp_source.html">components/files/multidircollection.hpp</a>&gt;</code><br/>
+<code>#include &quot;../mwrender/debugging.hpp&quot;</code><br/>
+<code>#include &quot;../mwrender/renderingmanager.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ptr_8hpp_source.html">ptr.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="globals_8hpp_source.html">globals.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="scene_8hpp_source.html">scene.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="physicssystem_8hpp_source.html">physicssystem.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="cells_8hpp_source.html">cells.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="localscripts_8hpp_source.html">localscripts.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="environment_8hpp_source.html">mwworld/environment.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="action_8hpp_source.html">action.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="containerstore_8hpp_source.html">containerstore.hpp</a>&quot;</code><br/>
+<code>#include &quot;../mwrender/renderinginterface.hpp&quot;</code><br/>
 <code>#include &quot;OgreCamera.h&quot;</code><br/>
 <code>#include &quot;../mwworld/refdata.hpp&quot;</code><br/>
 <code>#include &lt;deque&gt;</code><br/>
@@ -88,23 +117,10 @@
 <code>#include &quot;<a class="el" href="quest_8hpp_source.html">quest.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="creaturestats_8hpp_source.html">creaturestats.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="npcstats_8hpp_source.html">npcstats.hpp</a>&quot;</code><br/>
-<code>#include &lt;OgreRoot.h&gt;</code><br/>
-<code>#include &lt;MyGUI_WidgetManager.h&gt;</code><br/>
-<code>#include &lt;MyGUI.h&gt;</code><br/>
-<code>#include &quot;<a class="el" href="widgets_8hpp_source.html">widgets.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="window__base_8hpp_source.html">window_base.hpp</a>&quot;</code><br/>
-<code>#include &lt;OgreMesh.h&gt;</code><br/>
-<code>#include &lt;assert.h&gt;</code><br/>
-<code>#include &lt;BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h&gt;</code><br/>
-<code>#include &lt;BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h&gt;</code><br/>
-<code>#include &lt;btBulletDynamicsCommon.h&gt;</code><br/>
-<code>#include &lt;btBulletCollisionCommon.h&gt;</code><br/>
-<code>#include &quot;<a class="el" href="BulletShapeLoader_8h_source.html">openengine/bullet/BulletShapeLoader.h</a>&quot;</code><br/>
-<code>#include &lt;limits&gt;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
 </table>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

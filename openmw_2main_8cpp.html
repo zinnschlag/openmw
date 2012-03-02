@@ -31,14 +31,21 @@
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;fstream&gt;</code><br/>
 <code>#include &lt;boost/program_options.hpp&gt;</code><br/>
-<code>#include &lt;<a class="el" href="fileops_8hpp_source.html">components/misc/fileops.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="path_8hpp_source.html">components/files/path.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="openmw_2main_8cpp.html">components/files/fileops.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="fixedpath_8hpp_source.html">components/files/fixedpath.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="collections_8hpp_source.html">components/files/collections.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="configurationmanager_8hpp_source.html">components/files/configurationmanager.hpp</a>&gt;</code><br/>
 <code>#include &quot;<a class="el" href="engine_8hpp_source.html">engine.hpp</a>&quot;</code><br/>
 <code>#include &lt;OSX/macUtils.h&gt;</code><br/>
-<code>#include &quot;<a class="el" href="openmw_2main_8cpp.html">config.hpp</a>&quot;</code><br/>
+<code>#include &lt;boost/version.hpp&gt;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>Namespaces</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost.html">boost</a></td></tr>
 <tr><td colspan="2"><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="openmw_2main_8cpp.html#a6460ae94c40e1765fa7eb0319f4fb1e7">parseOptions</a> (int argc, char **argv, <a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;engine)</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">boost::filesystem::path&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost.html#a1346377baf0466a90b9c097fa6e33c84">boost::lexical_cast&lt; boost::filesystem::path, std::string &gt;</a> (const std::string &amp;arg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="openmw_2main_8cpp.html#ab0ec7c57adc322da6854aa6c2cf816a5">parseOptions</a> (int argc, char **argv, <a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;engine, <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfgMgr)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parses application command line and calls Cfg::ConfigurationManager to parse configuration files.  <a href="#ab0ec7c57adc322da6854aa6c2cf816a5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="openmw_2main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
@@ -69,7 +76,7 @@
 
 </div>
 </div>
-<a class="anchor" id="a6460ae94c40e1765fa7eb0319f4fb1e7"></a><!-- doxytag: member="main.cpp::parseOptions" ref="a6460ae94c40e1765fa7eb0319f4fb1e7" args="(int argc, char **argv, OMW::Engine &amp;engine)" -->
+<a class="anchor" id="ab0ec7c57adc322da6854aa6c2cf816a5"></a><!-- doxytag: member="main.cpp::parseOptions" ref="ab0ec7c57adc322da6854aa6c2cf816a5" args="(int argc, char **argv, OMW::Engine &amp;engine, Files::ConfigurationManager &amp;cfgMgr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -89,7 +96,13 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>engine</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>cfgMgr</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -99,13 +112,21 @@
       </table>
 </div>
 <div class="memdoc">
-<p>Parse command line options and openmw.cfg file (if one exists). Results are directly written to <em>engine</em>. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Run OpenMW? </dd></dl>
+
+<p>Parses application command line and calls Cfg::ConfigurationManager to parse configuration files. </p>
+<p>Results are directly written to Engine class.</p>
+<dl><dt><b>Return values:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>true</em>&nbsp;</td><td>- Everything goes OK </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>false</em>&nbsp;</td><td>- Error </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

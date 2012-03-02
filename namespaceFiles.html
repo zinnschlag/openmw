@@ -30,66 +30,153 @@
 <h1>Files Namespace Reference</h1><table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1Collections.html">Collections</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFiles_1_1ConfigurationManager.html">ConfigurationManager</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFiles_1_1FixedPath.html">FixedPath</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFiles_1_1NameEqual.html">NameEqual</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFiles_1_1NameLess.html">NameLess</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1MultiDirCollection.html">MultiDirCollection</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">File collection across several directories.  <a href="classFiles_1_1MultiDirCollection.html#_details">More...</a><br/></td></tr>
-<tr><td colspan="2"><h2>Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a998a9f9adaeb7a6cb2f33225a7f2317d">PathTypeEnum</a> { <a class="el" href="namespaceFiles.html#a998a9f9adaeb7a6cb2f33225a7f2317da988483ceefda9e7b64683f649bbed208">Path_ConfigUser</a>, 
-<a class="el" href="namespaceFiles.html#a998a9f9adaeb7a6cb2f33225a7f2317dabcaf14b257bd1da8a7f5014f5b959ce3">Path_ConfigGlobal</a>
- }</td></tr>
+<tr><td colspan="2"><h2>Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector<br class="typebreak"/>
+&lt; boost::filesystem::path &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">PathContainer</a></td></tr>
 <tr><td colspan="2"><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a571f4f51d41ff1c2c5a26fd7729a8890">getPath</a> (<a class="el" href="namespaceFiles.html#a998a9f9adaeb7a6cb2f33225a7f2317d">PathTypeEnum</a> parType, const std::string parApp, const std::string parFile)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a2795331a688b338e19a6bcb271c132ee">isFile</a> (const char *name)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Check if a given path is an existing file (not a directory).  <a href="#a2795331a688b338e19a6bcb271c132ee"></a><br/></td></tr>
+<tr><td colspan="2"><h2>Variables</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a261df40792557a5f491d003012f474db">openmwCfgFile</a> = &quot;openmw.cfg&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#aa91e4065133d4c00343dc83b1c676353">ogreCfgFile</a> = &quot;ogre.cfg&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#ab070520651a8560e86d172edb06cedd6">pluginsCfgFile</a> = &quot;plugins.cfg&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a2a1f6f899ed4332765a37436b8e4cf28">mwToken</a> = &quot;?mw?&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#ab5871c67f5d817d69eb8021b40dab0fb">localToken</a> = &quot;?local?&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a6f905bc02017f4d3cff13d4888ec89cd">userToken</a> = &quot;?user?&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceFiles.html#a88d11cad1515a1ed7e4001c76e9266b6">globalToken</a> = &quot;?global?&quot;</td></tr>
 </table>
-<hr/><h2>Enumeration Type Documentation</h2>
-<a class="anchor" id="a998a9f9adaeb7a6cb2f33225a7f2317d"></a><!-- doxytag: member="Files::PathTypeEnum" ref="a998a9f9adaeb7a6cb2f33225a7f2317d" args="" -->
+<hr/><h2>Typedef Documentation</h2>
+<a class="anchor" id="af3790e8467c480c3709fd47b09dde70c"></a><!-- doxytag: member="Files::PathContainer" ref="af3790e8467c480c3709fd47b09dde70c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespaceFiles.html#a998a9f9adaeb7a6cb2f33225a7f2317d">Files::PathTypeEnum</a></td>
+          <td class="memname">typedef std::vector&lt;boost::filesystem::path&gt; <a class="el" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">Files::PathContainer</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="a998a9f9adaeb7a6cb2f33225a7f2317da988483ceefda9e7b64683f649bbed208"></a><!-- doxytag: member="Path_ConfigUser" ref="a998a9f9adaeb7a6cb2f33225a7f2317da988483ceefda9e7b64683f649bbed208" args="" -->Path_ConfigUser</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="a998a9f9adaeb7a6cb2f33225a7f2317dabcaf14b257bd1da8a7f5014f5b959ce3"></a><!-- doxytag: member="Path_ConfigGlobal" ref="a998a9f9adaeb7a6cb2f33225a7f2317dabcaf14b257bd1da8a7f5014f5b959ce3" args="" -->Path_ConfigGlobal</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dd>
-</dl>
 
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a571f4f51d41ff1c2c5a26fd7729a8890"></a><!-- doxytag: member="Files::getPath" ref="a571f4f51d41ff1c2c5a26fd7729a8890" args="(PathTypeEnum parType, const std::string parApp, const std::string parFile)" -->
+<a class="anchor" id="a2795331a688b338e19a6bcb271c132ee"></a><!-- doxytag: member="Files::isFile" ref="a2795331a688b338e19a6bcb271c132ee" args="(const char *name)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string Files::getPath </td>
+          <td class="memname">bool Files::isFile </td>
           <td>(</td>
-          <td class="paramtype">PathTypeEnum&nbsp;</td>
-          <td class="paramname"> <em>parType</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>name</em></td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td class="paramtype">const std::string&nbsp;</td>
-          <td class="paramname"> <em>parApp</em>, </td>
         </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Check if a given path is an existing file (not a directory). </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>name</em>&nbsp;</td><td>- filename </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="a88d11cad1515a1ed7e4001c76e9266b6"></a><!-- doxytag: member="Files::globalToken" ref="a88d11cad1515a1ed7e4001c76e9266b6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string&nbsp;</td>
-          <td class="paramname"> <em>parFile</em></td><td>&nbsp;</td>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#a88d11cad1515a1ed7e4001c76e9266b6">Files::globalToken</a> = &quot;?global?&quot;</td>
         </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab5871c67f5d817d69eb8021b40dab0fb"></a><!-- doxytag: member="Files::localToken" ref="ab5871c67f5d817d69eb8021b40dab0fb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#ab5871c67f5d817d69eb8021b40dab0fb">Files::localToken</a> = &quot;?local?&quot;</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2a1f6f899ed4332765a37436b8e4cf28"></a><!-- doxytag: member="Files::mwToken" ref="a2a1f6f899ed4332765a37436b8e4cf28" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#a2a1f6f899ed4332765a37436b8e4cf28">Files::mwToken</a> = &quot;?mw?&quot;</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa91e4065133d4c00343dc83b1c676353"></a><!-- doxytag: member="Files::ogreCfgFile" ref="aa91e4065133d4c00343dc83b1c676353" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#aa91e4065133d4c00343dc83b1c676353">Files::ogreCfgFile</a> = &quot;ogre.cfg&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a261df40792557a5f491d003012f474db"></a><!-- doxytag: member="Files::openmwCfgFile" ref="a261df40792557a5f491d003012f474db" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#a261df40792557a5f491d003012f474db">Files::openmwCfgFile</a> = &quot;openmw.cfg&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab070520651a8560e86d172edb06cedd6"></a><!-- doxytag: member="Files::pluginsCfgFile" ref="ab070520651a8560e86d172edb06cedd6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#ab070520651a8560e86d172edb06cedd6">Files::pluginsCfgFile</a> = &quot;plugins.cfg&quot;<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6f905bc02017f4d3cff13d4888ec89cd"></a><!-- doxytag: member="Files::userToken" ref="a6f905bc02017f4d3cff13d4888ec89cd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const <a class="el" href="namespaceFiles.html#a6f905bc02017f4d3cff13d4888ec89cd">Files::userToken</a> = &quot;?user?&quot;</td>
         </tr>
       </table>
 </div>
@@ -98,7 +185,7 @@
 </div>
 </div>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:39 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:03 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

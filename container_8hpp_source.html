@@ -29,30 +29,32 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GAME_MWCLASS_CONTAINER_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;../mwworld/class.hpp&quot;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>MWClass
-<a name="l00007"></a>00007 {
-<a name="l00008"></a><a class="code" href="classMWClass_1_1Container.html">00008</a>     <span class="keyword">class </span><a class="code" href="classMWClass_1_1Container.html">Container</a> : <span class="keyword">public</span> MWWorld::Class
-<a name="l00009"></a>00009     {
-<a name="l00010"></a>00010         <span class="keyword">public</span>:
-<a name="l00011"></a>00011 
-<a name="l00012"></a>00012             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWClass_1_1Container.html#a4d9879d23115842ec90882fc98719396" title="Add reference into a cell for rendering.">insertObj</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <a class="code" href="classMWRender_1_1CellRenderImp.html">MWRender::CellRenderImp</a>&amp; cellRender,
-<a name="l00013"></a>00013                 <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;../mwrender/objects.hpp&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWClass
+<a name="l00008"></a>00008 {
+<a name="l00009"></a><a class="code" href="classMWClass_1_1Container.html">00009</a>     <span class="keyword">class </span><a class="code" href="classMWClass_1_1Container.html">Container</a> : <span class="keyword">public</span> MWWorld::Class
+<a name="l00010"></a>00010     {
+<a name="l00011"></a>00011         <span class="keyword">public</span>:
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWClass_1_1Container.html#a0613fbc18d44b89ce1e1f41640968d79" title="Add reference into a cell for rendering.">insertObjectRendering</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <a class="code" href="classMWRender_1_1RenderingInterface.html">MWRender::RenderingInterface</a>&amp; renderingInterface) <span class="keyword">const</span>;
 <a name="l00015"></a>00015 
-<a name="l00016"></a>00016             <span class="keyword">virtual</span> std::string <a class="code" href="classMWClass_1_1Container.html#a325b5aa36c40bcf2e3d614641f063009">getName</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020             <span class="keyword">virtual</span> <a class="code" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore&lt;MWWorld::RefData&gt;</a>&amp; <a class="code" href="classMWClass_1_1Container.html#a05a3e8f867727a66ea269276bbf06da0" title="Return container store.">getContainerStore</a> (
-<a name="l00021"></a>00021                 <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024             <span class="keyword">virtual</span> std::string <a class="code" href="classMWClass_1_1Container.html#a91cb35197a55a3f8b5e7a35f79293c3b" title="Return name of the script attached to ptr.">getScript</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) <span class="keyword">const</span>;
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027             <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWClass_1_1Container.html#a458fedc1aaf9187027a83a7f24f194a6">registerSelf</a>();
-<a name="l00028"></a>00028     };
-<a name="l00029"></a>00029 }
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
+<a name="l00016"></a>00016             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWClass_1_1Container.html#a4855601ca961cc3c0aa36ce481fd5340" title="Add reference into a cell for rendering (default implementation: don&amp;#39;t render...">insertObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a>&amp; physics, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018             <span class="keyword">virtual</span> std::string <a class="code" href="classMWClass_1_1Container.html#a325b5aa36c40bcf2e3d614641f063009">getName</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022             <span class="keyword">virtual</span> <a class="code" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore&lt;MWWorld::RefData&gt;</a>&amp; <a class="code" href="classMWClass_1_1Container.html#a05a3e8f867727a66ea269276bbf06da0" title="Return container store.">getContainerStore</a> (
+<a name="l00023"></a>00023                 <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026             <span class="keyword">virtual</span> std::string <a class="code" href="classMWClass_1_1Container.html#a91cb35197a55a3f8b5e7a35f79293c3b" title="Return name of the script attached to ptr.">getScript</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029             <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWClass_1_1Container.html#a458fedc1aaf9187027a83a7f24f194a6">registerSelf</a>();
+<a name="l00030"></a>00030     };
+<a name="l00031"></a>00031 }
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:01 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

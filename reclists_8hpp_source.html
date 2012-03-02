@@ -313,221 +313,217 @@
 <a name="l00287"></a><a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">00287</a>     <a class="code" href="structESMS_1_1CellList.html#a889e82fd584bd66f6f184a7cce7f8eef">IntCells</a> <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>;
 <a name="l00288"></a>00288 
 <a name="l00289"></a>00289     <span class="comment">// List of exterior cells. Indexed as extCells[gridX][gridY].</span>
-<a name="l00290"></a><a class="code" href="structESMS_1_1CellList.html#a131bba5d2adfdc682b6a4415807b7dd1">00290</a>     <span class="keyword">typedef</span> std::map&lt;int, ESM::Cell*&gt; <a class="code" href="structESMS_1_1CellList.html#a131bba5d2adfdc682b6a4415807b7dd1">ExtCellsCol</a>;
-<a name="l00291"></a><a class="code" href="structESMS_1_1CellList.html#a11f5ae03135fc959a56f1f31a3361c43">00291</a>     <span class="keyword">typedef</span> std::map&lt;int, ExtCellsCol&gt; <a class="code" href="structESMS_1_1CellList.html#a11f5ae03135fc959a56f1f31a3361c43">ExtCells</a>;
-<a name="l00292"></a><a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">00292</a>     <a class="code" href="structESMS_1_1CellList.html#a11f5ae03135fc959a56f1f31a3361c43">ExtCells</a> <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>;
-<a name="l00293"></a>00293 
-<a name="l00294"></a><a class="code" href="structESMS_1_1CellList.html#ae43f41f102dc9c11abf71deb3c563bad">00294</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellList.html#ae43f41f102dc9c11abf71deb3c563bad">listIdentifier</a> (std::vector&lt;std::string&gt;&amp; identifier)<span class="keyword"> const</span>
-<a name="l00295"></a>00295 <span class="keyword">    </span>{
-<a name="l00296"></a>00296         <span class="keywordflow">for</span> (IntCells::const_iterator iter (<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.begin()); iter!=<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.end(); ++iter)
-<a name="l00297"></a>00297             identifier.push_back (iter-&gt;first);
-<a name="l00298"></a>00298     }
-<a name="l00299"></a>00299 
-<a name="l00300"></a><a class="code" href="structESMS_1_1CellList.html#a77e0c8f6b1389db77730d769ffbbd32b">00300</a>     <a class="code" href="structESMS_1_1CellList.html#a77e0c8f6b1389db77730d769ffbbd32b">~CellList</a>()
-<a name="l00301"></a>00301     {
-<a name="l00302"></a>00302       <span class="keywordflow">for</span> (IntCells::iterator it = <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.begin(); it!=<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.end(); ++it)
-<a name="l00303"></a>00303         <span class="keyword">delete</span> it-&gt;second;
-<a name="l00304"></a>00304 
-<a name="l00305"></a>00305       for (ExtCells::iterator it = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.begin(); it!=<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end(); ++it)
-<a name="l00306"></a>00306       {
-<a name="l00307"></a>00307         <a class="code" href="structESMS_1_1CellList.html#a131bba5d2adfdc682b6a4415807b7dd1">ExtCellsCol</a>&amp; col = it-&gt;second;
-<a name="l00308"></a>00308         <span class="keywordflow">for</span> (ExtCellsCol::iterator it = col.begin(); it!=col.end(); ++it)
-<a name="l00309"></a>00309         {
-<a name="l00310"></a>00310           <span class="keyword">delete</span> it-&gt;second;
-<a name="l00311"></a>00311         }
-<a name="l00312"></a>00312       }
-<a name="l00313"></a>00313     }
+<a name="l00290"></a><a class="code" href="structESMS_1_1CellList.html#a50d2ae2e783d17d6573d5bfb6942f5fb">00290</a>     <span class="keyword">typedef</span> std::map&lt;std::pair&lt;int, int&gt;, <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>*&gt; <a class="code" href="structESMS_1_1CellList.html#a50d2ae2e783d17d6573d5bfb6942f5fb">ExtCells</a>;
+<a name="l00291"></a><a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">00291</a>     <a class="code" href="structESMS_1_1CellList.html#a50d2ae2e783d17d6573d5bfb6942f5fb">ExtCells</a> <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>;
+<a name="l00292"></a>00292 
+<a name="l00293"></a><a class="code" href="structESMS_1_1CellList.html#ae43f41f102dc9c11abf71deb3c563bad">00293</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellList.html#ae43f41f102dc9c11abf71deb3c563bad">listIdentifier</a> (std::vector&lt;std::string&gt;&amp; identifier)<span class="keyword"> const</span>
+<a name="l00294"></a>00294 <span class="keyword">    </span>{
+<a name="l00295"></a>00295         <span class="keywordflow">for</span> (IntCells::const_iterator iter (<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.begin()); iter!=<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.end(); ++iter)
+<a name="l00296"></a>00296             identifier.push_back (iter-&gt;first);
+<a name="l00297"></a>00297     }
+<a name="l00298"></a>00298 
+<a name="l00299"></a><a class="code" href="structESMS_1_1CellList.html#a77e0c8f6b1389db77730d769ffbbd32b">00299</a>     <a class="code" href="structESMS_1_1CellList.html#a77e0c8f6b1389db77730d769ffbbd32b">~CellList</a>()
+<a name="l00300"></a>00300     {
+<a name="l00301"></a>00301       <span class="keywordflow">for</span> (IntCells::iterator it = <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.begin(); it!=<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.end(); ++it)
+<a name="l00302"></a>00302         <span class="keyword">delete</span> it-&gt;second;
+<a name="l00303"></a>00303 
+<a name="l00304"></a>00304       for (ExtCells::iterator it = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.begin(); it!=<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end(); ++it)
+<a name="l00305"></a>00305           <span class="keyword">delete</span> it-&gt;second;
+<a name="l00306"></a>00306     }
+<a name="l00307"></a>00307 
+<a name="l00308"></a><a class="code" href="structESMS_1_1CellList.html#a377085183a19e5a07d5e8771b21547f8">00308</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>* <a class="code" href="structESMS_1_1CellList.html#a377085183a19e5a07d5e8771b21547f8">searchInt</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00309"></a>00309 <span class="keyword">    </span>{
+<a name="l00310"></a>00310       IntCells::const_iterator iter = <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.find(<span class="keywordtype">id</span>);
+<a name="l00311"></a>00311 
+<a name="l00312"></a>00312       <span class="keywordflow">if</span> (iter!=<a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.end())
+<a name="l00313"></a>00313         <span class="keywordflow">return</span> iter-&gt;second;
 <a name="l00314"></a>00314 
-<a name="l00315"></a>00315 
-<a name="l00316"></a><a class="code" href="structESMS_1_1CellList.html#a6c1accabda7a068979b6e9d0a8b4c774">00316</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>* <a class="code" href="structESMS_1_1CellList.html#a6c1accabda7a068979b6e9d0a8b4c774">findInt</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00317"></a>00317 <span class="keyword">    </span>{
-<a name="l00318"></a>00318       IntCells::const_iterator it = <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.find(<span class="keywordtype">id</span>);
-<a name="l00319"></a>00319 
-<a name="l00320"></a>00320       <span class="keywordflow">if</span>(it == <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>.end())
-<a name="l00321"></a>00321         <span class="keywordflow">return</span> NULL;
-<a name="l00322"></a>00322 
-<a name="l00323"></a>00323       <span class="keywordflow">return</span> it-&gt;second;
-<a name="l00324"></a>00324     }
-<a name="l00325"></a>00325 
-<a name="l00326"></a><a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">00326</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">searchExt</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const</span>
-<a name="l00327"></a>00327 <span class="keyword">    </span>{
-<a name="l00328"></a>00328         ExtCells::const_iterator it = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.find (x);
-<a name="l00329"></a>00329 
-<a name="l00330"></a>00330         <span class="keywordflow">if</span> (it==<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end())
-<a name="l00331"></a>00331             <span class="keywordflow">return</span> 0;
-<a name="l00332"></a>00332 
-<a name="l00333"></a>00333         ExtCellsCol::const_iterator it2 = it-&gt;second.find (y);
+<a name="l00315"></a>00315       <span class="keywordflow">return</span> 0;
+<a name="l00316"></a>00316     }
+<a name="l00317"></a>00317 
+<a name="l00318"></a><a class="code" href="structESMS_1_1CellList.html#a6c1accabda7a068979b6e9d0a8b4c774">00318</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>* <a class="code" href="structESMS_1_1CellList.html#a6c1accabda7a068979b6e9d0a8b4c774">findInt</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00319"></a>00319 <span class="keyword">    </span>{
+<a name="l00320"></a>00320       <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell = <a class="code" href="structESMS_1_1CellList.html#a377085183a19e5a07d5e8771b21547f8">searchInt</a> (<span class="keywordtype">id</span>);
+<a name="l00321"></a>00321 
+<a name="l00322"></a>00322       <span class="keywordflow">if</span> (!cell)
+<a name="l00323"></a>00323          <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;Interior cell not found - &quot;</span> + <span class="keywordtype">id</span>);
+<a name="l00324"></a>00324 
+<a name="l00325"></a>00325       <span class="keywordflow">return</span> cell;
+<a name="l00326"></a>00326     }
+<a name="l00327"></a>00327 
+<a name="l00328"></a><a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">00328</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">searchExt</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const</span>
+<a name="l00329"></a>00329 <span class="keyword">    </span>{
+<a name="l00330"></a>00330         ExtCells::const_iterator it = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.find (std::make_pair (x, y));
+<a name="l00331"></a>00331 
+<a name="l00332"></a>00332         <span class="keywordflow">if</span> (it==<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end())
+<a name="l00333"></a>00333             <span class="keywordflow">return</span> 0;
 <a name="l00334"></a>00334 
-<a name="l00335"></a>00335         <span class="keywordflow">if</span> (it2 == it-&gt;second.end())
-<a name="l00336"></a>00336             <span class="keywordflow">return</span> 0;
+<a name="l00335"></a>00335         <span class="keywordflow">return</span> it-&gt;second;
+<a name="l00336"></a>00336     }
 <a name="l00337"></a>00337 
-<a name="l00338"></a>00338         <span class="keywordflow">return</span> it2-&gt;second;
-<a name="l00339"></a>00339     }
-<a name="l00340"></a>00340 
-<a name="l00341"></a><a class="code" href="structESMS_1_1CellList.html#a3464281d1adbc8880385d94df2ad347d">00341</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#a3464281d1adbc8880385d94df2ad347d">searchExtByName</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00342"></a>00342 <span class="keyword">    </span>{
-<a name="l00343"></a>00343         <span class="keywordflow">for</span> (ExtCells::const_iterator iter = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.begin(); iter!=<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end(); ++iter)
-<a name="l00344"></a>00344         {
-<a name="l00345"></a>00345             <span class="keyword">const</span> <a class="code" href="structESMS_1_1CellList.html#a131bba5d2adfdc682b6a4415807b7dd1">ExtCellsCol</a>&amp; column = iter-&gt;second;
-<a name="l00346"></a>00346             <span class="keywordflow">for</span> (ExtCellsCol::const_iterator iter = column.begin(); iter!=column.end(); ++iter)
-<a name="l00347"></a>00347             {
-<a name="l00348"></a>00348                 <span class="keywordflow">if</span> ( <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a>(iter-&gt;second-&gt;name) == <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a>(<span class="keywordtype">id</span>))
-<a name="l00349"></a>00349                     <span class="keywordflow">return</span> iter-&gt;second;
-<a name="l00350"></a>00350             }
-<a name="l00351"></a>00351         }
-<a name="l00352"></a>00352 
-<a name="l00353"></a>00353         <span class="keywordflow">return</span> 0;
-<a name="l00354"></a>00354     }
-<a name="l00355"></a>00355 
-<a name="l00356"></a><a class="code" href="structESMS_1_1CellList.html#aa7cbe681495255069cf21e85ffe52cad">00356</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#aa7cbe681495255069cf21e85ffe52cad">searchExtByRegion</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00357"></a>00357 <span class="keyword">    </span>{
-<a name="l00358"></a>00358         std::string id2 = <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (<span class="keywordtype">id</span>);
-<a name="l00359"></a>00359 
-<a name="l00360"></a>00360         <span class="keywordflow">for</span> (ExtCells::const_iterator iter = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.begin(); iter!=<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end(); ++iter)
-<a name="l00361"></a>00361         {
-<a name="l00362"></a>00362             <span class="keyword">const</span> <a class="code" href="structESMS_1_1CellList.html#a131bba5d2adfdc682b6a4415807b7dd1">ExtCellsCol</a>&amp; column = iter-&gt;second;
-<a name="l00363"></a>00363             <span class="keywordflow">for</span> (ExtCellsCol::const_iterator iter = column.begin(); iter!=column.end(); ++iter)
-<a name="l00364"></a>00364             {
-<a name="l00365"></a>00365                 <span class="keywordflow">if</span> (<a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (iter-&gt;second-&gt;region)==id)
-<a name="l00366"></a>00366                     <span class="keywordflow">return</span> iter-&gt;second;
-<a name="l00367"></a>00367             }
-<a name="l00368"></a>00368         }
-<a name="l00369"></a>00369 
-<a name="l00370"></a>00370         <span class="keywordflow">return</span> 0;
-<a name="l00371"></a>00371     }
+<a name="l00338"></a><a class="code" href="structESMS_1_1CellList.html#aa2664ed7bab1177eb5f2980ca44e7715">00338</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#aa2664ed7bab1177eb5f2980ca44e7715">findExt</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const</span>
+<a name="l00339"></a>00339 <span class="keyword">    </span>{
+<a name="l00340"></a>00340         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell = <a class="code" href="structESMS_1_1CellList.html#a8830324de64dd2f0fb4e058188b1606e">searchExt</a> (x, y);
+<a name="l00341"></a>00341 
+<a name="l00342"></a>00342         <span class="keywordflow">if</span> (!cell)
+<a name="l00343"></a>00343             <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;Exterior cell not found&quot;</span>);
+<a name="l00344"></a>00344 
+<a name="l00345"></a>00345         <span class="keywordflow">return</span> cell;
+<a name="l00346"></a>00346     }
+<a name="l00347"></a><a class="code" href="structESMS_1_1CellList.html#a3464281d1adbc8880385d94df2ad347d">00347</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#a3464281d1adbc8880385d94df2ad347d">searchExtByName</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00348"></a>00348 <span class="keyword">    </span>{
+<a name="l00349"></a>00349         <span class="keywordflow">for</span> (ExtCells::const_iterator iter = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.begin(); iter!=<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end(); ++iter)
+<a name="l00350"></a>00350         {
+<a name="l00351"></a>00351             <span class="keywordflow">if</span> (<a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (iter-&gt;second-&gt;name) == <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (<span class="keywordtype">id</span>))
+<a name="l00352"></a>00352                 <span class="keywordflow">return</span> iter-&gt;second;
+<a name="l00353"></a>00353         }
+<a name="l00354"></a>00354 
+<a name="l00355"></a>00355         <span class="keywordflow">return</span> 0;
+<a name="l00356"></a>00356     }
+<a name="l00357"></a>00357 
+<a name="l00358"></a><a class="code" href="structESMS_1_1CellList.html#aa7cbe681495255069cf21e85ffe52cad">00358</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="structESMS_1_1CellList.html#aa7cbe681495255069cf21e85ffe52cad">searchExtByRegion</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00359"></a>00359 <span class="keyword">    </span>{
+<a name="l00360"></a>00360         std::string id2 = <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (<span class="keywordtype">id</span>);
+<a name="l00361"></a>00361 
+<a name="l00362"></a>00362         <span class="keywordflow">for</span> (ExtCells::const_iterator iter = <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.begin(); iter!=<a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>.end(); ++iter)
+<a name="l00363"></a>00363             <span class="keywordflow">if</span> (<a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (iter-&gt;second-&gt;region)==id)
+<a name="l00364"></a>00364                 <span class="keywordflow">return</span> iter-&gt;second;
+<a name="l00365"></a>00365 
+<a name="l00366"></a>00366         <span class="keywordflow">return</span> 0;
+<a name="l00367"></a>00367     }
+<a name="l00368"></a>00368 
+<a name="l00369"></a><a class="code" href="structESMS_1_1CellList.html#a78a03084bdd81cc7f2d1d8bf66d867d9">00369</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellList.html#a78a03084bdd81cc7f2d1d8bf66d867d9">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)
+<a name="l00370"></a>00370     {
+<a name="l00371"></a>00371       <a class="code" href="structESMS_1_1CellList.html#a29c5a87391bbddc754b21aa2c6bb580b">count</a>++;
 <a name="l00372"></a>00372 
-<a name="l00373"></a><a class="code" href="structESMS_1_1CellList.html#a78a03084bdd81cc7f2d1d8bf66d867d9">00373</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1CellList.html#a78a03084bdd81cc7f2d1d8bf66d867d9">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)
-<a name="l00374"></a>00374     {
-<a name="l00375"></a>00375       <a class="code" href="structESMS_1_1CellList.html#a29c5a87391bbddc754b21aa2c6bb580b">count</a>++;
+<a name="l00373"></a>00373       <span class="comment">// All cells have a name record, even nameless exterior cells.</span>
+<a name="l00374"></a>00374       <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell = <span class="keyword">new</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>;
+<a name="l00375"></a>00375       cell-&gt;<a class="code" href="structESM_1_1Cell.html#a0a4f7e88b41d4e89c37efc01fa1fcded">name</a> = id;
 <a name="l00376"></a>00376 
-<a name="l00377"></a>00377       <span class="comment">// All cells have a name record, even nameless exterior cells.</span>
-<a name="l00378"></a>00378       <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell = <span class="keyword">new</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>;
-<a name="l00379"></a>00379       cell-&gt;<a class="code" href="structESM_1_1Cell.html#a0a4f7e88b41d4e89c37efc01fa1fcded">name</a> = id;
-<a name="l00380"></a>00380 
-<a name="l00381"></a>00381       <span class="comment">// The cell itself takes care of all the hairy details</span>
-<a name="l00382"></a>00382       cell-&gt;<a class="code" href="structESM_1_1Cell.html#a840fb3a3275151e7f99ca626c1d209be">load</a>(esm);
-<a name="l00383"></a>00383 
-<a name="l00384"></a>00384       <span class="keywordflow">if</span>(cell-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.flags &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">ESM::Cell::Interior</a>)
-<a name="l00385"></a>00385         {
-<a name="l00386"></a>00386           <span class="comment">// Store interior cell by name</span>
-<a name="l00387"></a>00387           <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>[id] = cell;
-<a name="l00388"></a>00388         }
-<a name="l00389"></a>00389       <span class="keywordflow">else</span>
-<a name="l00390"></a>00390         {
-<a name="l00391"></a>00391           <span class="comment">// Store exterior cells by grid position</span>
-<a name="l00392"></a>00392           <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>[cell-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.gridX][cell-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.gridY] = cell;
-<a name="l00393"></a>00393         }
-<a name="l00394"></a>00394     }
-<a name="l00395"></a>00395   };
-<a name="l00396"></a>00396 
-<a name="l00397"></a>00397   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00398"></a><a class="code" href="structESMS_1_1ScriptListT.html">00398</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1ScriptListT.html">ScriptListT</a> : <a class="code" href="structESMS_1_1RecList.html">RecList</a>
-<a name="l00399"></a>00399   {
-<a name="l00400"></a><a class="code" href="structESMS_1_1ScriptListT.html#a125382ec9b8b79459977a2294cf071ba">00400</a>     <span class="keyword">typedef</span> std::map&lt;std::string,X&gt; <a class="code" href="structESMS_1_1ScriptListT.html#a125382ec9b8b79459977a2294cf071ba">MapType</a>;
-<a name="l00401"></a>00401 
-<a name="l00402"></a><a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">00402</a>     <a class="code" href="structESMS_1_1ScriptListT.html#a125382ec9b8b79459977a2294cf071ba">MapType</a> <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>;
-<a name="l00403"></a>00403 
-<a name="l00404"></a>00404     <span class="comment">// Load one object of this type</span>
-<a name="l00405"></a><a class="code" href="structESMS_1_1ScriptListT.html#a9692f63719b3253baf07fd765c437024">00405</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1ScriptListT.html#a9692f63719b3253baf07fd765c437024">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)
-<a name="l00406"></a>00406     {
-<a name="l00407"></a>00407       <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> ref;
-<a name="l00408"></a>00408       ref.load (esm);
-<a name="l00409"></a>00409 
-<a name="l00410"></a>00410       std::string realId = <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (ref.data.name.toString());
-<a name="l00411"></a>00411 
-<a name="l00412"></a>00412       std::swap (<a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>[realId], ref);
-<a name="l00413"></a>00413     }
-<a name="l00414"></a>00414 
-<a name="l00415"></a>00415     <span class="comment">// Find the given object ID, or return NULL if not found.</span>
-<a name="l00416"></a><a class="code" href="structESMS_1_1ScriptListT.html#a92e0f43b2f01b33375abe678ea369e1a">00416</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1ScriptListT.html#a92e0f43b2f01b33375abe678ea369e1a">search</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00417"></a>00417 <span class="keyword">    </span>{
-<a name="l00418"></a>00418         std::string id2 = <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (<span class="keywordtype">id</span>);
-<a name="l00419"></a>00419 
-<a name="l00420"></a>00420         <span class="keyword">typename</span> MapType::const_iterator iter = <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.find (id2);
-<a name="l00421"></a>00421 
-<a name="l00422"></a>00422         <span class="keywordflow">if</span> (iter == <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.end())
-<a name="l00423"></a>00423             <span class="keywordflow">return</span> NULL;
-<a name="l00424"></a>00424 
-<a name="l00425"></a>00425         <span class="keywordflow">return</span> &amp;iter-&gt;second;
-<a name="l00426"></a>00426     }
-<a name="l00427"></a>00427 
-<a name="l00428"></a>00428     <span class="comment">// Find the given object ID (throws an exception if not found)</span>
-<a name="l00429"></a><a class="code" href="structESMS_1_1ScriptListT.html#a3052505d27dfbab1c9a5409e376af75f">00429</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1ScriptListT.html#a3052505d27dfbab1c9a5409e376af75f">find</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00430"></a>00430 <span class="keyword">    </span>{
-<a name="l00431"></a>00431         <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> *<span class="keywordtype">object</span> = <a class="code" href="structESMS_1_1ScriptListT.html#a92e0f43b2f01b33375abe678ea369e1a">search</a> (<span class="keywordtype">id</span>);
-<a name="l00432"></a>00432 
-<a name="l00433"></a>00433         <span class="keywordflow">if</span> (!<span class="keywordtype">object</span>)
-<a name="l00434"></a>00434             <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;object &quot;</span> + <span class="keywordtype">id</span> + <span class="stringliteral">&quot; not found&quot;</span>);
-<a name="l00435"></a>00435 
-<a name="l00436"></a>00436         <span class="keywordflow">return</span> object;
-<a name="l00437"></a>00437     }
-<a name="l00438"></a>00438 
-<a name="l00439"></a><a class="code" href="structESMS_1_1ScriptListT.html#a8184e0aef40cb18e1bf065e92b7ddefc">00439</a>     <span class="keywordtype">int</span> <a class="code" href="structESMS_1_1ScriptListT.html#a8184e0aef40cb18e1bf065e92b7ddefc">getSize</a>() { <span class="keywordflow">return</span> <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.size(); }
-<a name="l00440"></a>00440 
-<a name="l00441"></a><a class="code" href="structESMS_1_1ScriptListT.html#a5397a9c3a0e5daa4ca1e180adb69255a">00441</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1ScriptListT.html#a5397a9c3a0e5daa4ca1e180adb69255a">listIdentifier</a> (std::vector&lt;std::string&gt;&amp; identifier)<span class="keyword"> const</span>
-<a name="l00442"></a>00442 <span class="keyword">    </span>{
-<a name="l00443"></a>00443         <span class="keywordflow">for</span> (<span class="keyword">typename</span> MapType::const_iterator iter (<a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.begin()); iter!=<a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.end(); ++iter)
-<a name="l00444"></a>00444             identifier.push_back (iter-&gt;first);
-<a name="l00445"></a>00445     }
-<a name="l00446"></a>00446   };
-<a name="l00447"></a>00447 
-<a name="l00448"></a>00448   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
-<a name="l00449"></a><a class="code" href="structESMS_1_1IndexListT.html">00449</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1IndexListT.html">IndexListT</a>
-<a name="l00450"></a>00450   {
-<a name="l00451"></a><a class="code" href="structESMS_1_1IndexListT.html#a5d20913fb1d1ca74e1b6c34ed3b69084">00451</a>         <span class="keyword">typedef</span> std::map&lt;int, X&gt; <a class="code" href="structESMS_1_1IndexListT.html#a5d20913fb1d1ca74e1b6c34ed3b69084">MapType</a>;
-<a name="l00452"></a>00452 
-<a name="l00453"></a><a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">00453</a>         <a class="code" href="structESMS_1_1IndexListT.html#a5d20913fb1d1ca74e1b6c34ed3b69084">MapType</a> <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>;
-<a name="l00454"></a>00454 
-<a name="l00455"></a><a class="code" href="structESMS_1_1IndexListT.html#aa5bf92e76f08e0b5daad4484499913d7">00455</a>         <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1IndexListT.html#aa5bf92e76f08e0b5daad4484499913d7">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00456"></a>00456         {
-<a name="l00457"></a>00457             <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> ref;
-<a name="l00458"></a>00458             ref.load (esm);
-<a name="l00459"></a>00459             <span class="keywordtype">int</span> index = ref.index;
-<a name="l00460"></a>00460             <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>[index] = ref;
-<a name="l00461"></a>00461         }
-<a name="l00462"></a>00462 
-<a name="l00463"></a><a class="code" href="structESMS_1_1IndexListT.html#a6b57ba55aea96ad6a037a0247e6b8b8d">00463</a>         <span class="keywordtype">int</span> <a class="code" href="structESMS_1_1IndexListT.html#a6b57ba55aea96ad6a037a0247e6b8b8d">getSize</a>()
-<a name="l00464"></a>00464         {
-<a name="l00465"></a>00465             <span class="keywordflow">return</span> <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>.size();
-<a name="l00466"></a>00466         }
-<a name="l00467"></a>00467 
-<a name="l00468"></a><a class="code" href="structESMS_1_1IndexListT.html#a7c05c219e1c7cd07a0bc87347ef11a39">00468</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1IndexListT.html#a7c05c219e1c7cd07a0bc87347ef11a39">listIdentifier</a> (std::vector&lt;std::string&gt;&amp; identifier)<span class="keyword"> const </span>{}
-<a name="l00469"></a>00469 
-<a name="l00470"></a>00470         <span class="comment">// Find the given object ID, or return NULL if not found.</span>
-<a name="l00471"></a><a class="code" href="structESMS_1_1IndexListT.html#a9ddc9bcd4ef0445a383f75dc4247e2fb">00471</a>         <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1IndexListT.html#a9ddc9bcd4ef0445a383f75dc4247e2fb">search</a> (<span class="keywordtype">int</span> <span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00472"></a>00472 <span class="keyword">        </span>{
-<a name="l00473"></a>00473             <span class="keyword">typename</span> MapType::const_iterator iter = <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>.find (<span class="keywordtype">id</span>);
-<a name="l00474"></a>00474 
-<a name="l00475"></a>00475             <span class="keywordflow">if</span> (iter == <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>.end())
-<a name="l00476"></a>00476                 <span class="keywordflow">return</span> NULL;
-<a name="l00477"></a>00477 
-<a name="l00478"></a>00478             <span class="keywordflow">return</span> &amp;iter-&gt;second;
-<a name="l00479"></a>00479         }
-<a name="l00480"></a>00480 
-<a name="l00481"></a>00481         <span class="comment">// Find the given object ID (throws an exception if not found)</span>
-<a name="l00482"></a><a class="code" href="structESMS_1_1IndexListT.html#ad0b0085c951bed49ef828550d19a523f">00482</a>         <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1IndexListT.html#ad0b0085c951bed49ef828550d19a523f">find</a> (<span class="keywordtype">int</span> <span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00483"></a>00483 <span class="keyword">        </span>{
-<a name="l00484"></a>00484             <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> *<span class="keywordtype">object</span> = <a class="code" href="structESMS_1_1IndexListT.html#a9ddc9bcd4ef0445a383f75dc4247e2fb">search</a> (<span class="keywordtype">id</span>);
-<a name="l00485"></a>00485 
-<a name="l00486"></a>00486             <span class="keywordflow">if</span> (!<span class="keywordtype">object</span>)
-<a name="l00487"></a>00487             {
-<a name="l00488"></a>00488                 std::ostringstream error;
-<a name="l00489"></a>00489                 error &lt;&lt; <span class="stringliteral">&quot;object &quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot; not found&quot;</span>;
-<a name="l00490"></a>00490                 <span class="keywordflow">throw</span> std::runtime_error (error.str());
-<a name="l00491"></a>00491             }
+<a name="l00377"></a>00377       <span class="comment">// The cell itself takes care of all the hairy details</span>
+<a name="l00378"></a>00378       cell-&gt;<a class="code" href="structESM_1_1Cell.html#a840fb3a3275151e7f99ca626c1d209be">load</a>(esm);
+<a name="l00379"></a>00379 
+<a name="l00380"></a>00380       <span class="keywordflow">if</span>(cell-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.flags &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">ESM::Cell::Interior</a>)
+<a name="l00381"></a>00381         {
+<a name="l00382"></a>00382           <span class="comment">// Store interior cell by name</span>
+<a name="l00383"></a>00383           <a class="code" href="structESMS_1_1CellList.html#abf7f636b573461a3a8130dfdd0cbcf65">intCells</a>[id] = cell;
+<a name="l00384"></a>00384         }
+<a name="l00385"></a>00385       <span class="keywordflow">else</span>
+<a name="l00386"></a>00386         {
+<a name="l00387"></a>00387           <span class="comment">// Store exterior cells by grid position</span>
+<a name="l00388"></a>00388           <a class="code" href="structESMS_1_1CellList.html#a2b73d50ca9e0d8ccb1854c7dff177f6e">extCells</a>[std::make_pair (cell-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.gridX, cell-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.gridY)] = cell;
+<a name="l00389"></a>00389         }
+<a name="l00390"></a>00390     }
+<a name="l00391"></a>00391   };
+<a name="l00392"></a>00392 
+<a name="l00393"></a>00393   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
+<a name="l00394"></a><a class="code" href="structESMS_1_1ScriptListT.html">00394</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1ScriptListT.html">ScriptListT</a> : <a class="code" href="structESMS_1_1RecList.html">RecList</a>
+<a name="l00395"></a>00395   {
+<a name="l00396"></a><a class="code" href="structESMS_1_1ScriptListT.html#a125382ec9b8b79459977a2294cf071ba">00396</a>     <span class="keyword">typedef</span> std::map&lt;std::string,X&gt; <a class="code" href="structESMS_1_1ScriptListT.html#a125382ec9b8b79459977a2294cf071ba">MapType</a>;
+<a name="l00397"></a>00397 
+<a name="l00398"></a><a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">00398</a>     <a class="code" href="structESMS_1_1ScriptListT.html#a125382ec9b8b79459977a2294cf071ba">MapType</a> <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>;
+<a name="l00399"></a>00399 
+<a name="l00400"></a>00400     <span class="comment">// Load one object of this type</span>
+<a name="l00401"></a><a class="code" href="structESMS_1_1ScriptListT.html#a9692f63719b3253baf07fd765c437024">00401</a>     <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1ScriptListT.html#a9692f63719b3253baf07fd765c437024">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)
+<a name="l00402"></a>00402     {
+<a name="l00403"></a>00403       <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> ref;
+<a name="l00404"></a>00404       ref.load (esm);
+<a name="l00405"></a>00405 
+<a name="l00406"></a>00406       std::string realId = <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (ref.data.name.toString());
+<a name="l00407"></a>00407 
+<a name="l00408"></a>00408       std::swap (<a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>[realId], ref);
+<a name="l00409"></a>00409     }
+<a name="l00410"></a>00410 
+<a name="l00411"></a>00411     <span class="comment">// Find the given object ID, or return NULL if not found.</span>
+<a name="l00412"></a><a class="code" href="structESMS_1_1ScriptListT.html#a92e0f43b2f01b33375abe678ea369e1a">00412</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1ScriptListT.html#a92e0f43b2f01b33375abe678ea369e1a">search</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00413"></a>00413 <span class="keyword">    </span>{
+<a name="l00414"></a>00414         std::string id2 = <a class="code" href="structESMS_1_1RecList.html#a08dc1a9dc9265ad70a76f6b8b081e03f">toLower</a> (<span class="keywordtype">id</span>);
+<a name="l00415"></a>00415 
+<a name="l00416"></a>00416         <span class="keyword">typename</span> MapType::const_iterator iter = <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.find (id2);
+<a name="l00417"></a>00417 
+<a name="l00418"></a>00418         <span class="keywordflow">if</span> (iter == <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.end())
+<a name="l00419"></a>00419             <span class="keywordflow">return</span> NULL;
+<a name="l00420"></a>00420 
+<a name="l00421"></a>00421         <span class="keywordflow">return</span> &amp;iter-&gt;second;
+<a name="l00422"></a>00422     }
+<a name="l00423"></a>00423 
+<a name="l00424"></a>00424     <span class="comment">// Find the given object ID (throws an exception if not found)</span>
+<a name="l00425"></a><a class="code" href="structESMS_1_1ScriptListT.html#a3052505d27dfbab1c9a5409e376af75f">00425</a>     <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1ScriptListT.html#a3052505d27dfbab1c9a5409e376af75f">find</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00426"></a>00426 <span class="keyword">    </span>{
+<a name="l00427"></a>00427         <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> *<span class="keywordtype">object</span> = <a class="code" href="structESMS_1_1ScriptListT.html#a92e0f43b2f01b33375abe678ea369e1a">search</a> (<span class="keywordtype">id</span>);
+<a name="l00428"></a>00428 
+<a name="l00429"></a>00429         <span class="keywordflow">if</span> (!<span class="keywordtype">object</span>)
+<a name="l00430"></a>00430             <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;object &quot;</span> + <span class="keywordtype">id</span> + <span class="stringliteral">&quot; not found&quot;</span>);
+<a name="l00431"></a>00431 
+<a name="l00432"></a>00432         <span class="keywordflow">return</span> object;
+<a name="l00433"></a>00433     }
+<a name="l00434"></a>00434 
+<a name="l00435"></a><a class="code" href="structESMS_1_1ScriptListT.html#a8184e0aef40cb18e1bf065e92b7ddefc">00435</a>     <span class="keywordtype">int</span> <a class="code" href="structESMS_1_1ScriptListT.html#a8184e0aef40cb18e1bf065e92b7ddefc">getSize</a>() { <span class="keywordflow">return</span> <a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.size(); }
+<a name="l00436"></a>00436 
+<a name="l00437"></a><a class="code" href="structESMS_1_1ScriptListT.html#a5397a9c3a0e5daa4ca1e180adb69255a">00437</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1ScriptListT.html#a5397a9c3a0e5daa4ca1e180adb69255a">listIdentifier</a> (std::vector&lt;std::string&gt;&amp; identifier)<span class="keyword"> const</span>
+<a name="l00438"></a>00438 <span class="keyword">    </span>{
+<a name="l00439"></a>00439         <span class="keywordflow">for</span> (<span class="keyword">typename</span> MapType::const_iterator iter (<a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.begin()); iter!=<a class="code" href="structESMS_1_1ScriptListT.html#a3209b1fb98de2b6530d246604a1822a5">list</a>.end(); ++iter)
+<a name="l00440"></a>00440             identifier.push_back (iter-&gt;first);
+<a name="l00441"></a>00441     }
+<a name="l00442"></a>00442   };
+<a name="l00443"></a>00443 
+<a name="l00444"></a>00444   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt;
+<a name="l00445"></a><a class="code" href="structESMS_1_1IndexListT.html">00445</a>   <span class="keyword">struct </span><a class="code" href="structESMS_1_1IndexListT.html">IndexListT</a>
+<a name="l00446"></a>00446   {
+<a name="l00447"></a><a class="code" href="structESMS_1_1IndexListT.html#a5d20913fb1d1ca74e1b6c34ed3b69084">00447</a>         <span class="keyword">typedef</span> std::map&lt;int, X&gt; <a class="code" href="structESMS_1_1IndexListT.html#a5d20913fb1d1ca74e1b6c34ed3b69084">MapType</a>;
+<a name="l00448"></a>00448 
+<a name="l00449"></a><a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">00449</a>         <a class="code" href="structESMS_1_1IndexListT.html#a5d20913fb1d1ca74e1b6c34ed3b69084">MapType</a> <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>;
+<a name="l00450"></a>00450 
+<a name="l00451"></a><a class="code" href="structESMS_1_1IndexListT.html#aa5bf92e76f08e0b5daad4484499913d7">00451</a>         <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1IndexListT.html#aa5bf92e76f08e0b5daad4484499913d7">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
+<a name="l00452"></a>00452         {
+<a name="l00453"></a>00453             <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> ref;
+<a name="l00454"></a>00454             ref.load (esm);
+<a name="l00455"></a>00455             <span class="keywordtype">int</span> index = ref.index;
+<a name="l00456"></a>00456             <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>[index] = ref;
+<a name="l00457"></a>00457         }
+<a name="l00458"></a>00458 
+<a name="l00459"></a><a class="code" href="structESMS_1_1IndexListT.html#a6b57ba55aea96ad6a037a0247e6b8b8d">00459</a>         <span class="keywordtype">int</span> <a class="code" href="structESMS_1_1IndexListT.html#a6b57ba55aea96ad6a037a0247e6b8b8d">getSize</a>()
+<a name="l00460"></a>00460         {
+<a name="l00461"></a>00461             <span class="keywordflow">return</span> <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>.size();
+<a name="l00462"></a>00462         }
+<a name="l00463"></a>00463 
+<a name="l00464"></a><a class="code" href="structESMS_1_1IndexListT.html#a7c05c219e1c7cd07a0bc87347ef11a39">00464</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structESMS_1_1IndexListT.html#a7c05c219e1c7cd07a0bc87347ef11a39">listIdentifier</a> (std::vector&lt;std::string&gt;&amp; identifier)<span class="keyword"> const </span>{}
+<a name="l00465"></a>00465 
+<a name="l00466"></a>00466         <span class="comment">// Find the given object ID, or return NULL if not found.</span>
+<a name="l00467"></a><a class="code" href="structESMS_1_1IndexListT.html#a9ddc9bcd4ef0445a383f75dc4247e2fb">00467</a>         <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1IndexListT.html#a9ddc9bcd4ef0445a383f75dc4247e2fb">search</a> (<span class="keywordtype">int</span> <span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00468"></a>00468 <span class="keyword">        </span>{
+<a name="l00469"></a>00469             <span class="keyword">typename</span> MapType::const_iterator iter = <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>.find (<span class="keywordtype">id</span>);
+<a name="l00470"></a>00470 
+<a name="l00471"></a>00471             <span class="keywordflow">if</span> (iter == <a class="code" href="structESMS_1_1IndexListT.html#a82bfb0c6a154687c72dafec1c0d9bbeb">list</a>.end())
+<a name="l00472"></a>00472                 <span class="keywordflow">return</span> NULL;
+<a name="l00473"></a>00473 
+<a name="l00474"></a>00474             <span class="keywordflow">return</span> &amp;iter-&gt;second;
+<a name="l00475"></a>00475         }
+<a name="l00476"></a>00476 
+<a name="l00477"></a>00477         <span class="comment">// Find the given object ID (throws an exception if not found)</span>
+<a name="l00478"></a><a class="code" href="structESMS_1_1IndexListT.html#ad0b0085c951bed49ef828550d19a523f">00478</a>         <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="structESMS_1_1IndexListT.html#ad0b0085c951bed49ef828550d19a523f">find</a> (<span class="keywordtype">int</span> <span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00479"></a>00479 <span class="keyword">        </span>{
+<a name="l00480"></a>00480             <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> *<span class="keywordtype">object</span> = <a class="code" href="structESMS_1_1IndexListT.html#a9ddc9bcd4ef0445a383f75dc4247e2fb">search</a> (<span class="keywordtype">id</span>);
+<a name="l00481"></a>00481 
+<a name="l00482"></a>00482             <span class="keywordflow">if</span> (!<span class="keywordtype">object</span>)
+<a name="l00483"></a>00483             {
+<a name="l00484"></a>00484                 std::ostringstream error;
+<a name="l00485"></a>00485                 error &lt;&lt; <span class="stringliteral">&quot;object &quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot; not found&quot;</span>;
+<a name="l00486"></a>00486                 <span class="keywordflow">throw</span> std::runtime_error (error.str());
+<a name="l00487"></a>00487             }
+<a name="l00488"></a>00488 
+<a name="l00489"></a>00489             <span class="keywordflow">return</span> object;
+<a name="l00490"></a>00490         }
+<a name="l00491"></a>00491   };
 <a name="l00492"></a>00492 
-<a name="l00493"></a>00493             <span class="keywordflow">return</span> object;
-<a name="l00494"></a>00494         }
-<a name="l00495"></a>00495   };
-<a name="l00496"></a>00496 
-<a name="l00497"></a>00497   <span class="comment">/* We need special lists for:</span>
-<a name="l00498"></a>00498 <span class="comment"></span>
-<a name="l00499"></a>00499 <span class="comment">     Path grids</span>
-<a name="l00500"></a>00500 <span class="comment">  */</span>
-<a name="l00501"></a>00501 }
-<a name="l00502"></a>00502 <span class="preprocessor">#endif</span>
+<a name="l00493"></a>00493   <span class="comment">/* We need special lists for:</span>
+<a name="l00494"></a>00494 <span class="comment"></span>
+<a name="l00495"></a>00495 <span class="comment">     Path grids</span>
+<a name="l00496"></a>00496 <span class="comment">  */</span>
+<a name="l00497"></a>00497 }
+<a name="l00498"></a>00498 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

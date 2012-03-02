@@ -105,80 +105,82 @@
 <a name="l00089"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a81bae51aaea6349d26de38be7fe449db">00089</a>         btCollisionShape* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a81bae51aaea6349d26de38be7fe449db">externalCollisionShape</a>;
 <a name="l00090"></a>00090 
 <a name="l00091"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aceef1d1cc3be0d8ec0c6fedda15a4d69">00091</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aceef1d1cc3be0d8ec0c6fedda15a4d69">mName</a>;
-<a name="l00092"></a>00092     };
-<a name="l00093"></a>00093 
-<a name="l00099"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">00099</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>: <span class="keyword">public</span> btRigidBody
-<a name="l00100"></a>00100     {
-<a name="l00101"></a>00101     <span class="keyword">public</span>:
-<a name="l00102"></a>00102         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#a955f2f5d6493fece795c88ebd6844186">RigidBody</a>(btRigidBody::btRigidBodyConstructionInfo&amp; CI,std::string name);
-<a name="l00103"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">00103</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">mName</a>;
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105         <span class="comment">//is this body used for raycasting only?</span>
-<a name="l00106"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">00106</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">collide</a>;
-<a name="l00107"></a>00107     };
-<a name="l00108"></a>00108 
-<a name="l00115"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">00115</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">PhysicEngine</a>
-<a name="l00116"></a>00116     {
-<a name="l00117"></a>00117     <span class="keyword">public</span>:
-<a name="l00121"></a>00121         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a986bfd7ffff4ae505938448a7b2b0e8f">PhysicEngine</a>(<a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* shapeLoader);
-<a name="l00122"></a>00122 
-<a name="l00126"></a>00126         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a439ff603c7062b5ce3bd58994864325a">~PhysicEngine</a>();
-<a name="l00127"></a>00127 
-<a name="l00132"></a>00132         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad5017ce74ea5852afb1086da938fcafa">createRigidBody</a>(std::string <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>,std::string name);
+<a name="l00092"></a>00092 
+<a name="l00097"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a40842fd8d54a85005623f1de59f21629">00097</a>         btVector3 <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a40842fd8d54a85005623f1de59f21629">mTranslation</a>;
+<a name="l00098"></a>00098     };
+<a name="l00099"></a>00099 
+<a name="l00105"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">00105</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>: <span class="keyword">public</span> btRigidBody
+<a name="l00106"></a>00106     {
+<a name="l00107"></a>00107     <span class="keyword">public</span>:
+<a name="l00108"></a>00108         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#a955f2f5d6493fece795c88ebd6844186">RigidBody</a>(btRigidBody::btRigidBodyConstructionInfo&amp; CI,std::string name);
+<a name="l00109"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">00109</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">mName</a>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111         <span class="comment">//is this body used for raycasting only?</span>
+<a name="l00112"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">00112</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">collide</a>;
+<a name="l00113"></a>00113     };
+<a name="l00114"></a>00114 
+<a name="l00121"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">00121</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">PhysicEngine</a>
+<a name="l00122"></a>00122     {
+<a name="l00123"></a>00123     <span class="keyword">public</span>:
+<a name="l00127"></a>00127         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a986bfd7ffff4ae505938448a7b2b0e8f">PhysicEngine</a>(<a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* shapeLoader);
+<a name="l00128"></a>00128 
+<a name="l00132"></a>00132         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a439ff603c7062b5ce3bd58994864325a">~PhysicEngine</a>();
 <a name="l00133"></a>00133 
-<a name="l00137"></a>00137         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a003a80648cb39340a15f89763ea42ecd">addRigidBody</a>(<a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* body);
-<a name="l00138"></a>00138 
-<a name="l00142"></a>00142         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a0d36ce2dba5d5ef9083f77d22f7a6637">removeRigidBody</a>(std::string name);
-<a name="l00143"></a>00143 
-<a name="l00147"></a>00147         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4bedec38fc4391ff3445f0439b49e1fe">deleteRigidBody</a>(std::string name);
-<a name="l00148"></a>00148 
-<a name="l00153"></a>00153         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae51cdb6eb3a3bb5fbf28e0dafac2efd0">getRigidBody</a>(std::string name);
+<a name="l00138"></a>00138         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad5017ce74ea5852afb1086da938fcafa">createRigidBody</a>(std::string <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>,std::string name);
+<a name="l00139"></a>00139 
+<a name="l00143"></a>00143         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a003a80648cb39340a15f89763ea42ecd">addRigidBody</a>(<a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* body);
+<a name="l00144"></a>00144 
+<a name="l00148"></a>00148         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a0d36ce2dba5d5ef9083f77d22f7a6637">removeRigidBody</a>(std::string name);
+<a name="l00149"></a>00149 
+<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4bedec38fc4391ff3445f0439b49e1fe">deleteRigidBody</a>(std::string name);
 <a name="l00154"></a>00154 
-<a name="l00158"></a>00158         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a642a4e225deb013cd1702c38f40b43fa">addCharacter</a>(std::string name);
-<a name="l00159"></a>00159 
-<a name="l00163"></a>00163         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a85c362d5e924159efd841f25d369ea09">removeCharacter</a>(std::string name);
-<a name="l00164"></a>00164 
-<a name="l00169"></a>00169         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">PhysicActor</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa19b7d502f850f6ac2aed578fe98bd88">getCharacter</a>(std::string name);
+<a name="l00159"></a>00159         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae51cdb6eb3a3bb5fbf28e0dafac2efd0">getRigidBody</a>(std::string name);
+<a name="l00160"></a>00160 
+<a name="l00164"></a>00164         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a642a4e225deb013cd1702c38f40b43fa">addCharacter</a>(std::string name);
+<a name="l00165"></a>00165 
+<a name="l00169"></a>00169         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a85c362d5e924159efd841f25d369ea09">removeCharacter</a>(std::string name);
 <a name="l00170"></a>00170 
-<a name="l00174"></a>00174         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1d3d8b1ded5a1408ea77e30253924e14">stepSimulation</a>(<span class="keywordtype">double</span> deltaT);
-<a name="l00175"></a>00175 
-<a name="l00179"></a>00179         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab37f024664ba779040e690bbd466e2f3">emptyEventLists</a>(<span class="keywordtype">void</span>);
-<a name="l00180"></a>00180 
-<a name="l00185"></a>00185         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a9d99fbbc0c6f11eda680e095b83b109f">createDebugRendering</a>();
+<a name="l00175"></a>00175         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">PhysicActor</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa19b7d502f850f6ac2aed578fe98bd88">getCharacter</a>(std::string name);
+<a name="l00176"></a>00176 
+<a name="l00180"></a>00180         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1d3d8b1ded5a1408ea77e30253924e14">stepSimulation</a>(<span class="keywordtype">double</span> deltaT);
+<a name="l00181"></a>00181 
+<a name="l00185"></a>00185         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab37f024664ba779040e690bbd466e2f3">emptyEventLists</a>(<span class="keywordtype">void</span>);
 <a name="l00186"></a>00186 
-<a name="l00191"></a>00191         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad1bfae71beab4ade1eb462190e8fbf7e">setDebugRenderingMode</a>(<span class="keywordtype">int</span> mode);
+<a name="l00191"></a>00191         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a9d99fbbc0c6f11eda680e095b83b109f">createDebugRendering</a>();
 <a name="l00192"></a>00192 
-<a name="l00196"></a>00196         std::pair&lt;std::string,float&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a59bc8bb1b2ca30bec109c551c0b04862">rayTest</a>(btVector3&amp; from,btVector3&amp; to);
-<a name="l00197"></a>00197 
-<a name="l00198"></a>00198         <span class="comment">//event list of non player object</span>
-<a name="l00199"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">00199</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">NPEventList</a>;
-<a name="l00200"></a>00200 
-<a name="l00201"></a>00201         <span class="comment">//event list affecting the player</span>
-<a name="l00202"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">00202</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">PEventList</a>;
+<a name="l00197"></a>00197         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad1bfae71beab4ade1eb462190e8fbf7e">setDebugRenderingMode</a>(<span class="keywordtype">int</span> mode);
+<a name="l00198"></a>00198 
+<a name="l00202"></a>00202         std::pair&lt;std::string,float&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a59bc8bb1b2ca30bec109c551c0b04862">rayTest</a>(btVector3&amp; from,btVector3&amp; to);
 <a name="l00203"></a>00203 
-<a name="l00204"></a>00204         <span class="comment">//Bullet Stuff</span>
-<a name="l00205"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">00205</a>         btBroadphaseInterface* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">broadphase</a>;
-<a name="l00206"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">00206</a>         btDefaultCollisionConfiguration* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">collisionConfiguration</a>;
-<a name="l00207"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">00207</a>         btSequentialImpulseConstraintSolver* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">solver</a>;
-<a name="l00208"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">00208</a>         btCollisionDispatcher* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">dispatcher</a>;
-<a name="l00209"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">00209</a>         btDiscreteDynamicsWorld* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">dynamicsWorld</a>;
-<a name="l00210"></a>00210 
-<a name="l00211"></a>00211         <span class="comment">//the NIF file loader.</span>
-<a name="l00212"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">00212</a>         <a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">mShapeLoader</a>;
-<a name="l00213"></a>00213 
-<a name="l00214"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8bae47545418c88457526c569e008022">00214</a>         std::map&lt;std::string,RigidBody*&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8bae47545418c88457526c569e008022">RigidBodyMap</a>;
-<a name="l00215"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a391acfe3d28d3fee434546c7f23131a9">00215</a>         std::map&lt;std::string,PhysicActor*&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a391acfe3d28d3fee434546c7f23131a9">PhysicActorMap</a>;
+<a name="l00204"></a>00204         <span class="comment">//event list of non player object</span>
+<a name="l00205"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">00205</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">NPEventList</a>;
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207         <span class="comment">//event list affecting the player</span>
+<a name="l00208"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">00208</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">PEventList</a>;
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210         <span class="comment">//Bullet Stuff</span>
+<a name="l00211"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">00211</a>         btBroadphaseInterface* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">broadphase</a>;
+<a name="l00212"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">00212</a>         btDefaultCollisionConfiguration* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">collisionConfiguration</a>;
+<a name="l00213"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">00213</a>         btSequentialImpulseConstraintSolver* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">solver</a>;
+<a name="l00214"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">00214</a>         btCollisionDispatcher* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">dispatcher</a>;
+<a name="l00215"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">00215</a>         btDiscreteDynamicsWorld* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">dynamicsWorld</a>;
 <a name="l00216"></a>00216 
-<a name="l00217"></a>00217         <span class="comment">//debug rendering</span>
-<a name="l00218"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">00218</a>         <a class="code" href="classBtOgre_1_1DebugDrawer.html">BtOgre::DebugDrawer</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">mDebugDrawer</a>;
-<a name="l00219"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">00219</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">isDebugCreated</a>;
-<a name="l00220"></a>00220     };
-<a name="l00221"></a>00221 
-<a name="l00222"></a>00222 }}
-<a name="l00223"></a>00223 
-<a name="l00224"></a>00224 <span class="preprocessor">#endif</span>
+<a name="l00217"></a>00217         <span class="comment">//the NIF file loader.</span>
+<a name="l00218"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">00218</a>         <a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">mShapeLoader</a>;
+<a name="l00219"></a>00219 
+<a name="l00220"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8bae47545418c88457526c569e008022">00220</a>         std::map&lt;std::string,RigidBody*&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8bae47545418c88457526c569e008022">RigidBodyMap</a>;
+<a name="l00221"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a391acfe3d28d3fee434546c7f23131a9">00221</a>         std::map&lt;std::string,PhysicActor*&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a391acfe3d28d3fee434546c7f23131a9">PhysicActorMap</a>;
+<a name="l00222"></a>00222 
+<a name="l00223"></a>00223         <span class="comment">//debug rendering</span>
+<a name="l00224"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">00224</a>         <a class="code" href="classBtOgre_1_1DebugDrawer.html">BtOgre::DebugDrawer</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">mDebugDrawer</a>;
+<a name="l00225"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">00225</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">isDebugCreated</a>;
+<a name="l00226"></a>00226     };
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228 }}
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

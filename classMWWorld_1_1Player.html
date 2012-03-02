@@ -41,8 +41,8 @@
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#a20f2ebd4b42955fc6bda4f16d7e3da68">Player</a> (<a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a> *renderer, const <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> *player, <a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;world)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#a0da9fff8534801aa4f26a1575dd726fe">~Player</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#a6338df3710851c53829df83640028c0f">setPos</a> (float _x, float _y, float _z, bool updateCamera=false)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the player position. Uses Morrowind coordinates.  <a href="#a6338df3710851c53829df83640028c0f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#a5fef09d3bd1876e652dd9767000e3fee">setPos</a> (float x, float y, float z)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the player position. Uses Morrowind coordinates.  <a href="#a5fef09d3bd1876e652dd9767000e3fee"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#aa3a583ff4d6725c0f729b17d515d04d2">setCell</a> (<a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *cellStore)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">getPlayer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Player.html#a32a26e73c01b7821eb50dcedeb17f11d">getRenderer</a> ()</td></tr>
@@ -108,6 +108,9 @@
       </table>
 </div>
 <div class="memdoc">
+
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Do not make a copy of classes defined in esm/p records. </dd></dl>
+</p>
 
 </div>
 </div>
@@ -409,7 +412,7 @@
 
 </div>
 </div>
-<a class="anchor" id="a6338df3710851c53829df83640028c0f"></a><!-- doxytag: member="MWWorld::Player::setPos" ref="a6338df3710851c53829df83640028c0f" args="(float _x, float _y, float _z, bool updateCamera=false)" -->
+<a class="anchor" id="a5fef09d3bd1876e652dd9767000e3fee"></a><!-- doxytag: member="MWWorld::Player::setPos" ref="a5fef09d3bd1876e652dd9767000e3fee" args="(float x, float y, float z)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -417,25 +420,19 @@
           <td class="memname">void MWWorld::Player::setPos </td>
           <td>(</td>
           <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>_x</em>, </td>
+          <td class="paramname"> <em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>_y</em>, </td>
+          <td class="paramname"> <em>y</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>_z</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>updateCamera</em> = <code>false</code></td><td>&nbsp;</td>
+          <td class="paramname"> <em>z</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -447,6 +444,9 @@
 <div class="memdoc">
 
 <p>Set the player position. Uses Morrowind coordinates. </p>
+
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>This fcuntion should be removed during the mwrender-refactoring. </dd></dl>
+</p>
 
 </div>
 </div>
@@ -634,7 +634,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="mwworld_2player_8cpp.html">player.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:39 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:03 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

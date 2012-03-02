@@ -42,13 +42,13 @@
 <a name="l00015"></a>00015 {
 <a name="l00017"></a><a class="code" href="structMWWorld_1_1ListHandles.html">00017</a>     <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1ListHandles.html" title="List all (Ogre-)handles.">ListHandles</a>
 <a name="l00018"></a>00018     {
-<a name="l00019"></a><a class="code" href="structMWWorld_1_1ListHandles.html#ad079f4ef9419dcce63a117ffd09ddf60">00019</a>         std::vector&lt;std::string&gt; <a class="code" href="structMWWorld_1_1ListHandles.html#ad079f4ef9419dcce63a117ffd09ddf60">mHandles</a>;
+<a name="l00019"></a><a class="code" href="structMWWorld_1_1ListHandles.html#a069954cbdaf5cd5d123cfcf1d5ece214">00019</a>         std::vector&lt;Ogre::SceneNode*&gt; <a class="code" href="structMWWorld_1_1ListHandles.html#a069954cbdaf5cd5d123cfcf1d5ece214">mHandles</a>;
 <a name="l00020"></a>00020 
 <a name="l00021"></a><a class="code" href="structMWWorld_1_1ListHandles.html#af5d73c677f20971a938c1ddc40b08e01">00021</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1ListHandles.html#af5d73c677f20971a938c1ddc40b08e01">operator() </a>(<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; ref, <a class="code" href="classMWWorld_1_1RefData.html">RefData</a>&amp; data)
 <a name="l00022"></a>00022         {
-<a name="l00023"></a>00023             std::string handle = data.<a class="code" href="classMWWorld_1_1RefData.html#a4e0141af28a736179e4c81cffd2b4288">getHandle</a>();
-<a name="l00024"></a>00024             <span class="keywordflow">if</span> (!handle.empty())
-<a name="l00025"></a>00025                 <a class="code" href="structMWWorld_1_1ListHandles.html#ad079f4ef9419dcce63a117ffd09ddf60">mHandles</a>.push_back (handle);
+<a name="l00023"></a>00023             Ogre::SceneNode* handle = data.<a class="code" href="classMWWorld_1_1RefData.html#aa3524bb33340c0d9f45a2b771b3ae89f">getBaseNode</a>();
+<a name="l00024"></a>00024             <span class="keywordflow">if</span> (handle)
+<a name="l00025"></a>00025                 <a class="code" href="structMWWorld_1_1ListHandles.html#a069954cbdaf5cd5d123cfcf1d5ece214">mHandles</a>.push_back (handle);
 <a name="l00026"></a>00026             <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00027"></a>00027         }
 <a name="l00028"></a>00028     };
@@ -56,7 +56,7 @@
 <a name="l00030"></a>00030 
 <a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

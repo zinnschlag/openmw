@@ -38,63 +38,65 @@
 <a name="l00011"></a>00011 
 <a name="l00012"></a>00012 <span class="keyword">namespace </span>Files
 <a name="l00013"></a>00013 {
-<a name="l00014"></a><a class="code" href="structFiles_1_1NameLess.html">00014</a>     <span class="keyword">struct </span><a class="code" href="structFiles_1_1NameLess.html">NameLess</a>
-<a name="l00015"></a>00015     {
-<a name="l00016"></a><a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">00016</a>         <span class="keywordtype">bool</span> <a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">mStrict</a>;
-<a name="l00017"></a>00017 
-<a name="l00018"></a><a class="code" href="structFiles_1_1NameLess.html#a924375deeff666e6623bed257ce55226">00018</a>         <a class="code" href="structFiles_1_1NameLess.html#a924375deeff666e6623bed257ce55226">NameLess</a> (<span class="keywordtype">bool</span> strict) : <a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">mStrict</a> (strict) {}
+<a name="l00014"></a><a class="code" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">00014</a>     <span class="keyword">typedef</span> std::vector&lt;boost::filesystem::path&gt; <a class="code" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">PathContainer</a>;
+<a name="l00015"></a>00015 
+<a name="l00016"></a><a class="code" href="structFiles_1_1NameLess.html">00016</a>     <span class="keyword">struct </span><a class="code" href="structFiles_1_1NameLess.html">NameLess</a>
+<a name="l00017"></a>00017     {
+<a name="l00018"></a><a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">00018</a>         <span class="keywordtype">bool</span> <a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">mStrict</a>;
 <a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="structFiles_1_1NameLess.html#a129b21e9d0fd53903c64c064aecfb743">00020</a>         <span class="keywordtype">bool</span> <a class="code" href="structFiles_1_1NameLess.html#a129b21e9d0fd53903c64c064aecfb743">operator() </a>(<span class="keyword">const</span> std::string&amp; left, <span class="keyword">const</span> std::string&amp; right)<span class="keyword"> const</span>
-<a name="l00021"></a>00021 <span class="keyword">        </span>{
-<a name="l00022"></a>00022             <span class="keywordflow">if</span> (<a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">mStrict</a>)
-<a name="l00023"></a>00023                 <span class="keywordflow">return</span> left&lt;right;
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025             std::size_t min = std::min (left.length(), right.length());
-<a name="l00026"></a>00026             std::locale loc;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028             <span class="keywordflow">for</span> (std::size_t i=0; i&lt;min; ++i)
-<a name="l00029"></a>00029             {
-<a name="l00030"></a>00030                 <span class="keywordtype">char</span> l = std::tolower (left[i], loc);
-<a name="l00031"></a>00031                 <span class="keywordtype">char</span> r = std::tolower (right[i], loc);
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033                 <span class="keywordflow">if</span> (l&lt;r)
-<a name="l00034"></a>00034                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00035"></a>00035                 <span class="keywordflow">if</span> (l&gt;r)
-<a name="l00036"></a>00036                     <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00037"></a>00037             }
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039             <span class="keywordflow">return</span> left.length()&lt;right.length();
-<a name="l00040"></a>00040         }
-<a name="l00041"></a>00041     };
-<a name="l00042"></a>00042 
-<a name="l00048"></a><a class="code" href="classFiles_1_1MultiDirCollection.html">00048</a>     <span class="keyword">class </span><a class="code" href="classFiles_1_1MultiDirCollection.html" title="File collection across several directories.">MultiDirCollection</a>
-<a name="l00049"></a>00049     {
-<a name="l00050"></a>00050         <span class="keyword">public</span>:
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classFiles_1_1MultiDirCollection.html#a215c581ac33429b63823677d15657b52">00052</a>             <span class="keyword">typedef</span> std::map&lt;std::string, boost::filesystem::path, NameLess&gt; <a class="code" href="classFiles_1_1MultiDirCollection.html#a215c581ac33429b63823677d15657b52">TContainer</a>;
-<a name="l00053"></a><a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">00053</a>             <span class="keyword">typedef</span> TContainer::const_iterator <a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">TIter</a>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055         <span class="keyword">private</span>:
+<a name="l00020"></a><a class="code" href="structFiles_1_1NameLess.html#a924375deeff666e6623bed257ce55226">00020</a>         <a class="code" href="structFiles_1_1NameLess.html#a924375deeff666e6623bed257ce55226">NameLess</a> (<span class="keywordtype">bool</span> strict) : <a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">mStrict</a> (strict) {}
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="structFiles_1_1NameLess.html#a129b21e9d0fd53903c64c064aecfb743">00022</a>         <span class="keywordtype">bool</span> <a class="code" href="structFiles_1_1NameLess.html#a129b21e9d0fd53903c64c064aecfb743">operator() </a>(<span class="keyword">const</span> std::string&amp; left, <span class="keyword">const</span> std::string&amp; right)<span class="keyword"> const</span>
+<a name="l00023"></a>00023 <span class="keyword">        </span>{
+<a name="l00024"></a>00024             <span class="keywordflow">if</span> (<a class="code" href="structFiles_1_1NameLess.html#a8c5a2f1fc39dcb5563e197232c87aad2">mStrict</a>)
+<a name="l00025"></a>00025                 <span class="keywordflow">return</span> left&lt;right;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027             std::size_t min = std::min (left.length(), right.length());
+<a name="l00028"></a>00028             std::locale loc;
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030             <span class="keywordflow">for</span> (std::size_t i=0; i&lt;min; ++i)
+<a name="l00031"></a>00031             {
+<a name="l00032"></a>00032                 <span class="keywordtype">char</span> l = std::tolower (left[i], loc);
+<a name="l00033"></a>00033                 <span class="keywordtype">char</span> r = std::tolower (right[i], loc);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035                 <span class="keywordflow">if</span> (l&lt;r)
+<a name="l00036"></a>00036                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00037"></a>00037                 <span class="keywordflow">if</span> (l&gt;r)
+<a name="l00038"></a>00038                     <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00039"></a>00039             }
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041             <span class="keywordflow">return</span> left.length()&lt;right.length();
+<a name="l00042"></a>00042         }
+<a name="l00043"></a>00043     };
+<a name="l00044"></a>00044 
+<a name="l00050"></a><a class="code" href="classFiles_1_1MultiDirCollection.html">00050</a>     <span class="keyword">class </span><a class="code" href="classFiles_1_1MultiDirCollection.html" title="File collection across several directories.">MultiDirCollection</a>
+<a name="l00051"></a>00051     {
+<a name="l00052"></a>00052         <span class="keyword">public</span>:
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classFiles_1_1MultiDirCollection.html#a215c581ac33429b63823677d15657b52">00054</a>             <span class="keyword">typedef</span> std::map&lt;std::string, boost::filesystem::path, NameLess&gt; <a class="code" href="classFiles_1_1MultiDirCollection.html#a215c581ac33429b63823677d15657b52">TContainer</a>;
+<a name="l00055"></a><a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">00055</a>             <span class="keyword">typedef</span> TContainer::const_iterator <a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">TIter</a>;
 <a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classFiles_1_1MultiDirCollection.html#a9c82273ce0df9c693c82fe424d3d6c16">00057</a>             <a class="code" href="classFiles_1_1MultiDirCollection.html#a215c581ac33429b63823677d15657b52">TContainer</a> <a class="code" href="classFiles_1_1MultiDirCollection.html#a9c82273ce0df9c693c82fe424d3d6c16">mFiles</a>;
+<a name="l00057"></a>00057         <span class="keyword">private</span>:
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059         <span class="keyword">public</span>:
+<a name="l00059"></a><a class="code" href="classFiles_1_1MultiDirCollection.html#a9c82273ce0df9c693c82fe424d3d6c16">00059</a>             <a class="code" href="classFiles_1_1MultiDirCollection.html#a215c581ac33429b63823677d15657b52">TContainer</a> <a class="code" href="classFiles_1_1MultiDirCollection.html#a9c82273ce0df9c693c82fe424d3d6c16">mFiles</a>;
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <a class="code" href="classFiles_1_1MultiDirCollection.html#ac5ccab3f56b08963394c38aec36e7a50">MultiDirCollection</a> (<span class="keyword">const</span> std::vector&lt;boost::filesystem::path&gt;&amp; directories,
-<a name="l00062"></a>00062                 <span class="keyword">const</span> std::string&amp; extension, <span class="keywordtype">bool</span> foldCase);
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068             boost::filesystem::path <a class="code" href="classFiles_1_1MultiDirCollection.html#aed95548cc8fd6167c9b888f04ea253a5">getPath</a> (<span class="keyword">const</span> std::string&amp; file) <span class="keyword">const</span>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">TIter</a> <a class="code" href="classFiles_1_1MultiDirCollection.html#a851239282c982e7c34cae34df4e4d7bc" title="Return iterator pointing to the first file.">begin</a>() <span class="keyword">const</span>;
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077             <a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">TIter</a> <a class="code" href="classFiles_1_1MultiDirCollection.html#a11613e4ead872657d239fa7ccf310515" title="Return iterator pointing past the last file.">end</a>() <span class="keyword">const</span>;
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080     };
-<a name="l00081"></a>00081 }
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="preprocessor">#endif</span>
+<a name="l00061"></a>00061         <span class="keyword">public</span>:
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063             <a class="code" href="classFiles_1_1MultiDirCollection.html#a05eb3e2c91812c00ff3db4354d7f91fb">MultiDirCollection</a> (<span class="keyword">const</span> <a class="code" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">Files::PathContainer</a>&amp; directories,
+<a name="l00064"></a>00064                 <span class="keyword">const</span> std::string&amp; extension, <span class="keywordtype">bool</span> foldCase);
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070             boost::filesystem::path <a class="code" href="classFiles_1_1MultiDirCollection.html#aed95548cc8fd6167c9b888f04ea253a5">getPath</a> (<span class="keyword">const</span> std::string&amp; file) <span class="keyword">const</span>;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076             <a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">TIter</a> <a class="code" href="classFiles_1_1MultiDirCollection.html#a851239282c982e7c34cae34df4e4d7bc" title="Return iterator pointing to the first file.">begin</a>() <span class="keyword">const</span>;
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079             <a class="code" href="classFiles_1_1MultiDirCollection.html#ad852393ed78b5cd0aa6306eff0cccffe">TIter</a> <a class="code" href="classFiles_1_1MultiDirCollection.html#a11613e4ead872657d239fa7ccf310515" title="Return iterator pointing past the last file.">end</a>() <span class="keyword">const</span>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     };
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -30,34 +30,34 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QDialog&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">class </span>QListWidget;
-<a name="l00007"></a>00007 <span class="keyword">class </span>QListWidgetItem;
-<a name="l00008"></a>00008 <span class="keyword">class </span>QStackedWidget;
-<a name="l00009"></a>00009 <span class="keyword">class </span>QStringListModel;
-<a name="l00010"></a>00010 <span class="keyword">class </span>QSettings;
-<a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">class </span><a class="code" href="classPlayPage.html">PlayPage</a>;
-<a name="l00013"></a>00013 <span class="keyword">class </span><a class="code" href="classGraphicsPage.html">GraphicsPage</a>;
-<a name="l00014"></a>00014 <span class="keyword">class </span><a class="code" href="classDataFilesPage.html">DataFilesPage</a>;
-<a name="l00015"></a>00015 
-<a name="l00016"></a><a class="code" href="classMainDialog.html">00016</a> <span class="keyword">class </span><a class="code" href="classMainDialog.html">MainDialog</a> : <span class="keyword">public</span> QDialog
-<a name="l00017"></a>00017 {
-<a name="l00018"></a>00018     Q_OBJECT
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">public</span>:
-<a name="l00021"></a>00021     <a class="code" href="classMainDialog.html#a7341348667296a5cee4f9c8817dc38e4">MainDialog</a>();
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="configurationmanager_8hpp.html">components/files/configurationmanager.hpp</a>&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">class </span>QListWidget;
+<a name="l00009"></a>00009 <span class="keyword">class </span>QListWidgetItem;
+<a name="l00010"></a>00010 <span class="keyword">class </span>QStackedWidget;
+<a name="l00011"></a>00011 <span class="keyword">class </span>QStringList;
+<a name="l00012"></a>00012 <span class="keyword">class </span>QStringListModel;
+<a name="l00013"></a>00013 <span class="keyword">class </span>QString;
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">class </span><a class="code" href="classPlayPage.html">PlayPage</a>;
+<a name="l00016"></a>00016 <span class="keyword">class </span><a class="code" href="classGraphicsPage.html">GraphicsPage</a>;
+<a name="l00017"></a>00017 <span class="keyword">class </span><a class="code" href="classDataFilesPage.html">DataFilesPage</a>;
+<a name="l00018"></a>00018 
+<a name="l00019"></a><a class="code" href="classMainDialog.html">00019</a> <span class="keyword">class </span><a class="code" href="classMainDialog.html">MainDialog</a> : <span class="keyword">public</span> QDialog
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021     Q_OBJECT
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">public</span> slots:
-<a name="l00024"></a>00024     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a3e4a306362939cc542bab411158da685">changePage</a>(QListWidgetItem *current, QListWidgetItem *previous);
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#aba5881a3616853389d98ee92168a82fe">play</a>();
-<a name="l00026"></a>00026     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a5fa1dd25252e69da1f77fa5a36ca4d9d">profileChanged</a>(<span class="keywordtype">int</span> index);
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">private</span>:
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a8a16ea1d5365fbe22226c6c611b6ab83">createIcons</a>();
-<a name="l00031"></a>00031     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#aa1873c3c94722673bb92ebb20ecb31e1">createPages</a>();
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a12041793fdd439ee30dc5f60e7236c11">setupConfig</a>();
-<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a668ff959aaf61073b158f9a59f26ccb9">writeConfig</a>();
+<a name="l00023"></a>00023 <span class="keyword">public</span>:
+<a name="l00024"></a>00024     <a class="code" href="classMainDialog.html#a7341348667296a5cee4f9c8817dc38e4">MainDialog</a>();
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026 <span class="keyword">public</span> slots:
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a3e4a306362939cc542bab411158da685">changePage</a>(QListWidgetItem *current, QListWidgetItem *previous);
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#aba5881a3616853389d98ee92168a82fe">play</a>();
+<a name="l00029"></a>00029     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a5fa1dd25252e69da1f77fa5a36ca4d9d">profileChanged</a>(<span class="keywordtype">int</span> index);
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="keyword">private</span>:
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a8a16ea1d5365fbe22226c6c611b6ab83">createIcons</a>();
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#aa1873c3c94722673bb92ebb20ecb31e1">createPages</a>();
 <a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a22527f253d8e15bfb91cf9566e3a7030">closeEvent</a>(QCloseEvent *event);
 <a name="l00035"></a>00035 
 <a name="l00036"></a><a class="code" href="classMainDialog.html#a50d18d7b44f7bcebce4a50f1295438a4">00036</a>     QListWidget *<a class="code" href="classMainDialog.html#a50d18d7b44f7bcebce4a50f1295438a4">mIconWidget</a>;
@@ -67,12 +67,12 @@
 <a name="l00040"></a><a class="code" href="classMainDialog.html#a20b48896c827a3e1ec12739c4723ca92">00040</a>     <a class="code" href="classGraphicsPage.html">GraphicsPage</a> *<a class="code" href="classMainDialog.html#a20b48896c827a3e1ec12739c4723ca92">mGraphicsPage</a>;
 <a name="l00041"></a><a class="code" href="classMainDialog.html#aac0aac8db84e67c3c943702d67390c86">00041</a>     <a class="code" href="classDataFilesPage.html">DataFilesPage</a> *<a class="code" href="classMainDialog.html#aac0aac8db84e67c3c943702d67390c86">mDataFilesPage</a>;
 <a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classMainDialog.html#a572f3c010509a53cc061d12df1d6e98a">00043</a>     QSettings *<a class="code" href="classMainDialog.html#a572f3c010509a53cc061d12df1d6e98a">mGameConfig</a>;
+<a name="l00043"></a><a class="code" href="classMainDialog.html#a694b6e70c2da8965c8aa436934717573">00043</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> <a class="code" href="classMainDialog.html#a694b6e70c2da8965c8aa436934717573">mCfgMgr</a>;
 <a name="l00044"></a>00044 };
 <a name="l00045"></a>00045 
 <a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Jul 31 20:24:38 2011 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:01 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
