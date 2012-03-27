@@ -276,6 +276,10 @@ void LocalMapBase::init(MyGUI::ScrollView* widget, OEngine::GUI::Layout* layout)
 {
     mLocalMap = widget;
     mLayout = layout;
+    mCurX = 0;
+    mCurY = 0;
+    mChanged = true;
+    mInterior = false;
 }
 
 void LocalMapBase::setCellPrefix(const std::string& prefix)
