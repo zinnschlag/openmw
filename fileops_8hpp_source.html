@@ -28,16 +28,31 @@
 <h1>components/files/fileops.hpp</h1><a href="fileops_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef COMPONENTS_FILES_FILEOPS_HPP</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define COMPONENTS_FILES_FILEOPS_HPP</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="keyword">namespace </span>Files
-<a name="l00005"></a>00005 {
-<a name="l00006"></a>00006 
-<a name="l00009"></a>00009 <span class="keywordtype">bool</span> <a class="code" href="namespaceFiles.html#a2795331a688b338e19a6bcb271c132ee" title="Check if a given path is an existing file (not a directory).">isFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name);
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 }
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;boost/filesystem/path.hpp&gt;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>Files
+<a name="l00011"></a>00011 {
 <a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="preprocessor">#endif </span><span class="comment">/* COMPONENTS_FILES_FILEOPS_HPP */</span>
+<a name="l00015"></a>00015 <span class="keywordtype">bool</span> <a class="code" href="namespaceFiles.html#a2795331a688b338e19a6bcb271c132ee" title="Check if a given path is an existing file (not a directory).">isFile</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name);
+<a name="l00016"></a>00016 
+<a name="l00018"></a><a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">00018</a>     <span class="keyword">typedef</span> std::vector&lt;boost::filesystem::path&gt; <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">PathContainer</a>;
+<a name="l00019"></a>00019 
+<a name="l00023"></a>00023     <span class="keywordtype">void</span> <a class="code" href="namespaceFiles.html#aa048725481a3a0424c28d5d4fb26173b">FileLister</a>( boost::filesystem::path currentPath, <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>&amp; list, <span class="keywordtype">bool</span> recursive);
+<a name="l00024"></a>00024 
+<a name="l00030"></a>00030     boost::filesystem::path <a class="code" href="namespaceFiles.html#ab6805b48ce055b37af49993fd63c9528">FileListLocator</a> (<span class="keyword">const</span> <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>&amp; list, <span class="keyword">const</span> boost::filesystem::path&amp; toFind,
+<a name="l00031"></a>00031                                              <span class="keywordtype">bool</span> strict, <span class="keywordtype">bool</span> ignoreExtensions);
+<a name="l00032"></a>00032 
+<a name="l00034"></a>00034     std::string <a class="code" href="namespaceFiles.html#ab6805b48ce055b37af49993fd63c9528">FileListLocator</a> (<span class="keyword">const</span> <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>&amp; list,<span class="keyword">const</span> std::string&amp; toFind, <span class="keywordtype">bool</span> strict, <span class="keywordtype">bool</span> ignoreExtensions);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 }
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="preprocessor">#endif </span><span class="comment">/* COMPONENTS_FILES_FILEOPS_HPP */</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

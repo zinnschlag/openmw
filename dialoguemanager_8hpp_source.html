@@ -30,35 +30,77 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;<a class="code" href="loadinfo_8hpp.html">components/esm/loadinfo.hpp</a>&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWWorld
-<a name="l00009"></a>00009 {
-<a name="l00010"></a>00010     <span class="keyword">class </span>Environment;
-<a name="l00011"></a>00011 }
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWDialogue
-<a name="l00014"></a>00014 {
-<a name="l00015"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html">00015</a>     <span class="keyword">class </span><a class="code" href="classMWDialogue_1_1DialogueManager.html">DialogueManager</a>
-<a name="l00016"></a>00016     {
-<a name="l00017"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#aa91784190d34ed879d89714f2a562247">00017</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWDialogue_1_1DialogueManager.html#aa91784190d34ed879d89714f2a562247">mEnvironment</a>;
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="streamerrorhandler_8hpp.html">components/compiler/streamerrorhandler.hpp</a>&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../mwscript/compilercontext.hpp&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwscript/interpretercontext.hpp&quot;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;<a class="code" href="components_2compiler_2output_8hpp.html">components/compiler/output.hpp</a>&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWWorld
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016     <span class="keyword">class </span>Environment;
+<a name="l00017"></a>00017 }
 <a name="l00018"></a>00018 
-<a name="l00019"></a>00019             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#acab1b73b5cf290f87f2016c036eb46bd">isMatching</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="structESM_1_1DialInfo_1_1SelectStruct.html">ESM::DialInfo::SelectStruct</a>&amp; select) <span class="keyword">const</span>;
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#acab1b73b5cf290f87f2016c036eb46bd">isMatching</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="structESM_1_1DialInfo.html">ESM::DialInfo</a>&amp; info) <span class="keyword">const</span>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keyword">public</span>:
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWDialogue
+<a name="l00020"></a>00020 {
+<a name="l00021"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html">00021</a>     <span class="keyword">class </span><a class="code" href="classMWDialogue_1_1DialogueManager.html">DialogueManager</a>
+<a name="l00022"></a>00022     {
+<a name="l00023"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#aa91784190d34ed879d89714f2a562247">00023</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWDialogue_1_1DialogueManager.html#aa91784190d34ed879d89714f2a562247">mEnvironment</a>;
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025             <a class="code" href="classMWDialogue_1_1DialogueManager.html#ae796ef34b7216ef2376314afde8525d9">DialogueManager</a> (<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
+<a name="l00025"></a>00025             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#acab1b73b5cf290f87f2016c036eb46bd">isMatching</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="structESM_1_1DialInfo_1_1SelectStruct.html">ESM::DialInfo::SelectStruct</a>&amp; select) <span class="keyword">const</span>;
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a2a537be1a3a201dfbede541ac70f42b5">startDialogue</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00027"></a>00027             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#acab1b73b5cf290f87f2016c036eb46bd">isMatching</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="structESM_1_1DialInfo.html">ESM::DialInfo</a>&amp; info) <span class="keyword">const</span>;
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029     };
-<a name="l00030"></a>00030 }
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#endif</span>
+<a name="l00029"></a>00029             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a7ab8227826e8b346a21db91a0b0fc2a0">functionFilter</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="structESM_1_1DialInfo.html">ESM::DialInfo</a>&amp; info,<span class="keywordtype">bool</span> choice);
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a3a85e39a0f435deff8c54b88d2ae43f8">parseText</a>(std::string text);
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a1d9b3a25c03b00b9bae012734e111a5e">updateTopics</a>();
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a79330ee7dc2063683618f949bdb26f4c">00035</a>             std::map&lt;std::string,ESM::Dialogue&gt; <a class="code" href="classMWDialogue_1_1DialogueManager.html#a79330ee7dc2063683618f949bdb26f4c">mDialogueMap</a>;
+<a name="l00036"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a18a3a466e69f5b8efa32cf49692c5615">00036</a>             std::map&lt;std::string,bool&gt; <a class="code" href="classMWDialogue_1_1DialogueManager.html#a18a3a466e69f5b8efa32cf49692c5615">knownTopics</a>;<span class="comment">// Those are the topics the player knows.</span>
+<a name="l00037"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#ace1e8bbc80a714864fa4dd13d7f4c22f">00037</a>             std::list&lt;std::string&gt; <a class="code" href="classMWDialogue_1_1DialogueManager.html#ace1e8bbc80a714864fa4dd13d7f4c22f">actorKnownTopics</a>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a53b3f00dae3a02fafeb030861f04abee">00039</a>             <a class="code" href="classMWScript_1_1CompilerContext.html">MWScript::CompilerContext</a> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a53b3f00dae3a02fafeb030861f04abee">mCompilerContext</a>;
+<a name="l00040"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#ade860472bfc5edf514a144c160d9443f">00040</a>             std::ostream <a class="code" href="classMWDialogue_1_1DialogueManager.html#ade860472bfc5edf514a144c160d9443f">mErrorStream</a>;
+<a name="l00041"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#ac03af46b9a1ad9f3bedb6857d15d613e">00041</a>             <a class="code" href="classCompiler_1_1StreamErrorHandler.html" title="Error handler implementation: Write errors into stream.">Compiler::StreamErrorHandler</a> <a class="code" href="classMWDialogue_1_1DialogueManager.html#ac03af46b9a1ad9f3bedb6857d15d613e">mErrorHandler</a>;
+<a name="l00042"></a>00042             
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a2a508b79a10fc5ce70d881d58b43cff8">compile</a> (<span class="keyword">const</span> std::string&amp; cmd,std::vector&lt;Interpreter::Type_Code&gt;&amp; code);
+<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a2435dc26d12e657643b8e8c5c49032f7">executeScript</a>(std::string script);
+<a name="l00046"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a9e310208ba86f6c8031d08f4cb5f7d6e">00046</a>             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a9e310208ba86f6c8031d08f4cb5f7d6e">mActor</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a54a1de03988e481cd7924a5fb744375b">printError</a>(std::string error);
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a32f73de4a2b39064a80427bfa02e7a6a">00050</a>             <span class="keywordtype">int</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a32f73de4a2b39064a80427bfa02e7a6a">mChoice</a>;
+<a name="l00051"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a67fd06e3c084c71ffa3eb8a0d01e8555">00051</a>             std::map&lt;std::string,int&gt; <a class="code" href="classMWDialogue_1_1DialogueManager.html#a67fd06e3c084c71ffa3eb8a0d01e8555">mChoiceMap</a>;
+<a name="l00052"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#ad0c6e68c462168de2098cfd97085f2b4">00052</a>             std::string <a class="code" href="classMWDialogue_1_1DialogueManager.html#ad0c6e68c462168de2098cfd97085f2b4">mLastTopic</a>;
+<a name="l00053"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a29a75b44c176ca7c6bc223f78612b985">00053</a>             <a class="code" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a29a75b44c176ca7c6bc223f78612b985">mLastDialogue</a>;
+<a name="l00054"></a><a class="code" href="classMWDialogue_1_1DialogueManager.html#a92e7de7acea7438b367f998b750b01b8">00054</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a92e7de7acea7438b367f998b750b01b8">mIsInChoice</a>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056         <span class="keyword">public</span>:
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058             <a class="code" href="classMWDialogue_1_1DialogueManager.html#ab39b78f8fd12a2d74da8f15344a0796a">DialogueManager</a> (<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment,<span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a2a537be1a3a201dfbede541ac70f42b5">startDialogue</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a21a32c81a126a2070768e0bd7059a2b9">addTopic</a>(std::string topic);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a7bcadc63ef8b7d4c12f4c3f4f9677e0a">askQuestion</a>(std::string question,<span class="keywordtype">int</span> choice);
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066             <span class="comment">//calbacks for the GUI</span>
+<a name="l00067"></a>00067             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#ab31fc1d886022036ea150319f77082ec">keywordSelected</a>(std::string keyword);
+<a name="l00068"></a>00068             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6d5083eaa463b01e86a1594732cf71bc">goodbyeSelected</a>();
+<a name="l00069"></a>00069             <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a4a142542034f74d9a8e3d5f87806ad4d">questionAnswered</a>(std::string answere);
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071     };
+<a name="l00072"></a>00072 }
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:01 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

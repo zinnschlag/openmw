@@ -38,8 +38,8 @@
 <a name="l00011"></a>00011 <span class="keyword">namespace </span>Sound {
 <a name="l00012"></a>00012 
 <a name="l00014"></a>00014 
-<a name="l00027"></a><a class="code" href="namespaceMangle_1_1Sound.html#a17f53946904ca84ed0ea36806e6ad327">00027</a> <span class="keyword">class </span><a class="code" href="classMangle_1_1Sound_1_1Sound.html">Sound</a>;
-<a name="l00028"></a>00028 <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound&gt; <a class="code" href="namespaceMangle_1_1Sound.html#a17f53946904ca84ed0ea36806e6ad327">SoundPtr</a>;
+<a name="l00027"></a>00027 <span class="keyword">class </span>Sound;
+<a name="l00028"></a>00028 <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound&gt; <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">SoundPtr</a>;
 <a name="l00029"></a><a class="code" href="namespaceMangle_1_1Sound.html#aebdcf9c240ddb0591d9444f17cc5a788">00029</a> <span class="keyword">typedef</span> boost::weak_ptr  &lt;Sound&gt; <a class="code" href="namespaceMangle_1_1Sound.html#aebdcf9c240ddb0591d9444f17cc5a788">WSoundPtr</a>;
 <a name="l00030"></a>00030 
 <a name="l00031"></a><a class="code" href="classMangle_1_1Sound_1_1Sound.html">00031</a> <span class="keyword">class </span><a class="code" href="classMangle_1_1Sound_1_1Sound.html">Sound</a>
@@ -65,53 +65,55 @@
 <a name="l00061"></a>00061 
 <a name="l00063"></a>00063   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#aaa1f96e47ed619f127b52167455d19c0" title="Set loop mode.">setRepeat</a>(<span class="keywordtype">bool</span>) = 0;
 <a name="l00064"></a>00064 
-<a name="l00066"></a>00066 
-<a name="l00070"></a>00070   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#abc6433f27320a82697979f103090e120" title="Set streaming mode.">setStreaming</a>(<span class="keywordtype">bool</span>) = 0;
-<a name="l00071"></a>00071 
-<a name="l00073"></a>00073 
-<a name="l00076"></a>00076   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a17f53946904ca84ed0ea36806e6ad327">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#a77296d077c32491c21b01a09be0fc5c2" title="Create a new instance of this sound.">clone</a>() = 0;
-<a name="l00077"></a>00077 
-<a name="l00079"></a><a class="code" href="classMangle_1_1Sound_1_1Sound.html#a87a539c198cb40201968b366c2e72618">00079</a>   <span class="keyword">virtual</span> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#a87a539c198cb40201968b366c2e72618" title="Virtual destructor.">~Sound</a>() {}
-<a name="l00080"></a>00080 };
-<a name="l00081"></a>00081 
-<a name="l00083"></a>00083 
-<a name="l00092"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html">00092</a> <span class="keyword">class </span><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html" title="Factory interface for creating Sound objects.">SoundFactory</a>
-<a name="l00093"></a>00093 {
-<a name="l00094"></a>00094  <span class="keyword">public</span>:
-<a name="l00096"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a13f066fc768c65455cde9f5e004af3b0">00096</a>   <span class="keyword">virtual</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a13f066fc768c65455cde9f5e004af3b0" title="Virtual destructor.">~SoundFactory</a>() {}
-<a name="l00097"></a>00097 
-<a name="l00102"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c5b9b2a16e4bdfb8446e92231cd8518">00102</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c5b9b2a16e4bdfb8446e92231cd8518" title="If set to true, you should call update() regularly (every frame or so) on this sound...">needsUpdate</a>;
-<a name="l00103"></a>00103 
-<a name="l00108"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a886df6948cb671ccabdd5b5ad59c675b">00108</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a886df6948cb671ccabdd5b5ad59c675b" title="true if 3D functions are available. If false, all use of 3D sounds and calls to setPos...">has3D</a>;
-<a name="l00109"></a>00109 
-<a name="l00111"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a8617528e85a9f9050e7d31d2171f45fb">00111</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a8617528e85a9f9050e7d31d2171f45fb" title="true if we can load sounds directly from file (containing encoded data)">canLoadFile</a>;
+<a name="l00066"></a>00066   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#abb66d3ff1a85ce8a0a194590b7a2693e" title="If set to true the sound will not be affected by player movement.">setRelative</a>(<span class="keywordtype">bool</span>) = 0;
+<a name="l00067"></a>00067 
+<a name="l00069"></a>00069 
+<a name="l00073"></a>00073   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#abc6433f27320a82697979f103090e120" title="Set streaming mode.">setStreaming</a>(<span class="keywordtype">bool</span>) = 0;
+<a name="l00074"></a>00074 
+<a name="l00076"></a>00076 
+<a name="l00079"></a>00079   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#a77296d077c32491c21b01a09be0fc5c2" title="Create a new instance of this sound.">clone</a>() = 0;
+<a name="l00080"></a>00080 
+<a name="l00082"></a><a class="code" href="classMangle_1_1Sound_1_1Sound.html#a87a539c198cb40201968b366c2e72618">00082</a>   <span class="keyword">virtual</span> <a class="code" href="classMangle_1_1Sound_1_1Sound.html#a87a539c198cb40201968b366c2e72618" title="Virtual destructor.">~Sound</a>() {}
+<a name="l00083"></a>00083 };
+<a name="l00084"></a>00084 
+<a name="l00086"></a>00086 
+<a name="l00095"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html">00095</a> <span class="keyword">class </span><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html" title="Factory interface for creating Sound objects.">SoundFactory</a>
+<a name="l00096"></a>00096 {
+<a name="l00097"></a>00097  <span class="keyword">public</span>:
+<a name="l00099"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a13f066fc768c65455cde9f5e004af3b0">00099</a>   <span class="keyword">virtual</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a13f066fc768c65455cde9f5e004af3b0" title="Virtual destructor.">~SoundFactory</a>() {}
+<a name="l00100"></a>00100 
+<a name="l00105"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c5b9b2a16e4bdfb8446e92231cd8518">00105</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c5b9b2a16e4bdfb8446e92231cd8518" title="If set to true, you should call update() regularly (every frame or so) on this sound...">needsUpdate</a>;
+<a name="l00106"></a>00106 
+<a name="l00111"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a886df6948cb671ccabdd5b5ad59c675b">00111</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a886df6948cb671ccabdd5b5ad59c675b" title="true if 3D functions are available. If false, all use of 3D sounds and calls to setPos...">has3D</a>;
 <a name="l00112"></a>00112 
-<a name="l00114"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a67b859c4c7808e7c67305de20f17a3ce">00114</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a67b859c4c7808e7c67305de20f17a3ce" title="If true, we can lound sound files from a Stream (containing encoded data).">canLoadStream</a>;
+<a name="l00114"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a8617528e85a9f9050e7d31d2171f45fb">00114</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a8617528e85a9f9050e7d31d2171f45fb" title="true if we can load sounds directly from file (containing encoded data)">canLoadFile</a>;
 <a name="l00115"></a>00115 
-<a name="l00117"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c019ba837f7deb3f411e97c51bb0a0e">00117</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c019ba837f7deb3f411e97c51bb0a0e" title="true if we can load sounds from a SampleSource (containing raw data)">canLoadSource</a>;
+<a name="l00117"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a67b859c4c7808e7c67305de20f17a3ce">00117</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a67b859c4c7808e7c67305de20f17a3ce" title="If true, we can lound sound files from a Stream (containing encoded data).">canLoadStream</a>;
 <a name="l00118"></a>00118 
-<a name="l00132"></a>00132   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a17f53946904ca84ed0ea36806e6ad327">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a845c7a94e4a31493d2e0f366a167c80f" title="Load a sound from a sample source. Only valid if canLoadSource is true.">loadRaw</a>(<a class="code" href="namespaceMangle_1_1Sound.html#a1cb52ee4078d5bcba3b575d42dc76bb8">SampleSourcePtr</a> <a class="code" href="common_8cpp.html#a840a0d7531fdd6c6aa7569032c82b831">input</a>) = 0;
-<a name="l00133"></a>00133 
-<a name="l00142"></a>00142   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a17f53946904ca84ed0ea36806e6ad327">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5497126146dbd63b2a6953d9e6cef3a5" title="Load a sound file from stream. Only valid if canLoadStream is true.">load</a>(<a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Stream::StreamPtr</a> <a class="code" href="common_8cpp.html#a840a0d7531fdd6c6aa7569032c82b831">input</a>) = 0;
-<a name="l00143"></a>00143 
-<a name="l00152"></a>00152   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a17f53946904ca84ed0ea36806e6ad327">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5497126146dbd63b2a6953d9e6cef3a5" title="Load a sound file from stream. Only valid if canLoadStream is true.">load</a>(<span class="keyword">const</span> std::string &amp;file) = 0;
-<a name="l00153"></a>00153 
-<a name="l00155"></a>00155 
-<a name="l00161"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a16c7d864525b5b8e34f492646b6ab172">00161</a>   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a16c7d864525b5b8e34f492646b6ab172" title="Call this every frame if needsUpdate is true.">update</a>() { assert(0); }
-<a name="l00162"></a>00162 
-<a name="l00164"></a>00164 
-<a name="l00171"></a>00171   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#af5d5fb75b656c27035b6f67a171e78e5" title="Set listener position (coordinates, front and up vectors).">setListenerPos</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z,
-<a name="l00172"></a>00172                               <span class="keywordtype">float</span> fx, <span class="keywordtype">float</span> fy, <span class="keywordtype">float</span> fz,
-<a name="l00173"></a>00173                               <span class="keywordtype">float</span> ux, <span class="keywordtype">float</span> uy, <span class="keywordtype">float</span> uz) = 0;
-<a name="l00174"></a>00174 };
-<a name="l00175"></a>00175 
-<a name="l00176"></a><a class="code" href="namespaceMangle_1_1Sound.html#ac8d118acafa193a9a38c59c53b8b756d">00176</a> <span class="keyword">typedef</span> boost::shared_ptr&lt;SoundFactory&gt; <a class="code" href="namespaceMangle_1_1Sound.html#ac8d118acafa193a9a38c59c53b8b756d">SoundFactoryPtr</a>;
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178 }} <span class="comment">// Namespaces</span>
-<a name="l00179"></a>00179 
-<a name="l00180"></a>00180 <span class="preprocessor">#endif</span>
+<a name="l00120"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c019ba837f7deb3f411e97c51bb0a0e">00120</a>   <span class="keywordtype">bool</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5c019ba837f7deb3f411e97c51bb0a0e" title="true if we can load sounds from a SampleSource (containing raw data)">canLoadSource</a>;
+<a name="l00121"></a>00121 
+<a name="l00135"></a>00135   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a845c7a94e4a31493d2e0f366a167c80f" title="Load a sound from a sample source. Only valid if canLoadSource is true.">loadRaw</a>(<a class="code" href="namespaceMangle_1_1Sound.html#a1cb52ee4078d5bcba3b575d42dc76bb8">SampleSourcePtr</a> <a class="code" href="common_8cpp.html#a840a0d7531fdd6c6aa7569032c82b831">input</a>) = 0;
+<a name="l00136"></a>00136 
+<a name="l00145"></a>00145   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5497126146dbd63b2a6953d9e6cef3a5" title="Load a sound file from stream. Only valid if canLoadStream is true.">load</a>(<a class="code" href="namespaceMangle_1_1Stream.html#a47486d5829634d5fd2b654ed5fd52528">Stream::StreamPtr</a> <a class="code" href="common_8cpp.html#a840a0d7531fdd6c6aa7569032c82b831">input</a>) = 0;
+<a name="l00146"></a>00146 
+<a name="l00155"></a>00155   <span class="keyword">virtual</span> <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">SoundPtr</a> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a5497126146dbd63b2a6953d9e6cef3a5" title="Load a sound file from stream. Only valid if canLoadStream is true.">load</a>(<span class="keyword">const</span> std::string &amp;file) = 0;
+<a name="l00156"></a>00156 
+<a name="l00158"></a>00158 
+<a name="l00164"></a><a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a16c7d864525b5b8e34f492646b6ab172">00164</a>   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#a16c7d864525b5b8e34f492646b6ab172" title="Call this every frame if needsUpdate is true.">update</a>() { assert(0); }
+<a name="l00165"></a>00165 
+<a name="l00167"></a>00167 
+<a name="l00174"></a>00174   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMangle_1_1Sound_1_1SoundFactory.html#af5d5fb75b656c27035b6f67a171e78e5" title="Set listener position (coordinates, front and up vectors).">setListenerPos</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z,
+<a name="l00175"></a>00175                               <span class="keywordtype">float</span> fx, <span class="keywordtype">float</span> fy, <span class="keywordtype">float</span> fz,
+<a name="l00176"></a>00176                               <span class="keywordtype">float</span> ux, <span class="keywordtype">float</span> uy, <span class="keywordtype">float</span> uz) = 0;
+<a name="l00177"></a>00177 };
+<a name="l00178"></a>00178 
+<a name="l00179"></a><a class="code" href="namespaceMangle_1_1Sound.html#ac8d118acafa193a9a38c59c53b8b756d">00179</a> <span class="keyword">typedef</span> boost::shared_ptr&lt;SoundFactory&gt; <a class="code" href="namespaceMangle_1_1Sound.html#ac8d118acafa193a9a38c59c53b8b756d">SoundFactoryPtr</a>;
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181 }} <span class="comment">// Namespaces</span>
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

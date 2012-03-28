@@ -27,22 +27,119 @@
   </div>
 </div>
 <div class="contents">
-<h1>apps/openmw/mwgui/dialogue.cpp File Reference</h1><code>#include &quot;<a class="el" href="dialogue_8cpp.html">dialogue.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="window__base_8hpp_source.html">window_base.hpp</a>&quot;</code><br/>
-<code>#include &lt;boost/array.hpp&gt;</code><br/>
+<h1>apps/openmw/mwgui/dialogue.cpp File Reference</h1><code>#include &quot;<a class="el" href="dialogue_8hpp_source.html">dialogue.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="dialogue_8cpp.html">dialogue_history.hpp</a>&quot;</code><br/>
 <code>#include &lt;<a class="el" href="layout_8hpp_source.html">openengine/gui/layout.hpp</a>&gt;</code><br/>
 <code>#include &quot;<a class="el" href="window__manager_8hpp_source.html">window_manager.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="widgets_8hpp_source.html">widgets.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="store_8hpp_source.html">components/esm_store/store.hpp</a>&quot;</code><br/>
+<code>#include &quot;../mwworld/environment.hpp&quot;</code><br/>
+<code>#include &quot;../mwdialogue/dialoguemanager.hpp&quot;</code><br/>
 <code>#include &lt;assert.h&gt;</code><br/>
 <code>#include &lt;iostream&gt;</code><br/>
 <code>#include &lt;iterator&gt;</code><br/>
 <code>#include &lt;boost/algorithm/string.hpp&gt;</code><br/>
 <code>#include &lt;boost/lexical_cast.hpp&gt;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="dialogue_8cpp.html#a33f9b48786426bba59d98146588132db">lower_string</a> (const std::string &amp;str)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string::size_type&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="dialogue_8cpp.html#a10c3b17021a42074fdc2457e130adef1">find_str_ci</a> (const std::string &amp;str, const std::string &amp;substr, size_t pos)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="dialogue_8cpp.html#a7e87db4f8a52d8077b1b615d958bdf41">addColorInString</a> (std::string &amp;str, const std::string &amp;keyword, std::string color1, std::string color2)</td></tr>
 </table>
+<hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a7e87db4f8a52d8077b1b615d958bdf41"></a><!-- doxytag: member="dialogue.cpp::addColorInString" ref="a7e87db4f8a52d8077b1b615d958bdf41" args="(std::string &amp;str, const std::string &amp;keyword, std::string color1, std::string color2)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addColorInString </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>color1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&nbsp;</td>
+          <td class="paramname"> <em>color2</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a10c3b17021a42074fdc2457e130adef1"></a><!-- doxytag: member="dialogue.cpp::find_str_ci" ref="a10c3b17021a42074fdc2457e130adef1" args="(const std::string &amp;str, const std::string &amp;substr, size_t pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string::size_type find_str_ci </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>substr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a33f9b48786426bba59d98146588132db"></a><!-- doxytag: member="dialogue.cpp::lower_string" ref="a33f9b48786426bba59d98146588132db" args="(const std::string &amp;str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string lower_string </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>str</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Copied from the internet. </p>
+
+</div>
+</div>
+</div>
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

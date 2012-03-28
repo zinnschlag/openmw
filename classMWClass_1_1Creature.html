@@ -53,14 +53,14 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#ac5c7f9cfbb1924e01c906ab93c1ad5cf">activate</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Generate action for activation.  <a href="#ac5c7f9cfbb1924e01c906ab93c1ad5cf"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <br class="typebreak"/>
-<a class="el" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a><br class="typebreak"/>
-&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a8b08fdbbb0a594d9fe1f732621bdb3f6">getContainerStore</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return container store.  <a href="#a8b08fdbbb0a594d9fe1f732621bdb3f6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a49fd1741fb71fb78ee5d73025f818df7">getContainerStore</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return container store.  <a href="#a49fd1741fb71fb78ee5d73025f818df7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a54f0ca8e887e7d9600043232ad3a7127">getScript</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return name of the script attached to ptr.  <a href="#a54f0ca8e887e7d9600043232ad3a7127"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#ae0d8ebed441cf3e9b8198b13354eb953">registerSelf</a> ()</td></tr>
+<tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a7531a44c10de78012a59b1e3b4b1726b">ensureCustomData</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="ac5c7f9cfbb1924e01c906ab93c1ad5cf"></a><!-- doxytag: member="MWClass::Creature::activate" ref="ac5c7f9cfbb1924e01c906ab93c1ad5cf" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Ptr &amp;actor, const MWWorld::Environment &amp;environment) const " -->
@@ -162,12 +162,30 @@
 
 </div>
 </div>
-<a class="anchor" id="a8b08fdbbb0a594d9fe1f732621bdb3f6"></a><!-- doxytag: member="MWClass::Creature::getContainerStore" ref="a8b08fdbbb0a594d9fe1f732621bdb3f6" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<a class="anchor" id="a7531a44c10de78012a59b1e3b4b1726b"></a><!-- doxytag: member="MWClass::Creature::ensureCustomData" ref="a7531a44c10de78012a59b1e3b4b1726b" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp; MWClass::Creature::getContainerStore </td>
+          <td class="memname">void MWClass::Creature::ensureCustomData </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a49fd1741fb71fb78ee5d73025f818df7"></a><!-- doxytag: member="MWClass::Creature::getContainerStore" ref="a49fd1741fb71fb78ee5d73025f818df7" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a> &amp; MWClass::Creature::getContainerStore </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>ptr</em></td>
@@ -180,7 +198,7 @@
 
 <p>Return container store. </p>
 
-<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a416e7d417e01318922609a074ed21f08">MWWorld::Class</a>.</p>
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#af1209aa1b5a2bf560a182fcc8a9e8547">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -361,7 +379,7 @@
 <li>apps/openmw/mwclass/<a class="el" href="creature_8cpp.html">creature.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:03 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

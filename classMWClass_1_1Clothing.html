@@ -44,10 +44,15 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#a581894a5a5b9f714f34306b88adacdf0">activate</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Generate action for activation.  <a href="#a581894a5a5b9f714f34306b88adacdf0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#ad0fbfc3d25e1b721c6e5d817766f241f">insertIntoContainer</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;containerStore) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Insert into a containe.  <a href="#ad0fbfc3d25e1b721c6e5d817766f241f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#af17ab443d2514bc4e562e763f39e0c47">getScript</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return name of the script attached to ptr.  <a href="#af17ab443d2514bc4e562e763f39e0c47"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; std::vector<br class="typebreak"/>
+&lt; int &gt;, bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#a3110764b7fe224ad7cc6c7f8120520b4">getEquipmentSlots</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#ab925ba8f4e727062daf27299690a37cc">getEquipmentSkill</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#adfada43ccc90c06139a660b846859d0e">getUpSoundId</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the pick up sound Id.  <a href="#adfada43ccc90c06139a660b846859d0e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#a673f98f041b99a6efa6d410e5dded959">getDownSoundId</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the put down sound Id.  <a href="#a673f98f041b99a6efa6d410e5dded959"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Clothing.html#aafc5690d8277c62c09af45df8e7efec7">registerSelf</a> ()</td></tr>
 </table>
@@ -86,6 +91,87 @@
 <p>Generate action for activation. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a238fad88603547ad7c7a30b07e851ace">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a673f98f041b99a6efa6d410e5dded959"></a><!-- doxytag: member="MWClass::Clothing::getDownSoundId" ref="a673f98f041b99a6efa6d410e5dded959" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Environment &amp;environment) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MWClass::Clothing::getDownSoundId </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>environment</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return the put down sound Id. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#aa2139a254c0b99fb6b3f0435391463ec">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab925ba8f4e727062daf27299690a37cc"></a><!-- doxytag: member="MWClass::Clothing::getEquipmentSkill" ref="ab925ba8f4e727062daf27299690a37cc" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Environment &amp;environment) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MWClass::Clothing::getEquipmentSkill </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>environment</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ad396692c9630219e8304894423a3ec49">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3110764b7fe224ad7cc6c7f8120520b4"></a><!-- doxytag: member="MWClass::Clothing::getEquipmentSlots" ref="a3110764b7fe224ad7cc6c7f8120520b4" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; std::vector&lt; int &gt;, bool &gt; MWClass::Clothing::getEquipmentSlots </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>first: Return IDs of the slot this object can be equipped in; second: can object stay stacked when equipped? </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ae0d0d41fb229c8d8767f7bccc7b16f1c">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -132,12 +218,12 @@
 
 </div>
 </div>
-<a class="anchor" id="ad0fbfc3d25e1b721c6e5d817766f241f"></a><!-- doxytag: member="MWClass::Clothing::insertIntoContainer" ref="ad0fbfc3d25e1b721c6e5d817766f241f" args="(const MWWorld::Ptr &amp;ptr, MWWorld::ContainerStore&lt; MWWorld::RefData &gt; &amp;containerStore) const " -->
+<a class="anchor" id="adfada43ccc90c06139a660b846859d0e"></a><!-- doxytag: member="MWClass::Clothing::getUpSoundId" ref="adfada43ccc90c06139a660b846859d0e" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Environment &amp;environment) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWClass::Clothing::insertIntoContainer </td>
+          <td class="memname">std::string MWClass::Clothing::getUpSoundId </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>ptr</em>, </td>
@@ -145,8 +231,8 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;&nbsp;</td>
-          <td class="paramname"> <em>containerStore</em></td><td>&nbsp;</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>environment</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -157,9 +243,9 @@
 </div>
 <div class="memdoc">
 
-<p>Insert into a containe. </p>
+<p>Return the pick up sound Id. </p>
 
-<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a2004bc07586a96b06f4c7b14a779aed9">MWWorld::Class</a>.</p>
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a929f75ad9600b36c10582aa7587bbf9b">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -245,6 +331,7 @@
       </table>
 </div>
 <div class="memdoc">
+<p>Return the index of the skill this item corresponds to when equiopped or -1, if there is no such skill. </p>
 
 </div>
 </div>
@@ -253,7 +340,7 @@
 <li>apps/openmw/mwclass/<a class="el" href="clothing_8cpp.html">clothing.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:03 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

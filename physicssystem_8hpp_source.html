@@ -39,7 +39,7 @@
 <a name="l00012"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html">00012</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>
 <a name="l00013"></a>00013     {
 <a name="l00014"></a>00014         <span class="keyword">public</span>:
-<a name="l00015"></a>00015             <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a7417bc6c40728606f2d3106e5ebb8766">PhysicsSystem</a> (<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend , <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* physEng);
+<a name="l00015"></a>00015             <a class="code" href="classMWWorld_1_1PhysicsSystem.html#ada14d0d259af7c214360fd9c7cbb84b0">PhysicsSystem</a> (<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend);
 <a name="l00016"></a>00016             <a class="code" href="classMWWorld_1_1PhysicsSystem.html#ae91acbda373f7f1a388bd4140f607f70">~PhysicsSystem</a> ();
 <a name="l00017"></a>00017 
 <a name="l00018"></a>00018             std::vector&lt; std::pair&lt;std::string, Ogre::Vector3&gt; &gt; <a class="code" href="classMWWorld_1_1PhysicsSystem.html#af749e4920d79f7fc436a24a2d5414c8a">doPhysics</a> (<span class="keywordtype">float</span> duration,
@@ -60,26 +60,32 @@
 <a name="l00033"></a>00033             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#af729ab8cafbcdcea080221e3bffc3080">scaleObject</a> (<span class="keyword">const</span> std::string&amp; handle, <span class="keywordtype">float</span> scale);
 <a name="l00034"></a>00034 
 <a name="l00035"></a>00035             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a8d6a65ca01b17c38e18aa9364608bc31">toggleCollisionMode</a>();
-<a name="l00036"></a>00036                          std::pair&lt;std::string, float&gt; <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a4d9703cecc5c7c990b8aea6359ebb62d">getFacedHandle</a> (<a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world);
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#addd580d5a1d2f4143bbeae65a294eff9">insertObjectPhysics</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, std::string model);
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040               <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a764db520a736ad218e3eec5e3b11ca3b">insertActorPhysics</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp;, std::string model);
+<a name="l00036"></a>00036             
+<a name="l00037"></a>00037             std::pair&lt;std::string, float&gt; <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a4d9703cecc5c7c990b8aea6359ebb62d">getFacedHandle</a> (<a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world);
+<a name="l00038"></a>00038             
+<a name="l00039"></a>00039             <span class="comment">// cast ray, return true if it hit something</span>
+<a name="l00040"></a>00040             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#ae21736125cae33d490e31b56e3042555">castRay</a>(<span class="keyword">const</span> Ogre::Vector3&amp; from, <span class="keyword">const</span> Ogre::Vector3&amp; to);
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keyword">private</span>:
-<a name="l00043"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6660076edfe0c27ca221a8546d767bc0">00043</a>             <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6660076edfe0c27ca221a8546d767bc0">mRender</a>;
-<a name="l00044"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6b45cde0c1155b9b3bf19710af4dbfc0">00044</a>             <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6b45cde0c1155b9b3bf19710af4dbfc0">mEngine</a>;
-<a name="l00045"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html#aa08f8906efb278809ae83def5459d128">00045</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#aa08f8906efb278809ae83def5459d128">mFreeFly</a>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a7417bc6c40728606f2d3106e5ebb8766">PhysicsSystem</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>&amp;);
-<a name="l00048"></a>00048             <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>&amp; <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a9c102a7cae01a6758f2ac9a27f6a7297">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>&amp;);
-<a name="l00049"></a>00049     };
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 }
+<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#addd580d5a1d2f4143bbeae65a294eff9">insertObjectPhysics</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, std::string model);
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a764db520a736ad218e3eec5e3b11ca3b">insertActorPhysics</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp;, std::string model);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046             <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWWorld_1_1PhysicsSystem.html#ad09782dff689e7eeab3012dd38619a04">getEngine</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keyword">private</span>:
+<a name="l00049"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6660076edfe0c27ca221a8546d767bc0">00049</a>             <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6660076edfe0c27ca221a8546d767bc0">mRender</a>;
+<a name="l00050"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6b45cde0c1155b9b3bf19710af4dbfc0">00050</a>             <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a6b45cde0c1155b9b3bf19710af4dbfc0">mEngine</a>;
+<a name="l00051"></a><a class="code" href="classMWWorld_1_1PhysicsSystem.html#aa08f8906efb278809ae83def5459d128">00051</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html#aa08f8906efb278809ae83def5459d128">mFreeFly</a>;
 <a name="l00052"></a>00052 
-<a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
+<a name="l00053"></a>00053             <a class="code" href="classMWWorld_1_1PhysicsSystem.html#ada14d0d259af7c214360fd9c7cbb84b0">PhysicsSystem</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>&amp;);
+<a name="l00054"></a>00054             <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>&amp; <a class="code" href="classMWWorld_1_1PhysicsSystem.html#a9c102a7cae01a6758f2ac9a27f6a7297">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a>&amp;);
+<a name="l00055"></a>00055     };
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

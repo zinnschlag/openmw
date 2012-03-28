@@ -30,91 +30,142 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;boost/filesystem.hpp&gt;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;boost/timer.hpp&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="ogre__output__updater_8hpp.html">mangle/sound/clients/ogre_output_updater.hpp</a>&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;<a class="code" href="ogre__listener__mover_8hpp.html">mangle/sound/clients/ogre_listener_mover.hpp</a>&gt;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
-<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;<a class="code" href="sndmanager_8hpp.html">openengine/sound/sndmanager.hpp</a>&gt;</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;<a class="code" href="multidircollection_8hpp.html">components/files/multidircollection.hpp</a>&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;<a class="code" href="sndmanager_8hpp.html">openengine/sound/sndmanager.hpp</a>&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;<a class="code" href="filelibrary_8hpp.html">components/files/filelibrary.hpp</a>&gt;</span>
 <a name="l00012"></a>00012 
-<a name="l00013"></a>00013 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
 <a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="keyword">namespace </span>Ogre
-<a name="l00016"></a>00016 {
-<a name="l00017"></a>00017     <span class="keyword">class </span>Root;
-<a name="l00018"></a>00018     <span class="keyword">class </span>Camera;
-<a name="l00019"></a>00019 }
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="keyword">namespace </span>ESMS
-<a name="l00022"></a>00022 {
-<a name="l00023"></a>00023     <span class="keyword">struct </span>ESMStore;
-<a name="l00024"></a>00024 }
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">namespace </span>MWWorld
-<a name="l00027"></a>00027 {
-<a name="l00028"></a>00028     <span class="keyword">struct </span>Environment;
-<a name="l00029"></a>00029 }
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="keyword">namespace </span>MWSound
-<a name="l00032"></a>00032 {
-<a name="l00033"></a>00033     <span class="comment">//SoundPtr *music;</span>
-<a name="l00034"></a><a class="code" href="classMWSound_1_1SoundManager.html">00034</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>
-<a name="l00035"></a>00035     {
-<a name="l00036"></a>00036             <span class="comment">// Hide implementation details - engine.cpp is compiling</span>
-<a name="l00037"></a>00037             <span class="comment">// enough as it is.</span>
-<a name="l00038"></a><a class="code" href="classMWSound_1_1SoundManager.html#aa394d3d32701b4038bc795c08583817d">00038</a>             <span class="keyword">struct </span><a class="code" href="structMWSound_1_1SoundManager_1_1SoundImpl.html">SoundImpl</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040             <a class="code" href="structMWSound_1_1SoundManager_1_1SoundImpl.html">SoundImpl</a> *<a class="code" href="classMWSound_1_1SoundManager.html#aa394d3d32701b4038bc795c08583817d">mData</a>;
-<a name="l00041"></a><a class="code" href="classMWSound_1_1SoundManager.html#a97db38150c2e32e1ce27e2adaeefb025">00041</a>             <a class="code" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">Files::PathContainer</a> <a class="code" href="classMWSound_1_1SoundManager.html#a97db38150c2e32e1ce27e2adaeefb025">files</a>;
-<a name="l00042"></a><a class="code" href="classMWSound_1_1SoundManager.html#a7fae99d40f69c71e2a842ef4f48223b4">00042</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a7fae99d40f69c71e2a842ef4f48223b4">fsStrict</a>;
-<a name="l00043"></a><a class="code" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">00043</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">mEnvironment</a>;
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classMWSound_1_1SoundManager.html#a212a98855559581068de33f60ab97a15">00045</a>             <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1SoundManager.html#a212a98855559581068de33f60ab97a15">total</a>;
-<a name="l00046"></a><a class="code" href="classMWSound_1_1SoundManager.html#a38c5140c1e380213668085db6f9f20bc">00046</a>             <a class="code" href="structESM_1_1Region.html">ESM::Region</a> <a class="code" href="classMWSound_1_1SoundManager.html#a38c5140c1e380213668085db6f9f20bc">test</a>;
-<a name="l00047"></a><a class="code" href="classMWSound_1_1SoundManager.html#a9c06e6ff07c84f12f29cf71cacad0c28">00047</a>             boost::timer <a class="code" href="classMWSound_1_1SoundManager.html#a9c06e6ff07c84f12f29cf71cacad0c28">timer</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a376978b82e97c328011243d46ea832b6">streamMusicFull</a> (<span class="keyword">const</span> std::string&amp; filename);
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <span class="keyword">public</span>:
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055             <a class="code" href="classMWSound_1_1SoundManager.html#aae900396116e8a80d666630e2f143f71">SoundManager</a>(Ogre::Root*, Ogre::Camera*, <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;store,
-<a name="l00056"></a>00056                    <span class="keyword">const</span> <a class="code" href="namespaceFiles.html#af3790e8467c480c3709fd47b09dde70c">Files::PathContainer</a>&amp; dataDir, <span class="keywordtype">bool</span> useSound, <span class="keywordtype">bool</span> <a class="code" href="namespaceanonymous__namespace_02bsa__archive_8cpp_03.html#ad8ae1802eee4569026221ec387ea783d">fsstrict</a>,
-<a name="l00057"></a>00057                    <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
-<a name="l00058"></a>00058             <a class="code" href="classMWSound_1_1SoundManager.html#abfdaaa5a59bb02a67db12b95b5defc82">~SoundManager</a>();
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>Ogre
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018     <span class="keyword">class </span>Root;
+<a name="l00019"></a>00019     <span class="keyword">class </span>Camera;
+<a name="l00020"></a>00020 }
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="namespaceMangle.html">00022</a> <span class="keyword">namespace </span>Mangle
+<a name="l00023"></a>00023 {
+<a name="l00024"></a><a class="code" href="namespaceMangle_1_1Sound.html">00024</a>     <span class="keyword">namespace </span><a class="code" href="classMangle_1_1Sound_1_1Sound.html">Sound</a>
+<a name="l00025"></a>00025     {
+<a name="l00026"></a><a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">00026</a>         <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound&gt; <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">SoundPtr</a>;
+<a name="l00027"></a>00027     }
+<a name="l00028"></a>00028 }
+<a name="l00029"></a>00029 
+<a name="l00030"></a><a class="code" href="soundmanager_8hpp.html#a350bd1770ebcb0f43d49c11c4f2ff3c3">00030</a> <span class="keyword">typedef</span> <a class="code" href="namespaceOEngine_1_1Sound.html#a509c2168a981d922e8ba17a8a9e06289">OEngine::Sound::SoundManagerPtr</a> <a class="code" href="soundmanager_8hpp.html#a350bd1770ebcb0f43d49c11c4f2ff3c3">OEManagerPtr</a>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="keyword">namespace </span>MWWorld
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034     <span class="keyword">struct </span>Environment;
+<a name="l00035"></a>00035 }
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>MWSound
+<a name="l00038"></a>00038 {
+<a name="l00039"></a><a class="code" href="classMWSound_1_1SoundManager.html">00039</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>
+<a name="l00040"></a>00040     {
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042             <span class="comment">// This is used for case insensitive and slash-type agnostic file</span>
+<a name="l00043"></a>00043             <span class="comment">// finding. It takes DOS paths (any case, \\ slashes or / slashes)</span>
+<a name="l00044"></a>00044             <span class="comment">// relative to the sound dir, and translates them into full paths</span>
+<a name="l00045"></a>00045             <span class="comment">// of existing files in the filesystem, if they exist.</span>
+<a name="l00046"></a><a class="code" href="classMWSound_1_1SoundManager.html#a6f275605268a184cc93e11c5b40999a2">00046</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a6f275605268a184cc93e11c5b40999a2">mFSStrict</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">00048</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">mEnvironment</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a376978b82e97c328011243d46ea832b6">streamMusicFull</a> (<span class="keyword">const</span> std::string&amp; filename);
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054             <span class="comment">/* This is the sound manager. It loades, stores and deletes</span>
+<a name="l00055"></a>00055 <span class="comment">            sounds based on the sound factory it is given.</span>
+<a name="l00056"></a>00056 <span class="comment">            */</span>
+<a name="l00057"></a><a class="code" href="classMWSound_1_1SoundManager.html#a94af1268302f923d1d94d7d6bcd012c6">00057</a>             <a class="code" href="soundmanager_8hpp.html#a350bd1770ebcb0f43d49c11c4f2ff3c3">OEManagerPtr</a> <a class="code" href="classMWSound_1_1SoundManager.html#a94af1268302f923d1d94d7d6bcd012c6">mgr</a>;
+<a name="l00058"></a><a class="code" href="classMWSound_1_1SoundManager.html#ad3e662da22c3a3d293af1d4b0bd79f50">00058</a>             <a class="code" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">Mangle::Sound::SoundPtr</a> <a class="code" href="classMWSound_1_1SoundManager.html#ad3e662da22c3a3d293af1d4b0bd79f50">music</a>;
 <a name="l00059"></a>00059 
-<a name="l00060"></a>00060             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a194a5e8ec5837a5c140be6bfb71c3469">streamMusic</a>(<span class="keyword">const</span> std::string&amp; filename);
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a40ecbe690856f14fffff764dfb6834f5">startRandomTitle</a>();
-<a name="l00065"></a>00065             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a166b435adcf0c0c3979951888fc2d48d">MP3Lookup</a>(<span class="keyword">const</span> boost::filesystem::path&amp; dir);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a050e4e033a6161de83d1425b334ceafc">isMusicPlaying</a>();
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069             <a class="code" href="structMWSound_1_1SoundManager_1_1SoundImpl.html">SoundImpl</a> <a class="code" href="classMWSound_1_1SoundManager.html#a88af2ecfed56bd1018c35202431d3412">getMData</a>();
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ace335616de6beca88c5a53290c51b733">say</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; filename);
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a1e375b4e38bc0364b1fc87f327e52568" title="Is actor not speaking?">sayDone</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference) <span class="keyword">const</span>;
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a7dc7f2faf9a2205cf0ec0c29022d85b3" title="Play a sound, independently of 3D-position.">playSound</a> (<span class="keyword">const</span> std::string&amp; soundId, <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch);
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a3c04770e8833cc4f20f171c974954429" title="Play a sound from an object.">playSound3D</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; soundId,
-<a name="l00082"></a>00082                 <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">bool</span> loop);
+<a name="l00060"></a>00060             <span class="comment">/* This class calls update() on the sound manager each frame</span>
+<a name="l00061"></a>00061 <span class="comment">               using and Ogre::FrameListener</span>
+<a name="l00062"></a>00062 <span class="comment">            */</span>
+<a name="l00063"></a><a class="code" href="classMWSound_1_1SoundManager.html#a126dbaa1afcd687bbd0889078a766c9d">00063</a>             <a class="code" href="structMangle_1_1Sound_1_1OgreOutputUpdater.html">Mangle::Sound::OgreOutputUpdater</a> <a class="code" href="classMWSound_1_1SoundManager.html#a126dbaa1afcd687bbd0889078a766c9d">updater</a>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065             <span class="comment">/* This class tracks the movement of an Ogre::Camera and moves</span>
+<a name="l00066"></a>00066 <span class="comment">               a sound listener automatically to follow it.</span>
+<a name="l00067"></a>00067 <span class="comment">            */</span>
+<a name="l00068"></a><a class="code" href="classMWSound_1_1SoundManager.html#a8adda58f24685e3a895634902878616b">00068</a>             <a class="code" href="structMangle_1_1Sound_1_1OgreListenerMover.html">Mangle::Sound::OgreListenerMover</a> <a class="code" href="classMWSound_1_1SoundManager.html#a8adda58f24685e3a895634902878616b">cameraTracker</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">00070</a>             <span class="keyword">typedef</span> std::map&lt;std::string,Mangle::Sound::WSoundPtr&gt; <a class="code" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a>;
+<a name="l00071"></a><a class="code" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">00071</a>             <span class="keyword">typedef</span> std::map&lt;MWWorld::Ptr,IDMap&gt; <a class="code" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">PtrMap</a>;
+<a name="l00072"></a><a class="code" href="classMWSound_1_1SoundManager.html#a2172630fefd160a5fd1ee9e3a35a3976">00072</a>             <a class="code" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">PtrMap</a> <a class="code" href="classMWSound_1_1SoundManager.html#a2172630fefd160a5fd1ee9e3a35a3976">sounds</a>;
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074             <span class="comment">// A list of all sound files used to lookup paths</span>
+<a name="l00075"></a><a class="code" href="classMWSound_1_1SoundManager.html#a0d93a955992dbaf95c123c536d075bd7">00075</a>             <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a> <a class="code" href="classMWSound_1_1SoundManager.html#a0d93a955992dbaf95c123c536d075bd7">mSoundFiles</a>;
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077             <span class="comment">// A library of all Music file paths stored by the folder they are contained in</span>
+<a name="l00078"></a><a class="code" href="classMWSound_1_1SoundManager.html#a703fc3eee60a74a6fb8e4724aa411323">00078</a>             <a class="code" href="classFiles_1_1FileLibrary.html" title="Searches directories and makes lists of files according to folder name.">Files::FileLibrary</a> <a class="code" href="classMWSound_1_1SoundManager.html#a703fc3eee60a74a6fb8e4724aa411323">mMusicLibrary</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080             <span class="comment">// Points to the current playlist of music files stored in the music library</span>
+<a name="l00081"></a><a class="code" href="classMWSound_1_1SoundManager.html#a47393459cb7c0a0acd8e036290e6bcc7">00081</a>             <span class="keyword">const</span> <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>* <a class="code" href="classMWSound_1_1SoundManager.html#a47393459cb7c0a0acd8e036290e6bcc7">mCurrentPlaylist</a>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classMWSound_1_1SoundManager.html#a5201c41d2148004c9e3b7ebe461ceea0">00083</a>             <a class="code" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a> <a class="code" href="classMWSound_1_1SoundManager.html#a5201c41d2148004c9e3b7ebe461ceea0">mLoopedSounds</a>;
 <a name="l00084"></a>00084 
-<a name="l00085"></a>00085             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#acc5d413ac4048f97ccb1fbfa06203c46">stopSound3D</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; soundId = <span class="stringliteral">&quot;&quot;</span>);
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a825d0ab56850b762e27dcedb4a5d9cd4" title="Stop all sounds for the given cell.">stopSound</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cell);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#af7c6a4ff44f1f4573254cbf531f68e75" title="Is the given sound currently playing on the given object?">getSoundPlaying</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; soundId) <span class="keyword">const</span>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ae8f7c856ceb5f2613eba10f18ec48774" title="Update the position of all sounds connected to the given object.">updateObject</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference);
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a4ec845757bc0552608907ae6c14e3b30">update</a> (<span class="keywordtype">float</span> duration);
-<a name="l00099"></a>00099     };
-<a name="l00100"></a>00100 }
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102 <span class="preprocessor">#endif</span>
+<a name="l00085"></a><a class="code" href="classMWSound_1_1SoundManager.html#a7573d92d34066b9b38f1b8734e36b09d">00085</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a7573d92d34066b9b38f1b8734e36b09d">mUsingSound</a>;
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087             std::string <a class="code" href="classMWSound_1_1SoundManager.html#a00f1e4aaf59aa84d8bd501665e1e1116">lookup</a>(<span class="keyword">const</span> std::string &amp;soundId,
+<a name="l00088"></a>00088                        <span class="keywordtype">float</span> &amp;volume, <span class="keywordtype">float</span> &amp;min, <span class="keywordtype">float</span> &amp;max);
+<a name="l00089"></a>00089             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#af9d5fe7c17f7c51a872cfecc0576c2f2">add</a>(<span class="keyword">const</span> std::string &amp;file,
+<a name="l00090"></a>00090                 <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>,
+<a name="l00091"></a>00091                 <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> min, <span class="keywordtype">float</span> max,
+<a name="l00092"></a>00092                 <span class="keywordtype">bool</span> loop, <span class="keywordtype">bool</span> untracked=<span class="keyword">false</span>);
+<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a71d7bb4fefcd7439453a6fecf468881a">clearAll</a>(PtrMap::iterator&amp; it);
+<a name="l00094"></a>00094             <span class="keywordtype">void</span> <span class="keyword">remove</span>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00095"></a>00095             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#adecc65636f771c2b354e8eb38f50a9a5">isPlaying</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00096"></a>00096             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a74f8f3817fceabfe6849e39f7452df15">removeCell</a>(<span class="keyword">const</span> <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cell);
+<a name="l00097"></a>00097             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a31a02d694c1096e5e3807ee19c837c95">updatePositions</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr);
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099         <span class="keyword">public</span>:
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101             <a class="code" href="classMWSound_1_1SoundManager.html#a8f6acb2392a982a302b231c759b9283d">SoundManager</a>(Ogre::Root*, Ogre::Camera*,
+<a name="l00102"></a>00102                    <span class="keyword">const</span> <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>&amp; dataDir, <span class="keywordtype">bool</span> useSound, <span class="keywordtype">bool</span> <a class="code" href="namespaceanonymous__namespace_02bsa__archive_8cpp_03.html#ad8ae1802eee4569026221ec387ea783d">fsstrict</a>,
+<a name="l00103"></a>00103                    <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
+<a name="l00104"></a>00104             <a class="code" href="classMWSound_1_1SoundManager.html#abfdaaa5a59bb02a67db12b95b5defc82">~SoundManager</a>();
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ae15103f3b0c464c31be1084f9a22c33e" title="Stops music if it&amp;#39;s playing.">stopMusic</a>();
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a194a5e8ec5837a5c140be6bfb71c3469">streamMusic</a>(<span class="keyword">const</span> std::string&amp; filename);
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a40ecbe690856f14fffff764dfb6834f5" title="Starts a random track from the current playlist.">startRandomTitle</a>();
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a050e4e033a6161de83d1425b334ceafc" title="Returns true if music is playing.">isMusicPlaying</a>();
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#ae2b9ec04498d816b1badad6460c0b69b">setPlaylist</a>(std::string playlist=<span class="stringliteral">&quot;&quot;</span>);
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a5e6e443b24f337a0cb7a46e25c1e7d1d">playPlaylist</a>(std::string playlist=<span class="stringliteral">&quot;&quot;</span>);
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ace335616de6beca88c5a53290c51b733">say</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; filename);
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a1e375b4e38bc0364b1fc87f327e52568" title="Is actor not speaking?">sayDone</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference) <span class="keyword">const</span>;
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ac81943a22b150913b930e5653cf90772" title="Play a sound, independently of 3D-position.">playSound</a> (<span class="keyword">const</span> std::string&amp; soundId, <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">bool</span> loop=<span class="keyword">false</span>);
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a2ea4686aac638f16d272e24990faffbf" title="Play a sound from an object.">playSound3D</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; soundId,
+<a name="l00141"></a>00141                 <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">bool</span> loop, <span class="keywordtype">bool</span> untracked=<span class="keyword">false</span>);
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#acc5d413ac4048f97ccb1fbfa06203c46">stopSound3D</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; soundId = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a825d0ab56850b762e27dcedb4a5d9cd4" title="Stop all sounds for the given cell.">stopSound</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cell);
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a825d0ab56850b762e27dcedb4a5d9cd4" title="Stop all sounds for the given cell.">stopSound</a>(<span class="keyword">const</span> std::string&amp; soundId);
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154             <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#af7c6a4ff44f1f4573254cbf531f68e75" title="Is the given sound currently playing on the given object?">getSoundPlaying</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; soundId) <span class="keyword">const</span>;
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ae8f7c856ceb5f2613eba10f18ec48774" title="Update the position of all sounds connected to the given object.">updateObject</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference);
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160             <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a4ec845757bc0552608907ae6c14e3b30">update</a> (<span class="keywordtype">float</span> duration);
+<a name="l00161"></a>00161     };
+<a name="l00162"></a>00162 }
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

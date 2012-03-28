@@ -36,120 +36,137 @@
 <a name="l00009"></a>00009 
 <a name="l00010"></a>00010 <span class="preprocessor">#include &lt;utility&gt;</span>
 <a name="l00011"></a>00011 <span class="preprocessor">#include &lt;<a class="code" href="renderer_8hpp.html">openengine/ogre/renderer.hpp</a>&gt;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;<a class="code" href="physic_8hpp.html">openengine/bullet/physic.hpp</a>&gt;</span>
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;vector&gt;</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="preprocessor">#include &lt;boost/filesystem.hpp&gt;</span>
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="preprocessor">#include &quot;<a class="code" href="renderinginterface_8hpp.html">renderinginterface.hpp</a>&quot;</span>
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="preprocessor">#include &quot;<a class="code" href="objects_8hpp.html">objects.hpp</a>&quot;</span>
-<a name="l00024"></a>00024 <span class="preprocessor">#include &quot;<a class="code" href="actors_8hpp.html">actors.hpp</a>&quot;</span>
-<a name="l00025"></a>00025 <span class="preprocessor">#include &quot;<a class="code" href="mwworld_2player_8hpp.html">player.hpp</a>&quot;</span>
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="keyword">namespace </span>Ogre
-<a name="l00028"></a>00028 {
-<a name="l00029"></a>00029     <span class="keyword">class </span>Camera;
-<a name="l00030"></a>00030     <span class="keyword">class </span>Viewport;
-<a name="l00031"></a>00031     <span class="keyword">class </span>SceneManager;
-<a name="l00032"></a>00032     <span class="keyword">class </span>SceneNode;
-<a name="l00033"></a>00033     <span class="keyword">class </span>RaySceneQuery;
-<a name="l00034"></a>00034     <span class="keyword">class </span>Quaternion;
-<a name="l00035"></a>00035     <span class="keyword">class </span>Vector3;
-<a name="l00036"></a>00036 }
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>MWWorld
-<a name="l00039"></a>00039 {
-<a name="l00040"></a>00040     <span class="keyword">class </span>World;
-<a name="l00041"></a>00041 }
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="keyword">namespace </span>MWRender
-<a name="l00044"></a>00044 {
-<a name="l00045"></a>00045 
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;<a class="code" href="fader_8hpp.html">openengine/ogre/fader.hpp</a>&gt;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;<a class="code" href="physic_8hpp.html">openengine/bullet/physic.hpp</a>&gt;</span>
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="preprocessor">#include &lt;boost/filesystem.hpp&gt;</span>
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="preprocessor">#include &quot;<a class="code" href="renderinginterface_8hpp.html">renderinginterface.hpp</a>&quot;</span>
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="preprocessor">#include &quot;<a class="code" href="objects_8hpp.html">objects.hpp</a>&quot;</span>
+<a name="l00025"></a>00025 <span class="preprocessor">#include &quot;<a class="code" href="actors_8hpp.html">actors.hpp</a>&quot;</span>
+<a name="l00026"></a>00026 <span class="preprocessor">#include &quot;<a class="code" href="mwworld_2player_8hpp.html">player.hpp</a>&quot;</span>
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028 <span class="keyword">namespace </span>Ogre
+<a name="l00029"></a>00029 {
+<a name="l00030"></a>00030     <span class="keyword">class </span>Camera;
+<a name="l00031"></a>00031     <span class="keyword">class </span>Viewport;
+<a name="l00032"></a>00032     <span class="keyword">class </span>SceneManager;
+<a name="l00033"></a>00033     <span class="keyword">class </span>SceneNode;
+<a name="l00034"></a>00034     <span class="keyword">class </span>RaySceneQuery;
+<a name="l00035"></a>00035     <span class="keyword">class </span>Quaternion;
+<a name="l00036"></a>00036     <span class="keyword">class </span>Vector3;
+<a name="l00037"></a>00037 }
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="keyword">namespace </span>MWWorld
+<a name="l00040"></a>00040 {
+<a name="l00041"></a>00041     <span class="keyword">class </span>World;
+<a name="l00042"></a>00042 }
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 <span class="keyword">namespace </span>MWRender
+<a name="l00045"></a>00045 {
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classMWRender_1_1RenderingManager.html">00048</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1RenderingManager.html">RenderingManager</a>: <span class="keyword">private</span> <a class="code" href="classMWRender_1_1RenderingInterface.html">RenderingInterface</a> {
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050   <span class="keyword">private</span>:
-<a name="l00051"></a>00051 
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWRender_1_1RenderingManager.html">00049</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1RenderingManager.html">RenderingManager</a>: <span class="keyword">private</span> <a class="code" href="classMWRender_1_1RenderingInterface.html">RenderingInterface</a> {
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051   <span class="keyword">private</span>:
 <a name="l00052"></a>00052 
-<a name="l00053"></a>00053     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#aa6223af866d8bb3c60261d2fc40c6dcd">getObjects</a>();
-<a name="l00054"></a>00054     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#a1aab26ca177983f82a9df2a037143ba3">getActors</a>();
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056   <span class="keyword">public</span>:
-<a name="l00057"></a>00057     <a class="code" href="classMWRender_1_1RenderingManager.html#a30cd5e67b9edac1e6089d6e0b34099b1">RenderingManager</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend, <span class="keyword">const</span> boost::filesystem::path&amp; resDir, <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* engine, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
-<a name="l00058"></a>00058     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4128f1a977b9b47752547312dc06a81c">~RenderingManager</a>();
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#a542fc078ccbb50c762e8080f77f3a81a">getPlayer</a>(); 
-<a name="l00061"></a>00061 
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#aa6223af866d8bb3c60261d2fc40c6dcd">getObjects</a>();
+<a name="l00055"></a>00055     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#a1aab26ca177983f82a9df2a037143ba3">getActors</a>();
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057   <span class="keyword">public</span>:
+<a name="l00058"></a>00058     <a class="code" href="classMWRender_1_1RenderingManager.html#a30cd5e67b9edac1e6089d6e0b34099b1">RenderingManager</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend, <span class="keyword">const</span> boost::filesystem::path&amp; resDir, <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* engine, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
+<a name="l00059"></a>00059     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4128f1a977b9b47752547312dc06a81c">~RenderingManager</a>();
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#a542fc078ccbb50c762e8080f77f3a81a">getPlayer</a>(); 
 <a name="l00062"></a>00062 
 <a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a491f355eb7a685224f4468c509e52f3f">toggleLight</a>();
-<a name="l00065"></a>00065     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2b94b78b821f779d26192fe2fe8c034e">toggleRenderMode</a>(<span class="keywordtype">int</span> mode);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065     <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af7cde8af6563b78a3f21e109d6a89578">getSkyManager</a>();
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa8b5e7b4022b525f452cd0b9687beced">removeCell</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
-<a name="l00068"></a>00068 
-<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a08f6c88b3cb2abefd19c8d26ccd4bed1">cellAdded</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2545878fb321049ea7dcca55985ca43e">addObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5e4e7f6e2d75427ff131f808b2fc0555">removeObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af3d44ddd504488bef5401a0ce584535a">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; position);
-<a name="l00077"></a>00077     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a785bb7c6808ae780be09e4f0db511fb8">scaleObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; scale);
-<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a34dbbaf64883f95df75f10cafd41cbb7">rotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, const::Ogre::Quaternion&amp; orientation);
-<a name="l00079"></a>00079 
-<a name="l00081"></a>00081     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a24e9f67912b75edea7618dd684380933">moveObjectToCell</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; position, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a368eb94ff4cfd0a7d8c5602c3faf8ede">update</a> (<span class="keywordtype">float</span> duration);
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a491f355eb7a685224f4468c509e52f3f">toggleLight</a>();
+<a name="l00068"></a>00068     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2b94b78b821f779d26192fe2fe8c034e">toggleRenderMode</a>(<span class="keywordtype">int</span> mode);
+<a name="l00069"></a>00069     
+<a name="l00070"></a>00070     <a class="code" href="classOEngine_1_1Render_1_1Fader.html">OEngine::Render::Fader</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af07d5433e2259581be518ebd0e449b94">getFader</a>();
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa8b5e7b4022b525f452cd0b9687beced">removeCell</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
+<a name="l00073"></a>00073 
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a08f6c88b3cb2abefd19c8d26ccd4bed1">cellAdded</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2545878fb321049ea7dcca55985ca43e">addObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5e4e7f6e2d75427ff131f808b2fc0555">removeObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af3d44ddd504488bef5401a0ce584535a">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; position);
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a785bb7c6808ae780be09e4f0db511fb8">scaleObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; scale);
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a34dbbaf64883f95df75f10cafd41cbb7">rotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, const::Ogre::Quaternion&amp; orientation);
 <a name="l00084"></a>00084 
-<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a00d319d142d9956220db54788319c0a2">skyEnable</a> ();
-<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a46528aa3bcae6a6a8b09e6f88c98745b">skyDisable</a> ();
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3703f91f192442f5fdab54903b176236">skySetHour</a> (<span class="keywordtype">double</span> hour);
-<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9cd360245bd49c7cb6345bb3f05b6eb7">skySetDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month);
-<a name="l00089"></a>00089     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a19f9c77f05413787731da1da115510e4">skyGetMasserPhase</a>() <span class="keyword">const</span>;
-<a name="l00090"></a>00090     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3fda5b437ab27ef22e2cfe8a10c84126">skyGetSecundaPhase</a>() <span class="keyword">const</span>;
-<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a7a6b620389d596870542d7194f71ffde">skySetMoonColour</a> (<span class="keywordtype">bool</span> red);
-<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a1c5516ac6f76ab78aba1bdd58bfd4eff">configureAmbient</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;mCell);
-<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa434245f6e56d1faf650e1d30206f779" title="configure fog according to cell">configureFog</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;mCell);
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4c19a356c9bd572275ca1e199665b9e2">playAnimationGroup</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode,
-<a name="l00097"></a>00097         <span class="keywordtype">int</span> number = 1);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ae3d928ffd7960997f078585bce58e4e5">skipAnimation</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108   <span class="keyword">private</span>:
-<a name="l00109"></a>00109 
-<a name="l00110"></a>00110     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6286bf2576eb4ffe11b79c0e730a8e44">setAmbientMode</a>();
-<a name="l00111"></a><a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">00111</a>     <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">mSkyManager</a>;
-<a name="l00112"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">00112</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a>;
-<a name="l00113"></a>00113 
-<a name="l00114"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">00114</a>     <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">mObjects</a>;
-<a name="l00115"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">00115</a>     <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">mActors</a>;
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="comment">// 0 normal, 1 more bright, 2 max</span>
-<a name="l00118"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">00118</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">mAmbientMode</a>;
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a24e9f67912b75edea7618dd684380933">moveObjectToCell</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; position, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a368eb94ff4cfd0a7d8c5602c3faf8ede">update</a> (<span class="keywordtype">float</span> duration);
+<a name="l00089"></a>00089     
+<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a708e72ad138ea15f7dcd24862637a84d">setAmbientColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; colour);
+<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ad3968aef01cc6070276434b745b830a6">setSunColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; colour);
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3269bf086242c837b2bbef131036e4f7">setSunDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
+<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a1507754e8665a982f5b98d5fdf1affc5">sunEnable</a>();
+<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aabb8376ffe13125d4297d8749f9d1374">sunDisable</a>();
+<a name="l00095"></a>00095     
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aed44fc56f3fb0e9dda497ee6d311f673">setGlare</a>(<span class="keywordtype">bool</span> glare);
+<a name="l00097"></a>00097     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a00d319d142d9956220db54788319c0a2">skyEnable</a> ();
+<a name="l00098"></a>00098     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a46528aa3bcae6a6a8b09e6f88c98745b">skyDisable</a> ();
+<a name="l00099"></a>00099     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3703f91f192442f5fdab54903b176236">skySetHour</a> (<span class="keywordtype">double</span> hour);
+<a name="l00100"></a>00100     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9cd360245bd49c7cb6345bb3f05b6eb7">skySetDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month);
+<a name="l00101"></a>00101     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a19f9c77f05413787731da1da115510e4">skyGetMasserPhase</a>() <span class="keyword">const</span>;
+<a name="l00102"></a>00102     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3fda5b437ab27ef22e2cfe8a10c84126">skyGetSecundaPhase</a>() <span class="keyword">const</span>;
+<a name="l00103"></a>00103     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a7a6b620389d596870542d7194f71ffde">skySetMoonColour</a> (<span class="keywordtype">bool</span> red);
+<a name="l00104"></a>00104     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a1c5516ac6f76ab78aba1bdd58bfd4eff">configureAmbient</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;mCell);
+<a name="l00105"></a>00105     
+<a name="l00107"></a>00107     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa434245f6e56d1faf650e1d30206f779" title="configure fog according to cell">configureFog</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">ESMS::CellStore&lt;MWWorld::RefData&gt;</a> &amp;mCell);
+<a name="l00108"></a>00108     
+<a name="l00110"></a>00110     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa434245f6e56d1faf650e1d30206f779" title="configure fog according to cell">configureFog</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> density, <span class="keyword">const</span> Ogre::ColourValue&amp; colour);
+<a name="l00111"></a>00111     
+<a name="l00112"></a>00112     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4c19a356c9bd572275ca1e199665b9e2">playAnimationGroup</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode,
+<a name="l00113"></a>00113         <span class="keywordtype">int</span> number = 1);
 <a name="l00119"></a>00119 
-<a name="l00120"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">00120</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">mAmbientColor</a>;
-<a name="l00121"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">00121</a>     Ogre::Light* <a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">mSun</a>;
-<a name="l00122"></a>00122 
-<a name="l00126"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5a606bb9c75840b550ae98cefcaf86e1">00126</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1RenderingManager.html#a5a606bb9c75840b550ae98cefcaf86e1">mMwRoot</a>;
-<a name="l00127"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adf11228a7e03fe10847ccce56e5b307b">00127</a>     Ogre::RaySceneQuery *<a class="code" href="classMWRender_1_1RenderingManager.html#adf11228a7e03fe10847ccce56e5b307b">mRaySceneQuery</a>;
-<a name="l00128"></a>00128 
-<a name="l00129"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">00129</a>     <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">mPhysicsEngine</a>;
-<a name="l00130"></a>00130 
-<a name="l00131"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a42fa0672fa10b644c2b085179fef9aa0">00131</a>     <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#a42fa0672fa10b644c2b085179fef9aa0">mPlayer</a>;
-<a name="l00132"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5d6c337368a79d3dad27e3ec986b1a46">00132</a>     <a class="code" href="classMWRender_1_1Debugging.html">MWRender::Debugging</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a5d6c337368a79d3dad27e3ec986b1a46">mDebugging</a>;
-<a name="l00133"></a>00133 };
+<a name="l00120"></a>00120     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ae3d928ffd7960997f078585bce58e4e5">skipAnimation</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124   <span class="keyword">private</span>:
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6286bf2576eb4ffe11b79c0e730a8e44">setAmbientMode</a>();
+<a name="l00127"></a>00127     
+<a name="l00128"></a><a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">00128</a>     <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">mSkyManager</a>;
+<a name="l00129"></a>00129     
+<a name="l00130"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">00130</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">00132</a>     <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">mObjects</a>;
+<a name="l00133"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">00133</a>     <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">mActors</a>;
 <a name="l00134"></a>00134 
-<a name="l00135"></a>00135 }
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137 <span class="preprocessor">#endif</span>
+<a name="l00135"></a>00135     <span class="comment">// 0 normal, 1 more bright, 2 max</span>
+<a name="l00136"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">00136</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">mAmbientMode</a>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">00138</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">mAmbientColor</a>;
+<a name="l00139"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">00139</a>     Ogre::Light* <a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">mSun</a>;
+<a name="l00140"></a>00140 
+<a name="l00144"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5a606bb9c75840b550ae98cefcaf86e1">00144</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1RenderingManager.html#a5a606bb9c75840b550ae98cefcaf86e1">mMwRoot</a>;
+<a name="l00145"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adf11228a7e03fe10847ccce56e5b307b">00145</a>     Ogre::RaySceneQuery *<a class="code" href="classMWRender_1_1RenderingManager.html#adf11228a7e03fe10847ccce56e5b307b">mRaySceneQuery</a>;
+<a name="l00146"></a>00146 
+<a name="l00147"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">00147</a>     <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">mPhysicsEngine</a>;
+<a name="l00148"></a>00148 
+<a name="l00149"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a42fa0672fa10b644c2b085179fef9aa0">00149</a>     <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#a42fa0672fa10b644c2b085179fef9aa0">mPlayer</a>;
+<a name="l00150"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5d6c337368a79d3dad27e3ec986b1a46">00150</a>     <a class="code" href="classMWRender_1_1Debugging.html">MWRender::Debugging</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a5d6c337368a79d3dad27e3ec986b1a46">mDebugging</a>;
+<a name="l00151"></a>00151 };
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153 }
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

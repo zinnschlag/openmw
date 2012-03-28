@@ -41,22 +41,80 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#a4855601ca961cc3c0aa36ce481fd5340">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#a4855601ca961cc3c0aa36ce481fd5340"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#a325b5aa36c40bcf2e3d614641f063009">getName</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <br class="typebreak"/>
-<a class="el" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a><br class="typebreak"/>
-&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#a05a3e8f867727a66ea269276bbf06da0">getContainerStore</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return container store.  <a href="#a05a3e8f867727a66ea269276bbf06da0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#ad88e475b8cbc6f0696368a105b9a3613">activate</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Generate action for activation.  <a href="#ad88e475b8cbc6f0696368a105b9a3613"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#ae29df0b62f5ae98a956fede20b09ba90">getContainerStore</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return container store.  <a href="#ae29df0b62f5ae98a956fede20b09ba90"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#a91cb35197a55a3f8b5e7a35f79293c3b">getScript</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return name of the script attached to ptr.  <a href="#a91cb35197a55a3f8b5e7a35f79293c3b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#a458fedc1aaf9187027a83a7f24f194a6">registerSelf</a> ()</td></tr>
+<tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Container.html#a8e2e0d38a05947c4e96828043829d1e3">ensureCustomData</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a05a3e8f867727a66ea269276bbf06da0"></a><!-- doxytag: member="MWClass::Container::getContainerStore" ref="a05a3e8f867727a66ea269276bbf06da0" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<a class="anchor" id="ad88e475b8cbc6f0696368a105b9a3613"></a><!-- doxytag: member="MWClass::Container::activate" ref="ad88e475b8cbc6f0696368a105b9a3613" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Ptr &amp;actor, const MWWorld::Environment &amp;environment) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp; MWClass::Container::getContainerStore </td>
+          <td class="memname">boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt; MWClass::Container::activate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>actor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>environment</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Generate action for activation. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a238fad88603547ad7c7a30b07e851ace">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e2e0d38a05947c4e96828043829d1e3"></a><!-- doxytag: member="MWClass::Container::ensureCustomData" ref="a8e2e0d38a05947c4e96828043829d1e3" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWClass::Container::ensureCustomData </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae29df0b62f5ae98a956fede20b09ba90"></a><!-- doxytag: member="MWClass::Container::getContainerStore" ref="ae29df0b62f5ae98a956fede20b09ba90" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a> &amp; MWClass::Container::getContainerStore </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
           <td class="paramname"> <em>ptr</em></td>
@@ -69,7 +127,7 @@
 
 <p>Return container store. </p>
 
-<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a416e7d417e01318922609a074ed21f08">MWWorld::Class</a>.</p>
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#af1209aa1b5a2bf560a182fcc8a9e8547">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -206,7 +264,7 @@
 <li>apps/openmw/mwclass/<a class="el" href="container_8cpp.html">container.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:03 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

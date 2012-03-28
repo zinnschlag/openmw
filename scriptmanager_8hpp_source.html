@@ -66,24 +66,30 @@
 <a name="l00039"></a><a class="code" href="classMWScript_1_1ScriptManager.html#adecac17306f5723a3b97c8b5a381c6d0">00039</a>             <a class="code" href="classInterpreter_1_1Interpreter.html">Interpreter::Interpreter</a> <a class="code" href="classMWScript_1_1ScriptManager.html#adecac17306f5723a3b97c8b5a381c6d0">mInterpreter</a>;
 <a name="l00040"></a><a class="code" href="classMWScript_1_1ScriptManager.html#ad30ba0062182ba2070e7fa950640726b">00040</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1ScriptManager.html#ad30ba0062182ba2070e7fa950640726b">mOpcodesInstalled</a>;
 <a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="classMWScript_1_1ScriptManager.html#a33612c49835a4858f0869754560b4cf5">00042</a>             std::map&lt;std::string, std::vector&lt;Interpreter::Type_Code&gt; &gt; <a class="code" href="classMWScript_1_1ScriptManager.html#a33612c49835a4858f0869754560b4cf5">mScripts</a>;
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044         <span class="keyword">public</span>:
+<a name="l00042"></a><a class="code" href="classMWScript_1_1ScriptManager.html#a137021cb733c2654f29c15734181cf59">00042</a>             <span class="keyword">typedef</span> std::pair&lt;std::vector&lt;Interpreter::Type_Code&gt;, <a class="code" href="classCompiler_1_1Locals.html" title="Local variable declarations.">Compiler::Locals</a>&gt; <a class="code" href="classMWScript_1_1ScriptManager.html#a137021cb733c2654f29c15734181cf59">CompiledScript</a>;
+<a name="l00043"></a><a class="code" href="classMWScript_1_1ScriptManager.html#a1a719cc93e73d2de9885c095f9f57beb">00043</a>             <span class="keyword">typedef</span> std::map&lt;std::string, CompiledScript&gt; <a class="code" href="classMWScript_1_1ScriptManager.html#a1a719cc93e73d2de9885c095f9f57beb">ScriptCollection</a>;
+<a name="l00044"></a>00044 
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046             <a class="code" href="classMWScript_1_1ScriptManager.html#a0a5c7e814c0fb75e08215ff3845f6a57">ScriptManager</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <span class="keywordtype">bool</span> <a class="code" href="niftool_8cpp.html#ab3f078684998b83967d507d0f453f454">verbose</a>,
-<a name="l00047"></a>00047                 <a class="code" href="classCompiler_1_1Context.html">Compiler::Context</a>&amp; compilerContext);
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1ScriptManager.html#a7cc2e3f3218e3d3c052e615da75027e5" title="Run the script with the given name (compile first, if not compiled yet).">run</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classInterpreter_1_1Context.html">Interpreter::Context</a>&amp; interpreterContext);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1ScriptManager.html#af4b17515273355f06a3e2a4b5d6f15d6">compile</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00046"></a><a class="code" href="classMWScript_1_1ScriptManager.html#a1b479eedbd30675ea9c724aac24157cb">00046</a>             <a class="code" href="classMWScript_1_1ScriptManager.html#a1a719cc93e73d2de9885c095f9f57beb">ScriptCollection</a> <a class="code" href="classMWScript_1_1ScriptManager.html#a1b479eedbd30675ea9c724aac24157cb">mScripts</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keyword">public</span>:
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050             <a class="code" href="classMWScript_1_1ScriptManager.html#a0a5c7e814c0fb75e08215ff3845f6a57">ScriptManager</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <span class="keywordtype">bool</span> <a class="code" href="niftool_8cpp.html#ab3f078684998b83967d507d0f453f454">verbose</a>,
+<a name="l00051"></a>00051                 <a class="code" href="classCompiler_1_1Context.html">Compiler::Context</a>&amp; compilerContext);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1ScriptManager.html#a7cc2e3f3218e3d3c052e615da75027e5" title="Run the script with the given name (compile first, if not compiled yet).">run</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classInterpreter_1_1Context.html">Interpreter::Context</a>&amp; interpreterContext);
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056             std::pair&lt;int, int&gt; <a class="code" href="classMWScript_1_1ScriptManager.html#a5f52914640c71170ad20ab768e06296d">compileAll</a>();
-<a name="l00059"></a>00059     };
-<a name="l00060"></a>00060 };
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
+<a name="l00056"></a>00056             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1ScriptManager.html#af4b17515273355f06a3e2a4b5d6f15d6">compile</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             std::pair&lt;int, int&gt; <a class="code" href="classMWScript_1_1ScriptManager.html#a5f52914640c71170ad20ab768e06296d">compileAll</a>();
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064             <a class="code" href="classCompiler_1_1Locals.html" title="Local variable declarations.">Compiler::Locals</a>&amp; <a class="code" href="classMWScript_1_1ScriptManager.html#a4736ad3a6044df8457c8646b2b7bc451" title="Return locals for script name.">getLocals</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00066"></a>00066     };
+<a name="l00067"></a>00067 };
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri Mar 2 11:45:02 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
