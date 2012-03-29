@@ -17,6 +17,7 @@ namespace MWGui
 
         virtual void open();
         void center();
+	void center_low();
 
         /** Event : Dialog finished, OK button clicked.\n
             signature : void method()\n
