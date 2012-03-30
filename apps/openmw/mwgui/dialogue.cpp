@@ -41,7 +41,7 @@ DialogueWindow::DialogueWindow(WindowManager& parWindowManager,MWWorld::Environm
     mEnvironment(environment)
 {
     // Centre dialog
-    center();
+    center_low();
 
     //WindowManager *wm = environment.mWindowManager;
     setText("NpcName", "Name of character");

@@ -22,3 +22,14 @@ void WindowBase::center()
     coord.top = (gameWindowSize.height - coord.height)/2;
     mMainWidget->setCoord(coord);
 }
+
+void WindowBase::center_low()
+{
+    // Centre dialog
+    MyGUI::IntSize gameWindowSize = MyGUI::RenderManager::getInstance().getViewSize();
+    MyGUI::IntCoord coord = mMainWidget->getCoord();
+    coord.left = (gameWindowSize.width - coord.width)/2;
+    // lower the dialog a bit, it isn't exactly centered in the screen in vanilla
+    coord.top = ((gameWindowSize.height - coord.height)/2) + 83;
+    mMainWidget->setCoord(coord);
+}
