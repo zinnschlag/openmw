@@ -63,17 +63,30 @@ size_t BulletShape::calculateSize() const
 
 
 //=============================================================================================================
+#if OGRE_VERSION_MAJOR == 1 && OGRE_VERSION_MINOR < 8
+template<> BulletShapeManager *Ogre::Singleton<BulletShapeManager>::ms_Singleton = 0;
+#else
 template<> BulletShapeManager *Ogre::Singleton<BulletShapeManager>::msSingleton = 0;
+#endif
 
 BulletShapeManager *BulletShapeManager::getSingletonPtr()
 {
+#if OGRE_VERSION_MAJOR == 1 && OGRE_VERSION_MINOR < 8
+    return ms_Singleton;
+#else
     return msSingleton;
+#endif
 }
 
 BulletShapeManager &BulletShapeManager::getSingleton()
 {
+#if OGRE_VERSION_MAJOR == 1 && OGRE_VERSION_MINOR < 8
+    assert(ms_Singleton);
+    return(*ms_Singleton);
+#else
     assert(msSingleton);
     return(*msSingleton);
+#endif
 }
 
 BulletShapeManager::BulletShapeManager()
