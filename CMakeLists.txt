@@ -406,14 +406,19 @@ if (BUILD_ESMTOOL)
   add_subdirectory( apps/esmtool )
 endif()
 
-option(BUILD_LAUNCHER "build Launcher inspector" ON)
+option(BUILD_LAUNCHER "build Launcher" ON)
 if (BUILD_LAUNCHER)
    add_subdirectory( apps/launcher )
 endif()
 
-option(BUILD_MWINIIMPORTER "build MWiniImporter inspector" ON)
+option(BUILD_MWINIIMPORTER "build MWiniImporter" ON)
 if (BUILD_MWINIIMPORTER)
    add_subdirectory( apps/mwiniimporter )
+endif()
+
+option(BUILD_OPENCS "build OpenMW Construction Set" ON)
+if (BUILD_OPENCS)
+   add_subdirectory( apps/opencs )
 endif()
 
 if (WIN32)
