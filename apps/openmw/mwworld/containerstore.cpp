@@ -47,10 +47,10 @@ MWWorld::ContainerStoreIterator MWWorld::ContainerStore::end()
 void MWWorld::ContainerStore::add (const Ptr& ptr)
 {
     /// \todo implement item stacking
-
-    switch (getType (ptr))
+    int type = getType(ptr);
+    switch (type)
     {
-        case Type_Potion: potions.list.push_back (*ptr.get<ESM::Potion>());  break;
+        case Type_Potion: potions.list.push_back (*ptr.get<ESM::Potion>());break;
         case Type_Apparatus: appas.list.push_back (*ptr.get<ESM::Apparatus>());  break;
         case Type_Armor: armors.list.push_back (*ptr.get<ESM::Armor>());  break;
         case Type_Book: books.list.push_back (*ptr.get<ESM::Book>());  break;
