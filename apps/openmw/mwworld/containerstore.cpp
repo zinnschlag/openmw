@@ -59,16 +59,15 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
               for(IterType iter = potions.list.begin();iter != potions.list.end();++iter)
               {
                   const ESM::Potion* potion2 = iter->base;
-                  // stack
-                  if(potion1->name == potion2->name)
+                  if(potion1->name == potion2->name) // stack
                   {
                       // If I got it right following the getTotalWeight method this is the right way to stack items
-                      ptr.getRefData().setCount(ptr.getRefData().getCount() + 1);
+                      int count = ptr.getRefData().getCount();
+                      ptr.getRefData().setCount(count + 1);
                       std::string name = MWWorld::Class::get(ptr).getName(ptr);
-                      std::cout << name << " got one more item to its stack." << std::endl;
+                      std::cout << name << " got one more item to its stack and now it has " << count + 1 << " items." << std::endl;
                   }
-                  // do not stack
-                  else
+                  else // do not stack
                   {
                       potions.list.push_back (*ptr.get<ESM::Potion>());
                       std::string name = MWWorld::Class::get(ptr).getName(ptr);
