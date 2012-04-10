@@ -55,7 +55,7 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
     {
         case Type_Potion:
         {
-               typedef std::map<std::string,int>::iterator IterType;
+               typedef std::map<std::string,short>::iterator IterType;
                std::string name = ptr.get<ESM::Potion>()->base->name;
                for(IterType iter = __potions.begin();iter != __potions.end();++iter)
                {
@@ -72,7 +72,25 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
                      }
                }
         }break;
-        case Type_Apparatus: appas.list.push_back (*ptr.get<ESM::Apparatus>());  break;
+        case Type_Apparatus:
+        {
+            typedef std::map<std::string,short>::iterator IterType;
+            std::string name = ptr.get<ESM::Apparatus>()->base->name;
+            for(IterType iter = __appas.begin();iter != __appas.end();++iter)
+            {
+                  std::string name2 = iter->first;
+                  if(name == name2) // stack
+                  {
+                       iter->second++;
+                       return;
+                  }
+                  else // add a new item
+                  {
+                      appas.list.push_back(*ptr.get<ESM::Apparatus>());
+                      __appas[name] = 1;
+                  }
+            }
+        }break;
         case Type_Armor: armors.list.push_back (*ptr.get<ESM::Armor>());  break;
         case Type_Book: books.list.push_back (*ptr.get<ESM::Book>());  break;
         case Type_Clothing: clothes.list.push_back (*ptr.get<ESM::Clothing>());  break;

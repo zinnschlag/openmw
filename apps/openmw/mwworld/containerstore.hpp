@@ -42,6 +42,7 @@ namespace MWWorld
         private:
             // string: ESM::Potion.name short: total items stacked with that name
             std::map<std::string,short>                          __potions;
+            std::map<std::string,short>                          __appas;
 
             ESMS::CellRefList<ESM::Potion, RefData>            potions;
             ESMS::CellRefList<ESM::Apparatus, RefData>         appas;
