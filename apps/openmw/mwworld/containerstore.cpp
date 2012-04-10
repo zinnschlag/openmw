@@ -7,6 +7,8 @@
 
 #include <components/esm/loadcont.hpp>
 
+#include "../mwworld/class.hpp"
+
 #include "manualref.hpp"
 #include "refdata.hpp"
 
@@ -50,7 +52,30 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
     int type = getType(ptr);
     switch (type)
     {
-        case Type_Potion: potions.list.push_back (*ptr.get<ESM::Potion>());break;
+        case Type_Potion:
+        {
+              const ESM::Potion* potion1 = ptr.get<ESM::Potion>()->base;
+              typedef ESMS::CellRefList<ESM::Potion,RefData>::List::iterator IterType;
+              for(IterType iter = potions.list.begin();iter != potions.list.end();++iter)
+              {
+                  const ESM::Potion* potion2 = iter->base;
+                  // stack
+                  if(potion1->name == potion2->name)
+                  {
+                      // If I got it right following the getTotalWeight method this is the right way to stack items
+                      ptr.getRefData().setCount(ptr.getRefData().getCount() + 1);
+                      std::string name = MWWorld::Class::get(ptr).getName(ptr);
+                      std::cout << name << " got one more item to its stack." << std::endl;
+                  }
+                  // do not stack
+                  else
+                  {
+                      potions.list.push_back (*ptr.get<ESM::Potion>());
+                      std::string name = MWWorld::Class::get(ptr).getName(ptr);
+                      std::cout << name << "got added to the conatiner." << std::endl;
+                  }
+              }
+        }break;
         case Type_Apparatus: appas.list.push_back (*ptr.get<ESM::Apparatus>());  break;
         case Type_Armor: armors.list.push_back (*ptr.get<ESM::Armor>());  break;
         case Type_Book: books.list.push_back (*ptr.get<ESM::Book>());  break;
