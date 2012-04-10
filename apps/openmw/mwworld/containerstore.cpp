@@ -71,7 +71,7 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
                   {
                       potions.list.push_back (*ptr.get<ESM::Potion>());
                       std::string name = MWWorld::Class::get(ptr).getName(ptr);
-                      std::cout << name << "got added to the conatiner." << std::endl;
+                      std::cout << name << " got added to the conatiner." << std::endl;
                   }
               }
         }break;
