@@ -2,6 +2,7 @@
 #define GAME_MWWORLD_CONTAINERSTORE_H
 
 #include <iterator>
+#include <map>
 
 #include <components/esm_store/cell_store.hpp>
 
@@ -39,6 +40,8 @@ namespace MWWorld
             static const int Type_All = 0xffff;
 
         private:
+            // string: ESM::Potion.name short: total items stacked with that name
+            std::map<std::string,short>                          __potions;
 
             ESMS::CellRefList<ESM::Potion, RefData>            potions;
             ESMS::CellRefList<ESM::Apparatus, RefData>         appas;

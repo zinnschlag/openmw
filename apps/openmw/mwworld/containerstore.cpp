@@ -49,31 +49,28 @@ MWWorld::ContainerStoreIterator MWWorld::ContainerStore::end()
 void MWWorld::ContainerStore::add (const Ptr& ptr)
 {
     /// \todo implement item stacking
+
     int type = getType(ptr);
     switch (type)
     {
         case Type_Potion:
         {
-              const ESM::Potion* potion1 = ptr.get<ESM::Potion>()->base;
-              typedef ESMS::CellRefList<ESM::Potion,RefData>::List::iterator IterType;
-              for(IterType iter = potions.list.begin();iter != potions.list.end();++iter)
-              {
-                  const ESM::Potion* potion2 = iter->base;
-                  if(potion1->name == potion2->name) // stack
-                  {
-                      // If I got it right following the getTotalWeight method this is the right way to stack items
-                      int count = ptr.getRefData().getCount();
-                      ptr.getRefData().setCount(count + 1);
-                      std::string name = MWWorld::Class::get(ptr).getName(ptr);
-                      std::cout << name << " got one more item to its stack and now it has " << count + 1 << " items." << std::endl;
-                  }
-                  else // do not stack
-                  {
-                      potions.list.push_back (*ptr.get<ESM::Potion>());
-                      std::string name = MWWorld::Class::get(ptr).getName(ptr);
-                      std::cout << name << " got added to the conatiner." << std::endl;
-                  }
-              }
+               typedef std::map<std::string,int>::iterator IterType;
+               std::string name = ptr.get<ESM::Potion>()->base->name;
+               for(IterType iter = __potions.begin();iter != __potions.end();++iter)
+               {
+                     std::string name2 = iter->first;
+                     if(name == name2) // stack
+                     {
+                          iter->second++;
+                          return;
+                     }
+                     else // add a new item
+                     {
+                         potions.list.push_back(*ptr.get<ESM::Potion>());
+                         __potions[name] = 1;
+                     }
+               }
         }break;
         case Type_Apparatus: appas.list.push_back (*ptr.get<ESM::Apparatus>());  break;
         case Type_Armor: armors.list.push_back (*ptr.get<ESM::Armor>());  break;
