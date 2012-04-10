@@ -106,6 +106,12 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
     flagAsModified();
 }
 
+void ContainerStore::remove(const Ptr& ptr)
+{
+    int type = getType(ptr);
+    flagAsModified();
+}
+
 void MWWorld::ContainerStore::fill (const ESM::InventoryList& items, const ESMS::ESMStore& store)
 {
     for (std::vector<ESM::ContItem>::const_iterator iter (items.list.begin()); iter!=items.list.end();

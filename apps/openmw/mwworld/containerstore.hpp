@@ -77,6 +77,8 @@ namespace MWWorld
             ///
             /// \attention Do not add items to an existing stack by increasing the count instead of
             /// calling this function!
+            void remove(const Ptr& ptr);
+            ///< Remove the item pointed to by \a ptr to this container.
 
             void fill (const ESM::InventoryList& items, const ESMS::ESMStore& store);
             ///< Insert items into *this.
