@@ -189,9 +189,9 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
 
     flagAsModified();
 }
-
-void ContainerStore::remove(const Ptr& ptr)
+void MWWorld::ContainerStore::remove(const Ptr& ptr)
 {
+    // to do - see how would finding work in a linked list.
     int type = getType(ptr);
     typedef std::map<std::string,short>::iterator IterType;
     switch(type)
@@ -205,8 +205,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __potions.erase(iter);
-                ESMS::CellRefList<ESM::Potion,RefData>::List::iterator list_iter = potions.list.find(*ptr.get<ESM::Potion>());
-                potions.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Potion,RefData>* liveCellRef = potions.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Apparatus:
@@ -218,8 +218,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __appas.erase(iter);
-                ESMS::CellRefList<ESM::Apparatus,RefData>::List::iterator list_iter = appas.list.find(*ptr.get<ESM::Apparatus>());
-                appas.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Apparatus,RefData>* liveCellRef = appas.find(name);
+               // useless , waiting for erase method to get implement in CellRefList struct
             }
        }
        case Type_Armor:
@@ -231,8 +231,9 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __armors.erase(iter);
-                ESMS::CellRefList<ESM::Armor,RefData>::List::iterator list_iter = armors.list.find(*ptr.get<ESM::Armor>());
-                armors.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Armor,RefData>* liveCellRef = armors.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
+
             }
        }break;
        case Type_Book:
@@ -244,8 +245,9 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __books.erase(iter);
-                ESMS::CellRefList<ESM::Book,RefData>::List::iterator list_iter = books.list.find(*ptr.get<ESM::Book>());
-                books.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Book,RefData>* liveCellRef = books.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
+
             }
        }break;
        case Type_Clothing:
@@ -257,8 +259,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __clothes.erase(iter);
-                ESMS::CellRefList<ESM::Clothing,RefData>::List::iterator list_iter = clothes.list.find(*ptr.get<ESM::Clothing>());
-                clothes.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Clothing,RefData>* liveCellRef = clothes.find(name);
+                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Ingredient:
@@ -270,8 +272,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __ingreds.erase(iter);
-                ESMS::CellRefList<ESM::Ingredient,RefData>::List::iterator list_iter = ingreds.list.find(*ptr.get<ESM::Ingredient>());
-                ingreds.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Ingredient,RefData>* liveCellRef = ingreds.find(name);
+                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Light:
@@ -283,8 +285,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __lights.erase(iter);
-                ESMS::CellRefList<ESM::Light,RefData>::List::iterator list_iter = lights.list.find(*ptr.get<ESM::Light>());
-                lights.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Light,RefData>* liveCellRef = lights.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Lockpick:
@@ -296,8 +298,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __lockpicks.erase(iter);
-                ESMS::CellRefList<ESM::Tool,RefData>::List::iterator list_iter = lockpicks.list.find(*ptr.get<ESM::Tool>());
-                lockpicks.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Tool,RefData>* liveCellRef = lockpicks.find(name);
+                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Miscellaneous:
@@ -309,8 +311,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __miscItems.erase(iter);
-                ESMS::CellRefList<ESM::Miscellaneous,RefData>::List::iterator list_iter =  miscItems.list.find(*ptr.get<ESM::Miscellaneous>());
-                miscItems.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Miscellaneous,RefData>* liveCellRef =  miscItems.find(name);
+                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Probe:
@@ -322,8 +324,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __probes.erase(iter);
-                ESMS::CellRefList<ESM::Probe,RefData>::List::iterator list_iter = probes.list.find(*ptr.get<ESM::Probe>());
-                probes.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Probe,RefData>* liveCellRef = probes.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Repair:
@@ -335,8 +337,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __repairs.erase(iter);
-                ESMS::CellRefList<ESM::Repair,RefData>::List::iterator list_iter = repairs.list.find(*ptr.get<ESM::Repair>());
-                repairs.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Repair,RefData>* liveCellRef = repairs.find(name);
+                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Weapon:
@@ -348,8 +350,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __weapons.erase(iter);
-                ESMS::CellRefList<ESM::Weapon,RefData>::List::iterator list_iter = weapons.list.find(*ptr.get<ESM::Repair>());
-                weapons.list.erase(list_iter);
+                ESMS::LiveCellRef<ESM::Weapon,RefData>* liveCellRef = weapons.find(name);
+                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
     }
@@ -357,7 +359,7 @@ void ContainerStore::remove(const Ptr& ptr)
     flagAsModified();
 }
 
-int ContainerStore::getStackCount(const Ptr& ptr)
+int MWWorld::ContainerStore::getStackCount(const Ptr& ptr)
 {
     int type = getType(ptr);
     typedef std::map<std::string,short>::iterator IterType;
@@ -465,7 +467,7 @@ int ContainerStore::getStackCount(const Ptr& ptr)
         case Type_Weapon:
         {
             std::string name = ptr.get<ESM::Weapon>()->base->name;
-            IterType iter = __weapon.find(name);
+            IterType iter = __weapons.find(name);
             if(iter == __weapons.end())
                  throw std::runtime_error("trying to to get the stack count of  a weapon that is not in the container");
             else
@@ -474,7 +476,7 @@ int ContainerStore::getStackCount(const Ptr& ptr)
     }
     return 0;
 }
-MWWorl::Ptr ContainerStore::get(std::string name)
+MWWorld::Ptr MWWorld::ContainerStore::get(std::string name)
 {
     // TO DO -- add newlines to the excpetion messages and see if that checks are really neccessary and maybe call remove at the end of this method
     if(__potions.find(name) != __potions.end()) 
@@ -553,7 +555,7 @@ MWWorl::Ptr ContainerStore::get(std::string name)
     {
         if(__probes[name] < 1)
             throw std::runtime_error("tried to get a probe whose stack count was 0");
-         ESMS::LiveCellRef<ESM::Miscellaneous,RefData>* liveCellRef = probes.find(name);
+         ESMS::LiveCellRef<ESM::Probe,RefData>* liveCellRef = probes.find(name);
          MWWorld::Ptr ptr(liveCellRef,0);
          return ptr;
     }
@@ -577,7 +579,7 @@ MWWorl::Ptr ContainerStore::get(std::string name)
         throw std::runtime_error("there is no item with name " + name + " in this container" );
 }
 
-bool ContainerStore::contains(const Ptr& ptr)
+bool MWWorld::ContainerStore::contains(const Ptr& ptr)
 {
     int type = getType(ptr);
     switch(type)
