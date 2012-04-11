@@ -1,14 +1,17 @@
 set(OPENCS
     main.cpp
+    esmdataitem.cpp
+    esmdatamodel.cpp
 )
 
 set(OPENCS_HEADER
-
+    esmdataitem.hpp
+    esmdatamodel.hpp
 )
 
 # Headers that must be pre-processed
 set(OPENCS_HEADER_MOC
-
+    esmdatamodel.hpp
 )
 
 source_group(opencs FILES ${OPENCS} ${OPENCS_HEADER} ${OPENCS_HEADER_MOC})

@@ -4,7 +4,13 @@
 #include <QFile>
 #include <QtDebug>
 
+//test
+#include <string>
+#include <iostream>
+#include <components/esm/esm_reader.hpp>
+
 //#include "mainwindow.hpp"
+#include "esmdatamodel.hpp"
 
 int main(int argc, char **argv)
 {
@@ -31,6 +37,24 @@ int main(int argc, char **argv)
     #endif
 
     QDir::setCurrent(dir.absolutePath());
+
+    ESM::ESMReader esm;
+    esm.setEncoding("win1252");
+
+    std::string filename = "Morrowind.esm";
+    std::cout << "\nFile: " << filename << std::endl;
+
+
+
+    try {
+        esm.open(filename);
+        ESMDataModel *model = new ESMDataModel(esm);
+
+    } catch(std::exception &e) {
+        std::cout << "\nERROR:\n\n  " << e.what() << std::endl;
+        return 1;
+    }
+
 
     return app.exec();
 //    MainDialog dialog;
