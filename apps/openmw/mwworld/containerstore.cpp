@@ -205,8 +205,8 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __potions.erase(iter);
-                ESMS::CellRefList<ESM::Potion,RefData>::List::iterator list_iter = potions.find(*ptr.get<ESM::Potion>());
-                potions.erase(list_iter);
+                ESMS::CellRefList<ESM::Potion,RefData>::List::iterator list_iter = potions.list.find(*ptr.get<ESM::Potion>());
+                potions.list.erase(list_iter);
             }
        }break;
        case Type_Apparatus:
@@ -218,11 +218,142 @@ void ContainerStore::remove(const Ptr& ptr)
             else
             {
                 __appas.erase(iter);
-                ESMS::CellRefList<ESM::Apparatus,RefData>::List::iterator list_iter = appas.find(*ptr.get<ESM::Apparatus>());
-                appas.erase(list_iter);
+                ESMS::CellRefList<ESM::Apparatus,RefData>::List::iterator list_iter = appas.list.find(*ptr.get<ESM::Apparatus>());
+                appas.list.erase(list_iter);
             }
        }
+       case Type_Armor:
+       {
+            std::string name = ptr.get<ESM::Armor>()->base->name;
+            IterType iter = __armors.find(name);
+            if(iter == __armors.end())
+                throw std::runtime_error("trying to remove an armor piece that is not in the container");
+            else
+            {
+                __armors.erase(iter);
+                ESMS::CellRefList<ESM::Armor,RefData>::List::iterator list_iter = armors.list.find(*ptr.get<ESM::Armor>());
+                armors.list.erase(list_iter);
+            }
+       }break;
+       case Type_Book:
+       {
+            std::string name = ptr.get<ESM::Book>()->base->name;
+            IterType iter = __books.find(name);
+            if(iter == __books.end())
+                throw std::runtime_error("trying to remove a book that is not in the container");
+            else
+            {
+                __books.erase(iter);
+                ESMS::CellRefList<ESM::Book,RefData>::List::iterator list_iter = books.list.find(*ptr.get<ESM::Book>());
+                books.list.erase(list_iter);
+            }
+       }break;
+       case Type_Clothing:
+       {
+            std::string name = ptr.get<ESM::Clothing>()->base->name;
+            IterType iter = __clothes.find(name);
+            if(iter == __clothes.end())
+                throw std::runtime_error("trying to remove an apparel part that is not in the container");
+            else
+            {
+                __clothes.erase(iter);
+                ESMS::CellRefList<ESM::Clothing,RefData>::List::iterator list_iter = clothes.list.find(*ptr.get<ESM::Clothing>());
+                clothes.list.erase(list_iter);
+            }
+       }break;
+       case Type_Ingredient:
+       {
+            std::string name = ptr.get<ESM::Ingredient>()->base->name;
+            IterType iter = __ingreds.find(name);
+            if(iter == __ingreds.end())
+                throw std::runtime_error("trying to remove an alchemy ingredient that is not in the container");
+            else
+            {
+                __ingreds.erase(iter);
+                ESMS::CellRefList<ESM::Ingredient,RefData>::List::iterator list_iter = ingreds.list.find(*ptr.get<ESM::Ingredient>());
+                ingreds.list.erase(list_iter);
+            }
+       }break;
+       case Type_Light:
+       {
+            std::string name = ptr.get<ESM::Light>()->base->name;
+            IterType iter = __lights.find(name);
+            if(iter == __lights.end())
+                throw std::runtime_error("trying to remove a light source that is not in the container");
+            else
+            {
+                __lights.erase(iter);
+                ESMS::CellRefList<ESM::Light,RefData>::List::iterator list_iter = lights.list.find(*ptr.get<ESM::Light>());
+                lights.list.erase(list_iter);
+            }
+       }break;
+       case Type_Lockpick:
+       {
+            std::string name = ptr.get<ESM::Tool>()->base->name;
+            IterType iter = __lockpicks.find(name);
+            if(iter == __lockpicks.end())
+                throw std::runtime_error("trying to remove a lockpick that is not in the container");
+            else
+            {
+                __lockpicks.erase(iter);
+                ESMS::CellRefList<ESM::Tool,RefData>::List::iterator list_iter = lockpicks.list.find(*ptr.get<ESM::Tool>());
+                lockpicks.list.erase(list_iter);
+            }
+       }break;
+       case Type_Miscellaneous:
+       {
+            std::string name = ptr.get<ESM::Miscellaneous>()->base->name;
+            IterType iter = __miscItems.find(name);
+            if(iter == __miscItems.end())
+                throw std::runtime_error("trying to remove a misc item that is not in the container");
+            else
+            {
+                __miscItems.erase(iter);
+                ESMS::CellRefList<ESM::Miscellaneous,RefData>::List::iterator list_iter =  miscItems.list.find(*ptr.get<ESM::Miscellaneous>());
+                miscItems.list.erase(list_iter);
+            }
+       }break;
+       case Type_Probe:
+       {
+            std::string name = ptr.get<ESM::Probe>()->base->name;
+            IterType iter = __probes.find(name);
+            if(iter == __probes.end())
+                throw std::runtime_error("trying to remove a probe that is not in the container");
+            else
+            {
+                __probes.erase(iter);
+                ESMS::CellRefList<ESM::Probe,RefData>::List::iterator list_iter = probes.list.find(*ptr.get<ESM::Probe>());
+                probes.list.erase(list_iter);
+            }
+       }break;
+       case Type_Repair:
+       {
+            std::string name = ptr.get<ESM::Repair>()->base->name;
+            IterType iter = __repairs.find(name);
+            if(iter == __repairs.end())
+                throw std::runtime_error("trying to remove a repair tool that is not in the container");
+            else
+            {
+                __repairs.erase(iter);
+                ESMS::CellRefList<ESM::Repair,RefData>::List::iterator list_iter = repairs.list.find(*ptr.get<ESM::Repair>());
+                repairs.list.erase(list_iter);
+            }
+       }break;
+       case Type_Weapon:
+       {
+            std::string name = ptr.get<ESM::Weapon>()->base->name;
+            IterType iter = __weapons.find(name);
+            if(iter == __weapons.end())
+                throw std::runtime_error("trying to remove a weapon that is not in the container");
+            else
+            {
+                __weapons.erase(iter);
+                ESMS::CellRefList<ESM::Weapon,RefData>::List::iterator list_iter = weapons.list.find(*ptr.get<ESM::Repair>());
+                weapons.list.erase(list_iter);
+            }
+       }break;
     }
+
     flagAsModified();
 }
 
@@ -345,7 +476,7 @@ int ContainerStore::getStackCount(const Ptr& ptr)
 }
 MWWorl::Ptr ContainerStore::get(std::string name)
 {
-    // TO DO -- add newlines to the excpetion messages and see if that checks are really neccessary
+    // TO DO -- add newlines to the excpetion messages and see if that checks are really neccessary and maybe call remove at the end of this method
     if(__potions.find(name) != __potions.end()) 
     {
         if(__potions[name] < 1)
@@ -456,7 +587,63 @@ bool ContainerStore::contains(const Ptr& ptr)
                std::string name = ptr.get<ESM::Potion>()->base->name;
                return __potions.find(name) != __potions.end();
          }break;
+         case Type_Apparatus:
+         {
+               std::string name = ptr.get<ESM::Apparatus>()->base->name;
+               return __appas.find(name) != __appas.end();
+         }break;
+         case Type_Armor:
+         {
+                std::string name = ptr.get<ESM::Armor>()->base->name;
+                return __armors.find(name) != __armors.end();
+         }break;
+         case Type_Book:
+         {
+            std::string name = ptr.get<ESM::Book>()->base->name;
+            return __books.find(name) != __books.end();
+         }break;
+         case Type_Clothing:
+         {
+            std::string name = ptr.get<ESM::Clothing>()->base->name;
+            return __clothes.find(name) != __clothes.end();
+         }break;
+         case Type_Ingredient:
+         {
+            std::string name = ptr.get<ESM::Ingredient>()->base->name;
+            return __ingreds.find(name) != __ingreds.end();
+         }break;
+         case Type_Light:
+         {
+            std::string name = ptr.get<ESM::Light>()->base->name;
+            return __lights.find(name) != __lights.end();
+         }break;
+         case Type_Lockpick:
+         {
+            std::string name = ptr.get<ESM::Tool>()->base->name;
+            return __lockpicks.find(name) != __lockpicks.end();
+         }break;
+         case Type_Miscellaneous:
+         {
+            std::string name = ptr.get<ESM::Miscellaneous>()->base->name;
+            return __miscItems.find(name) != __miscItems.end();
+         }break;
+         case Type_Probe:
+         {
+            std::string name = ptr.get<ESM::Probe>()->base->name;
+            return __probes.find(name) != __probes.end();
+         }break;
+         case Type_Repair:
+         {
+            std::string name = ptr.get<ESM::Repair>()->base->name;
+            return __repairs.find(name) != __repairs.end();
+         }break;
+         case Type_Weapon:
+         {
+            std::string name = ptr.get<ESM::Weapon>()->base->name;
+            return __weapons.find(name) != __weapons.end();
+         }break;
     }
+    return false;
 }
 
 void MWWorld::ContainerStore::fill (const ESM::InventoryList& items, const ESMS::ESMStore& store)
