@@ -43,6 +43,16 @@ namespace MWWorld
             // string: ESM::Potion.name short: total items stacked with that name
             std::map<std::string,short>                          __potions;
             std::map<std::string,short>                          __appas;
+            std::map<std::string,short>                          __armors;
+            std::map<std::string,short>                          __books;
+            std::map<std::string,short>                          __clothes;
+            std::map<std::string,short>                          __ingreds;
+            std::map<std::string,short>                          __lights;
+            std::map<std::string,short>                          __lockpicks;
+            std::map<std::string,short>                          __miscItems;
+            std::map<std::string,short>                          __probes;
+            std::map<std::string,short>                          __repairs;
+            std::map<std::string,short>                          __weapons;
 
             ESMS::CellRefList<ESM::Potion, RefData>            potions;
             ESMS::CellRefList<ESM::Apparatus, RefData>         appas;
@@ -77,8 +87,12 @@ namespace MWWorld
             ///
             /// \attention Do not add items to an existing stack by increasing the count instead of
             /// calling this function!
+
             void remove(const Ptr& ptr);
             ///< Remove the item pointed to by \a ptr to this container.
+            MWWorld::Ptr& get(std::string name);
+
+            int getStackCount(const Ptr& ptr);
 
             void fill (const ESM::InventoryList& items, const ESMS::ESMStore& store);
             ///< Insert items into *this.
