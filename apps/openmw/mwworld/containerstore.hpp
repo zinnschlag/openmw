@@ -41,18 +41,18 @@ namespace MWWorld
 
         private:
             // string: ESM::Potion.name short: total items stacked with that name
-            std::map<std::string,short>                          __potions;
-            std::map<std::string,short>                          __appas;
-            std::map<std::string,short>                          __armors;
-            std::map<std::string,short>                          __books;
-            std::map<std::string,short>                          __clothes;
-            std::map<std::string,short>                          __ingreds;
-            std::map<std::string,short>                          __lights;
-            std::map<std::string,short>                          __lockpicks;
-            std::map<std::string,short>                          __miscItems;
-            std::map<std::string,short>                          __probes;
-            std::map<std::string,short>                          __repairs;
-            std::map<std::string,short>                          __weapons;
+            std::map<std::string,short>                          mPotions;
+            std::map<std::string,short>                          mAppas;
+            std::map<std::string,short>                          mArmors;
+            std::map<std::string,short>                          mBooks;
+            std::map<std::string,short>                          mClothes;
+            std::map<std::string,short>                          mIngreds;
+            std::map<std::string,short>                          mLights;
+            std::map<std::string,short>                          mLockpicks;
+            std::map<std::string,short>                          mMiscItems;
+            std::map<std::string,short>                          mProbes;
+            std::map<std::string,short>                          mRepairs;
+            std::map<std::string,short>                          mWeapons;
 
             ESMS::CellRefList<ESM::Potion, RefData>            potions;
             ESMS::CellRefList<ESM::Apparatus, RefData>         appas;
