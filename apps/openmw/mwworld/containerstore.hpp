@@ -90,10 +90,11 @@ namespace MWWorld
 
             void remove(const Ptr& ptr);
             ///< Remove the item pointed to by \a ptr to this container.
+
             MWWorld::Ptr get(std::string name);
             ///< name : ESM::Something.name
-            int getStackCount(const Ptr& ptr);
 
+            int getStackCount(const Ptr& ptr);
             bool contains(const Ptr& ptr);
 
             void fill (const ESM::InventoryList& items, const ESMS::ESMStore& store);
