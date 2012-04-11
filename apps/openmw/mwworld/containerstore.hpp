@@ -2,6 +2,7 @@
 #define GAME_MWWORLD_CONTAINERSTORE_H
 
 #include <iterator>
+#include <map>
 
 #include <components/esm_store/cell_store.hpp>
 
@@ -39,6 +40,19 @@ namespace MWWorld
             static const int Type_All = 0xffff;
 
         private:
+            // string: ESM::Potion.name short: total items stacked with that name
+            std::map<std::string,short>                          mPotions;
+            std::map<std::string,short>                          mAppas;
+            std::map<std::string,short>                          mArmors;
+            std::map<std::string,short>                          mBooks;
+            std::map<std::string,short>                          mClothes;
+            std::map<std::string,short>                          mIngreds;
+            std::map<std::string,short>                          mLights;
+            std::map<std::string,short>                          mLockpicks;
+            std::map<std::string,short>                          mMiscItems;
+            std::map<std::string,short>                          mProbes;
+            std::map<std::string,short>                          mRepairs;
+            std::map<std::string,short>                          mWeapons;
 
             ESMS::CellRefList<ESM::Potion, RefData>            potions;
             ESMS::CellRefList<ESM::Apparatus, RefData>         appas;
@@ -73,6 +87,15 @@ namespace MWWorld
             ///
             /// \attention Do not add items to an existing stack by increasing the count instead of
             /// calling this function!
+
+            void remove(const Ptr& ptr);
+            ///< Remove the item pointed to by \a ptr to this container.
+
+            MWWorld::Ptr get(std::string name);
+            ///< name : ESM::Something.name
+
+            int getStackCount(const Ptr& ptr);
+            bool contains(const Ptr& ptr);
 
             void fill (const ESM::InventoryList& items, const ESMS::ESMStore& store);
             ///< Insert items into *this.
