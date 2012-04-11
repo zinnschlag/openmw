@@ -204,8 +204,11 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a potion that is not in the container");
             else
             {
-                __potions.erase(iter);
-                ESMS::LiveCellRef<ESM::Potion,RefData>* liveCellRef = potions.find(name);
+                if(iter->second == 0)
+                    __potions.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Potion,RefData>* liveCellRef = potions.find(name);
                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
@@ -217,8 +220,11 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove an apparatus that is not in the container");
             else
             {
-                __appas.erase(iter);
-                ESMS::LiveCellRef<ESM::Apparatus,RefData>* liveCellRef = appas.find(name);
+                if(iter->second == 0)
+                    __appas.erase(iter);
+                else
+                    iter->second--;
+               // ESMS::LiveCellRef<ESM::Apparatus,RefData>* liveCellRef = appas.find(name);
                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }
@@ -230,8 +236,11 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove an armor piece that is not in the container");
             else
             {
-                __armors.erase(iter);
-                ESMS::LiveCellRef<ESM::Armor,RefData>* liveCellRef = armors.find(name);
+                if(iter->second == 0)
+                    __armors.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Armor,RefData>* liveCellRef = armors.find(name);
                 // useless , waiting for erase method to get implement in CellRefList struct
 
             }
@@ -244,8 +253,11 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a book that is not in the container");
             else
             {
-                __books.erase(iter);
-                ESMS::LiveCellRef<ESM::Book,RefData>* liveCellRef = books.find(name);
+                if(iter->second == 0)
+                     __books.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Book,RefData>* liveCellRef = books.find(name);
                 // useless , waiting for erase method to get implement in CellRefList struct
 
             }
@@ -258,9 +270,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove an apparel part that is not in the container");
             else
             {
-                __clothes.erase(iter);
-                ESMS::LiveCellRef<ESM::Clothing,RefData>* liveCellRef = clothes.find(name);
-                 // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __clothes.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Clothing,RefData>* liveCellRef = clothes.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Ingredient:
@@ -271,9 +286,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove an alchemy ingredient that is not in the container");
             else
             {
-                __ingreds.erase(iter);
-                ESMS::LiveCellRef<ESM::Ingredient,RefData>* liveCellRef = ingreds.find(name);
-                 // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __ingreds.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Ingredient,RefData>* liveCellRef = ingreds.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Light:
@@ -284,9 +302,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a light source that is not in the container");
             else
             {
-                __lights.erase(iter);
-                ESMS::LiveCellRef<ESM::Light,RefData>* liveCellRef = lights.find(name);
-                // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __lights.erase(iter);
+                else
+                    iter->second--;
+               // ESMS::LiveCellRef<ESM::Light,RefData>* liveCellRef = lights.find(name);
+               // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Lockpick:
@@ -297,9 +318,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a lockpick that is not in the container");
             else
             {
-                __lockpicks.erase(iter);
-                ESMS::LiveCellRef<ESM::Tool,RefData>* liveCellRef = lockpicks.find(name);
-                 // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __lockpicks.erase(iter);
+                else
+                    iter->second--;
+               // ESMS::LiveCellRef<ESM::Tool,RefData>* liveCellRef = lockpicks.find(name);
+               // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Miscellaneous:
@@ -310,9 +334,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a misc item that is not in the container");
             else
             {
-                __miscItems.erase(iter);
-                ESMS::LiveCellRef<ESM::Miscellaneous,RefData>* liveCellRef =  miscItems.find(name);
-                 // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __miscItems.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Miscellaneous,RefData>* liveCellRef =  miscItems.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Probe:
@@ -323,8 +350,11 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a probe that is not in the container");
             else
             {
-                __probes.erase(iter);
-                ESMS::LiveCellRef<ESM::Probe,RefData>* liveCellRef = probes.find(name);
+                if(iter->second == 0)
+                    __probes.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Probe,RefData>* liveCellRef = probes.find(name);
                 // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
@@ -336,9 +366,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a repair tool that is not in the container");
             else
             {
-                __repairs.erase(iter);
-                ESMS::LiveCellRef<ESM::Repair,RefData>* liveCellRef = repairs.find(name);
-                 // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __repairs.erase(iter);
+                else
+                    iter->second--;
+                // ESMS::LiveCellRef<ESM::Repair,RefData>* liveCellRef = repairs.find(name);
+                // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
        case Type_Weapon:
@@ -349,9 +382,12 @@ void MWWorld::ContainerStore::remove(const Ptr& ptr)
                 throw std::runtime_error("trying to remove a weapon that is not in the container");
             else
             {
-                __weapons.erase(iter);
-                ESMS::LiveCellRef<ESM::Weapon,RefData>* liveCellRef = weapons.find(name);
-                 // useless , waiting for erase method to get implement in CellRefList struct
+                if(iter->second == 0)
+                    __weapons.erase(iter);
+                else
+                    iter->second--;
+               // ESMS::LiveCellRef<ESM::Weapon,RefData>* liveCellRef = weapons.find(name);
+               // useless , waiting for erase method to get implement in CellRefList struct
             }
        }break;
     }
