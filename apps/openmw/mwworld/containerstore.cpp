@@ -48,7 +48,6 @@ MWWorld::ContainerStoreIterator MWWorld::ContainerStore::end()
 
 void MWWorld::ContainerStore::add (const Ptr& ptr)
 {
-    /// \todo implement item stacking
     int type = getType(ptr);
     switch (type)
     {
@@ -194,13 +193,13 @@ void MWWorld::ContainerStore::add (const Ptr& ptr)
 void ContainerStore::remove(const Ptr& ptr)
 {
     int type = getType(ptr);
-    typedef std::map<std::string,short>::iterator iter;
+    typedef std::map<std::string,short>::iterator IterType;
     switch(type)
     {
        case Type_Potion:
        {
             std::string name = ptr.get<ESM::Potion>()->base->name;
-            iter = __potions.find(name);
+            IterType iter = __potions.find(name);
             if(iter == __potions.end())
                 throw std::runtime_error("trying to remove a potion that is not in the container");
             else
@@ -213,7 +212,7 @@ void ContainerStore::remove(const Ptr& ptr)
        case Type_Apparatus:
        {
             std::string name = ptr.get<ESM::Apparatus>()->base->name;
-            iter = __appas.find(name);
+            IterType iter = __appas.find(name);
             if(iter == __appas.end())
                 throw std::runtime_error("trying to remove an apparatus that is not in the container");
             else
@@ -230,38 +229,233 @@ void ContainerStore::remove(const Ptr& ptr)
 int ContainerStore::getStackCount(const Ptr& ptr)
 {
     int type = getType(ptr);
+    typedef std::map<std::string,short>::iterator IterType;
     switch(type)
     {
         case Type_Potion:
         {
-             std::string name = ptr.get<ESM::Apparatus>()->base->name;
-             iter = __potions.find(name);
+             std::string name = ptr.get<ESM::Potion>()->base->name;
+             IterType iter = __potions.find(name);
              if(iter == __potions.end())
                   throw std::runtime_error("trying to to get the stack count of a potion that is not in the container");
              else
                 return iter->second;
         }break;
+        case Type_Apparatus:
+        {
+            std::string name = ptr.get<ESM::Apparatus>()->base->name;
+            IterType iter = __appas.find(name);
+            if(iter == __appas.end())
+                 throw std::runtime_error("trying to to get the stack count of an apparatus that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Armor:
+        {
+            std::string name = ptr.get<ESM::Armor>()->base->name;
+            IterType iter = __armors.find(name);
+            if(iter == __armors.end())
+                 throw std::runtime_error("trying to to get the stack count of an armor that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Book:
+        {
+            std::string name = ptr.get<ESM::Book>()->base->name;
+            IterType iter = __books.find(name);
+            if(iter == __books.end())
+                 throw std::runtime_error("trying to to get the stack count of a book that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Clothing:
+        {
+            std::string name = ptr.get<ESM::Clothing>()->base->name;
+            IterType iter = __clothes.find(name);
+            if(iter == __clothes.end())
+                 throw std::runtime_error("trying to to get the stack count of an apparel part that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Ingredient:
+        {
+            std::string name = ptr.get<ESM::Ingredient>()->base->name;
+            IterType iter = __ingreds.find(name);
+            if(iter == __ingreds.end())
+                 throw std::runtime_error("trying to to get the stack count of an ingredient that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Light:
+        {
+            std::string name = ptr.get<ESM::Light>()->base->name;
+            IterType iter = __lights.find(name);
+            if(iter == __lights.end())
+                 throw std::runtime_error("trying to to get the stack count of a light source that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Lockpick:
+        {
+            std::string name = ptr.get<ESM::Tool>()->base->name;
+            IterType iter = __lockpicks.find(name);
+            if(iter == __lockpicks.end())
+                 throw std::runtime_error("trying to to get the stack count of a lockpick that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Miscellaneous:
+        {
+            std::string name = ptr.get<ESM::Miscellaneous>()->base->name;
+            IterType iter = __miscItems.find(name);
+            if(iter == __miscItems.end())
+                 throw std::runtime_error("trying to to get the stack count of a misc item that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Probe:
+        {
+            std::string name = ptr.get<ESM::Probe>()->base->name;
+            IterType iter = __probes.find(name);
+            if(iter == __probes.end())
+                 throw std::runtime_error("trying to to get the stack count of a probe that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Repair:
+        {
+            std::string name = ptr.get<ESM::Repair>()->base->name;
+            IterType iter = __repairs.find(name);
+            if(iter == __repairs.end())
+                 throw std::runtime_error("trying to to get the stack count of a repair tool that is not in the container");
+            else
+               return iter->second;
+        }break;
+        case Type_Weapon:
+        {
+            std::string name = ptr.get<ESM::Weapon>()->base->name;
+            IterType iter = __weapon.find(name);
+            if(iter == __weapons.end())
+                 throw std::runtime_error("trying to to get the stack count of  a weapon that is not in the container");
+            else
+               return iter->second;
+        }break;
     }
     return 0;
 }
-
-MWWorl::Ptr& ContainerStore::get(std::string name)
+MWWorl::Ptr ContainerStore::get(std::string name)
 {
+    // TO DO -- add newlines to the excpetion messages and see if that checks are really neccessary
     if(__potions.find(name) != __potions.end()) 
     {
         if(__potions[name] < 1)
            throw std::runtime_error("tried to get a potion whose stack count was 0");
         ESMS::LiveCellRef<ESM::Potion,RefData>* liveCellRef = potions.find(name);
-        Ptr ptr(liveCellRef,0));
+        MWWorld::Ptr ptr(liveCellRef,0);
         return ptr;
     }
     else if(__appas.find(name) != __appas.end())
     {
-         if(__appas[name] < 1)
+       if(__appas[name] < 1)
            throw std::runtime_error("tried to get an apparatus whose stack count was 0");
         ESMS::LiveCellRef<ESM::Apparatus,RefData>* liveCellRef = appas.find(name);
-        Ptr ptr(liveCellRef,0));
+        MWWorld::Ptr ptr(liveCellRef,0);
         return ptr;
+    }
+    else if(__armors.find(name) != __armors.end())
+    {
+        if(__armors[name] < 1)
+            throw std::runtime_error("tried to get an armor whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Armor,RefData>* liveCellRef = armors.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__books.find(name) != __books.end())
+    {
+        if(__books[name] < 1)
+            throw std::runtime_error("tried to get a book whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Book,RefData>* liveCellRef = books.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__clothes.find(name) != __clothes.end())
+    {
+        if(__clothes[name] < 1)
+            throw std::runtime_error("tried to get an apparel part whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Clothing,RefData>* liveCellRef = clothes.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__ingreds.find(name) != __ingreds.end())
+    {
+        if(__ingreds[name] < 1)
+            throw std::runtime_error("tried to get an ingredient whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Ingredient,RefData>* liveCellRef = ingreds.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__lights.find(name) != __lights.end())
+    {
+        if(__lights[name] < 1)
+            throw std::runtime_error("tried to get a light source whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Light,RefData>* liveCellRef = lights.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__lockpicks.find(name) != __lockpicks.end())
+    {
+        if(__lockpicks[name] < 1)
+            throw std::runtime_error("tried to get a lockpick whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Tool,RefData>* liveCellRef = lockpicks.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__miscItems.find(name) != __miscItems.end())
+    {
+        if(__miscItems[name] < 1)
+            throw std::runtime_error("tried to get a misc item whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Miscellaneous,RefData>* liveCellRef = miscItems.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__probes.find(name) != __probes.end())
+    {
+        if(__probes[name] < 1)
+            throw std::runtime_error("tried to get a probe whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Miscellaneous,RefData>* liveCellRef = probes.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__repairs.find(name) != __repairs.end())
+    {
+        if(__repairs[name] < 1)
+            throw std::runtime_error("tried to get an item that helps with repairing whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Repair,RefData>* liveCellRef = repairs.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else if(__weapons.find(name) != __repairs.end())
+    {
+        if(__weapons[name] < 1)
+            throw std::runtime_error("tried to get a weapon whose stack count was 0");
+         ESMS::LiveCellRef<ESM::Weapon,RefData>* liveCellRef = weapons.find(name);
+         MWWorld::Ptr ptr(liveCellRef,0);
+         return ptr;
+    }
+    else
+        throw std::runtime_error("there is no item with name " + name + " in this container" );
+}
+
+bool ContainerStore::contains(const Ptr& ptr)
+{
+    int type = getType(ptr);
+    switch(type)
+    {
+         case Type_Potion:
+         {
+               std::string name = ptr.get<ESM::Potion>()->base->name;
+               return __potions.find(name) != __potions.end();
+         }break;
     }
 }
 
