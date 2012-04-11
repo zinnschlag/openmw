@@ -245,6 +245,26 @@ int ContainerStore::getStackCount(const Ptr& ptr)
     return 0;
 }
 
+MWWorl::Ptr& ContainerStore::get(std::string name)
+{
+    if(__potions.find(name) != __potions.end()) 
+    {
+        if(__potions[name] < 1)
+           throw std::runtime_error("tried to get a potion whose stack count was 0");
+        ESMS::LiveCellRef<ESM::Potion,RefData>* liveCellRef = potions.find(name);
+        Ptr ptr(liveCellRef,0));
+        return ptr;
+    }
+    else if(__appas.find(name) != __appas.end())
+    {
+         if(__appas[name] < 1)
+           throw std::runtime_error("tried to get an apparatus whose stack count was 0");
+        ESMS::LiveCellRef<ESM::Apparatus,RefData>* liveCellRef = appas.find(name);
+        Ptr ptr(liveCellRef,0));
+        return ptr;
+    }
+}
+
 void MWWorld::ContainerStore::fill (const ESM::InventoryList& items, const ESMS::ESMStore& store)
 {
     for (std::vector<ESM::ContItem>::const_iterator iter (items.list.begin()); iter!=items.list.end();
