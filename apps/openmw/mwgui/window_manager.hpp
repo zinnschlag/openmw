@@ -62,6 +62,7 @@ namespace MWGui
   class Console;
   class JournalWindow;
   class CharacterCreation;
+  class ToolTips;
 
   class TextInputDialog;
   class InfoBoxDialog;
@@ -157,6 +158,8 @@ namespace MWGui
     void setPlayerPos(const float x, const float y); ///< set player position in map space
     void setPlayerDir(const float x, const float y); ///< set player view direction in map space
 
+    void setFocusObject(const MWWorld::Ptr& focus);
+
     void toggleFogOfWar();
 
     int toggleFps();
@@ -196,6 +199,7 @@ namespace MWGui
     HUD *hud;
     MapWindow *map;
     MainMenu *menu;
+    ToolTips *mToolTips;
     StatsWindow *stats;
     MessageBoxManager *mMessageBoxManager;
     Console *console;
