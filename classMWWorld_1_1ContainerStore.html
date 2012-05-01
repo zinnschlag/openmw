@@ -36,6 +36,7 @@
 <p><a href="classMWWorld_1_1ContainerStore-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ae472a1c0963c89fa45e48267e52501f7">ContainerStore</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a072bfaad04f08963aeb3bac403839aad">~ContainerStore</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a71670323082addcc92d290120c409c6f">begin</a> (int mask=<a class="el" href="classMWWorld_1_1ContainerStore.html#a17042290d6394f4caf3115c519e8d9fc">Type_All</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ab7165a7ef4e2053f7c0b712d017a9f5d">end</a> ()</td></tr>
@@ -44,6 +45,10 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Insert items into *this.  <a href="#a57ea5495c2250684446859be05273b7c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ac246b1e5933763a3e51a37a74dbf3b29">clear</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Empty container.  <a href="#ac246b1e5933763a3e51a37a74dbf3b29"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#afe50dbc2ca1bf2dc3e63c8a66f1fc537">flagAsModified</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a7dde7c066621a034068673e5ce93538a">getStateId</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a39ae7addfeb98f09a4e8d7fb3e37f808">getWeight</a> () const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return total weight of the items contained in *this.  <a href="#a39ae7addfeb98f09a4e8d7fb3e37f808"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a58271afa487113da2860f87acffb4a55">getType</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
 <tr><td colspan="2"><h2>Static Public Attributes</h2></td></tr>
@@ -86,10 +91,30 @@
 <a class="el" href="classMWWorld_1_1RefData.html">RefData</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ac92aae3491df75c543ce98a2fe0043d5">repairs</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structESMS_1_1CellRefList.html">ESMS::CellRefList</a>&lt; <a class="el" href="structESM_1_1Weapon.html">ESM::Weapon</a>, <br class="typebreak"/>
 <a class="el" href="classMWWorld_1_1RefData.html">RefData</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a75a5a7ddae08f741c9290fd2db2315aa">weapons</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a9a5fdd42d127d4c4327a7c115591b56c">mStateId</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#adad021ea38f68a8e034836818fb4b229">mCachedWeight</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a096d66cc8689895e33e3e006e2dc937a">mWeightUpToDate</a></td></tr>
 <tr><td colspan="2"><h2>Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a76d6204c518657cd886c42dffec897df">ContainerStoreIterator</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ae472a1c0963c89fa45e48267e52501f7"></a><!-- doxytag: member="MWWorld::ContainerStore::ContainerStore" ref="ae472a1c0963c89fa45e48267e52501f7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MWWorld::ContainerStore::ContainerStore </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a072bfaad04f08963aeb3bac403839aad"></a><!-- doxytag: member="MWWorld::ContainerStore::~ContainerStore" ref="a072bfaad04f08963aeb3bac403839aad" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -127,7 +152,7 @@
 <dl class="note"><dt><b>Note:</b></dt><dd>The item pointed to is not required to exist beyond this function call.</dd></dl>
 <dl class="attention"><dt><b>Attention:</b></dt><dd>Do not add items to an existing stack by increasing the count instead of calling this function! </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>implement item stacking </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000023">Todo:</a></b></dt><dd>implement item stacking </dd></dl>
 </p>
 
 </div>
@@ -213,8 +238,45 @@
 
 <p>Insert items into *this. </p>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>implement leveled item lists </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>implement leveled item lists </dd></dl>
 </p>
+
+</div>
+</div>
+<a class="anchor" id="afe50dbc2ca1bf2dc3e63c8a66f1fc537"></a><!-- doxytag: member="MWWorld::ContainerStore::flagAsModified" ref="afe50dbc2ca1bf2dc3e63c8a66f1fc537" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::ContainerStore::flagAsModified </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="attention"><dt><b>Attention:</b></dt><dd>This function is internal to the world model and should not be called from outside. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7dde7c066621a034068673e5ce93538a"></a><!-- doxytag: member="MWWorld::ContainerStore::getStateId" ref="a7dde7c066621a034068673e5ce93538a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MWWorld::ContainerStore::getStateId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This ID is changed every time the container is modified or items in the container are accessed in a way that may be used to modify the item. </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method of change-tracking will ocasionally yield false positives. </dd></dl>
 
 </div>
 </div>
@@ -234,6 +296,25 @@
 </div>
 <div class="memdoc">
 <p>This function throws an exception, if ptr does not point to an object, that can be put into a container. </p>
+
+</div>
+</div>
+<a class="anchor" id="a39ae7addfeb98f09a4e8d7fb3e37f808"></a><!-- doxytag: member="MWWorld::ContainerStore::getWeight" ref="a39ae7addfeb98f09a4e8d7fb3e37f808" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MWWorld::ContainerStore::getWeight </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return total weight of the items contained in *this. </p>
 
 </div>
 </div>
@@ -343,12 +424,51 @@
 
 </div>
 </div>
+<a class="anchor" id="adad021ea38f68a8e034836818fb4b229"></a><!-- doxytag: member="MWWorld::ContainerStore::mCachedWeight" ref="adad021ea38f68a8e034836818fb4b229" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWWorld_1_1ContainerStore.html#adad021ea38f68a8e034836818fb4b229">MWWorld::ContainerStore::mCachedWeight</a><code> [mutable, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="adb673b99381be822cbf3b99d8ab2e378"></a><!-- doxytag: member="MWWorld::ContainerStore::miscItems" ref="adb673b99381be822cbf3b99d8ab2e378" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structESMS_1_1CellRefList.html">ESMS::CellRefList</a>&lt;<a class="el" href="structESM_1_1Miscellaneous.html">ESM::Miscellaneous</a>, <a class="el" href="classMWWorld_1_1RefData.html">RefData</a>&gt; <a class="el" href="classMWWorld_1_1ContainerStore.html#adb673b99381be822cbf3b99d8ab2e378">MWWorld::ContainerStore::miscItems</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9a5fdd42d127d4c4327a7c115591b56c"></a><!-- doxytag: member="MWWorld::ContainerStore::mStateId" ref="a9a5fdd42d127d4c4327a7c115591b56c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWWorld_1_1ContainerStore.html#a9a5fdd42d127d4c4327a7c115591b56c">MWWorld::ContainerStore::mStateId</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a096d66cc8689895e33e3e006e2dc937a"></a><!-- doxytag: member="MWWorld::ContainerStore::mWeightUpToDate" ref="a096d66cc8689895e33e3e006e2dc937a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWWorld_1_1ContainerStore.html#a096d66cc8689895e33e3e006e2dc937a">MWWorld::ContainerStore::mWeightUpToDate</a><code> [mutable, private]</code></td>
         </tr>
       </table>
 </div>
@@ -595,7 +715,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="containerstore_8cpp.html">containerstore.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

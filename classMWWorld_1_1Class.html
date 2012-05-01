@@ -82,6 +82,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; std::vector<br class="typebreak"/>
 &lt; int &gt;, bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ae0d0d41fb229c8d8767f7bccc7b16f1c">getEquipmentSlots</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ad396692c9630219e8304894423a3ec49">getEquipmentSkill</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Environment.html">Environment</a> &amp;environment) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#aac9905152f95beda5f9430429159b3d1">getValue</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a929f75ad9600b36c10582aa7587bbf9b">getUpSoundId</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#aa2139a254c0b99fb6b3f0435391463ec">getDownSoundId</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
@@ -317,7 +318,6 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <div class="memdoc">
 
 <p>If there is no class for this <em>key</em>, an exception is thrown. </p>
-<p>Return the index of the skill this item corresponds to when equiopped or -1, if there is no such skill. (default implementation: return -1) </p>
 
 </div>
 </div>
@@ -700,6 +700,27 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 
 </div>
 </div>
+<a class="anchor" id="aac9905152f95beda5f9430429159b3d1"></a><!-- doxytag: member="MWWorld::Class::getValue" ref="aac9905152f95beda5f9430429159b3d1" args="(const Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MWWorld::Class::getValue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return the index of the skill this item corresponds to when equiopped or -1, if there is no such skill. (default implementation: return -1) Return trade value of the object. Throws an exception, if the object can't be traded. (default implementation: throws an exception) </p>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Apparatus.html#afd08e273b0a896a69d833f69d23916f5">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Armor.html#aa9733bee228160890e66c3e5e11e7169">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Book.html#a05b73c87d73ea535ce1bed04b66316d3">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Clothing.html#a7121fb0d9cb8dc4f0948b5b9d2aaa7ba">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a8bcf40c657e9ac402fc1439458377e5c">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Light.html#a044cc27ef77e954c51d4f21ad956047a">MWClass::Light</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a513cb3ee231adaf7a49ab2d8ce979818">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#a6c935388e588919785938db8b99887e1">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Potion.html#a3843fc17dd10a7c7929051e006936189">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Probe.html#a65496dc6e19a66e7721c3bcd46a9b310">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Repair.html#a2e6e1c897f5c6d54ea4283f918034132">MWClass::Repair</a>, and <a class="el" href="classMWClass_1_1Weapon.html#a918114120636d8e779de20fd399a15d1">MWClass::Weapon</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a035d847bc3caaaf4923d6eed143b3fbb"></a><!-- doxytag: member="MWWorld::Class::hasItemHealth" ref="a035d847bc3caaaf4923d6eed143b3fbb" args="(const Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1006,7 +1027,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <li>apps/openmw/mwworld/<a class="el" href="mwworld_2class_8cpp.html">class.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

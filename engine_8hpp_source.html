@@ -102,76 +102,79 @@
 <a name="l00076"></a><a class="code" href="classOMW_1_1Engine.html#ab5040a07e20d71b71f365a25ba82fedc">00076</a>             <span class="keywordtype">bool</span> <a class="code" href="classOMW_1_1Engine.html#ab5040a07e20d71b71f365a25ba82fedc">mReportFocus</a>;
 <a name="l00077"></a><a class="code" href="classOMW_1_1Engine.html#a49e83a533ab65ee28512520b55c7de80">00077</a>             <span class="keywordtype">float</span> <a class="code" href="classOMW_1_1Engine.html#a49e83a533ab65ee28512520b55c7de80">mFocusTDiff</a>;
 <a name="l00078"></a><a class="code" href="classOMW_1_1Engine.html#a505b27ee05eca6fdea96bd7d89601b81">00078</a>             std::string <a class="code" href="classOMW_1_1Engine.html#a505b27ee05eca6fdea96bd7d89601b81">mFocusName</a>;
-<a name="l00079"></a>00079 
-<a name="l00080"></a><a class="code" href="classOMW_1_1Engine.html#a13ebe1b4cbfca3f6646f96944cf6977e">00080</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a> <a class="code" href="classOMW_1_1Engine.html#a13ebe1b4cbfca3f6646f96944cf6977e">mEnvironment</a>;
-<a name="l00081"></a><a class="code" href="classOMW_1_1Engine.html#a56d7a634c7ecb9c28b6526277e18d156">00081</a>             <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a> <a class="code" href="classOMW_1_1Engine.html#a56d7a634c7ecb9c28b6526277e18d156">mExtensions</a>;
-<a name="l00082"></a><a class="code" href="classOMW_1_1Engine.html#aa400b04054b9a5931d283f4a77aa9c12">00082</a>             <a class="code" href="classCompiler_1_1Context.html">Compiler::Context</a> *<a class="code" href="classOMW_1_1Engine.html#aa400b04054b9a5931d283f4a77aa9c12">mScriptContext</a>;
-<a name="l00083"></a>00083 
+<a name="l00079"></a><a class="code" href="classOMW_1_1Engine.html#afc2e2e72796e37092caac3cdb9f31f20">00079</a>             std::map&lt;std::string,std::string&gt; <a class="code" href="classOMW_1_1Engine.html#afc2e2e72796e37092caac3cdb9f31f20">mFallbackMap</a>;
+<a name="l00080"></a>00080 
+<a name="l00081"></a><a class="code" href="classOMW_1_1Engine.html#a13ebe1b4cbfca3f6646f96944cf6977e">00081</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a> <a class="code" href="classOMW_1_1Engine.html#a13ebe1b4cbfca3f6646f96944cf6977e">mEnvironment</a>;
+<a name="l00082"></a><a class="code" href="classOMW_1_1Engine.html#a56d7a634c7ecb9c28b6526277e18d156">00082</a>             <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a> <a class="code" href="classOMW_1_1Engine.html#a56d7a634c7ecb9c28b6526277e18d156">mExtensions</a>;
+<a name="l00083"></a><a class="code" href="classOMW_1_1Engine.html#aa400b04054b9a5931d283f4a77aa9c12">00083</a>             <a class="code" href="classCompiler_1_1Context.html">Compiler::Context</a> *<a class="code" href="classOMW_1_1Engine.html#aa400b04054b9a5931d283f4a77aa9c12">mScriptContext</a>;
 <a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="classOMW_1_1Engine.html#a129a50f97cd16e0d1e3fe4bef89942c2">00085</a>             <a class="code" href="classFiles_1_1Collections.html">Files::Collections</a> <a class="code" href="classOMW_1_1Engine.html#a129a50f97cd16e0d1e3fe4bef89942c2">mFileCollections</a>;
-<a name="l00086"></a><a class="code" href="classOMW_1_1Engine.html#a7d7ac150d67d86838654a9bd2df15d3a">00086</a>             <span class="keywordtype">bool</span> <a class="code" href="classOMW_1_1Engine.html#a7d7ac150d67d86838654a9bd2df15d3a">mFSStrict</a>;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088             <span class="comment">// not implemented</span>
-<a name="l00089"></a>00089             <a class="code" href="classOMW_1_1Engine.html#a7cb6ac152424ae3767037fddef58b43c">Engine</a> (<span class="keyword">const</span> <a class="code" href="classOMW_1_1Engine.html" title="Main engine class, that brings together all the components of OpenMW.">Engine</a>&amp;);
-<a name="l00090"></a>00090             <a class="code" href="classOMW_1_1Engine.html" title="Main engine class, that brings together all the components of OpenMW.">Engine</a>&amp; <a class="code" href="classOMW_1_1Engine.html#ae3a522af52cb4bf27b2456969cc8805c">operator= </a>(<span class="keyword">const</span> <a class="code" href="classOMW_1_1Engine.html" title="Main engine class, that brings together all the components of OpenMW.">Engine</a>&amp;);
-<a name="l00091"></a>00091 
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#aae5acc65815b03c26eedf0f98ac7c9de">addResourcesDirectory</a> (<span class="keyword">const</span> boost::filesystem::path&amp; path);
-<a name="l00096"></a>00096 
-<a name="l00098"></a>00098             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ab4f3fe84d61bcce023726a9363bd832a" title="Load all BSA files in data directory.">loadBSA</a>();
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a1e4662ac66618bc5493c320f4e0e869a">executeLocalScripts</a>();
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a301884c2113c1899abf7f7592965b089">updateFocusReport</a> (<span class="keywordtype">float</span> duration);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classOMW_1_1Engine.html#a6da583116f27cad659fe9b06c3fef0c8">frameRenderingQueued</a> (<span class="keyword">const</span> Ogre::FrameEvent&amp; evt);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106         <span class="keyword">public</span>:
-<a name="l00107"></a>00107             <a class="code" href="classOMW_1_1Engine.html#a7cb6ac152424ae3767037fddef58b43c">Engine</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a>&amp; configurationManager);
-<a name="l00108"></a>00108             <span class="keyword">virtual</span> <a class="code" href="classOMW_1_1Engine.html#a0e5d42411da893bf58c2a49574bb461d">~Engine</a>();
-<a name="l00109"></a>00109 
-<a name="l00114"></a>00114             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a0f76223cf6928271ce1c354962dfc5f4">enableFSStrict</a>(<span class="keywordtype">bool</span> fsStrict);
-<a name="l00115"></a>00115 
-<a name="l00117"></a>00117             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a468836c12fd5efd736716ba2b3ac0f17" title="Set data dirs.">setDataDirs</a>(<span class="keyword">const</span> <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>&amp; dataDirs);
-<a name="l00118"></a>00118 
-<a name="l00120"></a>00120             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a6a099254817e38c0cce67966fe8d7f67" title="Set resource dir.">setResourceDir</a>(<span class="keyword">const</span> boost::filesystem::path&amp; parResDir);
-<a name="l00121"></a>00121 
-<a name="l00123"></a>00123             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ae8b626216a9b31cd0cad6789c516bb95" title="Set start cell name (only interiors for now).">setCell</a>(<span class="keyword">const</span> std::string&amp; cellName);
-<a name="l00124"></a>00124 
-<a name="l00128"></a>00128             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a90c3b5dff2bc246ff87c8f5bfb60f610">addMaster</a>(<span class="keyword">const</span> std::string&amp; master);
-<a name="l00129"></a>00129 
-<a name="l00131"></a>00131             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#aa5e23aa479451132f02a3ac2ef6c8425" title="Enable fps counter.">showFPS</a>(<span class="keywordtype">int</span> level);
-<a name="l00132"></a>00132 
-<a name="l00135"></a>00135             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#af3e7d3979b6f1926d7fa02d85b124abe">setDebugMode</a>(<span class="keywordtype">bool</span> debugMode);
-<a name="l00136"></a>00136 
-<a name="l00138"></a>00138             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#af2efe7bfaae52f9be4c22df24c0aa463" title="Enable or disable verbose script output.">setScriptsVerbosity</a>(<span class="keywordtype">bool</span> scriptsVerbosity);
-<a name="l00139"></a>00139 
-<a name="l00141"></a>00141             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a7096aeb2955949c8d64c8809f55fa84a" title="Disable or enable all sounds.">setSoundUsage</a>(<span class="keywordtype">bool</span> soundUsage);
-<a name="l00142"></a>00142 
-<a name="l00144"></a>00144             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ae17a3598528bb2f3692ba7f19452fbff" title="Start as a new game.">setNewGame</a>(<span class="keywordtype">bool</span> newGame);
-<a name="l00145"></a>00145 
-<a name="l00147"></a>00147             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a23fe29fc2603648fcde82c22f559d17d" title="Write name of focussed object to cout.">setReportFocus</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a05eca84f2394e8df27ee410757f3ee2e">report</a>);
-<a name="l00148"></a>00148 
-<a name="l00150"></a>00150             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a8d1b9febc202c89a2472919691065b0f" title="Initialise and enter main loop.">go</a>();
-<a name="l00151"></a>00151 
-<a name="l00153"></a>00153             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a222a79fa4d7f2211da8e63b79292cd50" title="Activate the focussed object.">activate</a>();
-<a name="l00154"></a>00154 
-<a name="l00156"></a>00156             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a51609424c21e9b3cba9df34ecd802be2" title="Write screenshot to file.">screenshot</a>();
-<a name="l00157"></a>00157 
-<a name="l00159"></a>00159             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a4146b23e1b782720fe66dd668fd0595f" title="Compile all scripts (excludign dialogue scripts) at startup?">setCompileAll</a> (<span class="keywordtype">bool</span> all);
-<a name="l00160"></a>00160 
-<a name="l00162"></a>00162             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a48ac9cacb411b15005e2f3f828791b0b" title="Font encoding.">setEncoding</a>(<span class="keyword">const</span> std::string&amp; encoding);
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#afa09cda30f80fabddff85642742bdfe3">setAnimationVerbose</a>(<span class="keywordtype">bool</span> animverbose);
-<a name="l00165"></a>00165 
-<a name="l00166"></a>00166         <span class="keyword">private</span>:
-<a name="l00167"></a><a class="code" href="classOMW_1_1Engine.html#a66fa21652ae9477a4ec10f0fe0baccb3">00167</a>             <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a>&amp; <a class="code" href="classOMW_1_1Engine.html#a66fa21652ae9477a4ec10f0fe0baccb3">mCfgMgr</a>;
-<a name="l00168"></a>00168     };
-<a name="l00169"></a>00169 }
-<a name="l00170"></a>00170 
-<a name="l00171"></a>00171 <span class="preprocessor">#endif </span><span class="comment">/* ENGINE_H */</span>
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="classOMW_1_1Engine.html#a129a50f97cd16e0d1e3fe4bef89942c2">00086</a>             <a class="code" href="classFiles_1_1Collections.html">Files::Collections</a> <a class="code" href="classOMW_1_1Engine.html#a129a50f97cd16e0d1e3fe4bef89942c2">mFileCollections</a>;
+<a name="l00087"></a><a class="code" href="classOMW_1_1Engine.html#a7d7ac150d67d86838654a9bd2df15d3a">00087</a>             <span class="keywordtype">bool</span> <a class="code" href="classOMW_1_1Engine.html#a7d7ac150d67d86838654a9bd2df15d3a">mFSStrict</a>;
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089             <span class="comment">// not implemented</span>
+<a name="l00090"></a>00090             <a class="code" href="classOMW_1_1Engine.html#a7cb6ac152424ae3767037fddef58b43c">Engine</a> (<span class="keyword">const</span> <a class="code" href="classOMW_1_1Engine.html" title="Main engine class, that brings together all the components of OpenMW.">Engine</a>&amp;);
+<a name="l00091"></a>00091             <a class="code" href="classOMW_1_1Engine.html" title="Main engine class, that brings together all the components of OpenMW.">Engine</a>&amp; <a class="code" href="classOMW_1_1Engine.html#ae3a522af52cb4bf27b2456969cc8805c">operator= </a>(<span class="keyword">const</span> <a class="code" href="classOMW_1_1Engine.html" title="Main engine class, that brings together all the components of OpenMW.">Engine</a>&amp;);
+<a name="l00092"></a>00092 
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#aae5acc65815b03c26eedf0f98ac7c9de">addResourcesDirectory</a> (<span class="keyword">const</span> boost::filesystem::path&amp; path);
+<a name="l00097"></a>00097 
+<a name="l00099"></a>00099             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ab4f3fe84d61bcce023726a9363bd832a" title="Load all BSA files in data directory.">loadBSA</a>();
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a1e4662ac66618bc5493c320f4e0e869a">executeLocalScripts</a>();
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a301884c2113c1899abf7f7592965b089">updateFocusReport</a> (<span class="keywordtype">float</span> duration);
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classOMW_1_1Engine.html#a6da583116f27cad659fe9b06c3fef0c8">frameRenderingQueued</a> (<span class="keyword">const</span> Ogre::FrameEvent&amp; evt);
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107         <span class="keyword">public</span>:
+<a name="l00108"></a>00108             <a class="code" href="classOMW_1_1Engine.html#a7cb6ac152424ae3767037fddef58b43c">Engine</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a>&amp; configurationManager);
+<a name="l00109"></a>00109             <span class="keyword">virtual</span> <a class="code" href="classOMW_1_1Engine.html#a0e5d42411da893bf58c2a49574bb461d">~Engine</a>();
+<a name="l00110"></a>00110 
+<a name="l00115"></a>00115             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a0f76223cf6928271ce1c354962dfc5f4">enableFSStrict</a>(<span class="keywordtype">bool</span> fsStrict);
+<a name="l00116"></a>00116 
+<a name="l00118"></a>00118             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a468836c12fd5efd736716ba2b3ac0f17" title="Set data dirs.">setDataDirs</a>(<span class="keyword">const</span> <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">Files::PathContainer</a>&amp; dataDirs);
+<a name="l00119"></a>00119 
+<a name="l00121"></a>00121             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a6a099254817e38c0cce67966fe8d7f67" title="Set resource dir.">setResourceDir</a>(<span class="keyword">const</span> boost::filesystem::path&amp; parResDir);
+<a name="l00122"></a>00122 
+<a name="l00124"></a>00124             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ae8b626216a9b31cd0cad6789c516bb95" title="Set start cell name (only interiors for now).">setCell</a>(<span class="keyword">const</span> std::string&amp; cellName);
+<a name="l00125"></a>00125 
+<a name="l00129"></a>00129             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a90c3b5dff2bc246ff87c8f5bfb60f610">addMaster</a>(<span class="keyword">const</span> std::string&amp; master);
+<a name="l00130"></a>00130 
+<a name="l00132"></a>00132             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#aa5e23aa479451132f02a3ac2ef6c8425" title="Enable fps counter.">showFPS</a>(<span class="keywordtype">int</span> level);
+<a name="l00133"></a>00133 
+<a name="l00136"></a>00136             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#af3e7d3979b6f1926d7fa02d85b124abe">setDebugMode</a>(<span class="keywordtype">bool</span> debugMode);
+<a name="l00137"></a>00137 
+<a name="l00139"></a>00139             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#af2efe7bfaae52f9be4c22df24c0aa463" title="Enable or disable verbose script output.">setScriptsVerbosity</a>(<span class="keywordtype">bool</span> scriptsVerbosity);
+<a name="l00140"></a>00140 
+<a name="l00142"></a>00142             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a7096aeb2955949c8d64c8809f55fa84a" title="Disable or enable all sounds.">setSoundUsage</a>(<span class="keywordtype">bool</span> soundUsage);
+<a name="l00143"></a>00143 
+<a name="l00145"></a>00145             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ae17a3598528bb2f3692ba7f19452fbff" title="Start as a new game.">setNewGame</a>(<span class="keywordtype">bool</span> newGame);
+<a name="l00146"></a>00146 
+<a name="l00148"></a>00148             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a23fe29fc2603648fcde82c22f559d17d" title="Write name of focussed object to cout.">setReportFocus</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a05eca84f2394e8df27ee410757f3ee2e">report</a>);
+<a name="l00149"></a>00149 
+<a name="l00151"></a>00151             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a8d1b9febc202c89a2472919691065b0f" title="Initialise and enter main loop.">go</a>();
+<a name="l00152"></a>00152 
+<a name="l00154"></a>00154             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a222a79fa4d7f2211da8e63b79292cd50" title="Activate the focussed object.">activate</a>();
+<a name="l00155"></a>00155 
+<a name="l00157"></a>00157             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a51609424c21e9b3cba9df34ecd802be2" title="Write screenshot to file.">screenshot</a>();
+<a name="l00158"></a>00158 
+<a name="l00160"></a>00160             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a4146b23e1b782720fe66dd668fd0595f" title="Compile all scripts (excludign dialogue scripts) at startup?">setCompileAll</a> (<span class="keywordtype">bool</span> all);
+<a name="l00161"></a>00161 
+<a name="l00163"></a>00163             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#a48ac9cacb411b15005e2f3f828791b0b" title="Font encoding.">setEncoding</a>(<span class="keyword">const</span> std::string&amp; encoding);
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#afa09cda30f80fabddff85642742bdfe3">setAnimationVerbose</a>(<span class="keywordtype">bool</span> animverbose);
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167             <span class="keywordtype">void</span> <a class="code" href="classOMW_1_1Engine.html#ad3b8d415d8904521d4cf0f1a82b418e7">setFallbackValues</a>(std::map&lt;std::string,std::string&gt; map);
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169         <span class="keyword">private</span>:
+<a name="l00170"></a><a class="code" href="classOMW_1_1Engine.html#a66fa21652ae9477a4ec10f0fe0baccb3">00170</a>             <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a>&amp; <a class="code" href="classOMW_1_1Engine.html#a66fa21652ae9477a4ec10f0fe0baccb3">mCfgMgr</a>;
+<a name="l00171"></a>00171     };
+<a name="l00172"></a>00172 }
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174 <span class="preprocessor">#endif </span><span class="comment">/* ENGINE_H */</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

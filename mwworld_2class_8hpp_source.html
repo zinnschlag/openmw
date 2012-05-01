@@ -60,7 +60,7 @@
 <a name="l00033"></a>00033 <span class="keyword">namespace </span>MWWorld
 <a name="l00034"></a>00034 {
 <a name="l00035"></a>00035     <span class="keyword">class </span>Ptr;
-<a name="l00036"></a>00036     <span class="keyword">class </span>Environment;
+<a name="l00036"></a>00036     <span class="keyword">class </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
 <a name="l00037"></a>00037     <span class="keyword">class </span>ContainerStore;
 <a name="l00038"></a>00038     <span class="keyword">class </span>InventoryStore;
 <a name="l00039"></a>00039 
@@ -112,7 +112,7 @@
 <a name="l00108"></a>00108 
 <a name="l00109"></a>00109             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#af1209aa1b5a2bf560a182fcc8a9e8547">getContainerStore</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
 <a name="l00112"></a>00112 
-<a name="l00113"></a>00113             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1InventoryStore.html" title="&amp;lt;">InventoryStore</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a852b8ee3c98947449511b85dfa479b28">getInventoryStore</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00113"></a>00113             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1InventoryStore.html" title="Variant of the ContainerStore for NPCs.">InventoryStore</a>&amp; <a class="code" href="classMWWorld_1_1Class.html#a852b8ee3c98947449511b85dfa479b28">getInventoryStore</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
 <a name="l00116"></a>00116 
 <a name="l00117"></a>00117             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#abf575ffd3200705cc6665afa69f2f0bd" title="Lock object (default implementation: throw an exception).">lock</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">int</span> lockLevel) <span class="keyword">const</span>;
 <a name="l00119"></a>00119 
@@ -137,21 +137,23 @@
 <a name="l00152"></a>00152             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1Class.html#ad396692c9630219e8304894423a3ec49">getEquipmentSkill</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">Environment</a>&amp; environment)
 <a name="l00153"></a>00153                 <span class="keyword">const</span>;
 <a name="l00157"></a>00157 
-<a name="l00158"></a>00158             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> std::string&amp; key);
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164             <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a4f8e8532e7eb1e0dcb09e2def1ea7d1e">registerClass</a> (<span class="keyword">const</span> std::string&amp; key,  boost::shared_ptr&lt;Class&gt; instance);
-<a name="l00165"></a>00165 
-<a name="l00166"></a>00166             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#a929f75ad9600b36c10582aa7587bbf9b">getUpSoundId</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00158"></a>00158             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1Class.html#aac9905152f95beda5f9430429159b3d1">getValue</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr) <span class="keyword">const</span>;
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> std::string&amp; key);
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168             <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Class.html#a4f8e8532e7eb1e0dcb09e2def1ea7d1e">registerClass</a> (<span class="keyword">const</span> std::string&amp; key,  boost::shared_ptr&lt;Class&gt; instance);
 <a name="l00169"></a>00169 
-<a name="l00170"></a>00170             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#aa2139a254c0b99fb6b3f0435391463ec">getDownSoundId</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
-<a name="l00173"></a>00173     };
-<a name="l00174"></a>00174 }
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176 <span class="preprocessor">#endif</span>
+<a name="l00170"></a>00170             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#a929f75ad9600b36c10582aa7587bbf9b">getUpSoundId</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1Class.html#aa2139a254c0b99fb6b3f0435391463ec">getDownSoundId</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment) <span class="keyword">const</span>;
+<a name="l00177"></a>00177     };
+<a name="l00178"></a>00178 }
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

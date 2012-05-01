@@ -45,7 +45,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classanonymous__namespace_02bsa__archive_8cpp_03_1_1DirArchive.html#aaef06e45fe2bfe77eea5f23a74a81692">exists</a> (const String &amp;filename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">DataStreamPtr&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classanonymous__namespace_02bsa__archive_8cpp_03_1_1DirArchive.html#aa06dc3b8f7f742ff4dd07d3a7dbef210">open</a> (const String &amp;filename, bool readonly=true) const </td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classanonymous__namespace_02bsa__archive_8cpp_03_1_1DirArchive.html#a0e4845319c5e26fe7944c546290dfd0c">comparePortion</a> (std::string file1, std::string file2, int start, int <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classanonymous__namespace_02bsa__archive_8cpp_03_1_1DirArchive.html#a4ece50955f53b38d4fb0d8c06621d44f">findFile</a> (const String &amp;filename, std::string &amp;copy) const </td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classanonymous__namespace_02bsa__archive_8cpp_03_1_1DirArchive.html#a450f0a3ae4a9346e1b046af03d185431">currentdir</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <br class="typebreak"/>
@@ -75,45 +75,6 @@ std::vector&lt; std::string &gt;<br class="typebreak"/>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a0e4845319c5e26fe7944c546290dfd0c"></a><!-- doxytag: member="anonymous_namespace{bsa_archive.cpp}::DirArchive::comparePortion" ref="a0e4845319c5e26fe7944c546290dfd0c" args="(std::string file1, std::string file2, int start, int size) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool anonymous_namespace{bsa_archive.cpp}::DirArchive::comparePortion </td>
-          <td>(</td>
-          <td class="paramtype">std::string&nbsp;</td>
-          <td class="paramname"> <em>file1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&nbsp;</td>
-          <td class="paramname"> <em>file2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>size</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td> const<code> [inline, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="aaef06e45fe2bfe77eea5f23a74a81692"></a><!-- doxytag: member="anonymous_namespace{bsa_archive.cpp}::DirArchive::exists" ref="aaef06e45fe2bfe77eea5f23a74a81692" args="(const String &amp;filename)" -->
 <div class="memitem">
 <div class="memproto">
@@ -125,6 +86,33 @@ std::vector&lt; std::string &gt;<br class="typebreak"/>
           <td class="paramname"> <em>filename</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4ece50955f53b38d4fb0d8c06621d44f"></a><!-- doxytag: member="anonymous_namespace{bsa_archive.cpp}::DirArchive::findFile" ref="a4ece50955f53b38d4fb0d8c06621d44f" args="(const String &amp;filename, std::string &amp;copy) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool anonymous_namespace{bsa_archive.cpp}::DirArchive::findFile </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&nbsp;</td>
+          <td class="paramname"> <em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>copy</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td> const<code> [inline, private]</code></td>
         </tr>
       </table>
 </div>
@@ -272,7 +260,7 @@ std::vector&lt; std::string &gt;<br class="typebreak"/>
 <li>components/bsa/<a class="el" href="bsa__archive_8cpp.html">bsa_archive.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

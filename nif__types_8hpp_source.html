@@ -82,17 +82,33 @@
 <a name="l00055"></a>00055 
 <a name="l00056"></a><a class="code" href="structNif_1_1Transformation.html">00056</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1Transformation.html">Transformation</a>
 <a name="l00057"></a>00057 {
-<a name="l00058"></a><a class="code" href="structNif_1_1Transformation.html#a7b07abc74d053050c3ce46e055619190">00058</a>   <a class="code" href="structNif_1_1Vector.html">Vector</a> <a class="code" href="structNif_1_1Transformation.html#a7b07abc74d053050c3ce46e055619190">pos</a>;
-<a name="l00059"></a><a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">00059</a>   <a class="code" href="structNif_1_1Matrix.html">Matrix</a> <a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">rotation</a>;
-<a name="l00060"></a><a class="code" href="structNif_1_1Transformation.html#ae3fffc1dcb801d4566015fbc5097a3a9">00060</a>   <span class="keywordtype">float</span> <a class="code" href="structNif_1_1Transformation.html#ae3fffc1dcb801d4566015fbc5097a3a9">scale</a>;
-<a name="l00061"></a><a class="code" href="structNif_1_1Transformation.html#af505ead194aa376c7692bf8ad364fede">00061</a>   <a class="code" href="structNif_1_1Vector.html">Vector</a> <a class="code" href="structNif_1_1Transformation.html#af505ead194aa376c7692bf8ad364fede">velocity</a>;
-<a name="l00062"></a>00062 };
-<a name="l00063"></a>00063 <span class="preprocessor">#pragma pack(pop)</span>
-<a name="l00064"></a>00064 <span class="preprocessor"></span>
-<a name="l00065"></a>00065 } <span class="comment">// Namespace</span>
-<a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
+<a name="l00058"></a><a class="code" href="structNif_1_1Transformation.html#a7b07abc74d053050c3ce46e055619190">00058</a>     <a class="code" href="structNif_1_1Vector.html">Vector</a> <a class="code" href="structNif_1_1Transformation.html#a7b07abc74d053050c3ce46e055619190">pos</a>;
+<a name="l00059"></a><a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">00059</a>     <a class="code" href="structNif_1_1Matrix.html">Matrix</a> <a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">rotation</a>;
+<a name="l00060"></a><a class="code" href="structNif_1_1Transformation.html#ae3fffc1dcb801d4566015fbc5097a3a9">00060</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1Transformation.html#ae3fffc1dcb801d4566015fbc5097a3a9">scale</a>;
+<a name="l00061"></a><a class="code" href="structNif_1_1Transformation.html#af505ead194aa376c7692bf8ad364fede">00061</a>     <a class="code" href="structNif_1_1Vector.html">Vector</a> <a class="code" href="structNif_1_1Transformation.html#af505ead194aa376c7692bf8ad364fede">velocity</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="structNif_1_1Transformation.html#ae7d3e90906176b1fd307bc6486341788">00063</a>     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structNif_1_1Transformation.html">Transformation</a>* <a class="code" href="structNif_1_1Transformation.html#ae7d3e90906176b1fd307bc6486341788">getIdentity</a>()
+<a name="l00064"></a>00064     {
+<a name="l00065"></a>00065         <span class="keyword">static</span> <a class="code" href="structNif_1_1Transformation.html">Transformation</a> identity;
+<a name="l00066"></a>00066         <span class="keyword">static</span> <span class="keywordtype">bool</span> iset = <span class="keyword">false</span>;
+<a name="l00067"></a>00067         <span class="keywordflow">if</span> (!iset)
+<a name="l00068"></a>00068         {
+<a name="l00069"></a>00069             identity.<a class="code" href="structNif_1_1Transformation.html#ae3fffc1dcb801d4566015fbc5097a3a9">scale</a> = 1.0f;
+<a name="l00070"></a>00070             identity.<a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">rotation</a>.<a class="code" href="structNif_1_1Matrix.html#a0ae9e4a44493ce665bcfa9dc2aba7d71">v</a>[0].<a class="code" href="structNif_1_1Vector.html#a70ae9eae9c0b846cbae788442bc4b501">array</a>[0] = 1.0f;
+<a name="l00071"></a>00071             identity.<a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">rotation</a>.<a class="code" href="structNif_1_1Matrix.html#a0ae9e4a44493ce665bcfa9dc2aba7d71">v</a>[1].<a class="code" href="structNif_1_1Vector.html#a70ae9eae9c0b846cbae788442bc4b501">array</a>[1] = 1.0f;
+<a name="l00072"></a>00072             identity.<a class="code" href="structNif_1_1Transformation.html#ae41e39d9f1abad50bae7ddc5a0c24429">rotation</a>.<a class="code" href="structNif_1_1Matrix.html#a0ae9e4a44493ce665bcfa9dc2aba7d71">v</a>[2].<a class="code" href="structNif_1_1Vector.html#a70ae9eae9c0b846cbae788442bc4b501">array</a>[2] = 1.0f;
+<a name="l00073"></a>00073             iset = <span class="keyword">true</span>;
+<a name="l00074"></a>00074         }
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076         <span class="keywordflow">return</span> &amp;identity;
+<a name="l00077"></a>00077     }
+<a name="l00078"></a>00078 };
+<a name="l00079"></a>00079 <span class="preprocessor">#pragma pack(pop)</span>
+<a name="l00080"></a>00080 <span class="preprocessor"></span>
+<a name="l00081"></a>00081 } <span class="comment">// Namespace</span>
+<a name="l00082"></a>00082 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

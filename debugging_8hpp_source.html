@@ -31,45 +31,84 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;utility&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;<a class="code" href="renderer_8hpp.html">openengine/ogre/renderer.hpp</a>&gt;</span>
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="physic_8hpp.html">openengine/bullet/physic.hpp</a>&gt;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;vector&gt;</span>
-<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">namespace </span>Ogre
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013     <span class="keyword">class </span>Camera;
-<a name="l00014"></a>00014     <span class="keyword">class </span>Viewport;
-<a name="l00015"></a>00015     <span class="keyword">class </span>SceneManager;
-<a name="l00016"></a>00016     <span class="keyword">class </span>SceneNode;
-<a name="l00017"></a>00017     <span class="keyword">class </span>RaySceneQuery;
-<a name="l00018"></a>00018     <span class="keyword">class </span>Quaternion;
-<a name="l00019"></a>00019     <span class="keyword">class </span>Vector3;
-<a name="l00020"></a>00020 }
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">namespace </span>MWWorld
-<a name="l00023"></a>00023 {
-<a name="l00024"></a>00024     <span class="keyword">class </span>World;
-<a name="l00025"></a>00025 }
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="keyword">namespace </span>MWRender
-<a name="l00028"></a>00028 {
-<a name="l00029"></a>00029     <span class="keyword">class </span>Player;
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classMWRender_1_1Debugging.html">00031</a>         <span class="keyword">class </span><a class="code" href="classMWRender_1_1Debugging.html">Debugging</a>{
-<a name="l00032"></a><a class="code" href="classMWRender_1_1Debugging.html#a843c72b751886cafd37b2a87537ae348">00032</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWRender_1_1Debugging.html#a843c72b751886cafd37b2a87537ae348">eng</a>;
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035         <span class="keyword">public</span>:
-<a name="l00036"></a>00036                 <a class="code" href="classMWRender_1_1Debugging.html#aa089051c4cedbb5fa211d3bd1460e924">Debugging</a>(<a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* engine);
-<a name="l00037"></a>00037                 <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Debugging.html#a9edbb4ed3d872e11c6f2b70699b97d85">toggleRenderMode</a> (<span class="keywordtype">int</span> mode);
-<a name="l00038"></a>00038         };
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041 }
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="preprocessor">#endif</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>Ogre
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014     <span class="keyword">class </span>Camera;
+<a name="l00015"></a>00015     <span class="keyword">class </span>Viewport;
+<a name="l00016"></a>00016     <span class="keyword">class </span>SceneManager;
+<a name="l00017"></a>00017     <span class="keyword">class </span>SceneNode;
+<a name="l00018"></a>00018     <span class="keyword">class </span>RaySceneQuery;
+<a name="l00019"></a>00019     <span class="keyword">class </span>Quaternion;
+<a name="l00020"></a>00020     <span class="keyword">class </span>Vector3;
+<a name="l00021"></a>00021 }
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="keyword">namespace </span>MWWorld
+<a name="l00024"></a>00024 {
+<a name="l00025"></a>00025     <span class="keyword">class </span>World;
+<a name="l00026"></a>00026     <span class="keyword">class </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
+<a name="l00027"></a>00027 }
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="keyword">namespace </span>MWRender
+<a name="l00030"></a>00030 {
+<a name="l00031"></a>00031     <span class="keyword">class </span>Player;
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWRender_1_1Debugging.html">00033</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Debugging.html">Debugging</a>
+<a name="l00034"></a>00034     {
+<a name="l00035"></a><a class="code" href="classMWRender_1_1Debugging.html#a4356ea40458119bca60a50563e91a9a4">00035</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWRender_1_1Debugging.html#a4356ea40458119bca60a50563e91a9a4">mEngine</a>;
+<a name="l00036"></a><a class="code" href="classMWRender_1_1Debugging.html#a3196e9dec5f8dadcc76a40ba27c050cb">00036</a>         Ogre::SceneManager *<a class="code" href="classMWRender_1_1Debugging.html#a3196e9dec5f8dadcc76a40ba27c050cb">mSceneMgr</a>;
+<a name="l00037"></a><a class="code" href="classMWRender_1_1Debugging.html#a168b41298dd716cf08e4acf490c2b7e4">00037</a>         <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWRender_1_1Debugging.html#a168b41298dd716cf08e4acf490c2b7e4">mEnvironment</a>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039         <span class="comment">// Path grid stuff</span>
+<a name="l00040"></a><a class="code" href="classMWRender_1_1Debugging.html#abfd9aa09bc8872a1a346fe577b330298">00040</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Debugging.html#abfd9aa09bc8872a1a346fe577b330298">mPathgridEnabled</a>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a727911b2dbcc4c2c0d8090a96cf67a5a">togglePathgrid</a>();
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="classMWRender_1_1Debugging.html#a939e06bdca63b042ce15bb91118c9c44">00044</a>         <span class="keyword">typedef</span> std::vector&lt;MWWorld::Ptr::CellStore *&gt; <a class="code" href="classMWRender_1_1Debugging.html#a939e06bdca63b042ce15bb91118c9c44">CellList</a>;
+<a name="l00045"></a><a class="code" href="classMWRender_1_1Debugging.html#af1dafae5083e38766ba97e65a09d5562">00045</a>         <a class="code" href="classMWRender_1_1Debugging.html#a939e06bdca63b042ce15bb91118c9c44">CellList</a> <a class="code" href="classMWRender_1_1Debugging.html#af1dafae5083e38766ba97e65a09d5562">mActiveCells</a>;
+<a name="l00046"></a>00046 
+<a name="l00047"></a><a class="code" href="classMWRender_1_1Debugging.html#a298c31b042e0f8465e4e444e7bd3a8f4">00047</a>         Ogre::SceneNode *<a class="code" href="classMWRender_1_1Debugging.html#a298c31b042e0f8465e4e444e7bd3a8f4">mMwRoot</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWRender_1_1Debugging.html#a8a5579a3cae730edbb3f892876bd36e1">00049</a>         Ogre::SceneNode *<a class="code" href="classMWRender_1_1Debugging.html#a8a5579a3cae730edbb3f892876bd36e1">mPathGridRoot</a>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="classMWRender_1_1Debugging.html#a4aacc2455240dc1d767438fac493e9d6">00051</a>         <span class="keyword">typedef</span> std::map&lt;std::pair&lt;int,int&gt;, Ogre::SceneNode *&gt; <a class="code" href="classMWRender_1_1Debugging.html#a4aacc2455240dc1d767438fac493e9d6">ExteriorPathgridNodes</a>;
+<a name="l00052"></a><a class="code" href="classMWRender_1_1Debugging.html#ae5d138a676bb26256982cfdfb66a1d19">00052</a>         <a class="code" href="classMWRender_1_1Debugging.html#a4aacc2455240dc1d767438fac493e9d6">ExteriorPathgridNodes</a> <a class="code" href="classMWRender_1_1Debugging.html#ae5d138a676bb26256982cfdfb66a1d19">mExteriorPathgridNodes</a>;
+<a name="l00053"></a><a class="code" href="classMWRender_1_1Debugging.html#af1d2626d9b7f79f141cc012d6f14bb7e">00053</a>         Ogre::SceneNode *<a class="code" href="classMWRender_1_1Debugging.html#af1d2626d9b7f79f141cc012d6f14bb7e">mInteriorPathgridNode</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a6a9da8aad04477a278e44e37f3c41d08">enableCellPathgrid</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
+<a name="l00056"></a>00056         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a3e531ba5fe9706e9a600e1363498c3db">disableCellPathgrid</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *store);
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058         <span class="comment">// utility</span>
+<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a45293bbf9d15fb4465471a0b6225d2be">destroyCellPathgridNode</a>(Ogre::SceneNode *node);
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a7ee2dac58679d0eaf87daaf3b81c4b39">destroyAttachedObjects</a>(Ogre::SceneNode *node);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="comment">// materials</span>
+<a name="l00063"></a><a class="code" href="classMWRender_1_1Debugging.html#aa2c08a4abbdc40b3cccbebbd88918c4a">00063</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Debugging.html#aa2c08a4abbdc40b3cccbebbd88918c4a">mGridMatsCreated</a>;
+<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a3d5d06646f314fa32cc1128f8dd7bc35">createGridMaterials</a>();
+<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a4a6c54331f786a3fceda939afce8ad2c">destroyGridMaterials</a>();
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067         <span class="comment">// path grid meshes</span>
+<a name="l00068"></a>00068         Ogre::ManualObject *<a class="code" href="classMWRender_1_1Debugging.html#aae66fdb6a3fff8f4df788b340374f8fd">createPathgridLines</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *pathgrid);
+<a name="l00069"></a>00069         Ogre::ManualObject *<a class="code" href="classMWRender_1_1Debugging.html#a019e2975e066a2d03d6aaa0985abae55">createPathgridPoints</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *pathgrid);
+<a name="l00070"></a>00070     <span class="keyword">public</span>:
+<a name="l00071"></a>00071         <a class="code" href="classMWRender_1_1Debugging.html#a0261f236429be6471e625827e20e2de4">Debugging</a>(Ogre::SceneNode* mwRoot, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a> &amp;env, <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *engine);
+<a name="l00072"></a>00072         <a class="code" href="classMWRender_1_1Debugging.html#adbcc164298ccf80ace3f942dbadb9957">~Debugging</a>();
+<a name="l00073"></a>00073         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Debugging.html#a6e1aa423517cb5c6234e902ff0715a4d">toggleRenderMode</a> (<span class="keywordtype">int</span> mode);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a8128f5a27077841f00616e920c117f36">cellAdded</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a>* store);
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Debugging.html#a3bc5bad8ea27cb2330a08115a32520c8">cellRemoved</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a>* store);
+<a name="l00077"></a>00077     };
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 }
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

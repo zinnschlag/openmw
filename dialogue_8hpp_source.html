@@ -38,7 +38,7 @@
 <a name="l00011"></a>00011 
 <a name="l00012"></a>00012 <span class="keyword">namespace </span>MWWorld
 <a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">class </span>Environment;
+<a name="l00014"></a>00014     <span class="keyword">class </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
 <a name="l00015"></a>00015 }
 <a name="l00016"></a>00016 
 <a name="l00017"></a>00017 <span class="comment">/*</span>
@@ -48,7 +48,7 @@
 <a name="l00021"></a>00021 
 <a name="l00022"></a>00022 <span class="keyword">namespace </span>MWGui
 <a name="l00023"></a>00023 {
-<a name="l00024"></a>00024     <span class="keyword">class </span>DialogeHistory;
+<a name="l00024"></a>00024     <span class="keyword">class </span>DialogueHistory;
 <a name="l00025"></a>00025 
 <a name="l00026"></a>00026     <span class="keyword">using namespace </span>MyGUI;
 <a name="l00027"></a>00027 
@@ -60,9 +60,9 @@
 <a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a814bc7a5de58bb1cb5f7dc59e9985d41">open</a>();
 <a name="l00034"></a>00034 
 <a name="l00035"></a>00035         <span class="comment">// Events</span>
-<a name="l00036"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aee4c4dc2bf70f7859e8e50641fb738f5">00036</a>         <span class="keyword">typedef</span> delegates::CDelegate0 <a class="code" href="classMWGui_1_1DialogueWindow.html#aee4c4dc2bf70f7859e8e50641fb738f5">EventHandle_Void</a>;
+<a name="l00036"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a749394520ff003cb4f2a698ca22fa198">00036</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1DialogueWindow.html#a749394520ff003cb4f2a698ca22fa198">EventHandle_Void</a>;
 <a name="l00037"></a>00037 
-<a name="l00041"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">00041</a>         <a class="code" href="classMWGui_1_1DialogueWindow.html#aee4c4dc2bf70f7859e8e50641fb738f5">EventHandle_Void</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">eventBye</a>;
+<a name="l00041"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">00041</a>         <a class="code" href="classMWGui_1_1DialogueWindow.html#a749394520ff003cb4f2a698ca22fa198">EventHandle_Void</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">eventBye</a>;
 <a name="l00042"></a>00042 
 <a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a5bde67ce5a59d479cc458b2283e759b9">startDialogue</a>(std::string npcName);
 <a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a8f260fea7460f99252e33f1765470baa">stopDialogue</a>();
@@ -73,7 +73,7 @@
 <a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a1ccedf8aa2c49785b30d311e323e7df2">askQuestion</a>(std::string question);
 <a name="l00050"></a>00050 
 <a name="l00051"></a>00051     <span class="keyword">protected</span>:
-<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa501c3e2ce20cc05f2d5236b7bb3c27f">onSelectTopic</a>(MyGUI::List* _sender, <span class="keywordtype">size_t</span> _index);
+<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a22bd3b4577fa93e7ac97c637d5e729df">onSelectTopic</a>(MyGUI::ListBox* _sender, <span class="keywordtype">size_t</span> _index);
 <a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae0ce905338988088802f7e53085a6531">onByeClicked</a>(MyGUI::Widget* _sender);
 <a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ab757342f9226310a91a31bb5cf20902a">onHistoryClicked</a>(MyGUI::Widget* _sender);
 <a name="l00055"></a>00055 
@@ -81,8 +81,8 @@
 <a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a3bc25509f07685e0cc383f37eba37368">updateOptions</a>();
 <a name="l00061"></a>00061         std::string <a class="code" href="classMWGui_1_1DialogueWindow.html#acb898f0a7c2fc8af79a46aea0c411cc1">parseText</a>(std::string text);
 <a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ac902c883a1d26845be01dc2da44d582c">00063</a>         <a class="code" href="classMWGui_1_1DialogeHistory.html">DialogeHistory</a>*     <a class="code" href="classMWGui_1_1DialogueWindow.html#ac902c883a1d26845be01dc2da44d582c">history</a>;
-<a name="l00064"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a54b5662d35fa0985767c23fc116fdd9e">00064</a>         MyGUI::ListPtr      <a class="code" href="classMWGui_1_1DialogueWindow.html#a54b5662d35fa0985767c23fc116fdd9e">topicsList</a>;
+<a name="l00063"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aee2c29bba5203d8bc571488ee1096a9a">00063</a>         <a class="code" href="classMWGui_1_1DialogueHistory.html">DialogueHistory</a>*     <a class="code" href="classMWGui_1_1DialogueWindow.html#aee2c29bba5203d8bc571488ee1096a9a">history</a>;
+<a name="l00064"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#adc12d3cff90103d5a4c2bea6a99ca8dc">00064</a>         MyGUI::ListBox*      <a class="code" href="classMWGui_1_1DialogueWindow.html#adc12d3cff90103d5a4c2bea6a99ca8dc">topicsList</a>;
 <a name="l00065"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a5b1582502aedd11d6a88bab253e37c1c">00065</a>         MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#a5b1582502aedd11d6a88bab253e37c1c">pDispositionBar</a>;
 <a name="l00066"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa3072b37a3f581dee29c26d3bdeb8b2c">00066</a>         MyGUI::EditPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#aa3072b37a3f581dee29c26d3bdeb8b2c">pDispositionText</a>;
 <a name="l00067"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ac4b5f914c20ef99117bf355029ee1168">00067</a>         std::map&lt;std::string,std::string&gt; <a class="code" href="classMWGui_1_1DialogueWindow.html#ac4b5f914c20ef99117bf355029ee1168">pTopicsText</a>;<span class="comment">// this map links keyword and &quot;real&quot; text.</span>
@@ -92,7 +92,7 @@
 <a name="l00071"></a>00071 }
 <a name="l00072"></a>00072 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -31,7 +31,7 @@
 </div>
 <div class="contents">
 <h1>MWWorld::InventoryStore Class Reference</h1><!-- doxytag: class="MWWorld::InventoryStore" --><!-- doxytag: inherits="MWWorld::ContainerStore" -->
-<p>&lt;  
+<p>Variant of the <a class="el" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> for NPCs.  
 <a href="#_details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="inventorystore_8hpp_source.html">inventorystore.hpp</a>&gt;</code></p>
@@ -44,6 +44,8 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1InventoryStore.html">InventoryStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a51b0d6932ca4306e813ebd085a7d0682">operator=</a> (const <a class="el" href="classMWWorld_1_1InventoryStore.html">InventoryStore</a> &amp;store)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a5aa0a14620204d9141199c11493ef998">equip</a> (int slot, const <a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> &amp;iterator)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a00638734d306421a8aa211947d759e65">getSlot</a> (int slot)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#aac943ce12e49a31547fb59edbfd4d620">autoEquip</a> (const <a class="el" href="structMWMechanics_1_1NpcStats.html">MWMechanics::NpcStats</a> &amp;stats, const <a class="el" href="classMWWorld_1_1Environment.html">Environment</a> &amp;environment)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Auto equip items according to stats and item value.  <a href="#aac943ce12e49a31547fb59edbfd4d620"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a86a39512e544baa384e37f104e4e6bd5">Slot_Helmet</a> = 0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#acb8343a151614e59d93d7479e88ad2d7">Slot_Cuirass</a> = 1</td></tr>
@@ -66,15 +68,31 @@
 <tr><td class="memItemLeft" align="right" valign="top">static const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ab32dc445caf023adfbde3487f52bfa39">Slot_Ammunition</a> = 18</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a5b77db9fe9c85f69b9c353c113487599">Slots</a> = 19</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ae553bff88923bf33a86b8297f1c45e50">Slot_NoSlot</a> = -1</td></tr>
+<tr><td colspan="2"><h2>Private Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector<br class="typebreak"/>
+&lt; <a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">TSlots</a></td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ad44127cd07b80a8ce80be2f8a3bdf306">copySlots</a> (const <a class="el" href="classMWWorld_1_1InventoryStore.html">InventoryStore</a> &amp;store)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ad4610cf4f6a39e724329fa8093472108">initSlots</a> (<a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">TSlots</a> &amp;slots)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector<br class="typebreak"/>
-&lt; <a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a6064c24b4171a195f0e3f013067e578c">mSlots</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">TSlots</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#af92e25639bf9577bcd2261960f325495">mSlots</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>&lt; </p>
-<p>Variant of the <a class="el" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> for NPCs </p>
+<p>Variant of the <a class="el" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> for NPCs. </p>
+<hr/><h2>Member Typedef Documentation</h2>
+<a class="anchor" id="a4f99574b57f7e344bf139d63feed2a1a"></a><!-- doxytag: member="MWWorld::InventoryStore::TSlots" ref="a4f99574b57f7e344bf139d63feed2a1a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&gt; <a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">MWWorld::InventoryStore::TSlots</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa392ebf6a7e9452f3582f8cc299e6bc9"></a><!-- doxytag: member="MWWorld::InventoryStore::InventoryStore" ref="aa392ebf6a7e9452f3582f8cc299e6bc9" args="()" -->
 <div class="memitem">
@@ -112,6 +130,38 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="aac943ce12e49a31547fb59edbfd4d620"></a><!-- doxytag: member="MWWorld::InventoryStore::autoEquip" ref="aac943ce12e49a31547fb59edbfd4d620" args="(const MWMechanics::NpcStats &amp;stats, const Environment &amp;environment)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::InventoryStore::autoEquip </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structMWMechanics_1_1NpcStats.html">MWMechanics::NpcStats</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>stats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Environment.html">Environment</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>environment</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Auto equip items according to stats and item value. </p>
+
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000027">Todo:</a></b></dt><dd>unstack, if reqquired (itemsSlots.second) </dd></dl>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ad44127cd07b80a8ce80be2f8a3bdf306"></a><!-- doxytag: member="MWWorld::InventoryStore::copySlots" ref="ad44127cd07b80a8ce80be2f8a3bdf306" args="(const InventoryStore &amp;store)" -->
 <div class="memitem">
 <div class="memproto">
@@ -156,8 +206,8 @@
 <div class="memdoc">
 <dl class="note"><dt><b>Note:</b></dt><dd><em>iteartor</em> can be an end-iterator </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>restack item previously in this slot (if required) </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>unstack item pointed to by iterator if required) </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>restack item previously in this slot (if required) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000026">Todo:</a></b></dt><dd>unstack item pointed to by iterator if required) </dd></dl>
 </p>
 
 </div>
@@ -173,6 +223,24 @@
           <td class="paramname"> <em>slot</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad4610cf4f6a39e724329fa8093472108"></a><!-- doxytag: member="MWWorld::InventoryStore::initSlots" ref="ad4610cf4f6a39e724329fa8093472108" args="(TSlots &amp;slots)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::InventoryStore::initSlots </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">TSlots</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>slots</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -199,12 +267,12 @@
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a6064c24b4171a195f0e3f013067e578c"></a><!-- doxytag: member="MWWorld::InventoryStore::mSlots" ref="a6064c24b4171a195f0e3f013067e578c" args="" -->
+<a class="anchor" id="af92e25639bf9577bcd2261960f325495"></a><!-- doxytag: member="MWWorld::InventoryStore::mSlots" ref="af92e25639bf9577bcd2261960f325495" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&gt; <a class="el" href="classMWWorld_1_1InventoryStore.html#a6064c24b4171a195f0e3f013067e578c">MWWorld::InventoryStore::mSlots</a><code> [mutable, private]</code></td>
+          <td class="memname"><a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">TSlots</a> <a class="el" href="classMWWorld_1_1InventoryStore.html#af92e25639bf9577bcd2261960f325495">MWWorld::InventoryStore::mSlots</a><code> [mutable, private]</code></td>
         </tr>
       </table>
 </div>
@@ -490,7 +558,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="inventorystore_8cpp.html">inventorystore.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:34 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

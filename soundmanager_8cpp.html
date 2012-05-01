@@ -32,61 +32,37 @@
 <code>#include &lt;algorithm&gt;</code><br/>
 <code>#include &lt;map&gt;</code><br/>
 <code>#include &lt;OgreRoot.h&gt;</code><br/>
-<code>#include &lt;<a class="el" href="sndmanager_8hpp_source.html">openengine/sound/sndmanager.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="ogre__listener__mover_8hpp_source.html">mangle/sound/clients/ogre_listener_mover.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="ogre__output__updater_8hpp_source.html">mangle/sound/clients/ogre_output_updater.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="store_8hpp_source.html">components/esm_store/store.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="settings_8hpp_source.html">components/settings/settings.hpp</a>&gt;</code><br/>
 <code>#include &quot;../mwworld/environment.hpp&quot;</code><br/>
 <code>#include &quot;../mwworld/world.hpp&quot;</code><br/>
 <code>#include &quot;../mwworld/player.hpp&quot;</code><br/>
+<code>#include &quot;<a class="el" href="sound__output_8hpp_source.html">sound_output.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="sound__decoder_8hpp_source.html">sound_decoder.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="sound_8hpp_source.html">sound.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="openal__output_8hpp_source.html">openal_output.hpp</a>&quot;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html">MWSound</a></td></tr>
 
-<p><tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><p>Sound &amp; music. </p>
+<p><tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><p><a class="el" href="classMWSound_1_1Sound.html">Sound</a> &amp; music. </p>
 <br/></td></tr>
 </p>
-<tr><td colspan="2"><h2>Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
-<a class="el" href="classOEngine_1_1Sound_1_1SoundManager.html">OEngine::Sound::SoundManager</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="soundmanager_8cpp.html#afaea696bb5ce805cd7aa0a72f76fa44e">OEManager</a></td></tr>
+<tr><td colspan="2"><h2>Defines</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="soundmanager_8cpp.html#a14fbfea275a8724184f028de65fa7e3a">SOUND_OUT</a>&nbsp;&nbsp;&nbsp;&quot;OpenAL&quot;</td></tr>
 <tr><td colspan="2"><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="soundmanager_8cpp.html#a14ec10be5daa23c238758063ade32769">setPos</a> (SoundPtr &amp;snd, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> ref)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a69cfe6726b4339dda91e38356dae23a6">MWSound::getSampleTypeName</a> (SampleType type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#ac820781bf6c123885f7f6f9fd985fbc0">MWSound::getChannelConfigName</a> (ChannelConfig config)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a79b1557305f11203e7cbfe990d11e84f">MWSound::framesToBytes</a> (size_t frames, ChannelConfig config, SampleType type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a99ab2efdb1acfb7182559af342c84715">MWSound::bytesToFrames</a> (size_t bytes, ChannelConfig config, SampleType type)</td></tr>
 </table>
-<hr/><h2>Typedef Documentation</h2>
-<a class="anchor" id="afaea696bb5ce805cd7aa0a72f76fa44e"></a><!-- doxytag: member="soundmanager.cpp::OEManager" ref="afaea696bb5ce805cd7aa0a72f76fa44e" args="" -->
+<hr/><h2>Define Documentation</h2>
+<a class="anchor" id="a14fbfea275a8724184f028de65fa7e3a"></a><!-- doxytag: member="soundmanager.cpp::SOUND_OUT" ref="a14fbfea275a8724184f028de65fa7e3a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classOEngine_1_1Sound_1_1SoundManager.html">OEngine::Sound::SoundManager</a> <a class="el" href="classOEngine_1_1Sound_1_1SoundManager.html">OEManager</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a14ec10be5daa23c238758063ade32769"></a><!-- doxytag: member="soundmanager.cpp::setPos" ref="a14ec10be5daa23c238758063ade32769" args="(SoundPtr &amp;snd, const MWWorld::Ptr ref)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void setPos </td>
-          <td>(</td>
-          <td class="paramtype">SoundPtr &amp;&nbsp;</td>
-          <td class="paramname"> <em>snd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td>
-          <td class="paramname"> <em>ref</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [static]</code></td>
+          <td class="memname">#define SOUND_OUT&nbsp;&nbsp;&nbsp;&quot;OpenAL&quot;</td>
         </tr>
       </table>
 </div>
@@ -95,7 +71,7 @@
 </div>
 </div>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

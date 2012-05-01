@@ -37,9 +37,9 @@
 <a name="l00013"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html">00013</a>   <span class="keyword">class </span><a class="code" href="classOEngine_1_1GUI_1_1Layout.html">Layout</a>
 <a name="l00014"></a>00014   {
 <a name="l00015"></a>00015   <span class="keyword">public</span>:
-<a name="l00016"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">00016</a>     <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a402c7e3efb1b0629b07d5b32e3ebb827">Layout</a>(<span class="keyword">const</span> std::string &amp; _layout, MyGUI::WidgetPtr _parent = <span class="keyword">nullptr</span>)
-<a name="l00017"></a>00017       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>(nullptr)
-<a name="l00018"></a>00018     { <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#ab79d30e1e91a3a853381488c0bb9ac27">initialise</a>(_layout, _parent); }
+<a name="l00016"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8ae807e365c11465f23c900def1a115e">00016</a>     <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8ae807e365c11465f23c900def1a115e">Layout</a>(<span class="keyword">const</span> std::string &amp; _layout, MyGUI::Widget* _parent = <span class="keyword">nullptr</span>)
+<a name="l00017"></a>00017       : <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a>(nullptr)
+<a name="l00018"></a>00018     { <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#adc66770033682b588a1fd2899a43ecfa">initialise</a>(_layout, _parent); }
 <a name="l00019"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#ae6dc3d85461c8cae001e3c37f2bda0b7">00019</a>     <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#ae6dc3d85461c8cae001e3c37f2bda0b7">~Layout</a>() { <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a2687c0ba26f50f4fde7a55ee807a010e">shutdown</a>();  }
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
@@ -49,7 +49,7 @@
 <a name="l00025"></a>00025       <span class="keywordflow">for</span> (MyGUI::VectorWidgetPtr::iterator iter=<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a6a35ea80b598283bbdc05fc57c6bb1f7">mListWindowRoot</a>.begin();
 <a name="l00026"></a>00026            iter!=<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a6a35ea80b598283bbdc05fc57c6bb1f7">mListWindowRoot</a>.end(); ++iter)
 <a name="l00027"></a>00027         {
-<a name="l00028"></a>00028           MyGUI::WidgetPtr <a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a> = (*iter)-&gt;findWidget(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">mPrefix</a> + _name);
+<a name="l00028"></a>00028           MyGUI::Widget* <a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a> = (*iter)-&gt;findWidget(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">mPrefix</a> + _name);
 <a name="l00029"></a>00029           <span class="keywordflow">if</span> (<span class="keyword">nullptr</span> != find)
 <a name="l00030"></a>00030             {
 <a name="l00031"></a>00031               T * cast = find-&gt;castType&lt;T&gt;(<span class="keyword">false</span>);
@@ -67,14 +67,14 @@
 <a name="l00043"></a>00043       MYGUI_ASSERT( ! _throw, <span class="stringliteral">&quot;widget name &#39;&quot;</span> &lt;&lt; _name &lt;&lt; <span class="stringliteral">&quot;&#39; in layout &#39;&quot;</span> &lt;&lt; <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a> &lt;&lt; <span class="stringliteral">&quot;&#39; not found.&quot;</span>);
 <a name="l00044"></a>00044     }
 <a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#ab79d30e1e91a3a853381488c0bb9ac27">00046</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#ab79d30e1e91a3a853381488c0bb9ac27">initialise</a>(<span class="keyword">const</span> std::string &amp; _layout,
-<a name="l00047"></a>00047                     MyGUI::WidgetPtr _parent = <span class="keyword">nullptr</span>)
+<a name="l00046"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#adc66770033682b588a1fd2899a43ecfa">00046</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#adc66770033682b588a1fd2899a43ecfa">initialise</a>(<span class="keyword">const</span> std::string &amp; _layout,
+<a name="l00047"></a>00047                     MyGUI::Widget* _parent = <span class="keyword">nullptr</span>)
 <a name="l00048"></a>00048     {
 <a name="l00049"></a>00049       <span class="keyword">const</span> std::string MAIN_WINDOW = <span class="stringliteral">&quot;_Main&quot;</span>;
 <a name="l00050"></a>00050       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a> = _layout;
 <a name="l00051"></a>00051 
 <a name="l00052"></a>00052       <span class="keywordflow">if</span> (<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a>.empty())
-<a name="l00053"></a>00053         <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a> = _parent;
+<a name="l00053"></a>00053         <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a> = _parent;
 <a name="l00054"></a>00054       <span class="keywordflow">else</span>
 <a name="l00055"></a>00055         {
 <a name="l00056"></a>00056           <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">mPrefix</a> = MyGUI::utility::toString(<span class="keyword">this</span>, <span class="stringliteral">&quot;_&quot;</span>);
@@ -85,11 +85,11 @@
 <a name="l00061"></a>00061             {
 <a name="l00062"></a>00062               <span class="keywordflow">if</span> ((*iter)-&gt;getName() == main_name)
 <a name="l00063"></a>00063                 {
-<a name="l00064"></a>00064                   <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a> = (*iter);
+<a name="l00064"></a>00064                   <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a> = (*iter);
 <a name="l00065"></a>00065                   <span class="keywordflow">break</span>;
 <a name="l00066"></a>00066                 }
 <a name="l00067"></a>00067             }
-<a name="l00068"></a>00068           MYGUI_ASSERT(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>, <span class="stringliteral">&quot;root widget name &#39;&quot;</span> &lt;&lt; MAIN_WINDOW &lt;&lt; <span class="stringliteral">&quot;&#39; in layout &#39;&quot;</span> &lt;&lt; <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a> &lt;&lt; <span class="stringliteral">&quot;&#39; not found.&quot;</span>);
+<a name="l00068"></a>00068           MYGUI_ASSERT(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a>, <span class="stringliteral">&quot;root widget name &#39;&quot;</span> &lt;&lt; MAIN_WINDOW &lt;&lt; <span class="stringliteral">&quot;&#39; in layout &#39;&quot;</span> &lt;&lt; <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a> &lt;&lt; <span class="stringliteral">&quot;&#39; not found.&quot;</span>);
 <a name="l00069"></a>00069         }
 <a name="l00070"></a>00070     }
 <a name="l00071"></a>00071 
@@ -101,48 +101,71 @@
 <a name="l00077"></a>00077 
 <a name="l00078"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">00078</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5d93352075b8b5c74371f8249a954cee">setCoord</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h)
 <a name="l00079"></a>00079     {
-<a name="l00080"></a>00080       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>-&gt;setCoord(x,y,w,h);
+<a name="l00080"></a>00080       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a>-&gt;setCoord(x,y,w,h);
 <a name="l00081"></a>00081     }
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5b1661c30c8e66f812637bb3c122c369">00083</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a5b1661c30c8e66f812637bb3c122c369">setVisible</a>(<span class="keywordtype">bool</span> b)
+<a name="l00083"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a53f976f6acdd913d79c88b7f9e152071">00083</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a53f976f6acdd913d79c88b7f9e152071">adjustWindowCaption</a>()
 <a name="l00084"></a>00084     {
-<a name="l00085"></a>00085       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>-&gt;setVisible(b);
-<a name="l00086"></a>00086     }
-<a name="l00087"></a>00087 
-<a name="l00088"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa0e7c5061e37ff34611ce22683152483">00088</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa0e7c5061e37ff34611ce22683152483">setText</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; caption)
-<a name="l00089"></a>00089     {
-<a name="l00090"></a>00090       MyGUI::WidgetPtr pt;
-<a name="l00091"></a>00091       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(pt, name);
-<a name="l00092"></a>00092       pt-&gt;setCaption(caption);
-<a name="l00093"></a>00093     }
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a50131d9ebb9010013011b8f002812702">00095</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a50131d9ebb9010013011b8f002812702">setTextColor</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b)
-<a name="l00096"></a>00096     {
-<a name="l00097"></a>00097       MyGUI::WidgetPtr pt;
-<a name="l00098"></a>00098       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(pt, name);
-<a name="l00099"></a>00099       MyGUI::StaticText *st = <span class="keyword">dynamic_cast&lt;</span>MyGUI::StaticText*<span class="keyword">&gt;</span>(pt);
-<a name="l00100"></a>00100       <span class="keywordflow">if</span>(st != NULL)
-<a name="l00101"></a>00101         st-&gt;setTextColour(MyGUI::Colour(b,g,r));
-<a name="l00102"></a>00102     }
-<a name="l00103"></a>00103 
-<a name="l00104"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aff731fe7b76f202a88600e4094d89719">00104</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aff731fe7b76f202a88600e4094d89719">setImage</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; imgName)
-<a name="l00105"></a>00105     {
-<a name="l00106"></a>00106       MyGUI::StaticImagePtr pt;
-<a name="l00107"></a>00107       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(pt, name);
-<a name="l00108"></a>00108       pt-&gt;setImageTexture(imgName);
+<a name="l00085"></a>00085       <span class="comment">// adjust the size of the window caption so that all text is visible</span>
+<a name="l00086"></a>00086       <span class="comment">// NOTE: this assumes that mMainWidget is of type Window.</span>
+<a name="l00087"></a>00087       MyGUI::TextBox* box = <span class="keyword">static_cast&lt;</span>MyGUI::Window*<span class="keyword">&gt;</span>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a>)-&gt;getCaptionWidget();
+<a name="l00088"></a>00088       box-&gt;setSize(box-&gt;getTextSize().width + 48, box-&gt;getSize().height);
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090       <span class="comment">// in order to trigger alignment updates, we need to update the parent</span>
+<a name="l00091"></a>00091       <span class="comment">// mygui doesn&#39;t provide a proper way of doing this, so we are just changing size</span>
+<a name="l00092"></a>00092       box-&gt;getParent()-&gt;setCoord(MyGUI::IntCoord(
+<a name="l00093"></a>00093           box-&gt;getParent()-&gt;getCoord().left,
+<a name="l00094"></a>00094           box-&gt;getParent()-&gt;getCoord().top,
+<a name="l00095"></a>00095           box-&gt;getParent()-&gt;getCoord().width,
+<a name="l00096"></a>00096           box-&gt;getParent()-&gt;getCoord().height+1
+<a name="l00097"></a>00097       ));
+<a name="l00098"></a>00098       box-&gt;getParent()-&gt;setCoord(MyGUI::IntCoord(
+<a name="l00099"></a>00099           box-&gt;getParent()-&gt;getCoord().left,
+<a name="l00100"></a>00100           box-&gt;getParent()-&gt;getCoord().top,
+<a name="l00101"></a>00101           box-&gt;getParent()-&gt;getCoord().width,
+<a name="l00102"></a>00102           box-&gt;getParent()-&gt;getCoord().height-1
+<a name="l00103"></a>00103       ));
+<a name="l00104"></a>00104     }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa7400c1a02203ac79b6f7eb0a8ff9e70">00106</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa7400c1a02203ac79b6f7eb0a8ff9e70">setVisible</a>(<span class="keywordtype">bool</span> b)
+<a name="l00107"></a>00107     {
+<a name="l00108"></a>00108       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a>-&gt;setVisible(b);
 <a name="l00109"></a>00109     }
 <a name="l00110"></a>00110 
-<a name="l00111"></a>00111   <span class="keyword">protected</span>:
-<a name="l00112"></a>00112 
-<a name="l00113"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">00113</a>     MyGUI::WidgetPtr <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a8fd67fc3d510652e3abaaf7ebae3e493">mMainWidget</a>;
-<a name="l00114"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">00114</a>     std::string <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">mPrefix</a>;
-<a name="l00115"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">00115</a>     std::string <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a>;
-<a name="l00116"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a6a35ea80b598283bbdc05fc57c6bb1f7">00116</a>     MyGUI::VectorWidgetPtr <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a6a35ea80b598283bbdc05fc57c6bb1f7">mListWindowRoot</a>;
-<a name="l00117"></a>00117   };
-<a name="l00118"></a>00118 }}
-<a name="l00119"></a>00119 <span class="preprocessor">#endif</span>
+<a name="l00111"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa0e7c5061e37ff34611ce22683152483">00111</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aa0e7c5061e37ff34611ce22683152483">setText</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; caption)
+<a name="l00112"></a>00112     {
+<a name="l00113"></a>00113       MyGUI::Widget* pt;
+<a name="l00114"></a>00114       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(pt, name);
+<a name="l00115"></a>00115       <span class="keyword">static_cast&lt;</span>MyGUI::TextBox*<span class="keyword">&gt;</span>(pt)-&gt;setCaption(caption);
+<a name="l00116"></a>00116     }
+<a name="l00117"></a>00117 
+<a name="l00118"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a50131d9ebb9010013011b8f002812702">00118</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a50131d9ebb9010013011b8f002812702">setTextColor</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b)
+<a name="l00119"></a>00119     {
+<a name="l00120"></a>00120       MyGUI::Widget* pt;
+<a name="l00121"></a>00121       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(pt, name);
+<a name="l00122"></a>00122       MyGUI::TextBox *st = <span class="keyword">dynamic_cast&lt;</span>MyGUI::TextBox*<span class="keyword">&gt;</span>(pt);
+<a name="l00123"></a>00123       <span class="keywordflow">if</span>(st != NULL)
+<a name="l00124"></a>00124         st-&gt;setTextColour(MyGUI::Colour(b,g,r));
+<a name="l00125"></a>00125     }
+<a name="l00126"></a>00126 
+<a name="l00127"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aff731fe7b76f202a88600e4094d89719">00127</a>     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#aff731fe7b76f202a88600e4094d89719">setImage</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; imgName)
+<a name="l00128"></a>00128     {
+<a name="l00129"></a>00129       MyGUI::ImageBox* pt;
+<a name="l00130"></a>00130       <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a738d8d3dbbc6c1b4216df3b7ce1b7c8b">getWidget</a>(pt, name);
+<a name="l00131"></a>00131       pt-&gt;setImageTexture(imgName);
+<a name="l00132"></a>00132     }
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134   <span class="keyword">protected</span>:
+<a name="l00135"></a>00135 
+<a name="l00136"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">00136</a>     MyGUI::Widget* <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a11bc24d421c833462464e839de0ec44f">mMainWidget</a>;
+<a name="l00137"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">00137</a>     std::string <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a451c11323b524d3e8d13e09300a548c3">mPrefix</a>;
+<a name="l00138"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">00138</a>     std::string <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#add86d70d2ea4b242e7b5c41644229c3f">mLayoutName</a>;
+<a name="l00139"></a><a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a6a35ea80b598283bbdc05fc57c6bb1f7">00139</a>     MyGUI::VectorWidgetPtr <a class="code" href="classOEngine_1_1GUI_1_1Layout.html#a6a35ea80b598283bbdc05fc57c6bb1f7">mListWindowRoot</a>;
+<a name="l00140"></a>00140   };
+<a name="l00141"></a>00141 }}
+<a name="l00142"></a>00142 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

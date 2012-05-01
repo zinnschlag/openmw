@@ -36,7 +36,7 @@
 <p><a href="classMWSound_1_1SoundManager-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a8f6acb2392a982a302b231c759b9283d">SoundManager</a> (Ogre::Root *, Ogre::Camera *, const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> &amp;dataDir, bool useSound, bool fsstrict, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a095cb5611b501da459ed561c1600d457">SoundManager</a> (bool useSound, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#abfdaaa5a59bb02a67db12b95b5defc82">~SoundManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ae15103f3b0c464c31be1084f9a22c33e">stopMusic</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stops music if it's playing.  <a href="#ae15103f3b0c464c31be1084f9a22c33e"></a><br/></td></tr>
@@ -45,18 +45,20 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Starts a random track from the current playlist.  <a href="#a40ecbe690856f14fffff764dfb6834f5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a050e4e033a6161de83d1425b334ceafc">isMusicPlaying</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns true if music is playing.  <a href="#a050e4e033a6161de83d1425b334ceafc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ae2b9ec04498d816b1badad6460c0b69b">setPlaylist</a> (std::string playlist=&quot;&quot;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a5e6e443b24f337a0cb7a46e25c1e7d1d">playPlaylist</a> (std::string playlist=&quot;&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a966d1238f846c09b33a95bf6822b58e0">playPlaylist</a> (const std::string &amp;playlist)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ace335616de6beca88c5a53290c51b733">say</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference, const std::string &amp;filename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a1e375b4e38bc0364b1fc87f327e52568">sayDone</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Is actor not speaking?  <a href="#a1e375b4e38bc0364b1fc87f327e52568"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ac81943a22b150913b930e5653cf90772">playSound</a> (const std::string &amp;soundId, float volume, float pitch, bool loop=false)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Play a sound, independently of 3D-position.  <a href="#ac81943a22b150913b930e5653cf90772"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a2ea4686aac638f16d272e24990faffbf">playSound3D</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference, const std::string &amp;soundId, float volume, float pitch, bool loop, bool untracked=false)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Play a sound from an object.  <a href="#a2ea4686aac638f16d272e24990faffbf"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#acc5d413ac4048f97ccb1fbfa06203c46">stopSound3D</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference, const std::string &amp;soundId=&quot;&quot;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a825d0ab56850b762e27dcedb4a5d9cd4">stopSound</a> (<a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *cell)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop all sounds for the given cell.  <a href="#a825d0ab56850b762e27dcedb4a5d9cd4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a7351683c8c4839e0374e81892b84fb1c">playSound</a> (const std::string &amp;soundId, float volume, float pitch, int mode=Play_Normal)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Play a sound, independently of 3D-position.  <a href="#a7351683c8c4839e0374e81892b84fb1c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a8e6181f542fe28f51d126cfc298c538d">playSound3D</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference, const std::string &amp;soundId, float volume, float pitch, int mode=Play_Normal)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Play a sound from an object.  <a href="#a8e6181f542fe28f51d126cfc298c538d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#af2ba2de9660c3829d35cfbc870ff46fa">stopSound3D</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference, const std::string &amp;soundId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop the given object from playing the given sound,.  <a href="#af2ba2de9660c3829d35cfbc870ff46fa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a77477aeada03096fc00c6c499f68c1b5">stopSound3D</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop the given object from playing all sounds.  <a href="#a77477aeada03096fc00c6c499f68c1b5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a12bab74d03b2444373a0e8c068666632">stopSound</a> (const <a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *cell)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop all sounds for the given cell.  <a href="#a12bab74d03b2444373a0e8c068666632"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#aa777ac78d4f82d4b01ed6508ce8cb15c">stopSound</a> (const std::string &amp;soundId)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop a non-3d looping sound.  <a href="#aa777ac78d4f82d4b01ed6508ce8cb15c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#af7c6a4ff44f1f4573254cbf531f68e75">getSoundPlaying</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference, const std::string &amp;soundId) const </td></tr>
@@ -64,41 +66,41 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ae8f7c856ceb5f2613eba10f18ec48774">updateObject</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> reference)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Update the position of all sounds connected to the given object.  <a href="#ae8f7c856ceb5f2613eba10f18ec48774"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a4ec845757bc0552608907ae6c14e3b30">update</a> (float duration)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a3df4f0422ab3895ce8924811b20a295d">getDecoder</a> ()</td></tr>
 <tr><td colspan="2"><h2>Private Types</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
-<a class="el" href="namespaceMangle_1_1Sound.html#aebdcf9c240ddb0591d9444f17cc5a788">Mangle::Sound::WSoundPtr</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>, <br class="typebreak"/>
-<a class="el" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">PtrMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::pair<br class="typebreak"/>
+&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>, std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">PtrIDPair</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a>, <br class="typebreak"/>
+<a class="el" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">PtrIDPair</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a></td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a376978b82e97c328011243d46ea832b6">streamMusicFull</a> (const std::string &amp;filename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a00f1e4aaf59aa84d8bd501665e1e1116">lookup</a> (const std::string &amp;soundId, float &amp;volume, float &amp;min, float &amp;max)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#af9d5fe7c17f7c51a872cfecc0576c2f2">add</a> (const std::string &amp;file, <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> ptr, const std::string &amp;id, float volume, float pitch, float min, float max, bool loop, bool untracked=false)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a71d7bb4fefcd7439453a6fecf468881a">clearAll</a> (PtrMap::iterator &amp;it)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#aadb39c91ab437b6bbc0de63ce6927557">remove</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> ptr, const std::string &amp;id=&quot;&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a376978b82e97c328011243d46ea832b6">streamMusicFull</a> (const std::string &amp;filename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#adecc65636f771c2b354e8eb38f50a9a5">isPlaying</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> ptr, const std::string &amp;id) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a74f8f3817fceabfe6849e39f7452df15">removeCell</a> (const <a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *cell)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a31a02d694c1096e5e3807ee19c837c95">updatePositions</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> ptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#af7aef25477356cf24cddf6b45e661c29">updateSounds</a> (float duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a7c950e7055314a10d2abd6bf4dafec4d">updateRegionSound</a> (float duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a801f3efb9c97064e8d38684efbb3c83b">SoundManager</a> (const <a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;rhs)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#af390c2fab64b168d37847c1315581748">operator=</a> (const <a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;rhs)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a6f275605268a184cc93e11c5b40999a2">mFSStrict</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::ResourceGroupManager &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a764cfb0a1de1d03814ceec119adaed61">mResourceMgr</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">mEnvironment</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="soundmanager_8hpp.html#a350bd1770ebcb0f43d49c11c4f2ff3c3">OEManagerPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a94af1268302f923d1d94d7d6bcd012c6">mgr</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">Mangle::Sound::SoundPtr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ad3e662da22c3a3d293af1d4b0bd79f50">music</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMangle_1_1Sound_1_1OgreOutputUpdater.html">Mangle::Sound::OgreOutputUpdater</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a126dbaa1afcd687bbd0889078a766c9d">updater</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMangle_1_1Sound_1_1OgreListenerMover.html">Mangle::Sound::OgreListenerMover</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a8adda58f24685e3a895634902878616b">cameraTracker</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">PtrMap</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a2172630fefd160a5fd1ee9e3a35a3976">sounds</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a0d93a955992dbaf95c123c536d075bd7">mSoundFiles</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classFiles_1_1FileLibrary.html">Files::FileLibrary</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a703fc3eee60a74a6fb8e4724aa411323">mMusicLibrary</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a47393459cb7c0a0acd8e036290e6bcc7">mCurrentPlaylist</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a5201c41d2148004c9e3b7ebe461ceea0">mLoopedSounds</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a7573d92d34066b9b38f1b8734e36b09d">mUsingSound</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::auto_ptr&lt; <a class="el" href="classMWSound_1_1Sound__Output.html">Sound_Output</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ae267422dc87ef339215f84c598ae34fd">mOutput</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a092936f229696c6f1a8c8e8f38c036d8">mMasterVolume</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#abb52ec0bb6c822aa27b8bb85561bb778">mSFXVolume</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a8a073704f75aa76f6baeab2cddb514b1">mMusicVolume</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::shared_ptr&lt; <a class="el" href="classMWSound_1_1Sound.html">Sound</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#ab87933bbdb1f7dae73c81e8c0e2d4d60">mMusic</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a661e7ccf61a80238ca05502da683fa7c">mCurrentPlaylist</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a20e59a6a165ca4790b0f30049778ad08">mActiveSounds</a></td></tr>
+<tr><td colspan="2"><h2>Friends</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html#a6b4229294eca41f1ffb09c11f02ed116">OpenAL_Output</a></td></tr>
 </table>
 <hr/><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="a8f598621815c0c323034117b0fbe31bd"></a><!-- doxytag: member="MWSound::SoundManager::IDMap" ref="a8f598621815c0c323034117b0fbe31bd" args="" -->
+<a class="anchor" id="a3c2eada3266349a3d8e0b58e7bc7d33b"></a><!-- doxytag: member="MWSound::SoundManager::PtrIDPair" ref="a3c2eada3266349a3d8e0b58e7bc7d33b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::map&lt;std::string,<a class="el" href="namespaceMangle_1_1Sound.html#aebdcf9c240ddb0591d9444f17cc5a788">Mangle::Sound::WSoundPtr</a>&gt; <a class="el" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">MWSound::SoundManager::IDMap</a><code> [private]</code></td>
+          <td class="memname">typedef std::pair&lt;<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>,std::string&gt; <a class="el" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">MWSound::SoundManager::PtrIDPair</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -106,12 +108,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a507dfa1363f21a9e7d905ca75ba89961"></a><!-- doxytag: member="MWSound::SoundManager::PtrMap" ref="a507dfa1363f21a9e7d905ca75ba89961" args="" -->
+<a class="anchor" id="a7f55e19f7153c9c234ddbba852dd606c"></a><!-- doxytag: member="MWSound::SoundManager::SoundMap" ref="a7f55e19f7153c9c234ddbba852dd606c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::map&lt;<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>,<a class="el" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a>&gt; <a class="el" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">MWSound::SoundManager::PtrMap</a><code> [private]</code></td>
+          <td class="memname">typedef std::map&lt;<a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a>,<a class="el" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">PtrIDPair</a>&gt; <a class="el" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">MWSound::SoundManager::SoundMap</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -120,39 +122,33 @@
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a8f6acb2392a982a302b231c759b9283d"></a><!-- doxytag: member="MWSound::SoundManager::SoundManager" ref="a8f6acb2392a982a302b231c759b9283d" args="(Ogre::Root *, Ogre::Camera *, const Files::PathContainer &amp;dataDir, bool useSound, bool fsstrict, MWWorld::Environment &amp;environment)" -->
+<a class="anchor" id="a801f3efb9c97064e8d38684efbb3c83b"></a><!-- doxytag: member="MWSound::SoundManager::SoundManager" ref="a801f3efb9c97064e8d38684efbb3c83b" args="(const SoundManager &amp;rhs)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">MWSound::SoundManager::SoundManager </td>
           <td>(</td>
-          <td class="paramtype">Ogre::Root *&nbsp;</td>
-          <td class="paramname"> <em>root</em>, </td>
+          <td class="paramtype">const <a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>rhs</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
         </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a095cb5611b501da459ed561c1600d457"></a><!-- doxytag: member="MWSound::SoundManager::SoundManager" ref="a095cb5611b501da459ed561c1600d457" args="(bool useSound, MWWorld::Environment &amp;environment)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Ogre::Camera *&nbsp;</td>
-          <td class="paramname"> <em>camera</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>dataDir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
+          <td class="memname">MWSound::SoundManager::SoundManager </td>
+          <td>(</td>
           <td class="paramtype">bool&nbsp;</td>
           <td class="paramname"> <em>useSound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>fsstrict</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -189,86 +185,16 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="af9d5fe7c17f7c51a872cfecc0576c2f2"></a><!-- doxytag: member="MWSound::SoundManager::add" ref="af9d5fe7c17f7c51a872cfecc0576c2f2" args="(const std::string &amp;file, MWWorld::Ptr ptr, const std::string &amp;id, float volume, float pitch, float min, float max, bool loop, bool untracked=false)" -->
+<a class="anchor" id="a3df4f0422ab3895ce8924811b20a295d"></a><!-- doxytag: member="MWSound::SoundManager::getDecoder" ref="a3df4f0422ab3895ce8924811b20a295d" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWSound::SoundManager::add </td>
+          <td class="memname"><a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> MWSound::SoundManager::getDecoder </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td>
-          <td class="paramname"> <em>ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>volume</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>pitch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>min</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&nbsp;</td>
-          <td class="paramname"> <em>max</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>untracked</em> = <code>false</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a71d7bb4fefcd7439453a6fecf468881a"></a><!-- doxytag: member="MWSound::SoundManager::clearAll" ref="a71d7bb4fefcd7439453a6fecf468881a" args="(PtrMap::iterator &amp;it)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MWSound::SoundManager::clearAll </td>
-          <td>(</td>
-          <td class="paramtype">PtrMap::iterator &amp;&nbsp;</td>
-          <td class="paramname"> <em>it</em></td>
+          <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [private]</code></td>
+          <td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -390,15 +316,33 @@
 
 </div>
 </div>
-<a class="anchor" id="a5e6e443b24f337a0cb7a46e25c1e7d1d"></a><!-- doxytag: member="MWSound::SoundManager::playPlaylist" ref="a5e6e443b24f337a0cb7a46e25c1e7d1d" args="(std::string playlist=&quot;&quot;)" -->
+<a class="anchor" id="af390c2fab64b168d37847c1315581748"></a><!-- doxytag: member="MWSound::SoundManager::operator=" ref="af390c2fab64b168d37847c1315581748" args="(const SoundManager &amp;rhs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a>&amp; MWSound::SoundManager::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>rhs</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a966d1238f846c09b33a95bf6822b58e0"></a><!-- doxytag: member="MWSound::SoundManager::playPlaylist" ref="a966d1238f846c09b33a95bf6822b58e0" args="(const std::string &amp;playlist)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void MWSound::SoundManager::playPlaylist </td>
           <td>(</td>
-          <td class="paramtype">std::string&nbsp;</td>
-          <td class="paramname"> <em>playlist</em> = <code>&quot;&quot;</code></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>playlist</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -408,19 +352,19 @@
 <p>Start playing music from the selected folder </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>of the folder that contains the playlist if none is set then it plays from the current playlist </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>of the folder that contains the playlist </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ac81943a22b150913b930e5653cf90772"></a><!-- doxytag: member="MWSound::SoundManager::playSound" ref="ac81943a22b150913b930e5653cf90772" args="(const std::string &amp;soundId, float volume, float pitch, bool loop=false)" -->
+<a class="anchor" id="a7351683c8c4839e0374e81892b84fb1c"></a><!-- doxytag: member="MWSound::SoundManager::playSound" ref="a7351683c8c4839e0374e81892b84fb1c" args="(const std::string &amp;soundId, float volume, float pitch, int mode=Play_Normal)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWSound::SoundManager::playSound </td>
+          <td class="memname"><a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a> MWSound::SoundManager::playSound </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
           <td class="paramname"> <em>soundId</em>, </td>
@@ -440,8 +384,8 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>loop</em> = <code>false</code></td><td>&nbsp;</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode</em> = <code>Play_Normal</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -456,12 +400,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a2ea4686aac638f16d272e24990faffbf"></a><!-- doxytag: member="MWSound::SoundManager::playSound3D" ref="a2ea4686aac638f16d272e24990faffbf" args="(MWWorld::Ptr reference, const std::string &amp;soundId, float volume, float pitch, bool loop, bool untracked=false)" -->
+<a class="anchor" id="a8e6181f542fe28f51d126cfc298c538d"></a><!-- doxytag: member="MWSound::SoundManager::playSound3D" ref="a8e6181f542fe28f51d126cfc298c538d" args="(MWWorld::Ptr reference, const std::string &amp;soundId, float volume, float pitch, int mode=Play_Normal)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWSound::SoundManager::playSound3D </td>
+          <td class="memname"><a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a> MWSound::SoundManager::playSound3D </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td>
           <td class="paramname"> <em>reference</em>, </td>
@@ -487,14 +431,8 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>untracked</em> = <code>false</code></td><td>&nbsp;</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode</em> = <code>Play_Normal</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -506,51 +444,6 @@
 <div class="memdoc">
 
 <p>Play a sound from an object. </p>
-
-</div>
-</div>
-<a class="anchor" id="aadb39c91ab437b6bbc0de63ce6927557"></a><!-- doxytag: member="MWSound::SoundManager::remove" ref="aadb39c91ab437b6bbc0de63ce6927557" args="(MWWorld::Ptr ptr, const std::string &amp;id=&quot;&quot;)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MWSound::SoundManager::remove </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td>
-          <td class="paramname"> <em>ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>id</em> = <code>&quot;&quot;</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a74f8f3817fceabfe6849e39f7452df15"></a><!-- doxytag: member="MWSound::SoundManager::removeCell" ref="a74f8f3817fceabfe6849e39f7452df15" args="(const MWWorld::Ptr::CellStore *cell)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MWSound::SoundManager::removeCell </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *&nbsp;</td>
-          <td class="paramname"> <em>cell</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -605,32 +498,6 @@
 <div class="memdoc">
 
 <p>Is actor not speaking? </p>
-
-</div>
-</div>
-<a class="anchor" id="ae2b9ec04498d816b1badad6460c0b69b"></a><!-- doxytag: member="MWSound::SoundManager::setPlaylist" ref="ae2b9ec04498d816b1badad6460c0b69b" args="(std::string playlist=&quot;&quot;)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MWSound::SoundManager::setPlaylist </td>
-          <td>(</td>
-          <td class="paramtype">std::string&nbsp;</td>
-          <td class="paramname"> <em>playlist</em> = <code>&quot;&quot;</code></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Set the playlist to an existing folder </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>name</em>&nbsp;</td><td>of the folder that contains the playlist if none is set then it is set to an empty playlist </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Return true if the previous playlist was the same </dd></dl>
 
 </div>
 </div>
@@ -692,14 +559,14 @@
 
 </div>
 </div>
-<a class="anchor" id="a825d0ab56850b762e27dcedb4a5d9cd4"></a><!-- doxytag: member="MWSound::SoundManager::stopSound" ref="a825d0ab56850b762e27dcedb4a5d9cd4" args="(MWWorld::Ptr::CellStore *cell)" -->
+<a class="anchor" id="a12bab74d03b2444373a0e8c068666632"></a><!-- doxytag: member="MWSound::SoundManager::stopSound" ref="a12bab74d03b2444373a0e8c068666632" args="(const MWWorld::Ptr::CellStore *cell)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void MWSound::SoundManager::stopSound </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *&nbsp;</td>
+          <td class="paramtype">const <a class="el" href="classESMS_1_1CellStore.html">MWWorld::Ptr::CellStore</a> *&nbsp;</td>
           <td class="paramname"> <em>cell</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
@@ -712,7 +579,27 @@
 
 </div>
 </div>
-<a class="anchor" id="acc5d413ac4048f97ccb1fbfa06203c46"></a><!-- doxytag: member="MWSound::SoundManager::stopSound3D" ref="acc5d413ac4048f97ccb1fbfa06203c46" args="(MWWorld::Ptr reference, const std::string &amp;soundId=&quot;&quot;)" -->
+<a class="anchor" id="a77477aeada03096fc00c6c499f68c1b5"></a><!-- doxytag: member="MWSound::SoundManager::stopSound3D" ref="a77477aeada03096fc00c6c499f68c1b5" args="(MWWorld::Ptr reference)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWSound::SoundManager::stopSound3D </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td>
+          <td class="paramname"> <em>reference</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Stop the given object from playing all sounds. </p>
+
+</div>
+</div>
+<a class="anchor" id="af2ba2de9660c3829d35cfbc870ff46fa"></a><!-- doxytag: member="MWSound::SoundManager::stopSound3D" ref="af2ba2de9660c3829d35cfbc870ff46fa" args="(MWWorld::Ptr reference, const std::string &amp;soundId)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -726,7 +613,7 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>soundId</em> = <code>&quot;&quot;</code></td><td>&nbsp;</td>
+          <td class="paramname"> <em>soundId</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -736,7 +623,8 @@
       </table>
 </div>
 <div class="memdoc">
-<p>Stop the given object from playing the given sound, If no soundId is given, all sounds for this reference will stop. </p>
+
+<p>Stop the given object from playing the given sound,. </p>
 
 </div>
 </div>
@@ -780,13 +668,6 @@
       </table>
 </div>
 <div class="memdoc">
-<p>Play a soundifle </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>absolute</em>&nbsp;</td><td>filename </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -828,15 +709,15 @@
 
 </div>
 </div>
-<a class="anchor" id="a31a02d694c1096e5e3807ee19c837c95"></a><!-- doxytag: member="MWSound::SoundManager::updatePositions" ref="a31a02d694c1096e5e3807ee19c837c95" args="(MWWorld::Ptr ptr)" -->
+<a class="anchor" id="a7c950e7055314a10d2abd6bf4dafec4d"></a><!-- doxytag: member="MWSound::SoundManager::updateRegionSound" ref="a7c950e7055314a10d2abd6bf4dafec4d" args="(float duration)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWSound::SoundManager::updatePositions </td>
+          <td class="memname">void MWSound::SoundManager::updateRegionSound </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&nbsp;</td>
-          <td class="paramname"> <em>ptr</em></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>duration</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td><code> [private]</code></td>
         </tr>
@@ -846,13 +727,17 @@
 
 </div>
 </div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a8adda58f24685e3a895634902878616b"></a><!-- doxytag: member="MWSound::SoundManager::cameraTracker" ref="a8adda58f24685e3a895634902878616b" args="" -->
+<a class="anchor" id="af7aef25477356cf24cddf6b45e661c29"></a><!-- doxytag: member="MWSound::SoundManager::updateSounds" ref="af7aef25477356cf24cddf6b45e661c29" args="(float duration)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structMangle_1_1Sound_1_1OgreListenerMover.html">Mangle::Sound::OgreListenerMover</a> <a class="el" href="classMWSound_1_1SoundManager.html#a8adda58f24685e3a895634902878616b">MWSound::SoundManager::cameraTracker</a><code> [private]</code></td>
+          <td class="memname">void MWSound::SoundManager::updateSounds </td>
+          <td>(</td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>duration</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -860,12 +745,40 @@
 
 </div>
 </div>
-<a class="anchor" id="a47393459cb7c0a0acd8e036290e6bcc7"></a><!-- doxytag: member="MWSound::SoundManager::mCurrentPlaylist" ref="a47393459cb7c0a0acd8e036290e6bcc7" args="" -->
+<hr/><h2>Friends And Related Function Documentation</h2>
+<a class="anchor" id="a6b4229294eca41f1ffb09c11f02ed116"></a><!-- doxytag: member="MWSound::SoundManager::OpenAL_Output" ref="a6b4229294eca41f1ffb09c11f02ed116" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a>* <a class="el" href="classMWSound_1_1SoundManager.html#a47393459cb7c0a0acd8e036290e6bcc7">MWSound::SoundManager::mCurrentPlaylist</a><code> [private]</code></td>
+          <td class="memname">friend class <a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a><code> [friend]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a20e59a6a165ca4790b0f30049778ad08"></a><!-- doxytag: member="MWSound::SoundManager::mActiveSounds" ref="a20e59a6a165ca4790b0f30049778ad08" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a> <a class="el" href="classMWSound_1_1SoundManager.html#a20e59a6a165ca4790b0f30049778ad08">MWSound::SoundManager::mActiveSounds</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a661e7ccf61a80238ca05502da683fa7c"></a><!-- doxytag: member="MWSound::SoundManager::mCurrentPlaylist" ref="a661e7ccf61a80238ca05502da683fa7c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWSound_1_1SoundManager.html#a661e7ccf61a80238ca05502da683fa7c">MWSound::SoundManager::mCurrentPlaylist</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -886,12 +799,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a6f275605268a184cc93e11c5b40999a2"></a><!-- doxytag: member="MWSound::SoundManager::mFSStrict" ref="a6f275605268a184cc93e11c5b40999a2" args="" -->
+<a class="anchor" id="a092936f229696c6f1a8c8e8f38c036d8"></a><!-- doxytag: member="MWSound::SoundManager::mMasterVolume" ref="a092936f229696c6f1a8c8e8f38c036d8" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWSound_1_1SoundManager.html#a6f275605268a184cc93e11c5b40999a2">MWSound::SoundManager::mFSStrict</a><code> [private]</code></td>
+          <td class="memname">float <a class="el" href="classMWSound_1_1SoundManager.html#a092936f229696c6f1a8c8e8f38c036d8">MWSound::SoundManager::mMasterVolume</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -899,12 +812,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a94af1268302f923d1d94d7d6bcd012c6"></a><!-- doxytag: member="MWSound::SoundManager::mgr" ref="a94af1268302f923d1d94d7d6bcd012c6" args="" -->
+<a class="anchor" id="ab87933bbdb1f7dae73c81e8c0e2d4d60"></a><!-- doxytag: member="MWSound::SoundManager::mMusic" ref="ab87933bbdb1f7dae73c81e8c0e2d4d60" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="soundmanager_8hpp.html#a350bd1770ebcb0f43d49c11c4f2ff3c3">OEManagerPtr</a> <a class="el" href="classMWSound_1_1SoundManager.html#a94af1268302f923d1d94d7d6bcd012c6">MWSound::SoundManager::mgr</a><code> [private]</code></td>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="classMWSound_1_1Sound.html">Sound</a>&gt; <a class="el" href="classMWSound_1_1SoundManager.html#ab87933bbdb1f7dae73c81e8c0e2d4d60">MWSound::SoundManager::mMusic</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -912,12 +825,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a5201c41d2148004c9e3b7ebe461ceea0"></a><!-- doxytag: member="MWSound::SoundManager::mLoopedSounds" ref="a5201c41d2148004c9e3b7ebe461ceea0" args="" -->
+<a class="anchor" id="a8a073704f75aa76f6baeab2cddb514b1"></a><!-- doxytag: member="MWSound::SoundManager::mMusicVolume" ref="a8a073704f75aa76f6baeab2cddb514b1" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWSound_1_1SoundManager.html#a8f598621815c0c323034117b0fbe31bd">IDMap</a> <a class="el" href="classMWSound_1_1SoundManager.html#a5201c41d2148004c9e3b7ebe461ceea0">MWSound::SoundManager::mLoopedSounds</a><code> [private]</code></td>
+          <td class="memname">float <a class="el" href="classMWSound_1_1SoundManager.html#a8a073704f75aa76f6baeab2cddb514b1">MWSound::SoundManager::mMusicVolume</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -925,12 +838,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a703fc3eee60a74a6fb8e4724aa411323"></a><!-- doxytag: member="MWSound::SoundManager::mMusicLibrary" ref="a703fc3eee60a74a6fb8e4724aa411323" args="" -->
+<a class="anchor" id="ae267422dc87ef339215f84c598ae34fd"></a><!-- doxytag: member="MWSound::SoundManager::mOutput" ref="ae267422dc87ef339215f84c598ae34fd" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classFiles_1_1FileLibrary.html">Files::FileLibrary</a> <a class="el" href="classMWSound_1_1SoundManager.html#a703fc3eee60a74a6fb8e4724aa411323">MWSound::SoundManager::mMusicLibrary</a><code> [private]</code></td>
+          <td class="memname">std::auto_ptr&lt;<a class="el" href="classMWSound_1_1Sound__Output.html">Sound_Output</a>&gt; <a class="el" href="classMWSound_1_1SoundManager.html#ae267422dc87ef339215f84c598ae34fd">MWSound::SoundManager::mOutput</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -938,12 +851,12 @@
 
 </div>
 </div>
-<a class="anchor" id="a0d93a955992dbaf95c123c536d075bd7"></a><!-- doxytag: member="MWSound::SoundManager::mSoundFiles" ref="a0d93a955992dbaf95c123c536d075bd7" args="" -->
+<a class="anchor" id="a764cfb0a1de1d03814ceec119adaed61"></a><!-- doxytag: member="MWSound::SoundManager::mResourceMgr" ref="a764cfb0a1de1d03814ceec119adaed61" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> <a class="el" href="classMWSound_1_1SoundManager.html#a0d93a955992dbaf95c123c536d075bd7">MWSound::SoundManager::mSoundFiles</a><code> [private]</code></td>
+          <td class="memname">Ogre::ResourceGroupManager&amp; <a class="el" href="classMWSound_1_1SoundManager.html#a764cfb0a1de1d03814ceec119adaed61">MWSound::SoundManager::mResourceMgr</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -951,51 +864,12 @@
 
 </div>
 </div>
-<a class="anchor" id="ad3e662da22c3a3d293af1d4b0bd79f50"></a><!-- doxytag: member="MWSound::SoundManager::music" ref="ad3e662da22c3a3d293af1d4b0bd79f50" args="" -->
+<a class="anchor" id="abb52ec0bb6c822aa27b8bb85561bb778"></a><!-- doxytag: member="MWSound::SoundManager::mSFXVolume" ref="abb52ec0bb6c822aa27b8bb85561bb778" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceMangle_1_1Sound.html#a80a9927427c9f4cb72a00cef6136b3fe">Mangle::Sound::SoundPtr</a> <a class="el" href="classMWSound_1_1SoundManager.html#ad3e662da22c3a3d293af1d4b0bd79f50">MWSound::SoundManager::music</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7573d92d34066b9b38f1b8734e36b09d"></a><!-- doxytag: member="MWSound::SoundManager::mUsingSound" ref="a7573d92d34066b9b38f1b8734e36b09d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classMWSound_1_1SoundManager.html#a7573d92d34066b9b38f1b8734e36b09d">MWSound::SoundManager::mUsingSound</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a2172630fefd160a5fd1ee9e3a35a3976"></a><!-- doxytag: member="MWSound::SoundManager::sounds" ref="a2172630fefd160a5fd1ee9e3a35a3976" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWSound_1_1SoundManager.html#a507dfa1363f21a9e7d905ca75ba89961">PtrMap</a> <a class="el" href="classMWSound_1_1SoundManager.html#a2172630fefd160a5fd1ee9e3a35a3976">MWSound::SoundManager::sounds</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a126dbaa1afcd687bbd0889078a766c9d"></a><!-- doxytag: member="MWSound::SoundManager::updater" ref="a126dbaa1afcd687bbd0889078a766c9d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structMangle_1_1Sound_1_1OgreOutputUpdater.html">Mangle::Sound::OgreOutputUpdater</a> <a class="el" href="classMWSound_1_1SoundManager.html#a126dbaa1afcd687bbd0889078a766c9d">MWSound::SoundManager::updater</a><code> [private]</code></td>
+          <td class="memname">float <a class="el" href="classMWSound_1_1SoundManager.html#abb52ec0bb6c822aa27b8bb85561bb778">MWSound::SoundManager::mSFXVolume</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -1008,7 +882,7 @@
 <li>apps/openmw/mwsound/<a class="el" href="soundmanager_8cpp.html">soundmanager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

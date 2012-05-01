@@ -35,114 +35,119 @@
 <a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwworld/refdata.hpp&quot;</span>
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
 <a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">namespace </span>MWRender
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013     <span class="keyword">class </span>Player;
-<a name="l00014"></a>00014 }
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016 <span class="keyword">namespace </span>MWWorld
-<a name="l00017"></a>00017 {
-<a name="l00018"></a>00018     <span class="keyword">class </span>World;
-<a name="l00019"></a>00019 
-<a name="l00021"></a><a class="code" href="classMWWorld_1_1Player.html">00021</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">Player</a>
-<a name="l00022"></a>00022     {
-<a name="l00023"></a><a class="code" href="classMWWorld_1_1Player.html#a01475f9307a5d41be1bb393fdbaa4430">00023</a>         <a class="code" href="structESMS_1_1LiveCellRef.html">ESMS::LiveCellRef&lt;ESM::NPC, MWWorld::RefData&gt;</a> <a class="code" href="classMWWorld_1_1Player.html#a01475f9307a5d41be1bb393fdbaa4430">mPlayer</a>;
-<a name="l00024"></a><a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">00024</a>         <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">mCellStore</a>;
-<a name="l00025"></a><a class="code" href="classMWWorld_1_1Player.html#af7611b0871750cdc3e320e66be234d7d">00025</a>         <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *<a class="code" href="classMWWorld_1_1Player.html#af7611b0871750cdc3e320e66be234d7d">mRenderer</a>;
-<a name="l00026"></a><a class="code" href="classMWWorld_1_1Player.html#a99d97b966d34525fd26d87cb0dd85267">00026</a>         <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; <a class="code" href="classMWWorld_1_1Player.html#a99d97b966d34525fd26d87cb0dd85267">mWorld</a>;
-<a name="l00027"></a><a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">00027</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">mName</a>;
-<a name="l00028"></a><a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">00028</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">mMale</a>;
-<a name="l00029"></a><a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">00029</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">mRace</a>;
-<a name="l00030"></a><a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">00030</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">mBirthsign</a>;
-<a name="l00031"></a><a class="code" href="classMWWorld_1_1Player.html#afa90dfc46371459d382a8a10a8f18664">00031</a>         <a class="code" href="structESM_1_1Class.html">ESM::Class</a> *<a class="code" href="classMWWorld_1_1Player.html#afa90dfc46371459d382a8a10a8f18664">mClass</a>;
-<a name="l00032"></a><a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">00032</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">mAutoMove</a>;
-<a name="l00033"></a><a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">00033</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">mForwardBackward</a>;
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035     <span class="keyword">public</span>:
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037         <a class="code" href="classMWWorld_1_1Player.html#a20f2ebd4b42955fc6bda4f16d7e3da68">Player</a>(<a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *renderer, <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player, <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world);
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039         <a class="code" href="classMWWorld_1_1Player.html#a0da9fff8534801aa4f26a1575dd726fe">~Player</a>();
-<a name="l00040"></a>00040 
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a5fef09d3bd1876e652dd9767000e3fee" title="Set the player position. Uses Morrowind coordinates.">setPos</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
-<a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="classMWWorld_1_1Player.html#aa3a583ff4d6725c0f729b17d515d04d2">00044</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#aa3a583ff4d6725c0f729b17d515d04d2">setCell</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cellStore)
-<a name="l00045"></a>00045         {
-<a name="l00046"></a>00046             <a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">mCellStore</a> = cellStore;
-<a name="l00047"></a>00047         }
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">00049</a>         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">getPlayer</a>()
-<a name="l00050"></a>00050         {
-<a name="l00051"></a>00051             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr (&amp;<a class="code" href="classMWWorld_1_1Player.html#a01475f9307a5d41be1bb393fdbaa4430">mPlayer</a>, <a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">mCellStore</a>);
-<a name="l00052"></a>00052             <span class="keywordflow">return</span> ptr;
-<a name="l00053"></a>00053         }
-<a name="l00054"></a>00054 
-<a name="l00055"></a><a class="code" href="classMWWorld_1_1Player.html#a32a26e73c01b7821eb50dcedeb17f11d">00055</a>         <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *<a class="code" href="classMWWorld_1_1Player.html#a32a26e73c01b7821eb50dcedeb17f11d">getRenderer</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#af7611b0871750cdc3e320e66be234d7d">mRenderer</a>; }
-<a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classMWWorld_1_1Player.html#a207317816d8883727feb7e4dbfc0f512">00057</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a207317816d8883727feb7e4dbfc0f512">setName</a> (<span class="keyword">const</span> std::string&amp; name)
-<a name="l00058"></a>00058         {
-<a name="l00059"></a>00059             <a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">mName</a> = name;
-<a name="l00060"></a>00060         }
-<a name="l00061"></a>00061 
-<a name="l00062"></a><a class="code" href="classMWWorld_1_1Player.html#a03388ae7460a4f9293c09ddeae8342b1">00062</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a03388ae7460a4f9293c09ddeae8342b1">setGender</a> (<span class="keywordtype">bool</span> male)
-<a name="l00063"></a>00063         {
-<a name="l00064"></a>00064             <a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">mMale</a> = male;
-<a name="l00065"></a>00065         }
-<a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="classMWWorld_1_1Player.html#a4d4f31a76721e1649c28018b7c1ab4a9">00067</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a4d4f31a76721e1649c28018b7c1ab4a9">setRace</a> (<span class="keyword">const</span> std::string&amp; race)
-<a name="l00068"></a>00068         {
-<a name="l00069"></a>00069             <a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">mRace</a> = race;
-<a name="l00070"></a>00070         }
-<a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="classMWWorld_1_1Player.html#a856b2c6d7ce2069fc9b31b78d3502f8e">00072</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a856b2c6d7ce2069fc9b31b78d3502f8e">setBirthsign</a> (<span class="keyword">const</span> std::string&amp; birthsign)
-<a name="l00073"></a>00073         {
-<a name="l00074"></a>00074             <a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">mBirthsign</a> = birthsign;
-<a name="l00075"></a>00075         }
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a241c365fbf295df52a05c69442867700">setClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_);
-<a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="classMWWorld_1_1Player.html#a5b823b8ee089b75a755f1a1c62190f72">00079</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a5b823b8ee089b75a755f1a1c62190f72">getName</a>()<span class="keyword"> const</span>
-<a name="l00080"></a>00080 <span class="keyword">        </span>{
-<a name="l00081"></a>00081             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">mName</a>;
-<a name="l00082"></a>00082         }
-<a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classMWWorld_1_1Player.html#a0316c71c02e472ec1c1c4396afd97399">00084</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#a0316c71c02e472ec1c1c4396afd97399">isMale</a>()<span class="keyword"> const</span>
-<a name="l00085"></a>00085 <span class="keyword">        </span>{
-<a name="l00086"></a>00086             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">mMale</a>;
-<a name="l00087"></a>00087         }
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classMWWorld_1_1Player.html#a784cd472941d4cecbcd8bb899b2af1d0">00089</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a784cd472941d4cecbcd8bb899b2af1d0">getRace</a>()<span class="keyword"> const</span>
-<a name="l00090"></a>00090 <span class="keyword">        </span>{
-<a name="l00091"></a>00091             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">mRace</a>;
-<a name="l00092"></a>00092         }
-<a name="l00093"></a>00093 
-<a name="l00094"></a><a class="code" href="classMWWorld_1_1Player.html#a63259143d59ec056b274008dc570fc84">00094</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a63259143d59ec056b274008dc570fc84">getBirthsign</a>()<span class="keyword"> const</span>
-<a name="l00095"></a>00095 <span class="keyword">        </span>{
-<a name="l00096"></a>00096             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">mBirthsign</a>;
-<a name="l00097"></a>00097         }
-<a name="l00098"></a>00098 
-<a name="l00099"></a><a class="code" href="classMWWorld_1_1Player.html#a9ee066abe8e078c3be5c93c358606769">00099</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; <a class="code" href="classMWWorld_1_1Player.html#a9ee066abe8e078c3be5c93c358606769">getClass</a>()<span class="keyword"> const</span>
-<a name="l00100"></a>00100 <span class="keyword">        </span>{
-<a name="l00101"></a>00101             <span class="keywordflow">return</span> *<a class="code" href="classMWWorld_1_1Player.html#afa90dfc46371459d382a8a10a8f18664">mClass</a>;
-<a name="l00102"></a>00102         }
-<a name="l00103"></a>00103 
-<a name="l00104"></a><a class="code" href="classMWWorld_1_1Player.html#a58b387dc048b02b29dd0726ae3d8f694">00104</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#a58b387dc048b02b29dd0726ae3d8f694">getAutoMove</a>()
-<a name="l00105"></a>00105         {
-<a name="l00106"></a>00106             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">mAutoMove</a>;
-<a name="l00107"></a>00107         }
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a3262bd32795d197c2636c7bc83b345fc">setAutoMove</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a0d5e41e02741d24cb489529c446a8c18">enable</a>);
-<a name="l00110"></a>00110 
-<a name="l00111"></a>00111         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#abc2902276e73d53b235e667549374a04">setLeftRight</a> (<span class="keywordtype">int</span> value);
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a93be5a536bcd06e585e7751e02ad8d1c">setForwardBackward</a> (<span class="keywordtype">int</span> value);
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a7c7b31c1dff80896fbfa1d51adc34647">toggleRunning</a>();
-<a name="l00116"></a>00116     };
-<a name="l00117"></a>00117 }
-<a name="l00118"></a>00118 <span class="preprocessor">#endif</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;../mwmechanics/drawstate.hpp&quot;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWRender
+<a name="l00014"></a>00014 {
+<a name="l00015"></a>00015     <span class="keyword">class </span>Player;
+<a name="l00016"></a>00016 }
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>MWWorld
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020     <span class="keyword">class </span>World;
+<a name="l00021"></a>00021 
+<a name="l00023"></a><a class="code" href="classMWWorld_1_1Player.html">00023</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">Player</a> 
+<a name="l00024"></a>00024     {
+<a name="l00025"></a><a class="code" href="classMWWorld_1_1Player.html#a01475f9307a5d41be1bb393fdbaa4430">00025</a>         <a class="code" href="structESMS_1_1LiveCellRef.html">ESMS::LiveCellRef&lt;ESM::NPC, MWWorld::RefData&gt;</a> <a class="code" href="classMWWorld_1_1Player.html#a01475f9307a5d41be1bb393fdbaa4430">mPlayer</a>;
+<a name="l00026"></a><a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">00026</a>         <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">mCellStore</a>;
+<a name="l00027"></a><a class="code" href="classMWWorld_1_1Player.html#af7611b0871750cdc3e320e66be234d7d">00027</a>         <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *<a class="code" href="classMWWorld_1_1Player.html#af7611b0871750cdc3e320e66be234d7d">mRenderer</a>;
+<a name="l00028"></a><a class="code" href="classMWWorld_1_1Player.html#a99d97b966d34525fd26d87cb0dd85267">00028</a>         <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; <a class="code" href="classMWWorld_1_1Player.html#a99d97b966d34525fd26d87cb0dd85267">mWorld</a>;
+<a name="l00029"></a><a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">00029</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">mName</a>;
+<a name="l00030"></a><a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">00030</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">mMale</a>;
+<a name="l00031"></a><a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">00031</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">mRace</a>;
+<a name="l00032"></a><a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">00032</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">mBirthsign</a>;
+<a name="l00033"></a><a class="code" href="classMWWorld_1_1Player.html#afa90dfc46371459d382a8a10a8f18664">00033</a>         <a class="code" href="structESM_1_1Class.html">ESM::Class</a> *<a class="code" href="classMWWorld_1_1Player.html#afa90dfc46371459d382a8a10a8f18664">mClass</a>;
+<a name="l00034"></a><a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">00034</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">mAutoMove</a>;
+<a name="l00035"></a><a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">00035</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">mForwardBackward</a>;
+<a name="l00036"></a>00036     <span class="keyword">public</span>:
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038         <a class="code" href="classMWWorld_1_1Player.html#a20f2ebd4b42955fc6bda4f16d7e3da68">Player</a>(<a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *renderer, <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player, <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <a class="code" href="classMWWorld_1_1Player.html#a0da9fff8534801aa4f26a1575dd726fe">~Player</a>();
+<a name="l00041"></a>00041 
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a5fef09d3bd1876e652dd9767000e3fee" title="Set the player position. Uses Morrowind coordinates.">setPos</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classMWWorld_1_1Player.html#aa3a583ff4d6725c0f729b17d515d04d2">00045</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#aa3a583ff4d6725c0f729b17d515d04d2">setCell</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cellStore)
+<a name="l00046"></a>00046         {
+<a name="l00047"></a>00047             <a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">mCellStore</a> = cellStore;
+<a name="l00048"></a>00048         }
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">00050</a>         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">getPlayer</a>()
+<a name="l00051"></a>00051         {
+<a name="l00052"></a>00052             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr (&amp;<a class="code" href="classMWWorld_1_1Player.html#a01475f9307a5d41be1bb393fdbaa4430">mPlayer</a>, <a class="code" href="classMWWorld_1_1Player.html#ae6313b027935a141efda1f4956df1580">mCellStore</a>);
+<a name="l00053"></a>00053             <span class="keywordflow">return</span> ptr;
+<a name="l00054"></a>00054         }
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="classMWWorld_1_1Player.html#a32a26e73c01b7821eb50dcedeb17f11d">00056</a>         <a class="code" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">MWRender::Player</a> *<a class="code" href="classMWWorld_1_1Player.html#a32a26e73c01b7821eb50dcedeb17f11d">getRenderer</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#af7611b0871750cdc3e320e66be234d7d">mRenderer</a>; }
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classMWWorld_1_1Player.html#a207317816d8883727feb7e4dbfc0f512">00058</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a207317816d8883727feb7e4dbfc0f512">setName</a> (<span class="keyword">const</span> std::string&amp; name)
+<a name="l00059"></a>00059         {
+<a name="l00060"></a>00060             <a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">mName</a> = name;
+<a name="l00061"></a>00061         }
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classMWWorld_1_1Player.html#a03388ae7460a4f9293c09ddeae8342b1">00063</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a03388ae7460a4f9293c09ddeae8342b1">setGender</a> (<span class="keywordtype">bool</span> male)
+<a name="l00064"></a>00064         {
+<a name="l00065"></a>00065             <a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">mMale</a> = male;
+<a name="l00066"></a>00066         }
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="classMWWorld_1_1Player.html#a4d4f31a76721e1649c28018b7c1ab4a9">00068</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a4d4f31a76721e1649c28018b7c1ab4a9">setRace</a> (<span class="keyword">const</span> std::string&amp; race)
+<a name="l00069"></a>00069         {
+<a name="l00070"></a>00070             <a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">mRace</a> = race;
+<a name="l00071"></a>00071         }
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classMWWorld_1_1Player.html#a856b2c6d7ce2069fc9b31b78d3502f8e">00073</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a856b2c6d7ce2069fc9b31b78d3502f8e">setBirthsign</a> (<span class="keyword">const</span> std::string&amp; birthsign)
+<a name="l00074"></a>00074         {
+<a name="l00075"></a>00075             <a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">mBirthsign</a> = birthsign;
+<a name="l00076"></a>00076         }
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a241c365fbf295df52a05c69442867700">setClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a03ef85fa57ae5529f6c398d2a163e7e0">setDrawState</a>(<span class="keyword">const</span> <a class="code" href="drawstate_8hpp.html#afae93b5b3f0186b205f56ab80ec5487d">DrawState</a>&amp; state);
+<a name="l00081"></a>00081 
+<a name="l00082"></a><a class="code" href="classMWWorld_1_1Player.html#a5b823b8ee089b75a755f1a1c62190f72">00082</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a5b823b8ee089b75a755f1a1c62190f72">getName</a>()<span class="keyword"> const</span>
+<a name="l00083"></a>00083 <span class="keyword">        </span>{
+<a name="l00084"></a>00084             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#a29146b0441f784b8ab335953d9832517">mName</a>;
+<a name="l00085"></a>00085         }
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="classMWWorld_1_1Player.html#a0316c71c02e472ec1c1c4396afd97399">00087</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#a0316c71c02e472ec1c1c4396afd97399">isMale</a>()<span class="keyword"> const</span>
+<a name="l00088"></a>00088 <span class="keyword">        </span>{
+<a name="l00089"></a>00089             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#af2b0bc2ad1d2517940184be4a3aba5f6">mMale</a>;
+<a name="l00090"></a>00090         }
+<a name="l00091"></a>00091 
+<a name="l00092"></a><a class="code" href="classMWWorld_1_1Player.html#a784cd472941d4cecbcd8bb899b2af1d0">00092</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a784cd472941d4cecbcd8bb899b2af1d0">getRace</a>()<span class="keyword"> const</span>
+<a name="l00093"></a>00093 <span class="keyword">        </span>{
+<a name="l00094"></a>00094             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#a341ddee556f97e24c5363247af4923bf">mRace</a>;
+<a name="l00095"></a>00095         }
+<a name="l00096"></a>00096 
+<a name="l00097"></a><a class="code" href="classMWWorld_1_1Player.html#a63259143d59ec056b274008dc570fc84">00097</a>         std::string <a class="code" href="classMWWorld_1_1Player.html#a63259143d59ec056b274008dc570fc84">getBirthsign</a>()<span class="keyword"> const</span>
+<a name="l00098"></a>00098 <span class="keyword">        </span>{
+<a name="l00099"></a>00099             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#a5493263faca3199ea07e98d1d6984a11">mBirthsign</a>;
+<a name="l00100"></a>00100         }
+<a name="l00101"></a>00101 
+<a name="l00102"></a><a class="code" href="classMWWorld_1_1Player.html#a9ee066abe8e078c3be5c93c358606769">00102</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; <a class="code" href="classMWWorld_1_1Player.html#a9ee066abe8e078c3be5c93c358606769">getClass</a>()<span class="keyword"> const</span>
+<a name="l00103"></a>00103 <span class="keyword">        </span>{
+<a name="l00104"></a>00104             <span class="keywordflow">return</span> *<a class="code" href="classMWWorld_1_1Player.html#afa90dfc46371459d382a8a10a8f18664">mClass</a>;
+<a name="l00105"></a>00105         }
+<a name="l00106"></a>00106 
+<a name="l00107"></a><a class="code" href="classMWWorld_1_1Player.html#a58b387dc048b02b29dd0726ae3d8f694">00107</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#a58b387dc048b02b29dd0726ae3d8f694">getAutoMove</a>()
+<a name="l00108"></a>00108         {
+<a name="l00109"></a>00109             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">mAutoMove</a>;
+<a name="l00110"></a>00110         }
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112         <a class="code" href="drawstate_8hpp.html#afae93b5b3f0186b205f56ab80ec5487d">DrawState</a> <a class="code" href="classMWWorld_1_1Player.html#abda79757cbe56aaad049426b29153be7">getDrawState</a>();
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a3262bd32795d197c2636c7bc83b345fc">setAutoMove</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a0d5e41e02741d24cb489529c446a8c18">enable</a>);
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#abc2902276e73d53b235e667549374a04">setLeftRight</a> (<span class="keywordtype">int</span> value);
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a93be5a536bcd06e585e7751e02ad8d1c">setForwardBackward</a> (<span class="keywordtype">int</span> value);
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a7c7b31c1dff80896fbfa1d51adc34647">toggleRunning</a>();
+<a name="l00121"></a>00121     };
+<a name="l00122"></a>00122 }
+<a name="l00123"></a>00123 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

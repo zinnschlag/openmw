@@ -30,26 +30,59 @@
   </div>
 </div>
 <div class="contents">
-<h1>MWGui::MapWindow Class Reference</h1><!-- doxytag: class="MWGui::MapWindow" --><!-- doxytag: inherits="OEngine::GUI::Layout" -->
-<p><code>#include &lt;<a class="el" href="layouts_8hpp_source.html">layouts.hpp</a>&gt;</code></p>
+<h1>MWGui::MapWindow Class Reference</h1><!-- doxytag: class="MWGui::MapWindow" --><!-- doxytag: inherits="MWGui::WindowPinnableBase,MWGui::LocalMapBase" -->
+<p><code>#include &lt;<a class="el" href="map__window_8hpp_source.html">map_window.hpp</a>&gt;</code></p>
 
 <p><a href="classMWGui_1_1MapWindow-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a294e8f23668e1d3ec8c82bf3998c60e6">MapWindow</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a22eaab3520d65036c1b0738d14a85821">setCellName</a> (const std::string &amp;cellName)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#afc1e2299c80cff046bf998729255f17d">MapWindow</a> (<a class="el" href="classMWGui_1_1WindowManager.html">WindowManager</a> &amp;parWindowManager)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#ae7966cf0102b2573169da32cd0ff7463">~MapWindow</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#aa70751700b3836311996d6176280a8e4">setPlayerPos</a> (const float x, const float y)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#ab8bf1caac8121747efb21c6dc0bd403d">setPlayerDir</a> (const float x, const float y)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#aed8180e6a6578536e2ffce17fdb55ec9">setCellName</a> (const std::string &amp;cellName)</td></tr>
+<tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a09a7ac3eb1e0eb890700a7cdc6c8448b">onPinToggled</a> ()</td></tr>
+<tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#acfc38ab5281142768a4fb8f5df2d8233">onDragStart</a> (MyGUI::Widget *_sender, int _left, int _top, MyGUI::MouseButton _id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a9c849336356807a7aeb889b219806a34">onMouseDrag</a> (MyGUI::Widget *_sender, int _left, int _top, MyGUI::MouseButton _id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a3d09bb8ab7894883b6e8bf1ce6880963">onWorldButtonClicked</a> (MyGUI::Widget *_sender)</td></tr>
+<tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::ScrollView *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a2e0810e4ffd825463d33ddee7f797749">mGlobalMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::ImageBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a9bfa88c4d3f4441e13296a67beed2266">mPlayerArrow</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::Button *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a618d2b244143bd4092b577c64ba32dd2">mButton</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::IntPoint&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a6828fdd10f764b175ea84b5aab3d4baa">mLastDragPos</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MapWindow.html#a480fc46be23ced14458effbae56f6388">mGlobal</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a294e8f23668e1d3ec8c82bf3998c60e6"></a><!-- doxytag: member="MWGui::MapWindow::MapWindow" ref="a294e8f23668e1d3ec8c82bf3998c60e6" args="()" -->
+<a class="anchor" id="afc1e2299c80cff046bf998729255f17d"></a><!-- doxytag: member="MWGui::MapWindow::MapWindow" ref="afc1e2299c80cff046bf998729255f17d" args="(WindowManager &amp;parWindowManager)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MWGui::MapWindow::MapWindow </td>
+          <td class="memname">MapWindow::MapWindow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWGui_1_1WindowManager.html">WindowManager</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>parWindowManager</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae7966cf0102b2573169da32cd0ff7463"></a><!-- doxytag: member="MWGui::MapWindow::~MapWindow" ref="ae7966cf0102b2573169da32cd0ff7463" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual MWGui::MapWindow::~MapWindow </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td><code> [inline, virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -58,17 +91,38 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a22eaab3520d65036c1b0738d14a85821"></a><!-- doxytag: member="MWGui::MapWindow::setCellName" ref="a22eaab3520d65036c1b0738d14a85821" args="(const std::string &amp;cellName)" -->
+<a class="anchor" id="acfc38ab5281142768a4fb8f5df2d8233"></a><!-- doxytag: member="MWGui::MapWindow::onDragStart" ref="acfc38ab5281142768a4fb8f5df2d8233" args="(MyGUI::Widget *_sender, int _left, int _top, MyGUI::MouseButton _id)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MWGui::MapWindow::setCellName </td>
+          <td class="memname">void MapWindow::onDragStart </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>cellName</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline]</code></td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_top</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MyGUI::MouseButton&nbsp;</td>
+          <td class="paramname"> <em>_id</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -76,11 +130,226 @@
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>apps/openmw/mwgui/<a class="el" href="layouts_8hpp_source.html">layouts.hpp</a></li>
+<a class="anchor" id="a9c849336356807a7aeb889b219806a34"></a><!-- doxytag: member="MWGui::MapWindow::onMouseDrag" ref="a9c849336356807a7aeb889b219806a34" args="(MyGUI::Widget *_sender, int _left, int _top, MyGUI::MouseButton _id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MapWindow::onMouseDrag </td>
+          <td>(</td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_top</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MyGUI::MouseButton&nbsp;</td>
+          <td class="paramname"> <em>_id</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a09a7ac3eb1e0eb890700a7cdc6c8448b"></a><!-- doxytag: member="MWGui::MapWindow::onPinToggled" ref="a09a7ac3eb1e0eb890700a7cdc6c8448b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MapWindow::onPinToggled </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classMWGui_1_1WindowPinnableBase.html#abe1500f95d8b19ea3f2b10890f89ada7">MWGui::WindowPinnableBase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3d09bb8ab7894883b6e8bf1ce6880963"></a><!-- doxytag: member="MWGui::MapWindow::onWorldButtonClicked" ref="a3d09bb8ab7894883b6e8bf1ce6880963" args="(MyGUI::Widget *_sender)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MapWindow::onWorldButtonClicked </td>
+          <td>(</td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_sender</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aed8180e6a6578536e2ffce17fdb55ec9"></a><!-- doxytag: member="MWGui::MapWindow::setCellName" ref="aed8180e6a6578536e2ffce17fdb55ec9" args="(const std::string &amp;cellName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MapWindow::setCellName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>cellName</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8bf1caac8121747efb21c6dc0bd403d"></a><!-- doxytag: member="MWGui::MapWindow::setPlayerDir" ref="ab8bf1caac8121747efb21c6dc0bd403d" args="(const float x, const float y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MapWindow::setPlayerDir </td>
+          <td>(</td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa70751700b3836311996d6176280a8e4"></a><!-- doxytag: member="MWGui::MapWindow::setPlayerPos" ref="aa70751700b3836311996d6176280a8e4" args="(const float x, const float y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MapWindow::setPlayerPos </td>
+          <td>(</td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a618d2b244143bd4092b577c64ba32dd2"></a><!-- doxytag: member="MWGui::MapWindow::mButton" ref="a618d2b244143bd4092b577c64ba32dd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::Button* <a class="el" href="classMWGui_1_1MapWindow.html#a618d2b244143bd4092b577c64ba32dd2">MWGui::MapWindow::mButton</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a480fc46be23ced14458effbae56f6388"></a><!-- doxytag: member="MWGui::MapWindow::mGlobal" ref="a480fc46be23ced14458effbae56f6388" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWGui_1_1MapWindow.html#a480fc46be23ced14458effbae56f6388">MWGui::MapWindow::mGlobal</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2e0810e4ffd825463d33ddee7f797749"></a><!-- doxytag: member="MWGui::MapWindow::mGlobalMap" ref="a2e0810e4ffd825463d33ddee7f797749" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::ScrollView* <a class="el" href="classMWGui_1_1MapWindow.html#a2e0810e4ffd825463d33ddee7f797749">MWGui::MapWindow::mGlobalMap</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6828fdd10f764b175ea84b5aab3d4baa"></a><!-- doxytag: member="MWGui::MapWindow::mLastDragPos" ref="a6828fdd10f764b175ea84b5aab3d4baa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::IntPoint <a class="el" href="classMWGui_1_1MapWindow.html#a6828fdd10f764b175ea84b5aab3d4baa">MWGui::MapWindow::mLastDragPos</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9bfa88c4d3f4441e13296a67beed2266"></a><!-- doxytag: member="MWGui::MapWindow::mPlayerArrow" ref="a9bfa88c4d3f4441e13296a67beed2266" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::ImageBox* <a class="el" href="classMWGui_1_1MapWindow.html#a9bfa88c4d3f4441e13296a67beed2266">MWGui::MapWindow::mPlayerArrow</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>apps/openmw/mwgui/<a class="el" href="map__window_8hpp_source.html">map_window.hpp</a></li>
+<li>apps/openmw/mwgui/<a class="el" href="map__window_8cpp.html">map_window.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

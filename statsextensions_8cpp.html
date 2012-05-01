@@ -33,10 +33,13 @@
 <code>#include &lt;<a class="el" href="runtime_8hpp_source.html">components/interpreter/runtime.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="opcodes_8hpp_source.html">components/interpreter/opcodes.hpp</a>&gt;</code><br/>
 <code>#include &quot;../mwworld/class.hpp&quot;</code><br/>
+<code>#include &quot;../mwworld/environment.hpp&quot;</code><br/>
+<code>#include &quot;../mwworld/player.hpp&quot;</code><br/>
 <code>#include &quot;../mwmechanics/creaturestats.hpp&quot;</code><br/>
 <code>#include &quot;../mwmechanics/npcstats.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="interpretercontext_8hpp_source.html">interpretercontext.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ref_8hpp_source.html">ref.hpp</a>&quot;</code><br/>
+<code>#include &quot;../mwdialogue/dialoguemanager.hpp&quot;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpGetAttribute.html">MWScript::Stats::OpGetAttribute&lt; R &gt;</a></td></tr>
@@ -50,6 +53,14 @@
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpGetSkill.html">MWScript::Stats::OpGetSkill&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpSetSkill.html">MWScript::Stats::OpSetSkill&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpModSkill.html">MWScript::Stats::OpModSkill&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpAddSpell.html">MWScript::Stats::OpAddSpell&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpRemoveSpell.html">MWScript::Stats::OpRemoveSpell&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpGetSpell.html">MWScript::Stats::OpGetSpell&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpPCJoinFaction.html">MWScript::Stats::OpPCJoinFaction</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpPCRaiseRank.html">MWScript::Stats::OpPCRaiseRank</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpPCLowerRank.html">MWScript::Stats::OpPCLowerRank</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpGetPCRank.html">MWScript::Stats::OpGetPCRank&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Stats_1_1OpModDisposition.html">MWScript::Stats::OpModDisposition&lt; R &gt;</a></td></tr>
 <tr><td colspan="2"><h2>Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript.html">MWScript</a></td></tr>
 
@@ -90,9 +101,22 @@
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a739d79a8e934e07e03aca1bde8b1146c">MWScript::Stats::opcodeSetSkillExplicit</a> = 0x20000df</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#ab4432824dcd5ad9e50d80d43fd448016">MWScript::Stats::opcodeModSkill</a> = 0x20000fa</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a79697af35b7b83029222885190f77c0e">MWScript::Stats::opcodeModSkillExplicit</a> = 0x2000115</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#ad3b5d75744a142c9b07aae4ec6bcf875">MWScript::Stats::opcodeAddSpell</a> = 0x2000147</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a959f4d825ba577aa24754f8d0f67357c">MWScript::Stats::opcodeAddSpellExplicit</a> = 0x2000148</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a8a49dcfab332d0fa2b52b516082b72c3">MWScript::Stats::opcodeRemoveSpell</a> = 0x2000149</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a2bef1a373eeaebf194f38e1817fc8fdb">MWScript::Stats::opcodeRemoveSpellExplicit</a> = 0x200014a</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a40cad24c79c43325466eccd953a0b0ad">MWScript::Stats::opcodeGetSpell</a> = 0x200014b</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#aa528b471baec0f3946125baa33cd81df">MWScript::Stats::opcodeGetSpellExplicit</a> = 0x200014c</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a6b40b6af1de5042c1f4fa3485086500d">MWScript::Stats::opcodePCRaiseRank</a> = 0x2000b</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a9f52739f51c641cc28bda4c0d10995a4">MWScript::Stats::opcodePCLowerRank</a> = 0x2000c</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#af82d884c474c46e2caee6cdd3da62974">MWScript::Stats::opcodePCJoinFaction</a> = 0x2000d</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#ac80509c2123ee58430fa9f34c5ada964">MWScript::Stats::opcodeGetPCRank</a> = 0x2000e</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#aff1b11f0a7eee174d214ae72cd6ce759">MWScript::Stats::opcodeGetPCRankExplicit</a> = 0x2000f</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#adc78197ee8e8528393d470593c0490a5">MWScript::Stats::opcodeModDisposition</a> = 0x200014d</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Stats.html#a65564f18e55caf5918fffe1177af5f48">MWScript::Stats::opcodeModDispositionExplicit</a> = 0x200014e</td></tr>
 </table>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:58 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

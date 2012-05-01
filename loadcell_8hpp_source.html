@@ -141,32 +141,47 @@
 <a name="l00114"></a><a class="code" href="structESM_1_1Cell.html#ae474e279cb4a2850115fd6e2a1ea60f2">00114</a>   <a class="code" href="structESM_1_1ESM__Context.html">ESM_Context</a> <a class="code" href="structESM_1_1Cell.html#ae474e279cb4a2850115fd6e2a1ea60f2">context</a>; <span class="comment">// File position</span>
 <a name="l00115"></a><a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">00115</a>   <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">DATAstruct</a> <a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>;
 <a name="l00116"></a><a class="code" href="structESM_1_1Cell.html#a6dbf53abe11661bd42178d2e91347cbc">00116</a>   <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">AMBIstruct</a> <a class="code" href="structESM_1_1Cell.html#a6dbf53abe11661bd42178d2e91347cbc">ambi</a>;
-<a name="l00117"></a><a class="code" href="structESM_1_1Cell.html#a63040e16975f9dfa2cacd5347735f8ea">00117</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a63040e16975f9dfa2cacd5347735f8ea">water</a>; <span class="comment">// Water level</span>
+<a name="l00117"></a><a class="code" href="structESM_1_1Cell.html#ab4d7c0481c09ae1ee71a5e1d98665610">00117</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Cell.html#ab4d7c0481c09ae1ee71a5e1d98665610">water</a>; <span class="comment">// Water level</span>
 <a name="l00118"></a><a class="code" href="structESM_1_1Cell.html#ada57558cc15081e58ac2d0084c6a6fbc">00118</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#ada57558cc15081e58ac2d0084c6a6fbc">mapColor</a>;
 <a name="l00119"></a>00119 
 <a name="l00120"></a>00120   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a840fb3a3275151e7f99ca626c1d209be">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
 <a name="l00121"></a>00121 
-<a name="l00122"></a>00122   <span class="comment">// Restore the given reader to the stored position. Will try to open</span>
-<a name="l00123"></a>00123   <span class="comment">// the file matching the stored file name. If you want to read from</span>
-<a name="l00124"></a>00124   <span class="comment">// somewhere other than the file system, you need to pre-open the</span>
-<a name="l00125"></a>00125   <span class="comment">// ESMReader, and the filename must match the stored filename</span>
-<a name="l00126"></a>00126   <span class="comment">// exactly.</span>
-<a name="l00127"></a>00127   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a2a57e897741d50fdfe393f5377110f68">restore</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm) <span class="keyword">const</span>;
-<a name="l00128"></a>00128 
-<a name="l00129"></a>00129   std::string <a class="code" href="structESM_1_1Cell.html#a12ba0ed5b1a64c3bb26b19c4ce16b28a" title="Return a short string describing the cell (mostly used for debugging/logging purpose)...">getDescription</a>() <span class="keyword">const</span>;
+<a name="l00122"></a><a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">00122</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()<span class="keyword"> const</span>
+<a name="l00123"></a>00123 <span class="keyword">  </span>{
+<a name="l00124"></a>00124       <span class="keywordflow">return</span> !(<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#abb90993bb56d9511cfc95ddd4b811350">flags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">Interior</a>);
+<a name="l00125"></a>00125   }
+<a name="l00126"></a>00126 
+<a name="l00127"></a><a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">00127</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>()<span class="keyword"> const</span>
+<a name="l00128"></a>00128 <span class="keyword">  </span>{
+<a name="l00129"></a>00129       <span class="keywordflow">return</span> <a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a181d5e37d88e2a705f3a2cc22f964a2e">gridX</a>;
+<a name="l00130"></a>00130   }
 <a name="l00131"></a>00131 
-<a name="l00132"></a>00132   <span class="comment">/* Get the next reference in this cell, if any. Returns false when</span>
-<a name="l00133"></a>00133 <span class="comment">     there are no more references in the cell.</span>
-<a name="l00134"></a>00134 <span class="comment"></span>
-<a name="l00135"></a>00135 <span class="comment">     All fields of the CellRef struct are overwritten. You can safely</span>
-<a name="l00136"></a>00136 <span class="comment">     reuse one memory location without blanking it between calls.</span>
-<a name="l00137"></a>00137 <span class="comment">  */</span>
-<a name="l00138"></a>00138   <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#ac5c1acf3ab162a2db21f3a03e9f95b38">getNextRef</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref);
-<a name="l00139"></a>00139 };
-<a name="l00140"></a>00140 }
-<a name="l00141"></a>00141 <span class="preprocessor">#endif</span>
+<a name="l00132"></a><a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">00132</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>()<span class="keyword"> const</span>
+<a name="l00133"></a>00133 <span class="keyword">  </span>{
+<a name="l00134"></a>00134       <span class="keywordflow">return</span> <a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a2844484e60f1da3ce76fd371de29f85a">gridY</a>;
+<a name="l00135"></a>00135   }
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137   <span class="comment">// Restore the given reader to the stored position. Will try to open</span>
+<a name="l00138"></a>00138   <span class="comment">// the file matching the stored file name. If you want to read from</span>
+<a name="l00139"></a>00139   <span class="comment">// somewhere other than the file system, you need to pre-open the</span>
+<a name="l00140"></a>00140   <span class="comment">// ESMReader, and the filename must match the stored filename</span>
+<a name="l00141"></a>00141   <span class="comment">// exactly.</span>
+<a name="l00142"></a>00142   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a2a57e897741d50fdfe393f5377110f68">restore</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144   std::string <a class="code" href="structESM_1_1Cell.html#a12ba0ed5b1a64c3bb26b19c4ce16b28a" title="Return a short string describing the cell (mostly used for debugging/logging purpose)...">getDescription</a>() <span class="keyword">const</span>;
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147   <span class="comment">/* Get the next reference in this cell, if any. Returns false when</span>
+<a name="l00148"></a>00148 <span class="comment">     there are no more references in the cell.</span>
+<a name="l00149"></a>00149 <span class="comment"></span>
+<a name="l00150"></a>00150 <span class="comment">     All fields of the CellRef struct are overwritten. You can safely</span>
+<a name="l00151"></a>00151 <span class="comment">     reuse one memory location without blanking it between calls.</span>
+<a name="l00152"></a>00152 <span class="comment">  */</span>
+<a name="l00153"></a>00153   <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#ac5c1acf3ab162a2db21f3a03e9f95b38">getNextRef</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref);
+<a name="l00154"></a>00154 };
+<a name="l00155"></a>00155 }
+<a name="l00156"></a>00156 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:57 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -31,16 +31,409 @@
 <small>
 [<a class="el" href="group__openmw.html">OpenMW</a>]</small>
 </h1>
-<p>Sound &amp; music.  
+<p><a class="el" href="classMWSound_1_1Sound.html">Sound</a> &amp; music.  
 <a href="#_details">More...</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html">Audiere_Decoder</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html">OpenAL_SoundStream</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Sound.html">OpenAL_Sound</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Sound3D.html">OpenAL_Sound3D</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html">Sound</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html">Sound_Decoder</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound__Output.html">Sound_Output</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a></td></tr>
+<tr><td colspan="2"><h2>Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="structMWSound_1_1Sound__Decoder.html">Sound_Decoder</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::shared_ptr&lt; <a class="el" href="classMWSound_1_1Sound.html">Sound</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a></td></tr>
+<tr><td colspan="2"><h2>Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> { <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5a3caac453be0bd5a803c60e3318129d5c">SampleType_UInt8</a>, 
+<a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5a49e052401089485b0b5054a2383dee36">SampleType_Int16</a>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> { <a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85ad46be9a562f77040ac17e887d5c41d7e">ChannelConfig_Mono</a>, 
+<a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85a1d94bfe12f86e76fbbde755b5c9185ca">ChannelConfig_Stereo</a>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> { <a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0">Play_Normal</a> =  0, 
+<a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535">Play_Loop</a> =  1&lt;&lt;0, 
+<a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607">Play_NoEnv</a> =  1&lt;&lt;1, 
+<a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83">Play_NoTrack</a> =  1&lt;&lt;2
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> { <a class="el" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8">Env_Normal</a>, 
+<a class="el" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f">Env_Underwater</a>
+ }</td></tr>
+<tr><td colspan="2"><h2>Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a5af807129994f7f0a49c40d728843e5c">fail</a> (const std::string &amp;msg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#aaab278b695a178135dbed2aacf92b631">throwALCerror</a> (ALCdevice *device)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a96d38e803898cb4ed4a7c517bfce1744">throwALerror</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static ALenum&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a108b519e814dffc847e9751551465c49">getALFormat</a> (<a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> chans, <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a69cfe6726b4339dda91e38356dae23a6">getSampleTypeName</a> (<a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#ac820781bf6c123885f7f6f9fd985fbc0">getChannelConfigName</a> (<a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> config)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a79b1557305f11203e7cbfe990d11e84f">framesToBytes</a> (size_t frames, <a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> config, <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a99ab2efdb1acfb7182559af342c84715">bytesToFrames</a> (size_t bytes, <a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> config, <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#a6593586a4c752b305802033aa6eb2879">operator|</a> (const <a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;a, const <a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;b)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWSound.html#ae26127708cc0ea0708ac18524bee7295">operator&amp;</a> (const <a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;a, const <a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;b)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>Sound &amp; music. </p>
+<p><a class="el" href="classMWSound_1_1Sound.html">Sound</a> &amp; music. </p>
+<hr/><h2>Typedef Documentation</h2>
+<a class="anchor" id="a9af7bd97094456943f0f38a13f773d6b"></a><!-- doxytag: member="MWSound::DecoderPtr" ref="a9af7bd97094456943f0f38a13f773d6b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::shared_ptr&lt;<a class="el" href="structMWSound_1_1Sound__Decoder.html">Sound_Decoder</a>&gt; <a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">MWSound::DecoderPtr</a></td>
+        </tr>
+      </table>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Wed Mar 28 19:59:59 2012 for OpenMW by&nbsp;
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ade7b4f1f1a387f7e04f0105bd3b429c1"></a><!-- doxytag: member="MWSound::SoundPtr" ref="ade7b4f1f1a387f7e04f0105bd3b429c1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::shared_ptr&lt;<a class="el" href="classMWSound_1_1Sound.html">Sound</a>&gt; <a class="el" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">MWSound::SoundPtr</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Enumeration Type Documentation</h2>
+<a class="anchor" id="a25b219777ffb14c7f5f83ab788452c85"></a><!-- doxytag: member="MWSound::ChannelConfig" ref="a25b219777ffb14c7f5f83ab788452c85" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">MWSound::ChannelConfig</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a25b219777ffb14c7f5f83ab788452c85ad46be9a562f77040ac17e887d5c41d7e"></a><!-- doxytag: member="ChannelConfig_Mono" ref="a25b219777ffb14c7f5f83ab788452c85ad46be9a562f77040ac17e887d5c41d7e" args="" -->ChannelConfig_Mono</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a25b219777ffb14c7f5f83ab788452c85a1d94bfe12f86e76fbbde755b5c9185ca"></a><!-- doxytag: member="ChannelConfig_Stereo" ref="a25b219777ffb14c7f5f83ab788452c85a1d94bfe12f86e76fbbde755b5c9185ca" args="" -->ChannelConfig_Stereo</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7465fae544c26c23b8ff87f4a96d1494"></a><!-- doxytag: member="MWSound::Environment" ref="a7465fae544c26c23b8ff87f4a96d1494" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">MWSound::Environment</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8"></a><!-- doxytag: member="Env_Normal" ref="a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8" args="" -->Env_Normal</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f"></a><!-- doxytag: member="Env_Underwater" ref="a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f" args="" -->Env_Underwater</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aea11e52a38de4431ba3b76c391c9f518"></a><!-- doxytag: member="MWSound::PlayMode" ref="aea11e52a38de4431ba3b76c391c9f518" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">MWSound::PlayMode</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0"></a><!-- doxytag: member="Play_Normal" ref="aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0" args="" -->Play_Normal</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535"></a><!-- doxytag: member="Play_Loop" ref="aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535" args="" -->Play_Loop</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607"></a><!-- doxytag: member="Play_NoEnv" ref="aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607" args="" -->Play_NoEnv</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83"></a><!-- doxytag: member="Play_NoTrack" ref="aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83" args="" -->Play_NoTrack</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a07d1864ac291f437982140a1c2dae4f5"></a><!-- doxytag: member="MWSound::SampleType" ref="a07d1864ac291f437982140a1c2dae4f5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">MWSound::SampleType</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a07d1864ac291f437982140a1c2dae4f5a3caac453be0bd5a803c60e3318129d5c"></a><!-- doxytag: member="SampleType_UInt8" ref="a07d1864ac291f437982140a1c2dae4f5a3caac453be0bd5a803c60e3318129d5c" args="" -->SampleType_UInt8</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a07d1864ac291f437982140a1c2dae4f5a49e052401089485b0b5054a2383dee36"></a><!-- doxytag: member="SampleType_Int16" ref="a07d1864ac291f437982140a1c2dae4f5a49e052401089485b0b5054a2383dee36" args="" -->SampleType_Int16</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a99ab2efdb1acfb7182559af342c84715"></a><!-- doxytag: member="MWSound::bytesToFrames" ref="a99ab2efdb1acfb7182559af342c84715" args="(size_t bytes, ChannelConfig config, SampleType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t MWSound::bytesToFrames </td>
+          <td>(</td>
+          <td class="paramtype">size_t&nbsp;</td>
+          <td class="paramname"> <em>bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChannelConfig&nbsp;</td>
+          <td class="paramname"> <em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SampleType&nbsp;</td>
+          <td class="paramname"> <em>type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5af807129994f7f0a49c40d728843e5c"></a><!-- doxytag: member="MWSound::fail" ref="a5af807129994f7f0a49c40d728843e5c" args="(const std::string &amp;msg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void MWSound::fail </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>msg</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a79b1557305f11203e7cbfe990d11e84f"></a><!-- doxytag: member="MWSound::framesToBytes" ref="a79b1557305f11203e7cbfe990d11e84f" args="(size_t frames, ChannelConfig config, SampleType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t MWSound::framesToBytes </td>
+          <td>(</td>
+          <td class="paramtype">size_t&nbsp;</td>
+          <td class="paramname"> <em>frames</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChannelConfig&nbsp;</td>
+          <td class="paramname"> <em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SampleType&nbsp;</td>
+          <td class="paramname"> <em>type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a108b519e814dffc847e9751551465c49"></a><!-- doxytag: member="MWSound::getALFormat" ref="a108b519e814dffc847e9751551465c49" args="(ChannelConfig chans, SampleType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ALenum MWSound::getALFormat </td>
+          <td>(</td>
+          <td class="paramtype">ChannelConfig&nbsp;</td>
+          <td class="paramname"> <em>chans</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SampleType&nbsp;</td>
+          <td class="paramname"> <em>type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac820781bf6c123885f7f6f9fd985fbc0"></a><!-- doxytag: member="MWSound::getChannelConfigName" ref="ac820781bf6c123885f7f6f9fd985fbc0" args="(ChannelConfig config)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * MWSound::getChannelConfigName </td>
+          <td>(</td>
+          <td class="paramtype">ChannelConfig&nbsp;</td>
+          <td class="paramname"> <em>config</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a69cfe6726b4339dda91e38356dae23a6"></a><!-- doxytag: member="MWSound::getSampleTypeName" ref="a69cfe6726b4339dda91e38356dae23a6" args="(SampleType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * MWSound::getSampleTypeName </td>
+          <td>(</td>
+          <td class="paramtype">SampleType&nbsp;</td>
+          <td class="paramname"> <em>type</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae26127708cc0ea0708ac18524bee7295"></a><!-- doxytag: member="MWSound::operator&amp;" ref="ae26127708cc0ea0708ac18524bee7295" args="(const PlayMode &amp;a, const PlayMode &amp;b)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int MWSound::operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const PlayMode &amp;&nbsp;</td>
+          <td class="paramname"> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const PlayMode &amp;&nbsp;</td>
+          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6593586a4c752b305802033aa6eb2879"></a><!-- doxytag: member="MWSound::operator|" ref="a6593586a4c752b305802033aa6eb2879" args="(const PlayMode &amp;a, const PlayMode &amp;b)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int MWSound::operator| </td>
+          <td>(</td>
+          <td class="paramtype">const PlayMode &amp;&nbsp;</td>
+          <td class="paramname"> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const PlayMode &amp;&nbsp;</td>
+          <td class="paramname"> <em>b</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aaab278b695a178135dbed2aacf92b631"></a><!-- doxytag: member="MWSound::throwALCerror" ref="aaab278b695a178135dbed2aacf92b631" args="(ALCdevice *device)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void MWSound::throwALCerror </td>
+          <td>(</td>
+          <td class="paramtype">ALCdevice *&nbsp;</td>
+          <td class="paramname"> <em>device</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a96d38e803898cb4ed4a7c517bfce1744"></a><!-- doxytag: member="MWSound::throwALerror" ref="a96d38e803898cb4ed4a7c517bfce1744" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void MWSound::throwALerror </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+</div>
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
