@@ -276,23 +276,29 @@ int main(int argc, char**argv)
     boost::filesystem::current_path(bundlePath);
 #endif
 
-    Files::ConfigurationManager cfgMgr;
-    OMW::Engine engine(cfgMgr);
+    Files::ConfigurationManager* cfgMgr;
+    OMW::Engine* engine;
+    int ret = 0;
 
     try
     {
-        if (parseOptions(argc, argv, engine, cfgMgr))
+        cfgMgr = new Files::ConfigurationManager;
+        engine = new OMW::Engine(*cfgMgr);
+        if (parseOptions(argc, argv, *engine, *cfgMgr))
         {
-            engine.go();
+            engine->go();
         }
     }
     catch (std::exception &e)
     {
         std::cout << "\nERROR: " << e.what() << std::endl;
-        return 1;
+        ret = 1;
     }
 
-    return 0;
+    delete engine;
+    delete cfgMgr;
+
+    return ret;
 }
 
 // Platform specific for Windows when there is no console built into the executable.
