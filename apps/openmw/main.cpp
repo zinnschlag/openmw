@@ -276,11 +276,11 @@ int main(int argc, char**argv)
     boost::filesystem::current_path(bundlePath);
 #endif
 
+    Files::ConfigurationManager cfgMgr;
+    OMW::Engine engine(cfgMgr);
+
     try
     {
-        Files::ConfigurationManager cfgMgr;
-        OMW::Engine engine(cfgMgr);
-
         if (parseOptions(argc, argv, engine, cfgMgr))
         {
             engine.go();
