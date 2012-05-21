@@ -19,6 +19,7 @@
 #include "shaderhelper.hpp"
 #include "localmap.hpp"
 #include "water.hpp"
+#include "compositors.hpp"
 
 using namespace MWRender;
 using namespace Ogre;
@@ -29,6 +30,8 @@ RenderingManager::RenderingManager (OEngine::Render::OgreRenderer& _rend, const 
     :mRendering(_rend), mObjects(mRendering), mActors(mRendering), mAmbientMode(0), mSunEnabled(0)
 {
     mRendering.createScene("PlayerCam", Settings::Manager::getFloat("field of view", "General"), 5);
+
+    mCompositors = new Compositors(mRendering.getViewport());
 
     mWater = 0;
 
@@ -68,15 +71,15 @@ RenderingManager::RenderingManager (OEngine::Render::OgreRenderer& _rend, const 
     // note that the order is important here
     if (useMRT())
     {
-        CompositorManager::getSingleton().addCompositor(mRendering.getViewport(), "gbuffer");
-        CompositorManager::getSingleton().setCompositorEnabled(mRendering.getViewport(), "gbuffer", true);
-        CompositorManager::getSingleton().addCompositor(mRendering.getViewport(), "Underwater");
-        CompositorManager::getSingleton().addCompositor(mRendering.getViewport(), "gbufferFinalizer");
-        CompositorManager::getSingleton().setCompositorEnabled(mRendering.getViewport(), "gbufferFinalizer", true);
+        mCompositors->addCompositor("gbuffer", 0);
+        mCompositors->setCompositorEnabled("gbuffer", true);
+        mCompositors->addCompositor("Underwater", 1);
+        mCompositors->addCompositor("gbufferFinalizer", 2);
+        mCompositors->setCompositorEnabled("gbufferFinalizer", true);
     }
     else
     {
-        CompositorManager::getSingleton().addCompositor(mRendering.getViewport(), "UnderwaterNoMRT");
+        mCompositors->addCompositor("UnderwaterNoMRT", 0);
     }
 
     // Turn the entire scene (represented by the 'root' node) -90
@@ -121,6 +124,7 @@ RenderingManager::~RenderingManager ()
     delete mTerrainManager;
     delete mLocalMap;
     delete mOcclusionQuery;
+    delete mCompositors;
 }
 
 MWRender::SkyManager* RenderingManager::getSkyManager()
@@ -235,7 +239,7 @@ void RenderingManager::waterAdded (MWWorld::Ptr::CellStore *store){
             && !MWBase::Environment::get().getWorld()->getStore().lands.search(store->cell->data.gridX,store->cell->data.gridY) )) // always use water, if the cell does not have land.
     {
         if(mWater == 0)
-            mWater = new MWRender::Water(mRendering.getCamera(), mSkyManager, store->cell);
+            mWater = new MWRender::Water(mRendering.getCamera(), this, store->cell);
         else
             mWater->changeCell(store->cell);
         mWater->setActive(true);
@@ -295,34 +299,28 @@ void RenderingManager::skySetMoonColour (bool red){
 
 bool RenderingManager::toggleRenderMode(int mode)
 {
-    if (mode != MWWorld::World::Render_Wireframe)
+    if (mode == MWWorld::World::Render_CollisionDebug || mode == MWWorld::World::Render_Pathgrid)
         return mDebugging->toggleRenderMode(mode);
-    else // if (mode == MWWorld::World::Render_Wireframe)
+    else if (mode == MWWorld::World::Render_Wireframe)
     {
         if (mRendering.getCamera()->getPolygonMode() == PM_SOLID)
         {
-            // disable compositors
-            if (useMRT())
-            {
-                CompositorManager::getSingleton().setCompositorEnabled(mRendering.getViewport(), "gbuffer", false);
-                CompositorManager::getSingleton().setCompositorEnabled(mRendering.getViewport(), "gbufferFinalizer", false);
-            }
+            mCompositors->setEnabled(false);
 
             mRendering.getCamera()->setPolygonMode(PM_WIREFRAME);
             return true;
         }
         else
         {
-            // re-enable compositors
-            if (useMRT())
-            {
-                CompositorManager::getSingleton().setCompositorEnabled(mRendering.getViewport(), "gbuffer", true);
-                CompositorManager::getSingleton().setCompositorEnabled(mRendering.getViewport(), "gbufferFinalizer", true);
-            }
+            mCompositors->setEnabled(true);
 
             mRendering.getCamera()->setPolygonMode(PM_SOLID);
             return false;
         }
+    }
+    else //if (mode == MWWorld::World::Render_Compositors)
+    {
+        return mCompositors->toggle();
     }
 }
 
@@ -519,6 +517,11 @@ void RenderingManager::switchToInterior()
 void RenderingManager::switchToExterior()
 {
     mRendering.getScene()->setCameraRelativeRendering(true);
+}
+
+Compositors* RenderingManager::getCompositors()
+{
+    return mCompositors;
 }
 
 } // namespace
