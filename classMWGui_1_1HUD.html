@@ -31,13 +31,12 @@
 </div>
 <div class="contents">
 <h1>MWGui::HUD Class Reference</h1><!-- doxytag: class="MWGui::HUD" --><!-- doxytag: inherits="OEngine::GUI::Layout,MWGui::LocalMapBase" -->
-<p><code>#include &lt;<a class="el" href="layouts_8hpp_source.html">layouts.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="hud_8hpp_source.html">hud.hpp</a>&gt;</code></p>
 
 <p><a href="classMWGui_1_1HUD-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#aff9a5a23b607725ac600a131482906c8">HUD</a> (int width, int height, int fpsLevel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#ad2ebb88e8047bc3704e8f55b3c56e5b4">setStats</a> (int h, int hmax, int m, int mmax, int s, int smax)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#ae9edd11d7f24ad4f917d81889ff1aa3c">HUD</a> (int width, int height, int fpsLevel, <a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a> *dragAndDrop)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a7db6ae2f521b130def217615601b5f6a">setWeapIcon</a> (const char *str)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a56a1e913a4cb7b7cafeb2f68aafe9be0">setSpellIcon</a> (const char *str)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a19d21a92ff19d9f7e5eec5687e6a713d">setWeapStatus</a> (int s, int smax)</td></tr>
@@ -72,15 +71,20 @@
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a5cebb01c5f5bb7c2303e6d74cb7a1f71">fpscounter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a6c5a516f0fa87cf9e5ee0aedc1ca9940">trianglecounter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a39ff42240fb35d16f800200bd9fa9809">batchcounter</a></td></tr>
+<tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a511aefdac49722d9ce42ea8cbb9baab8">onWorldClicked</a> (MyGUI::Widget *_sender)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a0fa5ec08194d5fea25b8ac282b90f427">onWorldMouseOver</a> (MyGUI::Widget *_sender, int x, int y)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#ab8c68d9d42bf278ef81be96dd5538444">onWorldMouseLostFocus</a> (MyGUI::Widget *_sender, MyGUI::Widget *_new)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a19fbce3f00b5b4327beffcc5aa81b245">hmsBaseLeft</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#ab1ada6c54e36f85cccca90b6c9bff521">weapBoxBaseLeft</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a7561c2afc0c26bfb4a6bab36eb99f086">spellBoxBaseLeft</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#ab296525965856dd4abeed44c9db09a07">minimapBoxBaseRight</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a44e60f278e8b35cb48f99ffedfca7305">effectBoxBaseRight</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1HUD.html#a0b3b2e55b4896795c51e4c8574527911">mDragAndDrop</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aff9a5a23b607725ac600a131482906c8"></a><!-- doxytag: member="MWGui::HUD::HUD" ref="aff9a5a23b607725ac600a131482906c8" args="(int width, int height, int fpsLevel)" -->
+<a class="anchor" id="ae9edd11d7f24ad4f917d81889ff1aa3c"></a><!-- doxytag: member="MWGui::HUD::HUD" ref="ae9edd11d7f24ad4f917d81889ff1aa3c" args="(int width, int height, int fpsLevel, DragAndDrop *dragAndDrop)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -100,7 +104,13 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>fpsLevel</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>fpsLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a> *&nbsp;</td>
+          <td class="paramname"> <em>dragAndDrop</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -114,6 +124,87 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a511aefdac49722d9ce42ea8cbb9baab8"></a><!-- doxytag: member="MWGui::HUD::onWorldClicked" ref="a511aefdac49722d9ce42ea8cbb9baab8" args="(MyGUI::Widget *_sender)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HUD::onWorldClicked </td>
+          <td>(</td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_sender</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8c68d9d42bf278ef81be96dd5538444"></a><!-- doxytag: member="MWGui::HUD::onWorldMouseLostFocus" ref="ab8c68d9d42bf278ef81be96dd5538444" args="(MyGUI::Widget *_sender, MyGUI::Widget *_new)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HUD::onWorldMouseLostFocus </td>
+          <td>(</td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_new</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0fa5ec08194d5fea25b8ac282b90f427"></a><!-- doxytag: member="MWGui::HUD::onWorldMouseOver" ref="a0fa5ec08194d5fea25b8ac282b90f427" args="(MyGUI::Widget *_sender, int x, int y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HUD::onWorldMouseOver </td>
+          <td>(</td>
+          <td class="paramtype">MyGUI::Widget *&nbsp;</td>
+          <td class="paramname"> <em>_sender</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>make it possible to pick up objects with the mouse, if inventory or container window is open </dd></dl>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="aae37186eb77df0cfa1f717fd41be9fb6"></a><!-- doxytag: member="MWGui::HUD::setBatchCount" ref="aae37186eb77df0cfa1f717fd41be9fb6" args="(size_t count)" -->
 <div class="memitem">
 <div class="memproto">
@@ -325,57 +416,6 @@
         <tr>
           <td class="memname">void HUD::setSpellStatus </td>
           <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>smax</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad2ebb88e8047bc3704e8f55b3c56e5b4"></a><!-- doxytag: member="MWGui::HUD::setStats" ref="ad2ebb88e8047bc3704e8f55b3c56e5b4" args="(int h, int hmax, int m, int mmax, int s, int smax)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void HUD::setStats </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>h</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>hmax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>m</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>mmax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>s</em>, </td>
         </tr>
@@ -630,6 +670,19 @@
 
 </div>
 </div>
+<a class="anchor" id="a0b3b2e55b4896795c51e4c8574527911"></a><!-- doxytag: member="MWGui::HUD::mDragAndDrop" ref="a0b3b2e55b4896795c51e4c8574527911" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* <a class="el" href="classMWGui_1_1HUD.html#a0b3b2e55b4896795c51e4c8574527911">MWGui::HUD::mDragAndDrop</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a007faa408ca04725b988c29a597c88e5"></a><!-- doxytag: member="MWGui::HUD::minimap" ref="a007faa408ca04725b988c29a597c88e5" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -800,11 +853,11 @@
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>apps/openmw/mwgui/<a class="el" href="layouts_8hpp_source.html">layouts.hpp</a></li>
-<li>apps/openmw/mwgui/<a class="el" href="layouts_8cpp.html">layouts.cpp</a></li>
+<li>apps/openmw/mwgui/<a class="el" href="hud_8hpp_source.html">hud.hpp</a></li>
+<li>apps/openmw/mwgui/<a class="el" href="hud_8cpp.html">hud.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

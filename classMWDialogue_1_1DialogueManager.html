@@ -36,10 +36,11 @@
 <p><a href="classMWDialogue_1_1DialogueManager-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#ab39b78f8fd12a2d74da8f15344a0796a">DialogueManager</a> (<a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment, const <a class="el" href="classCompiler_1_1Extensions.html">Compiler::Extensions</a> &amp;extensions)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#ad8af3f63aaa83e7db9b995ce1d85937a">DialogueManager</a> (const <a class="el" href="classCompiler_1_1Extensions.html">Compiler::Extensions</a> &amp;extensions)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a2a537be1a3a201dfbede541ac70f42b5">startDialogue</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a21a32c81a126a2070768e0bd7059a2b9">addTopic</a> (std::string topic)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a7bcadc63ef8b7d4c12f4c3f4f9677e0a">askQuestion</a> (std::string question, int choice)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a175022712bc50e58c0bf28717537a6a7">goodbye</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a1cedbae21596d40d987295bf1075b21e">getFaction</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">get the faction of the actor you are talking with  <a href="#a1cedbae21596d40d987295bf1075b21e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#ab31fc1d886022036ea150319f77082ec">keywordSelected</a> (std::string keyword)</td></tr>
@@ -55,7 +56,6 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a2435dc26d12e657643b8e8c5c49032f7">executeScript</a> (std::string script)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a54a1de03988e481cd7924a5fb744375b">printError</a> (std::string error)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#aa91784190d34ed879d89714f2a562247">mEnvironment</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <br class="typebreak"/>
 <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a79330ee7dc2063683618f949bdb26f4c">mDialogueMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, bool &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a18a3a466e69f5b8efa32cf49692c5615">knownTopics</a></td></tr>
@@ -71,26 +71,17 @@
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a92e7de7acea7438b367f998b750b01b8">mIsInChoice</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ab39b78f8fd12a2d74da8f15344a0796a"></a><!-- doxytag: member="MWDialogue::DialogueManager::DialogueManager" ref="ab39b78f8fd12a2d74da8f15344a0796a" args="(MWWorld::Environment &amp;environment, const Compiler::Extensions &amp;extensions)" -->
+<a class="anchor" id="ad8af3f63aaa83e7db9b995ce1d85937a"></a><!-- doxytag: member="MWDialogue::DialogueManager::DialogueManager" ref="ad8af3f63aaa83e7db9b995ce1d85937a" args="(const Compiler::Extensions &amp;extensions)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">MWDialogue::DialogueManager::DialogueManager </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>environment</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const <a class="el" href="classCompiler_1_1Extensions.html">Compiler::Extensions</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>extensions</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
+          <td class="paramname"> <em>extensions</em></td>
+          <td>&nbsp;)&nbsp;</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -238,6 +229,23 @@
 <div class="memdoc">
 
 <p>get the faction of the actor you are talking with </p>
+
+</div>
+</div>
+<a class="anchor" id="a175022712bc50e58c0bf28717537a6a7"></a><!-- doxytag: member="MWDialogue::DialogueManager::goodbye" ref="a175022712bc50e58c0bf28717537a6a7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWDialogue::DialogueManager::goodbye </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -511,19 +519,6 @@
 
 </div>
 </div>
-<a class="anchor" id="aa91784190d34ed879d89714f2a562247"></a><!-- doxytag: member="MWDialogue::DialogueManager::mEnvironment" ref="aa91784190d34ed879d89714f2a562247" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a>&amp; <a class="el" href="classMWDialogue_1_1DialogueManager.html#aa91784190d34ed879d89714f2a562247">MWDialogue::DialogueManager::mEnvironment</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ac03af46b9a1ad9f3bedb6857d15d613e"></a><!-- doxytag: member="MWDialogue::DialogueManager::mErrorHandler" ref="ac03af46b9a1ad9f3bedb6857d15d613e" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -594,7 +589,7 @@
 <li>apps/openmw/mwdialogue/<a class="el" href="dialoguemanager_8cpp.html">dialoguemanager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:24 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

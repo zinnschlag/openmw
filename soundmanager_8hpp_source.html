@@ -43,88 +43,85 @@
 <a name="l00016"></a>00016     <span class="keyword">class </span>Camera;
 <a name="l00017"></a>00017 }
 <a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWWorld
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWSound
 <a name="l00020"></a>00020 {
-<a name="l00021"></a>00021     <span class="keyword">struct </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
-<a name="l00022"></a>00022 }
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">namespace </span>MWSound
-<a name="l00025"></a>00025 {
-<a name="l00026"></a>00026     <span class="keyword">class </span>Sound_Output;
-<a name="l00027"></a>00027     <span class="keyword">struct </span>Sound_Decoder;
-<a name="l00028"></a><a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">00028</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1Sound.html">Sound</a>;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030     <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound_Decoder&gt; <a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a>;
-<a name="l00031"></a><a class="code" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">00031</a>     <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound&gt; <a class="code" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">00033</a>     <span class="keyword">enum</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> {
-<a name="l00034"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0">00034</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0">Play_Normal</a>  = 0, <span class="comment">/* tracked, non-looping, multi-instance, environment */</span>
-<a name="l00035"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535">00035</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535">Play_Loop</a>    = 1&lt;&lt;0, <span class="comment">/* Sound will continually loop until explicitly stopped */</span>
-<a name="l00036"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607">00036</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607">Play_NoEnv</a>   = 1&lt;&lt;1, <span class="comment">/* Do not apply environment effects (eg, underwater filters) */</span>
-<a name="l00037"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83">00037</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83">Play_NoTrack</a> = 1&lt;&lt;2, <span class="comment">/* (3D only) Play the sound at the given object&#39;s position</span>
-<a name="l00038"></a>00038 <span class="comment">                              * but do not keep it updated (the sound will not move with</span>
-<a name="l00039"></a>00039 <span class="comment">                              * the object and will not stop when the object is deleted. */</span>
-<a name="l00040"></a>00040     };
-<a name="l00041"></a><a class="code" href="namespaceMWSound.html#a6593586a4c752b305802033aa6eb2879">00041</a>     <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="namespaceMWSound.html#a6593586a4c752b305802033aa6eb2879">operator|</a>(<span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;a, <span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;b)
-<a name="l00042"></a>00042     { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)a | (int)b; }
-<a name="l00043"></a><a class="code" href="namespaceMWSound.html#ae26127708cc0ea0708ac18524bee7295">00043</a>     <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="namespaceMWSound.html#ae26127708cc0ea0708ac18524bee7295">operator&amp;</a>(<span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;a, <span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;b)
-<a name="l00044"></a>00044     { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)a &amp; (int)b; }
+<a name="l00021"></a>00021     <span class="keyword">class </span>Sound_Output;
+<a name="l00022"></a>00022     <span class="keyword">struct </span>Sound_Decoder;
+<a name="l00023"></a><a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">00023</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1Sound.html">Sound</a>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025     <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound_Decoder&gt; <a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a>;
+<a name="l00026"></a><a class="code" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">00026</a>     <span class="keyword">typedef</span> boost::shared_ptr&lt;Sound&gt; <a class="code" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">00028</a>     <span class="keyword">enum</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> {
+<a name="l00029"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0">00029</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0">Play_Normal</a>  = 0, <span class="comment">/* tracked, non-looping, multi-instance, environment */</span>
+<a name="l00030"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535">00030</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a33e53370c784af77696875e63f978535">Play_Loop</a>    = 1&lt;&lt;0, <span class="comment">/* Sound will continually loop until explicitly stopped */</span>
+<a name="l00031"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607">00031</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a3b8b0682f179cbb2e2bd6c1bd7806607">Play_NoEnv</a>   = 1&lt;&lt;1, <span class="comment">/* Do not apply environment effects (eg, underwater filters) */</span>
+<a name="l00032"></a><a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83">00032</a>         <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518ab1fc49f7c0a02e0589b5a47c4595bd83">Play_NoTrack</a> = 1&lt;&lt;2, <span class="comment">/* (3D only) Play the sound at the given object&#39;s position</span>
+<a name="l00033"></a>00033 <span class="comment">                              * but do not keep it updated (the sound will not move with</span>
+<a name="l00034"></a>00034 <span class="comment">                              * the object and will not stop when the object is deleted. */</span>
+<a name="l00035"></a>00035     };
+<a name="l00036"></a><a class="code" href="namespaceMWSound.html#a6593586a4c752b305802033aa6eb2879">00036</a>     <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="namespaceMWSound.html#a6593586a4c752b305802033aa6eb2879">operator|</a>(<span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;a, <span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;b)
+<a name="l00037"></a>00037     { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)a | (int)b; }
+<a name="l00038"></a><a class="code" href="namespaceMWSound.html#ae26127708cc0ea0708ac18524bee7295">00038</a>     <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="namespaceMWSound.html#ae26127708cc0ea0708ac18524bee7295">operator&amp;</a>(<span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;a, <span class="keyword">const</span> <a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518">PlayMode</a> &amp;b)
+<a name="l00039"></a>00039     { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)a &amp; (int)b; }
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">00041</a>     <span class="keyword">enum</span> <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> {
+<a name="l00042"></a><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8">00042</a>         <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8">Env_Normal</a>,
+<a name="l00043"></a><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f">00043</a>         <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f">Env_Underwater</a>,
+<a name="l00044"></a>00044     };
 <a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">00046</a>     <span class="keyword">enum</span> <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> {
-<a name="l00047"></a><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8">00047</a>         <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aded6650f3b6f195d94997ff1e549daf8">Env_Normal</a>,
-<a name="l00048"></a><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f">00048</a>         <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494aa0d28e3aababd5c34f85a5a99859166f">Env_Underwater</a>,
-<a name="l00049"></a>00049     };
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="classMWSound_1_1SoundManager.html">00051</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>
-<a name="l00052"></a>00052     {
-<a name="l00053"></a><a class="code" href="classMWSound_1_1SoundManager.html#a764cfb0a1de1d03814ceec119adaed61">00053</a>         Ogre::ResourceGroupManager&amp; <a class="code" href="classMWSound_1_1SoundManager.html#a764cfb0a1de1d03814ceec119adaed61">mResourceMgr</a>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a><a class="code" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">00055</a>         <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWSound_1_1SoundManager.html#ae68f18fbed3578074bc3bc04b2bb372f">mEnvironment</a>;
-<a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classMWSound_1_1SoundManager.html#ae267422dc87ef339215f84c598ae34fd">00057</a>         std::auto_ptr&lt;Sound_Output&gt; <a class="code" href="classMWSound_1_1SoundManager.html#ae267422dc87ef339215f84c598ae34fd">mOutput</a>;
+<a name="l00046"></a><a class="code" href="classMWSound_1_1SoundManager.html">00046</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>
+<a name="l00047"></a>00047     {
+<a name="l00048"></a><a class="code" href="classMWSound_1_1SoundManager.html#a764cfb0a1de1d03814ceec119adaed61">00048</a>         Ogre::ResourceGroupManager&amp; <a class="code" href="classMWSound_1_1SoundManager.html#a764cfb0a1de1d03814ceec119adaed61">mResourceMgr</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWSound_1_1SoundManager.html#ae267422dc87ef339215f84c598ae34fd">00050</a>         std::auto_ptr&lt;Sound_Output&gt; <a class="code" href="classMWSound_1_1SoundManager.html#ae267422dc87ef339215f84c598ae34fd">mOutput</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classMWSound_1_1SoundManager.html#a092936f229696c6f1a8c8e8f38c036d8">00052</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1SoundManager.html#a092936f229696c6f1a8c8e8f38c036d8">mMasterVolume</a>;
+<a name="l00053"></a><a class="code" href="classMWSound_1_1SoundManager.html#abb52ec0bb6c822aa27b8bb85561bb778">00053</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1SoundManager.html#abb52ec0bb6c822aa27b8bb85561bb778">mSFXVolume</a>;
+<a name="l00054"></a><a class="code" href="classMWSound_1_1SoundManager.html#a8a073704f75aa76f6baeab2cddb514b1">00054</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1SoundManager.html#a8a073704f75aa76f6baeab2cddb514b1">mMusicVolume</a>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="classMWSound_1_1SoundManager.html#ab87933bbdb1f7dae73c81e8c0e2d4d60">00056</a>         boost::shared_ptr&lt;Sound&gt; <a class="code" href="classMWSound_1_1SoundManager.html#ab87933bbdb1f7dae73c81e8c0e2d4d60">mMusic</a>;
+<a name="l00057"></a><a class="code" href="classMWSound_1_1SoundManager.html#a661e7ccf61a80238ca05502da683fa7c">00057</a>         std::string <a class="code" href="classMWSound_1_1SoundManager.html#a661e7ccf61a80238ca05502da683fa7c">mCurrentPlaylist</a>;
 <a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="classMWSound_1_1SoundManager.html#a092936f229696c6f1a8c8e8f38c036d8">00059</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1SoundManager.html#a092936f229696c6f1a8c8e8f38c036d8">mMasterVolume</a>;
-<a name="l00060"></a><a class="code" href="classMWSound_1_1SoundManager.html#abb52ec0bb6c822aa27b8bb85561bb778">00060</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1SoundManager.html#abb52ec0bb6c822aa27b8bb85561bb778">mSFXVolume</a>;
-<a name="l00061"></a><a class="code" href="classMWSound_1_1SoundManager.html#a8a073704f75aa76f6baeab2cddb514b1">00061</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1SoundManager.html#a8a073704f75aa76f6baeab2cddb514b1">mMusicVolume</a>;
+<a name="l00059"></a><a class="code" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">00059</a>         <span class="keyword">typedef</span> std::pair&lt;MWWorld::Ptr,std::string&gt; <a class="code" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">PtrIDPair</a>;
+<a name="l00060"></a><a class="code" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">00060</a>         <span class="keyword">typedef</span> std::map&lt;SoundPtr,PtrIDPair&gt; <a class="code" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a>;
+<a name="l00061"></a><a class="code" href="classMWSound_1_1SoundManager.html#a20e59a6a165ca4790b0f30049778ad08">00061</a>         <a class="code" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a> <a class="code" href="classMWSound_1_1SoundManager.html#a20e59a6a165ca4790b0f30049778ad08">mActiveSounds</a>;
 <a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classMWSound_1_1SoundManager.html#ab87933bbdb1f7dae73c81e8c0e2d4d60">00063</a>         boost::shared_ptr&lt;Sound&gt; <a class="code" href="classMWSound_1_1SoundManager.html#ab87933bbdb1f7dae73c81e8c0e2d4d60">mMusic</a>;
-<a name="l00064"></a><a class="code" href="classMWSound_1_1SoundManager.html#a661e7ccf61a80238ca05502da683fa7c">00064</a>         std::string <a class="code" href="classMWSound_1_1SoundManager.html#a661e7ccf61a80238ca05502da683fa7c">mCurrentPlaylist</a>;
-<a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">00066</a>         <span class="keyword">typedef</span> std::pair&lt;MWWorld::Ptr,std::string&gt; <a class="code" href="classMWSound_1_1SoundManager.html#a3c2eada3266349a3d8e0b58e7bc7d33b">PtrIDPair</a>;
-<a name="l00067"></a><a class="code" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">00067</a>         <span class="keyword">typedef</span> std::map&lt;SoundPtr,PtrIDPair&gt; <a class="code" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a>;
-<a name="l00068"></a><a class="code" href="classMWSound_1_1SoundManager.html#a20e59a6a165ca4790b0f30049778ad08">00068</a>         <a class="code" href="classMWSound_1_1SoundManager.html#a7f55e19f7153c9c234ddbba852dd606c">SoundMap</a> <a class="code" href="classMWSound_1_1SoundManager.html#a20e59a6a165ca4790b0f30049778ad08">mActiveSounds</a>;
+<a name="l00063"></a>00063         std::string <a class="code" href="classMWSound_1_1SoundManager.html#a00f1e4aaf59aa84d8bd501665e1e1116">lookup</a>(<span class="keyword">const</span> std::string &amp;soundId,
+<a name="l00064"></a>00064                   <span class="keywordtype">float</span> &amp;volume, <span class="keywordtype">float</span> &amp;min, <span class="keywordtype">float</span> &amp;max);
+<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a376978b82e97c328011243d46ea832b6">streamMusicFull</a>(<span class="keyword">const</span> std::string&amp; filename);
+<a name="l00066"></a>00066         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#adecc65636f771c2b354e8eb38f50a9a5">isPlaying</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#af7aef25477356cf24cddf6b45e661c29">updateSounds</a>(<span class="keywordtype">float</span> duration);
+<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a7c950e7055314a10d2abd6bf4dafec4d">updateRegionSound</a>(<span class="keywordtype">float</span> duration);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070         std::string <a class="code" href="classMWSound_1_1SoundManager.html#a00f1e4aaf59aa84d8bd501665e1e1116">lookup</a>(<span class="keyword">const</span> std::string &amp;soundId,
-<a name="l00071"></a>00071                   <span class="keywordtype">float</span> &amp;volume, <span class="keywordtype">float</span> &amp;min, <span class="keywordtype">float</span> &amp;max);
-<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a376978b82e97c328011243d46ea832b6">streamMusicFull</a>(<span class="keyword">const</span> std::string&amp; filename);
-<a name="l00073"></a>00073         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#adecc65636f771c2b354e8eb38f50a9a5">isPlaying</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> ptr, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) <span class="keyword">const</span>;
-<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#af7aef25477356cf24cddf6b45e661c29">updateSounds</a>(<span class="keywordtype">float</span> duration);
-<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a7c950e7055314a10d2abd6bf4dafec4d">updateRegionSound</a>(<span class="keywordtype">float</span> duration);
+<a name="l00070"></a>00070         <a class="code" href="classMWSound_1_1SoundManager.html#a801f3efb9c97064e8d38684efbb3c83b">SoundManager</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;rhs);
+<a name="l00071"></a>00071         <a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>&amp; <a class="code" href="classMWSound_1_1SoundManager.html#af390c2fab64b168d37847c1315581748">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;rhs);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keyword">protected</span>:
+<a name="l00074"></a>00074         <a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> <a class="code" href="classMWSound_1_1SoundManager.html#a3df4f0422ab3895ce8924811b20a295d">getDecoder</a>();
+<a name="l00075"></a><a class="code" href="classMWSound_1_1SoundManager.html#a6b4229294eca41f1ffb09c11f02ed116">00075</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a>;
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077         <a class="code" href="classMWSound_1_1SoundManager.html#a801f3efb9c97064e8d38684efbb3c83b">SoundManager</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;rhs);
-<a name="l00078"></a>00078         <a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>&amp; <a class="code" href="classMWSound_1_1SoundManager.html#af390c2fab64b168d37847c1315581748">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;rhs);
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080     <span class="keyword">protected</span>:
-<a name="l00081"></a>00081         <a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> <a class="code" href="classMWSound_1_1SoundManager.html#a3df4f0422ab3895ce8924811b20a295d">getDecoder</a>();
-<a name="l00082"></a><a class="code" href="classMWSound_1_1SoundManager.html#a6b4229294eca41f1ffb09c11f02ed116">00082</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a>;
+<a name="l00077"></a>00077     <span class="keyword">public</span>:
+<a name="l00078"></a>00078         <a class="code" href="classMWSound_1_1SoundManager.html#a801f3efb9c97064e8d38684efbb3c83b">SoundManager</a>(<span class="keywordtype">bool</span> useSound);
+<a name="l00079"></a>00079         <a class="code" href="classMWSound_1_1SoundManager.html#abfdaaa5a59bb02a67db12b95b5defc82">~SoundManager</a>();
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ae15103f3b0c464c31be1084f9a22c33e" title="Stops music if it&amp;#39;s playing.">stopMusic</a>();
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keyword">public</span>:
-<a name="l00085"></a>00085         <a class="code" href="classMWSound_1_1SoundManager.html#a801f3efb9c97064e8d38684efbb3c83b">SoundManager</a>(<span class="keywordtype">bool</span> useSound, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
-<a name="l00086"></a>00086         <a class="code" href="classMWSound_1_1SoundManager.html#abfdaaa5a59bb02a67db12b95b5defc82">~SoundManager</a>();
+<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a194a5e8ec5837a5c140be6bfb71c3469">streamMusic</a>(<span class="keyword">const</span> std::string&amp; filename);
 <a name="l00087"></a>00087 
-<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ae15103f3b0c464c31be1084f9a22c33e" title="Stops music if it&amp;#39;s playing.">stopMusic</a>();
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a40ecbe690856f14fffff764dfb6834f5" title="Starts a random track from the current playlist.">startRandomTitle</a>();
 <a name="l00090"></a>00090 
-<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a194a5e8ec5837a5c140be6bfb71c3469">streamMusic</a>(<span class="keyword">const</span> std::string&amp; filename);
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a40ecbe690856f14fffff764dfb6834f5" title="Starts a random track from the current playlist.">startRandomTitle</a>();
+<a name="l00091"></a>00091         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a050e4e033a6161de83d1425b334ceafc" title="Returns true if music is playing.">isMusicPlaying</a>();
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a966d1238f846c09b33a95bf6822b58e0">playPlaylist</a>(<span class="keyword">const</span> std::string &amp;playlist);
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a050e4e033a6161de83d1425b334ceafc" title="Returns true if music is playing.">isMusicPlaying</a>();
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a966d1238f846c09b33a95bf6822b58e0">playPlaylist</a>(<span class="keyword">const</span> std::string &amp;playlist);
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ace335616de6beca88c5a53290c51b733">say</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; filename);
+<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ace335616de6beca88c5a53290c51b733">say</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference, <span class="keyword">const</span> std::string&amp; filename);
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#ace335616de6beca88c5a53290c51b733">say</a>(<span class="keyword">const</span> std::string&amp; filename);
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a797465b286421758a7921985d0fd5419" title="Is actor not speaking?">sayDone</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference=<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>()) <span class="keyword">const</span>;
 <a name="l00108"></a>00108 
-<a name="l00109"></a>00109         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1SoundManager.html#a1e375b4e38bc0364b1fc87f327e52568" title="Is actor not speaking?">sayDone</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference) <span class="keyword">const</span>;
+<a name="l00109"></a>00109         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1SoundManager.html#a3b1003a9abb8381cc5b03dfda25f568f" title="Stop an actor speaking.">stopSay</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference=<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>());
 <a name="l00111"></a>00111 
 <a name="l00112"></a>00112         <a class="code" href="namespaceMWSound.html#ade7b4f1f1a387f7e04f0105bd3b429c1">SoundPtr</a> <a class="code" href="classMWSound_1_1SoundManager.html#a7351683c8c4839e0374e81892b84fb1c" title="Play a sound, independently of 3D-position.">playSound</a>(<span class="keyword">const</span> std::string&amp; soundId, <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">int</span> mode=<a class="code" href="namespaceMWSound.html#aea11e52a38de4431ba3b76c391c9f518a4798fdd3d0437e5f4de2bb1f87fd30e0">Play_Normal</a>);
 <a name="l00114"></a>00114 
@@ -149,7 +146,7 @@
 <a name="l00140"></a>00140 
 <a name="l00141"></a>00141 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

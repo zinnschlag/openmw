@@ -31,68 +31,80 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;boost/array.hpp&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWGui
-<a name="l00008"></a>00008 {
-<a name="l00009"></a>00009     <span class="keyword">class </span>WindowManager;
-<a name="l00010"></a>00010 }
-<a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>MWWorld
-<a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">class </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
-<a name="l00015"></a>00015 }
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="comment">/*</span>
-<a name="l00018"></a>00018 <span class="comment">  This file contains the dialouge window</span>
-<a name="l00019"></a>00019 <span class="comment">  Layout is defined by resources/mygui/openmw_dialogue_window_layout.xml.</span>
-<a name="l00020"></a>00020 <span class="comment"> */</span>
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">namespace </span>MWGui
-<a name="l00023"></a>00023 {
-<a name="l00024"></a>00024     <span class="keyword">class </span>DialogueHistory;
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026     <span class="keyword">using namespace </span>MyGUI;
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWGui
+<a name="l00010"></a>00010 {
+<a name="l00011"></a>00011     <span class="keyword">class </span>WindowManager;
+<a name="l00012"></a>00012 
+<a name="l00013"></a><a class="code" href="namespaceMWGui_1_1Widgets.html">00013</a>     <span class="keyword">namespace </span>Widgets
+<a name="l00014"></a>00014     {
+<a name="l00015"></a>00015         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">MWList</a>;
+<a name="l00016"></a>00016     }
+<a name="l00017"></a>00017 }
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="comment">/*</span>
+<a name="l00020"></a>00020 <span class="comment">  This file contains the dialouge window</span>
+<a name="l00021"></a>00021 <span class="comment">  Layout is defined by resources/mygui/openmw_dialogue_window_layout.xml.</span>
+<a name="l00022"></a>00022 <span class="comment"> */</span>
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">namespace </span>MWGui
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026     <span class="keyword">class </span>DialogueHistory;
 <a name="l00027"></a>00027 
 <a name="l00028"></a><a class="code" href="classMWGui_1_1DialogueWindow.html">00028</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a>: <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
 <a name="l00029"></a>00029     {
 <a name="l00030"></a>00030     <span class="keyword">public</span>:
-<a name="l00031"></a>00031         <a class="code" href="classMWGui_1_1DialogueWindow.html#a2fb8b8d4c4e16ccb4c7a69dd79f476bc">DialogueWindow</a>(<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>&amp; parWindowManager,<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
+<a name="l00031"></a>00031         <a class="code" href="classMWGui_1_1DialogueWindow.html#af63b0f9cc1e637459d68dff2581a95ee">DialogueWindow</a>(<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>&amp; parWindowManager);
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a814bc7a5de58bb1cb5f7dc59e9985d41">open</a>();
 <a name="l00034"></a>00034 
 <a name="l00035"></a>00035         <span class="comment">// Events</span>
-<a name="l00036"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a749394520ff003cb4f2a698ca22fa198">00036</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1DialogueWindow.html#a749394520ff003cb4f2a698ca22fa198">EventHandle_Void</a>;
+<a name="l00036"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">00036</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">EventHandle_Void</a>;
 <a name="l00037"></a>00037 
-<a name="l00041"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">00041</a>         <a class="code" href="classMWGui_1_1DialogueWindow.html#a749394520ff003cb4f2a698ca22fa198">EventHandle_Void</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">eventBye</a>;
+<a name="l00041"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">00041</a>         <a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">EventHandle_Void</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">eventBye</a>;
 <a name="l00042"></a>00042 
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a5bde67ce5a59d479cc458b2283e759b9">startDialogue</a>(std::string npcName);
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a500decb74e5373ef4736151d3ea87f61">startDialogue</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor, std::string npcName);
 <a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a8f260fea7460f99252e33f1765470baa">stopDialogue</a>();
 <a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a313a3bb403b6232aab8bb82286299112">setKeywords</a>(std::list&lt;std::string&gt; keyWord);
 <a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a01abf55cdc78db17fc449cf8e4ec03ec">removeKeyword</a>(std::string keyWord);
 <a name="l00047"></a>00047         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a829f99c68bc955f67db27eae15bc30f1">addText</a>(std::string text);
 <a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aaef2ad62ee8c70b18bf54e7a94c76f8c">addTitle</a>(std::string text);
 <a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a1ccedf8aa2c49785b30d311e323e7df2">askQuestion</a>(std::string question);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051     <span class="keyword">protected</span>:
-<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a22bd3b4577fa93e7ac97c637d5e729df">onSelectTopic</a>(MyGUI::ListBox* _sender, <span class="keywordtype">size_t</span> _index);
-<a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae0ce905338988088802f7e53085a6531">onByeClicked</a>(MyGUI::Widget* _sender);
-<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ab757342f9226310a91a31bb5cf20902a">onHistoryClicked</a>(MyGUI::Widget* _sender);
+<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a705c46f736b1f72033472311a4bfa3a1">goodbye</a>();
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052         <span class="comment">// various service button visibilities, depending if the npc/creature talked to has these services</span>
+<a name="l00053"></a>00053         <span class="comment">// make sure to call these before setKeywords()</span>
+<a name="l00054"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a5f03712eb919751164f61d02eadf4eed">00054</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a5f03712eb919751164f61d02eadf4eed">setShowTrade</a>(<span class="keywordtype">bool</span> show) { <a class="code" href="classMWGui_1_1DialogueWindow.html#a9c23c7daa0a2bc507a881b23afe3e1b0">mShowTrade</a> = show; }
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <span class="keyword">private</span>:
-<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a3bc25509f07685e0cc383f37eba37368">updateOptions</a>();
-<a name="l00061"></a>00061         std::string <a class="code" href="classMWGui_1_1DialogueWindow.html#acb898f0a7c2fc8af79a46aea0c411cc1">parseText</a>(std::string text);
+<a name="l00056"></a>00056     <span class="keyword">protected</span>:
+<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae53f4fe22d04386c86729e679d028f5c">onSelectTopic</a>(std::string topic);
+<a name="l00058"></a>00058         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae0ce905338988088802f7e53085a6531">onByeClicked</a>(MyGUI::Widget* _sender);
+<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ab757342f9226310a91a31bb5cf20902a">onHistoryClicked</a>(MyGUI::Widget* _sender);
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#afe66b40d55da54154f6bfb71446e0527">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
+<a name="l00061"></a>00061         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aeb38624c2956eec12b0c385ad74c1343">onWindowResize</a>(MyGUI::Window* _sender);
 <a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aee2c29bba5203d8bc571488ee1096a9a">00063</a>         <a class="code" href="classMWGui_1_1DialogueHistory.html">DialogueHistory</a>*     <a class="code" href="classMWGui_1_1DialogueWindow.html#aee2c29bba5203d8bc571488ee1096a9a">history</a>;
-<a name="l00064"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#adc12d3cff90103d5a4c2bea6a99ca8dc">00064</a>         MyGUI::ListBox*      <a class="code" href="classMWGui_1_1DialogueWindow.html#adc12d3cff90103d5a4c2bea6a99ca8dc">topicsList</a>;
-<a name="l00065"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a5b1582502aedd11d6a88bab253e37c1c">00065</a>         MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#a5b1582502aedd11d6a88bab253e37c1c">pDispositionBar</a>;
-<a name="l00066"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa3072b37a3f581dee29c26d3bdeb8b2c">00066</a>         MyGUI::EditPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#aa3072b37a3f581dee29c26d3bdeb8b2c">pDispositionText</a>;
-<a name="l00067"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ac4b5f914c20ef99117bf355029ee1168">00067</a>         std::map&lt;std::string,std::string&gt; <a class="code" href="classMWGui_1_1DialogueWindow.html#ac4b5f914c20ef99117bf355029ee1168">pTopicsText</a>;<span class="comment">// this map links keyword and &quot;real&quot; text.</span>
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a01c6ed7052e4a0cbdb97e0a90774304c">00069</a>         <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWGui_1_1DialogueWindow.html#a01c6ed7052e4a0cbdb97e0a90774304c">mEnvironment</a>;
-<a name="l00070"></a>00070     };
-<a name="l00071"></a>00071 }
-<a name="l00072"></a>00072 <span class="preprocessor">#endif</span>
+<a name="l00063"></a>00063     <span class="keyword">private</span>:
+<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a3bc25509f07685e0cc383f37eba37368">updateOptions</a>();
+<a name="l00068"></a>00068         std::string <a class="code" href="classMWGui_1_1DialogueWindow.html#acb898f0a7c2fc8af79a46aea0c411cc1">parseText</a>(std::string text);
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070         <span class="comment">// various service button visibilities, depending if the npc/creature talked to has these services</span>
+<a name="l00071"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a9c23c7daa0a2bc507a881b23afe3e1b0">00071</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a9c23c7daa0a2bc507a881b23afe3e1b0">mShowTrade</a>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a56f5a7ab49d66d0c8cd6e2e136f4d693">00073</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a56f5a7ab49d66d0c8cd6e2e136f4d693">mEnabled</a>;
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a268440d4c72fa94d487a2e05b0c11ba1">00075</a>         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#a268440d4c72fa94d487a2e05b0c11ba1">mActor</a>; <span class="comment">// actor being talked to</span>
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aee2c29bba5203d8bc571488ee1096a9a">00077</a>         <a class="code" href="classMWGui_1_1DialogueHistory.html">DialogueHistory</a>*     <a class="code" href="classMWGui_1_1DialogueWindow.html#aee2c29bba5203d8bc571488ee1096a9a">history</a>;
+<a name="l00078"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aff08b0881480b6f9e38b316a41ad50bb">00078</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>*      <a class="code" href="classMWGui_1_1DialogueWindow.html#aff08b0881480b6f9e38b316a41ad50bb">topicsList</a>;
+<a name="l00079"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a5b1582502aedd11d6a88bab253e37c1c">00079</a>         MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#a5b1582502aedd11d6a88bab253e37c1c">pDispositionBar</a>;
+<a name="l00080"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa3072b37a3f581dee29c26d3bdeb8b2c">00080</a>         MyGUI::EditPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#aa3072b37a3f581dee29c26d3bdeb8b2c">pDispositionText</a>;
+<a name="l00081"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ac4b5f914c20ef99117bf355029ee1168">00081</a>         std::map&lt;std::string,std::string&gt; <a class="code" href="classMWGui_1_1DialogueWindow.html#ac4b5f914c20ef99117bf355029ee1168">pTopicsText</a>;<span class="comment">// this map links keyword and &quot;real&quot; text.</span>
+<a name="l00082"></a>00082     };
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

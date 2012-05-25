@@ -69,17 +69,11 @@ delegates::CMultiDelegate1<br class="typebreak"/>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#a95ac6e6c08d6659af07882f800e9dbb1">onRaceClicked</a> (MyGUI::Widget *_sender)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#a3286ae24e7f4ab64480600318b812ee6">onClassClicked</a> (MyGUI::Widget *_sender)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#aed8f8c5cbd513db11b9dde5e13c302a8">onBirthSignClicked</a> (MyGUI::Widget *_sender)</td></tr>
-<tr><td colspan="2"><h2>Private Types</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433f">ColorStyle</a> { <a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433fa4a218a6e77f86d3725cc38dcf43faa1a">CS_Sub</a>, 
-<a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433fa7c75b832117c3126e048af0417f7a723">CS_Normal</a>, 
-<a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433fa5371de721b9ee10a3ef32645b4a31e55">CS_Super</a>
- }</td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#ac8a2560549adda46aed3b54da257fa54">setStyledText</a> (MyGUI::TextBox *widget, <a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433f">ColorStyle</a> style, const std::string &amp;value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#a8cc8682afe9f78ab09ba0eb628781bc9">addSkills</a> (const <a class="el" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a> &amp;skills, const std::string &amp;titleId, const std::string &amp;titleDefault, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#af42c791af773b17f67effcf88377480d">addSeparator</a> (MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#a024013445f30da3e65b036dc24f050e5">addGroup</a> (const std::string &amp;label, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#aa58f1486d45e34eb3027e9e2e4a2178f">addValueItem</a> (const std::string text, const std::string &amp;value, <a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433f">ColorStyle</a> style, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#a3c24816ad16704abbe65bebfe0a45099">addValueItem</a> (const std::string text, const std::string &amp;value, const std::string &amp;state, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#abadb52578d550e10d0d4c166edf6d480">addItem</a> (const std::string text, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#ae856c9083da7b3196b0d9b53388b3df2">updateScroller</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ReviewDialog.html#a826132763f02c35c64cedd24cff41bc1">updateSkillArea</a> ()</td></tr>
@@ -155,29 +149,6 @@ delegates::CMultiDelegate1<br class="typebreak"/>
 </div>
 </div>
 <hr/><h2>Member Enumeration Documentation</h2>
-<a class="anchor" id="aa8c281158ce5d152271d165670aa433f"></a><!-- doxytag: member="MWGui::ReviewDialog::ColorStyle" ref="aa8c281158ce5d152271d165670aa433f" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433f">MWGui::ReviewDialog::ColorStyle</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="aa8c281158ce5d152271d165670aa433fa4a218a6e77f86d3725cc38dcf43faa1a"></a><!-- doxytag: member="CS_Sub" ref="aa8c281158ce5d152271d165670aa433fa4a218a6e77f86d3725cc38dcf43faa1a" args="" -->CS_Sub</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="aa8c281158ce5d152271d165670aa433fa7c75b832117c3126e048af0417f7a723"></a><!-- doxytag: member="CS_Normal" ref="aa8c281158ce5d152271d165670aa433fa7c75b832117c3126e048af0417f7a723" args="" -->CS_Normal</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="aa8c281158ce5d152271d165670aa433fa5371de721b9ee10a3ef32645b4a31e55"></a><!-- doxytag: member="CS_Super" ref="aa8c281158ce5d152271d165670aa433fa5371de721b9ee10a3ef32645b4a31e55" args="" -->CS_Super</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="abe52b5b570711823cefc31966722479a"></a><!-- doxytag: member="MWGui::ReviewDialog::Dialogs" ref="abe52b5b570711823cefc31966722479a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -361,7 +332,7 @@ delegates::CMultiDelegate1<br class="typebreak"/>
 
 </div>
 </div>
-<a class="anchor" id="aa58f1486d45e34eb3027e9e2e4a2178f"></a><!-- doxytag: member="MWGui::ReviewDialog::addValueItem" ref="aa58f1486d45e34eb3027e9e2e4a2178f" args="(const std::string text, const std::string &amp;value, ColorStyle style, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)" -->
+<a class="anchor" id="a3c24816ad16704abbe65bebfe0a45099"></a><!-- doxytag: member="MWGui::ReviewDialog::addValueItem" ref="a3c24816ad16704abbe65bebfe0a45099" args="(const std::string text, const std::string &amp;value, const std::string &amp;state, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -380,8 +351,8 @@ delegates::CMultiDelegate1<br class="typebreak"/>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433f">ColorStyle</a>&nbsp;</td>
-          <td class="paramname"> <em>style</em>, </td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -785,39 +756,6 @@ delegates::CMultiDelegate1<br class="typebreak"/>
 
 </div>
 </div>
-<a class="anchor" id="ac8a2560549adda46aed3b54da257fa54"></a><!-- doxytag: member="MWGui::ReviewDialog::setStyledText" ref="ac8a2560549adda46aed3b54da257fa54" args="(MyGUI::TextBox *widget, ColorStyle style, const std::string &amp;value)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ReviewDialog::setStyledText </td>
-          <td>(</td>
-          <td class="paramtype">MyGUI::TextBox *&nbsp;</td>
-          <td class="paramname"> <em>widget</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classMWGui_1_1ReviewDialog.html#aa8c281158ce5d152271d165670aa433f">ColorStyle</a>&nbsp;</td>
-          <td class="paramname"> <em>style</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>value</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ae856c9083da7b3196b0d9b53388b3df2"></a><!-- doxytag: member="MWGui::ReviewDialog::updateScroller" ref="ae856c9083da7b3196b0d9b53388b3df2" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -1199,7 +1137,7 @@ delegates::CMultiDelegate1<br class="typebreak"/>
 <li>apps/openmw/mwgui/<a class="el" href="review_8cpp.html">review.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

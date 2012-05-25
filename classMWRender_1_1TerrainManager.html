@@ -36,7 +36,7 @@
 <p><a href="classMWRender_1_1TerrainManager-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a780104c7dda43efc124a49a034d0d0d1">TerrainManager</a> (Ogre::SceneManager *<a class="el" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>, <a class="el" href="classMWRender_1_1RenderingManager.html">RenderingManager</a> *rend, const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;env)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a2637e3d4b2b2d7401772791ea0d84742">TerrainManager</a> (Ogre::SceneManager *<a class="el" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>, <a class="el" href="classMWRender_1_1RenderingManager.html">RenderingManager</a> *rend)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#ac43a1eef5cbdf1d5374ea2b1781f8a49">~TerrainManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a4fbb310571cb223741299c484b18f573">setDiffuse</a> (const Ogre::ColourValue &amp;diffuse)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a375d41d1679573117ec1031650abe232">setAmbient</a> (const Ogre::ColourValue &amp;ambient)</td></tr>
@@ -50,7 +50,6 @@
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::TerrainGlobalOptions&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a400b5896a1233f4a628b995e708c6793">mTerrainGlobals</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::TerrainGroup&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#ac798aeac73807e7c16376cbbc3fbeb0c">mTerrainGroup</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a2a485add645250fd77c153646089ad49">mEnvironment</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1RenderingManager.html">RenderingManager</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#a1a229c6470f87dff48e298433f288142">mRendering</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOgre_1_1TerrainMaterialGeneratorB_1_1SM2Profile.html">Ogre::TerrainMaterialGeneratorB::SM2Profile</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1TerrainManager.html#af7101419c9e9069479b8f00bda05b624">mActiveProfile</a></td></tr>
 <tr><td colspan="2"><h2>Static Private Attributes</h2></td></tr>
@@ -61,7 +60,7 @@
 <p>Implements the Morrowind terrain using the <a class="el" href="namespaceOgre.html">Ogre</a> <a class="el" href="namespaceTerrain.html">Terrain</a> Component</p>
 <p>Each terrain cell is split into four blocks as this leads to an increase in performance and means we don't hit splat limits quite as much </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a780104c7dda43efc124a49a034d0d0d1"></a><!-- doxytag: member="MWRender::TerrainManager::TerrainManager" ref="a780104c7dda43efc124a49a034d0d0d1" args="(Ogre::SceneManager *mgr, RenderingManager *rend, const MWWorld::Environment &amp;env)" -->
+<a class="anchor" id="a2637e3d4b2b2d7401772791ea0d84742"></a><!-- doxytag: member="MWRender::TerrainManager::TerrainManager" ref="a2637e3d4b2b2d7401772791ea0d84742" args="(Ogre::SceneManager *mgr, RenderingManager *rend)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -75,13 +74,7 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classMWRender_1_1RenderingManager.html">RenderingManager</a> *&nbsp;</td>
-          <td class="paramname"> <em>rend</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>env</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>rend</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -448,19 +441,6 @@
 
 </div>
 </div>
-<a class="anchor" id="a2a485add645250fd77c153646089ad49"></a><!-- doxytag: member="MWRender::TerrainManager::mEnvironment" ref="a2a485add645250fd77c153646089ad49" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a>&amp; <a class="el" href="classMWRender_1_1TerrainManager.html#a2a485add645250fd77c153646089ad49">MWRender::TerrainManager::mEnvironment</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="aaa2b25a4150cf53588b02fa91d8a5ec9"></a><!-- doxytag: member="MWRender::TerrainManager::mLandSize" ref="aaa2b25a4150cf53588b02fa91d8a5ec9" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -533,7 +513,7 @@
 <li>apps/openmw/mwrender/<a class="el" href="terrain_8cpp.html">terrain.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -38,9 +38,11 @@
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#a0c896e8af4171afe86037a11112ee973">insertObjectRendering</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWRender_1_1RenderingInterface.html">MWRender::RenderingInterface</a> &amp;renderingInterface) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering.  <a href="#a0c896e8af4171afe86037a11112ee973"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#af77ec33a9d74d5a2a86683d604c29987">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics, <a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;environment) const </td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#af77ec33a9d74d5a2a86683d604c29987"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#a1fb0a7ded4b044c94cd5216cb9b56925">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#a1fb0a7ded4b044c94cd5216cb9b56925"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#a50cd752781199b13a8ed025378ea5eb2">getName</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#a05bd23e5a3e7af20ff750e927a1abeeb">hasToolTip</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structMWGui_1_1ToolTipInfo.html">MWGui::ToolTipInfo</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#ac3e59c2469ee3518412c7175ad6fbede">getToolTipInfo</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Activator.html#af9ffdd0c81678e19629305e045f5d7ba">getScript</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return name of the script attached to ptr.  <a href="#af9ffdd0c81678e19629305e045f5d7ba"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
@@ -90,7 +92,49 @@
 
 </div>
 </div>
-<a class="anchor" id="af77ec33a9d74d5a2a86683d604c29987"></a><!-- doxytag: member="MWClass::Activator::insertObject" ref="af77ec33a9d74d5a2a86683d604c29987" args="(const MWWorld::Ptr &amp;ptr, MWWorld::PhysicsSystem &amp;physics, MWWorld::Environment &amp;environment) const " -->
+<a class="anchor" id="ac3e59c2469ee3518412c7175ad6fbede"></a><!-- doxytag: member="MWClass::Activator::getToolTipInfo" ref="ac3e59c2469ee3518412c7175ad6fbede" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structMWGui_1_1ToolTipInfo.html">MWGui::ToolTipInfo</a> MWClass::Activator::getToolTipInfo </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>the content of the tool tip to be displayed. raises exception if the object has no tooltip. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ab291e165e1edabc4cf54f06921965f5a">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a05bd23e5a3e7af20ff750e927a1abeeb"></a><!-- doxytag: member="MWClass::Activator::hasToolTip" ref="a05bd23e5a3e7af20ff750e927a1abeeb" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MWClass::Activator::hasToolTip </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if this object has a tooltip when focused (default implementation: false) </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5963827820fe8384a4962a9e9734d3df">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1fb0a7ded4b044c94cd5216cb9b56925"></a><!-- doxytag: member="MWClass::Activator::insertObject" ref="a1fb0a7ded4b044c94cd5216cb9b56925" args="(const MWWorld::Ptr &amp;ptr, MWWorld::PhysicsSystem &amp;physics) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -104,13 +148,7 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>physics</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1Environment.html">MWWorld::Environment</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>environment</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>physics</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -123,7 +161,7 @@
 
 <p>Add reference into a cell for rendering (default implementation: don't render anything). </p>
 
-<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a286d0aba5de3fdb7304b60dc894f1ce7">MWWorld::Class</a>.</p>
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#af9df004f312c7cbd6667cc0ba90a1722">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -180,7 +218,7 @@
 <li>apps/openmw/mwclass/<a class="el" href="activator_8cpp.html">activator.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:24 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

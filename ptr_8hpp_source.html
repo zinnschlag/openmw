@@ -103,45 +103,50 @@
 <a name="l00077"></a>00077                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>;
 <a name="l00078"></a>00078             }
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Ptr.html#ae8df77fb3963b5e8f0ec5979230a1d7d" title="Must not be called on references that are in a cell.">setContainerStore</a> (<a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *store);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083             <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a7e0b302dd59b86df5730fe6d90e575b0" title="May return a 0-pointer, if reference is not in a container.">getContainerStore</a>() <span class="keyword">const</span>;
-<a name="l00085"></a>00085     };
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="namespaceMWWorld.html#a4bee8725b095450155baaf6fe60e190b">00087</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#ac5d6c78df665349240d370f9847d5a9d">operator== </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00088"></a>00088     {
-<a name="l00089"></a>00089         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>==right.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
-<a name="l00090"></a>00090     }
+<a name="l00080"></a><a class="code" href="classMWWorld_1_1Ptr.html#a9a321d959c8bf56a29ad35f0bbdefe75">00080</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Ptr.html#a9a321d959c8bf56a29ad35f0bbdefe75">isInCell</a>()<span class="keyword"> const</span>
+<a name="l00081"></a>00081 <span class="keyword">            </span>{
+<a name="l00082"></a>00082                 <span class="keywordflow">return</span> (<a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a> != 0);
+<a name="l00083"></a>00083             }
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Ptr.html#ae8df77fb3963b5e8f0ec5979230a1d7d" title="Must not be called on references that are in a cell.">setContainerStore</a> (<a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *store);
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088             <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a7e0b302dd59b86df5730fe6d90e575b0" title="May return a 0-pointer, if reference is not in a container.">getContainerStore</a>() <span class="keyword">const</span>;
+<a name="l00090"></a>00090     };
 <a name="l00091"></a>00091 
-<a name="l00092"></a><a class="code" href="namespaceMWWorld.html#ac24e0e2346f22d755b1fde34704f3ddf">00092</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a6ceba835fba79cbef4a277517a5db0b6">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00092"></a><a class="code" href="namespaceMWWorld.html#a4bee8725b095450155baaf6fe60e190b">00092</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#ac5d6c78df665349240d370f9847d5a9d">operator== </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
 <a name="l00093"></a>00093     {
-<a name="l00094"></a>00094         <span class="keywordflow">return</span> !(left==right);
+<a name="l00094"></a>00094         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>==right.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
 <a name="l00095"></a>00095     }
 <a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">00097</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">operator&lt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00097"></a><a class="code" href="namespaceMWWorld.html#ac24e0e2346f22d755b1fde34704f3ddf">00097</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a6ceba835fba79cbef4a277517a5db0b6">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
 <a name="l00098"></a>00098     {
-<a name="l00099"></a>00099         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>&lt;right.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
+<a name="l00099"></a>00099         <span class="keywordflow">return</span> !(left==right);
 <a name="l00100"></a>00100     }
 <a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">00102</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">operator&gt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00102"></a><a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">00102</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">operator&lt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
 <a name="l00103"></a>00103     {
-<a name="l00104"></a>00104         <span class="keywordflow">return</span> !(left&lt;right);
+<a name="l00104"></a>00104         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>&lt;right.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
 <a name="l00105"></a>00105     }
 <a name="l00106"></a>00106 
-<a name="l00107"></a><a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">00107</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">operator&gt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00107"></a><a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">00107</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">operator&gt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
 <a name="l00108"></a>00108     {
-<a name="l00109"></a>00109         <span class="keywordflow">return</span> right&lt;left;
+<a name="l00109"></a>00109         <span class="keywordflow">return</span> !(left&lt;right);
 <a name="l00110"></a>00110     }
 <a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">00112</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">operator&lt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00112"></a><a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">00112</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">operator&gt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
 <a name="l00113"></a>00113     {
-<a name="l00114"></a>00114         <span class="keywordflow">return</span> !(left&gt;right);
+<a name="l00114"></a>00114         <span class="keywordflow">return</span> right&lt;left;
 <a name="l00115"></a>00115     }
-<a name="l00116"></a>00116 }
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118 <span class="preprocessor">#endif</span>
+<a name="l00116"></a>00116 
+<a name="l00117"></a><a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">00117</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">operator&lt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00118"></a>00118     {
+<a name="l00119"></a>00119         <span class="keywordflow">return</span> !(left&gt;right);
+<a name="l00120"></a>00120     }
+<a name="l00121"></a>00121 }
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

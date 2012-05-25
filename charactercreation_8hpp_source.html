@@ -57,7 +57,7 @@
 <a name="l00030"></a>00030     <span class="keyword">public</span>:
 <a name="l00031"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ac2942d7ad080f24e724dd60690a17d92">00031</a>     <span class="keyword">typedef</span> std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1CharacterCreation.html#ac2942d7ad080f24e724dd60690a17d92">SkillList</a>;
 <a name="l00032"></a>00032 
-<a name="l00033"></a>00033     <a class="code" href="classMWGui_1_1CharacterCreation.html#a07b47003c33c31b7741f4e42c7f18297">CharacterCreation</a>(<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>* _wm, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>* _environment);
+<a name="l00033"></a>00033     <a class="code" href="classMWGui_1_1CharacterCreation.html#aca917b9491c2360d2b50cbff7fbc7549">CharacterCreation</a>(<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>* _wm);
 <a name="l00034"></a>00034     <a class="code" href="classMWGui_1_1CharacterCreation.html#a7e26fd3cc69389c55cc974c1e3915035">~CharacterCreation</a>();
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036     <span class="comment">//Show a dialog</span>
@@ -83,69 +83,68 @@
 <a name="l00056"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a401b736b06ea6ef4cef4056059e18859">00056</a>     <a class="code" href="classMWGui_1_1ReviewDialog.html">ReviewDialog</a>* <a class="code" href="classMWGui_1_1CharacterCreation.html#a401b736b06ea6ef4cef4056059e18859">mReviewDialog</a>;
 <a name="l00057"></a>00057 
 <a name="l00058"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a7600a53829dbdd79b88bbed4d17e68a8">00058</a>     <a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>* <a class="code" href="classMWGui_1_1CharacterCreation.html#a7600a53829dbdd79b88bbed4d17e68a8">mWM</a>;
-<a name="l00059"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ad97ea4b5fd92c6f639335e6057f484e2">00059</a>     <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>* <a class="code" href="classMWGui_1_1CharacterCreation.html#ad97ea4b5fd92c6f639335e6057f484e2">mEnvironment</a>;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="comment">//Player data</span>
-<a name="l00062"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a12d45a64cd53f2b98a533b9af7e1fd2d">00062</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#a12d45a64cd53f2b98a533b9af7e1fd2d">mPlayerName</a>;
-<a name="l00063"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#af4e50d8944e4c85b27765626d3b80fbf">00063</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#af4e50d8944e4c85b27765626d3b80fbf">mPlayerRaceId</a>;
-<a name="l00064"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a4685bd923e5ff90e70813e39fc06f72d">00064</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#a4685bd923e5ff90e70813e39fc06f72d">mPlayerBirthSignId</a>;
-<a name="l00065"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#af0660e322a1c6e00ec1acad6942cc587">00065</a>     <a class="code" href="structESM_1_1Class.html">ESM::Class</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#af0660e322a1c6e00ec1acad6942cc587">mPlayerClass</a>;
-<a name="l00066"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a7bddf2c15d2ee2a9c972150aee52d2e0">00066</a>     std::map&lt;ESM::Attribute::AttributeID, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1CharacterCreation.html#a7bddf2c15d2ee2a9c972150aee52d2e0">mPlayerAttributes</a>;
-<a name="l00067"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a4971df76721259fd7d05195b0b6bed5f">00067</a>     <a class="code" href="classMWGui_1_1CharacterCreation.html#ac2942d7ad080f24e724dd60690a17d92">SkillList</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a0ce8c6e1b28d4ec34c764a6f23e25e10">mPlayerMajorSkills</a>, <a class="code" href="classMWGui_1_1CharacterCreation.html#a4971df76721259fd7d05195b0b6bed5f">mPlayerMinorSkills</a>;
-<a name="l00068"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a51ae4566012a0e32f791f624f560cc0a">00068</a>     std::map&lt;ESM::Skill::SkillEnum, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1CharacterCreation.html#a51ae4566012a0e32f791f624f560cc0a">mPlayerSkillValues</a>;
-<a name="l00069"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a0682a29047ae247a1dea24aaf6948c97">00069</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a0682a29047ae247a1dea24aaf6948c97">mPlayerHealth</a>;
-<a name="l00070"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#aae90937d2ef5040e5e4fdf1199b5e23a">00070</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#aae90937d2ef5040e5e4fdf1199b5e23a">mPlayerMagicka</a>;
-<a name="l00071"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a31c69b06ecfa7c23e6cae4b8e0a10cfd">00071</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a31c69b06ecfa7c23e6cae4b8e0a10cfd">mPlayerFatigue</a>;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="comment">//Class generation vars</span>
-<a name="l00074"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ad213256b4ebf50994e0bb290dc408316">00074</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ad213256b4ebf50994e0bb290dc408316">mGenerateClassStep</a>;                 <span class="comment">// Keeps track of current step in Generate Class dialog</span>
-<a name="l00075"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#aaa032aceb30103f445ce020150739725">00075</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aaa032aceb30103f445ce020150739725">mGenerateClassSpecializations</a>[3];   <span class="comment">// A counter for each specialization which is increased when an answer is chosen</span>
-<a name="l00076"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a3150e0cac5f713ff443a12539783a330">00076</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#a3150e0cac5f713ff443a12539783a330">mGenerateClass</a>;                  <span class="comment">// In order: Stealth, Combat, Magic</span>
-<a name="l00077"></a>00077 
-<a name="l00079"></a>00079     <span class="comment">//Name dialog</span>
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a61a37ed0305258b7c4ee9aea5d0d41ff">onNameDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082     <span class="comment">//Race dialog</span>
-<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a3fa7a4a20ccc0b6f1bd254c6aa3c4e27">onRaceDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#adf81288a33c9be836d1c612eeee1166f">onRaceDialogBack</a>();
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="comment">//Class dialogs</span>
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aa672477c95e04cd9bf7e6c0e82e23532">onClassChoice</a>(<span class="keywordtype">int</span> _index);
-<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ab817a3928d0aa30107f7343cd0ca05b3">onPickClassDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a315c781a570b0e53aa58a46bab43db63">onPickClassDialogBack</a>();
-<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ad1d23260f7b3f414191b32a61d524454">onCreateClassDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aa4b6477fffbe0703b0a93a24f195a1aa">onCreateClassDialogBack</a>();
-<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a04cb3856b09f9c47b39c9c237e4763eb">showClassQuestionDialog</a>();
-<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ab2d3f0416ac6aeaa4bf7d6968537213e">onClassQuestionChosen</a>(<span class="keywordtype">int</span> _index);
-<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ab89d0694ecb18eab6e317516d4da3bf9">onGenerateClassBack</a>();
-<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a6bdd51a8716e5c11e4f90590e0e591fe">onGenerateClassDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097     <span class="comment">//Birthsign dialog</span>
-<a name="l00098"></a>00098     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a5df8c480ccfc731c01a1eb47251453ea">onBirthSignDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00099"></a>00099     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a76ffa6a9ae24fb4c009102e45ac6db58">onBirthSignDialogBack</a>();
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101     <span class="comment">//Review dialog</span>
-<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a7f4560ba955bcd023a5f2f2c19e3bc5c">onReviewDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00103"></a>00103     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aa053d66b8bd74f067d09f568b5e64eed">onReviewDialogBack</a>();
-<a name="l00104"></a>00104     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#acf30a0ba66bc133c2c0d5e412bbe4d91">onReviewActivateDialog</a>(<span class="keywordtype">int</span> parDialog);
-<a name="l00105"></a>00105 
-<a name="l00106"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaa">00106</a>     <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaa">CSE</a>    <span class="comment">//Creation Stage Enum</span>
-<a name="l00107"></a>00107     {
-<a name="l00108"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa1e9f8b611eccfa27f23463e449cc8b53">00108</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa1e9f8b611eccfa27f23463e449cc8b53">CSE_NotStarted</a>,
-<a name="l00109"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaafc3b60f0968a22099b032618cf0af672">00109</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaafc3b60f0968a22099b032618cf0af672">CSE_NameChosen</a>,
-<a name="l00110"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa241dd287a2f1dcc95ec6ece3974551de">00110</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa241dd287a2f1dcc95ec6ece3974551de">CSE_RaceChosen</a>,
-<a name="l00111"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa2d3d145b0e24ea4ac1b6369be6a9057e">00111</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa2d3d145b0e24ea4ac1b6369be6a9057e">CSE_ClassChosen</a>,
-<a name="l00112"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa6f48c18b23e1eb5f0ef59e9c3936203b">00112</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa6f48c18b23e1eb5f0ef59e9c3936203b">CSE_BirthSignChosen</a>,
-<a name="l00113"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa422de6e248bcb1d486cc2bc198abf568">00113</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa422de6e248bcb1d486cc2bc198abf568">CSE_ReviewNext</a>
-<a name="l00114"></a>00114     };
-<a name="l00115"></a>00115 
-<a name="l00116"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a86b1e214e2a9043d3ad6dc12d7dff366">00116</a>     <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaa">CSE</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a86b1e214e2a9043d3ad6dc12d7dff366">mCreationStage</a>; <span class="comment">// Which state the character creating is in, controls back/next/ok buttons</span>
-<a name="l00117"></a>00117     };
-<a name="l00118"></a>00118 }
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120 <span class="preprocessor">#endif</span>
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060     <span class="comment">//Player data</span>
+<a name="l00061"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a12d45a64cd53f2b98a533b9af7e1fd2d">00061</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#a12d45a64cd53f2b98a533b9af7e1fd2d">mPlayerName</a>;
+<a name="l00062"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#af4e50d8944e4c85b27765626d3b80fbf">00062</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#af4e50d8944e4c85b27765626d3b80fbf">mPlayerRaceId</a>;
+<a name="l00063"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a4685bd923e5ff90e70813e39fc06f72d">00063</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#a4685bd923e5ff90e70813e39fc06f72d">mPlayerBirthSignId</a>;
+<a name="l00064"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#af0660e322a1c6e00ec1acad6942cc587">00064</a>     <a class="code" href="structESM_1_1Class.html">ESM::Class</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#af0660e322a1c6e00ec1acad6942cc587">mPlayerClass</a>;
+<a name="l00065"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a7bddf2c15d2ee2a9c972150aee52d2e0">00065</a>     std::map&lt;ESM::Attribute::AttributeID, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1CharacterCreation.html#a7bddf2c15d2ee2a9c972150aee52d2e0">mPlayerAttributes</a>;
+<a name="l00066"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a4971df76721259fd7d05195b0b6bed5f">00066</a>     <a class="code" href="classMWGui_1_1CharacterCreation.html#ac2942d7ad080f24e724dd60690a17d92">SkillList</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a0ce8c6e1b28d4ec34c764a6f23e25e10">mPlayerMajorSkills</a>, <a class="code" href="classMWGui_1_1CharacterCreation.html#a4971df76721259fd7d05195b0b6bed5f">mPlayerMinorSkills</a>;
+<a name="l00067"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a51ae4566012a0e32f791f624f560cc0a">00067</a>     std::map&lt;ESM::Skill::SkillEnum, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1CharacterCreation.html#a51ae4566012a0e32f791f624f560cc0a">mPlayerSkillValues</a>;
+<a name="l00068"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a0682a29047ae247a1dea24aaf6948c97">00068</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a0682a29047ae247a1dea24aaf6948c97">mPlayerHealth</a>;
+<a name="l00069"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#aae90937d2ef5040e5e4fdf1199b5e23a">00069</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#aae90937d2ef5040e5e4fdf1199b5e23a">mPlayerMagicka</a>;
+<a name="l00070"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a31c69b06ecfa7c23e6cae4b8e0a10cfd">00070</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a31c69b06ecfa7c23e6cae4b8e0a10cfd">mPlayerFatigue</a>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="comment">//Class generation vars</span>
+<a name="l00073"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ad213256b4ebf50994e0bb290dc408316">00073</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ad213256b4ebf50994e0bb290dc408316">mGenerateClassStep</a>;                 <span class="comment">// Keeps track of current step in Generate Class dialog</span>
+<a name="l00074"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#aaa032aceb30103f445ce020150739725">00074</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aaa032aceb30103f445ce020150739725">mGenerateClassSpecializations</a>[3];   <span class="comment">// A counter for each specialization which is increased when an answer is chosen</span>
+<a name="l00075"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a3150e0cac5f713ff443a12539783a330">00075</a>     std::string <a class="code" href="classMWGui_1_1CharacterCreation.html#a3150e0cac5f713ff443a12539783a330">mGenerateClass</a>;                  <span class="comment">// In order: Stealth, Combat, Magic</span>
+<a name="l00076"></a>00076 
+<a name="l00078"></a>00078     <span class="comment">//Name dialog</span>
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a61a37ed0305258b7c4ee9aea5d0d41ff">onNameDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081     <span class="comment">//Race dialog</span>
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a3fa7a4a20ccc0b6f1bd254c6aa3c4e27">onRaceDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#adf81288a33c9be836d1c612eeee1166f">onRaceDialogBack</a>();
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="comment">//Class dialogs</span>
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aa672477c95e04cd9bf7e6c0e82e23532">onClassChoice</a>(<span class="keywordtype">int</span> _index);
+<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ab817a3928d0aa30107f7343cd0ca05b3">onPickClassDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a315c781a570b0e53aa58a46bab43db63">onPickClassDialogBack</a>();
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ad1d23260f7b3f414191b32a61d524454">onCreateClassDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aa4b6477fffbe0703b0a93a24f195a1aa">onCreateClassDialogBack</a>();
+<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a04cb3856b09f9c47b39c9c237e4763eb">showClassQuestionDialog</a>();
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ab2d3f0416ac6aeaa4bf7d6968537213e">onClassQuestionChosen</a>(<span class="keywordtype">int</span> _index);
+<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ab89d0694ecb18eab6e317516d4da3bf9">onGenerateClassBack</a>();
+<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a6bdd51a8716e5c11e4f90590e0e591fe">onGenerateClassDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="comment">//Birthsign dialog</span>
+<a name="l00097"></a>00097     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a5df8c480ccfc731c01a1eb47251453ea">onBirthSignDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00098"></a>00098     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a76ffa6a9ae24fb4c009102e45ac6db58">onBirthSignDialogBack</a>();
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     <span class="comment">//Review dialog</span>
+<a name="l00101"></a>00101     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#a7f4560ba955bcd023a5f2f2c19e3bc5c">onReviewDialogDone</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#aa053d66b8bd74f067d09f568b5e64eed">onReviewDialogBack</a>();
+<a name="l00103"></a>00103     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#acf30a0ba66bc133c2c0d5e412bbe4d91">onReviewActivateDialog</a>(<span class="keywordtype">int</span> parDialog);
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaa">00105</a>     <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaa">CSE</a>    <span class="comment">//Creation Stage Enum</span>
+<a name="l00106"></a>00106     {
+<a name="l00107"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa1e9f8b611eccfa27f23463e449cc8b53">00107</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa1e9f8b611eccfa27f23463e449cc8b53">CSE_NotStarted</a>,
+<a name="l00108"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaafc3b60f0968a22099b032618cf0af672">00108</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaafc3b60f0968a22099b032618cf0af672">CSE_NameChosen</a>,
+<a name="l00109"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa241dd287a2f1dcc95ec6ece3974551de">00109</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa241dd287a2f1dcc95ec6ece3974551de">CSE_RaceChosen</a>,
+<a name="l00110"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa2d3d145b0e24ea4ac1b6369be6a9057e">00110</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa2d3d145b0e24ea4ac1b6369be6a9057e">CSE_ClassChosen</a>,
+<a name="l00111"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa6f48c18b23e1eb5f0ef59e9c3936203b">00111</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa6f48c18b23e1eb5f0ef59e9c3936203b">CSE_BirthSignChosen</a>,
+<a name="l00112"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa422de6e248bcb1d486cc2bc198abf568">00112</a>         <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaaa422de6e248bcb1d486cc2bc198abf568">CSE_ReviewNext</a>
+<a name="l00113"></a>00113     };
+<a name="l00114"></a>00114 
+<a name="l00115"></a><a class="code" href="classMWGui_1_1CharacterCreation.html#a86b1e214e2a9043d3ad6dc12d7dff366">00115</a>     <a class="code" href="classMWGui_1_1CharacterCreation.html#ae4b22c4cee995368f646ec6f7015bfaa">CSE</a> <a class="code" href="classMWGui_1_1CharacterCreation.html#a86b1e214e2a9043d3ad6dc12d7dff366">mCreationStage</a>; <span class="comment">// Which state the character creating is in, controls back/next/ok buttons</span>
+<a name="l00116"></a>00116     };
+<a name="l00117"></a>00117 }
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

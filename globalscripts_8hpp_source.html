@@ -38,39 +38,33 @@
 <a name="l00011"></a>00011     <span class="keyword">struct </span>ESMStore;
 <a name="l00012"></a>00012 }
 <a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWWorld
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWScript
 <a name="l00015"></a>00015 {
-<a name="l00016"></a>00016     <span class="keyword">class </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
-<a name="l00017"></a>00017 }
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWScript
-<a name="l00020"></a>00020 {
-<a name="l00021"></a>00021     <span class="keyword">class </span>ScriptManager;
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="classMWScript_1_1GlobalScripts.html">00023</a>     <span class="keyword">class </span><a class="code" href="classMWScript_1_1GlobalScripts.html">GlobalScripts</a>
-<a name="l00024"></a>00024     {
-<a name="l00025"></a><a class="code" href="classMWScript_1_1GlobalScripts.html#af22fa9bc8cda08051ac330c6fdb24aac">00025</a>             <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWScript_1_1GlobalScripts.html#af22fa9bc8cda08051ac330c6fdb24aac">mStore</a>;
-<a name="l00026"></a><a class="code" href="classMWScript_1_1GlobalScripts.html#ada021c8f80d49dc754f174ba44c2a7a1">00026</a>             <a class="code" href="classMWScript_1_1ScriptManager.html">ScriptManager</a>&amp; <a class="code" href="classMWScript_1_1GlobalScripts.html#ada021c8f80d49dc754f174ba44c2a7a1">mScriptManager</a>;
-<a name="l00027"></a><a class="code" href="classMWScript_1_1GlobalScripts.html#a2b4f13b07dbdd9c928dc91c4ba201acf">00027</a>             std::map&lt;std::string, std::pair&lt;bool, Locals&gt; &gt; <a class="code" href="classMWScript_1_1GlobalScripts.html#a2b4f13b07dbdd9c928dc91c4ba201acf">mScripts</a>; <span class="comment">// running, local variables</span>
-<a name="l00028"></a>00028             
-<a name="l00029"></a>00029         <span class="keyword">public</span>:
-<a name="l00030"></a>00030         
-<a name="l00031"></a>00031             <a class="code" href="classMWScript_1_1GlobalScripts.html#aa0bff5f2add33cfe07c1d0058187e740">GlobalScripts</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <a class="code" href="classMWScript_1_1ScriptManager.html">ScriptManager</a>&amp; scriptManager);
-<a name="l00032"></a>00032     
-<a name="l00033"></a>00033             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#a338c21c53eebc14d75e95ae44409cc73">addScript</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00034"></a>00034             
-<a name="l00035"></a>00035             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#ac1472fa62822b94715728a8d6649d278">removeScript</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00036"></a>00036             
-<a name="l00037"></a>00037             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#a1be134e5a36eee875ad2c9054796853c">isRunning</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
-<a name="l00038"></a>00038             
-<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#ac539705062705c721a1c547f46027ae4" title="run all active global scripts">run</a> (<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
-<a name="l00041"></a>00041     };
-<a name="l00042"></a>00042 }
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044 <span class="preprocessor">#endif</span>
-<a name="l00045"></a>00045 <span class="preprocessor"></span>
+<a name="l00016"></a>00016     <span class="keyword">class </span>ScriptManager;
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="classMWScript_1_1GlobalScripts.html">00018</a>     <span class="keyword">class </span><a class="code" href="classMWScript_1_1GlobalScripts.html">GlobalScripts</a>
+<a name="l00019"></a>00019     {
+<a name="l00020"></a><a class="code" href="classMWScript_1_1GlobalScripts.html#af22fa9bc8cda08051ac330c6fdb24aac">00020</a>             <span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; <a class="code" href="classMWScript_1_1GlobalScripts.html#af22fa9bc8cda08051ac330c6fdb24aac">mStore</a>;
+<a name="l00021"></a><a class="code" href="classMWScript_1_1GlobalScripts.html#ada021c8f80d49dc754f174ba44c2a7a1">00021</a>             <a class="code" href="classMWScript_1_1ScriptManager.html">ScriptManager</a>&amp; <a class="code" href="classMWScript_1_1GlobalScripts.html#ada021c8f80d49dc754f174ba44c2a7a1">mScriptManager</a>;
+<a name="l00022"></a><a class="code" href="classMWScript_1_1GlobalScripts.html#a2b4f13b07dbdd9c928dc91c4ba201acf">00022</a>             std::map&lt;std::string, std::pair&lt;bool, Locals&gt; &gt; <a class="code" href="classMWScript_1_1GlobalScripts.html#a2b4f13b07dbdd9c928dc91c4ba201acf">mScripts</a>; <span class="comment">// running, local variables</span>
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024         <span class="keyword">public</span>:
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026             <a class="code" href="classMWScript_1_1GlobalScripts.html#aa0bff5f2add33cfe07c1d0058187e740">GlobalScripts</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <a class="code" href="classMWScript_1_1ScriptManager.html">ScriptManager</a>&amp; scriptManager);
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#a338c21c53eebc14d75e95ae44409cc73">addScript</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#ac1472fa62822b94715728a8d6649d278">removeScript</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#a1be134e5a36eee875ad2c9054796853c">isRunning</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1GlobalScripts.html#a7aea261deb025dea36c8a9d79cd805aa" title="run all active global scripts">run</a>();
+<a name="l00036"></a>00036     };
+<a name="l00037"></a>00037 }
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

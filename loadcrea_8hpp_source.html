@@ -78,24 +78,36 @@
 <a name="l00051"></a><a class="code" href="structESM_1_1Creature_1_1NPDTstruct.html#a8ba35699f9738c6f6ef5a56ad0a345f5">00051</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Creature_1_1NPDTstruct.html#a8ba35699f9738c6f6ef5a56ad0a345f5">gold</a>;
 <a name="l00052"></a>00052     }; <span class="comment">// 96 bytes</span>
 <a name="l00053"></a>00053 
-<a name="l00054"></a><a class="code" href="structESM_1_1Creature.html#aa734947828c506e95d77d4f127329aff">00054</a>     <a class="code" href="structESM_1_1Creature_1_1NPDTstruct.html">NPDTstruct</a> <a class="code" href="structESM_1_1Creature.html#aa734947828c506e95d77d4f127329aff">data</a>;
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="structESM_1_1Creature.html#a511d6290fdcb8407c05aad67fcd1f995">00056</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Creature.html#a511d6290fdcb8407c05aad67fcd1f995">flags</a>;
-<a name="l00057"></a><a class="code" href="structESM_1_1Creature.html#a0e0656a0ba1a241bdb279058e1cced66">00057</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Creature.html#a0e0656a0ba1a241bdb279058e1cced66">scale</a>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="structESM_1_1Creature.html#a1ff7e034be23b2bc9dd2889b7a8509be">00059</a>     std::string <a class="code" href="structESM_1_1Creature.html#ae1fb70ac2b0fe42dea55b7e439f6bdff">model</a>, <a class="code" href="structESM_1_1Creature.html#a87e0b48f7be36562c56ae3ac64351594">name</a>, <a class="code" href="structESM_1_1Creature.html#a1ff7e034be23b2bc9dd2889b7a8509be">script</a>, <a class="code" href="structESM_1_1Creature.html#ac6bb01b518c9fdf323fe74310fe2f918">original</a>; <span class="comment">// Base creature that this is a modification of</span>
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="comment">// Defined in loadcont.hpp</span>
-<a name="l00062"></a><a class="code" href="structESM_1_1Creature.html#ab40d083992915b39fd56078faeac73ad">00062</a>     <a class="code" href="structESM_1_1InventoryList.html">InventoryList</a> <a class="code" href="structESM_1_1Creature.html#ab40d083992915b39fd56078faeac73ad">inventory</a>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a><a class="code" href="structESM_1_1Creature.html#a4e9ca437ba2676cd8dc65d25e62ed002">00064</a>     std::string <a class="code" href="structESM_1_1Creature.html#a4e9ca437ba2676cd8dc65d25e62ed002">mId</a>;
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Creature.html#a62ce3f09474b3439efda4aa5afc17402">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
-<a name="l00067"></a>00067 };
-<a name="l00068"></a>00068 }
-<a name="l00069"></a>00069 <span class="preprocessor">#endif</span>
+<a name="l00054"></a><a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html">00054</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html">AIDTstruct</a>
+<a name="l00055"></a>00055     {
+<a name="l00056"></a>00056         <span class="comment">// These are probabilities</span>
+<a name="l00057"></a><a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#afe8dd689c24d18b90a48c404a0a700a3">00057</a>         <span class="keywordtype">char</span> <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#acc9ef13076070ae08605d6161d9e521e">hello</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#acdbe27bb138a6d660cdec6f35391a53f">u1</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#ae61f8ba0793d130a923a2c58335a0b93">fight</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#ab42d0666e5468e5a1f60d9aed23b1f99">flee</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#af93fb06453331d6cbeb3efae7bfef207">alarm</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#ab9d6594fe78209d4c0395621c27b21c1">u2</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#a7f7c56ba8eb8a8c8d255595956ff680e">u3</a>, <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#afe8dd689c24d18b90a48c404a0a700a3">u4</a>;
+<a name="l00058"></a>00058         <span class="comment">// The last u&#39;s might be the skills that this NPC can train you</span>
+<a name="l00059"></a>00059         <span class="comment">// in?</span>
+<a name="l00060"></a><a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#a6ae46ae7dbf7c58be23bc583645c933c">00060</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html#a6ae46ae7dbf7c58be23bc583645c933c">services</a>; <span class="comment">// See the NPC::Services enum</span>
+<a name="l00061"></a>00061     }; <span class="comment">// 12 bytes</span>
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="structESM_1_1Creature.html#aa734947828c506e95d77d4f127329aff">00063</a>     <a class="code" href="structESM_1_1Creature_1_1NPDTstruct.html">NPDTstruct</a> <a class="code" href="structESM_1_1Creature.html#aa734947828c506e95d77d4f127329aff">data</a>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="structESM_1_1Creature.html#a511d6290fdcb8407c05aad67fcd1f995">00065</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Creature.html#a511d6290fdcb8407c05aad67fcd1f995">flags</a>;
+<a name="l00066"></a><a class="code" href="structESM_1_1Creature.html#a0e0656a0ba1a241bdb279058e1cced66">00066</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Creature.html#a0e0656a0ba1a241bdb279058e1cced66">scale</a>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="structESM_1_1Creature.html#a1ff7e034be23b2bc9dd2889b7a8509be">00068</a>     std::string <a class="code" href="structESM_1_1Creature.html#ae1fb70ac2b0fe42dea55b7e439f6bdff">model</a>, <a class="code" href="structESM_1_1Creature.html#a87e0b48f7be36562c56ae3ac64351594">name</a>, <a class="code" href="structESM_1_1Creature.html#a1ff7e034be23b2bc9dd2889b7a8509be">script</a>, <a class="code" href="structESM_1_1Creature.html#ac6bb01b518c9fdf323fe74310fe2f918">original</a>; <span class="comment">// Base creature that this is a modification of</span>
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="comment">// Defined in loadcont.hpp</span>
+<a name="l00071"></a><a class="code" href="structESM_1_1Creature.html#ab40d083992915b39fd56078faeac73ad">00071</a>     <a class="code" href="structESM_1_1InventoryList.html">InventoryList</a> <a class="code" href="structESM_1_1Creature.html#ab40d083992915b39fd56078faeac73ad">inventory</a>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="structESM_1_1Creature.html#aad5bea84eebb3744ad3155b3b4ea2680">00073</a>     <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Creature.html#aad5bea84eebb3744ad3155b3b4ea2680">hasAI</a>;
+<a name="l00074"></a><a class="code" href="structESM_1_1Creature.html#a2315478ab68b073fe6df07f57626fe1d">00074</a>     <a class="code" href="structESM_1_1Creature_1_1AIDTstruct.html">AIDTstruct</a> <a class="code" href="structESM_1_1Creature.html#a2315478ab68b073fe6df07f57626fe1d">AI</a>;
+<a name="l00075"></a>00075 
+<a name="l00076"></a><a class="code" href="structESM_1_1Creature.html#a4e9ca437ba2676cd8dc65d25e62ed002">00076</a>     std::string <a class="code" href="structESM_1_1Creature.html#a4e9ca437ba2676cd8dc65d25e62ed002">mId</a>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Creature.html#a62ce3f09474b3439efda4aa5afc17402">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
+<a name="l00079"></a>00079 };
+<a name="l00080"></a>00080 }
+<a name="l00081"></a>00081 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -39,41 +39,38 @@
 <a name="l00012"></a>00012     <span class="keyword">class </span>Vector3;
 <a name="l00013"></a>00013 }
 <a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="keyword">namespace </span>MWWorld
+<a name="l00015"></a>00015 <span class="keyword">namespace </span>MWMechanics
 <a name="l00016"></a>00016 {
-<a name="l00017"></a>00017     <span class="keyword">class </span><a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>;
-<a name="l00018"></a>00018 }
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">namespace </span>MWMechanics
-<a name="l00021"></a>00021 {
-<a name="l00022"></a><a class="code" href="classMWMechanics_1_1Actors.html">00022</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1Actors.html">Actors</a>
-<a name="l00023"></a>00023     {
-<a name="l00024"></a><a class="code" href="classMWMechanics_1_1Actors.html#a3ab7c633cbac929b15744c53f6812882">00024</a>             <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWMechanics_1_1Actors.html#a3ab7c633cbac929b15744c53f6812882">mEnvironment</a>;
-<a name="l00025"></a><a class="code" href="classMWMechanics_1_1Actors.html#a4bfd7e11dbb1f160e29067ff97e6d63a">00025</a>             std::set&lt;MWWorld::Ptr&gt; <a class="code" href="classMWMechanics_1_1Actors.html#a4bfd7e11dbb1f160e29067ff97e6d63a">mActors</a>;
-<a name="l00026"></a><a class="code" href="classMWMechanics_1_1Actors.html#a10f52760074361ad5ea7292e25f9b770">00026</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1Actors.html#a10f52760074361ad5ea7292e25f9b770">mDuration</a>;
+<a name="l00017"></a><a class="code" href="classMWMechanics_1_1Actors.html">00017</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1Actors.html">Actors</a>
+<a name="l00018"></a>00018     {
+<a name="l00019"></a><a class="code" href="classMWMechanics_1_1Actors.html#a4bfd7e11dbb1f160e29067ff97e6d63a">00019</a>             std::set&lt;MWWorld::Ptr&gt; <a class="code" href="classMWMechanics_1_1Actors.html#a4bfd7e11dbb1f160e29067ff97e6d63a">mActors</a>;
+<a name="l00020"></a><a class="code" href="classMWMechanics_1_1Actors.html#a10f52760074361ad5ea7292e25f9b770">00020</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1Actors.html#a10f52760074361ad5ea7292e25f9b770">mDuration</a>;
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a98be32a7cae0e52c04ca5209c09b5ea9">updateNpc</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ae564959119ba88f7956b901c357e2758">adjustMagicEffects</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; creature);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keyword">public</span>:
 <a name="l00027"></a>00027 
-<a name="l00028"></a>00028             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a5af95ec37502d80b957ce40234eeb05f">updateActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
+<a name="l00028"></a>00028             <a class="code" href="classMWMechanics_1_1Actors.html#a5fe67c9a26dbe046ebc5c6d18f81107d">Actors</a>();
 <a name="l00029"></a>00029 
-<a name="l00030"></a>00030             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a98be32a7cae0e52c04ca5209c09b5ea9">updateNpc</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032         <span class="keyword">public</span>:
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034             <a class="code" href="classMWMechanics_1_1Actors.html#ad8be1c44e3f74695aad457b6bd1591d5">Actors</a> (<a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; environment);
+<a name="l00030"></a>00030             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ab0c22aa4094dab454ebc0c155cdc114f" title="Register an actor for stats management.">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a270279bb3e7e9870de407e905ae8eadc" title="Deregister an actor for stats management.">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00035"></a>00035 
-<a name="l00036"></a>00036             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ab0c22aa4094dab454ebc0c155cdc114f" title="Register an actor for stats management.">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00036"></a>00036             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ad6507f7fd862f28fe481df3afd1bda43" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cellStore);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a270279bb3e7e9870de407e905ae8eadc" title="Deregister an actor for stats management.">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ad6507f7fd862f28fe481df3afd1bda43" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a> *cellStore);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a8a8464c7a1ebf1c051e2f47d0c9d47ad" title="Update actor stats and store desired velocity vectors in movement.">update</a> (std::vector&lt;std::pair&lt;std::string, Ogre::Vector3&gt; &gt;&amp; movement,
-<a name="l00046"></a>00046                 <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
-<a name="l00048"></a>00048     };
-<a name="l00049"></a>00049 }
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
+<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a8a8464c7a1ebf1c051e2f47d0c9d47ad" title="Update actor stats and store desired velocity vectors in movement.">update</a> (std::vector&lt;std::pair&lt;std::string, Ogre::Vector3&gt; &gt;&amp; movement,
+<a name="l00040"></a>00040                 <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a5af95ec37502d80b957ce40234eeb05f">updateActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     };
+<a name="l00048"></a>00048 }
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

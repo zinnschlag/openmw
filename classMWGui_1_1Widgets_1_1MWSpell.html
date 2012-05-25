@@ -41,7 +41,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#aca976a03bfffb8f4fc8460b92e0f1795">MWSpell</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#a1771483f1e3ee665e99cb286aae2e7ca">setWindowManager</a> (<a class="el" href="classMWGui_1_1WindowManager.html">WindowManager</a> *parWindowManager)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#a6a0c1156ec90f9468cbaaa7ff666f43f">setSpellId</a> (const std::string &amp;<a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#ab1c66e4de2d8800911cf1f823f11053c">id</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#a0b4ad27e68d9cf3571478baa7ef92081">createEffectWidgets</a> (std::vector&lt; MyGUI::WidgetPtr &gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#abed8f79aa3f163c27eb2f426fcca7729">createEffectWidgets</a> (std::vector&lt; MyGUI::WidgetPtr &gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord, int flags)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#a85c558a02cdde887d78e6f1e6f88c1ad">getSpellId</a> () const </td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8ccef7ebf3b6c64b15ff3d817a992192">~MWSpell</a> ()</td></tr>
@@ -104,7 +104,7 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a0b4ad27e68d9cf3571478baa7ef92081"></a><!-- doxytag: member="MWGui::Widgets::MWSpell::createEffectWidgets" ref="a0b4ad27e68d9cf3571478baa7ef92081" args="(std::vector&lt; MyGUI::WidgetPtr &gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord)" -->
+<a class="anchor" id="abed8f79aa3f163c27eb2f426fcca7729"></a><!-- doxytag: member="MWGui::Widgets::MWSpell::createEffectWidgets" ref="abed8f79aa3f163c27eb2f426fcca7729" args="(std::vector&lt; MyGUI::WidgetPtr &gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord, int flags)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -124,7 +124,13 @@
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">MyGUI::IntCoord &amp;&nbsp;</td>
-          <td class="paramname"> <em>coord</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>coord</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>flags</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -134,6 +140,16 @@
       </table>
 </div>
 <div class="memdoc">
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>vector</em>&nbsp;</td><td>to store the created effect widgets </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>parent</em>&nbsp;</td><td>widget </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>coordinates</em>&nbsp;</td><td>to use, will be expanded if more space is needed </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>spell</em>&nbsp;</td><td>category, if this is 0, this means the spell effects are permanent and won't display e.g. duration </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>various</em>&nbsp;</td><td>flags, see <a class="el" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7">MWEffectList::EffectFlags</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -287,7 +303,7 @@
 <li>apps/openmw/mwgui/<a class="el" href="widgets_8cpp.html">widgets.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:33 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -44,6 +44,8 @@
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a986bfd7ffff4ae505938448a7b2b0e8f">PhysicEngine</a> (<a class="el" href="classBulletShapeLoader.html">BulletShapeLoader</a> *shapeLoader)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a439ff603c7062b5ce3bd58994864325a">~PhysicEngine</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a74afb651ec97eb7f4c87b946481ca2b9">createRigidBody</a> (std::string <a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, std::string name, float scale)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a33ce47b7c63c0f2c5630ca72351b6bed">addHeightField</a> (float *heights, int x, int y, float yoffset, float triSize, float sqrtVerts)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8e403b58937606cc9927d78031e76190">removeHeightField</a> (int x, int y)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a003a80648cb39340a15f89763ea42ecd">addRigidBody</a> (<a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *body)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a0d36ce2dba5d5ef9083f77d22f7a6637">removeRigidBody</a> (std::string name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4bedec38fc4391ff3445f0439b49e1fe">deleteRigidBody</a> (std::string name)</td></tr>
@@ -159,6 +161,58 @@ std::string &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a clas
 </div>
 <div class="memdoc">
 <p>Create and add a character to the scene, and add it to the ActorMap. </p>
+
+</div>
+</div>
+<a class="anchor" id="a33ce47b7c63c0f2c5630ca72351b6bed"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::addHeightField" ref="a33ce47b7c63c0f2c5630ca72351b6bed" args="(float *heights, int x, int y, float yoffset, float triSize, float sqrtVerts)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OEngine::Physic::PhysicEngine::addHeightField </td>
+          <td>(</td>
+          <td class="paramtype">float *&nbsp;</td>
+          <td class="paramname"> <em>heights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>yoffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>triSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&nbsp;</td>
+          <td class="paramname"> <em>sqrtVerts</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Add a HeightField to the simulation </p>
 
 </div>
 </div>
@@ -381,6 +435,34 @@ std::string &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a clas
 </div>
 <div class="memdoc">
 <p>Remove a character from the scene. TODO:delete it! for now, a small memory leak^^ done? </p>
+
+</div>
+</div>
+<a class="anchor" id="a8e403b58937606cc9927d78031e76190"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::removeHeightField" ref="a8e403b58937606cc9927d78031e76190" args="(int x, int y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OEngine::Physic::PhysicEngine::removeHeightField </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Remove a HeightField from the simulation </p>
 
 </div>
 </div>
@@ -646,7 +728,7 @@ std::string &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a clas
 <li>libs/openengine/bullet/<a class="el" href="physic_8cpp.html">physic.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:34 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

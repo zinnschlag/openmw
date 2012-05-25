@@ -40,44 +40,42 @@
 <a name="l00013"></a>00013 <span class="preprocessor">#include &quot;../mwworld/refdata.hpp&quot;</span>
 <a name="l00014"></a>00014 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
 <a name="l00015"></a>00015 <span class="preprocessor">#include &quot;../mwworld/actiontalk.hpp&quot;</span>
-<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;../mwworld/environment.hpp&quot;</span>
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="npcanimation_8hpp.html">npcanimation.hpp</a>&quot;</span>
-<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="creatureanimation_8hpp.html">creatureanimation.hpp</a>&quot;</span>
-<a name="l00019"></a>00019 <span class="preprocessor">#include &lt;<a class="code" href="physic_8hpp.html">openengine/bullet/physic.hpp</a>&gt;</span>
-<a name="l00020"></a><a class="code" href="classMWRender_1_1Actors.html#aa106c1e270144f35e63656ee9d70110c">00020</a> 
-<a name="l00021"></a><a class="code" href="classMWRender_1_1Actors.html#acdc285d44c52165a0e56da0e7ab78359">00021</a> <span class="keyword">namespace </span>MWRender{
-<a name="l00022"></a><a class="code" href="classMWRender_1_1Actors.html#a4258cffca4c153375b6e2b5f14ea3f44">00022</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Actors.html">Actors</a>{
-<a name="l00023"></a><a class="code" href="classMWRender_1_1Actors.html#ad29d5284b39333ee64374a0c067bd6db">00023</a>         <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1Actors.html#aa106c1e270144f35e63656ee9d70110c">mRend</a>;
-<a name="l00024"></a><a class="code" href="classMWRender_1_1Actors.html#a14c76c924589c71dd98af76652c1d4ef">00024</a>         std::map&lt;MWWorld::Ptr::CellStore *, Ogre::SceneNode *&gt; <a class="code" href="classMWRender_1_1Actors.html#acdc285d44c52165a0e56da0e7ab78359">mCellSceneNodes</a>;
-<a name="l00025"></a>00025         Ogre::SceneNode* <a class="code" href="classMWRender_1_1Actors.html#a4258cffca4c153375b6e2b5f14ea3f44">mMwRoot</a>;
-<a name="l00026"></a>00026         <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; <a class="code" href="classMWRender_1_1Actors.html#ad29d5284b39333ee64374a0c067bd6db">mEnvironment</a>;
-<a name="l00027"></a>00027                 std::map&lt;MWWorld::Ptr, Animation*&gt; <a class="code" href="classMWRender_1_1Actors.html#a14c76c924589c71dd98af76652c1d4ef">mAllActors</a>;
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="npcanimation_8hpp.html">npcanimation.hpp</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="creatureanimation_8hpp.html">creatureanimation.hpp</a>&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &lt;<a class="code" href="physic_8hpp.html">openengine/bullet/physic.hpp</a>&gt;</span>
+<a name="l00019"></a><a class="code" href="classMWRender_1_1Actors.html#aa106c1e270144f35e63656ee9d70110c">00019</a> 
+<a name="l00020"></a><a class="code" href="classMWRender_1_1Actors.html#acdc285d44c52165a0e56da0e7ab78359">00020</a> <span class="keyword">namespace </span>MWRender{
+<a name="l00021"></a><a class="code" href="classMWRender_1_1Actors.html#a4258cffca4c153375b6e2b5f14ea3f44">00021</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Actors.html">Actors</a>{
+<a name="l00022"></a><a class="code" href="classMWRender_1_1Actors.html#a14c76c924589c71dd98af76652c1d4ef">00022</a>         <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1Actors.html#aa106c1e270144f35e63656ee9d70110c">mRend</a>;
+<a name="l00023"></a>00023         std::map&lt;MWWorld::Ptr::CellStore *, Ogre::SceneNode *&gt; <a class="code" href="classMWRender_1_1Actors.html#acdc285d44c52165a0e56da0e7ab78359">mCellSceneNodes</a>;
+<a name="l00024"></a>00024         Ogre::SceneNode* <a class="code" href="classMWRender_1_1Actors.html#a4258cffca4c153375b6e2b5f14ea3f44">mMwRoot</a>;
+<a name="l00025"></a>00025                 std::map&lt;MWWorld::Ptr, Animation*&gt; <a class="code" href="classMWRender_1_1Actors.html#a14c76c924589c71dd98af76652c1d4ef">mAllActors</a>;
+<a name="l00026"></a>00026 
+<a name="l00027"></a><a class="code" href="classMWRender_1_1Actors.html#ab1432aa2f90def19694f903d731d5120">00027</a> 
 <a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="classMWRender_1_1Actors.html#af5dfc57c9e93545875028c099f6ea528">00029</a> 
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031         <span class="keyword">public</span>:
-<a name="l00032"></a>00032         <a class="code" href="classMWRender_1_1Actors.html#af5dfc57c9e93545875028c099f6ea528">Actors</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend, <a class="code" href="classMWWorld_1_1Environment.html" title="Collection of script-accessable sub-systems.">MWWorld::Environment</a>&amp; _env): <a class="code" href="classMWRender_1_1Actors.html#aa106c1e270144f35e63656ee9d70110c">mRend</a>(_rend), <a class="code" href="classMWRender_1_1Actors.html#ad29d5284b39333ee64374a0c067bd6db">mEnvironment</a>(_env){}
-<a name="l00033"></a>00033         <a class="code" href="classMWRender_1_1Actors.html#a6581714f513082d0aa91724dc3f54734">~Actors</a>();
-<a name="l00034"></a>00034         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#afa95998a77fd1b1cdd7276270a1759e3">setMwRoot</a>(Ogre::SceneNode* <a class="code" href="ogre__common_8cpp.html#acee200c3caa45e111e61483dcd269689">root</a>);
-<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a710ad29e457306b34b9e763262feea26">insertBegin</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">bool</span> enabled, <span class="keywordtype">bool</span> static_);
-<a name="l00036"></a>00036         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a0dacb43204e922555b7a6f6ba7ee8476">insertCreature</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a5af2615fdfb7eae2d33917d0746620ff">insertNPC</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1InventoryStore.html" title="Variant of the ContainerStore for NPCs.">MWWorld::InventoryStore</a>&amp; inv);
-<a name="l00038"></a>00038          <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Actors.html#a5f0e4d349d981a0765f2ed44950a87f2">deleteObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00029"></a>00029         <span class="keyword">public</span>:
+<a name="l00030"></a>00030         <a class="code" href="classMWRender_1_1Actors.html#ab1432aa2f90def19694f903d731d5120">Actors</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend): <a class="code" href="classMWRender_1_1Actors.html#aa106c1e270144f35e63656ee9d70110c">mRend</a>(_rend) {}
+<a name="l00031"></a>00031         <a class="code" href="classMWRender_1_1Actors.html#a6581714f513082d0aa91724dc3f54734">~Actors</a>();
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#afa95998a77fd1b1cdd7276270a1759e3">setMwRoot</a>(Ogre::SceneNode* <a class="code" href="ogre__common_8cpp.html#acee200c3caa45e111e61483dcd269689">root</a>);
+<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a710ad29e457306b34b9e763262feea26">insertBegin</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">bool</span> enabled, <span class="keywordtype">bool</span> static_);
+<a name="l00034"></a>00034         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a0dacb43204e922555b7a6f6ba7ee8476">insertCreature</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a5af2615fdfb7eae2d33917d0746620ff">insertNPC</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1InventoryStore.html" title="&amp;lt;">MWWorld::InventoryStore</a>&amp; inv);
+<a name="l00036"></a>00036          <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Actors.html#a5f0e4d349d981a0765f2ed44950a87f2">deleteObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a982140e482993fe87fd57c572fe32426">removeCell</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a>* store);
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a982140e482993fe87fd57c572fe32426">removeCell</a>(<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a>* store);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a29064735809c9e80f52fe9093cd09bf7">playAnimationGroup</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode,
-<a name="l00044"></a>00044         <span class="keywordtype">int</span> number = 1);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#ae50e5323a90cd5335a4cea7dad6790a1">skipAnimation</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a29064735809c9e80f52fe9093cd09bf7">playAnimationGroup</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode,
+<a name="l00042"></a>00042         <span class="keywordtype">int</span> number = 1);
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#ae50e5323a90cd5335a4cea7dad6790a1">skipAnimation</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a1092235ddc1e683e99f758c272a2b024">update</a> (<span class="keywordtype">float</span> duration);
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Actors.html#a1092235ddc1e683e99f758c272a2b024">update</a> (<span class="keywordtype">float</span> duration);
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057     };
-<a name="l00058"></a>00058 }
-<a name="l00059"></a>00059 <span class="preprocessor">#endif</span>
+<a name="l00055"></a>00055     };
+<a name="l00056"></a>00056 }
+<a name="l00057"></a>00057 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 1 12:03:32 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
