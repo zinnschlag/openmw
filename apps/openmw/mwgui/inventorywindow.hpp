@@ -11,7 +11,7 @@ namespace MWGui
         public:
             InventoryWindow(WindowManager& parWindowManager,DragAndDrop* dragAndDrop);
 
-            void openInventory();
+            virtual void open();
 
             /// start trading, disables item drag&drop
             void startTrade();
@@ -48,6 +48,8 @@ namespace MWGui
             virtual bool isInventory() { return true; }
             virtual std::vector<MWWorld::Ptr> getEquippedItems();
             virtual void _unequipItem(MWWorld::Ptr item);
+
+            virtual void onReferenceUnavailable() { ; }
     };
 }
 

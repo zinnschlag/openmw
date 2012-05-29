@@ -69,7 +69,7 @@ namespace MWInput
       A_ToggleWeapon,
       A_ToggleSpell,
 
-      A_ToggleFps, // Toggle FPS display (this is temporary)
+      A_Settings, // Temporary hotkey
 
       A_LAST            // Marker for the last item
     };
@@ -92,12 +92,12 @@ namespace MWInput
 
 
    /* InputImpl Methods */
-
-    void toggleFps()
+public:
+    void adjustMouseRegion(int width, int height)
     {
-        windows.toggleFps();
+        input.adjustMouseClippingSize(width, height);
     }
-
+private:
     void toggleSpell()
     {
         if (windows.isGuiMode()) return;
@@ -138,6 +138,15 @@ namespace MWInput
 
         std::vector<std::string> empty;
         windows.messageBox ("Screenshot saved", empty);
+    }
+
+    void showSettings()
+    {
+        if (mDragDrop)
+            return;
+
+        if (!windows.isGuiMode() || windows.getMode() != MWGui::GM_Settings)
+            windows.pushGuiMode(MWGui::GM_Settings);
     }
 
     /* toggleInventory() is called when the user presses the button to toggle the inventory screen. */
@@ -264,8 +273,8 @@ namespace MWInput
                       "Draw Weapon");
       disp->funcs.bind(A_ToggleSpell,boost::bind(&InputImpl::toggleSpell,this),
                       "Ready hands");
-      disp->funcs.bind(A_ToggleFps, boost::bind(&InputImpl::toggleFps, this),
-                      "Toggle FPS display");
+      disp->funcs.bind(A_Settings, boost::bind(&InputImpl::showSettings, this),
+                      "Show settings window");
       // Add the exit listener
       ogre.getRoot()->addFrameListener(&exit);
 
@@ -311,7 +320,7 @@ namespace MWInput
       disp->bind(A_ToggleWalk, KC_C);
       disp->bind(A_ToggleWeapon,KC_F);
       disp->bind(A_ToggleSpell,KC_R);
-      disp->bind(A_ToggleFps, KC_F10);
+      disp->bind(A_Settings, KC_F2);
 
       // Key bindings for polled keys
       // NOTE: These keys are constantly being polled. Only add keys that must be checked each frame.
@@ -445,5 +454,21 @@ namespace MWInput
   void MWInputManager::changeInputMode(bool guiMode)
   {
       impl->changeInputMode(guiMode);
+  }
+
+  void MWInputManager::processChangedSettings(const Settings::CategorySettingVector& changed)
+  {
+      bool changeRes = false;
+      for (Settings::CategorySettingVector::const_iterator it = changed.begin();
+        it != changed.end(); ++it)
+      {
+          if (it->first == "Video" && (
+            it->second == "resolution x"
+            || it->second == "resolution y"))
+                changeRes = true;
+      }
+
+      if (changeRes)
+          impl->adjustMouseRegion(Settings::Manager::getInt("resolution x", "Video"), Settings::Manager::getInt("resolution y", "Video"));
   }
 }

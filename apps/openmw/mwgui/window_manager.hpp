@@ -17,6 +17,7 @@
 #include "MyGUI_UString.h"
 
 #include <components/esm_store/store.hpp>
+#include <components/settings/settings.hpp>
 #include <openengine/ogre/renderer.hpp>
 #include <openengine/gui/manager.hpp>
 
@@ -77,6 +78,9 @@ namespace MWGui
   class MessageBoxManager;
   class CountDialog;
   class TradeWindow;
+  class SettingsWindow;
+  class ConfirmationDialog;
+  class AlchemyWindow;
 
   struct ClassPoint
   {
@@ -105,6 +109,7 @@ namespace MWGui
 
     void pushGuiMode(GuiMode mode);
     void popGuiMode();
+    void removeGuiMode(GuiMode mode); ///< can be anywhere in the stack
 
     GuiMode getMode() const
     {
@@ -114,6 +119,12 @@ namespace MWGui
     }
 
     bool isGuiMode() const { return !mGuiModes.empty(); }
+
+    void toggleVisible(GuiWindow wnd)
+    {
+        shown = (shown & wnd) ? (GuiWindow) (shown & ~wnd) : (GuiWindow) (shown | wnd);
+        updateVisible();
+    }
 
     // Disallow all inventory mode windows
     void disallowAll()
@@ -129,12 +140,18 @@ namespace MWGui
       updateVisible();
     }
 
+    bool isAllowed(GuiWindow wnd)
+    {
+        return allowed & wnd;
+    }
+
     MWGui::DialogueWindow* getDialogueWindow() {return mDialogueWindow;}
     MWGui::ContainerWindow* getContainerWindow() {return mContainerWindow;}
     MWGui::InventoryWindow* getInventoryWindow() {return mInventoryWindow;}
     MWGui::BookWindow* getBookWindow() {return mBookWindow;}
     MWGui::ScrollWindow* getScrollWindow() {return mScrollWindow;}
     MWGui::CountDialog* getCountDialog() {return mCountDialog;}
+    MWGui::ConfirmationDialog* getConfirmationDialog() {return mConfirmationDialog;}
     MWGui::TradeWindow* getTradeWindow() {return mTradeWindow;}
 
     MyGUI::Gui* getGui() const { return gui; }
@@ -175,9 +192,6 @@ namespace MWGui
     void toggleFullHelp(); ///< show extra info in item tooltips (owner, script)
     bool getFullHelp() const;
 
-    int toggleFps();
-    ///< toggle fps display @return resulting fps level
-
     void setInteriorMapTexture(const int x, const int y);
     ///< set the index of the map texture that should be used (for interiors)
 
@@ -197,6 +211,11 @@ namespace MWGui
 
     void onFrame (float frameDuration);
 
+    std::map<ESM::Skill::SkillEnum, MWMechanics::Stat<float> > getPlayerSkillValues() { return playerSkillValues; }
+    std::map<ESM::Attribute::AttributeID, MWMechanics::Stat<int> > getPlayerAttributeValues() { return playerAttributes; }
+    SkillList getPlayerMinorSkills() { return playerMinorSkills; }
+    SkillList getPlayerMajorSkills() { return playerMajorSkills; }
+
     /**
      * Fetches a GMST string from the store, if there is no setting with the given
      * ID or it is not a string the default string is returned.
@@ -207,6 +226,8 @@ namespace MWGui
     const std::string &getGameSettingString(const std::string &id, const std::string &default_);
 
     const ESMS::ESMStore& getStore() const;
+
+    void processChangedSettings(const Settings::CategorySettingVector& changed);
 
   private:
     OEngine::GUI::MyGUIManager *mGuiManager;
@@ -226,6 +247,9 @@ namespace MWGui
     BookWindow* mBookWindow;
     CountDialog* mCountDialog;
     TradeWindow* mTradeWindow;
+    SettingsWindow* mSettingsWindow;
+    ConfirmationDialog* mConfirmationDialog;
+    AlchemyWindow* mAlchemyWindow;
 
     CharacterCreation* mCharGen;
 
@@ -251,9 +275,6 @@ namespace MWGui
        the start of the game, when windows are enabled one by one
        through script commands. You can manipulate this through using
        allow() and disableAll().
-
-       The setting should also affect visibility of certain HUD
-       elements, but this is not done yet.
      */
     GuiWindow allowed;
 

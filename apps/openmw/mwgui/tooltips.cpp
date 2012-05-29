@@ -8,6 +8,8 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include <components/settings/settings.hpp>
+
 using namespace MWGui;
 using namespace MyGUI;
 
@@ -19,6 +21,10 @@ ToolTips::ToolTips(WindowManager* windowManager) :
     , mEnabled(true)
     , mFocusToolTipX(0.0)
     , mFocusToolTipY(0.0)
+    , mDelay(0.0)
+    , mRemainingDelay(0.0)
+    , mLastMouseX(0)
+    , mLastMouseY(0)
 {
     getWidget(mDynamicToolTipBox, "DynamicToolTipBox");
 
@@ -28,6 +34,9 @@ ToolTips::ToolTips(WindowManager* windowManager) :
     // even if the mouse is over the tooltip
     mDynamicToolTipBox->setNeedMouseFocus(false);
     mMainWidget->setNeedMouseFocus(false);
+
+    mDelay = Settings::Manager::getFloat("tooltip delay", "GUI");
+    mRemainingDelay = mDelay;
 }
 
 void ToolTips::setEnabled(bool enabled)
@@ -37,10 +46,10 @@ void ToolTips::setEnabled(bool enabled)
 
 void ToolTips::onFrame(float frameDuration)
 {
-    MyGUI::Gui::getInstance().destroyWidget(mDynamicToolTipBox);
-    mDynamicToolTipBox = mMainWidget->createWidget<Widget>("HUD_Box",
-        IntCoord(0, 0, mMainWidget->getCoord().width, mMainWidget->getCoord().height),
-        Align::Stretch, "DynamicToolTipBox");
+    while (mDynamicToolTipBox->getChildCount())
+    {
+        MyGUI::Gui::getInstance().destroyWidget(mDynamicToolTipBox->getChildAt(0));
+    }
 
     // start by hiding everything
     for (unsigned int i=0; i < mMainWidget->getChildCount(); ++i)
@@ -57,6 +66,21 @@ void ToolTips::onFrame(float frameDuration)
 
     if (!mGameMode)
     {
+        const MyGUI::IntPoint& mousePos = InputManager::getInstance().getMousePosition();
+        if (mousePos.left == mLastMouseX && mousePos.top == mLastMouseY)
+        {
+            mRemainingDelay -= frameDuration;
+        }
+        else
+        {
+            mRemainingDelay = mDelay;
+        }
+        mLastMouseX = mousePos.left;
+        mLastMouseY = mousePos.top;
+
+        if (mRemainingDelay > 0)
+            return;
+
         Widget* focus = InputManager::getInstance().getMouseFocusWidget();
         if (focus == 0)
         {
@@ -64,6 +88,17 @@ void ToolTips::onFrame(float frameDuration)
         }
 
         IntSize tooltipSize;
+
+        // try to go 1 level up until there is a widget that has tooltip
+        // this is necessary because some skin elements are actually separate widgets
+        int i=0;
+        while (!focus->isUserString("ToolTipType"))
+        {
+            focus = focus->getParent();
+            if (!focus)
+                return;
+            ++i;
+        }
 
         std::string type = focus->getUserString("ToolTipType");
         std::string text = focus->getUserString("ToolTipText");
@@ -77,6 +112,29 @@ void ToolTips::onFrame(float frameDuration)
         {
             mFocusObject = *focus->getUserData<MWWorld::Ptr>();
             tooltipSize = getToolTipViaPtr(false);
+        }
+        else if (type == "Spell")
+        {
+            ToolTipInfo info;
+            const ESM::Spell *spell = MWBase::Environment::get().getWorld()->getStore().spells.find(focus->getUserString("Spell"));
+            info.caption = spell->name;
+            Widgets::SpellEffectList effects;
+            std::vector<ESM::ENAMstruct>::const_iterator end = spell->effects.list.end();
+            for (std::vector<ESM::ENAMstruct>::const_iterator it = spell->effects.list.begin(); it != end; ++it)
+            {
+                Widgets::SpellEffectParams params;
+                params.mEffectID = it->effectID;
+                params.mSkill = it->skill;
+                params.mAttribute = it->attribute;
+                params.mDuration = it->duration;
+                params.mMagnMin = it->magnMin;
+                params.mMagnMax = it->magnMax;
+                params.mRange = it->range;
+                params.mIsConstant = (spell->data.type == ESM::Spell::ST_Ability);
+                effects.push_back(params);
+            }
+            info.effects = effects;
+            tooltipSize = createToolTip(info);
         }
         else if (type == "Layout")
         {
@@ -285,7 +343,7 @@ IntSize ToolTips::createToolTip(const MWGui::ToolTipInfo& info)
     IntSize totalSize = IntSize( std::max(textSize.width, captionSize.width + ((image != "") ? imageCaptionHPadding : 0)),
         ((text != "") ? textSize.height + imageCaptionVPadding : 0) + captionHeight );
 
-    if (info.effects != 0)
+    if (!info.effects.empty())
     {
         Widget* effectArea = mDynamicToolTipBox->createWidget<Widget>("",
             IntCoord(0, totalSize.height, 300, 300-totalSize.height),
@@ -305,7 +363,7 @@ IntSize ToolTips::createToolTip(const MWGui::ToolTipInfo& info)
         effectsWidget->setEffectList(info.effects);
 
         std::vector<MyGUI::WidgetPtr> effectItems;
-        effectsWidget->createEffectWidgets(effectItems, effectArea, coord, true, Widgets::MWEffectList::EF_Potion);
+        effectsWidget->createEffectWidgets(effectItems, effectArea, coord, true, Widgets::MWEffectList::EF_NoTarget);
         totalSize.height += coord.top-6;
         totalSize.width = std::max(totalSize.width, coord.width);
     }
@@ -321,7 +379,7 @@ IntSize ToolTips::createToolTip(const MWGui::ToolTipInfo& info)
         Widgets::MWEffectListPtr enchantWidget = enchantArea->createWidget<Widgets::MWEffectList>
             ("MW_StatName", coord, Align::Default, "ToolTipEnchantWidget");
         enchantWidget->setWindowManager(mWindowManager);
-        enchantWidget->setEffectList(&enchant->effects);
+        enchantWidget->setEffectList(Widgets::MWEffectList::effectListFromESM(&enchant->effects));
 
         std::vector<MyGUI::WidgetPtr> enchantEffectItems;
         int flag = (enchant->data.type == ESM::Enchantment::ConstantEffect) ? Widgets::MWEffectList::EF_Constant : 0;
@@ -439,4 +497,157 @@ void ToolTips::setFocusObjectScreenCoords(float min_x, float min_y, float max_x,
 {
     mFocusToolTipX = (min_x + max_x) / 2;
     mFocusToolTipY = min_y;
+}
+
+void ToolTips::createSkillToolTip(MyGUI::Widget* widget, int skillId)
+{
+    if (skillId == -1)
+        return;
+
+    const std::string &skillNameId = ESMS::Skill::sSkillNameIds[skillId];
+    const ESM::Skill* skill = MWBase::Environment::get().getWorld()->getStore().skills.search(skillId);
+    assert(skill);
+    const ESM::Attribute* attr = MWBase::Environment::get().getWorld()->getStore().attributes.search(skill->data.attribute);
+    assert(attr);
+    std::string icon = "icons\\k\\" + ESM::Skill::sIconNames[skillId];
+
+    widget->setUserString("ToolTipType", "Layout");
+    widget->setUserString("ToolTipLayout", "SkillNoProgressToolTip");
+    widget->setUserString("Caption_SkillNoProgressName", "#{"+skillNameId+"}");
+    widget->setUserString("Caption_SkillNoProgressDescription", skill->description);
+    widget->setUserString("Caption_SkillNoProgressAttribute", "#{sGoverningAttribute}: #{" + attr->name + "}");
+    widget->setUserString("ImageTexture_SkillNoProgressImage", icon);
+    widget->setUserString("ToolTipLayout", "SkillNoProgressToolTip");
+    widget->setUserString("ToolTipLayout", "SkillNoProgressToolTip");
+}
+
+void ToolTips::createAttributeToolTip(MyGUI::Widget* widget, int attributeId)
+{
+    if (attributeId == -1)
+        return;
+
+    const ESM::Attribute* attr = MWBase::Environment::get().getWorld()->getStore().attributes.search(attributeId);
+    assert(attr);
+    std::string icon = ESM::Attribute::attributeIcons[attributeId];
+    std::string name = ESM::Attribute::gmstAttributeIds[attributeId];
+    std::string desc = ESM::Attribute::gmstAttributeDescIds[attributeId];
+
+    widget->setUserString("ToolTipType", "Layout");
+    widget->setUserString("ToolTipLayout", "AttributeToolTip");
+    widget->setUserString("Caption_AttributeName", "#{"+name+"}");
+    widget->setUserString("Caption_AttributeDescription", "#{"+desc+"}");
+    widget->setUserString("ImageTexture_AttributeImage", icon);
+}
+
+void ToolTips::createSpecializationToolTip(MyGUI::Widget* widget, const std::string& name, int specId)
+{
+    widget->setUserString("Caption_CenteredCaption", name);
+    std::string specText;
+    // get all skills of this specialisation
+    std::map<int, ESM::Skill> skills = MWBase::Environment::get().getWorld()->getStore().skills.list;
+    for (std::map<int, ESM::Skill>::const_iterator it = skills.begin();
+        it != skills.end(); ++it)
+    {
+        if (it->second.data.specialization == specId)
+            specText += std::string("\n#{") + ESM::Skill::sSkillNameIds[it->second.index] + "}";
+    }
+    widget->setUserString("Caption_CenteredCaptionText", specText);
+    widget->setUserString("ToolTipLayout", "TextWithCenteredCaptionToolTip");
+    widget->setUserString("ToolTipType", "Layout");
+}
+
+void ToolTips::createBirthsignToolTip(MyGUI::Widget* widget, const std::string& birthsignId)
+{
+    const ESM::BirthSign *sign = MWBase::Environment::get().getWorld()->getStore().birthSigns.find(birthsignId);
+
+    widget->setUserString("ToolTipType", "Layout");
+    widget->setUserString("ToolTipLayout", "BirthSignToolTip");
+    std::string image = sign->texture;
+    image.replace(image.size()-3, 3, "dds");
+    widget->setUserString("ImageTexture_BirthSignImage", "textures\\" + image);
+    std::string text;
+
+    text += sign->name;
+    text += "\n#BF9959" + sign->description;
+
+    std::vector<std::string> abilities, powers, spells;
+
+    std::vector<std::string>::const_iterator it = sign->powers.list.begin();
+    std::vector<std::string>::const_iterator end = sign->powers.list.end();
+    for (; it != end; ++it)
+    {
+        const std::string &spellId = *it;
+        const ESM::Spell *spell = MWBase::Environment::get().getWorld()->getStore().spells.search(spellId);
+        if (!spell)
+            continue; // Skip spells which cannot be found
+        ESM::Spell::SpellType type = static_cast<ESM::Spell::SpellType>(spell->data.type);
+        if (type != ESM::Spell::ST_Spell && type != ESM::Spell::ST_Ability && type != ESM::Spell::ST_Power)
+            continue; // We only want spell, ability and powers.
+
+        if (type == ESM::Spell::ST_Ability)
+            abilities.push_back(spellId);
+        else if (type == ESM::Spell::ST_Power)
+            powers.push_back(spellId);
+        else if (type == ESM::Spell::ST_Spell)
+            spells.push_back(spellId);
+    }
+
+    struct{ const std::vector<std::string> &spells; std::string label; } categories[3] = {
+        {abilities, "sBirthsignmenu1"},
+        {powers,    "sPowers"},
+        {spells,    "sBirthsignmenu2"}
+    };
+
+    for (int category = 0; category < 3; ++category)
+    {
+        for (std::vector<std::string>::const_iterator it = categories[category].spells.begin(); it != categories[category].spells.end(); ++it)
+        {
+            if (it == categories[category].spells.begin())
+            {
+                text += std::string("\n#DDC79E") + std::string("#{") + categories[category].label + "}";
+            }
+
+            const std::string &spellId = *it;
+
+            const ESM::Spell *spell = MWBase::Environment::get().getWorld()->getStore().spells.search(spellId);
+            text += "\n#BF9959" + spell->name;
+        }
+    }
+
+    widget->setUserString("Caption_BirthSignText", text);
+}
+
+void ToolTips::createRaceToolTip(MyGUI::Widget* widget, const ESM::Race* playerRace)
+{
+    widget->setUserString("Caption_CenteredCaption", playerRace->name);
+    widget->setUserString("Caption_CenteredCaptionText", playerRace->description);
+    widget->setUserString("ToolTipType", "Layout");
+    widget->setUserString("ToolTipLayout", "TextWithCenteredCaptionToolTip");
+}
+
+void ToolTips::createClassToolTip(MyGUI::Widget* widget, const ESM::Class& playerClass)
+{
+    if (playerClass.name == "")
+        return;
+
+    int spec = playerClass.data.specialization;
+    std::string specStr;
+    if (spec == 0)
+        specStr = "#{sSpecializationCombat}";
+    else if (spec == 1)
+        specStr = "#{sSpecializationMagic}";
+    else if (spec == 2)
+        specStr = "#{sSpecializationStealth}";
+
+    widget->setUserString("Caption_ClassName", playerClass.name);
+    widget->setUserString("Caption_ClassDescription", playerClass.description);
+    widget->setUserString("Caption_ClassSpecialisation", "#{sSpecialization}: " + specStr);
+    widget->setUserString("ToolTipType", "Layout");
+    widget->setUserString("ToolTipLayout", "ClassToolTip");
+}
+
+void ToolTips::setDelay(float delay)
+{
+    mDelay = delay;
+    mRemainingDelay = mDelay;
 }
