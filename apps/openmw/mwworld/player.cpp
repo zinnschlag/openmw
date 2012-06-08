@@ -4,6 +4,7 @@
 #include "../mwrender/player.hpp"
 
 #include "../mwmechanics/movement.hpp"
+#include "../mwmechanics/npcstats.hpp"
 
 #include "world.hpp"
 #include "class.hpp"
@@ -23,8 +24,6 @@ namespace MWWorld
         float* playerPos = mPlayer.mData.getPosition().pos;
         playerPos[0] = playerPos[1] = playerPos[2] = 0;
 
-        std::cout << renderer->getHandle();
-
         mPlayer.mData.setBaseNode(renderer->getNode());
         /// \todo Do not make a copy of classes defined in esm/p records.
         mClass = new ESM::Class (*world.getStore().classes.find (player->cls));
@@ -41,11 +40,22 @@ namespace MWWorld
         mWorld.moveObject (getPlayer(), x, y, z);
     }
 
+    void Player::setRot(float x, float y, float z)
+    {
+        mRenderer->setRot(x, y, z);
+    }
+
     void Player::setClass (const ESM::Class& class_)
     {
         ESM::Class *new_class = new ESM::Class (class_);
         delete mClass;
         mClass = new_class;
+    }
+
+    void Player::setDrawState(const DrawState& value)
+    {
+         MWWorld::Ptr ptr = getPlayer();
+         MWWorld::Class::get(ptr).getNpcStats(ptr).mDrawState = value;
     }
 
     void Player::setAutoMove (bool enable)
@@ -80,6 +90,14 @@ namespace MWWorld
 
         MWWorld::Class::get (ptr).getMovementSettings (ptr).mForwardBackward = value;
     }
+	void Player::setUpDown(int value)
+	{
+		MWWorld::Ptr ptr = getPlayer();
+
+        
+
+        MWWorld::Class::get (ptr).getMovementSettings (ptr).mUpDown = value;
+	}
 
     void Player::toggleRunning()
     {
@@ -89,4 +107,11 @@ namespace MWWorld
 
         MWWorld::Class::get (ptr).setStance (ptr, MWWorld::Class::Run, !running);
     }
+
+    DrawState Player::getDrawState()
+    {
+         MWWorld::Ptr ptr = getPlayer();
+         return MWWorld::Class::get(ptr).getNpcStats(ptr).mDrawState;
+    }
+
 }

@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include <boost/algorithm/string.hpp>
+
 #include <OgreSceneNode.h>
 
 #include <components/esm/loadnpc.hpp>
@@ -14,10 +16,13 @@
 
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/actiontalk.hpp"
-#include "../mwworld/environment.hpp"
 #include "../mwworld/world.hpp"
 #include "../mwworld/inventorystore.hpp"
 #include "../mwworld/customdata.hpp"
+
+#include "../mwgui/window_manager.hpp"
+
+#include "../mwbase/environment.hpp"
 
 namespace
 {
@@ -53,30 +58,42 @@ namespace MWClass
             // NPC stats
             if (!ref->base->faction.empty())
             {
-                // TODO research how initial rank is stored. The information in loadnpc.hpp are at
-                // best very unclear.
-                data->mNpcStats.mFactionRank[ref->base->faction] = 0;
+                std::string faction = ref->base->faction;
+                boost::algorithm::to_lower(faction);
+                if(ref->base->npdt52.gold != -10)
+                {
+                    data->mNpcStats.mFactionRank[faction] = (int)ref->base->npdt52.rank;
+                }
+                else
+                {
+                    data->mNpcStats.mFactionRank[faction] = (int)ref->base->npdt12.rank;
+                }
             }
 
-            for (int i=0; i<27; ++i)
-                data->mNpcStats.mSkill[i].setBase (ref->base->npdt52.skills[i]);
+            if(ref->base->npdt52.gold != -10)
+            {
+                for (int i=0; i<27; ++i)
+                    data->mNpcStats.mSkill[i].setBase (ref->base->npdt52.skills[i]);
 
-            // creature stats
-            data->mCreatureStats.mAttributes[0].set (ref->base->npdt52.strength);
-            data->mCreatureStats.mAttributes[1].set (ref->base->npdt52.intelligence);
-            data->mCreatureStats.mAttributes[2].set (ref->base->npdt52.willpower);
-            data->mCreatureStats.mAttributes[3].set (ref->base->npdt52.agility);
-            data->mCreatureStats.mAttributes[4].set (ref->base->npdt52.speed);
-            data->mCreatureStats.mAttributes[5].set (ref->base->npdt52.endurance);
-            data->mCreatureStats.mAttributes[6].set (ref->base->npdt52.personality);
-            data->mCreatureStats.mAttributes[7].set (ref->base->npdt52.luck);
-            data->mCreatureStats.mDynamic[0].set (ref->base->npdt52.health);
-            data->mCreatureStats.mDynamic[1].set (ref->base->npdt52.mana);
-            data->mCreatureStats.mDynamic[2].set (ref->base->npdt52.fatigue);
+                // creature stats
+                data->mCreatureStats.mAttributes[0].set (ref->base->npdt52.strength);
+                data->mCreatureStats.mAttributes[1].set (ref->base->npdt52.intelligence);
+                data->mCreatureStats.mAttributes[2].set (ref->base->npdt52.willpower);
+                data->mCreatureStats.mAttributes[3].set (ref->base->npdt52.agility);
+                data->mCreatureStats.mAttributes[4].set (ref->base->npdt52.speed);
+                data->mCreatureStats.mAttributes[5].set (ref->base->npdt52.endurance);
+                data->mCreatureStats.mAttributes[6].set (ref->base->npdt52.personality);
+                data->mCreatureStats.mAttributes[7].set (ref->base->npdt52.luck);
+                data->mCreatureStats.mDynamic[0].set (ref->base->npdt52.health);
+                data->mCreatureStats.mDynamic[1].set (ref->base->npdt52.mana);
+                data->mCreatureStats.mDynamic[2].set (ref->base->npdt52.fatigue);
 
-            data->mCreatureStats.mLevel = ref->base->npdt52.level;
-
-            // \todo add initial container content
+                data->mCreatureStats.mLevel = ref->base->npdt52.level;
+            }
+            else
+            {
+                /// \todo do something with npdt12 maybe:p
+            }
 
             // store
             ptr.getRefData().setCustomData (data.release());
@@ -93,39 +110,25 @@ namespace MWClass
 
     void Npc::insertObjectRendering (const MWWorld::Ptr& ptr, MWRender::RenderingInterface& renderingInterface) const
     {
-        renderingInterface.getActors().insertNPC(ptr);
+        renderingInterface.getActors().insertNPC(ptr, getInventoryStore(ptr));
     }
 
-    void Npc::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics, MWWorld::Environment& environment) const
+    void Npc::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics) const
     {
-
-
         ESMS::LiveCellRef<ESM::NPC, MWWorld::RefData> *ref =
             ptr.get<ESM::NPC>();
 
-
         assert (ref->base != NULL);
-		 std::string headID = ref->base->head;
-		 std::string bodyRaceID = headID.substr(0, headID.find_last_of("head_") - 4);
-		 bool beast = bodyRaceID == "b_n_khajiit_m_" || bodyRaceID == "b_n_khajiit_f_" || bodyRaceID == "b_n_argonian_m_" || bodyRaceID == "b_n_argonian_f_";
-
+        std::string headID = ref->base->head;
+        std::string bodyRaceID = headID.substr(0, headID.find_last_of("head_") - 4);
+        bool beast = bodyRaceID == "b_n_khajiit_m_" || bodyRaceID == "b_n_khajiit_f_" || bodyRaceID == "b_n_argonian_m_" || bodyRaceID == "b_n_argonian_f_";
 
         std::string smodel = "meshes\\base_anim.nif";
-		if(beast)
-			smodel = "meshes\\base_animkna.nif";
-		physics.insertActorPhysics(ptr, smodel);
+        if(beast)
+            smodel = "meshes\\base_animkna.nif";
+        physics.insertActorPhysics(ptr, smodel);
 
-
-    }
-
-    void Npc::enable (const MWWorld::Ptr& ptr, MWWorld::Environment& environment) const
-    {
-        environment.mMechanicsManager->addActor (ptr);
-    }
-
-    void Npc::disable (const MWWorld::Ptr& ptr, MWWorld::Environment& environment) const
-    {
-        environment.mMechanicsManager->removeActor (ptr);
+        MWBase::Environment::get().getMechanicsManager()->addActor (ptr);
     }
 
     std::string Npc::getName (const MWWorld::Ptr& ptr) const
@@ -151,7 +154,7 @@ namespace MWClass
     }
 
     boost::shared_ptr<MWWorld::Action> Npc::activate (const MWWorld::Ptr& ptr,
-        const MWWorld::Ptr& actor, const MWWorld::Environment& environment) const
+        const MWWorld::Ptr& actor) const
     {
         return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionTalk (ptr));
     }
@@ -269,11 +272,12 @@ namespace MWClass
     {
         Ogre::Vector3 vector (0, 0, 0);
 
-        vector.x = - getMovementSettings (ptr).mLeftRight * 200;
-        vector.y = getMovementSettings (ptr).mForwardBackward * 200;
+        vector.x = - getMovementSettings (ptr).mLeftRight * 127;
+        vector.y = getMovementSettings (ptr).mForwardBackward * 127;
+		vector.z = getMovementSettings(ptr).mUpDown * 127;
 
-        if (getStance (ptr, Run, false))
-            vector *= 2;
+        //if (getStance (ptr, Run, false))
+        //    vector *= 2;
 
         return vector;
     }
@@ -281,7 +285,51 @@ namespace MWClass
     void Npc::registerSelf()
     {
         boost::shared_ptr<Class> instance (new Npc);
-
         registerClass (typeid (ESM::NPC).name(), instance);
+    }
+
+    bool Npc::hasToolTip (const MWWorld::Ptr& ptr) const
+    {
+        /// \todo We don't want tooltips for NPCs in combat mode.
+
+        return true;
+    }
+
+    MWGui::ToolTipInfo Npc::getToolTipInfo (const MWWorld::Ptr& ptr) const
+    {
+        ESMS::LiveCellRef<ESM::NPC, MWWorld::RefData> *ref =
+            ptr.get<ESM::NPC>();
+
+        MWGui::ToolTipInfo info;
+        info.caption = ref->base->name;
+
+        std::string text;
+        if (MWBase::Environment::get().getWindowManager()->getFullHelp())
+            text += MWGui::ToolTips::getMiscString(ref->base->script, "Script");
+        info.text = text;
+
+        return info;
+    }
+
+    float Npc::getCapacity (const MWWorld::Ptr& ptr) const
+    {
+        const MWMechanics::CreatureStats& stats = getCreatureStats (ptr);
+        return stats.mAttributes[0].getModified()*5;
+    }
+
+    float Npc::getEncumbrance (const MWWorld::Ptr& ptr) const
+    {
+        float weight = getContainerStore (ptr).getWeight();
+
+        const MWMechanics::CreatureStats& stats = getCreatureStats (ptr);
+
+        weight -= stats.mMagicEffects.get (MWMechanics::EffectKey (8)).mMagnitude; // feather
+
+        weight += stats.mMagicEffects.get (MWMechanics::EffectKey (7)).mMagnitude; // burden
+
+        if (weight<0)
+            weight = 0;
+
+        return weight;
     }
 }

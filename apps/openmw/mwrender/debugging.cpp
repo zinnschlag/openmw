@@ -8,7 +8,7 @@
 #include <OgreMaterialManager.h>
 
 #include "../mwworld/world.hpp" // these includes can be removed once the static-hack is gone
-#include "../mwworld/environment.hpp"
+#include "../mwbase/environment.hpp"
 #include "../mwworld/ptr.hpp"
 #include <components/esm/loadstat.hpp>
 #include <components/esm/loadpgrd.hpp>
@@ -68,7 +68,7 @@ ManualObject *Debugging::createPathgridLines(const ESM::Pathgrid *pathgrid)
     result->begin(PATHGRID_LINE_MATERIAL, RenderOperation::OT_LINE_LIST);
     for(ESM::Pathgrid::EdgeList::const_iterator it = pathgrid->edges.begin();
         it != pathgrid->edges.end();
-        it++)
+        ++it)
     {
         const ESM::Pathgrid::Edge &edge = *it;
         const ESM::Pathgrid::Point &p1 = pathgrid->points[edge.v0], &p2 = pathgrid->points[edge.v1];
@@ -138,8 +138,8 @@ ManualObject *Debugging::createPathgridPoints(const ESM::Pathgrid *pathgrid)
     return result;
 }
 
-Debugging::Debugging(SceneNode *mwRoot, MWWorld::Environment &env, OEngine::Physic::PhysicEngine *engine) :
-    mMwRoot(mwRoot), mEnvironment(env), mEngine(engine),
+Debugging::Debugging(SceneNode *mwRoot, OEngine::Physic::PhysicEngine *engine) :
+    mMwRoot(mwRoot), mEngine(engine),
     mSceneMgr(mwRoot->getCreator()),
     mPathgridEnabled(false),
     mInteriorPathgridNode(NULL), mPathGridRoot(NULL),
@@ -197,7 +197,7 @@ void Debugging::togglePathgrid()
 
         // add path grid meshes to already loaded cells
         mPathGridRoot = mMwRoot->createChildSceneNode();
-        for(CellList::iterator it = mActiveCells.begin(); it != mActiveCells.end(); it++)
+        for(CellList::iterator it = mActiveCells.begin(); it != mActiveCells.end(); ++it)
         {
             enableCellPathgrid(*it);
         }
@@ -205,7 +205,7 @@ void Debugging::togglePathgrid()
     else
     {
         // remove path grid meshes from already loaded cells
-        for(CellList::iterator it = mActiveCells.begin(); it != mActiveCells.end(); it++)
+        for(CellList::iterator it = mActiveCells.begin(); it != mActiveCells.end(); ++it)
         {
             disableCellPathgrid(*it);
         }
@@ -218,7 +218,7 @@ void Debugging::togglePathgrid()
 
 void Debugging::enableCellPathgrid(MWWorld::Ptr::CellStore *store)
 {
-    ESM::Pathgrid *pathgrid = mEnvironment.mWorld->getStore().pathgrids.search(*store->cell);
+    ESM::Pathgrid *pathgrid = MWBase::Environment::get().getWorld()->getStore().pathgrids.search(*store->cell);
     if (!pathgrid) return;
 
     Vector3 cellPathGridPos(0, 0, 0);

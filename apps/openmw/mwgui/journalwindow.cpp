@@ -1,7 +1,7 @@
 #include "journalwindow.hpp"
 #include "window_manager.hpp"
 #include "../mwdialogue/journal.hpp"
-#include "../mwworld/environment.hpp"
+#include "../mwbase/environment.hpp"
 #include "../mwworld/world.hpp"
 
 #include "../mwsound/soundmanager.hpp"
@@ -82,6 +82,7 @@ book formatText(std::string text,book mBook,int maxLine, int lineSize)
 MWGui::JournalWindow::JournalWindow (WindowManager& parWindowManager)
     : WindowBase("openmw_journal_layout.xml", parWindowManager)
     , lastPos(0)
+    , mVisible(false)
 {
     //setCoord(0,0,498, 342);
     center();
@@ -109,32 +110,38 @@ MWGui::JournalWindow::JournalWindow (WindowManager& parWindowManager)
     //std::list<std::string> list = formatText("OpenMW rgh dsfg sqef srg ZT  uzql n ZLIEHRF LQSJH GLOIjf qjfmj hslkdgn jlkdjhg qlr isgli shli uhs fiuh qksf cg ksjnf lkqsnbf ksbf sbfkl zbf kuyzflkj sbgdfkj zlfh ozhjfmo hzmfh lizuf rty qzt ezy tkyEZT RYYJ DG fgh  is an open-source implementation of the game engine found in the game Morrowind. This is a dumb test text msodjbg smojg smoig  fiiinnn");
     //std::list<std::string> list = formatText();
     //displayLeftText(list.front());
+}
 
-    MyGUI::WindowPtr t = static_cast<MyGUI::WindowPtr>(mMainWidget);
-    t->eventWindowChangeCoord += MyGUI::newDelegate(this, &JournalWindow::onWindowResize);
+void MWGui::JournalWindow::setVisible(bool visible)
+{
+    if (mVisible && !visible)
+        MWBase::Environment::get().getSoundManager()->playSound ("book close", 1.0, 1.0);
+    mVisible = visible;
+
+    mMainWidget->setVisible(visible);
 }
 
 void MWGui::JournalWindow::open()
 {
     mPageNumber = 0;
     std::string journalOpenSound = "book open";
-    mWindowManager.getEnvironment().mSoundManager->playSound (journalOpenSound, 1.0, 1.0);
-    if(mWindowManager.getEnvironment().mJournal->begin()!=mWindowManager.getEnvironment().mJournal->end())
+    MWBase::Environment::get().getSoundManager()->playSound (journalOpenSound, 1.0, 1.0);
+    if(MWBase::Environment::get().getJournal()->begin()!=MWBase::Environment::get().getJournal()->end())
     {
         book journal;
         journal.endLine = 0;
 
-        for(std::deque<MWDialogue::StampedJournalEntry>::const_iterator it = mWindowManager.getEnvironment().mJournal->begin();it!=mWindowManager.getEnvironment().mJournal->end();it++)
+        for(std::deque<MWDialogue::StampedJournalEntry>::const_iterator it = MWBase::Environment::get().getJournal()->begin();it!=MWBase::Environment::get().getJournal()->end();++it)
         {
-            std::string a = it->getText(mWindowManager.getEnvironment().mWorld->getStore());
+            std::string a = it->getText(MWBase::Environment::get().getWorld()->getStore());
             journal = formatText(a,journal,10,17);
             journal.endLine = journal.endLine +1;
             journal.pages.back() = journal.pages.back() + std::string("\n");
         }
-        //std::string a = mWindowManager.getEnvironment().mJournal->begin()->getText(mWindowManager.getEnvironment().mWorld->getStore());
+        //std::string a = MWBase::Environment::get().getJournal()->begin()->getText(MWBase::Environment::get().getWorld()->getStore());
         //std::list<std::string> journal = formatText(a,10,20,1);
         bool left = true;
-        for(std::list<std::string>::iterator it = journal.pages.begin(); it != journal.pages.end();it++)
+        for(std::list<std::string>::iterator it = journal.pages.begin(); it != journal.pages.end();++it)
         {
             if(left)
             {
@@ -155,12 +162,8 @@ void MWGui::JournalWindow::open()
     }
     else
     {
-        //std::cout << mWindowManager.getEnvironment().mJournal->begin()->getText(mWindowManager.getEnvironment().mWorld->getStore());
+        //std::cout << MWBase::Environment::get().getJournal()->begin()->getText(MWBase::Environment::get().getWorld()->getStore());
     }
-}
-
-void MWGui::JournalWindow::onWindowResize(MyGUI::Window* window)
-{
 }
 
 void MWGui::JournalWindow::displayLeftText(std::string text)
@@ -181,7 +184,7 @@ void MWGui::JournalWindow::notifyNextPage(MyGUI::WidgetPtr _sender)
     if(mPageNumber < int(leftPages.size())-1)
     {
         std::string nextSound = "book page2";
-        mWindowManager.getEnvironment().mSoundManager->playSound (nextSound, 1.0, 1.0);
+        MWBase::Environment::get().getSoundManager()->playSound (nextSound, 1.0, 1.0);
         mPageNumber = mPageNumber + 1;
         displayLeftText(leftPages[mPageNumber]);
         displayRightText(rightPages[mPageNumber]);
@@ -193,7 +196,7 @@ void MWGui::JournalWindow::notifyPrevPage(MyGUI::WidgetPtr _sender)
     if(mPageNumber > 0)
     {
         std::string prevSound = "book page";
-        mWindowManager.getEnvironment().mSoundManager->playSound (prevSound, 1.0, 1.0);
+        MWBase::Environment::get().getSoundManager()->playSound (prevSound, 1.0, 1.0);
         mPageNumber = mPageNumber - 1;
         displayLeftText(leftPages[mPageNumber]);
         displayRightText(rightPages[mPageNumber]);

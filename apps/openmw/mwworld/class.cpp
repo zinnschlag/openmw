@@ -26,16 +26,8 @@ namespace MWWorld
     {
 
     }
-    void Class::insertObject(const Ptr& ptr, MWWorld::PhysicsSystem& physics, MWWorld::Environment& environment) const{
 
-    }
-
-    void Class::enable (const Ptr& ptr, MWWorld::Environment& environment) const
-    {
-
-    }
-
-    void Class::disable (const Ptr& ptr, MWWorld::Environment& environment) const
+    void Class::insertObject(const Ptr& ptr, MWWorld::PhysicsSystem& physics) const
     {
 
     }
@@ -60,14 +52,12 @@ namespace MWWorld
         throw std::runtime_error ("class does not have item health");
     }
 
-    boost::shared_ptr<Action> Class::activate (const Ptr& ptr, const Ptr& actor,
-        const Environment& environment) const
+    boost::shared_ptr<Action> Class::activate (const Ptr& ptr, const Ptr& actor) const
     {
         return boost::shared_ptr<Action> (new NullAction);
     }
 
-    boost::shared_ptr<Action> Class::use (const Ptr& ptr,
-        const Environment& environment) const
+    boost::shared_ptr<Action> Class::use (const Ptr& ptr) const
     {
         return boost::shared_ptr<Action> (new NullAction);
     }
@@ -132,9 +122,24 @@ namespace MWWorld
         return std::make_pair (std::vector<int>(), false);
     }
 
-    int Class::getEquipmentSkill (const Ptr& ptr, const Environment& environment) const
+    int Class::getEquipmentSkill (const Ptr& ptr) const
     {
         return -1;
+    }
+
+    int Class::getValue (const Ptr& ptr) const
+    {
+        throw std::logic_error ("value not supported by this class");
+    }
+
+    float Class::getCapacity (const MWWorld::Ptr& ptr) const
+    {
+        throw std::runtime_error ("capacity not supported by this class");
+    }
+
+    float Class::getEncumbrance (const MWWorld::Ptr& ptr) const
+    {
+        throw std::runtime_error ("encumbrance not supported by class");
     }
 
     const Class& Class::get (const std::string& key)
@@ -157,13 +162,34 @@ namespace MWWorld
         sClasses.insert (std::make_pair (key, instance));
     }
 
-    std::string Class::getUpSoundId (const Ptr& ptr, const MWWorld::Environment& environment) const
+    std::string Class::getUpSoundId (const Ptr& ptr) const
     {
         throw std::runtime_error ("class does not have an up sound");
     }
 
-    std::string Class::getDownSoundId (const Ptr& ptr, const MWWorld::Environment& environment) const
+    std::string Class::getDownSoundId (const Ptr& ptr) const
     {
         throw std::runtime_error ("class does not have an down sound");
+    }
+
+
+    std::string Class::getInventoryIcon (const MWWorld::Ptr& ptr) const
+    {
+        throw std::runtime_error ("class does not have any inventory icon");
+    }
+
+    MWGui::ToolTipInfo Class::getToolTipInfo (const Ptr& ptr) const
+    {
+        throw std::runtime_error ("class does not have a tool tip");
+    }
+
+    bool Class::hasToolTip (const Ptr& ptr) const
+    {
+        return false;
+    }
+
+    std::string Class::getEnchantment (const Ptr& ptr) const
+    {
+        return "";
     }
 }

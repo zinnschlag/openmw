@@ -9,12 +9,27 @@
 #include <components/interpreter/runtime.hpp>
 #include <components/interpreter/opcodes.hpp>
 
+#include "../mwbase/environment.hpp"
+
 #include "../mwworld/manualref.hpp"
 #include "../mwworld/class.hpp"
 #include "../mwworld/containerstore.hpp"
 
 #include "interpretercontext.hpp"
 #include "ref.hpp"
+
+namespace
+{
+    std::string toLower (const std::string& name)
+    {
+        std::string lowerCase;
+
+        std::transform (name.begin(), name.end(), std::back_inserter (lowerCase),
+            (int(*)(int)) std::tolower);
+
+        return lowerCase;
+    }
+}
 
 namespace MWScript
 {
@@ -29,9 +44,6 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    MWScript::InterpreterContext& context
-                        = static_cast<MWScript::InterpreterContext&> (runtime.getContext());
-
                     std::string item = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
@@ -41,7 +53,7 @@ namespace MWScript
                     if (count<0)
                         throw std::runtime_error ("second argument for AddItem must be non-negative");
 
-                    MWWorld::ManualRef ref (context.getWorld().getStore(), item);
+                    MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), item);
 
                     ref.getPtr().getRefData().setCount (count);
 
@@ -66,7 +78,7 @@ namespace MWScript
                     Interpreter::Type_Integer sum = 0;
 
                     for (MWWorld::ContainerStoreIterator iter (store.begin()); iter!=store.end(); ++iter)
-                        if (iter->getCellRef().refID==item)
+                        if (toLower(iter->getCellRef().refID) == toLower(item))
                             sum += iter->getRefData().getCount();
 
                     runtime.push (sum);
@@ -96,7 +108,7 @@ namespace MWScript
                     for (MWWorld::ContainerStoreIterator iter (store.begin()); iter!=store.end() && count;
                         ++iter)
                     {
-                        if (iter->getCellRef().refID==item)
+                        if (toLower(iter->getCellRef().refID) == toLower(item))
                         {
                             if (iter->getRefData().getCount()<=count)
                             {

@@ -1,8 +1,10 @@
 
 #include "actiontake.hpp"
 
+#include "../mwbase/environment.hpp"
+#include "../mwgui/window_manager.hpp"
+
 #include "class.hpp"
-#include "environment.hpp"
 #include "world.hpp"
 #include "containerstore.hpp"
 
@@ -10,14 +12,18 @@ namespace MWWorld
 {
     ActionTake::ActionTake (const MWWorld::Ptr& object) : mObject (object) {}
 
-    void ActionTake::execute (Environment& environment)
+    void ActionTake::execute()
     {
+        if (!MWBase::Environment::get().getWindowManager()->isAllowed(MWGui::GW_Inventory))
+            return;
+
         // insert into player's inventory
-        MWWorld::Ptr player = environment.mWorld->getPtr ("player", true);
+        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPtr ("player", true);
 
         MWWorld::Class::get (player).getContainerStore (player).add (mObject);
 
-        // remove from world
-        environment.mWorld->deleteObject (mObject);
+        // remove from world, if the item is currently in the world (it could also be in a container)
+        if (mObject.isInCell())
+            MWBase::Environment::get().getWorld()->deleteObject (mObject);
     }
 }

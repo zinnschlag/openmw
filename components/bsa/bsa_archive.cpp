@@ -79,7 +79,7 @@ class DirArchive: public Ogre::FileSystemArchive
 	        {
 	           passed = filename.substr(0, filename.length() - 2);
 	        }
-	        if(filename.at(filename.length() - 2) == '>')
+	        if(filename.at(filename.length() - 2) == '>' || filename.at(filename.length() - 2) == ':')
 		        passed = filename.substr(0, filename.length() - 6);
             copy = passed;
         }
@@ -93,12 +93,12 @@ class DirArchive: public Ogre::FileSystemArchive
             return true;
 
         std::string folder;
-        int delimiter = 0;
+        //int delimiter = 0;
         size_t lastSlash = copy.rfind('/');
         if (lastSlash != std::string::npos)
         {
             folder = copy.substr(0, lastSlash);
-            delimiter = lastSlash+1;
+            //delimiter = lastSlash+1;
         }
 
         std::vector<std::string> current;
@@ -232,7 +232,7 @@ public:
 	{
 	   passed = filename.substr(0, filename.length() - 2);
 	}
-	if(filename.at(filename.length() - 2) == '>')
+	if(filename.at(filename.length() - 2) == '>' || filename.at(filename.length() - 2) == ':')
 		passed = filename.substr(0, filename.length() - 6);
     // Open the file
     StreamPtr strm = narc->getFile(passed.c_str());
@@ -254,7 +254,7 @@ bool exists(const String& filename) {
 	{
 	   passed = filename.substr(0, filename.length() - 2);
 	}
-	if(filename.at(filename.length() - 2) == '>')
+	if(filename.at(filename.length() - 2) == '>' || filename.at(filename.length() - 2) == ':')
 		passed = filename.substr(0, filename.length() - 6);
 
 return arc.exists(passed.c_str());

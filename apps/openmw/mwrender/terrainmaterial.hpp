@@ -73,6 +73,9 @@ namespace Ogre
 			void updateParamsForCompositeMap(const MaterialPtr& mat, const Terrain* terrain);
 			void requestOptions(Terrain* terrain);
 
+            void setShadowFar(float far);
+            void setShadowFadeStart(float fadestart);
+
 			/** Whether to support normal mapping per layer in the shader (default true). 
 			*/
 			bool isLayerNormalMappingEnabled() const  { return mLayerNormalMappingEnabled; }
@@ -164,7 +167,7 @@ namespace Ogre
 			class ShaderHelper : public TerrainAlloc
 			{
 			public:
-				ShaderHelper() {}
+				ShaderHelper() : mShadowSamplerStartHi(0), mShadowSamplerStartLo(0) {}
 				virtual ~ShaderHelper() {}
 				virtual HighLevelGpuProgramPtr generateVertexProgram(const SM2Profile* prof, const Terrain* terrain, TechniqueType tt);
 				virtual HighLevelGpuProgramPtr generateFragmentProgram(const SM2Profile* prof, const Terrain* terrain, TechniqueType tt);
@@ -245,6 +248,8 @@ namespace Ogre
 			bool mDepthShadows;
 			bool mLowLodShadows;
 			bool mSM3Available;
+            float mShadowFar;
+            float mShadowFadeStart;
 
 			bool isShadowingEnabled(TechniqueType tt, const Terrain* terrain) const;
 

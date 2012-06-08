@@ -8,10 +8,14 @@
 
 #include "../mwworld/class.hpp"
 
+#include <OgreWindowEventUtilities.h>
+
 #include <utility>
 #include <openengine/ogre/renderer.hpp>
 #include <openengine/ogre/fader.hpp>
 #include <openengine/bullet/physic.hpp>
+
+#include <components/settings/settings.hpp>
 
 #include <vector>
 #include <string>
@@ -25,17 +29,12 @@
 #include "objects.hpp"
 #include "actors.hpp"
 #include "player.hpp"
-#include "water.hpp"
-#include "localmap.hpp"
 #include "occlusionquery.hpp"
 
 namespace Ogre
 {
-    class Camera;
-    class Viewport;
     class SceneManager;
     class SceneNode;
-    class RaySceneQuery;
     class Quaternion;
     class Vector3;
 }
@@ -48,9 +47,13 @@ namespace MWWorld
 namespace MWRender
 {
 
+    class Shadows;
+    class ShaderHelper;
+    class LocalMap;
+    class Water;
+    class Compositors;
 
-
-class RenderingManager: private RenderingInterface {
+class RenderingManager: private RenderingInterface, public Ogre::WindowEventListener {
 
   private:
 
@@ -59,7 +62,7 @@ class RenderingManager: private RenderingInterface {
     virtual MWRender::Actors& getActors();
 
   public:
-    RenderingManager(OEngine::Render::OgreRenderer& _rend, const boost::filesystem::path& resDir, OEngine::Physic::PhysicEngine* engine, MWWorld::Environment& environment);
+    RenderingManager(OEngine::Render::OgreRenderer& _rend, const boost::filesystem::path& resDir, OEngine::Physic::PhysicEngine* engine);
     virtual ~RenderingManager();
 
 
@@ -69,6 +72,7 @@ class RenderingManager: private RenderingInterface {
                                             /// to internal details of the rendering system anymore
 
     SkyManager* getSkyManager();
+    Compositors* getCompositors();
 
     void toggleLight();
     bool toggleRenderMode(int mode);
@@ -83,6 +87,8 @@ class RenderingManager: private RenderingInterface {
     void waterAdded(MWWorld::Ptr::CellStore *store);
 
     void removeWater();
+
+    static const bool useMRT();
 
     void preCellChange (MWWorld::Ptr::CellStore* store);
     ///< this event is fired immediately before changing cell
@@ -115,6 +121,11 @@ class RenderingManager: private RenderingInterface {
     bool occlusionQuerySupported() { return mOcclusionQuery->supported(); };
     OcclusionQuery* getOcclusionQuery() { return mOcclusionQuery; };
 
+    Shadows* getShadows();
+
+    void switchToInterior();
+    void switchToExterior();
+
     void setGlare(bool glare);
     void skyEnable ();
     void skyDisable ();
@@ -146,9 +157,29 @@ class RenderingManager: private RenderingInterface {
     ///< Skip the animation for the given MW-reference for one frame. Calls to this function for
     /// references that are currently not in the rendered scene should be ignored.
 
+    Ogre::Vector4 boundingBoxToScreen(Ogre::AxisAlignedBox bounds);
+    ///< transform the specified bounding box (in world coordinates) into screen coordinates.
+    /// @return packed vector4 (min_x, min_y, max_x, max_y)
+
+    void processChangedSettings(const Settings::CategorySettingVector& settings);
+
+    Ogre::Viewport* getViewport() { return mRendering.getViewport(); }
+
+    static bool waterShaderSupported();
+
+  protected:
+	virtual void windowResized(Ogre::RenderWindow* rw);
+    virtual void windowClosed(Ogre::RenderWindow* rw);
+
   private:
 
     void setAmbientMode();
+
+    void setMenuTransparency(float val);
+
+    void applyCompositors();
+
+    bool mSunEnabled;
 
     SkyManager* mSkyManager;
 
@@ -181,6 +212,12 @@ class RenderingManager: private RenderingInterface {
     MWRender::Debugging *mDebugging;
 
     MWRender::LocalMap* mLocalMap;
+
+    MWRender::Shadows* mShadows;
+
+    MWRender::ShaderHelper* mShaderHelper;
+
+    MWRender::Compositors* mCompositors;
 };
 
 }

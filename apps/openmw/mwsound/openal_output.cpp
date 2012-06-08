@@ -222,8 +222,8 @@ void OpenAL_SoundStream::play()
     for(ALuint i = 0;i < sNumBuffers;i++)
     {
         size_t got;
-        got = mDecoder->read(data.data(), data.size());
-        alBufferData(mBuffers[i], mFormat, data.data(), got, mSampleRate);
+        got = mDecoder->read(&data[0], data.size());
+        alBufferData(mBuffers[i], mFormat, &data[0], got, mSampleRate);
     }
     throwALerror();
 
@@ -299,11 +299,11 @@ bool OpenAL_SoundStream::process()
             if(finished)
                 continue;
 
-            got = mDecoder->read(data.data(), data.size());
+            got = mDecoder->read(&data[0], data.size());
             finished = (got < data.size());
             if(got > 0)
             {
-                alBufferData(bufid, mFormat, data.data(), got, mSampleRate);
+                alBufferData(bufid, mFormat, &data[0], got, mSampleRate);
                 alSourceQueueBuffers(mSource, 1, &bufid);
             }
         } while(processed > 0);
@@ -467,10 +467,15 @@ void OpenAL_Output::init(const std::string &devname)
         else
             fail("Failed to open \""+devname+"\"");
     }
-    if(alcIsExtensionPresent(mDevice, "ALC_ENUMERATE_ALL_EXT"))
-        std::cout << "Opened \""<<alcGetString(mDevice, ALC_ALL_DEVICES_SPECIFIER)<<"\"" << std::endl;
     else
-        std::cout << "Opened \""<<alcGetString(mDevice, ALC_DEVICE_SPECIFIER)<<"\"" << std::endl;
+    {
+        const ALCchar *name = NULL;
+        if(alcIsExtensionPresent(mDevice, "ALC_ENUMERATE_ALL_EXT"))
+            name = alcGetString(mDevice, ALC_ALL_DEVICES_SPECIFIER);
+        if(alcGetError(mDevice) != AL_NO_ERROR || !name)
+            name = alcGetString(mDevice, ALC_DEVICE_SPECIFIER);
+        std::cout << "Opened \""<<name<<"\"" << std::endl;
+    }
 
     mContext = alcCreateContext(mDevice, NULL);
     if(!mContext || alcMakeContextCurrent(mContext) == ALC_FALSE)
@@ -590,7 +595,7 @@ ALuint OpenAL_Output::getBuffer(const std::string &fname)
     alGenBuffers(1, &buf);
     throwALerror();
 
-    alBufferData(buf, format, data.data(), data.size(), srate);
+    alBufferData(buf, format, &data[0], data.size(), srate);
     mBufferCache[fname] = buf;
     mBufferRefs[buf] = 1;
 

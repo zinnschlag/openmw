@@ -39,7 +39,7 @@ namespace MWWorld
                 return mPtr.empty();
             }
 
-            const std::type_info& getType()
+            const std::type_info& getType() const
             {
                 assert (!mPtr.empty());
                 return mPtr.type();
@@ -75,6 +75,11 @@ namespace MWWorld
             {
                 assert (mCell);
                 return mCell;
+            }
+
+            bool isInCell() const
+            {
+                return (mCell != 0);
             }
 
             void setContainerStore (ContainerStore *store);

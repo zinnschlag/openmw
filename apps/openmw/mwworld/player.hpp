@@ -8,6 +8,8 @@
 #include "../mwworld/refdata.hpp"
 #include "../mwworld/ptr.hpp"
 
+#include "../mwmechanics/drawstate.hpp"
+
 namespace MWRender
 {
     class Player;
@@ -18,7 +20,7 @@ namespace MWWorld
     class World;
 
     /// \brief NPC object representing the player and additional player data
-    class Player
+    class Player 
     {
         ESMS::LiveCellRef<ESM::NPC, MWWorld::RefData> mPlayer;
         MWWorld::Ptr::CellStore *mCellStore;
@@ -31,7 +33,6 @@ namespace MWWorld
         ESM::Class *mClass;
         bool mAutoMove;
         int mForwardBackward;
-
     public:
 
         Player(MWRender::Player *renderer, const ESM::NPC *player, MWWorld::World& world);
@@ -40,6 +41,9 @@ namespace MWWorld
 
         /// Set the player position. Uses Morrowind coordinates.
         void setPos(float x, float y, float z);
+
+        /// Set where the player is looking at. Uses Morrowind (euler) angles
+        void setRot(float x, float y, float z);
 
         void setCell (MWWorld::Ptr::CellStore *cellStore)
         {
@@ -76,6 +80,8 @@ namespace MWWorld
 
         void setClass (const ESM::Class& class_);
 
+        void setDrawState(const DrawState& state);
+
         std::string getName() const
         {
             return mName;
@@ -101,16 +107,19 @@ namespace MWWorld
             return *mClass;
         }
 
-        bool getAutoMove()
+        bool getAutoMove() const
         {
             return mAutoMove;
         }
+
+        DrawState getDrawState();
 
         void setAutoMove (bool enable);
 
         void setLeftRight (int value);
 
         void setForwardBackward (int value);
+		void setUpDown(int value);
 
         void toggleRunning();
     };

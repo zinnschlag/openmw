@@ -7,6 +7,8 @@
 
 #include "../mwscript/extensions.hpp"
 
+#include "../mwbase/environment.hpp"
+
 namespace MWGui
 {
     class ConsoleInterpreterContext : public MWScript::InterpreterContext
@@ -15,15 +17,14 @@ namespace MWGui
 
         public:
 
-            ConsoleInterpreterContext (Console& console, MWWorld::Environment& environment,
-                MWWorld::Ptr reference);
+            ConsoleInterpreterContext (Console& console, MWWorld::Ptr reference);
 
             virtual void report (const std::string& message);
     };
 
     ConsoleInterpreterContext::ConsoleInterpreterContext (Console& console,
-        MWWorld::Environment& environment, MWWorld::Ptr reference)
-    : MWScript::InterpreterContext (environment,
+        MWWorld::Ptr reference)
+    : MWScript::InterpreterContext (
         reference.isEmpty() ? 0 : &reference.getRefData().getLocals(), reference),
       mConsole (console)
     {}
@@ -88,7 +89,7 @@ namespace MWGui
             scanner.listKeywords (mNames);
 
             // identifier
-            const ESMS::ESMStore& store = mEnvironment.mWorld->getStore();
+            const ESMS::ESMStore& store = MWBase::Environment::get().getWorld()->getStore();
 
             for (ESMS::RecListList::const_iterator iter (store.recLists.begin());
                 iter!=store.recLists.end(); ++iter)
@@ -101,11 +102,9 @@ namespace MWGui
         }
     }
 
-    Console::Console(int w, int h, MWWorld::Environment& environment,
-        const Compiler::Extensions& extensions)
+    Console::Console(int w, int h, const Compiler::Extensions& extensions)
       : Layout("openmw_console_layout.xml"),
-        mCompilerContext (MWScript::CompilerContext::Type_Console, environment),
-        mEnvironment (environment)
+        mCompilerContext (MWScript::CompilerContext::Type_Console)
     {
         setCoord(10,10, w-10, h/2);
 
@@ -139,7 +138,8 @@ namespace MWGui
     void Console::disable()
     {
         setVisible(false);
-        // Remove keyboard focus from the console input whenever the 
+        setSelectedObject(MWWorld::Ptr());
+        // Remove keyboard focus from the console input whenever the
         // console is turned off
         MyGUI::InputManager::getInstance().setKeyFocusWidget(NULL);
     }
@@ -241,7 +241,7 @@ namespace MWGui
         {
             try
             {
-                ConsoleInterpreterContext interpreterContext (*this, mEnvironment, MWWorld::Ptr());
+                ConsoleInterpreterContext interpreterContext (*this, mPtr);
                 Interpreter::Interpreter interpreter;
                 MWScript::installOpcodes (interpreter);
                 std::vector<Interpreter::Type_Code> code;
@@ -268,7 +268,7 @@ namespace MWGui
         /* Are there quotation marks? */
         if( tmp.find('"') != string::npos ) {
             int numquotes=0;
-            for(string::iterator it=tmp.begin(); it < tmp.end(); it++) {
+            for(string::iterator it=tmp.begin(); it < tmp.end(); ++it) {
                 if( *it == '"' )
                     numquotes++;
             }
@@ -311,7 +311,7 @@ namespace MWGui
         }
 
         /* Iterate through the vector. */
-        for(vector<string>::iterator it=mNames.begin(); it < mNames.end();it++) {
+        for(vector<string>::iterator it=mNames.begin(); it < mNames.end();++it) {
             bool string_different=false;
 
             /* Is the string shorter than the input string? If yes skip it. */
@@ -359,7 +359,7 @@ namespace MWGui
         int i = tmp.length();
 
         for(string::iterator iter=matches.front().begin()+tmp.length(); iter < matches.front().end(); iter++, i++) {
-            for(vector<string>::iterator it=matches.begin(); it < matches.end();it++) {
+            for(vector<string>::iterator it=matches.begin(); it < matches.end();++it) {
                 if( tolower((*it)[i]) != tolower(*iter) ) {
                     /* Append the longest match to the end of the output string*/
                     output.append(matches.front().substr( 0, i));
@@ -370,5 +370,25 @@ namespace MWGui
 
         /* All keywords match with the shortest. Append it to the output string and return it. */
         return output.append(matches.front());
+    }
+
+    void Console::onResChange(int width, int height)
+    {
+        setCoord(10,10, width-10, height/2);
+    }
+
+    void Console::setSelectedObject(const MWWorld::Ptr& object)
+    {
+        mPtr = object;
+        if (!mPtr.isEmpty())
+            setTitle("#{sConsoleTitle} (" + mPtr.getCellRef().refID + ")");
+        else
+            setTitle("#{sConsoleTitle}");
+        MyGUI::InputManager::getInstance().setKeyFocusWidget(command);
+    }
+
+    void Console::onReferenceUnavailable()
+    {
+        setSelectedObject(MWWorld::Ptr());
     }
 }

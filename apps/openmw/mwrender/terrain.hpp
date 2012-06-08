@@ -24,7 +24,7 @@ namespace MWRender{
      */
     class TerrainManager{
     public:
-        TerrainManager(Ogre::SceneManager* mgr, const MWWorld::Environment& env);
+        TerrainManager(Ogre::SceneManager* mgr, RenderingManager* rend);
         virtual ~TerrainManager();
 
         void setDiffuse(const Ogre::ColourValue& diffuse);
@@ -33,10 +33,10 @@ namespace MWRender{
         void cellAdded(MWWorld::Ptr::CellStore* store);
         void cellRemoved(MWWorld::Ptr::CellStore* store);
     private:
-        Ogre::TerrainGlobalOptions mTerrainGlobals;
+        Ogre::TerrainGlobalOptions* mTerrainGlobals;
         Ogre::TerrainGroup mTerrainGroup;
 
-        const MWWorld::Environment& mEnvironment;
+        RenderingManager* mRendering;
 
         Ogre::TerrainMaterialGeneratorB::SM2Profile* mActiveProfile;
 

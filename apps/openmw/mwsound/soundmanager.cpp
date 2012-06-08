@@ -8,7 +8,8 @@
 
 #include <components/esm_store/store.hpp>
 
-#include "../mwworld/environment.hpp"
+#include "../mwbase/environment.hpp"
+
 #include "../mwworld/world.hpp"
 #include "../mwworld/player.hpp"
 
@@ -45,14 +46,28 @@
 
 namespace MWSound
 {
-    SoundManager::SoundManager(bool useSound, MWWorld::Environment& environment)
+    SoundManager::SoundManager(bool useSound)
         : mResourceMgr(Ogre::ResourceGroupManager::getSingleton())
-        , mEnvironment(environment)
         , mOutput(new DEFAULT_OUTPUT(*this))
-
+        , mMasterVolume(1.0f)
+        , mSFXVolume(1.0f)
+        , mMusicVolume(1.0f)
+        , mFootstepsVolume(1.0f)
+        , mVoiceVolume(1.0f)
     {
         if(!useSound)
             return;
+
+        mMasterVolume = Settings::Manager::getFloat("master volume", "Sound");
+        mMasterVolume = std::min(std::max(mMasterVolume, 0.0f), 1.0f);
+        mSFXVolume = Settings::Manager::getFloat("sfx volume", "Sound");
+        mSFXVolume = std::min(std::max(mSFXVolume, 0.0f), 1.0f);
+        mMusicVolume = Settings::Manager::getFloat("music volume", "Sound");
+        mMusicVolume = std::min(std::max(mMusicVolume, 0.0f), 1.0f);
+        mVoiceVolume = Settings::Manager::getFloat("voice volume", "Sound");
+        mVoiceVolume = std::min(std::max(mVoiceVolume, 0.0f), 1.0f);
+        mFootstepsVolume = Settings::Manager::getFloat("footsteps volume", "Sound");
+        mFootstepsVolume = std::min(std::max(mFootstepsVolume, 0.0f), 1.0f);
 
         std::cout << "Sound output: " << SOUND_OUT << std::endl;
         std::cout << "Sound decoder: " << SOUND_IN << std::endl;
@@ -64,7 +79,19 @@ namespace MWSound
             for(size_t i = 0;i < names.size();i++)
                 std::cout <<"  "<<names[i]<< std::endl;
 
-            mOutput->init();
+            std::string devname = Settings::Manager::getString("device", "Sound");
+            try
+            {
+                mOutput->init(devname);
+            }
+            catch(std::exception &e)
+            {
+                if(devname.empty())
+                    throw;
+                std::cout <<"Failed to open device \""<<devname<<"\", trying default"<< std::endl;
+                mOutput->init();
+                Settings::Manager::setString("device", "Sound", "");
+            }
         }
         catch(std::exception &e)
         {
@@ -91,7 +118,7 @@ namespace MWSound
     std::string SoundManager::lookup(const std::string &soundId,
                        float &volume, float &min, float &max)
     {
-        const ESM::Sound *snd = mEnvironment.mWorld->getStore().sounds.search(soundId);
+        const ESM::Sound *snd = MWBase::Environment::get().getWorld()->getStore().sounds.search(soundId);
         if(snd == NULL)
             throw std::runtime_error(std::string("Failed to lookup sound ")+soundId);
 
@@ -141,9 +168,10 @@ namespace MWSound
         std::cout <<"Playing "<<filename<< std::endl;
         try
         {
+            float basevol = mMasterVolume * mMusicVolume;
             stopMusic();
-            mMusic = mOutput->streamSound(filename, 0.4f, 1.0f, Play_NoEnv);
-            mMusic->mBaseVolume = 0.4f;
+            mMusic = mOutput->streamSound(filename, basevol, 1.0f, Play_NoEnv);
+            mMusic->mBaseVolume = basevol;
             mMusic->mFlags = Play_NoEnv;
         }
         catch(std::exception &e)
@@ -187,7 +215,7 @@ namespace MWSound
         try
         {
             // The range values are not tested
-            float basevol = 1.0f; /* TODO: volume settings */
+            float basevol = mMasterVolume * mVoiceVolume;
             std::string filePath = "Sound/"+filename;
             const ESM::Position &pos = ptr.getCellRef().pos;
             const Ogre::Vector3 objpos(pos.pos[0], pos.pos[1], pos.pos[2]);
@@ -205,10 +233,46 @@ namespace MWSound
         }
     }
 
+    void SoundManager::say(const std::string& filename)
+    {
+        if(!mOutput->isInitialized())
+            return;
+        try
+        {
+            float basevol = mMasterVolume * mVoiceVolume;
+            std::string filePath = "Sound/"+filename;
+
+            SoundPtr sound = mOutput->playSound(filePath, basevol, 1.0f, Play_Normal);
+            sound->mBaseVolume = basevol;
+
+            mActiveSounds[sound] = std::make_pair(MWWorld::Ptr(), std::string("_say_sound"));
+        }
+        catch(std::exception &e)
+        {
+            std::cout <<"Sound Error: "<<e.what()<< std::endl;
+        }
+    }
+
     bool SoundManager::sayDone(MWWorld::Ptr ptr) const
     {
         return !isPlaying(ptr, "_say_sound");
     }
+
+    void SoundManager::stopSay(MWWorld::Ptr ptr)
+    {
+        SoundMap::iterator snditer = mActiveSounds.begin();
+        while(snditer != mActiveSounds.end())
+        {
+            if(snditer->second.first == ptr && snditer->second.second == "_say_sound")
+            {
+                snditer->first->stop();
+                mActiveSounds.erase(snditer++);
+            }
+            else
+                snditer++;
+        }
+    }
+
 
 
     SoundPtr SoundManager::playSound(const std::string& soundId, float volume, float pitch, int mode)
@@ -218,7 +282,7 @@ namespace MWSound
             return sound;
         try
         {
-            float basevol = 1.0f; /* TODO: volume settings */
+            float basevol = mMasterVolume * mSFXVolume;
             float min, max;
             std::string file = lookup(soundId, basevol, min, max);
 
@@ -248,7 +312,7 @@ namespace MWSound
         try
         {
             // Look up the sound in the ESM data
-            float basevol = 1.0f; /* TODO: volume settings */
+            float basevol = mMasterVolume * mSFXVolume;
             float min, max;
             std::string file = lookup(soundId, basevol, min, max);
             const ESM::Position &pos = ptr.getCellRef().pos;
@@ -357,7 +421,7 @@ namespace MWSound
 
     void SoundManager::updateRegionSound(float duration)
     {
-        MWWorld::Ptr::CellStore *current = mEnvironment.mWorld->getPlayer().getPlayer().getCell();
+        MWWorld::Ptr::CellStore *current = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell();
         static int total = 0;
         static std::string regionName = "";
         static float timePassed = 0.0;
@@ -374,7 +438,10 @@ namespace MWSound
             total = 0;
         }
 
-        const ESM::Region *regn = mEnvironment.mWorld->getStore().regions.find(regionName);
+        const ESM::Region *regn = MWBase::Environment::get().getWorld()->getStore().regions.search(regionName);
+        if (regn == NULL)
+            return;
+
         std::vector<ESM::Region::SoundRef>::const_iterator soundIter;
         if(total == 0)
         {
@@ -422,8 +489,8 @@ namespace MWSound
         if(!isMusicPlaying())
             startRandomTitle();
 
-        const ESM::Cell *cell = mEnvironment.mWorld->getPlayer().getPlayer().getCell()->cell;
-        Ogre::Camera *cam = mEnvironment.mWorld->getPlayer().getRenderer()->getCamera();
+        const ESM::Cell *cell = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->cell;
+        Ogre::Camera *cam = MWBase::Environment::get().getWorld()->getPlayer().getRenderer()->getCamera();
         Ogre::Vector3 nPos, nDir, nUp;
         nPos = cam->getRealPosition();
         nDir = cam->getRealDirection();
@@ -464,6 +531,39 @@ namespace MWSound
         updateRegionSound(duration);
     }
 
+
+    void SoundManager::processChangedSettings(const Settings::CategorySettingVector& settings)
+    {
+        mMasterVolume = Settings::Manager::getFloat("master volume", "Sound");
+        mMusicVolume = Settings::Manager::getFloat("music volume", "Sound");
+        mSFXVolume = Settings::Manager::getFloat("sfx volume", "Sound");
+        mFootstepsVolume = Settings::Manager::getFloat("footsteps volume", "Sound");
+        mVoiceVolume = Settings::Manager::getFloat("voice volume", "Sound");
+
+        SoundMap::iterator snditer = mActiveSounds.begin();
+        while(snditer != mActiveSounds.end())
+        {
+            if(snditer->second.second != "_say_sound")
+            {
+                float basevol = mMasterVolume * mSFXVolume;
+                float min, max;
+                lookup(snditer->second.second, basevol, min, max);
+                snditer->first->mBaseVolume = basevol;
+            }
+            else
+            {
+                float basevol = mMasterVolume * mVoiceVolume;
+                snditer->first->mBaseVolume = basevol;
+            }
+            snditer->first->update();
+            snditer++;
+        }
+        if(mMusic)
+        {
+            mMusic->mBaseVolume = mMasterVolume * mMusicVolume;
+            mMusic->update();
+        }
+    }
 
     // Default readAll implementation, for decoders that can't do anything
     // better
