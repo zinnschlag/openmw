@@ -23,6 +23,12 @@ public:
     virtual int columnCount() const;
     virtual QVariant data(int column) const;
 
+    //TODO Make this nicer
+    void setId(QString id) {mId = id;}
+
+protected:
+    QString mId;
+
 private:
     QList<ESMDataItem*> mChildItems;
     QList<QVariant> mItemData;

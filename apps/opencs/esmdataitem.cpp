@@ -29,8 +29,7 @@ int ESMDataItem::childCount() const
 
 int ESMDataItem::columnCount() const
 {
-    return 2;
-    //return mItemData.count();
+    return 10;
 }
 
 QVariant ESMDataItem::data(int column) const
@@ -61,21 +60,30 @@ ActivatorDataItem::ActivatorDataItem(const ESM::Activator activator, ESMDataItem
 
 int ActivatorDataItem::columnCount() const
 {
-    return 3;
+    return 4;
 }
 
 QVariant ActivatorDataItem::data(int column) const
-{
+{    
+    QString result;
     switch(column) {
     case 0:
-        return QVariant(QString::fromStdString(mActivator.name));
+        result = mId;
+        break;
     case 1:
-        return QVariant(QString::fromStdString(mActivator.model));
+        result = QString::fromStdString(mActivator.name);
+        break;
     case 2:
-        return QVariant(QString::fromStdString(mActivator.script));
+        result = QString::fromStdString(mActivator.model);
+        break;
+    case 3:
+        result = QString::fromStdString(mActivator.script);
+        break;
     default:
-        return QVariant("-");
+        result = "-";
     }
+
+    return QVariant(result);
 }
 
 PotionDataItem::PotionDataItem(const ESM::Potion potion, PotionDataItem::ESMDataItem *parent)
@@ -87,23 +95,25 @@ PotionDataItem::PotionDataItem(const ESM::Potion potion, PotionDataItem::ESMData
 
 int PotionDataItem::columnCount() const
 {
-    return 6;
+    return 7;
 }
 
 QVariant PotionDataItem::data(int column) const
 {
     switch(column) {
     case 0:
-        return QVariant(QString::fromStdString(mPotion.name));
+        return mId;
     case 1:
-        return QVariant(QString::fromStdString(mPotion.model));
+        return QVariant(QString::fromStdString(mPotion.name));
     case 2:
-        return QVariant(QString::fromStdString(mPotion.script));
+        return QVariant(QString::fromStdString(mPotion.model));
     case 3:
-        return QVariant(mPotion.data.weight);
+        return QVariant(QString::fromStdString(mPotion.script));
     case 4:
-        return QVariant(mPotion.data.value);
+        return QVariant(mPotion.data.weight);
     case 5:
+        return QVariant(mPotion.data.value);
+    case 6:
         return QVariant(mPotion.data.autoCalc);
     default:
         return QVariant("-");
@@ -162,7 +172,7 @@ SectionDataItem::SectionDataItem(int32_t esmName, ESMDataItem *parent)
 
 int SectionDataItem::columnCount() const
 {
-    return 2;
+    return 10;
 }
 
 QVariant SectionDataItem::data(int column) const

@@ -40,8 +40,10 @@ void OpenCS::openFile()
         std::string stdStrFileName = fileName.toStdString();
         esm.open(stdStrFileName);
         model = new ESMDataModel(esm);
+
         ui->treeView->setModel(model);
-        ui->treeView->update();
+        ui->treeView_2->setModel(model);
+
     } catch(std::exception &e) {
         qWarning() << e.what();
     }

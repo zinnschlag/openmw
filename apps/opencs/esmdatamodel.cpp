@@ -169,15 +169,13 @@ int ESMDataModel::rowCount(const QModelIndex &parent) const
 
 void ESMDataModel::setupModelData(ESM::ESMReader &esm)
 {
-    QList<QVariant> columnData;
 
     while(esm.hasMoreRecs()) {
         ESM::NAME n = esm.getRecName();
         esm.getRecHeader();
-        std::string id = esm.getHNOString("NAME");
 
-        columnData.clear();
-        columnData << QString::fromStdString(id);
+        std::string id = esm.getHNOString("NAME");
+        QString recordId = QString::fromStdString(id);
 
         ESMDataItem *sectionItem;
 
@@ -196,6 +194,7 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
             ac.load(esm);
 
             ActivatorDataItem *activatorItem = new ActivatorDataItem(ac, sectionItem);
+            activatorItem->setId(recordId);
             sectionItem->appendChild(activatorItem);
         }
         break;
@@ -205,6 +204,7 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
             p.load(esm);
 
             PotionDataItem *potionItem = new PotionDataItem(p, sectionItem);
+            potionItem->setId(recordId);
             sectionItem->appendChild(potionItem);
 
             /*
