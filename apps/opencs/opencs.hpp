@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 
+#include <components/esm/esm_reader.hpp>
+#include "esmdatamodel.hpp"
+
 namespace Ui {
 class OpenCS;
 }
@@ -17,6 +20,12 @@ public:
     
 private:
     Ui::OpenCS *ui;
+
+    ESM::ESMReader esm;
+    ESMDataModel *model;
+
+private slots:
+    void openFile();
 };
 
 #endif // OPENCS_H
