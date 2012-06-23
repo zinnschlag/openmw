@@ -26,6 +26,7 @@ private:
 
 private slots:
     void openFile();
+    //void selectObject(const QModelIndex &index);
 };
 
 #endif // OPENCS_H

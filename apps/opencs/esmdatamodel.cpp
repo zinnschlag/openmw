@@ -68,53 +68,7 @@ ESMDataModel::ESMDataModel(ESM::ESMReader &esm, QObject *parent)
     mBodyPartNames.insert(ESM::BodyPart::MP_Clavicle, "Clavicle");
     mBodyPartNames.insert(ESM::BodyPart::MP_Tail, "Tail");
 
-    QList<QVariant> rootData;
-    rootData << "Name";
-    mRootItem = new ESMDataItem(rootData);
-
-    // Create root items for every record type
-    QList<QVariant> headerText;
-
-    headerText << "Activator" << "Mesh" << "Script";
-    mActivator = new ESMDataItem(headerText, mRootItem);
-    mRootItem->appendChild(mActivator);
-    headerText.clear();
-
-    headerText << "Potion" << "Model" << "Icon" << "Script" << "Effects" << "Weight" << "Value" << "AutoCalc";
-    mPotion = new ESMDataItem(headerText, mRootItem);
-    mRootItem->appendChild(mPotion);
-    headerText.clear();
-
-
-    headerText << "Apparatus" << "Model" << "Icon" << "Script" << "Quality" << "Type" << "Weight" << "Value";
-    mApparatus = new ESMDataItem(headerText, mRootItem);
-    mRootItem->appendChild(mApparatus);
-    headerText.clear();
-
-    headerText << "Armor" << "Model" << "Icon" << "Script" << "Enchantment" << "Type" << "Weight" << "Value" << "Health" << "Armor Rating";
-    mArmor = new ESMDataItem(headerText, mRootItem);
-    mRootItem->appendChild(mArmor);
-    headerText.clear();
-
-    headerText << "BodyPart" << "Model" << "Part" << "Type" << "Flags" << "Vampire";
-    mBodyPart = new ESMDataItem(headerText, mRootItem);
-    mRootItem->appendChild(mBodyPart);
-    headerText.clear();
-/*
-    ESMDataItem *mBirthSign = new ESMDataItem(headerText);
-    ESMDataItem *mCell = new ESMDataItem(headerText);
-    ESMDataItem *mClass = new ESMDataItem(headerText);
-    ESMDataItem *mClothing = new ESMDataItem(headerText);
-    ESMDataItem *mContainer = new ESMDataItem(headerText);
-    ESMDataItem *mCreature = new ESMDataItem(headerText);
-    ESMDataItem *mDialogue = new ESMDataItem(headerText);
-    ESMDataItem *mDoor = new ESMDataItem(headerText);
-    ESMDataItem *mEnchantment = new ESMDataItem(headerText);
-    ESMDataItem *mGameSetting = new ESMDataItem(headerText);
-    ESMDataItem *mDialInfo = new ESMDataItem(headerText);
-    ESMDataItem *mSound = new ESMDataItem(headerText);
-    ESMDataItem *mSpell = new ESMDataItem(headerText);
-*/
+    mRootItem = new ESMDataItem();
 
     setupModelData(esm);
 }
@@ -156,8 +110,10 @@ Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
 
 QVariant ESMDataModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return mRootItem->data(section);
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole){
+        return QVariant(QString("title ") + QString::number(section));
+     //   return mRootItem->data(section);
+    }
 
     return QVariant();
 }
@@ -213,7 +169,6 @@ int ESMDataModel::rowCount(const QModelIndex &parent) const
 
 void ESMDataModel::setupModelData(ESM::ESMReader &esm)
 {
-    bool skipped = false;
     QList<QVariant> columnData;
 
     while(esm.hasMoreRecs()) {
@@ -224,28 +179,35 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
         columnData.clear();
         columnData << QString::fromStdString(id);
 
+        ESMDataItem *sectionItem;
+
+        if(!mSectionDataItems.contains(n.val)) {
+            sectionItem = new SectionDataItem(n.val, mRootItem);
+            mSectionDataItems[n.val] = sectionItem;
+            mRootItem->appendChild(sectionItem);
+        } else {
+            sectionItem = mSectionDataItems[n.val];
+        }
+
         switch(n.val) {
         case ESM::REC_ACTI:
         {
             ESM::Activator ac;
             ac.load(esm);
-            columnData << QString::fromStdString(ac.name) << QString::fromStdString(ac.model);
-            columnData << QString::fromStdString(ac.script);
 
-            mActivator->appendChild(new ESMDataItem(columnData, mActivator));
+            ActivatorDataItem *activatorItem = new ActivatorDataItem(ac, sectionItem);
+            sectionItem->appendChild(activatorItem);
         }
-            break;
+        break;
         case ESM::REC_ALCH:
         {
             ESM::Potion p;
             p.load(esm);
 
-            columnData << QString::fromStdString(p.name) << QString::fromStdString(p.model);
-            columnData << p.data.weight << p.data.value << p.data.weight;
+            PotionDataItem *potionItem = new PotionDataItem(p, sectionItem);
+            sectionItem->appendChild(potionItem);
 
-            ESMDataItem *potion = new ESMDataItem(columnData, mPotion);
-            mPotion->appendChild(potion);
-            columnData.clear();
+            /*
 
             for(std::vector<ESM::ENAMstruct>::const_iterator iter(p.effects.list.begin()); iter!=p.effects.list.end(); ++iter)
             {
@@ -255,8 +217,10 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
                 potion->appendChild(effect);
                 columnData.clear();
             }
+            */
         }
             break;
+            /*
         case ESM::REC_APPA:
         {
             ESM::Apparatus p;
@@ -323,186 +287,10 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
 
             break;
         }
+        */
         default:
             esm.skipRecord();
             break;
         }
     }
 }
-        /*case REC_ALCH:
-        {
-            Potion p;
-            p.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << p.name << endl;
-            break;
-        }
-
-        case REC_APPA:
-        {
-            Apparatus p;
-            p.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << p.name << endl;
-            break;
-        }
-        case REC_ARMO:
-        {
-            Armor am;
-            am.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << am.name << endl;
-            cout << "  Mesh: " << am.model << endl;
-            cout << "  Icon: " << am.icon << endl;
-            cout << "  Script: " << am.script << endl;
-            cout << "  Enchantment: " << am.enchant << endl;
-            cout << "  Type: " << am.data.type << endl;
-            cout << "  Weight: " << am.data.weight << endl;
-            break;
-        }
-        case REC_BODY:
-        {
-            BodyPart bp;
-            bp.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << bp.name << endl;
-            cout << "  Mesh: " << bp.model << endl;
-            break;
-        }
-        case REC_BOOK:
-        {
-            Book b;
-            b.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << b.name << endl;
-            cout << "  Mesh: " << b.model << endl;
-            break;
-        }
-        case REC_BSGN:
-        {
-            BirthSign bs;
-            bs.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << bs.name << endl;
-            cout << "  Texture: " << bs.texture << endl;
-            cout << "  Description: " << bs.description << endl;
-            break;
-        }
-        case REC_CELL:
-        {
-            Cell b;
-            b.load(esm);
-            if(!quiet)
-            {
-                cout << "  Name: " << b.name << endl;
-                cout << "  Region: " << b.region << endl;
-            }
-            if(loadCells)
-                loadCell(b, esm, quiet);
-            break;
-        }
-        case REC_CLAS:
-        {
-            Class b;
-            b.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << b.name << endl;
-            cout << "  Description: " << b.description << endl;
-            break;
-        }
-        case REC_CLOT:
-        {
-            Clothing b;
-            b.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << b.name << endl;
-            break;
-        }
-        case REC_CONT:
-        {
-            Container b;
-            b.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << b.name << endl;
-            break;
-        }
-        case REC_CREA:
-        {
-            Creature b;
-            b.load(esm, id);
-            if(quiet) break;
-            cout << "  Name: " << b.name << endl;
-            break;
-        }
-        case REC_DIAL:
-        {
-            Dialogue b;
-            b.load(esm);
-            break;
-        }
-        case REC_DOOR:
-        {
-            Door d;
-            d.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << d.name << endl;
-            cout << "  Mesh: " << d.model << endl;
-            cout << "  Script: " << d.script << endl;
-            cout << "  OpenSound: " << d.openSound << endl;
-            cout << "  CloseSound: " << d.closeSound << endl;
-            break;
-        }
-        case REC_ENCH:
-        {
-            Enchantment b;
-            b.load(esm);
-            break;
-        }
-        case REC_GMST:
-        {
-            GameSetting b;
-            b.id = id;
-            b.load(esm);
-            if(quiet) break;
-            cout << "  Value: ";
-            if(b.type == VT_String)
-                cout << "'" << b.str << "' (string)";
-            else if(b.type == VT_Float)
-                cout << b.f << " (float)";
-            else if(b.type == VT_Int)
-                cout << b.i << " (int)";
-            cout << "\n  Dirty: " << b.dirty << endl;
-            break;
-        }
-        case REC_INFO:
-        {
-            DialInfo p;
-            p.load(esm);
-            if(quiet) break;
-            cout << "  Id: " << p.id << endl;
-            cout << "  Text: " << p.response << endl;
-            break;
-        }
-        case REC_SOUN:
-        {
-            Sound d;
-            d.load(esm);
-            if(quiet) break;
-            cout << "  Sound: " << d.sound << endl;
-            cout << "  Volume: " << (int)d.data.volume << endl;
-            break;
-        }
-        case REC_SPEL:
-        {
-            Spell s;
-            s.load(esm);
-            if(quiet) break;
-            cout << "  Name: " << s.name << endl;
-            break;
-        }
-        default:
-            esm.skipRecord();
-            if(quiet) break;
-            cout << "  Skipping\n";
-        }
-    }*/
