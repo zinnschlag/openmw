@@ -1,42 +1,44 @@
-set(OPENCS
+set(OPENCS_SRC
     main.cpp
+    opencs.cpp
     esmdataitem.cpp
     esmdatamodel.cpp
 )
 
-set(OPENCS_HEADER
-    esmdataitem.hpp
+set(OPENCS_HDR
+    opencs.hpp
+    esmdataitem.cpp
     esmdatamodel.hpp
 )
 
-# Headers that must be pre-processed
-set(OPENCS_HEADER_MOC
-    esmdatamodel.hpp
+set(OPENCS_UI
+    opencs.ui
 )
 
-source_group(opencs FILES ${OPENCS} ${OPENCS_HEADER} ${OPENCS_HEADER_MOC})
+set(OPENCS_RES
+    ../launcher/resources.qrc
+)
 
-find_package(Qt4 REQUIRED)
-set(QT_USE_QTGUI 1)
+source_group(opencs FILES ${OPENCS_SRC} ${OPENCS_HDR})
 
-# Set some platform specific settings
 if(WIN32)
-    set(GUI_TYPE WIN32)
     set(QT_USE_QTMAIN TRUE)
 endif(WIN32)
 
-#QT4_ADD_RESOURCES(RCC_SRCS resources.qrc)
-QT4_WRAP_CPP(MOC_SRCS ${OPENCS_HEADER_MOC})
-
+find_package(Qt4 REQUIRED)
 include(${QT_USE_FILE})
 
-# Main executable
+qt4_wrap_ui(OPENCS_UI_HDR ${OPENCS_UI})
+qt4_wrap_cpp(OPENCS_MOC_SRC ${OPENCS_HDR})
+qt4_add_resources(OPENCS_RES_SRC ${OPENCS_RES})
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(opencs
-    ${GUI_TYPE}
-    ${OPENCS}
-    ${RCC_SRCS}
-    ${MOC_SRCS}
+    ${OPENCS_SRC}
+    ${OPENCS_UI_HDR}
+    ${OPENCS_MOC_SRC}
+    ${OPENCS_RES_SRC}
 )
 
 target_link_libraries(opencs
