@@ -26,6 +26,8 @@ void OpenCS::openFile()
         qDebug() << "Trying to open esm:" << fileName;
         esm.open(fileName.toStdString());
         model = new ESMDataModel(esm);
+        ui->treeView->setModel(model);
+        ui->treeView->update();
     } catch(std::exception &e) {
         qWarning() << e.what();
     }

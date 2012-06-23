@@ -33,12 +33,19 @@ public:
 private:
     void setupModelData(ESM::ESMReader &esm);
 
-    //ESMDataItem *mRootItem;
+    QMap<unsigned char, QString> mArmorTypeNames;
+    QMap<unsigned char, QString> mArmorBodyPartNames;
+
+    QMap<unsigned char, QString> mBodyPartNames;
+
+    ESMDataItem *mRootItem;
+
     ESMDataItem *mActivator;
     ESMDataItem *mPotion;
     ESMDataItem *mApparatus;
     ESMDataItem *mArmor;
     ESMDataItem *mBodyPart;
+    /*
     ESMDataItem *mBook;
     ESMDataItem *mBirthSign;
     ESMDataItem *mCell;
@@ -53,6 +60,7 @@ private:
     ESMDataItem *mDialInfo;
     ESMDataItem *mSound;
     ESMDataItem *mSpell;
+    */
 
 };
 
