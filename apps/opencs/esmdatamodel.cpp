@@ -206,18 +206,6 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
             PotionDataItem *potionItem = new PotionDataItem(p, sectionItem);
             potionItem->setId(recordId);
             sectionItem->appendChild(potionItem);
-
-            /*
-
-            for(std::vector<ESM::ENAMstruct>::const_iterator iter(p.effects.list.begin()); iter!=p.effects.list.end(); ++iter)
-            {
-                columnData << iter->effectID << iter->skill << iter->attribute << iter->range << iter->area << iter->duration << iter->magnMin << iter->magnMax;
-
-                ESMDataItem *effect = new ESMDataItem(columnData, potion);
-                potion->appendChild(effect);
-                columnData.clear();
-            }
-            */
         }
             break;
             /*

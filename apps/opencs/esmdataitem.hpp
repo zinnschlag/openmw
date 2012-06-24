@@ -70,4 +70,16 @@ private:
     ESM::Potion mPotion;
 };
 
+class MagicEffectDataItem : public ESMDataItem
+{
+public:
+    MagicEffectDataItem(const ESM::ENAMstruct potion, PotionDataItem::ESMDataItem *parent);
+
+    virtual int columnCount() const;
+    virtual QVariant data(int column) const;
+private:
+    ESM::ENAMstruct mMagicEffect;
+};
+
+
 #endif // ESMDATAITEM_HPP

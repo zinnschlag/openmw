@@ -1,3 +1,5 @@
+#add_subdirectory(qtpropertybrowser)
+
 set(OPENCS_SRC
     main.cpp
     opencs.cpp
@@ -45,6 +47,7 @@ target_link_libraries(opencs
     ${Boost_LIBRARIES}
     ${QT_LIBRARIES}
     components
+    #PropertyBrowser
 )
 
 if(DPKG_PROGRAM)

@@ -6,6 +6,9 @@
 #include <components/esm/esm_reader.hpp>
 #include "esmdatamodel.hpp"
 
+//#include "qtpropertybrowser/src/qtvariantproperty.h"
+//#include "qtpropertybrowser/src/qttreepropertybrowser.h"
+
 namespace Ui {
 class OpenCS;
 }
@@ -24,9 +27,13 @@ private:
     ESM::ESMReader esm;
     ESMDataModel *model;
 
+//    QtVariantPropertyManager *variantManager;
+//    QtVariantEditorFactory *variantFactory;
+//    QtTreePropertyBrowser *variantEditor;
+
 private slots:
     void openFile();
-    //void selectObject(const QModelIndex &index);
+    void selectObject(const QModelIndex &index);
 };
 
 #endif // OPENCS_H

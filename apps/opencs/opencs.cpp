@@ -49,26 +49,21 @@ void OpenCS::openFile()
     }
 }
 
-/*
+
 void OpenCS::selectObject(const QModelIndex &index)
 {
-
-}*/
-
 //    ESMDataItem *item = static_cast<ESMDataItem*>(index.internalPointer());
-
 //    variantEditor->clear();
-
 //    QtProperty *topItem = variantManager->addProperty(QtVariantPropertyManager::groupTypeId(), QLatin1String(" TOP"));
-
 //    for(int i=0; i<item->columnCount(); i++) {
 //        QVariant val = item->data(i);
-
 //        QtVariantProperty *item = variantManager->addProperty(val.type(), QString::number(i) + QLatin1String("Property"));
 //        item->setValue(val);
 //        //item->setValue(true);
 //        topItem->addSubProperty(item);
 //    }
-
 //    variantEditor->addProperty(topItem);
+}
+
+
 
