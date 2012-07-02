@@ -44,6 +44,7 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCompiler_1_1Locals.html">Compiler::Locals</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1ScriptManager.html#a4736ad3a6044df8457c8646b2b7bc451">getLocals</a> (const std::string &amp;name)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return locals for script <em>name</em>.  <a href="#a4736ad3a6044df8457c8646b2b7bc451"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWScript_1_1GlobalScripts.html">GlobalScripts</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1ScriptManager.html#a9b2b72feca2b05f5d0d8d91e8beb3201">getGlobalScripts</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1ScriptManager.html#a6e71d42cad549105330a1819d30bf62f">getLocalIndex</a> (const std::string &amp;scriptId, const std::string &amp;variable, char type)</td></tr>
 <tr><td colspan="2"><h2>Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; std::vector<br class="typebreak"/>
 &lt; <a class="el" href="namespaceInterpreter.html#a4e3835dc7f60eb2ebfe308342e61b152">Interpreter::Type_Code</a> &gt;<br class="typebreak"/>
@@ -179,6 +180,40 @@
 
 </div>
 </div>
+<a class="anchor" id="a6e71d42cad549105330a1819d30bf62f"></a><!-- doxytag: member="MWScript::ScriptManager::getLocalIndex" ref="a6e71d42cad549105330a1819d30bf62f" args="(const std::string &amp;scriptId, const std::string &amp;variable, char type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MWScript::ScriptManager::getLocalIndex </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>scriptId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>variable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>type</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return index of the variable of the given name and type in the given script. Will throw an exception, if there is no such script or variable or the type does not match. </p>
+
+</div>
+</div>
 <a class="anchor" id="a4736ad3a6044df8457c8646b2b7bc451"></a><!-- doxytag: member="MWScript::ScriptManager::getLocals" ref="a4736ad3a6044df8457c8646b2b7bc451" args="(const std::string &amp;name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -196,6 +231,9 @@
 <div class="memdoc">
 
 <p>Return locals for script <em>name</em>. </p>
+
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000052">Todo:</a></b></dt><dd>Handle case of cyclic member variable access. Currently this could look up the whole application in an endless recursion. </dd></dl>
+</p>
 
 </div>
 </div>
@@ -351,7 +389,7 @@
 <li>apps/openmw/mwscript/<a class="el" href="scriptmanager_8cpp.html">scriptmanager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:12 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

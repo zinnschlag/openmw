@@ -37,9 +37,11 @@
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a561ef103902084591b12afc6e1a70643">LocalMapBase</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a59d4948fdbbe87e98b91ca94d8a63088">init</a> (MyGUI::ScrollView *widget, <a class="el" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *layout)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a93f9f3dc07fdf35ca051868b21d30756">init</a> (MyGUI::ScrollView *widget, MyGUI::ImageBox *compass, <a class="el" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *layout, bool mapDragAndDrop=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a579460c59667b249cf97bc23253143f4">setCellPrefix</a> (const std::string &amp;prefix)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a8eb9eb167ea6d9fb71d1fcf1f6a04048">setActiveCell</a> (const int x, const int y, bool interior=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#aa1acc046e7d9b30396eea6f692ae608a">setPlayerDir</a> (const float x, const float y)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a5062d43b4922ec5965f690c0be7efb2f">setPlayerPos</a> (const float x, const float y)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a0b56bdfda595217858226777dcb381e5">toggleFogOfWar</a> ()</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#aac02564bf979e8a85ea9e2447d515c52">applyFogOfWar</a> ()</td></tr>
@@ -48,10 +50,14 @@
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#acb60fc22390fa40993b9e10a07252fc0">mCurY</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a1ca83c677d2d3187b8445a23fb07fb6c">mInterior</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::ScrollView *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a247bf9cf0f9637296c504766b953c343">mLocalMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::ImageBox *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#ae16b413286a6d07faa4152cf5f6b01d1">mCompass</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a84e6421938416f22c65b560498198450">mPrefix</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a0ee78cb1ebaabaaa1f6ba2834116541a">mChanged</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a1e7ad5ddf9f1d779f2424f53cf7afb66">mFogOfWar</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; MyGUI::ImageBox * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#ae061667dd96677b7732dc0b74fc3500e">mMapWidgets</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; MyGUI::ImageBox * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a22717ffe9a6fbe363dc635f7cb351974">mFogWidgets</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a8c030a67ceb401977fc602d548580f68">mLayout</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#af5035346d1debf67bd7362c3be63e9af">mMapDragAndDrop</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a44219ee665d3a659119d79850e177d41">mLastPositionX</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a6abf1945a911bc3969dc0ecba69531ec">mLastPositionY</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1LocalMapBase.html#a748e2f8f3b5e3d6b77c36e94643e6cbd">mLastDirectionX</a></td></tr>
@@ -93,7 +99,7 @@
 
 </div>
 </div>
-<a class="anchor" id="a59d4948fdbbe87e98b91ca94d8a63088"></a><!-- doxytag: member="MWGui::LocalMapBase::init" ref="a59d4948fdbbe87e98b91ca94d8a63088" args="(MyGUI::ScrollView *widget, OEngine::GUI::Layout *layout)" -->
+<a class="anchor" id="a93f9f3dc07fdf35ca051868b21d30756"></a><!-- doxytag: member="MWGui::LocalMapBase::init" ref="a93f9f3dc07fdf35ca051868b21d30756" args="(MyGUI::ScrollView *widget, MyGUI::ImageBox *compass, OEngine::GUI::Layout *layout, bool mapDragAndDrop=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -106,8 +112,20 @@
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">MyGUI::ImageBox *&nbsp;</td>
+          <td class="paramname"> <em>compass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *&nbsp;</td>
-          <td class="paramname"> <em>layout</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&nbsp;</td>
+          <td class="paramname"> <em>mapDragAndDrop</em> = <code>false</code></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -171,6 +189,60 @@
 
 </div>
 </div>
+<a class="anchor" id="aa1acc046e7d9b30396eea6f692ae608a"></a><!-- doxytag: member="MWGui::LocalMapBase::setPlayerDir" ref="aa1acc046e7d9b30396eea6f692ae608a" args="(const float x, const float y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LocalMapBase::setPlayerDir </td>
+          <td>(</td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5062d43b4922ec5965f690c0be7efb2f"></a><!-- doxytag: member="MWGui::LocalMapBase::setPlayerPos" ref="a5062d43b4922ec5965f690c0be7efb2f" args="(const float x, const float y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LocalMapBase::setPlayerPos </td>
+          <td>(</td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>y</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0b56bdfda595217858226777dcb381e5"></a><!-- doxytag: member="MWGui::LocalMapBase::toggleFogOfWar" ref="a0b56bdfda595217858226777dcb381e5" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -195,6 +267,19 @@
       <table class="memname">
         <tr>
           <td class="memname">bool <a class="el" href="classMWGui_1_1LocalMapBase.html#a0ee78cb1ebaabaaa1f6ba2834116541a">MWGui::LocalMapBase::mChanged</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae16b413286a6d07faa4152cf5f6b01d1"></a><!-- doxytag: member="MWGui::LocalMapBase::mCompass" ref="ae16b413286a6d07faa4152cf5f6b01d1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::ImageBox* <a class="el" href="classMWGui_1_1LocalMapBase.html#ae16b413286a6d07faa4152cf5f6b01d1">MWGui::LocalMapBase::mCompass</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -234,6 +319,19 @@
       <table class="memname">
         <tr>
           <td class="memname">bool <a class="el" href="classMWGui_1_1LocalMapBase.html#a1e7ad5ddf9f1d779f2424f53cf7afb66">MWGui::LocalMapBase::mFogOfWar</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a22717ffe9a6fbe363dc635f7cb351974"></a><!-- doxytag: member="MWGui::LocalMapBase::mFogWidgets" ref="a22717ffe9a6fbe363dc635f7cb351974" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;MyGUI::ImageBox*&gt; <a class="el" href="classMWGui_1_1LocalMapBase.html#a22717ffe9a6fbe363dc635f7cb351974">MWGui::LocalMapBase::mFogWidgets</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -332,6 +430,32 @@
 
 </div>
 </div>
+<a class="anchor" id="af5035346d1debf67bd7362c3be63e9af"></a><!-- doxytag: member="MWGui::LocalMapBase::mMapDragAndDrop" ref="af5035346d1debf67bd7362c3be63e9af" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWGui_1_1LocalMapBase.html#af5035346d1debf67bd7362c3be63e9af">MWGui::LocalMapBase::mMapDragAndDrop</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae061667dd96677b7732dc0b74fc3500e"></a><!-- doxytag: member="MWGui::LocalMapBase::mMapWidgets" ref="ae061667dd96677b7732dc0b74fc3500e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;MyGUI::ImageBox*&gt; <a class="el" href="classMWGui_1_1LocalMapBase.html#ae061667dd96677b7732dc0b74fc3500e">MWGui::LocalMapBase::mMapWidgets</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a84e6421938416f22c65b560498198450"></a><!-- doxytag: member="MWGui::LocalMapBase::mPrefix" ref="a84e6421938416f22c65b560498198450" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +474,7 @@
 <li>apps/openmw/mwgui/<a class="el" href="map__window_8cpp.html">map_window.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:11 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

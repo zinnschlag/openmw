@@ -33,6 +33,7 @@
 <code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &quot;<a class="el" href="types_8hpp_source.html">types.hpp</a>&quot;</code><br/>
+<code>#include &quot;../mwmechanics/creaturestats.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="interpretercontext_8hpp_source.html">interpretercontext.hpp</a>&quot;</code><br/>
 <code>#include &lt;<a class="el" href="runtime_8hpp_source.html">components/interpreter/runtime.hpp</a>&gt;</code><br/>
 <code>#include &quot;../mwbase/environment.hpp&quot;</code><br/>
@@ -44,6 +45,11 @@
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpAiTravel.html">MWScript::Ai::OpAiTravel&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpAiEscort.html">MWScript::Ai::OpAiEscort&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpGetAiPackageDone.html">MWScript::Ai::OpGetAiPackageDone&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpAiWander.html">MWScript::Ai::OpAiWander&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpSetHello.html">MWScript::Ai::OpSetHello&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpSetFight.html">MWScript::Ai::OpSetFight&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpSetFlee.html">MWScript::Ai::OpSetFlee&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Ai_1_1OpSetAlarm.html">MWScript::Ai::OpSetAlarm&lt; R &gt;</a></td></tr>
 <tr><td colspan="2"><h2>Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript.html">MWScript</a></td></tr>
 
@@ -65,9 +71,19 @@
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#afea1b33ca2c933581bfcfb412b595acc">MWScript::Ai::opcodeAiEscortExplicit</a> = 0x20003</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a077d940b16c9fb17083421c63ffca25f">MWScript::Ai::opcodeGetAiPackageDone</a> = 0x200007c</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a6b95e765d0fc92ecfb1c37d2d3980b0c">MWScript::Ai::opcodeGetAiPackageDoneExplicit</a> = 0x200007d</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a997137752a278774eacc7c1453db2650">MWScript::Ai::opcodeAiWander</a> = 0x20010</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a30ce87a3220361c363316af2408c0009">MWScript::Ai::opcodeAiWanderExplicit</a> = 0x20011</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a205e3dcdbaea9f02495767ca12b53d9f">MWScript::Ai::opcodeSetHello</a> = 0x200015e</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a48cb4d1e5a1cd784178267ee27dac00d">MWScript::Ai::opcodeSetHelloExplicit</a> = 0x200015d</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#ab95e618b7848089abc2c4abad41a48d0">MWScript::Ai::opcodeSetFight</a> = 0x200015e</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a644f37a7a922dd7f734526ff7c3683c6">MWScript::Ai::opcodeSetFightExplicit</a> = 0x200015f</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#ace0137e85da1f80713c05f9afff96b8b">MWScript::Ai::opcodeSetFlee</a> = 0x2000160</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#aa1b5cb9e22c287800ae013e5e5fcb316">MWScript::Ai::opcodeSetFleeExplicit</a> = 0x2000161</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#afdb313432a2ac7b20d0b7c88b91474f4">MWScript::Ai::opcodeSetAlarm</a> = 0x2000162</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Ai.html#a406249270a1a5e79c0c74183b41cd5cf">MWScript::Ai::opcodeSetAlarmExplicit</a> = 0x2000163</td></tr>
 </table>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:24 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:10 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

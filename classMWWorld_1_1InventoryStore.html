@@ -43,6 +43,8 @@
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a24b2e83082cc425c1d168cbd84ead97a">InventoryStore</a> (const <a class="el" href="classMWWorld_1_1InventoryStore.html">InventoryStore</a> &amp;store)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1InventoryStore.html">InventoryStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a51b0d6932ca4306e813ebd085a7d0682">operator=</a> (const <a class="el" href="classMWWorld_1_1InventoryStore.html">InventoryStore</a> &amp;store)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a5aa0a14620204d9141199c11493ef998">equip</a> (int slot, const <a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> &amp;iterator)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ab0ce3de671d55bccf52049d330efe563">setSelectedEnchantItem</a> (const <a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> &amp;iterator)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a9adde439c7c24c4e269299384a1f6c0b">getSelectedEnchantItem</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a00638734d306421a8aa211947d759e65">getSlot</a> (int slot)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a584bcda458670f399897712d197413a4">autoEquip</a> (const <a class="el" href="structMWMechanics_1_1NpcStats.html">MWMechanics::NpcStats</a> &amp;stats)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Auto equip items according to stats and item value.  <a href="#a584bcda458670f399897712d197413a4"></a><br/></td></tr>
@@ -82,6 +84,7 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWMechanics_1_1MagicEffects.html">MWMechanics::MagicEffects</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#a4ec57353b622cf134a5fe3ed15e91652">mMagicEffects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ad0c7ad3498f2e3b4e6cf30ecf0500209">mMagicEffectsUpToDate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1InventoryStore.html#a4f99574b57f7e344bf139d63feed2a1a">TSlots</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#af92e25639bf9577bcd2261960f325495">mSlots</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1InventoryStore.html#ac70fb9bb0b19aede26606313bd4f0f71">mSelectedEnchantItem</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>&lt; </p>
@@ -199,7 +202,7 @@
       </table>
 </div>
 <div class="memdoc">
-<dl class="note"><dt><b>Note:</b></dt><dd><em>iteartor</em> can be an end-iterator </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd><em>iterator</em> can be an end-iterator </dd></dl>
 
 </div>
 </div>
@@ -238,7 +241,26 @@
 </div>
 <div class="memdoc">
 <p>Return magic effects from worn items.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd>make this const again, after the constness of Ptrs and iterators has been addressed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000058">Todo:</a></b></dt><dd>make this const again, after the constness of Ptrs and iterators has been addressed. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9adde439c7c24c4e269299384a1f6c0b"></a><!-- doxytag: member="MWWorld::InventoryStore::getSelectedEnchantItem" ref="a9adde439c7c24c4e269299384a1f6c0b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> MWWorld::InventoryStore::getSelectedEnchantItem </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>selected magic item (for using enchantments of type "Cast once" or "Cast when used") </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>if no item selected, return <a class="el" href="classMWWorld_1_1ContainerStore.html#ab7165a7ef4e2053f7c0b712d017a9f5d">end()</a> iterator </dd></dl>
 
 </div>
 </div>
@@ -296,6 +318,26 @@
 
 </div>
 </div>
+<a class="anchor" id="ab0ce3de671d55bccf52049d330efe563"></a><!-- doxytag: member="MWWorld::InventoryStore::setSelectedEnchantItem" ref="ab0ce3de671d55bccf52049d330efe563" args="(const ContainerStoreIterator &amp;iterator)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::InventoryStore::setSelectedEnchantItem </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>iterator</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>set the selected magic item (for using enchantments of type "Cast once" or "Cast when used") </p>
+<dl class="note"><dt><b>Note:</b></dt><dd>to unset the selected item, call this method with <a class="el" href="classMWWorld_1_1ContainerStore.html#ab7165a7ef4e2053f7c0b712d017a9f5d">end()</a> iterator </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aecbe10a167acbbdd7ba85bca8672e9e8"></a><!-- doxytag: member="MWWorld::InventoryStore::stacks" ref="aecbe10a167acbbdd7ba85bca8672e9e8" args="(const Ptr &amp;ptr1, const Ptr &amp;ptr2)" -->
 <div class="memitem">
 <div class="memproto">
@@ -347,6 +389,19 @@
       <table class="memname">
         <tr>
           <td class="memname">bool <a class="el" href="classMWWorld_1_1InventoryStore.html#ad0c7ad3498f2e3b4e6cf30ecf0500209">MWWorld::InventoryStore::mMagicEffectsUpToDate</a><code> [mutable, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac70fb9bb0b19aede26606313bd4f0f71"></a><!-- doxytag: member="MWWorld::InventoryStore::mSelectedEnchantItem" ref="ac70fb9bb0b19aede26606313bd4f0f71" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a> <a class="el" href="classMWWorld_1_1InventoryStore.html#ac70fb9bb0b19aede26606313bd4f0f71">MWWorld::InventoryStore::mSelectedEnchantItem</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -645,7 +700,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="inventorystore_8cpp.html">inventorystore.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:12 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

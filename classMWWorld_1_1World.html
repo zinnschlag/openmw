@@ -34,7 +34,7 @@
 <p>The game world and its visual representation.  
 <a href="#_details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="world_8hpp_source.html">world.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="mwworld_2world_8hpp_source.html">world.hpp</a>&gt;</code></p>
 
 <p><a href="classMWWorld_1_1World-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
@@ -53,6 +53,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ae7b4975fe41269a7557c5fa34f39d283">setWaterHeight</a> (const float height)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a9492a9da27e43e900aa0db4dd86bac53">toggleWater</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#adaf454f5097e4527eae9cb4d36bb66e6">adjustSky</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ad7adb319f692352ff4c14a553b627866">getTriangleBatchCount</a> (unsigned int &amp;triangles, unsigned int &amp;batches)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ac166c45f7ee459757acb6572a3d21a69">setFallbackValues</a> (std::map&lt; std::string, std::string &gt; fallbackMap)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a0f47d5bdbe02524d3a6cc824fb8bb738">getFallback</a> (std::string key)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a90bd7c56bad45db68a5a21bbad67297a">getFallback</a> (std::string key, std::string def)</td></tr>
@@ -122,6 +123,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#ad0ce6113f9e0c0c80acb0177e71764e3">placeObject</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> object, float cursorX, float cursorY)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a174b5aace1a0b08a27128db3c2285539">dropObjectOnGround</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a41767973ca725be3bb29090e232fb22b">canPlaceObject</a> (float cursorX, float cursorY)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#adb55ea7878a7531069791e7fcc867558">processChangedSettings</a> (const <a class="el" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a> &amp;settings)</td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a1f3ff9681241a597f0694d251f3c83f6">World</a> (const <a class="el" href="classMWWorld_1_1World.html">World</a> &amp;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1World.html">World</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1World.html#a05ea2bca3c7a83ebadf2a36c84c6d999">operator=</a> (const <a class="el" href="classMWWorld_1_1World.html">World</a> &amp;)</td></tr>
@@ -338,7 +340,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if it is possible to place on object at specified cursor location </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000053">Todo:</a></b></dt><dd>also check if the wanted position is on a flat surface, and not e.g. against a vertical wall! </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000073">Todo:</a></b></dt><dd>also check if the wanted position is on a flat surface, and not e.g. against a vertical wall! </dd></dl>
 </p>
 
 </div>
@@ -457,7 +459,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 <p>Create a new recrod (of type class) in the <a class="el" href="namespaceESM.html" title="ESM/ESP records.">ESM</a> store. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>ID, pointer to created record </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000051">Todo:</a></b></dt><dd>See function above. </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000071">Todo:</a></b></dt><dd>See function above. </dd></dl>
 </p>
 
 </div>
@@ -480,7 +482,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 <p>Create a new recrod (of type potion) in the <a class="el" href="namespaceESM.html" title="ESM/ESP records.">ESM</a> store. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>ID, pointer to created record </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>Rewrite the ESMStore so that a dynamic 2nd ESMStore can be attached to it. This function should then insert the record into the 2nd store (the code for this should also be moved to the ESMStore class). It might be a good idea to review the STL-container usage of the ESMStore before the rewrite. </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000070">Todo:</a></b></dt><dd>Rewrite the ESMStore so that a dynamic 2nd ESMStore can be attached to it. This function should then insert the record into the 2nd store (the code for this should also be moved to the ESMStore class). It might be a good idea to review the STL-container usage of the ESMStore before the rewrite. </dd></dl>
 </p>
 
 </div>
@@ -518,7 +520,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>5disable reference in the OGRE scene </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000075">Todo:</a></b></dt><dd>5disable reference in the OGRE scene </dd></dl>
 
 </div>
 </div>
@@ -584,7 +586,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>enable reference in the OGRE scene </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000074">Todo:</a></b></dt><dd>enable reference in the OGRE scene </dd></dl>
 
 </div>
 </div>
@@ -1064,6 +1066,33 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
+<a class="anchor" id="ad7adb319f692352ff4c14a553b627866"></a><!-- doxytag: member="MWWorld::World::getTriangleBatchCount" ref="ad7adb319f692352ff4c14a553b627866" args="(unsigned int &amp;triangles, unsigned int &amp;batches)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::World::getTriangleBatchCount </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int &amp;&nbsp;</td>
+          <td class="paramname"> <em>triangles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int &amp;&nbsp;</td>
+          <td class="paramname"> <em>batches</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a664299554b550460dd9097c12d395f82"></a><!-- doxytag: member="MWWorld::World::hasCellChanged" ref="a664299554b550460dd9097c12d395f82" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -1258,7 +1287,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the active cell (cell player is in) changed </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd>cell change for non-player ref </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000069">Todo:</a></b></dt><dd>cell change for non-player ref </dd></dl>
 </p>
 
 </div>
@@ -1322,7 +1351,7 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the object was placed, or false if it was rejected because the position is too far away </dd></dl>
 
-<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000052">Todo:</a></b></dt><dd>retrieve the bounds of the object and translate it accordingly </dd></dl>
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000072">Todo:</a></b></dt><dd>retrieve the bounds of the object and translate it accordingly </dd></dl>
 </p>
 
 </div>
@@ -1412,6 +1441,24 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 <div class="memdoc">
 
 <p>Convert position to cell numbers. </p>
+
+</div>
+</div>
+<a class="anchor" id="adb55ea7878a7531069791e7fcc867558"></a><!-- doxytag: member="MWWorld::World::processChangedSettings" ref="adb55ea7878a7531069791e7fcc867558" args="(const Settings::CategorySettingVector &amp;settings)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::World::processChangedSettings </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>settings</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -1928,11 +1975,11 @@ std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>apps/openmw/mwworld/<a class="el" href="world_8hpp_source.html">world.hpp</a></li>
+<li>apps/openmw/mwworld/<a class="el" href="mwworld_2world_8hpp_source.html">world.hpp</a></li>
 <li>apps/openmw/mwworld/<a class="el" href="world_8cpp.html">world.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:12 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

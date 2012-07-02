@@ -62,6 +62,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a1217787183b175728ad5c435aa615a41">pushBinaryOperator</a> (char c)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#aba87ccf14718e634efdda6af325ce038">close</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a94ff4a74a633124c3ea5f582e88ca84c">parseArguments</a> (const std::string &amp;arguments, <a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;scanner)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a629535cc3ac94109fab73c5230e5aefd">handleMemberAccess</a> (const std::string &amp;name)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCompiler_1_1Locals.html">Locals</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a889fab4e2c21c55e3778014e61245615">mLocals</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCompiler_1_1Literals.html">Literals</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a3b804d8276cfffd459bf7ea7b7f795ab">mLiterals</a></td></tr>
@@ -75,6 +76,7 @@
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a383ee90fb0564741626b34735f4fa20f">mArgument</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#a943756e901b0abb424451cbf8f733453">mExplicit</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#aafc88915965fca639cdbcad3695bf1e8">mRefOp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1ExprParser.html#ae9c4cf18e8f3d2e734fb3aa9e2e49ae3">mMemberOp</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7e6707c21bd3ec9f184e09fbc1acec6a"></a><!-- doxytag: member="Compiler::ExprParser::ExprParser" ref="a7e6707c21bd3ec9f184e09fbc1acec6a" args="(ErrorHandler &amp;errorHandler, Context &amp;context, Locals &amp;locals, Literals &amp;literals, bool argument=false)" -->
@@ -236,6 +238,24 @@
 <div class="memdoc">
 
 <p>Return type of parsed expression ('l' integer, 'f' float). </p>
+
+</div>
+</div>
+<a class="anchor" id="a629535cc3ac94109fab73c5230e5aefd"></a><!-- doxytag: member="Compiler::ExprParser::handleMemberAccess" ref="a629535cc3ac94109fab73c5230e5aefd" args="(const std::string &amp;name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Compiler::ExprParser::handleMemberAccess </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>name</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -738,6 +758,19 @@
 
 </div>
 </div>
+<a class="anchor" id="ae9c4cf18e8f3d2e734fb3aa9e2e49ae3"></a><!-- doxytag: member="Compiler::ExprParser::mMemberOp" ref="ae9c4cf18e8f3d2e734fb3aa9e2e49ae3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCompiler_1_1ExprParser.html#ae9c4cf18e8f3d2e734fb3aa9e2e49ae3">Compiler::ExprParser::mMemberOp</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a29be404ee0c1598d7fe6c45e8db6471d"></a><!-- doxytag: member="Compiler::ExprParser::mNextOperand" ref="a29be404ee0c1598d7fe6c45e8db6471d" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -808,7 +841,7 @@
 <li>components/compiler/<a class="el" href="exprparser_8cpp.html">exprparser.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:24 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:11 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

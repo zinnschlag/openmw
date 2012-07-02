@@ -48,25 +48,35 @@
 <a name="l00022"></a>00022 
 <a name="l00026"></a>00026         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#a7a3d8e2aa4672ca33782680af4e5a5fb">setEnabled</a> (<span class="keyword">const</span> <span class="keywordtype">bool</span> enabled);
 <a name="l00027"></a>00027 
-<a name="l00028"></a><a class="code" href="classMWRender_1_1Compositors.html#aa4ce43ce9e57f75b83ba12832d9c6ca6">00028</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Compositors.html#aa4ce43ce9e57f75b83ba12832d9c6ca6">toggle</a>() { <a class="code" href="classMWRender_1_1Compositors.html#a7a3d8e2aa4672ca33782680af4e5a5fb">setEnabled</a>(!<a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">mEnabled</a>); <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">mEnabled</a>; }
+<a name="l00028"></a><a class="code" href="classMWRender_1_1Compositors.html#ad4d403b965a861d313ca61695942e8e2">00028</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#ad4d403b965a861d313ca61695942e8e2">setViewport</a>(Ogre::Viewport* vp) { <a class="code" href="classMWRender_1_1Compositors.html#ae789f0ca09c6ff0c51e3cb09b45e5418">mViewport</a> = vp; }
 <a name="l00029"></a>00029 
-<a name="l00034"></a>00034         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#a184dc7ad1d497881d1f440ec6296fa54">setCompositorEnabled</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <span class="keywordtype">bool</span> enabled);
-<a name="l00035"></a>00035 
-<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#ae8bd501ce7f27062a2677df671d4cb06">addCompositor</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <span class="keywordtype">int</span> priority);
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="keyword">protected</span>:
-<a name="l00044"></a><a class="code" href="classMWRender_1_1Compositors.html#a0e575523471539296898f15a1ef1b08b">00044</a>         <a class="code" href="namespaceMWRender.html#a2401886729a9a0539626167afffe4c1f">CompositorMap</a> <a class="code" href="classMWRender_1_1Compositors.html#a0e575523471539296898f15a1ef1b08b" title="maps compositor name to its &amp;quot;enabled&amp;quot; state">mCompositors</a>;
-<a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">00046</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">mEnabled</a>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classMWRender_1_1Compositors.html#ae789f0ca09c6ff0c51e3cb09b45e5418">00048</a>         Ogre::Viewport* <a class="code" href="classMWRender_1_1Compositors.html#ae789f0ca09c6ff0c51e3cb09b45e5418">mViewport</a>;
-<a name="l00049"></a>00049     };
+<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#a94bf03665cf956d3e7cabff94e931fb1" title="recreate compositors (call this after viewport size changes)">recreate</a>();
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWRender_1_1Compositors.html#aa4ce43ce9e57f75b83ba12832d9c6ca6">00033</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Compositors.html#aa4ce43ce9e57f75b83ba12832d9c6ca6">toggle</a>() { <a class="code" href="classMWRender_1_1Compositors.html#a7a3d8e2aa4672ca33782680af4e5a5fb">setEnabled</a>(!<a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">mEnabled</a>); <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">mEnabled</a>; }
+<a name="l00034"></a>00034 
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#a184dc7ad1d497881d1f440ec6296fa54">setCompositorEnabled</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <span class="keywordtype">bool</span> enabled);
+<a name="l00040"></a>00040 
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#ae8bd501ce7f27062a2677df671d4cb06">addCompositor</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <span class="keywordtype">int</span> priority);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Compositors.html#a7e36401c98e28f7692c450a357002e2a">anyCompositorEnabled</a>();
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#ac519476a09cc52ca213c1599c1f7b184">countTrianglesBatches</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;triangles, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;batches);
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051 }
+<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Compositors.html#a892f77bc0049fca9d5f2b32a20236a74">removeAll</a> ();
 <a name="l00052"></a>00052 
-<a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
+<a name="l00053"></a>00053     <span class="keyword">protected</span>:
+<a name="l00055"></a><a class="code" href="classMWRender_1_1Compositors.html#a0e575523471539296898f15a1ef1b08b">00055</a>         <a class="code" href="namespaceMWRender.html#a2401886729a9a0539626167afffe4c1f">CompositorMap</a> <a class="code" href="classMWRender_1_1Compositors.html#a0e575523471539296898f15a1ef1b08b" title="maps compositor name to its &amp;quot;enabled&amp;quot; state">mCompositors</a>;
+<a name="l00056"></a>00056 
+<a name="l00057"></a><a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">00057</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Compositors.html#a88aafcb5cb65a89183cbd31b164e3d5a">mEnabled</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="classMWRender_1_1Compositors.html#ae789f0ca09c6ff0c51e3cb09b45e5418">00059</a>         Ogre::Viewport* <a class="code" href="classMWRender_1_1Compositors.html#ae789f0ca09c6ff0c51e3cb09b45e5418">mViewport</a>;
+<a name="l00060"></a>00060     };
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:10 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -56,6 +56,10 @@
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#ae3948546bb048fa3cabe5caece411bd8">insertCell</a> (<a class="el" href="classESMS_1_1CellStore.html">ESMS::CellStore</a>&lt; <a class="el" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> &gt; &amp;cell)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a6d8b236bb62aa419261f1d144f0fde96">insertObject</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> object, <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *cell)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#aad76879f35f9955fca962c56839fe6c3">update</a> (float duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a53eb5bcf1b9ea13fad66f82968d3bbf3">addObjectToScene</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add an object that already exists in the world model to the scene.  <a href="#a53eb5bcf1b9ea13fad66f82968d3bbf3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a129a14f344a895a854b697fcdf49a591">removeObjectFromScene</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Remove an object from the scene, but not from the world model.  <a href="#a129a14f344a895a854b697fcdf49a591"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#abafee94e6f481eb7bf059ddcf501bc43">playerCellChange</a> (<a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *cell, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos=true)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
@@ -132,6 +136,26 @@
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a53eb5bcf1b9ea13fad66f82968d3bbf3"></a><!-- doxytag: member="MWWorld::Scene::addObjectToScene" ref="a53eb5bcf1b9ea13fad66f82968d3bbf3" args="(const Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::Scene::addObjectToScene </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Add an object that already exists in the world model to the scene. </p>
+
+</div>
+</div>
 <a class="anchor" id="adc64398dfa389e6ee619c3286208e8ff"></a><!-- doxytag: member="MWWorld::Scene::changeCell" ref="adc64398dfa389e6ee619c3286208e8ff" args="(int X, int Y, const ESM::Position &amp;position, bool adjustPlayerPos)" -->
 <div class="memitem">
 <div class="memproto">
@@ -317,7 +341,7 @@
 </div>
 <div class="memdoc">
 <p>this method is only meant for dropping objects into the gameworld from a container and thus only handles object types that can be placed in a container</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000046">Todo:</a></b></dt><dd>this whole code needs major clean up, and doesn't belong in this class. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000066">Todo:</a></b></dt><dd>this whole code needs major clean up, and doesn't belong in this class. </dd></dl>
 
 </div>
 </div>
@@ -386,6 +410,26 @@
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a129a14f344a895a854b697fcdf49a591"></a><!-- doxytag: member="MWWorld::Scene::removeObjectFromScene" ref="a129a14f344a895a854b697fcdf49a591" args="(const Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MWWorld::Scene::removeObjectFromScene </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Remove an object from the scene, but not from the world model. </p>
 
 </div>
 </div>
@@ -509,7 +553,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="scene_8cpp.html">scene.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:12 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

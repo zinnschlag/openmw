@@ -34,12 +34,18 @@
 <code>#include &lt;<a class="el" href="opcodes_8hpp_source.html">components/interpreter/opcodes.hpp</a>&gt;</code><br/>
 <code>#include &quot;../mwbase/environment.hpp&quot;</code><br/>
 <code>#include &quot;../mwworld/player.hpp&quot;</code><br/>
+<code>#include &quot;../mwmechanics/npcstats.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="interpretercontext_8hpp_source.html">interpretercontext.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="ref_8hpp_source.html">ref.hpp</a>&quot;</code><br/>
 <code>#include &lt;iostream&gt;</code><br/>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Control_1_1OpSetControl.html">MWScript::Control::OpSetControl</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Control_1_1OpToggleCollision.html">MWScript::Control::OpToggleCollision</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Control_1_1OpClearForceRun.html">MWScript::Control::OpClearForceRun&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Control_1_1OpForceRun.html">MWScript::Control::OpForceRun&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Control_1_1OpClearForceSneak.html">MWScript::Control::OpClearForceSneak&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Control_1_1OpForceSneak.html">MWScript::Control::OpForceSneak&lt; R &gt;</a></td></tr>
 <tr><td colspan="2"><h2>Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript.html">MWScript</a></td></tr>
 
@@ -59,10 +65,18 @@
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a3139d3282892a1ab0a01a825ef4b7c54">MWScript::Control::opcodeEnable</a> = 0x200007e</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#aec2072da1ce85eb6bf2589aa3ba3abf3">MWScript::Control::opcodeDisable</a> = 0x2000085</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a47d0185907ea56d21f1a6f0444dff623">MWScript::Control::opcodeToggleCollision</a> = 0x2000130</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a0751e7b2ad665b89c4a2cfd74c7971f3">MWScript::Control::opcodeClearForceRun</a> = 0x2000154</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a9ae52bc5652aca702781b81903609970">MWScript::Control::opcodeClearForceRunExplicit</a> = 0x2000155</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#afc39ad84d3ecf8246ce2a579dd6f5a3d">MWScript::Control::opcodeForceRun</a> = 0x2000156</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a5976abe71b85b7dd271effc3e9f160d7">MWScript::Control::opcodeForceRunExplicit</a> = 0x2000157</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#af205777edf6bdddc64b28211bf3808db">MWScript::Control::opcodeClearForceSneak</a> = 0x2000158</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a9fc8ba05532a9a128c43f985b1f7e496">MWScript::Control::opcodeClearForceSneakExplicit</a> = 0x2000159</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#af00c9d512b5176e53524105a31073f7d">MWScript::Control::opcodeForceSneak</a> = 0x200015a</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#aa357cdc131d4a4096b4f754a79c32a1a">MWScript::Control::opcodeForceSneakExplicit</a> = 0x200015b</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Control.html#a0af6d9181990536f14a6338fb8d8fd00">MWScript::Control::controls</a> [numberOfControls]</td></tr>
 </table>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:24 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:10 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

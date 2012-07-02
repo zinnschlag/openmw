@@ -40,7 +40,6 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering.  <a href="#aa3d8fbabd9e97e3fcdf95c224d3eab77"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a6f5bcc18bc3967e26e7aa6fa0d088bfa">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#a6f5bcc18bc3967e26e7aa6fa0d088bfa"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#aaee21570eff2668a07775abf95c46edc">enable</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#aabd0976346ae2227c85c32ff5253a0db">getName</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a70cf54ced78e5684dc594053207698d9">hasToolTip</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structMWGui_1_1ToolTipInfo.html">MWGui::ToolTipInfo</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a7441d8364cfbb7772449dd33f5dc8787">getToolTipInfo</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
@@ -59,6 +58,9 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the put down sound Id.  <a href="#a308a4d0131b9ccd969d2a1181a5ef5a3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#af7142cd7ad605409c9e5681be727e72a">getInventoryIcon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return name of inventory icon.  <a href="#af7142cd7ad605409c9e5681be727e72a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a657e7ab2a6dd6ce154b48211e19a655b">use</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Generate action for using via inventory menu.  <a href="#a657e7ab2a6dd6ce154b48211e19a655b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a3149eb821a1f446ae9e37f7822f19ae8">registerSelf</a> ()</td></tr>
 </table>
@@ -91,28 +93,6 @@
 <p>Generate action for activation. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a83b938e2a49f3d97a5f1d000b9ea88ac">MWWorld::Class</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aaee21570eff2668a07775abf95c46edc"></a><!-- doxytag: member="MWClass::Light::enable" ref="aaee21570eff2668a07775abf95c46edc" args="(const MWWorld::Ptr &amp;ptr) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MWClass::Light::enable </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>ptr</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Enable reference; only does the non-rendering part </p>
-<dl class="attention"><dt><b>Attention:</b></dt><dd>This is not the same as the script instruction with the same name. References should only be enabled while in an active cell. </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#aa06795606dae866dbd3431866234b483">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -389,12 +369,34 @@
 
 </div>
 </div>
+<a class="anchor" id="a657e7ab2a6dd6ce154b48211e19a655b"></a><!-- doxytag: member="MWClass::Light::use" ref="a657e7ab2a6dd6ce154b48211e19a655b" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt; MWClass::Light::use </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>ptr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Generate action for using via inventory menu. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5fc32e1d2b49ae205d2c2fafba21bf60">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>apps/openmw/mwclass/<a class="el" href="light_8hpp_source.html">light.hpp</a></li>
 <li>apps/openmw/mwclass/<a class="el" href="light_8cpp.html">light.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:24 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:11 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

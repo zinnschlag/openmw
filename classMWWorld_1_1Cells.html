@@ -49,6 +49,7 @@
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Cells.html">Cells</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a669c62f7e6135a0639ab516e209c8955">operator=</a> (const <a class="el" href="classMWWorld_1_1Cells.html">Cells</a> &amp;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#ae4ea686a18e84e30c3809447a4a67805">getCellStore</a> (const <a class="el" href="structESM_1_1Cell.html">ESM::Cell</a> *cell)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a9a02436a84c246954cb9adb4503e155e">fillContainers</a> (<a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> &amp;cellStore)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a7d2749d1a80715419bab0f3e56498809">getPtrAndCache</a> (const std::string &amp;name, <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> &amp;cellStore)</td></tr>
 <tr><td colspan="2"><h2>Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a7d4397f4baad8d15a4d30d46f2816eb9">mStore</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a61657f9745e4078cd3285f00e0b610ec">mReader</a></td></tr>
@@ -57,6 +58,9 @@
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::pair&lt; int, int &gt;<br class="typebreak"/>
 , <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a2baa4d577f97ca689a119f712d1fd71a">mExteriors</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a05a9f4537220e3b1e6ac40bfd0d7ae59">mWorld</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair<br class="typebreak"/>
+&lt; std::string, <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> * &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a55792fe48dae3ddd82b4e476caf4eb48">mIdCache</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Cells.html#a09b5ab538e28fa91e8d730e1a54b8ec1">mIdCacheIndex</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Cell container. </p>
@@ -109,7 +113,7 @@
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo:</a></b></dt><dd>pass the dynamic part of the ESMStore isntead (once it is written) of the whole world </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>pass the dynamic part of the ESMStore isntead (once it is written) of the whole world </dd></dl>
 
 </div>
 </div>
@@ -240,6 +244,33 @@
 
 </div>
 </div>
+<a class="anchor" id="a7d2749d1a80715419bab0f3e56498809"></a><!-- doxytag: member="MWWorld::Cells::getPtrAndCache" ref="a7d2749d1a80715419bab0f3e56498809" args="(const std::string &amp;name, Ptr::CellStore &amp;cellStore)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> MWWorld::Cells::getPtrAndCache </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&nbsp;</td>
+          <td class="paramname"> <em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>cellStore</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a669c62f7e6135a0639ab516e209c8955"></a><!-- doxytag: member="MWWorld::Cells::operator=" ref="a669c62f7e6135a0639ab516e209c8955" args="(const Cells &amp;)" -->
 <div class="memitem">
 <div class="memproto">
@@ -265,6 +296,32 @@
       <table class="memname">
         <tr>
           <td class="memname">std::map&lt;std::pair&lt;int, int&gt;, <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a>&gt; <a class="el" href="classMWWorld_1_1Cells.html#a2baa4d577f97ca689a119f712d1fd71a">MWWorld::Cells::mExteriors</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a55792fe48dae3ddd82b4e476caf4eb48"></a><!-- doxytag: member="MWWorld::Cells::mIdCache" ref="a55792fe48dae3ddd82b4e476caf4eb48" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::pair&lt;std::string, <a class="el" href="classESMS_1_1CellStore.html">Ptr::CellStore</a> *&gt; &gt; <a class="el" href="classMWWorld_1_1Cells.html#a55792fe48dae3ddd82b4e476caf4eb48">MWWorld::Cells::mIdCache</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a09b5ab538e28fa91e8d730e1a54b8ec1"></a><!-- doxytag: member="MWWorld::Cells::mIdCacheIndex" ref="a09b5ab538e28fa91e8d730e1a54b8ec1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="classMWWorld_1_1Cells.html#a09b5ab538e28fa91e8d730e1a54b8ec1">MWWorld::Cells::mIdCacheIndex</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -329,7 +386,7 @@
 <li>apps/openmw/mwworld/<a class="el" href="cells_8cpp.html">cells.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:25 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:12 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

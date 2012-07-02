@@ -54,31 +54,35 @@
 <a name="l00028"></a><a class="code" href="classMWWorld_1_1Cells.html#a1d4cc930d0d652dd945a2caa824ae3a0">00028</a>             std::map&lt;std::string, Ptr::CellStore&gt; <a class="code" href="classMWWorld_1_1Cells.html#a1d4cc930d0d652dd945a2caa824ae3a0">mInteriors</a>;
 <a name="l00029"></a><a class="code" href="classMWWorld_1_1Cells.html#a2baa4d577f97ca689a119f712d1fd71a">00029</a>             std::map&lt;std::pair&lt;int, int&gt;, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&gt; <a class="code" href="classMWWorld_1_1Cells.html#a2baa4d577f97ca689a119f712d1fd71a">mExteriors</a>;
 <a name="l00030"></a><a class="code" href="classMWWorld_1_1Cells.html#a05a9f4537220e3b1e6ac40bfd0d7ae59">00030</a>             <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; <a class="code" href="classMWWorld_1_1Cells.html#a05a9f4537220e3b1e6ac40bfd0d7ae59">mWorld</a>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032             <a class="code" href="classMWWorld_1_1Cells.html#a0a6ce31801e77739a83b3e061de37725">Cells</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a>&amp;);
-<a name="l00033"></a>00033             <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a>&amp; <a class="code" href="classMWWorld_1_1Cells.html#a669c62f7e6135a0639ab516e209c8955">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a>&amp;);
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#ae4ea686a18e84e30c3809447a4a67805">getCellStore</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell);
+<a name="l00031"></a><a class="code" href="classMWWorld_1_1Cells.html#a55792fe48dae3ddd82b4e476caf4eb48">00031</a>             std::vector&lt;std::pair&lt;std::string, Ptr::CellStore *&gt; &gt; <a class="code" href="classMWWorld_1_1Cells.html#a55792fe48dae3ddd82b4e476caf4eb48">mIdCache</a>;
+<a name="l00032"></a><a class="code" href="classMWWorld_1_1Cells.html#a09b5ab538e28fa91e8d730e1a54b8ec1">00032</a>             std::size_t <a class="code" href="classMWWorld_1_1Cells.html#a09b5ab538e28fa91e8d730e1a54b8ec1">mIdCacheIndex</a>;
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034             <a class="code" href="classMWWorld_1_1Cells.html#a0a6ce31801e77739a83b3e061de37725">Cells</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a>&amp;);
+<a name="l00035"></a>00035             <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a>&amp; <a class="code" href="classMWWorld_1_1Cells.html#a669c62f7e6135a0639ab516e209c8955">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a>&amp;);
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Cells.html#a9a02436a84c246954cb9adb4503e155e">fillContainers</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00037"></a>00037             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#ae4ea686a18e84e30c3809447a4a67805">getCellStore</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039         <span class="keyword">public</span>:
+<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Cells.html#a9a02436a84c246954cb9adb4503e155e">fillContainers</a> (<a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041             <a class="code" href="classMWWorld_1_1Cells.html#a0a6ce31801e77739a83b3e061de37725">Cells</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a>&amp; reader, <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world);
+<a name="l00041"></a>00041             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#a7d2749d1a80715419bab0f3e56498809">getPtrAndCache</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043         <span class="keyword">public</span>:
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a5bfd75ce02e958eb14ff83369f21deb1">getExterior</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a096df46a5f8feafc1db76c46427233ed">getInterior</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00045"></a>00045             <a class="code" href="classMWWorld_1_1Cells.html#a0a6ce31801e77739a83b3e061de37725">Cells</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a>&amp; reader, <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">MWWorld::World</a>&amp; world);
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#ad85c15b2acecc4f0755c12fbe56e8ef1">getPtr</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00049"></a>00049             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a5bfd75ce02e958eb14ff83369f21deb1">getExterior</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#ad85c15b2acecc4f0755c12fbe56e8ef1">getPtr</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00052"></a>00052     };
-<a name="l00053"></a>00053 }
+<a name="l00051"></a>00051             <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a096df46a5f8feafc1db76c46427233ed">getInterior</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#ad85c15b2acecc4f0755c12fbe56e8ef1">getPtr</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classESMS_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
+<a name="l00055"></a>00055             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#ad85c15b2acecc4f0755c12fbe56e8ef1">getPtr</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00056"></a>00056     };
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:10 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

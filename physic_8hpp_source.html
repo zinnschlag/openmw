@@ -42,182 +42,192 @@
 <a name="l00015"></a>00015 <span class="keyword">class </span>btCollisionDispatcher;
 <a name="l00016"></a>00016 <span class="keyword">class </span>btDiscreteDynamicsWorld;
 <a name="l00017"></a>00017 <span class="keyword">class </span><a class="code" href="classbtKinematicCharacterController.html">btKinematicCharacterController</a>;
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">namespace </span>BtOgre
-<a name="l00020"></a>00020 {
-<a name="l00021"></a>00021     <span class="keyword">class </span>DebugDrawer;
-<a name="l00022"></a>00022 }
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">namespace </span>MWWorld
-<a name="l00025"></a>00025 {
-<a name="l00026"></a>00026     <span class="keyword">class </span>World;
-<a name="l00027"></a>00027 }
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">namespace </span>OEngine {
-<a name="l00030"></a>00030 <span class="keyword">namespace </span>Physic
-<a name="l00031"></a>00031 {
-<a name="l00032"></a>00032     <span class="keyword">class </span>CMotionState;
-<a name="l00033"></a>00033     <span class="keyword">struct </span>PhysicEvent;
-<a name="l00034"></a>00034 
-<a name="l00038"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">00038</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">PairCachingGhostObject</a> : <span class="keyword">public</span> btPairCachingGhostObject
-<a name="l00039"></a>00039     {
-<a name="l00040"></a>00040     <span class="keyword">public</span>:
-<a name="l00041"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a899b508d644234172915a59a40b8bbfc">00041</a>         <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a899b508d644234172915a59a40b8bbfc">PairCachingGhostObject</a>(std::string name)
-<a name="l00042"></a>00042             :btPairCachingGhostObject(),<a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#ab212048f8b76662033559fb4937b0451">mName</a>(name)
-<a name="l00043"></a>00043         {
-<a name="l00044"></a>00044         }
-<a name="l00045"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a9e02e077b8fd0b4bea283e4bb49512dc">00045</a>         <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a9e02e077b8fd0b4bea283e4bb49512dc">~PairCachingGhostObject</a>(){}
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#ab212048f8b76662033559fb4937b0451">00047</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#ab212048f8b76662033559fb4937b0451">mName</a>;
-<a name="l00048"></a>00048     };
-<a name="l00049"></a>00049 
-<a name="l00053"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">00053</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">PhysicActor</a>
-<a name="l00054"></a>00054     {
-<a name="l00055"></a>00055     <span class="keyword">public</span>:
-<a name="l00056"></a>00056         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a96ef425a40e89dc905f228717cb37d1a">PhysicActor</a>(std::string name);
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#ac829c76ba5f7816b13cb1f039a9b3485">~PhysicActor</a>();
-<a name="l00059"></a>00059 
-<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a9c3bb471d17576fac9f10b26f7447c09">setWalkDirection</a>(<span class="keyword">const</span> btVector3&amp; mvt);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a7ce9ff6abafff9afca1cb5d22e3df4b6">Rotate</a>(<span class="keyword">const</span> btQuaternion&amp; quat);
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a1e099a87c8d7d9bc1ba8f91fb9c42367">setRotation</a>(<span class="keyword">const</span> btQuaternion&amp; quat);
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a79022cb6d22e332a968b51645c6a1ea9">setGravity</a>(<span class="keywordtype">float</span> gravity);
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#ab7e7636a61c44cdca300704e656c56c1">setVerticalVelocity</a>(<span class="keywordtype">float</span> z);
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a782b90eb7475eb0b20ca84c56a6e2bec">enableCollisions</a>(<span class="keywordtype">bool</span> collision);
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a17092ab8f791d4f4150849d5bb3dc58b">getCollisionMode</a>();
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079         btVector3 <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a897a906267bb7e2dff484db8e9eaa965">getPosition</a>(<span class="keywordtype">void</span>);
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081         btQuaternion <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a4876b7078e5522d85036597e661ebd02">getRotation</a>(<span class="keywordtype">void</span>);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a965108d8d3c0dbbfda98632e61d12b4c">setPosition</a>(<span class="keyword">const</span> btVector3&amp; pos);
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aec5edeea60342222e60b6bcec73075f9">00085</a>         <a class="code" href="classbtKinematicCharacterController.html">btKinematicCharacterController</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aec5edeea60342222e60b6bcec73075f9">mCharacter</a>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a645291877bb5c39218562d2d1db268d1">00087</a>         <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">PairCachingGhostObject</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a645291877bb5c39218562d2d1db268d1">internalGhostObject</a>;
-<a name="l00088"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#add5a2cd1ea170a281ff0a37dde60dca7">00088</a>         btCollisionShape* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#add5a2cd1ea170a281ff0a37dde60dca7">internalCollisionShape</a>;
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a65dbaaa72de9ead0851a8d51cae83fd5">00090</a>         <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">PairCachingGhostObject</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a65dbaaa72de9ead0851a8d51cae83fd5">externalGhostObject</a>;
-<a name="l00091"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a81bae51aaea6349d26de38be7fe449db">00091</a>         btCollisionShape* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a81bae51aaea6349d26de38be7fe449db">externalCollisionShape</a>;
-<a name="l00092"></a>00092 
-<a name="l00093"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aceef1d1cc3be0d8ec0c6fedda15a4d69">00093</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aceef1d1cc3be0d8ec0c6fedda15a4d69">mName</a>;
-<a name="l00094"></a>00094 
-<a name="l00099"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a40842fd8d54a85005623f1de59f21629">00099</a>         btVector3 <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a40842fd8d54a85005623f1de59f21629">mTranslation</a>;
-<a name="l00100"></a>00100     };
-<a name="l00101"></a>00101 
-<a name="l00107"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">00107</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>: <span class="keyword">public</span> btRigidBody
-<a name="l00108"></a>00108     {
-<a name="l00109"></a>00109     <span class="keyword">public</span>:
-<a name="l00110"></a>00110         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#a955f2f5d6493fece795c88ebd6844186">RigidBody</a>(btRigidBody::btRigidBodyConstructionInfo&amp; CI,std::string name);
-<a name="l00111"></a>00111         <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#a351a59a604954aea101bc66f0be2b33a">~RigidBody</a>();
-<a name="l00112"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">00112</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">mName</a>;
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114         <span class="comment">//is this body used for raycasting only?</span>
-<a name="l00115"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">00115</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">collide</a>;
-<a name="l00116"></a>00116     };
-<a name="l00117"></a>00117 
-<a name="l00124"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">00124</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">PhysicEngine</a>
-<a name="l00125"></a>00125     {
-<a name="l00126"></a>00126     <span class="keyword">public</span>:
-<a name="l00130"></a>00130         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a986bfd7ffff4ae505938448a7b2b0e8f">PhysicEngine</a>(<a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* shapeLoader);
-<a name="l00131"></a>00131 
-<a name="l00135"></a>00135         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a439ff603c7062b5ce3bd58994864325a">~PhysicEngine</a>();
-<a name="l00136"></a>00136 
-<a name="l00141"></a>00141         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a74afb651ec97eb7f4c87b946481ca2b9">createRigidBody</a>(std::string <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>,std::string name,<span class="keywordtype">float</span> scale);
-<a name="l00142"></a>00142 
-<a name="l00146"></a>00146         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a33ce47b7c63c0f2c5630ca72351b6bed">addHeightField</a>(<span class="keywordtype">float</span>* heights,
-<a name="l00147"></a>00147                 <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">float</span> yoffset,
-<a name="l00148"></a>00148                 <span class="keywordtype">float</span> triSize, <span class="keywordtype">float</span> sqrtVerts);
+<a name="l00018"></a>00018 <span class="keyword">class </span>btHeightfieldTerrainShape;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">namespace </span>BtOgre
+<a name="l00021"></a>00021 {
+<a name="l00022"></a>00022     <span class="keyword">class </span>DebugDrawer;
+<a name="l00023"></a>00023 }
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025 <span class="keyword">namespace </span>MWWorld
+<a name="l00026"></a>00026 {
+<a name="l00027"></a>00027     <span class="keyword">class </span>World;
+<a name="l00028"></a>00028 }
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">namespace </span>OEngine {
+<a name="l00031"></a>00031 <span class="keyword">namespace </span>Physic
+<a name="l00032"></a>00032 {
+<a name="l00033"></a>00033     <span class="keyword">class </span>CMotionState;
+<a name="l00034"></a>00034     <span class="keyword">struct </span>PhysicEvent;
+<a name="l00035"></a>00035 
+<a name="l00039"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">00039</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">PairCachingGhostObject</a> : <span class="keyword">public</span> btPairCachingGhostObject
+<a name="l00040"></a>00040     {
+<a name="l00041"></a>00041     <span class="keyword">public</span>:
+<a name="l00042"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a899b508d644234172915a59a40b8bbfc">00042</a>         <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a899b508d644234172915a59a40b8bbfc">PairCachingGhostObject</a>(std::string name)
+<a name="l00043"></a>00043             :btPairCachingGhostObject(),<a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#ab212048f8b76662033559fb4937b0451">mName</a>(name)
+<a name="l00044"></a>00044         {
+<a name="l00045"></a>00045         }
+<a name="l00046"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a9e02e077b8fd0b4bea283e4bb49512dc">00046</a>         <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#a9e02e077b8fd0b4bea283e4bb49512dc">~PairCachingGhostObject</a>(){}
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#ab212048f8b76662033559fb4937b0451">00048</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html#ab212048f8b76662033559fb4937b0451">mName</a>;
+<a name="l00049"></a>00049     };
+<a name="l00050"></a>00050 
+<a name="l00054"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">00054</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">PhysicActor</a>
+<a name="l00055"></a>00055     {
+<a name="l00056"></a>00056     <span class="keyword">public</span>:
+<a name="l00057"></a>00057         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a96ef425a40e89dc905f228717cb37d1a">PhysicActor</a>(std::string name);
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#ac829c76ba5f7816b13cb1f039a9b3485">~PhysicActor</a>();
+<a name="l00060"></a>00060 
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a9c3bb471d17576fac9f10b26f7447c09">setWalkDirection</a>(<span class="keyword">const</span> btVector3&amp; mvt);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a7ce9ff6abafff9afca1cb5d22e3df4b6">Rotate</a>(<span class="keyword">const</span> btQuaternion&amp; quat);
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a1e099a87c8d7d9bc1ba8f91fb9c42367">setRotation</a>(<span class="keyword">const</span> btQuaternion&amp; quat);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a79022cb6d22e332a968b51645c6a1ea9">setGravity</a>(<span class="keywordtype">float</span> gravity);
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#ab7e7636a61c44cdca300704e656c56c1">setVerticalVelocity</a>(<span class="keywordtype">float</span> z);
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a782b90eb7475eb0b20ca84c56a6e2bec">enableCollisions</a>(<span class="keywordtype">bool</span> collision);
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a17092ab8f791d4f4150849d5bb3dc58b">getCollisionMode</a>();
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080         btVector3 <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a897a906267bb7e2dff484db8e9eaa965">getPosition</a>(<span class="keywordtype">void</span>);
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082         btQuaternion <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a4876b7078e5522d85036597e661ebd02">getRotation</a>(<span class="keywordtype">void</span>);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a965108d8d3c0dbbfda98632e61d12b4c">setPosition</a>(<span class="keyword">const</span> btVector3&amp; pos);
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aec5edeea60342222e60b6bcec73075f9">00086</a>         <a class="code" href="classbtKinematicCharacterController.html">btKinematicCharacterController</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aec5edeea60342222e60b6bcec73075f9">mCharacter</a>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a645291877bb5c39218562d2d1db268d1">00088</a>         <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">PairCachingGhostObject</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a645291877bb5c39218562d2d1db268d1">internalGhostObject</a>;
+<a name="l00089"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#add5a2cd1ea170a281ff0a37dde60dca7">00089</a>         btCollisionShape* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#add5a2cd1ea170a281ff0a37dde60dca7">internalCollisionShape</a>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a65dbaaa72de9ead0851a8d51cae83fd5">00091</a>         <a class="code" href="classOEngine_1_1Physic_1_1PairCachingGhostObject.html">PairCachingGhostObject</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a65dbaaa72de9ead0851a8d51cae83fd5">externalGhostObject</a>;
+<a name="l00092"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a81bae51aaea6349d26de38be7fe449db">00092</a>         btCollisionShape* <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a81bae51aaea6349d26de38be7fe449db">externalCollisionShape</a>;
+<a name="l00093"></a>00093 
+<a name="l00094"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aceef1d1cc3be0d8ec0c6fedda15a4d69">00094</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#aceef1d1cc3be0d8ec0c6fedda15a4d69">mName</a>;
+<a name="l00095"></a>00095 
+<a name="l00100"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a40842fd8d54a85005623f1de59f21629">00100</a>         btVector3 <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html#a40842fd8d54a85005623f1de59f21629">mTranslation</a>;
+<a name="l00101"></a>00101     };
+<a name="l00102"></a>00102 
+<a name="l00108"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">00108</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>: <span class="keyword">public</span> btRigidBody
+<a name="l00109"></a>00109     {
+<a name="l00110"></a>00110     <span class="keyword">public</span>:
+<a name="l00111"></a>00111         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#a955f2f5d6493fece795c88ebd6844186">RigidBody</a>(btRigidBody::btRigidBodyConstructionInfo&amp; CI,std::string name);
+<a name="l00112"></a>00112         <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#a351a59a604954aea101bc66f0be2b33a">~RigidBody</a>();
+<a name="l00113"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">00113</a>         std::string <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#aadca209b0c9b6be12f2227319107a315">mName</a>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115         <span class="comment">//is this body used for raycasting only?</span>
+<a name="l00116"></a><a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">00116</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html#ab91d3c390db039fd7bfc6ded372e77dc">collide</a>;
+<a name="l00117"></a>00117     };
+<a name="l00118"></a>00118 
+<a name="l00119"></a><a class="code" href="structOEngine_1_1Physic_1_1HeightField.html">00119</a>     <span class="keyword">struct </span><a class="code" href="structOEngine_1_1Physic_1_1HeightField.html">HeightField</a>
+<a name="l00120"></a>00120     {
+<a name="l00121"></a><a class="code" href="structOEngine_1_1Physic_1_1HeightField.html#a16a66a2991c343143de4d26608d3cc56">00121</a>         btHeightfieldTerrainShape* <a class="code" href="structOEngine_1_1Physic_1_1HeightField.html#a16a66a2991c343143de4d26608d3cc56">mShape</a>;
+<a name="l00122"></a><a class="code" href="structOEngine_1_1Physic_1_1HeightField.html#adf003244c082329d5efc6244f6b7e271">00122</a>         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="structOEngine_1_1Physic_1_1HeightField.html#adf003244c082329d5efc6244f6b7e271">mBody</a>;
+<a name="l00123"></a>00123     };
+<a name="l00124"></a>00124 
+<a name="l00131"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">00131</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">PhysicEngine</a>
+<a name="l00132"></a>00132     {
+<a name="l00133"></a>00133     <span class="keyword">public</span>:
+<a name="l00137"></a>00137         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a986bfd7ffff4ae505938448a7b2b0e8f">PhysicEngine</a>(<a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* shapeLoader);
+<a name="l00138"></a>00138 
+<a name="l00142"></a>00142         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a439ff603c7062b5ce3bd58994864325a">~PhysicEngine</a>();
+<a name="l00143"></a>00143 
+<a name="l00148"></a>00148         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a74afb651ec97eb7f4c87b946481ca2b9">createRigidBody</a>(std::string <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>,std::string name,<span class="keywordtype">float</span> scale);
 <a name="l00149"></a>00149 
-<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8e403b58937606cc9927d78031e76190">removeHeightField</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00154"></a>00154 
-<a name="l00158"></a>00158         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a003a80648cb39340a15f89763ea42ecd">addRigidBody</a>(<a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* body);
-<a name="l00159"></a>00159 
-<a name="l00163"></a>00163         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a0d36ce2dba5d5ef9083f77d22f7a6637">removeRigidBody</a>(std::string name);
-<a name="l00164"></a>00164 
-<a name="l00168"></a>00168         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4bedec38fc4391ff3445f0439b49e1fe">deleteRigidBody</a>(std::string name);
-<a name="l00169"></a>00169 
-<a name="l00174"></a>00174         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae51cdb6eb3a3bb5fbf28e0dafac2efd0">getRigidBody</a>(std::string name);
-<a name="l00175"></a>00175 
-<a name="l00179"></a>00179         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a642a4e225deb013cd1702c38f40b43fa">addCharacter</a>(std::string name);
-<a name="l00180"></a>00180 
-<a name="l00184"></a>00184         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a85c362d5e924159efd841f25d369ea09">removeCharacter</a>(std::string name);
-<a name="l00185"></a>00185 
-<a name="l00190"></a>00190         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">PhysicActor</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa19b7d502f850f6ac2aed578fe98bd88">getCharacter</a>(std::string name);
-<a name="l00191"></a>00191 
-<a name="l00195"></a>00195         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1d3d8b1ded5a1408ea77e30253924e14">stepSimulation</a>(<span class="keywordtype">double</span> deltaT);
-<a name="l00196"></a>00196 
-<a name="l00200"></a>00200         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab37f024664ba779040e690bbd466e2f3">emptyEventLists</a>(<span class="keywordtype">void</span>);
-<a name="l00201"></a>00201 
-<a name="l00206"></a>00206         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a9d99fbbc0c6f11eda680e095b83b109f">createDebugRendering</a>();
-<a name="l00207"></a>00207 
-<a name="l00212"></a>00212         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad1bfae71beab4ade1eb462190e8fbf7e">setDebugRenderingMode</a>(<span class="keywordtype">int</span> mode);
-<a name="l00213"></a>00213 
-<a name="l00214"></a>00214         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a34f7251cee62aa2c0ad5d53cdd4682d5">toggleDebugRendering</a>();
-<a name="l00215"></a>00215 
-<a name="l00219"></a>00219         std::pair&lt;std::string,float&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a59bc8bb1b2ca30bec109c551c0b04862">rayTest</a>(btVector3&amp; from,btVector3&amp; to);
+<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a33ce47b7c63c0f2c5630ca72351b6bed">addHeightField</a>(<span class="keywordtype">float</span>* heights,
+<a name="l00154"></a>00154                 <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">float</span> yoffset,
+<a name="l00155"></a>00155                 <span class="keywordtype">float</span> triSize, <span class="keywordtype">float</span> sqrtVerts);
+<a name="l00156"></a>00156 
+<a name="l00160"></a>00160         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8e403b58937606cc9927d78031e76190">removeHeightField</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00161"></a>00161 
+<a name="l00165"></a>00165         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a003a80648cb39340a15f89763ea42ecd">addRigidBody</a>(<a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* body);
+<a name="l00166"></a>00166 
+<a name="l00170"></a>00170         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a0d36ce2dba5d5ef9083f77d22f7a6637">removeRigidBody</a>(std::string name);
+<a name="l00171"></a>00171 
+<a name="l00175"></a>00175         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4bedec38fc4391ff3445f0439b49e1fe">deleteRigidBody</a>(std::string name);
+<a name="l00176"></a>00176 
+<a name="l00181"></a>00181         <a class="code" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae51cdb6eb3a3bb5fbf28e0dafac2efd0">getRigidBody</a>(std::string name);
+<a name="l00182"></a>00182 
+<a name="l00186"></a>00186         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a642a4e225deb013cd1702c38f40b43fa">addCharacter</a>(std::string name);
+<a name="l00187"></a>00187 
+<a name="l00191"></a>00191         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a85c362d5e924159efd841f25d369ea09">removeCharacter</a>(std::string name);
+<a name="l00192"></a>00192 
+<a name="l00197"></a>00197         <a class="code" href="classOEngine_1_1Physic_1_1PhysicActor.html">PhysicActor</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa19b7d502f850f6ac2aed578fe98bd88">getCharacter</a>(std::string name);
+<a name="l00198"></a>00198 
+<a name="l00202"></a>00202         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1d3d8b1ded5a1408ea77e30253924e14">stepSimulation</a>(<span class="keywordtype">double</span> deltaT);
+<a name="l00203"></a>00203 
+<a name="l00207"></a>00207         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab37f024664ba779040e690bbd466e2f3">emptyEventLists</a>(<span class="keywordtype">void</span>);
+<a name="l00208"></a>00208 
+<a name="l00213"></a>00213         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a9d99fbbc0c6f11eda680e095b83b109f">createDebugRendering</a>();
+<a name="l00214"></a>00214 
+<a name="l00219"></a>00219         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad1bfae71beab4ade1eb462190e8fbf7e">setDebugRenderingMode</a>(<span class="keywordtype">int</span> mode);
 <a name="l00220"></a>00220 
-<a name="l00224"></a>00224         std::vector&lt; std::pair&lt;float, std::string&gt; &gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3b2bff1c3be21d940f68bf818491f415">rayTest2</a>(btVector3&amp; from, btVector3&amp; to);
-<a name="l00225"></a>00225 
-<a name="l00226"></a>00226         <span class="comment">//event list of non player object</span>
-<a name="l00227"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">00227</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">NPEventList</a>;
-<a name="l00228"></a>00228 
-<a name="l00229"></a>00229         <span class="comment">//event list affecting the player</span>
-<a name="l00230"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">00230</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">PEventList</a>;
-<a name="l00231"></a>00231 
-<a name="l00232"></a>00232         <span class="comment">//Bullet Stuff</span>
-<a name="l00233"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab11b787eaf219ab62647dfe1ab344fa1">00233</a>         btOverlappingPairCache* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab11b787eaf219ab62647dfe1ab344fa1">pairCache</a>;
-<a name="l00234"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">00234</a>         btBroadphaseInterface* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">broadphase</a>;
-<a name="l00235"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">00235</a>         btDefaultCollisionConfiguration* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">collisionConfiguration</a>;
-<a name="l00236"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">00236</a>         btSequentialImpulseConstraintSolver* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">solver</a>;
-<a name="l00237"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">00237</a>         btCollisionDispatcher* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">dispatcher</a>;
-<a name="l00238"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">00238</a>         btDiscreteDynamicsWorld* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">dynamicsWorld</a>;
-<a name="l00239"></a>00239 
-<a name="l00240"></a>00240         <span class="comment">//the NIF file loader.</span>
-<a name="l00241"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">00241</a>         <a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">mShapeLoader</a>;
-<a name="l00242"></a>00242 
-<a name="l00243"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">00243</a>         <span class="keyword">typedef</span> std::map&lt;std::string,RigidBody*&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">RigidBodyContainer</a>;
-<a name="l00244"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1c5a6e4edc3dac6eec14ce23eff18d21">00244</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">RigidBodyContainer</a> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1c5a6e4edc3dac6eec14ce23eff18d21">RigidBodyMap</a>;
-<a name="l00245"></a>00245 
-<a name="l00246"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">00246</a>         <span class="keyword">typedef</span> std::map&lt;std::string, PhysicActor*&gt;  <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a>;
-<a name="l00247"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a460c5189b48ea9e20ef7e6c0898f4a96">00247</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a460c5189b48ea9e20ef7e6c0898f4a96">PhysicActorMap</a>;
-<a name="l00248"></a>00248 
-<a name="l00249"></a>00249         <span class="comment">//debug rendering</span>
-<a name="l00250"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">00250</a>         <a class="code" href="classBtOgre_1_1DebugDrawer.html">BtOgre::DebugDrawer</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">mDebugDrawer</a>;
-<a name="l00251"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">00251</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">isDebugCreated</a>;
-<a name="l00252"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a751edcec9fd6e320865407218140fcbf">00252</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a751edcec9fd6e320865407218140fcbf">mDebugActive</a>;
-<a name="l00253"></a>00253     };
-<a name="l00254"></a>00254 
+<a name="l00221"></a>00221         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a34f7251cee62aa2c0ad5d53cdd4682d5">toggleDebugRendering</a>();
+<a name="l00222"></a>00222 
+<a name="l00226"></a>00226         std::pair&lt;std::string,float&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a59bc8bb1b2ca30bec109c551c0b04862">rayTest</a>(btVector3&amp; from,btVector3&amp; to);
+<a name="l00227"></a>00227 
+<a name="l00231"></a>00231         std::vector&lt; std::pair&lt;float, std::string&gt; &gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3b2bff1c3be21d940f68bf818491f415">rayTest2</a>(btVector3&amp; from, btVector3&amp; to);
+<a name="l00232"></a>00232 
+<a name="l00233"></a>00233         <span class="comment">//event list of non player object</span>
+<a name="l00234"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">00234</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">NPEventList</a>;
+<a name="l00235"></a>00235 
+<a name="l00236"></a>00236         <span class="comment">//event list affecting the player</span>
+<a name="l00237"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">00237</a>         std::list&lt;PhysicEvent&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a4f62b9a0f0a1484548de82e48269ea8d">PEventList</a>;
+<a name="l00238"></a>00238 
+<a name="l00239"></a>00239         <span class="comment">//Bullet Stuff</span>
+<a name="l00240"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab11b787eaf219ab62647dfe1ab344fa1">00240</a>         btOverlappingPairCache* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab11b787eaf219ab62647dfe1ab344fa1">pairCache</a>;
+<a name="l00241"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">00241</a>         btBroadphaseInterface* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1ff525dbd264a6cdad52a178e34b5a9f">broadphase</a>;
+<a name="l00242"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">00242</a>         btDefaultCollisionConfiguration* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ac520391a1c652f9d40b19c3bd8f7dbcc">collisionConfiguration</a>;
+<a name="l00243"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">00243</a>         btSequentialImpulseConstraintSolver* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a55b4ca05c50869659546dcc5719f1309">solver</a>;
+<a name="l00244"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">00244</a>         btCollisionDispatcher* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#adbc2a7457f6919a435664e296c8dc592">dispatcher</a>;
+<a name="l00245"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">00245</a>         btDiscreteDynamicsWorld* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ae3de35abceeff7a65a07a02c592c7611">dynamicsWorld</a>;
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247         <span class="comment">//the NIF file loader.</span>
+<a name="l00248"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">00248</a>         <a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a62275ff7df7a371916d0a975d997a8c0">mShapeLoader</a>;
+<a name="l00249"></a>00249 
+<a name="l00250"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a57c853f5d66875bc8f76b6d7d2df9107">00250</a>         <span class="keyword">typedef</span> std::map&lt;std::string, HeightField&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a57c853f5d66875bc8f76b6d7d2df9107">HeightFieldContainer</a>;
+<a name="l00251"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab4ce996c7904800de92c5b74d0c77fd4">00251</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a57c853f5d66875bc8f76b6d7d2df9107">HeightFieldContainer</a> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab4ce996c7904800de92c5b74d0c77fd4">mHeightFieldMap</a>;
+<a name="l00252"></a>00252 
+<a name="l00253"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">00253</a>         <span class="keyword">typedef</span> std::map&lt;std::string,RigidBody*&gt; <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">RigidBodyContainer</a>;
+<a name="l00254"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1c5a6e4edc3dac6eec14ce23eff18d21">00254</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">RigidBodyContainer</a> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1c5a6e4edc3dac6eec14ce23eff18d21">RigidBodyMap</a>;
 <a name="l00255"></a>00255 
-<a name="l00256"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html">00256</a>     <span class="keyword">struct </span><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html">MyRayResultCallback</a> : <span class="keyword">public</span> btCollisionWorld::RayResultCallback
-<a name="l00257"></a>00257     {
-<a name="l00258"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a78d14527736e4f57c323307773707fb9">00258</a>         <span class="keyword">virtual</span> btScalar <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a78d14527736e4f57c323307773707fb9">addSingleResult</a>( btCollisionWorld::LocalRayResult&amp; rayResult, <span class="keywordtype">bool</span> bNormalInWorldSpace)
-<a name="l00259"></a>00259         {
-<a name="l00260"></a>00260             <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a4be784398dfaee5711e99a1466c98ffb">results</a>.push_back( std::make_pair(rayResult.m_hitFraction, rayResult.m_collisionObject) );
-<a name="l00261"></a>00261             <span class="keywordflow">return</span> rayResult.m_hitFraction;
-<a name="l00262"></a>00262         }
-<a name="l00263"></a>00263 
-<a name="l00264"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#aa5ff960bb544eca576cd3bf636b0e6cd">00264</a>         <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#aa5ff960bb544eca576cd3bf636b0e6cd">cmp</a>( <span class="keyword">const</span> std::pair&lt;float, std::string&gt;&amp; i, <span class="keyword">const</span> std::pair&lt;float, std::string&gt;&amp; j )
-<a name="l00265"></a>00265         {
-<a name="l00266"></a>00266             <span class="keywordflow">if</span>( i.first &gt; j.first ) <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00267"></a>00267             <span class="keywordflow">if</span>( j.first &gt; i.first ) <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00268"></a>00268             <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00269"></a>00269         }
-<a name="l00270"></a>00270 
-<a name="l00271"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a4be784398dfaee5711e99a1466c98ffb">00271</a>         std::vector &lt; std::pair&lt;float, btCollisionObject*&gt; &gt; <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a4be784398dfaee5711e99a1466c98ffb">results</a>;
-<a name="l00272"></a>00272     };
+<a name="l00256"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">00256</a>         <span class="keyword">typedef</span> std::map&lt;std::string, PhysicActor*&gt;  <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a>;
+<a name="l00257"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a460c5189b48ea9e20ef7e6c0898f4a96">00257</a>         <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a460c5189b48ea9e20ef7e6c0898f4a96">PhysicActorMap</a>;
+<a name="l00258"></a>00258 
+<a name="l00259"></a>00259         <span class="comment">//debug rendering</span>
+<a name="l00260"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">00260</a>         <a class="code" href="classBtOgre_1_1DebugDrawer.html">BtOgre::DebugDrawer</a>* <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">mDebugDrawer</a>;
+<a name="l00261"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">00261</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">isDebugCreated</a>;
+<a name="l00262"></a><a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a751edcec9fd6e320865407218140fcbf">00262</a>         <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a751edcec9fd6e320865407218140fcbf">mDebugActive</a>;
+<a name="l00263"></a>00263     };
+<a name="l00264"></a>00264 
+<a name="l00265"></a>00265 
+<a name="l00266"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html">00266</a>     <span class="keyword">struct </span><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html">MyRayResultCallback</a> : <span class="keyword">public</span> btCollisionWorld::RayResultCallback
+<a name="l00267"></a>00267     {
+<a name="l00268"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a78d14527736e4f57c323307773707fb9">00268</a>         <span class="keyword">virtual</span> btScalar <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a78d14527736e4f57c323307773707fb9">addSingleResult</a>( btCollisionWorld::LocalRayResult&amp; rayResult, <span class="keywordtype">bool</span> bNormalInWorldSpace)
+<a name="l00269"></a>00269         {
+<a name="l00270"></a>00270             <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a61fee54a83e1ec0a7b35781b31b6f357">results</a>.push_back( std::make_pair(rayResult.m_hitFraction, rayResult.m_collisionObject) );
+<a name="l00271"></a>00271             <span class="keywordflow">return</span> rayResult.m_hitFraction;
+<a name="l00272"></a>00272         }
 <a name="l00273"></a>00273 
-<a name="l00274"></a>00274 }}
-<a name="l00275"></a>00275 
-<a name="l00276"></a>00276 <span class="preprocessor">#endif</span>
+<a name="l00274"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#aa5ff960bb544eca576cd3bf636b0e6cd">00274</a>         <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#aa5ff960bb544eca576cd3bf636b0e6cd">cmp</a>( <span class="keyword">const</span> std::pair&lt;float, std::string&gt;&amp; i, <span class="keyword">const</span> std::pair&lt;float, std::string&gt;&amp; j )
+<a name="l00275"></a>00275         {
+<a name="l00276"></a>00276             <span class="keywordflow">if</span>( i.first &gt; j.first ) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00277"></a>00277             <span class="keywordflow">if</span>( j.first &gt; i.first ) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00278"></a>00278             <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00279"></a>00279         }
+<a name="l00280"></a>00280 
+<a name="l00281"></a><a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a61fee54a83e1ec0a7b35781b31b6f357">00281</a>         std::vector &lt; std::pair&lt;float, const btCollisionObject*&gt; &gt; <a class="code" href="structOEngine_1_1Physic_1_1MyRayResultCallback.html#a61fee54a83e1ec0a7b35781b31b6f357">results</a>;
+<a name="l00282"></a>00282     };
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284 }}
+<a name="l00285"></a>00285 
+<a name="l00286"></a>00286 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Fri May 25 15:23:23 2012 for OpenMW by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:29:10 2012 for OpenMW by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
