@@ -9,6 +9,8 @@
 #include "nullaction.hpp"
 #include "containerstore.hpp"
 
+#include "../mwgui/tooltips.hpp"
+
 namespace MWWorld
 {
     std::map<std::string, boost::shared_ptr<Class> > Class::sClasses;
@@ -191,5 +193,13 @@ namespace MWWorld
     std::string Class::getEnchantment (const Ptr& ptr) const
     {
         return "";
+    }
+
+    void Class::adjustScale(const MWWorld::Ptr& ptr,float& scale) const
+    {
+    }
+
+    void Class::adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const
+    {
     }
 }

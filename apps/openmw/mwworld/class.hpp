@@ -8,11 +8,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include "action.hpp"
-#include "refdata.hpp"
-#include "physicssystem.hpp"
-
-#include "../mwrender/renderinginterface.hpp"
-#include "../mwgui/tooltips.hpp"
 
 namespace Ogre
 {
@@ -21,7 +16,7 @@ namespace Ogre
 
 namespace MWRender
 {
-    class CellRenderImp;
+    class RenderingInterface;
 }
 
 namespace MWMechanics
@@ -31,11 +26,17 @@ namespace MWMechanics
     struct Movement;
 }
 
+namespace MWGui
+{
+    struct ToolTipInfo;
+}
+
 namespace MWWorld
 {
     class Ptr;
     class ContainerStore;
     class InventoryStore;
+    class PhysicsSystem;
 
     /// \brief Base class for referenceable esm records
     class Class
@@ -186,6 +187,10 @@ namespace MWWorld
             virtual std::string getEnchantment (const MWWorld::Ptr& ptr) const;
             ///< @return the enchantment ID if the object is enchanted, otherwise an empty string
             /// (default implementation: return empty string)
+
+            virtual void adjustScale(const MWWorld::Ptr& ptr,float& scale) const;
+
+            virtual void adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const;
     };
 }
 

@@ -1,5 +1,14 @@
 #include "water.hpp"
 
+#include <OgreRenderTarget.h>
+#include <OgreEntity.h>
+#include <OgreMeshManager.h>
+#include <OgreHardwarePixelBuffer.h>
+#include <OgreCompositorManager.h>
+#include <OgreCompositorInstance.h>
+#include <OgreCompositorChain.h>
+#include <OgreRoot.h>
+
 #include "sky.hpp"
 #include "renderingmanager.hpp"
 #include "compositors.hpp"
@@ -113,6 +122,9 @@ void Water::setActive(bool active)
 Water::~Water()
 {
     MeshManager::getSingleton().remove("water");
+
+    if (mReflectionTarget)
+        mReflectionTexture->getBuffer()->getRenderTarget()->removeListener(this);
 
     mWaterNode->detachObject(mWater);
     mSceneManager->destroyEntity(mWater);

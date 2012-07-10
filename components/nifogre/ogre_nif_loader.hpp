@@ -26,12 +26,10 @@
 
 #include <OgreResource.h>
 #include <OgreMesh.h>
-#include <assert.h>
+
+#include <cassert>
 #include <string>
-#include    <boost/algorithm/string.hpp>
-#include <Ogre.h>
-#include <stdio.h>
-#include <iostream>
+#include <boost/algorithm/string.hpp>
 
 #include <libs/mangle/vfs/servers/ogre_vfs.hpp>
 #include "../nif/nif_file.hpp"
@@ -45,7 +43,6 @@
 #include <vector>
 #include <list>
 // For warning messages
-#include <iostream>
 #include <limits>
 using namespace boost::algorithm;
 
@@ -65,17 +62,8 @@ namespace Nif
     class Node;
     class Transformation;
     class NiTriShape;
-    class Vector;
-    class Matrix;
 }
 
-namespace Mangle
-{
-    namespace VFS
-    {
-        class OgreVFS;
-    }
-}
 
 namespace NifOgre
 {
@@ -113,9 +101,6 @@ class NIFLoader : Ogre::ManualResourceLoader
         std::map<std::string, float>* getTextIndices(std::string name);
 
 
-        Ogre::Vector3 convertVector3(const Nif::Vector& vec);
-        Ogre::Quaternion convertRotation(const Nif::Matrix& rot);
-
         void setOutputAnimFiles(bool output);
         void setVerbosePath(std::string path);
 
@@ -139,10 +124,10 @@ class NIFLoader : Ogre::ManualResourceLoader
         void createOgreSubMesh(Nif::NiTriShape *shape, const Ogre::String &material, std::list<Ogre::VertexBoneAssignment> &vertexBoneAssignments);
 
         void createMaterial(const Ogre::String &name,
-                            const Nif::Vector &ambient,
-                            const Nif::Vector &diffuse,
-                            const Nif::Vector &specular,
-                            const Nif::Vector &emissive,
+                            const Ogre::Vector3 &ambient,
+                            const Ogre::Vector3 &diffuse,
+                            const Ogre::Vector3 &specular,
+                            const Ogre::Vector3 &emissive,
                             float glossiness, float alpha,
                             int alphaFlags, float alphaTest,
                             const Ogre::String &texName);
@@ -156,13 +141,6 @@ class NIFLoader : Ogre::ManualResourceLoader
         {
             return resourceName + ".skel";
         }
-
-        // This is the interface to the Ogre resource system. It allows us to
-        // load NIFs from BSAs, in the file system and in any other place we
-        // tell Ogre to look (eg. in zip or rar files.) It's also used to
-        // check for the existence of texture files, so we can exchange the
-        // extension from .tga to .dds if the texture is missing.
-        Mangle::VFS::OgreVFS *vfs;
 
         std::string verbosePath;
         std::string resourceName;
@@ -193,7 +171,7 @@ class NIFLoader : Ogre::ManualResourceLoader
 		std::vector<Nif::NiTriShapeCopy> mS;
         std::vector<Ogre::SubMesh*> needBoneAssignments;
         bool inTheSkeletonTree;
-        
+
 
 };
 

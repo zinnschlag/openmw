@@ -3,6 +3,8 @@
 
 #include <boost/algorithm/string.hpp>
 
+#include <components/esm_store/store.hpp>
+
 #include <components/compiler/extensions.hpp>
 
 #include <components/interpreter/interpreter.hpp>
@@ -299,6 +301,9 @@ namespace MWScript
                     std::string id = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
+                    // make sure a spell with this ID actually exists.
+                    MWBase::Environment::get().getWorld()->getStore().spells.find (id);
+
                     MWWorld::Class::get (ptr).getCreatureStats (ptr).mSpells.add (id);
                 }
         };
@@ -499,6 +504,7 @@ namespace MWScript
                     /// \todo modify disposition towards the player
                 }
         };
+
 
         const int numberOfAttributes = 8;
 
