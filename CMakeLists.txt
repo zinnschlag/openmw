@@ -22,8 +22,10 @@ set (OPENMW_VERSION "${OPENMW_VERSION_MAJOR}.${OPENMW_VERSION_MINOR}.${OPENMW_VE
 
 # Debug suffix for plugins
 set(DEBUG_SUFFIX "")
-if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-    set(DEBUG_SUFFIX "_d")
+if (DEFINED CMAKE_BUILD_TYPE)
+    if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+        set(DEBUG_SUFFIX "_d")
+    endif()
 endif()
 
 # doxygen main page
