@@ -21,7 +21,8 @@ public:
     PotionDataItem(ESMDataItem *parent);
 
     virtual void load(ESM::ESMReader &esm){
-        mPotion.load(esm);
+        //WTF is this :/
+        mPotion.load(esm, mId.toStdString());
 
         for(std::vector<ESM::ENAMstruct>::const_iterator iter(mPotion.effects.list.begin()); iter!=mPotion.effects.list.end(); ++iter)
         {

@@ -155,12 +155,12 @@ void ESMDataModel::setupModelData(ESM::ESMReader &esm)
         }
 
         if(child) {
-            child->load(esm);
-
             if(child != &defaultLoadable) {
                 child->setId(recordId);
                 mRootItem->appendChild(child);
             }
+
+            child->load(esm);
         }
     }
 }
