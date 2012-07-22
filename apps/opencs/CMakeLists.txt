@@ -5,16 +5,25 @@ set(OPENCS_SRC
     opencs.cpp
     esmdataitem.cpp
     esmdatamodel.cpp
+    model/activator.cpp
+    model/potion.cpp
+    model/magiceffect.cpp
+    views/idlist.cpp
 )
 
 set(OPENCS_HDR
     opencs.hpp
-    esmdataitem.cpp
+    esmdataitem.hpp
     esmdatamodel.hpp
+    model/activator.hpp
+    model/potion.hpp
+    model/magiceffect.hpp
+    views/idlist.hpp
 )
 
 set(OPENCS_UI
     opencs.ui
+    views/idlist.ui
 )
 
 set(OPENCS_RES

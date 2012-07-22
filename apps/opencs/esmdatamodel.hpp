@@ -21,25 +21,23 @@ public:
     ~ESMDataModel();
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+
     QModelIndex parent(const QModelIndex &index) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role) const;
 
-    Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
     void setupModelData(ESM::ESMReader &esm);
-
-    QMap<unsigned char, QString> mArmorTypeNames;
-    QMap<unsigned char, QString> mArmorBodyPartNames;
-
-    QMap<unsigned char, QString> mBodyPartNames;
-
-    QMap<int32_t, ESMDataItem*> mSectionDataItems;
+    void updateHeaders(ESMDataItem *parent);
 
     ESMDataItem *mRootItem;
+
+    QList<QVariant> m_ColumnNames;
 };
 
 
