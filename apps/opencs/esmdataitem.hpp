@@ -7,21 +7,53 @@
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
-class ESMDataItem : public QObject
+
+class DataItem : public QObject
+{
+    Q_OBJECT
+
+public:
+    DataItem(DataItem *parent = 0);
+    ~DataItem();
+
+    DataItem *parent();
+    int row() const;
+
+    int childCount() const;
+    DataItem *child(int row);
+
+    void appendChild(DataItem *child);
+
+private:
+    DataItem *mParentItem;
+    QList<DataItem*> mChildItems;
+};
+
+class EsmFile : public DataItem
+{
+    Q_OBJECT
+    Q_PROPERTY(QString filename READ filename)
+
+public:
+    EsmFile(DataItem *parent = 0) : DataItem(parent) {}
+    ~EsmFile() {}
+
+    EsmFile(QString fileName, DataItem *parent);
+
+    QString filename() { return mFileName;}
+
+private:
+    QString mFileName;
+};
+
+class ESMDataItem : public DataItem
 {
     Q_OBJECT
     Q_PROPERTY(QString mwId READ id WRITE setId)
 
 public:
-    ESMDataItem(ESMDataItem *parent = 0);
-    ~ESMDataItem();
-
-    void appendChild(ESMDataItem *child);
-
-    ESMDataItem *child(int row);
-    int childCount() const;
-    int row() const;
-    ESMDataItem *parent();
+    ESMDataItem(DataItem *parent = 0) : DataItem(parent) {}
+    ~ESMDataItem() {}
 
     //TODO Make this nicer
     virtual void load(ESM::ESMReader &esm){
@@ -36,8 +68,9 @@ protected:
     QString mId;
 
 private:
-    ESMDataItem *mParentItem;
-    QList<ESMDataItem*> mChildItems;
 };
+
+
+
 
 #endif // ESMDATAITEM_HPP

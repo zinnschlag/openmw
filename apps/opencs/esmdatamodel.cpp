@@ -14,17 +14,69 @@
 
 #include "QMetaObject"
 
-ESMDataModel::ESMDataModel(ESM::ESMReader &esm, QObject *parent)
+ESMDataModel::ESMDataModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mRootItem = new ESMDataItem();
-    setupModelData(esm);
-    updateHeaders(mRootItem);
+    mRootItem = new DataItem();
 }
 
 ESMDataModel::~ESMDataModel()
 {
     delete mRootItem;
+}
+
+void ESMDataModel::loadEsmFile(QString file)
+{
+    qDebug() << "Trying to open esm:" << file;
+    beginResetModel();
+
+    EsmFile *esmFile = new EsmFile(file, mRootItem);
+    mRootItem->appendChild(esmFile);
+
+    std::string stdStrFileName = file.toStdString();
+
+    ESM::ESMReader esm;
+    esm.setEncoding("default");
+    esm.open(stdStrFileName);
+
+    while(esm.hasMoreRecs()) {
+        esm.getContext();
+
+        ESM::NAME recordName = esm.getRecName();
+        esm.getRecHeader();
+
+        std::string id = esm.getHNOString("NAME");
+        QString recordId = QString::fromStdString(id);
+
+        ESMDataItem defaultLoadable;
+        ESMDataItem *child = NULL;
+
+        switch(recordName.val) {
+        case ESM::REC_ACTI:
+            child = new ActivatorDataItem(esmFile);
+            break;
+        case ESM::REC_ALCH:
+            child = new PotionDataItem(esmFile);
+            break;
+        default:
+            child = &defaultLoadable;
+            break;
+        }
+
+        if(child) {
+            if(child != &defaultLoadable) {
+                child->setId(recordId);
+                esmFile->appendChild(child);
+            }
+
+            child->load(esm);
+        }
+    }
+
+    updateHeaders(mRootItem);
+
+
+    endResetModel();
 }
 
 QVariant ESMDataModel::data(const QModelIndex &index, int role) const
@@ -35,7 +87,7 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    ESMDataItem *item = static_cast<ESMDataItem*>(index.internalPointer());
+    DataItem *item = static_cast<DataItem*>(index.internalPointer());
 
     const QMetaObject* metaObject = item->metaObject();
 
@@ -78,15 +130,15 @@ QModelIndex ESMDataModel::index(int row, int column, const QModelIndex &parent) 
     if (!hasIndex(row, column, parent))
         return QModelIndex();
 
-    ESMDataItem *parentItem;
+    DataItem *parentItem;
 
     // The root object is represented as an invalid index
     if (!parent.isValid())
         parentItem = mRootItem;
     else
-        parentItem = static_cast<ESMDataItem*>(parent.internalPointer());
+        parentItem = static_cast<DataItem*>(parent.internalPointer());
 
-    ESMDataItem *childItem = parentItem->child(row);
+    DataItem *childItem = parentItem->child(row);
     if (childItem)
         return createIndex(row, column, childItem);
     else
@@ -98,19 +150,18 @@ QModelIndex ESMDataModel::parent(const QModelIndex &index) const
     if (!index.isValid())
         return QModelIndex();
 
-    ESMDataItem *childItem = static_cast<ESMDataItem*>(index.internalPointer());
-    ESMDataItem *parentItem = childItem->parent();
+    DataItem *childItem = static_cast<DataItem*>(index.internalPointer());
+    DataItem *parentItem = childItem->parent();
 
     if (parentItem == mRootItem)
         return QModelIndex();
 
     return createIndex(parentItem->row(), 0, parentItem);
-    return index;
 }
 
 int ESMDataModel::rowCount(const QModelIndex &parent) const
 {
-    ESMDataItem *parentItem;
+    DataItem *parentItem;
     if (parent.column() > 0)
         return 0;
 
@@ -127,49 +178,10 @@ int ESMDataModel::columnCount(const QModelIndex &parent) const
    return m_ColumnNames.size();
 }
 
-void ESMDataModel::setupModelData(ESM::ESMReader &esm)
-{
-    while(esm.hasMoreRecs()) {
-        esm.getContext();
-
-        ESM::NAME recordName = esm.getRecName();
-        esm.getRecHeader();
-
-        std::string id = esm.getHNOString("NAME");
-        QString recordId = QString::fromStdString(id);
-
-        ESMDataItem defaultLoadable;
-        ESMDataItem *child = NULL;
-
-        switch(recordName.val) {
-        case ESM::REC_ACTI:
-            child = new ActivatorDataItem(mRootItem);
-            break;
-        case ESM::REC_ALCH:
-            child = new PotionDataItem(mRootItem);
-            break;
-        default:
-            child = &defaultLoadable;
-            break;
-        }
-
-        if(child) {
-            if(child != &defaultLoadable) {
-                child->setId(recordId);
-                mRootItem->appendChild(child);
-            }
-
-            child->load(esm);
-        }
-    }
-}
-
-void ESMDataModel::updateHeaders(ESMDataItem *parent)
+void ESMDataModel::updateHeaders(DataItem *parent)
 {
     for(int i=0;i<parent->childCount();i++) {
-        ESMDataItem *child = parent->child(i);
-
-        updateHeaders(child);
+        DataItem *child = parent->child(i);
 
         const QMetaObject* metaObject = child->metaObject();
 
@@ -183,6 +195,9 @@ void ESMDataModel::updateHeaders(ESMDataItem *parent)
                 qDebug() <<"added header" << header;
             }
         }
+
+        updateHeaders(child);
+
 
 //        for(int u = 0; u<child->columnCount(); u++) {
 //            QVariant header = child->headerData(u);

@@ -5,44 +5,52 @@
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
-ESMDataItem::ESMDataItem(ESMDataItem *parent)
+DataItem::DataItem(DataItem *parent)
     : mParentItem(parent)
     , QObject(parent)
 {
 }
 
-ESMDataItem::~ESMDataItem()
+DataItem::~DataItem()
 {
     qDeleteAll(mChildItems);
 }
 
-void ESMDataItem::appendChild(ESMDataItem *item)
+void DataItem::appendChild(DataItem *item)
 {
     mChildItems.append(item);
 }
 
-ESMDataItem *ESMDataItem::child(int row)
+DataItem *DataItem::child(int row)
 {
     return mChildItems.value(row);
 }
 
-int ESMDataItem::childCount() const
+int DataItem::childCount() const
 {
     return mChildItems.count();
 }
 
-ESMDataItem *ESMDataItem::parent()
+DataItem *DataItem::parent()
 {
     return mParentItem;
 }
 
-int ESMDataItem::row() const
+int DataItem::row() const
 {
     if (mParentItem)
-        return mParentItem->mChildItems.indexOf(const_cast<ESMDataItem*>(this));
+        return mParentItem->mChildItems.indexOf(const_cast<DataItem*>(this));
 
     return 0;
 }
+
+EsmFile::EsmFile(QString fileName, DataItem *parent)
+    : DataItem(parent)
+{
+     mFileName = fileName;
+}
+
+
 
 /*
 //Section Item

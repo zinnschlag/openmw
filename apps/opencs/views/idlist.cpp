@@ -30,6 +30,7 @@ void IdList::setModel(QAbstractItemModel *model)
     mSortModel->setSourceModel(model);
     ui->treeView->setModel(mSortModel);
 
+    //ui->treeView->header()->setSectionHidden(0, true);
     ui->treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
 }
 

@@ -5,20 +5,21 @@
 #include <QModelIndex>
 #include <QVariant>
 
-class ESMDataItem;
+#include <QFile>
 
-namespace ESM
-{
-    class ESMReader;
-}
+class DataItem;
 
 class ESMDataModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
-    ESMDataModel(ESM::ESMReader &esm, QObject *parent = 0);
+    ESMDataModel(QObject *parent);
     ~ESMDataModel();
+
+
+    void loadEsmFile(QString file);
+
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
@@ -32,10 +33,9 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
-    void setupModelData(ESM::ESMReader &esm);
-    void updateHeaders(ESMDataItem *parent);
+    void updateHeaders(DataItem *parent);
 
-    ESMDataItem *mRootItem;
+    DataItem *mRootItem;
 
     QList<QVariant> m_ColumnNames;
 };

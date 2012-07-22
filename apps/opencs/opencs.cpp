@@ -19,7 +19,11 @@ OpenCS::OpenCS(QWidget *parent) :
 
     connect(ui->actionOpen,SIGNAL(triggered()), this, SLOT(openFile()));
 
-    esm.setEncoding("default");
+    model = new ESMDataModel(this);
+
+    IdList *idList = new IdList(this);
+    idList->setModel(model);
+    this->addDockWidget(Qt::TopDockWidgetArea, idList);
 }
 
 OpenCS::~OpenCS()
@@ -31,16 +35,6 @@ void OpenCS::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Esm"), "", tr("Esm Files (*.esm)"));
 
-    try {
-        qDebug() << "Trying to open esm:" << fileName;
-        std::string stdStrFileName = fileName.toStdString();
-        esm.open(stdStrFileName);
-        model = new ESMDataModel(esm);
+    model->loadEsmFile(fileName);
 
-        IdList *idList = new IdList(this);
-        idList->setModel(model);
-        this->addDockWidget(Qt::TopDockWidgetArea, idList);
-    } catch(std::exception &e) {
-        qWarning() << e.what();
-    }
 }

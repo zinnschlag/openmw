@@ -1,6 +1,6 @@
 #include "activator.hpp"
 
-ActivatorDataItem::ActivatorDataItem(ESMDataItem *parent)
+ActivatorDataItem::ActivatorDataItem(DataItem *parent)
     : ESMDataItem(parent)
 {
 }

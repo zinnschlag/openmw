@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QAbstractItemModel>
 
-#include <components/esm/esm_reader.hpp>
+#include "esmdatamodel.hpp"
 
 namespace Ui {
 class OpenCS;
@@ -21,8 +21,7 @@ public:
 private:
     Ui::OpenCS *ui;
 
-    ESM::ESMReader esm;
-    QAbstractItemModel *model;
+    ESMDataModel *model;
 
 private slots:
     void openFile();

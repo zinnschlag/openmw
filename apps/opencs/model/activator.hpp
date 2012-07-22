@@ -12,7 +12,7 @@ class ActivatorDataItem : public ESMDataItem
     Q_PROPERTY(QString script READ script WRITE setScript NOTIFY scriptChanged)
 
 public:
-    ActivatorDataItem(ESMDataItem *parent);
+    ActivatorDataItem(DataItem *parent);
 
     virtual void load(ESM::ESMReader &esm){
         mActivator.load(esm);

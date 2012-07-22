@@ -18,7 +18,7 @@ class PotionDataItem : public ESMDataItem
     Q_PROPERTY(int autoCalc READ autoCalc WRITE setAutoCalc)
 
 public:
-    PotionDataItem(ESMDataItem *parent);
+    PotionDataItem(DataItem *parent);
 
     virtual void load(ESM::ESMReader &esm){
         //WTF is this :/

@@ -1,6 +1,6 @@
 #include "potion.hpp"
 
-PotionDataItem::PotionDataItem(ESMDataItem *parent)
+PotionDataItem::PotionDataItem(DataItem *parent)
     : ESMDataItem(parent)
 {
 }

@@ -1,6 +1,6 @@
 #include "magiceffect.hpp"
 
-MagicEffectDataItem::MagicEffectDataItem(ESM::ENAMstruct effectData, ESMDataItem *parent)
+MagicEffectDataItem::MagicEffectDataItem(ESM::ENAMstruct effectData, DataItem *parent)
     : mMagicEffect(effectData)
     , ESMDataItem(parent)
 {
