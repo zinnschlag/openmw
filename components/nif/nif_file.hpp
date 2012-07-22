@@ -32,8 +32,7 @@
 
 #include <stdexcept>
 #include <vector>
-#include <string>
-#include <assert.h>
+#include <cassert>
 
 #include "record.hpp"
 #include "nif_types.hpp"
@@ -83,7 +82,7 @@ class NIFFile
     float read_le32f()
     {
         union {
-            int i;
+            uint32_t i;
             float f;
         } u = { read_le32() };
         return u.f;
