@@ -29,6 +29,8 @@ void IdList::setModel(QAbstractItemModel *model)
 {
     mSortModel->setSourceModel(model);
     ui->treeView->setModel(mSortModel);
+
+    ui->treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
 }
 
 void IdList::on_lineEdit_textEdited(const QString &arg1)

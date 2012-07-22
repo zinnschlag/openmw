@@ -120,7 +120,6 @@ int ESMDataModel::rowCount(const QModelIndex &parent) const
         parentItem = static_cast<ESMDataItem*>(parent.internalPointer());
 
     return parentItem->childCount();
-    return 0;
 }
 
 int ESMDataModel::columnCount(const QModelIndex &parent) const

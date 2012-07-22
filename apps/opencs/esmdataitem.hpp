@@ -26,7 +26,7 @@ public:
     //TODO Make this nicer
     virtual void load(ESM::ESMReader &esm){
         esm.skipRecord();
-        std::cout << "skipped record";
+        //std::cout << "skipped record";
     }
 
     QString id() { return mId;}
