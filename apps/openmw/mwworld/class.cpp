@@ -5,7 +5,10 @@
 
 #include <OgreVector3.h>
 
+#include <components/esm/defs.hpp>
+
 #include "ptr.hpp"
+#include "refdata.hpp"
 #include "nullaction.hpp"
 #include "containerstore.hpp"
 
@@ -212,4 +215,40 @@ namespace MWWorld
     void Class::adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const
     {
     }
+
+    std::string Class::getModel(const MWWorld::Ptr &ptr) const
+    {
+        return "";
+    }
+
+    MWWorld::Ptr
+    Class::copyToCellImpl(const Ptr &ptr, CellStore &cell) const
+    {
+        throw std::runtime_error("unable to move class to cell");
+    }
+
+    MWWorld::Ptr
+    Class::copyToCell(const Ptr &ptr, CellStore &cell) const
+    {
+        Ptr newPtr = copyToCellImpl(ptr, cell);
+
+        newPtr.getRefData().setCount(ptr.getRefData().getCount());
+        if (ptr.getRefData().isEnabled()) {
+            newPtr.getRefData().enable();
+        } else {
+            newPtr.getRefData().disable();
+        }
+
+        return newPtr;
+    }
+
+    MWWorld::Ptr
+    Class::copyToCell(const Ptr &ptr, CellStore &cell, const ESM::Position &pos) const
+    {
+        Ptr newPtr = copyToCell(ptr, cell);
+        newPtr.getRefData().getPosition() = pos;
+
+        return newPtr;
+    }
 }
+
