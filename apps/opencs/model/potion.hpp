@@ -31,6 +31,8 @@ public:
         }
     }
 
+    virtual QString type() {return "ALCH";}
+
     QString name() { return QString::fromStdString(mPotion.name);}
     void setName(QString name) { mPotion.name = name.toStdString();}
 

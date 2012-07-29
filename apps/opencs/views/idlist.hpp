@@ -3,8 +3,11 @@
 
 #include <QDockWidget>
 
+#include <QStandardItemModel>
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
+
+#include "idlistfilter.hpp"
 
 namespace Ui {
 class IdList;
@@ -25,6 +28,8 @@ private slots:
 
 private:
     Ui::IdList *ui;
+
+    FilterEditModel mFilterEditModel;
 
     QSortFilterProxyModel *mSortModel;
 };

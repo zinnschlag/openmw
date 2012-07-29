@@ -9,6 +9,7 @@ set(OPENCS_SRC
     model/potion.cpp
     model/magiceffect.cpp
     views/idlist.cpp
+    views/idlistfilter.cpp
 )
 
 set(OPENCS_HDR
@@ -19,6 +20,7 @@ set(OPENCS_HDR
     model/potion.hpp
     model/magiceffect.hpp
     views/idlist.hpp
+    views/idlistfilter.hpp
 )
 
 set(OPENCS_UI

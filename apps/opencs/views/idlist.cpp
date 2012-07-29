@@ -8,6 +8,7 @@ QList<QStandardItem *> list;
 
 IdList::IdList(QWidget *parent) :
     QDockWidget(parent),
+    mFilterEditModel(this),
     ui(new Ui::IdList)
 {
     ui->setupUi(this);
@@ -18,6 +19,9 @@ IdList::IdList(QWidget *parent) :
     mSortModel->setFilterKeyColumn(-1);
 
     ui->treeView->setSortingEnabled(true);
+
+
+    ui->treeViewFilter->setModel(&mFilterEditModel);
 }
 
 IdList::~IdList()

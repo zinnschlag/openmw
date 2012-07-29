@@ -49,6 +49,7 @@ private:
 class ESMDataItem : public DataItem
 {
     Q_OBJECT
+    Q_PROPERTY(QString mwType READ type)
     Q_PROPERTY(QString mwId READ id WRITE setId)
 
 public:
@@ -60,6 +61,8 @@ public:
         esm.skipRecord();
         //std::cout << "skipped record";
     }
+
+    virtual QString type() {return "NONE";}
 
     QString id() { return mId;}
     void setId(QString id) {mId = id;}

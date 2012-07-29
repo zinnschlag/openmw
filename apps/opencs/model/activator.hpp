@@ -18,6 +18,8 @@ public:
         mActivator.load(esm);
     }
 
+    virtual QString type() {return "ACTI";}
+
     QString name() { return QString::fromStdString(mActivator.name);}
     void setName(QString name) { mActivator.name = name.toStdString(); emit nameChanged(name); }
 
