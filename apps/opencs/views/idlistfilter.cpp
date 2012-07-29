@@ -28,17 +28,45 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole)
-        return QVariant();
+    Filter *item = static_cast<Filter*>(index.internalPointer());
+
+    if(role == Qt::CheckStateRole && index.column() == 0) {
+        if(item->enabled())
+            return Qt::Checked;
+        else
+            return Qt::Unchecked;
+    }
+
+    if (role == Qt::DisplayRole) {
+        switch(index.column()) {
+        case 0:
+            return item->displayName();
+        case 1:
+            return item->displayType();
+        }
+    }
+
+    return QVariant();
+}
+
+bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid())
+        return false;
 
     Filter *item = static_cast<Filter*>(index.internalPointer());
 
-    switch(index.column()) {
-    case 0:
-        return item->displayName();
-    case 1:
-        return item->displayType();
+    if(role == Qt::CheckStateRole && index.column() == 0) {
+        if(value == Qt::Checked)
+            item->setEnabled(true);
+        else
+            item->setEnabled(false);
+
+        emit dataChanged(index, index);
+        return true;
     }
+
+    return false;
 }
 
 Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
@@ -46,7 +74,12 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
 
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
+    Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+
+    if (index.column() == 0)
+        flags |= Qt::ItemIsUserCheckable;
+
+    return flags;
 }
 
 bool FilterEditModel::accept(QString key, QString value)
@@ -62,6 +95,7 @@ QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, i
     case 1:
         return "Type";
     }
+    return QVariant();
 }
 
 QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &parent) const
@@ -122,6 +156,7 @@ int FilterEditModel::columnCount(const QModelIndex &parent) const
 FilterProxyModel::FilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
 {
     mEditModel = new FilterEditModel(this);
+    connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(invalidate()));
 }
 
 bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const

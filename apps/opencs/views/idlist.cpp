@@ -16,6 +16,7 @@ IdList::IdList(QWidget *parent) :
     ui->tableView->setModel(mFilterProxyModel);
 
     ui->treeViewFilter->setModel(mFilterProxyModel->editModel());
+    ui->treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);
 }
 
 IdList::~IdList()

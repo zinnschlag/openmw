@@ -12,7 +12,7 @@ class Filter : public QObject
 {
     Q_OBJECT
 public:
-    explicit Filter(Filter *parent = 0) : mParentItem(parent), QObject(parent) {}
+    explicit Filter(Filter *parent = 0) : mParentItem(parent), mEnabled(true), QObject(parent) {}
     ~Filter() {}
 
     Filter *parent() { return mParentItem;}
@@ -32,6 +32,9 @@ public:
     virtual QString displayType() {return "Filter";}
 
     virtual bool accept(QString key, QString value) {
+        if(!enabled())
+            return false;
+
         foreach(Filter* filter, mChildItems) {
             if(filter->accept(key, value)) {
                 return true;
@@ -40,12 +43,17 @@ public:
         return false;
     }
 
+    bool enabled() {return mEnabled;}
+    void setEnabled(bool enabled){mEnabled = enabled;}
+
 protected:
     QString mDisplayName;
 
 private:
     Filter *mParentItem;
     QList<Filter*> mChildItems;
+
+    bool mEnabled;
 };
 
 
@@ -71,6 +79,9 @@ public:
     virtual QString displayType() {return "Match";}
 
     virtual bool accept(QString key, QString value) {
+        if(!enabled())
+            return false;
+
         return key == "mwType" && mDisplayName == value;
     }
 };
@@ -88,7 +99,9 @@ public:
     QModelIndex parent(const QModelIndex &index) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
     QVariant data(const QModelIndex &index, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
