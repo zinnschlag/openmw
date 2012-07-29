@@ -18,12 +18,11 @@ OpenCS::OpenCS(QWidget *parent) :
     setCentralWidget(NULL);
 
     connect(ui->actionOpen,SIGNAL(triggered()), this, SLOT(openFile()));
+    connect(ui->actionAddIdList, SIGNAL(triggered()), this, SLOT(addIdList()));
 
     model = new ESMDataModel(this);
 
-    IdList *idList = new IdList(this);
-    idList->setModel(model);
-    this->addDockWidget(Qt::TopDockWidgetArea, idList);
+    addIdList();
 }
 
 OpenCS::~OpenCS()
@@ -34,7 +33,12 @@ OpenCS::~OpenCS()
 void OpenCS::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Esm"), "", tr("Esm Files (*.esm)"));
-
     model->loadEsmFile(fileName);
+}
 
+void OpenCS::addIdList()
+{
+    IdList *idList = new IdList(this);
+    idList->setModel(model);
+    this->addDockWidget(Qt::TopDockWidgetArea, idList);
 }

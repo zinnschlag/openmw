@@ -185,7 +185,7 @@ void ESMDataModel::updateHeaders(DataItem *parent)
 
         const QMetaObject* metaObject = child->metaObject();
 
-        for(int i = 0; i < metaObject->propertyCount(); ++i) {
+        for(int i = 1; i < metaObject->propertyCount(); ++i) {
             QMetaProperty metaProperty = metaObject->property(i);
 
             QVariant header = metaProperty.name();
