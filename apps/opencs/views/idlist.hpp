@@ -23,15 +23,10 @@ public:
     
     void setModel(QAbstractItemModel *model);
 
-private slots:
-    void on_lineEdit_textEdited(const QString &arg1);
-
 private:
     Ui::IdList *ui;
 
-    FilterEditModel mFilterEditModel;
-
-    QSortFilterProxyModel *mSortModel;
+    FilterProxyModel *mFilterProxyModel;
 };
 
 #endif

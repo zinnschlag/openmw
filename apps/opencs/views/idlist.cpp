@@ -8,20 +8,14 @@ QList<QStandardItem *> list;
 
 IdList::IdList(QWidget *parent) :
     QDockWidget(parent),
-    mFilterEditModel(this),
     ui(new Ui::IdList)
 {
     ui->setupUi(this);
 
-    mSortModel = new QSortFilterProxyModel(this);
+    mFilterProxyModel = new FilterProxyModel(this);
+    ui->tableView->setModel(mFilterProxyModel);
 
-    mSortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    mSortModel->setFilterKeyColumn(-1);
-
-    ui->treeView->setSortingEnabled(true);
-
-
-    ui->treeViewFilter->setModel(&mFilterEditModel);
+    ui->treeViewFilter->setModel(mFilterProxyModel->editModel());
 }
 
 IdList::~IdList()
@@ -31,14 +25,6 @@ IdList::~IdList()
 
 void IdList::setModel(QAbstractItemModel *model)
 {
-    mSortModel->setSourceModel(model);
-    ui->treeView->setModel(mSortModel);
-
-    //ui->treeView->header()->setSectionHidden(0, true);
-    ui->treeView->header()->setResizeMode(QHeaderView::ResizeToContents);
-}
-
-void IdList::on_lineEdit_textEdited(const QString &arg1)
-{
-    mSortModel->setFilterWildcard(arg1);
+    mFilterProxyModel->setSourceModel(model);
+    ui->tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
 }

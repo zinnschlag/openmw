@@ -15,7 +15,7 @@
 #include "QMetaObject"
 
 ESMDataModel::ESMDataModel(QObject *parent)
-    : QAbstractItemModel(parent)
+    : QAbstractTableModel(parent)
 {
     mRootItem = new DataItem();
 }
@@ -79,6 +79,67 @@ void ESMDataModel::loadEsmFile(QString file)
     endResetModel();
 }
 
+QModelIndex ESMDataModel::index(int row, int column, const QModelIndex &parent) const
+{
+    if (!hasIndex(row, column, parent))
+        return QModelIndex();
+
+    DataItem *parentItem;
+
+    // The root object is represented as an invalid index
+    if (!parent.isValid())
+        parentItem = mRootItem;
+    else
+        parentItem = static_cast<DataItem*>(parent.internalPointer());
+
+    int totalRow = 0;
+    for(int i=0; i<parentItem->childCount(); i++) {
+        DataItem *firstLevelChild = parentItem->child(i);
+        for(int u=0; u<firstLevelChild->childCount(); u++) {
+            if(totalRow == row) {
+                DataItem *childItem = firstLevelChild->child(u);
+                return createIndex(row, column, childItem);
+            }
+
+            totalRow ++;
+        }
+    }
+    return QModelIndex();
+}
+
+int ESMDataModel::rowCount(const QModelIndex &parent) const
+{
+    int totalRow = 0;
+    for(int i=0; i<mRootItem->childCount(); i++) {
+        DataItem *firstLevelChild = mRootItem->child(i);
+        for(int u=0; u<firstLevelChild->childCount(); u++) {
+            totalRow ++;
+        }
+    }
+
+    return totalRow;
+
+
+    /*
+    DataItem *parentItem;
+    if (parent.column() > 0)
+        return 0;
+
+    if (!parent.isValid())
+        parentItem = mRootItem;
+    else
+        parentItem = static_cast<ESMDataItem*>(parent.internalPointer());
+
+    return parentItem->childCount();
+    */
+    return 50;
+}
+
+int ESMDataModel::columnCount(const QModelIndex &parent) const
+{
+   return m_ColumnNames.size();
+}
+
 QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
@@ -88,6 +149,8 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     DataItem *item = static_cast<DataItem*>(index.internalPointer());
+    if(!item)
+        return QVariant();
 
     const QMetaObject* metaObject = item->metaObject();
 
@@ -100,14 +163,6 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
     } else {
         return QVariant();
     }
-}
-
-Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
-{
-    if (!index.isValid())
-        return Qt::NoItemFlags;
-
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
 QVariant ESMDataModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -125,57 +180,12 @@ QVariant ESMDataModel::headerData(int section, Qt::Orientation orientation, int 
     }
 }
 
-QModelIndex ESMDataModel::index(int row, int column, const QModelIndex &parent) const
-{
-    if (!hasIndex(row, column, parent))
-        return QModelIndex();
-
-    DataItem *parentItem;
-
-    // The root object is represented as an invalid index
-    if (!parent.isValid())
-        parentItem = mRootItem;
-    else
-        parentItem = static_cast<DataItem*>(parent.internalPointer());
-
-    DataItem *childItem = parentItem->child(row);
-    if (childItem)
-        return createIndex(row, column, childItem);
-    else
-        return QModelIndex();
-}
-
-QModelIndex ESMDataModel::parent(const QModelIndex &index) const
+Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return QModelIndex();
+        return Qt::NoItemFlags;
 
-    DataItem *childItem = static_cast<DataItem*>(index.internalPointer());
-    DataItem *parentItem = childItem->parent();
-
-    if (parentItem == mRootItem)
-        return QModelIndex();
-
-    return createIndex(parentItem->row(), 0, parentItem);
-}
-
-int ESMDataModel::rowCount(const QModelIndex &parent) const
-{
-    DataItem *parentItem;
-    if (parent.column() > 0)
-        return 0;
-
-    if (!parent.isValid())
-        parentItem = mRootItem;
-    else
-        parentItem = static_cast<ESMDataItem*>(parent.internalPointer());
-
-    return parentItem->childCount();
-}
-
-int ESMDataModel::columnCount(const QModelIndex &parent) const
-{
-   return m_ColumnNames.size();
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
 void ESMDataModel::updateHeaders(DataItem *parent)

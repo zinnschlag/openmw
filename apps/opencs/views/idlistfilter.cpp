@@ -49,6 +49,11 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
+bool FilterEditModel::accept(QString key, QString value)
+{
+    return mRootItem->accept(key, value);
+}
+
 QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     switch(section) {
@@ -109,5 +114,30 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const
 {
-   return 2;
+    return 2;
+}
+
+
+
+FilterProxyModel::FilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
+{
+    mEditModel = new FilterEditModel(this);
+}
+
+bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    int columns = sourceModel()->columnCount(sourceParent);
+
+    for(int i=0; i< columns; i++) {
+        QString columnName = sourceModel()->headerData(i, Qt::Horizontal).toString();
+
+        QModelIndex index = sourceModel()->index(sourceRow, i, sourceParent);
+        QString columnValue = sourceModel()->data(index).toString();
+
+
+        if(mEditModel->accept(columnName, columnValue))
+            return true;
+    }
+
+    return false;
 }

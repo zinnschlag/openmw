@@ -31,6 +31,15 @@ public:
     QString displayName() {return mDisplayName;}
     virtual QString displayType() {return "Filter";}
 
+    virtual bool accept(QString key, QString value) {
+        foreach(Filter* filter, mChildItems) {
+            if(filter->accept(key, value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 protected:
     QString mDisplayName;
 
@@ -60,9 +69,11 @@ public:
     ~MatchFilter() {}
 
     virtual QString displayType() {return "Match";}
+
+    virtual bool accept(QString key, QString value) {
+        return key == "mwType" && mDisplayName == value;
+    }
 };
-
-
 
 class FilterEditModel : public QAbstractItemModel
 {
@@ -83,9 +94,27 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
+    bool accept(QString key, QString value);
+
 private:
     Filter *mRootItem;
 };
 
+class FilterProxyModel : public QSortFilterProxyModel
+{
+    Q_OBJECT
+
+public:
+    FilterProxyModel(QObject *parent = 0);
+
+    FilterEditModel *editModel() { return mEditModel;}
+
+protected:
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+
+private:
+    FilterEditModel *mEditModel;
+
+};
 
 #endif
