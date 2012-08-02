@@ -73,39 +73,6 @@ void ESMDataModel::loadEsmFile(QString file)
     updateHeaders(mRootItem);
 
 
-    endResetModel();
-}
-
-QModelIndex ESMDataModel::index(int row, int column, const QModelIndex &parent) const
-{
-    if (!hasIndex(row, column, parent))
-        return QModelIndex();
-
-    DataItem *parentItem;
-
-    // The root object is represented as an invalid index
-    if (!parent.isValid())
-        parentItem = mRootItem;
-    else
-        parentItem = static_cast<DataItem*>(parent.internalPointer());
-
-    int totalRow = 0;
-    for(int i=0; i<parentItem->childCount(); i++) {
-        DataItem *firstLevelChild = parentItem->child(i);
-        for(int u=0; u<firstLevelChild->childCount(); u++) {
-            if(totalRow == row) {
-                DataItem *childItem = firstLevelChild->child(u);
-                return createIndex(row, column, childItem);
-            }
-
-            totalRow ++;
-        }
-    }
-    return QModelIndex();
-}
-
-int ESMDataModel::rowCount(const QModelIndex &parent) const
-{
     int totalRow = 0;
     for(int i=0; i<mRootItem->childCount(); i++) {
         DataItem *firstLevelChild = mRootItem->child(i);
@@ -114,22 +81,14 @@ int ESMDataModel::rowCount(const QModelIndex &parent) const
         }
     }
 
-    return totalRow;
+    mRowCount = totalRow;
 
+    endResetModel();
+}
 
-    /*
-    DataItem *parentItem;
-    if (parent.column() > 0)
-        return 0;
-
-    if (!parent.isValid())
-        parentItem = mRootItem;
-    else
-        parentItem = static_cast<ESMDataItem*>(parent.internalPointer());
-
-    return parentItem->childCount();
-    */
-    return 50;
+int ESMDataModel::rowCount(const QModelIndex &parent) const
+{
+    return mRowCount;
 }
 
 int ESMDataModel::columnCount(const QModelIndex &parent) const
@@ -145,18 +104,18 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    DataItem *item = static_cast<DataItem*>(index.internalPointer());
-    if(!item)
-        return QVariant();
+    DataItem *baseItem = mRootItem->child(0);
 
-    const QMetaObject* metaObject = item->metaObject();
+    DataItem *rowItem = baseItem->child(index.row());
+
+    const QMetaObject* metaObject = rowItem->metaObject();
 
     int column = index.column();
     QVariant columnName = m_ColumnNames.at(column);
 
     int propertyIndexOfOfName = metaObject->indexOfProperty(columnName.toString().toAscii());
     if(propertyIndexOfOfName != -1) {
-        return metaObject->property(propertyIndexOfOfName).read(item);
+        return metaObject->property(propertyIndexOfOfName).read(rowItem);
     } else {
         return QVariant();
     }
@@ -186,7 +145,7 @@ Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
 }
 
 void ESMDataModel::updateHeaders(DataItem *parent)
-{
+{    
     for(int i=0;i<parent->childCount();i++) {
         DataItem *child = parent->child(i);
 
@@ -204,15 +163,7 @@ void ESMDataModel::updateHeaders(DataItem *parent)
         }
 
         updateHeaders(child);
-
-
-//        for(int u = 0; u<child->columnCount(); u++) {
-//            QVariant header = child->headerData(u);
-
-//            if(!m_ColumnNames.contains(header)) {
-//                m_ColumnNames.append(header);
-//                qDebug() <<"added header" << header;
-//            }
-//        }
     }
+
+    emit headerDataChanged(Qt::Horizontal, 0, m_ColumnNames.size() -1 );
 }

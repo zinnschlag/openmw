@@ -63,7 +63,7 @@ public:
     }
 
     QString recordType() {return mRecordType;}
-    QString setRecordType(QString recordType) { mRecordType = recordType;}
+    void setRecordType(QString recordType) { mRecordType = recordType;}
 
 
     virtual QString type() {return mRecordType;}

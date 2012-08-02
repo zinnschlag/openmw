@@ -1,6 +1,8 @@
 #ifndef IDLISTFILTER_HPP
 #define IDLISTFILTER_HPP
 
+#include <QMap>
+
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
@@ -31,12 +33,12 @@ public:
     QString displayName() {return mDisplayName;}
     virtual QString displayType() {return "Filter";}
 
-    virtual bool accept(QString key, QString value) {
+    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
         if(!enabled())
             return false;
 
         foreach(Filter* filter, mChildItems) {
-            if(filter->accept(key, value)) {
+            if(filter->accept(headers, row)) {
                 return true;
             }
         }
@@ -67,15 +69,19 @@ public:
     virtual QString displayType() {return "Union";}
 };
 
-class IntersectionFilter : public Filter
+class NoFilter : public Filter
 {
     Q_OBJECT
 
 public:
-    explicit IntersectionFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
-    ~IntersectionFilter() {}
+    explicit NoFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
+    ~NoFilter() {}
 
-    virtual QString displayType() {return "Intersection";}
+    virtual QString displayType() {return "NoFilter";}
+
+    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
+        return enabled();
+    }
 };
 
 class MatchFilter : public Filter
@@ -93,8 +99,8 @@ public:
 
     virtual QString displayType() {return "Match: " + mExpectedKey + "=" + mExpectedValue;}
 
-    virtual bool accept(QString key, QString value) {
-        return enabled() && (key == mExpectedKey) && (value == mExpectedValue);
+    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
+        return enabled() && headers.contains(mExpectedKey) && row.at(headers.indexOf(mExpectedKey)) == mExpectedValue;
     }
 
 private:
@@ -123,7 +129,7 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    bool accept(QString key, QString value);
+    bool accept(QList<QString> headers, QList<QVariant> row);
 
 private:
     Filter *mRootItem;
@@ -138,12 +144,19 @@ public:
 
     FilterEditModel *editModel() { return mEditModel;}
 
+    void setSourceModel(QAbstractItemModel *model);
+
 protected:
+    bool filterAcceptsColumn(int source_column, const QModelIndex &source_parent) const;
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+
+private slots:
+    void headerDataChanged(Qt::Orientation,int,int);
 
 private:
     FilterEditModel *mEditModel;
 
+    QList<QString> mHeaders;
 };
 
 #endif

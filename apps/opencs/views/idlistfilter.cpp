@@ -11,6 +11,9 @@ FilterEditModel::FilterEditModel(QObject *parent)
     UnionFilter *defaultFilters = new UnionFilter("Default", mRootItem);
     mRootItem->appendChild(defaultFilters);
 
+    NoFilter *noFilter = new NoFilter("NoFilter", defaultFilters);
+    defaultFilters->appendChild(noFilter);
+
     MatchFilter *actiFilter = new MatchFilter("mwType", "ACTI", defaultFilters);
     defaultFilters->appendChild(actiFilter);
 
@@ -85,9 +88,9 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-bool FilterEditModel::accept(QString key, QString value)
+bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 {
-    return mRootItem->accept(key, value);
+    return mRootItem->accept(headers, row);
 }
 
 QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -156,28 +159,53 @@ int FilterEditModel::columnCount(const QModelIndex &parent) const
 
 
 
-FilterProxyModel::FilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
+FilterProxyModel::FilterProxyModel(QObject *parent)
+    : QSortFilterProxyModel(parent)
 {
     mEditModel = new FilterEditModel(this);
     connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(invalidate()));
 }
 
-bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+void FilterProxyModel::setSourceModel(QAbstractItemModel *model)
 {
-    return true;
-
-    int columns = sourceModel()->columnCount(sourceParent);
-
-    for(int i=0; i< columns; i++) {
-        QString columnName = sourceModel()->headerData(i, Qt::Horizontal).toString();
-
-        QModelIndex index = sourceModel()->index(sourceRow, i, sourceParent);
-        QString columnValue = sourceModel()->data(index).toString();
-
-
-        if(mEditModel->accept(columnName, columnValue))
-            return true;
+    QAbstractItemModel* currentModel = this->sourceModel();
+    if (currentModel) {
+        disconnect(currentModel, SIGNAL(headerDataChanged(Qt::Orientation,int,int)), this, SLOT(headerDataChanged(Qt::Orientation,int,int)));
     }
 
-    return false;
+    if (model) {
+        connect(model, SIGNAL(headerDataChanged(Qt::Orientation,int,int)), this, SLOT(headerDataChanged(Qt::Orientation,int,int)));
+    }
+
+    QSortFilterProxyModel::setSourceModel(model);
+}
+
+bool FilterProxyModel::filterAcceptsColumn(int source_column, const QModelIndex &source_parent) const
+{
+    return true;
+}
+
+bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    QList<QVariant> row;
+
+    for(int i=0; i<mHeaders.size(); i++) {
+        QModelIndex index = sourceModel()->index(sourceRow, i, sourceParent);
+        QVariant columnValue = sourceModel()->data(index);
+
+        row.append(columnValue);
+    }
+
+    return mEditModel->accept(mHeaders, row);
+}
+
+void FilterProxyModel::headerDataChanged(Qt::Orientation, int, int)
+{
+    mHeaders.clear();
+
+    int columns = sourceModel()->columnCount();
+    for(int i=0; i< columns; i++) {
+        QString columnName = sourceModel()->headerData(i, Qt::Horizontal).toString();
+        mHeaders.insert(i, columnName);
+    }
 }
