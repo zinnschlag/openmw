@@ -56,7 +56,6 @@ private:
     bool mEnabled;
 };
 
-
 class UnionFilter : public Filter
 {
     Q_OBJECT
@@ -68,22 +67,39 @@ public:
     virtual QString displayType() {return "Union";}
 };
 
+class IntersectionFilter : public Filter
+{
+    Q_OBJECT
+
+public:
+    explicit IntersectionFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
+    ~IntersectionFilter() {}
+
+    virtual QString displayType() {return "Intersection";}
+};
+
 class MatchFilter : public Filter
 {
     Q_OBJECT
 
 public:
-    explicit MatchFilter(QString name,Filter *parent=0) : Filter(parent) {mDisplayName = name;}
+    explicit MatchFilter(QString expectedKey,QString expectedValue, Filter *parent=0)
+        : Filter(parent)
+    {
+        mExpectedKey = expectedKey;
+        mExpectedValue = expectedValue;
+    }
     ~MatchFilter() {}
 
-    virtual QString displayType() {return "Match";}
+    virtual QString displayType() {return "Match: " + mExpectedKey + "=" + mExpectedValue;}
 
     virtual bool accept(QString key, QString value) {
-        if(!enabled())
-            return false;
-
-        return key == "mwType" && mDisplayName == value;
+        return enabled() && (key == mExpectedKey) && (value == mExpectedValue);
     }
+
+private:
+    QString mExpectedKey;
+    QString mExpectedValue;
 };
 
 class FilterEditModel : public QAbstractItemModel

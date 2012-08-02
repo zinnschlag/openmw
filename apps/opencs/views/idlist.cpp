@@ -14,6 +14,7 @@ IdList::IdList(QWidget *parent) :
 
     mFilterProxyModel = new FilterProxyModel(this);
     ui->tableView->setModel(mFilterProxyModel);
+    ui->tableView->verticalHeader()->setDefaultSectionSize(ui->tableView->verticalHeader()->minimumSectionSize());
 
     ui->treeViewFilter->setModel(mFilterProxyModel->editModel());
     ui->treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);

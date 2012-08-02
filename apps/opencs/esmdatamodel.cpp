@@ -35,23 +35,22 @@ void ESMDataModel::loadEsmFile(QString file)
 
     std::string stdStrFileName = file.toStdString();
 
-    ESM::ESMReader esm;
-    esm.setEncoding("default");
-    esm.open(stdStrFileName);
+    ESM::ESMReader reader;
+    reader.setEncoding("default");
+    reader.open(stdStrFileName);
 
-    while(esm.hasMoreRecs()) {
-        esm.getContext();
+    while(reader.hasMoreRecs()) {
+        reader.getContext();
 
-        ESM::NAME recordName = esm.getRecName();
-        esm.getRecHeader();
+        ESM::NAME recordType = reader.getRecName();
+        reader.getRecHeader();
 
-        std::string id = esm.getHNOString("NAME");
+        std::string id = reader.getHNOString("NAME");
         QString recordId = QString::fromStdString(id);
 
-        ESMDataItem defaultLoadable;
         ESMDataItem *child = NULL;
 
-        switch(recordName.val) {
+        switch(recordType.val) {
         case ESM::REC_ACTI:
             child = new ActivatorDataItem(esmFile);
             break;
@@ -59,18 +58,16 @@ void ESMDataModel::loadEsmFile(QString file)
             child = new PotionDataItem(esmFile);
             break;
         default:
-            child = &defaultLoadable;
+            child = new ESMDataItem(esmFile);
             break;
         }
 
-        if(child) {
-            if(child != &defaultLoadable) {
-                child->setId(recordId);
-                esmFile->appendChild(child);
-            }
+        child->setRecordType(QString::fromStdString(recordType.toString()));
 
-            child->load(esm);
-        }
+        child->setId(recordId);
+        esmFile->appendChild(child);
+
+        child->load(reader);
     }
 
     updateHeaders(mRootItem);

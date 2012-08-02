@@ -8,6 +8,7 @@ set(OPENCS_SRC
     model/activator.cpp
     model/potion.cpp
     model/magiceffect.cpp
+    model/script.cpp
     views/idlist.cpp
     views/idlistfilter.cpp
 )
@@ -19,6 +20,7 @@ set(OPENCS_HDR
     model/activator.hpp
     model/potion.hpp
     model/magiceffect.hpp
+    model/script.hpp
     views/idlist.hpp
     views/idlistfilter.hpp
 )

@@ -11,11 +11,14 @@ FilterEditModel::FilterEditModel(QObject *parent)
     UnionFilter *defaultFilters = new UnionFilter("Default", mRootItem);
     mRootItem->appendChild(defaultFilters);
 
-    MatchFilter *actiFilter = new MatchFilter("ACTI", defaultFilters);
+    MatchFilter *actiFilter = new MatchFilter("mwType", "ACTI", defaultFilters);
     defaultFilters->appendChild(actiFilter);
 
-    MatchFilter *alchFilter = new MatchFilter("ALCH", defaultFilters);
+    MatchFilter *alchFilter = new MatchFilter("mwType", "ALCH", defaultFilters);
     defaultFilters->appendChild(alchFilter);
+
+    UnionFilter *customFilters = new UnionFilter("Custom", mRootItem);
+    mRootItem->appendChild(customFilters);
 }
 
 FilterEditModel::~FilterEditModel()
@@ -161,6 +164,8 @@ FilterProxyModel::FilterProxyModel(QObject *parent) : QSortFilterProxyModel(pare
 
 bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
+    return true;
+
     int columns = sourceModel()->columnCount(sourceParent);
 
     for(int i=0; i< columns; i++) {

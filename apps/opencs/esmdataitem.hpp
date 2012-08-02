@@ -62,12 +62,17 @@ public:
         //std::cout << "skipped record";
     }
 
-    virtual QString type() {return "NONE";}
+    QString recordType() {return mRecordType;}
+    QString setRecordType(QString recordType) { mRecordType = recordType;}
+
+
+    virtual QString type() {return mRecordType;}
 
     QString id() { return mId;}
     void setId(QString id) {mId = id;}
 
 protected:
+    QString mRecordType;
     QString mId;
 
 private:

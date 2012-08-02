@@ -23,6 +23,8 @@ public:
     
     void setModel(QAbstractItemModel *model);
 
+private slots:
+
 private:
     Ui::IdList *ui;
 
