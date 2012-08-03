@@ -19,8 +19,6 @@ public:
 
     void loadEsmFile(QString file);
 
-    //QModelIndex index(int row, int column, const QModelIndex &parent) const;
-
     int rowCount(const QModelIndex &parent = QModelIndex()) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
@@ -32,7 +30,10 @@ public:
 private:
     void updateHeaders(DataItem *parent);
 
+
+
     DataItem *mRootItem;
+    DataItem *mMerged;
 
     int mRowCount;
 

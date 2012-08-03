@@ -6,8 +6,10 @@
 class ScriptDataItem : public ESMDataItem
 {
     Q_OBJECT
-    Q_PROPERTY(QString relativeId READ name WRITE setName)
-    Q_PROPERTY(QString text READ text WRITE setText)
+
+    Q_CLASSINFO("id", "scriptId")
+    Q_PROPERTY(QString scriptId READ scriptId)
+    Q_PROPERTY(QString text READ text)
 
 public:
     ScriptDataItem(DataItem *parent);
@@ -16,11 +18,8 @@ public:
         mScript.load(esm);
     }
 
-    QString name() { return QString::fromStdString(mScript.data.name.toString());}
-    void setName(QString name) { /*mScript.data.name = name.toStdString();*/}
-
+    QString scriptId() { return QString::fromStdString(mScript.data.name.toString());}
     QString text() { return QString::fromStdString(mScript.scriptText);}
-    void setText(QString text) { mScript.scriptText = text.toStdString();}
 
 private:
     ESM::Script mScript;

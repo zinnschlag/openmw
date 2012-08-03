@@ -11,6 +11,7 @@
 
 #include "model/activator.hpp"
 #include "model/potion.hpp"
+#include "model/script.hpp"
 
 #include "QMetaObject"
 
@@ -56,6 +57,9 @@ void ESMDataModel::loadEsmFile(QString file)
             break;
         case ESM::REC_ALCH:
             child = new PotionDataItem(esmFile);
+            break;
+        case ESM::REC_SCPT:
+            child = new ScriptDataItem(esmFile);
             break;
         default:
             child = new ESMDataItem(esmFile);
@@ -150,7 +154,14 @@ void ESMDataModel::updateHeaders(DataItem *parent)
         DataItem *child = parent->child(i);
 
         const QMetaObject* metaObject = child->metaObject();
+/*
+        for(int u=0;u<metaObject->classInfoCount();u++) {
+            QMetaClassInfo *classInfo = metaObject->classInfo(u);
+            classInfo->name();
 
+            classInfo->value();
+        }
+*/
         for(int i = 1; i < metaObject->propertyCount(); ++i) {
             QMetaProperty metaProperty = metaObject->property(i);
 

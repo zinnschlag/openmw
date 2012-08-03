@@ -30,8 +30,7 @@ public:
 
     void appendChild(Filter *child) { mChildItems.append(child);}
 
-    QString displayName() {return mDisplayName;}
-    virtual QString displayType() {return "Filter";}
+    virtual QString displayString() {return "Filter";}
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) {
         if(!enabled())
@@ -66,7 +65,7 @@ public:
     explicit UnionFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
     ~UnionFilter() {}
 
-    virtual QString displayType() {return "Union";}
+    virtual QString displayString() {return "Union :" + mDisplayName;}
 };
 
 class NoFilter : public Filter
@@ -77,7 +76,7 @@ public:
     explicit NoFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
     ~NoFilter() {}
 
-    virtual QString displayType() {return "NoFilter";}
+    virtual QString displayString() {return "NoFilter";}
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) {
         return enabled();
@@ -97,7 +96,7 @@ public:
     }
     ~MatchFilter() {}
 
-    virtual QString displayType() {return "Match: " + mExpectedKey + "=" + mExpectedValue;}
+    virtual QString displayString() {return "Match: " + mExpectedKey + "=" + mExpectedValue;}
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) {
         return enabled() && headers.contains(mExpectedKey) && row.at(headers.indexOf(mExpectedKey)) == mExpectedValue;

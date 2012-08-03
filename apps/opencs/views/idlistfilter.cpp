@@ -20,6 +20,9 @@ FilterEditModel::FilterEditModel(QObject *parent)
     MatchFilter *alchFilter = new MatchFilter("mwType", "ALCH", defaultFilters);
     defaultFilters->appendChild(alchFilter);
 
+    MatchFilter *scriptFilter = new MatchFilter("mwType", "SCPT", defaultFilters);
+    defaultFilters->appendChild(scriptFilter);
+
     UnionFilter *customFilters = new UnionFilter("Custom", mRootItem);
     mRootItem->appendChild(customFilters);
 }
@@ -36,19 +39,15 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 
     Filter *item = static_cast<Filter*>(index.internalPointer());
 
-    if(role == Qt::CheckStateRole && index.column() == 0) {
-        if(item->enabled())
-            return Qt::Checked;
-        else
-            return Qt::Unchecked;
-    }
-
-    if (role == Qt::DisplayRole) {
-        switch(index.column()) {
-        case 0:
-            return item->displayName();
-        case 1:
-            return item->displayType();
+    if(index.column() == 0) {
+        switch(role) {
+        case Qt::CheckStateRole:
+            if(item->enabled())
+                return Qt::Checked;
+            else
+                return Qt::Unchecked;
+        case Qt::DisplayRole:
+            return item->displayString();
         }
     }
 
@@ -95,13 +94,10 @@ bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 
 QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    switch(section) {
-    case 0:
+    if(section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole)
         return "Name";
-    case 1:
-        return "Type";
-    }
-    return QVariant();
+    else
+        return QVariant();
 }
 
 QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &parent) const
@@ -154,7 +150,7 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const
 {
-    return 2;
+    return 1;
 }
 
 
