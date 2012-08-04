@@ -105,24 +105,44 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole)
-        return QVariant();
-
     DataItem *baseItem = mRootItem->child(0);
 
-    DataItem *rowItem = baseItem->child(index.row());
+    if(role == PossibleValuesRole) {
+        QStringList possibleValues;
 
-    const QMetaObject* metaObject = rowItem->metaObject();
+        for (int i = 0; i<baseItem->childCount(); i++) {
+            DataItem *rowItem = baseItem->child(i);
+            const QMetaObject* metaObject = rowItem->metaObject();
+            int column = index.column();
+            QVariant columnName = m_ColumnNames.at(column);
 
-    int column = index.column();
-    QVariant columnName = m_ColumnNames.at(column);
+            int propertyIndexOfOfName = metaObject->indexOfProperty(columnName.toString().toAscii());
+            if(propertyIndexOfOfName != -1) {
+                QString value = metaObject->property(propertyIndexOfOfName).read(rowItem).toString();
 
-    int propertyIndexOfOfName = metaObject->indexOfProperty(columnName.toString().toAscii());
-    if(propertyIndexOfOfName != -1) {
-        return metaObject->property(propertyIndexOfOfName).read(rowItem);
-    } else {
-        return QVariant();
+                if (!possibleValues.contains(value))
+                    possibleValues.append(value);
+            }
+        }
+
+        return possibleValues;
+    } else if(role == Qt::DisplayRole ) {
+        DataItem *baseItem = mRootItem->child(0);
+
+        DataItem *rowItem = baseItem->child(index.row());
+
+        const QMetaObject* metaObject = rowItem->metaObject();
+
+        int column = index.column();
+        QVariant columnName = m_ColumnNames.at(column);
+
+        int propertyIndexOfOfName = metaObject->indexOfProperty(columnName.toString().toAscii());
+        if(propertyIndexOfOfName != -1) {
+            return metaObject->property(propertyIndexOfOfName).read(rowItem);
+        }
     }
+
+    return QVariant();
 }
 
 QVariant ESMDataModel::headerData(int section, Qt::Orientation orientation, int role) const

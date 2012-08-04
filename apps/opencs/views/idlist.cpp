@@ -16,7 +16,9 @@ IdList::IdList(QWidget *parent) :
 
     mFilterProxyModel = new FilterProxyModel(this);
 
-    ui->tableView->setItemDelegate(new IdlistItemDelegate);
+    IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
+    ui->tableView->setItemDelegate(itemDelegate);
+
     ui->tableView->setModel(mFilterProxyModel);
     ui->tableView->verticalHeader()->setDefaultSectionSize(ui->tableView->verticalHeader()->minimumSectionSize());
 

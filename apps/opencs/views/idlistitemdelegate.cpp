@@ -1,37 +1,49 @@
 #include "idlistitemdelegate.hpp"
 
+#include "../esmdatamodel.hpp"
+
 #include <QtGui>
 
-
-void IdlistItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-                         const QModelIndex &index) const
-{
-
-    QStyledItemDelegate::paint(painter, option, index);
-}
-
-QSize IdlistItemDelegate::sizeHint(const QStyleOptionViewItem &option,
-                             const QModelIndex &index) const
-{
-    return QStyledItemDelegate::sizeHint(option, index);
-}
+IdlistItemDelegate::IdlistItemDelegate(QObject *parent)
+    : QStyledItemDelegate(parent) {}
 
 QWidget *IdlistItemDelegate::createEditor(QWidget *parent,
-                                    const QStyleOptionViewItem &option,
-                                    const QModelIndex &index) const
-
+                                          const QStyleOptionViewItem &,
+                                          const QModelIndex &index) const
 {
-    return QStyledItemDelegate::createEditor(parent, option, index);
+
+    QStringList possibleValues = index.model()->data(index, ESMDataModel::PossibleValuesRole).toStringList();
+
+    QCompleter *autoComplete = new QCompleter(possibleValues);
+
+    QLineEdit *editor = new QLineEdit(parent);
+    editor->setCompleter(autoComplete);
+
+    connect(editor, SIGNAL(editingFinished()), this, SLOT(commitAndCloseEditor()));
+    return editor;
+}
+
+void IdlistItemDelegate::commitAndCloseEditor()
+{
+    QLineEdit *editor = qobject_cast<QLineEdit *>(sender());
+    emit commitData(editor);
+    emit closeEditor(editor);
 }
 
 void IdlistItemDelegate::setEditorData(QWidget *editor,
-                                 const QModelIndex &index) const
+                                       const QModelIndex &index) const
 {
-    QStyledItemDelegate::setEditorData(editor, index);
+    QLineEdit *edit = qobject_cast<QLineEdit*>(editor);
+    if (edit) {
+        edit->setText(index.model()->data(index, Qt::EditRole).toString());
+    }
 }
 
-void IdlistItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
-                                const QModelIndex &index) const
+void IdlistItemDelegate::setModelData(QWidget *editor,
+                                      QAbstractItemModel *model, const QModelIndex &index) const
 {
-    QStyledItemDelegate::setModelData(editor, model, index);
+    QLineEdit *edit = qobject_cast<QLineEdit *>(editor);
+    if (edit) {
+        model->setData(index, edit->text());
+    }
 }

@@ -14,6 +14,10 @@ class ESMDataModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
+    enum {
+        PossibleValuesRole = Qt::UserRole
+    };
+
     ESMDataModel(QObject *parent);
     ~ESMDataModel();
 
