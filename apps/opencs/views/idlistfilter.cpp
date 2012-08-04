@@ -171,9 +171,9 @@ void FilterProxyModel::setSourceModel(QAbstractItemModel *model)
 
     if (model) {
         connect(model, SIGNAL(headerDataChanged(Qt::Orientation,int,int)), this, SLOT(headerDataChanged(Qt::Orientation,int,int)));
-    }
 
-    QSortFilterProxyModel::setSourceModel(model);
+        QSortFilterProxyModel::setSourceModel(model);
+    }
 }
 
 bool FilterProxyModel::filterAcceptsColumn(int source_column, const QModelIndex &source_parent) const

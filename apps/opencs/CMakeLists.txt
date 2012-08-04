@@ -10,6 +10,7 @@ set(OPENCS_SRC
     model/magiceffect.cpp
     model/script.cpp
     views/idlist.cpp
+    views/idlistitemdelegate.cpp
     views/idlistfilter.cpp
 )
 
@@ -22,6 +23,7 @@ set(OPENCS_HDR
     model/magiceffect.hpp
     model/script.hpp
     views/idlist.hpp
+    views/idlistitemdelegate.hpp
     views/idlistfilter.hpp
 )
 

@@ -1,6 +1,8 @@
 #include "idlist.hpp"
 #include "ui_idlist.h"
 
+#include "idlistitemdelegate.hpp"
+
 #include <QDebug>
 #include <QtGui>
 
@@ -13,6 +15,8 @@ IdList::IdList(QWidget *parent) :
     ui->setupUi(this);
 
     mFilterProxyModel = new FilterProxyModel(this);
+
+    ui->tableView->setItemDelegate(new IdlistItemDelegate);
     ui->tableView->setModel(mFilterProxyModel);
     ui->tableView->verticalHeader()->setDefaultSectionSize(ui->tableView->verticalHeader()->minimumSectionSize());
 
