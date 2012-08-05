@@ -9,7 +9,7 @@ class PotionDataItem : public ESMDataItem
     Q_OBJECT
     Q_PROPERTY(QString mwName READ name WRITE setName)
     Q_PROPERTY(QString model READ model WRITE setModel)
-    Q_PROPERTY(QString script READ script WRITE setScript)
+    Q_PROPERTY(QString scriptRef READ script WRITE setScript)
 
     Q_PROPERTY(QString icon READ icon WRITE setIcon)
 

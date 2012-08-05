@@ -7,6 +7,9 @@
 
 #include <QFile>
 
+#include <QMetaProperty>
+#include <QStringList>
+
 class DataItem;
 
 class ESMDataModel : public QAbstractTableModel
@@ -32,16 +35,15 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
-    void updateHeaders(DataItem *parent);
-
-
+    QVariant valueAtColumn(const DataItem *rowItem, int column) const;
 
     DataItem *mRootItem;
     DataItem *mMerged;
 
     int mRowCount;
 
-    QList<QVariant> m_ColumnNames;
+    QStringList mColumnIds;
+    QMultiMap<QString, QMap<const QMetaObject*, int>*> mNamedProperties;
 };
 
 

@@ -74,19 +74,34 @@ void ESMDataModel::loadEsmFile(QString file)
         child->load(reader);
     }
 
-    updateHeaders(mRootItem);
+
+    mMerged = mRootItem->child(0);
 
 
-    int totalRow = 0;
-    for(int i=0; i<mRootItem->childCount(); i++) {
-        DataItem *firstLevelChild = mRootItem->child(i);
-        for(int u=0; u<firstLevelChild->childCount(); u++) {
-            totalRow ++;
+    mRowCount = mMerged->childCount();
+    for(int i=0;i<mRowCount;i++) {
+        DataItem *child = mMerged->child(i);
+        const QMetaObject *childMeta = child->metaObject();
+
+        for(int u=0; u<childMeta->propertyCount();u++) {
+           const QMetaProperty prop = child->metaObject()->property(u);
+
+           QMap<const QMetaObject*, int>* map;
+
+           if(!mNamedProperties.contains(prop.name())) {
+               map = new QMap<const QMetaObject*, int>();
+               mNamedProperties.insert(prop.name(), map);
+           } else {
+               map = mNamedProperties.value(prop.name());
+           }
+
+           map->insert(childMeta, u);
         }
     }
 
-    mRowCount = totalRow;
+    mColumnIds = mNamedProperties.keys();
 
+    emit headerDataChanged(Qt::Horizontal, 0, mNamedProperties.size() -1 );
     endResetModel();
 }
 
@@ -97,7 +112,7 @@ int ESMDataModel::rowCount(const QModelIndex &parent) const
 
 int ESMDataModel::columnCount(const QModelIndex &parent) const
 {
-   return m_ColumnNames.size();
+   return mColumnIds.size();
 }
 
 QVariant ESMDataModel::data(const QModelIndex &index, int role) const
@@ -107,39 +122,27 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 
     DataItem *baseItem = mRootItem->child(0);
 
+    int column = index.column();
+
     if(role == PossibleValuesRole) {
-        QStringList possibleValues;
+        QVariantList possibleValues;
 
         for (int i = 0; i<baseItem->childCount(); i++) {
             DataItem *rowItem = baseItem->child(i);
-            const QMetaObject* metaObject = rowItem->metaObject();
-            int column = index.column();
-            QVariant columnName = m_ColumnNames.at(column);
 
-            int propertyIndexOfOfName = metaObject->indexOfProperty(columnName.toString().toAscii());
-            if(propertyIndexOfOfName != -1) {
-                QString value = metaObject->property(propertyIndexOfOfName).read(rowItem).toString();
+            QVariant fieldData = valueAtColumn(rowItem, column);
+            if(!fieldData.isValid())
+                continue;
 
-                if (!possibleValues.contains(value))
-                    possibleValues.append(value);
-            }
+            if (!possibleValues.contains(fieldData))
+                possibleValues.append(fieldData);
         }
 
         return possibleValues;
     } else if(role == Qt::DisplayRole ) {
-        DataItem *baseItem = mRootItem->child(0);
-
         DataItem *rowItem = baseItem->child(index.row());
 
-        const QMetaObject* metaObject = rowItem->metaObject();
-
-        int column = index.column();
-        QVariant columnName = m_ColumnNames.at(column);
-
-        int propertyIndexOfOfName = metaObject->indexOfProperty(columnName.toString().toAscii());
-        if(propertyIndexOfOfName != -1) {
-            return metaObject->property(propertyIndexOfOfName).read(rowItem);
-        }
+        return valueAtColumn(rowItem, column);
     }
 
     return QVariant();
@@ -147,17 +150,15 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 
 QVariant ESMDataModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if(orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        if(section < 0 || section >= m_ColumnNames.size()) {
-            qWarning() << "Header section out of range" << section;
-            return QVariant();
-        }
-
-        return QVariant(m_ColumnNames.at(section));
-    } else {
-        //qWarning() << "unknown orientation or role" << orientation << role;
-        return QVariant();
+    if(orientation == Qt::Horizontal &&
+        role == Qt::DisplayRole &&
+        section >= 0 &&
+        section < mNamedProperties.size())
+    {
+        return QVariant(mColumnIds.at(section));
     }
+
+    return QVariant();
 }
 
 Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
@@ -168,33 +169,14 @@ Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
-void ESMDataModel::updateHeaders(DataItem *parent)
-{    
-    for(int i=0;i<parent->childCount();i++) {
-        DataItem *child = parent->child(i);
+QVariant ESMDataModel::valueAtColumn(const DataItem *rowItem, int column) const
+{
+    QString columnId = mColumnIds.at(column);
+    QMap<const QMetaObject*, int> *map = mNamedProperties.value(columnId);
+    if(map->contains(rowItem->metaObject())) {
+        int propertyNo = map->value(rowItem->metaObject());
 
-        const QMetaObject* metaObject = child->metaObject();
-/*
-        for(int u=0;u<metaObject->classInfoCount();u++) {
-            QMetaClassInfo *classInfo = metaObject->classInfo(u);
-            classInfo->name();
-
-            classInfo->value();
-        }
-*/
-        for(int i = 1; i < metaObject->propertyCount(); ++i) {
-            QMetaProperty metaProperty = metaObject->property(i);
-
-            QVariant header = metaProperty.name();
-
-            if(!m_ColumnNames.contains(header)) {
-                m_ColumnNames.append(header);
-                qDebug() <<"added header" << header;
-            }
-        }
-
-        updateHeaders(child);
+        return rowItem->metaObject()->property(propertyNo).read(rowItem);
     }
-
-    emit headerDataChanged(Qt::Horizontal, 0, m_ColumnNames.size() -1 );
+    return QVariant();
 }

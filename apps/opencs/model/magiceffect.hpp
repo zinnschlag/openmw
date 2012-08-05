@@ -6,7 +6,7 @@
 class MagicEffectDataItem : public ESMDataItem
 {
     Q_OBJECT
-    Q_PROPERTY(short effectID READ effectID WRITE setEffectID)
+    Q_PROPERTY(short effectId READ effectID WRITE setEffectID)
     Q_PROPERTY(int area READ area WRITE setArea)
 
 public:
