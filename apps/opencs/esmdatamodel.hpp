@@ -35,6 +35,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
+
     QVariant valueAtColumn(const DataItem *rowItem, int column) const;
 
     DataItem *mRootItem;
@@ -43,6 +44,7 @@ private:
     int mRowCount;
 
     QStringList mColumnIds;
+
     QMultiMap<QString, QMap<const QMetaObject*, int>*> mNamedProperties;
 };
 
