@@ -6,106 +6,11 @@
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
+#include "../model/filter/filter.hpp"
+
 namespace Ui {
 class IdList;
 }
-
-class Filter : public QObject
-{
-    Q_OBJECT
-public:
-    explicit Filter(Filter *parent = 0) : mParentItem(parent), mEnabled(true), QObject(parent) {}
-    ~Filter() {}
-
-    Filter *parent() { return mParentItem;}
-    int row() const {
-        if (mParentItem)
-            return mParentItem->mChildItems.indexOf(const_cast<Filter*>(this));
-
-        return 0;
-    }
-
-    int childCount() const { return mChildItems.count();}
-    Filter *child(int row) {return mChildItems.at(row);}
-
-    void appendChild(Filter *child) { mChildItems.append(child);}
-
-    virtual QString displayString() {return "Filter";}
-
-    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
-        if(!enabled())
-            return false;
-
-        foreach(Filter* filter, mChildItems) {
-            if(filter->accept(headers, row)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    bool enabled() {return mEnabled;}
-    void setEnabled(bool enabled){mEnabled = enabled;}
-
-protected:
-    QString mDisplayName;
-
-private:
-    Filter *mParentItem;
-    QList<Filter*> mChildItems;
-
-    bool mEnabled;
-};
-
-class UnionFilter : public Filter
-{
-    Q_OBJECT
-
-public:
-    explicit UnionFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
-    ~UnionFilter() {}
-
-    virtual QString displayString() {return "Union :" + mDisplayName;}
-};
-
-class NoFilter : public Filter
-{
-    Q_OBJECT
-
-public:
-    explicit NoFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
-    ~NoFilter() {}
-
-    virtual QString displayString() {return "NoFilter";}
-
-    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
-        return enabled();
-    }
-};
-
-class MatchFilter : public Filter
-{
-    Q_OBJECT
-
-public:
-    explicit MatchFilter(QString expectedKey,QString expectedValue, Filter *parent=0)
-        : Filter(parent)
-    {
-        mExpectedKey = expectedKey;
-        mExpectedValue = expectedValue;
-    }
-    ~MatchFilter() {}
-
-    virtual QString displayString() {return "Match: " + mExpectedKey + "=" + mExpectedValue;}
-
-    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
-        return enabled() && headers.contains(mExpectedKey) && row.at(headers.indexOf(mExpectedKey)) == mExpectedValue;
-    }
-
-private:
-    QString mExpectedKey;
-    QString mExpectedValue;
-};
 
 class FilterEditModel : public QAbstractItemModel
 {

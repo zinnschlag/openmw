@@ -9,6 +9,10 @@ set(OPENCS_SRC
     model/potion.cpp
     model/magiceffect.cpp
     model/script.cpp
+    model/filter/filter.cpp
+    model/filter/defaultfilter.cpp
+    model/filter/matchfilter.cpp
+    model/filter/unionfilter.cpp
     views/idlist.cpp
     views/idlistitemdelegate.cpp
     views/idlistfilter.cpp
@@ -22,6 +26,10 @@ set(OPENCS_HDR
     model/potion.hpp
     model/magiceffect.hpp
     model/script.hpp
+    model/filter/filter.hpp
+    model/filter/defaultfilter.hpp
+    model/filter/matchfilter.hpp
+    model/filter/unionfilter.hpp
     views/idlist.hpp
     views/idlistitemdelegate.hpp
     views/idlistfilter.hpp

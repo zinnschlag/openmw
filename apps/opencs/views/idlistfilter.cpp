@@ -2,6 +2,10 @@
 
 #include <QDebug>
 
+#include "../model/filter/defaultfilter.hpp"
+#include "../model/filter/matchfilter.hpp"
+#include "../model/filter/unionfilter.hpp"
+
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
