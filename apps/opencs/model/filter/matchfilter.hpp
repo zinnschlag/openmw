@@ -8,19 +8,12 @@ class MatchFilter : public Filter
     Q_OBJECT
 
 public:
-    explicit MatchFilter(QString expectedKey,QString expectedValue, Filter *parent=0)
-        : Filter(parent)
-    {
-        mExpectedKey = expectedKey;
-        mExpectedValue = expectedValue;
-    }
-    ~MatchFilter() {}
+    explicit MatchFilter(QString expectedKey, QString expectedValue, Filter *parent=0);
+    ~MatchFilter();
 
-    virtual QString displayString() {return "Match: " + mExpectedKey + "=" + mExpectedValue;}
+    virtual QString displayString();
 
-    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
-        return enabled() && headers.contains(mExpectedKey) && row.at(headers.indexOf(mExpectedKey)) == mExpectedValue;
-    }
+    virtual bool accept(QList<QString> headers, QList<QVariant> row);
 
 private:
     QString mExpectedKey;

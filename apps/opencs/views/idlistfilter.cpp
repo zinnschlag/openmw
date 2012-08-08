@@ -9,8 +9,7 @@
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mRootItem = new Filter();
-
+    mRootItem = new UnionFilter("root");
 
     UnionFilter *defaultFilters = new UnionFilter("Default", mRootItem);
     mRootItem->appendChild(defaultFilters);
@@ -18,14 +17,17 @@ FilterEditModel::FilterEditModel(QObject *parent)
     NoFilter *noFilter = new NoFilter("NoFilter", defaultFilters);
     defaultFilters->appendChild(noFilter);
 
-    MatchFilter *actiFilter = new MatchFilter("mwType", "ACTI", defaultFilters);
-    defaultFilters->appendChild(actiFilter);
+    UnionFilter *typesFiltes = new UnionFilter("Types", defaultFilters);
+    defaultFilters->appendChild(typesFiltes);
 
-    MatchFilter *alchFilter = new MatchFilter("mwType", "ALCH", defaultFilters);
-    defaultFilters->appendChild(alchFilter);
+    MatchFilter *actiFilter = new MatchFilter("mwType", "ACTI", typesFiltes);
+    typesFiltes->appendChild(actiFilter);
 
-    MatchFilter *scriptFilter = new MatchFilter("mwType", "SCPT", defaultFilters);
-    defaultFilters->appendChild(scriptFilter);
+    MatchFilter *alchFilter = new MatchFilter("mwType", "ALCH", typesFiltes);
+    typesFiltes->appendChild(alchFilter);
+
+    MatchFilter *scriptFilter = new MatchFilter("mwType", "SCPT", typesFiltes);
+    typesFiltes->appendChild(scriptFilter);
 
     UnionFilter *customFilters = new UnionFilter("Custom", mRootItem);
     mRootItem->appendChild(customFilters);
@@ -117,11 +119,14 @@ QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &paren
     else
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
-    Filter *childItem = parentItem->child(row);
-    if (childItem)
-        return createIndex(row, column, childItem);
-    else
-        return QModelIndex();
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
+    if(unionFilter) {
+        Filter *childItem = unionFilter->child(row);
+        if (childItem)
+            return createIndex(row, column, childItem);
+    }
+
+    return QModelIndex();
 }
 
 QModelIndex FilterEditModel::parent(const QModelIndex &index) const
@@ -135,7 +140,14 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
     if (parentItem == mRootItem)
         return QModelIndex();
 
-    return createIndex(parentItem->row(), 0, parentItem);
+    int row = 0;
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
+    if(unionFilter) {
+        row = unionFilter->rowOfChild(childItem);
+    }
+
+    return createIndex(row, 0, parentItem);
 }
 
 int FilterEditModel::rowCount(const QModelIndex &parent) const
@@ -149,7 +161,12 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
     else
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
-    return parentItem->childCount();
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
+    if(unionFilter) {
+        return unionFilter->childCount();
+    }
+
+    return 0;
 }
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const

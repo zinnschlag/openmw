@@ -7,6 +7,7 @@
 #include <QSortFilterProxyModel>
 
 #include "../model/filter/filter.hpp"
+#include "../model/filter/unionfilter.hpp"
 
 namespace Ui {
 class IdList;
@@ -36,7 +37,7 @@ public:
     bool accept(QList<QString> headers, QList<QVariant> row);
 
 private:
-    Filter *mRootItem;
+    UnionFilter *mRootItem;
 };
 
 class FilterProxyModel : public QSortFilterProxyModel

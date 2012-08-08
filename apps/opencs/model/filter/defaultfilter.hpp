@@ -8,7 +8,7 @@ class NoFilter : public Filter
     Q_OBJECT
 
 public:
-    explicit NoFilter(QString name, Filter *parent=0) : Filter(parent) {mDisplayName = name;}
+    explicit NoFilter(QString name, Filter *parent=0) : Filter(parent) {}
     ~NoFilter() {}
 
     virtual QString displayString() {return "NoFilter";}
