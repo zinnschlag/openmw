@@ -4,16 +4,12 @@
 #include <algorithm>
 #include <map>
 
-#include <OgreRoot.h>
-
 #include <components/esm_store/store.hpp>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 
 #include "../mwworld/player.hpp"
-
-#include "../mwrender/player.hpp"
 
 #include "sound_output.hpp"
 #include "sound_decoder.hpp"
@@ -491,25 +487,20 @@ namespace MWSound
         if(!isMusicPlaying())
             startRandomTitle();
 
-        const ESM::Cell *cell = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->cell;
-        Ogre::Camera *cam = MWBase::Environment::get().getWorld()->getPlayer().getRenderer()->getCamera();
-        Ogre::Vector3 nPos, nDir, nUp;
-        nPos = cam->getRealPosition();
-        nDir = cam->getRealDirection();
-        nUp  = cam->getRealUp();
+        MWWorld::Ptr player =
+            MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
+        const ESM::Cell *cell = player.getCell()->cell;
 
         Environment env = Env_Normal;
-        if((cell->data.flags&cell->HasWater) && nPos.y < cell->water)
+        if((cell->data.flags&cell->HasWater) && mListenerPos.z < cell->water)
             env = Env_Underwater;
 
-        // The output handler is expecting vectors oriented like the game
-        // (that is, -Z goes down, +Y goes forward), but that's not what we
-        // get from Ogre's camera, so we have to convert.
-        const Ogre::Vector3 pos(nPos[0], -nPos[2], nPos[1]);
-        const Ogre::Vector3 at(nDir[0], -nDir[2], nDir[1]);
-        const Ogre::Vector3 up(nUp[0], -nUp[2], nUp[1]);
-
-        mOutput->updateListener(pos, at, up, env);
+        mOutput->updateListener(
+            mListenerPos,
+            mListenerDir,
+            Ogre::Vector3::UNIT_Z,
+            env
+        );
 
         // Check if any sounds are finished playing, and trash them
         SoundMap::iterator snditer = mActiveSounds.begin();
@@ -565,6 +556,12 @@ namespace MWSound
             mMusic->mBaseVolume = mMasterVolume * mMusicVolume;
             mMusic->update();
         }
+    }
+
+    void SoundManager::setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir)
+    {
+        mListenerPos = pos;
+        mListenerDir = dir;
     }
 
     // Default readAll implementation, for decoders that can't do anything
