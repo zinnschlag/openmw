@@ -177,6 +177,9 @@ namespace MWBase
 
             virtual void moveObject (const MWWorld::Ptr& ptr, float x, float y, float z) = 0;
 
+            virtual void
+            moveObject(const MWWorld::Ptr &ptr, MWWorld::CellStore &newCell, float x, float y, float z) = 0;
+
             virtual void scaleObject (const MWWorld::Ptr& ptr, float scale) = 0;
 
             virtual void rotateObject(const MWWorld::Ptr& ptr,float x,float y,float z, bool adjust = false) = 0;

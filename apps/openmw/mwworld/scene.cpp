@@ -140,6 +140,8 @@ namespace MWWorld
         const ESM::Position& pos,
         bool adjustPlayerPos)
     {
+        MWBase::Environment::get().getWorld()->getPlayer().setCell (cell);
+
         bool hasWater = cell->cell->data.flags & cell->cell->HasWater;
         mPhysics->setCurrentWater(hasWater, cell->cell->water);
 
@@ -231,7 +233,7 @@ namespace MWWorld
 
 
         // adjust player
-        playerCellChange (MWBase::Environment::get().getWorld()->getExterior(X, Y), position, adjustPlayerPos);
+        playerCellChange (mCurrentCell, position, adjustPlayerPos);
 
         // Sky system
         MWBase::Environment::get().getWorld()->adjustSky();
@@ -357,10 +359,7 @@ namespace MWWorld
     {
         CellStoreCollection::iterator active = mActiveCells.begin();
         while (active != mActiveCells.end()) {
-            if ((*active)->cell->name == cell.cell->name &&
-                (*active)->cell->data.gridX == cell.cell->data.gridX &&
-                (*active)->cell->data.gridY == cell.cell->data.gridY)
-            {
+            if (**active == cell) {
                 return true;
             }
             ++active;
