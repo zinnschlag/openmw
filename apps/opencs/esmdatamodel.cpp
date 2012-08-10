@@ -17,6 +17,8 @@
 
 ESMDataModel::ESMDataModel(QObject *parent)
     : QAbstractTableModel(parent)
+    , mMerged(0)
+    , mRowCount(0)
 {
     mRootItem = new DataItem();
 }
