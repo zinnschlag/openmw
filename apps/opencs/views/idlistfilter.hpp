@@ -6,6 +6,8 @@
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
+#include <QtXml/QDomElement>
+
 #include "../model/filter/filter.hpp"
 #include "../model/filter/unionfilter.hpp"
 
@@ -20,6 +22,10 @@ class FilterEditModel : public QAbstractItemModel
 public:
     FilterEditModel(QObject *parent);
     ~FilterEditModel();
+
+    void load();
+    void readFilter(const QDomElement &element, Filter *parent);
+
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
@@ -47,8 +53,7 @@ class FilterProxyModel : public QSortFilterProxyModel
 public:
     FilterProxyModel(QObject *parent = 0);
 
-    FilterEditModel *editModel() { return mEditModel;}
-
+    void setEditModel(FilterEditModel *editModel);
     void setSourceModel(QAbstractItemModel *model);
 
 protected:

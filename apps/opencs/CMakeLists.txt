@@ -41,7 +41,7 @@ set(OPENCS_UI
 )
 
 set(OPENCS_RES
-    ../launcher/resources.qrc
+    resources.qrc
 )
 
 source_group(opencs FILES ${OPENCS_SRC} ${OPENCS_HDR})
@@ -50,7 +50,7 @@ if(WIN32)
     set(QT_USE_QTMAIN TRUE)
 endif(WIN32)
 
-find_package(Qt4 REQUIRED)
+find_package(Qt4 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
 include(${QT_USE_FILE})
 
 qt4_wrap_ui(OPENCS_UI_HDR ${OPENCS_UI})

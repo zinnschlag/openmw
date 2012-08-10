@@ -3,15 +3,15 @@
 
 #include "filter.hpp"
 
-class NoFilter : public Filter
+class DefaultFilter : public Filter
 {
     Q_OBJECT
 
 public:
-    explicit NoFilter(QString name, Filter *parent=0) : Filter(parent) {}
-    ~NoFilter() {}
+    explicit DefaultFilter(Filter *parent=0) : Filter(parent) {}
+    ~DefaultFilter() {}
 
-    virtual QString displayString() {return "NoFilter";}
+    virtual QString displayString() {return "Default";}
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) {
         return enabled();

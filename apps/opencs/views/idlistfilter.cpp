@@ -1,6 +1,8 @@
 #include "idlistfilter.hpp"
 
 #include <QDebug>
+#include <QFile>
+#include <QtXml/QDomDocument>
 
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
@@ -10,33 +12,80 @@ FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
     mRootItem = new UnionFilter("root");
-
-    UnionFilter *defaultFilters = new UnionFilter("Default", mRootItem);
-    mRootItem->appendChild(defaultFilters);
-
-    NoFilter *noFilter = new NoFilter("NoFilter", defaultFilters);
-    defaultFilters->appendChild(noFilter);
-
-    UnionFilter *typesFiltes = new UnionFilter("Types", defaultFilters);
-    defaultFilters->appendChild(typesFiltes);
-
-    MatchFilter *actiFilter = new MatchFilter("mwType", "ACTI", typesFiltes);
-    typesFiltes->appendChild(actiFilter);
-
-    MatchFilter *alchFilter = new MatchFilter("mwType", "ALCH", typesFiltes);
-    typesFiltes->appendChild(alchFilter);
-
-    MatchFilter *scriptFilter = new MatchFilter("mwType", "SCPT", typesFiltes);
-    typesFiltes->appendChild(scriptFilter);
-
-    UnionFilter *customFilters = new UnionFilter("Custom", mRootItem);
-    mRootItem->appendChild(customFilters);
 }
 
 FilterEditModel::~FilterEditModel()
 {
     delete mRootItem;
 }
+
+void FilterEditModel::load()
+{
+    UnionFilter *newRoot = new UnionFilter("root");
+
+    QFile file(":/filters.xml");
+    if (file.open(QIODevice::ReadOnly)) {
+        QDomDocument document("FilterTree");
+
+        QString parseError;
+
+        if (document.setContent(&file, &parseError)) {
+            readFilter(document.firstChildElement(), newRoot);
+        } else {
+            qDebug() << "Parse error" << parseError;
+        }
+        file.close();
+    } else {
+        qDebug() << "Opening file failed";
+    }
+
+
+    mRootItem = newRoot;
+
+    emit dataChanged(QModelIndex(), QModelIndex());
+}
+
+void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
+{
+
+    Filter *childFilter;
+
+    QString name = element.tagName();
+    if(name == "Union") {
+        childFilter = new UnionFilter("", parent);
+
+        QDomNode childNode = element.firstChild();
+        while (!childNode.isNull()) {
+            if (childNode.isElement()) {
+                QDomElement childElement = childNode.toElement();
+                readFilter(childElement, childFilter);
+            }
+            childNode = childNode.nextSibling();
+        }
+    } else if(name == "Match") {
+        QDomElement keyElement = element.firstChildElement("Key");
+        QDomElement matchElement = element.firstChildElement("Exact");
+
+        childFilter = new MatchFilter(keyElement.text(), matchElement.text(), parent);
+    } else if(name == "Default") {
+        childFilter = new DefaultFilter(parent);
+    } else {
+        qWarning() << "Invalid tagName" << element.tagName();
+    }
+
+    QString enabled = element.attribute("active", "true");
+    childFilter->setEnabled(enabled == "true" ? true : false);
+
+    UnionFilter* parentUnion = qobject_cast<UnionFilter*>(parent);
+    if(parentUnion) {
+        parentUnion->appendChild(childFilter);
+    } else {
+        qWarning() << "Parent is not a collection";
+    }
+}
+
+
+
 
 QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 {
@@ -178,8 +227,13 @@ int FilterEditModel::columnCount(const QModelIndex &parent) const
 
 FilterProxyModel::FilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
+    , mEditModel(0)
 {
-    mEditModel = new FilterEditModel(this);
+}
+
+void FilterProxyModel::setEditModel(FilterEditModel *editModel)
+{
+    mEditModel = editModel;
     connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(invalidate()));
 }
 
@@ -204,6 +258,9 @@ bool FilterProxyModel::filterAcceptsColumn(int source_column, const QModelIndex 
 
 bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
+    if(!mEditModel)
+        return true;
+
     QList<QVariant> row;
 
     for(int i=0; i<mHeaders.size(); i++) {

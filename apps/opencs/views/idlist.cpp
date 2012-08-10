@@ -14,7 +14,11 @@ IdList::IdList(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    FilterEditModel *editModel = new FilterEditModel(this);
+    editModel->load();
+
     mFilterProxyModel = new FilterProxyModel(this);
+    mFilterProxyModel->setEditModel(editModel);
 
     IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
     ui->tableView->setItemDelegate(itemDelegate);
@@ -24,7 +28,7 @@ IdList::IdList(QWidget *parent) :
     ui->tableView->horizontalHeader()->setMovable(true);
     ui->tableView->horizontalHeader()->setResizeMode(QHeaderView::Interactive);
 
-    ui->treeViewFilter->setModel(mFilterProxyModel->editModel());
+    ui->treeViewFilter->setModel(editModel);
     ui->treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);
 }
 

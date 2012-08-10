@@ -3,6 +3,7 @@
 UnionFilter::UnionFilter(QString name, Filter *parent)
     : Filter(parent)
     , mDisplayName(name)
+    , mChildItems()
 {}
 
 UnionFilter::~UnionFilter()

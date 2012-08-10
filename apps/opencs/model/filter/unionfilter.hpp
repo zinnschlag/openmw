@@ -11,7 +11,7 @@ public:
     explicit UnionFilter(QString name, Filter *parent=0);
     ~UnionFilter();
 
-    virtual QString displayString() {return "Union :" + mDisplayName;}
+    virtual QString displayString() {return "Union:" + mDisplayName;}
     virtual bool accept(QList<QString> headers, QList<QVariant> row);
 
     int childCount() const { return mChildItems.count();}
