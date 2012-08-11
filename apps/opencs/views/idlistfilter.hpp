@@ -11,7 +11,8 @@
 #include "../model/filter/filter.hpp"
 #include "../model/filter/unionfilter.hpp"
 
-namespace Ui {
+namespace Ui
+{
 class IdList;
 }
 

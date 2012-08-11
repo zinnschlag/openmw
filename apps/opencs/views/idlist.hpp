@@ -9,7 +9,8 @@
 
 #include "idlistfilter.hpp"
 
-namespace Ui {
+namespace Ui
+{
 class IdList;
 }
 

@@ -34,7 +34,8 @@ void IdlistItemDelegate::setEditorData(QWidget *editor,
                                        const QModelIndex &index) const
 {
     QLineEdit *edit = qobject_cast<QLineEdit*>(editor);
-    if (edit) {
+    if (edit)
+    {
         edit->setText(index.model()->data(index, Qt::EditRole).toString());
     }
 }
@@ -43,7 +44,8 @@ void IdlistItemDelegate::setModelData(QWidget *editor,
                                       QAbstractItemModel *model, const QModelIndex &index) const
 {
     QLineEdit *edit = qobject_cast<QLineEdit *>(editor);
-    if (edit) {
+    if (edit)
+    {
         model->setData(index, edit->text());
     }
 }

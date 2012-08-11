@@ -14,20 +14,45 @@ class ActivatorDataItem : public ESMDataItem
 public:
     ActivatorDataItem(DataItem *parent);
 
-    virtual void load(ESM::ESMReader &esm){
+    virtual void load(ESM::ESMReader &esm)
+    {
         mActivator.load(esm);
     }
 
     virtual QString type() {return "ACTI";}
 
-    QString name() { return QString::fromStdString(mActivator.name);}
-    void setName(QString name) { mActivator.name = name.toStdString(); emit nameChanged(name); }
+    QString name()
+    {
+        return QString::fromStdString(mActivator.name);
+    }
 
-    QString model() { return QString::fromStdString(mActivator.model);}
-    void setModel(QString model) { mActivator.model = model.toStdString(); emit modelChanged(model);}
+    void setName(QString name)
+    {
+        mActivator.name = name.toStdString();
+        emit nameChanged(name);
+    }
 
-    QString script() { return QString::fromStdString(mActivator.script);}
-    void setScript(QString script) { mActivator.script = script.toStdString(); emit scriptChanged(script);}
+    QString model()
+    {
+        return QString::fromStdString(mActivator.model);
+    }
+
+    void setModel(QString model)
+    {
+        mActivator.model = model.toStdString();
+        emit modelChanged(model);
+    }
+
+    QString script()
+    {
+        return QString::fromStdString(mActivator.script);
+    }
+
+    void setScript(QString script)
+    {
+        mActivator.script = script.toStdString();
+        emit scriptChanged(script);
+    }
 
 signals:
     void nameChanged(QString);

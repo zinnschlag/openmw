@@ -14,12 +14,20 @@ class ScriptDataItem : public ESMDataItem
 public:
     ScriptDataItem(DataItem *parent);
 
-    virtual void load(ESM::ESMReader &esm){
+    virtual void load(ESM::ESMReader &esm)
+    {
         mScript.load(esm);
     }
 
-    QString scriptId() { return QString::fromStdString(mScript.data.name.toString());}
-    QString text() { return QString::fromStdString(mScript.scriptText);}
+    QString scriptId()
+    {
+        return QString::fromStdString(mScript.data.name.toString());
+    }
+
+    QString text()
+    {
+        return QString::fromStdString(mScript.scriptText);
+    }
 
 private:
     ESM::Script mScript;

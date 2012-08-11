@@ -12,16 +12,31 @@ class MagicEffectDataItem : public ESMDataItem
 public:
     MagicEffectDataItem(ESM::ENAMstruct effectData, DataItem *parent);
 
-    virtual void load(ESM::ESMReader &esm){
+    virtual void load(ESM::ESMReader &esm)
+    {
 //        std::count << "cannot load directly";
 //        mMagicEffect.load(esm);
     }
 
-    short effectID() {return mMagicEffect.effectID ;}
-    void setEffectID(short id) { mMagicEffect.effectID = id;}
+    short effectID()
+    {
+        return mMagicEffect.effectID;
+    }
 
-    int area() {return mMagicEffect.area ;}
-    void setArea(int area) { mMagicEffect.area = area;}
+    void setEffectID(short id)
+    {
+        mMagicEffect.effectID = id;
+    }
+
+    int area()
+    {
+        return mMagicEffect.area;
+    }
+
+    void setArea(int area)
+    {
+        mMagicEffect.area = area;
+    }
 
     //TODO The rest of the properties
 

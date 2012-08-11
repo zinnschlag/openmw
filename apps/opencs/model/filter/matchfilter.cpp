@@ -4,10 +4,12 @@ MatchFilter::MatchFilter(QString expectedKey, QString expectedValue, Filter *par
     : Filter(parent)
     , mExpectedKey(expectedKey)
     , mExpectedValue(expectedValue)
-{}
+{
+}
 
 MatchFilter::~MatchFilter()
-{}
+{
+}
 
 QString MatchFilter::displayString()
 {

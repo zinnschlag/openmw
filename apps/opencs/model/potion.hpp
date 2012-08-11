@@ -20,41 +20,92 @@ class PotionDataItem : public ESMDataItem
 public:
     PotionDataItem(DataItem *parent);
 
-    virtual void load(ESM::ESMReader &esm){
+    virtual void load(ESM::ESMReader &esm)
+    {
         //WTF is this :/
         mPotion.load(esm, mId.toStdString());
 
-        for(std::vector<ESM::ENAMstruct>::const_iterator iter(mPotion.effects.list.begin()); iter!=mPotion.effects.list.end(); ++iter)
+        for (std::vector<ESM::ENAMstruct>::const_iterator iter(mPotion.effects.list.begin()); iter!=mPotion.effects.list.end(); ++iter)
         {
             MagicEffectDataItem *effect = new MagicEffectDataItem(*iter, this);
             this->appendChild(effect);
         }
     }
 
-    virtual QString type() {return "ALCH";}
+    virtual QString type()
+    {
+        return "ALCH";
+    }
 
-    QString name() { return QString::fromStdString(mPotion.name);}
-    void setName(QString name) { mPotion.name = name.toStdString();}
+    QString name()
+    {
+        return QString::fromStdString(mPotion.name);
+    }
 
-    QString model() { return QString::fromStdString(mPotion.model);}
-    void setModel(QString model) { mPotion.model = model.toStdString();}
+    void setName(QString name)
+    {
+        mPotion.name = name.toStdString();
+    }
 
-    QString script() { return QString::fromStdString(mPotion.script);}
-    void setScript(QString script) { mPotion.script = script.toStdString();}
+    QString model()
+    {
+        return QString::fromStdString(mPotion.model);
+    }
 
+    void setModel(QString model)
+    {
+        mPotion.model = model.toStdString();
+    }
 
-    QString icon() { return QString::fromStdString(mPotion.icon);}
-    void setIcon(QString icon) { mPotion.icon = icon.toStdString();}
+    QString script()
+    {
+        return QString::fromStdString(mPotion.script);
+    }
 
+    void setScript(QString script)
+    {
+        mPotion.script = script.toStdString();
+    }
 
-    float weight() { return mPotion.data.weight;}
-    void setWeight(float weight) { mPotion.data.weight = weight;}
+    QString icon()
+    {
+        return QString::fromStdString(mPotion.icon);
+    }
 
-    int value() { return mPotion.data.value;}
-    void setValue(int value) { mPotion.data.value = value;}
+    void setIcon(QString icon)
+    {
+        mPotion.icon = icon.toStdString();
+    }
 
-    int autoCalc() { return mPotion.data.autoCalc;}
-    void setAutoCalc(int autoCalc) { mPotion.data.autoCalc = autoCalc;}
+    float weight()
+    {
+        return mPotion.data.weight;
+    }
+
+    void setWeight(float weight)
+    {
+        mPotion.data.weight = weight;
+    }
+
+    int value()
+    {
+        return mPotion.data.value;
+    }
+
+    void setValue(int value)
+    {
+        mPotion.data.value = value;
+    }
+
+    int autoCalc()
+    {
+        return mPotion.data.autoCalc;
+    }
+
+    void setAutoCalc(int autoCalc)
+    {
+        mPotion.data.autoCalc = autoCalc;
+    }
 
 private:
     ESM::Potion mPotion;

@@ -35,12 +35,21 @@ class EsmFile : public DataItem
     Q_PROPERTY(QString filename READ filename)
 
 public:
-    EsmFile(DataItem *parent = 0) : DataItem(parent) {}
-    ~EsmFile() {}
+    EsmFile(DataItem *parent = 0)
+        : DataItem(parent)
+    {
+    }
+
+    ~EsmFile()
+    {
+    }
 
     EsmFile(QString fileName, DataItem *parent);
 
-    QString filename() { return mFileName;}
+    QString filename()
+    {
+        return mFileName;
+    }
 
 private:
     QString mFileName;
@@ -54,22 +63,41 @@ class ESMDataItem : public DataItem
 
 public:
     ESMDataItem(DataItem *parent = 0) : DataItem(parent) {}
-    ~ESMDataItem() {}
+    ~ESMDataItem()
+    {
+    }
 
     //TODO Make this nicer
-    virtual void load(ESM::ESMReader &esm){
+    virtual void load(ESM::ESMReader &esm)
+    {
         esm.skipRecord();
         //std::cout << "skipped record";
     }
 
-    QString recordType() {return mRecordType;}
-    void setRecordType(QString recordType) { mRecordType = recordType;}
+    QString recordType()
+    {
+        return mRecordType;
+    }
 
+    void setRecordType(QString recordType)
+    {
+        mRecordType = recordType;
+    }
 
-    virtual QString type() {return mRecordType;}
+    virtual QString type()
+    {
+        return mRecordType;
+    }
 
-    QString id() { return mId;}
-    void setId(QString id) {mId = id;}
+    QString id()
+    {
+        return mId;
+    }
+
+    void setId(QString id)
+    {
+        mId = id;
+    }
 
 protected:
     QString mRecordType;

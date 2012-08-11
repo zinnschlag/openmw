@@ -42,7 +42,8 @@ void ESMDataModel::loadEsmFile(QString file)
     reader.setEncoding("default");
     reader.open(stdStrFileName);
 
-    while(reader.hasMoreRecs()) {
+    while (reader.hasMoreRecs())
+    {
         reader.getContext();
 
         ESM::NAME recordType = reader.getRecName();
@@ -53,7 +54,8 @@ void ESMDataModel::loadEsmFile(QString file)
 
         ESMDataItem *child = NULL;
 
-        switch(recordType.val) {
+        switch (recordType.val)
+        {
         case ESM::REC_ACTI:
             child = new ActivatorDataItem(esmFile);
             break;
@@ -81,29 +83,34 @@ void ESMDataModel::loadEsmFile(QString file)
 
 
     mRowCount = mMerged->childCount();
-    for(int i=0;i<mRowCount;i++) {
+    for (int i = 0; i < mRowCount; i++)
+    {
         DataItem *child = mMerged->child(i);
         const QMetaObject *childMeta = child->metaObject();
 
-        for(int u=0; u<childMeta->propertyCount();u++) {
-           const QMetaProperty prop = child->metaObject()->property(u);
+        for (int u = 0; u < childMeta->propertyCount(); u++)
+        {
+            const QMetaProperty prop = child->metaObject()->property(u);
 
-           QMap<const QMetaObject*, int>* map;
+            QMap<const QMetaObject*, int>* map;
 
-           if(!mNamedProperties.contains(prop.name())) {
-               map = new QMap<const QMetaObject*, int>();
-               mNamedProperties.insert(prop.name(), map);
-           } else {
-               map = mNamedProperties.value(prop.name());
-           }
+            if (!mNamedProperties.contains(prop.name()))
+            {
+                map = new QMap<const QMetaObject*, int>();
+                mNamedProperties.insert(prop.name(), map);
+            }
+            else
+            {
+                map = mNamedProperties.value(prop.name());
+            }
 
-           map->insert(childMeta, u);
+            map->insert(childMeta, u);
         }
     }
 
     mColumnIds = mNamedProperties.keys();
 
-    emit headerDataChanged(Qt::Horizontal, 0, mNamedProperties.size() -1 );
+    emit headerDataChanged(Qt::Horizontal, 0, mNamedProperties.size() - 1);
     endResetModel();
 }
 
@@ -126,14 +133,16 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 
     int column = index.column();
 
-    if(role == PossibleValuesRole) {
+    if (role == PossibleValuesRole)
+    {
         QVariantList possibleValues;
 
-        for (int i = 0; i<baseItem->childCount(); i++) {
+        for (int i = 0; i<baseItem->childCount(); i++)
+        {
             DataItem *rowItem = baseItem->child(i);
 
             QVariant fieldData = valueAtColumn(rowItem, column);
-            if(!fieldData.isValid())
+            if (!fieldData.isValid())
                 continue;
 
             if (!possibleValues.contains(fieldData))
@@ -141,7 +150,9 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
         }
 
         return possibleValues;
-    } else if(role == Qt::DisplayRole ) {
+    }
+    else if(role == Qt::DisplayRole)
+    {
         DataItem *rowItem = baseItem->child(index.row());
 
         return valueAtColumn(rowItem, column);
@@ -152,7 +163,7 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 
 QVariant ESMDataModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if(orientation == Qt::Horizontal &&
+    if (orientation == Qt::Horizontal &&
         role == Qt::DisplayRole &&
         section >= 0 &&
         section < mNamedProperties.size())
@@ -175,7 +186,8 @@ QVariant ESMDataModel::valueAtColumn(const DataItem *rowItem, int column) const
 {
     QString columnId = mColumnIds.at(column);
     QMap<const QMetaObject*, int> *map = mNamedProperties.value(columnId);
-    if(map->contains(rowItem->metaObject())) {
+    if (map->contains(rowItem->metaObject()))
+    {
         int propertyNo = map->value(rowItem->metaObject());
 
         return rowItem->metaObject()->property(propertyNo).read(rowItem);

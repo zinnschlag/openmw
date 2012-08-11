@@ -4,17 +4,22 @@ UnionFilter::UnionFilter(QString name, Filter *parent)
     : Filter(parent)
     , mDisplayName(name)
     , mChildItems()
-{}
+{
+}
 
 UnionFilter::~UnionFilter()
-{}
+{
+}
 
-bool UnionFilter::accept(QList<QString> headers, QList<QVariant> row) {
-    if(!enabled())
+bool UnionFilter::accept(QList<QString> headers, QList<QVariant> row)
+{
+    if (!enabled())
         return false;
 
-    foreach(Filter* filter, mChildItems) {
-        if(filter->accept(headers, row)) {
+    foreach (Filter* filter, mChildItems)
+    {
+        if (filter->accept(headers, row))
+        {
             return true;
         }
     }

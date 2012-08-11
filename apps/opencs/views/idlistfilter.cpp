@@ -24,18 +24,25 @@ void FilterEditModel::load()
     UnionFilter *newRoot = new UnionFilter("root");
 
     QFile file(":/filters.xml");
-    if (file.open(QIODevice::ReadOnly)) {
+    if (file.open(QIODevice::ReadOnly))
+    {
         QDomDocument document("FilterTree");
 
         QString parseError;
 
-        if (document.setContent(&file, &parseError)) {
+        if (document.setContent(&file, &parseError))
+        {
             readFilter(document.firstChildElement(), newRoot);
-        } else {
+        }
+        else
+        {
             qDebug() << "Parse error" << parseError;
         }
+
         file.close();
-    } else {
+    }
+    else
+    {
         qDebug() << "Opening file failed";
     }
 
@@ -51,25 +58,34 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     Filter *childFilter;
 
     QString name = element.tagName();
-    if(name == "Union") {
+    if (name == "Union")
+    {
         childFilter = new UnionFilter("", parent);
 
         QDomNode childNode = element.firstChild();
-        while (!childNode.isNull()) {
-            if (childNode.isElement()) {
+        while (!childNode.isNull())
+        {
+            if (childNode.isElement())
+            {
                 QDomElement childElement = childNode.toElement();
                 readFilter(childElement, childFilter);
             }
             childNode = childNode.nextSibling();
         }
-    } else if(name == "Match") {
+    }
+    else if (name == "Match")
+    {
         QDomElement keyElement = element.firstChildElement("Key");
         QDomElement matchElement = element.firstChildElement("Exact");
 
         childFilter = new MatchFilter(keyElement.text(), matchElement.text(), parent);
-    } else if(name == "Default") {
+    }
+    else if (name == "Default")
+    {
         childFilter = new DefaultFilter(parent);
-    } else {
+    }
+    else
+    {
         qWarning() << "Invalid tagName" << element.tagName();
     }
 
@@ -77,9 +93,12 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     childFilter->setEnabled(enabled == "true" ? true : false);
 
     UnionFilter* parentUnion = qobject_cast<UnionFilter*>(parent);
-    if(parentUnion) {
+    if (parentUnion)
+    {
         parentUnion->appendChild(childFilter);
-    } else {
+    }
+    else
+    {
         qWarning() << "Parent is not a collection";
     }
 }
@@ -94,8 +113,10 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 
     Filter *item = static_cast<Filter*>(index.internalPointer());
 
-    if(index.column() == 0) {
-        switch(role) {
+    if (index.column() == 0)
+    {
+        switch(role)
+        {
         case Qt::CheckStateRole:
             if(item->enabled())
                 return Qt::Checked;
@@ -116,7 +137,8 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
 
     Filter *item = static_cast<Filter*>(index.internalPointer());
 
-    if(role == Qt::CheckStateRole && index.column() == 0) {
+    if (role == Qt::CheckStateRole && index.column() == 0)
+    {
         if(value == Qt::Checked)
             item->setEnabled(true);
         else
@@ -149,7 +171,7 @@ bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 
 QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if(section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole)
+    if (section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole)
         return "Name";
     else
         return QVariant();
@@ -169,7 +191,8 @@ QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &paren
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
     UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
-    if(unionFilter) {
+    if (unionFilter)
+    {
         Filter *childItem = unionFilter->child(row);
         if (childItem)
             return createIndex(row, column, childItem);
@@ -192,7 +215,8 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
     int row = 0;
 
     UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
-    if(unionFilter) {
+    if (unionFilter)
+    {
         row = unionFilter->rowOfChild(childItem);
     }
 
@@ -211,7 +235,8 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
     UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
-    if(unionFilter) {
+    if (unionFilter)
+    {
         return unionFilter->childCount();
     }
 
@@ -240,11 +265,13 @@ void FilterProxyModel::setEditModel(FilterEditModel *editModel)
 void FilterProxyModel::setSourceModel(QAbstractItemModel *model)
 {
     QAbstractItemModel* currentModel = this->sourceModel();
-    if (currentModel) {
+    if (currentModel)
+    {
         disconnect(currentModel, SIGNAL(headerDataChanged(Qt::Orientation,int,int)), this, SLOT(headerDataChanged(Qt::Orientation,int,int)));
     }
 
-    if (model) {
+    if (model)
+    {
         connect(model, SIGNAL(headerDataChanged(Qt::Orientation,int,int)), this, SLOT(headerDataChanged(Qt::Orientation,int,int)));
 
         QSortFilterProxyModel::setSourceModel(model);
@@ -258,12 +285,13 @@ bool FilterProxyModel::filterAcceptsColumn(int source_column, const QModelIndex 
 
 bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    if(!mEditModel)
+    if (!mEditModel)
         return true;
 
     QList<QVariant> row;
 
-    for(int i=0; i<mHeaders.size(); i++) {
+    for (int i = 0; i < mHeaders.size(); i++)
+    {
         QModelIndex index = sourceModel()->index(sourceRow, i, sourceParent);
         QVariant columnValue = sourceModel()->data(index);
 
@@ -278,7 +306,8 @@ void FilterProxyModel::headerDataChanged(Qt::Orientation, int, int)
     mHeaders.clear();
 
     int columns = sourceModel()->columnCount();
-    for(int i=0; i< columns; i++) {
+    for (int i = 0; i < columns; i++)
+    {
         QString columnName = sourceModel()->headerData(i, Qt::Horizontal).toString();
         mHeaders.insert(i, columnName);
     }

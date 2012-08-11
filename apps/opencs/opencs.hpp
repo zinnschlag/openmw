@@ -6,7 +6,8 @@
 
 #include "esmdatamodel.hpp"
 
-namespace Ui {
+namespace Ui
+{
 class OpenCS;
 }
 

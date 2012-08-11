@@ -8,13 +8,23 @@ class DefaultFilter : public Filter
     Q_OBJECT
 
 public:
-    explicit DefaultFilter(Filter *parent=0) : Filter(parent) {}
-    ~DefaultFilter() {}
+    explicit DefaultFilter(Filter *parent=0)
+      : Filter(parent)
+    {
+    }
 
-    virtual QString displayString() {return "Default";}
+    ~DefaultFilter()
+    {
+    }
 
-    virtual bool accept(QList<QString> headers, QList<QVariant> row) {
-        return enabled();
+    virtual QString displayString()
+    {
+      return "Default";
+    }
+
+    virtual bool accept(QList<QString> headers, QList<QVariant> row)
+    {
+      return enabled();
     }
 };
 
