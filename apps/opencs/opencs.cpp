@@ -33,7 +33,10 @@ OpenCS::~OpenCS()
 void OpenCS::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Esm"), "", tr("Esm Files (*.esm)"));
-    model->loadEsmFile(fileName);
+    if (!fileName.isEmpty())
+    {
+        model->loadEsmFile(fileName);
+    }
 }
 
 void OpenCS::addIdList()
