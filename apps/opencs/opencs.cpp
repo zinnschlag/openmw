@@ -7,6 +7,8 @@
 #include "esmdatamodel.hpp"
 
 #include "views/idlist.hpp"
+#include "views/filter/filtertree.hpp"
+#include "views/filter/filtereditor.hpp"
 
 OpenCS::OpenCS(QWidget *parent) :
     QMainWindow(parent),
@@ -22,7 +24,20 @@ OpenCS::OpenCS(QWidget *parent) :
 
     model = new ESMDataModel(this);
 
-    addIdList();
+    FilterEditModel *filterModel = new FilterEditModel(this);
+    filterModel->load();
+
+    IdList *idList = new IdList(this);
+    idList->setModel(model);
+    idList->setFilterModel(filterModel);
+    this->addDockWidget(Qt::RightDockWidgetArea, idList);
+
+    FilterTree *filterTree = new FilterTree(this);
+    filterTree->setModel(filterModel);
+    this->addDockWidget(Qt::LeftDockWidgetArea, filterTree);
+
+    FilterEditor *filterEditor = new FilterEditor(this);
+    this->addDockWidget(Qt::LeftDockWidgetArea, filterEditor);
 }
 
 OpenCS::~OpenCS()
@@ -43,5 +58,5 @@ void OpenCS::addIdList()
 {
     IdList *idList = new IdList(this);
     idList->setModel(model);
-    this->addDockWidget(Qt::TopDockWidgetArea, idList);
+    this->addDockWidget(Qt::RightDockWidgetArea, idList);
 }

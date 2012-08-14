@@ -23,6 +23,7 @@ public:
     ~IdList();
     
     void setModel(QAbstractItemModel *model);
+    void setFilterModel(FilterEditModel *editModel);
 
 private:
     Ui::IdList *ui;
