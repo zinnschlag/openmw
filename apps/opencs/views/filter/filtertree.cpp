@@ -8,6 +8,8 @@ FilterTree::FilterTree(QWidget *parent)
     , ui(new Ui::FilterTree)
 {
     ui->setupUi(this);
+
+    connect(this->ui->treeViewFilter, SIGNAL(clicked(QModelIndex)), this, SLOT(clicked(QModelIndex)));
 }
 
 FilterTree::~FilterTree()
@@ -16,6 +18,14 @@ FilterTree::~FilterTree()
 
 void FilterTree::setModel(FilterEditModel *model)
 {
-    ui->treeViewFilter->setModel(model);
+    mModel = model;
+
+    ui->treeViewFilter->setModel(mModel);
     ui->treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);
+}
+
+void FilterTree::clicked(const QModelIndex &index)
+{
+    Filter *filter = static_cast<Filter*>(index.internalPointer());
+    emit filterSelected(filter);
 }

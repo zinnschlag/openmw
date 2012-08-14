@@ -38,6 +38,8 @@ OpenCS::OpenCS(QWidget *parent) :
 
     FilterEditor *filterEditor = new FilterEditor(this);
     this->addDockWidget(Qt::LeftDockWidgetArea, filterEditor);
+
+    connect(filterTree, SIGNAL(filterSelected(Filter*)), filterEditor, SLOT(editFilter(Filter*)));
 }
 
 OpenCS::~OpenCS()

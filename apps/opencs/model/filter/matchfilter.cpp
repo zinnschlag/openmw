@@ -8,11 +8,7 @@ MatchFilter::MatchFilter(MatchType matchType, QString expectedKey, QString expec
     , mExpectedKey(expectedKey)
     , mExpectedValue(expectedValue)
 {
-    if(mMatchType == Wildcard) {
-        mMatchRegExp = QRegExp(mExpectedValue, Qt::CaseSensitive, QRegExp::WildcardUnix);
-    } else if(mMatchType == Regex) {
-        mMatchRegExp = QRegExp(mExpectedValue, Qt::CaseSensitive, QRegExp::RegExp2);
-    }
+    updateRegex();
 }
 
 MatchFilter::~MatchFilter()
@@ -21,7 +17,20 @@ MatchFilter::~MatchFilter()
 
 QString MatchFilter::displayString()
 {
-    return "Match: " + mExpectedKey + "=" + mExpectedValue;
+    QString typeName;
+    switch(mMatchType) {
+    case Exact:
+        typeName = "Exact";
+        break;
+    case Wildcard:
+        typeName = "Wildcard";
+        break;
+    case Regex:
+        typeName = "Regex";
+        break;
+    }
+
+    return typeName + " key=" + mExpectedKey + " value=" + mExpectedValue;
 }
 
 bool MatchFilter::accept(QList<QString> headers, QList<QVariant> row)
@@ -35,5 +44,14 @@ bool MatchFilter::accept(QList<QString> headers, QList<QVariant> row)
         return value == mExpectedValue;
     } else {
         return mMatchRegExp.exactMatch(value.toString());
+    }
+}
+
+void MatchFilter::updateRegex()
+{
+    if(mMatchType == Wildcard) {
+        mMatchRegExp = QRegExp(mExpectedValue, Qt::CaseSensitive, QRegExp::WildcardUnix);
+    } else if(mMatchType == Regex) {
+        mMatchRegExp = QRegExp(mExpectedValue, Qt::CaseSensitive, QRegExp::RegExp2);
     }
 }

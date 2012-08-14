@@ -20,8 +20,15 @@ public:
 
     void setModel(FilterEditModel *model);
 
+signals:
+    void filterSelected(Filter* filter);
+
 private:
     Ui::FilterTree *ui;
+    FilterEditModel *mModel;
+
+private slots:
+    void clicked(const QModelIndex & index);
 };
 
 #endif
