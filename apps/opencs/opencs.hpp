@@ -4,11 +4,8 @@
 #include <QMainWindow>
 #include <QAbstractItemModel>
 
-<<<<<<< HEAD
 #include "esmdatamodel.hpp"
 
-=======
->>>>>>> 6a60973... OpenCS: Brackets cleanup
 namespace Ui
 {
 class OpenCS;
