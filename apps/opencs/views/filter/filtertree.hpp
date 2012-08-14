@@ -27,8 +27,15 @@ private:
     Ui::FilterTree *ui;
     FilterEditModel *mModel;
 
+    QModelIndex mContextMenuModelIndex;
+
 private slots:
     void clicked(const QModelIndex & index);
+    void contextMenu(const QPoint& point);
+
+    void deleteFilter();
+    void addUnionFilter();
+    void addMatchFilter();
 };
 
 #endif

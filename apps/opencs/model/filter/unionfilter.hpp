@@ -38,6 +38,10 @@ public:
         mChildItems.append(child);
     }
 
+    void removeChild(int row) {
+        mChildItems.removeAt(row);
+    }
+
 private:
     QString mDisplayName;
 

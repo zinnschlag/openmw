@@ -41,6 +41,11 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
+    bool removeRows(int row, int count, const QModelIndex &parent);
+
+    void addUnionFilter(const QModelIndex &parent);
+    void addMatchFilter(const QModelIndex &parent);
+
     bool accept(QList<QString> headers, QList<QVariant> row);
 
 private:

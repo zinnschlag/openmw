@@ -176,6 +176,59 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return flags;
 }
 
+bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    if (unionFilter)
+    {
+        beginRemoveRows(parent, row, row + count);
+
+        unionFilter->removeChild(row);
+
+        endRemoveRows();
+        return true;
+    } else {
+        qWarning() << "Cannot remove child from non collection filter";
+        return false;
+    }
+}
+
+//FIXME Copy Paste
+void FilterEditModel::addUnionFilter(const QModelIndex &parent)
+{
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    if (unionFilter)
+    {
+        beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
+
+        UnionFilter *childFilter = new UnionFilter("New Union", unionFilter);
+        unionFilter->appendChild(childFilter);
+
+        endInsertRows();
+    }
+}
+
+//FIXME Copy Paste
+void FilterEditModel::addMatchFilter(const QModelIndex &parent)
+{
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    if (unionFilter)
+    {
+        beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
+
+        MatchFilter *childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", unionFilter);
+        unionFilter->appendChild(childFilter);
+
+        endInsertRows();
+    }
+}
+
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 {
     return mRootItem->accept(headers, row);
@@ -260,7 +313,7 @@ int FilterEditModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-
+//=======================================================================================
 
 FilterProxyModel::FilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
