@@ -3,12 +3,20 @@
 
 #include "filter.hpp"
 
+#include <QRegExp>
+
 class MatchFilter : public Filter
 {
     Q_OBJECT
 
 public:
-    explicit MatchFilter(QString expectedKey, QString expectedValue, Filter *parent=0);
+    enum MatchType {
+        Exact,
+        Wildcard,
+        Regex
+    };
+
+    explicit MatchFilter(MatchType matchType, QString expectedKey, QString expectedValue, Filter *parent=0);
     ~MatchFilter();
 
     virtual QString displayString();
@@ -16,8 +24,11 @@ public:
     virtual bool accept(QList<QString> headers, QList<QVariant> row);
 
 private:
+    MatchType mMatchType;
     QString mExpectedKey;
     QString mExpectedValue;
+
+    QRegExp mMatchRegExp;
 };
 
 #endif

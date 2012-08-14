@@ -76,9 +76,21 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     else if (name == "Match")
     {
         QDomElement keyElement = element.firstChildElement("Key");
-        QDomElement matchElement = element.firstChildElement("Exact");
+        QDomElement matchElement = element.firstChildElement("Value");
 
-        childFilter = new MatchFilter(keyElement.text(), matchElement.text(), parent);
+        QString matchTypeName = element.attribute("type", "Exact");
+        MatchFilter::MatchType matchType = MatchFilter::Exact;
+        if(matchTypeName == "Exact") {
+            matchType = MatchFilter::Exact;
+        } else if(matchTypeName == "Wildcard") {
+            matchType = MatchFilter::Wildcard;
+        } else if(matchTypeName == "Regex") {
+            matchType = MatchFilter::Regex;
+        } else {
+            qWarning() << "Unknown match type" << matchTypeName;
+        }
+
+        childFilter = new MatchFilter(matchType, keyElement.text(), matchElement.text(), parent);
     }
     else if (name == "Default")
     {
