@@ -13,7 +13,10 @@ public:
 
     virtual QString displayString()
     {
-        return "Union:" + mDisplayName;
+        if(mDisplayName.isEmpty())
+            return "Union";
+        else
+            return "Union: " + mDisplayName;;
     }
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row);
@@ -33,6 +36,10 @@ public:
     void appendChild(Filter *child)
     {
         mChildItems.append(child);
+    }
+
+    void removeChild(int row) {
+        mChildItems.removeAt(row);
     }
 
 private:

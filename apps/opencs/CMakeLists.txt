@@ -16,6 +16,8 @@ set(OPENCS_SRC
     views/idlist.cpp
     views/idlistitemdelegate.cpp
     views/idlistfilter.cpp
+    views/filter/filtertree.cpp
+    views/filter/filtereditor.cpp
 )
 
 set(OPENCS_HDR
@@ -33,11 +35,15 @@ set(OPENCS_HDR
     views/idlist.hpp
     views/idlistitemdelegate.hpp
     views/idlistfilter.hpp
+    views/filter/filtertree.hpp
+    views/filter/filtereditor.hpp
 )
 
 set(OPENCS_UI
     opencs.ui
     views/idlist.ui
+    views/filter/filtertree.ui
+    views/filter/filtereditor.ui
 )
 
 set(OPENCS_RES

@@ -76,9 +76,21 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     else if (name == "Match")
     {
         QDomElement keyElement = element.firstChildElement("Key");
-        QDomElement matchElement = element.firstChildElement("Exact");
+        QDomElement matchElement = element.firstChildElement("Value");
 
-        childFilter = new MatchFilter(keyElement.text(), matchElement.text(), parent);
+        QString matchTypeName = element.attribute("type", "Exact");
+        MatchFilter::MatchType matchType = MatchFilter::Exact;
+        if(matchTypeName == "Exact") {
+            matchType = MatchFilter::Exact;
+        } else if(matchTypeName == "Wildcard") {
+            matchType = MatchFilter::Wildcard;
+        } else if(matchTypeName == "Regex") {
+            matchType = MatchFilter::Regex;
+        } else {
+            qWarning() << "Unknown match type" << matchTypeName;
+        }
+
+        childFilter = new MatchFilter(matchType, keyElement.text(), matchElement.text(), parent);
     }
     else if (name == "Default")
     {
@@ -162,6 +174,59 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
         flags |= Qt::ItemIsUserCheckable;
 
     return flags;
+}
+
+bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    if (unionFilter)
+    {
+        beginRemoveRows(parent, row, row + count);
+
+        unionFilter->removeChild(row);
+
+        endRemoveRows();
+        return true;
+    } else {
+        qWarning() << "Cannot remove child from non collection filter";
+        return false;
+    }
+}
+
+//FIXME Copy Paste
+void FilterEditModel::addUnionFilter(const QModelIndex &parent)
+{
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    if (unionFilter)
+    {
+        beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
+
+        UnionFilter *childFilter = new UnionFilter("New Union", unionFilter);
+        unionFilter->appendChild(childFilter);
+
+        endInsertRows();
+    }
+}
+
+//FIXME Copy Paste
+void FilterEditModel::addMatchFilter(const QModelIndex &parent)
+{
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+
+    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    if (unionFilter)
+    {
+        beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
+
+        MatchFilter *childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", unionFilter);
+        unionFilter->appendChild(childFilter);
+
+        endInsertRows();
+    }
 }
 
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
@@ -248,7 +313,7 @@ int FilterEditModel::columnCount(const QModelIndex &parent) const
     return 1;
 }
 
-
+//=======================================================================================
 
 FilterProxyModel::FilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
