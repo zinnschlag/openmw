@@ -5,6 +5,7 @@
 #include <QAbstractItemModel>
 
 #include "esmdatamodel.hpp"
+#include "views/idlist.hpp"
 
 namespace Ui
 {
@@ -23,6 +24,8 @@ private:
     Ui::OpenCS *ui;
 
     ESMDataModel *model;
+
+    IdList *idList;
 
 private slots:
     void openFile();

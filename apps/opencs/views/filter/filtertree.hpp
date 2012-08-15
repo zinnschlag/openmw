@@ -20,6 +20,8 @@ public:
 
     void setModel(FilterEditModel *model);
 
+    virtual QSize sizeHint() const{return QSize(200, -1);}
+
 signals:
     void filterSelected(Filter* filter);
 

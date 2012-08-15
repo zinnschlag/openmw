@@ -6,7 +6,7 @@
 
 #include "esmdatamodel.hpp"
 
-#include "views/idlist.hpp"
+
 #include "views/filter/filtertree.hpp"
 #include "views/filter/filtereditor.hpp"
 
@@ -15,6 +15,7 @@ OpenCS::OpenCS(QWidget *parent) :
     ui(new Ui::OpenCS)
 {
     ui->setupUi(this);
+
 
     setDockOptions(QMainWindow::AllowNestedDocks | QMainWindow::AllowTabbedDocks);
     setCentralWidget(NULL);
@@ -27,7 +28,7 @@ OpenCS::OpenCS(QWidget *parent) :
     FilterEditModel *filterModel = new FilterEditModel(this);
     filterModel->load();
 
-    IdList *idList = new IdList(this);
+    idList = new IdList(this);
     idList->setModel(model);
     idList->setFilterModel(filterModel);
     this->addDockWidget(Qt::RightDockWidgetArea, idList);
@@ -53,6 +54,8 @@ void OpenCS::openFile()
     if (!fileName.isEmpty())
     {
         model->loadEsmFile(fileName);
+
+        idList->loadColumnConfig();
     }
 }
 
