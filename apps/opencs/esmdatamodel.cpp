@@ -157,6 +157,16 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 
         return valueAtColumn(rowItem, column);
     }
+    else if(role == Qt::TextAlignmentRole)
+    {
+        DataItem *rowItem = baseItem->child(index.row());
+
+        bool ok;
+        valueAtColumn(rowItem, column).toDouble(&ok);
+        if(ok) {
+            return QVariant(Qt::AlignRight);
+        }
+    }
 
     return QVariant();
 }
