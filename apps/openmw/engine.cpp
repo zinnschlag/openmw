@@ -67,7 +67,7 @@ bool OMW::Engine::frameRenderingQueued (const Ogre::FrameEvent& evt)
         mEnvironment.setFrameDuration (evt.timeSinceLastFrame);
 
         // update input
-        MWBase::Environment::get().getInputManager()->update();
+        MWBase::Environment::get().getInputManager()->update(evt.timeSinceLastFrame);
 
         // sound
         if (mUseSound)
@@ -351,6 +351,8 @@ void OMW::Engine::go()
     ESM::Position pos;
     pos.rot[0] = pos.rot[1] = pos.rot[2] = 0;
     pos.pos[2] = 0;
+
+    mEnvironment.getWorld()->renderPlayer();
 
     if (const ESM::Cell *exterior = MWBase::Environment::get().getWorld()->getExterior (mCellName))
     {

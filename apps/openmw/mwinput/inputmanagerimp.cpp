@@ -62,6 +62,7 @@ namespace MWInput
       A_ToggleSneak,    //Toggles Sneak, add Push-Sneak later
       A_ToggleWalk, //Toggle Walking/Running
       A_Crouch,
+      A_TogglePOV,
 
       A_QuickSave,
       A_QuickLoad,
@@ -89,6 +90,8 @@ namespace MWInput
     bool mDragDrop;
 
     std::map<std::string, bool> mControlSwitch;
+
+    float mPreviewPOVDelay;
 
    /* InputImpl Methods */
 public:
@@ -239,7 +242,8 @@ private:
         player(_player),
         windows(_windows),
         mEngine (engine),
-        mDragDrop(false)
+        mDragDrop(false),
+        mPreviewPOVDelay(0.f)
     {
       using namespace OEngine::Input;
       using namespace OEngine::Render;
@@ -340,6 +344,8 @@ private:
 
       poller.bind(A_Jump, KC_E);
       poller.bind(A_Crouch, KC_LCONTROL);
+
+      poller.bind(A_TogglePOV, KC_TAB);
     }
 
     void setDragDrop(bool dragDrop)
@@ -348,7 +354,7 @@ private:
     }
 
     //NOTE: Used to check for movement keys
-    void update ()
+    void update (float duration)
     {
         // Tell OIS to handle all input events
         input.capture();
@@ -400,6 +406,25 @@ private:
                 player.setUpDown (-1);
             else
                 player.setUpDown (0);
+
+            if (mControlSwitch["playerviewswitch"]) {
+                if (poller.isDown(A_TogglePOV)) {
+                    if (mPreviewPOVDelay <= 0.5 &&
+                        (mPreviewPOVDelay += duration) > 0.5)
+                    {
+                        mPreviewPOVDelay = 1.f;
+                        MWBase::Environment::get().getWorld()->togglePreviewMode(true);
+                    }
+                } else {
+                    if (mPreviewPOVDelay > 0.5) {
+                        //disable preview mode
+                        MWBase::Environment::get().getWorld()->togglePreviewMode(false);
+                    } else if (mPreviewPOVDelay > 0.f) {
+                        togglePOV();
+                    }
+                    mPreviewPOVDelay = 0.f;
+                }
+            }
         }
     }
 
@@ -418,17 +443,14 @@ private:
         }
       else
         {
-            // Start mouse-looking again if allowed.
-            if (mControlSwitch["playerlooking"]) {
-                mouse->enable();
-            }
+          mouse->enable();
 
           // Disable GUI events
           guiEvents->enabled = false;
         }
     }
 
-    void toggleControlSwitch(std::string sw, bool value)
+    void toggleControlSwitch(const std::string &sw, bool value)
     {
         if (mControlSwitch[sw] == value) {
             return;
@@ -442,14 +464,22 @@ private:
         } else if (sw == "playerjumping" && !value) {
             /// \fixme maybe crouching at this time
             player.setUpDown(0);
+        } else if (sw == "vanitymode") {
+            MWBase::Environment::get().getWorld()->allowVanityMode(value);
         } else if (sw == "playerlooking") {
-            if (value) {
-                mouse->enable();
-            } else {
-                mouse->disable();
-            }
+            MWBase::Environment::get().getWorld()->togglePlayerLooking(value);
         }
         mControlSwitch[sw] = value;
+    }
+
+    bool getControlSwitch(const std::string &sw)
+    {
+        return mControlSwitch[sw];
+    }
+
+    void togglePOV()
+    {
+        MWBase::Environment::get().getWorld()->togglePOV();
     }
 
   };
@@ -470,9 +500,9 @@ private:
     delete impl;
   }
 
-  void MWInputManager::update()
+  void MWInputManager::update(float duration)
   {
-      impl->update();
+      impl->update(duration);
   }
 
   void MWInputManager::setDragDrop(bool dragDrop)
@@ -504,5 +534,10 @@ private:
     void MWInputManager::toggleControlSwitch (const std::string& sw, bool value)
     {
         impl->toggleControlSwitch(sw, value);
+    }
+
+    bool MWInputManager::getControlSwitch(const std::string &sw)
+    {
+        return impl->getControlSwitch(sw);
     }
 }

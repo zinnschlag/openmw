@@ -52,7 +52,7 @@ namespace MWInput
                    OMW::Engine& engine);
     virtual ~MWInputManager();
 
-    virtual void update();
+    void update(float duration);
 
     virtual void changeInputMode(bool guiMode);
 
@@ -60,7 +60,8 @@ namespace MWInput
 
     virtual void setDragDrop(bool dragDrop);
 
-    virtual void toggleControlSwitch (const std::string& sw, bool value);
+    void toggleControlSwitch(const std::string &sw, bool value);
+    bool getControlSwitch(const std::string &sw);
   };
 }
 #endif
