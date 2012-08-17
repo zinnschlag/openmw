@@ -1,7 +1,7 @@
 #ifndef FILTEREDITOR_HPP
 #define FILTEREDITOR_HPP
 
-#include <QDockWidget>
+#include "ui_filtereditor.h"
 
 #include "../idlistfilter.hpp"
 #include "../../model/filter/matchfilter.hpp"
@@ -11,7 +11,7 @@ namespace Ui
     class FilterEditor;
 }
 
-class FilterEditor : public QDockWidget
+class FilterEditor : public QWidget, private Ui::FilterEditor
 {
     Q_OBJECT
     Q_ENUMS(MatchFilter::MatchType)

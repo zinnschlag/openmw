@@ -18,6 +18,13 @@ public:
 //        mMagicEffect.load(esm);
     }
 
+
+    virtual QString type()
+    {
+        return "ENAM";
+    }
+
+
     short effectID()
     {
         return mMagicEffect.effectID;

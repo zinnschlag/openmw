@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QFileDialog>
+#include <QDockWidget>
 
 #include "esmdatamodel.hpp"
 
@@ -28,17 +29,37 @@ OpenCS::OpenCS(QWidget *parent) :
     FilterEditModel *filterModel = new FilterEditModel(this);
     filterModel->load();
 
+
+    QDockWidget *idListDock = new QDockWidget("Filter Tree", this);
+    idListDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
     idList = new IdList(this);
     idList->setModel(model);
     idList->setFilterModel(filterModel);
-    this->addDockWidget(Qt::RightDockWidgetArea, idList);
+    idListDock->setWidget(idList);
 
-    FilterTree *filterTree = new FilterTree(this);
+    this->addDockWidget(Qt::RightDockWidgetArea, idListDock);
+
+    //FIXME Copy paste
+    QDockWidget *filterTreeDock = new QDockWidget("Filter Tree", this);
+    filterTreeDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+    FilterTree *filterTree = new FilterTree(filterTreeDock);
     filterTree->setModel(filterModel);
-    this->addDockWidget(Qt::LeftDockWidgetArea, filterTree);
+    filterTreeDock->setWidget(filterTree);
 
-    FilterEditor *filterEditor = new FilterEditor(this);
-    this->addDockWidget(Qt::LeftDockWidgetArea, filterEditor);
+    this->addDockWidget(Qt::LeftDockWidgetArea, filterTreeDock);
+
+    //FIXME Copy paste
+    QDockWidget *filterEditDock = new QDockWidget("Filter Editor", this);
+    filterEditDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+    FilterEditor *filterEditor = new FilterEditor(filterEditDock);
+    //filterEdit->setModel(filterModel);
+    filterEditDock->setWidget(filterEditor);
+
+    this->addDockWidget(Qt::LeftDockWidgetArea, filterEditDock);
+
 
     connect(filterTree, SIGNAL(filterSelected(Filter*)), filterEditor, SLOT(editFilter(Filter*)));
 }
@@ -61,7 +82,7 @@ void OpenCS::openFile()
 
 void OpenCS::addIdList()
 {
-    IdList *idList = new IdList(this);
-    idList->setModel(model);
-    this->addDockWidget(Qt::RightDockWidgetArea, idList);
+//    IdList *idList = new IdList(this);
+//    idList->setModel(model);
+//    this->addDockWidget(Qt::RightDockWidgetArea, idList);
 }

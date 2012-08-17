@@ -1,41 +1,34 @@
 #include "idlist.hpp"
-#include "ui_idlist.h"
 
 #include "idlistitemdelegate.hpp"
 
 #include <QDebug>
 #include <QtGui>
 
-
-
-
-
-
 QList<QStandardItem *> list;
 
-IdList::IdList(QWidget *parent) :
-    QDockWidget(parent),
-    ui(new Ui::IdList)
+IdList::IdList(QWidget *parent)
+    : QWidget(parent)
 {
-    ui->setupUi(this);
+    setupUi(this);
 
     mFilterProxyModel = new FilterProxyModel(this);
 
     IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
-    ui->tableView->setItemDelegate(itemDelegate);
+    tableView->setItemDelegate(itemDelegate);
 
-    ui->tableView->setModel(mFilterProxyModel);
-    ui->tableView->verticalHeader()->setDefaultSectionSize(ui->tableView->verticalHeader()->minimumSectionSize());
-    ui->tableView->horizontalHeader()->setMovable(true);
-    ui->tableView->horizontalHeader()->setStretchLastSection(false);
+    tableView->setModel(mFilterProxyModel);
+    tableView->verticalHeader()->setDefaultSectionSize(tableView->verticalHeader()->minimumSectionSize());
+    tableView->horizontalHeader()->setMovable(true);
+    tableView->horizontalHeader()->setStretchLastSection(false);
     //ui->tableView->horizontalHeader()->setResizeMode(QHeaderView::Interactive);
 
-    connect(mFilterProxyModel, SIGNAL(layoutChanged()), ui->tableView, SLOT(resizecolumnsToContents()));
+    connect(mFilterProxyModel, SIGNAL(layoutChanged()), tableView, SLOT(resizecolumnsToContents()));
 }
 
 IdList::~IdList()
 {
-    delete ui;
+    //delete ui;
 }
 
 void IdList::setModel(QAbstractItemModel *model)
@@ -81,7 +74,7 @@ void IdList::loadColumnConfig()
 
                 int realPos = headers.indexOf(key);
                 if(realPos>u) {
-                    ui->tableView->horizontalHeader()->moveSection(realPos, u);
+                    tableView->horizontalHeader()->moveSection(realPos, u);
                     headers.move(realPos, u);
                     continue;
                 }
@@ -90,8 +83,8 @@ void IdList::loadColumnConfig()
             for(int u=0; u<mColumnConfigs.size(); u++) {
                 int width = mColumnConfigs.at(u)->width;
 
-                int logical = ui->tableView->horizontalHeader()->logicalIndex(u);
-                ui->tableView->horizontalHeader()->resizeSection(logical, width);
+                int logical = tableView->horizontalHeader()->logicalIndex(u);
+                tableView->horizontalHeader()->resizeSection(logical, width);
             }
 
         }

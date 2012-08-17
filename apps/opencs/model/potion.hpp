@@ -47,6 +47,7 @@ public:
         mPotion.name = name.toStdString();
     }
 
+
     QString model()
     {
         return QString::fromStdString(mPotion.model);
@@ -56,6 +57,7 @@ public:
     {
         mPotion.model = model.toStdString();
     }
+
 
     QString script()
     {
@@ -67,6 +69,7 @@ public:
         mPotion.script = script.toStdString();
     }
 
+
     QString icon()
     {
         return QString::fromStdString(mPotion.icon);
@@ -76,6 +79,7 @@ public:
     {
         mPotion.icon = icon.toStdString();
     }
+
 
     float weight()
     {
@@ -87,6 +91,7 @@ public:
         mPotion.data.weight = weight;
     }
 
+
     int value()
     {
         return mPotion.data.value;
@@ -96,6 +101,7 @@ public:
     {
         mPotion.data.value = value;
     }
+
 
     int autoCalc()
     {

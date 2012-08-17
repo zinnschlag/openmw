@@ -1,7 +1,7 @@
 #ifndef IDLIST_HPP
 #define IDLIST_HPP
 
-#include <QDockWidget>
+#include "ui_idlist.h"
 
 #include <QStandardItemModel>
 #include <QAbstractItemModel>
@@ -25,7 +25,7 @@ public:
     int width;
 };
 
-class IdList : public QDockWidget
+class IdList : public QWidget, private Ui::IdList
 {
     Q_OBJECT
     
@@ -38,9 +38,7 @@ public:
 
     void loadColumnConfig();
 
-
 private:
-    Ui::IdList *ui;
     FilterProxyModel *mFilterProxyModel;
 
     QList<ColumnConfig*> mColumnConfigs;

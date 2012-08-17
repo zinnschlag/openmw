@@ -1,18 +1,17 @@
 #include "filtertree.hpp"
-#include "ui_filtertree.h"
+
 
 #include "../idlistfilter.hpp"
 
 #include <QMenu>
 
 FilterTree::FilterTree(QWidget *parent)
-    : QDockWidget(parent)
-    , ui(new Ui::FilterTree)
+    : QWidget(parent)
 {
-    ui->setupUi(this);
+    setupUi(this);
 
-    connect(this->ui->treeViewFilter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextMenu(QPoint)));
-    connect(this->ui->treeViewFilter, SIGNAL(clicked(QModelIndex)), this, SLOT(clicked(QModelIndex)));
+    connect(treeViewFilter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextMenu(QPoint)));
+    connect(treeViewFilter, SIGNAL(clicked(QModelIndex)), this, SLOT(clicked(QModelIndex)));
 }
 
 FilterTree::~FilterTree()
@@ -23,8 +22,15 @@ void FilterTree::setModel(FilterEditModel *model)
 {
     mModel = model;
 
-    ui->treeViewFilter->setModel(mModel);
-    ui->treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);
+    treeViewFilter->setModel(mModel);
+    treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);
+
+    //resize(sizeHint());
+}
+
+QSize FilterTree::sizeHint() const
+{
+    return QSize(200, 200);
 }
 
 void FilterTree::clicked(const QModelIndex &index)
@@ -35,7 +41,7 @@ void FilterTree::clicked(const QModelIndex &index)
 
 void FilterTree::contextMenu(const QPoint &point)
 {
-    QModelIndex index = this->ui->treeViewFilter->indexAt(point);
+    QModelIndex index = treeViewFilter->indexAt(point);
     if(!index.isValid())
         return;
 
@@ -56,7 +62,7 @@ void FilterTree::contextMenu(const QPoint &point)
 
 
     menu->addAction(QString("Delete"), this, SLOT(deleteFilter()));
-    menu->exec(this->ui->treeViewFilter->mapToGlobal(point));
+    menu->exec(treeViewFilter->mapToGlobal(point));
 }
 
 void FilterTree::deleteFilter()

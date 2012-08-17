@@ -1,7 +1,7 @@
 #ifndef FILTERTREE_HPP
 #define FILTERTREE_HPP
 
-#include <QDockWidget>
+#include "ui_filtertree.h"
 
 #include "../idlistfilter.hpp"
 
@@ -10,7 +10,7 @@ namespace Ui
     class FilterTree;
 }
 
-class FilterTree : public QDockWidget
+class FilterTree : public QWidget, private Ui::FilterTree
 {
     Q_OBJECT
 
@@ -20,7 +20,7 @@ public:
 
     void setModel(FilterEditModel *model);
 
-    virtual QSize sizeHint() const{return QSize(200, -1);}
+    QSize sizeHint() const;
 
 signals:
     void filterSelected(Filter* filter);
