@@ -26,7 +26,6 @@ signals:
     void filterSelected(Filter* filter);
 
 private:
-    Ui::FilterTree *ui;
     FilterEditModel *mModel;
 
     QModelIndex mContextMenuModelIndex;

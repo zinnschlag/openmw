@@ -20,8 +20,6 @@ public:
     explicit FilterEditor(QWidget *parent = 0);
     ~FilterEditor();
 
-    virtual QSize sizeHint() const{return QSize(200, -1);}
-
 public slots:
     void editFilter(Filter* filter);
 
@@ -29,7 +27,6 @@ private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::FilterEditor *ui;
     Filter *mFilter;
 };
 
