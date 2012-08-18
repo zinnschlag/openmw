@@ -13,10 +13,7 @@ public:
 
     virtual QString displayString()
     {
-        if(mDisplayName.isEmpty())
-            return "Union";
-        else
-            return "Union: " + mDisplayName;;
+        return mDisplayName;
     }
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row);

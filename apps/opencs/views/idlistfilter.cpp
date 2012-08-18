@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QtXml/QDomDocument>
+#include <QIcon>
 
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
@@ -123,19 +124,35 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Filter *item = static_cast<Filter*>(index.internalPointer());
+    Filter *filter = static_cast<Filter*>(index.internalPointer());
 
     if (index.column() == 0)
     {
         switch(role)
         {
         case Qt::CheckStateRole:
-            if(item->enabled())
+            if(filter->enabled())
                 return Qt::Checked;
             else
                 return Qt::Unchecked;
         case Qt::DisplayRole:
-            return item->displayString();
+            return filter->displayString();
+        case Qt:: DecorationRole:
+            if (dynamic_cast<UnionFilter*>(filter))
+                return QIcon(":/icon/filter/union.png");
+
+            MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
+            if(matchFilter) {
+                switch(matchFilter->type()) {
+                case MatchFilter::Exact:
+                    return QIcon(":/icon/filter/exact.png");
+                case MatchFilter::Wildcard:
+                    return QIcon(":/icon/filter/wildcard.png");
+                case MatchFilter::Regex:
+                    return QIcon(":/icon/filter/regex.png");
+                }
+            }
+            break;
         }
     }
 

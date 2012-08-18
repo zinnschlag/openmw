@@ -17,20 +17,7 @@ MatchFilter::~MatchFilter()
 
 QString MatchFilter::displayString()
 {
-    QString typeName;
-    switch(mMatchType) {
-    case Exact:
-        typeName = "Exact";
-        break;
-    case Wildcard:
-        typeName = "Wildcard";
-        break;
-    case Regex:
-        typeName = "Regex";
-        break;
-    }
-
-    return typeName + " key=" + mExpectedKey + " value=" + mExpectedValue;
+    return mExpectedKey + " : " + mExpectedValue;
 }
 
 bool MatchFilter::accept(QList<QString> headers, QList<QVariant> row)
