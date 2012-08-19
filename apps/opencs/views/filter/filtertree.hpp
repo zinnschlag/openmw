@@ -3,7 +3,7 @@
 
 #include "ui_filtertree.h"
 
-#include "../idlistfilter.hpp"
+#include "../../viewmodel/idlistfilter.hpp"
 
 namespace Ui
 {

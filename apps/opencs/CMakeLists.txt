@@ -16,11 +16,11 @@ set(OPENCS_SRC
     model/filter/unionfilter.cpp
     model/filter/intersectionfilter.cpp
 
+    viewmodel/idlistfilter.cpp
     viewmodel/esmdatamodel.cpp
 
     views/idlist.cpp
     views/idlistitemdelegate.cpp
-    views/idlistfilter.cpp
     views/filter/filtertree.cpp
     views/filter/filtereditor.cpp
 )
@@ -41,10 +41,10 @@ set(OPENCS_HDR
     model/filter/intersectionfilter.hpp
 
     viewmodel/esmdatamodel.hpp
+    viewmodel/idlistfilter.hpp
 
     views/idlist.hpp
     views/idlistitemdelegate.hpp
-    views/idlistfilter.hpp
     views/filter/filtertree.hpp
     views/filter/filtereditor.hpp
 )

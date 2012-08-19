@@ -7,7 +7,7 @@
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
-#include "idlistfilter.hpp"
+#include "../viewmodel/idlistfilter.hpp"
 
 namespace Ui
 {
