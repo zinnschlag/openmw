@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QAbstractItemModel>
 
-#include "esmdatamodel.hpp"
+#include "viewmodel/esmdatamodel.hpp"
 #include "views/idlist.hpp"
 
 namespace Ui

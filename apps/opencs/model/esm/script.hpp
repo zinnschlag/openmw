@@ -1,7 +1,7 @@
 #ifndef SCRIPT_HPP
 #define SCRIPT_HPP
 
-#include "../esmdataitem.hpp"
+#include "esmdataitem.hpp"
 
 class ScriptDataItem : public ESMDataItem
 {

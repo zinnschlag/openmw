@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include <QDockWidget>
 
-#include "esmdatamodel.hpp"
+#include "viewmodel/esmdatamodel.hpp"
 
 
 #include "views/filter/filtertree.hpp"

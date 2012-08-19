@@ -1,6 +1,6 @@
 #include "idlistitemdelegate.hpp"
 
-#include "../esmdatamodel.hpp"
+#include "../viewmodel/esmdatamodel.hpp"
 
 #include <QtGui>
 

@@ -1,19 +1,18 @@
 #include <QtGui>
+#include <QMetaObject>
 
 #include <string>
 #include <iostream>
 
+#include "esmdatamodel.hpp"
+
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
-#include "esmdataitem.hpp"
-#include "esmdatamodel.hpp"
-
-#include "model/activator.hpp"
-#include "model/potion.hpp"
-#include "model/script.hpp"
-
-#include "QMetaObject"
+#include "../model/esm/esmdataitem.hpp"
+#include "../model/esm/activator.hpp"
+#include "../model/esm/potion.hpp"
+#include "../model/esm/script.hpp"
 
 ESMDataModel::ESMDataModel(QObject *parent)
     : QAbstractTableModel(parent)

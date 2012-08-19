@@ -3,17 +3,21 @@
 set(OPENCS_SRC
     main.cpp
     opencs.cpp
-    esmdataitem.cpp
-    esmdatamodel.cpp
-    model/activator.cpp
-    model/potion.cpp
-    model/magiceffect.cpp
-    model/script.cpp
+
+    model/esm/esmdataitem.cpp
+    model/esm/activator.cpp
+    model/esm/potion.cpp
+    model/esm/magiceffect.cpp
+    model/esm/script.cpp
+
     model/filter/filter.cpp
     model/filter/defaultfilter.cpp
     model/filter/matchfilter.cpp
     model/filter/unionfilter.cpp
     model/filter/intersectionfilter.cpp
+
+    viewmodel/esmdatamodel.cpp
+
     views/idlist.cpp
     views/idlistitemdelegate.cpp
     views/idlistfilter.cpp
@@ -23,17 +27,21 @@ set(OPENCS_SRC
 
 set(OPENCS_HDR
     opencs.hpp
-    esmdataitem.hpp
-    esmdatamodel.hpp
-    model/activator.hpp
-    model/potion.hpp
-    model/magiceffect.hpp
-    model/script.hpp
+
+    model/esm/esmdataitem.hpp
+    model/esm/activator.hpp
+    model/esm/potion.hpp
+    model/esm/magiceffect.hpp
+    model/esm/script.hpp
+
     model/filter/filter.hpp
     model/filter/defaultfilter.hpp
     model/filter/matchfilter.hpp
     model/filter/unionfilter.hpp
     model/filter/intersectionfilter.hpp
+
+    viewmodel/esmdatamodel.hpp
+
     views/idlist.hpp
     views/idlistitemdelegate.hpp
     views/idlistfilter.hpp

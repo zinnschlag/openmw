@@ -139,10 +139,7 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         case Qt::DisplayRole:
             return filter->name();
         case Qt::CheckStateRole:
-            if(filter->enabled())
-                return Qt::Checked;
-            else
-                return Qt::Unchecked;
+            return filter->enabled() ? Qt::Checked : Qt::Unchecked;
         case Qt:: DecorationRole:
             if (dynamic_cast<UnionFilter*>(filter))
                 return QIcon(":/icon/filter/union.png");
@@ -176,10 +173,7 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
 
     if (role == Qt::CheckStateRole && index.column() == 0)
     {
-        if(value == Qt::Checked)
-            item->setEnabled(true);
-        else
-            item->setEnabled(false);
+        item->setEnabled(value == Qt::Checked ? true : false);
 
         emit dataChanged(index, index);
         return true;
@@ -303,35 +297,24 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
     if (parentItem == mRootItem)
         return QModelIndex();
 
-    int row = 0;
 
-    FilterList* unionFilter = dynamic_cast<FilterList*>(parentItem);
-    if (unionFilter)
-    {
-        row = unionFilter->rowOfChild(childItem);
-    }
+    FilterList* filterList = dynamic_cast<FilterList*>(parentItem);
+
+    int row = filterList ? filterList->rowOfChild(childItem) : 0;
 
     return createIndex(row, 0, parentItem);
 }
 
 int FilterEditModel::rowCount(const QModelIndex &parent) const
 {
-    Filter *parentItem;
     if (parent.column() > 0)
         return 0;
 
-    if (!parent.isValid())
-        parentItem = mRootItem;
-    else
-        parentItem = static_cast<Filter*>(parent.internalPointer());
+    Filter *parentItem = parent.isValid() ? static_cast<Filter*>(parent.internalPointer()) : mRootItem;
 
-    FilterList* unionFilter = dynamic_cast<FilterList*>(parentItem);
-    if (unionFilter)
-    {
-        return unionFilter->childCount();
-    }
+    FilterList* filterList = dynamic_cast<FilterList*>(parentItem);
 
-    return 0;
+    return filterList ? filterList->childCount() : 0;
 }
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const
