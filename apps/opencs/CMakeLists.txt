@@ -13,6 +13,7 @@ set(OPENCS_SRC
     model/filter/defaultfilter.cpp
     model/filter/matchfilter.cpp
     model/filter/unionfilter.cpp
+    model/filter/intersectionfilter.cpp
     views/idlist.cpp
     views/idlistitemdelegate.cpp
     views/idlistfilter.cpp
@@ -32,6 +33,7 @@ set(OPENCS_HDR
     model/filter/defaultfilter.hpp
     model/filter/matchfilter.hpp
     model/filter/unionfilter.hpp
+    model/filter/intersectionfilter.hpp
     views/idlist.hpp
     views/idlistitemdelegate.hpp
     views/idlistfilter.hpp

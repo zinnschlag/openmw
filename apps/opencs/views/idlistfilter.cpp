@@ -8,11 +8,13 @@
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
 #include "../model/filter/unionfilter.hpp"
+#include "../model/filter/intersectionfilter.hpp"
 
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mRootItem = new UnionFilter("root");
+    mRootItem = new UnionFilter();
+    mRootItem->setName("root");
 }
 
 FilterEditModel::~FilterEditModel()
@@ -22,7 +24,8 @@ FilterEditModel::~FilterEditModel()
 
 void FilterEditModel::load()
 {
-    UnionFilter *newRoot = new UnionFilter("root");
+    UnionFilter *newRoot = new UnionFilter();
+    newRoot->setName("root");
 
     QFile file(":/filters.xml");
     if (file.open(QIODevice::ReadOnly))
@@ -32,20 +35,14 @@ void FilterEditModel::load()
         QString parseError;
 
         if (document.setContent(&file, &parseError))
-        {
             readFilter(document.firstChildElement(), newRoot);
-        }
         else
-        {
             qDebug() << "Parse error" << parseError;
-        }
 
         file.close();
     }
     else
-    {
         qDebug() << "Opening file failed";
-    }
 
 
     mRootItem = newRoot;
@@ -61,18 +58,11 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     QString name = element.tagName();
     if (name == "Union")
     {
-        childFilter = new UnionFilter("", parent);
-
-        QDomNode childNode = element.firstChild();
-        while (!childNode.isNull())
-        {
-            if (childNode.isElement())
-            {
-                QDomElement childElement = childNode.toElement();
-                readFilter(childElement, childFilter);
-            }
-            childNode = childNode.nextSibling();
-        }
+        childFilter = new UnionFilter(parent);
+    }
+    else if (name == "Intersection")
+    {
+        childFilter = new IntersectionFilter(parent);
     }
     else if (name == "Match")
     {
@@ -100,20 +90,36 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     else
     {
         qWarning() << "Invalid tagName" << element.tagName();
+        return;
     }
 
     QString enabled = element.attribute("active", "true");
     childFilter->setEnabled(enabled == "true" ? true : false);
 
-    UnionFilter* parentUnion = qobject_cast<UnionFilter*>(parent);
-    if (parentUnion)
-    {
-        parentUnion->appendChild(childFilter);
+
+    QDomElement childName = element.firstChildElement("Name");
+    childFilter->setName(childName.text());
+
+
+    FilterList* childFilterList = dynamic_cast<FilterList*>(childFilter);
+    if(childFilterList) {
+        QDomNode childNode = element.firstChild();
+        while (!childNode.isNull())
+        {
+            if (childNode.isElement())
+            {
+                QDomElement childElement = childNode.toElement();
+                readFilter(childElement, childFilter);
+            }
+            childNode = childNode.nextSibling();
+        }
     }
+
+    FilterList* parentFilter = dynamic_cast<FilterList*>(parent);
+    if (parentFilter)
+        parentFilter->appendChild(childFilter);
     else
-    {
         qWarning() << "Parent is not a collection";
-    }
 }
 
 
@@ -130,16 +136,18 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
     {
         switch(role)
         {
+        case Qt::DisplayRole:
+            return filter->name();
         case Qt::CheckStateRole:
             if(filter->enabled())
                 return Qt::Checked;
             else
                 return Qt::Unchecked;
-        case Qt::DisplayRole:
-            return filter->displayString();
         case Qt:: DecorationRole:
             if (dynamic_cast<UnionFilter*>(filter))
                 return QIcon(":/icon/filter/union.png");
+            if (dynamic_cast<IntersectionFilter*>(filter))
+                return QIcon(":/icon/filter/intersection.png");
 
             MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
             if(matchFilter) {
@@ -197,7 +205,7 @@ bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+    FilterList* unionFilter = dynamic_cast<FilterList*>(filter);
     if (unionFilter)
     {
         beginRemoveRows(parent, row, row + count);
@@ -222,7 +230,8 @@ void FilterEditModel::addUnionFilter(const QModelIndex &parent)
     {
         beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
 
-        UnionFilter *childFilter = new UnionFilter("New Union", unionFilter);
+        UnionFilter *childFilter = new UnionFilter(unionFilter);
+        childFilter->setName("New Union");
         unionFilter->appendChild(childFilter);
 
         endInsertRows();
@@ -272,7 +281,7 @@ QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &paren
     else
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
+    FilterList* unionFilter = dynamic_cast<FilterList*>(parentItem);
     if (unionFilter)
     {
         Filter *childItem = unionFilter->child(row);
@@ -296,7 +305,7 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
 
     int row = 0;
 
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
+    FilterList* unionFilter = dynamic_cast<FilterList*>(parentItem);
     if (unionFilter)
     {
         row = unionFilter->rowOfChild(childItem);
@@ -316,7 +325,7 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
     else
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(parentItem);
+    FilterList* unionFilter = dynamic_cast<FilterList*>(parentItem);
     if (unionFilter)
     {
         return unionFilter->childCount();

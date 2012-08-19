@@ -1,23 +1,42 @@
 <!DOCTYPE FilterTree>
 <Union>
-    <Default active="false"/>
+    <Default active="false">
+      <Name>Default</Name>
+    </Default>
     <Match type="Wildcard" active="false">
+	<Name>Smoke</Name>
         <Key>mwId</Key>
         <Value>*smoke*</Value>
     </Match>
     <Union>
-        <Match type="Exact" active="false">
+	<Match type="Exact" active="false">
+	    <Name>Activator</Name>
             <Key>mwType</Key>
             <Value>ACTI</Value>
         </Match>
         <Match type="Exact">
+	    <Name>Potion</Name>
             <Key>mwType</Key>
             <Value>ALCH</Value>
         </Match>
         <Match type="Exact" active="false">
+	    <Name>Script</Name>
             <Key>mwType</Key>
             <Value>SCPT</Value>
         </Match>
     </Union>
+    <Intersection active="false">
+      <Name>Special Potion</Name>
+      <Match type="Exact">
+	<Name>Activator</Name>
+	<Key>mwType</Key>
+	<Value>ACTI</Value>
+      </Match>
+      <Match type="Regex">
+	<Name>Smoke</Name>
+        <Key>mwId</Key>
+        <Value>.*bed.*</Value>
+    </Match>
+    </Intersection>
 </Union>
 

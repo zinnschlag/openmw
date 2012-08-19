@@ -1,9 +1,7 @@
 #include "unionfilter.hpp"
 
-UnionFilter::UnionFilter(QString name, Filter *parent)
-    : Filter(parent)
-    , mDisplayName(name)
-    , mChildItems()
+UnionFilter::UnionFilter(Filter *parent)
+    : FilterList(parent)
 {
 }
 
@@ -17,19 +15,8 @@ bool UnionFilter::accept(QList<QString> headers, QList<QVariant> row)
         return false;
 
     foreach (Filter* filter, mChildItems)
-    {
         if (filter->accept(headers, row))
-        {
             return true;
-        }
-    }
+
     return false;
-}
-
-int UnionFilter::rowOfChild(Filter *child)
-{
-    if (child)
-        return mChildItems.indexOf(child);
-
-    return 0;
 }
