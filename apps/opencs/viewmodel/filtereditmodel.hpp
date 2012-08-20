@@ -1,20 +1,12 @@
-#ifndef IDLISTFILTER_HPP
-#define IDLISTFILTER_HPP
-
-#include <QMap>
+#ifndef FILTEREDITMODEL_HPP
+#define FILTEREDITMODEL_HPP
 
 #include <QAbstractItemModel>
-#include <QSortFilterProxyModel>
 
 #include <QtXml/QDomElement>
 
 #include "../model/filter/filter.hpp"
 #include "../model/filter/unionfilter.hpp"
-
-namespace Ui
-{
-class IdList;
-}
 
 class FilterEditModel : public QAbstractItemModel
 {
@@ -50,29 +42,6 @@ public:
 
 private:
     UnionFilter *mRootItem;
-};
-
-class FilterProxyModel : public QSortFilterProxyModel
-{
-    Q_OBJECT
-
-public:
-    FilterProxyModel(QObject *parent = 0);
-
-    void setEditModel(FilterEditModel *editModel);
-    void setSourceModel(QAbstractItemModel *model);
-
-protected:
-    bool filterAcceptsColumn(int source_column, const QModelIndex &source_parent) const;
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
-
-private slots:
-    void headerDataChanged(Qt::Orientation,int,int);
-
-private:
-    FilterEditModel *mEditModel;
-
-    QList<QString> mHeaders;
 };
 
 #endif

@@ -16,8 +16,9 @@ set(OPENCS_SRC
     model/filter/unionfilter.cpp
     model/filter/intersectionfilter.cpp
 
-    viewmodel/idlistfilter.cpp
     viewmodel/esmdatamodel.cpp
+    viewmodel/filtereditmodel.cpp
+    viewmodel/filterproxymodel.cpp
 
     views/idlist.cpp
     views/idlistitemdelegate.cpp
@@ -41,7 +42,8 @@ set(OPENCS_HDR
     model/filter/intersectionfilter.hpp
 
     viewmodel/esmdatamodel.hpp
-    viewmodel/idlistfilter.hpp
+    viewmodel/filtereditmodel.hpp
+    viewmodel/filterproxymodel.hpp
 
     views/idlist.hpp
     views/idlistitemdelegate.hpp
