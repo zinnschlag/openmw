@@ -20,10 +20,10 @@ set(OPENCS_SRC
     viewmodel/filtereditmodel.cpp
     viewmodel/filterproxymodel.cpp
 
-    views/idlist.cpp
-    views/idlistitemdelegate.cpp
-    views/filter/filtertree.cpp
-    views/filter/filtereditor.cpp
+    view/idlist.cpp
+    view/idlistitemdelegate.cpp
+    view/filter/filtertree.cpp
+    view/filter/filtereditor.cpp
 )
 
 set(OPENCS_HDR
@@ -45,17 +45,17 @@ set(OPENCS_HDR
     viewmodel/filtereditmodel.hpp
     viewmodel/filterproxymodel.hpp
 
-    views/idlist.hpp
-    views/idlistitemdelegate.hpp
-    views/filter/filtertree.hpp
-    views/filter/filtereditor.hpp
+    view/idlist.hpp
+    view/idlistitemdelegate.hpp
+    view/filter/filtertree.hpp
+    view/filter/filtereditor.hpp
 )
 
 set(OPENCS_UI
     opencs.ui
-    views/idlist.ui
-    views/filter/filtertree.ui
-    views/filter/filtereditor.ui
+    view/idlist.ui
+    view/filter/filtertree.ui
+    view/filter/filtereditor.ui
 )
 
 set(OPENCS_RES

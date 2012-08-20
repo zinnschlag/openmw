@@ -3,7 +3,6 @@
 
 #include "ui_filtereditor.h"
 
-#include "../../viewmodel/idlistfilter.hpp"
 #include "../../model/filter/matchfilter.hpp"
 
 namespace Ui

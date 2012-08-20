@@ -5,7 +5,7 @@
 #include <QAbstractItemModel>
 
 #include "viewmodel/esmdatamodel.hpp"
-#include "views/idlist.hpp"
+#include "view/idlist.hpp"
 
 namespace Ui
 {

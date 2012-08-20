@@ -8,8 +8,8 @@
 #include "viewmodel/esmdatamodel.hpp"
 
 
-#include "views/filter/filtertree.hpp"
-#include "views/filter/filtereditor.hpp"
+#include "view/filter/filtertree.hpp"
+#include "view/filter/filtereditor.hpp"
 
 OpenCS::OpenCS(QWidget *parent) :
     QMainWindow(parent),

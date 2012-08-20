@@ -2,8 +2,6 @@
 
 #include <QMenu>
 
-#include "../../viewmodel/idlistfilter.hpp"
-
 FilterTree::FilterTree(QWidget *parent)
     : QWidget(parent)
 {
