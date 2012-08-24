@@ -55,13 +55,13 @@ OpenCS::OpenCS(QWidget *parent) :
     filterEditDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
     FilterEditor *filterEditor = new FilterEditor(filterEditDock);
-    //filterEdit->setModel(filterModel);
+    filterEditor->setModel(filterModel);
     filterEditDock->setWidget(filterEditor);
 
     this->addDockWidget(Qt::LeftDockWidgetArea, filterEditDock);
 
 
-    connect(filterTree, SIGNAL(filterSelected(Filter*)), filterEditor, SLOT(editFilter(Filter*)));
+    connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
 }
 
 OpenCS::~OpenCS()

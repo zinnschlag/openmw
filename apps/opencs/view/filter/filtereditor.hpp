@@ -3,7 +3,9 @@
 
 #include "ui_filtereditor.h"
 
-#include "../../model/filter/matchfilter.hpp"
+#include "../../viewmodel/filtereditmodel.hpp"
+#include "QDataWidgetMapper"
+
 
 namespace Ui
 {
@@ -13,20 +15,23 @@ namespace Ui
 class FilterEditor : public QWidget, private Ui::FilterEditor
 {
     Q_OBJECT
-    Q_ENUMS(MatchFilter::MatchType)
 
 public:
     explicit FilterEditor(QWidget *parent = 0);
     ~FilterEditor();
 
-public slots:
-    void editFilter(Filter* filter);
+    void setModel(FilterEditModel *model);
 
-private slots:
-    void on_pushButton_clicked();
+public slots:
+    void setCurrentModelIndex(const QModelIndex & index);
 
 private:
-    Filter *mFilter;
+    QDataWidgetMapper *mMapper;
+    bool mInputChanged;
+
+private slots:
+    void inputChanged();
+    void submitChanges();
 };
 
 #endif

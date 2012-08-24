@@ -13,7 +13,7 @@ FilterProxyModel::~FilterProxyModel()
 void FilterProxyModel::setEditModel(FilterEditModel *editModel)
 {
     mEditModel = editModel;
-    connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(invalidate()));
+    connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(filtersChanged()));
 }
 
 void FilterProxyModel::setSourceModel(QAbstractItemModel *model)
@@ -65,4 +65,9 @@ void FilterProxyModel::headerDataChanged(Qt::Orientation, int, int)
         QString columnName = sourceModel()->headerData(i, Qt::Horizontal).toString();
         mHeaders.insert(i, columnName);
     }
+}
+
+void FilterProxyModel::filtersChanged()
+{
+    invalidateFilter();
 }

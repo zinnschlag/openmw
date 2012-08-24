@@ -7,6 +7,8 @@ FilterTree::FilterTree(QWidget *parent)
 {
     setupUi(this);
 
+    treeViewFilter->header()->hide();
+
     connect(treeViewFilter, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextMenu(QPoint)));
     connect(treeViewFilter, SIGNAL(clicked(QModelIndex)), this, SLOT(clicked(QModelIndex)));
 }
@@ -32,8 +34,7 @@ QSize FilterTree::sizeHint() const
 
 void FilterTree::clicked(const QModelIndex &index)
 {
-    Filter *filter = static_cast<Filter*>(index.internalPointer());
-    emit filterSelected(filter);
+    emit indexSelected(index);
 }
 
 void FilterTree::contextMenu(const QPoint &point)
@@ -44,19 +45,16 @@ void FilterTree::contextMenu(const QPoint &point)
 
     mContextMenuModelIndex = index;
 
-
-
     QMenu *menu = new QMenu;
 
     Filter *filter = static_cast<Filter*>(index.internalPointer());
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
-    if (unionFilter)
+    FilterList* filterList = dynamic_cast<FilterList*>(filter);
+    if (filterList)
     {
         menu->addAction(QString("Add Union"), this, SLOT(addUnionFilter()));
         menu->addAction(QString("Add Match"), this, SLOT(addMatchFilter()));
         menu->addSeparator();
     }
-
 
     menu->addAction(QString("Delete"), this, SLOT(deleteFilter()));
     menu->exec(treeViewFilter->mapToGlobal(point));

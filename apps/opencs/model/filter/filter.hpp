@@ -7,38 +7,20 @@
 class Filter : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Filter(Filter *parent = 0);
-    ~Filter()
-    {
-    }
+    ~Filter();
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) = 0;
 
-    Filter *parent()
-    {
-        return mParentItem;
-    }
+    Filter *parent();
 
-    bool enabled()
-    {
-        return mEnabled;
-    }
+    bool enabled();
+    void setEnabled(bool enabled);
 
-    void setEnabled(bool enabled)
-    {
-        mEnabled = enabled;
-    }
-
-    QString name()
-    {
-        return mName;
-    }
-
-    void setName(QString name)
-    {
-        mName = name;
-    }
+    QString name();
+    void setName(QString name);
 
 protected:
     Filter *mParentItem;
@@ -51,8 +33,8 @@ class FilterList : public Filter
     Q_OBJECT
 
 public:
-    explicit FilterList(Filter *parent = 0) : Filter(parent) {}
-    ~FilterList(){}
+    explicit FilterList(Filter *parent = 0);
+    ~FilterList();
 
     int childCount() const;
     int rowOfChild(Filter* child);

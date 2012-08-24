@@ -23,7 +23,7 @@ public:
     QSize sizeHint() const;
 
 signals:
-    void filterSelected(Filter* filter);
+    void indexSelected(const QModelIndex& index);
 
 private:
     FilterEditModel *mModel;

@@ -23,6 +23,8 @@ protected:
 private slots:
     void headerDataChanged(Qt::Orientation,int,int);
 
+    void filtersChanged();
+
 private:
     FilterEditModel *mEditModel;
 

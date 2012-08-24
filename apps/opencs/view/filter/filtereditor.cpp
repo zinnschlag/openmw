@@ -1,43 +1,62 @@
 #include "filtereditor.hpp"
 
+#include <QTimer>
+
+#include "../../model/filter/matchfilter.hpp"
+
 FilterEditor::FilterEditor(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
+    mInputChanged = false;
 
+    //FIXME
     typeCombo->addItem("Exact", MatchFilter::Exact);
     typeCombo->addItem("Wildcard", MatchFilter::Wildcard);
     typeCombo->addItem("Regex", MatchFilter::Regex);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(submitChanges()));
+    timer->start(300);
+
+    mMapper = new QDataWidgetMapper(this);
 }
 
 FilterEditor::~FilterEditor()
 {
 }
 
-void FilterEditor::editFilter(Filter *filter)
+void FilterEditor::setModel(FilterEditModel *model)
 {
-    mFilter = filter;
+    mMapper->setModel(model);
+    mMapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
-    MatchFilter* matchFilter = qobject_cast<MatchFilter*>(filter);
-    if(matchFilter) {
-       int selectedIndex = typeCombo->findData(matchFilter->type());
-       typeCombo->setCurrentIndex(selectedIndex);
+    mMapper->addMapping(nameEdit, 0);
+    mMapper->addMapping(typeCombo, 1, "currentIndex");
+    mMapper->addMapping(keyEdit, 2);
+    mMapper->addMapping(valueEdit, 3);
 
-       keyEdit->setText(matchFilter->key());
-       valueEdit->setText(matchFilter->value());
-    }
+    connect(nameEdit, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
+    connect(typeCombo, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
+    connect(keyEdit, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
+    connect(valueEdit, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
 }
 
-void FilterEditor::on_pushButton_clicked()
+void FilterEditor::setCurrentModelIndex(const QModelIndex &index)
 {
-    MatchFilter* matchFilter = qobject_cast<MatchFilter*>(mFilter);
-    if(matchFilter) {
-        int typeIndex = typeCombo->currentIndex();
-        QVariant typeData = typeCombo->itemData(typeIndex);
-        MatchFilter::MatchType filterType = static_cast<MatchFilter::MatchType>(typeData.toInt());
-        matchFilter->setType(filterType);
+    mMapper->setRootIndex(index.parent());
+    mMapper->setCurrentModelIndex(index);
+}
 
-        matchFilter->setKey(keyEdit->text());
-        matchFilter->setValue(valueEdit->text());
+void FilterEditor::inputChanged()
+{
+    mInputChanged = true;
+}
+
+void FilterEditor::submitChanges()
+{
+    if(mInputChanged) {
+        mMapper->submit();
+        mInputChanged = false;
     }
 }

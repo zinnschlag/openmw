@@ -40,6 +40,9 @@ public:
 
     bool accept(QList<QString> headers, QList<QVariant> row);
 
+public slots:
+
+
 private:
     UnionFilter *mRootItem;
 };

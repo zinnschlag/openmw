@@ -161,6 +161,24 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         }
     }
 
+    if(role == Qt::EditRole || role == Qt::DisplayRole) {
+
+        if(index.column() == 0)
+            return filter->name();
+
+        MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
+        if(matchFilter) {
+
+            if(index.column() == 1)
+                return matchFilter->type();
+            if(index.column() == 2)
+                return matchFilter->key();
+            if(index.column() == 3)
+                return matchFilter->value();
+        }
+    }
+
+
     return QVariant();
 }
 
@@ -169,17 +187,48 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     if (!index.isValid())
         return false;
 
+    bool success = true;
+
+    int column = index.column();
     Filter *item = static_cast<Filter*>(index.internalPointer());
 
-    if (role == Qt::CheckStateRole && index.column() == 0)
-    {
-        item->setEnabled(value == Qt::Checked ? true : false);
-
-        emit dataChanged(index, index);
-        return true;
+    if(column == 0) {
+        if (role == Qt::CheckStateRole) {
+            item->setEnabled(value == Qt::Checked ? true : false);
+            goto ok;
+        }
+        else if (role == Qt::EditRole) {
+            item->setName(value.toString());
+            goto ok;
+        }
     }
 
-    return false;
+
+    if (role == Qt::EditRole)
+    {
+        MatchFilter* matchFilter = dynamic_cast<MatchFilter*>(item);
+        if(matchFilter) {
+            if(column == 1) {
+                matchFilter->setType((MatchFilter::MatchType)value.toInt());
+                goto ok;
+            }
+            if(column == 2) {
+                matchFilter->setKey(value.toString());
+                goto ok;
+            }
+            if(column == 3) {
+                matchFilter->setValue(value.toString());
+                goto ok;
+            }
+        }
+    }
+
+    success = false;
+    ok:
+    if(success)
+        emit dataChanged(index, index);
+
+    return success;
 }
 
 Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
@@ -319,5 +368,5 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const
 {
-    return 1;
+    return 4;
 }
