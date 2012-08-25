@@ -15,6 +15,8 @@ FilterEditModel::FilterEditModel(QObject *parent)
 {
     mRootItem = new UnionFilter();
     mRootItem->setName("root");
+
+    mUndoStack = new QUndoStack(this);
 }
 
 FilterEditModel::~FilterEditModel()
@@ -140,6 +142,22 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
             return filter->name();
         case Qt::CheckStateRole:
             return filter->enabled() ? Qt::Checked : Qt::Unchecked;
+        case ChildActionsRole:
+        {
+            QStringList actionIds;
+
+            if (dynamic_cast<FilterList*>(filter)) {
+                actionIds.append("addUnion");
+                actionIds.append("addIntersection");
+                actionIds.append("addMatch");
+                actionIds.append("-");
+            }
+
+            actionIds.append("delete");
+
+            return actionIds;
+        }
+            break;
         case Qt:: DecorationRole:
             if (dynamic_cast<UnionFilter*>(filter))
                 return QIcon(":/icon/filter/union.png");
@@ -263,38 +281,43 @@ bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
     }
 }
 
-//FIXME Copy Paste
-void FilterEditModel::addUnionFilter(const QModelIndex &parent)
+void FilterEditModel::runAction(const QString name, const QModelIndex &parent)
 {
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
-    if (unionFilter)
-    {
-        beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
 
-        UnionFilter *childFilter = new UnionFilter(unionFilter);
-        childFilter->setName("New Union");
-        unionFilter->appendChild(childFilter);
-
-        endInsertRows();
+    if(name == "delete") {
+         removeRow(parent.row(), parent.parent());
     }
-}
 
-//FIXME Copy Paste
-void FilterEditModel::addMatchFilter(const QModelIndex &parent)
-{
-    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+    if(name == "addUnion" || name == "addIntersection" || name == "addMatch") {
 
-    UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
-    if (unionFilter)
-    {
-        beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
 
-        MatchFilter *childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", unionFilter);
-        unionFilter->appendChild(childFilter);
 
-        endInsertRows();
+        UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
+        if (unionFilter)
+        {
+            Filter *childFilter;
+            if(name == "addUnion") {
+                childFilter = new UnionFilter(unionFilter);
+                childFilter->setName("New Union");
+            }
+            else if(name == "addIntersection") {
+                childFilter = new IntersectionFilter(unionFilter);
+                childFilter->setName("New Intersection");
+            }
+            else if(name == "addMatch") {
+                childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", unionFilter);
+            }
+            else
+                return;
+
+
+            beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
+            unionFilter->appendChild(childFilter);
+            endInsertRows();
+        }
+
     }
 }
 
@@ -302,6 +325,8 @@ bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 {
     return mRootItem->accept(headers, row);
 }
+
+
 
 QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
@@ -369,4 +394,13 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
 int FilterEditModel::columnCount(const QModelIndex &parent) const
 {
     return 4;
+}
+
+
+
+
+
+QUndoStack *FilterEditModel::undoStack() const
+{
+    return mUndoStack;
 }

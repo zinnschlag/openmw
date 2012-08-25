@@ -91,11 +91,11 @@ void ESMDataModel::loadEsmFile(QString file)
         {
             const QMetaProperty prop = child->metaObject()->property(u);
 
-            QMap<const QMetaObject*, int>* map;
+            QHash<const QMetaObject*, int>* map;
 
             if (!mNamedProperties.contains(prop.name()))
             {
-                map = new QMap<const QMetaObject*, int>();
+                map = new QHash<const QMetaObject*, int>();
                 mNamedProperties.insert(prop.name(), map);
             }
             else
@@ -195,7 +195,7 @@ Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
 QVariant ESMDataModel::valueAtColumn(const DataItem *rowItem, int column) const
 {
     QString columnId = mColumnIds.at(column);
-    QMap<const QMetaObject*, int> *map = mNamedProperties.value(columnId);
+    QHash<const QMetaObject*, int> *map = mNamedProperties.value(columnId);
     if (map->contains(rowItem->metaObject()))
     {
         int propertyNo = map->value(rowItem->metaObject());

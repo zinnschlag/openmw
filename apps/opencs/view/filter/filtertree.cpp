@@ -47,30 +47,27 @@ void FilterTree::contextMenu(const QPoint &point)
 
     QMenu *menu = new QMenu;
 
-    Filter *filter = static_cast<Filter*>(index.internalPointer());
-    FilterList* filterList = dynamic_cast<FilterList*>(filter);
-    if (filterList)
-    {
-        menu->addAction(QString("Add Union"), this, SLOT(addUnionFilter()));
-        menu->addAction(QString("Add Match"), this, SLOT(addMatchFilter()));
-        menu->addSeparator();
+    QStringList actionIds = mModel->data(index, FilterEditModel::ChildActionsRole).toStringList();
+
+    foreach(QString actionId, actionIds) {
+        if(actionId == "-") {
+            menu->addSeparator();
+        } else {
+            QAction *openAct = new QAction(actionId, this);
+            openAct->setData(actionId);
+            connect(openAct, SIGNAL(triggered()), this, SLOT(contextMenuActionTriggered()));
+            menu->addAction(openAct);
+        }
     }
 
-    menu->addAction(QString("Delete"), this, SLOT(deleteFilter()));
     menu->exec(treeViewFilter->mapToGlobal(point));
 }
 
-void FilterTree::deleteFilter()
+void FilterTree::contextMenuActionTriggered()
 {
-    mModel->removeRow(mContextMenuModelIndex.row(), mContextMenuModelIndex.parent());
+    QAction *action = qobject_cast<QAction*>(QObject::sender());
+    if(action) {
+        mModel->runAction(action->data().toString(), mContextMenuModelIndex);
+    }
 }
 
-void FilterTree::addUnionFilter()
-{
-    mModel->addUnionFilter(mContextMenuModelIndex);
-}
-
-void FilterTree::addMatchFilter()
-{
-    mModel->addMatchFilter(mContextMenuModelIndex);
-}

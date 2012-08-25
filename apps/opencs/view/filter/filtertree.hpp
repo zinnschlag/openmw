@@ -27,16 +27,13 @@ signals:
 
 private:
     FilterEditModel *mModel;
-
     QModelIndex mContextMenuModelIndex;
 
 private slots:
     void clicked(const QModelIndex & index);
     void contextMenu(const QPoint& point);
 
-    void deleteFilter();
-    void addUnionFilter();
-    void addMatchFilter();
+    void contextMenuActionTriggered();
 };
 
 #endif

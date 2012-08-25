@@ -46,7 +46,7 @@ private:
 
     QStringList mColumnIds;
 
-    QMultiMap<QString, QMap<const QMetaObject*, int>*> mNamedProperties;
+    QMultiMap<QString, QHash<const QMetaObject*, int>*> mNamedProperties;
 };
 
 
