@@ -23,7 +23,6 @@ public:
         setText(QString("Toggle Filter (%1)").arg(mFilter->name()));
     }
 
-
     virtual void undo() {
         mFilter->setEnabled(mActiveOld);
     }
@@ -38,6 +37,33 @@ private:
     bool mActive;
 };
 
+class EditPropertyCommand : public QUndoCommand
+{
+public:
+    EditPropertyCommand(Filter *filter, QString propertyName, QVariant newValue)
+        : mFilter(filter)
+        , mPropertyName(propertyName)
+        , mNewValue(newValue)
+    {
+        mOldValue = filter->property(propertyName.toAscii());
+
+        setText(QString("Edit Filter (%1) property %2 to %3").arg(mFilter->name()).arg(mPropertyName).arg(mNewValue.toString()));
+    }
+
+    virtual void undo() {
+        mFilter->setProperty(mPropertyName.toAscii(), mOldValue);
+    }
+
+    virtual void redo() {
+        mFilter->setProperty(mPropertyName.toAscii(), mNewValue);
+    }
+private:
+    Filter *mFilter;
+    QString mPropertyName;
+
+    QVariant mOldValue;
+    QVariant mNewValue;
+};
 
 
 
@@ -265,7 +291,11 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
         MatchFilter* matchFilter = dynamic_cast<MatchFilter*>(item);
         if(matchFilter) {
             if(column == 1) {
-                matchFilter->setType((MatchFilter::MatchType)value.toInt());
+                MatchFilter::MatchType matchType = (MatchFilter::MatchType)value.toInt();
+
+                EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "type", matchType);
+                mUndoStack->push(cmd);
+
                 goto ok;
             }
             if(column == 2) {

@@ -37,7 +37,7 @@ void FilterEditor::setModel(FilterEditModel *model)
     mMapper->addMapping(valueEdit, 3);
 
     connect(nameEdit, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
-    connect(typeCombo, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
+    connect(typeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(inputChanged()));
     connect(keyEdit, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
     connect(valueEdit, SIGNAL(textEdited(QString)), this, SLOT(inputChanged()));
 }
