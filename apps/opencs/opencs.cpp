@@ -68,6 +68,7 @@ OpenCS::OpenCS(QWidget *parent) :
     undoRedoDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
     QUndoView *undoView = new QUndoView(undoRedoDock);
+    undoView->setStack(filterModel->undoStack());
     undoRedoDock->setWidget(undoView);
 
     this->addDockWidget(Qt::LeftDockWidgetArea, undoRedoDock);

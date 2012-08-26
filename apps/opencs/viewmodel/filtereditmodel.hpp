@@ -9,18 +9,40 @@
 #include "../model/filter/filter.hpp"
 #include "../model/filter/unionfilter.hpp"
 
-class ActivateCommand : public QUndoCommand
+class ToggleFilterCommand : public QUndoCommand
 {
+public:
+    ToggleFilterCommand(Filter *filter, bool active)
+        : mFilter(filter)
+        , mActiveOld(filter->enabled())
+        , mActive(active)
+    {
+        setText(QString("Toggle Filter (%1)").arg(mFilter->name()));
+    }
+
+
+    virtual void undo() {
+        mFilter->setEnabled(mActiveOld);
+    }
+
+    virtual void redo() {
+        mFilter->setEnabled(mActive);
+    }
+private:
+    Filter *mFilter;
+    bool mActiveOld;
+
+    bool mActive;
 };
 
-class DeleteCommand : public QUndoCommand
-{
-};
+//class DeleteCommand : public QUndoCommand
+//{
+//};
 
-class AddCommand : public QUndoCommand
-{
-    //if(name == "addUnion" || name == "addIntersection" || name == "addMatch"
-};
+//class AddCommand : public QUndoCommand
+//{
+//    //if(name == "addUnion" || name == "addIntersection" || name == "addMatch"
+//};
 
 
 

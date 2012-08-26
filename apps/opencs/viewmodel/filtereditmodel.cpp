@@ -10,6 +10,42 @@
 #include "../model/filter/unionfilter.hpp"
 #include "../model/filter/intersectionfilter.hpp"
 
+// ====================================================
+
+class ToggleFilterCommand : public QUndoCommand
+{
+public:
+    ToggleFilterCommand(Filter *filter, bool active)
+        : mFilter(filter)
+        , mActiveOld(filter->enabled())
+        , mActive(active)
+    {
+        setText(QString("Toggle Filter (%1)").arg(mFilter->name()));
+    }
+
+
+    virtual void undo() {
+        mFilter->setEnabled(mActiveOld);
+    }
+
+    virtual void redo() {
+        mFilter->setEnabled(mActive);
+    }
+private:
+    Filter *mFilter;
+    bool mActiveOld;
+
+    bool mActive;
+};
+
+
+
+
+
+
+// ====================================================
+
+
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
@@ -212,7 +248,9 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
 
     if(column == 0) {
         if (role == Qt::CheckStateRole) {
-            item->setEnabled(value == Qt::Checked ? true : false);
+            bool newValue = value == Qt::Checked ? true : false;
+            ToggleFilterCommand *command = new ToggleFilterCommand(item, newValue);
+            mUndoStack->push(command);
             goto ok;
         }
         else if (role == Qt::EditRole) {
