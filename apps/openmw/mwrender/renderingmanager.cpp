@@ -845,11 +845,19 @@ void RenderingManager::attachCameraTo(const MWWorld::Ptr &ptr)
     mPlayer->attachTo(ptr);
 }
 
-void RenderingManager::renderPlayer(const MWWorld::Ptr &ptr)
+void RenderingManager::renderPlayer()
 {
+    MWWorld::Player &player =
+        MWBase::Environment::get().getWorld()->getPlayer();
+    MWWorld::Ptr ptr = player.getPlayer();
+
     MWRender::NpcAnimation *anim =
         new MWRender::NpcAnimation(
-            ptr,
+            ptr.getRefData().getBaseNode(),
+            player.getRace(),
+            player.getHead(),
+            player.getHair(),
+            player.isMale(),
             mRendering,
             MWWorld::Class::get(ptr).getInventoryStore(ptr)
         );

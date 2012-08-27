@@ -25,7 +25,11 @@ namespace MWWorld
         MWWorld::CellStore *mCellStore;
         std::string mName;
         bool mMale;
+
         std::string mRace;
+        std::string mHeadModel;
+        std::string mHairModel;
+
         std::string mBirthsign;
         ESM::Class *mClass;
         bool mAutoMove;
@@ -111,6 +115,23 @@ namespace MWWorld
         void setUpDown(int value);
 
         void toggleRunning();
+
+        std::string getHair() const {
+            return mHairModel;
+        }
+
+        void setHair(std::string hair) {
+            mHairModel = hair;
+        }
+
+        std::string getHead() const {
+            return mHeadModel;
+        }
+
+        void setHead(std::string head) {
+            mHeadModel = head;
+        }
     };
 }
+
 #endif

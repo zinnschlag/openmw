@@ -22,6 +22,8 @@ namespace MWWorld
         mName = player->name;
         mMale = !(player->flags & ESM::NPC::Female);
         mRace = player->race;
+        mHeadModel = player->head;
+        mHairModel = player->hair;
 
         float* playerPos = mPlayer.mData.getPosition().pos;
         playerPos[0] = playerPos[1] = playerPos[2] = 0;

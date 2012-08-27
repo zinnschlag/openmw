@@ -295,6 +295,8 @@ namespace MWMechanics
         mRaceSelected = true;
         buildPlayer();
         mUpdatePlayer = true;
+
+        MWBase::Environment::get().getWorld()->renderPlayer();
     }
 
     void MechanicsManager::setPlayerBirthsign (const std::string& id)
