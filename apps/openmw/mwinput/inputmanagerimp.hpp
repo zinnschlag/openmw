@@ -76,7 +76,7 @@ namespace MWInput
 
         virtual void toggleControlSwitch (const std::string& sw, bool value);
 
-        virtual std::string getActionDescription (int action);
+        virtual std::string getActionDescription (int action, bool& replace);
         virtual std::string getActionBindingName (int action);
         virtual int getNumActions() { return A_Last; }
         virtual std::vector<int> getActionSorting ();

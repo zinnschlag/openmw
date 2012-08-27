@@ -607,6 +607,7 @@ namespace MWInput
         defaultKeyBindings[A_Rest] = OIS::KC_T;
         defaultKeyBindings[A_GameMenu] = OIS::KC_ESCAPE;
         defaultKeyBindings[A_TogglePOV] = OIS::KC_TAB;
+        defaultKeyBindings[A_Screenshot] = OIS::KC_SYSRQ;
 
         std::map<int, int> defaultMouseButtonBindings;
         defaultMouseButtonBindings[A_Inventory] = OIS::MB_Right;
@@ -638,30 +639,42 @@ namespace MWInput
         }
     }
 
-    std::string InputManager::getActionDescription (int action)
+    std::string InputManager::getActionDescription (int action, bool& replace)
     {
+        std::map<int, std::string> replace_descriptions;
         std::map<int, std::string> descriptions;
 
-        descriptions[A_Activate] = "sActivate";
-        descriptions[A_MoveBackward] = "sBack";
-        descriptions[A_MoveForward] = "sForward";
-        descriptions[A_MoveLeft] = "sLeft";
-        descriptions[A_MoveRight] = "sRight";
-        descriptions[A_ToggleWeapon] = "sReady_Weapon";
-        descriptions[A_ToggleSpell] = "sReady_Magic";
-        descriptions[A_Console] = "sConsoleTitle";
-        descriptions[A_Crouch] = "sCrouch_Sneak";
-        descriptions[A_AutoMove] = "sAuto_Run";
-        descriptions[A_Jump] = "sJump";
-        descriptions[A_Journal] = "sJournal";
-        descriptions[A_Rest] = "sRestKey";
-        descriptions[A_Inventory] = "sInventory";
-        descriptions[A_TogglePOV] = "sTogglePOVCmd";
+        replace_descriptions[A_Activate] = "sActivate";
+        replace_descriptions[A_MoveBackward] = "sBack";
+        replace_descriptions[A_MoveForward] = "sForward";
+        replace_descriptions[A_MoveLeft] = "sLeft";
+        replace_descriptions[A_MoveRight] = "sRight";
+        replace_descriptions[A_ToggleWeapon] = "sReady_Weapon";
+        replace_descriptions[A_ToggleSpell] = "sReady_Magic";
+        replace_descriptions[A_Console] = "sConsoleTitle";
+        replace_descriptions[A_Crouch] = "sCrouch_Sneak";
+        replace_descriptions[A_AutoMove] = "sAuto_Run";
+        replace_descriptions[A_Jump] = "sJump";
+        replace_descriptions[A_Journal] = "sJournal";
+        replace_descriptions[A_Rest] = "sRestKey";
+        replace_descriptions[A_Inventory] = "sInventory";
+        replace_descriptions[A_TogglePOV] = "sTogglePOVCmd";
 
-        if (descriptions[action] == "")
-            return ""; // not configurable
+        descriptions[A_Screenshot] = "Screenshot";
 
-        return "#{" + descriptions[action] + "}";
+        replace = false;
+
+        if (replace_descriptions[action] != "")
+        {
+            replace = true;
+            return "#{" + replace_descriptions[action] + "}";
+        }
+        else if (descriptions[action] != "")
+        {
+            return descriptions[action];
+        }
+        
+        return ""; // not configurable
     }
 
     std::string InputManager::getActionBindingName (int action)
@@ -697,6 +710,7 @@ namespace MWInput
         ret.push_back(A_Journal);
         ret.push_back(A_Rest);
         ret.push_back(A_Console);
+        ret.push_back(A_Screenshot);
 
         return ret;
     }
