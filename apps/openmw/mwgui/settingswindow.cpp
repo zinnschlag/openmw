@@ -547,16 +547,20 @@ namespace MWGui
         const int h = 18;
         const int w = mControlsBox->getWidth() - 28;
         int curH = 0;
+        bool replace;
         for (std::vector<int>::const_iterator it = actions.begin(); it != actions.end(); ++it)
         {
-            std::string desc = MWBase::Environment::get().getInputManager()->getActionDescription (*it);
+            std::string desc = MWBase::Environment::get().getInputManager()->getActionDescription (*it, replace);
             if (desc == "")
                 continue;
 
             std::string binding = MWBase::Environment::get().getInputManager()->getActionBindingName (*it);
 
             MyGUI::TextBox* leftText = mControlsBox->createWidget<MyGUI::TextBox>("SandText", MyGUI::IntCoord(0,curH,w,h), MyGUI::Align::Default);
-            leftText->setCaptionWithReplacing(desc);
+            if(replace)
+                leftText->setCaptionWithReplacing(desc);
+            else
+                leftText->setCaption(desc);
 
             MyGUI::Button* rightText = mControlsBox->createWidget<MyGUI::Button>("SandTextButton", MyGUI::IntCoord(0,curH,w,h), MyGUI::Align::Default);
             rightText->setCaptionWithReplacing(binding);

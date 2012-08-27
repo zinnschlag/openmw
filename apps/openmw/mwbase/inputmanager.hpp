@@ -32,7 +32,7 @@ namespace MWBase
 
             virtual void toggleControlSwitch (const std::string& sw, bool value) = 0;
 
-            virtual std::string getActionDescription (int action) = 0;
+            virtual std::string getActionDescription (int action, bool& replace) = 0;
             virtual std::string getActionBindingName (int action) = 0;
             virtual std::vector<int> getActionSorting () = 0;
             virtual int getNumActions() = 0;
