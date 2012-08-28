@@ -7,7 +7,7 @@
 
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
-#include "../model/filter/unionfilter.hpp"
+#include "../model/filter/setoperationfilter.hpp"
 
 class EditPropertyCommand : public QUndoCommand
 {

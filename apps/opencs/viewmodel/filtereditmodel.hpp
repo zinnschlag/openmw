@@ -7,7 +7,7 @@
 #include <QtXml/QDomElement>
 
 #include "../model/filter/filter.hpp"
-#include "../model/filter/unionfilter.hpp"
+#include "../model/filter/setoperationfilter.hpp"
 
 class FilterEditModel : public QAbstractItemModel
 {

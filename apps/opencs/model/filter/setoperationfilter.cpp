@@ -1,4 +1,4 @@
-#include "unionfilter.hpp"
+#include "setoperationfilter.hpp"
 
 SetOperationFilter::SetOperationFilter(OperationType type, Filter *parent)
     : FilterList(parent)

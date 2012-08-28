@@ -1,5 +1,5 @@
-#ifndef UNIONFITLER_HPP
-#define UNIONFITLER_HPP
+#ifndef SETOPERATIONFILTER_HPP
+#define SETOPERATIONFILTER_HPP
 
 #include "filter.hpp"
 
