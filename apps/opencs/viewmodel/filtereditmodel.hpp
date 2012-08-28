@@ -15,7 +15,7 @@ class FilterEditModel : public QAbstractItemModel
 
 public:
     enum Roles {
-        ChildActionsRole = Qt::UserRole + 1
+        ItemCommandsRole = Qt::UserRole + 1
     };
 
     FilterEditModel(QObject *parent);
@@ -34,25 +34,19 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
     bool removeRows(int row, int count, const QModelIndex &parent);
 
-    void runAction(const QString name, const QModelIndex &parent);
+    void executeCommand(const QString name, const QModelIndex &parent);
 
     bool accept(QList<QString> headers, QList<QVariant> row);
 
 
     QUndoStack *undoStack() const;
 
-public slots:
-
-
 private:
     UnionFilter *mRootItem;
-
     QUndoStack *mUndoStack;
 };
 

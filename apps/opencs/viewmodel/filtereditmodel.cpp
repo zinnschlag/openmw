@@ -10,33 +10,6 @@
 #include "../model/filter/unionfilter.hpp"
 #include "../model/filter/intersectionfilter.hpp"
 
-// ====================================================
-
-class ToggleFilterCommand : public QUndoCommand
-{
-public:
-    ToggleFilterCommand(Filter *filter, bool active)
-        : mFilter(filter)
-        , mActiveOld(filter->enabled())
-        , mActive(active)
-    {
-        setText(QString("Toggle Filter (%1)").arg(mFilter->name()));
-    }
-
-    virtual void undo() {
-        mFilter->setEnabled(mActiveOld);
-    }
-
-    virtual void redo() {
-        mFilter->setEnabled(mActive);
-    }
-private:
-    Filter *mFilter;
-    bool mActiveOld;
-
-    bool mActive;
-};
-
 class EditPropertyCommand : public QUndoCommand
 {
 public:
@@ -47,7 +20,7 @@ public:
     {
         mOldValue = filter->property(propertyName.toAscii());
 
-        setText(QString("Edit Filter (%1) property %2 to %3").arg(mFilter->name()).arg(mPropertyName).arg(mNewValue.toString()));
+        setText(QString("Set %2 to %3 for %1").arg(mFilter->name()).arg(mPropertyName).arg(mNewValue.toString()));
     }
 
     virtual void undo() {
@@ -64,13 +37,6 @@ private:
     QVariant mOldValue;
     QVariant mNewValue;
 };
-
-
-
-
-
-// ====================================================
-
 
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
@@ -204,7 +170,7 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
             return filter->name();
         case Qt::CheckStateRole:
             return filter->enabled() ? Qt::Checked : Qt::Unchecked;
-        case ChildActionsRole:
+        case ItemCommandsRole:
         {
             QStringList actionIds;
 
@@ -275,8 +241,9 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     if(column == 0) {
         if (role == Qt::CheckStateRole) {
             bool newValue = value == Qt::Checked ? true : false;
-            ToggleFilterCommand *command = new ToggleFilterCommand(item, newValue);
-            mUndoStack->push(command);
+            EditPropertyCommand *cmd = new EditPropertyCommand(item, "enabled", newValue);
+            mUndoStack->push(cmd);
+
             goto ok;
         }
         else if (role == Qt::EditRole) {
@@ -295,15 +262,16 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
 
                 EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "type", matchType);
                 mUndoStack->push(cmd);
-
                 goto ok;
             }
             if(column == 2) {
-                matchFilter->setKey(value.toString());
+                EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "key", value);
+                mUndoStack->push(cmd);
                 goto ok;
             }
             if(column == 3) {
-                matchFilter->setValue(value.toString());
+                EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "value", value);
+                mUndoStack->push(cmd);
                 goto ok;
             }
         }
@@ -349,7 +317,7 @@ bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
     }
 }
 
-void FilterEditModel::runAction(const QString name, const QModelIndex &parent)
+void FilterEditModel::executeCommand(const QString name, const QModelIndex &parent)
 {
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
@@ -392,16 +360,6 @@ void FilterEditModel::runAction(const QString name, const QModelIndex &parent)
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 {
     return mRootItem->accept(headers, row);
-}
-
-
-
-QVariant FilterEditModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-    if (section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return "Name";
-    else
-        return QVariant();
 }
 
 QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &parent) const
@@ -464,11 +422,9 @@ int FilterEditModel::columnCount(const QModelIndex &parent) const
     return 4;
 }
 
-
-
-
-
 QUndoStack *FilterEditModel::undoStack() const
 {
     return mUndoStack;
 }
+
+

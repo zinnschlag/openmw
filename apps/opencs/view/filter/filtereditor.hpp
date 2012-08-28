@@ -6,7 +6,6 @@
 #include "../../viewmodel/filtereditmodel.hpp"
 #include "QDataWidgetMapper"
 
-
 namespace Ui
 {
     class FilterEditor;
@@ -27,11 +26,6 @@ public slots:
 
 private:
     QDataWidgetMapper *mMapper;
-    bool mInputChanged;
-
-private slots:
-    void inputChanged();
-    void submitChanges();
 };
 
 #endif

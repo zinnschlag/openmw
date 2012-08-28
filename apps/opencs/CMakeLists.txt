@@ -88,7 +88,7 @@ target_link_libraries(opencs
     ${Boost_LIBRARIES}
     ${QT_LIBRARIES}
     components
-    #PropertyBrowser
+    #QtSolutions_PropertyBrowser-2.5
 )
 
 if(DPKG_PROGRAM)

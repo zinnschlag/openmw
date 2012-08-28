@@ -47,7 +47,7 @@ void FilterTree::contextMenu(const QPoint &point)
 
     QMenu *menu = new QMenu;
 
-    QStringList actionIds = mModel->data(index, FilterEditModel::ChildActionsRole).toStringList();
+    QStringList actionIds = mModel->data(index, FilterEditModel::ItemCommandsRole).toStringList();
 
     foreach(QString actionId, actionIds) {
         if(actionId == "-") {
@@ -67,7 +67,7 @@ void FilterTree::contextMenuActionTriggered()
 {
     QAction *action = qobject_cast<QAction*>(QObject::sender());
     if(action) {
-        mModel->runAction(action->data().toString(), mContextMenuModelIndex);
+        mModel->executeCommand(action->data().toString(), mContextMenuModelIndex);
     }
 }
 

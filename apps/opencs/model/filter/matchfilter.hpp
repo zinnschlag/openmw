@@ -8,6 +8,11 @@
 class MatchFilter : public Filter
 {
     Q_OBJECT
+
+    Q_PROPERTY(MatchType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QString key READ key WRITE setKey NOTIFY keyChanged)
+    Q_PROPERTY(QString value READ value WRITE setValue NOTIFY valueChanged)
+
     Q_ENUMS(MatchType)
 
 public:
@@ -31,6 +36,11 @@ public:
 
     QString value(){return mExpectedValue;}
     void setValue(QString value){mExpectedValue = value; updateRegex();}
+
+signals:
+    void typeChanged();
+    void keyChanged();
+    void valueChanged();
 
 private:
     MatchType mMatchType;

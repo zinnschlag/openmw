@@ -8,6 +8,9 @@ class Filter : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+
 public:
     explicit Filter(Filter *parent = 0);
     ~Filter();
@@ -22,8 +25,13 @@ public:
     QString name();
     void setName(QString name);
 
+signals:
+    void enabledChanged();
+    void nameChanged();
+
 protected:
     Filter *mParentItem;
+
     bool mEnabled;
     QString mName;
 };
