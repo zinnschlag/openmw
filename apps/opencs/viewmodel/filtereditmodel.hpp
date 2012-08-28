@@ -45,6 +45,12 @@ public:
 
     QUndoStack *undoStack() const;
 
+    //TODO make friend
+    void emitDataChanged(const QModelIndex &index)
+    {
+      emit dataChanged(index, index);
+    }
+
 private:
     SetOperationFilter *mRootItem;
     QUndoStack *mUndoStack;

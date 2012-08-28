@@ -12,8 +12,11 @@
 class EditPropertyCommand : public QUndoCommand
 {
 public:
-    EditPropertyCommand(Filter *filter, QString propertyName, QVariant newValue)
-        : mFilter(filter)
+    EditPropertyCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString propertyName, QVariant newValue)
+        :QUndoCommand()
+        , mModel(model)
+        , mIndex(index)
+        , mFilter(filter)
         , mPropertyName(propertyName)
         , mNewValue(newValue)
     {
@@ -24,12 +27,17 @@ public:
 
     virtual void undo() {
         mFilter->setProperty(mPropertyName.toAscii(), mOldValue);
+        mModel->emitDataChanged(mIndex);
     }
 
     virtual void redo() {
         mFilter->setProperty(mPropertyName.toAscii(), mNewValue);
+        mModel->emitDataChanged(mIndex);
     }
 private:
+    FilterEditModel *mModel;
+    QPersistentModelIndex mIndex;
+
     Filter *mFilter;
     QString mPropertyName;
 
@@ -254,22 +262,21 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     if (!index.isValid())
         return false;
 
-    bool success = true;
-
     int column = index.column();
     Filter *filter = static_cast<Filter*>(index.internalPointer());
 
     if(column == 0) {
         if (role == Qt::CheckStateRole) {
             bool newValue = value == Qt::Checked ? true : false;
-            EditPropertyCommand *cmd = new EditPropertyCommand(filter, "enabled", newValue);
+            EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, "enabled", newValue);
             mUndoStack->push(cmd);
 
-            goto ok;
+            return true;
         }
         else if (role == Qt::EditRole) {
-            filter->setName(value.toString());
-            goto ok;
+            EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, "name", value.toString());
+            mUndoStack->push(cmd);
+            return true;
         }
     }
 
@@ -280,19 +287,19 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
             if(column == 1) {
                 MatchFilter::MatchType matchType = (MatchFilter::MatchType)value.toInt();
 
-                EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "type", matchType);
+                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "type", matchType);
                 mUndoStack->push(cmd);
-                goto ok;
+                return true;
             }
             if(column == 2) {
-                EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "key", value);
+                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "key", value);
                 mUndoStack->push(cmd);
-                goto ok;
+                return true;
             }
             if(column == 3) {
-                EditPropertyCommand *cmd = new EditPropertyCommand(matchFilter, "value", value);
+                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "value", value);
                 mUndoStack->push(cmd);
-                goto ok;
+                return true;
             }
         }
 
@@ -301,19 +308,14 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
             if(column == 1) {
                 SetOperationFilter::OperationType matchType = (SetOperationFilter::OperationType)value.toInt();
 
-                EditPropertyCommand *cmd = new EditPropertyCommand(setOpFilter, "type", matchType);
+                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, setOpFilter, "type", matchType);
                 mUndoStack->push(cmd);
-                goto ok;
+                return true;
             }
         }
     }
 
-    success = false;
-    ok:
-    if(success)
-        emit dataChanged(index, index);
-
-    return success;
+    return false;
 }
 
 Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
