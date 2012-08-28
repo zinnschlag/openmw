@@ -83,7 +83,7 @@ void FilterEditModel::load()
 void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
 {
 
-    Filter *childFilter;
+    Filter *childFilter = 0;
 
     QString name = element.tagName();
     if (name == "Union")
@@ -119,7 +119,7 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     }
     else
     {
-        qWarning() << "Invalid tagName" << element.tagName();
+        qWarning() << "Unknown filter type" << element.tagName();
         return;
     }
 

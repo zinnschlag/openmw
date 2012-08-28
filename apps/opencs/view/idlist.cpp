@@ -21,9 +21,6 @@ IdList::IdList(QWidget *parent)
     tableView->verticalHeader()->setDefaultSectionSize(tableView->verticalHeader()->minimumSectionSize());
     tableView->horizontalHeader()->setMovable(true);
     tableView->horizontalHeader()->setStretchLastSection(false);
-    //ui->tableView->horizontalHeader()->setResizeMode(QHeaderView::Interactive);
-
-    connect(mFilterProxyModel, SIGNAL(layoutChanged()), tableView, SLOT(resizecolumnsToContents()));
 }
 
 IdList::~IdList()
