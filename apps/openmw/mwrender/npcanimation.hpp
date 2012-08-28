@@ -65,8 +65,25 @@ private:
     MWWorld::ContainerStoreIterator rightglove;
     MWWorld::ContainerStoreIterator skirtiter;
 
+    void build(
+        Ogre::SceneNode *node,
+        std::string race,
+        std::string head,
+        std::string hair,
+        bool male);
+
 public:
     NpcAnimation(const MWWorld::Ptr& ptr, OEngine::Render::OgreRenderer& _rend, MWWorld::InventoryStore& _inv);
+
+    NpcAnimation(
+        Ogre::SceneNode *node,
+        std::string race,
+        std::string head,
+        std::string hair,
+        bool male,
+        OEngine::Render::OgreRenderer &rend,
+        MWWorld::InventoryStore &inv);
+
     virtual ~NpcAnimation();
     NifOgre::EntityList insertBoundedPart(const std::string &mesh, const std::string &bonename);
     virtual void runAnimation(float timepassed);

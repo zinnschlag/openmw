@@ -46,48 +46,95 @@ NpcAnimation::~NpcAnimation()
 
 
 NpcAnimation::NpcAnimation(const MWWorld::Ptr& ptr, OEngine::Render::OgreRenderer& _rend, MWWorld::InventoryStore& _inv)
-  : Animation(_rend), mStateID(-1), mInv(_inv), timeToChange(0),
-    robe(mInv.end()), helmet(mInv.end()), shirt(mInv.end()),
-    cuirass(mInv.end()), greaves(mInv.end()),
-    leftpauldron(mInv.end()), rightpauldron(mInv.end()),
+  : Animation(_rend),
+    mStateID(-1),
+    mInv(_inv),
+    timeToChange(0),
+    robe(mInv.end()),
+    helmet(mInv.end()),
+    shirt(mInv.end()),
+    cuirass(mInv.end()),
+    greaves(mInv.end()),
+    leftpauldron(mInv.end()),
+    rightpauldron(mInv.end()),
     boots(mInv.end()),
-    leftglove(mInv.end()), rightglove(mInv.end()), skirtiter(mInv.end()),
+    leftglove(mInv.end()),
+    rightglove(mInv.end()),
+    skirtiter(mInv.end()),
     pants(mInv.end())
 {
-    MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
+    const ESM::NPC *data = ptr.get<ESM::NPC>()->base;
 
+    build(
+        ptr.getRefData().getBaseNode(),
+        data->race,
+        data->head,
+        data->hair,
+        !(data->flags & ESM::NPC::Female)
+    );
+}
+
+NpcAnimation::NpcAnimation(
+    Ogre::SceneNode *node,
+    std::string race,
+    std::string head,
+    std::string hair,
+    bool male,
+    OEngine::Render::OgreRenderer& _rend,
+    MWWorld::InventoryStore& _inv)
+
+  : Animation(_rend),
+    mStateID(-1),
+    mInv(_inv),
+    timeToChange(0),
+    robe(mInv.end()),
+    helmet(mInv.end()),
+    shirt(mInv.end()),
+    cuirass(mInv.end()),
+    greaves(mInv.end()),
+    leftpauldron(mInv.end()),
+    rightpauldron(mInv.end()),
+    boots(mInv.end()),
+    leftglove(mInv.end()),
+    rightglove(mInv.end()),
+    skirtiter(mInv.end()),
+    pants(mInv.end())
+{
+    build(node, race, head, hair, male);
+}
+
+void NpcAnimation::build(
+    Ogre::SceneNode *node,
+    std::string race,
+    std::string head,
+    std::string hair,
+    bool male)
+{
     for (int init = 0; init < 27; init++)
     {
-        mPartslots[init] = -1;  //each slot is empty
+        mPartslots[init] = -1;
         mPartPriorities[init] = 0;
     }
 
-    const ESMS::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
-    const ESM::Race *race = store.races.find(ref->base->race);
+    const ESMS::ESMStore &store =
+        MWBase::Environment::get().getWorld()->getStore();
 
-    std::string hairID = ref->base->hair;
-    std::string headID = ref->base->head;
-    headModel = "meshes\\" + store.bodyParts.find(headID)->model;
-    hairModel = "meshes\\" + store.bodyParts.find(hairID)->model;
-    npcName = ref->base->name;
+    const ESM::Race *raceInfo = store.races.find(race);
 
-    isFemale = !!(ref->base->flags&ESM::NPC::Female);
-    isBeast = !!(race->data.flags&ESM::Race::Beast);
+    headModel = "meshes\\" + store.bodyParts.find(head)->model;
+    hairModel = "meshes\\" + store.bodyParts.find(hair)->model;
 
-    bodyRaceID = "b_n_"+ref->base->race;
+    isFemale = !male;
+    isBeast = !!(raceInfo->data.flags & ESM::Race::Beast);
+
+    bodyRaceID = "b_n_" + race;
     std::transform(bodyRaceID.begin(), bodyRaceID.end(), bodyRaceID.begin(), ::tolower);
 
-    /*std::cout << "Race: " << ref->base->race ;
-    if(female)
-        std::cout << " Sex: Female" << " Height: " << race->data.height.female << "\n";
-    else
-        std::cout << " Sex: Male" << " Height: " << race->data.height.male << "\n";
-    */
-
-    mInsert = ptr.getRefData().getBaseNode();
+    mInsert = node;
     assert(mInsert);
 
-    std::string smodel = (!isBeast ? "meshes\\base_anim.nif" : "meshes\\base_animkna.nif");
+    std::string smodel =
+        (!isBeast ? "meshes\\base_anim.nif" : "meshes\\base_animkna.nif");
 
     mEntityList = NifOgre::NIFLoader::createEntities(mInsert, &mTextKeys, smodel);
     for(size_t i = 0;i < mEntityList.mEntities.size();i++)
@@ -126,11 +173,11 @@ NpcAnimation::NpcAnimation(const MWWorld::Ptr& ptr, OEngine::Render::OgreRendere
             state->setLoop(false);
         }
     }
+    float scale =
+        (isFemale) ? raceInfo->data.height.female : raceInfo->data.height.male;
 
-    if(isFemale)
-        mInsert->scale(race->data.height.female, race->data.height.female, race->data.height.female);
-    else
-        mInsert->scale(race->data.height.male, race->data.height.male, race->data.height.male);
+    mInsert->scale(scale, scale, scale);
+
     updateParts();
 }
 

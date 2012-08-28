@@ -1159,6 +1159,6 @@ namespace MWWorld
 
     void World::renderPlayer()
     {
-        mRendering->renderPlayer(mPlayer->getPlayer());
+        mRendering->renderPlayer();
     }
 }
