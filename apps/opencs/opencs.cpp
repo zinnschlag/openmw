@@ -62,19 +62,6 @@ OpenCS::OpenCS(QWidget *parent) :
 
     this->addDockWidget(Qt::LeftDockWidgetArea, filterEditDock);
 
-
-    //FIXME Copy paste
-    QDockWidget *undoRedoDock = new QDockWidget("Undo/Redo", this);
-    undoRedoDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-    QUndoView *undoView = new QUndoView(undoRedoDock);
-    undoView->setStack(filterModel->undoStack());
-    undoRedoDock->setWidget(undoView);
-
-    this->addDockWidget(Qt::LeftDockWidgetArea, undoRedoDock);
-
-
-
     connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
 }
 
