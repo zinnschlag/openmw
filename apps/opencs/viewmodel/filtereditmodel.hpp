@@ -46,7 +46,7 @@ public:
     QUndoStack *undoStack() const;
 
 private:
-    UnionFilter *mRootItem;
+    SetOperationFilter *mRootItem;
     QUndoStack *mUndoStack;
 };
 

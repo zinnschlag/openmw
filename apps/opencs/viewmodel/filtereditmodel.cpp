@@ -8,7 +8,6 @@
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
 #include "../model/filter/unionfilter.hpp"
-#include "../model/filter/intersectionfilter.hpp"
 
 class EditPropertyCommand : public QUndoCommand
 {
@@ -41,7 +40,7 @@ private:
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mRootItem = new UnionFilter();
+    mRootItem = new SetOperationFilter(SetOperationFilter::Union);
     mRootItem->setName("root");
 
     mUndoStack = new QUndoStack(this);
@@ -54,7 +53,7 @@ FilterEditModel::~FilterEditModel()
 
 void FilterEditModel::load()
 {
-    UnionFilter *newRoot = new UnionFilter();
+    SetOperationFilter *newRoot = new SetOperationFilter(SetOperationFilter::Union);
     newRoot->setName("root");
 
     QFile file(":/filters.xml");
@@ -63,11 +62,13 @@ void FilterEditModel::load()
         QDomDocument document("FilterTree");
 
         QString parseError;
+        int parseErrorRow;
+        int parseErrorColumn;
 
-        if (document.setContent(&file, &parseError))
+        if (document.setContent(&file, &parseError, &parseErrorRow, &parseErrorColumn))
             readFilter(document.firstChildElement(), newRoot);
         else
-            qDebug() << "Parse error" << parseError;
+            qDebug() << "Parse error" << parseError << parseErrorRow << parseErrorColumn;
 
         file.close();
     }
@@ -86,13 +87,24 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     Filter *childFilter = 0;
 
     QString name = element.tagName();
-    if (name == "Union")
+    if (name == "SetOperation")
     {
-        childFilter = new UnionFilter(parent);
-    }
-    else if (name == "Intersection")
-    {
-        childFilter = new IntersectionFilter(parent);
+        QString type = element.attribute("type", "Union");
+        SetOperationFilter::OperationType matchType;
+        if(type == "Union")
+        {
+            matchType = SetOperationFilter::Union;
+        }
+        else if(type == "Intersection")
+        {
+            matchType = SetOperationFilter::Intersection;
+        }
+        else
+        {
+            qWarning() << "Unknown type" << type;
+        }
+
+        childFilter = new SetOperationFilter(matchType, parent);
     }
     else if (name == "Match")
     {
@@ -175,8 +187,7 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
             QStringList actionIds;
 
             if (dynamic_cast<FilterList*>(filter)) {
-                actionIds.append("addUnion");
-                actionIds.append("addIntersection");
+                actionIds.append("addSetOperation");
                 actionIds.append("addMatch");
                 actionIds.append("-");
             }
@@ -187,10 +198,15 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         }
             break;
         case Qt:: DecorationRole:
-            if (dynamic_cast<UnionFilter*>(filter))
-                return QIcon(":/icon/filter/union.png");
-            if (dynamic_cast<IntersectionFilter*>(filter))
-                return QIcon(":/icon/filter/intersection.png");
+            SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
+            if(setOpFilter) {
+                switch(setOpFilter->type()) {
+                case SetOperationFilter::Union:
+                    return QIcon(":/icon/filter/union.png");
+                case SetOperationFilter::Intersection:
+                    return QIcon(":/icon/filter/intersection.png");
+                }
+            }
 
             MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
             if(matchFilter) {
@@ -251,7 +267,6 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
             goto ok;
         }
     }
-
 
     if (role == Qt::EditRole)
     {
@@ -319,42 +334,34 @@ bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
 
 void FilterEditModel::executeCommand(const QString name, const QModelIndex &parent)
 {
-    Filter* filter = static_cast<Filter*>(parent.internalPointer());
-
-
     if(name == "delete") {
          removeRow(parent.row(), parent.parent());
+         return;
     }
 
-    if(name == "addUnion" || name == "addIntersection" || name == "addMatch") {
+    Filter* filter = static_cast<Filter*>(parent.internalPointer());
+    FilterList* filterList = dynamic_cast<FilterList*>(filter);
 
+    Filter* childFilter;
 
-
-        UnionFilter* unionFilter = dynamic_cast<UnionFilter*>(filter);
-        if (unionFilter)
-        {
-            Filter *childFilter;
-            if(name == "addUnion") {
-                childFilter = new UnionFilter(unionFilter);
-                childFilter->setName("New Union");
-            }
-            else if(name == "addIntersection") {
-                childFilter = new IntersectionFilter(unionFilter);
-                childFilter->setName("New Intersection");
-            }
-            else if(name == "addMatch") {
-                childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", unionFilter);
-            }
-            else
-                return;
-
-
-            beginInsertRows(parent, unionFilter->childCount(), unionFilter->childCount());
-            unionFilter->appendChild(childFilter);
-            endInsertRows();
-        }
-
+    if(name == "addMatch")
+    {
+        childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
     }
+    else if(name == "addSetOperation")
+    {
+        childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
+        childFilter->setName("New Set Operation");
+    }
+    else
+    {
+        qDebug() << "Unknown command" << name;
+        return;
+    }
+
+    beginInsertRows(parent, filterList->childCount(), filterList->childCount());
+    filterList->appendChild(childFilter);
+    endInsertRows();
 }
 
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)

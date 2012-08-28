@@ -1,22 +1,42 @@
 #include "unionfilter.hpp"
 
-UnionFilter::UnionFilter(Filter *parent)
+SetOperationFilter::SetOperationFilter(OperationType type, Filter *parent)
     : FilterList(parent)
+    , mType(type)
 {
 }
 
-UnionFilter::~UnionFilter()
+SetOperationFilter::~SetOperationFilter()
 {
 }
 
-bool UnionFilter::accept(QList<QString> headers, QList<QVariant> row)
+bool SetOperationFilter::accept(QList<QString> headers, QList<QVariant> row)
 {
-    if (!enabled())
+    switch(mType) {
+    case Union:
+    {
+        if (!enabled())
+            return false;
+
+        foreach (Filter* filter, mChildItems)
+            if (filter->accept(headers, row))
+                return true;
+
         return false;
+    }
+    case Intersection:
+    {
+        if (!enabled())
+            return false;
 
-    foreach (Filter* filter, mChildItems)
-        if (filter->accept(headers, row))
-            return true;
+        bool allTrue = true;
+        foreach (Filter* filter, mChildItems)
+            if (filter->enabled() && !filter->accept(headers, row))
+                allTrue = false;
 
-    return false;
+        return allTrue;
+    }
+    default:
+        return false;
+    }
 }

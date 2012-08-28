@@ -14,7 +14,6 @@ set(OPENCS_SRC
     model/filter/defaultfilter.cpp
     model/filter/matchfilter.cpp
     model/filter/unionfilter.cpp
-    model/filter/intersectionfilter.cpp
 
     viewmodel/esmdatamodel.cpp
     viewmodel/filtereditmodel.cpp
@@ -39,7 +38,6 @@ set(OPENCS_HDR
     model/filter/defaultfilter.hpp
     model/filter/matchfilter.hpp
     model/filter/unionfilter.hpp
-    model/filter/intersectionfilter.hpp
 
     viewmodel/esmdatamodel.hpp
     viewmodel/filtereditmodel.hpp
