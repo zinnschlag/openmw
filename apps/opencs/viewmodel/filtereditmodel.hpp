@@ -7,7 +7,7 @@
 #include <QtXml/QDomElement>
 
 #include "../model/filter/filter.hpp"
-#include "../model/filter/unionfilter.hpp"
+#include "../model/filter/setoperationfilter.hpp"
 
 class FilterEditModel : public QAbstractItemModel
 {
@@ -45,8 +45,14 @@ public:
 
     QUndoStack *undoStack() const;
 
+    //TODO make friend
+    void emitDataChanged(const QModelIndex &index)
+    {
+      emit dataChanged(index, index);
+    }
+
 private:
-    UnionFilter *mRootItem;
+    SetOperationFilter *mRootItem;
     QUndoStack *mUndoStack;
 };
 

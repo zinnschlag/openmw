@@ -3,8 +3,10 @@
 
 #include "ui_filtereditor.h"
 
+#include <QStandardItemModel>
+#include <QDataWidgetMapper>
+
 #include "../../viewmodel/filtereditmodel.hpp"
-#include "QDataWidgetMapper"
 
 namespace Ui
 {
@@ -26,6 +28,9 @@ public slots:
 
 private:
     QDataWidgetMapper *mMapper;
+
+    QStandardItemModel *mMatchTypes;
+    QStandardItemModel *mSetTypes;
 };
 
 #endif

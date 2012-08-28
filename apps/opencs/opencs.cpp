@@ -2,6 +2,8 @@
 #include "ui_opencs.h"
 
 #include <QDebug>
+#include <QProcessEnvironment>
+
 #include <QFileDialog>
 #include <QDockWidget>
 
@@ -61,6 +63,21 @@ OpenCS::OpenCS(QWidget *parent) :
     filterEditDock->setWidget(filterEditor);
 
     this->addDockWidget(Qt::LeftDockWidgetArea, filterEditDock);
+
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    if(env.contains("OPENCS_DEBUG_UNDO_STACK")) {
+
+        //FIXME Copy paste
+        QDockWidget *undoRedoDock = new QDockWidget("Undo/Redo", this);
+        undoRedoDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+        QUndoView *undoView = new QUndoView(undoRedoDock);
+        undoView->setStack(filterModel->undoStack());
+        undoRedoDock->setWidget(undoView);
+
+        this->addDockWidget(Qt::LeftDockWidgetArea, undoRedoDock);
+    }
 
     connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
 }

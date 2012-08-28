@@ -1,14 +1,16 @@
 <!DOCTYPE FilterTree>
-<Union>
+<SetOperation type="Union">
     <Default active="false">
       <Name>Default</Name>
     </Default>
+    
     <Match type="Wildcard" active="false">
 	<Name>Smoke</Name>
         <Key>mwId</Key>
         <Value>*smoke*</Value>
     </Match>
-    <Union>
+    
+    <SetOperation type="Union">
 	<Match type="Exact" active="false">
 	    <Name>Activator</Name>
             <Key>mwType</Key>
@@ -24,8 +26,9 @@
             <Key>mwType</Key>
             <Value>SCPT</Value>
         </Match>
-    </Union>
-    <Intersection active="false">
+    </SetOperation>
+    
+    <SetOperation type="Intersection" active="false">
       <Name>Activators with Sound</Name>
       <Match type="Exact">
 	<Name>Activator</Name>
@@ -36,7 +39,8 @@
 	<Name>Sound</Name>
         <Key>script</Key>
         <Value>Sound.*</Value>
-    </Match>
-    </Intersection>
-</Union>
+      </Match>
+    </SetOperation>
+    <SetOperation/>
+</SetOperation>
 
