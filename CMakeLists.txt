@@ -31,6 +31,7 @@ option(OGRE_STATIC "Link static build of Ogre and Ogre Plugins into the binaries
 option(BUILD_ESMTOOL "build ESM inspector" ON)
 option(BUILD_LAUNCHER "build Launcher" ON)
 option(BUILD_MWINIIMPORTER "build MWiniImporter" ON)
+option(BUILD_OPENCS "build OpenMW Construction Set" ON)
 
 # Sound source selection
 option(USE_FFMPEG "use ffmpeg for sound" OFF)
@@ -457,6 +458,10 @@ endif()
 
 if (BUILD_MWINIIMPORTER)
    add_subdirectory( apps/mwiniimporter )
+endif()
+
+if (BUILD_OPENCS)
+   add_subdirectory( apps/opencs )
 endif()
 
 if (WIN32)
