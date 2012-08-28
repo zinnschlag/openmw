@@ -18,12 +18,12 @@ FilterEditor::FilterEditor(QWidget *parent)
 
     QStandardItem *row2 = new QStandardItem("Wildcard");
     row2->setIcon(QIcon(":/icon/filter/wildcard.png"));
-    row1->setData(MatchFilter::Wildcard);
+    row2->setData(MatchFilter::Wildcard);
     typeModel->appendRow(row2);
 
     QStandardItem *row3 = new QStandardItem("Regex");
     row3->setIcon(QIcon(":/icon/filter/regex.png"));
-    row1->setData(MatchFilter::Regex);
+    row3->setData(MatchFilter::Regex);
     typeModel->appendRow(row3);
 
     typeCombo->setModel(typeModel);
