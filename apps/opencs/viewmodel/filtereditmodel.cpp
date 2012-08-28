@@ -230,13 +230,18 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 
         MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
         if(matchFilter) {
-
             if(index.column() == 1)
                 return matchFilter->type();
             if(index.column() == 2)
                 return matchFilter->key();
             if(index.column() == 3)
                 return matchFilter->value();
+        }
+
+        SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
+        if(setOpFilter) {
+            if(index.column() == 1)
+                return setOpFilter->type();
         }
     }
 
@@ -252,25 +257,25 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     bool success = true;
 
     int column = index.column();
-    Filter *item = static_cast<Filter*>(index.internalPointer());
+    Filter *filter = static_cast<Filter*>(index.internalPointer());
 
     if(column == 0) {
         if (role == Qt::CheckStateRole) {
             bool newValue = value == Qt::Checked ? true : false;
-            EditPropertyCommand *cmd = new EditPropertyCommand(item, "enabled", newValue);
+            EditPropertyCommand *cmd = new EditPropertyCommand(filter, "enabled", newValue);
             mUndoStack->push(cmd);
 
             goto ok;
         }
         else if (role == Qt::EditRole) {
-            item->setName(value.toString());
+            filter->setName(value.toString());
             goto ok;
         }
     }
 
     if (role == Qt::EditRole)
     {
-        MatchFilter* matchFilter = dynamic_cast<MatchFilter*>(item);
+        MatchFilter* matchFilter = dynamic_cast<MatchFilter*>(filter);
         if(matchFilter) {
             if(column == 1) {
                 MatchFilter::MatchType matchType = (MatchFilter::MatchType)value.toInt();
@@ -290,6 +295,17 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
                 goto ok;
             }
         }
+
+        SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
+        if(setOpFilter) {
+            if(column == 1) {
+                SetOperationFilter::OperationType matchType = (SetOperationFilter::OperationType)value.toInt();
+
+                EditPropertyCommand *cmd = new EditPropertyCommand(setOpFilter, "type", matchType);
+                mUndoStack->push(cmd);
+                goto ok;
+            }
+        }
     }
 
     success = false;
@@ -305,10 +321,24 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
 
-    Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    Qt::ItemFlags flags = Qt::ItemIsSelectable;
 
     if (index.column() == 0)
         flags |= Qt::ItemIsUserCheckable;
+
+    Filter* filter = static_cast<Filter*>(index.internalPointer());
+
+    if(dynamic_cast<FilterList*>(filter)) {
+        if(index.column() < 2) {
+            flags |= Qt::ItemIsEnabled;
+        }
+    } else if (dynamic_cast<DefaultFilter*>(filter)){
+        if(index.column() == 0) {
+            flags |= Qt::ItemIsEnabled;
+        }
+    } else {
+        flags |= Qt::ItemIsEnabled;
+    }
 
     return flags;
 }

@@ -7,6 +7,9 @@ class SetOperationFilter : public FilterList
 {
     Q_OBJECT
 
+    Q_PROPERTY(OperationType type READ type WRITE setType)
+
+    Q_ENUMS(OperationType)
 public:
     enum OperationType {
         Union,
