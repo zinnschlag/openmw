@@ -47,6 +47,18 @@ public:
       emit dataChanged(index, index);
     }
 
+    //TODO make friend
+    void emitBeginInsertRows(const QModelIndex& parent, int first, int last)
+    {
+      emit beginInsertRows(parent, first, last);
+    }
+
+    //TODO make friend
+    void emitEndInsertRowsd()
+    {
+      emit endInsertRows();
+    }
+
 private:
     SetOperationFilter *mRootItem;
     QUndoStack *mUndoStack;

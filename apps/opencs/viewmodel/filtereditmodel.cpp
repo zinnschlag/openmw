@@ -55,6 +55,52 @@ private:
     QVariant mNewValue;
 };
 
+
+
+class AddChildCommand : public FilterCommand
+{
+public:
+    AddChildCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString childType)
+        : FilterCommand(model, index, filter)
+        , mChildType(childType)
+    {
+        setText(QString("Add child %1").arg(childType));
+    }
+
+    virtual void undo() {
+    }
+
+    virtual void redo() {
+        FilterList* filterList = dynamic_cast<FilterList*>(mFilter);
+
+        Filter* childFilter;
+
+        if(mChildType == "addMatch")
+        {
+            childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
+        }
+        else if(mChildType == "addSetOperation")
+        {
+            childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
+            childFilter->setName("New Set Operation");
+        }
+        else
+        {
+            qDebug() << "Unknown command" << mChildType;
+            return;
+        }
+
+        mModel->emitBeginInsertRows(mIndex, filterList->childCount(), filterList->childCount());
+        filterList->appendChild(childFilter);
+        mModel->emitEndInsertRowsd();
+    }
+private:
+    QString mChildType;
+};
+
+
+
+
 class LoadXmlCommand : public FilterCommand
 {
 public:
@@ -415,28 +461,9 @@ void FilterEditModel::executeCommand(const QString name, const QModelIndex &pare
     }
 
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
-    FilterList* filterList = dynamic_cast<FilterList*>(filter);
 
-    Filter* childFilter;
-
-    if(name == "addMatch")
-    {
-        childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
-    }
-    else if(name == "addSetOperation")
-    {
-        childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
-        childFilter->setName("New Set Operation");
-    }
-    else
-    {
-        qDebug() << "Unknown command" << name;
-        return;
-    }
-
-    beginInsertRows(parent, filterList->childCount(), filterList->childCount());
-    filterList->appendChild(childFilter);
-    endInsertRows();
+    AddChildCommand *cmd = new AddChildCommand(this, parent, filter, name);
+    mUndoStack->push(cmd);
 }
 
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
