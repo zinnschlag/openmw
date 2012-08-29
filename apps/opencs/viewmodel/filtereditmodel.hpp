@@ -32,8 +32,6 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    bool removeRows(int row, int count, const QModelIndex &parent);
-
     void executeCommand(const QString name, const QModelIndex &parent);
 
     bool accept(QList<QString> headers, QList<QVariant> row);
@@ -50,25 +48,25 @@ public:
     //TODO make friend
     void emitBeginInsertRows(const QModelIndex& parent, int first, int last)
     {
-      emit beginInsertRows(parent, first, last);
+      beginInsertRows(parent, first, last);
     }
 
     //TODO make friend
-    void emitEndInsertRowsd()
+    void emitEndInsertRows()
     {
-      emit endInsertRows();
+      endInsertRows();
     }
 
     //TODO make friend
     void emitBeginRemoveRows(const QModelIndex& parent, int first, int last)
     {
-      emit beginRemoveRows(parent, first, last);
+      beginRemoveRows(parent, first, last);
     }
 
     //TODO make friend
-    void emitEndRemoveRowsd()
+    void emitEndRemoveRows()
     {
-      emit endRemoveRows();
+      endRemoveRows();
     }
 
 private:

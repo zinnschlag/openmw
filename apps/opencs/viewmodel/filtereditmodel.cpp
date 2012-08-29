@@ -92,7 +92,7 @@ public:
 
         mModel->emitBeginInsertRows(mIndex, filterList->childCount(), filterList->childCount());
         filterList->appendChild(childFilter);
-        mModel->emitEndInsertRowsd();
+        mModel->emitEndInsertRows();
     }
 private:
     QString mChildType;
@@ -101,7 +101,7 @@ private:
 class DeleteChildCommand : public FilterCommand
 {
 public:
-    DeleteChildCommand(FilterEditModel *model, QModelIndex index, Filter *filter)
+    DeleteChildCommand(FilterEditModel *model, QModelIndex index, Filter* filter)
         : FilterCommand(model, index, filter)
     {
         setText(QString("Delete child"));
@@ -111,19 +111,19 @@ public:
     }
 
     virtual void redo() {
-        FilterList* unionFilter = dynamic_cast<FilterList*>(mFilter);
-        if (unionFilter)
+        FilterList* parentList = dynamic_cast<FilterList*>(mFilter->parent());
+        if (parentList)
         {
             int row = mIndex.row();
-            mModel->emitBeginRemoveRows(mIndex, row, row);
+            mModel->emitBeginRemoveRows(mIndex.parent(), row, row);
 
-            unionFilter->removeChild(row);
+            parentList->removeChild(row);
 
-            mModel->emitEndRemoveRowsd();
+            mModel->emitEndRemoveRows();
+        } else {
+            qWarning() << "Cannot remove child from non collection filter";
         }
     }
-
-private:
 };
 
 
@@ -461,33 +461,17 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
-{
-    Filter* filter = static_cast<Filter*>(parent.internalPointer());
-
-    FilterList* unionFilter = dynamic_cast<FilterList*>(filter);
-    if (unionFilter)
-    {
-        DeleteChildCommand *cmd = new DeleteChildCommand(this, parent, filter);
-        mUndoStack->push(cmd);
-        return true;
-    } else {
-        qWarning() << "Cannot remove child from non collection filter";
-        return false;
-    }
-}
-
 void FilterEditModel::executeCommand(const QString name, const QModelIndex &parent)
 {
-    if(name == "delete") {
-         removeRow(parent.row(), parent.parent());
-         return;
-    }
-
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
-    AddChildCommand *cmd = new AddChildCommand(this, parent, filter, name);
-    mUndoStack->push(cmd);
+    if(name == "delete") {
+        DeleteChildCommand *cmd = new DeleteChildCommand(this, parent, filter);
+        mUndoStack->push(cmd);
+    } else {
+        AddChildCommand *cmd = new AddChildCommand(this, parent, filter, name);
+        mUndoStack->push(cmd);
+    }
 }
 
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
