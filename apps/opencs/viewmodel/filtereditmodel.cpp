@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QtXml/QDomDocument>
 #include <QIcon>
+#include <QMetaProperty>
 
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
@@ -98,7 +99,7 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     if (name == "SetOperation")
     {
         QString type = element.attribute("type", "Union");
-        SetOperationFilter::OperationType matchType;
+        SetOperationFilter::OperationType matchType = SetOperationFilter::Union;
         if(type == "Union")
         {
             matchType = SetOperationFilter::Union;
@@ -116,20 +117,28 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     }
     else if (name == "Match")
     {
-        QDomElement keyElement = element.firstChildElement("Key");
-        QDomElement matchElement = element.firstChildElement("Value");
-
         QString matchTypeName = element.attribute("type", "Exact");
+
         MatchFilter::MatchType matchType = MatchFilter::Exact;
-        if(matchTypeName == "Exact") {
+        if(matchTypeName == "Exact")
+        {
             matchType = MatchFilter::Exact;
-        } else if(matchTypeName == "Wildcard") {
+        }
+        else if(matchTypeName == "Wildcard")
+        {
             matchType = MatchFilter::Wildcard;
-        } else if(matchTypeName == "Regex") {
+        }
+        else if(matchTypeName == "Regex")
+        {
             matchType = MatchFilter::Regex;
-        } else {
+        }
+        else
+        {
             qWarning() << "Unknown match type" << matchTypeName;
         }
+
+        QDomElement keyElement = element.firstChildElement("Key");
+        QDomElement matchElement = element.firstChildElement("Value");
 
         childFilter = new MatchFilter(matchType, keyElement.text(), matchElement.text(), parent);
     }
@@ -147,23 +156,28 @@ void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
     childFilter->setEnabled(enabled == "true" ? true : false);
 
 
-    QDomElement childName = element.firstChildElement("Name");
-    childFilter->setName(childName.text());
-
+    QString childName;
 
     FilterList* childFilterList = dynamic_cast<FilterList*>(childFilter);
-    if(childFilterList) {
+    if(childFilterList)
+    {
         QDomNode childNode = element.firstChild();
         while (!childNode.isNull())
         {
             if (childNode.isElement())
             {
                 QDomElement childElement = childNode.toElement();
-                readFilter(childElement, childFilter);
+
+                if(childElement.tagName() == "Name")
+                    childName = childElement.text();
+                else
+                    readFilter(childElement, childFilter);
             }
             childNode = childNode.nextSibling();
         }
     }
+
+    childFilter->setName(childName);
 
     FilterList* parentFilter = dynamic_cast<FilterList*>(parent);
     if (parentFilter)
@@ -187,7 +201,9 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         switch(role)
         {
         case Qt::DisplayRole:
+        {
             return filter->name();
+        }
         case Qt::CheckStateRole:
             return filter->enabled() ? Qt::Checked : Qt::Unchecked;
         case ItemCommandsRole:
