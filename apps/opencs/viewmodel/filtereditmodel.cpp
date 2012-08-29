@@ -381,56 +381,23 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     int column = index.column();
     Filter *filter = static_cast<Filter*>(index.internalPointer());
 
-    if(column == 0) {
-        if (role == Qt::CheckStateRole) {
-            bool newValue = value == Qt::Checked ? true : false;
-            EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, "enabled", newValue);
-            mUndoStack->push(cmd);
 
-            return true;
-        }
-        else if (role == Qt::EditRole) {
-            EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, "name", value.toString());
-            mUndoStack->push(cmd);
-            return true;
-        }
+    QMap<QPair<int, int>, QString> commands;
+
+    commands.insert(QPair<int, int>(0, Qt::CheckStateRole), "enabled");
+    commands.insert(QPair<int, int>(0, Qt::EditRole), "name");
+
+    commands.insert(QPair<int, int>(1, Qt::EditRole), "type");
+    commands.insert(QPair<int, int>(2, Qt::EditRole), "key");
+    commands.insert(QPair<int, int>(3, Qt::EditRole), "value");
+
+    QPair<int, int> pair(column, role);
+    if(commands.contains(pair)) {
+        EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, commands[pair], value);
+        mUndoStack->push(cmd);
+
+        return true;
     }
-
-    if (role == Qt::EditRole)
-    {
-        MatchFilter* matchFilter = dynamic_cast<MatchFilter*>(filter);
-        if(matchFilter) {
-            if(column == 1) {
-                MatchFilter::MatchType matchType = (MatchFilter::MatchType)value.toInt();
-
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "type", matchType);
-                mUndoStack->push(cmd);
-                return true;
-            }
-            if(column == 2) {
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "key", value);
-                mUndoStack->push(cmd);
-                return true;
-            }
-            if(column == 3) {
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "value", value);
-                mUndoStack->push(cmd);
-                return true;
-            }
-        }
-
-        SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
-        if(setOpFilter) {
-            if(column == 1) {
-                SetOperationFilter::OperationType matchType = (SetOperationFilter::OperationType)value.toInt();
-
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, setOpFilter, "type", matchType);
-                mUndoStack->push(cmd);
-                return true;
-            }
-        }
-    }
-
     return false;
 }
 
