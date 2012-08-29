@@ -98,6 +98,33 @@ private:
     QString mChildType;
 };
 
+class DeleteChildCommand : public FilterCommand
+{
+public:
+    DeleteChildCommand(FilterEditModel *model, QModelIndex index, Filter *filter)
+        : FilterCommand(model, index, filter)
+    {
+        setText(QString("Delete child"));
+    }
+
+    virtual void undo() {
+    }
+
+    virtual void redo() {
+        FilterList* unionFilter = dynamic_cast<FilterList*>(mFilter);
+        if (unionFilter)
+        {
+            int row = mIndex.row();
+            mModel->emitBeginRemoveRows(mIndex, row, row);
+
+            unionFilter->removeChild(row);
+
+            mModel->emitEndRemoveRowsd();
+        }
+    }
+
+private:
+};
 
 
 
@@ -441,11 +468,8 @@ bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
     FilterList* unionFilter = dynamic_cast<FilterList*>(filter);
     if (unionFilter)
     {
-        beginRemoveRows(parent, row, row + count);
-
-        unionFilter->removeChild(row);
-
-        endRemoveRows();
+        DeleteChildCommand *cmd = new DeleteChildCommand(this, parent, filter);
+        mUndoStack->push(cmd);
         return true;
     } else {
         qWarning() << "Cannot remove child from non collection filter";

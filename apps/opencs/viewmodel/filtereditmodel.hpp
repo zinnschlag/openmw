@@ -59,6 +59,18 @@ public:
       emit endInsertRows();
     }
 
+    //TODO make friend
+    void emitBeginRemoveRows(const QModelIndex& parent, int first, int last)
+    {
+      emit beginRemoveRows(parent, first, last);
+    }
+
+    //TODO make friend
+    void emitEndRemoveRowsd()
+    {
+      emit endRemoveRows();
+    }
+
 private:
     SetOperationFilter *mRootItem;
     QUndoStack *mUndoStack;
