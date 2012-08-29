@@ -31,8 +31,6 @@ OpenCS::OpenCS(QWidget *parent) :
     model = new ESMDataModel(this);
 
     FilterEditModel *filterModel = new FilterEditModel(this);
-    filterModel->load();
-
 
     QDockWidget *idListDock = new QDockWidget("ID List", this);
     idListDock->setFeatures(QDockWidget::AllDockWidgetFeatures);

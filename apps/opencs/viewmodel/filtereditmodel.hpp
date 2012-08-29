@@ -21,10 +21,6 @@ public:
     FilterEditModel(QObject *parent);
     ~FilterEditModel();
 
-    void load();
-    void readFilter(const QDomElement &element, Filter *parent);
-
-
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
     QModelIndex parent(const QModelIndex &index) const;
