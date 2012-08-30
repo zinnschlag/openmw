@@ -1,59 +1,10 @@
 #ifndef ESMDATAITEM_HPP
 #define ESMDATAITEM_HPP
 
-#include <QList>
-#include <QVariant>
+#include "dataitem.hpp"
 
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
-
-
-class DataItem : public QObject
-{
-    Q_OBJECT
-
-public:
-    DataItem(DataItem *parent = 0);
-    ~DataItem();
-
-    DataItem *parent();
-    int row() const;
-
-    int childCount() const;
-    DataItem *child(int row);
-
-    void appendChild(DataItem *child);
-
-private:
-    DataItem *mParentItem;
-    QList<DataItem*> mChildItems;
-};
-
-class EsmFile : public DataItem
-{
-    Q_OBJECT
-    Q_PROPERTY(QString filename READ filename)
-
-public:
-    EsmFile(DataItem *parent = 0)
-        : DataItem(parent)
-    {
-    }
-
-    ~EsmFile()
-    {
-    }
-
-    EsmFile(QString fileName, DataItem *parent);
-
-    QString filename()
-    {
-        return mFileName;
-    }
-
-private:
-    QString mFileName;
-};
 
 class ESMDataItem : public DataItem
 {

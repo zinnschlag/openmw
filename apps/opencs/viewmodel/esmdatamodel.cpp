@@ -9,6 +9,7 @@
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
+#include "../model/esm/esmfile.hpp"
 #include "../model/esm/esmdataitem.hpp"
 #include "../model/esm/activator.hpp"
 #include "../model/esm/potion.hpp"

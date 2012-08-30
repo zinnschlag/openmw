@@ -4,6 +4,8 @@ set(OPENCS_SRC
     main.cpp
     opencs.cpp
 
+    model/esm/dataitem.cpp
+    model/esm/esmfile.cpp
     model/esm/esmdataitem.cpp
     model/esm/activator.cpp
     model/esm/potion.cpp
@@ -28,6 +30,8 @@ set(OPENCS_SRC
 set(OPENCS_HDR
     opencs.hpp
 
+    model/esm/dataitem.hpp
+    model/esm/esmfile.hpp
     model/esm/esmdataitem.hpp
     model/esm/activator.hpp
     model/esm/potion.hpp
