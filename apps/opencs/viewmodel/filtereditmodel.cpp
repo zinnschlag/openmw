@@ -75,11 +75,11 @@ public:
 
         Filter* childFilter;
 
-        if(mChildType == "addMatch")
+        if(mChildType == "Match")
         {
             childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
         }
-        else if(mChildType == "addSetOperation")
+        else if(mChildType == "SetOperation")
         {
             childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
             childFilter->setName("New Set Operation");
@@ -311,14 +311,29 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
             QStringList actionIds;
 
             if (dynamic_cast<FilterList*>(filter)) {
-                actionIds.append("addSetOperation");
-                actionIds.append("addMatch");
+                actionIds.append("add");
+                actionIds.append("add");
                 actionIds.append("-");
             }
 
             actionIds.append("delete");
 
             return actionIds;
+        }
+            break;
+        case ItemParamsRole:
+        {
+            QVariantList params;
+
+            if (dynamic_cast<FilterList*>(filter)) {
+                params.append("SetOperation");
+                params.append("Match");
+                params.append("-");
+            }
+
+            params.append("");
+
+            return params;
         }
             break;
         case Qt:: DecorationRole:
@@ -428,17 +443,21 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-void FilterEditModel::executeCommand(const QString name, const QModelIndex &parent)
+void FilterEditModel::executeCommand(const QModelIndex &parent, const QString commandType, QVariant param)
 {
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
-    if(name == "delete") {
-        DeleteChildCommand *cmd = new DeleteChildCommand(this, parent, filter);
-        mUndoStack->push(cmd);
+    QUndoCommand* cmd;
+
+    if(commandType == "delete") {
+        cmd = new DeleteChildCommand(this, parent, filter);
+    } else if(commandType == "add"){
+        cmd = new AddChildCommand(this, parent, filter, param.toString());
     } else {
-        AddChildCommand *cmd = new AddChildCommand(this, parent, filter, name);
-        mUndoStack->push(cmd);
+        return;
     }
+
+     mUndoStack->push(cmd);
 }
 
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)

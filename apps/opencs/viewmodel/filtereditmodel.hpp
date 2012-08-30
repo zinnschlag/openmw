@@ -15,7 +15,8 @@ class FilterEditModel : public QAbstractItemModel
 
 public:
     enum Roles {
-        ItemCommandsRole = Qt::UserRole + 1
+        ItemCommandsRole = Qt::UserRole + 1,
+        ItemParamsRole
     };
 
     FilterEditModel(QObject *parent);
@@ -32,7 +33,7 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    void executeCommand(const QString name, const QModelIndex &parent);
+    void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
 
     bool accept(QList<QString> headers, QList<QVariant> row);
 
