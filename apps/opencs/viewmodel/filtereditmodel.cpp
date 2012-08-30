@@ -4,19 +4,33 @@
 #include <QFile>
 #include <QtXml/QDomDocument>
 #include <QIcon>
+#include <QMetaProperty>
 
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
 
-class EditPropertyCommand : public QUndoCommand
+class FilterCommand : public QUndoCommand
 {
 public:
-    EditPropertyCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString propertyName, QVariant newValue)
+    FilterCommand(FilterEditModel *model, QModelIndex index, Filter *filter)
         :QUndoCommand()
         , mModel(model)
         , mIndex(index)
         , mFilter(filter)
+    {}
+
+protected:
+    FilterEditModel *mModel;
+    QPersistentModelIndex mIndex;
+    Filter *mFilter;
+};
+
+class EditPropertyCommand : public FilterCommand
+{
+public:
+    EditPropertyCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString propertyName, QVariant newValue)
+        : FilterCommand(model, index, filter)
         , mPropertyName(propertyName)
         , mNewValue(newValue)
     {
@@ -35,15 +49,228 @@ public:
         mModel->emitDataChanged(mIndex);
     }
 private:
-    FilterEditModel *mModel;
-    QPersistentModelIndex mIndex;
-
-    Filter *mFilter;
     QString mPropertyName;
 
     QVariant mOldValue;
     QVariant mNewValue;
 };
+
+
+
+class AddChildCommand : public FilterCommand
+{
+public:
+    AddChildCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString childType)
+        : FilterCommand(model, index, filter)
+        , mChildType(childType)
+    {
+        setText(QString("Add child %1").arg(childType));
+    }
+
+    virtual void undo() {
+    }
+
+    virtual void redo() {
+        FilterList* filterList = dynamic_cast<FilterList*>(mFilter);
+
+        Filter* childFilter;
+
+        if(mChildType == "Match")
+        {
+            childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
+        }
+        else if(mChildType == "SetOperation")
+        {
+            childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
+            childFilter->setName("New Set Operation");
+        }
+        else
+        {
+            qDebug() << "Unknown command" << mChildType;
+            return;
+        }
+
+        mModel->emitBeginInsertRows(mIndex, filterList->childCount(), filterList->childCount());
+        filterList->appendChild(childFilter);
+        mModel->emitEndInsertRows();
+    }
+private:
+    QString mChildType;
+};
+
+class DeleteChildCommand : public FilterCommand
+{
+public:
+    DeleteChildCommand(FilterEditModel *model, QModelIndex index, Filter* filter)
+        : FilterCommand(model, index, filter)
+    {
+        setText(QString("Delete child"));
+    }
+
+    virtual void undo() {
+    }
+
+    virtual void redo() {
+        FilterList* parentList = dynamic_cast<FilterList*>(mFilter->parent());
+        if (parentList)
+        {
+            int row = mIndex.row();
+            mModel->emitBeginRemoveRows(mIndex.parent(), row, row);
+
+            parentList->removeChild(row);
+
+            mModel->emitEndRemoveRows();
+        } else {
+            qWarning() << "Cannot remove child from non collection filter";
+        }
+    }
+};
+
+
+
+class LoadXmlCommand : public FilterCommand
+{
+public:
+    LoadXmlCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString filePath)
+        : FilterCommand(model, index, filter)
+        , mFile(filePath)
+    {
+        setText(QString("Load XML %1").arg(filePath));
+    }
+
+    virtual void undo() {
+    }
+
+    virtual void redo() {
+        load();
+    }
+
+    void load()
+    {
+        if (mFile.open(QIODevice::ReadOnly))
+        {
+            QDomDocument document("FilterTree");
+
+            QString parseError;
+            int parseErrorRow;
+            int parseErrorColumn;
+
+            if (document.setContent(&mFile, &parseError, &parseErrorRow, &parseErrorColumn))
+                readFilter(document.firstChildElement(), mFilter);
+            else
+                qDebug() << "Parse error" << parseError << parseErrorRow << parseErrorColumn;
+
+            mFile.close();
+        }
+        else
+            qDebug() << "Opening file failed";
+
+        mModel->emitDataChanged(QModelIndex());
+    }
+
+    void readFilter(const QDomElement &element, Filter *parent)
+    {
+
+        Filter *childFilter = 0;
+
+        QString name = element.tagName();
+        if (name == "SetOperation")
+        {
+            QString type = element.attribute("type", "Union");
+            SetOperationFilter::OperationType matchType = SetOperationFilter::Union;
+            if(type == "Union")
+            {
+                matchType = SetOperationFilter::Union;
+            }
+            else if(type == "Intersection")
+            {
+                matchType = SetOperationFilter::Intersection;
+            }
+            else
+            {
+                qWarning() << "Unknown type" << type;
+            }
+
+            childFilter = new SetOperationFilter(matchType, parent);
+        }
+        else if (name == "Match")
+        {
+            QString matchTypeName = element.attribute("type", "Exact");
+
+            MatchFilter::MatchType matchType = MatchFilter::Exact;
+            if(matchTypeName == "Exact")
+            {
+                matchType = MatchFilter::Exact;
+            }
+            else if(matchTypeName == "Wildcard")
+            {
+                matchType = MatchFilter::Wildcard;
+            }
+            else if(matchTypeName == "Regex")
+            {
+                matchType = MatchFilter::Regex;
+            }
+            else
+            {
+                qWarning() << "Unknown match type" << matchTypeName;
+            }
+
+            QDomElement keyElement = element.firstChildElement("Key");
+            QDomElement matchElement = element.firstChildElement("Value");
+
+            childFilter = new MatchFilter(matchType, keyElement.text(), matchElement.text(), parent);
+        }
+        else if (name == "Default")
+        {
+            childFilter = new DefaultFilter(parent);
+        }
+        else
+        {
+            qWarning() << "Unknown filter type" << element.tagName();
+            return;
+        }
+
+        QString enabled = element.attribute("active", "true");
+        childFilter->setEnabled(enabled == "true" ? true : false);
+
+
+        QString childName;
+
+        FilterList* childFilterList = dynamic_cast<FilterList*>(childFilter);
+        if(childFilterList)
+        {
+            QDomNode childNode = element.firstChild();
+            while (!childNode.isNull())
+            {
+                if (childNode.isElement())
+                {
+                    QDomElement childElement = childNode.toElement();
+
+                    if(childElement.tagName() == "Name")
+                        childName = childElement.text();
+                    else
+                        readFilter(childElement, childFilter);
+                }
+                childNode = childNode.nextSibling();
+            }
+        }
+
+        childFilter->setName(childName);
+
+        FilterList* parentFilter = dynamic_cast<FilterList*>(parent);
+        if (parentFilter)
+            parentFilter->appendChild(childFilter);
+        else
+            qWarning() << "Parent is not a collection";
+    }
+
+private:
+    QFile mFile;
+};
+
+
+
+
 
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
@@ -52,128 +279,15 @@ FilterEditModel::FilterEditModel(QObject *parent)
     mRootItem->setName("root");
 
     mUndoStack = new QUndoStack(this);
+
+    LoadXmlCommand *cmd = new LoadXmlCommand(this, QModelIndex(), mRootItem, ":/filters.xml");
+    mUndoStack->push(cmd);
 }
 
 FilterEditModel::~FilterEditModel()
 {
     delete mRootItem;
 }
-
-void FilterEditModel::load()
-{
-    SetOperationFilter *newRoot = new SetOperationFilter(SetOperationFilter::Union);
-    newRoot->setName("root");
-
-    QFile file(":/filters.xml");
-    if (file.open(QIODevice::ReadOnly))
-    {
-        QDomDocument document("FilterTree");
-
-        QString parseError;
-        int parseErrorRow;
-        int parseErrorColumn;
-
-        if (document.setContent(&file, &parseError, &parseErrorRow, &parseErrorColumn))
-            readFilter(document.firstChildElement(), newRoot);
-        else
-            qDebug() << "Parse error" << parseError << parseErrorRow << parseErrorColumn;
-
-        file.close();
-    }
-    else
-        qDebug() << "Opening file failed";
-
-
-    mRootItem = newRoot;
-
-    emit dataChanged(QModelIndex(), QModelIndex());
-}
-
-void FilterEditModel::readFilter(const QDomElement &element, Filter *parent)
-{
-
-    Filter *childFilter = 0;
-
-    QString name = element.tagName();
-    if (name == "SetOperation")
-    {
-        QString type = element.attribute("type", "Union");
-        SetOperationFilter::OperationType matchType;
-        if(type == "Union")
-        {
-            matchType = SetOperationFilter::Union;
-        }
-        else if(type == "Intersection")
-        {
-            matchType = SetOperationFilter::Intersection;
-        }
-        else
-        {
-            qWarning() << "Unknown type" << type;
-        }
-
-        childFilter = new SetOperationFilter(matchType, parent);
-    }
-    else if (name == "Match")
-    {
-        QDomElement keyElement = element.firstChildElement("Key");
-        QDomElement matchElement = element.firstChildElement("Value");
-
-        QString matchTypeName = element.attribute("type", "Exact");
-        MatchFilter::MatchType matchType = MatchFilter::Exact;
-        if(matchTypeName == "Exact") {
-            matchType = MatchFilter::Exact;
-        } else if(matchTypeName == "Wildcard") {
-            matchType = MatchFilter::Wildcard;
-        } else if(matchTypeName == "Regex") {
-            matchType = MatchFilter::Regex;
-        } else {
-            qWarning() << "Unknown match type" << matchTypeName;
-        }
-
-        childFilter = new MatchFilter(matchType, keyElement.text(), matchElement.text(), parent);
-    }
-    else if (name == "Default")
-    {
-        childFilter = new DefaultFilter(parent);
-    }
-    else
-    {
-        qWarning() << "Unknown filter type" << element.tagName();
-        return;
-    }
-
-    QString enabled = element.attribute("active", "true");
-    childFilter->setEnabled(enabled == "true" ? true : false);
-
-
-    QDomElement childName = element.firstChildElement("Name");
-    childFilter->setName(childName.text());
-
-
-    FilterList* childFilterList = dynamic_cast<FilterList*>(childFilter);
-    if(childFilterList) {
-        QDomNode childNode = element.firstChild();
-        while (!childNode.isNull())
-        {
-            if (childNode.isElement())
-            {
-                QDomElement childElement = childNode.toElement();
-                readFilter(childElement, childFilter);
-            }
-            childNode = childNode.nextSibling();
-        }
-    }
-
-    FilterList* parentFilter = dynamic_cast<FilterList*>(parent);
-    if (parentFilter)
-        parentFilter->appendChild(childFilter);
-    else
-        qWarning() << "Parent is not a collection";
-}
-
-
-
 
 QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 {
@@ -187,7 +301,9 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         switch(role)
         {
         case Qt::DisplayRole:
+        {
             return filter->name();
+        }
         case Qt::CheckStateRole:
             return filter->enabled() ? Qt::Checked : Qt::Unchecked;
         case ItemCommandsRole:
@@ -195,14 +311,29 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
             QStringList actionIds;
 
             if (dynamic_cast<FilterList*>(filter)) {
-                actionIds.append("addSetOperation");
-                actionIds.append("addMatch");
+                actionIds.append("add");
+                actionIds.append("add");
                 actionIds.append("-");
             }
 
             actionIds.append("delete");
 
             return actionIds;
+        }
+            break;
+        case ItemParamsRole:
+        {
+            QVariantList params;
+
+            if (dynamic_cast<FilterList*>(filter)) {
+                params.append("SetOperation");
+                params.append("Match");
+                params.append("-");
+            }
+
+            params.append("");
+
+            return params;
         }
             break;
         case Qt:: DecorationRole:
@@ -265,56 +396,23 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     int column = index.column();
     Filter *filter = static_cast<Filter*>(index.internalPointer());
 
-    if(column == 0) {
-        if (role == Qt::CheckStateRole) {
-            bool newValue = value == Qt::Checked ? true : false;
-            EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, "enabled", newValue);
-            mUndoStack->push(cmd);
 
-            return true;
-        }
-        else if (role == Qt::EditRole) {
-            EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, "name", value.toString());
-            mUndoStack->push(cmd);
-            return true;
-        }
+    QMap<QPair<int, int>, QString> commands;
+
+    commands.insert(QPair<int, int>(0, Qt::CheckStateRole), "enabled");
+    commands.insert(QPair<int, int>(0, Qt::EditRole), "name");
+
+    commands.insert(QPair<int, int>(1, Qt::EditRole), "type");
+    commands.insert(QPair<int, int>(2, Qt::EditRole), "key");
+    commands.insert(QPair<int, int>(3, Qt::EditRole), "value");
+
+    QPair<int, int> pair(column, role);
+    if(commands.contains(pair)) {
+        EditPropertyCommand *cmd = new EditPropertyCommand(this, index, filter, commands[pair], value);
+        mUndoStack->push(cmd);
+
+        return true;
     }
-
-    if (role == Qt::EditRole)
-    {
-        MatchFilter* matchFilter = dynamic_cast<MatchFilter*>(filter);
-        if(matchFilter) {
-            if(column == 1) {
-                MatchFilter::MatchType matchType = (MatchFilter::MatchType)value.toInt();
-
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "type", matchType);
-                mUndoStack->push(cmd);
-                return true;
-            }
-            if(column == 2) {
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "key", value);
-                mUndoStack->push(cmd);
-                return true;
-            }
-            if(column == 3) {
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, matchFilter, "value", value);
-                mUndoStack->push(cmd);
-                return true;
-            }
-        }
-
-        SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
-        if(setOpFilter) {
-            if(column == 1) {
-                SetOperationFilter::OperationType matchType = (SetOperationFilter::OperationType)value.toInt();
-
-                EditPropertyCommand *cmd = new EditPropertyCommand(this, index, setOpFilter, "type", matchType);
-                mUndoStack->push(cmd);
-                return true;
-            }
-        }
-    }
-
     return false;
 }
 
@@ -345,55 +443,21 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-bool FilterEditModel::removeRows(int row, int count, const QModelIndex &parent)
+void FilterEditModel::executeCommand(const QModelIndex &parent, const QString commandType, QVariant param)
 {
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
-    FilterList* unionFilter = dynamic_cast<FilterList*>(filter);
-    if (unionFilter)
-    {
-        beginRemoveRows(parent, row, row + count);
+    QUndoCommand* cmd;
 
-        unionFilter->removeChild(row);
-
-        endRemoveRows();
-        return true;
+    if(commandType == "delete") {
+        cmd = new DeleteChildCommand(this, parent, filter);
+    } else if(commandType == "add"){
+        cmd = new AddChildCommand(this, parent, filter, param.toString());
     } else {
-        qWarning() << "Cannot remove child from non collection filter";
-        return false;
-    }
-}
-
-void FilterEditModel::executeCommand(const QString name, const QModelIndex &parent)
-{
-    if(name == "delete") {
-         removeRow(parent.row(), parent.parent());
-         return;
-    }
-
-    Filter* filter = static_cast<Filter*>(parent.internalPointer());
-    FilterList* filterList = dynamic_cast<FilterList*>(filter);
-
-    Filter* childFilter;
-
-    if(name == "addMatch")
-    {
-        childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
-    }
-    else if(name == "addSetOperation")
-    {
-        childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
-        childFilter->setName("New Set Operation");
-    }
-    else
-    {
-        qDebug() << "Unknown command" << name;
         return;
     }
 
-    beginInsertRows(parent, filterList->childCount(), filterList->childCount());
-    filterList->appendChild(childFilter);
-    endInsertRows();
+     mUndoStack->push(cmd);
 }
 
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)

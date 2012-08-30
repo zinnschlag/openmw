@@ -15,15 +15,12 @@ class FilterEditModel : public QAbstractItemModel
 
 public:
     enum Roles {
-        ItemCommandsRole = Qt::UserRole + 1
+        ItemCommandsRole = Qt::UserRole + 1,
+        ItemParamsRole
     };
 
     FilterEditModel(QObject *parent);
     ~FilterEditModel();
-
-    void load();
-    void readFilter(const QDomElement &element, Filter *parent);
-
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
@@ -36,9 +33,7 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    bool removeRows(int row, int count, const QModelIndex &parent);
-
-    void executeCommand(const QString name, const QModelIndex &parent);
+    void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
 
     bool accept(QList<QString> headers, QList<QVariant> row);
 
@@ -49,6 +44,30 @@ public:
     void emitDataChanged(const QModelIndex &index)
     {
       emit dataChanged(index, index);
+    }
+
+    //TODO make friend
+    void emitBeginInsertRows(const QModelIndex& parent, int first, int last)
+    {
+      beginInsertRows(parent, first, last);
+    }
+
+    //TODO make friend
+    void emitEndInsertRows()
+    {
+      endInsertRows();
+    }
+
+    //TODO make friend
+    void emitBeginRemoveRows(const QModelIndex& parent, int first, int last)
+    {
+      beginRemoveRows(parent, first, last);
+    }
+
+    //TODO make friend
+    void emitEndRemoveRows()
+    {
+      endRemoveRows();
     }
 
 private:
