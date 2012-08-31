@@ -5,6 +5,19 @@
 
 #include "../../viewmodel/filtereditmodel.hpp"
 
+#include <QIdentityProxyModel>
+
+class SimpleTreeProxyModel : public QIdentityProxyModel
+{
+public :
+    explicit SimpleTreeProxyModel(QObject* parent = 0) : QIdentityProxyModel(parent){}
+
+    int columnCount(const QModelIndex &parent) const
+    {
+        return 1;
+    }
+};
+
 namespace Ui
 {
     class FilterTree;
@@ -20,13 +33,15 @@ public:
 
     void setModel(FilterEditModel *model);
 
-    QSize sizeHint() const;
-
 signals:
     void indexSelected(const QModelIndex& index);
 
 private:
     FilterEditModel *mModel;
+
+    bool mSimpleView;
+    SimpleTreeProxyModel *mSimpleModel;
+
     QModelIndex mContextMenuModelIndex;
 
 private slots:
