@@ -11,9 +11,10 @@
 
 #include "../model/esm/esmfile.hpp"
 #include "../model/esm/esmdataitem.hpp"
-#include "../model/esm/activator.hpp"
-#include "../model/esm/potion.hpp"
-#include "../model/esm/script.hpp"
+
+#include "../model/esm/record/activator.hpp"
+#include "../model/esm/record/potion.hpp"
+#include "../model/esm/record/script.hpp"
 
 ESMDataModel::ESMDataModel(QObject *parent)
     : QAbstractTableModel(parent)

@@ -1,7 +1,7 @@
 #ifndef ACTIVATOR_HPP
 #define ACTIVATOR_HPP
 
-#include "esmdataitem.hpp"
+#include "../esmdataitem.hpp"
 
 
 class ActivatorDataItem : public ESMDataItem

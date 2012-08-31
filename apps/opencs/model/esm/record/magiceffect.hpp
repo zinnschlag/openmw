@@ -1,7 +1,7 @@
 #ifndef MAGICEFFECT_HPP
 #define MAGICEFFECT_HPP
 
-#include "esmdataitem.hpp"
+#include "../esmdataitem.hpp"
 
 class MagicEffectDataItem : public ESMDataItem
 {

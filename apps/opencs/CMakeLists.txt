@@ -7,10 +7,10 @@ set(OPENCS_SRC
     model/esm/dataitem.cpp
     model/esm/esmfile.cpp
     model/esm/esmdataitem.cpp
-    model/esm/activator.cpp
-    model/esm/potion.cpp
-    model/esm/magiceffect.cpp
-    model/esm/script.cpp
+    model/esm/record/activator.cpp
+    model/esm/record/potion.cpp
+    model/esm/record/magiceffect.cpp
+    model/esm/record/script.cpp
 
     model/filter/filter.cpp
     model/filter/defaultfilter.cpp
@@ -33,10 +33,10 @@ set(OPENCS_HDR
     model/esm/dataitem.hpp
     model/esm/esmfile.hpp
     model/esm/esmdataitem.hpp
-    model/esm/activator.hpp
-    model/esm/potion.hpp
-    model/esm/magiceffect.hpp
-    model/esm/script.hpp
+    model/esm/record/activator.hpp
+    model/esm/record/potion.hpp
+    model/esm/record/magiceffect.hpp
+    model/esm/record/script.hpp
 
     model/filter/filter.hpp
     model/filter/defaultfilter.hpp
