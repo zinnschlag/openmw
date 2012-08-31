@@ -15,7 +15,7 @@ IdList::IdList(QWidget *parent)
     mFilterProxyModel = new FilterProxyModel(this);
 
     IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
-    tableView->setItemDelegate(itemDelegate);
+    //tableView->setItemDelegate(itemDelegate);
 
     tableView->setModel(mFilterProxyModel);
     tableView->verticalHeader()->setDefaultSectionSize(tableView->verticalHeader()->minimumSectionSize());
@@ -25,7 +25,6 @@ IdList::IdList(QWidget *parent)
 
 IdList::~IdList()
 {
-    //delete ui;
 }
 
 void IdList::setModel(QAbstractItemModel *model)

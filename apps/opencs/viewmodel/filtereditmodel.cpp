@@ -237,22 +237,22 @@ public:
         QString childName;
 
         FilterList* childFilterList = dynamic_cast<FilterList*>(childFilter);
-        if(childFilterList)
-        {
-            QDomNode childNode = element.firstChild();
-            while (!childNode.isNull())
-            {
-                if (childNode.isElement())
-                {
-                    QDomElement childElement = childNode.toElement();
 
-                    if(childElement.tagName() == "Name")
-                        childName = childElement.text();
-                    else
+        QDomNode childNode = element.firstChild();
+        while (!childNode.isNull())
+        {
+            if (childNode.isElement())
+            {
+                QDomElement childElement = childNode.toElement();
+
+                if(childElement.tagName() == "Name")
+                    childName = childElement.text();
+                else
+                    if(childFilterList)
                         readFilter(childElement, childFilter);
-                }
-                childNode = childNode.nextSibling();
+
             }
+            childNode = childNode.nextSibling();
         }
 
         childFilter->setName(childName);

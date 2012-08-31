@@ -1,7 +1,7 @@
 #ifndef POTION_HPP
 #define POTION_HPP
 
-#include "esmdataitem.hpp"
+#include "../esmdataitem.hpp"
 #include "magiceffect.hpp"
 
 class PotionDataItem : public ESMDataItem
