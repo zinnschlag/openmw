@@ -15,6 +15,7 @@
 #include "../model/esm/record/activator.hpp"
 #include "../model/esm/record/potion.hpp"
 #include "../model/esm/record/script.hpp"
+#include "../model/esm/record/setting.hpp"
 
 ESMDataModel::ESMDataModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -65,6 +66,9 @@ void ESMDataModel::loadEsmFile(QString file)
             break;
         case ESM::REC_SCPT:
             child = new ScriptDataItem(esmFile);
+            break;
+        case ESM::REC_GMST:
+            child = new SettingDataItem(esmFile);
             break;
         default:
             child = new ESMDataItem(esmFile);

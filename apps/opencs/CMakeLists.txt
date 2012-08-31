@@ -11,6 +11,7 @@ set(OPENCS_SRC
     model/esm/record/potion.cpp
     model/esm/record/magiceffect.cpp
     model/esm/record/script.cpp
+    model/esm/record/setting.cpp
 
     model/filter/filter.cpp
     model/filter/defaultfilter.cpp
@@ -37,6 +38,7 @@ set(OPENCS_HDR
     model/esm/record/potion.hpp
     model/esm/record/magiceffect.hpp
     model/esm/record/script.hpp
+    model/esm/record/setting.hpp
 
     model/filter/filter.hpp
     model/filter/defaultfilter.hpp
