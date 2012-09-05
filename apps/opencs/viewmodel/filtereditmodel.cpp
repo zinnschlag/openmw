@@ -10,6 +10,8 @@
 #include "../model/filter/matchfilter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
 
+
+
 class FilterCommand : public QUndoCommand
 {
 public:
@@ -118,145 +120,6 @@ public:
     }
 };
 
-
-
-class LoadXmlCommand : public FilterCommand
-{
-public:
-    LoadXmlCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString filePath)
-        : FilterCommand(model, index, filter)
-        , mFile(filePath)
-    {
-        setText(QString("Load XML %1").arg(filePath));
-    }
-
-    virtual void undo() {
-    }
-
-    virtual void redo() {
-        load();
-    }
-
-    void load()
-    {
-        if (mFile.open(QIODevice::ReadOnly))
-        {
-            QDomDocument document("FilterTree");
-
-            QString parseError;
-            int parseErrorRow;
-            int parseErrorColumn;
-
-            if (document.setContent(&mFile, &parseError, &parseErrorRow, &parseErrorColumn))
-                readFilter(document.firstChildElement(), mFilter);
-            else
-                qDebug() << "Parse error" << parseError << parseErrorRow << parseErrorColumn;
-
-            mFile.close();
-        }
-        else
-            qDebug() << "Opening file failed";
-
-        mModel->emitDataChanged(QModelIndex());
-    }
-
-    void readFilter(const QDomElement &element, Filter *parent)
-    {
-
-        Filter *childFilter = 0;
-
-        QString name = element.tagName();
-        if (name == "SetOperation")
-        {
-            QString type = element.attribute("type", "Union");
-            SetOperationFilter::OperationType matchType = SetOperationFilter::Union;
-            if(type == "Union")
-            {
-                matchType = SetOperationFilter::Union;
-            }
-            else if(type == "Intersection")
-            {
-                matchType = SetOperationFilter::Intersection;
-            }
-            else
-            {
-                qWarning() << "Unknown type" << type;
-            }
-
-            childFilter = new SetOperationFilter(matchType, parent);
-        }
-        else if (name == "Match")
-        {
-            QString matchTypeName = element.attribute("type", "Exact");
-
-            MatchFilter::MatchType matchType = MatchFilter::Exact;
-            if(matchTypeName == "Exact")
-            {
-                matchType = MatchFilter::Exact;
-            }
-            else if(matchTypeName == "Wildcard")
-            {
-                matchType = MatchFilter::Wildcard;
-            }
-            else if(matchTypeName == "Regex")
-            {
-                matchType = MatchFilter::Regex;
-            }
-            else
-            {
-                qWarning() << "Unknown match type" << matchTypeName;
-            }
-
-            QDomElement keyElement = element.firstChildElement("Key");
-            QDomElement matchElement = element.firstChildElement("Value");
-
-            childFilter = new MatchFilter(matchType, keyElement.text(), matchElement.text(), parent);
-        }
-        else if (name == "Default")
-        {
-            childFilter = new DefaultFilter(parent);
-        }
-        else
-        {
-            qWarning() << "Unknown filter type" << element.tagName();
-            return;
-        }
-
-        QString enabled = element.attribute("active", "true");
-        childFilter->setEnabled(enabled == "true" ? true : false);
-
-
-        QString childName;
-
-        QDomNode childNode = element.firstChild();
-        while (!childNode.isNull())
-        {
-            if (childNode.isElement())
-            {
-                QDomElement childElement = childNode.toElement();
-
-                if(childElement.tagName() == "Name")
-                    childName = childElement.text();
-                else
-                    readFilter(childElement, childFilter);
-
-            }
-            childNode = childNode.nextSibling();
-        }
-
-        childFilter->setName(childName);
-
-        parent->appendChild(childFilter);
-    }
-
-private:
-    QFile mFile;
-};
-
-
-
-
-
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
@@ -265,8 +128,10 @@ FilterEditModel::FilterEditModel(QObject *parent)
 
     mUndoStack = new QUndoStack(this);
 
-    LoadXmlCommand *cmd = new LoadXmlCommand(this, QModelIndex(), mRootItem, ":/filters.xml");
-    mUndoStack->push(cmd);
+
+    Filter* filterFile = mFilterDom->loadFile(":/filters.xml", mRootItem);
+
+    mRootItem->appendChild(filterFile);
 }
 
 FilterEditModel::~FilterEditModel()

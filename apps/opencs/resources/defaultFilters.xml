@@ -1,7 +1,7 @@
 <!DOCTYPE FilterTree>
 <SetOperation type="Union">
   <Name>Default filters</Name>
-  
+  <ChildItems>
     <Default active="false">
       <Name>Any</Name>
     </Default>
@@ -14,41 +14,45 @@
     
     <SetOperation type="Union">
       <Name>Record Types</Name>
-      <Match type="Exact" active="false">
-	  <Name>Game Setting</Name>
-	  <Key>mwType</Key>
-	  <Value>GMST</Value>
-      </Match>
-      <Match type="Exact" active="false">
-	  <Name>Activator</Name>
-	  <Key>mwType</Key>
-	  <Value>ACTI</Value>
-      </Match>
-      <Match type="Exact">
-	  <Name>Potion</Name>
-	  <Key>mwType</Key>
-	  <Value>ALCH</Value>
-      </Match>
-      <Match type="Exact" active="false">
-	  <Name>Script</Name>
-	  <Key>mwType</Key>
-	  <Value>SCPT</Value>
-      </Match>
+      <ChildItems>
+        <Match type="Exact" active="false">
+          <Name>Game Setting</Name>
+          <Key>mwType</Key>
+          <Value>GMST</Value>
+        </Match>
+        <Match type="Exact" active="false">
+          <Name>Activator</Name>
+          <Key>mwType</Key>
+          <Value>ACTI</Value>
+        </Match>
+        <Match type="Exact">
+          <Name>Potion</Name>
+          <Key>mwType</Key>
+          <Value>ALCH</Value>
+        </Match>
+        <Match type="Exact" active="false">
+          <Name>Script</Name>
+          <Key>mwType</Key>
+          <Value>SCPT</Value>
+        </Match>
+      </ChildItems>
     </SetOperation>
     
     <SetOperation type="Intersection" active="false">
       <Name>Activators with Sound</Name>
+      <ChildItems>
       <Match type="Exact">
-	<Name>Activator</Name>
-	<Key>mwType</Key>
-	<Value>ACTI</Value>
+        <Name>Activator</Name>
+        <Key>mwType</Key>
+        <Value>ACTI</Value>
       </Match>
-      <Match type="Regex">
-	<Name>Sound</Name>
+        <Match type="Regex">
+        <Name>Sound</Name>
         <Key>script</Key>
         <Value>Sound.*</Value>
       </Match>
+      </ChildItems>
     </SetOperation>
-    
+  </ChildItems>
 </SetOperation>
 

@@ -20,6 +20,8 @@ set(OPENCS_SRC
     model/filter/matchfilter.cpp
     model/filter/setoperationfilter.cpp
 
+    persistence/filter/filterdom.cpp
+
     viewmodel/esmdatamodel.cpp
     viewmodel/filtereditmodel.cpp
     viewmodel/filterproxymodel.cpp
@@ -48,6 +50,8 @@ set(OPENCS_HDR
     model/filter/defaultfilter.hpp
     model/filter/matchfilter.hpp
     model/filter/setoperationfilter.hpp
+
+    persistence/filter/filterdom.hpp
 
     viewmodel/esmdatamodel.hpp
     viewmodel/filtereditmodel.hpp

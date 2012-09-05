@@ -4,7 +4,7 @@
 #include <QAbstractItemModel>
 #include <QUndoStack>
 
-#include <QtXml/QDomElement>
+#include "../persistence/filter/filterdom.hpp"
 
 #include "../model/filter/filter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
@@ -73,6 +73,8 @@ public:
 private:
     SetOperationFilter *mRootItem;
     QUndoStack *mUndoStack;
+
+    FilterDom *mFilterDom;
 };
 
 #endif
