@@ -4,6 +4,8 @@ set(OPENCS_SRC
     main.cpp
     opencs.cpp
 
+    model/modelitem.cpp
+
     model/esm/dataitem.cpp
     model/esm/esmfile.cpp
     model/esm/esmdataitem.cpp
@@ -30,6 +32,8 @@ set(OPENCS_SRC
 
 set(OPENCS_HDR
     opencs.hpp
+
+    model/modelitem.hpp
 
     model/esm/dataitem.hpp
     model/esm/esmfile.hpp
