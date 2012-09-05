@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-SettingDataItem::SettingDataItem(DataItem *parent)
+SettingDataItem::SettingDataItem(ModelItem *parent)
     : ESMDataItem(parent)
 {}
 

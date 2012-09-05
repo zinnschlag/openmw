@@ -10,6 +10,8 @@
 #include <QMetaProperty>
 #include <QStringList>
 
+#include "../model/modelitem.hpp"
+
 class DataItem;
 
 class ESMDataModel : public QAbstractTableModel
@@ -37,10 +39,10 @@ public:
 
 private:
 
-    QVariant valueAtColumn(const DataItem *rowItem, int column) const;
+    QVariant valueAtColumn(const ModelItem *rowItem, int column) const;
 
-    DataItem *mRootItem;
-    DataItem *mMerged;
+    ModelItem *mRootItem;
+    ModelItem *mMerged;
 
     int mRowCount;
 

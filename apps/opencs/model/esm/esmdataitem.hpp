@@ -1,19 +1,19 @@
 #ifndef ESMDATAITEM_HPP
 #define ESMDATAITEM_HPP
 
-#include "dataitem.hpp"
+#include "../modelitem.hpp"
 
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
-class ESMDataItem : public DataItem
+class ESMDataItem : public ModelItem
 {
     Q_OBJECT
     Q_PROPERTY(QString mwType READ type)
     Q_PROPERTY(QString mwId READ id WRITE setId)
 
 public:
-    ESMDataItem(DataItem *parent = 0) : DataItem(parent) {}
+    ESMDataItem(ModelItem *parent = 0) : ModelItem(parent) {}
     ~ESMDataItem()
     {
     }

@@ -12,7 +12,7 @@ class ScriptDataItem : public ESMDataItem
     Q_PROPERTY(QString text READ text)
 
 public:
-    ScriptDataItem(DataItem *parent);
+    explicit ScriptDataItem(ModelItem *parent);
 
     virtual void load(ESM::ESMReader &esm)
     {
