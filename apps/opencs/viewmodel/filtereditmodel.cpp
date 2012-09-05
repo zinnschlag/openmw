@@ -71,17 +71,15 @@ public:
     }
 
     virtual void redo() {
-        FilterList* filterList = dynamic_cast<FilterList*>(mFilter);
-
         Filter* childFilter;
 
         if(mChildType == "Match")
         {
-            childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", filterList);
+            childFilter = new MatchFilter(MatchFilter::Exact, "foo", "bar", mFilter);
         }
         else if(mChildType == "SetOperation")
         {
-            childFilter = new SetOperationFilter(SetOperationFilter::Union, filterList);
+            childFilter = new SetOperationFilter(SetOperationFilter::Union, mFilter);
             childFilter->setName("New Set Operation");
         }
         else
@@ -90,8 +88,8 @@ public:
             return;
         }
 
-        mModel->emitBeginInsertRows(mIndex, filterList->childCount(), filterList->childCount());
-        filterList->appendChild(childFilter);
+        mModel->emitBeginInsertRows(mIndex, mFilter->childCount(), mFilter->childCount());
+        mFilter->appendChild(childFilter);
         mModel->emitEndInsertRows();
     }
 private:
@@ -111,18 +109,12 @@ public:
     }
 
     virtual void redo() {
-        FilterList* parentList = dynamic_cast<FilterList*>(mFilter->parent());
-        if (parentList)
-        {
-            int row = mIndex.row();
-            mModel->emitBeginRemoveRows(mIndex.parent(), row, row);
+        int row = mIndex.row();
+        mModel->emitBeginRemoveRows(mIndex.parent(), row, row);
 
-            parentList->removeChild(row);
+        mFilter->parent()->removeChild(row);
 
-            mModel->emitEndRemoveRows();
-        } else {
-            qWarning() << "Cannot remove child from non collection filter";
-        }
+        mModel->emitEndRemoveRows();
     }
 };
 
@@ -236,8 +228,6 @@ public:
 
         QString childName;
 
-        FilterList* childFilterList = dynamic_cast<FilterList*>(childFilter);
-
         QDomNode childNode = element.firstChild();
         while (!childNode.isNull())
         {
@@ -248,8 +238,7 @@ public:
                 if(childElement.tagName() == "Name")
                     childName = childElement.text();
                 else
-                    if(childFilterList)
-                        readFilter(childElement, childFilter);
+                    readFilter(childElement, childFilter);
 
             }
             childNode = childNode.nextSibling();
@@ -257,11 +246,7 @@ public:
 
         childFilter->setName(childName);
 
-        FilterList* parentFilter = dynamic_cast<FilterList*>(parent);
-        if (parentFilter)
-            parentFilter->appendChild(childFilter);
-        else
-            qWarning() << "Parent is not a collection";
+        parent->appendChild(childFilter);
     }
 
 private:
@@ -310,7 +295,8 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         {
             QStringList actionIds;
 
-            if (dynamic_cast<FilterList*>(filter)) {
+            //TODO
+            if (dynamic_cast<SetOperationFilter*>(filter)) {
                 actionIds.append("add");
                 actionIds.append("add");
                 actionIds.append("-");
@@ -325,7 +311,8 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
         {
             QVariantList params;
 
-            if (dynamic_cast<FilterList*>(filter)) {
+            //TODO
+            if (dynamic_cast<SetOperationFilter*>(filter)) {
                 params.append("SetOperation");
                 params.append("Match");
                 params.append("-");
@@ -428,7 +415,8 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
 
     Filter* filter = static_cast<Filter*>(index.internalPointer());
 
-    if(dynamic_cast<FilterList*>(filter)) {
+    //TODO
+    if(dynamic_cast<SetOperationFilter*>(filter)) {
         if(index.column() < 2) {
             flags |= Qt::ItemIsEnabled;
         }
@@ -478,13 +466,9 @@ QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &paren
     else
         parentItem = static_cast<Filter*>(parent.internalPointer());
 
-    FilterList* unionFilter = dynamic_cast<FilterList*>(parentItem);
-    if (unionFilter)
-    {
-        Filter *childItem = unionFilter->child(row);
-        if (childItem)
-            return createIndex(row, column, childItem);
-    }
+    Filter *childItem = parentItem->childFilter(row);
+    if (childItem)
+        return createIndex(row, column, childItem);
 
     return QModelIndex();
 }
@@ -495,15 +479,12 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
         return QModelIndex();
 
     Filter *childItem = static_cast<Filter*>(index.internalPointer());
-    Filter *parentItem = childItem->parent();
+    Filter *parentItem = childItem->parentFilter();
 
     if (parentItem == mRootItem)
         return QModelIndex();
 
-
-    FilterList* filterList = dynamic_cast<FilterList*>(parentItem);
-
-    int row = filterList ? filterList->rowOfChild(childItem) : 0;
+    int row = parentItem ? parentItem->childRow(childItem) : 0;
 
     return createIndex(row, 0, parentItem);
 }
@@ -515,9 +496,7 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
 
     Filter *parentItem = parent.isValid() ? static_cast<Filter*>(parent.internalPointer()) : mRootItem;
 
-    FilterList* filterList = dynamic_cast<FilterList*>(parentItem);
-
-    return filterList ? filterList->childCount() : 0;
+    return parentItem ? parentItem->childCount() : 0;
 }
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const

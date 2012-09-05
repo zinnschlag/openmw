@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QVariant>
 
-class Filter : public QObject
+#include "../modelitem.hpp"
+
+class Filter : public ModelItem
 {
     Q_OBJECT
 
@@ -17,7 +19,8 @@ public:
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) = 0;
 
-    Filter *parent();
+    Filter *parentFilter();
+    Filter *childFilter(int row);
 
     bool enabled();
     void setEnabled(bool enabled);
@@ -34,26 +37,6 @@ protected:
 
     bool mEnabled;
     QString mName;
-};
-
-class FilterList : public Filter
-{
-    Q_OBJECT
-
-public:
-    explicit FilterList(Filter *parent = 0);
-    ~FilterList();
-
-    int childCount() const;
-    int rowOfChild(Filter* child);
-
-    Filter *child(int row);
-
-    void appendChild(Filter *child);
-    void removeChild(int row);
-
-protected:
-    QList<Filter*> mChildItems;
 };
 
 #endif

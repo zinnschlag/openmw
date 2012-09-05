@@ -24,7 +24,7 @@ public:
 
     //virtual bool acceptChild(ModelItem *child);
 
-private:
+protected:
     ModelItem *mParentItem;
     QList<ModelItem*> mChildItems;
 };

@@ -3,7 +3,7 @@
 
 #include "filter.hpp"
 
-class SetOperationFilter : public FilterList
+class SetOperationFilter : public Filter
 {
     Q_OBJECT
 
