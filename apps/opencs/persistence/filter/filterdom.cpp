@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QFile>
 
-Filter *FilterDom::loadFile(QString fileName, Filter *parent)
+FilterFile *FilterDom::loadFile(QString fileName, ModelItem *parent)
 {
     QFile file(fileName);
 
@@ -16,7 +16,15 @@ Filter *FilterDom::loadFile(QString fileName, Filter *parent)
         int parseErrorColumn;
 
         if (document.setContent(&file, &parseError, &parseErrorRow, &parseErrorColumn))
-            return createFilter(document.firstChildElement(), parent);
+        {
+            FilterFile *filterFile = new FilterFile(parent);
+            filterFile->setFileName(fileName);
+
+            Filter* newRoot = createFilter(document.firstChildElement(), filterFile);
+            filterFile->appendChild(newRoot);
+
+            return filterFile;
+        }
         else
             qDebug() << "Parse error" << parseError << parseErrorRow << parseErrorColumn;
 
@@ -29,7 +37,7 @@ Filter *FilterDom::loadFile(QString fileName, Filter *parent)
 }
 
 
-Filter *FilterDom::createFilter(const QDomElement &element, Filter *parent)
+Filter *FilterDom::createFilter(const QDomElement &element, ModelItem *parent)
 {
     Filter *result = 0;
 
@@ -66,7 +74,7 @@ Filter *FilterDom::createFilter(const QDomElement &element, Filter *parent)
     return result;
 }
 
-SetOperationFilter *FilterDom::createSetOperationFilter(const QDomElement &element, Filter* parent)
+SetOperationFilter *FilterDom::createSetOperationFilter(const QDomElement &element, ModelItem *parent)
 {
     QString type = element.attribute("type", "Union");
 
@@ -82,7 +90,7 @@ SetOperationFilter *FilterDom::createSetOperationFilter(const QDomElement &eleme
     return new SetOperationFilter(matchType, parent);
 }
 
-MatchFilter *FilterDom::createMatchFilter(const QDomElement &element, Filter* parent)
+MatchFilter *FilterDom::createMatchFilter(const QDomElement &element, ModelItem *parent)
 {
     QString matchTypeName = element.attribute("type", "Exact");
 

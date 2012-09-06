@@ -120,23 +120,23 @@ public:
     }
 };
 
+
+
+
+
 FilterEditModel::FilterEditModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mRootItem = new SetOperationFilter(SetOperationFilter::Union);
-    mRootItem->setName("root");
-
     mUndoStack = new QUndoStack(this);
 
+    mModelRoot = new ModelItem(0);
 
-    Filter* filterFile = mFilterDom->loadFile(":/filters.xml", mRootItem);
-
-    mRootItem->appendChild(filterFile);
+    mModelRoot->appendChild(mFilterDom->loadFile(":/filters.xml", mModelRoot));
 }
 
 FilterEditModel::~FilterEditModel()
 {
-    delete mRootItem;
+    delete mModelRoot;
 }
 
 QVariant FilterEditModel::data(const QModelIndex &index, int role) const
@@ -144,7 +144,21 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Filter *filter = static_cast<Filter*>(index.internalPointer());
+    ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
+
+    FilterFile *filterFile = dynamic_cast<FilterFile*>(item);
+    if(filterFile) {
+        if (index.column() == 0 && role == Qt::DisplayRole)
+        {
+            return filterFile->fileName();
+        }
+        else
+            return QVariant();
+    }
+
+    Filter *filter = dynamic_cast<Filter*>(item);
+    if(!filter)
+        return QVariant();
 
     if (index.column() == 0)
     {
@@ -313,9 +327,14 @@ void FilterEditModel::executeCommand(const QModelIndex &parent, const QString co
      mUndoStack->push(cmd);
 }
 
+//TODO cleanup
 bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 {
-    return mRootItem->accept(headers, row);
+    ModelItem *firstChild = mModelRoot->child(0);
+
+    FilterFile *filterFile = dynamic_cast<FilterFile*>(firstChild);
+
+    dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
 }
 
 QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &parent) const
@@ -323,15 +342,15 @@ QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &paren
     if (!hasIndex(row, column, parent))
         return QModelIndex();
 
-    Filter *parentItem;
+    ModelItem *parentItem;
 
     // The root object is represented as an invalid index
     if (!parent.isValid())
-        parentItem = mRootItem;
+        parentItem = mModelRoot;
     else
-        parentItem = static_cast<Filter*>(parent.internalPointer());
+        parentItem = static_cast<ModelItem*>(parent.internalPointer());
 
-    Filter *childItem = parentItem->childFilter(row);
+    ModelItem *childItem = parentItem->child(row);
     if (childItem)
         return createIndex(row, column, childItem);
 
@@ -343,10 +362,10 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
     if (!index.isValid())
         return QModelIndex();
 
-    Filter *childItem = static_cast<Filter*>(index.internalPointer());
-    Filter *parentItem = childItem->parentFilter();
+    ModelItem *childItem = static_cast<ModelItem*>(index.internalPointer());
+    ModelItem *parentItem = childItem->parent();
 
-    if (parentItem == mRootItem)
+    if (parentItem == mModelRoot)
         return QModelIndex();
 
     int row = parentItem ? parentItem->childRow(childItem) : 0;
@@ -359,7 +378,7 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
     if (parent.column() > 0)
         return 0;
 
-    Filter *parentItem = parent.isValid() ? static_cast<Filter*>(parent.internalPointer()) : mRootItem;
+    ModelItem *parentItem = parent.isValid() ? static_cast<ModelItem*>(parent.internalPointer()) : mModelRoot;
 
     return parentItem ? parentItem->childCount() : 0;
 }

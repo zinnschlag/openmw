@@ -14,7 +14,7 @@ class Filter : public ModelItem
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 
 public:
-    explicit Filter(Filter *parent = 0);
+    explicit Filter(ModelItem *parent = 0);
     ~Filter();
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) = 0;
@@ -33,8 +33,6 @@ signals:
     void nameChanged();
 
 protected:
-    Filter *mParentItem;
-
     bool mEnabled;
     QString mName;
 };

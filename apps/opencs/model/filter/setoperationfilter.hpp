@@ -16,7 +16,7 @@ public:
         Intersection
     };
 
-    explicit SetOperationFilter(OperationType type, Filter *parent=0);
+    explicit SetOperationFilter(OperationType type, ModelItem *parent=0);
     ~SetOperationFilter();
 
     OperationType type(){return mType;}

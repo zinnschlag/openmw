@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QDomElement>
 
+
 #include "../../model/filter/filter.hpp"
+#include "../../model/filter/filterfile.hpp"
 
 #include "../../model/filter/setoperationfilter.hpp"
 #include "../../model/filter/defaultfilter.hpp"
@@ -18,14 +20,12 @@ public:
     FilterDom(QObject *parent = 0) : QObject(parent) {}
     ~FilterDom(){}
 
-    Filter* loadFile(QString fileName, Filter *parent);
-
-    Filter* createFilter(const QDomElement &element, Filter* parent);
+    FilterFile* loadFile(QString fileName, ModelItem *parent);
 
 private:
-    SetOperationFilter* createSetOperationFilter(const QDomElement &element, Filter *parent);
-    MatchFilter* createMatchFilter(const QDomElement &element, Filter* parent);
-
+    Filter* createFilter(const QDomElement &element, ModelItem* parent);
+    SetOperationFilter* createSetOperationFilter(const QDomElement &element, ModelItem *parent);
+    MatchFilter* createMatchFilter(const QDomElement &element, ModelItem* parent);
 };
 
 

@@ -1,8 +1,7 @@
 #include "filter.hpp"
 
-Filter::Filter(Filter *parent)
+Filter::Filter(ModelItem *parent)
     : ModelItem(parent)
-    , mParentItem(parent)
     , mEnabled(true)
 {}
 
@@ -11,7 +10,8 @@ Filter::~Filter()
 
 Filter *Filter::parentFilter()
 {
-    return mParentItem;
+    //TODO Make save
+    return static_cast<Filter*>(parent());
 }
 
 Filter *Filter::childFilter(int row)

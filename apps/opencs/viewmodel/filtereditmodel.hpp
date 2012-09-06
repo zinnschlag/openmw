@@ -71,7 +71,8 @@ public:
     }
 
 private:
-    SetOperationFilter *mRootItem;
+    ModelItem* mModelRoot;
+
     QUndoStack *mUndoStack;
 
     FilterDom *mFilterDom;

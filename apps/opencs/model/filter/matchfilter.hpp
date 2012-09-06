@@ -22,7 +22,7 @@ public:
         Regex
     };
 
-    explicit MatchFilter(MatchType matchType, QString expectedKey, QString expectedValue, Filter *parent=0);
+    explicit MatchFilter(MatchType matchType, QString expectedKey, QString expectedValue, ModelItem *parent=0);
     ~MatchFilter();
 
     virtual QString displayString();

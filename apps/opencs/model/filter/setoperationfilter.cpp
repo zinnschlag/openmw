@@ -1,6 +1,6 @@
 #include "setoperationfilter.hpp"
 
-SetOperationFilter::SetOperationFilter(OperationType type, Filter *parent)
+SetOperationFilter::SetOperationFilter(OperationType type, ModelItem *parent)
     : Filter(parent)
     , mType(type)
 {
