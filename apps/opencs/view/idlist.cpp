@@ -34,6 +34,8 @@ void IdList::setModel(QAbstractItemModel *model)
 
 void IdList::setFilterModel(FilterEditModel *editModel)
 {
+    comboFilterRoot->setModel(editModel);
+
     mFilterProxyModel->setEditModel(editModel);
 }
 
