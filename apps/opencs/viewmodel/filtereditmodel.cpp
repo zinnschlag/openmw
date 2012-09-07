@@ -1,7 +1,10 @@
 #include "filtereditmodel.hpp"
 
 #include <QDebug>
+
 #include <QFile>
+#include <QDir>
+
 #include <QtXml/QDomDocument>
 #include <QIcon>
 
@@ -133,8 +136,13 @@ FilterEditModel::FilterEditModel(QObject *parent)
 
     mModelRoot = new ModelItem(0);
 
-    mModelRoot->appendChild(mFilterDom->loadFile(":/filters.xml", mModelRoot));
-    mModelRoot->appendChild(mFilterDom->loadFile(":/filters.xml", mModelRoot));
+    QDir filterDirectory(":/filter/");
+    foreach(QString filterFileName, filterDirectory.entryList())
+    {
+        QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
+
+        mModelRoot->appendChild(mFilterDom->loadFile(filterFilePath, mModelRoot));
+    }
 }
 
 FilterEditModel::~FilterEditModel()
