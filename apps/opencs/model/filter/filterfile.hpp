@@ -8,6 +8,10 @@ class FilterFile : public ModelItem
 {
     Q_OBJECT
 
+    Q_CLASSINFO("display.0", "fileName")
+
+    Q_PROPERTY(QString fileName READ fileName WRITE setFileName)
+
 public:
     explicit FilterFile(ModelItem *parent = 0) : ModelItem(parent) {}
     ~FilterFile() {}

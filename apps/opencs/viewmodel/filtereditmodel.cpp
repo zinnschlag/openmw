@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QtXml/QDomDocument>
 #include <QIcon>
+
+#include <QMetaObject>
 #include <QMetaProperty>
 
 #include "../model/filter/defaultfilter.hpp"
@@ -132,6 +134,7 @@ FilterEditModel::FilterEditModel(QObject *parent)
     mModelRoot = new ModelItem(0);
 
     mModelRoot->appendChild(mFilterDom->loadFile(":/filters.xml", mModelRoot));
+    mModelRoot->appendChild(mFilterDom->loadFile(":/filters.xml", mModelRoot));
 }
 
 FilterEditModel::~FilterEditModel()
@@ -146,112 +149,78 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 
     ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
 
-    FilterFile *filterFile = dynamic_cast<FilterFile*>(item);
-    if(filterFile) {
-        if (index.column() == 0 && role == Qt::DisplayRole)
-        {
-            return filterFile->fileName();
-        }
-        else
-            return QVariant();
-    }
+    qDebug() << "Parent" << item->metaObject()->superClass()->className();
 
-    Filter *filter = dynamic_cast<Filter*>(item);
-    if(!filter)
+
+    QString roleName;
+    if(role == Qt::DisplayRole)
+        roleName = "display";
+    else if(role == Qt::EditRole)
+        roleName = "edit";
+    else if(role == Qt::CheckStateRole)
+        roleName = "check";
+    else if(role == Qt::DecorationRole)
+        roleName = "icon";
+    else
         return QVariant();
 
-    if (index.column() == 0)
-    {
-        switch(role)
-        {
-        case Qt::DisplayRole:
-        {
-            return filter->name();
-        }
-        case Qt::CheckStateRole:
-            return filter->enabled() ? Qt::Checked : Qt::Unchecked;
-        case ItemCommandsRole:
-        {
-            QStringList actionIds;
 
-            //TODO
-            if (dynamic_cast<SetOperationFilter*>(filter)) {
-                actionIds.append("add");
-                actionIds.append("add");
-                actionIds.append("-");
-            }
+    QString keySuffix = QString::number(index.column());
 
-            actionIds.append("delete");
+    QString columnKey =  roleName + "." + keySuffix;
 
-            return actionIds;
-        }
-            break;
-        case ItemParamsRole:
-        {
-            QVariantList params;
+    int infoIndex = item->metaObject()->indexOfClassInfo(columnKey.toAscii());
+    if(infoIndex != -1) {
+        const char* value = item->metaObject()->classInfo(infoIndex).value();
 
-            //TODO
-            if (dynamic_cast<SetOperationFilter*>(filter)) {
-                params.append("SetOperation");
-                params.append("Match");
-                params.append("-");
-            }
+        QVariant result = item->property(value);
 
-            params.append("");
+        //TODO
+        if(role == Qt::CheckStateRole)
+            return result.toBool() ? Qt::Checked : Qt::Unchecked;
+        else if(role == Qt::DecorationRole)
+            return QIcon(result.toString());
+        else
 
-            return params;
-        }
-            break;
-        case Qt:: DecorationRole:
-            SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
-            if(setOpFilter) {
-                switch(setOpFilter->type()) {
-                case SetOperationFilter::Union:
-                    return QIcon(":/icon/filter/union.png");
-                case SetOperationFilter::Intersection:
-                    return QIcon(":/icon/filter/intersection.png");
-                }
-            }
-
-            MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
-            if(matchFilter) {
-                switch(matchFilter->type()) {
-                case MatchFilter::Exact:
-                    return QIcon(":/icon/filter/exact.png");
-                case MatchFilter::Wildcard:
-                    return QIcon(":/icon/filter/wildcard.png");
-                case MatchFilter::Regex:
-                    return QIcon(":/icon/filter/regex.png");
-                }
-            }
-            break;
-        }
+        return result;
+    } else {
+        qDebug() << "Key not found" << columnKey;
     }
-
-    if(role == Qt::EditRole || role == Qt::DisplayRole) {
-
-        if(index.column() == 0)
-            return filter->name();
-
-        MatchFilter *matchFilter = dynamic_cast<MatchFilter*>(filter);
-        if(matchFilter) {
-            if(index.column() == 1)
-                return matchFilter->type();
-            if(index.column() == 2)
-                return matchFilter->key();
-            if(index.column() == 3)
-                return matchFilter->value();
-        }
-
-        SetOperationFilter *setOpFilter = dynamic_cast<SetOperationFilter*>(filter);
-        if(setOpFilter) {
-            if(index.column() == 1)
-                return setOpFilter->type();
-        }
-    }
-
 
     return QVariant();
+
+//        case ItemCommandsRole:
+//        {
+//            QStringList actionIds;
+
+//            //TODO
+//            if (dynamic_cast<SetOperationFilter*>(filter)) {
+//                actionIds.append("add");
+//                actionIds.append("add");
+//                actionIds.append("-");
+//            }
+
+//            actionIds.append("delete");
+
+//            return actionIds;
+//        }
+//            break;
+//        case ItemParamsRole:
+//        {
+//            QVariantList params;
+
+//            //TODO
+//            if (dynamic_cast<SetOperationFilter*>(filter)) {
+//                params.append("SetOperation");
+//                params.append("Match");
+//                params.append("-");
+//            }
+
+//            params.append("");
+
+//            return params;
+//        }
+//            break;
 }
 
 bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -334,7 +303,7 @@ bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
 
     FilterFile *filterFile = dynamic_cast<FilterFile*>(firstChild);
 
-    dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
+    return dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
 }
 
 QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &parent) const
