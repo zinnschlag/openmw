@@ -70,6 +70,9 @@ public:
       endRemoveRows();
     }
 
+public slots:
+
+
 private:
     ModelItem* mModelRoot;
 

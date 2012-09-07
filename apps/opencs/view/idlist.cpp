@@ -21,6 +21,8 @@ IdList::IdList(QWidget *parent)
     tableView->verticalHeader()->setDefaultSectionSize(tableView->verticalHeader()->minimumSectionSize());
     tableView->horizontalHeader()->setMovable(true);
     tableView->horizontalHeader()->setStretchLastSection(false);
+
+    connect(comboFilterRoot, SIGNAL(currentIndexChanged(int)), this, SLOT(filterRootChanged));
 }
 
 IdList::~IdList()
@@ -38,6 +40,12 @@ void IdList::setFilterModel(FilterEditModel *editModel)
 
     mFilterProxyModel->setEditModel(editModel);
 }
+
+void IdList::filterRootChanged(int row)
+{
+    mFilterProxyModel->sourceModel();
+}
+
 
 //FIXME Copy Paste
 void IdList::loadColumnConfig()
@@ -112,3 +120,4 @@ void IdList::readColumnConfig(const QDomElement &element)
         qWarning() << "Unknown Dom Element" << name;
     }
 }
+

@@ -27,6 +27,7 @@ private slots:
 
 private:
     FilterEditModel *mEditModel;
+    QModelIndex *mFilterRoot;
 
     QList<QString> mHeaders;
 };
