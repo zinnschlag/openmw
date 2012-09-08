@@ -157,9 +157,6 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 
     ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
 
-    qDebug() << "Parent" << item->metaObject()->superClass()->className();
-
-
     QString roleName;
     if(role == Qt::DisplayRole)
         roleName = "display";
@@ -192,7 +189,7 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 
         return result;
     } else {
-        qDebug() << "Key not found" << columnKey;
+        //qDebug() << "Key not found" << columnKey;
     }
 
     return QVariant();

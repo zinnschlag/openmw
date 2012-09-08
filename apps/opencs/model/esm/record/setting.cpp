@@ -25,6 +25,8 @@ QString SettingDataItem::key()
 QVariant SettingDataItem::value()
 {
     switch(mSetting.type) {
+    case ESM::VT_None:
+        return QVariant(QVariant::Invalid);
     case ESM::VT_String:
         return QVariant(QString::fromStdString(mSetting.str));
     case ESM::VT_Int:
