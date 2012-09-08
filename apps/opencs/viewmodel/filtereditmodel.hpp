@@ -4,7 +4,7 @@
 #include <QAbstractItemModel>
 #include <QUndoStack>
 
-#include <QtXml/QDomElement>
+#include "../persistence/filter/filterdom.hpp"
 
 #include "../model/filter/filter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
@@ -35,7 +35,7 @@ public:
 
     void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
 
-    bool accept(QList<QString> headers, QList<QVariant> row);
+    bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
 
 
     QUndoStack *undoStack() const;
@@ -46,33 +46,33 @@ public:
       emit dataChanged(index, index);
     }
 
-    //TODO make friend
     void emitBeginInsertRows(const QModelIndex& parent, int first, int last)
     {
       beginInsertRows(parent, first, last);
     }
 
-    //TODO make friend
     void emitEndInsertRows()
     {
       endInsertRows();
     }
 
-    //TODO make friend
     void emitBeginRemoveRows(const QModelIndex& parent, int first, int last)
     {
       beginRemoveRows(parent, first, last);
     }
 
-    //TODO make friend
     void emitEndRemoveRows()
     {
       endRemoveRows();
     }
+    //TODO end
 
 private:
-    SetOperationFilter *mRootItem;
+    ModelItem* mModelRoot;
+
     QUndoStack *mUndoStack;
+
+    FilterDom *mFilterDom;
 };
 
 #endif

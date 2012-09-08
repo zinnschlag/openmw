@@ -13,7 +13,7 @@ class SettingDataItem : public ESMDataItem
     Q_PROPERTY(QVariant value READ value)
 
 public:
-    SettingDataItem(DataItem *parent);
+    explicit SettingDataItem(ModelItem *parent);
     ~SettingDataItem();
 
     virtual void load(ESM::ESMReader &esm);

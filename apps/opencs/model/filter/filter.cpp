@@ -1,17 +1,22 @@
 #include "filter.hpp"
 
-Filter::Filter(Filter *parent)
-    : QObject(parent)
-    , mParentItem(parent)
+Filter::Filter(ModelItem *parent)
+    : ModelItem(parent)
     , mEnabled(true)
 {}
 
 Filter::~Filter()
 {}
 
-Filter *Filter::parent()
+Filter *Filter::parentFilter()
 {
-    return mParentItem;
+    //TODO Make save
+    return static_cast<Filter*>(parent());
+}
+
+Filter *Filter::childFilter(int row)
+{
+    return static_cast<Filter*>(child(row));
 }
 
 bool Filter::enabled()
@@ -33,42 +38,3 @@ void Filter::setName(QString name)
 {
     mName = name;
 }
-
-
-
-FilterList::FilterList(Filter *parent)
-    : Filter(parent)
-{}
-
-FilterList::~FilterList()
-{
-}
-
-int FilterList::childCount() const
-{
-    return mChildItems.count();
-}
-
-int FilterList::rowOfChild(Filter *child)
-{
-    if (child)
-        return mChildItems.indexOf(child);
-
-    return 0;
-}
-
-Filter *FilterList::child(int row)
-{
-    return mChildItems.at(row);
-}
-
-void FilterList::appendChild(Filter *child)
-{
-    mChildItems.append(child);
-}
-
-void FilterList::removeChild(int row)
-{
-    mChildItems.removeAt(row);
-}
-

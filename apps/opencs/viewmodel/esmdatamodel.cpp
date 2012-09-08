@@ -22,7 +22,7 @@ ESMDataModel::ESMDataModel(QObject *parent)
     , mMerged(0)
     , mRowCount(0)
 {
-    mRootItem = new DataItem();
+    mRootItem = new ModelItem();
 }
 
 ESMDataModel::~ESMDataModel()
@@ -90,7 +90,7 @@ void ESMDataModel::loadEsmFile(QString file)
     mRowCount = mMerged->childCount();
     for (int i = 0; i < mRowCount; i++)
     {
-        DataItem *child = mMerged->child(i);
+        ModelItem *child = mMerged->child(i);
         const QMetaObject *childMeta = child->metaObject();
 
         for (int u = 0; u < childMeta->propertyCount(); u++)
@@ -134,20 +134,20 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    DataItem *baseItem = mRootItem->child(0);
+    ModelItem *baseItem = mRootItem->child(0);
 
     int column = index.column();
 
 
     if(role == Qt::DisplayRole)
     {
-        DataItem *rowItem = baseItem->child(index.row());
+        ModelItem *rowItem = baseItem->child(index.row());
 
         return valueAtColumn(rowItem, column);
     }
     else if(role == Qt::TextAlignmentRole)
     {
-        DataItem *rowItem = baseItem->child(index.row());
+        ModelItem *rowItem = baseItem->child(index.row());
 
         bool ok;
         valueAtColumn(rowItem, column).toDouble(&ok);
@@ -161,7 +161,7 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
 
         for (int i = 0; i<baseItem->childCount(); i++)
         {
-            DataItem *rowItem = baseItem->child(i);
+            ModelItem *rowItem = baseItem->child(i);
 
             QVariant fieldData = valueAtColumn(rowItem, column);
             if (!fieldData.isValid())
@@ -198,7 +198,7 @@ Qt::ItemFlags ESMDataModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
-QVariant ESMDataModel::valueAtColumn(const DataItem *rowItem, int column) const
+QVariant ESMDataModel::valueAtColumn(const ModelItem *rowItem, int column) const
 {
     QString columnId = mColumnIds.at(column);
     QHash<const QMetaObject*, int> *map = mNamedProperties.value(columnId);

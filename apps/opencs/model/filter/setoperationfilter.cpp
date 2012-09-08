@@ -1,7 +1,7 @@
 #include "setoperationfilter.hpp"
 
-SetOperationFilter::SetOperationFilter(OperationType type, Filter *parent)
-    : FilterList(parent)
+SetOperationFilter::SetOperationFilter(OperationType type, ModelItem *parent)
+    : Filter(parent)
     , mType(type)
 {
 }
@@ -18,8 +18,8 @@ bool SetOperationFilter::accept(QList<QString> headers, QList<QVariant> row)
         if (!enabled())
             return false;
 
-        foreach (Filter* filter, mChildItems)
-            if (filter->accept(headers, row))
+        for(int i=0; i<childCount(); i++)
+            if (childFilter(i)->accept(headers, row))
                 return true;
 
         return false;
@@ -30,9 +30,12 @@ bool SetOperationFilter::accept(QList<QString> headers, QList<QVariant> row)
             return false;
 
         bool allTrue = true;
-        foreach (Filter* filter, mChildItems)
-            if (filter->enabled() && !filter->accept(headers, row))
+
+        for(int i=0; i<childCount(); i++) {
+            Filter *child = childFilter(i);
+            if (child->enabled() && !child->accept(headers, row))
                 allTrue = false;
+        }
 
         return allTrue;
     }

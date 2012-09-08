@@ -10,7 +10,7 @@ class MagicEffectDataItem : public ESMDataItem
     Q_PROPERTY(int area READ area WRITE setArea)
 
 public:
-    MagicEffectDataItem(ESM::ENAMstruct effectData, DataItem *parent);
+    MagicEffectDataItem(ESM::ENAMstruct effectData, ModelItem *parent);
 
     virtual void load(ESM::ESMReader &esm)
     {

@@ -5,7 +5,45 @@
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
+ESMDataItem::ESMDataItem(ModelItem *parent)
+ : ModelItem(parent)
+{
+}
 
+ESMDataItem::~ESMDataItem()
+{
+}
+
+void ESMDataItem::load(ESM::ESMReader &esm)
+{
+    esm.skipRecord();
+    //std::cout << "skipped record";
+}
+
+QString ESMDataItem::recordType()
+{
+    return mRecordType;
+}
+
+void ESMDataItem::setRecordType(QString recordType)
+{
+    mRecordType = recordType;
+}
+
+QString ESMDataItem::type()
+{
+    return mRecordType;
+}
+
+QString ESMDataItem::id()
+{
+    return mId;
+}
+
+void ESMDataItem::setId(QString id)
+{
+    mId = id;
+}
 
 
 
@@ -46,3 +84,6 @@ SectionDataItem::SectionDataItem(int32_t esmName, ESMDataItem *parent)
     }
 }
 */
+
+
+

@@ -8,7 +8,7 @@ class DefaultFilter : public Filter
     Q_OBJECT
 
 public:
-    explicit DefaultFilter(Filter *parent=0)
+    explicit DefaultFilter(ModelItem *parent=0)
       : Filter(parent)
     {
     }

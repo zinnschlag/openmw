@@ -1,54 +1,31 @@
 #ifndef ESMDATAITEM_HPP
 #define ESMDATAITEM_HPP
 
-#include "dataitem.hpp"
+#include "../modelitem.hpp"
 
 #include <components/esm/esm_reader.hpp>
 #include <components/esm/records.hpp>
 
-class ESMDataItem : public DataItem
+class ESMDataItem : public ModelItem
 {
     Q_OBJECT
     Q_PROPERTY(QString mwType READ type)
     Q_PROPERTY(QString mwId READ id WRITE setId)
 
 public:
-    ESMDataItem(DataItem *parent = 0) : DataItem(parent) {}
-    ~ESMDataItem()
-    {
-    }
+    ESMDataItem(ModelItem *parent = 0);
+    ~ESMDataItem();
 
     //TODO Make this nicer
-    virtual void load(ESM::ESMReader &esm)
-    {
-        esm.skipRecord();
-        //std::cout << "skipped record";
-    }
+    virtual void load(ESM::ESMReader &esm);
 
-    QString recordType()
-    {
-        return mRecordType;
-    }
+    virtual QString type();
 
-    void setRecordType(QString recordType)
-    {
-        mRecordType = recordType;
-    }
+    QString recordType();
+    void setRecordType(QString recordType);
 
-    virtual QString type()
-    {
-        return mRecordType;
-    }
-
-    QString id()
-    {
-        return mId;
-    }
-
-    void setId(QString id)
-    {
-        mId = id;
-    }
+    QString id();
+    void setId(QString id);
 
 protected:
     QString mRecordType;

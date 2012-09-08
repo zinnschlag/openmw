@@ -44,6 +44,9 @@ private:
 
     QList<ColumnConfig*> mColumnConfigs;
     void readColumnConfig(const QDomElement &element);
+
+private slots:
+    void filterRootChanged(int row);
 };
 
 #endif

@@ -4,20 +4,27 @@
 #include <QObject>
 #include <QVariant>
 
-class Filter : public QObject
+#include "../modelitem.hpp"
+
+class Filter : public ModelItem
 {
     Q_OBJECT
+
+    Q_CLASSINFO("display.0", "name")
+    Q_CLASSINFO("edit.0", "name")
+    Q_CLASSINFO("check.0", "enabled")
 
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 
 public:
-    explicit Filter(Filter *parent = 0);
+    explicit Filter(ModelItem *parent = 0);
     ~Filter();
 
     virtual bool accept(QList<QString> headers, QList<QVariant> row) = 0;
 
-    Filter *parent();
+    Filter *parentFilter();
+    Filter *childFilter(int row);
 
     bool enabled();
     void setEnabled(bool enabled);
@@ -30,30 +37,8 @@ signals:
     void nameChanged();
 
 protected:
-    Filter *mParentItem;
-
     bool mEnabled;
     QString mName;
-};
-
-class FilterList : public Filter
-{
-    Q_OBJECT
-
-public:
-    explicit FilterList(Filter *parent = 0);
-    ~FilterList();
-
-    int childCount() const;
-    int rowOfChild(Filter* child);
-
-    Filter *child(int row);
-
-    void appendChild(Filter *child);
-    void removeChild(int row);
-
-protected:
-    QList<Filter*> mChildItems;
 };
 
 #endif

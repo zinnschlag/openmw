@@ -2,7 +2,7 @@
 
 
 
-MatchFilter::MatchFilter(MatchType matchType, QString expectedKey, QString expectedValue, Filter *parent)
+MatchFilter::MatchFilter(MatchType matchType, QString expectedKey, QString expectedValue, ModelItem *parent)
     : Filter(parent)
     , mMatchType(matchType)
     , mExpectedKey(expectedKey)

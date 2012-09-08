@@ -1,6 +1,6 @@
 #include "script.hpp"
 
-ScriptDataItem::ScriptDataItem(DataItem *parent)
+ScriptDataItem::ScriptDataItem(ModelItem *parent)
     : ESMDataItem(parent)
 {
 }
