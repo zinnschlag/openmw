@@ -29,7 +29,7 @@ void MWMechanics::NpcStats::setDrawState (DrawState_ state)
 
 bool MWMechanics::NpcStats::getMovementFlag (Flag flag) const
 {
-    return mMovementFlags & flag;
+    return (mMovementFlags & flag) > 0;
 }
 
 void MWMechanics::NpcStats::setMovementFlag (Flag flag, bool state)

@@ -306,25 +306,25 @@ namespace MWGui
         if      (item.getTypeName() == typeid(ESM::Weapon).name())
             return services & ESM::NPC::Weapon;
         else if (item.getTypeName() == typeid(ESM::Armor).name())
-            return services & ESM::NPC::Armor;
+            return (services & ESM::NPC::Armor) > 0;
         else if (item.getTypeName() == typeid(ESM::Clothing).name())
-            return services & ESM::NPC::Clothing;
+            return (services & ESM::NPC::Clothing) > 0;
         else if (item.getTypeName() == typeid(ESM::Book).name())
-            return services & ESM::NPC::Books;
+            return (services & ESM::NPC::Books) > 0;
         else if (item.getTypeName() == typeid(ESM::Ingredient).name())
-            return services & ESM::NPC::Ingredients;
+            return (services & ESM::NPC::Ingredients) > 0;
         else if (item.getTypeName() == typeid(ESM::Tool).name())
-            return services & ESM::NPC::Picks;
+            return (services & ESM::NPC::Picks) > 0;
         else if (item.getTypeName() == typeid(ESM::Probe).name())
-            return services & ESM::NPC::Probes;
+            return (services & ESM::NPC::Probes) > 0;
         else if (item.getTypeName() == typeid(ESM::Light).name())
-            return services & ESM::NPC::Lights;
+            return (services & ESM::NPC::Lights) > 0;
         else if (item.getTypeName() == typeid(ESM::Apparatus).name())
-            return services & ESM::NPC::Apparatus;
+            return (services & ESM::NPC::Apparatus) > 0;
         else if (item.getTypeName() == typeid(ESM::Repair).name())
-            return services & ESM::NPC::RepairItem;
+            return (services & ESM::NPC::RepairItem) > 0;
         else if (item.getTypeName() == typeid(ESM::Miscellaneous).name())
-            return services & ESM::NPC::Misc;
+            return (services & ESM::NPC::Misc) > 0;
 
         return false;
     }

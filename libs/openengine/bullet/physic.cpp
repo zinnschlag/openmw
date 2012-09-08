@@ -210,7 +210,7 @@ namespace Physic
             createDebugRendering();
         }
         mDebugDrawer->setDebugMode(mode);
-        mDebugActive = mode;
+        mDebugActive = (mode > 0);
     }
 
     bool  PhysicEngine::toggleDebugRendering()

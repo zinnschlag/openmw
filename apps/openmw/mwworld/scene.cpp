@@ -140,7 +140,7 @@ namespace MWWorld
         const ESM::Position& pos,
         bool adjustPlayerPos)
     {
-        bool hasWater = cell->cell->data.flags & cell->cell->HasWater;
+        bool hasWater = (cell->cell->data.flags & cell->cell->HasWater) > 0;
         mPhysics->setCurrentWater(hasWater, cell->cell->water);
 
         MWBase::World *world = MWBase::Environment::get().getWorld();
