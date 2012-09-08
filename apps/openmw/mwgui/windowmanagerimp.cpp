@@ -84,6 +84,9 @@ WindowManager::WindowManager(
   , mFPS(0.0f)
   , mTriangleCount(0)
   , mBatchCount(0)
+  , mCrosshairEnabled(Settings::Manager::getBool ("crosshair", "HUD"))
+  , mSubtitlesEnabled(Settings::Manager::getBool ("subtitles", "GUI"))
+  , mHudEnabled(true)
 {
 
     // Set up the GUI system
@@ -644,6 +647,10 @@ void WindowManager::processChangedSettings(const Settings::CategorySettingVector
         {
             changeRes = true;
         }
+        else if (it->first == "HUD" && it->second == "crosshair")
+            mCrosshairEnabled = Settings::Manager::getBool ("crosshair", "HUD");
+        else if (it->first == "GUI" && it->second == "subtitles")
+            mSubtitlesEnabled = Settings::Manager::getBool ("subtitles", "GUI");
     }
 
     if (changeRes)
@@ -857,10 +864,21 @@ void WindowManager::notifyInputActionBound ()
 
 void WindowManager::showCrosshair (bool show)
 {
-    mHud->setCrosshairVisible (show);
+    mHud->setCrosshairVisible (show && mCrosshairEnabled);
 }
 
 void WindowManager::activateQuickKey (int index)
 {
     mQuickKeysMenu->activateQuickKey(index);
+}
+
+bool WindowManager::getSubtitlesEnabled ()
+{
+    return mSubtitlesEnabled;
+}
+
+void WindowManager::toggleHud ()
+{
+    mHudEnabled = !mHudEnabled;
+    mHud->setVisible (mHudEnabled);
 }
