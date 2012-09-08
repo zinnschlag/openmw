@@ -16,6 +16,12 @@ void FilterProxyModel::setEditModel(FilterEditModel *editModel)
     connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(filtersChanged()));
 }
 
+void FilterProxyModel::setActiveFilter(const QModelIndex &index)
+{
+    mFilterRoot = index;
+    filtersChanged();
+}
+
 void FilterProxyModel::setSourceModel(QAbstractItemModel *model)
 {
     QAbstractItemModel* currentModel = this->sourceModel();
@@ -52,7 +58,7 @@ bool FilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &source
         row.append(columnValue);
     }
 
-    return mEditModel->accept(mHeaders, row);
+    return mEditModel->accept(mFilterRoot, mHeaders, row);
 }
 
 void FilterProxyModel::headerDataChanged(Qt::Orientation, int, int)

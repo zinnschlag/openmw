@@ -22,7 +22,7 @@ IdList::IdList(QWidget *parent)
     tableView->horizontalHeader()->setMovable(true);
     tableView->horizontalHeader()->setStretchLastSection(false);
 
-    connect(comboFilterRoot, SIGNAL(currentIndexChanged(int)), this, SLOT(filterRootChanged));
+    connect(comboFilterRoot, SIGNAL(currentIndexChanged(int)), this, SLOT(filterRootChanged(int)));
 }
 
 IdList::~IdList()
@@ -41,8 +41,15 @@ void IdList::setFilterModel(FilterEditModel *editModel)
     mFilterProxyModel->setEditModel(editModel);
 }
 
+//TODO Make this nicer
 void IdList::filterRootChanged(int row)
 {
+    FilterEditModel* editModel = dynamic_cast<FilterEditModel*>(comboFilterRoot->model());
+    if(editModel) {
+
+        mFilterProxyModel->setActiveFilter(editModel->index(row, 0));
+    }
+
     mFilterProxyModel->sourceModel();
 }
 

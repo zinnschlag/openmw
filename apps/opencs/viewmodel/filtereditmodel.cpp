@@ -305,11 +305,13 @@ void FilterEditModel::executeCommand(const QModelIndex &parent, const QString co
 }
 
 //TODO cleanup
-bool FilterEditModel::accept(QList<QString> headers, QList<QVariant> row)
+bool FilterEditModel::accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row)
 {
-    ModelItem *firstChild = mModelRoot->child(0);
+    if(!index.isValid())
+        return true;
 
-    FilterFile *filterFile = dynamic_cast<FilterFile*>(firstChild);
+    ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
+    FilterFile *filterFile = dynamic_cast<FilterFile*>(item);
 
     return dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
 }

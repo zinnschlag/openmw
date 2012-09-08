@@ -14,6 +14,8 @@ public:
     ~FilterProxyModel();
 
     void setEditModel(FilterEditModel *editModel);
+    void setActiveFilter(const QModelIndex &index);
+
     void setSourceModel(QAbstractItemModel *model);
 
 protected:
@@ -27,7 +29,7 @@ private slots:
 
 private:
     FilterEditModel *mEditModel;
-    QModelIndex *mFilterRoot;
+    QModelIndex mFilterRoot;
 
     QList<QString> mHeaders;
 };
