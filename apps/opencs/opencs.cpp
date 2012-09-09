@@ -72,7 +72,7 @@ OpenCS::OpenCS(QWidget *parent) :
 
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    if(env.contains("OPENCS_DEBUG_UNDO_STACK")) {
+    if(env.contains("OPENCS_DEBUG_GUI")) {
 
         //TODO Copy paste
         QDockWidget *undoRedoDock = new QDockWidget("Undo/Redo", this);
@@ -90,6 +90,7 @@ OpenCS::OpenCS(QWidget *parent) :
 
         QTreeView *itemModelTreeView = new QTreeView(this);
         itemModelTreeView->setModel(filterModel);
+        itemModelTreeView->resizeColumnToContents(0);
         ItemModelWidget->setWidget(itemModelTreeView);
         this->addDockWidget(Qt::BottomDockWidgetArea, ItemModelWidget);
     }
