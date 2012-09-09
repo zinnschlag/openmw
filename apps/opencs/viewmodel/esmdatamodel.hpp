@@ -12,8 +12,6 @@
 
 #include "../model/modelitem.hpp"
 
-class DataItem;
-
 class ESMDataModel : public QAbstractTableModel
 {
     Q_OBJECT

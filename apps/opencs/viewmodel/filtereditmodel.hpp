@@ -19,7 +19,7 @@ public:
         ItemParamsRole
     };
 
-    FilterEditModel(QObject *parent);
+    FilterEditModel(ModelItem *rootModelItem, QObject *parent);
     ~FilterEditModel();
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;

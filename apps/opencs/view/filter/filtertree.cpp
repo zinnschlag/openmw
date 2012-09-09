@@ -4,9 +4,11 @@
 
 FilterTree::FilterTree(QWidget *parent)
     : QWidget(parent)
-    , mSimpleView(true)
 {
     setupUi(this);
+
+
+    connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(rootItemIndexChanged(int)));
 
     treeViewFilter->header()->hide();
 
@@ -14,8 +16,6 @@ FilterTree::FilterTree(QWidget *parent)
     connect(treeViewFilter, SIGNAL(clicked(QModelIndex)), this, SLOT(clicked(QModelIndex)));
 
     mSimpleModel = new SimpleTreeProxyModel(this);
-
-    //mSimpleView = false;
 }
 
 FilterTree::~FilterTree()
@@ -25,24 +25,26 @@ FilterTree::~FilterTree()
 void FilterTree::setModel(FilterEditModel *model)
 {
     mModel = model;
-    mSimpleModel->setSourceModel(mModel);
 
-    if(mSimpleView)
-        treeViewFilter->setModel(mSimpleModel);
-    else
-        treeViewFilter->setModel(mModel);
+    comboBox->setModel(model);
+}
+
+
+void FilterTree::rootItemIndexChanged(int index)
+{
+    mSimpleModel->setSourceModel(mModel);
+    treeViewFilter->setModel(mSimpleModel);
+    treeViewFilter->setRootIndex(mSimpleModel->index(index, 0));
 
     treeViewFilter->header()->setResizeMode(QHeaderView::ResizeToContents);
 }
+
 
 void FilterTree::clicked(const QModelIndex &index)
 {
     QModelIndex res;
 
-    if(mSimpleView)
-        res = mSimpleModel->mapToSource(index);
-    else
-        res = index;
+    res = mSimpleModel->mapToSource(index);
 
     emit indexSelected(res);
 }
@@ -53,8 +55,7 @@ void FilterTree::contextMenu(const QPoint &point)
     if(!index.isValid())
         return;
 
-    if(mSimpleView)
-        index = mSimpleModel->mapToSource(index);
+    index = mSimpleModel->mapToSource(index);
 
     mContextMenuModelIndex = index;
 
@@ -90,4 +91,7 @@ void FilterTree::contextMenuActionTriggered()
         mModel->executeCommand(mContextMenuModelIndex, action->property("Command").toString(), action->property("Param"));
     }
 }
+
+
+
 
