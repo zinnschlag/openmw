@@ -9,6 +9,8 @@
 
 #include <QUndoView>
 
+#include "model/modelitem.hpp"
+
 #include "viewmodel/esmdatamodel.hpp"
 
 
@@ -21,6 +23,7 @@ OpenCS::OpenCS(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mRootItem = new ModelItem();
 
     setDockOptions(QMainWindow::AllowNestedDocks | QMainWindow::AllowTabbedDocks);
     setCentralWidget(NULL);
@@ -30,7 +33,12 @@ OpenCS::OpenCS(QWidget *parent) :
 
     model = new ESMDataModel(this);
 
-    FilterEditModel *filterModel = new FilterEditModel(this);
+
+    FilterEditModel *filterModel = new FilterEditModel(mRootItem, this);
+
+
+
+    //TODO Refactor the Copy-Pastes below
 
     QDockWidget *idListDock = new QDockWidget("ID List", this);
     idListDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
@@ -42,7 +50,7 @@ OpenCS::OpenCS(QWidget *parent) :
 
     this->addDockWidget(Qt::RightDockWidgetArea, idListDock);
 
-    //FIXME Copy paste
+    //TODO Copy paste
     QDockWidget *filterTreeDock = new QDockWidget("Filter Tree", this);
     filterTreeDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
@@ -52,7 +60,7 @@ OpenCS::OpenCS(QWidget *parent) :
 
     this->addDockWidget(Qt::LeftDockWidgetArea, filterTreeDock);
 
-    //FIXME Copy paste
+    //TODO Copy paste
     QDockWidget *filterEditDock = new QDockWidget("Filter Editor", this);
     filterEditDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
@@ -64,9 +72,9 @@ OpenCS::OpenCS(QWidget *parent) :
 
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    if(env.contains("OPENCS_DEBUG_UNDO_STACK")) {
+    if(env.contains("OPENCS_DEBUG_GUI")) {
 
-        //FIXME Copy paste
+        //TODO Copy paste
         QDockWidget *undoRedoDock = new QDockWidget("Undo/Redo", this);
         undoRedoDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
@@ -75,6 +83,16 @@ OpenCS::OpenCS(QWidget *parent) :
         undoRedoDock->setWidget(undoView);
 
         this->addDockWidget(Qt::LeftDockWidgetArea, undoRedoDock);
+
+        //TODO Copy paste
+        QDockWidget *ItemModelWidget = new QDockWidget("ItemModel", this);
+        ItemModelWidget->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+        QTreeView *itemModelTreeView = new QTreeView(this);
+        itemModelTreeView->setModel(filterModel);
+        itemModelTreeView->resizeColumnToContents(0);
+        ItemModelWidget->setWidget(itemModelTreeView);
+        this->addDockWidget(Qt::BottomDockWidgetArea, ItemModelWidget);
     }
 
     connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
@@ -83,6 +101,7 @@ OpenCS::OpenCS(QWidget *parent) :
 OpenCS::~OpenCS()
 {
     delete ui;
+    delete mRootItem;
 }
 
 void OpenCS::openFile()
