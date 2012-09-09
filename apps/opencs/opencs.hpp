@@ -23,6 +23,8 @@ public:
 private:
     Ui::OpenCS *ui;
 
+    ModelItem *mRootItem;
+
     ESMDataModel *model;
 
     IdList *idList;

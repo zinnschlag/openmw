@@ -129,12 +129,12 @@ public:
 
 
 
-FilterEditModel::FilterEditModel(QObject *parent)
+FilterEditModel::FilterEditModel(ModelItem *rootModelItem, QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mUndoStack = new QUndoStack(this);
+    mModelRoot = rootModelItem;
 
-    mModelRoot = new ModelItem(0);
+    mUndoStack = new QUndoStack(this);
 
     QDir filterDirectory(":/filter/");
     foreach(QString filterFileName, filterDirectory.entryList())
@@ -147,7 +147,6 @@ FilterEditModel::FilterEditModel(QObject *parent)
 
 FilterEditModel::~FilterEditModel()
 {
-    delete mModelRoot;
 }
 
 QVariant FilterEditModel::data(const QModelIndex &index, int role) const
