@@ -10,7 +10,8 @@
 
 namespace MWRender{
 
-class NpcAnimation: public Animation{
+class NpcAnimation: public Animation, public MWWorld::EquipmentListener
+{
 private:
     MWWorld::InventoryStore& mInv;
     int mStateID;
@@ -45,13 +46,14 @@ private:
     NifOgre::EntityList chest;
     NifOgre::EntityList tail;
 
+    bool mNeedsUpdate;
+
     bool isBeast;
     bool isFemale;
     std::string headModel;
     std::string hairModel;
     std::string npcName;
     std::string bodyRaceID;
-    float timeToChange;
     MWWorld::ContainerStoreIterator robe;
     MWWorld::ContainerStoreIterator helmet;
     MWWorld::ContainerStoreIterator shirt;
@@ -78,6 +80,8 @@ public:
     bool addOrReplaceIndividualPart(int type, int group, int priority, const std::string &mesh);
     void removePartGroup(int group);
     void addPartGroup(int group, int priority, std::vector<ESM::PartReference>& parts);
+
+    virtual void equipmentChanged() { mNeedsUpdate = true; }
 };
 
 }

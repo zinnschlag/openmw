@@ -41,6 +41,7 @@ void MWWorld::InventoryStore::initSlots (TSlots& slots)
 
 MWWorld::InventoryStore::InventoryStore() : mMagicEffectsUpToDate (false)
  , mSelectedEnchantItem(end())
+  , mListener(NULL)
 {
     initSlots (mSlots);
 }
@@ -48,6 +49,7 @@ MWWorld::InventoryStore::InventoryStore() : mMagicEffectsUpToDate (false)
 MWWorld::InventoryStore::InventoryStore (const InventoryStore& store)
 : ContainerStore (store)
  , mSelectedEnchantItem(end())
+, mListener(NULL)
 {
     mMagicEffects = store.mMagicEffects;
     mMagicEffectsUpToDate = store.mMagicEffectsUpToDate;
@@ -107,6 +109,9 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
     }
 
     mSlots[slot] = iterator;
+
+    if (mListener)
+        mListener->equipmentChanged ();
 
     flagAsModified();
 }
@@ -213,6 +218,8 @@ void MWWorld::InventoryStore::autoEquip (const MWMechanics::NpcStats& stats)
     if (changed)
     {
         mSlots.swap (slots);
+        if (mListener)
+            mListener->equipmentChanged();
         flagAsModified();
     }
 }
