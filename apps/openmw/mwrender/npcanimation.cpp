@@ -46,7 +46,7 @@ NpcAnimation::~NpcAnimation()
 
 
 NpcAnimation::NpcAnimation(const MWWorld::Ptr& ptr, OEngine::Render::OgreRenderer& _rend, MWWorld::InventoryStore& _inv)
-  : Animation(_rend), mStateID(-1), mInv(_inv), timeToChange(0),
+  : Animation(_rend), mStateID(-1), mInv(_inv),
     robe(mInv.end()), helmet(mInv.end()), shirt(mInv.end()),
     cuirass(mInv.end()), greaves(mInv.end()),
     leftpauldron(mInv.end()), rightpauldron(mInv.end()),
@@ -363,12 +363,7 @@ NifOgre::EntityList NpcAnimation::insertBoundedPart(const std::string &mesh, con
 
 void NpcAnimation::runAnimation(float timepassed)
 {
-    if(timeToChange > .2)
-    {
-        timeToChange = 0;
-        updateParts();
-    }
-    timeToChange += timepassed;
+    updateParts();
 
     Animation::runAnimation(timepassed);
 }
