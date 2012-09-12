@@ -51,7 +51,6 @@ private:
     std::string hairModel;
     std::string npcName;
     std::string bodyRaceID;
-    float timeToChange;
     MWWorld::ContainerStoreIterator robe;
     MWWorld::ContainerStoreIterator helmet;
     MWWorld::ContainerStoreIterator shirt;
