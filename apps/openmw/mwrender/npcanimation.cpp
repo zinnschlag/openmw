@@ -46,7 +46,7 @@ NpcAnimation::~NpcAnimation()
 
 
 NpcAnimation::NpcAnimation(const MWWorld::Ptr& ptr, OEngine::Render::OgreRenderer& _rend, MWWorld::InventoryStore& _inv)
-  : Animation(_rend), mStateID(-1), mInv(_inv),
+    : Animation(_rend), mStateID(-1), mInv(_inv), mNeedsUpdate(false),
     robe(mInv.end()), helmet(mInv.end()), shirt(mInv.end()),
     cuirass(mInv.end()), greaves(mInv.end()),
     leftpauldron(mInv.end()), rightpauldron(mInv.end()),
@@ -55,6 +55,8 @@ NpcAnimation::NpcAnimation(const MWWorld::Ptr& ptr, OEngine::Render::OgreRendere
     pants(mInv.end())
 {
     MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
+
+    _inv.setEquipmentListener (this);
 
     for (int init = 0; init < 27; init++)
     {
@@ -363,7 +365,11 @@ NifOgre::EntityList NpcAnimation::insertBoundedPart(const std::string &mesh, con
 
 void NpcAnimation::runAnimation(float timepassed)
 {
-    updateParts();
+    if (mNeedsUpdate)
+    {
+        updateParts();
+        mNeedsUpdate = false;
+    }
 
     Animation::runAnimation(timepassed);
 }

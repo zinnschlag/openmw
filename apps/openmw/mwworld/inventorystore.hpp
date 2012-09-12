@@ -12,6 +12,13 @@ namespace MWMechanics
 
 namespace MWWorld
 {
+
+    class EquipmentListener
+    {
+    public:
+        virtual void equipmentChanged() = 0;
+    };
+
     ///< \brief Variant of the ContainerStore for NPCs
     class InventoryStore : public ContainerStore
     {
@@ -42,6 +49,8 @@ namespace MWWorld
             static const int Slot_NoSlot = -1;
 
         private:
+
+            EquipmentListener* mListener;
 
             mutable MWMechanics::MagicEffects mMagicEffects;
             mutable bool mMagicEffectsUpToDate;
@@ -89,6 +98,8 @@ namespace MWWorld
             virtual void flagAsModified();
             ///< \attention This function is internal to the world model and should not be called from
             /// outside.
+
+            void setEquipmentListener (EquipmentListener* l) { mListener = l; }
 
         protected:
 
