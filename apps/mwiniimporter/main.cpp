@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     }
 
     MwIniImporter importer;
-    importer.setVerbose(vm.count("verbose"));
+    importer.setVerbose(vm.count("verbose") > 0);
 
     MwIniImporter::multistrmap ini = importer.loadIniFile(iniFile);
     MwIniImporter::multistrmap cfg = importer.loadCfgFile(cfgFile);

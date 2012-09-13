@@ -315,10 +315,14 @@ void WindowManager::updateVisible()
             int eff = mShown & mAllowed;
 
             // Show the windows we want
-            mMap            ->setVisible(eff & GW_Map);
-            mStatsWindow    ->setVisible(eff & GW_Stats);
-            mInventoryWindow->setVisible(eff & GW_Inventory);
-            mSpellWindow    ->setVisible(eff & GW_Magic);
+            bool showMap = (eff & GW_Map) > 0;
+            bool showStatsWindow = (eff & GW_Stats) > 0;
+            bool showInventoryWindow = (eff & GW_Inventory) > 0;
+            bool showSpellWindow = (eff & GW_Magic) > 0;
+            mMap->setVisible(showMap);
+            mStatsWindow->setVisible(showStatsWindow);
+            mInventoryWindow->setVisible(showInventoryWindow);
+            mSpellWindow->setVisible(showSpellWindow);
             break;
         }
         case GM_Container:
@@ -813,7 +817,7 @@ MWGui::Console* WindowManager::getConsole() { return mConsole; }
 
 bool WindowManager::isAllowed (GuiWindow wnd) const
 {
-    return mAllowed & wnd;
+    return (mAllowed & wnd) > 0;
 }
 
 void WindowManager::allow (GuiWindow wnd)

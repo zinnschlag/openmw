@@ -148,8 +148,8 @@ int main(int argc, char**argv)
       return 0;
     }
 
-  bool quiet = info.quiet_given;
-  bool loadCells = info.loadcells_given;
+  bool quiet = info.quiet_given > 0;
+  bool loadCells = info.loadcells_given > 0;
 
   esm.open(filename);
 
