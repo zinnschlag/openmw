@@ -94,6 +94,9 @@ namespace MWClass
         if (!(ref->base->data.flags & ESM::Light::Carry))
             return boost::shared_ptr<MWWorld::Action> (new MWWorld::NullAction);
 
+        if (!MWBase::Environment::get().getWindowManager()->isAllowed(MWGui::GW_Inventory))
+            return boost::shared_ptr<MWWorld::Action>(new MWWorld::NullAction);
+
         boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionTake (ptr));
 
         action->setSound(getUpSoundId(ptr));

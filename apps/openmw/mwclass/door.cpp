@@ -105,6 +105,7 @@ namespace MWClass
                 // Trap activation
                 std::cout << "Activated trap: " << ptr.getCellRef().trap << std::endl;
 
+                /// \todo replace with a trap action, once traps are implemented
                 boost::shared_ptr<MWWorld::Action> action(new MWWorld::NullAction);
 
                 action->setSound(trapActivationSound);
