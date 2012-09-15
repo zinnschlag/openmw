@@ -86,6 +86,9 @@ namespace MWClass
     boost::shared_ptr<MWWorld::Action> Container::activate (const MWWorld::Ptr& ptr,
         const MWWorld::Ptr& actor) const
     {
+        if (!MWBase::Environment::get().getWindowManager()->isAllowed(MWGui::GW_Inventory))
+            return boost::shared_ptr<MWWorld::Action>(new MWWorld::NullAction);
+
         const std::string lockedSound = "LockedChest";
         const std::string trapActivationSound = "Disarm Trap Fail";
 
