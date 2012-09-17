@@ -17,6 +17,9 @@
 #include "view/filter/filtertree.hpp"
 #include "view/filter/filtereditor.hpp"
 
+
+
+
 OpenCS::OpenCS(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::OpenCS)
@@ -38,64 +41,40 @@ OpenCS::OpenCS(QWidget *parent) :
 
 
 
-    //TODO Refactor the Copy-Pastes below
+    QList<WidgetItem*> widgetItems;
 
-    QDockWidget *idListDock = new QDockWidget("ID List", this);
-    idListDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+    WidgetItem* element;
 
-    idList = new IdList(this);
-    idList->setModel(model);
-    idList->setFilterModel(filterModel);
-    idListDock->setWidget(idList);
+    element = new IdListWidgetItem(model, mRootItem);
+    element->setDockArea(Qt::RightDockWidgetArea);
+    widgetItems.append(element);
 
-    this->addDockWidget(Qt::RightDockWidgetArea, idListDock);
+    element = new FilterTreeWidgetItem(mRootItem);
+    element->setDockArea(Qt::LeftDockWidgetArea);
+    widgetItems.append(element);
 
-    //TODO Copy paste
-    QDockWidget *filterTreeDock = new QDockWidget("Filter Tree", this);
-    filterTreeDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-    FilterTree *filterTree = new FilterTree(filterTreeDock);
-    filterTree->setModel(filterModel);
-    filterTreeDock->setWidget(filterTree);
-
-    this->addDockWidget(Qt::LeftDockWidgetArea, filterTreeDock);
-
-    //TODO Copy paste
-    QDockWidget *filterEditDock = new QDockWidget("Filter Editor", this);
-    filterEditDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-    FilterEditor *filterEditor = new FilterEditor(filterEditDock);
-    filterEditor->setModel(filterModel);
-    filterEditDock->setWidget(filterEditor);
-
-    this->addDockWidget(Qt::LeftDockWidgetArea, filterEditDock);
-
+    element = new FilterEditorWidgetItem(mRootItem);
+    element->setDockArea(Qt::LeftDockWidgetArea);
+    widgetItems.append(element);
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     if(env.contains("OPENCS_DEBUG_GUI")) {
+        element = new UndoRedoWidgetItem(mRootItem);
+        element->setDockArea(Qt::LeftDockWidgetArea);
+        widgetItems.append(element);
 
-        //TODO Copy paste
-        QDockWidget *undoRedoDock = new QDockWidget("Undo/Redo", this);
-        undoRedoDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-        QUndoView *undoView = new QUndoView(undoRedoDock);
-        undoView->setStack(filterModel->undoStack());
-        undoRedoDock->setWidget(undoView);
-
-        this->addDockWidget(Qt::LeftDockWidgetArea, undoRedoDock);
-
-        //TODO Copy paste
-        QDockWidget *ItemModelWidget = new QDockWidget("ItemModel", this);
-        ItemModelWidget->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-        QTreeView *itemModelTreeView = new QTreeView(this);
-        itemModelTreeView->setModel(filterModel);
-        itemModelTreeView->resizeColumnToContents(0);
-        ItemModelWidget->setWidget(itemModelTreeView);
-        this->addDockWidget(Qt::BottomDockWidgetArea, ItemModelWidget);
+        element = new ItemModelWidgetItem(mRootItem);
+        element->setDockArea(Qt::BottomDockWidgetArea);
+        widgetItems.append(element);
     }
 
-    connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
+    foreach(WidgetItem* item, widgetItems) {
+        item->setModel(filterModel);
+        item->addWidget(this);
+    }
+
+    //TODO
+    //connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
 }
 
 OpenCS::~OpenCS()
@@ -111,7 +90,7 @@ void OpenCS::openFile()
     {
         model->loadEsmFile(fileName);
 
-        idList->loadColumnConfig();
+        //idList->loadColumnConfig();
     }
 }
 
