@@ -11,7 +11,9 @@
 
 #include "model/modelitem.hpp"
 
-#include "viewmodel/esmdatamodel.hpp"
+#include "persistence/esmserializer.hpp"
+
+
 
 
 #include "view/filter/filtertree.hpp"
@@ -51,10 +53,12 @@ OpenCS::OpenCS(QWidget *parent) :
         mRootItem->appendChild(filterParentItem);
     }
 
-    // Create Viewmodels
+    // Create Viewmodel
 
+    //TODO Remove
     model = new ESMDataModel(this);
-    FilterEditModel *filterModel = new FilterEditModel(mRootItem, this);
+
+    mModel = new FilterEditModel(mRootItem, this);
 
 
 
@@ -86,7 +90,7 @@ OpenCS::OpenCS(QWidget *parent) :
     }
 
     foreach(WidgetItem* item, widgetItems) {
-        item->setModel(filterModel);
+        item->setModel(mModel);
         item->addWidget(this);
     }
 
@@ -106,5 +110,15 @@ void OpenCS::openFile()
     if (!fileName.isEmpty())
     {
         model->loadEsmFile(fileName);
+
+
+        EsmFile *esmFile = new EsmFile(fileName, mRootItem);
+        mRootItem->appendChild(esmFile);
+
+        EsmSerializer *serializer = new EsmSerializer(this);
+        serializer->load(esmFile);
+
+        //FIXME
+        mModel->emitLayoutChanged();
     }
 }

@@ -199,6 +199,9 @@ private:
     Ui::OpenCS *ui;
 
     ModelItem *mRootItem;
+    FilterEditModel *mModel;
+
+    //TODO Remove
     ESMDataModel *model;
 
 private slots:

@@ -6,6 +6,9 @@
 class EsmFile : public ModelItem
 {
     Q_OBJECT
+
+    Q_CLASSINFO("display.0", "filename")
+
     Q_PROPERTY(QString filename READ filename)
 
 public:

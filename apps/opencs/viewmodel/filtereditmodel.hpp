@@ -65,6 +65,12 @@ public:
     {
       endRemoveRows();
     }
+
+    void emitLayoutChanged()
+    {
+      layoutChanged();
+    }
+
     //TODO end
 
 private:

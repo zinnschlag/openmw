@@ -21,6 +21,7 @@ set(OPENCS_SRC
     model/filter/setoperationfilter.cpp
 
     persistence/filter/filterdom.cpp
+    persistence/esmserializer.cpp
 
     viewmodel/esmdatamodel.cpp
     viewmodel/filtereditmodel.cpp
@@ -52,6 +53,7 @@ set(OPENCS_HDR
     model/filter/setoperationfilter.hpp
 
     persistence/filter/filterdom.hpp
+    persistence/esmserializer.hpp
 
     viewmodel/esmdatamodel.hpp
     viewmodel/filtereditmodel.hpp
