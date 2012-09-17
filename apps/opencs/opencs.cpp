@@ -35,14 +35,20 @@ OpenCS::OpenCS(QWidget *parent) :
     // Load Items
     mRootItem = new ModelItem();
 
-
-    FilterDom *filterDom = new FilterDom(this);
-    QDir filterDirectory(":/filter/");
-    foreach(QString filterFileName, filterDirectory.entryList())
     {
-        QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
+        ModelItem* filterParentItem = new ModelItem(mRootItem);
+        filterParentItem->setObjectName("filter");
 
-        mRootItem->appendChild(filterDom->loadFile(filterFilePath, mRootItem));
+        FilterDom *filterDom = new FilterDom(this);
+        QDir filterDirectory(":/filter/");
+        foreach(QString filterFileName, filterDirectory.entryList())
+        {
+            QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
+
+            filterParentItem->appendChild(filterDom->loadFile(filterFilePath, filterParentItem));
+        }
+
+        mRootItem->appendChild(filterParentItem);
     }
 
     // Create Viewmodels

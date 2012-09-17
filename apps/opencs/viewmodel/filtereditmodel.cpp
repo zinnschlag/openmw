@@ -342,12 +342,17 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
 
 int FilterEditModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.column() > 0)
-        return 0;
+//    if (parent.column() > 0)
+//        return 0;
 
-    ModelItem *parentItem = parent.isValid() ? static_cast<ModelItem*>(parent.internalPointer()) : mModelRoot;
+    // The root object is represented as an invalid index
+    ModelItem *parentItem;
+    if (!parent.isValid())
+        parentItem = mModelRoot;
+    else
+        parentItem = static_cast<ModelItem*>(parent.internalPointer());
 
-    return parentItem ? parentItem->childCount() : 0;
+    return parentItem->childCount();
 }
 
 int FilterEditModel::columnCount(const QModelIndex &parent) const

@@ -8,6 +8,8 @@ class ModelItem : public QObject
 {
     Q_OBJECT
 
+    Q_CLASSINFO("display.0", "objectName")
+
 public:
     ModelItem(ModelItem *parent = 0);
     ~ModelItem();

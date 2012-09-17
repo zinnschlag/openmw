@@ -34,21 +34,26 @@ void IdList::setModel(QAbstractItemModel *model)
     mFilterProxyModel->setSourceModel(model);
 }
 
-void IdList::setFilterModel(FilterEditModel *editModel)
+void IdList::setFilterModel(FilterEditModel *model)
 {
-    comboFilterRoot->setModel(editModel);
+    mModel = model;
 
-    mFilterProxyModel->setEditModel(editModel);
+    //FIXME This should work, bad workaround below
+    //comboBox->setModel(model);
+    //comboBox->setRootModelIndex(model->index(0, 0));
+    int rows = model->rowCount(model->index(0, 0));
+    for(int i=0; i< rows; i++) {
+
+        QVariant data = model->data(model->index(0, 0).child(i, 0), Qt::DisplayRole);
+        comboFilterRoot->addItem(data.toString());
+    }
+
+    mFilterProxyModel->setEditModel(model);
 }
 
 //TODO Make this nicer
 void IdList::filterRootChanged(int row)
 {
-    FilterEditModel* editModel = dynamic_cast<FilterEditModel*>(comboFilterRoot->model());
-    if(editModel) {
-
-        mFilterProxyModel->setActiveFilter(editModel->index(row, 0));
-    }
-
-    mFilterProxyModel->sourceModel();
+    //FIXME Hardcode
+    mFilterProxyModel->setActiveFilter(mModel->index(0, 0).child(row, 0));
 }

@@ -24,11 +24,12 @@ public:
     ~IdList();
     
     void setModel(QAbstractItemModel *model);
-    void setFilterModel(FilterEditModel *editModel);
+    void setFilterModel(FilterEditModel *model);
 
     void loadColumnConfig();
 
 private:
+    QAbstractItemModel *mModel;
     FilterProxyModel *mFilterProxyModel;
 
 private slots:
