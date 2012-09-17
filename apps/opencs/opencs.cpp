@@ -89,7 +89,5 @@ void OpenCS::openFile()
     if (!fileName.isEmpty())
     {
         model->loadEsmFile(fileName);
-
-        //idList->loadColumnConfig();
     }
 }

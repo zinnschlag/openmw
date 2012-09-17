@@ -15,17 +15,6 @@ namespace Ui
 class IdList;
 }
 
-class ColumnConfig
-{
-
-public:
-    explicit ColumnConfig(QString key, int width) : key(key), width(width) {}
-    ~ColumnConfig(){}
-
-    QString key;
-    int width;
-};
-
 class IdList : public QWidget, private Ui::IdList
 {
     Q_OBJECT
@@ -41,9 +30,6 @@ public:
 
 private:
     FilterProxyModel *mFilterProxyModel;
-
-    QList<ColumnConfig*> mColumnConfigs;
-    void readColumnConfig(const QDomElement &element);
 
 private slots:
     void filterRootChanged(int row);

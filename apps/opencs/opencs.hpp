@@ -199,10 +199,7 @@ private:
     Ui::OpenCS *ui;
 
     ModelItem *mRootItem;
-
     ESMDataModel *model;
-
-    IdList *idList;
 
 private slots:
     void openFile();
