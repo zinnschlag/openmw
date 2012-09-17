@@ -9,7 +9,6 @@ class SettingDataItem : public ESMDataItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString key READ key)
     Q_PROPERTY(QVariant value READ value)
 
 public:
