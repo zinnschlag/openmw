@@ -26,17 +26,28 @@ OpenCS::OpenCS(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mRootItem = new ModelItem();
-
     setDockOptions(QMainWindow::AllowNestedDocks | QMainWindow::AllowTabbedDocks);
     setCentralWidget(NULL);
 
     connect(ui->actionOpen,SIGNAL(triggered()), this, SLOT(openFile()));
-    connect(ui->actionAddIdList, SIGNAL(triggered()), this, SLOT(addIdList()));
+
+
+    // Load Items
+    mRootItem = new ModelItem();
+
+
+    FilterDom *filterDom = new FilterDom(this);
+    QDir filterDirectory(":/filter/");
+    foreach(QString filterFileName, filterDirectory.entryList())
+    {
+        QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
+
+        mRootItem->appendChild(filterDom->loadFile(filterFilePath, mRootItem));
+    }
+
+    // Create Viewmodels
 
     model = new ESMDataModel(this);
-
-
     FilterEditModel *filterModel = new FilterEditModel(mRootItem, this);
 
 

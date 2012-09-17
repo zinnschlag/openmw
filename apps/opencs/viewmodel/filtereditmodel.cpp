@@ -135,14 +135,6 @@ FilterEditModel::FilterEditModel(ModelItem *rootModelItem, QObject *parent)
     mModelRoot = rootModelItem;
 
     mUndoStack = new QUndoStack(this);
-
-    QDir filterDirectory(":/filter/");
-    foreach(QString filterFileName, filterDirectory.entryList())
-    {
-        QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
-
-        mModelRoot->appendChild(mFilterDom->loadFile(filterFilePath, mModelRoot));
-    }
 }
 
 FilterEditModel::~FilterEditModel()

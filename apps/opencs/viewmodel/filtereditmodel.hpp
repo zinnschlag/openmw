@@ -71,8 +71,6 @@ private:
     ModelItem* mModelRoot;
 
     QUndoStack *mUndoStack;
-
-    FilterDom *mFilterDom;
 };
 
 #endif
