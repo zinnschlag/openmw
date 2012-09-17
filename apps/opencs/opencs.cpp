@@ -93,10 +93,3 @@ void OpenCS::openFile()
         //idList->loadColumnConfig();
     }
 }
-
-void OpenCS::addIdList()
-{
-//    IdList *idList = new IdList(this);
-//    idList->setModel(model);
-//    this->addDockWidget(Qt::RightDockWidgetArea, idList);
-}

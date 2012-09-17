@@ -206,7 +206,6 @@ private:
 
 private slots:
     void openFile();
-    void addIdList();
 };
 
 #endif // OPENCS_H
