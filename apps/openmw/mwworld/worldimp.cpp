@@ -658,7 +658,18 @@ namespace MWWorld
 
     void World::safePlaceObject(const MWWorld::Ptr& ptr,MWWorld::CellStore &Cell,ESM::Position pos)
     {
-        copyObjectToCell(ptr,Cell,pos);
+        MWWorld::Ptr dropped =
+            MWWorld::Class::get(ptr).copyToCell(ptr, Cell, pos);
+
+        if (mWorldScene->isCellActive(Cell)) {
+            if (dropped.getRefData().isEnabled()) {
+                mWorldScene->addObjectToScene(dropped);
+            }
+            std::string script = MWWorld::Class::get(dropped).getScript(dropped);
+            if (!script.empty()) {
+                mLocalScripts.add(script, dropped);
+            }
+        }
     }
 
     void World::indexToPosition (int cellX, int cellY, float &x, float &y, bool centre) const
