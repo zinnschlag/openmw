@@ -570,7 +570,10 @@ void WindowManager::changeCell(MWWorld::Ptr::CellStore* cell)
     {
         std::string name;
         if (cell->cell->name != "")
+        {
             name = cell->cell->name;
+            mMap->addVisitedLocation (name, cell->cell->getGridX (), cell->cell->getGridY ());
+        }
         else
         {
             const ESM::Region* region = MWBase::Environment::get().getWorld()->getStore().regions.search(cell->cell->region);
@@ -950,4 +953,9 @@ void WindowManager::loadingDone ()
 bool WindowManager::getPlayerSleeping ()
 {
     return mWaitDialog->getSleeping();
+}
+
+void WindowManager::addVisitedLocation(const std::string& name, int x, int y)
+{
+    mMap->addVisitedLocation (name, x, y);
 }
