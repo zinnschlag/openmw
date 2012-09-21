@@ -47,9 +47,9 @@ namespace MWRender
 
                     if (land)
                     {
-                        if (!land->dataLoaded)
+                        if (!land->isDataLoaded(ESM::Land::DATA_VHGT))
                         {
-                            land->loadData();
+                            land->loadData(ESM::Land::DATA_VHGT);
                         }
                     }
 
@@ -77,7 +77,7 @@ namespace MWRender
 
                             if (land)
                             {
-                                float landHeight = land->landData->heights[vertexY * ESM::Land::LAND_SIZE + vertexX];
+                                float landHeight = land->mLandData->mHeights[vertexY * ESM::Land::LAND_SIZE + vertexX];
 
 
                                 if (landHeight >= 0)

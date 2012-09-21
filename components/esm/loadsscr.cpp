@@ -1,13 +1,20 @@
 #include "loadsscr.hpp"
 
+#include "esm_reader.hpp"
+#include "esm_writer.hpp"
+
 namespace ESM
 {
 
 void StartScript::load(ESMReader &esm)
 {
-    esm.getSubNameIs("DATA");
-    esm.skipHSub();
-    script = esm.getHNString("NAME");
+    mData = esm.getHNString("DATA");
+    mScript = esm.getHNString("NAME");
+}
+void StartScript::save(ESMWriter &esm)
+{
+    esm.writeHNString("DATA", mData);
+    esm.writeHNString("NAME", mScript);
 }
 
 }

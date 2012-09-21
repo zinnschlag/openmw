@@ -90,29 +90,29 @@ float MWMechanics::NpcStats::getSkillGain (int skillIndex, const ESM::Class& cla
 
     if (usageType>0)
     {
-        skillFactor = skill->data.useValue[usageType];
+        skillFactor = skill->mData.mUseValue[usageType];
 
         if (skillFactor<=0)
             throw std::runtime_error ("invalid skill gain factor");
     }
 
     float typeFactor =
-        MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fMiscSkillBonus")->f;
+        MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fMiscSkillBonus")->mF;
 
     for (int i=0; i<5; ++i)
-        if (class_.data.skills[i][0]==skillIndex)
+        if (class_.mData.mSkills[i][0]==skillIndex)
         {
             typeFactor =
-                MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fMinorSkillBonus")->f;
+                MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fMinorSkillBonus")->mF;
 
             break;
         }
 
     for (int i=0; i<5; ++i)
-        if (class_.data.skills[i][1]==skillIndex)
+        if (class_.mData.mSkills[i][1]==skillIndex)
         {
             typeFactor =
-                MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fMajorSkillBonus")->f;
+                MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fMajorSkillBonus")->mF;
 
             break;
         }
@@ -122,10 +122,10 @@ float MWMechanics::NpcStats::getSkillGain (int skillIndex, const ESM::Class& cla
 
     float specialisationFactor = 1;
 
-    if (skill->data.specialization==class_.data.specialization)
+    if (skill->mData.mSpecialization==class_.mData.mSpecialization)
     {
         specialisationFactor =
-            MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fSpecialSkillBonus")->f;
+            MWBase::Environment::get().getWorld()->getStore().gameSettings.find ("fSpecialSkillBonus")->mF;
 
         if (specialisationFactor<=0)
             throw std::runtime_error ("invalid skill specialisation factor");
@@ -170,7 +170,7 @@ void MWMechanics::NpcStats::increaseSkill(int skillIndex, const ESM::Class &clas
     for (int i=0; i<2; ++i)
         for (int j=0; j<5; ++j)
         {
-            int skill = class_.data.skills[j][i];
+            int skill = class_.mData.mSkills[j][i];
             if (skill == skillIndex)
                 levelProgress = true;
         }
@@ -179,7 +179,7 @@ void MWMechanics::NpcStats::increaseSkill(int skillIndex, const ESM::Class &clas
 
     // check the attribute this skill belongs to
     const ESM::Skill* skill = MWBase::Environment::get().getWorld ()->getStore ().skills.find(skillIndex);
-    ++mSkillIncreases[skill->data.attribute];
+    ++mSkillIncreases[skill->mData.mAttribute];
 
     // Play sound & skill progress notification
     /// \todo check if character is the player, if levelling is ever implemented for NPCs
