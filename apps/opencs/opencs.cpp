@@ -104,19 +104,24 @@ OpenCS::~OpenCS()
     delete mRootItem;
 }
 
+void OpenCS::loadProject()
+{
+
+
+}
+
 void OpenCS::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Esm"), "", tr("Esm Files (*.esm)"));
     if (!fileName.isEmpty())
     {
-        model->loadEsmFile(fileName);
-
-
         EsmFile *esmFile = new EsmFile(fileName, mRootItem);
         mRootItem->appendChild(esmFile);
 
         EsmSerializer *serializer = new EsmSerializer(this);
         serializer->load(esmFile);
+
+        model->setRootItem(esmFile);
 
         //FIXME
         mModel->emitLayoutChanged();

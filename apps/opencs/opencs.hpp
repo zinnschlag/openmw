@@ -194,6 +194,8 @@ class OpenCS : public QMainWindow
 public:
     explicit OpenCS(QWidget *parent = 0);
     ~OpenCS();
+
+    void loadProject();
     
 private:
     Ui::OpenCS *ui;
