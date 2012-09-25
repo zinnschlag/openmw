@@ -72,278 +72,273 @@
 <a name="l00012"></a>00012 
 <a name="l00013"></a>00013 <span class="keyword">namespace </span>MWGui
 <a name="l00014"></a>00014 {
-<a name="l00016"></a>00016     <span class="keyword">using namespace </span>MyGUI;
-<a name="l00017"></a>00017 
-<a name="l00018"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html">00018</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00019"></a>00019     {
-<a name="l00020"></a>00020     <span class="keyword">public</span>:
-<a name="l00021"></a>00021         <a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae32e07bd770a578ffdec3e446405f83c">00023</a>         <span class="keyword">typedef</span> std::vector&lt;std::string&gt; <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae32e07bd770a578ffdec3e446405f83c">ButtonList</a>;
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025         <span class="keywordtype">void</span> setText(<span class="keyword">const</span> std::string &amp;str);
-<a name="l00026"></a>00026         std::string getText() <span class="keyword">const</span>;
-<a name="l00027"></a>00027         <span class="keywordtype">void</span> setButtons(<a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae32e07bd770a578ffdec3e446405f83c">ButtonList</a> &amp;buttons);
+<a name="l00015"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html">00015</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00016"></a>00016     {
+<a name="l00017"></a>00017     <span class="keyword">public</span>:
+<a name="l00018"></a>00018         <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a0a53eda9373484a39c18aad0aa97b0d9">InfoBoxDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae32e07bd770a578ffdec3e446405f83c">00020</a>         <span class="keyword">typedef</span> std::vector&lt;std::string&gt; <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae32e07bd770a578ffdec3e446405f83c">ButtonList</a>;
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae0059ebd8fb51a30934e40d34f43e279">setText</a>(<span class="keyword">const</span> std::string &amp;str);
+<a name="l00023"></a>00023         std::string <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ab70e550c8de2c6b734830c20b1f9b0f8">getText</a>() <span class="keyword">const</span>;
+<a name="l00024"></a>00024         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a4c59f17ba88553ae1b20ac72485c4fe2">setButtons</a>(<a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae32e07bd770a578ffdec3e446405f83c">ButtonList</a> &amp;buttons);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ae5a84a9380539968650ee763b4faa33c">open</a>();
+<a name="l00027"></a>00027         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#aaa19ec98f837f02a44c848c1969fe9f4">getChosenButton</a>() <span class="keyword">const</span>;
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029         <span class="keywordtype">void</span> open();
-<a name="l00030"></a>00030         <span class="keywordtype">int</span> getChosenButton() <span class="keyword">const</span>;
+<a name="l00029"></a>00029         <span class="comment">// Events</span>
+<a name="l00030"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a99b0149aafaf3787251dc3ebaa95c425">00030</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;int&gt; <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a99b0149aafaf3787251dc3ebaa95c425">EventHandle_Int</a>;
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032         <span class="comment">// Events</span>
-<a name="l00033"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a1a0b6a085584ec46805bc539fdd4f57b">00033</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate1&lt;int&gt; <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a1a0b6a085584ec46805bc539fdd4f57b">EventHandle_Int</a>;
-<a name="l00034"></a>00034 
-<a name="l00038"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a75e441c3d04ef3a76882c74a27df48f3">00038</a>         <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a1a0b6a085584ec46805bc539fdd4f57b">EventHandle_Int</a> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a75e441c3d04ef3a76882c74a27df48f3">eventButtonSelected</a>;
+<a name="l00035"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a75e441c3d04ef3a76882c74a27df48f3">00035</a>         <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a99b0149aafaf3787251dc3ebaa95c425">EventHandle_Int</a> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a75e441c3d04ef3a76882c74a27df48f3">eventButtonSelected</a>;
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037     <span class="keyword">protected</span>:
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#aa236729c56544171f8115ba3fa64cc72">onButtonClicked</a>(MyGUI::WidgetPtr _sender);
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040     <span class="keyword">protected</span>:
-<a name="l00041"></a>00041         <span class="keywordtype">void</span> onButtonClicked(MyGUI::WidgetPtr _sender);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043     <span class="keyword">private</span>:
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> fitToText(MyGUI::TextBox* widget);
-<a name="l00046"></a>00046         <span class="keywordtype">void</span> layoutVertically(MyGUI::WidgetPtr widget, <span class="keywordtype">int</span> margin);
-<a name="l00047"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2e7f588071a2d235be7ced3cec7517b5">00047</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2e7f588071a2d235be7ced3cec7517b5">mCurrentButton</a>;
-<a name="l00048"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2f2b08bf1a9c03782a62f2f0fa9d931b">00048</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2f2b08bf1a9c03782a62f2f0fa9d931b">mTextBox</a>;
-<a name="l00049"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#ac430265cb95e142087fec7b5bd6bd9eb">00049</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ac430265cb95e142087fec7b5bd6bd9eb">mText</a>;
-<a name="l00050"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a02b6ad32e408e2e8bff509e4dbe2011e">00050</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a02b6ad32e408e2e8bff509e4dbe2011e">mButtonBar</a>;
-<a name="l00051"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#aad08e992905338ca81084da0d7a4dceb">00051</a>         std::vector&lt;MyGUI::ButtonPtr&gt; <a class="code" href="classMWGui_1_1InfoBoxDialog.html#aad08e992905338ca81084da0d7a4dceb">mButtons</a>;
-<a name="l00052"></a>00052     };
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054     <span class="comment">// Lets the player choose between 3 ways of creating a class</span>
-<a name="l00055"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html">00055</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ClassChoiceDialog.html">ClassChoiceDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a>
-<a name="l00056"></a>00056     {
-<a name="l00057"></a>00057     <span class="keyword">public</span>:
-<a name="l00058"></a>00058         <span class="comment">// Corresponds to the buttons that can be clicked</span>
-<a name="l00059"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8">00059</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8">ClassChoice</a>
-<a name="l00060"></a>00060         {
-<a name="l00061"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8af4bbae31fba243f89cac4574c63cfb5a">00061</a>             Class_Generate = 0,
-<a name="l00062"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8a021572ef4350f320cd071093257c6c6a">00062</a>             Class_Pick = 1,
-<a name="l00063"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8a41271029b1bd0828827a0ac7788db9ec">00063</a>             Class_Create = 2,
-<a name="l00064"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8af5e004d9d7d953d7d4bb372494f0a7fc">00064</a>             Class_Back = 3
-<a name="l00065"></a>00065         };
-<a name="l00066"></a>00066         <a class="code" href="classMWGui_1_1ClassChoiceDialog.html">ClassChoiceDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00067"></a>00067     };
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">00069</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">GenerateClassResultDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00070"></a>00070     {
-<a name="l00071"></a>00071     <span class="keyword">public</span>:
-<a name="l00072"></a>00072         <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">GenerateClassResultDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00040"></a>00040     <span class="keyword">private</span>:
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a838c8138f3301f5359409730f2b6e479">fitToText</a>(MyGUI::TextBox* widget);
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#afdd2a67c2ed9642e472837262a5bf976">layoutVertically</a>(MyGUI::WidgetPtr widget, <span class="keywordtype">int</span> margin);
+<a name="l00044"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2e7f588071a2d235be7ced3cec7517b5">00044</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2e7f588071a2d235be7ced3cec7517b5">mCurrentButton</a>;
+<a name="l00045"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2f2b08bf1a9c03782a62f2f0fa9d931b">00045</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a2f2b08bf1a9c03782a62f2f0fa9d931b">mTextBox</a>;
+<a name="l00046"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#ac430265cb95e142087fec7b5bd6bd9eb">00046</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1InfoBoxDialog.html#ac430265cb95e142087fec7b5bd6bd9eb">mText</a>;
+<a name="l00047"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#a02b6ad32e408e2e8bff509e4dbe2011e">00047</a>         MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1InfoBoxDialog.html#a02b6ad32e408e2e8bff509e4dbe2011e">mButtonBar</a>;
+<a name="l00048"></a><a class="code" href="classMWGui_1_1InfoBoxDialog.html#aad08e992905338ca81084da0d7a4dceb">00048</a>         std::vector&lt;MyGUI::ButtonPtr&gt; <a class="code" href="classMWGui_1_1InfoBoxDialog.html#aad08e992905338ca81084da0d7a4dceb">mButtons</a>;
+<a name="l00049"></a>00049     };
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="comment">// Lets the player choose between 3 ways of creating a class</span>
+<a name="l00052"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html">00052</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ClassChoiceDialog.html">ClassChoiceDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1InfoBoxDialog.html">InfoBoxDialog</a>
+<a name="l00053"></a>00053     {
+<a name="l00054"></a>00054     <span class="keyword">public</span>:
+<a name="l00055"></a>00055         <span class="comment">// Corresponds to the buttons that can be clicked</span>
+<a name="l00056"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8">00056</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8">ClassChoice</a>
+<a name="l00057"></a>00057         {
+<a name="l00058"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8af4bbae31fba243f89cac4574c63cfb5a">00058</a>             <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8af4bbae31fba243f89cac4574c63cfb5a">Class_Generate</a> = 0,
+<a name="l00059"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8a021572ef4350f320cd071093257c6c6a">00059</a>             <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8a021572ef4350f320cd071093257c6c6a">Class_Pick</a> = 1,
+<a name="l00060"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8a41271029b1bd0828827a0ac7788db9ec">00060</a>             <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8a41271029b1bd0828827a0ac7788db9ec">Class_Create</a> = 2,
+<a name="l00061"></a><a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8af5e004d9d7d953d7d4bb372494f0a7fc">00061</a>             <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#a571298d214d4961ccb7bbea04a3a98d8af5e004d9d7d953d7d4bb372494f0a7fc">Class_Back</a> = 3
+<a name="l00062"></a>00062         };
+<a name="l00063"></a>00063         <a class="code" href="classMWGui_1_1ClassChoiceDialog.html#ad3a6100c316114cd8d76f5734968d836">ClassChoiceDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00064"></a>00064     };
+<a name="l00065"></a>00065 
+<a name="l00066"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">00066</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html">GenerateClassResultDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00067"></a>00067     {
+<a name="l00068"></a>00068     <span class="keyword">public</span>:
+<a name="l00069"></a>00069         <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#aa5a43c7d23f2689bc8ca58b791c8f5be">GenerateClassResultDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071         std::string <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a42faf2887429834f6a980040bf03ed12">getClassId</a>() <span class="keyword">const</span>;
+<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a396f667f00d35789b95db8346a9a3158">setClassId</a>(<span class="keyword">const</span> std::string &amp;classId);
 <a name="l00073"></a>00073 
-<a name="l00074"></a>00074         std::string getClassId() <span class="keyword">const</span>;
-<a name="l00075"></a>00075         <span class="keywordtype">void</span> setClassId(<span class="keyword">const</span> std::string &amp;classId);
+<a name="l00074"></a>00074         <span class="comment">// Events</span>
+<a name="l00075"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#aedbd78ab64556ee0b21419f99e95c8ce">00075</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#aedbd78ab64556ee0b21419f99e95c8ce">EventHandle_Void</a>;
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077         <span class="keywordtype">void</span> open();
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079         <span class="comment">// Events</span>
-<a name="l00080"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a685e999e1e7784d7f10ab03f4b2d4ca2">00080</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a685e999e1e7784d7f10ab03f4b2d4ca2">EventHandle_Void</a>;
+<a name="l00080"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#abeda10d33f54cbb1401ce419c3762b20">00080</a>         <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#aedbd78ab64556ee0b21419f99e95c8ce">EventHandle_Void</a> <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#abeda10d33f54cbb1401ce419c3762b20">eventBack</a>;
 <a name="l00081"></a>00081 
-<a name="l00085"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#abeda10d33f54cbb1401ce419c3762b20">00085</a>         <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a685e999e1e7784d7f10ab03f4b2d4ca2">EventHandle_Void</a> <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#abeda10d33f54cbb1401ce419c3762b20">eventBack</a>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087     <span class="keyword">protected</span>:
-<a name="l00088"></a>00088         <span class="keywordtype">void</span> onOkClicked(MyGUI::Widget* _sender);
-<a name="l00089"></a>00089         <span class="keywordtype">void</span> onBackClicked(MyGUI::Widget* _sender);
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091     <span class="keyword">private</span>:
-<a name="l00092"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a586d564e8d3b0fe445bf18d6c7461c58">00092</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a586d564e8d3b0fe445bf18d6c7461c58">mClassImage</a>;
-<a name="l00093"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#ac75b2f997cfd71b8626ac01f833a5045">00093</a>         MyGUI::TextBox*  <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#ac75b2f997cfd71b8626ac01f833a5045">mClassName</a>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a2d88b1683d782c9b93d0017f3bc8a2aa">00095</a>         std::string <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a2d88b1683d782c9b93d0017f3bc8a2aa">mCurrentClassId</a>;
-<a name="l00096"></a>00096     };
+<a name="l00082"></a>00082     <span class="keyword">protected</span>:
+<a name="l00083"></a>00083         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a616da2f39c9aa683261ced51caf186c4">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a440b4ed5ba54fdd3268f9362367e3227">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <span class="keyword">private</span>:
+<a name="l00087"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a586d564e8d3b0fe445bf18d6c7461c58">00087</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a586d564e8d3b0fe445bf18d6c7461c58">mClassImage</a>;
+<a name="l00088"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#ac75b2f997cfd71b8626ac01f833a5045">00088</a>         MyGUI::TextBox*  <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#ac75b2f997cfd71b8626ac01f833a5045">mClassName</a>;
+<a name="l00089"></a>00089 
+<a name="l00090"></a><a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a2d88b1683d782c9b93d0017f3bc8a2aa">00090</a>         std::string <a class="code" href="classMWGui_1_1GenerateClassResultDialog.html#a2d88b1683d782c9b93d0017f3bc8a2aa">mCurrentClassId</a>;
+<a name="l00091"></a>00091     };
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classMWGui_1_1PickClassDialog.html">00093</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1PickClassDialog.html">PickClassDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00094"></a>00094     {
+<a name="l00095"></a>00095     <span class="keyword">public</span>:
+<a name="l00096"></a>00096         <a class="code" href="classMWGui_1_1PickClassDialog.html#a23a339122ba37b4c31c9faf2b41ee8d5">PickClassDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
 <a name="l00097"></a>00097 
-<a name="l00098"></a><a class="code" href="classMWGui_1_1PickClassDialog.html">00098</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1PickClassDialog.html">PickClassDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00099"></a>00099     {
-<a name="l00100"></a>00100     <span class="keyword">public</span>:
-<a name="l00101"></a>00101         <a class="code" href="classMWGui_1_1PickClassDialog.html">PickClassDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a9410a164482174e0b683f1401ad4cb47">00103</a>         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1PickClassDialog.html#a9410a164482174e0b683f1401ad4cb47">getClassId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mCurrentClassId; }
-<a name="l00104"></a>00104         <span class="keywordtype">void</span> setClassId(<span class="keyword">const</span> std::string &amp;classId);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106         <span class="keywordtype">void</span> setNextButtonShow(<span class="keywordtype">bool</span> shown);
-<a name="l00107"></a>00107         <span class="keywordtype">void</span> open();
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109         <span class="comment">// Events</span>
-<a name="l00110"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a756b4eda4f7200c13675fdcb1a74cc75">00110</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1PickClassDialog.html#a756b4eda4f7200c13675fdcb1a74cc75">EventHandle_Void</a>;
+<a name="l00098"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a9410a164482174e0b683f1401ad4cb47">00098</a>         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1PickClassDialog.html#a9410a164482174e0b683f1401ad4cb47">getClassId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a6daa385bca5444bb780733ccac70ad2f">mCurrentClassId</a>; }
+<a name="l00099"></a>00099         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a04dc3aab851011cbd45fdf3b1ab84ca4">setClassId</a>(<span class="keyword">const</span> std::string &amp;classId);
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a5c234585aec0726fcd7ab0118b4eca30">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
+<a name="l00102"></a>00102         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#af92da1aed665125a6409fd26668493c7">open</a>();
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104         <span class="comment">// Events</span>
+<a name="l00105"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#ac2bb6d2d7322819139729c7452e2d474">00105</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1PickClassDialog.html#ac2bb6d2d7322819139729c7452e2d474">EventHandle_Void</a>;
+<a name="l00106"></a>00106 
+<a name="l00110"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a666b4311d7d1450c8953036f7754218c">00110</a>         <a class="code" href="classMWGui_1_1PickClassDialog.html#ac2bb6d2d7322819139729c7452e2d474">EventHandle_Void</a> <a class="code" href="classMWGui_1_1PickClassDialog.html#a666b4311d7d1450c8953036f7754218c">eventBack</a>;
 <a name="l00111"></a>00111 
-<a name="l00115"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a666b4311d7d1450c8953036f7754218c">00115</a>         <a class="code" href="classMWGui_1_1PickClassDialog.html#a756b4eda4f7200c13675fdcb1a74cc75">EventHandle_Void</a> <a class="code" href="classMWGui_1_1PickClassDialog.html#a666b4311d7d1450c8953036f7754218c">eventBack</a>;
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="keyword">protected</span>:
-<a name="l00118"></a>00118         <span class="keywordtype">void</span> onSelectClass(MyGUI::ListBox* _sender, <span class="keywordtype">size_t</span> _index);
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120         <span class="keywordtype">void</span> onOkClicked(MyGUI::Widget* _sender);
-<a name="l00121"></a>00121         <span class="keywordtype">void</span> onBackClicked(MyGUI::Widget* _sender);
-<a name="l00122"></a>00122 
-<a name="l00123"></a>00123     <span class="keyword">private</span>:
-<a name="l00124"></a>00124         <span class="keywordtype">void</span> updateClasses();
-<a name="l00125"></a>00125         <span class="keywordtype">void</span> updateStats();
-<a name="l00126"></a>00126 
-<a name="l00127"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a6d9dd5ebcd1e2e604f36651d320b6f73">00127</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1PickClassDialog.html#a6d9dd5ebcd1e2e604f36651d320b6f73">mClassImage</a>;
-<a name="l00128"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a12701f3d4ccef5065920346bfe58d03d">00128</a>         MyGUI::ListBox*  <a class="code" href="classMWGui_1_1PickClassDialog.html#a12701f3d4ccef5065920346bfe58d03d">mClassList</a>;
-<a name="l00129"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a2614c1be3674ab2ab951facf41098874">00129</a>         MyGUI::TextBox*  <a class="code" href="classMWGui_1_1PickClassDialog.html#a2614c1be3674ab2ab951facf41098874">mSpecializationName</a>;
-<a name="l00130"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a4cd6eb8f8d79e6bb457f13c95dfdb37e">00130</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> mFavoriteAttribute[2];
-<a name="l00131"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a6b58cefc777335a7b92633efb1bbe771">00131</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>   mMajorSkill[5];
-<a name="l00132"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a8b13a2ba3442ea26abed72ede11d4e87">00132</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>   mMinorSkill[5];
-<a name="l00133"></a>00133 
-<a name="l00134"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a6daa385bca5444bb780733ccac70ad2f">00134</a>         std::string <a class="code" href="classMWGui_1_1PickClassDialog.html#a6daa385bca5444bb780733ccac70ad2f">mCurrentClassId</a>;
-<a name="l00135"></a>00135     };
-<a name="l00136"></a>00136 
-<a name="l00137"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">00137</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">SelectSpecializationDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00138"></a>00138     {
-<a name="l00139"></a>00139     <span class="keyword">public</span>:
-<a name="l00140"></a>00140         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">SelectSpecializationDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00141"></a>00141         ~<a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">SelectSpecializationDialog</a>();
+<a name="l00112"></a>00112     <span class="keyword">protected</span>:
+<a name="l00113"></a>00113         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a168116064e36bf2dec35c9eae3b0c61b">onSelectClass</a>(MyGUI::ListBox* _sender, <span class="keywordtype">size_t</span> _index);
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a95e24a2ba2d19a5d40d3bb0e97866f88">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00116"></a>00116         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#ac7bf1779fe705057807c1b4c8d9fd775">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118     <span class="keyword">private</span>:
+<a name="l00119"></a>00119         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a5545bf7ec2613a1fc6a1589cf9bce077">updateClasses</a>();
+<a name="l00120"></a>00120         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PickClassDialog.html#a02d5614d033c764d213e32e56215b7f5">updateStats</a>();
+<a name="l00121"></a>00121 
+<a name="l00122"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a6d9dd5ebcd1e2e604f36651d320b6f73">00122</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1PickClassDialog.html#a6d9dd5ebcd1e2e604f36651d320b6f73">mClassImage</a>;
+<a name="l00123"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a12701f3d4ccef5065920346bfe58d03d">00123</a>         MyGUI::ListBox*  <a class="code" href="classMWGui_1_1PickClassDialog.html#a12701f3d4ccef5065920346bfe58d03d">mClassList</a>;
+<a name="l00124"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a2614c1be3674ab2ab951facf41098874">00124</a>         MyGUI::TextBox*  <a class="code" href="classMWGui_1_1PickClassDialog.html#a2614c1be3674ab2ab951facf41098874">mSpecializationName</a>;
+<a name="l00125"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a4cd6eb8f8d79e6bb457f13c95dfdb37e">00125</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> <a class="code" href="classMWGui_1_1PickClassDialog.html#a4cd6eb8f8d79e6bb457f13c95dfdb37e">mFavoriteAttribute</a>[2];
+<a name="l00126"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a6b58cefc777335a7b92633efb1bbe771">00126</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>   <a class="code" href="classMWGui_1_1PickClassDialog.html#a6b58cefc777335a7b92633efb1bbe771">mMajorSkill</a>[5];
+<a name="l00127"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a8b13a2ba3442ea26abed72ede11d4e87">00127</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>   <a class="code" href="classMWGui_1_1PickClassDialog.html#a8b13a2ba3442ea26abed72ede11d4e87">mMinorSkill</a>[5];
+<a name="l00128"></a>00128 
+<a name="l00129"></a><a class="code" href="classMWGui_1_1PickClassDialog.html#a6daa385bca5444bb780733ccac70ad2f">00129</a>         std::string <a class="code" href="classMWGui_1_1PickClassDialog.html#a6daa385bca5444bb780733ccac70ad2f">mCurrentClassId</a>;
+<a name="l00130"></a>00130     };
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">00132</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">SelectSpecializationDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
+<a name="l00133"></a>00133     {
+<a name="l00134"></a>00134     <span class="keyword">public</span>:
+<a name="l00135"></a>00135         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a67579e8895abef0bdeedd770c735f93e">SelectSpecializationDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00136"></a>00136         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a9f315ca50a9136aef8d504e83a487226">~SelectSpecializationDialog</a>();
+<a name="l00137"></a>00137 
+<a name="l00138"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#ac54b29ecba054865f62d5a4c84d5198c">00138</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#ac54b29ecba054865f62d5a4c84d5198c">getSpecializationId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a7f9b593ff38b6e06516b5585f41c0738">mSpecializationId</a>; }
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140         <span class="comment">// Events</span>
+<a name="l00141"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a311a2fc53a6d8c921b904b1b011c92a1">00141</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a311a2fc53a6d8c921b904b1b011c92a1">EventHandle_Void</a>;
 <a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#ac54b29ecba054865f62d5a4c84d5198c">00143</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#ac54b29ecba054865f62d5a4c84d5198c">getSpecializationId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mSpecializationId; }
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145         <span class="comment">// Events</span>
-<a name="l00146"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#acbb75128534fc9110c637b15e8b50b51">00146</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#acbb75128534fc9110c637b15e8b50b51">EventHandle_Void</a>;
+<a name="l00146"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a6320fecd0367c7336bbb17fe067d69fb">00146</a>         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a311a2fc53a6d8c921b904b1b011c92a1">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a6320fecd0367c7336bbb17fe067d69fb">eventCancel</a>;
 <a name="l00147"></a>00147 
-<a name="l00151"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a6320fecd0367c7336bbb17fe067d69fb">00151</a>         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#acbb75128534fc9110c637b15e8b50b51">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a6320fecd0367c7336bbb17fe067d69fb">eventCancel</a>;
+<a name="l00151"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a83a222d1ae0fa67b9ebd5e3ecc49a484">00151</a>         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a311a2fc53a6d8c921b904b1b011c92a1">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a83a222d1ae0fa67b9ebd5e3ecc49a484">eventItemSelected</a>;
 <a name="l00152"></a>00152 
-<a name="l00156"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a83a222d1ae0fa67b9ebd5e3ecc49a484">00156</a>         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#acbb75128534fc9110c637b15e8b50b51">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a83a222d1ae0fa67b9ebd5e3ecc49a484">eventItemSelected</a>;
-<a name="l00157"></a>00157 
-<a name="l00158"></a>00158     <span class="keyword">protected</span>:
-<a name="l00159"></a>00159         <span class="keywordtype">void</span> onSpecializationClicked(MyGUI::Widget* _sender);
-<a name="l00160"></a>00160         <span class="keywordtype">void</span> onCancelClicked(MyGUI::Widget* _sender);
-<a name="l00161"></a>00161 
-<a name="l00162"></a>00162     <span class="keyword">private</span>:
-<a name="l00163"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#abe484ee15d9d09b2587e2ec536bfdadf">00163</a>         MyGUI::TextBox *mSpecialization0, *mSpecialization1, *<a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#abe484ee15d9d09b2587e2ec536bfdadf">mSpecialization2</a>;
-<a name="l00164"></a>00164 
-<a name="l00165"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a7f9b593ff38b6e06516b5585f41c0738">00165</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a7f9b593ff38b6e06516b5585f41c0738">mSpecializationId</a>;
-<a name="l00166"></a>00166     };
-<a name="l00167"></a>00167 
-<a name="l00168"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html">00168</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00169"></a>00169     {
-<a name="l00170"></a>00170     <span class="keyword">public</span>:
-<a name="l00171"></a>00171         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00172"></a>00172         ~<a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a>();
-<a name="l00173"></a>00173 
-<a name="l00174"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ace35b28db0f89f6dbf7225cade1bb732">00174</a>         <a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5c">ESM::Attribute::AttributeID</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ace35b28db0f89f6dbf7225cade1bb732">getAttributeId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mAttributeId; }
-<a name="l00175"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#aaa7f0178e85091c2a3b90805a96f6b54">00175</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#aaa7f0178e85091c2a3b90805a96f6b54">getAffectedWidget</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mAffectedWidget; }
-<a name="l00176"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ab757912480e787e76130201181561738">00176</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ab757912480e787e76130201181561738">setAffectedWidget</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> widget) { mAffectedWidget = widget; }
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178         <span class="comment">// Events</span>
-<a name="l00179"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a7518c34edf9eada202a1c5d6241f1cff">00179</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a7518c34edf9eada202a1c5d6241f1cff">EventHandle_Void</a>;
+<a name="l00153"></a>00153     <span class="keyword">protected</span>:
+<a name="l00154"></a>00154         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a3de1a9b6914a92b9b19ae76e70664daf">onSpecializationClicked</a>(MyGUI::Widget* _sender);
+<a name="l00155"></a>00155         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#aaaf1a472ad08657dbbaf9b2f94b34609">onCancelClicked</a>(MyGUI::Widget* _sender);
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157     <span class="keyword">private</span>:
+<a name="l00158"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#abe484ee15d9d09b2587e2ec536bfdadf">00158</a>         MyGUI::TextBox *<a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#ae238af32abfc61191e1ea86fbe53f9cd">mSpecialization0</a>, *<a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a58bbc40680d556176603f720d160aa36">mSpecialization1</a>, *<a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#abe484ee15d9d09b2587e2ec536bfdadf">mSpecialization2</a>;
+<a name="l00159"></a>00159 
+<a name="l00160"></a><a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a7f9b593ff38b6e06516b5585f41c0738">00160</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a> <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html#a7f9b593ff38b6e06516b5585f41c0738">mSpecializationId</a>;
+<a name="l00161"></a>00161     };
+<a name="l00162"></a>00162 
+<a name="l00163"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html">00163</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
+<a name="l00164"></a>00164     {
+<a name="l00165"></a>00165     <span class="keyword">public</span>:
+<a name="l00166"></a>00166         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#af6569d3120aa53130d418d433c27060c">SelectAttributeDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00167"></a>00167         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a9feec7aa5937a7161fc19294754a0b9e">~SelectAttributeDialog</a>();
+<a name="l00168"></a>00168 
+<a name="l00169"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ace35b28db0f89f6dbf7225cade1bb732">00169</a>         <a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5c">ESM::Attribute::AttributeID</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ace35b28db0f89f6dbf7225cade1bb732">getAttributeId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ae9339294d8601262a9a8d383799af0b5">mAttributeId</a>; }
+<a name="l00170"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#aaa7f0178e85091c2a3b90805a96f6b54">00170</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#aaa7f0178e85091c2a3b90805a96f6b54">getAffectedWidget</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a975678122942a0fa6ddd200fef55af06">mAffectedWidget</a>; }
+<a name="l00171"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ab757912480e787e76130201181561738">00171</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ab757912480e787e76130201181561738">setAffectedWidget</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> widget) { <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a975678122942a0fa6ddd200fef55af06">mAffectedWidget</a> = widget; }
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173         <span class="comment">// Events</span>
+<a name="l00174"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#af6cabf4acec8daa88085b4f449d67a13">00174</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#af6cabf4acec8daa88085b4f449d67a13">EventHandle_Void</a>;
+<a name="l00175"></a>00175 
+<a name="l00179"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a328175275c5aac1adbd9083f7f0b690f">00179</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#af6cabf4acec8daa88085b4f449d67a13">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a328175275c5aac1adbd9083f7f0b690f">eventCancel</a>;
 <a name="l00180"></a>00180 
-<a name="l00184"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a328175275c5aac1adbd9083f7f0b690f">00184</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a7518c34edf9eada202a1c5d6241f1cff">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a328175275c5aac1adbd9083f7f0b690f">eventCancel</a>;
+<a name="l00184"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a9b8b95f9bfe0ea4c7c457832d691a4ed">00184</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#af6cabf4acec8daa88085b4f449d67a13">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a9b8b95f9bfe0ea4c7c457832d691a4ed">eventItemSelected</a>;
 <a name="l00185"></a>00185 
-<a name="l00189"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a9b8b95f9bfe0ea4c7c457832d691a4ed">00189</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a7518c34edf9eada202a1c5d6241f1cff">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a9b8b95f9bfe0ea4c7c457832d691a4ed">eventItemSelected</a>;
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191     <span class="keyword">protected</span>:
-<a name="l00192"></a>00192         <span class="keywordtype">void</span> onAttributeClicked(<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> _sender);
-<a name="l00193"></a>00193         <span class="keywordtype">void</span> onCancelClicked(MyGUI::Widget* _sender);
-<a name="l00194"></a>00194 
-<a name="l00195"></a>00195     <span class="keyword">private</span>:
-<a name="l00196"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a975678122942a0fa6ddd200fef55af06">00196</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a975678122942a0fa6ddd200fef55af06">mAffectedWidget</a>;
-<a name="l00197"></a>00197 
-<a name="l00198"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ae9339294d8601262a9a8d383799af0b5">00198</a>         <a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5c">ESM::Attribute::AttributeID</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ae9339294d8601262a9a8d383799af0b5">mAttributeId</a>;
-<a name="l00199"></a>00199     };
-<a name="l00200"></a>00200 
-<a name="l00201"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html">00201</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00202"></a>00202     {
-<a name="l00203"></a>00203     <span class="keyword">public</span>:
-<a name="l00204"></a>00204         <a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00205"></a>00205         ~<a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a>();
-<a name="l00206"></a>00206 
-<a name="l00207"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a987f68fc4ea8cc10fb7e04911c5cab6c">00207</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a987f68fc4ea8cc10fb7e04911c5cab6c">getSkillId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mSkillId; }
-<a name="l00208"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a8c5bccdceeb16f720b8aa5ab77ce4c91">00208</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a8c5bccdceeb16f720b8aa5ab77ce4c91">getAffectedWidget</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mAffectedWidget; }
-<a name="l00209"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#ab0efebbfb1964735e133118eb8d4606f">00209</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#ab0efebbfb1964735e133118eb8d4606f">setAffectedWidget</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> widget) { mAffectedWidget = widget; }
-<a name="l00210"></a>00210 
-<a name="l00211"></a>00211         <span class="comment">// Events</span>
-<a name="l00212"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#ac649cd04df82b45ac0b29d3d09af0e65">00212</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1SelectSkillDialog.html#ac649cd04df82b45ac0b29d3d09af0e65">EventHandle_Void</a>;
+<a name="l00186"></a>00186     <span class="keyword">protected</span>:
+<a name="l00187"></a>00187         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a2165b436303ec2265c458246a318b3ff">onAttributeClicked</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> _sender);
+<a name="l00188"></a>00188         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#aabf3d1439690423eed645042d3ecf480">onCancelClicked</a>(MyGUI::Widget* _sender);
+<a name="l00189"></a>00189 
+<a name="l00190"></a>00190     <span class="keyword">private</span>:
+<a name="l00191"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a975678122942a0fa6ddd200fef55af06">00191</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#a975678122942a0fa6ddd200fef55af06">mAffectedWidget</a>;
+<a name="l00192"></a>00192 
+<a name="l00193"></a><a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ae9339294d8601262a9a8d383799af0b5">00193</a>         <a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5c">ESM::Attribute::AttributeID</a> <a class="code" href="classMWGui_1_1SelectAttributeDialog.html#ae9339294d8601262a9a8d383799af0b5">mAttributeId</a>;
+<a name="l00194"></a>00194     };
+<a name="l00195"></a>00195 
+<a name="l00196"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html">00196</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
+<a name="l00197"></a>00197     {
+<a name="l00198"></a>00198     <span class="keyword">public</span>:
+<a name="l00199"></a>00199         <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a20468fe84bea2f5c31667a1789973989">SelectSkillDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00200"></a>00200         <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a5e4a8d8c4a77eb10a022ff2226c7f9cb">~SelectSkillDialog</a>();
+<a name="l00201"></a>00201 
+<a name="l00202"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a987f68fc4ea8cc10fb7e04911c5cab6c">00202</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a987f68fc4ea8cc10fb7e04911c5cab6c">getSkillId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2e610ec3ba6bff1b84ffbcf583d91d74">mSkillId</a>; }
+<a name="l00203"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a8c5bccdceeb16f720b8aa5ab77ce4c91">00203</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a8c5bccdceeb16f720b8aa5ab77ce4c91">getAffectedWidget</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a4023efb632d8882ab8f4823ff4f66ed1">mAffectedWidget</a>; }
+<a name="l00204"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#ab0efebbfb1964735e133118eb8d4606f">00204</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#ab0efebbfb1964735e133118eb8d4606f">setAffectedWidget</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> widget) { <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a4023efb632d8882ab8f4823ff4f66ed1">mAffectedWidget</a> = widget; }
+<a name="l00205"></a>00205 
+<a name="l00206"></a>00206         <span class="comment">// Events</span>
+<a name="l00207"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a7d456306b6136e8bfb6dd1c0bac9b671">00207</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a7d456306b6136e8bfb6dd1c0bac9b671">EventHandle_Void</a>;
+<a name="l00208"></a>00208 
+<a name="l00212"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#af4fb45224ae3ba657b82e2a261469f44">00212</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a7d456306b6136e8bfb6dd1c0bac9b671">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#af4fb45224ae3ba657b82e2a261469f44">eventCancel</a>;
 <a name="l00213"></a>00213 
-<a name="l00217"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#af4fb45224ae3ba657b82e2a261469f44">00217</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html#ac649cd04df82b45ac0b29d3d09af0e65">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#af4fb45224ae3ba657b82e2a261469f44">eventCancel</a>;
+<a name="l00217"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#aab0a528cbaf0d5ea058ba6ded0563042">00217</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a7d456306b6136e8bfb6dd1c0bac9b671">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#aab0a528cbaf0d5ea058ba6ded0563042">eventItemSelected</a>;
 <a name="l00218"></a>00218 
-<a name="l00222"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#aab0a528cbaf0d5ea058ba6ded0563042">00222</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html#ac649cd04df82b45ac0b29d3d09af0e65">EventHandle_Void</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#aab0a528cbaf0d5ea058ba6ded0563042">eventItemSelected</a>;
-<a name="l00223"></a>00223 
-<a name="l00224"></a>00224     <span class="keyword">protected</span>:
-<a name="l00225"></a>00225         <span class="keywordtype">void</span> onSkillClicked(<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> _sender);
-<a name="l00226"></a>00226         <span class="keywordtype">void</span> onCancelClicked(MyGUI::Widget* _sender);
-<a name="l00227"></a>00227 
-<a name="l00228"></a>00228     <span class="keyword">private</span>:
-<a name="l00229"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2162db32073be2a0f48aafa1b39cc968">00229</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> mCombatSkill[9];
-<a name="l00230"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#aa9322af510447defb3746d13f1dccc32">00230</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> mMagicSkill[9];
-<a name="l00231"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a350fb26440c039ffef47a04ecc0c1268">00231</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> mStealthSkill[9];
-<a name="l00232"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a4023efb632d8882ab8f4823ff4f66ed1">00232</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a4023efb632d8882ab8f4823ff4f66ed1">mAffectedWidget</a>;
-<a name="l00233"></a>00233 
-<a name="l00234"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2e610ec3ba6bff1b84ffbcf583d91d74">00234</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2e610ec3ba6bff1b84ffbcf583d91d74">mSkillId</a>;
-<a name="l00235"></a>00235     };
-<a name="l00236"></a>00236 
-<a name="l00237"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html">00237</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1DescriptionDialog.html">DescriptionDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00238"></a>00238     {
-<a name="l00239"></a>00239     <span class="keyword">public</span>:
-<a name="l00240"></a>00240         <a class="code" href="classMWGui_1_1DescriptionDialog.html">DescriptionDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00241"></a>00241         ~<a class="code" href="classMWGui_1_1DescriptionDialog.html">DescriptionDialog</a>();
-<a name="l00242"></a>00242 
-<a name="l00243"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html#a4474caa9af9b003daddced3a846f51c4">00243</a>         std::string <a class="code" href="classMWGui_1_1DescriptionDialog.html#a4474caa9af9b003daddced3a846f51c4">getTextInput</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mTextEdit ? mTextEdit-&gt;getOnlyText() : <span class="stringliteral">&quot;&quot;</span>; }
-<a name="l00244"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html#aa644786e64abb49dfbf507bd29de4db3">00244</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DescriptionDialog.html#aa644786e64abb49dfbf507bd29de4db3">setTextInput</a>(<span class="keyword">const</span> std::string &amp;text) { <span class="keywordflow">if</span> (mTextEdit) mTextEdit-&gt;setOnlyText(text); }
-<a name="l00245"></a>00245 
-<a name="l00246"></a>00246     <span class="keyword">protected</span>:
-<a name="l00247"></a>00247         <span class="keywordtype">void</span> onOkClicked(MyGUI::Widget* _sender);
-<a name="l00248"></a>00248 
-<a name="l00249"></a>00249     <span class="keyword">private</span>:
-<a name="l00250"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">00250</a>         MyGUI::EditPtr <a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">mTextEdit</a>;
-<a name="l00251"></a>00251     };
-<a name="l00252"></a>00252 
-<a name="l00253"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html">00253</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1CreateClassDialog.html">CreateClassDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00254"></a>00254     {
-<a name="l00255"></a>00255     <span class="keyword">public</span>:
-<a name="l00256"></a>00256         <a class="code" href="classMWGui_1_1CreateClassDialog.html">CreateClassDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00257"></a>00257         <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1CreateClassDialog.html">CreateClassDialog</a>();
-<a name="l00258"></a>00258 
-<a name="l00259"></a>00259         std::string getName() <span class="keyword">const</span>;
-<a name="l00260"></a>00260         std::string getDescription() <span class="keyword">const</span>;
-<a name="l00261"></a>00261         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a> getSpecializationId() <span class="keyword">const</span>;
-<a name="l00262"></a>00262         std::vector&lt;int&gt; getFavoriteAttributes() <span class="keyword">const</span>;
-<a name="l00263"></a>00263         std::vector&lt;ESM::Skill::SkillEnum&gt; getMajorSkills() <span class="keyword">const</span>;
-<a name="l00264"></a>00264         std::vector&lt;ESM::Skill::SkillEnum&gt; getMinorSkills() <span class="keyword">const</span>;
+<a name="l00219"></a>00219     <span class="keyword">protected</span>:
+<a name="l00220"></a>00220         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#ac6645ed2d0fc35402224cf1dd01afe71">onSkillClicked</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> _sender);
+<a name="l00221"></a>00221         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#aa50057ccb085d1c409119d95ed4950f2">onCancelClicked</a>(MyGUI::Widget* _sender);
+<a name="l00222"></a>00222 
+<a name="l00223"></a>00223     <span class="keyword">private</span>:
+<a name="l00224"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2162db32073be2a0f48aafa1b39cc968">00224</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2162db32073be2a0f48aafa1b39cc968">mCombatSkill</a>[9];
+<a name="l00225"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#aa9322af510447defb3746d13f1dccc32">00225</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#aa9322af510447defb3746d13f1dccc32">mMagicSkill</a>[9];
+<a name="l00226"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a350fb26440c039ffef47a04ecc0c1268">00226</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a350fb26440c039ffef47a04ecc0c1268">mStealthSkill</a>[9];
+<a name="l00227"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a4023efb632d8882ab8f4823ff4f66ed1">00227</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a4023efb632d8882ab8f4823ff4f66ed1">mAffectedWidget</a>;
+<a name="l00228"></a>00228 
+<a name="l00229"></a><a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2e610ec3ba6bff1b84ffbcf583d91d74">00229</a>         <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1SelectSkillDialog.html#a2e610ec3ba6bff1b84ffbcf583d91d74">mSkillId</a>;
+<a name="l00230"></a>00230     };
+<a name="l00231"></a>00231 
+<a name="l00232"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html">00232</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1DescriptionDialog.html">DescriptionDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
+<a name="l00233"></a>00233     {
+<a name="l00234"></a>00234     <span class="keyword">public</span>:
+<a name="l00235"></a>00235         <a class="code" href="classMWGui_1_1DescriptionDialog.html#ac58a1d43d136a0faecc9fb0159e9228c">DescriptionDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00236"></a>00236         <a class="code" href="classMWGui_1_1DescriptionDialog.html#a188e971d5f8f0faad96db7e8cd35062f">~DescriptionDialog</a>();
+<a name="l00237"></a>00237 
+<a name="l00238"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html#a4474caa9af9b003daddced3a846f51c4">00238</a>         std::string <a class="code" href="classMWGui_1_1DescriptionDialog.html#a4474caa9af9b003daddced3a846f51c4">getTextInput</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">mTextEdit</a> ? <a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">mTextEdit</a>-&gt;getOnlyText() : <span class="stringliteral">&quot;&quot;</span>; }
+<a name="l00239"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html#aa644786e64abb49dfbf507bd29de4db3">00239</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DescriptionDialog.html#aa644786e64abb49dfbf507bd29de4db3">setTextInput</a>(<span class="keyword">const</span> std::string &amp;text) { <span class="keywordflow">if</span> (<a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">mTextEdit</a>) <a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">mTextEdit</a>-&gt;setOnlyText(text); }
+<a name="l00240"></a>00240 
+<a name="l00241"></a>00241     <span class="keyword">protected</span>:
+<a name="l00242"></a>00242         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DescriptionDialog.html#a54076b21e22e4f768973159c6210d74f">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00243"></a>00243 
+<a name="l00244"></a>00244     <span class="keyword">private</span>:
+<a name="l00245"></a><a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">00245</a>         MyGUI::EditPtr <a class="code" href="classMWGui_1_1DescriptionDialog.html#a95f4e8d3ca14b2786477f62a662f783b">mTextEdit</a>;
+<a name="l00246"></a>00246     };
+<a name="l00247"></a>00247 
+<a name="l00248"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html">00248</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1CreateClassDialog.html">CreateClassDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00249"></a>00249     {
+<a name="l00250"></a>00250     <span class="keyword">public</span>:
+<a name="l00251"></a>00251         <a class="code" href="classMWGui_1_1CreateClassDialog.html#a3122fed51a28a5af9692385b46cf9bde">CreateClassDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00252"></a>00252         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae988668604c12f910ce29c39171ffbb1">~CreateClassDialog</a>();
+<a name="l00253"></a>00253 
+<a name="l00254"></a>00254         std::string <a class="code" href="classMWGui_1_1CreateClassDialog.html#a433e71701f41346a949ab2f060fbe245">getName</a>() <span class="keyword">const</span>;
+<a name="l00255"></a>00255         std::string <a class="code" href="classMWGui_1_1CreateClassDialog.html#adc9ae542c8b6c83551ed9a71f2b3d581">getDescription</a>() <span class="keyword">const</span>;
+<a name="l00256"></a>00256         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a530e58bf1587aefbf796d4e6e612080c">getSpecializationId</a>() <span class="keyword">const</span>;
+<a name="l00257"></a>00257         std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1CreateClassDialog.html#adfc0da650af73a4362a50429d02c0522">getFavoriteAttributes</a>() <span class="keyword">const</span>;
+<a name="l00258"></a>00258         std::vector&lt;ESM::Skill::SkillEnum&gt; <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae78ac0e4a8080c20853134ab0400bdd5">getMajorSkills</a>() <span class="keyword">const</span>;
+<a name="l00259"></a>00259         std::vector&lt;ESM::Skill::SkillEnum&gt; <a class="code" href="classMWGui_1_1CreateClassDialog.html#aad83aa4371fabb748ac1d4e199145cfa">getMinorSkills</a>() <span class="keyword">const</span>;
+<a name="l00260"></a>00260 
+<a name="l00261"></a>00261         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a525bdff8ede0cb7abdf1f53498cba479">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
+<a name="l00262"></a>00262 
+<a name="l00263"></a>00263         <span class="comment">// Events</span>
+<a name="l00264"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a92a9b427cdecbfb9507564d11d85a2ec">00264</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1CreateClassDialog.html#a92a9b427cdecbfb9507564d11d85a2ec">EventHandle_Void</a>;
 <a name="l00265"></a>00265 
-<a name="l00266"></a>00266         <span class="keywordtype">void</span> setNextButtonShow(<span class="keywordtype">bool</span> shown);
-<a name="l00267"></a>00267         <span class="keywordtype">void</span> open();
-<a name="l00268"></a>00268 
-<a name="l00269"></a>00269         <span class="comment">// Events</span>
-<a name="l00270"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ae5e7a9d560799630c90499d5ffc1c840">00270</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae5e7a9d560799630c90499d5ffc1c840">EventHandle_Void</a>;
-<a name="l00271"></a>00271 
-<a name="l00275"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ae085d942a513f5b55bbd079f6defeda0">00275</a>         <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae5e7a9d560799630c90499d5ffc1c840">EventHandle_Void</a> <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae085d942a513f5b55bbd079f6defeda0">eventBack</a>;
-<a name="l00276"></a>00276 
-<a name="l00277"></a>00277     <span class="keyword">protected</span>:
-<a name="l00278"></a>00278         <span class="keywordtype">void</span> onOkClicked(MyGUI::Widget* _sender);
-<a name="l00279"></a>00279         <span class="keywordtype">void</span> onBackClicked(MyGUI::Widget* _sender);
-<a name="l00280"></a>00280 
-<a name="l00281"></a>00281         <span class="keywordtype">void</span> onSpecializationClicked(MyGUI::WidgetPtr _sender);
-<a name="l00282"></a>00282         <span class="keywordtype">void</span> onSpecializationSelected();
-<a name="l00283"></a>00283         <span class="keywordtype">void</span> onAttributeClicked(<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> _sender);
-<a name="l00284"></a>00284         <span class="keywordtype">void</span> onAttributeSelected();
-<a name="l00285"></a>00285         <span class="keywordtype">void</span> onSkillClicked(<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> _sender);
-<a name="l00286"></a>00286         <span class="keywordtype">void</span> onSkillSelected();
-<a name="l00287"></a>00287         <span class="keywordtype">void</span> onDescriptionClicked(MyGUI::Widget* _sender);
-<a name="l00288"></a>00288         <span class="keywordtype">void</span> onDescriptionEntered(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
-<a name="l00289"></a>00289         <span class="keywordtype">void</span> onDialogCancel();
-<a name="l00290"></a>00290 
-<a name="l00291"></a>00291         <span class="keywordtype">void</span> setSpecialization(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);
-<a name="l00292"></a>00292 
-<a name="l00293"></a>00293         <span class="keywordtype">void</span> update();
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295     <span class="keyword">private</span>:
-<a name="l00296"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a3a4219d4004d433328709576a43ed209">00296</a>         MyGUI::EditPtr                   <a class="code" href="classMWGui_1_1CreateClassDialog.html#a3a4219d4004d433328709576a43ed209">mEditName</a>;
-<a name="l00297"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ad5cc3f134bbf2b3f2b50820411ccf76f">00297</a>         MyGUI::TextBox*                  <a class="code" href="classMWGui_1_1CreateClassDialog.html#ad5cc3f134bbf2b3f2b50820411ccf76f">mSpecializationName</a>;
-<a name="l00298"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#aecb0af04e5899bd8d74f963cf0915154">00298</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a>          mFavoriteAttribute0, <a class="code" href="classMWGui_1_1CreateClassDialog.html#aecb0af04e5899bd8d74f963cf0915154">mFavoriteAttribute1</a>;
-<a name="l00299"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ae01ada6b55704869dcd0238423647b7d">00299</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>              mMajorSkill[5];
-<a name="l00300"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#aabb65a00bfec9c8b5a049f0f2caa8092">00300</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>              mMinorSkill[5];
-<a name="l00301"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a6ed6b4a023f15b8ebe826a7ed8889a80">00301</a>         std::vector&lt;Widgets::MWSkillPtr&gt; <a class="code" href="classMWGui_1_1CreateClassDialog.html#a6ed6b4a023f15b8ebe826a7ed8889a80">mSkills</a>;
-<a name="l00302"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#aa1e93332afee3193445a3b3aaadff381">00302</a>         std::string                      <a class="code" href="classMWGui_1_1CreateClassDialog.html#aa1e93332afee3193445a3b3aaadff381">mDescription</a>;
-<a name="l00303"></a>00303 
-<a name="l00304"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a157b76a0609af06972262db051564821">00304</a>         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">SelectSpecializationDialog</a>       *<a class="code" href="classMWGui_1_1CreateClassDialog.html#a157b76a0609af06972262db051564821">mSpecDialog</a>;
-<a name="l00305"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#af4367fdd91d82baab1dde53329a03841">00305</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a>            *<a class="code" href="classMWGui_1_1CreateClassDialog.html#af4367fdd91d82baab1dde53329a03841">mAttribDialog</a>;
-<a name="l00306"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ab9f6815795f9557d99ccaf81efda3267">00306</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a>                *<a class="code" href="classMWGui_1_1CreateClassDialog.html#ab9f6815795f9557d99ccaf81efda3267">mSkillDialog</a>;
-<a name="l00307"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a194f06e002ae47353ff94f40b7b7a00a">00307</a>         <a class="code" href="classMWGui_1_1DescriptionDialog.html">DescriptionDialog</a>                *<a class="code" href="classMWGui_1_1CreateClassDialog.html#a194f06e002ae47353ff94f40b7b7a00a">mDescDialog</a>;
-<a name="l00308"></a>00308 
-<a name="l00309"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a3b2c2d4b0613b43869baa97799a0bc66">00309</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a>       <a class="code" href="classMWGui_1_1CreateClassDialog.html#a3b2c2d4b0613b43869baa97799a0bc66">mSpecializationId</a>;
-<a name="l00310"></a>00310     };
-<a name="l00311"></a>00311 }
-<a name="l00312"></a>00312 <span class="preprocessor">#endif</span>
+<a name="l00269"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ae085d942a513f5b55bbd079f6defeda0">00269</a>         <a class="code" href="classMWGui_1_1CreateClassDialog.html#a92a9b427cdecbfb9507564d11d85a2ec">EventHandle_Void</a> <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae085d942a513f5b55bbd079f6defeda0">eventBack</a>;
+<a name="l00270"></a>00270 
+<a name="l00271"></a>00271     <span class="keyword">protected</span>:
+<a name="l00272"></a>00272         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#af661e8b24a71834825f0526171804119">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00273"></a>00273         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a0cb8ae98c36d299d51dbfcc162c1a8df">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00274"></a>00274 
+<a name="l00275"></a>00275         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a1e198b7329ae6f720b82754aaac5486c">onSpecializationClicked</a>(MyGUI::WidgetPtr _sender);
+<a name="l00276"></a>00276         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a374c577413d5407990fc1aeb0c605bd7">onSpecializationSelected</a>();
+<a name="l00277"></a>00277         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a8afdd3fd27c757747b92b5303cd5fc1d">onAttributeClicked</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a> _sender);
+<a name="l00278"></a>00278         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#aefadde2a73f2fe0dca864c3511c3182b">onAttributeSelected</a>();
+<a name="l00279"></a>00279         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae3f9e8044aac5704d63b4464f340858a">onSkillClicked</a>(<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a> _sender);
+<a name="l00280"></a>00280         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a0c5c2f7384441b18b88331ce7d75f906">onSkillSelected</a>();
+<a name="l00281"></a>00281         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a244d1aa09da29be9f7eb26c3a3f24f06">onDescriptionClicked</a>(MyGUI::Widget* _sender);
+<a name="l00282"></a>00282         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#aed97fc82a68c164a797f28839c256030">onDescriptionEntered</a>(<a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>* parWindow);
+<a name="l00283"></a>00283         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a6d682e0a453ea38cd546f3dbe42db9b4">onDialogCancel</a>();
+<a name="l00284"></a>00284 
+<a name="l00285"></a>00285         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a8080f5604250785a6429dd2a8efc341c">setSpecialization</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);
+<a name="l00286"></a>00286 
+<a name="l00287"></a>00287         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1CreateClassDialog.html#a4830dcfc76274347fcea77645553ff84">update</a>();
+<a name="l00288"></a>00288 
+<a name="l00289"></a>00289     <span class="keyword">private</span>:
+<a name="l00290"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a3a4219d4004d433328709576a43ed209">00290</a>         MyGUI::EditPtr                   <a class="code" href="classMWGui_1_1CreateClassDialog.html#a3a4219d4004d433328709576a43ed209">mEditName</a>;
+<a name="l00291"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ad5cc3f134bbf2b3f2b50820411ccf76f">00291</a>         MyGUI::TextBox*                  <a class="code" href="classMWGui_1_1CreateClassDialog.html#ad5cc3f134bbf2b3f2b50820411ccf76f">mSpecializationName</a>;
+<a name="l00292"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#aecb0af04e5899bd8d74f963cf0915154">00292</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">Widgets::MWAttributePtr</a>          <a class="code" href="classMWGui_1_1CreateClassDialog.html#aecb38b5fc3fb6a1c914e12731d80af6c">mFavoriteAttribute0</a>, <a class="code" href="classMWGui_1_1CreateClassDialog.html#aecb0af04e5899bd8d74f963cf0915154">mFavoriteAttribute1</a>;
+<a name="l00293"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ae01ada6b55704869dcd0238423647b7d">00293</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>              <a class="code" href="classMWGui_1_1CreateClassDialog.html#ae01ada6b55704869dcd0238423647b7d">mMajorSkill</a>[5];
+<a name="l00294"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#aabb65a00bfec9c8b5a049f0f2caa8092">00294</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">Widgets::MWSkillPtr</a>              <a class="code" href="classMWGui_1_1CreateClassDialog.html#aabb65a00bfec9c8b5a049f0f2caa8092">mMinorSkill</a>[5];
+<a name="l00295"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a6ed6b4a023f15b8ebe826a7ed8889a80">00295</a>         std::vector&lt;Widgets::MWSkillPtr&gt; <a class="code" href="classMWGui_1_1CreateClassDialog.html#a6ed6b4a023f15b8ebe826a7ed8889a80">mSkills</a>;
+<a name="l00296"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#aa1e93332afee3193445a3b3aaadff381">00296</a>         std::string                      <a class="code" href="classMWGui_1_1CreateClassDialog.html#aa1e93332afee3193445a3b3aaadff381">mDescription</a>;
+<a name="l00297"></a>00297 
+<a name="l00298"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a157b76a0609af06972262db051564821">00298</a>         <a class="code" href="classMWGui_1_1SelectSpecializationDialog.html">SelectSpecializationDialog</a>       *<a class="code" href="classMWGui_1_1CreateClassDialog.html#a157b76a0609af06972262db051564821">mSpecDialog</a>;
+<a name="l00299"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#af4367fdd91d82baab1dde53329a03841">00299</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a>            *<a class="code" href="classMWGui_1_1CreateClassDialog.html#af4367fdd91d82baab1dde53329a03841">mAttribDialog</a>;
+<a name="l00300"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#ab9f6815795f9557d99ccaf81efda3267">00300</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a>                *<a class="code" href="classMWGui_1_1CreateClassDialog.html#ab9f6815795f9557d99ccaf81efda3267">mSkillDialog</a>;
+<a name="l00301"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a194f06e002ae47353ff94f40b7b7a00a">00301</a>         <a class="code" href="classMWGui_1_1DescriptionDialog.html">DescriptionDialog</a>                *<a class="code" href="classMWGui_1_1CreateClassDialog.html#a194f06e002ae47353ff94f40b7b7a00a">mDescDialog</a>;
+<a name="l00302"></a>00302 
+<a name="l00303"></a><a class="code" href="classMWGui_1_1CreateClassDialog.html#a3b2c2d4b0613b43869baa97799a0bc66">00303</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">ESM::Class::Specialization</a>       <a class="code" href="classMWGui_1_1CreateClassDialog.html#a3b2c2d4b0613b43869baa97799a0bc66">mSpecializationId</a>;
+<a name="l00304"></a>00304     };
+<a name="l00305"></a>00305 }
+<a name="l00306"></a>00306 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -78,59 +78,71 @@
 <a name="l00018"></a>00018 
 <a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a0b56bdfda595217858226777dcb381e5">toggleFogOfWar</a>();
 <a name="l00020"></a>00020 
-<a name="l00021"></a>00021     <span class="keyword">protected</span>:
-<a name="l00022"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#acb60fc22390fa40993b9e10a07252fc0">00022</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#afefaf5f80dada0efe99ceed777c76873">mCurX</a>, <a class="code" href="classMWGui_1_1LocalMapBase.html#acb60fc22390fa40993b9e10a07252fc0">mCurY</a>;
-<a name="l00023"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a1ca83c677d2d3187b8445a23fb07fb6c">00023</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a1ca83c677d2d3187b8445a23fb07fb6c">mInterior</a>;
-<a name="l00024"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a247bf9cf0f9637296c504766b953c343">00024</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1LocalMapBase.html#a247bf9cf0f9637296c504766b953c343">mLocalMap</a>;
-<a name="l00025"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#ae16b413286a6d07faa4152cf5f6b01d1">00025</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1LocalMapBase.html#ae16b413286a6d07faa4152cf5f6b01d1">mCompass</a>;
-<a name="l00026"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a84e6421938416f22c65b560498198450">00026</a>         std::string <a class="code" href="classMWGui_1_1LocalMapBase.html#a84e6421938416f22c65b560498198450">mPrefix</a>;
-<a name="l00027"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a0ee78cb1ebaabaaa1f6ba2834116541a">00027</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a0ee78cb1ebaabaaa1f6ba2834116541a">mChanged</a>;
-<a name="l00028"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a1e7ad5ddf9f1d779f2424f53cf7afb66">00028</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a1e7ad5ddf9f1d779f2424f53cf7afb66">mFogOfWar</a>;
+<a name="l00021"></a><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html">00021</a>         <span class="keyword">struct </span><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html">MarkerPosition</a>
+<a name="l00022"></a>00022         {
+<a name="l00023"></a><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a3abe57077d821a744c13f214c5abde97">00023</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a3abe57077d821a744c13f214c5abde97">interior</a>;
+<a name="l00024"></a><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#aab1b97c8620be3b857f110694d6bc085">00024</a>             <span class="keywordtype">int</span> <a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#aab1b97c8620be3b857f110694d6bc085">cellX</a>;
+<a name="l00025"></a><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a3deba7e9af82a6c9559a23c2a5dc1d9d">00025</a>             <span class="keywordtype">int</span> <a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a3deba7e9af82a6c9559a23c2a5dc1d9d">cellY</a>;
+<a name="l00026"></a><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a712f594f1a7b2b4e4e5710eb96230b89">00026</a>             <span class="keywordtype">float</span> <a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a712f594f1a7b2b4e4e5710eb96230b89">nX</a>;
+<a name="l00027"></a><a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a5d5e044909a78390b81800940e670681">00027</a>             <span class="keywordtype">float</span> <a class="code" href="structMWGui_1_1LocalMapBase_1_1MarkerPosition.html#a5d5e044909a78390b81800940e670681">nY</a>;
+<a name="l00028"></a>00028         };
 <a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#ae061667dd96677b7732dc0b74fc3500e">00030</a>         std::vector&lt;MyGUI::ImageBox*&gt; <a class="code" href="classMWGui_1_1LocalMapBase.html#ae061667dd96677b7732dc0b74fc3500e">mMapWidgets</a>;
-<a name="l00031"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a22717ffe9a6fbe363dc635f7cb351974">00031</a>         std::vector&lt;MyGUI::ImageBox*&gt; <a class="code" href="classMWGui_1_1LocalMapBase.html#a22717ffe9a6fbe363dc635f7cb351974">mFogWidgets</a>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#aac02564bf979e8a85ea9e2447d515c52">applyFogOfWar</a>();
-<a name="l00034"></a>00034 
-<a name="l00035"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a8c030a67ceb401977fc602d548580f68">00035</a>         <a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* <a class="code" href="classMWGui_1_1LocalMapBase.html#a8c030a67ceb401977fc602d548580f68">mLayout</a>;
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#af5035346d1debf67bd7362c3be63e9af">00037</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#af5035346d1debf67bd7362c3be63e9af">mMapDragAndDrop</a>;
+<a name="l00030"></a>00030     <span class="keyword">protected</span>:
+<a name="l00031"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#acb60fc22390fa40993b9e10a07252fc0">00031</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#afefaf5f80dada0efe99ceed777c76873">mCurX</a>, <a class="code" href="classMWGui_1_1LocalMapBase.html#acb60fc22390fa40993b9e10a07252fc0">mCurY</a>;
+<a name="l00032"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a1ca83c677d2d3187b8445a23fb07fb6c">00032</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a1ca83c677d2d3187b8445a23fb07fb6c">mInterior</a>;
+<a name="l00033"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a247bf9cf0f9637296c504766b953c343">00033</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1LocalMapBase.html#a247bf9cf0f9637296c504766b953c343">mLocalMap</a>;
+<a name="l00034"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#ae16b413286a6d07faa4152cf5f6b01d1">00034</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1LocalMapBase.html#ae16b413286a6d07faa4152cf5f6b01d1">mCompass</a>;
+<a name="l00035"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a84e6421938416f22c65b560498198450">00035</a>         std::string <a class="code" href="classMWGui_1_1LocalMapBase.html#a84e6421938416f22c65b560498198450">mPrefix</a>;
+<a name="l00036"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a0ee78cb1ebaabaaa1f6ba2834116541a">00036</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a0ee78cb1ebaabaaa1f6ba2834116541a">mChanged</a>;
+<a name="l00037"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a1e7ad5ddf9f1d779f2424f53cf7afb66">00037</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a1e7ad5ddf9f1d779f2424f53cf7afb66">mFogOfWar</a>;
 <a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a44219ee665d3a659119d79850e177d41">00039</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a44219ee665d3a659119d79850e177d41">mLastPositionX</a>;
-<a name="l00040"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a6abf1945a911bc3969dc0ecba69531ec">00040</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a6abf1945a911bc3969dc0ecba69531ec">mLastPositionY</a>;
-<a name="l00041"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a748e2f8f3b5e3d6b77c36e94643e6cbd">00041</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a748e2f8f3b5e3d6b77c36e94643e6cbd">mLastDirectionX</a>;
-<a name="l00042"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a96131e514bf9a35cdc2c57687ad43f82">00042</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a96131e514bf9a35cdc2c57687ad43f82">mLastDirectionY</a>;
-<a name="l00043"></a>00043     };
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classMWGui_1_1MapWindow.html">00045</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> : <span class="keyword">public</span> MWGui::<a class="code" href="classMWGui_1_1WindowPinnableBase.html">WindowPinnableBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1LocalMapBase.html">LocalMapBase</a>
-<a name="l00046"></a>00046     {
-<a name="l00047"></a>00047     <span class="keyword">public</span>:
-<a name="l00048"></a>00048         <a class="code" href="classMWGui_1_1MapWindow.html#a7abd66d621bf6d9cb0b7d4884ee27979">MapWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00049"></a><a class="code" href="classMWGui_1_1MapWindow.html#ae7966cf0102b2573169da32cd0ff7463">00049</a>         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1MapWindow.html#ae7966cf0102b2573169da32cd0ff7463">~MapWindow</a>(){}
+<a name="l00039"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#ae061667dd96677b7732dc0b74fc3500e">00039</a>         std::vector&lt;MyGUI::ImageBox*&gt; <a class="code" href="classMWGui_1_1LocalMapBase.html#ae061667dd96677b7732dc0b74fc3500e">mMapWidgets</a>;
+<a name="l00040"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a22717ffe9a6fbe363dc635f7cb351974">00040</a>         std::vector&lt;MyGUI::ImageBox*&gt; <a class="code" href="classMWGui_1_1LocalMapBase.html#a22717ffe9a6fbe363dc635f7cb351974">mFogWidgets</a>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#aac02564bf979e8a85ea9e2447d515c52">applyFogOfWar</a>();
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a46f35f2a85b96d53cdb57af975e886fd">onMarkerFocused</a>(MyGUI::Widget* w1, MyGUI::Widget* w2);
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a0b0eaa985869dd28cc9bc46f419556dd">onMarkerUnfocused</a>(MyGUI::Widget* w1, MyGUI::Widget* w2);
+<a name="l00046"></a>00046 
+<a name="l00047"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a8c030a67ceb401977fc602d548580f68">00047</a>         <a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* <a class="code" href="classMWGui_1_1LocalMapBase.html#a8c030a67ceb401977fc602d548580f68">mLayout</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#af5035346d1debf67bd7362c3be63e9af">00049</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#af5035346d1debf67bd7362c3be63e9af">mMapDragAndDrop</a>;
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#aed8180e6a6578536e2ffce17fdb55ec9">setCellName</a>(<span class="keyword">const</span> std::string&amp; cellName);
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     <span class="keyword">private</span>:
-<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#acfc38ab5281142768a4fb8f5df2d8233">onDragStart</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _left, <span class="keywordtype">int</span> _top, MyGUI::MouseButton _id);
-<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a9c849336356807a7aeb889b219806a34">onMouseDrag</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _left, <span class="keywordtype">int</span> _top, MyGUI::MouseButton _id);
-<a name="l00056"></a>00056         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a3d09bb8ab7894883b6e8bf1ce6880963">onWorldButtonClicked</a>(MyGUI::Widget* _sender);
-<a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classMWGui_1_1MapWindow.html#a2e0810e4ffd825463d33ddee7f797749">00058</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1MapWindow.html#a2e0810e4ffd825463d33ddee7f797749">mGlobalMap</a>;
-<a name="l00059"></a><a class="code" href="classMWGui_1_1MapWindow.html#a9bfa88c4d3f4441e13296a67beed2266">00059</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1MapWindow.html#a9bfa88c4d3f4441e13296a67beed2266">mPlayerArrow</a>;
-<a name="l00060"></a><a class="code" href="classMWGui_1_1MapWindow.html#a618d2b244143bd4092b577c64ba32dd2">00060</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1MapWindow.html#a618d2b244143bd4092b577c64ba32dd2">mButton</a>;
-<a name="l00061"></a><a class="code" href="classMWGui_1_1MapWindow.html#a6828fdd10f764b175ea84b5aab3d4baa">00061</a>         MyGUI::IntPoint <a class="code" href="classMWGui_1_1MapWindow.html#a6828fdd10f764b175ea84b5aab3d4baa">mLastDragPos</a>;
-<a name="l00062"></a><a class="code" href="classMWGui_1_1MapWindow.html#a480fc46be23ced14458effbae56f6388">00062</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MapWindow.html#a480fc46be23ced14458effbae56f6388">mGlobal</a>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keyword">protected</span>:
-<a name="l00065"></a>00065         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a09a7ac3eb1e0eb890700a7cdc6c8448b">onPinToggled</a>();
-<a name="l00066"></a>00066     };
-<a name="l00067"></a>00067 }
-<a name="l00068"></a>00068 <span class="preprocessor">#endif</span>
+<a name="l00051"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a44219ee665d3a659119d79850e177d41">00051</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a44219ee665d3a659119d79850e177d41">mLastPositionX</a>;
+<a name="l00052"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a6abf1945a911bc3969dc0ecba69531ec">00052</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a6abf1945a911bc3969dc0ecba69531ec">mLastPositionY</a>;
+<a name="l00053"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a748e2f8f3b5e3d6b77c36e94643e6cbd">00053</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a748e2f8f3b5e3d6b77c36e94643e6cbd">mLastDirectionX</a>;
+<a name="l00054"></a><a class="code" href="classMWGui_1_1LocalMapBase.html#a96131e514bf9a35cdc2c57687ad43f82">00054</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1LocalMapBase.html#a96131e514bf9a35cdc2c57687ad43f82">mLastDirectionY</a>;
+<a name="l00055"></a>00055     };
+<a name="l00056"></a>00056 
+<a name="l00057"></a><a class="code" href="classMWGui_1_1MapWindow.html">00057</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> : <span class="keyword">public</span> MWGui::<a class="code" href="classMWGui_1_1WindowPinnableBase.html">WindowPinnableBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1LocalMapBase.html">LocalMapBase</a>
+<a name="l00058"></a>00058     {
+<a name="l00059"></a>00059     <span class="keyword">public</span>:
+<a name="l00060"></a>00060         <a class="code" href="classMWGui_1_1MapWindow.html#a7abd66d621bf6d9cb0b7d4884ee27979">MapWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00061"></a><a class="code" href="classMWGui_1_1MapWindow.html#ae7966cf0102b2573169da32cd0ff7463">00061</a>         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1MapWindow.html#ae7966cf0102b2573169da32cd0ff7463">~MapWindow</a>(){}
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#aed8180e6a6578536e2ffce17fdb55ec9">setCellName</a>(<span class="keyword">const</span> std::string&amp; cellName);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065     <span class="keyword">private</span>:
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#acfc38ab5281142768a4fb8f5df2d8233">onDragStart</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _left, <span class="keywordtype">int</span> _top, MyGUI::MouseButton _id);
+<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a9c849336356807a7aeb889b219806a34">onMouseDrag</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _left, <span class="keywordtype">int</span> _top, MyGUI::MouseButton _id);
+<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a3d09bb8ab7894883b6e8bf1ce6880963">onWorldButtonClicked</a>(MyGUI::Widget* _sender);
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="classMWGui_1_1MapWindow.html#a2e0810e4ffd825463d33ddee7f797749">00070</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1MapWindow.html#a2e0810e4ffd825463d33ddee7f797749">mGlobalMap</a>;
+<a name="l00071"></a><a class="code" href="classMWGui_1_1MapWindow.html#a9bfa88c4d3f4441e13296a67beed2266">00071</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1MapWindow.html#a9bfa88c4d3f4441e13296a67beed2266">mPlayerArrow</a>;
+<a name="l00072"></a><a class="code" href="classMWGui_1_1MapWindow.html#a618d2b244143bd4092b577c64ba32dd2">00072</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1MapWindow.html#a618d2b244143bd4092b577c64ba32dd2">mButton</a>;
+<a name="l00073"></a><a class="code" href="classMWGui_1_1MapWindow.html#a6828fdd10f764b175ea84b5aab3d4baa">00073</a>         MyGUI::IntPoint <a class="code" href="classMWGui_1_1MapWindow.html#a6828fdd10f764b175ea84b5aab3d4baa">mLastDragPos</a>;
+<a name="l00074"></a><a class="code" href="classMWGui_1_1MapWindow.html#a480fc46be23ced14458effbae56f6388">00074</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MapWindow.html#a480fc46be23ced14458effbae56f6388">mGlobal</a>;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     <span class="keyword">protected</span>:
+<a name="l00077"></a>00077         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MapWindow.html#a09a7ac3eb1e0eb890700a7cdc6c8448b">onPinToggled</a>();
+<a name="l00078"></a>00078     };
+<a name="l00079"></a>00079 }
+<a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

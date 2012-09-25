@@ -63,6 +63,7 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
@@ -79,10 +80,13 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#a9bfc68f419efe0fcc6d22d55e03f45e8">Action</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#abe89cf3f3e374a1c4fa5525e42d73d00">Action</a> (bool keepSound=false, const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;target=<a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a>())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#a3ce6247bd49896daaa15f40479c4efea">~Action</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#aff8076501d1af8d06047220802293b5c">execute</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#af710c7b43d6ee6f72c4a8e75f6c9e42b">setSound</a> (const std::string &amp;id)</td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#a6f251a38ff6fdedac4169c8c4f327088">getTarget</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#a1063327216e4c73589d05d5cbdde1c6b">Action</a> (const <a class="el" href="classMWWorld_1_1Action.html">Action</a> &amp;action)</td></tr>
@@ -91,6 +95,8 @@ Private Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#a7f2cb218d27d413b9db214c469402914">mSoundId</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#a6f875c9cff8a9b43b74fa869dca4c9c2">mKeepSound</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Action.html#acf9ca088d9c86db719320f4edf4d8166">mTarget</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Abstract base for actions. </p>
@@ -112,19 +118,36 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9bfc68f419efe0fcc6d22d55e03f45e8"></a><!-- doxytag: member="MWWorld::Action::Action" ref="a9bfc68f419efe0fcc6d22d55e03f45e8" args="()" -->
+<a class="anchor" id="abe89cf3f3e374a1c4fa5525e42d73d00"></a><!-- doxytag: member="MWWorld::Action::Action" ref="abe89cf3f3e374a1c4fa5525e42d73d00" args="(bool keepSound=false, const Ptr &amp;target=Ptr())" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classMWWorld_1_1Action.html#a1063327216e4c73589d05d5cbdde1c6b">MWWorld::Action::Action</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>keepSound</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>target</em> = <code><a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keepSound</td><td>Keep playing the sound even if the object the sound is played on is removed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -177,7 +200,23 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWWorld_1_1ActionApplyWithSkill.html#abd4389dd7b8ebe8944682fdf0b19ac72">MWWorld::ActionApplyWithSkill</a>, <a class="el" href="classMWWorld_1_1ActionApply.html#a4506ba8201e7eaeb46a7cae65d4a9347">MWWorld::ActionApply</a>, <a class="el" href="classMWWorld_1_1ActionTeleport.html#aed49e98d70f996175298fe8e2a6bd9b7">MWWorld::ActionTeleport</a>, <a class="el" href="classMWWorld_1_1ActionOpen.html#a97b47ff9d6084b3c0af76838551f8d5c">MWWorld::ActionOpen</a>, <a class="el" href="classMWWorld_1_1ActionEquip.html#a9fdc99b6c82601b54208471637d0d78e">MWWorld::ActionEquip</a>, <a class="el" href="classMWWorld_1_1ActionRead.html#a3c092437db65540a42377ce91cab6e70">MWWorld::ActionRead</a>, <a class="el" href="classMWWorld_1_1ActionTake.html#a9b205e51e6e4affafe912a87ddffe333">MWWorld::ActionTake</a>, <a class="el" href="classMWWorld_1_1ActionTalk.html#abde5231b25c6c4fba61c8e21cb8620e9">MWWorld::ActionTalk</a>, <a class="el" href="classMWWorld_1_1NullAction.html#a771d554c603235ca313a3f0a1aa40f2e">MWWorld::NullAction</a>, and <a class="el" href="classMWWorld_1_1ActionAlchemy.html#a4a815ed648ffe6fe95dc35e9512c4c2f">MWWorld::ActionAlchemy</a>.</p>
+<p>Implemented in <a class="el" href="classMWWorld_1_1ActionApplyWithSkill.html#abd4389dd7b8ebe8944682fdf0b19ac72">MWWorld::ActionApplyWithSkill</a>, <a class="el" href="classMWWorld_1_1ActionTeleport.html#aed49e98d70f996175298fe8e2a6bd9b7">MWWorld::ActionTeleport</a>, <a class="el" href="classMWWorld_1_1ActionApply.html#a4506ba8201e7eaeb46a7cae65d4a9347">MWWorld::ActionApply</a>, <a class="el" href="classMWWorld_1_1ActionOpen.html#a97b47ff9d6084b3c0af76838551f8d5c">MWWorld::ActionOpen</a>, <a class="el" href="classMWWorld_1_1ActionEat.html#a2f083d8cf053cdcbc96e7910d694f970">MWWorld::ActionEat</a>, <a class="el" href="classMWWorld_1_1ActionEquip.html#a9fdc99b6c82601b54208471637d0d78e">MWWorld::ActionEquip</a>, <a class="el" href="classMWWorld_1_1ActionRead.html#a3c092437db65540a42377ce91cab6e70">MWWorld::ActionRead</a>, <a class="el" href="classMWWorld_1_1ActionTake.html#a9b205e51e6e4affafe912a87ddffe333">MWWorld::ActionTake</a>, <a class="el" href="classMWWorld_1_1ActionTalk.html#abde5231b25c6c4fba61c8e21cb8620e9">MWWorld::ActionTalk</a>, <a class="el" href="classMWWorld_1_1NullAction.html#a771d554c603235ca313a3f0a1aa40f2e">MWWorld::NullAction</a>, and <a class="el" href="classMWWorld_1_1ActionAlchemy.html#a4a815ed648ffe6fe95dc35e9512c4c2f">MWWorld::ActionAlchemy</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6f251a38ff6fdedac4169c8c4f327088"></a><!-- doxytag: member="MWWorld::Action::getTarget" ref="a6f251a38ff6fdedac4169c8c4f327088" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp; <a class="el" href="classMWWorld_1_1Action.html#a6f251a38ff6fdedac4169c8c4f327088">MWWorld::Action::getTarget</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -216,12 +255,38 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a6f875c9cff8a9b43b74fa869dca4c9c2"></a><!-- doxytag: member="MWWorld::Action::mKeepSound" ref="a6f875c9cff8a9b43b74fa869dca4c9c2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWWorld_1_1Action.html#a6f875c9cff8a9b43b74fa869dca4c9c2">MWWorld::Action::mKeepSound</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a7f2cb218d27d413b9db214c469402914"></a><!-- doxytag: member="MWWorld::Action::mSoundId" ref="a7f2cb218d27d413b9db214c469402914" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">std::string <a class="el" href="classMWWorld_1_1Action.html#a7f2cb218d27d413b9db214c469402914">MWWorld::Action::mSoundId</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acf9ca088d9c86db719320f4edf4d8166"></a><!-- doxytag: member="MWWorld::Action::mTarget" ref="acf9ca088d9c86db719320f4edf4d8166" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> <a class="el" href="classMWWorld_1_1Action.html#acf9ca088d9c86db719320f4edf4d8166">MWWorld::Action::mTarget</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -237,7 +302,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:12 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

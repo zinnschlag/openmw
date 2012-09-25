@@ -77,93 +77,86 @@
 <a name="l00017"></a>00017 
 <a name="l00018"></a>00018 <span class="keyword">namespace </span>MWGui
 <a name="l00019"></a>00019 {
-<a name="l00020"></a>00020     <span class="keyword">using namespace </span>MyGUI;
-<a name="l00021"></a>00021 
-<a name="l00022"></a><a class="code" href="classMWGui_1_1ReviewDialog.html">00022</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ReviewDialog.html">ReviewDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00023"></a>00023     {
-<a name="l00024"></a>00024     <span class="keyword">public</span>:
-<a name="l00025"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479a">00025</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479a">Dialogs</a> {
-<a name="l00026"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa16b9ece24157ddd47b151f6012be3b70">00026</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa16b9ece24157ddd47b151f6012be3b70">NAME_DIALOG</a>,
-<a name="l00027"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aad65048953f27caf8b5c1774abb7df724">00027</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aad65048953f27caf8b5c1774abb7df724">RACE_DIALOG</a>,
-<a name="l00028"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa5caee30f99faa1d3333d143efd26257c">00028</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa5caee30f99faa1d3333d143efd26257c">CLASS_DIALOG</a>,
-<a name="l00029"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa6b0d1036161813afad57fea213568843">00029</a>             BIRTHSIGN_DIALOG
-<a name="l00030"></a>00030         };
-<a name="l00031"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">00031</a>         <span class="keyword">typedef</span> std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a>;
+<a name="l00020"></a><a class="code" href="classMWGui_1_1ReviewDialog.html">00020</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ReviewDialog.html">ReviewDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a>00022     <span class="keyword">public</span>:
+<a name="l00023"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479a">00023</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479a">Dialogs</a> {
+<a name="l00024"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa16b9ece24157ddd47b151f6012be3b70">00024</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa16b9ece24157ddd47b151f6012be3b70">NAME_DIALOG</a>,
+<a name="l00025"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aad65048953f27caf8b5c1774abb7df724">00025</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aad65048953f27caf8b5c1774abb7df724">RACE_DIALOG</a>,
+<a name="l00026"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa5caee30f99faa1d3333d143efd26257c">00026</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa5caee30f99faa1d3333d143efd26257c">CLASS_DIALOG</a>,
+<a name="l00027"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa6b0d1036161813afad57fea213568843">00027</a>             <a class="code" href="classMWGui_1_1ReviewDialog.html#abe52b5b570711823cefc31966722479aa6b0d1036161813afad57fea213568843">BIRTHSIGN_DIALOG</a>
+<a name="l00028"></a>00028         };
+<a name="l00029"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">00029</a>         <span class="keyword">typedef</span> std::vector&lt;int&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a>;
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031         <a class="code" href="classMWGui_1_1ReviewDialog.html#a657da026a1b2cad87b7672f83b7fa3a3">ReviewDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
 <a name="l00032"></a>00032 
-<a name="l00033"></a>00033         <a class="code" href="classMWGui_1_1ReviewDialog.html">ReviewDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035         <span class="keywordtype">void</span> setPlayerName(<span class="keyword">const</span> std::string &amp;name);
-<a name="l00036"></a>00036         <span class="keywordtype">void</span> setRace(<span class="keyword">const</span> std::string &amp;raceId);
-<a name="l00037"></a>00037         <span class="keywordtype">void</span> setClass(<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_);
-<a name="l00038"></a>00038         <span class="keywordtype">void</span> setBirthSign (<span class="keyword">const</span> std::string &amp;signId);
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040         <span class="keywordtype">void</span> setHealth(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
-<a name="l00041"></a>00041         <span class="keywordtype">void</span> setMagicka(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> setFatigue(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;int&gt;</a>&amp; value);
+<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#ae89480d8a7a6e3b28738d556f11aca62">setPlayerName</a>(<span class="keyword">const</span> std::string &amp;name);
+<a name="l00034"></a>00034         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a3ee3ce85a824a1f49c6e4294a0423b41">setRace</a>(<span class="keyword">const</span> std::string &amp;raceId);
+<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#acd7770e2a8517277cad6dd2b627a0c5c">setClass</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_);
+<a name="l00036"></a>00036         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a578cbced4d2d1d8559a1ae496712b522">setBirthSign</a> (<span class="keyword">const</span> std::string &amp;signId);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#ad37b346b247477b266f2a69c061d1a35">setHealth</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a>&amp; value);
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a3bd0be41803af00b45a218966d814bb3">setMagicka</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a>&amp; value);
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a026b5d1e445b1170b30cc47b8a439bf9">setFatigue</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a>&amp; value);
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a4d668713c9a8d678b307459a9827924d">setAttribute</a>(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5c">ESM::Attribute::AttributeID</a> attributeId, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044         <span class="keywordtype">void</span> setAttribute(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5c">ESM::Attribute::AttributeID</a> attributeId, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046         <span class="keywordtype">void</span> configureSkills(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a>&amp; minor);
-<a name="l00047"></a>00047         <span class="keywordtype">void</span> setSkillValue(<a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> skillId, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
+<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#afd01854a41d5e1469d8aa3cdc0febd3e">configureSkills</a>(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a>&amp; minor);
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a861d6c19610bb1dfb615f284a2b89b19">setSkillValue</a>(<a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> skillId, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#af26661d14effedcc5cdcbd2dc173b298">open</a>();
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049         <span class="keywordtype">void</span> open();
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="comment">// Events</span>
-<a name="l00052"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a14d58d2508b06480edaee06730e76df7">00052</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1ReviewDialog.html#a14d58d2508b06480edaee06730e76df7">EventHandle_Void</a>;
-<a name="l00053"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a1c62a2ed68e89b7175b42d80761f3027">00053</a>         <span class="keyword">typedef</span> delegates::CMultiDelegate1&lt;int&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a1c62a2ed68e89b7175b42d80761f3027">EventHandle_Int</a>;
-<a name="l00054"></a>00054 
-<a name="l00058"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#af31727407abedc2e68e0703914aa176e">00058</a>         <a class="code" href="classMWGui_1_1ReviewDialog.html#a14d58d2508b06480edaee06730e76df7">EventHandle_Void</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#af31727407abedc2e68e0703914aa176e">eventBack</a>;
+<a name="l00049"></a>00049         <span class="comment">// Events</span>
+<a name="l00050"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ab21cf8d43c83de3419d975d1424e0dd8">00050</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1ReviewDialog.html#ab21cf8d43c83de3419d975d1424e0dd8">EventHandle_Void</a>;
+<a name="l00051"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a53e038463b4fcc96f6ce0e200a924117">00051</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;int&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a53e038463b4fcc96f6ce0e200a924117">EventHandle_Int</a>;
+<a name="l00052"></a>00052 
+<a name="l00056"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#af31727407abedc2e68e0703914aa176e">00056</a>         <a class="code" href="classMWGui_1_1ReviewDialog.html#ab21cf8d43c83de3419d975d1424e0dd8">EventHandle_Void</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#af31727407abedc2e68e0703914aa176e">eventBack</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a66c03cd89bd9fadff0cd9fc59e12e6dd">00058</a>         <a class="code" href="classMWGui_1_1ReviewDialog.html#a53e038463b4fcc96f6ce0e200a924117">EventHandle_Int</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#a66c03cd89bd9fadff0cd9fc59e12e6dd">eventActivateDialog</a>;
 <a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a66c03cd89bd9fadff0cd9fc59e12e6dd">00060</a>         <a class="code" href="classMWGui_1_1ReviewDialog.html#a1c62a2ed68e89b7175b42d80761f3027">EventHandle_Int</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#a66c03cd89bd9fadff0cd9fc59e12e6dd">eventActivateDialog</a>;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <span class="keyword">protected</span>:
-<a name="l00063"></a>00063         <span class="keywordtype">void</span> onOkClicked(MyGUI::Widget* _sender);
-<a name="l00064"></a>00064         <span class="keywordtype">void</span> onBackClicked(MyGUI::Widget* _sender);
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066         <span class="keywordtype">void</span> onNameClicked(MyGUI::Widget* _sender);
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> onRaceClicked(MyGUI::Widget* _sender);
-<a name="l00068"></a>00068         <span class="keywordtype">void</span> onClassClicked(MyGUI::Widget* _sender);
-<a name="l00069"></a>00069         <span class="keywordtype">void</span> onBirthSignClicked(MyGUI::Widget* _sender);
+<a name="l00060"></a>00060     <span class="keyword">protected</span>:
+<a name="l00061"></a>00061         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a763189d559906bf1f92bae446bfda898">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a15d0be084492eb3e3e200bdd49dee679">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a3412a033fb1e7e71a0bc24b2b9e9e13f">onNameClicked</a>(MyGUI::Widget* _sender);
+<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a95ac6e6c08d6659af07882f800e9dbb1">onRaceClicked</a>(MyGUI::Widget* _sender);
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a3286ae24e7f4ab64480600318b812ee6">onClassClicked</a>(MyGUI::Widget* _sender);
+<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#aed8f8c5cbd513db11b9dde5e13c302a8">onBirthSignClicked</a>(MyGUI::Widget* _sender);
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a1b59ba41ab132c9a4f87723c2e234095">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
 <a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keywordtype">void</span> onMouseWheel(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keyword">private</span>:
-<a name="l00074"></a>00074         <span class="keywordtype">void</span> addSkills(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a> &amp;skills, <span class="keyword">const</span> std::string &amp;titleId, <span class="keyword">const</span> std::string &amp;titleDefault, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00075"></a>00075         <span class="keywordtype">void</span> addSeparator(MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00076"></a>00076         <span class="keywordtype">void</span> addGroup(<span class="keyword">const</span> std::string &amp;label, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00077"></a>00077         MyGUI::TextBox* addValueItem(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> std::string &amp;value, <span class="keyword">const</span> std::string&amp; state, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00078"></a>00078         <span class="keywordtype">void</span> addItem(<span class="keyword">const</span> std::string&amp; text, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
-<a name="l00079"></a>00079         <span class="keywordtype">void</span> updateScroller();
-<a name="l00080"></a>00080         <span class="keywordtype">void</span> updateSkillArea();
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082         <span class="keywordtype">void</span> onScrollChangePosition(MyGUI::ScrollBar* scroller, <span class="keywordtype">size_t</span> pos);
-<a name="l00083"></a>00083         <span class="keywordtype">void</span> onWindowResize(MyGUI::Window* <a class="code" href="ogre__common_8cpp.html#ae1f8b65b3ad5afe5312d8963e3cc7f60">window</a>);
+<a name="l00071"></a>00071     <span class="keyword">private</span>:
+<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a8cc8682afe9f78ab09ba0eb628781bc9">addSkills</a>(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a> &amp;skills, <span class="keyword">const</span> std::string &amp;titleId, <span class="keyword">const</span> std::string &amp;titleDefault, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
+<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#af42c791af773b17f67effcf88377480d">addSeparator</a>(MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a024013445f30da3e65b036dc24f050e5">addGroup</a>(<span class="keyword">const</span> std::string &amp;label, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
+<a name="l00075"></a>00075         MyGUI::TextBox* <a class="code" href="classMWGui_1_1ReviewDialog.html#a1a33a667030697c4aef68e90809b150f">addValueItem</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> std::string &amp;value, <span class="keyword">const</span> std::string&amp; state, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a50cb00f30f67f94bb8f9547e5ced2db2">addItem</a>(<span class="keyword">const</span> std::string&amp; text, MyGUI::IntCoord &amp;coord1, MyGUI::IntCoord &amp;coord2);
+<a name="l00077"></a>00077         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a826132763f02c35c64cedd24cff41bc1">updateSkillArea</a>();
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ab99884ccac1725e962a4563d4c4638bc">00079</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#ab99884ccac1725e962a4563d4c4638bc">sLineHeight</a>;
+<a name="l00080"></a>00080 
+<a name="l00081"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a7267236d47201c0fcedc9e1545fe0fee">00081</a>         MyGUI::TextBox *<a class="code" href="classMWGui_1_1ReviewDialog.html#a16a3fbc3c29cadb3f696843c75ae49b1">mNameWidget</a>, *<a class="code" href="classMWGui_1_1ReviewDialog.html#a7267236d47201c0fcedc9e1545fe0fee">mRaceWidget</a>, *<a class="code" href="classMWGui_1_1ReviewDialog.html#a9c5ad913ad44935093971690a6910baa">mClassWidget</a>, *<a class="code" href="classMWGui_1_1ReviewDialog.html#af977f93608f2f5006b96af86015ceb34">mBirthSignWidget</a>;
+<a name="l00082"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a151c965305b776e2b50b825cd6f4a3e3">00082</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1ReviewDialog.html#a151c965305b776e2b50b825cd6f4a3e3">mSkillView</a>;
+<a name="l00083"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a77d7dd66713ea77499cff64b13195f55">00083</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a77d7dd66713ea77499cff64b13195f55">mLastPos</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#ae25d09b537d5b04ce138072c6a91f8ac">mClientHeight</a>;
 <a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ab99884ccac1725e962a4563d4c4638bc">00085</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#ab99884ccac1725e962a4563d4c4638bc">sLineHeight</a>;
+<a name="l00085"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a26b9521ed93b7214b151ca356fc0a5fb">00085</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">Widgets::MWDynamicStatPtr</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#a381694a3ffbdfac5ed968ac76da8a160">mHealth</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#a26b9521ed93b7214b151ca356fc0a5fb">mMagicka</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#a9573189808dd89ed7ba3258a82350b84">mFatigue</a>;
 <a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a7267236d47201c0fcedc9e1545fe0fee">00087</a>         MyGUI::TextBox *mNameWidget, *<a class="code" href="classMWGui_1_1ReviewDialog.html#a7267236d47201c0fcedc9e1545fe0fee">mRaceWidget</a>, *mClassWidget, *mBirthSignWidget;
-<a name="l00088"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#af3bf74e948eaf5d682685a9578ee0f1a">00088</a>         MyGUI::WidgetPtr mSkillAreaWidget, <a class="code" href="classMWGui_1_1ReviewDialog.html#af3bf74e948eaf5d682685a9578ee0f1a">mSkillClientWidget</a>;
-<a name="l00089"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a540f76bc7ab133105f44f472fdd3c59b">00089</a>         MyGUI::ScrollBar* <a class="code" href="classMWGui_1_1ReviewDialog.html#a540f76bc7ab133105f44f472fdd3c59b">mSkillScrollerWidget</a>;
-<a name="l00090"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a77d7dd66713ea77499cff64b13195f55">00090</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ReviewDialog.html#a77d7dd66713ea77499cff64b13195f55">mLastPos</a>, mClientHeight;
-<a name="l00091"></a>00091 
-<a name="l00092"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a26b9521ed93b7214b151ca356fc0a5fb">00092</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">Widgets::MWDynamicStatPtr</a> mHealth, <a class="code" href="classMWGui_1_1ReviewDialog.html#a26b9521ed93b7214b151ca356fc0a5fb">mMagicka</a>, mFatigue;
-<a name="l00093"></a>00093 
-<a name="l00094"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ae043f4200ef8aacdf615c221c3ad39cc">00094</a>         std::map&lt;int, Widgets::MWAttributePtr&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#ae043f4200ef8aacdf615c221c3ad39cc">mAttributeWidgets</a>;
-<a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a009ae8766b0595dd58b5c4d20a8e79ab">00096</a>         <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a> mMajorSkills, mMinorSkills, <a class="code" href="classMWGui_1_1ReviewDialog.html#a009ae8766b0595dd58b5c4d20a8e79ab">mMiscSkills</a>;
-<a name="l00097"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a9bc899e7d316fa1f4b089137c0dd9a95">00097</a>         std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a9bc899e7d316fa1f4b089137c0dd9a95">mSkillValues</a>;
-<a name="l00098"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a3560be3d599c25c81d992c13bba4f80c">00098</a>         std::map&lt;int, MyGUI::TextBox*&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a3560be3d599c25c81d992c13bba4f80c">mSkillWidgetMap</a>;
-<a name="l00099"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#aefb155cf9141c368a40243d2c7fc787d">00099</a>         std::string mName, <a class="code" href="classMWGui_1_1ReviewDialog.html#aefb155cf9141c368a40243d2c7fc787d">mRaceId</a>, mBirthSignId;
-<a name="l00100"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a3941cc56ec27c66460606d3777cfe44f">00100</a>         <a class="code" href="structESM_1_1Class.html">ESM::Class</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#a3941cc56ec27c66460606d3777cfe44f">mKlass</a>;
-<a name="l00101"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ab043e1ae2f47ddd80fdb312899e2971c">00101</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#ab043e1ae2f47ddd80fdb312899e2971c">mSkillWidgets</a>; <span class="comment">//&lt; Skills and other information</span>
-<a name="l00102"></a>00102     };
-<a name="l00103"></a>00103 }
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00087"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ae043f4200ef8aacdf615c221c3ad39cc">00087</a>         std::map&lt;int, Widgets::MWAttributePtr&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#ae043f4200ef8aacdf615c221c3ad39cc">mAttributeWidgets</a>;
+<a name="l00088"></a>00088 
+<a name="l00089"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a009ae8766b0595dd58b5c4d20a8e79ab">00089</a>         <a class="code" href="classMWGui_1_1ReviewDialog.html#a62efdd51341662a48d1953c4f1e22f85">SkillList</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#a883e614e002a593ad1310a0af695f88d">mMajorSkills</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#aa5ca2869e2e5563a3088cb746bddd557">mMinorSkills</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#a009ae8766b0595dd58b5c4d20a8e79ab">mMiscSkills</a>;
+<a name="l00090"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a9bc899e7d316fa1f4b089137c0dd9a95">00090</a>         std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a9bc899e7d316fa1f4b089137c0dd9a95">mSkillValues</a>;
+<a name="l00091"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a3560be3d599c25c81d992c13bba4f80c">00091</a>         std::map&lt;int, MyGUI::TextBox*&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#a3560be3d599c25c81d992c13bba4f80c">mSkillWidgetMap</a>;
+<a name="l00092"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#aefb155cf9141c368a40243d2c7fc787d">00092</a>         std::string <a class="code" href="classMWGui_1_1ReviewDialog.html#a72b811aa1501b15be95afe602b02e010">mName</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#aefb155cf9141c368a40243d2c7fc787d">mRaceId</a>, <a class="code" href="classMWGui_1_1ReviewDialog.html#ae6deff9f449ba816d8a278d563e1657e">mBirthSignId</a>;
+<a name="l00093"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#a3941cc56ec27c66460606d3777cfe44f">00093</a>         <a class="code" href="structESM_1_1Class.html">ESM::Class</a> <a class="code" href="classMWGui_1_1ReviewDialog.html#a3941cc56ec27c66460606d3777cfe44f">mKlass</a>;
+<a name="l00094"></a><a class="code" href="classMWGui_1_1ReviewDialog.html#ab043e1ae2f47ddd80fdb312899e2971c">00094</a>         std::vector&lt;MyGUI::WidgetPtr&gt; <a class="code" href="classMWGui_1_1ReviewDialog.html#ab043e1ae2f47ddd80fdb312899e2971c">mSkillWidgets</a>; <span class="comment">//&lt; Skills and other information</span>
+<a name="l00095"></a>00095     };
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -94,55 +94,55 @@
 <a name="l00064"></a><a class="code" href="structFiles_1_1FixedPath.html#a36ef9103935aa8243748d670465821a5">00064</a>     <span class="keyword">typedef</span> P <a class="code" href="structFiles_1_1FixedPath.html#a36ef9103935aa8243748d670465821a5">PathType</a>;
 <a name="l00065"></a>00065 
 <a name="l00071"></a><a class="code" href="structFiles_1_1FixedPath.html#a907543f62e33fab57bfaaf6fa1240189">00071</a>     <a class="code" href="structFiles_1_1FixedPath.html#a907543f62e33fab57bfaaf6fa1240189" title="Path constructor.">FixedPath</a>(<span class="keyword">const</span> std::string&amp; application_name)
-<a name="l00072"></a>00072         : <a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>()
+<a name="l00072"></a>00072         : <a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>(application_name + <span class="stringliteral">&quot;/&quot;</span>)
 <a name="l00073"></a>00073         , <a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">mUserPath</a>(<a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>.<a class="code" href="structFiles_1_1FixedPath.html#aabb0b6b2d58cbaac7d08dd5f4c299e9c" title="Return path pointing to the user local configuration directory.">getUserPath</a>())
 <a name="l00074"></a>00074         , <a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">mGlobalPath</a>(<a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>.<a class="code" href="structFiles_1_1FixedPath.html#ac192e58aa53ebf4b0e559e158cd014cf" title="Return path pointing to the global (system) configuration directory.">getGlobalPath</a>())
 <a name="l00075"></a>00075         , <a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">mLocalPath</a>(<a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>.<a class="code" href="structFiles_1_1FixedPath.html#aa7fb2755c07e3f895f20033a99fd5b62" title="Return path pointing to the directory where application was started.">getLocalPath</a>())
 <a name="l00076"></a>00076         , <a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">mGlobalDataPath</a>(<a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>.<a class="code" href="structFiles_1_1FixedPath.html#a05dd1e864aba5293b5d74ab484f816ec">getGlobalDataPath</a>())
 <a name="l00077"></a>00077         , <a class="code" href="structFiles_1_1FixedPath.html#a1a991de2b1c8f52b5f4be88ab58ab747">mInstallPath</a>(<a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>.<a class="code" href="structFiles_1_1FixedPath.html#a99c61a2a2cb6c22669f65d405acc70eb">getInstallPath</a>())
-<a name="l00078"></a>00078     {
-<a name="l00079"></a>00079         <span class="keywordflow">if</span> (!application_name.empty())
-<a name="l00080"></a>00080         {
-<a name="l00081"></a>00081             boost::filesystem::path suffix(application_name + std::string(<span class="stringliteral">&quot;/&quot;</span>));
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083             <a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">mUserPath</a> /= suffix;
-<a name="l00084"></a>00084             <a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">mGlobalPath</a> /= suffix;
-<a name="l00085"></a>00085             <a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">mGlobalDataPath</a> /= suffix;
-<a name="l00086"></a>00086         }
-<a name="l00087"></a>00087     }
-<a name="l00088"></a>00088 
-<a name="l00094"></a><a class="code" href="structFiles_1_1FixedPath.html#aabb0b6b2d58cbaac7d08dd5f4c299e9c">00094</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#aabb0b6b2d58cbaac7d08dd5f4c299e9c" title="Return path pointing to the user local configuration directory.">getUserPath</a>()<span class="keyword"> const</span>
-<a name="l00095"></a>00095 <span class="keyword">    </span>{
-<a name="l00096"></a>00096         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">mUserPath</a>;
-<a name="l00097"></a>00097     }
-<a name="l00098"></a>00098 
-<a name="l00104"></a><a class="code" href="structFiles_1_1FixedPath.html#ac192e58aa53ebf4b0e559e158cd014cf">00104</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#ac192e58aa53ebf4b0e559e158cd014cf" title="Return path pointing to the global (system) configuration directory.">getGlobalPath</a>()<span class="keyword"> const</span>
-<a name="l00105"></a>00105 <span class="keyword">    </span>{
-<a name="l00106"></a>00106         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">mGlobalPath</a>;
-<a name="l00107"></a>00107     }
-<a name="l00108"></a>00108 
-<a name="l00114"></a><a class="code" href="structFiles_1_1FixedPath.html#aa7fb2755c07e3f895f20033a99fd5b62">00114</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#aa7fb2755c07e3f895f20033a99fd5b62" title="Return path pointing to the directory where application was started.">getLocalPath</a>()<span class="keyword"> const</span>
-<a name="l00115"></a>00115 <span class="keyword">    </span>{
-<a name="l00116"></a>00116         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">mLocalPath</a>;
-<a name="l00117"></a>00117     }
-<a name="l00118"></a>00118 
-<a name="l00119"></a><a class="code" href="structFiles_1_1FixedPath.html#a99c61a2a2cb6c22669f65d405acc70eb">00119</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#a99c61a2a2cb6c22669f65d405acc70eb">getInstallPath</a>()<span class="keyword"> const</span>
-<a name="l00120"></a>00120 <span class="keyword">    </span>{
-<a name="l00121"></a>00121         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a1a991de2b1c8f52b5f4be88ab58ab747">mInstallPath</a>;
-<a name="l00122"></a>00122     }
-<a name="l00123"></a>00123 
-<a name="l00124"></a><a class="code" href="structFiles_1_1FixedPath.html#a05dd1e864aba5293b5d74ab484f816ec">00124</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#a05dd1e864aba5293b5d74ab484f816ec">getGlobalDataPath</a>()<span class="keyword"> const</span>
-<a name="l00125"></a>00125 <span class="keyword">    </span>{
-<a name="l00126"></a>00126         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">mGlobalDataPath</a>;
-<a name="l00127"></a>00127     }
-<a name="l00128"></a>00128 
-<a name="l00129"></a>00129     <span class="keyword">private</span>:
-<a name="l00130"></a><a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">00130</a>         <a class="code" href="structFiles_1_1FixedPath.html#a36ef9103935aa8243748d670465821a5">PathType</a> <a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>;
-<a name="l00131"></a>00131 
-<a name="l00132"></a><a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">00132</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">mUserPath</a>;       
-<a name="l00133"></a><a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">00133</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">mGlobalPath</a>;     
-<a name="l00134"></a><a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">00134</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">mLocalPath</a>;      
-<a name="l00136"></a><a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">00136</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">mGlobalDataPath</a>;        
+<a name="l00078"></a>00078         , <a class="code" href="structFiles_1_1FixedPath.html#a1e532eb6f488aaa094034d1f56e406b6">mCachePath</a>(<a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>.<a class="code" href="structFiles_1_1FixedPath.html#aa86b65e3aea3cae6c7e550931a0423e3">getCachePath</a>())
+<a name="l00079"></a>00079     {
+<a name="l00080"></a>00080     }
+<a name="l00081"></a>00081 
+<a name="l00087"></a><a class="code" href="structFiles_1_1FixedPath.html#aabb0b6b2d58cbaac7d08dd5f4c299e9c">00087</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#aabb0b6b2d58cbaac7d08dd5f4c299e9c" title="Return path pointing to the user local configuration directory.">getUserPath</a>()<span class="keyword"> const</span>
+<a name="l00088"></a>00088 <span class="keyword">    </span>{
+<a name="l00089"></a>00089         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">mUserPath</a>;
+<a name="l00090"></a>00090     }
+<a name="l00091"></a>00091 
+<a name="l00097"></a><a class="code" href="structFiles_1_1FixedPath.html#ac192e58aa53ebf4b0e559e158cd014cf">00097</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#ac192e58aa53ebf4b0e559e158cd014cf" title="Return path pointing to the global (system) configuration directory.">getGlobalPath</a>()<span class="keyword"> const</span>
+<a name="l00098"></a>00098 <span class="keyword">    </span>{
+<a name="l00099"></a>00099         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">mGlobalPath</a>;
+<a name="l00100"></a>00100     }
+<a name="l00101"></a>00101 
+<a name="l00107"></a><a class="code" href="structFiles_1_1FixedPath.html#aa7fb2755c07e3f895f20033a99fd5b62">00107</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#aa7fb2755c07e3f895f20033a99fd5b62" title="Return path pointing to the directory where application was started.">getLocalPath</a>()<span class="keyword"> const</span>
+<a name="l00108"></a>00108 <span class="keyword">    </span>{
+<a name="l00109"></a>00109         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">mLocalPath</a>;
+<a name="l00110"></a>00110     }
+<a name="l00111"></a>00111 
+<a name="l00112"></a><a class="code" href="structFiles_1_1FixedPath.html#a99c61a2a2cb6c22669f65d405acc70eb">00112</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#a99c61a2a2cb6c22669f65d405acc70eb">getInstallPath</a>()<span class="keyword"> const</span>
+<a name="l00113"></a>00113 <span class="keyword">    </span>{
+<a name="l00114"></a>00114         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a1a991de2b1c8f52b5f4be88ab58ab747">mInstallPath</a>;
+<a name="l00115"></a>00115     }
+<a name="l00116"></a>00116 
+<a name="l00117"></a><a class="code" href="structFiles_1_1FixedPath.html#a05dd1e864aba5293b5d74ab484f816ec">00117</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#a05dd1e864aba5293b5d74ab484f816ec">getGlobalDataPath</a>()<span class="keyword"> const</span>
+<a name="l00118"></a>00118 <span class="keyword">    </span>{
+<a name="l00119"></a>00119         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">mGlobalDataPath</a>;
+<a name="l00120"></a>00120     }
+<a name="l00121"></a>00121 
+<a name="l00122"></a><a class="code" href="structFiles_1_1FixedPath.html#aa86b65e3aea3cae6c7e550931a0423e3">00122</a>     <span class="keyword">const</span> boost::filesystem::path&amp; <a class="code" href="structFiles_1_1FixedPath.html#aa86b65e3aea3cae6c7e550931a0423e3">getCachePath</a>()<span class="keyword"> const</span>
+<a name="l00123"></a>00123 <span class="keyword">    </span>{
+<a name="l00124"></a>00124         <span class="keywordflow">return</span> <a class="code" href="structFiles_1_1FixedPath.html#a1e532eb6f488aaa094034d1f56e406b6">mCachePath</a>;
+<a name="l00125"></a>00125     }
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127     <span class="keyword">private</span>:
+<a name="l00128"></a><a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">00128</a>         <a class="code" href="structFiles_1_1FixedPath.html#a36ef9103935aa8243748d670465821a5">PathType</a> <a class="code" href="structFiles_1_1FixedPath.html#a201df5d28111ab9acd7fed9e7fd48acc">mPath</a>;
+<a name="l00129"></a>00129 
+<a name="l00130"></a><a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">00130</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a2877dbe4f5bc81d24a36ac4801c601ba">mUserPath</a>;       
+<a name="l00131"></a><a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">00131</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#af07caae9f154419e40a7c5be8bdf3d98">mGlobalPath</a>;     
+<a name="l00132"></a><a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">00132</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a3b1c943ae9774745c742a8ccfe73f91d">mLocalPath</a>;      
+<a name="l00134"></a><a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">00134</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a50bc5bdff79398c50c7969d1f09bdfc2">mGlobalDataPath</a>;        
+<a name="l00136"></a><a class="code" href="structFiles_1_1FixedPath.html#a1e532eb6f488aaa094034d1f56e406b6">00136</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a1e532eb6f488aaa094034d1f56e406b6">mCachePath</a>;
+<a name="l00137"></a>00137 
 <a name="l00138"></a><a class="code" href="structFiles_1_1FixedPath.html#a1a991de2b1c8f52b5f4be88ab58ab747">00138</a>         boost::filesystem::path <a class="code" href="structFiles_1_1FixedPath.html#a1a991de2b1c8f52b5f4be88ab58ab747">mInstallPath</a>;
 <a name="l00139"></a>00139 
 <a name="l00140"></a>00140 };
@@ -155,7 +155,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

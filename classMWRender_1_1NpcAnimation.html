@@ -75,9 +75,9 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aaad962ca8ad2fd10753b7679324e1c60">NpcAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend, <a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;_inv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ab14abc9ece217c127c0eb2e52ed97e4f">NpcAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node, <a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;_inv, int visibilityFlags)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aa5faa3df208fc30caa0c63a28b6419c5">~NpcAnimation</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a73d1d1ac0eb3cff88facd078a6d47183">insertBoundedPart</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, const std::string &amp;bonename)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a459b7c43f3422b0a528e1b9659f45789">insertBoundedPart</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, int group, const std::string &amp;bonename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a953089637aa00d2013eecc4c18a6d90d">runAnimation</a> (float timepassed)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">updateParts</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ac6e3ccf5df48bbdd096dbe24e2e8d567">removeEntities</a> (<a class="el" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> &amp;entities)</td></tr>
@@ -86,6 +86,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a45e62d96371fadb2afa598c8fdc54580">addOrReplaceIndividualPart</a> (int type, int group, int priority, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a> (int group)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a5cfdc72b6ffc45e6797e064f865bc870">addPartGroup</a> (int group, int priority, std::vector&lt; <a class="el" href="structESM_1_1PartReference.html">ESM::PartReference</a> &gt; &amp;parts)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a117d2658f74f6bc2812313f97f9cc2ab">forceUpdate</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a72a8631cfc0896ab325d921661073091">mInv</a></td></tr>
@@ -136,14 +137,15 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a739159d8ac957216ac6d57a06c15ca58">leftglove</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a2c168ac0bfdab6ab4ae4a552d05be05d">rightglove</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#af6eb17d13b3cf5f520fef8e8e47bd859">skirtiter</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">mVisibilityFlags</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aaad962ca8ad2fd10753b7679324e1c60"></a><!-- doxytag: member="MWRender::NpcAnimation::NpcAnimation" ref="aaad962ca8ad2fd10753b7679324e1c60" args="(const MWWorld::Ptr &amp;ptr, OEngine::Render::OgreRenderer &amp;_rend, MWWorld::InventoryStore &amp;_inv)" -->
+<a class="anchor" id="ab14abc9ece217c127c0eb2e52ed97e4f"></a><!-- doxytag: member="MWRender::NpcAnimation::NpcAnimation" ref="ab14abc9ece217c127c0eb2e52ed97e4f" args="(const MWWorld::Ptr &amp;ptr, Ogre::SceneNode *node, MWWorld::InventoryStore &amp;_inv, int visibilityFlags)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1NpcAnimation.html#aaad962ca8ad2fd10753b7679324e1c60">MWRender::NpcAnimation::NpcAnimation</a> </td>
+          <td class="memname"><a class="el" href="classMWRender_1_1NpcAnimation.html#ab14abc9ece217c127c0eb2e52ed97e4f">MWRender::NpcAnimation::NpcAnimation</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>ptr</em>, </td>
@@ -151,14 +153,20 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>_rend</em>, </td>
+          <td class="paramtype">Ogre::SceneNode *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;&#160;</td>
-          <td class="paramname"><em>_inv</em>&#160;</td>
+          <td class="paramname"><em>_inv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>visibilityFlags</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -260,15 +268,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a73d1d1ac0eb3cff88facd078a6d47183"></a><!-- doxytag: member="MWRender::NpcAnimation::insertBoundedPart" ref="a73d1d1ac0eb3cff88facd078a6d47183" args="(const std::string &amp;mesh, const std::string &amp;bonename)" -->
+<a class="anchor" id="a117d2658f74f6bc2812313f97f9cc2ab"></a><!-- doxytag: member="MWRender::NpcAnimation::forceUpdate" ref="a117d2658f74f6bc2812313f97f9cc2ab" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a73d1d1ac0eb3cff88facd078a6d47183">MWRender::NpcAnimation::insertBoundedPart</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a117d2658f74f6bc2812313f97f9cc2ab">MWRender::NpcAnimation::forceUpdate</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a459b7c43f3422b0a528e1b9659f45789"></a><!-- doxytag: member="MWRender::NpcAnimation::insertBoundedPart" ref="a459b7c43f3422b0a528e1b9659f45789" args="(const std::string &amp;mesh, int group, const std::string &amp;bonename)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a459b7c43f3422b0a528e1b9659f45789">MWRender::NpcAnimation::insertBoundedPart</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -771,6 +801,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae187f243cefea7340dcff45b1966efd2"></a><!-- doxytag: member="MWRender::NpcAnimation::mVisibilityFlags" ref="ae187f243cefea7340dcff45b1966efd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">MWRender::NpcAnimation::mVisibilityFlags</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a47c71007cc192b2c910e82a88e2bbab6"></a><!-- doxytag: member="MWRender::NpcAnimation::neck" ref="a47c71007cc192b2c910e82a88e2bbab6" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1039,7 +1082,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:12 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

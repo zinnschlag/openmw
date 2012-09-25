@@ -62,6 +62,7 @@
 </div>
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a>  </div>
@@ -77,6 +78,9 @@
 
 <p><a href="classMWBase_1_1World-members.html">List of all members.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWBase_1_1World_1_1DoorMarker.html">DoorMarker</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ae2dd70215dc18d3657f642f0b1f283e3">RenderMode</a> { <a class="el" href="classMWBase_1_1World.html#ae2dd70215dc18d3657f642f0b1f283e3a6053b2bc19d002735159b2bc0664092e">Render_CollisionDebug</a>, 
@@ -109,6 +113,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aed235e9b0f090709af8bbed305b6d93b">isCellQuasiExterior</a> () const =0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a5db995d04c25cc6cad766e394e69fa1a">getNorthVector</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get north vector (OGRE coordinates) for given interior cell  <a href="#a5db995d04c25cc6cad766e394e69fa1a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structMWBase_1_1World_1_1DoorMarker.html">DoorMarker</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ab860d522147164e73c6812831d1f61a2">getDoorMarkers</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get a list of teleport door markers for a given cell, to be displayed on the local map  <a href="#ab860d522147164e73c6812831d1f61a2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a570f98e7154ec97e4892fd1f335299f2">getInteriorMapPosition</a> (Ogre::Vector2 position, float &amp;nX, float &amp;nY, int &amp;x, int &amp;y)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">see <a class="el" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">MWRender::LocalMap::getInteriorMapPosition</a>  <a href="#a570f98e7154ec97e4892fd1f335299f2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a8cc665707259f1e82562a35e78b6fa12">isPositionExplored</a> (float nX, float nY, int x, int y, bool interior)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">see <a class="el" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">MWRender::LocalMap::isPositionExplored</a>  <a href="#a8cc665707259f1e82562a35e78b6fa12"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="unionMWWorld_1_1Globals_1_1Data.html">MWWorld::Globals::Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa4c707f21d32fe2e32c906a622500ff3">getGlobalVariable</a> (const std::string &amp;name)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="unionMWWorld_1_1Globals_1_1Data.html">MWWorld::Globals::Data</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ac19bb8db8d4a41e6cdcc9d61f26a8b4d">getGlobalVariable</a> (const std::string &amp;name) const =0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ad0499cd03359ae05cbb739bbe47adfa7">getGlobalVariableType</a> (const std::string &amp;name) const =0</td></tr>
@@ -149,6 +159,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a2df999de8d3773d47747ff11ffc05e7a">moveObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> &amp;newCell, float x, float y, float z)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#af61c23e9078575653ca74fe45d04ac27">scaleObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float scale)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ae5f26df36016bae90ffebaae209feff6">rotateObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float x, float y, float z, bool adjust=false)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a012943b813941977b0c750a8e87bcc18">safePlaceObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> &amp;Cell, <a class="el" href="structESM_1_1Position.html">ESM::Position</a> pos)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">place an object in a "safe" location (ie not in the void, etc).  <a href="#a012943b813941977b0c750a8e87bcc18"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a8084db98709b102cd7731193b2cb0470">indexToPosition</a> (int cellX, int cellY, float &amp;x, float &amp;y, bool centre=false) const =0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert cell numbers to position.  <a href="#a8084db98709b102cd7731193b2cb0470"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aad846fb897e65c9baa07ab6505e78ecc">positionToIndex</a> (float x, float y, int &amp;cellX, int &amp;cellY) const =0</td></tr>
@@ -177,6 +189,7 @@ const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> * &gt;&#160;</
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a424c9bbfe5e3c3d53e120e4f3f2e5b23">allowVanityMode</a> (bool allow)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa9ec2e75781a92c5244767d53f55df8f">togglePlayerLooking</a> (bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa8ad404b63948d74f14ccda90acc0a10">renderPlayer</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa2e13376fc3d3bd03e42b22d8cb10014">setupExternalRendering</a> (<a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;rendering)=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a73d56fc44930b5d770879434acf332f3">World</a> (const <a class="el" href="classMWBase_1_1World.html">World</a> &amp;)</td></tr>
@@ -626,6 +639,27 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab860d522147164e73c6812831d1f61a2"></a><!-- doxytag: member="MWBase::World::getDoorMarkers" ref="ab860d522147164e73c6812831d1f61a2" args="(MWWorld::CellStore *cell)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;<a class="el" href="structMWBase_1_1World_1_1DoorMarker.html">DoorMarker</a>&gt; <a class="el" href="classMWBase_1_1World.html#ab860d522147164e73c6812831d1f61a2">MWBase::World::getDoorMarkers</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *&#160;</td>
+          <td class="paramname"><em>cell</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get a list of teleport door markers for a given cell, to be displayed on the local map </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a5e63693c92e0976c8430e25ec6dcde27">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a8c382a716c086eea60fed630cca385d2"></a><!-- doxytag: member="MWBase::World::getEsmReader" ref="a8c382a716c086eea60fed630cca385d2" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -857,6 +891,55 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#acde0c16fcc854b765bfff5f0d8916cd5">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a570f98e7154ec97e4892fd1f335299f2"></a><!-- doxytag: member="MWBase::World::getInteriorMapPosition" ref="a570f98e7154ec97e4892fd1f335299f2" args="(Ogre::Vector2 position, float &amp;nX, float &amp;nY, int &amp;x, int &amp;y)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a570f98e7154ec97e4892fd1f335299f2">MWBase::World::getInteriorMapPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Vector2&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>nX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>nY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>see <a class="el" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">MWRender::LocalMap::getInteriorMapPosition</a> </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a04616d5855954f7d0a6e26fc7d128b92">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -1197,6 +1280,55 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#aa8c4b2743b935a2b49f3a8a75b09b6ef">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8cc665707259f1e82562a35e78b6fa12"></a><!-- doxytag: member="MWBase::World::isPositionExplored" ref="a8cc665707259f1e82562a35e78b6fa12" args="(float nX, float nY, int x, int y, bool interior)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#a8cc665707259f1e82562a35e78b6fa12">MWBase::World::isPositionExplored</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>interior</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>see <a class="el" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">MWRender::LocalMap::isPositionExplored</a> </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a36c2fd4a4b6f5b256f697250dfa1603c">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -1594,6 +1726,43 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a012943b813941977b0c750a8e87bcc18"></a><!-- doxytag: member="MWBase::World::safePlaceObject" ref="a012943b813941977b0c750a8e87bcc18" args="(const MWWorld::Ptr &amp;ptr, MWWorld::CellStore &amp;Cell, ESM::Position pos)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a012943b813941977b0c750a8e87bcc18">MWBase::World::safePlaceObject</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> &amp;&#160;</td>
+          <td class="paramname"><em>Cell</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structESM_1_1Position.html">ESM::Position</a>&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>place an object in a "safe" location (ie not in the void, etc). </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ac7eeb82052aa5354c6c92451d22cdf7d">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="af61c23e9078575653ca74fe45d04ac27"></a><!-- doxytag: member="MWBase::World::scaleObject" ref="af61c23e9078575653ca74fe45d04ac27" args="(const MWWorld::Ptr &amp;ptr, float scale)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -1721,6 +1890,25 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#acb1c65c5538c1ac7fe610c9c396e5799">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa2e13376fc3d3bd03e42b22d8cb10014"></a><!-- doxytag: member="MWBase::World::setupExternalRendering" ref="aa2e13376fc3d3bd03e42b22d8cb10014" args="(MWRender::ExternalRendering &amp;rendering)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#aa2e13376fc3d3bd03e42b22d8cb10014">MWBase::World::setupExternalRendering</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;&#160;</td>
+          <td class="paramname"><em>rendering</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ae3899ec20a6073d258a42ec13d11b633">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -1952,7 +2140,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

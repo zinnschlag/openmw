@@ -109,23 +109,23 @@
 <a name="l00049"></a><a class="code" href="unionESM_1_1NAME__T.html#a37c10a27390b051d3a6eac4374262894">00049</a>   <span class="keywordtype">char</span> <a class="code" href="unionESM_1_1NAME__T.html#a37c10a27390b051d3a6eac4374262894">name</a>[LEN];
 <a name="l00050"></a><a class="code" href="unionESM_1_1NAME__T.html#ac82b9d632638af4d6f751acd28c5cb74">00050</a>   int32_t <a class="code" href="unionESM_1_1NAME__T.html#ac82b9d632638af4d6f751acd28c5cb74">val</a>;
 <a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="unionESM_1_1NAME__T.html#aa8e9066889b4adf836943fffb2ec854b">00052</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#aa8e9066889b4adf836943fffb2ec854b">operator==</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str)
-<a name="l00053"></a>00053   {
+<a name="l00052"></a><a class="code" href="unionESM_1_1NAME__T.html#abe9f480e4724656e3e1547acf21eaad8">00052</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#abe9f480e4724656e3e1547acf21eaad8">operator==</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str)<span class="keyword"> const</span>
+<a name="l00053"></a>00053 <span class="keyword">  </span>{
 <a name="l00054"></a>00054     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i&lt;LEN; i++)
 <a name="l00055"></a>00055       <span class="keywordflow">if</span>(<a class="code" href="unionESM_1_1NAME__T.html#a37c10a27390b051d3a6eac4374262894">name</a>[i] != str[i]) <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00056"></a>00056       <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="unionESM_1_1NAME__T.html#a37c10a27390b051d3a6eac4374262894">name</a>[i] == 0) <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00057"></a>00057     <span class="keywordflow">return</span> str[LEN] == 0;
 <a name="l00058"></a>00058   }
-<a name="l00059"></a><a class="code" href="unionESM_1_1NAME__T.html#a8df347495825234097e3b8111bd3b0b9">00059</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#a8df347495825234097e3b8111bd3b0b9">operator!=</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str) { <span class="keywordflow">return</span> !((*this)==str); }
+<a name="l00059"></a><a class="code" href="unionESM_1_1NAME__T.html#a157362c3e159a4c61ca5296ddf543072">00059</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#a157362c3e159a4c61ca5296ddf543072">operator!=</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !((*this)==str); }
 <a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="unionESM_1_1NAME__T.html#aee3b9bae0da42113e6df23d85628ce45">00061</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#aa8e9066889b4adf836943fffb2ec854b">operator==</a>(<span class="keyword">const</span> std::string &amp;str)
-<a name="l00062"></a>00062   {
+<a name="l00061"></a><a class="code" href="unionESM_1_1NAME__T.html#a8aa9b224fd4946bd20f0905365a18876">00061</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#abe9f480e4724656e3e1547acf21eaad8">operator==</a>(<span class="keyword">const</span> std::string &amp;str)<span class="keyword"> const</span>
+<a name="l00062"></a>00062 <span class="keyword">  </span>{
 <a name="l00063"></a>00063     <span class="keywordflow">return</span> (*<span class="keyword">this</span>) == str.c_str();
 <a name="l00064"></a>00064   }
-<a name="l00065"></a><a class="code" href="unionESM_1_1NAME__T.html#ae4667baec6374b75a470420282f628e8">00065</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#ae4667baec6374b75a470420282f628e8">operator!=</a>(<span class="keyword">const</span> std::string &amp;str) { <span class="keywordflow">return</span> !((*this)==str); }
+<a name="l00065"></a><a class="code" href="unionESM_1_1NAME__T.html#ae45d5929004662a19c8b7962e66c9728">00065</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#ae45d5929004662a19c8b7962e66c9728">operator!=</a>(<span class="keyword">const</span> std::string &amp;str)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !((*this)==str); }
 <a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="unionESM_1_1NAME__T.html#a356fb3cb663389f049cf0d32cf9e0aef">00067</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#a356fb3cb663389f049cf0d32cf9e0aef">operator==</a>(<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v == <a class="code" href="unionESM_1_1NAME__T.html#ac82b9d632638af4d6f751acd28c5cb74">val</a>; }
-<a name="l00068"></a><a class="code" href="unionESM_1_1NAME__T.html#a9612f2b49f430a7faf4419b02b1b6a58">00068</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#a9612f2b49f430a7faf4419b02b1b6a58">operator!=</a>(<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v != <a class="code" href="unionESM_1_1NAME__T.html#ac82b9d632638af4d6f751acd28c5cb74">val</a>; }
+<a name="l00067"></a><a class="code" href="unionESM_1_1NAME__T.html#ae1e68d68aeb458208b2acd560a1749db">00067</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#ae1e68d68aeb458208b2acd560a1749db">operator==</a>(<span class="keywordtype">int</span> v)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> v == <a class="code" href="unionESM_1_1NAME__T.html#ac82b9d632638af4d6f751acd28c5cb74">val</a>; }
+<a name="l00068"></a><a class="code" href="unionESM_1_1NAME__T.html#ab825ffc25b31d927ce0419b52639c2a3">00068</a>   <span class="keywordtype">bool</span> <a class="code" href="unionESM_1_1NAME__T.html#ab825ffc25b31d927ce0419b52639c2a3">operator!=</a>(<span class="keywordtype">int</span> v)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> v != <a class="code" href="unionESM_1_1NAME__T.html#ac82b9d632638af4d6f751acd28c5cb74">val</a>; }
 <a name="l00069"></a>00069 
 <a name="l00070"></a><a class="code" href="unionESM_1_1NAME__T.html#af9135c1a45b536b4044d4e285b5c6195">00070</a>   std::string <a class="code" href="unionESM_1_1NAME__T.html#af9135c1a45b536b4044d4e285b5c6195">toString</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::string(<a class="code" href="unionESM_1_1NAME__T.html#a37c10a27390b051d3a6eac4374262894">name</a>, strnlen(<a class="code" href="unionESM_1_1NAME__T.html#a37c10a27390b051d3a6eac4374262894">name</a>, LEN)); }
 <a name="l00071"></a>00071 };
@@ -407,7 +407,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

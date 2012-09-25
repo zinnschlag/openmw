@@ -86,6 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a9204c1e8739ebf2cc42bf262dbfbaf47">requestMap</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell, Ogre::AxisAlignedBox bounds)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#ae76ef2ffa53b658f74bbca6970b194ed">updatePlayer</a> (const Ogre::Vector3 &amp;position, const Ogre::Quaternion &amp;orientation)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a5743e87ef1cf3acd45df4e17acd84dbf">saveFogOfWar</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">getInteriorMapPosition</a> (Ogre::Vector2 pos, float &amp;nX, float &amp;nY, int &amp;x, int &amp;y)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">isPositionExplored</a> (float nX, float nY, int x, int y, bool interior)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const Ogre::Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a84732604dff3ad497efbc9c914a94596">rotatePoint</a> (const Ogre::Vector2 &amp;p, const Ogre::Vector2 &amp;c, const float angle)</td></tr>
@@ -206,6 +208,98 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a3b971faf9f3571ff24adc0aa505058ea"></a><!-- doxytag: member="MWRender::LocalMap::getInteriorMapPosition" ref="a3b971faf9f3571ff24adc0aa505058ea" args="(Ogre::Vector2 pos, float &amp;nX, float &amp;nY, int &amp;x, int &amp;y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">LocalMap::getInteriorMapPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Vector2&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>nX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>nY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the interior map texture index and normalized position on this texture, given a world position (in ogre coordinates) </p>
+
+</div>
+</div>
+<a class="anchor" id="ac2a7a13033d4ee6fdb40670023ce9eef"></a><!-- doxytag: member="MWRender::LocalMap::isPositionExplored" ref="ac2a7a13033d4ee6fdb40670023ce9eef" args="(float nX, float nY, int x, int y, bool interior)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">LocalMap::isPositionExplored</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>interior</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Check if a given position is explored by the player (i.e. not obscured by fog of war) </p>
+
+</div>
+</div>
 <a class="anchor" id="a703b321651f3dd20b6c79fcee57d2449"></a><!-- doxytag: member="MWRender::LocalMap::render" ref="a703b321651f3dd20b6c79fcee57d2449" args="(const float x, const float y, const float zlow, const float zhigh, const float xw, const float yw, const std::string &amp;texture)" -->
 <div class="memitem">
 <div class="memproto">
@@ -260,7 +354,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000051">Todo:</a></b></dt><dd></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd></dd></dl>
 
 </div>
 </div>
@@ -676,7 +770,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:12 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

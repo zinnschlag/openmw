@@ -73,10 +73,15 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1checklow.html">checklow</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html">Animation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRender.html">CellRender</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CharacterPreview.html">CharacterPreview</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InventoryPreview.html">InventoryPreview</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RaceSelectionPreview.html">RaceSelectionPreview</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Compositors.html">Compositors</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages a set of compositors for one viewport.  <a href="classMWRender_1_1Compositors.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CreatureAnimation.html">CreatureAnimation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Debugging.html">Debugging</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1ExternalRendering.html">ExternalRendering</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for out of world rendering.  <a href="classMWRender_1_1ExternalRendering.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html">LocalMap</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Local map rendering.  <a href="classMWRender_1_1LocalMap.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html">NpcAnimation</a></td></tr>
@@ -135,6 +140,7 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72ad741d530f4907f23ecda90131f6e8885">RV_NoReflection</a> =  128, 
 <br/>
 &#160;&#160;<a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a0789a1ab98f1f1d225f6b800b46e11dc">RV_OcclusionQuery</a> =  256, 
+<a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72adf1eff6b0e92a465df0b335ad17cb82a">RV_PlayerPreview</a> =  512, 
 <a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951">RV_Map</a> =  RV_Terrain + RV_Statics + RV_StaticsSmall + RV_Misc + RV_Water
 <br/>
  }</td></tr>
@@ -251,6 +257,8 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a13e12091687c352e08af35d3c0f43f72a0789a1ab98f1f1d225f6b800b46e11dc"></a><!-- doxytag: member="RV_OcclusionQuery" ref="a13e12091687c352e08af35d3c0f43f72a0789a1ab98f1f1d225f6b800b46e11dc" args="" -->RV_OcclusionQuery</em>&nbsp;</td><td>
 </td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a13e12091687c352e08af35d3c0f43f72adf1eff6b0e92a465df0b335ad17cb82a"></a><!-- doxytag: member="RV_PlayerPreview" ref="a13e12091687c352e08af35d3c0f43f72adf1eff6b0e92a465df0b335ad17cb82a" args="" -->RV_PlayerPreview</em>&nbsp;</td><td>
+</td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951"></a><!-- doxytag: member="RV_Map" ref="a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951" args="" -->RV_Map</em>&nbsp;</td><td>
 </td></tr>
 </table>
@@ -316,7 +324,7 @@ Variables</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:12 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

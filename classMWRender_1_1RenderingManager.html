@@ -78,7 +78,7 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a073b0bb86ab2af031b90a51b61e7a70b">RenderingManager</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend, const boost::filesystem::path &amp;resDir, <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *engine)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a25d492d64ae57d81f226baf28e10641d">RenderingManager</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend, const boost::filesystem::path &amp;resDir, const boost::filesystem::path &amp;cacheDir, <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *engine)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a4128f1a977b9b47752547312dc06a81c">~RenderingManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">togglePOV</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">togglePreviewMode</a> (bool enable)</td></tr>
@@ -141,6 +141,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ad53c3402c39af20b28fc0552a1d43738">boundingBoxToScreen</a> (Ogre::AxisAlignedBox bounds)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a2bc3215faa56c3f0a232f023f49fd218">processChangedSettings</a> (const <a class="el" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a> &amp;settings)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Viewport *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#afd6092530e94b09a5690148338ed38b5">getViewport</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a75b5ea8f32c2e3cb2289ea6d68a298a0">getInteriorMapPosition</a> (Ogre::Vector2 position, float &amp;nX, float &amp;nY, int &amp;x, int &amp;y)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">see <a class="el" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">MWRender::LocalMap::getInteriorMapPosition</a>  <a href="#a75b5ea8f32c2e3cb2289ea6d68a298a0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a6eb971f13bdd57cbd3660ba7d505af54">isPositionExplored</a> (float nX, float nY, int x, int y, bool interior)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">see <a class="el" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">MWRender::LocalMap::isPositionExplored</a>  <a href="#a6eb971f13bdd57cbd3660ba7d505af54"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a6b910d0bf241a720bcbcdbeb0a135fad">setupExternalRendering</a> (<a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;rendering)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a7ca0084b4647db9ddb563c21e142c5f9">useMRT</a> ()</td></tr>
@@ -179,12 +184,12 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Compositors.html">MWRender::Compositors</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aaf69d1306a8b19be370d241286fecf67">mCompositors</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a073b0bb86ab2af031b90a51b61e7a70b"></a><!-- doxytag: member="MWRender::RenderingManager::RenderingManager" ref="a073b0bb86ab2af031b90a51b61e7a70b" args="(OEngine::Render::OgreRenderer &amp;_rend, const boost::filesystem::path &amp;resDir, OEngine::Physic::PhysicEngine *engine)" -->
+<a class="anchor" id="a25d492d64ae57d81f226baf28e10641d"></a><!-- doxytag: member="MWRender::RenderingManager::RenderingManager" ref="a25d492d64ae57d81f226baf28e10641d" args="(OEngine::Render::OgreRenderer &amp;_rend, const boost::filesystem::path &amp;resDir, const boost::filesystem::path &amp;cacheDir, OEngine::Physic::PhysicEngine *engine)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1RenderingManager.html#a073b0bb86ab2af031b90a51b61e7a70b">MWRender::RenderingManager::RenderingManager</a> </td>
+          <td class="memname"><a class="el" href="classMWRender_1_1RenderingManager.html#a25d492d64ae57d81f226baf28e10641d">MWRender::RenderingManager::RenderingManager</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&#160;</td>
           <td class="paramname"><em>_rend</em>, </td>
@@ -194,6 +199,12 @@ Private Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">const boost::filesystem::path &amp;&#160;</td>
           <td class="paramname"><em>resDir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>cacheDir</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -329,7 +340,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000060">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
 
 </div>
 </div>
@@ -480,6 +491,53 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a75b5ea8f32c2e3cb2289ea6d68a298a0"></a><!-- doxytag: member="MWRender::RenderingManager::getInteriorMapPosition" ref="a75b5ea8f32c2e3cb2289ea6d68a298a0" args="(Ogre::Vector2 position, float &amp;nX, float &amp;nY, int &amp;x, int &amp;y)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a75b5ea8f32c2e3cb2289ea6d68a298a0">MWRender::RenderingManager::getInteriorMapPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Vector2&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>nX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>nY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>see <a class="el" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">MWRender::LocalMap::getInteriorMapPosition</a> </p>
+
+</div>
+</div>
 <a class="anchor" id="aa6223af866d8bb3c60261d2fc40c6dcd"></a><!-- doxytag: member="MWRender::RenderingManager::getObjects" ref="aa6223af866d8bb3c60261d2fc40c6dcd" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -622,6 +680,53 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a6eb971f13bdd57cbd3660ba7d505af54"></a><!-- doxytag: member="MWRender::RenderingManager::isPositionExplored" ref="a6eb971f13bdd57cbd3660ba7d505af54" args="(float nX, float nY, int x, int y, bool interior)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1RenderingManager.html#a6eb971f13bdd57cbd3660ba7d505af54">MWRender::RenderingManager::isPositionExplored</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>interior</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>see <a class="el" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">MWRender::LocalMap::isPositionExplored</a> </p>
+
+</div>
+</div>
 <a class="anchor" id="af3d44ddd504488bef5401a0ce584535a"></a><!-- doxytag: member="MWRender::RenderingManager::moveObject" ref="af3d44ddd504488bef5401a0ce584535a" args="(const MWWorld::Ptr &amp;ptr, const Ogre::Vector3 &amp;position)" -->
 <div class="memitem">
 <div class="memproto">
@@ -646,7 +751,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000056">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000059">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
 
 </div>
 </div>
@@ -820,8 +925,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>delete non-object MW-references </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>delete non-object MW-references </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>delete non-object MW-references </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000058">Todo:</a></b></dt><dd>delete non-object MW-references </dd></dl>
 
 </div>
 </div>
@@ -1040,6 +1145,23 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const Ogre::Vector3 &amp;&#160;</td>
           <td class="paramname"><em>direction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6b910d0bf241a720bcbcdbeb0a135fad"></a><!-- doxytag: member="MWRender::RenderingManager::setupExternalRendering" ref="a6b910d0bf241a720bcbcdbeb0a135fad" args="(MWRender::ExternalRendering &amp;rendering)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a6b910d0bf241a720bcbcdbeb0a135fad">MWRender::RenderingManager::setupExternalRendering</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;&#160;</td>
+          <td class="paramname"><em>rendering</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1756,7 +1878,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:12 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

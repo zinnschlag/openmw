@@ -87,7 +87,7 @@ float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#af703b116be4d0780de71bff185a103c6">ActiveSpells</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a8aa156c9cc5c98205915d75b65999290">addSpell</a> (const std::string &amp;id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a3370b0ef902728dd439edc092001520e">addSpell</a> (const std::string &amp;id, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a69bde403b912c66a1e745f2ee769d4a0">removeSpell</a> (const std::string &amp;id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classMWMechanics_1_1MagicEffects.html">MagicEffects</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a0350515c13ade86d3865fa375b3a9aec">getMagicEffects</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a7cd012fbaf717271309900a900a35ec0">begin</a> () const </td></tr>
@@ -96,7 +96,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#aab049ba1a7f84d70c71414e9e9debc0b">update</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESM_1_1EffectList.html">ESM::EffectList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#ab8f639daee86f5c9766849ffb849745f">getEffectList</a> (const std::string &amp;id) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a3d7d974dcf52933cf4a65c3139a303c4">rebuildEffects</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="structESM_1_1EffectList.html">ESM::EffectList</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a595919ab8f372866a91b2f060cb9b278">getEffectList</a> (const std::string &amp;id) const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a76c561220901f065717b22ace98ce60c">TContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1ActiveSpells.html#a3b209c604d2bc9e62bd8df430ae75e2d">mSpells</a></td></tr>
@@ -152,16 +153,26 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a8aa156c9cc5c98205915d75b65999290"></a><!-- doxytag: member="MWMechanics::ActiveSpells::addSpell" ref="a8aa156c9cc5c98205915d75b65999290" args="(const std::string &amp;id)" -->
+<a class="anchor" id="a3370b0ef902728dd439edc092001520e"></a><!-- doxytag: member="MWMechanics::ActiveSpells::addSpell" ref="a3370b0ef902728dd439edc092001520e" args="(const std::string &amp;id, const MWWorld::Ptr &amp;actor)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWMechanics_1_1ActiveSpells.html#a8aa156c9cc5c98205915d75b65999290">MWMechanics::ActiveSpells::addSpell</a> </td>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1ActiveSpells.html#a3370b0ef902728dd439edc092001520e">MWMechanics::ActiveSpells::addSpell</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>actor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -203,12 +214,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab8f639daee86f5c9766849ffb849745f"></a><!-- doxytag: member="MWMechanics::ActiveSpells::getEffectList" ref="ab8f639daee86f5c9766849ffb849745f" args="(const std::string &amp;id) const " -->
+<a class="anchor" id="a595919ab8f372866a91b2f060cb9b278"></a><!-- doxytag: member="MWMechanics::ActiveSpells::getEffectList" ref="a595919ab8f372866a91b2f060cb9b278" args="(const std::string &amp;id) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structESM_1_1EffectList.html">ESM::EffectList</a> &amp; <a class="el" href="classMWMechanics_1_1ActiveSpells.html#ab8f639daee86f5c9766849ffb849745f">MWMechanics::ActiveSpells::getEffectList</a> </td>
+          <td class="memname">std::pair&lt; <a class="el" href="structESM_1_1EffectList.html">ESM::EffectList</a>, bool &gt; <a class="el" href="classMWMechanics_1_1ActiveSpells.html#a595919ab8f372866a91b2f060cb9b278">MWMechanics::ActiveSpells::getEffectList</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>id</em></td><td>)</td>
@@ -229,6 +240,22 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3d7d974dcf52933cf4a65c3139a303c4"></a><!-- doxytag: member="MWMechanics::ActiveSpells::rebuildEffects" ref="a3d7d974dcf52933cf4a65c3139a303c4" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1ActiveSpells.html#a3d7d974dcf52933cf4a65c3139a303c4">MWMechanics::ActiveSpells::rebuildEffects</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -348,7 +375,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:12 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

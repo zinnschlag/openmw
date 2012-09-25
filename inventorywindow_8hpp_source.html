@@ -61,67 +61,79 @@
 <a href="inventorywindow_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MGUI_Inventory_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MGUI_Inventory_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="mwgui_2container_8hpp.html">container.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="window__pinnable__base_8hpp.html">window_pinnable_base.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWGui
-<a name="l00008"></a>00008 {
-<a name="l00009"></a><a class="code" href="classMWGui_1_1InventoryWindow.html">00009</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1InventoryWindow.html">InventoryWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ContainerBase.html">ContainerBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowPinnableBase.html">WindowPinnableBase</a>
-<a name="l00010"></a>00010     {
-<a name="l00011"></a>00011         <span class="keyword">public</span>:
-<a name="l00012"></a>00012             <a class="code" href="classMWGui_1_1InventoryWindow.html#a686f3d988d2454fb2e2f2dfb67b36c5f">InventoryWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager,<a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* dragAndDrop);
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#ac7d616bb2a9dc937ef5e4b31ae78bf87">open</a>();
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;../mwrender/characterpreview.hpp&quot;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="mwgui_2container_8hpp.html">container.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="window__pinnable__base_8hpp.html">window_pinnable_base.hpp</a>&quot;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWGui
+<a name="l00010"></a>00010 {
+<a name="l00011"></a><a class="code" href="classMWGui_1_1InventoryWindow.html">00011</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1InventoryWindow.html">InventoryWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ContainerBase.html">ContainerBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowPinnableBase.html">WindowPinnableBase</a>
+<a name="l00012"></a>00012     {
+<a name="l00013"></a>00013         <span class="keyword">public</span>:
+<a name="l00014"></a>00014             <a class="code" href="classMWGui_1_1InventoryWindow.html#a686f3d988d2454fb2e2f2dfb67b36c5f">InventoryWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager,<a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* dragAndDrop);
 <a name="l00015"></a>00015 
-<a name="l00017"></a>00017             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a53c1c9291ba296d706f653fee4e94d06" title="start trading, disables item drag&amp;drop">startTrade</a>();
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a5249ce46995c9f017ca75e1da9ab357f">onFrame</a>();
+<a name="l00016"></a>00016             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#ac7d616bb2a9dc937ef5e4b31ae78bf87">open</a>();
+<a name="l00017"></a>00017 
+<a name="l00019"></a>00019             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a53c1c9291ba296d706f653fee4e94d06" title="start trading, disables item drag&amp;drop">startTrade</a>();
 <a name="l00020"></a>00020 
-<a name="l00021"></a>00021             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a217f522ca43031e4a82dac0c62067e92">pickUpObject</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <span class="keywordtype">object</span>);
+<a name="l00021"></a>00021             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a5249ce46995c9f017ca75e1da9ab357f">onFrame</a>();
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#ad884ba031b9af9c546e840263266145c">getPlayerGold</a>();
+<a name="l00023"></a>00023             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a217f522ca43031e4a82dac0c62067e92">pickUpObject</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <span class="keywordtype">object</span>);
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025         <span class="keyword">protected</span>:
-<a name="l00026"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a78bea79e5be632287fb21c7eb9b47146">00026</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InventoryWindow.html#a78bea79e5be632287fb21c7eb9b47146">mAvatar</a>;
-<a name="l00027"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#abf72b443fecddad6248c15a8633bd88d">00027</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1InventoryWindow.html#abf72b443fecddad6248c15a8633bd88d">mArmorRating</a>;
-<a name="l00028"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a35247e16dadc49ce9bc1de1fb3a7387e">00028</a>             MyGUI::ProgressBar* <a class="code" href="classMWGui_1_1InventoryWindow.html#a35247e16dadc49ce9bc1de1fb3a7387e">mEncumbranceBar</a>;
-<a name="l00029"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a5007c830904d0e431c3a8235967cf632">00029</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1InventoryWindow.html#a5007c830904d0e431c3a8235967cf632">mEncumbranceText</a>;
+<a name="l00025"></a>00025             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#ad884ba031b9af9c546e840263266145c">getPlayerGold</a>();
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027             MyGUI::IntCoord <a class="code" href="classMWGui_1_1InventoryWindow.html#ae88c9d87031c8cc6cb33bee072845483">getAvatarScreenCoord</a>();
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1InventoryWindow.html#af10926e7aea98c5c7f57e94960401eca">getAvatarSelectedItem</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
 <a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#afeb1e7411b3914f9c697a80555955a20">00031</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InventoryWindow.html#afeb1e7411b3914f9c697a80555955a20">mLeftPane</a>;
-<a name="l00032"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#ae3bb81eadf025cf03bba5dc460a2a857">00032</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InventoryWindow.html#ae3bb81eadf025cf03bba5dc460a2a857">mRightPane</a>;
-<a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#aa21cf60ce59995198e4b8f4f8111e054">00034</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#aa21cf60ce59995198e4b8f4f8111e054">mFilterAll</a>;
-<a name="l00035"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a49b8a1e97fba0d0a74711ac4df93e2f0">00035</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a49b8a1e97fba0d0a74711ac4df93e2f0">mFilterWeapon</a>;
-<a name="l00036"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a392a4b16243faf960067879b58f42a33">00036</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a392a4b16243faf960067879b58f42a33">mFilterApparel</a>;
-<a name="l00037"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a6e9113c2ee5ee51ed1a27711d22b2479">00037</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a6e9113c2ee5ee51ed1a27711d22b2479">mFilterMagic</a>;
-<a name="l00038"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a7f8150c3a6065ee82ec810423016dc70">00038</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a7f8150c3a6065ee82ec810423016dc70">mFilterMisc</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">00040</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">mTrading</a>;
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#afad37a70dfd2dad11de304f417952e40">onWindowResize</a>(MyGUI::Window* _sender);
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a11c719b07a138273cffbe8631942479a">onFilterChanged</a>(MyGUI::Widget* _sender);
-<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#ac0cf452b697e42ebb942910bdc98db4c">onAvatarClicked</a>(MyGUI::Widget* _sender);
-<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a8693c3b4b1fe88177f272d1e73287690">onPinToggled</a>();
+<a name="l00031"></a>00031         <span class="keyword">protected</span>:
+<a name="l00032"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a78bea79e5be632287fb21c7eb9b47146">00032</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InventoryWindow.html#a78bea79e5be632287fb21c7eb9b47146">mAvatar</a>;
+<a name="l00033"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a3a7919dbdfe6ab4a2ca4b600627612fb">00033</a>             MyGUI::ImageBox* <a class="code" href="classMWGui_1_1InventoryWindow.html#a3a7919dbdfe6ab4a2ca4b600627612fb">mAvatarImage</a>;
+<a name="l00034"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#abf72b443fecddad6248c15a8633bd88d">00034</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1InventoryWindow.html#abf72b443fecddad6248c15a8633bd88d">mArmorRating</a>;
+<a name="l00035"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a35247e16dadc49ce9bc1de1fb3a7387e">00035</a>             MyGUI::ProgressBar* <a class="code" href="classMWGui_1_1InventoryWindow.html#a35247e16dadc49ce9bc1de1fb3a7387e">mEncumbranceBar</a>;
+<a name="l00036"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a5007c830904d0e431c3a8235967cf632">00036</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1InventoryWindow.html#a5007c830904d0e431c3a8235967cf632">mEncumbranceText</a>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#afeb1e7411b3914f9c697a80555955a20">00038</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InventoryWindow.html#afeb1e7411b3914f9c697a80555955a20">mLeftPane</a>;
+<a name="l00039"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#ae3bb81eadf025cf03bba5dc460a2a857">00039</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InventoryWindow.html#ae3bb81eadf025cf03bba5dc460a2a857">mRightPane</a>;
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#aa21cf60ce59995198e4b8f4f8111e054">00041</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#aa21cf60ce59995198e4b8f4f8111e054">mFilterAll</a>;
+<a name="l00042"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a49b8a1e97fba0d0a74711ac4df93e2f0">00042</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a49b8a1e97fba0d0a74711ac4df93e2f0">mFilterWeapon</a>;
+<a name="l00043"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a392a4b16243faf960067879b58f42a33">00043</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a392a4b16243faf960067879b58f42a33">mFilterApparel</a>;
+<a name="l00044"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a6e9113c2ee5ee51ed1a27711d22b2479">00044</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a6e9113c2ee5ee51ed1a27711d22b2479">mFilterMagic</a>;
+<a name="l00045"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a7f8150c3a6065ee82ec810423016dc70">00045</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1InventoryWindow.html#a7f8150c3a6065ee82ec810423016dc70">mFilterMisc</a>;
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a58972a557a6b0287583975caacc43984">updateEncumbranceBar</a>();
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#af49522f62f4ea49558a4563b863fb0ed">00049</a>             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#af49522f62f4ea49558a4563b863fb0ed">isTrading</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">mTrading</a>; }
-<a name="l00050"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a37ea7b89fb77fb5f1509ec33ac4bf980">00050</a>             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a37ea7b89fb77fb5f1509ec33ac4bf980">isInventory</a>() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }
-<a name="l00051"></a>00051             <span class="keyword">virtual</span> std::vector&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1InventoryWindow.html#a17998087bd8c5c0561938809a849bfcd">getEquippedItems</a>();
-<a name="l00052"></a>00052             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a44ea90d119aa7c0989c276d5e1755de2">_unequipItem</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00047"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#aa98e505f2e7bfd1e15880c6e448efee1">00047</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#aa98e505f2e7bfd1e15880c6e448efee1">mLastXSize</a>;
+<a name="l00048"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a5f91e826f7c6f58261e38b7a6f1d46a1">00048</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a5f91e826f7c6f58261e38b7a6f1d46a1">mLastYSize</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#ae97c89b6caddb0e15104177636724a66">00050</a>             <a class="code" href="classMWRender_1_1InventoryPreview.html">MWRender::InventoryPreview</a> <a class="code" href="classMWGui_1_1InventoryWindow.html#ae97c89b6caddb0e15104177636724a66">mPreview</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">00052</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">mTrading</a>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#aba01b92a75fd7259f1874ba055b8f331">00054</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#aba01b92a75fd7259f1874ba055b8f331" title="called when reference has become unavailable">onReferenceUnavailable</a>() { ; }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a7e472852133ec64b6eff1f0b75ec0ee9">notifyContentChanged</a>();
-<a name="l00057"></a>00057     };
-<a name="l00058"></a>00058 }
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060 <span class="preprocessor">#endif // Inventory_H</span>
+<a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#afad37a70dfd2dad11de304f417952e40">onWindowResize</a>(MyGUI::Window* _sender);
+<a name="l00055"></a>00055             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a11c719b07a138273cffbe8631942479a">onFilterChanged</a>(MyGUI::Widget* _sender);
+<a name="l00056"></a>00056             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#ac0cf452b697e42ebb942910bdc98db4c">onAvatarClicked</a>(MyGUI::Widget* _sender);
+<a name="l00057"></a>00057             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a8693c3b4b1fe88177f272d1e73287690">onPinToggled</a>();
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a58972a557a6b0287583975caacc43984">updateEncumbranceBar</a>();
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#af49522f62f4ea49558a4563b863fb0ed">00061</a>             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#af49522f62f4ea49558a4563b863fb0ed">isTrading</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">mTrading</a>; }
+<a name="l00062"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#a37ea7b89fb77fb5f1509ec33ac4bf980">00062</a>             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a37ea7b89fb77fb5f1509ec33ac4bf980">isInventory</a>() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }
+<a name="l00063"></a>00063             <span class="keyword">virtual</span> std::vector&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1InventoryWindow.html#a17998087bd8c5c0561938809a849bfcd">getEquippedItems</a>();
+<a name="l00064"></a>00064             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a44ea90d119aa7c0989c276d5e1755de2">_unequipItem</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00065"></a>00065 
+<a name="l00066"></a><a class="code" href="classMWGui_1_1InventoryWindow.html#aba01b92a75fd7259f1874ba055b8f331">00066</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#aba01b92a75fd7259f1874ba055b8f331" title="called when reference has become unavailable">onReferenceUnavailable</a>() { ; }
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InventoryWindow.html#a7e472852133ec64b6eff1f0b75ec0ee9">notifyContentChanged</a>();
+<a name="l00069"></a>00069     };
+<a name="l00070"></a>00070 }
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 <span class="preprocessor">#endif // Inventory_H</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

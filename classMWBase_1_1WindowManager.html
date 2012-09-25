@@ -105,6 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWGui_1_1CountDialog.html">MWGui::CountDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a2b7b517f8afbf766a06839aeb98d62d4">getCountDialog</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWGui_1_1ConfirmationDialog.html">MWGui::ConfirmationDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a44278ba1956ea9dea0dc636983291834">getConfirmationDialog</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWGui_1_1TradeWindow.html">MWGui::TradeWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#abd45d989a40e57d89afa14f3fe566f83">getTradeWindow</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWGui_1_1SpellBuyingWindow.html">MWGui::SpellBuyingWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a1b879de606656dc8d9397d928c8fd7e9">getSpellBuyingWindow</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWGui_1_1SpellWindow.html">MWGui::SpellWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#adea03b0c2591f01db59f1cb458fae91d">getSpellWindow</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWGui_1_1Console.html">MWGui::Console</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a8ce67e5ede324c4524625392bafe7e64">getConsole</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual MyGUI::Gui *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a33e50f7dc000e45a6e686dc118150920">getGui</a> () const =0</td></tr>
@@ -112,7 +113,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a892f07c0bf26d074549ab224bda1b15d">setValue</a> (const std::string &amp;id, const <a class="el" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat</a>&lt; int &gt; &amp;value)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set value for the given ID.  <a href="#a892f07c0bf26d074549ab224bda1b15d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a249d785e0965b81b2d1544aa37abc2a0">setValue</a> (int parSkill, const <a class="el" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat</a>&lt; float &gt; &amp;value)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a0f6fc9443e0ef3876514191d1a3d80bd">setValue</a> (const std::string &amp;id, const <a class="el" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat</a>&lt; int &gt; &amp;value)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#aec9faea92a4cefdf6d5885901c03b341">setValue</a> (const std::string &amp;id, const <a class="el" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat</a>&lt; float &gt; &amp;value)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#aae78ccd62d524a650ee1b76b0834f3d0">setValue</a> (const std::string &amp;id, const std::string &amp;value)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a4294fb2686cd144f753055446636dbd0">setValue</a> (const std::string &amp;id, int value)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a2d86908f67a1b6bef81ab809ec2ea3e3">setPlayerClass</a> (const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> &amp;class_)=0</td></tr>
@@ -150,11 +151,18 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the visibility of the hud minimap  <a href="#a1bb2fc2b768b040f8bbba3ccc331c497"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#af845071bcc0f034900c9650c13a5916d">setWeaponVisibility</a> (bool visible)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a417053b1e0abfa31814bcf95e5fcc67f">setSpellVisibility</a> (bool visible)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ab7c43ec1df190c554402c8737fe71f9d">activateQuickKey</a> (int index)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#af01c2622d413420d5856b2604b6b4030">setSelectedSpell</a> (const std::string &amp;spellId, int successChancePercent)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ae52a84274d30058655d4645feed786db">setSelectedEnchantItem</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int chargePercent)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a8f2a638a94edf750ee8ebfad12a2c498">setSelectedWeapon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int durabilityPercent)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a98486424a80418ea8c5c3024c898ec0f">unsetSelectedSpell</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a781429e5fcd617019a2eac8b8f5e206e">unsetSelectedWeapon</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#af1d9e819fab4dcc2086f8b1321681b44">showCrosshair</a> (bool show)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a50b2d683a83c06b390bf1e29f3be8d5c">getSubtitlesEnabled</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a41d17a13b12d0598616eb8183d1ed14b">toggleHud</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ad9b5ca6dbe65635ff7a4c03145984b23">disallowMouse</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a0e64ed812fbff0053c5f0ee435556576">allowMouse</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a3edab59ba02dac0097e155bd44f64f6d">notifyInputActionBound</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#acfde963aaa065b1668c5f18e093b759d">removeDialog</a> (<a class="el" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a> *dialog)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides dialog and schedules dialog to be deleted.  <a href="#acfde963aaa065b1668c5f18e093b759d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a03f1ec69668162cbb087e1d9d4f2ca7c">messageBox</a> (const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)=0</td></tr>
@@ -170,6 +178,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a6fde97c1bdd7473d835a692bf46eec1d">getGameSettingString</a> (const std::string &amp;id, const std::string &amp;default_)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a7af4855ed629f199545a5a5b1dc24b33">processChangedSettings</a> (const <a class="el" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a> &amp;changed)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a00d2cf033d91e3bd565f0debea0f6887">executeInConsole</a> (const std::string &amp;path)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#adf334263f4d2de602ad82df89e343dd5">setLoadingProgress</a> (const std::string &amp;stage, int depth, int current, int total)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a7e65d9822146789f58897cf3c381f9b2">loadingDone</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a71008d412e0bc3e4b60ea027795644ef">enableRest</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a2cf63d51b1f446421252ff422e4e6431">getRestEnabled</a> ()=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a4f7ceb076ee310c69bb149bcb400a893">WindowManager</a> (const <a class="el" href="classMWBase_1_1WindowManager.html">WindowManager</a> &amp;)</td></tr>
@@ -248,6 +260,25 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ab7c43ec1df190c554402c8737fe71f9d"></a><!-- doxytag: member="MWBase::WindowManager::activateQuickKey" ref="ab7c43ec1df190c554402c8737fe71f9d" args="(int index)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#ab7c43ec1df190c554402c8737fe71f9d">MWBase::WindowManager::activateQuickKey</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ae4604c6c85325d81918ba4fc2a630d6b">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a142b33f969e653e7937c6e80959fd1e6"></a><!-- doxytag: member="MWBase::WindowManager::allow" ref="a142b33f969e653e7937c6e80959fd1e6" args="(MWGui::GuiWindow wnd)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -266,6 +297,24 @@ Private Member Functions</h2></td></tr>
 <p>Allow one or more windows. </p>
 
 <p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#adfdbaaf95ff1dd6c89afaa5d05ed5dbd">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0e64ed812fbff0053c5f0ee435556576"></a><!-- doxytag: member="MWBase::WindowManager::allowMouse" ref="a0e64ed812fbff0053c5f0ee435556576" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a0e64ed812fbff0053c5f0ee435556576">MWBase::WindowManager::allowMouse</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a43041d50196695c00d21598ccc036db4">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -338,6 +387,42 @@ Private Member Functions</h2></td></tr>
 <p>Disallow all inventory mode windows. </p>
 
 <p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a87dbd300297dc0354bdaea68c31d4921">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad9b5ca6dbe65635ff7a4c03145984b23"></a><!-- doxytag: member="MWBase::WindowManager::disallowMouse" ref="ad9b5ca6dbe65635ff7a4c03145984b23" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#ad9b5ca6dbe65635ff7a4c03145984b23">MWBase::WindowManager::disallowMouse</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0ecb68514f4637230613fb86f82bef62">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a71008d412e0bc3e4b60ea027795644ef"></a><!-- doxytag: member="MWBase::WindowManager::enableRest" ref="a71008d412e0bc3e4b60ea027795644ef" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a71008d412e0bc3e4b60ea027795644ef">MWBase::WindowManager::enableRest</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa66e50630ae61bbe3cfff3445e34a4d2">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -709,6 +794,24 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2cf63d51b1f446421252ff422e4e6431"></a><!-- doxytag: member="MWBase::WindowManager::getRestEnabled" ref="a2cf63d51b1f446421252ff422e4e6431" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1WindowManager.html#a2cf63d51b1f446421252ff422e4e6431">MWBase::WindowManager::getRestEnabled</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a61cf7ed88dc915845ae760c9a3206b4f">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a550b13b0ba03ba9b21e1d4e481a701a6"></a><!-- doxytag: member="MWBase::WindowManager::getScrollWindow" ref="a550b13b0ba03ba9b21e1d4e481a701a6" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -727,6 +830,24 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1b879de606656dc8d9397d928c8fd7e9"></a><!-- doxytag: member="MWBase::WindowManager::getSpellBuyingWindow" ref="a1b879de606656dc8d9397d928c8fd7e9" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classMWGui_1_1SpellBuyingWindow.html">MWGui::SpellBuyingWindow</a>* <a class="el" href="classMWBase_1_1WindowManager.html#a1b879de606656dc8d9397d928c8fd7e9">MWBase::WindowManager::getSpellBuyingWindow</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a76530b83933de98cced953c3955a79d8">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="adea03b0c2591f01db59f1cb458fae91d"></a><!-- doxytag: member="MWBase::WindowManager::getSpellWindow" ref="adea03b0c2591f01db59f1cb458fae91d" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -742,6 +863,24 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a06d66c04f09c896c3a7ff84ac6122737">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a50b2d683a83c06b390bf1e29f3be8d5c"></a><!-- doxytag: member="MWBase::WindowManager::getSubtitlesEnabled" ref="a50b2d683a83c06b390bf1e29f3be8d5c" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1WindowManager.html#a50b2d683a83c06b390bf1e29f3be8d5c">MWBase::WindowManager::getSubtitlesEnabled</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#af5c8e31d8572bdb154b4d9de6ba9067f">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -818,6 +957,24 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7e65d9822146789f58897cf3c381f9b2"></a><!-- doxytag: member="MWBase::WindowManager::loadingDone" ref="a7e65d9822146789f58897cf3c381f9b2" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a7e65d9822146789f58897cf3c381f9b2">MWBase::WindowManager::loadingDone</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa600fccc521a28d150212ceec27244c1">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a03f1ec69668162cbb087e1d9d4f2ca7c"></a><!-- doxytag: member="MWBase::WindowManager::messageBox" ref="a03f1ec69668162cbb087e1d9d4f2ca7c" args="(const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -844,6 +1001,24 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2566e7b84addc9d4f87cb3e8237983b2">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3edab59ba02dac0097e155bd44f64f6d"></a><!-- doxytag: member="MWBase::WindowManager::notifyInputActionBound" ref="a3edab59ba02dac0097e155bd44f64f6d" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a3edab59ba02dac0097e155bd44f64f6d">MWBase::WindowManager::notifyInputActionBound</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aff24f6e7e26ab0c5a2298c6e5aab2369">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1152,6 +1327,47 @@ Private Member Functions</h2></td></tr>
 <p>set the index of the map texture that should be used (for interiors) </p>
 
 <p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a7a50bcfed1a79e79f3b3dad48e12b370">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adf334263f4d2de602ad82df89e343dd5"></a><!-- doxytag: member="MWBase::WindowManager::setLoadingProgress" ref="adf334263f4d2de602ad82df89e343dd5" args="(const std::string &amp;stage, int depth, int current, int total)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#adf334263f4d2de602ad82df89e343dd5">MWBase::WindowManager::setLoadingProgress</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>stage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>depth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>total</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac79274bb8901e3a233d8d59edd01cf41">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1465,7 +1681,7 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0f6fc9443e0ef3876514191d1a3d80bd"></a><!-- doxytag: member="MWBase::WindowManager::setValue" ref="a0f6fc9443e0ef3876514191d1a3d80bd" args="(const std::string &amp;id, const MWMechanics::DynamicStat&lt; int &gt; &amp;value)=0" -->
+<a class="anchor" id="aec9faea92a4cefdf6d5885901c03b341"></a><!-- doxytag: member="MWBase::WindowManager::setValue" ref="aec9faea92a4cefdf6d5885901c03b341" args="(const std::string &amp;id, const MWMechanics::DynamicStat&lt; float &gt; &amp;value)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1478,7 +1694,7 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat</a>&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat</a>&lt; float &gt; &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -1490,7 +1706,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#adfee96773ff38f6a79ebd38cd9136d7c">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3fb626f392d4fa150b91cc876ab37dfe">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1571,6 +1787,25 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af1d9e819fab4dcc2086f8b1321681b44"></a><!-- doxytag: member="MWBase::WindowManager::showCrosshair" ref="af1d9e819fab4dcc2086f8b1321681b44" args="(bool show)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#af1d9e819fab4dcc2086f8b1321681b44">MWBase::WindowManager::showCrosshair</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a836e2e05abc70c6272bc3d64fe7d8c7c">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a3a85cd36c49b50a2037342af98ef74d4"></a><!-- doxytag: member="MWBase::WindowManager::toggleFogOfWar" ref="a3a85cd36c49b50a2037342af98ef74d4" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -1606,6 +1841,24 @@ Private Member Functions</h2></td></tr>
 <p>show extra info in item tooltips (owner, script) </p>
 
 <p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2bfdd088101623aeca975d389ceb775e">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a41d17a13b12d0598616eb8183d1ed14b"></a><!-- doxytag: member="MWBase::WindowManager::toggleHud" ref="a41d17a13b12d0598616eb8183d1ed14b" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a41d17a13b12d0598616eb8183d1ed14b">MWBase::WindowManager::toggleHud</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a52f3bf133e0daa993e65845be0dfc4eb">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1745,7 +1998,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

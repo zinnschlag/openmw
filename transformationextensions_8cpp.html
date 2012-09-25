@@ -64,16 +64,20 @@
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;boost/algorithm/string.hpp&gt;</code><br/>
+<code>#include &lt;OgreMath.h&gt;</code><br/>
+<code>#include &lt;OgreSceneNode.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="store_8hpp_source.html">components/esm_store/store.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="loadcell_8hpp_source.html">components/esm/loadcell.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="components_2compiler_2extensions_8hpp_source.html">components/compiler/extensions.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="interpreter_8hpp_source.html">components/interpreter/interpreter.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="runtime_8hpp_source.html">components/interpreter/runtime.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="opcodes_8hpp_source.html">components/interpreter/opcodes.hpp</a>&gt;</code><br/>
 <code>#include &quot;<a class="el" href="environment_8hpp_source.html">../mwbase/environment.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mwworld_2class_8hpp_source.html">../mwworld/class.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="mwworld_2player_8hpp_source.html">../mwworld/player.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="manualref_8hpp_source.html">../mwworld/manualref.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="interpretercontext_8hpp_source.html">interpretercontext.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ref_8hpp_source.html">ref.hpp</a>&quot;</code><br/>
-<code>#include &quot;OgreSceneNode.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -82,6 +86,15 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpSetAngle.html">MWScript::Transformation::OpSetAngle&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpGetStartingAngle.html">MWScript::Transformation::OpGetStartingAngle&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpGetAngle.html">MWScript::Transformation::OpGetAngle&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpGetPos.html">MWScript::Transformation::OpGetPos&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpSetPos.html">MWScript::Transformation::OpSetPos&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpGetStartingPos.html">MWScript::Transformation::OpGetStartingPos&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpPositionCell.html">MWScript::Transformation::OpPositionCell&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpPosition.html">MWScript::Transformation::OpPosition&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpPlaceItemCell.html">MWScript::Transformation::OpPlaceItemCell&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpPlaceItem.html">MWScript::Transformation::OpPlaceItem&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpPlaceAtPc.html">MWScript::Transformation::OpPlaceAtPc&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Transformation_1_1OpPlaceAtMe.html">MWScript::Transformation::OpPlaceAtMe&lt; R &gt;</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript.html">MWScript</a></td></tr>
@@ -104,14 +117,27 @@ Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#aaf1c8c8a1c3e97b158c1160f96641f26">MWScript::Transformation::opcodeGetScaleExplicit</a> = 0x2000169</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a32cb4c9bb8d4beb4fffda70ced2329d6">MWScript::Transformation::opcodeGetAngle</a> = 0x200016a</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#af237d24c625582e4e647ca0acf4b410f">MWScript::Transformation::opcodeGetAngleExplicit</a> = 0x200016b</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a17808e31bc496bf6b62070b1ec6e7bf4">MWScript::Transformation::opcodeGetStartingAngle</a> = 0x2000172</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#ad9fd9214aadc3b1af1a41a49bf819275">MWScript::Transformation::opcodeGetStartingAngleExplicit</a> = 0x2000173</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a1452eb55a2f4a0b897c8af6e9b98c55a">MWScript::Transformation::opcodeGetPos</a> = 0x2000190</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a43c4d981d437fcaa0f70dfd9cf6559fc">MWScript::Transformation::opcodeGetPosExplicit</a> = 0x2000191</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a3e12e33d3ddf2f0b772b076ddbecdd27">MWScript::Transformation::opcodeSetPos</a> = 0x2000192</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#abc93f1f358c7fca63a460922feb56ce7">MWScript::Transformation::opcodeSetPosExplicit</a> = 0x2000193</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#af11ce1b0f3caf292e2b36b74269b85b7">MWScript::Transformation::opcodeGetStartingPos</a> = 0x2000194</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a73fa2c6ee0094514efb4d6c2b283b79b">MWScript::Transformation::opcodeGetStartingPosExplicit</a> = 0x2000195</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a29251042309e22bb00d6572c9b85731d">MWScript::Transformation::opcodePosition</a> = 0x2000196</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#ad00634aa3b0a619d270cf9607dce2148">MWScript::Transformation::opcodePositionExplicit</a> = 0x2000197</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a4d202861912228e1f30f957b57a14b16">MWScript::Transformation::opcodePositionCell</a> = 0x2000198</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#aca5cba8450808920cb3c121652c08048">MWScript::Transformation::opcodePositionCellExplicit</a> = 0x2000199</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a465bb491d293248853b9a795588190fb">MWScript::Transformation::opcodePlaceItemCell</a> = 0x200019a</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a03c23d4e8b275a5828a95b5e0d07e7a8">MWScript::Transformation::opcodePlaceItem</a> = 0x200019b</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#af5f204db974b22d0c2b5f39b2f694b33">MWScript::Transformation::opcodePlaceAtPc</a> = 0x200019c</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#acfcac061b75bbfea5ecf1063012522c6">MWScript::Transformation::opcodePlaceAtMe</a> = 0x200019d</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Transformation.html#a1d2fd1dff329a2a69939fe84ee891378">MWScript::Transformation::opcodePlaceAtMeExplicit</a> = 0x200019e</td></tr>
 </table>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

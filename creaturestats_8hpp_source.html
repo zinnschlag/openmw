@@ -69,36 +69,36 @@
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="magiceffects_8hpp.html">magiceffects.hpp</a>&quot;</span>
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="spells_8hpp.html">spells.hpp</a>&quot;</span>
 <a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="activespells_8hpp.html">activespells.hpp</a>&quot;</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWMechanics
-<a name="l00014"></a>00014 {
-<a name="l00018"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html">00018</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a>
-<a name="l00019"></a>00019     {
-<a name="l00020"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">00020</a>         <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">mAttributes</a>[8];
-<a name="l00021"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">00021</a>         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[3]; <span class="comment">// health, magicka, fatigue</span>
-<a name="l00022"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a655e4bc84ba0cbb9cf7f5b443aab9cf4">00022</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a655e4bc84ba0cbb9cf7f5b443aab9cf4">mLevel</a>;
-<a name="l00023"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">00023</a>         <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">mSpells</a>;
-<a name="l00024"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">00024</a>         <a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">mActiveSpells</a>;
-<a name="l00025"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">00025</a>         <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">mMagicEffects</a>;
-<a name="l00026"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ace3907fe3335529626052e5373aeb6b6">00026</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ace3907fe3335529626052e5373aeb6b6">mHello</a>;
-<a name="l00027"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a80d3ebc5c619dc1b7189848702c8d75c">00027</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a80d3ebc5c619dc1b7189848702c8d75c">mFight</a>;
-<a name="l00028"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a062c36200ec53675168c62adfe5f8b45">00028</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a062c36200ec53675168c62adfe5f8b45">mFlee</a>;
-<a name="l00029"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a796b9b0ba4b731137359dd4ca2f10e02">00029</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a796b9b0ba4b731137359dd4ca2f10e02">mAlarm</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031     <span class="keyword">public</span>:
-<a name="l00032"></a>00032         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0efd858a8963141a262411f117ad2350">CreatureStats</a>();
-<a name="l00033"></a>00033         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0efd858a8963141a262411f117ad2350">CreatureStats</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a> &amp;);
-<a name="l00034"></a>00034         <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a12727b24570c7d08a509a4b440f66a0c">~CreatureStats</a>();
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5a998181d8454d049d1c06b5c0749dcd">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a> &amp;);
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="aisequence_8hpp.html">aisequence.hpp</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWMechanics
+<a name="l00015"></a>00015 {
+<a name="l00019"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html">00019</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a>
+<a name="l00020"></a>00020     {
+<a name="l00021"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">00021</a>         <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">mAttributes</a>[8];
+<a name="l00022"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a6eec30656f47d0e4371776316971e329">00022</a>         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a6eec30656f47d0e4371776316971e329">mDynamic</a>[3]; <span class="comment">// health, magicka, fatigue</span>
+<a name="l00023"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a655e4bc84ba0cbb9cf7f5b443aab9cf4">00023</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a655e4bc84ba0cbb9cf7f5b443aab9cf4">mLevel</a>;
+<a name="l00024"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">00024</a>         <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">mSpells</a>;
+<a name="l00025"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">00025</a>         <a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">mActiveSpells</a>;
+<a name="l00026"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">00026</a>         <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">mMagicEffects</a>;
+<a name="l00027"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ace3907fe3335529626052e5373aeb6b6">00027</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ace3907fe3335529626052e5373aeb6b6">mHello</a>;
+<a name="l00028"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a80d3ebc5c619dc1b7189848702c8d75c">00028</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a80d3ebc5c619dc1b7189848702c8d75c">mFight</a>;
+<a name="l00029"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a062c36200ec53675168c62adfe5f8b45">00029</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a062c36200ec53675168c62adfe5f8b45">mFlee</a>;
+<a name="l00030"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a796b9b0ba4b731137359dd4ca2f10e02">00030</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a796b9b0ba4b731137359dd4ca2f10e02">mAlarm</a>;
+<a name="l00031"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a732289b87a733afece7b18b87fee868c">00031</a>         <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a732289b87a733afece7b18b87fee868c">mAiSequence</a>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a073c2bf638563147a06417d3fe9b5a0c">00033</a>         <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a073c2bf638563147a06417d3fe9b5a0c">mLevelHealthBonus</a>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035     <span class="keyword">public</span>:
+<a name="l00036"></a>00036         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0efd858a8963141a262411f117ad2350">CreatureStats</a>();
 <a name="l00037"></a>00037 
 <a name="l00038"></a>00038         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">getAttribute</a>(<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a28c29257b57188ca3ddbe30ac9fa30ce">getHealth</a>() <span class="keyword">const</span>;
+<a name="l00040"></a>00040         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a1c6f3d56e990e9ab329b7cc52a4947c8">getHealth</a>() <span class="keyword">const</span>;
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a169187819ee026006c51b2aca28f8d25">getMagicka</a>() <span class="keyword">const</span>;
+<a name="l00042"></a>00042         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#ae018e386f2f53c18dc29f94782b0a67d">getMagicka</a>() <span class="keyword">const</span>;
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a4121721c7978e40f31af73072758c7ce">getFatigue</a>() <span class="keyword">const</span>;
+<a name="l00044"></a>00044         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#ae962c8518e43e517e2aec4d89a5aafe2">getFatigue</a>() <span class="keyword">const</span>;
 <a name="l00045"></a>00045 
 <a name="l00046"></a>00046         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5e46d038ec5222e7f6f6e1faf135c22d">getSpells</a>() <span class="keyword">const</span>;
 <a name="l00047"></a>00047 
@@ -119,13 +119,13 @@
 <a name="l00062"></a>00062 
 <a name="l00063"></a>00063         <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">getAttribute</a>(<span class="keywordtype">int</span> index);
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a28c29257b57188ca3ddbe30ac9fa30ce">getHealth</a>();
+<a name="l00065"></a>00065         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a1c6f3d56e990e9ab329b7cc52a4947c8">getHealth</a>();
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a169187819ee026006c51b2aca28f8d25">getMagicka</a>();
+<a name="l00067"></a>00067         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#ae018e386f2f53c18dc29f94782b0a67d">getMagicka</a>();
 <a name="l00068"></a>00068 
-<a name="l00069"></a>00069         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a4121721c7978e40f31af73072758c7ce">getFatigue</a>();
+<a name="l00069"></a>00069         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#ae962c8518e43e517e2aec4d89a5aafe2">getFatigue</a>();
 <a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#aff6e81d349e37018f78a6a5bc7a768b5">getDynamic</a>(<span class="keywordtype">int</span> index);
+<a name="l00071"></a>00071         <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#ad930a86b2bc79074a7770fb333b92eec">getDynamic</a>(<span class="keywordtype">int</span> index);
 <a name="l00072"></a>00072 
 <a name="l00073"></a>00073         <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> &amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5e46d038ec5222e7f6f6e1faf135c22d">getSpells</a>();
 <a name="l00074"></a>00074 
@@ -136,11 +136,11 @@
 <a name="l00079"></a>00079 
 <a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5be86980bb582fa44bec1ad5fea33181">setAttribute</a>(<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> &amp;value);
 <a name="l00081"></a>00081 
-<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5887ad7181ead5bcc6b61cc5f776e372">setHealth</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;value);
+<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ac2dce1e426c133341b70c14b850e1cf5">setHealth</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp;value);
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a21a9c06ac18c3502a7eeb25c70390cc4">setMagicka</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;value);
+<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a78d03dfe3ab6e39911ba10395806b222">setMagicka</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp;value);
 <a name="l00085"></a>00085 
-<a name="l00086"></a>00086         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a1515a7513d1570868a1f4cb2528dacd4">setFatigue</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;value);
+<a name="l00086"></a>00086         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a670dcf81e6b972c3e15b045bc866a769">setFatigue</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;float&gt;</a> &amp;value);
 <a name="l00087"></a>00087 
 <a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ac49ad25ed646d61ef61198c00135ac0d">setSpells</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> &amp;spells);
 <a name="l00089"></a>00089 
@@ -157,193 +157,25 @@
 <a name="l00100"></a>00100         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ad55717804f34e26c8ed62b132a59ebfc">setFlee</a>(<span class="keywordtype">int</span> value);
 <a name="l00101"></a>00101 
 <a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a4e24fe21f8b7dab08240cdce992d1855">setAlarm</a>(<span class="keywordtype">int</span> value);
-<a name="l00103"></a>00103     };
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105     <span class="comment">// Inline const getters</span>
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> &amp;
-<a name="l00108"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">00108</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">CreatureStats::getAttribute</a>(<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{
-<a name="l00109"></a>00109         <span class="keywordflow">if</span> (index &lt; 0 || index &gt; 7) {
-<a name="l00110"></a>00110             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;attribute index is out of range&quot;</span>);
-<a name="l00111"></a>00111         }
-<a name="l00112"></a>00112         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">mAttributes</a>[index];
-<a name="l00113"></a>00113     }
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00116"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a28c29257b57188ca3ddbe30ac9fa30ce">00116</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a28c29257b57188ca3ddbe30ac9fa30ce">CreatureStats::getHealth</a>()<span class="keyword"> const </span>{
-<a name="l00117"></a>00117         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[0];
-<a name="l00118"></a>00118     }
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00121"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a169187819ee026006c51b2aca28f8d25">00121</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a169187819ee026006c51b2aca28f8d25">CreatureStats::getMagicka</a>()<span class="keyword"> const </span>{
-<a name="l00122"></a>00122         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[1];
-<a name="l00123"></a>00123     }
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00126"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a4121721c7978e40f31af73072758c7ce">00126</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a4121721c7978e40f31af73072758c7ce">CreatureStats::getFatigue</a>()<span class="keyword"> const </span>{
-<a name="l00127"></a>00127         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[2];
-<a name="l00128"></a>00128     }
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> &amp;
-<a name="l00131"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a5e46d038ec5222e7f6f6e1faf135c22d">00131</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5e46d038ec5222e7f6f6e1faf135c22d">CreatureStats::getSpells</a>()<span class="keyword"> const </span>{
-<a name="l00132"></a>00132         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">mSpells</a>;
-<a name="l00133"></a>00133     }
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a> &amp; 
-<a name="l00136"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a3b0d65eeea640e83e98ec402534742c4">00136</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a3b0d65eeea640e83e98ec402534742c4">CreatureStats::getActiveSpells</a>()<span class="keyword"> const </span>{
-<a name="l00137"></a>00137         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">mActiveSpells</a>;
-<a name="l00138"></a>00138     }
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> &amp; 
-<a name="l00141"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a2b7019ffe2ea9ecaace020bd12845e68">00141</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a2b7019ffe2ea9ecaace020bd12845e68">CreatureStats::getMagicEffects</a>()<span class="keyword"> const </span>{
-<a name="l00142"></a>00142         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">mMagicEffects</a>;
-<a name="l00143"></a>00143     }
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145     <span class="keyword">inline</span> <span class="keywordtype">int</span>
-<a name="l00146"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#af985a6ec0b4a8b13f8a4842c8dbffe62">00146</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#af985a6ec0b4a8b13f8a4842c8dbffe62">CreatureStats::getLevel</a>()<span class="keyword"> const </span>{
-<a name="l00147"></a>00147         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a655e4bc84ba0cbb9cf7f5b443aab9cf4">mLevel</a>;
-<a name="l00148"></a>00148     }
-<a name="l00149"></a>00149    
-<a name="l00150"></a>00150     <span class="keyword">inline</span> <span class="keywordtype">int</span>
-<a name="l00151"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a07a0491b40676b7a16902e8818e8408f">00151</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a07a0491b40676b7a16902e8818e8408f">CreatureStats::getHello</a>()<span class="keyword"> const </span>{
-<a name="l00152"></a>00152         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ace3907fe3335529626052e5373aeb6b6">mHello</a>;
-<a name="l00153"></a>00153     }
-<a name="l00154"></a>00154 
-<a name="l00155"></a>00155     <span class="keyword">inline</span> <span class="keywordtype">int</span>
-<a name="l00156"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ae8f556aa9bcd4fd1e5212b4f902a2e6d">00156</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#ae8f556aa9bcd4fd1e5212b4f902a2e6d">CreatureStats::getFight</a>()<span class="keyword"> const </span>{
-<a name="l00157"></a>00157         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a80d3ebc5c619dc1b7189848702c8d75c">mFight</a>;
-<a name="l00158"></a>00158     }
-<a name="l00159"></a>00159 
-<a name="l00160"></a>00160     <span class="keyword">inline</span> <span class="keywordtype">int</span>
-<a name="l00161"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#aab384a27e7554ea2088a89b1221d186f">00161</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#aab384a27e7554ea2088a89b1221d186f">CreatureStats::getFlee</a>()<span class="keyword"> const </span>{
-<a name="l00162"></a>00162         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a062c36200ec53675168c62adfe5f8b45">mFlee</a>;
-<a name="l00163"></a>00163     }
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165     <span class="keyword">inline</span> <span class="keywordtype">int</span>
-<a name="l00166"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#aa360ed4893735034bc537262c6d99768">00166</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#aa360ed4893735034bc537262c6d99768">CreatureStats::getAlarm</a>()<span class="keyword"> const </span>{
-<a name="l00167"></a>00167         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a796b9b0ba4b731137359dd4ca2f10e02">mAlarm</a>;
-<a name="l00168"></a>00168     }
-<a name="l00169"></a>00169 
-<a name="l00170"></a>00170     <span class="comment">// Inline non-const getters</span>
-<a name="l00171"></a>00171 
-<a name="l00172"></a>00172     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> &amp;
-<a name="l00173"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ad8e5421286c5f225d6b9ca11d608ddbd">00173</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">CreatureStats::getAttribute</a>(<span class="keywordtype">int</span> index) {
-<a name="l00174"></a>00174         <span class="keywordflow">if</span> (index &lt; 0 || index &gt; 7) {
-<a name="l00175"></a>00175             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;attribute index is out of range&quot;</span>);
-<a name="l00176"></a>00176         }
-<a name="l00177"></a>00177         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">mAttributes</a>[index];
-<a name="l00178"></a>00178     }
-<a name="l00179"></a>00179 
-<a name="l00180"></a>00180     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00181"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a2ce88e5a284c1e0e92f2e6a9d0b6d02c">00181</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a28c29257b57188ca3ddbe30ac9fa30ce">CreatureStats::getHealth</a>() {
-<a name="l00182"></a>00182         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[0];
-<a name="l00183"></a>00183     }
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00186"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a6789650508a6fb839db6833393f4f68c">00186</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a169187819ee026006c51b2aca28f8d25">CreatureStats::getMagicka</a>() {
-<a name="l00187"></a>00187         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[1];
-<a name="l00188"></a>00188     }
-<a name="l00189"></a>00189 
-<a name="l00190"></a>00190     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00191"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ae2fba5f41c31d42bef31675b10466525">00191</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a4121721c7978e40f31af73072758c7ce">CreatureStats::getFatigue</a>() {
-<a name="l00192"></a>00192         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[2];
-<a name="l00193"></a>00193     }
-<a name="l00194"></a>00194 
-<a name="l00195"></a>00195     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;
-<a name="l00196"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#aff6e81d349e37018f78a6a5bc7a768b5">00196</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#aff6e81d349e37018f78a6a5bc7a768b5">CreatureStats::getDynamic</a>(<span class="keywordtype">int</span> index) {
-<a name="l00197"></a>00197         <span class="keywordflow">if</span> (index &lt; 0 || index &gt; 2) {
-<a name="l00198"></a>00198             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;dynamic stat index is out of range&quot;</span>);
-<a name="l00199"></a>00199         }
-<a name="l00200"></a>00200         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[index];
-<a name="l00201"></a>00201     }
-<a name="l00202"></a>00202 
-<a name="l00203"></a>00203     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> &amp; 
-<a name="l00204"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ac81b28d94ddd2f1938121db38e7a6a7b">00204</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5e46d038ec5222e7f6f6e1faf135c22d">CreatureStats::getSpells</a>() {
-<a name="l00205"></a>00205         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">mSpells</a>;
-<a name="l00206"></a>00206     }
-<a name="l00207"></a>00207 
-<a name="l00208"></a>00208     <span class="keyword">inline</span> <span class="keywordtype">void</span> 
-<a name="l00209"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ac49ad25ed646d61ef61198c00135ac0d">00209</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#ac49ad25ed646d61ef61198c00135ac0d">CreatureStats::setSpells</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Spells.html" title="Spell list.">Spells</a> &amp;spells) {
-<a name="l00210"></a>00210         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0816551cc9c173bbfbfd6567bdd098ae">mSpells</a> = spells;
-<a name="l00211"></a>00211     }
-<a name="l00212"></a>00212 
-<a name="l00213"></a>00213     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a> &amp; 
-<a name="l00214"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#acbf6a2b528bdd070627da6694052aff1">00214</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a3b0d65eeea640e83e98ec402534742c4">CreatureStats::getActiveSpells</a>() {
-<a name="l00215"></a>00215         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">mActiveSpells</a>;
-<a name="l00216"></a>00216     }
-<a name="l00217"></a>00217 
-<a name="l00218"></a>00218     <span class="keyword">inline</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> &amp; 
-<a name="l00219"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a8f26adc014d8164e491a025e033ede7e">00219</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a2b7019ffe2ea9ecaace020bd12845e68">CreatureStats::getMagicEffects</a>() {
-<a name="l00220"></a>00220         <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">mMagicEffects</a>;
-<a name="l00221"></a>00221     }
-<a name="l00222"></a>00222 
-<a name="l00223"></a>00223     <span class="comment">// Inline setters</span>
-<a name="l00224"></a>00224 
-<a name="l00225"></a>00225     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00226"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a5be86980bb582fa44bec1ad5fea33181">00226</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5be86980bb582fa44bec1ad5fea33181">CreatureStats::setAttribute</a>(<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;int&gt;</a> &amp;value) {
-<a name="l00227"></a>00227         <span class="keywordflow">if</span> (index &lt; 0 || index &gt; 7) {
-<a name="l00228"></a>00228             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;attribute index is out of range&quot;</span>);
-<a name="l00229"></a>00229         }
-<a name="l00230"></a>00230         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a0d12ff236ff244270bdea7f77f8a6409">mAttributes</a>[index] = value;
-<a name="l00231"></a>00231     }
-<a name="l00232"></a>00232 
-<a name="l00233"></a>00233     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00234"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a5887ad7181ead5bcc6b61cc5f776e372">00234</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a5887ad7181ead5bcc6b61cc5f776e372">CreatureStats::setHealth</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;value) {
-<a name="l00235"></a>00235         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[0] = value;
-<a name="l00236"></a>00236     }
-<a name="l00237"></a>00237 
-<a name="l00238"></a>00238     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00239"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a21a9c06ac18c3502a7eeb25c70390cc4">00239</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a21a9c06ac18c3502a7eeb25c70390cc4">CreatureStats::setMagicka</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;value) {
-<a name="l00240"></a>00240         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[1] = value;
-<a name="l00241"></a>00241     }
-<a name="l00242"></a>00242 
-<a name="l00243"></a>00243     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00244"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a1515a7513d1570868a1f4cb2528dacd4">00244</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a1515a7513d1570868a1f4cb2528dacd4">CreatureStats::setFatigue</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;int&gt;</a> &amp;value) {
-<a name="l00245"></a>00245         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a91804cfca5c944e400a83de8f3101bdb">mDynamic</a>[2] = value;
-<a name="l00246"></a>00246     }
-<a name="l00247"></a>00247 
-<a name="l00248"></a>00248     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00249"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ab23e788ebcc0dad9613a42904c8e1976">00249</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#ab23e788ebcc0dad9613a42904c8e1976">CreatureStats::setLevel</a>(<span class="keywordtype">int</span> level) {
-<a name="l00250"></a>00250         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a655e4bc84ba0cbb9cf7f5b443aab9cf4">mLevel</a> = level;
-<a name="l00251"></a>00251     }
-<a name="l00252"></a>00252 
-<a name="l00253"></a>00253     <span class="keyword">inline</span> <span class="keywordtype">void</span> 
-<a name="l00254"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a02af6cb3b0cad570f08c0b12c80c0cd3">00254</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a02af6cb3b0cad570f08c0b12c80c0cd3">CreatureStats::setActiveSpells</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a> &amp;active) {
-<a name="l00255"></a>00255         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a69abf78cb5af4c7006922e4c0b759425">mActiveSpells</a> = active;
-<a name="l00256"></a>00256     }
-<a name="l00257"></a>00257 
-<a name="l00258"></a>00258     <span class="keyword">inline</span> <span class="keywordtype">void</span> 
-<a name="l00259"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a97365a7100b35c48fef68349f051046d">00259</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a97365a7100b35c48fef68349f051046d">CreatureStats::setMagicEffects</a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> &amp;effects) {
-<a name="l00260"></a>00260         <a class="code" href="classMWMechanics_1_1CreatureStats.html#aa5630da4f492cb5101d76c98a65fa7b0">mMagicEffects</a> = effects;
-<a name="l00261"></a>00261     }
-<a name="l00262"></a>00262 
-<a name="l00263"></a>00263     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00264"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a73bf8d5c4ff9000d0e0b6859a499ff4c">00264</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a73bf8d5c4ff9000d0e0b6859a499ff4c">CreatureStats::setHello</a>(<span class="keywordtype">int</span> value) {
-<a name="l00265"></a>00265         <a class="code" href="classMWMechanics_1_1CreatureStats.html#ace3907fe3335529626052e5373aeb6b6">mHello</a> = value;
-<a name="l00266"></a>00266     }
-<a name="l00267"></a>00267 
-<a name="l00268"></a>00268     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00269"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a3d927875bc0f90b1e3e3c9f01147d6bd">00269</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a3d927875bc0f90b1e3e3c9f01147d6bd">CreatureStats::setFight</a>(<span class="keywordtype">int</span> value) {
-<a name="l00270"></a>00270         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a80d3ebc5c619dc1b7189848702c8d75c">mFight</a> = value;
-<a name="l00271"></a>00271     }
-<a name="l00272"></a>00272 
-<a name="l00273"></a>00273     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00274"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#ad55717804f34e26c8ed62b132a59ebfc">00274</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#ad55717804f34e26c8ed62b132a59ebfc">CreatureStats::setFlee</a>(<span class="keywordtype">int</span> value) {
-<a name="l00275"></a>00275         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a062c36200ec53675168c62adfe5f8b45">mFlee</a> = value;
-<a name="l00276"></a>00276     }
-<a name="l00277"></a>00277 
-<a name="l00278"></a>00278     <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00279"></a><a class="code" href="classMWMechanics_1_1CreatureStats.html#a4e24fe21f8b7dab08240cdce992d1855">00279</a>     <a class="code" href="classMWMechanics_1_1CreatureStats.html#a4e24fe21f8b7dab08240cdce992d1855">CreatureStats::setAlarm</a>(<span class="keywordtype">int</span> value) {
-<a name="l00280"></a>00280         <a class="code" href="classMWMechanics_1_1CreatureStats.html#a796b9b0ba4b731137359dd4ca2f10e02">mAlarm</a> = value;
-<a name="l00281"></a>00281     }
-<a name="l00282"></a>00282 }
-<a name="l00283"></a>00283 
-<a name="l00284"></a>00284 <span class="preprocessor">#endif</span>
+<a name="l00103"></a>00103         
+<a name="l00104"></a>00104         <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a41095b0401003a54a35299813ed2909f">getAiSequence</a>() <span class="keyword">const</span>;
+<a name="l00105"></a>00105         
+<a name="l00106"></a>00106         <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; <a class="code" href="classMWMechanics_1_1CreatureStats.html#a41095b0401003a54a35299813ed2909f">getAiSequence</a>();
+<a name="l00107"></a>00107    
+<a name="l00108"></a>00108         <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#a50da4580fdbd7e4f6daec42d92811154" title="Return effective fatigue.">getFatigueTerm</a>() <span class="keyword">const</span>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111         <span class="comment">// small hack to allow the fact that Health permanently increases by 10% of endurance on each level up</span>
+<a name="l00112"></a>00112         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ad3c9809fd5c0c6e6b11afc35df727475">increaseLevelHealthBonus</a>(<span class="keywordtype">float</span> value);
+<a name="l00113"></a>00113         <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html#ab780963859a0105ad777f272fb4545fc">getLevelHealthBonus</a>() <span class="keyword">const</span>;
+<a name="l00114"></a>00114     };
+<a name="l00115"></a>00115 }
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

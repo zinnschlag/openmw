@@ -67,289 +67,367 @@
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwmechanics/stat.hpp&quot;</span>
 <a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="preprocessor">#undef MYGUI_EXPORT</span>
-<a name="l00011"></a><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">00011</a> <span class="preprocessor"></span><span class="preprocessor">#define MYGUI_EXPORT</span>
-<a name="l00012"></a>00012 <span class="preprocessor"></span>
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWBase
-<a name="l00014"></a>00014 {
-<a name="l00015"></a>00015     <span class="keyword">class </span>WindowManager;
-<a name="l00016"></a>00016 }
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="comment">/*</span>
-<a name="l00019"></a>00019 <span class="comment">  This file contains various custom widgets used in OpenMW.</span>
-<a name="l00020"></a>00020 <span class="comment"> */</span>
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">namespace </span>MWGui
-<a name="l00023"></a>00023 {
-<a name="l00025"></a>00025     <span class="keyword">using namespace </span>MyGUI;
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWBase
+<a name="l00011"></a>00011 {
+<a name="l00012"></a>00012     <span class="keyword">class </span>WindowManager;
+<a name="l00013"></a>00013 }
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="comment">/*</span>
+<a name="l00016"></a>00016 <span class="comment">  This file contains various custom widgets used in OpenMW.</span>
+<a name="l00017"></a>00017 <span class="comment"> */</span>
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWGui
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021     <span class="keyword">namespace </span>Widgets
+<a name="l00022"></a>00022     {
+<a name="l00023"></a>00023         <span class="keyword">class </span>MWEffectList;
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="namespaceMWGui_1_1Widgets.html#a5de7ff8d414f720057aada62e57851a9">fixTexturePath</a>(std::string &amp;path);
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027     <span class="keyword">namespace </span>Widgets
-<a name="l00028"></a>00028     {
-<a name="l00029"></a>00029         <span class="keyword">class </span>MWEffectList;
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="namespaceMWGui_1_1Widgets.html#a5de7ff8d414f720057aada62e57851a9">fixTexturePath</a>(std::string &amp;path);
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">00033</a>         <span class="keyword">struct </span><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>
-<a name="l00034"></a>00034         {
-<a name="l00035"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a28220b9df86457315b7bbd4d0b261f37">00035</a>             <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>()
-<a name="l00036"></a>00036                 : mMagnMin(-1)
-<a name="l00037"></a>00037                 , mMagnMax(-1)
-<a name="l00038"></a>00038                 , mRange(-1)
-<a name="l00039"></a>00039                 , mDuration(-1)
-<a name="l00040"></a>00040                 , mSkill(-1)
-<a name="l00041"></a>00041                 , mAttribute(-1)
-<a name="l00042"></a>00042                 , mEffectID(-1)
-<a name="l00043"></a>00043                 , mNoTarget(false)
-<a name="l00044"></a>00044                 , mIsConstant(false)
-<a name="l00045"></a>00045             {
-<a name="l00046"></a>00046             }
+<a name="l00027"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">00027</a>         <span class="keyword">struct </span><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>
+<a name="l00028"></a>00028         {
+<a name="l00029"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a28220b9df86457315b7bbd4d0b261f37">00029</a>             <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a28220b9df86457315b7bbd4d0b261f37">SpellEffectParams</a>()
+<a name="l00030"></a>00030                 : <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ab3ea507eaac80418362bc699c2bb152b">mMagnMin</a>(-1)
+<a name="l00031"></a>00031                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a984d6f286fb399eb977cad3d6160ac6d">mMagnMax</a>(-1)
+<a name="l00032"></a>00032                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a8f9170e39df0a045a7ee81d4413f3d8d">mRange</a>(-1)
+<a name="l00033"></a>00033                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a08351c02661a761dae22893a596118ec">mDuration</a>(-1)
+<a name="l00034"></a>00034                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">mSkill</a>(-1)
+<a name="l00035"></a>00035                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a0a6123b0826c27881f5dfef6b0816289">mAttribute</a>(-1)
+<a name="l00036"></a>00036                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a>(-1)
+<a name="l00037"></a>00037                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ad9d79f15667e6c61f76ec8f1279a1676">mNoTarget</a>(false)
+<a name="l00038"></a>00038                 , <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a9f153105cadc5ade9ab12e5a60effbc8">mIsConstant</a>(false)
+<a name="l00039"></a>00039             {
+<a name="l00040"></a>00040             }
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ad9d79f15667e6c61f76ec8f1279a1676">00042</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ad9d79f15667e6c61f76ec8f1279a1676">mNoTarget</a>; <span class="comment">// potion effects for example have no target (target is always the player)</span>
+<a name="l00043"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a9f153105cadc5ade9ab12e5a60effbc8">00043</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a9f153105cadc5ade9ab12e5a60effbc8">mIsConstant</a>; <span class="comment">// constant effect means that duration will not be displayed</span>
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045             <span class="comment">// value of -1 here means the effect is unknown to the player</span>
+<a name="l00046"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">00046</a>             <span class="keywordtype">short</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a>;
 <a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ad9d79f15667e6c61f76ec8f1279a1676">00048</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ad9d79f15667e6c61f76ec8f1279a1676">mNoTarget</a>; <span class="comment">// potion effects for example have no target (target is always the player)</span>
-<a name="l00049"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a9f153105cadc5ade9ab12e5a60effbc8">00049</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a9f153105cadc5ade9ab12e5a60effbc8">mIsConstant</a>; <span class="comment">// constant effect means that duration will not be displayed</span>
+<a name="l00048"></a>00048             <span class="comment">// value of -1 here means there is no skill/attribute</span>
+<a name="l00049"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">00049</a>             <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">mSkill</a>, <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a0a6123b0826c27881f5dfef6b0816289">mAttribute</a>;
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <span class="comment">// value of -1 here means the effect is unknown to the player</span>
-<a name="l00052"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">00052</a>             <span class="keywordtype">short</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a>;
+<a name="l00051"></a>00051             <span class="comment">// value of -1 here means the value is unavailable</span>
+<a name="l00052"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a8f9170e39df0a045a7ee81d4413f3d8d">00052</a>             <span class="keywordtype">int</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ab3ea507eaac80418362bc699c2bb152b">mMagnMin</a>, <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a984d6f286fb399eb977cad3d6160ac6d">mMagnMax</a>, <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a8f9170e39df0a045a7ee81d4413f3d8d">mRange</a>, <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a08351c02661a761dae22893a596118ec">mDuration</a>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="comment">// value of -1 here means there is no skill/attribute</span>
-<a name="l00055"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">00055</a>             <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">mSkill</a>, mAttribute;
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057             <span class="comment">// value of -1 here means the value is unavailable</span>
-<a name="l00058"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a8f9170e39df0a045a7ee81d4413f3d8d">00058</a>             <span class="keywordtype">int</span> mMagnMin, mMagnMax, <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a8f9170e39df0a045a7ee81d4413f3d8d">mRange</a>, mDuration;
-<a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a771146a5946ceca5154524384f29f379">00060</a>             <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#a1cf6546808e1a276bcd46f32a0bf78b6">operator==</a>(<span class="keyword">const</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>&amp; other)<span class="keyword"> const</span>
-<a name="l00061"></a>00061 <span class="keyword">            </span>{
-<a name="l00062"></a>00062                 <span class="keywordflow">if</span> (mEffectID !=  other.<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a>)
-<a name="l00063"></a>00063                     <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065                 <span class="keywordtype">bool</span> involvesAttribute = (mEffectID == 74 <span class="comment">// restore attribute</span>
-<a name="l00066"></a>00066                                         || mEffectID == 85 <span class="comment">// absorb attribute</span>
-<a name="l00067"></a>00067                                         || mEffectID == 17 <span class="comment">// drain attribute</span>
-<a name="l00068"></a>00068                                         || mEffectID == 79 <span class="comment">// fortify attribute</span>
-<a name="l00069"></a>00069                                         || mEffectID == 22); <span class="comment">// damage attribute</span>
-<a name="l00070"></a>00070                 <span class="keywordtype">bool</span> involvesSkill = (mEffectID == 78 <span class="comment">// restore skill</span>
-<a name="l00071"></a>00071                                         || mEffectID == 89 <span class="comment">// absorb skill</span>
-<a name="l00072"></a>00072                                         || mEffectID == 21 <span class="comment">// drain skill</span>
-<a name="l00073"></a>00073                                         || mEffectID == 83 <span class="comment">// fortify skill</span>
-<a name="l00074"></a>00074                                         || mEffectID == 26); <span class="comment">// damage skill</span>
-<a name="l00075"></a>00075                 <span class="keywordflow">return</span> ((other.<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">mSkill</a> == mSkill) || !involvesSkill) &amp;&amp; ((other.<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a0a6123b0826c27881f5dfef6b0816289">mAttribute</a> == mAttribute) &amp;&amp; !involvesAttribute);
-<a name="l00076"></a>00076             }
-<a name="l00077"></a>00077         };
-<a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">00079</a>         <span class="keyword">typedef</span> std::vector&lt;SpellEffectParams&gt; <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a>;
+<a name="l00054"></a><a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a771146a5946ceca5154524384f29f379">00054</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a771146a5946ceca5154524384f29f379">operator==</a>(<span class="keyword">const</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>&amp; other)<span class="keyword"> const</span>
+<a name="l00055"></a>00055 <span class="keyword">            </span>{
+<a name="l00056"></a>00056                 <span class="keywordflow">if</span> (<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> !=  other.<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a>)
+<a name="l00057"></a>00057                     <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059                 <span class="keywordtype">bool</span> involvesAttribute = (<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 74 <span class="comment">// restore attribute</span>
+<a name="l00060"></a>00060                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 85 <span class="comment">// absorb attribute</span>
+<a name="l00061"></a>00061                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 17 <span class="comment">// drain attribute</span>
+<a name="l00062"></a>00062                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 79 <span class="comment">// fortify attribute</span>
+<a name="l00063"></a>00063                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 22); <span class="comment">// damage attribute</span>
+<a name="l00064"></a>00064                 <span class="keywordtype">bool</span> involvesSkill = (<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 78 <span class="comment">// restore skill</span>
+<a name="l00065"></a>00065                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 89 <span class="comment">// absorb skill</span>
+<a name="l00066"></a>00066                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 21 <span class="comment">// drain skill</span>
+<a name="l00067"></a>00067                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 83 <span class="comment">// fortify skill</span>
+<a name="l00068"></a>00068                                         || <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a10dc900c223c3fa638bf83f429ea1d25">mEffectID</a> == 26); <span class="comment">// damage skill</span>
+<a name="l00069"></a>00069                 <span class="keywordflow">return</span> ((other.<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">mSkill</a> == <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#ac8a43cb56580791cd526c41a7dfa438d">mSkill</a>) || !involvesSkill) &amp;&amp; ((other.<a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a0a6123b0826c27881f5dfef6b0816289">mAttribute</a> == <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html#a0a6123b0826c27881f5dfef6b0816289">mAttribute</a>) &amp;&amp; !involvesAttribute);
+<a name="l00070"></a>00070             }
+<a name="l00071"></a>00071         };
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">00073</a>         <span class="keyword">typedef</span> std::vector&lt;SpellEffectParams&gt; <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a>;
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">00075</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a> : <span class="keyword">public</span> MyGUI::Widget
+<a name="l00076"></a>00076         {
+<a name="l00077"></a>00077             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a> )
+<a name="l00078"></a>00078         <span class="keyword">public</span>:
+<a name="l00079"></a>00079             <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a56d0fdb5f1a4cb892a68f766e7b13f47">MWSkill</a>();
 <a name="l00080"></a>00080 
-<a name="l00081"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">00081</a>         <span class="keyword">class </span><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">MYGUI_EXPORT</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a> : <span class="keyword">public</span> MyGUI::Widget
-<a name="l00082"></a>00082         {
-<a name="l00083"></a>00083             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a> );
-<a name="l00084"></a>00084         <span class="keyword">public</span>:
-<a name="l00085"></a>00085             <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a>();
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a107ae809b74a67415ef8f77c984b569e">00087</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a107ae809b74a67415ef8f77c984b569e">SkillValue</a>;
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a2d44f9d4b74b3a3f392ddc429ac78810">00089</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a2d44f9d4b74b3a3f392ddc429ac78810">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *m) { mManager = m; } 
-<a name="l00090"></a>00090             <span class="keywordtype">void</span> setSkillId(<a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> skillId);
-<a name="l00091"></a>00091             <span class="keywordtype">void</span> setSkillNumber(<span class="keywordtype">int</span> skillId);
-<a name="l00092"></a>00092             <span class="keywordtype">void</span> setSkillValue(<span class="keyword">const</span> SkillValue&amp; value);
-<a name="l00093"></a>00093 
-<a name="l00094"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a77461744facecc5c182afe846f95d8cc">00094</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a77461744facecc5c182afe846f95d8cc">getWindowManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mManager; }
-<a name="l00095"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ab8b05a9285e4ac329eb43177c83bfc81">00095</a>             <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ab8b05a9285e4ac329eb43177c83bfc81">getSkillId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mSkillId; }
-<a name="l00096"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a9cac093eaaa9370cc6ff581eec184315">00096</a>             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">SkillValue</a>&amp; <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a9cac093eaaa9370cc6ff581eec184315">getSkillValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mValue; }
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098             <span class="comment">// Events</span>
-<a name="l00099"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#afa60490184c8e1208f1ed7127ea660a8">00099</a>             <span class="keyword">typedef</span> delegates::CMultiDelegate1&lt;MWSkill*&gt; <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#afa60490184c8e1208f1ed7127ea660a8">EventHandle_SkillVoid</a>;
-<a name="l00100"></a>00100 
-<a name="l00104"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a91a01497bfbc3b629b996512aa2f53c0">00104</a>             <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#afa60490184c8e1208f1ed7127ea660a8">EventHandle_SkillVoid</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a91a01497bfbc3b629b996512aa2f53c0">eventClicked</a>;
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106         <span class="keyword">protected</span>:
-<a name="l00107"></a>00107             <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a>();
+<a name="l00081"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a107ae809b74a67415ef8f77c984b569e">00081</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a107ae809b74a67415ef8f77c984b569e">SkillValue</a>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a2d44f9d4b74b3a3f392ddc429ac78810">00083</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a2d44f9d4b74b3a3f392ddc429ac78810">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *m) { <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aa6d7567c8d25dbb22779c7c7414efac7">mManager</a> = m; } 
+<a name="l00084"></a>00084             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a6564234aac34a90b3bdbf421498eae58">setSkillId</a>(<a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> skillId);
+<a name="l00085"></a>00085             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#acfd08bf7a14ca706dc64d29d271f5f53">setSkillNumber</a>(<span class="keywordtype">int</span> skillId);
+<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a7996724ae7cb9340ceabf8f182d5f00f">setSkillValue</a>(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a107ae809b74a67415ef8f77c984b569e">SkillValue</a>&amp; value);
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a77461744facecc5c182afe846f95d8cc">00088</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a77461744facecc5c182afe846f95d8cc">getWindowManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aa6d7567c8d25dbb22779c7c7414efac7">mManager</a>; }
+<a name="l00089"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ab8b05a9285e4ac329eb43177c83bfc81">00089</a>             <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ab8b05a9285e4ac329eb43177c83bfc81">getSkillId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad95e8821964e362802ceb0d3308d6692">mSkillId</a>; }
+<a name="l00090"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a9cac093eaaa9370cc6ff581eec184315">00090</a>             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">SkillValue</a>&amp; <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a9cac093eaaa9370cc6ff581eec184315">getSkillValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a8ae8334936ada85f2e96c6899a562ac4">mValue</a>; }
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092             <span class="comment">// Events</span>
+<a name="l00093"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad1a595a1dae8155b42fdfcde0d81b295">00093</a>             <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;MWSkill*&gt; <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad1a595a1dae8155b42fdfcde0d81b295">EventHandle_SkillVoid</a>;
+<a name="l00094"></a>00094 
+<a name="l00098"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a91a01497bfbc3b629b996512aa2f53c0">00098</a>             <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad1a595a1dae8155b42fdfcde0d81b295">EventHandle_SkillVoid</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a91a01497bfbc3b629b996512aa2f53c0">eventClicked</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100         <span class="keyword">protected</span>:
+<a name="l00101"></a>00101             <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#af540c006be2f6e86d6dce5c6983d1cc4">~MWSkill</a>();
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a4fd1956016d06d0a95608f5f8b67bab1">initialiseOverride</a>();
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a74bced9dc36045b5892504518f1ec8bb">onClicked</a>(MyGUI::Widget* _sender);
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107         <span class="keyword">private</span>:
 <a name="l00108"></a>00108 
-<a name="l00109"></a>00109             <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialiseOverride();
+<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a0d3080e47bd7b037539fc25ba4cb0f76">updateWidgets</a>();
 <a name="l00110"></a>00110 
-<a name="l00111"></a>00111             <span class="keywordtype">void</span> onClicked(MyGUI::Widget* _sender);
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113         <span class="keyword">private</span>:
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115             <span class="keywordtype">void</span> updateWidgets();
-<a name="l00116"></a>00116 
-<a name="l00117"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aa6d7567c8d25dbb22779c7c7414efac7">00117</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aa6d7567c8d25dbb22779c7c7414efac7">mManager</a>;
-<a name="l00118"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad95e8821964e362802ceb0d3308d6692">00118</a>             <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad95e8821964e362802ceb0d3308d6692">mSkillId</a>;
-<a name="l00119"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a8ae8334936ada85f2e96c6899a562ac4">00119</a>             <a class="code" href="classMWMechanics_1_1Stat.html">SkillValue</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a8ae8334936ada85f2e96c6899a562ac4">mValue</a>;
-<a name="l00120"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aeacd12f1234b9e7d0772b584eac59941">00120</a>             MyGUI::WidgetPtr mSkillNameWidget, <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aeacd12f1234b9e7d0772b584eac59941">mSkillValueWidget</a>;
-<a name="l00121"></a>00121         };
-<a name="l00122"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#ab9a890db38f39cb81413363b5fda1c7d">00122</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#ab9a890db38f39cb81413363b5fda1c7d">MWSkillPtr</a>;
+<a name="l00111"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aa6d7567c8d25dbb22779c7c7414efac7">00111</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aa6d7567c8d25dbb22779c7c7414efac7">mManager</a>;
+<a name="l00112"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad95e8821964e362802ceb0d3308d6692">00112</a>             <a class="code" href="structESM_1_1Skill.html#a6c76e3e7116271b76f74f1d08cdd3229">ESM::Skill::SkillEnum</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#ad95e8821964e362802ceb0d3308d6692">mSkillId</a>;
+<a name="l00113"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a8ae8334936ada85f2e96c6899a562ac4">00113</a>             <a class="code" href="classMWMechanics_1_1Stat.html">SkillValue</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a8ae8334936ada85f2e96c6899a562ac4">mValue</a>;
+<a name="l00114"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aeacd12f1234b9e7d0772b584eac59941">00114</a>             MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#a728e75f0ec4543fd838a65f4d411b80d">mSkillNameWidget</a>, <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html#aeacd12f1234b9e7d0772b584eac59941">mSkillValueWidget</a>;
+<a name="l00115"></a>00115         };
+<a name="l00116"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#ab9a890db38f39cb81413363b5fda1c7d">00116</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSkill.html">MWSkill</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#ab9a890db38f39cb81413363b5fda1c7d">MWSkillPtr</a>;
+<a name="l00117"></a>00117 
+<a name="l00118"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">00118</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a> : <span class="keyword">public</span> MyGUI::Widget
+<a name="l00119"></a>00119         {
+<a name="l00120"></a>00120             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a> )
+<a name="l00121"></a>00121         <span class="keyword">public</span>:
+<a name="l00122"></a>00122             <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aa8813aa94d464cb3d7a3bd7028494b1c">MWAttribute</a>();
 <a name="l00123"></a>00123 
-<a name="l00124"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">00124</a>         <span class="keyword">class </span><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">MYGUI_EXPORT</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a> : <span class="keyword">public</span> MyGUI::Widget
-<a name="l00125"></a>00125         {
-<a name="l00126"></a>00126             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a> );
-<a name="l00127"></a>00127         <span class="keyword">public</span>:
-<a name="l00128"></a>00128             <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a>();
+<a name="l00124"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a236937b41011cff9b297cd71b828b4c9">00124</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a236937b41011cff9b297cd71b828b4c9">AttributeValue</a>;
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a138c33bd6818a80432791037c853b764">00126</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a138c33bd6818a80432791037c853b764">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *m) { <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#acec2230083b0f007f9ee7bf2b30bc86b">mManager</a> = m; }
+<a name="l00127"></a>00127             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a0c0da72a487857b30b2f12602e8ada40">setAttributeId</a>(<span class="keywordtype">int</span> attributeId);
+<a name="l00128"></a>00128             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#ab99b2dee45917f1aed9a72930d12a68f">setAttributeValue</a>(<span class="keyword">const</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a236937b41011cff9b297cd71b828b4c9">AttributeValue</a>&amp; value);
 <a name="l00129"></a>00129 
-<a name="l00130"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a236937b41011cff9b297cd71b828b4c9">00130</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a236937b41011cff9b297cd71b828b4c9">AttributeValue</a>;
-<a name="l00131"></a>00131 
-<a name="l00132"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a138c33bd6818a80432791037c853b764">00132</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a138c33bd6818a80432791037c853b764">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *m) { mManager = m; }
-<a name="l00133"></a>00133             <span class="keywordtype">void</span> setAttributeId(<span class="keywordtype">int</span> attributeId);
-<a name="l00134"></a>00134             <span class="keywordtype">void</span> setAttributeValue(<span class="keyword">const</span> AttributeValue&amp; value);
-<a name="l00135"></a>00135 
-<a name="l00136"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aaef3c95802b313f8055c4c557a1cbd9e">00136</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aaef3c95802b313f8055c4c557a1cbd9e">getWindowManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mManager; }
-<a name="l00137"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#af0825019b60d054956f4a0439dc56a4a">00137</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#af0825019b60d054956f4a0439dc56a4a">getAttributeId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mId; }
-<a name="l00138"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#accfb5e4af7cdd9e1aaea58516df6fd98">00138</a>             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">AttributeValue</a>&amp; <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#accfb5e4af7cdd9e1aaea58516df6fd98">getAttributeValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mValue; }
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140             <span class="comment">// Events</span>
-<a name="l00141"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a91e8b3c91e75bd3c1156b4d8f186e7cd">00141</a>             <span class="keyword">typedef</span> delegates::CMultiDelegate1&lt;MWAttribute*&gt; <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a91e8b3c91e75bd3c1156b4d8f186e7cd">EventHandle_AttributeVoid</a>;
-<a name="l00142"></a>00142 
-<a name="l00146"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aa566ac2f2803bf76016aa753546f3d02">00146</a>             <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a91e8b3c91e75bd3c1156b4d8f186e7cd">EventHandle_AttributeVoid</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aa566ac2f2803bf76016aa753546f3d02">eventClicked</a>;
-<a name="l00147"></a>00147 
-<a name="l00148"></a>00148         <span class="keyword">protected</span>:
-<a name="l00149"></a>00149             <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a>();
+<a name="l00130"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aaef3c95802b313f8055c4c557a1cbd9e">00130</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aaef3c95802b313f8055c4c557a1cbd9e">getWindowManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#acec2230083b0f007f9ee7bf2b30bc86b">mManager</a>; }
+<a name="l00131"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#af0825019b60d054956f4a0439dc56a4a">00131</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#af0825019b60d054956f4a0439dc56a4a">getAttributeId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#ad9801edd06eabce2d8c3d76fa7a6712c">mId</a>; }
+<a name="l00132"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#accfb5e4af7cdd9e1aaea58516df6fd98">00132</a>             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">AttributeValue</a>&amp; <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#accfb5e4af7cdd9e1aaea58516df6fd98">getAttributeValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a26b2eed9e5942dc5a328a79093836ec9">mValue</a>; }
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134             <span class="comment">// Events</span>
+<a name="l00135"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a79d220e1958f85b5a05bae67637ee5e0">00135</a>             <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;MWAttribute*&gt; <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a79d220e1958f85b5a05bae67637ee5e0">EventHandle_AttributeVoid</a>;
+<a name="l00136"></a>00136 
+<a name="l00140"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aa566ac2f2803bf76016aa753546f3d02">00140</a>             <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a79d220e1958f85b5a05bae67637ee5e0">EventHandle_AttributeVoid</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aa566ac2f2803bf76016aa753546f3d02">eventClicked</a>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142         <span class="keyword">protected</span>:
+<a name="l00143"></a>00143             <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a7432c1581b3031d0fc11df512aa13c33">~MWAttribute</a>();
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a3431eb7234e3d9a2ab8f0785a1a9afde">initialiseOverride</a>();
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a4f7a283a363a094484f3c040a1b71184">onClicked</a>(MyGUI::Widget* _sender);
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149         <span class="keyword">private</span>:
 <a name="l00150"></a>00150 
-<a name="l00151"></a>00151             <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialiseOverride();
+<a name="l00151"></a>00151             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#aac2390fe303aea0c3194751de6ab94e5">updateWidgets</a>();
 <a name="l00152"></a>00152 
-<a name="l00153"></a>00153             <span class="keywordtype">void</span> onClicked(MyGUI::Widget* _sender);
-<a name="l00154"></a>00154 
-<a name="l00155"></a>00155         <span class="keyword">private</span>:
-<a name="l00156"></a>00156 
-<a name="l00157"></a>00157             <span class="keywordtype">void</span> updateWidgets();
-<a name="l00158"></a>00158 
-<a name="l00159"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#acec2230083b0f007f9ee7bf2b30bc86b">00159</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#acec2230083b0f007f9ee7bf2b30bc86b">mManager</a>;
-<a name="l00160"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#ad9801edd06eabce2d8c3d76fa7a6712c">00160</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#ad9801edd06eabce2d8c3d76fa7a6712c">mId</a>;
-<a name="l00161"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a26b2eed9e5942dc5a328a79093836ec9">00161</a>             <a class="code" href="classMWMechanics_1_1Stat.html">AttributeValue</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a26b2eed9e5942dc5a328a79093836ec9">mValue</a>;
-<a name="l00162"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a6239e6ae3d79395aee12a02b2c86fb1a">00162</a>             MyGUI::WidgetPtr mAttributeNameWidget, <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a6239e6ae3d79395aee12a02b2c86fb1a">mAttributeValueWidget</a>;
-<a name="l00163"></a>00163         };
-<a name="l00164"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a8093a68848afe76819e8e8dbb237aa99">00164</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a8093a68848afe76819e8e8dbb237aa99">MWAttributePtr</a>;
-<a name="l00165"></a>00165 
-<a name="l00169"></a>00169         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a>;
-<a name="l00170"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">00170</a>         <span class="keyword">class </span><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">MYGUI_EXPORT</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a> : <span class="keyword">public</span> MyGUI::Widget
-<a name="l00171"></a>00171         {
-<a name="l00172"></a>00172             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a> );
-<a name="l00173"></a>00173         <span class="keyword">public</span>:
-<a name="l00174"></a>00174             <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a>();
-<a name="l00175"></a>00175 
-<a name="l00176"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#ae9ceb34bc9ec009bc20f4ef95a024f86">00176</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#ae9ceb34bc9ec009bc20f4ef95a024f86">SpellValue</a>;
-<a name="l00177"></a>00177 
-<a name="l00178"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a66c191061129675f7ce0f433a2771dab">00178</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a66c191061129675f7ce0f433a2771dab">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* parWindowManager) { mWindowManager = parWindowManager; }
-<a name="l00179"></a>00179             <span class="keywordtype">void</span> setSpellId(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>);
-<a name="l00180"></a>00180 
-<a name="l00188"></a>00188             <span class="keywordtype">void</span> createEffectWidgets(std::vector&lt;MyGUI::WidgetPtr&gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord, <span class="keywordtype">int</span> flags);
-<a name="l00189"></a>00189 
-<a name="l00190"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a85c558a02cdde887d78e6f1e6f88c1ad">00190</a>             <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a85c558a02cdde887d78e6f1e6f88c1ad">getSpellId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mId; }
-<a name="l00191"></a>00191 
-<a name="l00192"></a>00192         <span class="keyword">protected</span>:
-<a name="l00193"></a>00193             <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a>();
-<a name="l00194"></a>00194 
-<a name="l00195"></a>00195             <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialiseOverride();
-<a name="l00196"></a>00196 
-<a name="l00197"></a>00197         <span class="keyword">private</span>:
-<a name="l00198"></a>00198             <span class="keywordtype">void</span> updateWidgets();
+<a name="l00153"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#acec2230083b0f007f9ee7bf2b30bc86b">00153</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a> *<a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#acec2230083b0f007f9ee7bf2b30bc86b">mManager</a>;
+<a name="l00154"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#ad9801edd06eabce2d8c3d76fa7a6712c">00154</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#ad9801edd06eabce2d8c3d76fa7a6712c">mId</a>;
+<a name="l00155"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a26b2eed9e5942dc5a328a79093836ec9">00155</a>             <a class="code" href="classMWMechanics_1_1Stat.html">AttributeValue</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a26b2eed9e5942dc5a328a79093836ec9">mValue</a>;
+<a name="l00156"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a6239e6ae3d79395aee12a02b2c86fb1a">00156</a>             MyGUI::WidgetPtr <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a06e52edaa3fd011527d438f7ddd00006">mAttributeNameWidget</a>, <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html#a6239e6ae3d79395aee12a02b2c86fb1a">mAttributeValueWidget</a>;
+<a name="l00157"></a>00157         };
+<a name="l00158"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a8093a68848afe76819e8e8dbb237aa99">00158</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWAttribute.html">MWAttribute</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a8093a68848afe76819e8e8dbb237aa99">MWAttributePtr</a>;
+<a name="l00159"></a>00159 
+<a name="l00163"></a>00163         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a>;
+<a name="l00164"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">00164</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a> : <span class="keyword">public</span> MyGUI::Widget
+<a name="l00165"></a>00165         {
+<a name="l00166"></a>00166             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a> )
+<a name="l00167"></a>00167         <span class="keyword">public</span>:
+<a name="l00168"></a>00168             <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#aca976a03bfffb8f4fc8460b92e0f1795">MWSpell</a>();
+<a name="l00169"></a>00169 
+<a name="l00170"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#ae9ceb34bc9ec009bc20f4ef95a024f86">00170</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#ae9ceb34bc9ec009bc20f4ef95a024f86">SpellValue</a>;
+<a name="l00171"></a>00171 
+<a name="l00172"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a66c191061129675f7ce0f433a2771dab">00172</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a66c191061129675f7ce0f433a2771dab">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* parWindowManager) { <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a3116d24a2cb50a7d1ee8151ecab1f286">mWindowManager</a> = parWindowManager; }
+<a name="l00173"></a>00173             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a6a0c1156ec90f9468cbaaa7ff666f43f">setSpellId</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>);
+<a name="l00174"></a>00174 
+<a name="l00182"></a>00182             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#abed8f79aa3f163c27eb2f426fcca7729">createEffectWidgets</a>(std::vector&lt;MyGUI::WidgetPtr&gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord, <span class="keywordtype">int</span> flags);
+<a name="l00183"></a>00183 
+<a name="l00184"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a85c558a02cdde887d78e6f1e6f88c1ad">00184</a>             <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a85c558a02cdde887d78e6f1e6f88c1ad">getSpellId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8f2bcc7b5f969ff1070aa825b26e49a9">mId</a>; }
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186         <span class="keyword">protected</span>:
+<a name="l00187"></a>00187             <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8ccef7ebf3b6c64b15ff3d817a992192">~MWSpell</a>();
+<a name="l00188"></a>00188 
+<a name="l00189"></a>00189             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a292d33ec8f48ddd6613f9a936bacab7c">initialiseOverride</a>();
+<a name="l00190"></a>00190 
+<a name="l00191"></a>00191         <span class="keyword">private</span>:
+<a name="l00192"></a>00192             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a628fc6a75e99b81bf1c58e19e11bc261">updateWidgets</a>();
+<a name="l00193"></a>00193 
+<a name="l00194"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a3116d24a2cb50a7d1ee8151ecab1f286">00194</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a3116d24a2cb50a7d1ee8151ecab1f286">mWindowManager</a>;
+<a name="l00195"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8f2bcc7b5f969ff1070aa825b26e49a9">00195</a>             std::string <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8f2bcc7b5f969ff1070aa825b26e49a9">mId</a>;
+<a name="l00196"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#aba5db9df5f0a92f45a7dd5c231b0ec1b">00196</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#aba5db9df5f0a92f45a7dd5c231b0ec1b">mSpellNameWidget</a>;
+<a name="l00197"></a>00197         };
+<a name="l00198"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a02c899fef6f4ae308c20b882c2f53b39">00198</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a02c899fef6f4ae308c20b882c2f53b39">MWSpellPtr</a>;
 <a name="l00199"></a>00199 
-<a name="l00200"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a3116d24a2cb50a7d1ee8151ecab1f286">00200</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a3116d24a2cb50a7d1ee8151ecab1f286">mWindowManager</a>;
-<a name="l00201"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8f2bcc7b5f969ff1070aa825b26e49a9">00201</a>             std::string <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#a8f2bcc7b5f969ff1070aa825b26e49a9">mId</a>;
-<a name="l00202"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#aba5db9df5f0a92f45a7dd5c231b0ec1b">00202</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html#aba5db9df5f0a92f45a7dd5c231b0ec1b">mSpellNameWidget</a>;
-<a name="l00203"></a>00203         };
-<a name="l00204"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a02c899fef6f4ae308c20b882c2f53b39">00204</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpell.html">MWSpell</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a02c899fef6f4ae308c20b882c2f53b39">MWSpellPtr</a>;
+<a name="l00200"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">00200</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a> : <span class="keyword">public</span> MyGUI::Widget
+<a name="l00201"></a>00201         {
+<a name="l00202"></a>00202             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a> )
+<a name="l00203"></a>00203         <span class="keyword">public</span>:
+<a name="l00204"></a>00204             <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#aa37cfb25cc5251bcd48491cca042c125">MWEffectList</a>();
 <a name="l00205"></a>00205 
-<a name="l00206"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">00206</a>         <span class="keyword">class </span><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">MYGUI_EXPORT</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a> : <span class="keyword">public</span> MyGUI::Widget
-<a name="l00207"></a>00207         {
-<a name="l00208"></a>00208             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a> );
-<a name="l00209"></a>00209         <span class="keyword">public</span>:
-<a name="l00210"></a>00210             <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a>();
-<a name="l00211"></a>00211 
-<a name="l00212"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a2c565977f6e1885d769bba9ca2a1fea9">00212</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a2c565977f6e1885d769bba9ca2a1fea9">EnchantmentValue</a>;
+<a name="l00206"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a2c565977f6e1885d769bba9ca2a1fea9">00206</a>             <span class="keyword">typedef</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a2c565977f6e1885d769bba9ca2a1fea9">EnchantmentValue</a>;
+<a name="l00207"></a>00207 
+<a name="l00208"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7">00208</a>             <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7">EffectFlags</a>
+<a name="l00209"></a>00209             {
+<a name="l00210"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7a1e7042cc7c56c92b125a405bc173093a">00210</a>                 <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7a1e7042cc7c56c92b125a405bc173093a">EF_NoTarget</a> = 0x01, <span class="comment">// potions have no target (target is always the player)</span>
+<a name="l00211"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7a4b05447a6f473c22ff2c62af73047281">00211</a>                 <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7a4b05447a6f473c22ff2c62af73047281">EF_Constant</a> = 0x02 <span class="comment">// constant effect means that duration will not be displayed</span>
+<a name="l00212"></a>00212             };
 <a name="l00213"></a>00213 
-<a name="l00214"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7">00214</a>             <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7">EffectFlags</a>
-<a name="l00215"></a>00215             {
-<a name="l00216"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7a1e7042cc7c56c92b125a405bc173093a">00216</a>                 EF_NoTarget = 0x01, <span class="comment">// potions have no target (target is always the player)</span>
-<a name="l00217"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a16298dd60c9433ad3bb1c0d257e93bf7a4b05447a6f473c22ff2c62af73047281">00217</a>                 EF_Constant = 0x02 <span class="comment">// constant effect means that duration will not be displayed</span>
-<a name="l00218"></a>00218             };
-<a name="l00219"></a>00219 
-<a name="l00220"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#aea00e2ad1950241e30ef848e9952d49b">00220</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#aea00e2ad1950241e30ef848e9952d49b">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* parWindowManager) { mWindowManager = parWindowManager; }
-<a name="l00221"></a>00221             <span class="keywordtype">void</span> setEffectList(<span class="keyword">const</span> <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a>&amp; list);
-<a name="l00222"></a>00222 
-<a name="l00223"></a>00223             <span class="keyword">static</span> <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a> effectListFromESM(<span class="keyword">const</span> <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a>* effects);
-<a name="l00224"></a>00224 
-<a name="l00232"></a>00232             <span class="keywordtype">void</span> createEffectWidgets(std::vector&lt;MyGUI::WidgetPtr&gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord, <span class="keywordtype">bool</span> center, <span class="keywordtype">int</span> flags);
-<a name="l00233"></a>00233 
-<a name="l00234"></a>00234         <span class="keyword">protected</span>:
-<a name="l00235"></a>00235             <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a>();
-<a name="l00236"></a>00236 
-<a name="l00237"></a>00237             <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialiseOverride();
-<a name="l00238"></a>00238 
-<a name="l00239"></a>00239         <span class="keyword">private</span>:
-<a name="l00240"></a>00240             <span class="keywordtype">void</span> updateWidgets();
-<a name="l00241"></a>00241 
-<a name="l00242"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a28af7280e04b20be6e4119ec94bb08b3">00242</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a28af7280e04b20be6e4119ec94bb08b3">mWindowManager</a>;
-<a name="l00243"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a0a30e96dd59e8d47169d7a8e8ce4ee50">00243</a>             <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a0a30e96dd59e8d47169d7a8e8ce4ee50">mEffectList</a>;
-<a name="l00244"></a>00244         };
-<a name="l00245"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#ab3cb4dd9be672275b0211939dc2e583d">00245</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#ab3cb4dd9be672275b0211939dc2e583d">MWEffectListPtr</a>;
+<a name="l00214"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#aea00e2ad1950241e30ef848e9952d49b">00214</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#aea00e2ad1950241e30ef848e9952d49b">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* parWindowManager) { <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a28af7280e04b20be6e4119ec94bb08b3">mWindowManager</a> = parWindowManager; }
+<a name="l00215"></a>00215             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a86c0bc0b02d8b4b17877c9c2479c5dd0">setEffectList</a>(<span class="keyword">const</span> <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a>&amp; list);
+<a name="l00216"></a>00216 
+<a name="l00217"></a>00217             <span class="keyword">static</span> <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a39a26d0d19c84e282d977ef0c74889bc">effectListFromESM</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a>* effects);
+<a name="l00218"></a>00218 
+<a name="l00226"></a>00226             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#aba04f409f88754ded0345daafd6433cc">createEffectWidgets</a>(std::vector&lt;MyGUI::WidgetPtr&gt; &amp;effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &amp;coord, <span class="keywordtype">bool</span> center, <span class="keywordtype">int</span> flags);
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228         <span class="keyword">protected</span>:
+<a name="l00229"></a>00229             <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a213dc3eb3d6448e2d5f31d0f27c597eb">~MWEffectList</a>();
+<a name="l00230"></a>00230 
+<a name="l00231"></a>00231             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a590117e807f165a5156ca04f2a75905e">initialiseOverride</a>();
+<a name="l00232"></a>00232 
+<a name="l00233"></a>00233         <span class="keyword">private</span>:
+<a name="l00234"></a>00234             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a288218d8663ddaef2dc219e4128efb23">updateWidgets</a>();
+<a name="l00235"></a>00235 
+<a name="l00236"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a28af7280e04b20be6e4119ec94bb08b3">00236</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a28af7280e04b20be6e4119ec94bb08b3">mWindowManager</a>;
+<a name="l00237"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a0a30e96dd59e8d47169d7a8e8ce4ee50">00237</a>             <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">SpellEffectList</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html#a0a30e96dd59e8d47169d7a8e8ce4ee50">mEffectList</a>;
+<a name="l00238"></a>00238         };
+<a name="l00239"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#ab3cb4dd9be672275b0211939dc2e583d">00239</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">MWEffectList</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#ab3cb4dd9be672275b0211939dc2e583d">MWEffectListPtr</a>;
+<a name="l00240"></a>00240 
+<a name="l00241"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">00241</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a> : <span class="keyword">public</span> MyGUI::Widget
+<a name="l00242"></a>00242         {
+<a name="l00243"></a>00243             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a> )
+<a name="l00244"></a>00244         <span class="keyword">public</span>:
+<a name="l00245"></a>00245             <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a1186a6ca99baae6e6707ddc36ff17291">MWSpellEffect</a>();
 <a name="l00246"></a>00246 
-<a name="l00247"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">00247</a>         <span class="keyword">class </span><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">MYGUI_EXPORT</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a> : <span class="keyword">public</span> MyGUI::Widget
-<a name="l00248"></a>00248         {
-<a name="l00249"></a>00249             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a> );
-<a name="l00250"></a>00250         <span class="keyword">public</span>:
-<a name="l00251"></a>00251             <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a>();
-<a name="l00252"></a>00252 
-<a name="l00253"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a9b1d951366757403be0d69c6ea956c49">00253</a>             <span class="keyword">typedef</span> <a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a9b1d951366757403be0d69c6ea956c49">SpellEffectValue</a>;
-<a name="l00254"></a>00254 
-<a name="l00255"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ab60adcaca432939c4ce681a886576ffd">00255</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ab60adcaca432939c4ce681a886576ffd">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* parWindowManager) { mWindowManager = parWindowManager; }
-<a name="l00256"></a>00256             <span class="keywordtype">void</span> setSpellEffect(<span class="keyword">const</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>&amp; params);
+<a name="l00247"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a9b1d951366757403be0d69c6ea956c49">00247</a>             <span class="keyword">typedef</span> <a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a9b1d951366757403be0d69c6ea956c49">SpellEffectValue</a>;
+<a name="l00248"></a>00248 
+<a name="l00249"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ab60adcaca432939c4ce681a886576ffd">00249</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ab60adcaca432939c4ce681a886576ffd">setWindowManager</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* parWindowManager) { <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a7f04eb54c192fa7115da3171181e9da6">mWindowManager</a> = parWindowManager; }
+<a name="l00250"></a>00250             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ac3abaee043d9cbe54c33c09945a80ab1">setSpellEffect</a>(<span class="keyword">const</span> <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a>&amp; params);
+<a name="l00251"></a>00251 
+<a name="l00252"></a>00252             std::string <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a9073fb5e0efa82213a9bf11d7d07dfd2">effectIDToString</a>(<span class="keyword">const</span> <span class="keywordtype">short</span> effectID);
+<a name="l00253"></a>00253             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a6b0de0c29f46d3f576656c927283f664">effectHasMagnitude</a> (<span class="keyword">const</span> std::string&amp; effect);
+<a name="l00254"></a>00254             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ab90b15d2c26fca54bd07b5b40fbbe2b1">effectHasDuration</a> (<span class="keyword">const</span> std::string&amp; effect);
+<a name="l00255"></a>00255             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#aca17c5d32d43e856001c9bd174988335">effectInvolvesAttribute</a> (<span class="keyword">const</span> std::string&amp; effect);
+<a name="l00256"></a>00256             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#aedff95739c5903d2446f94ce582e9e5c">effectInvolvesSkill</a> (<span class="keyword">const</span> std::string&amp; effect);
 <a name="l00257"></a>00257 
-<a name="l00258"></a>00258             std::string effectIDToString(<span class="keyword">const</span> <span class="keywordtype">short</span> effectID);
-<a name="l00259"></a>00259             <span class="keywordtype">bool</span> effectHasMagnitude (<span class="keyword">const</span> std::string&amp; effect);
-<a name="l00260"></a>00260             <span class="keywordtype">bool</span> effectHasDuration (<span class="keyword">const</span> std::string&amp; effect);
-<a name="l00261"></a>00261             <span class="keywordtype">bool</span> effectInvolvesAttribute (<span class="keyword">const</span> std::string&amp; effect);
-<a name="l00262"></a>00262             <span class="keywordtype">bool</span> effectInvolvesSkill (<span class="keyword">const</span> std::string&amp; effect);
-<a name="l00263"></a>00263 
-<a name="l00264"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a4dd37f94ce87fbdb534e3a52f75273e1">00264</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a4dd37f94ce87fbdb534e3a52f75273e1">getRequestedWidth</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mRequestedWidth; }
-<a name="l00265"></a>00265 
-<a name="l00266"></a>00266         <span class="keyword">protected</span>:
-<a name="l00267"></a>00267             <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a>();
+<a name="l00258"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a4dd37f94ce87fbdb534e3a52f75273e1">00258</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a4dd37f94ce87fbdb534e3a52f75273e1">getRequestedWidth</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ae2015ccb55002664d5eb1fbf03e545d6">mRequestedWidth</a>; }
+<a name="l00259"></a>00259 
+<a name="l00260"></a>00260         <span class="keyword">protected</span>:
+<a name="l00261"></a>00261             <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a11a146b5cecb6d9f176e03666bdfac32">~MWSpellEffect</a>();
+<a name="l00262"></a>00262 
+<a name="l00263"></a>00263             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ac361669d403c23d8dc254239d3c9dda9">initialiseOverride</a>();
+<a name="l00264"></a>00264 
+<a name="l00265"></a>00265         <span class="keyword">private</span>:
+<a name="l00266"></a>00266 
+<a name="l00267"></a>00267             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a6458ecea639e4a869604b3516edac8e5">updateWidgets</a>();
 <a name="l00268"></a>00268 
-<a name="l00269"></a>00269             <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialiseOverride();
-<a name="l00270"></a>00270 
-<a name="l00271"></a>00271         <span class="keyword">private</span>:
-<a name="l00272"></a>00272 
-<a name="l00273"></a>00273             <span class="keywordtype">void</span> updateWidgets();
-<a name="l00274"></a>00274 
-<a name="l00275"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a7f04eb54c192fa7115da3171181e9da6">00275</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a7f04eb54c192fa7115da3171181e9da6">mWindowManager</a>;
-<a name="l00276"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a880080b41bbf3ea08484ad0eac5e4e4e">00276</a>             <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a880080b41bbf3ea08484ad0eac5e4e4e">mEffectParams</a>;
-<a name="l00277"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a227f4b66f700703db7b6d2ae3891d88b">00277</a>             MyGUI::ImageBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a227f4b66f700703db7b6d2ae3891d88b">mImageWidget</a>;
-<a name="l00278"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a47f0fa909a0bcb9afa7a0b89a9090bd8">00278</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a47f0fa909a0bcb9afa7a0b89a9090bd8">mTextWidget</a>;
-<a name="l00279"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ae2015ccb55002664d5eb1fbf03e545d6">00279</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ae2015ccb55002664d5eb1fbf03e545d6">mRequestedWidth</a>;
-<a name="l00280"></a>00280         };
-<a name="l00281"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a37cefc42299eb75a0b53933c0ab43dfb">00281</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a37cefc42299eb75a0b53933c0ab43dfb">MWSpellEffectPtr</a>;
+<a name="l00269"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a7f04eb54c192fa7115da3171181e9da6">00269</a>             <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a7f04eb54c192fa7115da3171181e9da6">mWindowManager</a>;
+<a name="l00270"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a880080b41bbf3ea08484ad0eac5e4e4e">00270</a>             <a class="code" href="structMWGui_1_1Widgets_1_1SpellEffectParams.html">SpellEffectParams</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a880080b41bbf3ea08484ad0eac5e4e4e">mEffectParams</a>;
+<a name="l00271"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a227f4b66f700703db7b6d2ae3891d88b">00271</a>             MyGUI::ImageBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a227f4b66f700703db7b6d2ae3891d88b">mImageWidget</a>;
+<a name="l00272"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a47f0fa909a0bcb9afa7a0b89a9090bd8">00272</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#a47f0fa909a0bcb9afa7a0b89a9090bd8">mTextWidget</a>;
+<a name="l00273"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ae2015ccb55002664d5eb1fbf03e545d6">00273</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html#ae2015ccb55002664d5eb1fbf03e545d6">mRequestedWidth</a>;
+<a name="l00274"></a>00274         };
+<a name="l00275"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a37cefc42299eb75a0b53933c0ab43dfb">00275</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWSpellEffect.html">MWSpellEffect</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a37cefc42299eb75a0b53933c0ab43dfb">MWSpellEffectPtr</a>;
+<a name="l00276"></a>00276 
+<a name="l00277"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">00277</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a> : <span class="keyword">public</span> MyGUI::Widget
+<a name="l00278"></a>00278         {
+<a name="l00279"></a>00279             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a> )
+<a name="l00280"></a>00280         <span class="keyword">public</span>:
+<a name="l00281"></a>00281             <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a155657d5edfc69e5f9e7e6ae42084541">MWDynamicStat</a>();
 <a name="l00282"></a>00282 
-<a name="l00283"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">00283</a>         <span class="keyword">class </span><a class="code" href="widgets_8hpp.html#a95e8d401f345d21070a2f82d15b94aa3">MYGUI_EXPORT</a> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a> : <span class="keyword">public</span> MyGUI::Widget
-<a name="l00284"></a>00284         {
-<a name="l00285"></a>00285             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a> );
-<a name="l00286"></a>00286         <span class="keyword">public</span>:
-<a name="l00287"></a>00287             <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a>();
+<a name="l00283"></a>00283             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a1ec16b37dac8e0e54b33940b92be4bb0">setValue</a>(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> max);
+<a name="l00284"></a>00284             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#ae3fd0d3777d5be715fcd00b08053cdf2">setTitle</a>(<span class="keyword">const</span> std::string&amp; text);
+<a name="l00285"></a>00285 
+<a name="l00286"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#ae46f05dd7344a39b94425551d91ceb88">00286</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#ae46f05dd7344a39b94425551d91ceb88">getValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a3496b13db48f3c266885f536d47c1d6b">mValue</a>; }
+<a name="l00287"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#af820b56c29c9c5496a62197fad620177">00287</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#af820b56c29c9c5496a62197fad620177">getMax</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a165e419430d1013538623cd43bd483ca">mMax</a>; }
 <a name="l00288"></a>00288 
-<a name="l00289"></a>00289             <span class="keywordtype">void</span> setValue(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> max);
-<a name="l00290"></a>00290             <span class="keywordtype">void</span> setTitle(<span class="keyword">const</span> std::string&amp; text);
+<a name="l00289"></a>00289         <span class="keyword">protected</span>:
+<a name="l00290"></a>00290             <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a549d46171afb036d630fb2b6487e2f21">~MWDynamicStat</a>();
 <a name="l00291"></a>00291 
-<a name="l00292"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#ae46f05dd7344a39b94425551d91ceb88">00292</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#ae46f05dd7344a39b94425551d91ceb88">getValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mValue; }
-<a name="l00293"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#af820b56c29c9c5496a62197fad620177">00293</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#af820b56c29c9c5496a62197fad620177">getMax</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mMax; }
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295         <span class="keyword">protected</span>:
-<a name="l00296"></a>00296             <span class="keyword">virtual</span> ~<a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a>();
-<a name="l00297"></a>00297 
-<a name="l00298"></a>00298             <span class="keyword">virtual</span> <span class="keywordtype">void</span> initialiseOverride();
-<a name="l00299"></a>00299 
-<a name="l00300"></a>00300         <span class="keyword">private</span>:
-<a name="l00301"></a>00301 
-<a name="l00302"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a3496b13db48f3c266885f536d47c1d6b">00302</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a3496b13db48f3c266885f536d47c1d6b">mValue</a>, mMax;
-<a name="l00303"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#aac008592674cfeaf4fc18dd3dee66c8c">00303</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#aac008592674cfeaf4fc18dd3dee66c8c">mTextWidget</a>;
-<a name="l00304"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a51b1ac822dab2c6a9fa525167d2b315c">00304</a>             MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a51b1ac822dab2c6a9fa525167d2b315c">mBarWidget</a>;
-<a name="l00305"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a68bbabb42d98f46b71868022f1b5f328">00305</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a68bbabb42d98f46b71868022f1b5f328">mBarTextWidget</a>;
-<a name="l00306"></a>00306         };
-<a name="l00307"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a085bd70ddd31e9f173500de053d013c5">00307</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a085bd70ddd31e9f173500de053d013c5">MWDynamicStatPtr</a>;
-<a name="l00308"></a>00308     }
-<a name="l00309"></a>00309 }
+<a name="l00292"></a>00292             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a5e8e488f19c4ba4266813c7c262edc92">initialiseOverride</a>();
+<a name="l00293"></a>00293 
+<a name="l00294"></a>00294         <span class="keyword">private</span>:
+<a name="l00295"></a>00295 
+<a name="l00296"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a3496b13db48f3c266885f536d47c1d6b">00296</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a3496b13db48f3c266885f536d47c1d6b">mValue</a>, <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a165e419430d1013538623cd43bd483ca">mMax</a>;
+<a name="l00297"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#aac008592674cfeaf4fc18dd3dee66c8c">00297</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#aac008592674cfeaf4fc18dd3dee66c8c">mTextWidget</a>;
+<a name="l00298"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a51b1ac822dab2c6a9fa525167d2b315c">00298</a>             MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a51b1ac822dab2c6a9fa525167d2b315c">mBarWidget</a>;
+<a name="l00299"></a><a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a68bbabb42d98f46b71868022f1b5f328">00299</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html#a68bbabb42d98f46b71868022f1b5f328">mBarTextWidget</a>;
+<a name="l00300"></a>00300         };
+<a name="l00301"></a><a class="code" href="namespaceMWGui_1_1Widgets.html#a085bd70ddd31e9f173500de053d013c5">00301</a>         <span class="keyword">typedef</span> <a class="code" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">MWDynamicStat</a>* <a class="code" href="namespaceMWGui_1_1Widgets.html#a085bd70ddd31e9f173500de053d013c5">MWDynamicStatPtr</a>;
+<a name="l00302"></a>00302 
+<a name="l00303"></a>00303 
+<a name="l00304"></a>00304 
+<a name="l00305"></a>00305 
+<a name="l00306"></a>00306 
+<a name="l00307"></a>00307         <span class="comment">// ---------------------------------------------------------------------------------------------------------------------</span>
+<a name="l00308"></a>00308 
+<a name="l00309"></a>00309 
 <a name="l00310"></a>00310 
-<a name="l00311"></a>00311 <span class="preprocessor">#endif</span>
+<a name="l00311"></a><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html">00311</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html">AutoSizedWidget</a>
+<a name="l00312"></a>00312         {
+<a name="l00313"></a>00313         <span class="keyword">public</span>:
+<a name="l00314"></a>00314             <span class="keyword">virtual</span> MyGUI::IntSize <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html#ac9cd4831b850de8c0623bd5ea7745330">getRequestedSize</a>() = 0;
+<a name="l00315"></a>00315 
+<a name="l00316"></a>00316         <span class="keyword">protected</span>:
+<a name="l00317"></a>00317             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html#a368c2083d6b0f5be9ecdf5d63d0fdef5">notifySizeChange</a>(MyGUI::Widget* w);
+<a name="l00318"></a>00318 
+<a name="l00319"></a><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html#a01fb11e5d9212430fe9d45ddd2497053">00319</a>             MyGUI::Align <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html#a01fb11e5d9212430fe9d45ddd2497053">mExpandDirection</a>;
+<a name="l00320"></a>00320         };
+<a name="l00321"></a>00321 
+<a name="l00322"></a><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedTextBox.html">00322</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedTextBox.html">AutoSizedTextBox</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html">AutoSizedWidget</a>, <span class="keyword">public</span> MyGUI::TextBox
+<a name="l00323"></a>00323         {
+<a name="l00324"></a>00324             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedTextBox.html">AutoSizedTextBox</a> )
+<a name="l00325"></a>00325 
+<a name="l00326"></a>00326         <span class="keyword">public</span>:
+<a name="l00327"></a>00327             <span class="keyword">virtual</span> MyGUI::IntSize <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedTextBox.html#a4b9ec36201e7c619d8aed91e43c4e356">getRequestedSize</a>();
+<a name="l00328"></a>00328             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedTextBox.html#a69cdc3bfb718aa2aec2dbe02761a1d58">setCaption</a>(<span class="keyword">const</span> MyGUI::UString&amp; _value);
+<a name="l00329"></a>00329 
+<a name="l00330"></a>00330         <span class="keyword">protected</span>:
+<a name="l00331"></a>00331             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedTextBox.html#a56b1b7c4e713189473a2c989b2eedd7e">setPropertyOverride</a>(<span class="keyword">const</span> std::string&amp; _key, <span class="keyword">const</span> std::string&amp; _value);
+<a name="l00332"></a>00332         };
+<a name="l00333"></a>00333 
+<a name="l00334"></a><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedButton.html">00334</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedButton.html">AutoSizedButton</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html">AutoSizedWidget</a>, <span class="keyword">public</span> MyGUI::Button
+<a name="l00335"></a>00335         {
+<a name="l00336"></a>00336             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedButton.html">AutoSizedButton</a> )
+<a name="l00337"></a>00337 
+<a name="l00338"></a>00338         <span class="keyword">public</span>:
+<a name="l00339"></a>00339             <span class="keyword">virtual</span> MyGUI::IntSize <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedButton.html#ab81056c8f0f8e0398e97db1d176804ea">getRequestedSize</a>();
+<a name="l00340"></a>00340             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedButton.html#a2bf69930f1df70c57b0fef6ec4055d7c">setCaption</a>(<span class="keyword">const</span> MyGUI::UString&amp; _value);
+<a name="l00341"></a>00341 
+<a name="l00342"></a>00342         <span class="keyword">protected</span>:
+<a name="l00343"></a>00343             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedButton.html#a089e30db1f2f17c3246c72afc98aca74">setPropertyOverride</a>(<span class="keyword">const</span> std::string&amp; _key, <span class="keyword">const</span> std::string&amp; _value);
+<a name="l00344"></a>00344         };
+<a name="l00345"></a>00345 
+<a name="l00350"></a><a class="code" href="classMWGui_1_1Widgets_1_1Box.html">00350</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1Box.html" title="A container widget that automatically sizes its children.">Box</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1Widgets_1_1AutoSizedWidget.html">AutoSizedWidget</a>
+<a name="l00351"></a>00351         {
+<a name="l00352"></a>00352         <span class="keyword">public</span>:
+<a name="l00353"></a>00353             <a class="code" href="classMWGui_1_1Widgets_1_1Box.html#aca78d7db44972bfa78d46b7bbc8796f6">Box</a>();
+<a name="l00354"></a>00354 
+<a name="l00355"></a>00355             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1Box.html#a1824128411305d6024b2d62d46114022">notifyChildrenSizeChanged</a>();
+<a name="l00356"></a>00356 
+<a name="l00357"></a>00357         <span class="keyword">protected</span>:
+<a name="l00358"></a>00358             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1Box.html#af543e47c02779eb93bc621c31b5bf2a6">align</a>() = 0;
+<a name="l00359"></a>00359 
+<a name="l00360"></a>00360             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1Box.html#a63b95dc0c29f8fdb7ae40ca7008e7f22">setPropertyOverride</a>(<span class="keyword">const</span> std::string&amp; _key, <span class="keyword">const</span> std::string&amp; _value);
+<a name="l00361"></a>00361 
+<a name="l00362"></a>00362 
+<a name="l00363"></a><a class="code" href="classMWGui_1_1Widgets_1_1Box.html#ae5b175c9788e0679678ebac03a1967a2">00363</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1Widgets_1_1Box.html#ae5b175c9788e0679678ebac03a1967a2">mSpacing</a>; <span class="comment">// how much space to put between elements</span>
+<a name="l00364"></a>00364         };
+<a name="l00365"></a>00365 
+<a name="l00366"></a><a class="code" href="classMWGui_1_1Widgets_1_1HBox.html">00366</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1HBox.html">HBox</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1Widgets_1_1Box.html" title="A container widget that automatically sizes its children.">Box</a>, <span class="keyword">public</span> MyGUI::Widget
+<a name="l00367"></a>00367         {
+<a name="l00368"></a>00368             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1HBox.html">HBox</a> )
+<a name="l00369"></a>00369 
+<a name="l00370"></a>00370         <span class="keyword">public</span>:
+<a name="l00371"></a>00371             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1HBox.html#ad937e06d9199cdb7b922d6bc042dff93">setSize</a> (<span class="keyword">const</span> MyGUI::IntSize &amp;_value);
+<a name="l00372"></a>00372 
+<a name="l00373"></a>00373         <span class="keyword">protected</span>:
+<a name="l00374"></a>00374             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1HBox.html#a00bdc756768a03fd93136d08bf187603">align</a>();
+<a name="l00375"></a>00375             <span class="keyword">virtual</span> MyGUI::IntSize <a class="code" href="classMWGui_1_1Widgets_1_1HBox.html#a79030925ceded373d61bb1733245ffc6">getRequestedSize</a>();
+<a name="l00376"></a>00376         };
+<a name="l00377"></a>00377 
+<a name="l00378"></a><a class="code" href="classMWGui_1_1Widgets_1_1VBox.html">00378</a>         <span class="keyword">class </span><a class="code" href="classMWGui_1_1Widgets_1_1VBox.html">VBox</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1Widgets_1_1Box.html" title="A container widget that automatically sizes its children.">Box</a>, <span class="keyword">public</span> MyGUI::Widget
+<a name="l00379"></a>00379         {
+<a name="l00380"></a>00380             MYGUI_RTTI_DERIVED( <a class="code" href="classMWGui_1_1Widgets_1_1VBox.html">VBox</a>)
+<a name="l00381"></a>00381 
+<a name="l00382"></a>00382         <span class="keyword">public</span>:
+<a name="l00383"></a>00383             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1VBox.html#ac4634a55bc0ce465f22a13a18ee08938">setSize</a> (<span class="keyword">const</span> MyGUI::IntSize &amp;_value);
+<a name="l00384"></a>00384 
+<a name="l00385"></a>00385         <span class="keyword">protected</span>:
+<a name="l00386"></a>00386             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Widgets_1_1VBox.html#ab0cb92f90d96663e905a9d3567880fc3">align</a>();
+<a name="l00387"></a>00387             <span class="keyword">virtual</span> MyGUI::IntSize <a class="code" href="classMWGui_1_1Widgets_1_1VBox.html#a74d046d2f831d7a54d7da3ff268b31e4">getRequestedSize</a>();
+<a name="l00388"></a>00388         };
+<a name="l00389"></a>00389     }
+<a name="l00390"></a>00390 }
+<a name="l00391"></a>00391 
+<a name="l00392"></a>00392 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

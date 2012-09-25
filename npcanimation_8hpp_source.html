@@ -125,28 +125,33 @@
 <a name="l00065"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a2c168ac0bfdab6ab4ae4a552d05be05d">00065</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a2c168ac0bfdab6ab4ae4a552d05be05d">rightglove</a>;
 <a name="l00066"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#af6eb17d13b3cf5f520fef8e8e47bd859">00066</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#af6eb17d13b3cf5f520fef8e8e47bd859">skirtiter</a>;
 <a name="l00067"></a>00067 
-<a name="l00068"></a>00068 <span class="keyword">public</span>:
-<a name="l00069"></a>00069     <a class="code" href="classMWRender_1_1NpcAnimation.html#aaad962ca8ad2fd10753b7679324e1c60">NpcAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend, <a class="code" href="classMWWorld_1_1InventoryStore.html" title="&lt;">MWWorld::InventoryStore</a>&amp; _inv);
-<a name="l00070"></a>00070     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa5faa3df208fc30caa0c63a28b6419c5">~NpcAnimation</a>();
-<a name="l00071"></a>00071     <a class="code" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a73d1d1ac0eb3cff88facd078a6d47183">insertBoundedPart</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <span class="keyword">const</span> std::string &amp;bonename);
-<a name="l00072"></a>00072     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a953089637aa00d2013eecc4c18a6d90d">runAnimation</a>(<span class="keywordtype">float</span> timepassed);
-<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">updateParts</a>();
-<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ac6e3ccf5df48bbdd096dbe24e2e8d567">removeEntities</a>(<a class="code" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> &amp;entities);
-<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a0852a46aa47f1419cbeae54c6c773556">removeIndividualPart</a>(<span class="keywordtype">int</span> type);
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a9ec333682aac12e54f6e87926b05c913">reserveIndividualPart</a>(<span class="keywordtype">int</span> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority);
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a45e62d96371fadb2afa598c8fdc54580">addOrReplaceIndividualPart</a>(<span class="keywordtype">int</span> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, <span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>);
-<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a>(<span class="keywordtype">int</span> group);
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a5cfdc72b6ffc45e6797e064f865bc870">addPartGroup</a>(<span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, std::vector&lt;ESM::PartReference&gt;&amp; parts);
-<a name="l00081"></a>00081 };
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 }
-<a name="l00084"></a>00084 <span class="preprocessor">#endif</span>
+<a name="l00068"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">00068</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">mVisibilityFlags</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070 <span class="keyword">public</span>:
+<a name="l00071"></a>00071     <a class="code" href="classMWRender_1_1NpcAnimation.html#ab14abc9ece217c127c0eb2e52ed97e4f">NpcAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, Ogre::SceneNode* node,
+<a name="l00072"></a>00072                  <a class="code" href="classMWWorld_1_1InventoryStore.html" title="&lt;">MWWorld::InventoryStore</a>&amp; _inv, <span class="keywordtype">int</span> visibilityFlags);
+<a name="l00073"></a>00073     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa5faa3df208fc30caa0c63a28b6419c5">~NpcAnimation</a>();
+<a name="l00074"></a>00074     <a class="code" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a459b7c43f3422b0a528e1b9659f45789">insertBoundedPart</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <span class="keywordtype">int</span> group, <span class="keyword">const</span> std::string &amp;bonename);
+<a name="l00075"></a>00075     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a953089637aa00d2013eecc4c18a6d90d">runAnimation</a>(<span class="keywordtype">float</span> timepassed);
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">updateParts</a>();
+<a name="l00077"></a>00077     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ac6e3ccf5df48bbdd096dbe24e2e8d567">removeEntities</a>(<a class="code" href="structNifOgre_1_1EntityList.html">NifOgre::EntityList</a> &amp;entities);
+<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a0852a46aa47f1419cbeae54c6c773556">removeIndividualPart</a>(<span class="keywordtype">int</span> type);
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a9ec333682aac12e54f6e87926b05c913">reserveIndividualPart</a>(<span class="keywordtype">int</span> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a45e62d96371fadb2afa598c8fdc54580">addOrReplaceIndividualPart</a>(<span class="keywordtype">int</span> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, <span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>);
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a>(<span class="keywordtype">int</span> group);
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a5cfdc72b6ffc45e6797e064f865bc870">addPartGroup</a>(<span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, std::vector&lt;ESM::PartReference&gt;&amp; parts);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a117d2658f74f6bc2812313f97f9cc2ab">forceUpdate</a>();
+<a name="l00086"></a>00086 };
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 }
+<a name="l00089"></a>00089 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -80,23 +80,36 @@
 <a name="l00020"></a>00020         <span class="comment">// Events</span>
 <a name="l00021"></a><a class="code" href="classMWGui_1_1WindowBase.html#a1ac414fba87ee0c5a181436b487fdce7">00021</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;WindowBase*&gt; <a class="code" href="classMWGui_1_1WindowBase.html#a1ac414fba87ee0c5a181436b487fdce7">EventHandle_WindowBase</a>;
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a0cf279550a85234d2d171c05294ff558">open</a>();
-<a name="l00024"></a>00024         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a4f681670522d795ac3b38f13500ff7ea">setVisible</a>(<span class="keywordtype">bool</span> visible); <span class="comment">// calls open() if visible is true and was false before</span>
-<a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a619c3722639059076d24ae157fdaa18c">center</a>();
-<a name="l00026"></a>00026 
-<a name="l00030"></a><a class="code" href="classMWGui_1_1WindowBase.html#ad992d4cbb1aac0e2a880824fef6537c4">00030</a>         <a class="code" href="classMWGui_1_1WindowBase.html#a1ac414fba87ee0c5a181436b487fdce7">EventHandle_WindowBase</a> <a class="code" href="classMWGui_1_1WindowBase.html#ad992d4cbb1aac0e2a880824fef6537c4">eventDone</a>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032         <span class="keyword">protected</span>:
-<a name="l00034"></a><a class="code" href="classMWGui_1_1WindowBase.html#a7f084158d8218d150f01cff39244c1ca">00034</a>         <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#a7f084158d8218d150f01cff39244c1ca">mWindowManager</a>;
-<a name="l00035"></a>00035     };
-<a name="l00036"></a>00036 }
+<a name="l00023"></a><a class="code" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">00023</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">open</a>() {}
+<a name="l00024"></a><a class="code" href="classMWGui_1_1WindowBase.html#af986f66b831360eceacc01740a0a16fa">00024</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#af986f66b831360eceacc01740a0a16fa">close</a> () {}
+<a name="l00025"></a>00025         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a4f681670522d795ac3b38f13500ff7ea">setVisible</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00026"></a>00026         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#a619c3722639059076d24ae157fdaa18c">center</a>();
+<a name="l00027"></a>00027 
+<a name="l00031"></a><a class="code" href="classMWGui_1_1WindowBase.html#ad992d4cbb1aac0e2a880824fef6537c4">00031</a>         <a class="code" href="classMWGui_1_1WindowBase.html#a1ac414fba87ee0c5a181436b487fdce7">EventHandle_WindowBase</a> <a class="code" href="classMWGui_1_1WindowBase.html#ad992d4cbb1aac0e2a880824fef6537c4">eventDone</a>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033         <span class="keyword">protected</span>:
+<a name="l00035"></a><a class="code" href="classMWGui_1_1WindowBase.html#a7f084158d8218d150f01cff39244c1ca">00035</a>         <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; <a class="code" href="classMWGui_1_1WindowBase.html#a7f084158d8218d150f01cff39244c1ca">mWindowManager</a>;
+<a name="l00036"></a>00036     };
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#endif</span>
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039     <span class="comment">/*</span>
+<a name="l00040"></a>00040 <span class="comment">     * &quot;Modal&quot; windows cause the rest of the interface to be unaccessible while they are visible</span>
+<a name="l00041"></a>00041 <span class="comment">     */</span>
+<a name="l00042"></a><a class="code" href="classMWGui_1_1WindowModal.html">00042</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00043"></a>00043     {
+<a name="l00044"></a>00044     <span class="keyword">public</span>:
+<a name="l00045"></a>00045         <a class="code" href="classMWGui_1_1WindowModal.html#a78a5c23e0f27ed3b3cfda166465998a3">WindowModal</a>(<span class="keyword">const</span> std::string&amp; parLayout, <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00046"></a>00046         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowModal.html#a67c7ea76f909e0ef0affc6a9036ca835">open</a>();
+<a name="l00047"></a>00047         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowModal.html#adb6a568127aea06d04ab8f25879e8bcb">close</a>();
+<a name="l00048"></a>00048     };
+<a name="l00049"></a>00049 }
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

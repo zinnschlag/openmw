@@ -62,7 +62,7 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OENGINE_INPUT_POLLER_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="dispatch__map_8hpp.html">dispatch_map.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;<a class="code" href="input_2driver_8hpp.html">mangle/input/driver.hpp</a>&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;mangle/input/driver.hpp&gt;</span>
 <a name="l00006"></a>00006 
 <a name="l00007"></a>00007 <span class="keyword">namespace </span>OEngine {
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>Input {
@@ -70,9 +70,9 @@
 <a name="l00012"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html">00012</a> <span class="keyword">struct </span><a class="code" href="structOEngine_1_1Input_1_1Poller.html">Poller</a>
 <a name="l00013"></a>00013 {
 <a name="l00014"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html#ad73c7ef45f77aa9b3c4184d5ca285141">00014</a>   <a class="code" href="structOEngine_1_1Input_1_1DispatchMap.html">DispatchMap</a> <a class="code" href="structOEngine_1_1Input_1_1Poller.html#ad73c7ef45f77aa9b3c4184d5ca285141">map</a>;
-<a name="l00015"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">00015</a>   <a class="code" href="structMangle_1_1Input_1_1Driver.html">Mangle::Input::Driver</a> &amp;<a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">input</a>;
+<a name="l00015"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">00015</a>   Mangle::Input::Driver &amp;<a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">input</a>;
 <a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html#a3e5fa4baf0064fa334b7cb96b6cee199">00017</a>   <a class="code" href="structOEngine_1_1Input_1_1Poller.html#a3e5fa4baf0064fa334b7cb96b6cee199">Poller</a>(<a class="code" href="structMangle_1_1Input_1_1Driver.html">Mangle::Input::Driver</a> &amp;drv)
+<a name="l00017"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html#a3e5fa4baf0064fa334b7cb96b6cee199">00017</a>   <a class="code" href="structOEngine_1_1Input_1_1Poller.html#a3e5fa4baf0064fa334b7cb96b6cee199">Poller</a>(Mangle::Input::Driver &amp;drv)
 <a name="l00018"></a>00018     : <a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">input</a>(drv) {}
 <a name="l00019"></a>00019 
 <a name="l00023"></a><a class="code" href="structOEngine_1_1Input_1_1Poller.html#a85a9e82b03a75d2845bdc17f4ecaa322">00023</a>   <span class="keywordtype">void</span> <a class="code" href="structOEngine_1_1Input_1_1Poller.html#a85a9e82b03a75d2845bdc17f4ecaa322">bind</a>(<span class="keywordtype">int</span> in, <span class="keywordtype">int</span> out) { <a class="code" href="structOEngine_1_1Input_1_1Poller.html#ad73c7ef45f77aa9b3c4184d5ca285141">map</a>.<a class="code" href="structOEngine_1_1Input_1_1DispatchMap.html#a70f0804c0c6f6b432222918da9bbc408">bind</a>(in, out); }
@@ -91,7 +91,7 @@
 <a name="l00037"></a>00037     _O::const_iterator it;
 <a name="l00038"></a>00038     <span class="keywordflow">for</span>(it = list.begin(); it != list.end(); it++)
 <a name="l00039"></a>00039       <span class="comment">// If there&#39;s any match, we&#39;re good to go.</span>
-<a name="l00040"></a>00040       <span class="keywordflow">if</span>(<a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">input</a>.<a class="code" href="structMangle_1_1Input_1_1Driver.html#ab0336ec599cf6c89e9c60621ee37105f">isDown</a>(*it)) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00040"></a>00040       <span class="keywordflow">if</span>(<a class="code" href="structOEngine_1_1Input_1_1Poller.html#a82e66cd51130f096e057dd783c7137fc">input</a>.isDown(*it)) <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00041"></a>00041 
 <a name="l00042"></a>00042     <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00043"></a>00043   }
@@ -102,7 +102,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -73,90 +73,96 @@
 <a name="l00013"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html">00013</a>     <span class="keyword">struct </span><a class="code" href="structMWGui_1_1ToolTipInfo.html">ToolTipInfo</a>
 <a name="l00014"></a>00014     {
 <a name="l00015"></a>00015     <span class="keyword">public</span>:
-<a name="l00016"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a50268e4c8c31f7a855591e821bb80c44">00016</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#a50268e4c8c31f7a855591e821bb80c44">caption</a>;
-<a name="l00017"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#ac8881b5976b0449c4171182afe2ca7ff">00017</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#ac8881b5976b0449c4171182afe2ca7ff">text</a>;
-<a name="l00018"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a863efeb493051f846f981b5fffe2584d">00018</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#a863efeb493051f846f981b5fffe2584d">icon</a>;
+<a name="l00016"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a6b066bc187140d4e98b7761233a4622e">00016</a>         <a class="code" href="structMWGui_1_1ToolTipInfo.html#a6b066bc187140d4e98b7761233a4622e">ToolTipInfo</a>()
+<a name="l00017"></a>00017             : <a class="code" href="structMWGui_1_1ToolTipInfo.html#a09f926d4bc6dfd3c1cdb36270a3be86c">isPotion</a>(false)
+<a name="l00018"></a>00018         {}
 <a name="l00019"></a>00019 
-<a name="l00020"></a>00020         <span class="comment">// enchantment (for cloth, armor, weapons)</span>
-<a name="l00021"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a6223ab427facefce2cf876064b392071">00021</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#a6223ab427facefce2cf876064b392071">enchant</a>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="comment">// effects (for potions, ingredients)</span>
-<a name="l00024"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a09c97d97aeb50cdedc0e3e949064c9fc">00024</a>         <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">Widgets::SpellEffectList</a> <a class="code" href="structMWGui_1_1ToolTipInfo.html#a09c97d97aeb50cdedc0e3e949064c9fc">effects</a>;
-<a name="l00025"></a>00025     };
+<a name="l00020"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a50268e4c8c31f7a855591e821bb80c44">00020</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#a50268e4c8c31f7a855591e821bb80c44">caption</a>;
+<a name="l00021"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#ac8881b5976b0449c4171182afe2ca7ff">00021</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#ac8881b5976b0449c4171182afe2ca7ff">text</a>;
+<a name="l00022"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a863efeb493051f846f981b5fffe2584d">00022</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#a863efeb493051f846f981b5fffe2584d">icon</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024         <span class="comment">// enchantment (for cloth, armor, weapons)</span>
+<a name="l00025"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a6223ab427facefce2cf876064b392071">00025</a>         std::string <a class="code" href="structMWGui_1_1ToolTipInfo.html#a6223ab427facefce2cf876064b392071">enchant</a>;
 <a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="classMWGui_1_1ToolTips.html">00027</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ToolTips.html">ToolTips</a> : <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00028"></a>00028     {
-<a name="l00029"></a>00029     <span class="keyword">public</span>:
-<a name="l00030"></a>00030         <a class="code" href="classMWGui_1_1ToolTips.html#a3e9ceda374cdc9898ba737000aa71042">ToolTips</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* windowManager);
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a766b314eddbcfa6e7193b964be68723f">onFrame</a>(<span class="keywordtype">float</span> frameDuration);
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a599b896fd955e07e213d94ab422b038c">enterGameMode</a>();
-<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a865e7153623f2ccd067ba64da9ea4496">enterGuiMode</a>();
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab8a5ffaca74dbf2d0537a88efbe147c6">setEnabled</a>(<span class="keywordtype">bool</span> enabled);
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab9adb04732235a52e90571459c65e26b" title="show extra info in item tooltips (owner, script)">toggleFullHelp</a>(); 
-<a name="l00040"></a>00040         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#a4782510428f453b3d4cbacf537252d25">getFullHelp</a>() <span class="keyword">const</span>;
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ad30ec001e60ff58f585edf44d5840f72">setDelay</a>(<span class="keywordtype">float</span> delay);
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a1965f8161cf6aa79db17e89031182947">setFocusObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; focus);
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a97599453bf47017261e13d3a9b5659b6" title="set the screen-space position of the tooltip for focused object">setFocusObjectScreenCoords</a>(<span class="keywordtype">float</span> min_x, <span class="keywordtype">float</span> min_y, <span class="keywordtype">float</span> max_x, <span class="keywordtype">float</span> max_y);
+<a name="l00027"></a>00027         <span class="comment">// effects (for potions, ingredients)</span>
+<a name="l00028"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a09c97d97aeb50cdedc0e3e949064c9fc">00028</a>         <a class="code" href="namespaceMWGui_1_1Widgets.html#aca9113cc6a75bd5459c029802947ca92">Widgets::SpellEffectList</a> <a class="code" href="structMWGui_1_1ToolTipInfo.html#a09c97d97aeb50cdedc0e3e949064c9fc">effects</a>;
+<a name="l00029"></a>00029 
+<a name="l00030"></a><a class="code" href="structMWGui_1_1ToolTipInfo.html#a09f926d4bc6dfd3c1cdb36270a3be86c">00030</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1ToolTipInfo.html#a09f926d4bc6dfd3c1cdb36270a3be86c">isPotion</a>; <span class="comment">// potions do not show target in the tooltip</span>
+<a name="l00031"></a>00031     };
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWGui_1_1ToolTips.html">00033</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ToolTips.html">ToolTips</a> : <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00034"></a>00034     {
+<a name="l00035"></a>00035     <span class="keyword">public</span>:
+<a name="l00036"></a>00036         <a class="code" href="classMWGui_1_1ToolTips.html#a3e9ceda374cdc9898ba737000aa71042">ToolTips</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* windowManager);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a766b314eddbcfa6e7193b964be68723f">onFrame</a>(<span class="keywordtype">float</span> frameDuration);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a599b896fd955e07e213d94ab422b038c">enterGameMode</a>();
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a865e7153623f2ccd067ba64da9ea4496">enterGuiMode</a>();
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab8a5ffaca74dbf2d0537a88efbe147c6">setEnabled</a>(<span class="keywordtype">bool</span> enabled);
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab9adb04732235a52e90571459c65e26b" title="show extra info in item tooltips (owner, script)">toggleFullHelp</a>(); 
+<a name="l00046"></a>00046         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#a4782510428f453b3d4cbacf537252d25">getFullHelp</a>() <span class="keyword">const</span>;
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#a5727c73c7a45fe8d62f784492c858ac6">getValueString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value, <span class="keyword">const</span> std::string&amp; prefix);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#adacdb642d603e819873ecd323a17405d">getMiscString</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> std::string&amp; prefix);
+<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ad30ec001e60ff58f585edf44d5840f72">setDelay</a>(<span class="keywordtype">float</span> delay);
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a1965f8161cf6aa79db17e89031182947">setFocusObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; focus);
+<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a97599453bf47017261e13d3a9b5659b6" title="set the screen-space position of the tooltip for focused object">setFocusObjectScreenCoords</a>(<span class="keywordtype">float</span> min_x, <span class="keywordtype">float</span> min_y, <span class="keywordtype">float</span> max_x, <span class="keywordtype">float</span> max_y);
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#aa99b53b5b055f6841fbe1958b6725485">toString</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> value);
-<a name="l00055"></a>00055         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#aa99b53b5b055f6841fbe1958b6725485">toString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value);
+<a name="l00054"></a>00054         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#a5727c73c7a45fe8d62f784492c858ac6">getValueString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value, <span class="keyword">const</span> std::string&amp; prefix);
 <a name="l00056"></a>00056 
-<a name="l00057"></a>00057         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#aa960671734df2c39ea6937a056a08265">getCountString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value);
+<a name="l00057"></a>00057         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#adacdb642d603e819873ecd323a17405d">getMiscString</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> std::string&amp; prefix);
 <a name="l00059"></a>00059 
-<a name="l00060"></a>00060         <span class="comment">// these do not create an actual tooltip, but they fill in the data that is required so the tooltip</span>
-<a name="l00061"></a>00061         <span class="comment">// system knows what to show in case this widget is hovered</span>
-<a name="l00062"></a>00062         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#aa02ddb33c1b287b136b3d406eb2c4083">createSkillToolTip</a>(MyGUI::Widget* widget, <span class="keywordtype">int</span> skillId);
-<a name="l00063"></a>00063         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a4259032e6a8f8524e626863b4025f6a9">createAttributeToolTip</a>(MyGUI::Widget* widget, <span class="keywordtype">int</span> attributeId);
-<a name="l00064"></a>00064         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab5cf17e9878baee41b1392b0a556aa7b">createSpecializationToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> specId);
-<a name="l00065"></a>00065         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#aeaaef018ca2de4337e8cb45d0c5b62a0">createBirthsignToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> std::string&amp; birthsignId);
-<a name="l00066"></a>00066         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ad78ebc3331b22fbe6079030a78f20543">createRaceToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> <a class="code" href="structESM_1_1Race.html">ESM::Race</a>* playerRace);
-<a name="l00067"></a>00067         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#aa74fef9ea668713ceb300a12f819a81f">createClassToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; playerClass);
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069     <span class="keyword">private</span>:
-<a name="l00070"></a><a class="code" href="classMWGui_1_1ToolTips.html#a22d83deaf17d37670c8be5729565e7a8">00070</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1ToolTips.html#a22d83deaf17d37670c8be5729565e7a8">mDynamicToolTipBox</a>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="classMWGui_1_1ToolTips.html#a3adaf1386e6443d42a40cee9b2263c41">00072</a>         <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1ToolTips.html#a3adaf1386e6443d42a40cee9b2263c41">mWindowManager</a>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="classMWGui_1_1ToolTips.html#a93a4e43a0019a2f02cdef36d0d0e394c">00074</a>         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1ToolTips.html#a93a4e43a0019a2f02cdef36d0d0e394c">mFocusObject</a>;
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a82bc644e1ef6c4c3d058721ba621c369">findImageExtension</a>(std::string&amp; image);
+<a name="l00060"></a>00060         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#aa99b53b5b055f6841fbe1958b6725485">toString</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> value);
+<a name="l00061"></a>00061         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#aa99b53b5b055f6841fbe1958b6725485">toString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value);
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         <span class="keyword">static</span> std::string <a class="code" href="classMWGui_1_1ToolTips.html#aa960671734df2c39ea6937a056a08265">getCountString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> value);
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         <span class="comment">// these do not create an actual tooltip, but they fill in the data that is required so the tooltip</span>
+<a name="l00067"></a>00067         <span class="comment">// system knows what to show in case this widget is hovered</span>
+<a name="l00068"></a>00068         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#aa02ddb33c1b287b136b3d406eb2c4083">createSkillToolTip</a>(MyGUI::Widget* widget, <span class="keywordtype">int</span> skillId);
+<a name="l00069"></a>00069         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a4259032e6a8f8524e626863b4025f6a9">createAttributeToolTip</a>(MyGUI::Widget* widget, <span class="keywordtype">int</span> attributeId);
+<a name="l00070"></a>00070         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab5cf17e9878baee41b1392b0a556aa7b">createSpecializationToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> specId);
+<a name="l00071"></a>00071         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#aeaaef018ca2de4337e8cb45d0c5b62a0">createBirthsignToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> std::string&amp; birthsignId);
+<a name="l00072"></a>00072         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#ad78ebc3331b22fbe6079030a78f20543">createRaceToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> <a class="code" href="structESM_1_1Race.html">ESM::Race</a>* playerRace);
+<a name="l00073"></a>00073         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#aa74fef9ea668713ceb300a12f819a81f">createClassToolTip</a>(MyGUI::Widget* widget, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; playerClass);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075     <span class="keyword">private</span>:
+<a name="l00076"></a><a class="code" href="classMWGui_1_1ToolTips.html#a22d83deaf17d37670c8be5729565e7a8">00076</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1ToolTips.html#a22d83deaf17d37670c8be5729565e7a8">mDynamicToolTipBox</a>;
 <a name="l00077"></a>00077 
-<a name="l00078"></a>00078         MyGUI::IntSize <a class="code" href="classMWGui_1_1ToolTips.html#a8dbf25e7bef9271380cbd0b1b7cf096c">getToolTipViaPtr</a> (<span class="keywordtype">bool</span> image=<span class="keyword">true</span>);
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081         MyGUI::IntSize <a class="code" href="classMWGui_1_1ToolTips.html#a16523a79a82a07b959ac4afe881c22f3">createToolTip</a>(<span class="keyword">const</span> <a class="code" href="structMWGui_1_1ToolTipInfo.html">ToolTipInfo</a>&amp; info);
+<a name="l00078"></a><a class="code" href="classMWGui_1_1ToolTips.html#a3adaf1386e6443d42a40cee9b2263c41">00078</a>         <a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>* <a class="code" href="classMWGui_1_1ToolTips.html#a3adaf1386e6443d42a40cee9b2263c41">mWindowManager</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="classMWGui_1_1ToolTips.html#a93a4e43a0019a2f02cdef36d0d0e394c">00080</a>         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1ToolTips.html#a93a4e43a0019a2f02cdef36d0d0e394c">mFocusObject</a>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ToolTips.html#a82bc644e1ef6c4c3d058721ba621c369">findImageExtension</a>(std::string&amp; image);
 <a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classMWGui_1_1ToolTips.html#a8f14fdadf3029b4618594d87cdfc4505">00084</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a8f14fdadf3029b4618594d87cdfc4505">mFocusToolTipX</a>;
-<a name="l00085"></a><a class="code" href="classMWGui_1_1ToolTips.html#a11281dfc7974af40780f3213ea1a6fab">00085</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a11281dfc7974af40780f3213ea1a6fab">mFocusToolTipY</a>;
+<a name="l00084"></a>00084         MyGUI::IntSize <a class="code" href="classMWGui_1_1ToolTips.html#a8dbf25e7bef9271380cbd0b1b7cf096c">getToolTipViaPtr</a> (<span class="keywordtype">bool</span> image=<span class="keyword">true</span>);
 <a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="classMWGui_1_1ToolTips.html#a0fe96baaf8b7a1389af3e4d06b8e0f7c">00087</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a0fe96baaf8b7a1389af3e4d06b8e0f7c">mDelay</a>;
-<a name="l00088"></a><a class="code" href="classMWGui_1_1ToolTips.html#a1afb93ae91b8828a021ea27b2e73e54b">00088</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a1afb93ae91b8828a021ea27b2e73e54b">mRemainingDelay</a>; <span class="comment">// remaining time until tooltip will show</span>
+<a name="l00087"></a>00087         MyGUI::IntSize <a class="code" href="classMWGui_1_1ToolTips.html#a16523a79a82a07b959ac4afe881c22f3">createToolTip</a>(<span class="keyword">const</span> <a class="code" href="structMWGui_1_1ToolTipInfo.html">ToolTipInfo</a>&amp; info);
 <a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classMWGui_1_1ToolTips.html#aa215b2130b1420b96584fe828369f1e7">00090</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ToolTips.html#aa215b2130b1420b96584fe828369f1e7">mLastMouseX</a>;
-<a name="l00091"></a><a class="code" href="classMWGui_1_1ToolTips.html#a805fbe2023724c1df5152ae6df7a9673">00091</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ToolTips.html#a805fbe2023724c1df5152ae6df7a9673">mLastMouseY</a>;
+<a name="l00090"></a><a class="code" href="classMWGui_1_1ToolTips.html#a8f14fdadf3029b4618594d87cdfc4505">00090</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a8f14fdadf3029b4618594d87cdfc4505">mFocusToolTipX</a>;
+<a name="l00091"></a><a class="code" href="classMWGui_1_1ToolTips.html#a11281dfc7974af40780f3213ea1a6fab">00091</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a11281dfc7974af40780f3213ea1a6fab">mFocusToolTipY</a>;
 <a name="l00092"></a>00092 
-<a name="l00093"></a><a class="code" href="classMWGui_1_1ToolTips.html#ac98abcd5cd34c321bd72f0eab3de3c40">00093</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#ac98abcd5cd34c321bd72f0eab3de3c40">mGameMode</a>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classMWGui_1_1ToolTips.html#ae3b8604c428866b3be2feb334a73df69">00095</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#ae3b8604c428866b3be2feb334a73df69">mEnabled</a>;
-<a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="classMWGui_1_1ToolTips.html#ab138f963222db3151bdcd1724e560efa">00097</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab138f963222db3151bdcd1724e560efa">mFullHelp</a>;
-<a name="l00098"></a>00098     };
-<a name="l00099"></a>00099 }
-<a name="l00100"></a>00100 <span class="preprocessor">#endif</span>
+<a name="l00093"></a><a class="code" href="classMWGui_1_1ToolTips.html#a0fe96baaf8b7a1389af3e4d06b8e0f7c">00093</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a0fe96baaf8b7a1389af3e4d06b8e0f7c">mDelay</a>;
+<a name="l00094"></a><a class="code" href="classMWGui_1_1ToolTips.html#a1afb93ae91b8828a021ea27b2e73e54b">00094</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1ToolTips.html#a1afb93ae91b8828a021ea27b2e73e54b">mRemainingDelay</a>; <span class="comment">// remaining time until tooltip will show</span>
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="classMWGui_1_1ToolTips.html#aa215b2130b1420b96584fe828369f1e7">00096</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ToolTips.html#aa215b2130b1420b96584fe828369f1e7">mLastMouseX</a>;
+<a name="l00097"></a><a class="code" href="classMWGui_1_1ToolTips.html#a805fbe2023724c1df5152ae6df7a9673">00097</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1ToolTips.html#a805fbe2023724c1df5152ae6df7a9673">mLastMouseY</a>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="classMWGui_1_1ToolTips.html#ac98abcd5cd34c321bd72f0eab3de3c40">00099</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#ac98abcd5cd34c321bd72f0eab3de3c40">mGameMode</a>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="classMWGui_1_1ToolTips.html#ae3b8604c428866b3be2feb334a73df69">00101</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#ae3b8604c428866b3be2feb334a73df69">mEnabled</a>;
+<a name="l00102"></a>00102 
+<a name="l00103"></a><a class="code" href="classMWGui_1_1ToolTips.html#ab138f963222db3151bdcd1724e560efa">00103</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ToolTips.html#ab138f963222db3151bdcd1724e560efa">mFullHelp</a>;
+<a name="l00104"></a>00104     };
+<a name="l00105"></a>00105 }
+<a name="l00106"></a>00106 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

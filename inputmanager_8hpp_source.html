@@ -79,7 +79,7 @@
 <a name="l00022"></a>00022 
 <a name="l00023"></a><a class="code" href="classMWBase_1_1InputManager.html#af175e60cde51d9863423c14aad982146">00023</a>             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1InputManager.html#af175e60cde51d9863423c14aad982146">~InputManager</a>() {}
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a817a7b00eb97b46ebcdc73f2837d5907">update</a>(<span class="keywordtype">float</span> duration) = 0;
+<a name="l00025"></a>00025             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a72c2d22dde480704677a56b628e53c6e">update</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> loading) = 0;
 <a name="l00026"></a>00026 
 <a name="l00027"></a>00027             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#ad24b2d00aa50fe8415342e0ca0b2626c">changeInputMode</a>(<span class="keywordtype">bool</span> guiMode) = 0;
 <a name="l00028"></a>00028 
@@ -88,17 +88,23 @@
 <a name="l00031"></a>00031             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a67bad24f6533b5e7cf9cb186cdd61206">setDragDrop</a>(<span class="keywordtype">bool</span> dragDrop) = 0;
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a4f95f8588dee844d6ff07df74508075f">toggleControlSwitch</a> (<span class="keyword">const</span> std::string&amp; sw, <span class="keywordtype">bool</span> value) = 0;
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a1cec72a7bcb2a09f6a9758e919eda35c">resetIdleTime</a>() = 0;
-<a name="l00036"></a>00036     };
-<a name="l00037"></a>00037 }
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="preprocessor">#endif</span>
+<a name="l00034"></a>00034             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1InputManager.html#a268bcde0845f4b489522605178613e73">getControlSwitch</a> (<span class="keyword">const</span> std::string&amp; sw) = 0;
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036             <span class="keyword">virtual</span> std::string <a class="code" href="classMWBase_1_1InputManager.html#a0672ebd4b0e6111ec6785c9d6ac82d24">getActionDescription</a> (<span class="keywordtype">int</span> action) = 0;
+<a name="l00037"></a>00037             <span class="keyword">virtual</span> std::string <a class="code" href="classMWBase_1_1InputManager.html#a80bb6b90775f5669e168d27a724ea747">getActionBindingName</a> (<span class="keywordtype">int</span> action) = 0;
+<a name="l00038"></a>00038             <span class="keyword">virtual</span> std::vector&lt;int&gt; <a class="code" href="classMWBase_1_1InputManager.html#aef36c227ebf5a112bb4e90ea8683c3a3">getActionSorting</a> () = 0;
+<a name="l00039"></a>00039             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1InputManager.html#aaf50c58f100f6f6cba6374d24fe29feb">getNumActions</a>() = 0;
+<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a8cfc32672ac01ede03583dfb4398d1c9">enableDetectingBindingMode</a> (<span class="keywordtype">int</span> action) = 0;
+<a name="l00041"></a>00041             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1InputManager.html#a6e961ecec194524057cdf980a0a5175d">resetToDefaultBindings</a>() = 0;
+<a name="l00042"></a>00042     };
+<a name="l00043"></a>00043 }
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

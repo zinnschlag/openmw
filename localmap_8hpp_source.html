@@ -89,59 +89,64 @@
 <a name="l00052"></a>00052 
 <a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#a5743e87ef1cf3acd45df4e17acd84dbf">saveFogOfWar</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell);
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="keyword">private</span>:
-<a name="l00062"></a><a class="code" href="classMWRender_1_1LocalMap.html#aa25c0e33d3e73197eef2ec588b039e37">00062</a>         <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>* <a class="code" href="classMWRender_1_1LocalMap.html#aa25c0e33d3e73197eef2ec588b039e37">mRendering</a>;
-<a name="l00063"></a><a class="code" href="classMWRender_1_1LocalMap.html#a975e5ae963f23d12616c678090f8464f">00063</a>         <a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>* <a class="code" href="classMWRender_1_1LocalMap.html#a975e5ae963f23d12616c678090f8464f">mRenderingManager</a>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065         <span class="comment">// 1024*1024 pixels for a cell</span>
-<a name="l00066"></a><a class="code" href="classMWRender_1_1LocalMap.html#a34072a6ba4d6f9272699ab757eaf958e">00066</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#a34072a6ba4d6f9272699ab757eaf958e">sMapResolution</a> = 1024;
+<a name="l00061"></a>00061 
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#a3b971faf9f3571ff24adc0aa505058ea">getInteriorMapPosition</a> (Ogre::Vector2 pos, <span class="keywordtype">float</span>&amp; nX, <span class="keywordtype">float</span>&amp; nY, <span class="keywordtype">int</span>&amp; x, <span class="keywordtype">int</span>&amp; y);
 <a name="l00067"></a>00067 
-<a name="l00068"></a>00068         <span class="comment">// the dynamic texture is a bottleneck, so don&#39;t set this too high</span>
-<a name="l00069"></a><a class="code" href="classMWRender_1_1LocalMap.html#ab93760515e51d3ada845f5449465850d">00069</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#ab93760515e51d3ada845f5449465850d">sFogOfWarResolution</a> = 32;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="comment">// frames to skip before rendering fog of war</span>
-<a name="l00072"></a><a class="code" href="classMWRender_1_1LocalMap.html#af7b8c8a3e3f45e3d564881f2cebae83f">00072</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#af7b8c8a3e3f45e3d564881f2cebae83f">sFogOfWarSkip</a> = 2;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074         <span class="comment">// size of a map segment (for exteriors, 1 cell)</span>
-<a name="l00075"></a><a class="code" href="classMWRender_1_1LocalMap.html#ab61f52210d0107e44faaac69e8623839">00075</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#ab61f52210d0107e44faaac69e8623839">sSize</a> = 8192;
+<a name="l00071"></a>00071         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1LocalMap.html#ac2a7a13033d4ee6fdb40670023ce9eef">isPositionExplored</a> (<span class="keywordtype">float</span> nX, <span class="keywordtype">float</span> nY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">bool</span> interior);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keyword">private</span>:
+<a name="l00074"></a><a class="code" href="classMWRender_1_1LocalMap.html#aa25c0e33d3e73197eef2ec588b039e37">00074</a>         <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>* <a class="code" href="classMWRender_1_1LocalMap.html#aa25c0e33d3e73197eef2ec588b039e37">mRendering</a>;
+<a name="l00075"></a><a class="code" href="classMWRender_1_1LocalMap.html#a975e5ae963f23d12616c678090f8464f">00075</a>         <a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>* <a class="code" href="classMWRender_1_1LocalMap.html#a975e5ae963f23d12616c678090f8464f">mRenderingManager</a>;
 <a name="l00076"></a>00076 
-<a name="l00077"></a><a class="code" href="classMWRender_1_1LocalMap.html#a400c504c68ef85179354d0724fcc4a2b">00077</a>         Ogre::Camera* <a class="code" href="classMWRender_1_1LocalMap.html#a400c504c68ef85179354d0724fcc4a2b">mCellCamera</a>;
-<a name="l00078"></a><a class="code" href="classMWRender_1_1LocalMap.html#a33a26a3d3907b1e05e49636b1b0d5599">00078</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1LocalMap.html#a33a26a3d3907b1e05e49636b1b0d5599">mCameraNode</a>;
-<a name="l00079"></a><a class="code" href="classMWRender_1_1LocalMap.html#a3bcfd22e901911b473ca787557c90820">00079</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1LocalMap.html#a3bcfd22e901911b473ca787557c90820">mCameraPosNode</a>;
-<a name="l00080"></a><a class="code" href="classMWRender_1_1LocalMap.html#a63b81b7ba6b22a0efd56ba0f92129c3f">00080</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1LocalMap.html#a63b81b7ba6b22a0efd56ba0f92129c3f">mCameraRotNode</a>;
-<a name="l00081"></a>00081 
-<a name="l00082"></a><a class="code" href="classMWRender_1_1LocalMap.html#a43a64cc120d64b6aef0c0cb586a8f147">00082</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1LocalMap.html#a43a64cc120d64b6aef0c0cb586a8f147">mAngle</a>;
-<a name="l00083"></a>00083         <span class="keyword">const</span> Ogre::Vector2 <a class="code" href="classMWRender_1_1LocalMap.html#a84732604dff3ad497efbc9c914a94596">rotatePoint</a>(<span class="keyword">const</span> Ogre::Vector2&amp; p, <span class="keyword">const</span> Ogre::Vector2&amp; c, <span class="keyword">const</span> <span class="keywordtype">float</span> angle);
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#a703b321651f3dd20b6c79fcee57d2449">render</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> x, <span class="keyword">const</span> <span class="keywordtype">float</span> y,
-<a name="l00086"></a>00086                     <span class="keyword">const</span> <span class="keywordtype">float</span> zlow, <span class="keyword">const</span> <span class="keywordtype">float</span> zhigh,
-<a name="l00087"></a>00087                     <span class="keyword">const</span> <span class="keywordtype">float</span> xw, <span class="keyword">const</span> <span class="keywordtype">float</span> yw,
-<a name="l00088"></a>00088                     <span class="keyword">const</span> std::string&amp; texture);
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#ae2a12c6c295fb0f7c665587fc0af00e0">saveTexture</a>(<span class="keyword">const</span> std::string&amp; texname, <span class="keyword">const</span> std::string&amp; filename);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092         std::string <a class="code" href="classMWRender_1_1LocalMap.html#a498c629de57fabea79d3d37961cff14a">coordStr</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y);
+<a name="l00077"></a>00077         <span class="comment">// 1024*1024 pixels for a cell</span>
+<a name="l00078"></a><a class="code" href="classMWRender_1_1LocalMap.html#a34072a6ba4d6f9272699ab757eaf958e">00078</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#a34072a6ba4d6f9272699ab757eaf958e">sMapResolution</a> = 1024;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080         <span class="comment">// the dynamic texture is a bottleneck, so don&#39;t set this too high</span>
+<a name="l00081"></a><a class="code" href="classMWRender_1_1LocalMap.html#ab93760515e51d3ada845f5449465850d">00081</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#ab93760515e51d3ada845f5449465850d">sFogOfWarResolution</a> = 32;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083         <span class="comment">// frames to skip before rendering fog of war</span>
+<a name="l00084"></a><a class="code" href="classMWRender_1_1LocalMap.html#af7b8c8a3e3f45e3d564881f2cebae83f">00084</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#af7b8c8a3e3f45e3d564881f2cebae83f">sFogOfWarSkip</a> = 2;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086         <span class="comment">// size of a map segment (for exteriors, 1 cell)</span>
+<a name="l00087"></a><a class="code" href="classMWRender_1_1LocalMap.html#ab61f52210d0107e44faaac69e8623839">00087</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#ab61f52210d0107e44faaac69e8623839">sSize</a> = 8192;
+<a name="l00088"></a>00088 
+<a name="l00089"></a><a class="code" href="classMWRender_1_1LocalMap.html#a400c504c68ef85179354d0724fcc4a2b">00089</a>         Ogre::Camera* <a class="code" href="classMWRender_1_1LocalMap.html#a400c504c68ef85179354d0724fcc4a2b">mCellCamera</a>;
+<a name="l00090"></a><a class="code" href="classMWRender_1_1LocalMap.html#a33a26a3d3907b1e05e49636b1b0d5599">00090</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1LocalMap.html#a33a26a3d3907b1e05e49636b1b0d5599">mCameraNode</a>;
+<a name="l00091"></a><a class="code" href="classMWRender_1_1LocalMap.html#a3bcfd22e901911b473ca787557c90820">00091</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1LocalMap.html#a3bcfd22e901911b473ca787557c90820">mCameraPosNode</a>;
+<a name="l00092"></a><a class="code" href="classMWRender_1_1LocalMap.html#a63b81b7ba6b22a0efd56ba0f92129c3f">00092</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1LocalMap.html#a63b81b7ba6b22a0efd56ba0f92129c3f">mCameraRotNode</a>;
 <a name="l00093"></a>00093 
-<a name="l00094"></a>00094         <span class="comment">// a buffer for the &quot;fog of war&quot; texture of the current cell.</span>
-<a name="l00095"></a>00095         <span class="comment">// interior cells could be divided into multiple textures,</span>
-<a name="l00096"></a>00096         <span class="comment">// so we store in a map.</span>
-<a name="l00097"></a><a class="code" href="classMWRender_1_1LocalMap.html#af03fd2610cdb61db9802a853d1d5d67e">00097</a>         std::map &lt;std::string, std::vector&lt;Ogre::uint32&gt; &gt; <a class="code" href="classMWRender_1_1LocalMap.html#af03fd2610cdb61db9802a853d1d5d67e">mBuffers</a>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#a9afd6b3cf4306219cd1c7e1c15502592">deleteBuffers</a>();
-<a name="l00100"></a>00100 
-<a name="l00101"></a><a class="code" href="classMWRender_1_1LocalMap.html#a5c03a770033b005d3ba4a660bd7e98eb">00101</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1LocalMap.html#a5c03a770033b005d3ba4a660bd7e98eb">mInterior</a>;
-<a name="l00102"></a><a class="code" href="classMWRender_1_1LocalMap.html#ad55122c71856e04071fe39a444f5c4db">00102</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#a8c0692ab72870df132f73e38bd2788d0">mCellX</a>, <a class="code" href="classMWRender_1_1LocalMap.html#ad55122c71856e04071fe39a444f5c4db">mCellY</a>;
-<a name="l00103"></a><a class="code" href="classMWRender_1_1LocalMap.html#adc338c988cfa8c46d9d59093bbc17103">00103</a>         Ogre::AxisAlignedBox <a class="code" href="classMWRender_1_1LocalMap.html#adc338c988cfa8c46d9d59093bbc17103">mBounds</a>;
-<a name="l00104"></a><a class="code" href="classMWRender_1_1LocalMap.html#a21e5310ebb789a954095c8818e24ca67">00104</a>         std::string <a class="code" href="classMWRender_1_1LocalMap.html#a21e5310ebb789a954095c8818e24ca67">mInteriorName</a>;
-<a name="l00105"></a>00105     };
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107 }
-<a name="l00108"></a>00108 <span class="preprocessor">#endif</span>
+<a name="l00094"></a><a class="code" href="classMWRender_1_1LocalMap.html#a43a64cc120d64b6aef0c0cb586a8f147">00094</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1LocalMap.html#a43a64cc120d64b6aef0c0cb586a8f147">mAngle</a>;
+<a name="l00095"></a>00095         <span class="keyword">const</span> Ogre::Vector2 <a class="code" href="classMWRender_1_1LocalMap.html#a84732604dff3ad497efbc9c914a94596">rotatePoint</a>(<span class="keyword">const</span> Ogre::Vector2&amp; p, <span class="keyword">const</span> Ogre::Vector2&amp; c, <span class="keyword">const</span> <span class="keywordtype">float</span> angle);
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#a703b321651f3dd20b6c79fcee57d2449">render</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> x, <span class="keyword">const</span> <span class="keywordtype">float</span> y,
+<a name="l00098"></a>00098                     <span class="keyword">const</span> <span class="keywordtype">float</span> zlow, <span class="keyword">const</span> <span class="keywordtype">float</span> zhigh,
+<a name="l00099"></a>00099                     <span class="keyword">const</span> <span class="keywordtype">float</span> xw, <span class="keyword">const</span> <span class="keywordtype">float</span> yw,
+<a name="l00100"></a>00100                     <span class="keyword">const</span> std::string&amp; texture);
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#ae2a12c6c295fb0f7c665587fc0af00e0">saveTexture</a>(<span class="keyword">const</span> std::string&amp; texname, <span class="keyword">const</span> std::string&amp; filename);
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104         std::string <a class="code" href="classMWRender_1_1LocalMap.html#a498c629de57fabea79d3d37961cff14a">coordStr</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y);
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106         <span class="comment">// a buffer for the &quot;fog of war&quot; texture of the current cell.</span>
+<a name="l00107"></a>00107         <span class="comment">// interior cells could be divided into multiple textures,</span>
+<a name="l00108"></a>00108         <span class="comment">// so we store in a map.</span>
+<a name="l00109"></a><a class="code" href="classMWRender_1_1LocalMap.html#af03fd2610cdb61db9802a853d1d5d67e">00109</a>         std::map &lt;std::string, std::vector&lt;Ogre::uint32&gt; &gt; <a class="code" href="classMWRender_1_1LocalMap.html#af03fd2610cdb61db9802a853d1d5d67e">mBuffers</a>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1LocalMap.html#a9afd6b3cf4306219cd1c7e1c15502592">deleteBuffers</a>();
+<a name="l00112"></a>00112 
+<a name="l00113"></a><a class="code" href="classMWRender_1_1LocalMap.html#a5c03a770033b005d3ba4a660bd7e98eb">00113</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1LocalMap.html#a5c03a770033b005d3ba4a660bd7e98eb">mInterior</a>;
+<a name="l00114"></a><a class="code" href="classMWRender_1_1LocalMap.html#ad55122c71856e04071fe39a444f5c4db">00114</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1LocalMap.html#a8c0692ab72870df132f73e38bd2788d0">mCellX</a>, <a class="code" href="classMWRender_1_1LocalMap.html#ad55122c71856e04071fe39a444f5c4db">mCellY</a>;
+<a name="l00115"></a><a class="code" href="classMWRender_1_1LocalMap.html#adc338c988cfa8c46d9d59093bbc17103">00115</a>         Ogre::AxisAlignedBox <a class="code" href="classMWRender_1_1LocalMap.html#adc338c988cfa8c46d9d59093bbc17103">mBounds</a>;
+<a name="l00116"></a><a class="code" href="classMWRender_1_1LocalMap.html#a21e5310ebb789a954095c8818e24ca67">00116</a>         std::string <a class="code" href="classMWRender_1_1LocalMap.html#a21e5310ebb789a954095c8818e24ca67">mInteriorName</a>;
+<a name="l00117"></a>00117     };
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 }
+<a name="l00120"></a>00120 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

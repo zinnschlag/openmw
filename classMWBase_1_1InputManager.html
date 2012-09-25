@@ -80,12 +80,18 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a3e0c27218a5c1a9bc0404ff9e64696b3">InputManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#af175e60cde51d9863423c14aad982146">~InputManager</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a817a7b00eb97b46ebcdc73f2837d5907">update</a> (float duration)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a72c2d22dde480704677a56b628e53c6e">update</a> (float dt, bool loading)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#ad24b2d00aa50fe8415342e0ca0b2626c">changeInputMode</a> (bool guiMode)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a5c199c663545f3815294b0b273540093">processChangedSettings</a> (const <a class="el" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a> &amp;changed)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a67bad24f6533b5e7cf9cb186cdd61206">setDragDrop</a> (bool dragDrop)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a4f95f8588dee844d6ff07df74508075f">toggleControlSwitch</a> (const std::string &amp;sw, bool value)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a1cec72a7bcb2a09f6a9758e919eda35c">resetIdleTime</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a268bcde0845f4b489522605178613e73">getControlSwitch</a> (const std::string &amp;sw)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a0672ebd4b0e6111ec6785c9d6ac82d24">getActionDescription</a> (int action)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a80bb6b90775f5669e168d27a724ea747">getActionBindingName</a> (int action)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#aef36c227ebf5a112bb4e90ea8683c3a3">getActionSorting</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#aaf50c58f100f6f6cba6374d24fe29feb">getNumActions</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a8cfc32672ac01ede03583dfb4398d1c9">enableDetectingBindingMode</a> (int action)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#a6e961ecec194524057cdf980a0a5175d">resetToDefaultBindings</a> ()=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1InputManager.html#aed143bb1ee38d0b5df5ae657caba2d28">InputManager</a> (const <a class="el" href="classMWBase_1_1InputManager.html">InputManager</a> &amp;)</td></tr>
@@ -145,6 +151,8 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classMWInput_1_1InputManager.html#abcf1bbba370928bef90579459d4b0d7b">MWInput::InputManager</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -163,7 +171,119 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="structMWInput_1_1MWInputManager.html#ac2f976bd3a7dc517e6dc5aaba8da02c1">MWInput::MWInputManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#ac9304b1fc21eee3cda77711fbe63f54b">MWInput::InputManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8cfc32672ac01ede03583dfb4398d1c9"></a><!-- doxytag: member="MWBase::InputManager::enableDetectingBindingMode" ref="a8cfc32672ac01ede03583dfb4398d1c9" args="(int action)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1InputManager.html#a8cfc32672ac01ede03583dfb4398d1c9">MWBase::InputManager::enableDetectingBindingMode</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#a8b1cef12f370287d2d7459b02490040c">MWInput::InputManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a80bb6b90775f5669e168d27a724ea747"></a><!-- doxytag: member="MWBase::InputManager::getActionBindingName" ref="a80bb6b90775f5669e168d27a724ea747" args="(int action)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string <a class="el" href="classMWBase_1_1InputManager.html#a80bb6b90775f5669e168d27a724ea747">MWBase::InputManager::getActionBindingName</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#ae99f4d234ae8aecc22866c2643ed7a08">MWInput::InputManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0672ebd4b0e6111ec6785c9d6ac82d24"></a><!-- doxytag: member="MWBase::InputManager::getActionDescription" ref="a0672ebd4b0e6111ec6785c9d6ac82d24" args="(int action)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string <a class="el" href="classMWBase_1_1InputManager.html#a0672ebd4b0e6111ec6785c9d6ac82d24">MWBase::InputManager::getActionDescription</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#aaa7f937f2b8d0a8b5e87d90e53113d0f">MWInput::InputManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aef36c227ebf5a112bb4e90ea8683c3a3"></a><!-- doxytag: member="MWBase::InputManager::getActionSorting" ref="aef36c227ebf5a112bb4e90ea8683c3a3" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;int&gt; <a class="el" href="classMWBase_1_1InputManager.html#aef36c227ebf5a112bb4e90ea8683c3a3">MWBase::InputManager::getActionSorting</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#adcf1da6b8cf556967063cd2b2be76861">MWInput::InputManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a268bcde0845f4b489522605178613e73"></a><!-- doxytag: member="MWBase::InputManager::getControlSwitch" ref="a268bcde0845f4b489522605178613e73" args="(const std::string &amp;sw)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1InputManager.html#a268bcde0845f4b489522605178613e73">MWBase::InputManager::getControlSwitch</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sw</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#afe90f4a443d832142157b31506b01dbf">MWInput::InputManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaf50c58f100f6f6cba6374d24fe29feb"></a><!-- doxytag: member="MWBase::InputManager::getNumActions" ref="aaf50c58f100f6f6cba6374d24fe29feb" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int <a class="el" href="classMWBase_1_1InputManager.html#aaf50c58f100f6f6cba6374d24fe29feb">MWBase::InputManager::getNumActions</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#a4a0a0ffa5aae5328bcd121d81bdc255d">MWInput::InputManager</a>.</p>
 
 </div>
 </div>
@@ -201,16 +321,16 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="structMWInput_1_1MWInputManager.html#a1e415ffe3ae970bf04ef5b73fee62514">MWInput::MWInputManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#a574fc3392e198c989508f71732f0ff0f">MWInput::InputManager</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1cec72a7bcb2a09f6a9758e919eda35c"></a><!-- doxytag: member="MWBase::InputManager::resetIdleTime" ref="a1cec72a7bcb2a09f6a9758e919eda35c" args="()=0" -->
+<a class="anchor" id="a6e961ecec194524057cdf980a0a5175d"></a><!-- doxytag: member="MWBase::InputManager::resetToDefaultBindings" ref="a6e961ecec194524057cdf980a0a5175d" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classMWBase_1_1InputManager.html#a1cec72a7bcb2a09f6a9758e919eda35c">MWBase::InputManager::resetIdleTime</a> </td>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1InputManager.html#a6e961ecec194524057cdf980a0a5175d">MWBase::InputManager::resetToDefaultBindings</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [pure virtual]</code></td>
@@ -219,7 +339,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="structMWInput_1_1MWInputManager.html#a436cdca21d0f17b14361e7994ca6ded5">MWInput::MWInputManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#a03f3512e350977d60b2320e3e94d79a8">MWInput::InputManager</a>.</p>
 
 </div>
 </div>
@@ -238,7 +358,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="structMWInput_1_1MWInputManager.html#a2f33f35f5059c4ae0fe02931cbb274a5">MWInput::MWInputManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#ab039fad94b425170b730eda5ac9a6418">MWInput::InputManager</a>.</p>
 
 </div>
 </div>
@@ -267,26 +387,36 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="structMWInput_1_1MWInputManager.html#af6bac9099279547f8e0c3a953ede7a13">MWInput::MWInputManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#adf06b4ee64938bdac1e842019e734dd9">MWInput::InputManager</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a817a7b00eb97b46ebcdc73f2837d5907"></a><!-- doxytag: member="MWBase::InputManager::update" ref="a817a7b00eb97b46ebcdc73f2837d5907" args="(float duration)=0" -->
+<a class="anchor" id="a72c2d22dde480704677a56b628e53c6e"></a><!-- doxytag: member="MWBase::InputManager::update" ref="a72c2d22dde480704677a56b628e53c6e" args="(float dt, bool loading)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classMWBase_1_1InputManager.html#a817a7b00eb97b46ebcdc73f2837d5907">MWBase::InputManager::update</a> </td>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1InputManager.html#a72c2d22dde480704677a56b628e53c6e">MWBase::InputManager::update</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>duration</em></td><td>)</td>
-          <td><code> [pure virtual]</code></td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loading</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="structMWInput_1_1MWInputManager.html#a3d9baeffd883359ce6ea7a68227892b6">MWInput::MWInputManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWInput_1_1InputManager.html#ac17f452844128fb14155253401bf69ad">MWInput::InputManager</a>.</p>
 
 </div>
 </div>
@@ -297,7 +427,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 20 2012 10:35:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
