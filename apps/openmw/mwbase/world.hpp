@@ -35,6 +35,11 @@ namespace ESMS
     struct ESMStore;
 }
 
+namespace MWRender
+{
+    class ExternalRendering;
+}
+
 namespace MWWorld
 {
     class CellStore;
@@ -199,6 +204,9 @@ namespace MWBase
 
             virtual void rotateObject(const MWWorld::Ptr& ptr,float x,float y,float z, bool adjust = false) = 0;
 
+            virtual void safePlaceObject(const MWWorld::Ptr& ptr,MWWorld::CellStore &Cell,ESM::Position pos) = 0;
+            ///< place an object in a "safe" location (ie not in the void, etc).
+
             virtual void indexToPosition (int cellX, int cellY, float &x, float &y, bool centre = false)
                 const = 0;
             ///< Convert cell numbers to position.
@@ -213,7 +221,7 @@ namespace MWBase
             virtual bool toggleCollisionMode() = 0;
             ///< Toggle collision mode for player. If disabled player object should ignore
             /// collisions and gravity.
-            ///< \return Resulting mode
+            /// \return Resulting mode
 
             virtual bool toggleRenderMode (RenderMode mode) = 0;
             ///< Toggle a render mode.
@@ -271,6 +279,8 @@ namespace MWBase
             virtual void togglePlayerLooking(bool enable) = 0;
 
             virtual void renderPlayer() = 0;
+            
+            virtual void setupExternalRendering (MWRender::ExternalRendering& rendering) = 0;
     };
 }
 

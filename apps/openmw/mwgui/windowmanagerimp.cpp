@@ -37,11 +37,14 @@
 #include "mainmenu.hpp"
 #include "countdialog.hpp"
 #include "tradewindow.hpp"
+#include "spellbuyingwindow.hpp"
 #include "settingswindow.hpp"
 #include "confirmationdialog.hpp"
 #include "alchemywindow.hpp"
 #include "spellwindow.hpp"
 #include "quickkeysmenu.hpp"
+#include "loadingscreen.hpp"
+#include "levelupdialog.hpp"
 
 using namespace MWGui;
 
@@ -61,10 +64,12 @@ WindowManager::WindowManager(
   , mScrollWindow(NULL)
   , mCountDialog(NULL)
   , mTradeWindow(NULL)
+  , mSpellBuyingWindow(NULL)
   , mSettingsWindow(NULL)
   , mConfirmationDialog(NULL)
   , mAlchemyWindow(NULL)
   , mSpellWindow(NULL)
+  , mLoadingScreen(NULL)
   , mCharGen(NULL)
   , mPlayerClass()
   , mPlayerName()
@@ -80,6 +85,7 @@ WindowManager::WindowManager(
   , mGarbageDialogs()
   , mShown(GW_ALL)
   , mAllowed(newGame ? GW_None : GW_ALL)
+  , mRestAllowed(newGame ? false : true)
   , mShowFPSLevel(fpsLevel)
   , mFPS(0.0f)
   , mTriangleCount(0)
@@ -102,6 +108,10 @@ WindowManager::WindowManager(
     MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::MWSpellEffect>("Widget");
     MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::MWDynamicStat>("Widget");
     MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::MWList>("Widget");
+    MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::HBox>("Widget");
+    MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::VBox>("Widget");
+    MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::AutoSizedTextBox>("Widget");
+    MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::AutoSizedButton>("Widget");
 
     MyGUI::LanguageManager::getInstance().eventRequestTag = MyGUI::newDelegate(this, &WindowManager::onRetrieveTag);
 
@@ -126,6 +136,7 @@ WindowManager::WindowManager(
     mMessageBoxManager = new MessageBoxManager(this);
     mInventoryWindow = new InventoryWindow(*this,mDragAndDrop);
     mTradeWindow = new TradeWindow(*this);
+    mSpellBuyingWindow = new SpellBuyingWindow(*this);
     mDialogueWindow = new DialogueWindow(*this);
     mContainerWindow = new ContainerWindow(*this,mDragAndDrop);
     mHud = new HUD(w,h, mShowFPSLevel, mDragAndDrop);
@@ -138,6 +149,10 @@ WindowManager::WindowManager(
     mAlchemyWindow = new AlchemyWindow(*this);
     mSpellWindow = new SpellWindow(*this);
     mQuickKeysMenu = new QuickKeysMenu(*this);
+    mLevelupDialog = new LevelupDialog(*this);
+
+    mLoadingScreen = new LoadingScreen(mOgre->getScene (), mOgre->getWindow (), *this);
+    mLoadingScreen->onResChange (w,h);
 
     mInputBlocker = mGui->createWidget<MyGUI::Widget>("",0,0,w,h,MyGUI::Align::Default,"Windows","");
 
@@ -182,10 +197,13 @@ WindowManager::~WindowManager()
     delete mBookWindow;
     delete mScrollWindow;
     delete mTradeWindow;
+    delete mSpellBuyingWindow;
     delete mSettingsWindow;
     delete mConfirmationDialog;
     delete mAlchemyWindow;
     delete mSpellWindow;
+    delete mLoadingScreen;
+    delete mLevelupDialog;
 
     cleanupGarbage();
 
@@ -228,10 +246,14 @@ void WindowManager::updateVisible()
     mScrollWindow->setVisible(false);
     mBookWindow->setVisible(false);
     mTradeWindow->setVisible(false);
+    mSpellBuyingWindow->setVisible(false);
     mSettingsWindow->setVisible(false);
     mAlchemyWindow->setVisible(false);
     mSpellWindow->setVisible(false);
     mQuickKeysMenu->setVisible(false);
+    mLevelupDialog->setVisible(false);
+
+    mHud->setVisible(true);
 
     // Mouse is visible whenever we're not in game mode
     MyGUI::PointerManager::getInstance().setVisible(isGuiMode());
@@ -281,6 +303,9 @@ void WindowManager::updateVisible()
         case GM_Alchemy:
             mAlchemyWindow->setVisible(true);
             break;
+        case GM_Rest:
+            mLevelupDialog->setVisible(true);
+            break;
         case GM_Name:
         case GM_Race:
         case GM_Class:
@@ -317,10 +342,20 @@ void WindowManager::updateVisible()
             mInventoryWindow->setVisible(true);
             mTradeWindow->setVisible(true);
             break;
+        case GM_SpellBuying:
+            mSpellBuyingWindow->setVisible(true);
+            break;
         case GM_InterMessageBox:
             break;
         case GM_Journal:
             mJournal->setVisible(true);
+            break;
+        case GM_LoadingWallpaper:
+            mHud->setVisible(false);
+            MyGUI::PointerManager::getInstance().setVisible(false);
+            break;
+        case GM_Loading:
+            MyGUI::PointerManager::getInstance().setVisible(false);
             break;
         default:
             // Unsupported mode, switch back to game
@@ -368,7 +403,7 @@ void WindowManager::setValue (int parSkill, const MWMechanics::Stat<float>& valu
     mPlayerSkillValues[parSkill] = value;
 }
 
-void WindowManager::setValue (const std::string& id, const MWMechanics::DynamicStat<int>& value)
+void WindowManager::setValue (const std::string& id, const MWMechanics::DynamicStat<float>& value)
 {
     mStatsWindow->setValue (id, value);
     mHud->setValue (id, value);
@@ -509,6 +544,7 @@ void WindowManager::onFrame (float frameDuration)
 
     mDialogueWindow->checkReferenceAvailable();
     mTradeWindow->checkReferenceAvailable();
+    mSpellBuyingWindow->checkReferenceAvailable();
     mContainerWindow->checkReferenceAvailable();
     mConsole->checkReferenceAvailable();
 }
@@ -665,6 +701,8 @@ void WindowManager::processChangedSettings(const Settings::CategorySettingVector
         mScrollWindow->center();
         mBookWindow->center();
         mQuickKeysMenu->center();
+        mSpellBuyingWindow->center();
+        mLoadingScreen->onResChange (x,y);
         mDragAndDrop->mDragAndDropWidget->setSize(MyGUI::IntSize(x, y));
         mInputBlocker->setSize(MyGUI::IntSize(x,y));
     }
@@ -786,6 +824,7 @@ MWGui::ScrollWindow* WindowManager::getScrollWindow() { return mScrollWindow; }
 MWGui::CountDialog* WindowManager::getCountDialog() { return mCountDialog; }
 MWGui::ConfirmationDialog* WindowManager::getConfirmationDialog() { return mConfirmationDialog; }
 MWGui::TradeWindow* WindowManager::getTradeWindow() { return mTradeWindow; }
+MWGui::SpellBuyingWindow* WindowManager::getSpellBuyingWindow() { return mSpellBuyingWindow; }
 MWGui::SpellWindow* WindowManager::getSpellWindow() { return mSpellWindow; }
 MWGui::Console* WindowManager::getConsole() { return mConsole; }
 
@@ -881,4 +920,14 @@ void WindowManager::toggleHud ()
 {
     mHudEnabled = !mHudEnabled;
     mHud->setVisible (mHudEnabled);
+}
+
+void WindowManager::setLoadingProgress (const std::string& stage, int depth, int current, int total)
+{
+    mLoadingScreen->setLoadingProgress (stage, depth, current, total);
+}
+
+void WindowManager::loadingDone ()
+{
+    mLoadingScreen->loadingDone ();
 }

@@ -17,8 +17,6 @@ Layout is defined by resources/mygui/openmw_chargen_review.layout.
 
 namespace MWGui
 {
-    using namespace MyGUI;
-
     class ReviewDialog : public WindowBase
     {
     public:
@@ -37,9 +35,9 @@ namespace MWGui
         void setClass(const ESM::Class& class_);
         void setBirthSign (const std::string &signId);
 
-        void setHealth(const MWMechanics::DynamicStat<int>& value);
-        void setMagicka(const MWMechanics::DynamicStat<int>& value);
-        void setFatigue(const MWMechanics::DynamicStat<int>& value);
+        void setHealth(const MWMechanics::DynamicStat<float>& value);
+        void setMagicka(const MWMechanics::DynamicStat<float>& value);
+        void setFatigue(const MWMechanics::DynamicStat<float>& value);
 
         void setAttribute(ESM::Attribute::AttributeID attributeId, const MWMechanics::Stat<int>& value);
 
@@ -49,8 +47,8 @@ namespace MWGui
         virtual void open();
 
         // Events
-        typedef delegates::CMultiDelegate0 EventHandle_Void;
-        typedef delegates::CMultiDelegate1<int> EventHandle_Int;
+        typedef MyGUI::delegates::CMultiDelegate0 EventHandle_Void;
+        typedef MyGUI::delegates::CMultiDelegate1<int> EventHandle_Int;
 
         /** Event : Back button clicked.\n
         signature : void method()\n
@@ -76,17 +74,12 @@ namespace MWGui
         void addGroup(const std::string &label, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2);
         MyGUI::TextBox* addValueItem(const std::string& text, const std::string &value, const std::string& state, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2);
         void addItem(const std::string& text, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2);
-        void updateScroller();
         void updateSkillArea();
-
-        void onScrollChangePosition(MyGUI::ScrollBar* scroller, size_t pos);
-        void onWindowResize(MyGUI::Window* window);
 
         static const int sLineHeight;
 
         MyGUI::TextBox *mNameWidget, *mRaceWidget, *mClassWidget, *mBirthSignWidget;
-        MyGUI::WidgetPtr mSkillAreaWidget, mSkillClientWidget;
-        MyGUI::ScrollBar* mSkillScrollerWidget;
+        MyGUI::ScrollView* mSkillView;
         int mLastPos, mClientHeight;
 
         Widgets::MWDynamicStatPtr mHealth, mMagicka, mFatigue;

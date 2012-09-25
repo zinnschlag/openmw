@@ -66,7 +66,7 @@ namespace MWInput
 
         virtual ~InputManager();
 
-        virtual void update(float dt);
+        virtual void update(float dt, bool loading);
 
         virtual void changeInputMode(bool guiMode);
 
@@ -75,6 +75,7 @@ namespace MWInput
         virtual void setDragDrop(bool dragDrop);
 
         virtual void toggleControlSwitch (const std::string& sw, bool value);
+        virtual bool getControlSwitch (const std::string& sw);
 
         virtual std::string getActionDescription (int action);
         virtual std::string getActionBindingName (int action);
@@ -167,6 +168,7 @@ namespace MWInput
         void toggleWalking();
         void toggleAutoMove();
         void exitNow();
+        void rest();
 
         void quickKey (int index);
         void showQuickKeysMenu();

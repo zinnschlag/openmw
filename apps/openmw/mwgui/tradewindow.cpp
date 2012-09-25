@@ -42,26 +42,6 @@ namespace MWGui
         getWidget(mTotalBalanceLabel, "TotalBalanceLabel");
         getWidget(mBottomPane, "BottomPane");
 
-        // adjust size of buttons to fit text
-        int curX = 0;
-        mFilterAll->setSize( mFilterAll->getTextSize().width + 24, mFilterAll->getSize().height );
-        curX += mFilterAll->getTextSize().width + 24 + 4;
-
-        mFilterWeapon->setPosition(curX, mFilterWeapon->getPosition().top);
-        mFilterWeapon->setSize( mFilterWeapon->getTextSize().width + 24, mFilterWeapon->getSize().height );
-        curX += mFilterWeapon->getTextSize().width + 24 + 4;
-
-        mFilterApparel->setPosition(curX, mFilterApparel->getPosition().top);
-        mFilterApparel->setSize( mFilterApparel->getTextSize().width + 24, mFilterApparel->getSize().height );
-        curX += mFilterApparel->getTextSize().width + 24 + 4;
-
-        mFilterMagic->setPosition(curX, mFilterMagic->getPosition().top);
-        mFilterMagic->setSize( mFilterMagic->getTextSize().width + 24, mFilterMagic->getSize().height );
-        curX += mFilterMagic->getTextSize().width + 24 + 4;
-
-        mFilterMisc->setPosition(curX, mFilterMisc->getPosition().top);
-        mFilterMisc->setSize( mFilterMisc->getTextSize().width + 24, mFilterMisc->getSize().height );
-
         mFilterAll->setStateSelected(true);
 
         mFilterAll->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onFilterChanged);
@@ -72,20 +52,6 @@ namespace MWGui
 
         mCancelButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onCancelButtonClicked);
         mOfferButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onOfferButtonClicked);
-
-        mMaxSaleButton->setSize(MyGUI::IntSize(mMaxSaleButton->getTextSize().width + 24, mMaxSaleButton->getHeight()));
-
-        int cancelButtonWidth = mCancelButton->getTextSize().width + 24;
-        mCancelButton->setCoord(mBottomPane->getWidth()-cancelButtonWidth,
-                                mCancelButton->getTop(),
-                                cancelButtonWidth,
-                                mCancelButton->getHeight());
-
-        int offerButtonWidth = mOfferButton->getTextSize().width + 24;
-        mOfferButton->setCoord(mBottomPane->getWidth()-cancelButtonWidth-offerButtonWidth-8,
-                                mOfferButton->getTop(),
-                                offerButtonWidth,
-                                mOfferButton->getHeight());
 
         setCoord(400, 0, 400, 300);
 
@@ -134,6 +100,33 @@ namespace MWGui
     void TradeWindow::onWindowResize(MyGUI::Window* _sender)
     {
         drawItems();
+    }
+
+    void TradeWindow::addOrRemoveGold(int amount)
+    {
+        bool goldFound = false;
+        MWWorld::Ptr gold;
+        MWWorld::ContainerStore& playerStore = mWindowManager.getInventoryWindow()->getContainerStore();
+        for (MWWorld::ContainerStoreIterator it = playerStore.begin();
+                it != playerStore.end(); ++it)
+        {
+            if (MWWorld::Class::get(*it).getName(*it) == MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sGold")->str)
+            {
+                goldFound = true;
+                gold = *it;
+            }
+        }
+        if (goldFound)
+        {
+            gold.getRefData().setCount(gold.getRefData().getCount() + amount);
+        }
+        else
+        {
+            assert(amount > 0);
+            MWWorld::ManualRef ref(MWBase::Environment::get().getWorld()->getStore(), "Gold_001");
+            ref.getPtr().getRefData().setCount(amount);
+            playerStore.add(ref.getPtr());
+        }
     }
 
     void TradeWindow::onOfferButtonClicked(MyGUI::Widget* _sender)
@@ -186,29 +179,8 @@ namespace MWGui
         mWindowManager.getInventoryWindow()->transferBoughtItems();
 
         // add or remove gold from the player.
-        bool goldFound = false;
-        MWWorld::Ptr gold;
-        MWWorld::ContainerStore& playerStore = mWindowManager.getInventoryWindow()->getContainerStore();
-        for (MWWorld::ContainerStoreIterator it = playerStore.begin();
-                it != playerStore.end(); ++it)
-        {
-            if (MWWorld::Class::get(*it).getName(*it) == MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sGold")->str)
-            {
-                goldFound = true;
-                gold = *it;
-            }
-        }
-        if (goldFound)
-        {
-            gold.getRefData().setCount(gold.getRefData().getCount() + mCurrentBalance);
-        }
-        else
-        {
-            assert(mCurrentBalance > 0);
-            MWWorld::ManualRef ref(MWBase::Environment::get().getWorld()->getStore(), "Gold_001");
-            ref.getPtr().getRefData().setCount(mCurrentBalance);
-            playerStore.add(ref.getPtr());
-        }
+        if (mCurrentBalance != 0)
+            addOrRemoveGold(mCurrentBalance);
 
         std::string sound = "Item Gold Up";
         MWBase::Environment::get().getSoundManager()->playSound (sound, 1.0, 1.0);

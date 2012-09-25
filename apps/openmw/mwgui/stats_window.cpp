@@ -24,10 +24,7 @@ const int StatsWindow::sLineHeight = 18;
 
 StatsWindow::StatsWindow (MWBase::WindowManager& parWindowManager)
   : WindowPinnableBase("openmw_stats_window.layout", parWindowManager)
-  , mSkillAreaWidget(NULL)
-  , mSkillClientWidget(NULL)
-  , mSkillScrollerWidget(NULL)
-  , mLastPos(0)
+  , mSkillView(NULL)
   , mClientHeight(0)
   , mMajorSkills()
   , mMinorSkills()
@@ -63,16 +60,9 @@ StatsWindow::StatsWindow (MWBase::WindowManager& parWindowManager)
         setText (names[i][0], store.gameSettings.find (names[i][1])->str);
     }
 
-    getWidget(mSkillAreaWidget, "Skills");
-    getWidget(mSkillClientWidget, "SkillClient");
-    getWidget(mSkillScrollerWidget, "SkillScroller");
+    getWidget(mSkillView, "SkillView");
     getWidget(mLeftPane, "LeftPane");
     getWidget(mRightPane, "RightPane");
-
-    mSkillClientWidget->eventMouseWheel += MyGUI::newDelegate(this, &StatsWindow::onMouseWheel);
-
-    mSkillScrollerWidget->eventScrollChangePosition += MyGUI::newDelegate(this, &StatsWindow::onScrollChangePosition);
-    updateScroller();
 
     for (int i = 0; i < ESM::Skill::Length; ++i)
     {
@@ -84,38 +74,19 @@ StatsWindow::StatsWindow (MWBase::WindowManager& parWindowManager)
     t->eventWindowChangeCoord += MyGUI::newDelegate(this, &StatsWindow::onWindowResize);
 }
 
-void StatsWindow::onScrollChangePosition(MyGUI::ScrollBar* scroller, size_t pos)
-{
-    int diff = mLastPos - pos;
-    // Adjust position of all widget according to difference
-    if (diff == 0)
-        return;
-    mLastPos = pos;
-
-    std::vector<MyGUI::WidgetPtr>::const_iterator end = mSkillWidgets.end();
-    for (std::vector<MyGUI::WidgetPtr>::const_iterator it = mSkillWidgets.begin(); it != end; ++it)
-    {
-        (*it)->setCoord((*it)->getCoord() + MyGUI::IntPoint(0, diff));
-    }
-}
-
 void StatsWindow::onMouseWheel(MyGUI::Widget* _sender, int _rel)
 {
-    if (mSkillScrollerWidget->getScrollPosition() - _rel*0.3 < 0)
-        mSkillScrollerWidget->setScrollPosition(0);
-    else if (mSkillScrollerWidget->getScrollPosition() - _rel*0.3 > mSkillScrollerWidget->getScrollRange()-1)
-        mSkillScrollerWidget->setScrollPosition(mSkillScrollerWidget->getScrollRange()-1);
+    if (mSkillView->getViewOffset().top + _rel*0.3 > 0)
+        mSkillView->setViewOffset(MyGUI::IntPoint(0, 0));
     else
-        mSkillScrollerWidget->setScrollPosition(mSkillScrollerWidget->getScrollPosition() - _rel*0.3);
-
-    onScrollChangePosition(mSkillScrollerWidget, mSkillScrollerWidget->getScrollPosition());
+        mSkillView->setViewOffset(MyGUI::IntPoint(0, mSkillView->getViewOffset().top + _rel*0.3));
 }
 
 void StatsWindow::onWindowResize(MyGUI::Window* window)
 {
     mLeftPane->setCoord( MyGUI::IntCoord(0, 0, 0.44*window->getSize().width, window->getSize().height) );
     mRightPane->setCoord( MyGUI::IntCoord(0.44*window->getSize().width, 0, 0.56*window->getSize().width, window->getSize().height) );
-    updateScroller();
+    mSkillView->setCanvasSize (mSkillView->getWidth(), std::max(mSkillView->getHeight(), mClientHeight));
 }
 
 void StatsWindow::setBar(const std::string& name, const std::string& tname, int val, int max)
@@ -166,7 +137,7 @@ void StatsWindow::setValue (const std::string& id, const MWMechanics::Stat<int>&
         }
 }
 
-void StatsWindow::setValue (const std::string& id, const MWMechanics::DynamicStat<int>& value)
+void StatsWindow::setValue (const std::string& id, const MWMechanics::DynamicStat<float>& value)
 {
     static const char *ids[] =
     {
@@ -179,7 +150,7 @@ void StatsWindow::setValue (const std::string& id, const MWMechanics::DynamicSta
         if (ids[i]==id)
         {
             std::string id (ids[i]);
-            setBar (id, id + "T", value.getCurrent(), value.getModified());
+            setBar (id, id + "T", static_cast<int>(value.getCurrent()), static_cast<int>(value.getModified()));
 
             // health, magicka, fatigue tooltip
             MyGUI::Widget* w;
@@ -265,11 +236,20 @@ void StatsWindow::configureSkills (const std::vector<int>& major, const std::vec
 
 void StatsWindow::onFrame ()
 {
-    if (mMainWidget->getVisible())
+    if (!mMainWidget->getVisible())
         return;
 
     MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
     MWMechanics::NpcStats PCstats = MWWorld::Class::get(player).getNpcStats(player);
+
+    // level progress
+    MyGUI::Widget* levelWidget;
+    for (int i=0; i<2; ++i)
+    {
+        getWidget(levelWidget, i==0 ? "Level_str" : "LevelText");
+        levelWidget->setUserString("RangePosition_LevelProgress", boost::lexical_cast<std::string>(PCstats.getLevelProgress()));
+        levelWidget->setUserString("Caption_LevelProgressText", boost::lexical_cast<std::string>(PCstats.getLevelProgress()) + "/10");
+    }
 
     setFactions(PCstats.getFactionRanks());
 
@@ -299,7 +279,7 @@ void StatsWindow::setBirthSign (const std::string& signId)
 
 void StatsWindow::addSeparator(MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2)
 {
-    MyGUI::ImageBox* separator = mSkillClientWidget->createWidget<MyGUI::ImageBox>("MW_HLine",
+    MyGUI::ImageBox* separator = mSkillView->createWidget<MyGUI::ImageBox>("MW_HLine",
         MyGUI::IntCoord(10, coord1.top, coord1.width + coord2.width - 4, 18),
         MyGUI::Align::Left | MyGUI::Align::Top | MyGUI::Align::HStretch);
     separator->eventMouseWheel += MyGUI::newDelegate(this, &StatsWindow::onMouseWheel);
@@ -311,7 +291,7 @@ void StatsWindow::addSeparator(MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2)
 
 void StatsWindow::addGroup(const std::string &label, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2)
 {
-    MyGUI::TextBox* groupWidget = mSkillClientWidget->createWidget<MyGUI::TextBox>("SandBrightText",
+    MyGUI::TextBox* groupWidget = mSkillView->createWidget<MyGUI::TextBox>("SandBrightText",
         MyGUI::IntCoord(0, coord1.top, coord1.width + coord2.width, coord1.height),
         MyGUI::Align::Left | MyGUI::Align::Top | MyGUI::Align::HStretch);
     groupWidget->setCaption(label);
@@ -326,11 +306,11 @@ MyGUI::TextBox* StatsWindow::addValueItem(const std::string& text, const std::st
 {
     MyGUI::TextBox *skillNameWidget, *skillValueWidget;
 
-    skillNameWidget = mSkillClientWidget->createWidget<MyGUI::TextBox>("SandText", coord1, MyGUI::Align::Left | MyGUI::Align::Top | MyGUI::Align::HStretch);
+    skillNameWidget = mSkillView->createWidget<MyGUI::TextBox>("SandText", coord1, MyGUI::Align::Left | MyGUI::Align::Top | MyGUI::Align::HStretch);
     skillNameWidget->setCaption(text);
     skillNameWidget->eventMouseWheel += MyGUI::newDelegate(this, &StatsWindow::onMouseWheel);
 
-    skillValueWidget = mSkillClientWidget->createWidget<MyGUI::TextBox>("SandTextRight", coord2, MyGUI::Align::Right | MyGUI::Align::Top);
+    skillValueWidget = mSkillView->createWidget<MyGUI::TextBox>("SandTextRight", coord2, MyGUI::Align::Right | MyGUI::Align::Top);
     skillValueWidget->setCaption(value);
     skillValueWidget->_setWidgetState(state);
     skillValueWidget->eventMouseWheel += MyGUI::newDelegate(this, &StatsWindow::onMouseWheel);
@@ -348,7 +328,7 @@ MyGUI::Widget* StatsWindow::addItem(const std::string& text, MyGUI::IntCoord &co
 {
     MyGUI::TextBox* skillNameWidget;
 
-    skillNameWidget = mSkillClientWidget->createWidget<MyGUI::TextBox>("SandText", coord1 + MyGUI::IntSize(coord2.width, 0), MyGUI::Align::Default);
+    skillNameWidget = mSkillView->createWidget<MyGUI::TextBox>("SandText", coord1 + MyGUI::IntSize(coord2.width, 0), MyGUI::Align::Default);
     skillNameWidget->setCaption(text);
     skillNameWidget->eventMouseWheel += MyGUI::newDelegate(this, &StatsWindow::onMouseWheel);
 
@@ -426,12 +406,11 @@ void StatsWindow::updateSkillArea()
     }
     mSkillWidgets.clear();
 
-    mSkillScrollerWidget->setScrollPosition(0);
-    onScrollChangePosition(mSkillScrollerWidget, 0);
+    mSkillView->setViewOffset (MyGUI::IntPoint(0,0));
     mClientHeight = 0;
 
     const int valueSize = 40;
-    MyGUI::IntCoord coord1(10, 0, mSkillClientWidget->getWidth() - (10 + valueSize), 18);
+    MyGUI::IntCoord coord1(10, 0, mSkillView->getWidth() - (10 + valueSize) - 24, 18);
     MyGUI::IntCoord coord2(coord1.left + coord1.width, coord1.top, valueSize, coord1.height);
 
     if (!mMajorSkills.empty())
@@ -555,15 +534,8 @@ void StatsWindow::updateSkillArea()
     }
 
     mClientHeight = coord1.top;
-    updateScroller();
-}
 
-void StatsWindow::updateScroller()
-{
-    mSkillScrollerWidget->setScrollRange(std::max(mClientHeight - mSkillClientWidget->getHeight(), 0));
-    mSkillScrollerWidget->setScrollPage(std::max(mSkillClientWidget->getHeight() - sLineHeight, 0));
-    if (mClientHeight != 0)
-        mSkillScrollerWidget->setTrackSize( (mSkillAreaWidget->getHeight() / float(mClientHeight)) * mSkillScrollerWidget->getLineSize() );
+    mSkillView->setCanvasSize (mSkillView->getWidth(), std::max(mSkillView->getHeight(), mClientHeight));
 }
 
 void StatsWindow::onPinToggled()
