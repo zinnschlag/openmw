@@ -42,6 +42,7 @@ namespace MWGui
     class Console;
     class SpellWindow;
     class TradeWindow;
+    class SpellBuyingWindow;
     class ConfirmationDialog;
     class CountDialog;
     class ScrollWindow;
@@ -106,6 +107,7 @@ namespace MWBase
             virtual MWGui::CountDialog* getCountDialog() = 0;
             virtual MWGui::ConfirmationDialog* getConfirmationDialog() = 0;
             virtual MWGui::TradeWindow* getTradeWindow() = 0;
+            virtual MWGui::SpellBuyingWindow* getSpellBuyingWindow() = 0;
             virtual MWGui::SpellWindow* getSpellWindow() = 0;
             virtual MWGui::Console* getConsole() = 0;
 
@@ -116,7 +118,7 @@ namespace MWBase
             /// Set value for the given ID.
             virtual void setValue (const std::string& id, const MWMechanics::Stat<int>& value) = 0;
             virtual void setValue (int parSkill, const MWMechanics::Stat<float>& value) = 0;
-            virtual void setValue (const std::string& id, const MWMechanics::DynamicStat<int>& value) = 0;
+            virtual void setValue (const std::string& id, const MWMechanics::DynamicStat<float>& value) = 0;
             virtual void setValue (const std::string& id, const std::string& value) = 0;
             virtual void setValue (const std::string& id, int value) = 0;
 
@@ -214,6 +216,12 @@ namespace MWBase
             virtual void processChangedSettings(const Settings::CategorySettingVector& changed) = 0;
 
             virtual void executeInConsole (const std::string& path) = 0;
+
+            virtual void setLoadingProgress (const std::string& stage, int depth, int current, int total) = 0;
+            virtual void loadingDone() = 0;
+
+            virtual void enableRest() = 0;
+            virtual bool getRestEnabled() = 0;
     };
 }
 

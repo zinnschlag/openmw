@@ -67,7 +67,7 @@ bool OMW::Engine::frameRenderingQueued (const Ogre::FrameEvent& evt)
         mEnvironment.setFrameDuration (evt.timeSinceLastFrame);
 
         // update input
-        MWBase::Environment::get().getInputManager()->update(evt.timeSinceLastFrame);
+        MWBase::Environment::get().getInputManager()->update(evt.timeSinceLastFrame, false);
 
         // sound
         if (mUseSound)
@@ -162,6 +162,10 @@ void OMW::Engine::loadBSA()
         dataDirectory = iter->string();
         std::cout << "Data dir " << dataDirectory << std::endl;
         Bsa::addDir(dataDirectory, mFSStrict);
+
+        // Workaround: Mygui does not find textures in non-BSA subfolders, _unless_ they are explicitely added like this
+        // For splash screens, this is OK to do, but eventually we will need an investigation why this is necessary
+        Bsa::addDir(dataDirectory + "/Splash", mFSStrict);
     }
 }
 
@@ -295,6 +299,7 @@ void OMW::Engine::go()
     mOgre->configure(
         mCfgMgr.getLogPath().string(),
         renderSystem,
+        Settings::Manager::getString("opengl rtt mode", "Video"),
         false);
 
     // This has to be added BEFORE MyGUI is initialized, as it needs
@@ -351,6 +356,11 @@ void OMW::Engine::go()
     mEnvironment.setJournal (new MWDialogue::Journal);
     mEnvironment.setDialogueManager (new MWDialogue::DialogueManager (mExtensions));
 
+    // Sets up the input system
+    mEnvironment.setInputManager (new MWInput::InputManager (*mOgre,
+        MWBase::Environment::get().getWorld()->getPlayer(),
+         *MWBase::Environment::get().getWindowManager(), mDebug, *this, keybinderUser, keybinderUserExists));
+
     // load cell
     ESM::Position pos;
     pos.rot[0] = pos.rot[1] = pos.rot[2] = 0;
@@ -369,12 +379,6 @@ void OMW::Engine::go()
         pos.pos[0] = pos.pos[1] = 0;
         MWBase::Environment::get().getWorld()->changeToInteriorCell (mCellName, pos);
     }
-
-    // Sets up the input system
-
-    mEnvironment.setInputManager (new MWInput::InputManager (*mOgre,
-        MWBase::Environment::get().getWorld()->getPlayer(),
-         *MWBase::Environment::get().getWindowManager(), mDebug, *this, keybinderUser, keybinderUserExists));
 
     std::cout << "\nPress Q/ESC or close window to exit.\n";
 

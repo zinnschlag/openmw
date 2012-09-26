@@ -48,14 +48,6 @@ namespace MWGui
         mIngredient3->eventMouseButtonClick += MyGUI::newDelegate(this, &AlchemyWindow::onIngredientSelected);
         mIngredient4->eventMouseButtonClick += MyGUI::newDelegate(this, &AlchemyWindow::onIngredientSelected);
 
-        MyGUI::Widget* buttonBox = mCancelButton->getParent();
-        int cancelButtonWidth = mCancelButton->getTextSize().width + 24;
-        mCancelButton->setCoord(buttonBox->getWidth() - cancelButtonWidth,
-                                mCancelButton->getTop(), cancelButtonWidth, mCancelButton->getHeight());
-        int createButtonWidth = mCreateButton->getTextSize().width + 24;
-        mCreateButton->setCoord(buttonBox->getWidth() - createButtonWidth - cancelButtonWidth - 4,
-                                mCreateButton->getTop(), createButtonWidth, mCreateButton->getHeight());
-
         mCreateButton->eventMouseButtonClick += MyGUI::newDelegate(this, &AlchemyWindow::onCreateButtonClicked);
         mCancelButton->eventMouseButtonClick += MyGUI::newDelegate(this, &AlchemyWindow::onCancelButtonClicked);
 
@@ -493,7 +485,7 @@ namespace MWGui
 
         MyGUI::IntCoord coord(0, 0, mEffectsBox->getWidth(), 24);
         Widgets::MWEffectListPtr effectsWidget = mEffectsBox->createWidget<Widgets::MWEffectList>
-            ("MW_StatName", coord, Align::Left | Align::Top);
+            ("MW_StatName", coord, MyGUI::Align::Left | MyGUI::Align::Top);
         effectsWidget->setWindowManager(&mWindowManager);
         effectsWidget->setEffectList(effects);
 

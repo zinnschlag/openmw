@@ -25,15 +25,13 @@ RaceDialog::RaceDialog(MWBase::WindowManager& parWindowManager)
   , mHairIndex(0)
   , mFaceCount(10)
   , mHairCount(14)
+  , mCurrentAngle(0)
 {
     // Centre dialog
     center();
 
-    // These are just demo values, you should replace these with
-    // real calls from outside the class later.
-
     setText("AppearanceT", mWindowManager.getGameSettingString("sRaceMenu1", "Appearance"));
-    getWidget(mAppearanceBox, "AppearanceBox");
+    getWidget(mPreviewImage, "PreviewImage");
 
     getWidget(mHeadRotate, "HeadRotate");
     mHeadRotate->setScrollRange(50);
@@ -90,9 +88,6 @@ RaceDialog::RaceDialog(MWBase::WindowManager& parWindowManager)
 
 void RaceDialog::setNextButtonShow(bool shown)
 {
-    MyGUI::ButtonPtr backButton;
-    getWidget(backButton, "BackButton");
-
     MyGUI::ButtonPtr okButton;
     getWidget(okButton, "OKButton");
 
@@ -100,12 +95,6 @@ void RaceDialog::setNextButtonShow(bool shown)
         okButton->setCaption(mWindowManager.getGameSettingString("sNext", ""));
     else
         okButton->setCaption(mWindowManager.getGameSettingString("sOK", ""));
-
-    int okButtonWidth = okButton->getTextSize().width + 24;
-    int backButtonWidth = backButton->getTextSize().width + 24;
-
-    okButton->setCoord(574 - okButtonWidth, 397, okButtonWidth, 23);
-    backButton->setCoord(574 - okButtonWidth - backButtonWidth - 6, 397, backButtonWidth, 23);
 }
 
 void RaceDialog::open()
@@ -113,6 +102,12 @@ void RaceDialog::open()
     updateRaces();
     updateSkills();
     updateSpellPowers();
+
+    mPreview = new MWRender::RaceSelectionPreview();
+    MWBase::Environment::get().getWorld ()->setupExternalRendering (*mPreview);
+    mPreview->update (0);
+
+    mPreviewImage->setImageTexture ("CharacterHeadPreview");
 }
 
 
@@ -144,6 +139,12 @@ int wrap(int index, int max)
         return index;
 }
 
+void RaceDialog::close()
+{
+    delete mPreview;
+    mPreview = 0;
+}
+
 // widget controls
 
 void RaceDialog::onOkClicked(MyGUI::Widget* _sender)
@@ -158,7 +159,10 @@ void RaceDialog::onBackClicked(MyGUI::Widget* _sender)
 
 void RaceDialog::onHeadRotate(MyGUI::ScrollBar*, size_t _position)
 {
-    // TODO: Rotate head
+    float angle = (float(_position) / 49.f - 0.5) * 3.14 * 2;
+    float diff = angle - mCurrentAngle;
+    mPreview->update (diff);
+    mCurrentAngle += diff;
 }
 
 void RaceDialog::onSelectPreviousGender(MyGUI::Widget*)

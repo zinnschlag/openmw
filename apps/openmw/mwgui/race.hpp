@@ -1,11 +1,15 @@
 #ifndef MWGUI_RACE_H
 #define MWGUI_RACE_H
 
+
+#include <boost/array.hpp>
+
 #include <components/esm_store/store.hpp>
+
+#include "../mwrender/characterpreview.hpp"
 
 #include "window_base.hpp"
 
-#include <boost/array.hpp>
 
 namespace MWGui
 {
@@ -19,8 +23,6 @@ namespace MWGui
 
 namespace MWGui
 {
-    using namespace MyGUI;
-
     class RaceDialog : public WindowBase
     {
     public:
@@ -44,9 +46,10 @@ namespace MWGui
 
         void setNextButtonShow(bool shown);
         virtual void open();
+        virtual void close();
 
         // Events
-        typedef delegates::CMultiDelegate0 EventHandle_Void;
+        typedef MyGUI::delegates::CMultiDelegate0 EventHandle_Void;
 
         /** Event : Back button clicked.\n
             signature : void method()\n
@@ -75,7 +78,7 @@ namespace MWGui
         void updateSkills();
         void updateSpellPowers();
 
-        MyGUI::CanvasPtr  mAppearanceBox;
+        MyGUI::ImageBox*  mPreviewImage;
         MyGUI::ListBox*   mRaceList;
         MyGUI::ScrollBar* mHeadRotate;
 
@@ -89,6 +92,10 @@ namespace MWGui
         int mFaceCount, mHairCount;
 
         std::string mCurrentRaceId;
+
+        float mCurrentAngle;
+
+        MWRender::RaceSelectionPreview* mPreview;
     };
 }
 #endif

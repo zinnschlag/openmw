@@ -35,7 +35,7 @@ set(MYGUI_FILES
     openmw_dialogue_window.layout
     openmw_dialogue_window_skin.xml
     openmw_edit.skin.xml
-    openmw.font.xml
+    openmw_font.xml
     openmw_hud_box.skin.xml
     openmw_hud_energybar.skin.xml
     openmw_hud.layout
@@ -51,7 +51,7 @@ set(MYGUI_FILES
     openmw_map_window.layout
     openmw_map_window_skin.xml
     openmw_messagebox.layout
-    openmw.pointer.xml
+    openmw_pointer.xml
     openmw_progress.skin.xml
     openmw_resources.xml
     openmw_scroll.layout
@@ -64,11 +64,15 @@ set(MYGUI_FILES
     openmw_text.skin.xml
     openmw_tooltips.layout
     openmw_trade_window.layout
+    openmw_spell_buying_window.layout
     openmw_windows.skin.xml
     openmw_quickkeys_menu.layout
     openmw_quickkeys_menu_assign.layout
     openmw_itemselection_dialog.layout
     openmw_magicselection_dialog.layout
+    openmw_spell_buying_window.layout
+    openmw_loading_screen.layout
+    openmw_levelup_dialog.layout
     smallbars.png
     VeraMono.ttf
     markers.png

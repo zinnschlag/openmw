@@ -15,7 +15,7 @@ include (OpenMWMacros)
 # Version
 
 set (OPENMW_VERSION_MAJOR 0)
-set (OPENMW_VERSION_MINOR 17)
+set (OPENMW_VERSION_MINOR 18)
 set (OPENMW_VERSION_RELEASE 0)
 
 set (OPENMW_VERSION "${OPENMW_VERSION_MAJOR}.${OPENMW_VERSION_MINOR}.${OPENMW_VERSION_RELEASE}")
@@ -104,6 +104,7 @@ set(OENGINE_OGRE
   ${LIBDIR}/openengine/ogre/fader.cpp
   ${LIBDIR}/openengine/ogre/imagerotate.cpp
   ${LIBDIR}/openengine/ogre/atlas.cpp
+  ${LIBDIR}/openengine/ogre/selectionbuffer.cpp
 )
 set(OENGINE_GUI
   ${LIBDIR}/openengine/gui/manager.cpp
@@ -517,6 +518,7 @@ if (WIN32)
         4309 # Variable overflow, trying to store 128 in a signed char for example
         4355 # Using 'this' in member initialization list
         4701 # Potentially uninitialized local variable used
+		4800 # Boolean optimization warning, e.g. myBool = (myInt != 0) instead of myBool = myInt
         )
 
     foreach(d ${WARNINGS_DISABLE})
@@ -528,6 +530,7 @@ if (WIN32)
 		set_target_properties(omwlauncher PROPERTIES COMPILE_FLAGS ${WARNINGS})
 	endif (BUILD_LAUNCHER)
     set_target_properties(openmw PROPERTIES COMPILE_FLAGS ${WARNINGS})
+	set_target_properties(esmtool PROPERTIES COMPILE_FLAGS ${WARNINGS})
   endif(MSVC)
 
   # Same for MinGW
@@ -635,8 +638,8 @@ if (APPLE)
         include(CPack)
 endif (APPLE)
 
-if (NOT WIN32)
-    ## Linux building
+if (NOT WIN32 AND NOT DPKG_PROGRAM AND NOT APPLE)
+    ## Non Debian based Linux building
     # paths
     set(BINDIR "${CMAKE_INSTALL_PREFIX}/usr/bin" CACHE PATH "Where to install binaries")
     set(DATAROOTDIR "${CMAKE_INSTALL_PREFIX}/share" CACHE PATH "Sets the root of data directories to a non-default location")
@@ -666,4 +669,5 @@ if (NOT WIN32)
     # Install resources
     INSTALL(DIRECTORY "${OpenMW_BINARY_DIR}/resources" DESTINATION "${DATADIR}" )
     INSTALL(FILES "${OpenMW_BINARY_DIR}/launcher.qss" DESTINATION "${DATADIR}/resources" )
-endif(NOT WIN32)
+endif(NOT WIN32 AND NOT DPKG_PROGRAM AND NOT APPLE)
+

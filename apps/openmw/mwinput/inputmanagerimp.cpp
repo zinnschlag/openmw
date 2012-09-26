@@ -190,6 +190,9 @@ namespace MWInput
             case A_ToggleWeapon:
                 toggleWeapon ();
                 break;
+            case A_Rest:
+                rest();
+                break;
             case A_ToggleSpell:
                 toggleSpell ();
                 break;
@@ -233,14 +236,15 @@ namespace MWInput
         }
     }
 
-    void InputManager::update(float dt)
+    void InputManager::update(float dt, bool loading)
     {
         // Tell OIS to handle all input events
         mKeyboard->capture();
         mMouse->capture();
 
         // update values of channels (as a result of pressed keys)
-        mInputCtrl->update(dt);
+        if (!loading)
+            mInputCtrl->update(dt);
 
         // Update windows/gui as a result of input events
         // For instance this could mean opening a new window/dialog,
@@ -378,6 +382,11 @@ namespace MWInput
 
         if (changeRes)
             adjustMouseRegion(Settings::Manager::getInt("resolution x", "Video"), Settings::Manager::getInt("resolution y", "Video"));
+    }
+
+    bool InputManager::getControlSwitch (const std::string& sw)
+    {
+        return mControlSwitch[sw];
     }
 
     void InputManager::toggleControlSwitch (const std::string& sw, bool value)
@@ -535,6 +544,15 @@ namespace MWInput
             mPlayer.setDrawState(MWMechanics::DrawState_Nothing);
             std::cout << "Player does not have any kind of attack ready now.\n" << std::endl;
         }
+    }
+
+    void InputManager::rest()
+    {
+        if (!mWindows.getRestEnabled () || mWindows.isGuiMode ())
+            return;
+
+        /// \todo check if resting is currently allowed (enemies nearby?)
+        mWindows.pushGuiMode (MWGui::GM_Rest);
     }
 
     void InputManager::screenshot()

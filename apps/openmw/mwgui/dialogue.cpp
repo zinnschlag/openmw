@@ -17,6 +17,7 @@
 #include "widgets.hpp"
 #include "list.hpp"
 #include "tradewindow.hpp"
+#include "spellbuyingwindow.hpp"
 #include "inventorywindow.hpp"
 
 using namespace MWGui;
@@ -46,6 +47,7 @@ DialogueWindow::DialogueWindow(MWBase::WindowManager& parWindowManager)
     : WindowBase("openmw_dialogue_window.layout", parWindowManager)
     , mEnabled(true)
     , mShowTrade(false)
+    , mShowSpells(false)
 {
     // Centre dialog
     center();
@@ -54,7 +56,7 @@ DialogueWindow::DialogueWindow(MWBase::WindowManager& parWindowManager)
     getWidget(mHistory, "History");
     mHistory->setOverflowToTheLeft(true);
     mHistory->setMaxTextLength(1000000);
-    Widget* eventbox;
+    MyGUI::Widget* eventbox;
 
     //An EditBox cannot receive mouse click events, so we use an
     //invisible widget on top of the editbox to receive them
@@ -78,11 +80,11 @@ DialogueWindow::DialogueWindow(MWBase::WindowManager& parWindowManager)
 
 void DialogueWindow::onHistoryClicked(MyGUI::Widget* _sender)
 {
-    ISubWidgetText* t = mHistory->getClient()->getSubWidgetText();
+    MyGUI::ISubWidgetText* t = mHistory->getClient()->getSubWidgetText();
     if(t == nullptr)
         return;
 
-    const IntPoint& lastPressed = InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
+    const MyGUI::IntPoint& lastPressed = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
 
     size_t cursorPosition = t->getCursorPosition(lastPressed);
     MyGUI::UString color = mHistory->getColorAtPos(cursorPosition);
@@ -92,7 +94,7 @@ void DialogueWindow::onHistoryClicked(MyGUI::Widget* _sender)
 
     if(color != "#B29154")
     {
-        UString key = mHistory->getColorTextAt(cursorPosition);
+        MyGUI::UString key = mHistory->getColorTextAt(cursorPosition);
         if(color == "#686EBA") MWBase::Environment::get().getDialogueManager()->keywordSelected(lower_string(key));
 
         if(color == "#572D21") MWBase::Environment::get().getDialogueManager()->questionAnswered(lower_string(key));
@@ -127,6 +129,11 @@ void DialogueWindow::onSelectTopic(std::string topic)
         mWindowManager.pushGuiMode(GM_Barter);
         mWindowManager.getTradeWindow()->startTrade(mPtr);
     }
+    else if (topic == MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sSpells")->str)
+    {
+        mWindowManager.pushGuiMode(GM_SpellBuying);
+        mWindowManager.getSpellBuyingWindow()->startSpellBuying(mPtr);
+    }
 
     else
         MWBase::Environment::get().getDialogueManager()->keywordSelected(lower_string(topic));
@@ -148,10 +155,13 @@ void DialogueWindow::setKeywords(std::list<std::string> keyWords)
 {
     mTopicsList->clear();
 
-    bool anyService = mShowTrade;
+    bool anyService = mShowTrade||mShowSpells;
 
     if (mShowTrade)
         mTopicsList->addItem(MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sBarter")->str);
+
+    if (mShowSpells)
+        mTopicsList->addItem(MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sSpells")->str);
 
     if (anyService)
         mTopicsList->addSeparator();

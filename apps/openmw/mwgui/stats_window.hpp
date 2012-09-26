@@ -32,7 +32,7 @@ namespace MWGui
 
             /// Set value for the given ID.
             void setValue (const std::string& id, const MWMechanics::Stat<int>& value);
-            void setValue (const std::string& id, const MWMechanics::DynamicStat<int>& value);
+            void setValue (const std::string& id, const MWMechanics::DynamicStat<float>& value);
             void setValue (const std::string& id, const std::string& value);
             void setValue (const std::string& id, int value);
             void setValue(const ESM::Skill::SkillEnum parSkill, const MWMechanics::Stat<float>& value);
@@ -48,12 +48,10 @@ namespace MWGui
             void addGroup(const std::string &label, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2);
             MyGUI::TextBox* addValueItem(const std::string& text, const std::string &value, const std::string& state, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2);
             MyGUI::Widget* addItem(const std::string& text, MyGUI::IntCoord &coord1, MyGUI::IntCoord &coord2);
-            void updateScroller();
 
             void setFactions (const FactionList& factions);
             void setBirthSign (const std::string &signId);
 
-            void onScrollChangePosition(MyGUI::ScrollBar* scroller, size_t pos);
             void onWindowResize(MyGUI::Window* window);
             void onMouseWheel(MyGUI::Widget* _sender, int _rel);
 
@@ -62,8 +60,7 @@ namespace MWGui
             MyGUI::Widget* mLeftPane;
             MyGUI::Widget* mRightPane;
 
-            MyGUI::WidgetPtr mSkillAreaWidget, mSkillClientWidget;
-            MyGUI::ScrollBar* mSkillScrollerWidget;
+            MyGUI::ScrollView* mSkillView;
             int mLastPos, mClientHeight;
 
             SkillList mMajorSkills, mMinorSkills, mMiscSkills;
