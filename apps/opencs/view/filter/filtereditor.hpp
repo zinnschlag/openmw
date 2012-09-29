@@ -10,7 +10,7 @@
 
 namespace Ui
 {
-    class FilterEditor;
+class FilterEditor;
 }
 
 class FilterEditor : public QWidget, private Ui::FilterEditor

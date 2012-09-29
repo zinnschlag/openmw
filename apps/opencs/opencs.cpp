@@ -32,9 +32,6 @@ OpenCS::OpenCS(QWidget *parent) :
     mModel->loadFilterDirectory(":/filter/");
 
     updateComponents();
-
-    //TODO
-    //connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
 }
 
 OpenCS::~OpenCS()
@@ -59,6 +56,7 @@ void OpenCS::updateComponents()
         QDockWidget *idListDock = new QDockWidget(item->title(), this);
         idListDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
+        // TODO make this dynamic
         QWidget* innerWidget;
         if(item->typeName() == "IdList") {
             IdList* idList = new IdList(this);
@@ -93,6 +91,32 @@ void OpenCS::updateComponents()
 
         addDockWidget(item->area(), idListDock);
     }
+
+    // TODO proper mechanism to connect selection states in gui components
+    QObject *fitlerTree;
+    QObject *filterEditor;
+
+    foreach(QObject* child, children())
+    {
+        QDockWidget* dockWidget = qobject_cast<QDockWidget*>(child);
+        if(!dockWidget)
+            continue;
+
+        FilterTree* innerFitlerTree = qobject_cast<FilterTree*>(dockWidget->widget());
+        if(innerFitlerTree)
+            fitlerTree = innerFitlerTree;
+
+        FilterEditor* innerFitlerEditor = qobject_cast<FilterEditor*>(dockWidget->widget());
+        if(innerFitlerEditor)
+            filterEditor = innerFitlerEditor;
+    }
+
+    if(fitlerTree && filterEditor) {
+        connect(fitlerTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
+    } else {
+        qDebug() << "Faild to connect gui components";
+    }
+    // TODO end
 }
 
 void OpenCS::openFile()
