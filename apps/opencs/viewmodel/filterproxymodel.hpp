@@ -3,7 +3,7 @@
 
 #include <QSortFilterProxyModel>
 
-#include "filtereditmodel.hpp"
+#include "datamodel.hpp"
 
 class FilterProxyModel : public QSortFilterProxyModel
 {

@@ -24,7 +24,7 @@ set(OPENCS_SRC
     persistence/esmserializer.cpp
 
     viewmodel/esmdatamodel.cpp
-    viewmodel/filtereditmodel.cpp
+    viewmodel/datamodel.cpp
     viewmodel/filterproxymodel.cpp
 
     view/idlist.cpp
@@ -56,7 +56,7 @@ set(OPENCS_HDR
     persistence/esmserializer.hpp
 
     viewmodel/esmdatamodel.hpp
-    viewmodel/filtereditmodel.hpp
+    viewmodel/datamodel.hpp
     viewmodel/filterproxymodel.hpp
 
     view/idlist.hpp

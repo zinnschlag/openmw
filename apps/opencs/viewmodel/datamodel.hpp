@@ -1,5 +1,5 @@
-#ifndef FILTEREDITMODEL_HPP
-#define FILTEREDITMODEL_HPP
+#ifndef DATAMODEL_HPP
+#define DATAMODEL_HPP
 
 #include <QAbstractItemModel>
 #include <QUndoStack>

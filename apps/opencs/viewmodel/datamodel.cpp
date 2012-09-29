@@ -1,4 +1,4 @@
-#include "filtereditmodel.hpp"
+#include "datamodel.hpp"
 
 #include <QDebug>
 

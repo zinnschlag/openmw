@@ -3,7 +3,7 @@
 
 #include "ui_filtertree.h"
 
-#include "../../viewmodel/filtereditmodel.hpp"
+#include "../../viewmodel/datamodel.hpp"
 
 #include <QIdentityProxyModel>
 

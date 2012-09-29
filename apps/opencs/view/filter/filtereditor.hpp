@@ -6,7 +6,7 @@
 #include <QStandardItemModel>
 #include <QDataWidgetMapper>
 
-#include "../../viewmodel/filtereditmodel.hpp"
+#include "../../viewmodel/datamodel.hpp"
 
 namespace Ui
 {

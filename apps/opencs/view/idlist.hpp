@@ -8,7 +8,7 @@
 #include <QSortFilterProxyModel>
 
 #include "../viewmodel/esmdatamodel.hpp"
-#include "../viewmodel/filtereditmodel.hpp"
+#include "../viewmodel/datamodel.hpp"
 #include "../viewmodel/filterproxymodel.hpp"
 
 namespace Ui
