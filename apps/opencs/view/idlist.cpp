@@ -37,9 +37,9 @@ IdList::~IdList()
 
 void IdList::setFilterModel(FilterEditModel *model)
 {
-    mModel = model;
+    mDataModel = model;
 
-    connect(mModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+    connect(mDataModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
               this,   SLOT(rowsInserted(QModelIndex,int,int)));
 
     //FIXME This should work, bad workaround below
@@ -61,13 +61,13 @@ void IdList::setFilterModel(FilterEditModel *model)
 void IdList::filterRootChanged(int row)
 {
     //FIXME hardcoded index
-    mFilterProxyModel->setActiveFilter(mModel->index(0, 0).child(row, 0));
+    mFilterProxyModel->setActiveFilter(mDataModel->index(0, 0).child(row, 0));
 }
 
 void IdList::sourceChanged(int row)
 {
     //FIXME hardcoded index and internal pointer usage
-    ModelItem* item = static_cast<ModelItem*>(mModel->index(1, 0).child(row, 0).internalPointer());
+    ModelItem* item = static_cast<ModelItem*>(mDataModel->index(1, 0).child(row, 0).internalPointer());
     if(!item)
         return;
 
@@ -81,10 +81,10 @@ void IdList::rowsInserted(const QModelIndex &parent, int start, int end)
 {
     comboSource->clear();
     //FIXME Copy-Paste
-    int rows2 = mModel->rowCount(mModel->index(1, 0));
+    int rows2 = mDataModel->rowCount(mDataModel->index(1, 0));
     for(int i=0; i< rows2; i++) {
 
-        QVariant data = mModel->data(mModel->index(1, 0).child(i, 0), Qt::DisplayRole);
+        QVariant data = mDataModel->data(mDataModel->index(1, 0).child(i, 0), Qt::DisplayRole);
         comboSource->addItem(data.toString());
     }
 }

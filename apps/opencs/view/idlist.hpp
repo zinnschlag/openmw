@@ -27,9 +27,9 @@ public:
     void setFilterModel(FilterEditModel *model);
 
 private:
-    ESMDataModel *mViewModel;
+    FilterEditModel *mDataModel;
 
-    QAbstractItemModel *mModel;
+    ESMDataModel *mViewModel;
     FilterProxyModel *mFilterProxyModel;
 
 private slots:
