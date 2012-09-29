@@ -11,11 +11,15 @@
 #include <QMetaObject>
 #include <QMetaProperty>
 
+#include "../model/gui/componentitem.hpp"
+
 #include "../model/filter/defaultfilter.hpp"
 #include "../model/filter/matchfilter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
 
+#include "../persistence/esmserializer.hpp"
 
+#include <QProcessEnvironment>
 
 class FilterCommand : public QUndoCommand
 {
@@ -129,17 +133,72 @@ public:
 
 
 
-DataModel::DataModel(ModelItem *rootModelItem, QObject *parent)
+DataModel::DataModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    mModelRoot = rootModelItem;
+    mModelRoot = new ModelItem();
+
+    filterParentItem = new ModelItem("filter", mModelRoot);
+    mModelRoot->appendChild(filterParentItem);
+
+    esmFilesParent = new ModelItem("esm", mModelRoot);
+    mModelRoot->appendChild(esmFilesParent);
+
+    guiRootItem = new ModelItem("gui", mModelRoot);
+    mModelRoot->appendChild(guiRootItem);
+
 
     mUndoStack = new QUndoStack(this);
 }
 
 DataModel::~DataModel()
 {
+    mModelRoot->deleteLater();
 }
+
+
+void DataModel::loadGuiData()
+{
+    guiRootItem->appendChild(new WidgetItem("IdList", "ID List", Qt::RightDockWidgetArea, guiRootItem));
+    guiRootItem->appendChild(new WidgetItem("FilterTree", "Filter Tree", Qt::LeftDockWidgetArea, guiRootItem));
+    guiRootItem->appendChild(new WidgetItem("FilterEditor", "Filter Editor", Qt::LeftDockWidgetArea, guiRootItem));
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    if(env.contains("OPENCS_DEBUG_GUI"))
+    {
+        guiRootItem->appendChild(new WidgetItem("UndoRedo", "Filter Editor", Qt::LeftDockWidgetArea, guiRootItem));
+        guiRootItem->appendChild(new WidgetItem("ItemModel", "Filter Editor", Qt::BottomDockWidgetArea, guiRootItem));
+    }
+}
+
+void DataModel::loadFilterDirectory(QString path)
+{
+    FilterDom *filterDom = new FilterDom(this);
+    QDir filterDirectory(":/filter/");
+    foreach(QString filterFileName, filterDirectory.entryList())
+    {
+        QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
+
+        filterParentItem->appendChild(filterDom->loadFile(filterFilePath, filterParentItem));
+    }
+}
+
+
+
+void DataModel::loadEsmFile(QString filePath)
+{
+    EsmFile *esmFile = new EsmFile(filePath, esmFilesParent);
+
+    EsmSerializer *serializer = new EsmSerializer(this);
+    serializer->load(esmFile);
+
+    //FIXME hardcoded model index
+    emitBeginInsertRows(index(1, 0), rowCount(), rowCount() + 1);
+    esmFilesParent->appendChild(esmFile);
+    emitEndInsertRows();
+}
+
+
 
 QVariant DataModel::data(const QModelIndex &index, int role) const
 {

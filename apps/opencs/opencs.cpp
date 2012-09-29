@@ -11,7 +11,6 @@
 
 #include "model/modelitem.hpp"
 
-#include "persistence/esmserializer.hpp"
 
 #include "view/filter/filtertree.hpp"
 #include "view/filter/filtereditor.hpp"
@@ -27,63 +26,12 @@ OpenCS::OpenCS(QWidget *parent) :
 
     connect(ui->actionOpen,SIGNAL(triggered()), this, SLOT(openFile()));
 
-
-    // Create Data Model
-    mRootItem = new ModelItem();
-
-    {
-        ModelItem* filterParentItem = new ModelItem("filter", mRootItem);
-
-        FilterDom *filterDom = new FilterDom(this);
-        QDir filterDirectory(":/filter/");
-        foreach(QString filterFileName, filterDirectory.entryList())
-        {
-            QString filterFilePath = filterDirectory.absoluteFilePath(filterFileName);
-
-            filterParentItem->appendChild(filterDom->loadFile(filterFilePath, filterParentItem));
-        }
-
-        mRootItem->appendChild(filterParentItem);
-    }
-
-    esmFilesParent = new ModelItem("esm", mRootItem);
-    mRootItem->appendChild(esmFilesParent);
-
     // Create Viewmodel
-    mModel = new DataModel(mRootItem, this);
+    mModel = new DataModel(this);
+    mModel->loadGuiData();
+    mModel->loadFilterDirectory(":/filter/");
 
-
-    QList<WidgetItem*> widgetItems;
-
-    WidgetItem* element;
-
-    element = new IdListWidgetItem(mRootItem);
-    element->setDockArea(Qt::RightDockWidgetArea);
-    widgetItems.append(element);
-
-    element = new FilterTreeWidgetItem(mRootItem);
-    element->setDockArea(Qt::LeftDockWidgetArea);
-    widgetItems.append(element);
-
-    element = new FilterEditorWidgetItem(mRootItem);
-    element->setDockArea(Qt::LeftDockWidgetArea);
-    widgetItems.append(element);
-
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    if(env.contains("OPENCS_DEBUG_GUI")) {
-        element = new UndoRedoWidgetItem(mRootItem);
-        element->setDockArea(Qt::LeftDockWidgetArea);
-        widgetItems.append(element);
-
-        element = new ItemModelWidgetItem(mRootItem);
-        element->setDockArea(Qt::BottomDockWidgetArea);
-        widgetItems.append(element);
-    }
-
-    foreach(WidgetItem* item, widgetItems) {
-        item->setModel(mModel);
-        item->addWidget(this);
-    }
+    updateComponents();
 
     //TODO
     //connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
@@ -92,11 +40,59 @@ OpenCS::OpenCS(QWidget *parent) :
 OpenCS::~OpenCS()
 {
     delete ui;
-    delete mRootItem;
 }
 
-void OpenCS::loadProject()
+void OpenCS::updateComponents()
 {
+    //FIXME hardcoded model index
+    QModelIndex guiParentIndex = mModel->index(2, 0);
+
+    int count = mModel->rowCount(guiParentIndex);
+    for(int i=0; i<count; i++) {
+        ModelItem* baseItem = static_cast<ModelItem*>(guiParentIndex.child(i, 0).internalPointer());
+
+        WidgetItem* item = dynamic_cast<WidgetItem*>(baseItem);
+        if(!item)
+            continue;
+
+
+        QDockWidget *idListDock = new QDockWidget(item->title(), this);
+        idListDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+        QWidget* innerWidget;
+        if(item->typeName() == "IdList") {
+            IdList* idList = new IdList(this);
+            idList->setFilterModel(mModel);
+
+            innerWidget = idList;
+        } else if(item->typeName() == "FilterTree") {
+            FilterTree* filterTree = new FilterTree(this);
+            filterTree->setModel(mModel);
+
+            innerWidget = filterTree;
+        } else if(item->typeName() == "FilterEditor") {
+            FilterEditor* filterEditor = new FilterEditor(this);
+            filterEditor->setModel(mModel);
+
+            innerWidget = filterEditor;
+        } else if(item->typeName() == "UndoRedo") {
+            QUndoView *undoView = new QUndoView(this);
+            //undoView->setStack(filterModel->undoStack());
+
+            innerWidget = undoView;
+        } else if(item->typeName() == "ItemModel") {
+            QTreeView *itemModelTreeView = new QTreeView(this);
+            itemModelTreeView->setModel(mModel);
+            itemModelTreeView->setColumnWidth(0, 500);
+            //itemModelTreeView->resizeColumnToContents(0);
+
+            innerWidget = itemModelTreeView;
+        }
+
+        idListDock->setWidget(innerWidget);
+
+        addDockWidget(item->area(), idListDock);
+    }
 }
 
 void OpenCS::openFile()
@@ -104,13 +100,6 @@ void OpenCS::openFile()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Esm"), "", tr("Esm Files (*.esm)"));
     if (!fileName.isEmpty())
     {
-        EsmFile *esmFile = new EsmFile(fileName, esmFilesParent);
-
-        EsmSerializer *serializer = new EsmSerializer(this);
-        serializer->load(esmFile);
-
-        mModel->emitBeginInsertRows(mModel->index(1, 0), mModel->rowCount(), mModel->rowCount() + 1);
-        esmFilesParent->appendChild(esmFile);
-        mModel->emitEndInsertRows();
+        mModel->loadEsmFile(fileName);
     }
 }

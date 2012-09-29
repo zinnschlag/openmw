@@ -6,6 +6,8 @@ set(OPENCS_SRC
 
     model/modelitem.cpp
 
+    model/gui/componentitem.cpp
+
     model/esm/esmfile.cpp
     model/esm/esmdataitem.cpp
     model/esm/record/activator.cpp
@@ -37,6 +39,8 @@ set(OPENCS_HDR
     opencs.hpp
 
     model/modelitem.hpp
+
+    model/gui/componentitem.hpp
 
     model/esm/esmfile.hpp
     model/esm/esmdataitem.hpp

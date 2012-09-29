@@ -19,13 +19,20 @@ public:
         ItemParamsRole
     };
 
-    DataModel(ModelItem *rootModelItem, QObject *parent);
+    DataModel(QObject *parent);
     ~DataModel();
+
+    void loadGuiData();
+    void loadFilterDirectory(QString path);
+    void loadEsmFile(QString filePath);
 
     void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
     bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
 
     QUndoStack *undoStack() const;
+
+    //TODO Remove this
+    ModelItem* rootItem(){return mModelRoot;}
 
     // QAbstractTableModel
 
@@ -76,6 +83,10 @@ public:
 
 private:
     ModelItem* mModelRoot;
+
+    ModelItem* filterParentItem;
+    ModelItem *esmFilesParent;
+    ModelItem *guiRootItem;
 
     QUndoStack *mUndoStack;
 };
