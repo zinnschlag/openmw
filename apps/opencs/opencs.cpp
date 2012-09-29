@@ -93,7 +93,7 @@ void OpenCS::updateComponents()
     }
 
     // TODO proper mechanism to connect selection states in gui components
-    QObject *fitlerTree;
+    QObject *filterTree;
     QObject *filterEditor;
 
     foreach(QObject* child, children())
@@ -102,17 +102,17 @@ void OpenCS::updateComponents()
         if(!dockWidget)
             continue;
 
-        FilterTree* innerFitlerTree = qobject_cast<FilterTree*>(dockWidget->widget());
-        if(innerFitlerTree)
-            fitlerTree = innerFitlerTree;
+        FilterTree* innerFilterTree = qobject_cast<FilterTree*>(dockWidget->widget());
+        if(innerFilterTree)
+            filterTree = innerFilterTree;
 
-        FilterEditor* innerFitlerEditor = qobject_cast<FilterEditor*>(dockWidget->widget());
-        if(innerFitlerEditor)
-            filterEditor = innerFitlerEditor;
+        FilterEditor* innerFilterEditor = qobject_cast<FilterEditor*>(dockWidget->widget());
+        if(innerFilterEditor)
+            filterEditor = innerFilterEditor;
     }
 
-    if(fitlerTree && filterEditor) {
-        connect(fitlerTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
+    if(filterTree && filterEditor) {
+        connect(filterTree, SIGNAL(indexSelected(QModelIndex)), filterEditor, SLOT(setCurrentModelIndex(QModelIndex)));
     } else {
         qDebug() << "Faild to connect gui components";
     }
