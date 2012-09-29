@@ -13,7 +13,7 @@ public:
     FilterProxyModel(QObject *parent = 0);
     ~FilterProxyModel();
 
-    void setEditModel(FilterEditModel *editModel);
+    void setEditModel(DataModel *editModel);
     void setActiveFilter(const QModelIndex &index);
 
     void setSourceModel(QAbstractItemModel *model);
@@ -28,7 +28,7 @@ private slots:
     void filtersChanged();
 
 private:
-    FilterEditModel *mEditModel;
+    DataModel *mEditModel;
     QModelIndex mFilterRoot;
 
     QList<QString> mHeaders;

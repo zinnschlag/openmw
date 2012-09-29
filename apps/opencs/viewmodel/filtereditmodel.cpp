@@ -20,7 +20,7 @@
 class FilterCommand : public QUndoCommand
 {
 public:
-    FilterCommand(FilterEditModel *model, QModelIndex index, Filter *filter)
+    FilterCommand(DataModel *model, QModelIndex index, Filter *filter)
         :QUndoCommand()
         , mModel(model)
         , mIndex(index)
@@ -28,7 +28,7 @@ public:
     {}
 
 protected:
-    FilterEditModel *mModel;
+    DataModel *mModel;
     QPersistentModelIndex mIndex;
     Filter *mFilter;
 };
@@ -36,7 +36,7 @@ protected:
 class EditPropertyCommand : public FilterCommand
 {
 public:
-    EditPropertyCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString propertyName, QVariant newValue)
+    EditPropertyCommand(DataModel *model, QModelIndex index, Filter *filter, QString propertyName, QVariant newValue)
         : FilterCommand(model, index, filter)
         , mPropertyName(propertyName)
         , mNewValue(newValue)
@@ -67,7 +67,7 @@ private:
 class AddChildCommand : public FilterCommand
 {
 public:
-    AddChildCommand(FilterEditModel *model, QModelIndex index, Filter *filter, QString childType)
+    AddChildCommand(DataModel *model, QModelIndex index, Filter *filter, QString childType)
         : FilterCommand(model, index, filter)
         , mChildType(childType)
     {
@@ -106,7 +106,7 @@ private:
 class DeleteChildCommand : public FilterCommand
 {
 public:
-    DeleteChildCommand(FilterEditModel *model, QModelIndex index, Filter* filter)
+    DeleteChildCommand(DataModel *model, QModelIndex index, Filter* filter)
         : FilterCommand(model, index, filter)
     {
         setText(QString("Delete child"));
@@ -129,7 +129,7 @@ public:
 
 
 
-FilterEditModel::FilterEditModel(ModelItem *rootModelItem, QObject *parent)
+DataModel::DataModel(ModelItem *rootModelItem, QObject *parent)
     : QAbstractItemModel(parent)
 {
     mModelRoot = rootModelItem;
@@ -137,11 +137,11 @@ FilterEditModel::FilterEditModel(ModelItem *rootModelItem, QObject *parent)
     mUndoStack = new QUndoStack(this);
 }
 
-FilterEditModel::~FilterEditModel()
+DataModel::~DataModel()
 {
 }
 
-QVariant FilterEditModel::data(const QModelIndex &index, int role) const
+QVariant DataModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -219,7 +219,7 @@ QVariant FilterEditModel::data(const QModelIndex &index, int role) const
 //            break;
 }
 
-bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool DataModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (!index.isValid())
         return false;
@@ -247,7 +247,7 @@ bool FilterEditModel::setData(const QModelIndex &index, const QVariant &value, i
     return false;
 }
 
-Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
+Qt::ItemFlags DataModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
@@ -275,7 +275,7 @@ Qt::ItemFlags FilterEditModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-void FilterEditModel::executeCommand(const QModelIndex &parent, const QString commandType, QVariant param)
+void DataModel::executeCommand(const QModelIndex &parent, const QString commandType, QVariant param)
 {
     Filter* filter = static_cast<Filter*>(parent.internalPointer());
 
@@ -293,7 +293,7 @@ void FilterEditModel::executeCommand(const QModelIndex &parent, const QString co
 }
 
 //TODO cleanup
-bool FilterEditModel::accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row)
+bool DataModel::accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row)
 {
     if(!index.isValid())
         return true;
@@ -304,7 +304,7 @@ bool FilterEditModel::accept(const QModelIndex &index, QList<QString> headers, Q
     return dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
 }
 
-QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &parent) const
+QModelIndex DataModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (!hasIndex(row, column, parent))
         return QModelIndex();
@@ -324,7 +324,7 @@ QModelIndex FilterEditModel::index(int row, int column, const QModelIndex &paren
     return QModelIndex();
 }
 
-QModelIndex FilterEditModel::parent(const QModelIndex &index) const
+QModelIndex DataModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid())
         return QModelIndex();
@@ -340,7 +340,7 @@ QModelIndex FilterEditModel::parent(const QModelIndex &index) const
     return createIndex(row, 0, parentItem);
 }
 
-int FilterEditModel::rowCount(const QModelIndex &parent) const
+int DataModel::rowCount(const QModelIndex &parent) const
 {
 //    if (parent.column() > 0)
 //        return 0;
@@ -355,12 +355,12 @@ int FilterEditModel::rowCount(const QModelIndex &parent) const
     return parentItem->childCount();
 }
 
-int FilterEditModel::columnCount(const QModelIndex &parent) const
+int DataModel::columnCount(const QModelIndex &parent) const
 {
     return 4;
 }
 
-QUndoStack *FilterEditModel::undoStack() const
+QUndoStack *DataModel::undoStack() const
 {
     return mUndoStack;
 }

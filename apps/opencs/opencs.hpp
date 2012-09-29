@@ -26,7 +26,7 @@ public:
     ~WidgetItem() {}
 
     void setTypeName(QString typeName){mTypeName = typeName;}
-    void setModel(FilterEditModel *model){mModel = model;}
+    void setModel(DataModel *model){mModel = model;}
 
     void setDockArea(Qt::DockWidgetArea area){mArea = area;}
 
@@ -53,7 +53,7 @@ public:
 protected:
     QString mTypeName;
 
-    FilterEditModel *mModel;
+    DataModel *mModel;
 
     Qt::DockWidgetArea mArea;
 };
@@ -196,7 +196,7 @@ private:
     Ui::OpenCS *ui;
 
     ModelItem *mRootItem;
-    FilterEditModel *mModel;
+    DataModel *mModel;
 
     ModelItem *esmFilesParent;
 

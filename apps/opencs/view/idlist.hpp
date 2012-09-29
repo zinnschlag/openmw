@@ -24,10 +24,10 @@ public:
     explicit IdList(QWidget *parent = 0);
     ~IdList();
 
-    void setFilterModel(FilterEditModel *model);
+    void setFilterModel(DataModel *model);
 
 private:
-    FilterEditModel *mDataModel;
+    DataModel *mDataModel;
 
     ESMDataModel *mViewModel;
     FilterProxyModel *mFilterProxyModel;

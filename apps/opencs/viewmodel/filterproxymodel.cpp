@@ -10,7 +10,7 @@ FilterProxyModel::~FilterProxyModel()
 {
 }
 
-void FilterProxyModel::setEditModel(FilterEditModel *editModel)
+void FilterProxyModel::setEditModel(DataModel *editModel)
 {
     mEditModel = editModel;
     connect(mEditModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(filtersChanged()));

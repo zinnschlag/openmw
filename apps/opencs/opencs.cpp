@@ -50,7 +50,7 @@ OpenCS::OpenCS(QWidget *parent) :
     mRootItem->appendChild(esmFilesParent);
 
     // Create Viewmodel
-    mModel = new FilterEditModel(mRootItem, this);
+    mModel = new DataModel(mRootItem, this);
 
 
     QList<WidgetItem*> widgetItems;

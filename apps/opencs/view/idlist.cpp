@@ -35,7 +35,7 @@ IdList::~IdList()
 {
 }
 
-void IdList::setFilterModel(FilterEditModel *model)
+void IdList::setFilterModel(DataModel *model)
 {
     mDataModel = model;
 

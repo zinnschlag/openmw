@@ -31,13 +31,13 @@ public:
     explicit FilterTree(QWidget *parent = 0);
     ~FilterTree();
 
-    void setModel(FilterEditModel *model);
+    void setModel(DataModel *model);
 
 signals:
     void indexSelected(const QModelIndex& index);
 
 private:
-    FilterEditModel *mModel;
+    DataModel *mModel;
     SimpleTreeProxyModel *mSimpleModel;
 
     QModelIndex mContextMenuModelIndex;

@@ -21,7 +21,7 @@ FilterTree::~FilterTree()
 {
 }
 
-void FilterTree::setModel(FilterEditModel *model)
+void FilterTree::setModel(DataModel *model)
 {
     mModel = model;
 
@@ -70,8 +70,8 @@ void FilterTree::contextMenu(const QPoint &point)
 
     QMenu *menu = new QMenu;
 
-    QStringList actionIds = mModel->data(index, FilterEditModel::ItemCommandsRole).toStringList();
-    QVariantList params = mModel->data(index, FilterEditModel::ItemParamsRole).toList();
+    QStringList actionIds = mModel->data(index, DataModel::ItemCommandsRole).toStringList();
+    QVariantList params = mModel->data(index, DataModel::ItemParamsRole).toList();
 
     int i=0;
     foreach(QString actionId, actionIds) {

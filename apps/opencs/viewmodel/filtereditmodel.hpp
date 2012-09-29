@@ -9,7 +9,7 @@
 #include "../model/filter/filter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
 
-class FilterEditModel : public QAbstractItemModel
+class DataModel : public QAbstractItemModel
 {
     Q_OBJECT
 
@@ -19,8 +19,15 @@ public:
         ItemParamsRole
     };
 
-    FilterEditModel(ModelItem *rootModelItem, QObject *parent);
-    ~FilterEditModel();
+    DataModel(ModelItem *rootModelItem, QObject *parent);
+    ~DataModel();
+
+    void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
+    bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
+
+    QUndoStack *undoStack() const;
+
+    // QAbstractTableModel
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
@@ -33,12 +40,6 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
-
-    bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
-
-
-    QUndoStack *undoStack() const;
 
     //TODO make friend
     void emitDataChanged(const QModelIndex &index)

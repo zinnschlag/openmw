@@ -27,6 +27,8 @@ public:
 
     void setRootItem(ModelItem *rootItem);
 
+    // QAbstractTableModel
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 

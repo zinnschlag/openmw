@@ -48,7 +48,7 @@ FilterEditor::~FilterEditor()
 {
 }
 
-void FilterEditor::setModel(FilterEditModel *model)
+void FilterEditor::setModel(DataModel *model)
 {
     mMapper->setModel(model);
     mMapper->addMapping(nameEdit, 0);

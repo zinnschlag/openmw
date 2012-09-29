@@ -21,7 +21,7 @@ public:
     explicit FilterEditor(QWidget *parent = 0);
     ~FilterEditor();
 
-    void setModel(FilterEditModel *model);
+    void setModel(DataModel *model);
 
 public slots:
     void setCurrentModelIndex(const QModelIndex & index);
