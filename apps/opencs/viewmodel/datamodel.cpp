@@ -166,8 +166,8 @@ void DataModel::loadGuiData()
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     if(env.contains("OPENCS_DEBUG_GUI"))
     {
-        guiRootItem->appendChild(new WidgetItem("UndoRedo", "Filter Editor", Qt::LeftDockWidgetArea, guiRootItem));
-        guiRootItem->appendChild(new WidgetItem("ItemModel", "Filter Editor", Qt::BottomDockWidgetArea, guiRootItem));
+        guiRootItem->appendChild(new WidgetItem("UndoRedo", "Undo / Redo", Qt::LeftDockWidgetArea, guiRootItem));
+        guiRootItem->appendChild(new WidgetItem("ItemModel", "Data Model", Qt::BottomDockWidgetArea, guiRootItem));
     }
 }
 
