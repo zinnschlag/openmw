@@ -7,6 +7,7 @@
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
+#include "../viewmodel/esmdatamodel.hpp"
 #include "../viewmodel/filtereditmodel.hpp"
 #include "../viewmodel/filterproxymodel.hpp"
 
@@ -22,18 +23,20 @@ class IdList : public QWidget, private Ui::IdList
 public:
     explicit IdList(QWidget *parent = 0);
     ~IdList();
-    
-    void setModel(QAbstractItemModel *model);
+
     void setFilterModel(FilterEditModel *model);
 
-    void loadColumnConfig();
-
 private:
+    ESMDataModel *mViewModel;
+
     QAbstractItemModel *mModel;
     FilterProxyModel *mFilterProxyModel;
 
 private slots:
+    void rowsInserted(const QModelIndex & parent, int start, int end);
+
     void filterRootChanged(int row);
+    void sourceChanged(int row);
 };
 
 #endif

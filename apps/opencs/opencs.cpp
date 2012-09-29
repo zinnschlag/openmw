@@ -13,14 +13,8 @@
 
 #include "persistence/esmserializer.hpp"
 
-
-
-
 #include "view/filter/filtertree.hpp"
 #include "view/filter/filtereditor.hpp"
-
-
-
 
 OpenCS::OpenCS(QWidget *parent) :
     QMainWindow(parent),
@@ -34,12 +28,11 @@ OpenCS::OpenCS(QWidget *parent) :
     connect(ui->actionOpen,SIGNAL(triggered()), this, SLOT(openFile()));
 
 
-    // Load Items
+    // Create Data Model
     mRootItem = new ModelItem();
 
     {
-        ModelItem* filterParentItem = new ModelItem(mRootItem);
-        filterParentItem->setObjectName("filter");
+        ModelItem* filterParentItem = new ModelItem("filter", mRootItem);
 
         FilterDom *filterDom = new FilterDom(this);
         QDir filterDirectory(":/filter/");
@@ -53,20 +46,18 @@ OpenCS::OpenCS(QWidget *parent) :
         mRootItem->appendChild(filterParentItem);
     }
 
+    esmFilesParent = new ModelItem("esm", mRootItem);
+    mRootItem->appendChild(esmFilesParent);
+
     // Create Viewmodel
-
-    //TODO Remove
-    model = new ESMDataModel(this);
-
     mModel = new FilterEditModel(mRootItem, this);
-
 
 
     QList<WidgetItem*> widgetItems;
 
     WidgetItem* element;
 
-    element = new IdListWidgetItem(model, mRootItem);
+    element = new IdListWidgetItem(mRootItem);
     element->setDockArea(Qt::RightDockWidgetArea);
     widgetItems.append(element);
 
@@ -106,8 +97,6 @@ OpenCS::~OpenCS()
 
 void OpenCS::loadProject()
 {
-
-
 }
 
 void OpenCS::openFile()
@@ -115,15 +104,13 @@ void OpenCS::openFile()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Esm"), "", tr("Esm Files (*.esm)"));
     if (!fileName.isEmpty())
     {
-        EsmFile *esmFile = new EsmFile(fileName, mRootItem);
-        mRootItem->appendChild(esmFile);
+        EsmFile *esmFile = new EsmFile(fileName, esmFilesParent);
 
         EsmSerializer *serializer = new EsmSerializer(this);
         serializer->load(esmFile);
 
-        model->setRootItem(esmFile);
-
-        //FIXME
-        mModel->emitLayoutChanged();
+        mModel->emitBeginInsertRows(mModel->index(1, 0), mModel->rowCount(), mModel->rowCount() + 1);
+        esmFilesParent->appendChild(esmFile);
+        mModel->emitEndInsertRows();
     }
 }

@@ -12,9 +12,13 @@ IdList::IdList(QWidget *parent)
 {
     setupUi(this);
 
-    mFilterProxyModel = new FilterProxyModel(this);
+    mViewModel = new ESMDataModel(this);
 
-    IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
+    mFilterProxyModel = new FilterProxyModel(this);
+    mFilterProxyModel->setSourceModel(mViewModel);
+
+    // TODO
+    //IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
     //tableView->setItemDelegate(itemDelegate);
 
     tableView->setModel(mFilterProxyModel);
@@ -23,20 +27,20 @@ IdList::IdList(QWidget *parent)
     tableView->horizontalHeader()->setStretchLastSection(false);
 
     connect(comboFilterRoot, SIGNAL(currentIndexChanged(int)), this, SLOT(filterRootChanged(int)));
+
+    connect(comboSource, SIGNAL(currentIndexChanged(int)), this, SLOT(sourceChanged(int)));
 }
 
 IdList::~IdList()
 {
 }
 
-void IdList::setModel(QAbstractItemModel *model)
-{
-    mFilterProxyModel->setSourceModel(model);
-}
-
 void IdList::setFilterModel(FilterEditModel *model)
 {
     mModel = model;
+
+    connect(mModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+              this,   SLOT(rowsInserted(QModelIndex,int,int)));
 
     //FIXME This should work, bad workaround below
     //comboBox->setModel(model);
@@ -47,6 +51,8 @@ void IdList::setFilterModel(FilterEditModel *model)
         QVariant data = model->data(model->index(0, 0).child(i, 0), Qt::DisplayRole);
         comboFilterRoot->addItem(data.toString());
     }
+    comboFilterRoot->adjustSize();
+
 
     mFilterProxyModel->setEditModel(model);
 }
@@ -54,6 +60,31 @@ void IdList::setFilterModel(FilterEditModel *model)
 //TODO Make this nicer
 void IdList::filterRootChanged(int row)
 {
-    //FIXME Hardcode
+    //FIXME hardcoded index
     mFilterProxyModel->setActiveFilter(mModel->index(0, 0).child(row, 0));
+}
+
+void IdList::sourceChanged(int row)
+{
+    //FIXME hardcoded index and internal pointer usage
+    ModelItem* item = static_cast<ModelItem*>(mModel->index(1, 0).child(row, 0).internalPointer());
+    if(!item)
+        return;
+
+    mViewModel->setRootItem(item);
+
+    mFilterProxyModel->setSourceModel(mViewModel);
+}
+
+
+void IdList::rowsInserted(const QModelIndex &parent, int start, int end)
+{
+    comboSource->clear();
+    //FIXME Copy-Paste
+    int rows2 = mModel->rowCount(mModel->index(1, 0));
+    for(int i=0; i< rows2; i++) {
+
+        QVariant data = mModel->data(mModel->index(1, 0).child(i, 0), Qt::DisplayRole);
+        comboSource->addItem(data.toString());
+    }
 }

@@ -4,13 +4,12 @@
 #include <QMainWindow>
 #include <QAbstractItemModel>
 
-#include "viewmodel/esmdatamodel.hpp"
 #include "view/idlist.hpp"
-
-
 
 #include <QDockWidget>
 #include <QUndoView>
+
+#include <QTreeView>
 
 #include "view/filter/filtertree.hpp"
 #include "view/filter/filtereditor.hpp"
@@ -64,9 +63,8 @@ class IdListWidgetItem : public WidgetItem
     Q_OBJECT
 
 public:
-    explicit IdListWidgetItem(ESMDataModel* legacyModel, ModelItem *parent = 0)
+    explicit IdListWidgetItem(ModelItem *parent = 0)
         : WidgetItem(parent)
-        , mLegacyModel(legacyModel)
     {}
 
     virtual QString widgetTitle()
@@ -77,14 +75,10 @@ public:
     virtual QWidget* createWidget(QWidget *parent)
     {
         IdList* idList = new IdList(parent);
-        idList->setModel(mLegacyModel);
         idList->setFilterModel(mModel);
 
         return idList;
     }
-
-private:
-    ESMDataModel* mLegacyModel;
 };
 
 class FilterTreeWidgetItem : public WidgetItem
@@ -174,7 +168,8 @@ public:
     {
         QTreeView *itemModelTreeView = new QTreeView(parent);
         itemModelTreeView->setModel(mModel);
-        itemModelTreeView->resizeColumnToContents(0);
+        itemModelTreeView->setColumnWidth(0, 500);
+        //itemModelTreeView->resizeColumnToContents(0);
 
         return itemModelTreeView;
     }
@@ -203,8 +198,7 @@ private:
     ModelItem *mRootItem;
     FilterEditModel *mModel;
 
-    //TODO Remove
-    ESMDataModel *model;
+    ModelItem *esmFilesParent;
 
 private slots:
     void openFile();

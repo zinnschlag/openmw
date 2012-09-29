@@ -6,6 +6,13 @@ ModelItem::ModelItem(ModelItem *parent)
 {
 }
 
+ModelItem::ModelItem(QString name, ModelItem *parent)
+    : mParentItem(parent)
+    , QObject(parent)
+{
+    setObjectName(name);
+}
+
 ModelItem::~ModelItem()
 {
     qDeleteAll(mChildItems);
