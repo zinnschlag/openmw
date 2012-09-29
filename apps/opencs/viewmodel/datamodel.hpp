@@ -31,9 +31,6 @@ public:
 
     QUndoStack *undoStack() const;
 
-    //TODO Remove this
-    ModelItem* rootItem(){return mModelRoot;}
-
     // QAbstractTableModel
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
@@ -82,9 +79,9 @@ public:
     //TODO end
 
 private:
-    ModelItem* mModelRoot;
+    ModelItem *mModelRoot;
 
-    ModelItem* filterParentItem;
+    ModelItem *filterParentItem;
     ModelItem *esmFilesParent;
     ModelItem *guiRootItem;
 
