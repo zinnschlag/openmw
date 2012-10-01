@@ -296,7 +296,7 @@ namespace MWSound
         }
         catch(std::exception &e)
         {
-            std::cout <<"Sound Error: "<<e.what()<< std::endl;
+            //std::cout <<"Sound Error: "<<e.what()<< std::endl;
         }
         return sound;
     }
@@ -332,7 +332,7 @@ namespace MWSound
         }
         catch(std::exception &e)
         {
-            std::cout <<"Sound Error: "<<e.what()<< std::endl;
+            //std::cout <<"Sound Error: "<<e.what()<< std::endl;
         }
         return sound;
     }
@@ -404,18 +404,6 @@ namespace MWSound
         return isPlaying(ptr, soundId);
     }
 
-    void SoundManager::updateObject(MWWorld::Ptr ptr)
-    {
-        const ESM::Position &pos = ptr.getRefData().getPosition();;
-        const Ogre::Vector3 objpos(pos.pos[0], pos.pos[1], pos.pos[2]);
-        SoundMap::iterator snditer = mActiveSounds.begin();
-        while(snditer != mActiveSounds.end())
-        {
-            if(snditer->second.first == ptr)
-                snditer->first->setPosition(objpos);
-            snditer++;
-        }
-    }
 
     void SoundManager::updateRegionSound(float duration)
     {
@@ -498,7 +486,7 @@ namespace MWSound
         mOutput->updateListener(
             mListenerPos,
             mListenerDir,
-            Ogre::Vector3::UNIT_Z,
+            mListenerUp,
             env
         );
 
@@ -558,10 +546,11 @@ namespace MWSound
         }
     }
 
-    void SoundManager::setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir)
+    void SoundManager::setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir, const Ogre::Vector3 &up)
     {
         mListenerPos = pos;
         mListenerDir = dir;
+        mListenerUp  = up;
     }
 
     // Default readAll implementation, for decoders that can't do anything
