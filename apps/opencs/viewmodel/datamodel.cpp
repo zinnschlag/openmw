@@ -199,6 +199,99 @@ void DataModel::loadEsmFile(QString filePath)
 }
 
 
+//FIXME global
+QModelIndex lastContextIndex;
+
+void DataModel::fillContextMenu(QMenu *menu, const QModelIndex &index)
+{
+
+    lastContextIndex = index;
+
+    ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
+
+    if (dynamic_cast<SetOperationFilter*>(item)) {
+
+        //FIXME copy-paste
+        QAction *openAct = new QAction("Add SetOperation", menu);
+        openAct->setProperty("cmd", "addSetOp");
+        connect(openAct, SIGNAL(triggered()), this, SLOT(actionExecuted()));
+        menu->addAction(openAct);
+
+        //FIXME copy-paste
+        QAction *addMatch = new QAction("Add Match", menu);
+        addMatch->setProperty("cmd", "addMatch");
+        connect(addMatch, SIGNAL(triggered()), this, SLOT(actionExecuted()));
+        menu->addAction(addMatch);
+
+    }
+
+    if(dynamic_cast<Filter*>(item)) {
+        QAction *spacer = new QAction(menu);
+        spacer->setSeparator(true);
+        menu->addAction(spacer);
+
+        //FIXME copy-paste
+        QAction *addMatch = new QAction("Delete", menu);
+        addMatch->setProperty("cmd", "delete");
+        connect(addMatch, SIGNAL(triggered()), this, SLOT(actionExecuted()));
+        menu->addAction(addMatch);
+    }
+}
+
+
+void DataModel::actionExecuted()
+{
+    QAction *action = qobject_cast<QAction*>(QObject::sender());
+    if(action) {
+
+        QModelIndex index = lastContextIndex;
+
+        ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
+        Filter *filterItem = dynamic_cast<Filter*>(item);
+
+        QString command = action->property("cmd").toString();
+
+
+        QUndoCommand* cmd;
+
+        if(command == "addSetOp") {
+            cmd = new AddChildCommand(this, index, filterItem, "SetOperation");
+        } else if(command == "addMatch"){
+            cmd = new AddChildCommand(this, index, filterItem, "Match");
+        } else if(command == "delete"){
+            cmd = new DeleteChildCommand(this, index, filterItem);
+        } else {
+            qDebug() << "Unknown command";
+            return;
+        }
+
+        mUndoStack->push(cmd);
+
+    } else {
+        qDebug() << "Action executed slot not called by QAction";
+    }
+}
+
+//TODO cleanup
+bool DataModel::accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row)
+{
+    if(!index.isValid())
+        return true;
+
+    ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
+    FilterFile *filterFile = dynamic_cast<FilterFile*>(item);
+
+    return dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
+}
+
+
+QUndoStack *DataModel::undoStack() const
+{
+    return mUndoStack;
+}
+
+// QAbstractTableModel
+// =============================================================================
 
 QVariant DataModel::data(const QModelIndex &index, int role) const
 {
@@ -243,39 +336,6 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
     }
 
     return QVariant();
-
-//        case ItemCommandsRole:
-//        {
-//            QStringList actionIds;
-
-//            //TODO
-//            if (dynamic_cast<SetOperationFilter*>(filter)) {
-//                actionIds.append("add");
-//                actionIds.append("add");
-//                actionIds.append("-");
-//            }
-
-//            actionIds.append("delete");
-
-//            return actionIds;
-//        }
-//            break;
-//        case ItemParamsRole:
-//        {
-//            QVariantList params;
-
-//            //TODO
-//            if (dynamic_cast<SetOperationFilter*>(filter)) {
-//                params.append("SetOperation");
-//                params.append("Match");
-//                params.append("-");
-//            }
-
-//            params.append("");
-
-//            return params;
-//        }
-//            break;
 }
 
 bool DataModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -334,34 +394,6 @@ Qt::ItemFlags DataModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-void DataModel::executeCommand(const QModelIndex &parent, const QString commandType, QVariant param)
-{
-    Filter* filter = static_cast<Filter*>(parent.internalPointer());
-
-    QUndoCommand* cmd;
-
-    if(commandType == "delete") {
-        cmd = new DeleteChildCommand(this, parent, filter);
-    } else if(commandType == "add"){
-        cmd = new AddChildCommand(this, parent, filter, param.toString());
-    } else {
-        return;
-    }
-
-     mUndoStack->push(cmd);
-}
-
-//TODO cleanup
-bool DataModel::accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row)
-{
-    if(!index.isValid())
-        return true;
-
-    ModelItem *item = static_cast<ModelItem*>(index.internalPointer());
-    FilterFile *filterFile = dynamic_cast<FilterFile*>(item);
-
-    return dynamic_cast<Filter*>(filterFile->child(0))->accept(headers, row);
-}
 
 QModelIndex DataModel::index(int row, int column, const QModelIndex &parent) const
 {
@@ -418,10 +450,4 @@ int DataModel::columnCount(const QModelIndex &parent) const
 {
     return 4;
 }
-
-QUndoStack *DataModel::undoStack() const
-{
-    return mUndoStack;
-}
-
 

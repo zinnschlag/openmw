@@ -4,6 +4,8 @@
 #include <QAbstractItemModel>
 #include <QUndoStack>
 
+#include <QMenu>
+
 #include "../persistence/filter/filterdom.hpp"
 
 #include "../model/filter/filter.hpp"
@@ -26,7 +28,8 @@ public:
     void loadFilterDirectory(QString path);
     void loadEsmFile(QString filePath);
 
-    void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
+    void fillContextMenu(QMenu *menu, const QModelIndex &index);
+
     bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
 
     QUndoStack *undoStack() const;
@@ -77,6 +80,9 @@ public:
     }
 
     //TODO end
+
+public slots:
+    void actionExecuted();
 
 private:
     ModelItem *mModelRoot;

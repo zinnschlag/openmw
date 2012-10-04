@@ -48,7 +48,6 @@ void FilterTree::rootItemIndexChanged(int index)
     treeViewFilter->expandAll();
 }
 
-
 void FilterTree::clicked(const QModelIndex &index)
 {
     QModelIndex res;
@@ -66,41 +65,9 @@ void FilterTree::contextMenu(const QPoint &point)
 
     index = mSimpleModel->mapToSource(index);
 
-    mContextMenuModelIndex = index;
-
     QMenu *menu = new QMenu;
 
-    QStringList actionIds = mModel->data(index, DataModel::ItemCommandsRole).toStringList();
-    QVariantList params = mModel->data(index, DataModel::ItemParamsRole).toList();
-
-    int i=0;
-    foreach(QString actionId, actionIds) {
-        if(actionId == "-") {
-            menu->addSeparator();
-        } else {
-            QString name = actionId + " " + params[i].toString();
-            QAction *openAct = new QAction(name, this);
-            openAct->setProperty("Command", actionId);
-            openAct->setProperty("Param", params[i]);
-
-            connect(openAct, SIGNAL(triggered()), this, SLOT(contextMenuActionTriggered()));
-            menu->addAction(openAct);
-        }
-
-        i++;
-    }
+    mModel->fillContextMenu(menu, index);
 
     menu->exec(treeViewFilter->mapToGlobal(point));
 }
-
-void FilterTree::contextMenuActionTriggered()
-{
-    QAction *action = qobject_cast<QAction*>(QObject::sender());
-    if(action) {
-        mModel->executeCommand(mContextMenuModelIndex, action->property("Command").toString(), action->property("Param"));
-    }
-}
-
-
-
-

@@ -40,15 +40,11 @@ private:
     DataModel *mModel;
     SimpleTreeProxyModel *mSimpleModel;
 
-    QModelIndex mContextMenuModelIndex;
-
 private slots:
     void rootItemIndexChanged(int index);
 
     void clicked(const QModelIndex & index);
     void contextMenu(const QPoint& point);
-
-    void contextMenuActionTriggered();
 };
 
 #endif
