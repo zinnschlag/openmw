@@ -3,7 +3,7 @@
 
 #include "ui_filtertree.h"
 
-#include "../../viewmodel/filtereditmodel.hpp"
+#include "../../viewmodel/datamodel.hpp"
 
 #include <QIdentityProxyModel>
 
@@ -31,24 +31,20 @@ public:
     explicit FilterTree(QWidget *parent = 0);
     ~FilterTree();
 
-    void setModel(FilterEditModel *model);
+    void setModel(DataModel *model);
 
 signals:
     void indexSelected(const QModelIndex& index);
 
 private:
-    FilterEditModel *mModel;
+    DataModel *mModel;
     SimpleTreeProxyModel *mSimpleModel;
-
-    QModelIndex mContextMenuModelIndex;
 
 private slots:
     void rootItemIndexChanged(int index);
 
     void clicked(const QModelIndex & index);
     void contextMenu(const QPoint& point);
-
-    void contextMenuActionTriggered();
 };
 
 #endif

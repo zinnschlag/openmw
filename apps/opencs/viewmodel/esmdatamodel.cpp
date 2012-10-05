@@ -19,78 +19,24 @@
 
 ESMDataModel::ESMDataModel(QObject *parent)
     : QAbstractTableModel(parent)
-    , mMerged(0)
     , mRowCount(0)
 {
-    mRootItem = new ModelItem();
 }
 
 ESMDataModel::~ESMDataModel()
 {
-    delete mRootItem;
 }
 
-void ESMDataModel::loadEsmFile(QString file)
+void ESMDataModel::setRootItem(ModelItem *rootItem)
 {
-    qDebug() << "Trying to open esm:" << file;
     beginResetModel();
 
-    EsmFile *esmFile = new EsmFile(file, mRootItem);
-    mRootItem->appendChild(esmFile);
+    mRootItem = rootItem;
 
-    std::string stdStrFileName = file.toStdString();
-
-    ESM::ESMReader reader;
-    reader.setEncoding("default");
-    reader.open(stdStrFileName);
-
-    while (reader.hasMoreRecs())
-    {
-        reader.getContext();
-
-        ESM::NAME recordType = reader.getRecName();
-        reader.getRecHeader();
-
-        std::string id = reader.getHNOString("NAME");
-        QString recordId = QString::fromStdString(id);
-
-        ESMDataItem *child = NULL;
-
-        switch (recordType.val)
-        {
-        case ESM::REC_ACTI:
-            child = new ActivatorDataItem(esmFile);
-            break;
-        case ESM::REC_ALCH:
-            child = new PotionDataItem(esmFile);
-            break;
-        case ESM::REC_SCPT:
-            child = new ScriptDataItem(esmFile);
-            break;
-        case ESM::REC_GMST:
-            child = new SettingDataItem(esmFile);
-            break;
-        default:
-            child = new ESMDataItem(esmFile);
-            break;
-        }
-
-        child->setRecordType(QString::fromStdString(recordType.toString()));
-
-        child->setId(recordId);
-        esmFile->appendChild(child);
-
-        child->load(reader);
-    }
-
-
-    mMerged = mRootItem->child(0);
-
-
-    mRowCount = mMerged->childCount();
+    mRowCount = mRootItem->childCount();
     for (int i = 0; i < mRowCount; i++)
     {
-        ModelItem *child = mMerged->child(i);
+        ModelItem *child = mRootItem->child(i);
         const QMetaObject *childMeta = child->metaObject();
 
         for (int u = 0; u < childMeta->propertyCount(); u++)
@@ -117,6 +63,7 @@ void ESMDataModel::loadEsmFile(QString file)
 
     emit headerDataChanged(Qt::Horizontal, 0, mNamedProperties.size() - 1);
     endResetModel();
+
 }
 
 int ESMDataModel::rowCount(const QModelIndex &parent) const
@@ -134,7 +81,7 @@ QVariant ESMDataModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    ModelItem *baseItem = mRootItem->child(0);
+    ModelItem *baseItem = mRootItem;
 
     int column = index.column();
 

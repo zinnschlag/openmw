@@ -6,6 +6,8 @@ set(OPENCS_SRC
 
     model/modelitem.cpp
 
+    model/gui/componentitem.cpp
+
     model/esm/esmfile.cpp
     model/esm/esmdataitem.cpp
     model/esm/record/activator.cpp
@@ -21,9 +23,10 @@ set(OPENCS_SRC
     model/filter/setoperationfilter.cpp
 
     persistence/filter/filterdom.cpp
+    persistence/esmserializer.cpp
 
     viewmodel/esmdatamodel.cpp
-    viewmodel/filtereditmodel.cpp
+    viewmodel/datamodel.cpp
     viewmodel/filterproxymodel.cpp
 
     view/idlist.cpp
@@ -36,6 +39,8 @@ set(OPENCS_HDR
     opencs.hpp
 
     model/modelitem.hpp
+
+    model/gui/componentitem.hpp
 
     model/esm/esmfile.hpp
     model/esm/esmdataitem.hpp
@@ -52,9 +57,10 @@ set(OPENCS_HDR
     model/filter/setoperationfilter.hpp
 
     persistence/filter/filterdom.hpp
+    persistence/esmserializer.hpp
 
     viewmodel/esmdatamodel.hpp
-    viewmodel/filtereditmodel.hpp
+    viewmodel/datamodel.hpp
     viewmodel/filterproxymodel.hpp
 
     view/idlist.hpp

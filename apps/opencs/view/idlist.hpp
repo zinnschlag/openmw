@@ -7,24 +7,14 @@
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
 
-#include "../viewmodel/filtereditmodel.hpp"
+#include "../viewmodel/esmdatamodel.hpp"
+#include "../viewmodel/datamodel.hpp"
 #include "../viewmodel/filterproxymodel.hpp"
 
 namespace Ui
 {
 class IdList;
 }
-
-class ColumnConfig
-{
-
-public:
-    explicit ColumnConfig(QString key, int width) : key(key), width(width) {}
-    ~ColumnConfig(){}
-
-    QString key;
-    int width;
-};
 
 class IdList : public QWidget, private Ui::IdList
 {
@@ -33,20 +23,20 @@ class IdList : public QWidget, private Ui::IdList
 public:
     explicit IdList(QWidget *parent = 0);
     ~IdList();
-    
-    void setModel(QAbstractItemModel *model);
-    void setFilterModel(FilterEditModel *editModel);
 
-    void loadColumnConfig();
+    void setFilterModel(DataModel *model);
 
 private:
+    DataModel *mDataModel;
+
+    ESMDataModel *mViewModel;
     FilterProxyModel *mFilterProxyModel;
 
-    QList<ColumnConfig*> mColumnConfigs;
-    void readColumnConfig(const QDomElement &element);
-
 private slots:
+    void rowsInserted(const QModelIndex & parent, int start, int end);
+
     void filterRootChanged(int row);
+    void sourceChanged(int row);
 };
 
 #endif

@@ -9,6 +9,9 @@
 class ESMDataItem : public ModelItem
 {
     Q_OBJECT
+
+    Q_CLASSINFO("display.0", "mwId")
+
     Q_PROPERTY(QString mwType READ type)
     Q_PROPERTY(QString mwId READ id WRITE setId)
 

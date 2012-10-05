@@ -4,8 +4,17 @@
 #include <QMainWindow>
 #include <QAbstractItemModel>
 
-#include "viewmodel/esmdatamodel.hpp"
+#include "model/gui/componentitem.hpp"
+
 #include "view/idlist.hpp"
+
+#include <QDockWidget>
+#include <QUndoView>
+
+#include <QTreeView>
+
+#include "view/filter/filtertree.hpp"
+#include "view/filter/filtereditor.hpp"
 
 namespace Ui
 {
@@ -22,16 +31,12 @@ public:
     
 private:
     Ui::OpenCS *ui;
+    DataModel *mModel;
 
-    ModelItem *mRootItem;
-
-    ESMDataModel *model;
-
-    IdList *idList;
+    void updateComponents();
 
 private slots:
     void openFile();
-    void addIdList();
 };
 
 #endif // OPENCS_H

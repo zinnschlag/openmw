@@ -25,7 +25,9 @@ public:
     ESMDataModel(QObject *parent);
     ~ESMDataModel();
 
-    void loadEsmFile(QString file);
+    void setRootItem(ModelItem *rootItem);
+
+    // QAbstractTableModel
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -36,11 +38,9 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
-
     QVariant valueAtColumn(const ModelItem *rowItem, int column) const;
 
     ModelItem *mRootItem;
-    ModelItem *mMerged;
 
     int mRowCount;
 

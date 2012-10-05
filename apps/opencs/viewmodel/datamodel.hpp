@@ -1,15 +1,17 @@
-#ifndef FILTEREDITMODEL_HPP
-#define FILTEREDITMODEL_HPP
+#ifndef DATAMODEL_HPP
+#define DATAMODEL_HPP
 
 #include <QAbstractItemModel>
 #include <QUndoStack>
+
+#include <QMenu>
 
 #include "../persistence/filter/filterdom.hpp"
 
 #include "../model/filter/filter.hpp"
 #include "../model/filter/setoperationfilter.hpp"
 
-class FilterEditModel : public QAbstractItemModel
+class DataModel : public QAbstractItemModel
 {
     Q_OBJECT
 
@@ -19,8 +21,20 @@ public:
         ItemParamsRole
     };
 
-    FilterEditModel(ModelItem *rootModelItem, QObject *parent);
-    ~FilterEditModel();
+    DataModel(QObject *parent);
+    ~DataModel();
+
+    void loadGuiData();
+    void loadFilterDirectory(QString path);
+    void loadEsmFile(QString filePath);
+
+    void fillContextMenu(QMenu *menu, const QModelIndex &index);
+
+    bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
+
+    QUndoStack *undoStack() const;
+
+    // QAbstractTableModel
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 
@@ -33,12 +47,6 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    void executeCommand(const QModelIndex &parent, const QString commandType, QVariant param);
-
-    bool accept(const QModelIndex &index, QList<QString> headers, QList<QVariant> row);
-
-
-    QUndoStack *undoStack() const;
 
     //TODO make friend
     void emitDataChanged(const QModelIndex &index)
@@ -65,14 +73,25 @@ public:
     {
       endRemoveRows();
     }
+
+    void emitLayoutChanged()
+    {
+      layoutChanged();
+    }
+
     //TODO end
 
+public slots:
+    void actionExecuted();
+
 private:
-    ModelItem* mModelRoot;
+    ModelItem *mModelRoot;
+
+    ModelItem *filterParentItem;
+    ModelItem *esmFilesParent;
+    ModelItem *guiRootItem;
 
     QUndoStack *mUndoStack;
-
-    FilterDom *mFilterDom;
 };
 
 #endif

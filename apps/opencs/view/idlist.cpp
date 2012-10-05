@@ -12,9 +12,13 @@ IdList::IdList(QWidget *parent)
 {
     setupUi(this);
 
-    mFilterProxyModel = new FilterProxyModel(this);
+    mViewModel = new ESMDataModel(this);
 
-    IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
+    mFilterProxyModel = new FilterProxyModel(this);
+    mFilterProxyModel->setSourceModel(mViewModel);
+
+    // TODO
+    //IdlistItemDelegate *itemDelegate = new IdlistItemDelegate();
     //tableView->setItemDelegate(itemDelegate);
 
     tableView->setModel(mFilterProxyModel);
@@ -23,108 +27,64 @@ IdList::IdList(QWidget *parent)
     tableView->horizontalHeader()->setStretchLastSection(false);
 
     connect(comboFilterRoot, SIGNAL(currentIndexChanged(int)), this, SLOT(filterRootChanged(int)));
+
+    connect(comboSource, SIGNAL(currentIndexChanged(int)), this, SLOT(sourceChanged(int)));
 }
 
 IdList::~IdList()
 {
 }
 
-void IdList::setModel(QAbstractItemModel *model)
+void IdList::setFilterModel(DataModel *model)
 {
-    mFilterProxyModel->setSourceModel(model);
-}
+    mDataModel = model;
 
-void IdList::setFilterModel(FilterEditModel *editModel)
-{
-    comboFilterRoot->setModel(editModel);
+    connect(mDataModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
+              this,   SLOT(rowsInserted(QModelIndex,int,int)));
 
-    mFilterProxyModel->setEditModel(editModel);
+    //FIXME This should work, bad workaround below
+    //comboBox->setModel(model);
+    //comboBox->setRootModelIndex(model->index(0, 0));
+    int rows = model->rowCount(model->index(0, 0));
+    for(int i=0; i< rows; i++) {
+
+        QVariant data = model->data(model->index(0, 0).child(i, 0), Qt::DisplayRole);
+        comboFilterRoot->addItem(data.toString());
+    }
+    comboFilterRoot->adjustSize();
+
+
+    mFilterProxyModel->setEditModel(model);
 }
 
 //TODO Make this nicer
 void IdList::filterRootChanged(int row)
 {
-    FilterEditModel* editModel = dynamic_cast<FilterEditModel*>(comboFilterRoot->model());
-    if(editModel) {
-
-        mFilterProxyModel->setActiveFilter(editModel->index(row, 0));
-    }
-
-    mFilterProxyModel->sourceModel();
+    //FIXME hardcoded index
+    mFilterProxyModel->setActiveFilter(mDataModel->index(0, 0).child(row, 0));
 }
 
-
-//FIXME Copy Paste
-void IdList::loadColumnConfig()
+void IdList::sourceChanged(int row)
 {
-    QFile file(":/columns.xml");
-    if (file.open(QIODevice::ReadOnly))
-    {
-        QDomDocument document("ColumnConfig");
+    //FIXME hardcoded index and internal pointer usage
+    ModelItem* item = static_cast<ModelItem*>(mDataModel->index(1, 0).child(row, 0).internalPointer());
+    if(!item)
+        return;
 
-        QString parseError;
-        int parseErrorRow;
-        int parseErrorColumn;
+    mViewModel->setRootItem(item);
 
-        if (document.setContent(&file, &parseError, &parseErrorRow, &parseErrorColumn))
-        {
-            QDomElement columnElement = document.firstChildElement().firstChildElement();
-            while (!columnElement.isNull())
-            {
-                readColumnConfig(columnElement);
-                columnElement = columnElement.nextSiblingElement();
-            }
-
-            QStringList headers;
-            for(int i=0;i<mFilterProxyModel->columnCount(); i++) {
-                QVariant header = mFilterProxyModel->headerData(i, Qt::Horizontal);
-                headers.append(header.toString());
-            }
-
-
-            for(int u=0; u<mColumnConfigs.size(); u++) {
-                QString key = mColumnConfigs.at(u)->key;
-
-                int realPos = headers.indexOf(key);
-                if(realPos>u) {
-                    tableView->horizontalHeader()->moveSection(realPos, u);
-                    headers.move(realPos, u);
-                    continue;
-                }
-            }
-
-            for(int u=0; u<mColumnConfigs.size(); u++) {
-                int width = mColumnConfigs.at(u)->width;
-
-                int logical = tableView->horizontalHeader()->logicalIndex(u);
-                tableView->horizontalHeader()->resizeSection(logical, width);
-            }
-
-        }
-        else
-        {
-            qDebug() << "Parse error" << parseError << parseErrorRow << parseErrorColumn;
-        }
-
-        file.close();
-    }
-    else
-    {
-        qDebug() << "Opening file failed";
-    }
+    mFilterProxyModel->setSourceModel(mViewModel);
 }
 
-void IdList::readColumnConfig(const QDomElement &element)
+
+void IdList::rowsInserted(const QModelIndex &parent, int start, int end)
 {
-    QString name = element.tagName();
-    if (name == "Column")
-    {
-        QDomElement keyNode = element.firstChildElement("Key");
-        QDomElement widthNode = element.firstChildElement("Width");
+    comboSource->clear();
+    //FIXME Copy-Paste
+    int rows2 = mDataModel->rowCount(mDataModel->index(1, 0));
+    for(int i=0; i< rows2; i++) {
 
-        mColumnConfigs.append(new ColumnConfig(keyNode.text(), widthNode.text().toInt()));
-    } else {
-        qWarning() << "Unknown Dom Element" << name;
+        QVariant data = mDataModel->data(mDataModel->index(1, 0).child(i, 0), Qt::DisplayRole);
+        comboSource->addItem(data.toString());
     }
 }
-
