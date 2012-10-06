@@ -80,6 +80,11 @@ public:
   Position mPos;
 
   void save(ESMWriter &esm);
+
+  // Does nothing, provided because certain compilers error if this
+  // if this is not present, and a template using this class is created
+  // and tries to call this method(apps/esmtool/record.hpp:77 specifically).
+  void load(ESMReader &esm);
 };
 
 /* Cells hold data about objects, creatures, statics (rocks, walls,
