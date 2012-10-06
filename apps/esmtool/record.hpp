@@ -122,6 +122,7 @@ namespace EsmTool
     template<> void Record<ESM::StartScript>::print();
     template<> void Record<ESM::Static>::print();
     template<> void Record<ESM::Weapon>::print();
+    template<> void Record<ESM::CellRef>::print();
 }
 
 #endif
