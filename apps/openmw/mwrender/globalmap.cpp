@@ -1,5 +1,6 @@
 #include "globalmap.hpp"
 
+#include <vector>
 #include <boost/filesystem.hpp>
 
 #include <OgreImage.h>
@@ -53,7 +54,12 @@ namespace MWRender
         {
             Ogre::Image image;
 
-            Ogre::uchar data[mWidth * mHeight * 3];
+            std::vector<Ogre::uchar> data;
+            data.reserve(mWidth * mHeight * 3);
+
+            // Array was zero sized.
+            if(data.capacity() == 0)
+                throw std::runtime_error("Failed to create world map.");
 
             for (int x = mMinX; x <= mMaxX; ++x)
             {
@@ -150,7 +156,7 @@ namespace MWRender
                 }
             }
 
-            image.loadDynamicImage (data, mWidth, mHeight, Ogre::PF_B8G8R8);
+            image.loadDynamicImage (data.data(), mWidth, mHeight, Ogre::PF_B8G8R8);
 
             //image.save (mCacheDir + "/GlobalMap.png");
 
