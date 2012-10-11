@@ -63,6 +63,11 @@ void CellRef::save(ESMWriter &esm)
     }
 }
 
+void CellRef::load(ESMReader &esm)
+{
+    // Does nothing, see header.
+}
+
 void Cell::load(ESMReader &esm)
 {
     // Ignore this for now, it might mean we should delete the entire
