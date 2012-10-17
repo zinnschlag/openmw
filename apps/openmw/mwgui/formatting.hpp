@@ -32,19 +32,19 @@ namespace MWGui
              * @param maximum width
              * @return size of the created widgets
              */
-            MyGUI::IntSize parse(std::string text, MyGUI::Widget* parent, const int width);
+            MyGUI::IntSize parse(std::string text, MyGUI::Widget* parent, int width);
 
             /**
              * Split the specified text into pieces that fit in the area specified by width and height parameters
              */
-            std::vector<std::string> split(std::string text, const int width, const int height);
+            std::vector<std::string> split(std::string text, int width, int height);
 
         protected:
             void parseSubText(std::string text);
 
-            void parseImage(std::string tag, bool createWidget=true);
-            void parseDiv(std::string tag);
-            void parseFont(std::string tag);
+            void parseImage(const std::string& tag, bool createWidget=true);
+            void parseDiv(const std::string& tag);
+            void parseFont(const std::string& tag);
         private:
             MyGUI::Widget* mParent;
             int mWidth; // maximum width

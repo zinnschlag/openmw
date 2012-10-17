@@ -7,7 +7,7 @@ using namespace MWGui;
 
 namespace
 {
-    int convertFromHex(std::string hex)
+    int convertFromHex(const std::string& hex)
     {
         int value = 0;
 
@@ -15,9 +15,10 @@ namespace
         int b = hex.length() - 1;
         for (; b >= 0; a++, b--)
         {
+            unsigned int shifted = (1 << (a * 4));
             if (hex[b] >= '0' && hex[b] <= '9')
             {
-                value += (hex[b] - '0') * (1 << (a * 4));
+                value += (hex[b] - '0') * shifted;
             }
             else
             {
@@ -25,32 +26,32 @@ namespace
                 {
                     case 'A':
                     case 'a':
-                        value += 10 * (1 << (a * 4));
+                        value += 10 * shifted;
                         break;
 
                     case 'B':
                     case 'b':
-                        value += 11 * (1 << (a * 4));
+                        value += 11 * shifted;
                         break;
 
                     case 'C':
                     case 'c':
-                        value += 12 * (1 << (a * 4));
+                        value += 12 * shifted;
                         break;
 
                     case 'D':
                     case 'd':
-                        value += 13 * (1 << (a * 4));
+                        value += 13 * shifted;
                         break;
 
                     case 'E':
                     case 'e':
-                        value += 14 * (1 << (a * 4));
+                        value += 14 * shifted;
                         break;
 
                     case 'F':
                     case 'f':
-                        value += 15 * (1 << (a * 4));
+                        value += 15 * shifted;
                         break;
 
                     default:
@@ -64,14 +65,12 @@ namespace
     }
 }
 
-std::vector<std::string> BookTextParser::split(std::string text, const int width, const int height)
+std::vector<std::string> BookTextParser::split(std::string text, int width, int height)
 {
     std::vector<std::string> result;
 
-    boost::algorithm::replace_all(text, "<BR>", "\n");
-    boost::algorithm::replace_all(text, "<P>", "\n\n");
-
     const int spacing = 48;
+    const unsigned int fontSize = 18;
 
     while (text.size() > 0)
     {
@@ -81,40 +80,52 @@ std::vector<std::string> BookTextParser::split(std::string text, const int width
         std::string currentText;
         std::string currentWord;
 
-        unsigned int i=0;
-        while (currentHeight <= height-spacing && i<text.size())
+        unsigned int i = 0;
+        while (currentHeight <= height - spacing && i < text.size())
         {
             if (text[i] == '<')
             {
-                if (text.find('>', i) == std::string::npos)
+                std::string::size_type closingTagPos = text.find('>', i);
+                if (closingTagPos == std::string::npos)
                     throw std::runtime_error("BookTextParser Error: Tag is not terminated");
 
-                if (text.size() > i+4 && text.substr(i, 4) == "<IMG")
+                if (text.compare(i, 4, "<IMG") == 0)
                 {
-                    int h = mHeight;
-                    parseImage(text.substr(i, text.find('>', i)-i), false);
-                    currentHeight += (mHeight-h);
+                    // Place images on new book page, so they wouldn't
+                    // be cut in the middle
+                    if (currentHeight == 0)
+                    {
+                        int h = mHeight;
+                        parseImage(text.substr(i, closingTagPos - i), false);
+                        currentHeight += (mHeight - h);
+                        currentWidth = 0;
+                    }
+                    else
+                    {
+                        currentHeight = height;
+                        --i;
+                        continue;
+                    }
+                }
+                else if (text.compare(i, 5, "<FONT") == 0)
+                {
+                    parseFont(text.substr(i, closingTagPos - i));
+                    currentHeight += fontSize; // keep this in sync with the font size
                     currentWidth = 0;
                 }
-                else if (text.size() > i+5 && text.substr(i, 5) == "<FONT")
+                else if (text.compare(i, 4, "<DIV") == 0)
                 {
-                    parseFont(text.substr(i, text.find('>', i)-i));
-                    currentHeight += 18; // keep this in sync with the font size
-                    currentWidth = 0;
-                }
-                else if (text.size() > i+4 && text.substr(i, 4) == "<DIV")
-                {
-                    parseDiv(text.substr(i, text.find('>', i)-i));
-                    currentHeight += 18; // keep this in sync with the font size
+                    parseDiv(text.substr(i, closingTagPos - i));
+                    currentHeight += fontSize; // keep this in sync with the font size
                     currentWidth = 0;
                 }
 
-                currentText += text.substr(i, text.find('>', i)-i+1);
+                currentText += text.substr(i, closingTagPos - i + 1);
                 i = text.find('>', i);
             }
             else if (text[i] == '\n')
             {
-                currentHeight += 18; // keep this in sync with the font size
+                currentHeight += fontSize; // keep this in sync with the font size
                 currentWidth = 0;
                 currentWord = "";
                 currentText += text[i];
@@ -128,7 +139,8 @@ std::vector<std::string> BookTextParser::split(std::string text, const int width
             else
             {
                 currentWidth +=
-                    MyGUI::FontManager::getInstance().getByName (mTextStyle.mFont == "Default" ? "EB Garamond" : mTextStyle.mFont)
+                    MyGUI::FontManager::getInstance().getByName (mTextStyle.mFont == "Default"
+                        ? "EB Garamond" : mTextStyle.mFont)
                         ->getGlyphInfo(static_cast<unsigned int>(text[i]))->width;
                 currentWord += text[i];
                 currentText += text[i];
@@ -136,15 +148,16 @@ std::vector<std::string> BookTextParser::split(std::string text, const int width
 
             if (currentWidth > width)
             {
-                currentHeight += 18; // keep this in sync with the font size
+                currentHeight += fontSize; // keep this in sync with the font size
                 currentWidth = 0;
 
                 // add size of the current word
-                unsigned int j=0;
-                while (j<currentWord.size())
+                unsigned int j = 0;
+                while (j < currentWord.size())
                 {
                     currentWidth +=
-                        MyGUI::FontManager::getInstance().getByName (mTextStyle.mFont == "Default" ? "EB Garamond" : mTextStyle.mFont)
+                        MyGUI::FontManager::getInstance().getByName (mTextStyle.mFont == "Default"
+                            ? "EB Garamond" : mTextStyle.mFont)
                             ->getGlyphInfo(static_cast<unsigned int>(currentWord[j]))->width;
                     ++j;
                 }
@@ -152,10 +165,10 @@ std::vector<std::string> BookTextParser::split(std::string text, const int width
 
             ++i;
         }
-        if (currentHeight > height-spacing)
+        if (currentHeight > height - spacing)
         {
             // remove the last word
-            currentText.erase(currentText.size()-currentWord.size(), currentText.size());
+            currentText.erase(currentText.size() - currentWord.size(), currentText.size());
         }
 
         result.push_back(currentText);
@@ -165,7 +178,7 @@ std::vector<std::string> BookTextParser::split(std::string text, const int width
     return result;
 }
 
-MyGUI::IntSize BookTextParser::parse(std::string text, MyGUI::Widget* parent, const int width)
+MyGUI::IntSize BookTextParser::parse(std::string text, MyGUI::Widget* parent, int width)
 {
     mParent = parent;
     mWidth = width;
@@ -177,13 +190,6 @@ MyGUI::IntSize BookTextParser::parse(std::string text, MyGUI::Widget* parent, co
         MyGUI::Gui::getInstance().destroyWidget(mParent->getChildAt(0));
     }
 
-    boost::algorithm::replace_all(text, "<BR>", "\n");
-    boost::algorithm::replace_all(text, "<P>", "\n\n");
-
-    // remove leading newlines
-    //while (text[0] == '\n')
-    //    text.erase(0);
-
     // remove trailing "
     if (text[text.size()-1] == '\"')
         text.erase(text.size()-1);
@@ -192,24 +198,24 @@ MyGUI::IntSize BookTextParser::parse(std::string text, MyGUI::Widget* parent, co
     return MyGUI::IntSize(mWidth, mHeight);
 }
 
-void BookTextParser::parseImage(std::string tag, bool createWidget)
+void BookTextParser::parseImage(const std::string& tag, bool createWidget)
 {
-    int src_start = tag.find("SRC=")+5;
-    std::string image = tag.substr(src_start, tag.find('"', src_start)-src_start);
+    int src_start = tag.find("SRC=") + 5;
+    std::string image = tag.substr(src_start, tag.find('"', src_start) - src_start);
 
     // fix texture extension to .dds
     if (image.size() > 4)
     {
-        image[image.size()-3] = 'd';
-        image[image.size()-2] = 'd';
-        image[image.size()-1] = 's';
+        image[image.size() - 3] = 'd';
+        image[image.size() - 2] = 'd';
+        image[image.size() - 1] = 's';
     }
 
-    int width_start = tag.find("WIDTH=")+7;
-    int width = boost::lexical_cast<int>(tag.substr(width_start, tag.find('"', width_start)-width_start));
+    int width_start = tag.find("WIDTH=") + 7;
+    int width = boost::lexical_cast<int>(tag.substr(width_start, tag.find('"', width_start) - width_start));
 
-    int height_start = tag.find("HEIGHT=")+8;
-    int height = boost::lexical_cast<int>(tag.substr(height_start, tag.find('"', height_start)-height_start));
+    int height_start = tag.find("HEIGHT=") + 8;
+    int height = boost::lexical_cast<int>(tag.substr(height_start, tag.find('"', height_start) - height_start));
 
     if (createWidget)
     {
@@ -224,71 +230,92 @@ void BookTextParser::parseImage(std::string tag, bool createWidget)
     mHeight += height;
 }
 
-void BookTextParser::parseDiv(std::string tag)
+void BookTextParser::parseDiv(const std::string& tag)
 {
     if (tag.find("ALIGN=") == std::string::npos)
         return;
 
-    int align_start = tag.find("ALIGN=")+7;
-    std::string align = tag.substr(align_start, tag.find('"', align_start)-align_start);
+    int align_start = tag.find("ALIGN=") + 7;
+    std::string align = tag.substr(align_start, tag.find('"', align_start) - align_start);
     if (align == "CENTER")
         mTextStyle.mTextAlign = MyGUI::Align::HCenter;
     else if (align == "LEFT")
         mTextStyle.mTextAlign = MyGUI::Align::Left;
 }
 
-void BookTextParser::parseFont(std::string tag)
+void BookTextParser::parseFont(const std::string& tag)
 {
     if (tag.find("COLOR=") != std::string::npos)
     {
-        int color_start = tag.find("COLOR=")+7;
-        std::string color = tag.substr(color_start, tag.find('"', color_start)-color_start);
+        int color_start = tag.find("COLOR=") + 7;
+        std::string color = tag.substr(color_start, tag.find('"', color_start) - color_start);
 
         mTextStyle.mColour = MyGUI::Colour(
-            convertFromHex(color.substr(0, 2))/255.0,
-            convertFromHex(color.substr(2, 2))/255.0,
-            convertFromHex(color.substr(4, 2))/255.0);
+            convertFromHex(color.substr(0, 2)) / 255.0,
+            convertFromHex(color.substr(2, 2)) / 255.0,
+            convertFromHex(color.substr(4, 2)) / 255.0);
     }
     if (tag.find("FACE=") != std::string::npos)
     {
-        int face_start = tag.find("FACE=")+6;
-        std::string face = tag.substr(face_start, tag.find('"', face_start)-face_start);
+        int face_start = tag.find("FACE=") + 6;
+        std::string face = tag.substr(face_start, tag.find('"', face_start) - face_start);
 
         if (face != "Magic Cards")
             mTextStyle.mFont = face;
     }
+/*
+    /// \todo
     if (tag.find("SIZE=") != std::string::npos)
     {
-        /// \todo
     }
+*/
 }
 
 void BookTextParser::parseSubText(std::string text)
 {
     if (text[0] == '<')
     {
-        if (text.find('>') == std::string::npos)
+        std::string::size_type closingTagPos = text.find('>');
+        if (closingTagPos == std::string::npos)
             throw std::runtime_error("BookTextParser Error: Tag is not terminated");
 
-        if (text.size() > 4 && text.substr(0, 4) == "<IMG")
-            parseImage(text.substr(0, text.find('>')));
-        else if (text.size() > 5 && text.substr(0, 5) == "<FONT")
-            parseFont(text.substr(0, text.find('>')));
-        else if (text.size() > 4 && text.substr(0, 4) == "<DIV")
-            parseDiv(text.substr(0, text.find('>')));
+        if (text.compare(0, 4, "<IMG") == 0)
+            parseImage(text.substr(0, closingTagPos));
+        else if (text.compare(0, 5, "<FONT") == 0)
+            parseFont(text.substr(0, closingTagPos));
+        else if (text.compare(0, 4, "<DIV") == 0)
+            parseDiv(text.substr(0, closingTagPos));
 
-        text.erase(0, text.find('>')+1);
+        // Skip new line characters after tags
+        std::string::size_type newLine = 0;
+        if (closingTagPos + 1 < text.size()
+            && ((text.compare(closingTagPos + 1, 1, "\n") == 0)
+                || (text.compare(closingTagPos + 1, 1, "\r") == 0)))
+        {
+            ++newLine;
+        }
+        if (closingTagPos + 2 < text.size()
+            && ((text.compare(closingTagPos + 2, 1, "\n") == 0)
+                || (text.compare(closingTagPos + 2, 1, "\r") == 0)))
+        {
+            ++newLine;
+        }
+
+        text.erase(0, closingTagPos + 1 + newLine);
     }
+
+    boost::algorithm::replace_all(text, "<BR>", "\n");
+    boost::algorithm::replace_all(text, "<P>", "\n\n");
 
     bool tagFound = false;
     std::string realText; // real text, without tags
-    unsigned int i=0;
-    for (; i<text.size(); ++i)
+    unsigned int i = 0;
+    for (; i < text.size(); ++i)
     {
         char c = text[i];
         if (c == '<')
         {
-            if (text[i+1] == '/') // ignore closing tags
+            if (text[i + 1] == '/') // ignore closing tags
             {
                 while (c != '>')
                 {

@@ -60,19 +60,23 @@ void BookWindow::open (MWWorld::Ptr book)
     MWWorld::LiveCellRef<ESM::Book> *ref = mBook.get<ESM::Book>();
 
     BookTextParser parser;
-    std::vector<std::string> results = parser.split(ref->base->mText, mLeftPage->getSize().width, mLeftPage->getSize().height);
+    std::vector<std::string> results = parser.split(ref->base->mText,
+        mLeftPage->getSize().width, mLeftPage->getSize().height);
 
-    int i=0;
+    int i = 0;
     for (std::vector<std::string>::iterator it=results.begin();
-        it!=results.end(); ++it)
+        it != results.end(); ++it)
     {
         MyGUI::Widget* parent;
-        if (i%2 == 0)
+        if (i % 2 == 0)
             parent = mLeftPage;
         else
             parent = mRightPage;
 
-        MyGUI::Widget* pageWidget = parent->createWidgetReal<MyGUI::Widget>("", MyGUI::FloatCoord(0.0,0.0,1.0,1.0), MyGUI::Align::Default, "BookPage" + boost::lexical_cast<std::string>(i));
+        MyGUI::Widget* pageWidget = parent->createWidgetReal<MyGUI::Widget>("",
+            MyGUI::FloatCoord(0.0, 0.0, 1.0, 1.0),
+            MyGUI::Align::Default, "BookPage" + boost::lexical_cast<std::string>(i));
+
         parser.parse(*it, pageWidget, mLeftPage->getSize().width);
         mPages.push_back(pageWidget);
         ++i;
@@ -108,7 +112,7 @@ void BookWindow::onTakeButtonClicked (MyGUI::Widget* _sender)
 
 void BookWindow::onNextPageButtonClicked (MyGUI::Widget* _sender)
 {
-    if ((mCurrentPage+1)*2 < mPages.size())
+    if ((mCurrentPage + 1) * 2 < mPages.size())
     {
         MWBase::Environment::get().getSoundManager()->playSound ("book page2", 1.0, 1.0);
 
@@ -132,14 +136,14 @@ void BookWindow::onPrevPageButtonClicked (MyGUI::Widget* _sender)
 
 void BookWindow::updatePages()
 {
-    mLeftPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage*2 + 1) );
-    mRightPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage*2 + 2) );
+    mLeftPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage * 2 + 1) );
+    mRightPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage * 2 + 2) );
 
-    unsigned int i=0;
+    unsigned int i = 0;
     for (std::vector<MyGUI::Widget*>::iterator it = mPages.begin();
         it != mPages.end(); ++it)
     {
-        if (mCurrentPage*2 == i || mCurrentPage*2+1 == i)
+        if (mCurrentPage * 2 == i || mCurrentPage * 2 + 1 == i)
             (*it)->setVisible(true);
         else
         {
