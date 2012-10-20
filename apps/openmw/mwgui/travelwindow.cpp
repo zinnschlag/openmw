@@ -104,22 +104,6 @@ namespace MWGui
 
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
 
-        /*MWMechanics::Spells& playerSpells = MWWorld::Class::get (player).getCreatureStats (player).getSpells();
-        MWMechanics::Spells& merchantSpells = MWWorld::Class::get (actor).getCreatureStats (actor).getSpells();
-         
-        for (MWMechanics::Spells::TIterator iter = merchantSpells.begin(); iter!=merchantSpells.end(); ++iter)
-        {
-            const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find (*iter);
-            
-            if (spell->data.type!=ESM::Spell::ST_Spell)
-                continue; // don't try to sell diseases, curses or powers
-            
-            if (std::find (playerSpells.begin(), playerSpells.end(), *iter)!=playerSpells.end())
-                continue; // we have that spell already
-            
-            addDestination (*iter);
-        }*/
-
         for(unsigned int i = 0;i<mPtr.get<ESM::NPC>()->base->mTransport.size();i++)
         {
             std::string cellname = mPtr.get<ESM::NPC>()->base->mTransport[i].mCellName;
@@ -127,18 +111,20 @@ namespace MWGui
             int x,y;
             MWBase::Environment::get().getWorld()->positionToIndex(mPtr.get<ESM::NPC>()->base->mTransport[i].mPos.pos[0],
                                                                    mPtr.get<ESM::NPC>()->base->mTransport[i].mPos.pos[1],x,y);
-            if(cellname == "") {cellname = MWBase::Environment::get().getWorld()->getExterior(x,y)->cell->name; interior=  false;}
+            if(cellname == "") 
+            {
+                cellname = MWBase::Environment::get().getWorld()->getExterior(x,y)->cell->name; 
+                interior =  false;
+            }
             addDestination(cellname,mPtr.get<ESM::NPC>()->base->mTransport[i].mPos,interior);
         }
 
         updateLabels();
-        //mPtr.get<ESM::NPC>()->base->mTransport[0].
         mDestinationsView->setCanvasSize (MyGUI::IntSize(mDestinationsView->getWidth(), std::max(mDestinationsView->getHeight(), mCurrentY)));
     }
 
     void TravelWindow::onTravelButtonClick(MyGUI::Widget* _sender)
     {
-        std::cout << "traveling to:" << _sender->getUserString("Destination");
         std::istringstream iss(_sender->getUserString("price"));
         int price;
         iss >> price;
@@ -149,27 +135,33 @@ namespace MWGui
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
         ESM::Position pos = *_sender->getUserData<ESM::Position>();
         std::string cellname = _sender->getUserString("Destination");
-        int x,y;
+        
         bool interior = _sender->getUserString("interior") == "y";
-        MWBase::Environment::get().getWorld()->positionToIndex(pos.pos[0],pos.pos[1],x,y);
+        
         MWWorld::CellStore* cell;
         if(interior) cell = MWBase::Environment::get().getWorld()->getInterior(cellname);
         else
         {
+            int x,y;
+            MWBase::Environment::get().getWorld()->positionToIndex(pos.pos[0],pos.pos[1],x,y);
             cell = MWBase::Environment::get().getWorld()->getExterior(x,y);
+
             ESM::Position PlayerPos = player.getRefData().getPosition();
             float d = sqrt( pow(pos.pos[0] - PlayerPos.pos[0],2) + pow(pos.pos[1] - PlayerPos.pos[1],2) + pow(pos.pos[2] - PlayerPos.pos[2],2)   );
             int time = int(d /MWBase::Environment::get().getWorld()->getStore().gameSettings.find("fTravelTimeMult")->getFloat());
-            std::cout << time;
+            
             for(int i = 0;i < time;i++)
             {
                 MWBase::Environment::get().getMechanicsManager ()->restoreDynamicStats ();
             }
             MWBase::Environment::get().getWorld()->advanceTime(time);
         }
+
         MWBase::Environment::get().getWorld()->moveObject(player,*cell,pos.pos[0],pos.pos[1],pos.pos[2]);
+
         mWindowManager.removeGuiMode(GM_Travel);
         mWindowManager.removeGuiMode(GM_Dialogue);
+
         MWBase::Environment::get().getWorld ()->getFader ()->fadeOut(0);
         MWBase::Environment::get().getWorld ()->getFader ()->fadeIn(1);
     }
