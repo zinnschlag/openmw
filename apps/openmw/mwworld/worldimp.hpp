@@ -163,6 +163,9 @@ namespace MWWorld
             virtual Ptr getPtrViaHandle (const std::string& handle);
             ///< Return a pointer to a liveCellRef with the given Ogre handle.
 
+            virtual Ptr searchPtrViaHandle (const std::string& handle);
+            ///< Return a pointer to a liveCellRef with the given Ogre handle or Ptr() if not found
+
             virtual void enable (const Ptr& ptr);
 
             virtual void disable (const Ptr& ptr);
@@ -251,6 +254,10 @@ namespace MWWorld
 
             virtual std::pair<std::string, const ESM::Potion *> createRecord (const ESM::Potion& record);
             ///< Create a new recrod (of type potion) in the ESM store.
+            /// \return ID, pointer to created record
+
+            virtual std::pair<std::string, const ESM::Spell *> createRecord (const ESM::Spell& record);
+            ///< Create a new recrod (of type spell) in the ESM store.
             /// \return ID, pointer to created record
 
             virtual std::pair<std::string, const ESM::Class *> createRecord (const ESM::Class& record);
