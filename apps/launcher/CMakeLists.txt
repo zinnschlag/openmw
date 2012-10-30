@@ -1,42 +1,56 @@
 set(LAUNCHER
     datafilespage.cpp
     graphicspage.cpp
-    lineedit.cpp
     main.cpp
     maindialog.cpp
-    naturalsort.cpp
     playpage.cpp
-    pluginsmodel.cpp
-    pluginsview.cpp
-    filedialog.cpp
+
+    model/datafilesmodel.cpp
+    model/modelitem.cpp
+    model/esm/esmfile.cpp
+
+    utils/filedialog.cpp
+    utils/naturalsort.cpp
+    utils/lineedit.cpp
+    utils/profilescombobox.cpp
+    utils/textinputdialog.cpp
 
     launcher.rc
 )
 
 set(LAUNCHER_HEADER
-    combobox.hpp
     datafilespage.hpp
     graphicspage.hpp
-    lineedit.hpp
     maindialog.hpp
-    naturalsort.hpp
     playpage.hpp
-    pluginsmodel.hpp
-    pluginsview.hpp
-    filedialog.hpp
+
+    model/datafilesmodel.hpp
+    model/modelitem.hpp
+    model/esm/esmfile.hpp
+
+    utils/lineedit.hpp
+    utils/filedialog.hpp
+    utils/naturalsort.hpp
+    utils/profilescombobox.hpp
+    utils/textinputdialog.hpp
+
 )
 
 # Headers that must be pre-processed
 set(LAUNCHER_HEADER_MOC
-    combobox.hpp
     datafilespage.hpp
     graphicspage.hpp
-    lineedit.hpp
     maindialog.hpp
     playpage.hpp
-    pluginsmodel.hpp
-    pluginsview.hpp
-    filedialog.hpp
+
+    model/datafilesmodel.hpp
+    model/modelitem.hpp
+    model/esm/esmfile.hpp
+
+    utils/lineedit.hpp
+    utils/filedialog.hpp
+    utils/profilescombobox.hpp
+    utils/textinputdialog.hpp
 )
 
 source_group(launcher FILES ${LAUNCHER} ${LAUNCHER_HEADER} ${LAUNCHER_HEADER_MOC})
@@ -75,7 +89,7 @@ add_executable(omwlauncher
 target_link_libraries(omwlauncher
     ${Boost_LIBRARIES}
     ${OGRE_LIBRARIES}
-	${OGRE_STATIC_PLUGINS}
+    ${OGRE_STATIC_PLUGINS}
     ${QT_LIBRARIES}
     components
 )
