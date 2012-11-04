@@ -13,6 +13,7 @@
 #include <OgreCompositionTargetPass.h>
 #include <OgreCompositionPass.h>
 #include <OgreHardwarePixelBuffer.h>
+#include <OgreControllerManager.h>
 
 #include <extern/shiny/Main/Factory.hpp>
 #include <extern/shiny/Platforms/Ogre/OgrePlatform.hpp>
@@ -313,7 +314,7 @@ RenderingManager::moveObjectToCell(
     child->setPosition(pos);
 }
 
-void RenderingManager::update (float duration)
+void RenderingManager::update (float duration, bool paused)
 {
     Ogre::Vector3 orig, dest;
     mPlayer->setCameraDistance();
@@ -328,12 +329,21 @@ void RenderingManager::update (float duration)
             mPlayer->setCameraDistance(test.second * orig.distance(dest), false, false);
         }
     }
+    mOcclusionQuery->update(duration);
+    
+    if(paused)
+    {
+        Ogre::ControllerManager::getSingleton().setTimeFactor(0.f);
+        return;
+    }
+    Ogre::ControllerManager::getSingleton().setTimeFactor(
+                MWBase::Environment::get().getWorld()->getTimeScaleFactor()/30.f);
+
     mPlayer->update(duration);
 
     mActors.update (duration);
     mObjects.update (duration);
 
-    mOcclusionQuery->update(duration);
 
     mSkyManager->update(duration);
 

@@ -62,8 +62,8 @@ namespace
 namespace MWWorld
 {
 
-    void Scene::update (float duration){
-        mRendering.update (duration);
+    void Scene::update (float duration, bool paused){
+        mRendering.update (duration, paused);
     }
 
     void Scene::unloadCell (CellStoreCollection::iterator iter)
@@ -304,9 +304,24 @@ namespace MWWorld
 
     void Scene::changeToInteriorCell (const std::string& cellName, const ESM::Position& position)
     {
-        std::cout << "Changing to interior\n";
-
         CellStore *cell = MWBase::Environment::get().getWorld()->getInterior(cellName);
+        bool loadcell = (mCurrentCell == NULL);
+        if(!loadcell)
+            loadcell = *mCurrentCell != *cell;
+        
+        if(!loadcell)
+        {
+            MWBase::World *world = MWBase::Environment::get().getWorld();
+            world->moveObject(world->getPlayer().getPlayer(), position.pos[0], position.pos[1], position.pos[2]);
+
+            float x = Ogre::Radian(position.rot[0]).valueDegrees();
+            float y = Ogre::Radian(position.rot[1]).valueDegrees();
+            float z = Ogre::Radian(position.rot[2]).valueDegrees();
+            world->rotateObject(world->getPlayer().getPlayer(), x, y, z);
+            return;
+        }
+        
+        std::cout << "Changing to interior\n";
 
         // remove active
         CellStoreCollection::iterator active = mActiveCells.begin();
@@ -331,19 +346,19 @@ namespace MWWorld
         }
 
         // Load cell.
-        std::cout << "cellName:" << cellName << std::endl;
-
+        std::cout << "cellName: " << cell->cell->mName << std::endl;
 
         MWBase::Environment::get().getWindowManager ()->setLoadingProgress ("Loading cells", 0, 0, 1);
         loadCell (cell);
 
-        // adjust player
         mCurrentCell = cell;
-        playerCellChange (cell, position);
 
         // adjust fog
         mRendering.switchToInterior();
-        mRendering.configureFog(*cell);
+        mRendering.configureFog(*mCurrentCell);
+        
+        // adjust player
+        playerCellChange (mCurrentCell, position);
 
         // Sky system
         MWBase::Environment::get().getWorld()->adjustSky();
