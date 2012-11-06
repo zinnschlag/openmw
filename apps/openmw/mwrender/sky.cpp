@@ -27,10 +27,10 @@
 using namespace MWRender;
 using namespace Ogre;
 
-BillboardObject::BillboardObject( const String& textureName,
+BillboardObject::BillboardObject( const Ogre::String& textureName,
                     const float initialSize,
-                    const Vector3& position,
-                    SceneNode* rootNode,
+                    const Ogre::Vector3& position,
+                    Ogre::SceneNode* rootNode,
                     const std::string& material)
 {
     SceneManager* sceneMgr = rootNode->getCreator();
@@ -97,7 +97,7 @@ void BillboardObject::setVisibility(const float visibility)
     }
 }
 
-void BillboardObject::setPosition(const Vector3& pPosition)
+void BillboardObject::setPosition(const Ogre::Vector3& pPosition)
 {
     Vector3 normalised = pPosition.normalisedCopy();
     Vector3 finalPosition = normalised * 1000.f;
@@ -118,7 +118,7 @@ void BillboardObject::setVisibilityFlags(int flags)
     mBBSet->setVisibilityFlags(flags);
 }
 
-void BillboardObject::setColour(const ColourValue& pColour)
+void BillboardObject::setColour(const Ogre::ColourValue& pColour)
 {
     mColour = pColour;
     Ogre::MaterialPtr m = static_cast<sh::OgreMaterial*>(mMaterial->getMaterial ())->getOgreMaterial ();
@@ -140,10 +140,10 @@ SceneNode* BillboardObject::getNode()
     return mNode;
 }
 
-Moon::Moon( const String& textureName,
+Moon::Moon( const Ogre::String& textureName,
                     const float initialSize,
-                    const Vector3& position,
-                    SceneNode* rootNode,
+                    const Ogre::Vector3& position,
+                    Ogre::SceneNode* rootNode,
             const std::string& material)
     : BillboardObject(textureName, initialSize, position, rootNode, material)
 {
@@ -203,7 +203,7 @@ unsigned int Moon::getPhaseInt() const
     return 0;
 }
 
-void SkyManager::ModVertexAlpha(Entity* ent, unsigned int meshType)
+void SkyManager::ModVertexAlpha(Ogre::Entity* ent, unsigned int meshType)
 {
     // Get the vertex colour buffer of this mesh
     const Ogre::VertexElement* ves_diffuse = ent->getMesh()->getSubMesh(0)->vertexData->vertexDeclaration->findElementBySemantic( Ogre::VES_DIFFUSE );
@@ -245,7 +245,7 @@ void SkyManager::ModVertexAlpha(Entity* ent, unsigned int meshType)
     ent->getMesh()->getSubMesh(0)->vertexData->vertexBufferBinding->getBuffer(ves_diffuse->getSource())->unlock();
 }
 
-SkyManager::SkyManager (SceneNode* pMwRoot, Camera* pCamera)
+SkyManager::SkyManager (Ogre::SceneNode* pMwRoot, Ogre::Camera* pCamera)
     : mHour(0.0f)
     , mDay(0)
     , mMonth(0)
@@ -574,7 +574,7 @@ void SkyManager::sunDisable()
     mSunEnabled = false;
 }
 
-void SkyManager::setSunDirection(const Vector3& direction)
+void SkyManager::setSunDirection(const Ogre::Vector3& direction)
 {
     if (!mCreated) return;
     mSun->setPosition(direction);
@@ -585,13 +585,13 @@ void SkyManager::setSunDirection(const Vector3& direction)
     sh::Factory::getInstance ().setSharedParameter ("waterSunFade_sunHeight", sh::makeProperty<sh::Vector2>(new sh::Vector2(fade, height)));
 }
 
-void SkyManager::setMasserDirection(const Vector3& direction)
+void SkyManager::setMasserDirection(const Ogre::Vector3& direction)
 {
     if (!mCreated) return;
     mMasser->setPosition(direction);
 }
 
-void SkyManager::setSecundaDirection(const Vector3& direction)
+void SkyManager::setSecundaDirection(const Ogre::Vector3& direction)
 {
     if (!mCreated) return;
     mSecunda->setPosition(direction);

@@ -113,6 +113,7 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     void scaleObject (const MWWorld::Ptr& ptr, const Ogre::Vector3& scale);
 
     /// Rotates object accordingly to its type
+    /// \param ptr
     /// \param rot euler angles in radians
     /// \param adjust indicates should rotation be set or adjusted
     /// \return true if object needs to be rotated physically
@@ -122,6 +123,8 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     void toggleWater();
 
     /// Moves object rendering part to proper container
+    /// \param ptr
+    /// \param position
     /// \param store Cell the object was in previously (\a ptr has already been updated to the new cell).
     void moveObjectToCell (const MWWorld::Ptr& ptr, const Ogre::Vector3& position, MWWorld::CellStore *store);
 
@@ -170,6 +173,8 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     ///< Run animation for a MW-reference. Calls to this function for references that are currently not
     /// in the rendered scene should be ignored.
     ///
+    /// \param ptr
+    /// \param groupName
     /// \param mode: 0 normal, 1 immediate start, 2 immediate loop
     /// \param number How offen the animation should be run
 

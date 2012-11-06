@@ -63,6 +63,7 @@ namespace Files
             MultiDirCollection (const Files::PathContainer& directories,
                 const std::string& extension, bool foldCase);
             ///< Directories are listed with increasing priority.
+            /// \param directories
             /// \param extension The extension that should be listed in this collection. Must
             /// contain the leading dot.
             /// \param foldCase Ignore filename case

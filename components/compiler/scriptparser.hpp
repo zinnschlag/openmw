@@ -22,7 +22,10 @@ namespace Compiler
 
         public:
         
-            /// \param end of script is marked by end keyword.
+            /// \param errorHandler
+            /// \param context
+            /// \param locals
+            /// \param end end of script is marked by end keyword.
             ScriptParser (ErrorHandler& errorHandler, Context& context, Locals& locals,
                 bool end = false);
     

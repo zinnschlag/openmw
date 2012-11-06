@@ -12,7 +12,7 @@
 using namespace MWRender;
 using namespace Ogre;
 
-OcclusionQuery::OcclusionQuery(OEngine::Render::OgreRenderer* renderer, SceneNode* sunNode) :
+OcclusionQuery::OcclusionQuery(OEngine::Render::OgreRenderer* renderer, Ogre::SceneNode* sunNode) :
     mSunTotalAreaQuery(0), mSunVisibleAreaQuery(0), mSingleObjectQuery(0), mActiveQuery(0),
     mDoQuery(0), mSunVisibility(0), mQuerySingleObjectStarted(false), mTestResult(false),
     mQuerySingleObjectRequested(false), mWasVisible(false), mObjectWasVisible(false), mDoQuery2(false),
@@ -105,8 +105,8 @@ bool OcclusionQuery::supported()
     return mSupported;
 }
 
-void OcclusionQuery::notifyRenderSingleObject(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
-			const LightList* pLightList, bool suppressRenderStateChanges)
+void OcclusionQuery::notifyRenderSingleObject(Ogre::Renderable* rend, const Ogre::Pass* pass, const Ogre::AutoParamDataSource* source,
+			const Ogre::LightList* pLightList, bool suppressRenderStateChanges)
 {
     // The following code activates and deactivates the occlusion queries
     // so that the queries only include the rendering of their intended targets
@@ -144,7 +144,7 @@ void OcclusionQuery::notifyRenderSingleObject(Renderable* rend, const Pass* pass
         mActiveQuery->beginOcclusionQuery();
 }
 
-void OcclusionQuery::renderQueueEnded(uint8 queueGroupId, const String& invocation, bool& repeatThisInvocation)
+void OcclusionQuery::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
 {
     if (mActiveQuery != NULL)
     {

@@ -217,7 +217,7 @@ namespace MWWorld
         /**
          * Change the weather in the specified region
          * @param region that should be changed
-         * @param ID of the weather setting to shift to
+         * @param id of the weather setting to shift to
          */
         void changeWeather(const std::string& region, const unsigned int id);
 

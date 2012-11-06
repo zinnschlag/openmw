@@ -89,10 +89,11 @@ namespace MWSound
 
         virtual void playPlaylist(const std::string &playlist);
         ///< Start playing music from the selected folder
-        /// \param name of the folder that contains the playlist
+        /// \param playlist of the folder that contains the playlist
 
         virtual void say(MWWorld::Ptr reference, const std::string& filename);
         ///< Make an actor say some text.
+        /// \param reference
         /// \param filename name of a sound file in "Sound/" in the data directory.
 
         virtual void say(const std::string& filename);

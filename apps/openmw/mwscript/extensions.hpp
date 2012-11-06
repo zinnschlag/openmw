@@ -14,10 +14,12 @@ namespace Interpreter
 namespace MWScript
 {
     void registerExtensions (Compiler::Extensions& extensions, bool consoleOnly = false);
-    ///< \param consoleOnly include console only extensions
+    ///< \param extensions 
+    /// \param consoleOnly include console only extensions
 
     void installOpcodes (Interpreter::Interpreter& interpreter, bool consoleOnly = false);
-    ///< \param consoleOnly include console only opcodes
+    ///< \param interpreter 
+    /// \param consoleOnly include console only opcodes
 }
 
 #endif

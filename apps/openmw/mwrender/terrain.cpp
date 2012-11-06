@@ -76,21 +76,21 @@ namespace MWRender
 
     //----------------------------------------------------------------------------------------------
 
-    void TerrainManager::setDiffuse(const ColourValue& diffuse)
+    void TerrainManager::setDiffuse(const Ogre::ColourValue& diffuse)
     {
         mTerrainGlobals->setCompositeMapDiffuse(diffuse);
     }
 
     //----------------------------------------------------------------------------------------------
 
-    void TerrainManager::setAmbient(const ColourValue& ambient)
+    void TerrainManager::setAmbient(const Ogre::ColourValue& ambient)
     {
         mTerrainGlobals->setCompositeMapAmbient(ambient);
     }
 
     //----------------------------------------------------------------------------------------------
 
-    void TerrainManager::cellAdded(MWWorld::Ptr::CellStore *store)
+    void TerrainManager::cellAdded(MWWorld::CellStore *store)
     {
         const int cellX = store->cell->getGridX();
         const int cellY = store->cell->getGridY();
@@ -182,7 +182,7 @@ namespace MWRender
 
     //----------------------------------------------------------------------------------------------
 
-    void TerrainManager::cellRemoved(MWWorld::Ptr::CellStore *store)
+    void TerrainManager::cellRemoved(MWWorld::CellStore *store)
     {
         for ( int x = 0; x < 2; x++ )
         {
@@ -198,7 +198,7 @@ namespace MWRender
 
     //----------------------------------------------------------------------------------------------
 
-    void TerrainManager::initTerrainTextures(Terrain::ImportData* terrainData,
+    void TerrainManager::initTerrainTextures(Ogre::Terrain::ImportData* terrainData,
                                              int cellX, int cellY,
                                              int fromX, int fromY, int size,
                                              std::map<uint16_t, int>& indexes)
@@ -280,7 +280,7 @@ namespace MWRender
 
     //----------------------------------------------------------------------------------------------
 
-    void TerrainManager::initTerrainBlendMaps(Terrain* terrain,
+    void TerrainManager::initTerrainBlendMaps(Ogre::Terrain* terrain,
                                               int cellX, int cellY,
                                               int fromX, int fromY, int size,
                                               const std::map<uint16_t, int>& indexes)

@@ -702,7 +702,7 @@ SelectSpecializationDialog::~SelectSpecializationDialog()
 
 // widget controls
 
-void SelectSpecializationDialog::onSpecializationClicked(MyGUI::WidgetPtr _sender)
+void SelectSpecializationDialog::onSpecializationClicked(MyGUI::Widget* _sender)
 {
     if (_sender == mSpecialization0)
         mSpecializationId = ESM::Class::Combat;

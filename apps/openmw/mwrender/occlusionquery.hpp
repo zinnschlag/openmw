@@ -50,7 +50,7 @@ namespace MWRender
          * Checks if the objects held by this scenenode
          * can be considered as potential occluders
          * (which might not be the case when transparency is involved)
-         * @param Scene node
+         * @param node
          */
         bool isPotentialOccluder(Ogre::SceneNode* node);
 

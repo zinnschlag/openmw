@@ -75,10 +75,10 @@ void validate(boost::any &v, std::vector<std::string> const &tokens, FallbackMap
 
 
 /**
- * \brief Parses application command line and calls \ref Cfg::ConfigurationManager
+ * \brief Parses application command line and calls \ref Files::ConfigurationManager
  * to parse configuration files.
  *
- * Results are directly written to \ref Engine class.
+ * Results are directly written to \ref OMW::Engine class.
  *
  * \retval true - Everything goes OK
  * \retval false - Error

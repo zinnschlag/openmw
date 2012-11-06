@@ -113,7 +113,7 @@ public:
 
 
 /// Error handling
-void BSAFile::fail(const string &msg)
+void BSAFile::fail(const std::string &msg)
 {
     throw std::runtime_error("BSA Error: " + msg + "\nArchive: " + filename);
 }
@@ -239,7 +239,7 @@ int BSAFile::getIndex(const char *str) const
 }
 
 /// Open an archive file.
-void BSAFile::open(const string &file)
+void BSAFile::open(const std::string &file)
 {
     filename = file;
     readHeader();

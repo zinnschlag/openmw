@@ -14,8 +14,8 @@ namespace Render
     {
     public:
         /**
-         * @param source image (file name - has to exist in an resource group)
-         * @param name of the destination texture to save to (in memory)
+         * @param sourceImage image (file name - has to exist in an resource group)
+         * @param destImage of the destination texture to save to (in memory)
          * @param angle in degrees to turn
          */
         static void rotate(const std::string& sourceImage, const std::string& destImage, const float angle);

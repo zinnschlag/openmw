@@ -31,7 +31,7 @@ namespace BtOgre {
  * =============================================================================================
  */
 
-    void VertexIndexToShape::addStaticVertexData(const VertexData *vertex_data)
+    void VertexIndexToShape::addStaticVertexData(const Ogre::VertexData *vertex_data)
     {
         if (!vertex_data)
             return;
@@ -166,7 +166,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    void VertexIndexToShape::addIndexData(IndexData *data, const unsigned int offset)
+    void VertexIndexToShape::addIndexData(Ogre::IndexData *data, const unsigned int offset)
     {
         const unsigned int prev_size = mIndexCount;
         mIndexCount += (unsigned int)data->indexCount;
@@ -393,7 +393,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    VertexIndexToShape::VertexIndexToShape(const Matrix4 &transform) :
+    VertexIndexToShape::VertexIndexToShape(const Ogre::Matrix4 &transform) :
         mVertexBuffer (0),
         mIndexBuffer (0),
         mVertexCount (0),
@@ -425,7 +425,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    StaticMeshToShapeConverter::StaticMeshToShapeConverter(Entity *entity,  const Matrix4 &transform) :
+    StaticMeshToShapeConverter::StaticMeshToShapeConverter(Ogre::Entity *entity,  const Ogre::Matrix4 &transform) :
         VertexIndexToShape(transform),
         mEntity (0),
         mNode (0)
@@ -434,7 +434,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    StaticMeshToShapeConverter::StaticMeshToShapeConverter(Renderable *rend, const Matrix4 &transform) :
+    StaticMeshToShapeConverter::StaticMeshToShapeConverter(Ogre::Renderable *rend, const Ogre::Matrix4 &transform) :
         VertexIndexToShape(transform),
         mEntity (0),
         mNode (0)
@@ -448,7 +448,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    void StaticMeshToShapeConverter::addEntity(Entity *entity,const Matrix4 &transform)
+    void StaticMeshToShapeConverter::addEntity(Ogre::Entity *entity,const Ogre::Matrix4 &transform)
     {
         // Each entity added need to reset size and radius
         // next time getRadius and getSize are asked, they're computed.
@@ -483,7 +483,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    void StaticMeshToShapeConverter::addMesh(const MeshPtr &mesh, const Matrix4 &transform)
+    void StaticMeshToShapeConverter::addMesh(const Ogre::MeshPtr &mesh, const Ogre::Matrix4 &transform)
     {
         // Each entity added need to reset size and radius
         // next time getRadius and getSize are asked, they're computed.
@@ -525,7 +525,7 @@ namespace BtOgre {
  * =============================================================================================
  */
 
-    AnimatedMeshToShapeConverter::AnimatedMeshToShapeConverter(Entity *entity,const Matrix4 &transform) :
+    AnimatedMeshToShapeConverter::AnimatedMeshToShapeConverter(Ogre::Entity *entity,const Ogre::Matrix4 &transform) :
         VertexIndexToShape(transform),
         mEntity (0),
         mNode (0),
@@ -552,7 +552,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    void AnimatedMeshToShapeConverter::addEntity(Entity *entity,const Matrix4 &transform)
+    void AnimatedMeshToShapeConverter::addEntity(Ogre::Entity *entity,const Ogre::Matrix4 &transform)
     {
         // Each entity added need to reset size and radius
         // next time getRadius and getSize are asked, they're computed.
@@ -598,7 +598,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    void AnimatedMeshToShapeConverter::addMesh(const MeshPtr &mesh, const Matrix4 &transform)
+    void AnimatedMeshToShapeConverter::addMesh(const Ogre::MeshPtr &mesh, const Ogre::Matrix4 &transform)
     {
         // Each entity added need to reset size and radius
         // next time getRadius and getSize are asked, they're computed.
@@ -642,7 +642,7 @@ namespace BtOgre {
     bool AnimatedMeshToShapeConverter::getBoneVertices(unsigned char bone,
                                                        unsigned int &vertex_count,
                                                        Ogre::Vector3* &vertices,
-                                                       const Vector3 &bonePosition)
+                                                       const Ogre::Vector3 &bonePosition)
     {
         BoneIndex::iterator i = mBoneIndex->find(bone);
 
@@ -681,8 +681,8 @@ namespace BtOgre {
 
     //------------------------------------------------------------------------------------------------
     btBoxShape* AnimatedMeshToShapeConverter::createAlignedBox(unsigned char bone,
-                                                               const Vector3 &bonePosition,
-                                                               const Quaternion &boneOrientation)
+                                                               const Ogre::Vector3 &bonePosition,
+                                                               const Ogre::Quaternion &boneOrientation)
     {
         unsigned int vertex_count;
         Vector3* vertices;
@@ -718,11 +718,11 @@ namespace BtOgre {
 
     //------------------------------------------------------------------------------------------------
     bool AnimatedMeshToShapeConverter::getOrientedBox(unsigned char bone,
-                                                      const Vector3 &bonePosition,
-                                                      const Quaternion &boneOrientation,
-                                                      Vector3 &box_afExtent,
-                                                      Vector3 *box_akAxis,
-                                                      Vector3 &box_kCenter)
+                                                      const Ogre::Vector3 &bonePosition,
+                                                      const Ogre::Quaternion &boneOrientation,
+                                                      Ogre::Vector3 &box_afExtent,
+                                                      Ogre::Vector3 *box_akAxis,
+                                                      Ogre::Vector3 &box_kCenter)
     {
         unsigned int vertex_count;
         Vector3* vertices;
@@ -793,8 +793,8 @@ namespace BtOgre {
 
     //------------------------------------------------------------------------------------------------
     btBoxShape *AnimatedMeshToShapeConverter::createOrientedBox(unsigned char bone,
-                                                                const Vector3 &bonePosition,
-                                                                const Quaternion &boneOrientation)
+                                                                const Ogre::Vector3 &bonePosition,
+                                                                const Ogre::Quaternion &boneOrientation)
     {
         Ogre::Vector3 box_akAxis[3];
         Ogre::Vector3 box_afExtent;
@@ -830,7 +830,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    void DynamicRenderable::initialize(RenderOperation::OperationType operationType,
+    void DynamicRenderable::initialize(Ogre::RenderOperation::OperationType operationType,
                                        bool useIndices)
     {
         // Initialize render operation
@@ -940,7 +940,7 @@ namespace BtOgre {
     }
 
     //------------------------------------------------------------------------------------------------
-    Real DynamicRenderable::getSquaredViewDepth(const Camera* cam) const
+    Real DynamicRenderable::getSquaredViewDepth(const Ogre::Camera* cam) const
     {
         Vector3 vMin, vMax, vMid, vDist;
         vMin = mBox.getMinimum();

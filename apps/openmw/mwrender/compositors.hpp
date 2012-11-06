@@ -40,7 +40,7 @@ namespace MWRender
 
         /**
          * @param name of compositor
-         * @param priority, lower number will be first in the chain
+         * @param priority lower number will be first in the chain
          */
         void addCompositor (const std::string& name, const int priority);
 

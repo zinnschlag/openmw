@@ -109,6 +109,7 @@ namespace MWRender{
          * Due to the fact that Ogre terrain doesn't support vertex colours
          * we have to generate them manually
          *
+         * @param land
          * @param cellX the coord of the cell
          * @param cellY the coord of the cell
          * @param fromX the *vertex* index in the current cell to start making texture from

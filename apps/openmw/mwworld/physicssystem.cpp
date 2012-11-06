@@ -121,7 +121,7 @@ namespace MWWorld
         return result;
     }
 
-    bool PhysicsSystem::castRay(const Vector3& from, const Vector3& to)
+    bool PhysicsSystem::castRay(const Ogre::Vector3& from, const Ogre::Vector3& to)
     {
         btVector3 _from, _to;
         _from = btVector3(from.x, from.y, from.z);

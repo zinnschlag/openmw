@@ -27,7 +27,7 @@ namespace MWRender
          * Request the local map for an exterior cell.
          * @remarks It will either be loaded from a disk cache,
          * or rendered if it is not already cached.
-         * @param exterior cell
+         * @param cell exterior
          */
         void requestMap (MWWorld::CellStore* cell);
 
@@ -35,8 +35,8 @@ namespace MWRender
          * Request the local map for an interior cell.
          * @remarks It will either be loaded from a disk cache,
          * or rendered if it is not already cached.
-         * @param interior cell
-         * @param bounding box of the cell
+         * @param cell interior
+         * @param bounds box of the cell
          */
         void requestMap (MWWorld::CellStore* cell,
                         Ogre::AxisAlignedBox bounds);
@@ -46,7 +46,7 @@ namespace MWRender
          * @remarks This is used to draw a "fog of war" effect
          * to hide areas on the map the player has not discovered yet.
          * @param position (OGRE coordinates)
-         * @param camera orientation (OGRE coordinates)
+         * @param orientation orientation (OGRE coordinates)
          */
         void updatePlayer (const Ogre::Vector3& position, const Ogre::Quaternion& orientation);
 
@@ -54,7 +54,7 @@ namespace MWRender
          * Save the fog of war for the current cell to disk.
          * @remarks This should be called before loading a
          * new cell, as well as when the game is quit.
-         * @param current cell
+         * @param cell current cell
          */
         void saveFogOfWar(MWWorld::CellStore* cell);
 

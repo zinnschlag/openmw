@@ -337,7 +337,7 @@ WeatherManager::WeatherManager(MWRender::RenderingManager* rendering) :
     */
 }
 
-void WeatherManager::setWeather(const String& weather, bool instant)
+void WeatherManager::setWeather(const Ogre::String& weather, bool instant)
 {
     if (weather == mCurrentWeather && mNextWeather == "")
     {
@@ -365,7 +365,7 @@ void WeatherManager::setWeather(const String& weather, bool instant)
     mFirstUpdate = false;
 }
 
-WeatherResult WeatherManager::getResult(const String& weather)
+WeatherResult WeatherManager::getResult(const Ogre::String& weather)
 {
     const Weather& current = mWeatherSettings[weather];
     WeatherResult result;

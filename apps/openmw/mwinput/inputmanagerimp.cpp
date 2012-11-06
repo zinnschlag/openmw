@@ -401,7 +401,7 @@ namespace MWInput
             mPlayer.setAutoMove(false);
             mPlayer.setUpDown(0);
         } else if (sw == "playerjumping" && !value) {
-            /// \fixme maybe crouching at this time
+            /// \todo maybe crouching at this time
             mPlayer.setUpDown(0);
         } else if (sw == "vanitymode") {
             MWBase::Environment::get().getWorld()->allowVanityMode(value);

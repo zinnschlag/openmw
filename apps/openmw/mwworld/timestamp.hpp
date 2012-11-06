@@ -14,7 +14,7 @@ namespace MWWorld
         public:
 
             explicit TimeStamp (float hour = 0, int day = 0);
-            ///< \oaram hour [0, 23)
+            ///< \param hour [0, 23)
             /// \param day >=0
 
             float getHour() const;

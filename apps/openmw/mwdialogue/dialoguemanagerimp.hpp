@@ -24,6 +24,11 @@ namespace MWDialogue
 
             bool functionFilter(const MWWorld::Ptr& actor, const ESM::DialInfo& info,bool choice);
 
+            /**
+             * The function parseText check wich topics has been spoken about
+             * and mark them as known
+             * @param text the text of the dialogue
+             */
             void parseText(std::string text);
 
             void updateTopics();
