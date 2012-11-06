@@ -47,7 +47,13 @@ namespace Compiler
             LineParser (ErrorHandler& errorHandler, Context& context, Locals& locals,
                 Literals& literals, std::vector<Interpreter::Type_Code>& code,
                 bool allowExpression = false);
-            ///< \param allowExpression Allow lines consisting of a naked expression
+            ///< 
+            /// \param errorHandler
+            /// \param context
+            /// \param locals
+            /// \param literals
+            /// \param code
+            /// \param allowExpression Allow lines consisting of a naked expression
             /// (result is send to the messagebox interface)
 
             virtual bool parseInt (int value, const TokenLoc& loc, Scanner& scanner);

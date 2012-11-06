@@ -36,6 +36,8 @@ namespace MWRender{
         ///< Run animation for a MW-reference. Calls to this function for references that are currently not
         /// in the rendered scene should be ignored.
         ///
+        /// \param ptr
+        /// \param groupName
         /// \param mode: 0 normal, 1 immediate start, 2 immediate loop
         /// \param number How offen the animation should be run
 

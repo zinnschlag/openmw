@@ -19,6 +19,8 @@ namespace MWRender
         void worldPosToImageSpace(float x, float z, float& imageX, float& imageY);
         ///< @param x x ogre coords
         /// @param z z ogre coords
+        /// @param imageX
+        /// @param imageY
 
         void cellTopLeftCornerToImageSpace(int x, int y, float& imageX, float& imageY);
 

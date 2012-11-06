@@ -67,6 +67,7 @@ namespace MWRender
 
         /// Set where the player is looking at. Uses Morrowind (euler) angles
         /// \param rot Rotation angles in radians
+        /// \param adjust
         /// \return true if player object needs to bo rotated physically
         bool rotate(const Ogre::Vector3 &rot, bool adjust);
 
@@ -87,6 +88,7 @@ namespace MWRender
         void update(float duration);
 
         /// Set camera distance for current mode. Don't work on 1st person view.
+        /// \param dist
         /// \param adjust Indicates should distance be adjusted or set.
         /// \param override If true new distance will be used as default.
         /// If false, default distance can be restored with setCameraDistance().

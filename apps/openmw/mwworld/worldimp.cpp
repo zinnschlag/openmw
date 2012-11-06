@@ -1253,7 +1253,7 @@ namespace MWWorld
         float *fpos = object.getRefData().getPosition().pos;
         Ogre::Vector3 pos(fpos[0], fpos[1], fpos[2]);
 
-        /// \fixme should rely on object height
+        /// \todo should rely on object height
         pos.z += 30;
 
         return isUnderwater(*object.getCell()->cell, pos);

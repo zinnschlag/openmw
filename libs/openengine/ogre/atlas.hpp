@@ -13,9 +13,9 @@ namespace Render
     {
     public:
         /**
-         * @param absolute path to file that specifies layout of the texture (positions of the textures it contains)
-         * @param name of the destination texture to save to (in memory)
-         * @param texture directory prefix
+         * @param filename path to file that specifies layout of the texture (positions of the textures it contains)
+         * @param textureName of the destination texture to save to (in memory)
+         * @param texturePrefix directory prefix
          */
         static void createFromFile (const std::string& filename, const std::string& textureName, const std::string& texturePrefix="textures\\");
     };

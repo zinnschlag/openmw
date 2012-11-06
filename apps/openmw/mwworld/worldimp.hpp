@@ -158,6 +158,7 @@ namespace MWWorld
 
             virtual Ptr getPtr (const std::string& name, bool activeOnly);
             ///< Return a pointer to a liveCellRef with the given name.
+            /// \param name
             /// \param activeOnly do non search inactive cells.
 
             virtual Ptr getPtrViaHandle (const std::string& handle);
@@ -226,6 +227,10 @@ namespace MWWorld
             virtual void scaleObject (const Ptr& ptr, float scale);
 
             /// Rotates object, uses degrees
+            /// \param ptr the object to rotate
+            /// \param x
+            /// \param y
+            /// \param z
             /// \param adjust indicates rotation should be set or adjusted
             virtual void rotateObject (const Ptr& ptr,float x,float y,float z, bool adjust = false);
 
@@ -273,6 +278,8 @@ namespace MWWorld
             ///< Run animation for a MW-reference. Calls to this function for references that are
             /// currently not in the rendered scene should be ignored.
             ///
+            /// \param ptr
+            /// \param groupName
             /// \param mode: 0 normal, 1 immediate start, 2 immediate loop
             /// \param number How offen the animation should be run
 
@@ -285,8 +292,8 @@ namespace MWWorld
             virtual bool placeObject (const Ptr& object, float cursorX, float cursorY);
             ///< place an object into the gameworld at the specified cursor position
             /// @param object
-            /// @param cursor X (relative 0-1)
-            /// @param cursor Y (relative 0-1)
+            /// @param cursorX X (relative 0-1)
+            /// @param cursorY Y (relative 0-1)
             /// @return true if the object was placed, or false if it was rejected because the position is too far away
 
             virtual void dropObjectOnGround (const Ptr& object);

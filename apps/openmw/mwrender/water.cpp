@@ -202,7 +202,7 @@ Vector3 Water::getSceneNodeCoordinates(int gridX, int gridY)
     return Vector3(gridX * CELL_SIZE + (CELL_SIZE / 2), mTop, -gridY * CELL_SIZE - (CELL_SIZE / 2));
 }
 
-void Water::preRenderTargetUpdate(const RenderTargetEvent& evt)
+void Water::preRenderTargetUpdate(const Ogre::RenderTargetEvent& evt)
 {
     if (evt.source == mReflectionTarget)
     {
@@ -222,7 +222,7 @@ void Water::preRenderTargetUpdate(const RenderTargetEvent& evt)
     }
 }
 
-void Water::postRenderTargetUpdate(const RenderTargetEvent& evt)
+void Water::postRenderTargetUpdate(const Ogre::RenderTargetEvent& evt)
 {
     if (evt.source == mReflectionTarget)
     {
@@ -248,7 +248,7 @@ void Water::assignTextures()
     }
 }
 
-void Water::setViewportBackground(const ColourValue& bg)
+void Water::setViewportBackground(const Ogre::ColourValue& bg)
 {
     if (mReflectionTarget)
         mReflectionTarget->getViewport(0)->setBackgroundColour(bg);

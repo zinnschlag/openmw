@@ -148,7 +148,7 @@ ManualObject *Debugging::createPathgridPoints(const ESM::Pathgrid *pathgrid)
     return result;
 }
 
-Debugging::Debugging(SceneNode *mwRoot, OEngine::Physic::PhysicEngine *engine) :
+Debugging::Debugging(Ogre::SceneNode *mwRoot, OEngine::Physic::PhysicEngine *engine) :
     mMwRoot(mwRoot), mEngine(engine),
     mSceneMgr(mwRoot->getCreator()),
     mPathgridEnabled(false),
@@ -274,14 +274,14 @@ void Debugging::disableCellPathgrid(MWWorld::Ptr::CellStore *store)
     }
 }
 
-void Debugging::destroyCellPathgridNode(SceneNode *node)
+void Debugging::destroyCellPathgridNode(Ogre::SceneNode *node)
 {
     mPathGridRoot->removeChild(node);
     destroyAttachedObjects(node);
     mSceneMgr->destroySceneNode(node);
 }
 
-void Debugging::destroyAttachedObjects(SceneNode *node)
+void Debugging::destroyAttachedObjects(Ogre::SceneNode *node)
 {
     SceneNode::ObjectIterator objIt = node->getAttachedObjectIterator();
     while (objIt.hasMoreElements())

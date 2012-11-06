@@ -61,6 +61,10 @@ namespace Compiler
             ExprParser (ErrorHandler& errorHandler, Context& context, Locals& locals,
                 Literals& literals, bool argument = false);
             ///< constructor
+            /// \param errorHandler
+            /// \param context
+            /// \param locals
+            /// \param literals
             /// \param argument Parser is used to parse function- or instruction-
             /// arguments (this influences the precedence rules).
 
@@ -101,6 +105,8 @@ namespace Compiler
             /// \param arguments Each character represents one arguments ('l': integer,
             /// 'f': float, 'S': string, 'c': string (case smashed), '/': following arguments are
             /// optional)
+            /// \param scanner
+            /// \param code
             /// \param invert Store arguments in reverted order.
             /// \return number of optional arguments
     };

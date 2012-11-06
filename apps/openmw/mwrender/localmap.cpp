@@ -102,7 +102,7 @@ void LocalMap::saveFogOfWar(MWWorld::Ptr::CellStore* cell)
     }
 }
 
-void LocalMap::requestMap(MWWorld::Ptr::CellStore* cell)
+void LocalMap::requestMap(MWWorld::CellStore* cell)
 {
     mInterior = false;
 
@@ -118,8 +118,8 @@ void LocalMap::requestMap(MWWorld::Ptr::CellStore* cell)
     render((x+0.5)*sSize, (-y-0.5)*sSize, -10000, 10000, sSize, sSize, name);
 }
 
-void LocalMap::requestMap(MWWorld::Ptr::CellStore* cell,
-                            AxisAlignedBox bounds)
+void LocalMap::requestMap(MWWorld::CellStore* cell,
+                            Ogre::AxisAlignedBox bounds)
 {
     mInterior = true;
     mBounds = bounds;

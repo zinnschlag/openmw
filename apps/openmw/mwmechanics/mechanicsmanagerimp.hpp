@@ -58,6 +58,8 @@ namespace MWMechanics
                 float duration, bool paused);
             ///< Update actor stats and store desired velocity vectors in \a movement
             ///
+            /// \param movement
+            /// \param duration
             /// \param paused In game type does not currently advance (this usually means some GUI
             /// component is up).
 

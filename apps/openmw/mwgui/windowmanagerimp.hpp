@@ -198,7 +198,7 @@ namespace MWGui
      * ID or it is not a string the default string is returned.
      *
      * @param id Identifier for the GMST setting, e.g. "aName"
-     * @param default Default value if the GMST setting cannot be used.
+     * @param default_ Default value if the GMST setting cannot be used.
      */
     virtual std::string getGameSettingString(const std::string &id, const std::string &default_);
 

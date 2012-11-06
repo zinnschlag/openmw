@@ -177,11 +177,10 @@ namespace MWGui
             void setSpellId(const std::string &id);
 
             /**
-             * @param vector to store the created effect widgets
-             * @param parent widget
-             * @param coordinates to use, will be expanded if more space is needed
-             * @param spell category, if this is 0, this means the spell effects are permanent and won't display e.g. duration
-             * @param various flags, see MWEffectList::EffectFlags
+             * @param effects vector to store the created effect widgets
+             * @param creator parent widget
+             * @param coord coordinates to use, will be expanded if more space is needed
+             * @param flags various flags, see MWEffectList::EffectFlags
              */
             void createEffectWidgets(std::vector<MyGUI::WidgetPtr> &effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &coord, int flags);
 
@@ -221,11 +220,11 @@ namespace MWGui
             static SpellEffectList effectListFromESM(const ESM::EffectList* effects);
 
             /**
-             * @param vector to store the created effect widgets
-             * @param parent widget
-             * @param coordinates to use, will be expanded if more space is needed
-             * @param center the effect widgets horizontally
-             * @param various flags, see MWEffectList::EffectFlags
+             * @param effects vector to store the created effect widgets
+             * @param creator parent widget
+             * @param coord coordinates to use, will be expanded if more space is needed
+             * @param center center the effect widgets horizontally
+             * @param flags various flags, see MWEffectList::EffectFlags
              */
             void createEffectWidgets(std::vector<MyGUI::WidgetPtr> &effects, MyGUI::WidgetPtr creator, MyGUI::IntCoord &coord, bool center, int flags);
 

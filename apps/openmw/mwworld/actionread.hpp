@@ -11,7 +11,7 @@ namespace MWWorld
             virtual void executeImp (const MWWorld::Ptr& actor);
 
         public:
-            /// @param book or scroll to read
+            /// @param object or scroll to read
             ActionRead (const Ptr& object);
     };
 }

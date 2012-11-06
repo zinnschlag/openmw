@@ -176,6 +176,8 @@ namespace MWWorld
             virtual bool apply (const MWWorld::Ptr& ptr, const std::string& id,
                 const MWWorld::Ptr& actor) const;
             ///< Apply \a id on \a ptr.
+            /// \param ptr
+            /// \param id
             /// \param actor Actor that is resposible for the ID being applied to \a ptr.
             /// \return Any effect?
             ///
