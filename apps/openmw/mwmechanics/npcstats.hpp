@@ -46,6 +46,7 @@ namespace MWMechanics
             int mDisposition;
             unsigned int mMovementFlags;
             Stat<float> mSkill[27];
+            int mBounty;
 
             int mLevelProgress; // 0-10
 
@@ -97,6 +98,10 @@ namespace MWMechanics
             void flagAsUsed (const std::string& id);
             
             bool hasBeenUsed (const std::string& id) const;
+            
+            int getBounty() const;
+            
+            void setBounty (int bounty);
     };
 }
 
