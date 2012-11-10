@@ -58,38 +58,42 @@
 <div class="title">components/esm/loadbook.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadbook_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_BOOK_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_BOOK_H</span>
+<a href="loadbook_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_BOOK_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_BOOK_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
 <a name="l00007"></a>00007 {
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="comment">/*</span>
-<a name="l00010"></a>00010 <span class="comment"> * Books, magic scrolls, notes and so on</span>
-<a name="l00011"></a>00011 <span class="comment"> */</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="structESM_1_1Book.html">00013</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Book.html">Book</a>
-<a name="l00014"></a>00014 {
-<a name="l00015"></a><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html">00015</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html">BKDTstruct</a>
-<a name="l00016"></a>00016     {
-<a name="l00017"></a><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a4b1fc045bc8f49373a10ec4a2b0015fc">00017</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a4b1fc045bc8f49373a10ec4a2b0015fc">weight</a>;
-<a name="l00018"></a><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a69e181865aff2e69f630bc1f34029176">00018</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a69e181865aff2e69f630bc1f34029176">value</a>, <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#abe39f447c5d5ddcf72b6d9ba5ec17834">isScroll</a>, <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a52c205ec4c0477017c8a06a7b0f9f7f5">skillID</a>, <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a7e98b514b87c788940dab2ef82dcfc77">enchant</a>;
-<a name="l00019"></a>00019     };
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="structESM_1_1Book.html#a6d19968ab1aa451dac5b114c498f654c">00021</a>     <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html">BKDTstruct</a> <a class="code" href="structESM_1_1Book.html#a6d19968ab1aa451dac5b114c498f654c">data</a>;
-<a name="l00022"></a><a class="code" href="structESM_1_1Book.html#a54965a01982f89f63ba53ad9ef738f7d">00022</a>     std::string <a class="code" href="structESM_1_1Book.html#a0ee0cef051b8e58c571aca1d3a29bf12">name</a>, <a class="code" href="structESM_1_1Book.html#a5a59473cc353bef0952dfb24a9746d79">model</a>, <a class="code" href="structESM_1_1Book.html#a39fd393c6f845f174a3905a56987f3d3">icon</a>, <a class="code" href="structESM_1_1Book.html#a837cd9f5d6cc12d97e6d0db8dc03387c">script</a>, <a class="code" href="structESM_1_1Book.html#ac74012b690e8b04456dc13095145aa50">enchant</a>, <a class="code" href="structESM_1_1Book.html#a54965a01982f89f63ba53ad9ef738f7d">text</a>;
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Book.html#a2bb72a4f363d4447b0e5c0f310d4fb73">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00025"></a>00025 };
-<a name="l00026"></a>00026 }
-<a name="l00027"></a>00027 <span class="preprocessor">#endif</span>
+<a name="l00008"></a>00008 <span class="comment">/*</span>
+<a name="l00009"></a>00009 <span class="comment"> * Books, magic scrolls, notes and so on</span>
+<a name="l00010"></a>00010 <span class="comment"> */</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">class </span>ESMReader;
+<a name="l00013"></a>00013 <span class="keyword">class </span>ESMWriter;
+<a name="l00014"></a>00014 
+<a name="l00015"></a><a class="code" href="structESM_1_1Book.html">00015</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Book.html">Book</a>
+<a name="l00016"></a>00016 {
+<a name="l00017"></a><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html">00017</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html">BKDTstruct</a>
+<a name="l00018"></a>00018     {
+<a name="l00019"></a><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#aea897ce1ed69d1307a73a6e69d15683d">00019</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#aea897ce1ed69d1307a73a6e69d15683d">mWeight</a>;
+<a name="l00020"></a><a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a509f8d822973b589c03239ee4ba4293f">00020</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a509f8d822973b589c03239ee4ba4293f">mValue</a>, <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#ad22268297aa70bbe3e7bc628b878d8b7">mIsScroll</a>, <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a535f460932d63db5aaa8e2b067ab4890">mSkillID</a>, <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html#a841d75b29eaa39e9f3da7b11aa258964">mEnchant</a>;
+<a name="l00021"></a>00021     };
+<a name="l00022"></a>00022 
+<a name="l00023"></a><a class="code" href="structESM_1_1Book.html#a30882d255de878a509283301cb4e42e1">00023</a>     <a class="code" href="structESM_1_1Book_1_1BKDTstruct.html">BKDTstruct</a> <a class="code" href="structESM_1_1Book.html#a30882d255de878a509283301cb4e42e1">mData</a>;
+<a name="l00024"></a><a class="code" href="structESM_1_1Book.html#a7587dcc64a24435c1cf81ec47583d002">00024</a>     std::string <a class="code" href="structESM_1_1Book.html#ae2b30ea8493bbd6ad7e3e79c524a4787">mName</a>, <a class="code" href="structESM_1_1Book.html#aa34e8e7a00a6da9d40ca5739f72dcd0c">mModel</a>, <a class="code" href="structESM_1_1Book.html#ad4f46950523c502622d68939e02edde1">mIcon</a>, <a class="code" href="structESM_1_1Book.html#a5d02f4c20ca4313aabbc26c1dc6646fc">mScript</a>, <a class="code" href="structESM_1_1Book.html#a68d80e6165795dc7fb6a678f5aa25e7d">mEnchant</a>, <a class="code" href="structESM_1_1Book.html#a7587dcc64a24435c1cf81ec47583d002">mText</a>;
+<a name="l00025"></a><a class="code" href="structESM_1_1Book.html#a00ba56c289508a3abe290060535ffd5f">00025</a>     std::string <a class="code" href="structESM_1_1Book.html#a00ba56c289508a3abe290060535ffd5f">mId</a>;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Book.html#a2bb72a4f363d4447b0e5c0f310d4fb73">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Book.html#ac5dd70cab57e0c78875b00a45295e292">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00029"></a>00029 };
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

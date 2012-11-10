@@ -78,7 +78,8 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a866219f7579a8e3ea2ebc87df56e6650">Fader</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a9918f132e5cf3c4825954e9f978a92c1">Fader</a> (Ogre::SceneManager *sceneMgr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a86fa8af26e7ead66cbce8bbc109e29a0">~Fader</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#afb3236fe3893b2bb8e7c2c48292a5d1f">update</a> (float dt)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a19fb15e57140752fc2ec9a62b035eb3f">fadeIn</a> (const float time)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a0f9c93f091c70eecd35ecd56b369c837">fadeOut</a> (const float time)</td></tr>
@@ -94,13 +95,14 @@ Private Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::TextureUnitState *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#ae32a91351978f9ebb08897d25823137e">mFadeTextureUnit</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::Overlay *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a353c48100abfd47bad2453b6b58a77e1">mOverlay</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Rectangle2D *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a1796470a795064758fa06af62e1e17ac">mRectangle</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a6de8209626b87985464069f6dd55da2e">FadingMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a81b5a8179078a21dcf63d399d5b29920">mMode</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a58539d5014dcb11980f0075a8aa6879c">mRemainingTime</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a9d65b313d2a24686e2e3653dc094c1af">mTargetTime</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a5f291c6acad89a4760fea2d06d837b7f">mTargetAlpha</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a69e74c433c0dcd5fbb4e2b1d45ad25c8">mCurrentAlpha</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#acfb5286b791aef2dc1cabbe3112646ea">mStartAlpha</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneManager *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a48962a0bb5ba1b8bf0afe2bfef16bdec">mSceneMgr</a></td></tr>
 </table>
 <hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a6de8209626b87985464069f6dd55da2e"></a><!-- doxytag: member="OEngine::Render::Fader::FadingMode" ref="a6de8209626b87985464069f6dd55da2e" args="" -->
@@ -125,12 +127,29 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a866219f7579a8e3ea2ebc87df56e6650"></a><!-- doxytag: member="OEngine::Render::Fader::Fader" ref="a866219f7579a8e3ea2ebc87df56e6650" args="()" -->
+<a class="anchor" id="a9918f132e5cf3c4825954e9f978a92c1"></a><!-- doxytag: member="OEngine::Render::Fader::Fader" ref="a9918f132e5cf3c4825954e9f978a92c1" args="(Ogre::SceneManager *sceneMgr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a866219f7579a8e3ea2ebc87df56e6650">Fader::Fader</a> </td>
+          <td class="memname"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a9918f132e5cf3c4825954e9f978a92c1">Fader::Fader</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::SceneManager *&#160;</td>
+          <td class="paramname"><em>sceneMgr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a86fa8af26e7ead66cbce8bbc109e29a0"></a><!-- doxytag: member="OEngine::Render::Fader::~Fader" ref="a86fa8af26e7ead66cbce8bbc109e29a0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOEngine_1_1Render_1_1Fader.html#a86fa8af26e7ead66cbce8bbc109e29a0">Fader::~Fader</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -276,12 +295,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a353c48100abfd47bad2453b6b58a77e1"></a><!-- doxytag: member="OEngine::Render::Fader::mOverlay" ref="a353c48100abfd47bad2453b6b58a77e1" args="" -->
+<a class="anchor" id="a1796470a795064758fa06af62e1e17ac"></a><!-- doxytag: member="OEngine::Render::Fader::mRectangle" ref="a1796470a795064758fa06af62e1e17ac" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Ogre::Overlay* <a class="el" href="classOEngine_1_1Render_1_1Fader.html#a353c48100abfd47bad2453b6b58a77e1">OEngine::Render::Fader::mOverlay</a><code> [private]</code></td>
+          <td class="memname">Ogre::Rectangle2D* <a class="el" href="classOEngine_1_1Render_1_1Fader.html#a1796470a795064758fa06af62e1e17ac">OEngine::Render::Fader::mRectangle</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -295,6 +314,19 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">float <a class="el" href="classOEngine_1_1Render_1_1Fader.html#a58539d5014dcb11980f0075a8aa6879c">OEngine::Render::Fader::mRemainingTime</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a48962a0bb5ba1b8bf0afe2bfef16bdec"></a><!-- doxytag: member="OEngine::Render::Fader::mSceneMgr" ref="a48962a0bb5ba1b8bf0afe2bfef16bdec" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::SceneManager* <a class="el" href="classOEngine_1_1Render_1_1Fader.html#a48962a0bb5ba1b8bf0afe2bfef16bdec">OEngine::Render::Fader::mSceneMgr</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -349,7 +381,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

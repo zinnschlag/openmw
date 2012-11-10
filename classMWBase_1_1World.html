@@ -126,6 +126,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a50e1e4f09a1688777c0172f4e7a6709a">getPtr</a> (const std::string &amp;name, bool activeOnly)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#afd0dd50b2226def1a31c5aef3be5cbc7">getPtrViaHandle</a> (const std::string &amp;handle)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a pointer to a liveCellRef with the given <a class="el" href="namespaceOgre.html">Ogre</a> handle.  <a href="#afd0dd50b2226def1a31c5aef3be5cbc7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aff60eb2a34eae521a791a4e482dc017c">searchPtrViaHandle</a> (const std::string &amp;handle)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a pointer to a liveCellRef with the given <a class="el" href="namespaceOgre.html">Ogre</a> handle or Ptr() if not found.  <a href="#aff60eb2a34eae521a791a4e482dc017c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#abfdf8a325a24d1f7d8738ea209436376">disable</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a045a05fd66031c1f08c2bb01c84c0ea2">advanceTime</a> (double hours)=0</td></tr>
@@ -136,6 +138,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set in-game time month.  <a href="#aa71bf96cba3659c789be0e28269fdb49"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ade9896158d5a59ce82fa48a8747c024f">setDay</a> (int day)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set in-game time day.  <a href="#ade9896158d5a59ce82fa48a8747c024f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a261aa297801e6e129d25f8d07bbb258f">getDay</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aee76e30f425e01cd6153fd94c698e36f">getMonth</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1TimeStamp.html">MWWorld::TimeStamp</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#afedfaa8a949d00d5905eb8ae070492fe">getTimeStamp</a> () const =0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current in-game time stamp.  <a href="#afedfaa8a949d00d5905eb8ae070492fe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#acc14577926bec7e628ed75f8f0c242ee">toggleSky</a> ()=0</td></tr>
@@ -172,6 +176,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; std::string, <br class="typebreak"/>
 const <a class="el" href="structESM_1_1Potion.html">ESM::Potion</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a73375c2a7a99635d8c95b716b330535e">createRecord</a> (const <a class="el" href="structESM_1_1Potion.html">ESM::Potion</a> &amp;record)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; std::string, <br class="typebreak"/>
+const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a35e88bbdc3c7bae298e3893fe75c77c5">createRecord</a> (const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> &amp;record)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; std::string, <br class="typebreak"/>
 const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ae4010bbb9f97e64b7f8d244a3be45b58">createRecord</a> (const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> &amp;record)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structESM_1_1Cell.html">ESM::Cell</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a16a66a893c816501b28454b5155b8aaf">createRecord</a> (const <a class="el" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;record)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a4c21f2e34b18e84703fe10f6ba4e46fc">playAnimationGroup</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;groupName, int mode, int number=1)=0</td></tr>
@@ -190,6 +196,7 @@ const <a class="el" href="structESM_1_1Class.html">ESM::Class</a> * &gt;&#160;</
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa9ec2e75781a92c5244767d53f55df8f">togglePlayerLooking</a> (bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa8ad404b63948d74f14ccda90acc0a10">renderPlayer</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa2e13376fc3d3bd03e42b22d8cb10014">setupExternalRendering</a> (<a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;rendering)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a8a79fb5c35ed4794f2b424b8c2a02875">canRest</a> ()=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a73d56fc44930b5d770879434acf332f3">World</a> (const <a class="el" href="classMWBase_1_1World.html">World</a> &amp;)</td></tr>
@@ -368,6 +375,29 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8a79fb5c35ed4794f2b424b8c2a02875"></a><!-- doxytag: member="MWBase::World::canRest" ref="a8a79fb5c35ed4794f2b424b8c2a02875" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int <a class="el" href="classMWBase_1_1World.html#a8a79fb5c35ed4794f2b424b8c2a02875">MWBase::World::canRest</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>check if the player is allowed to rest <br/>
+ 0 - yes <br/>
+ 1 - only waiting <br/>
+ 2 - player is underwater <br/>
+ 3 - enemies are nearby (not implemented) </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ae94f143d50da8afcff64de332572b1f5">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ad5f473091b08adf87703c94bf3fc05a6"></a><!-- doxytag: member="MWBase::World::changeToExteriorCell" ref="ad5f473091b08adf87703c94bf3fc05a6" args="(const ESM::Position &amp;position)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -467,6 +497,27 @@ Private Member Functions</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>ID, pointer to created record </dd></dl>
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a478168c6539b2db0dab730e0afa7c8c9">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a35e88bbdc3c7bae298e3893fe75c77c5"></a><!-- doxytag: member="MWBase::World::createRecord" ref="a35e88bbdc3c7bae298e3893fe75c77c5" args="(const ESM::Spell &amp;record)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::pair&lt;std::string, const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> *&gt; <a class="el" href="classMWBase_1_1World.html#a73375c2a7a99635d8c95b716b330535e">MWBase::World::createRecord</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> &amp;&#160;</td>
+          <td class="paramname"><em>record</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Create a new recrod (of type spell) in the <a class="el" href="namespaceESM.html" title="ESM/ESP records.">ESM</a> store. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>ID, pointer to created record </dd></dl>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a4763f007607641136ed47e4feacd172d">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -636,6 +687,24 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a5cc13c3c7133318fb4ca6e4ed63d1e99">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a261aa297801e6e129d25f8d07bbb258f"></a><!-- doxytag: member="MWBase::World::getDay" ref="a261aa297801e6e129d25f8d07bbb258f" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int <a class="el" href="classMWBase_1_1World.html#a261aa297801e6e129d25f8d07bbb258f">MWBase::World::getDay</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a3f1061f78a679518dfca21656f500f06">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -976,6 +1045,24 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ab954aabea910a54630f9147994e4efbf">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aee76e30f425e01cd6153fd94c698e36f"></a><!-- doxytag: member="MWBase::World::getMonth" ref="aee76e30f425e01cd6153fd94c698e36f" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int <a class="el" href="classMWBase_1_1World.html#aee76e30f425e01cd6153fd94c698e36f">MWBase::World::getMonth</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a2e88b684845a8dcad56a79810f5a8050">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -1792,6 +1879,27 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aff60eb2a34eae521a791a4e482dc017c"></a><!-- doxytag: member="MWBase::World::searchPtrViaHandle" ref="aff60eb2a34eae521a791a4e482dc017c" args="(const std::string &amp;handle)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> <a class="el" href="classMWBase_1_1World.html#aff60eb2a34eae521a791a4e482dc017c">MWBase::World::searchPtrViaHandle</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return a pointer to a liveCellRef with the given <a class="el" href="namespaceOgre.html">Ogre</a> handle or Ptr() if not found. </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a3a755d323af8edb1248593090d60171e">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ade9896158d5a59ce82fa48a8747c024f"></a><!-- doxytag: member="MWBase::World::setDay" ref="ade9896158d5a59ce82fa48a8747c024f" args="(int day)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -2140,7 +2248,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

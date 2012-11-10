@@ -58,77 +58,81 @@
 <div class="title">components/esm/loadclas.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadclas_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_CLAS_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_CLAS_H</span>
+<a href="loadclas_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_CLAS_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_CLAS_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
 <a name="l00007"></a>00007 {
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="comment">/*</span>
-<a name="l00010"></a>00010 <span class="comment"> * Character class definitions</span>
-<a name="l00011"></a>00011 <span class="comment"> */</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="comment">// These flags tells us which items should be auto-calculated for this</span>
-<a name="l00014"></a>00014 <span class="comment">// class</span>
-<a name="l00015"></a><a class="code" href="structESM_1_1Class.html">00015</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Class.html">Class</a>
-<a name="l00016"></a>00016 {
-<a name="l00017"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02d">00017</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02d">AutoCalc</a>
-<a name="l00018"></a>00018     {
-<a name="l00019"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da10e438fe06c467cd3f5f116020a13d7c">00019</a>         <a class="code" href="structESM_1_1Weapon.html">Weapon</a> = 0x00001,
-<a name="l00020"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da48aaa0be6e6709c6e65048121273250d">00020</a>         <a class="code" href="structESM_1_1Armor.html">Armor</a> = 0x00002,
-<a name="l00021"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da105eb36d5544915356448cc3beef7d20">00021</a>         <a class="code" href="structESM_1_1Clothing.html">Clothing</a> = 0x00004,
-<a name="l00022"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dac988c81583f7d5babbfb847d83f3e178">00022</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dac988c81583f7d5babbfb847d83f3e178">Books</a> = 0x00008,
-<a name="l00023"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d4735b8ce7f1ec664faec49bd7b4f47">00023</a>         <a class="code" href="structESM_1_1Ingredient.html">Ingredient</a> = 0x00010,
-<a name="l00024"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">00024</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">Lockpick</a> = 0x00020,
-<a name="l00025"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da8d4a3f0018345486b873d277586cd24f">00025</a>         <a class="code" href="structESM_1_1Probe.html">Probe</a> = 0x00040,
-<a name="l00026"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dabd60edc74502b320078a8bb06fa50a59">00026</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dabd60edc74502b320078a8bb06fa50a59">Lights</a> = 0x00080,
-<a name="l00027"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da4c483e4a067cc8fc9cc17246984bf683">00027</a>         <a class="code" href="structESM_1_1Apparatus.html">Apparatus</a> = 0x00100,
-<a name="l00028"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daef1aeaf4a177d2f1dc3937073b818747">00028</a>         <a class="code" href="structESM_1_1Repair.html">Repair</a> = 0x00200,
-<a name="l00029"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daec548fdc82e311a2399b65efab0aaf1b">00029</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daec548fdc82e311a2399b65efab0aaf1b">Misc</a> = 0x00400,
-<a name="l00030"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da7d712b6ba997f62a0c7308a710b635fb">00030</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da7d712b6ba997f62a0c7308a710b635fb">Spells</a> = 0x00800,
-<a name="l00031"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da43ec46c14e3351019739c9f808f7f697">00031</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da43ec46c14e3351019739c9f808f7f697">MagicItems</a> = 0x01000,
-<a name="l00032"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da1af85636118914da4d797e701056d4cd">00032</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da1af85636118914da4d797e701056d4cd">Potions</a> = 0x02000,
-<a name="l00033"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daf7dd59ac77421c75c196a505e37d6b70">00033</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daf7dd59ac77421c75c196a505e37d6b70">Training</a> = 0x04000,
-<a name="l00034"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dad27ed9955d620afca5f9282c89264f27">00034</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dad27ed9955d620afca5f9282c89264f27">Spellmaking</a> = 0x08000,
-<a name="l00035"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d7ccb62b2bc909bef2c2a2e539ba923">00035</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d7ccb62b2bc909bef2c2a2e539ba923">Enchanting</a> = 0x10000,
-<a name="l00036"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da69a6622a563e2f09203eae507e6c268e">00036</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da69a6622a563e2f09203eae507e6c268e">RepairItem</a> = 0x20000
-<a name="l00037"></a>00037     };
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">00039</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">Specialization</a>
-<a name="l00040"></a>00040     {
-<a name="l00041"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a48b82f6c74da77539de244dd86d4f6cb">00041</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a48b82f6c74da77539de244dd86d4f6cb">Combat</a> = 0,
-<a name="l00042"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36aebd8ac295d2583371e3b5939f5a05a60">00042</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36aebd8ac295d2583371e3b5939f5a05a60">Magic</a> = 1,
-<a name="l00043"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a536e9b1c63a472ed8cfa86c30dd16180">00043</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a536e9b1c63a472ed8cfa86c30dd16180">Stealth</a> = 2
-<a name="l00044"></a>00044     };
-<a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="structESM_1_1Class.html#a3cb7102fca3251475fd78bd4ca772f2c">00046</a>     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">Specialization</a> <a class="code" href="structESM_1_1Class.html#a3cb7102fca3251475fd78bd4ca772f2c">specializationIds</a>[3];
-<a name="l00047"></a><a class="code" href="structESM_1_1Class.html#a9542c9e3e5fc1c113588e5668766355a">00047</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structESM_1_1Class.html#a9542c9e3e5fc1c113588e5668766355a">gmstSpecializationIds</a>[3];
+<a name="l00009"></a>00009 <span class="keyword">class </span>ESMReader;
+<a name="l00010"></a>00010 <span class="keyword">class </span>ESMWriter;
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="comment">/*</span>
+<a name="l00013"></a>00013 <span class="comment"> * Character class definitions</span>
+<a name="l00014"></a>00014 <span class="comment"> */</span>
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="comment">// These flags tells us which items should be auto-calculated for this</span>
+<a name="l00017"></a>00017 <span class="comment">// class</span>
+<a name="l00018"></a><a class="code" href="structESM_1_1Class.html">00018</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Class.html">Class</a>
+<a name="l00019"></a>00019 {
+<a name="l00020"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02d">00020</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02d">AutoCalc</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da10e438fe06c467cd3f5f116020a13d7c">00022</a>         <a class="code" href="structESM_1_1Weapon.html">Weapon</a> = 0x00001,
+<a name="l00023"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da48aaa0be6e6709c6e65048121273250d">00023</a>         <a class="code" href="structESM_1_1Armor.html">Armor</a> = 0x00002,
+<a name="l00024"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da105eb36d5544915356448cc3beef7d20">00024</a>         <a class="code" href="structESM_1_1Clothing.html">Clothing</a> = 0x00004,
+<a name="l00025"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dac988c81583f7d5babbfb847d83f3e178">00025</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dac988c81583f7d5babbfb847d83f3e178">Books</a> = 0x00008,
+<a name="l00026"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d4735b8ce7f1ec664faec49bd7b4f47">00026</a>         <a class="code" href="structESM_1_1Ingredient.html">Ingredient</a> = 0x00010,
+<a name="l00027"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">00027</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">Lockpick</a> = 0x00020,
+<a name="l00028"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da8d4a3f0018345486b873d277586cd24f">00028</a>         <a class="code" href="structESM_1_1Probe.html">Probe</a> = 0x00040,
+<a name="l00029"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dabd60edc74502b320078a8bb06fa50a59">00029</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dabd60edc74502b320078a8bb06fa50a59">Lights</a> = 0x00080,
+<a name="l00030"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da4c483e4a067cc8fc9cc17246984bf683">00030</a>         <a class="code" href="structESM_1_1Apparatus.html">Apparatus</a> = 0x00100,
+<a name="l00031"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daef1aeaf4a177d2f1dc3937073b818747">00031</a>         <a class="code" href="structESM_1_1Repair.html">Repair</a> = 0x00200,
+<a name="l00032"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daec548fdc82e311a2399b65efab0aaf1b">00032</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daec548fdc82e311a2399b65efab0aaf1b">Misc</a> = 0x00400,
+<a name="l00033"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da7d712b6ba997f62a0c7308a710b635fb">00033</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da7d712b6ba997f62a0c7308a710b635fb">Spells</a> = 0x00800,
+<a name="l00034"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da43ec46c14e3351019739c9f808f7f697">00034</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da43ec46c14e3351019739c9f808f7f697">MagicItems</a> = 0x01000,
+<a name="l00035"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da1af85636118914da4d797e701056d4cd">00035</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da1af85636118914da4d797e701056d4cd">Potions</a> = 0x02000,
+<a name="l00036"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daf7dd59ac77421c75c196a505e37d6b70">00036</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02daf7dd59ac77421c75c196a505e37d6b70">Training</a> = 0x04000,
+<a name="l00037"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dad27ed9955d620afca5f9282c89264f27">00037</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dad27ed9955d620afca5f9282c89264f27">Spellmaking</a> = 0x08000,
+<a name="l00038"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d7ccb62b2bc909bef2c2a2e539ba923">00038</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d7ccb62b2bc909bef2c2a2e539ba923">Enchanting</a> = 0x10000,
+<a name="l00039"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da69a6622a563e2f09203eae507e6c268e">00039</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da69a6622a563e2f09203eae507e6c268e">RepairItem</a> = 0x20000
+<a name="l00040"></a>00040     };
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">00042</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">Specialization</a>
+<a name="l00043"></a>00043     {
+<a name="l00044"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a48b82f6c74da77539de244dd86d4f6cb">00044</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a48b82f6c74da77539de244dd86d4f6cb">Combat</a> = 0,
+<a name="l00045"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36aebd8ac295d2583371e3b5939f5a05a60">00045</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36aebd8ac295d2583371e3b5939f5a05a60">Magic</a> = 1,
+<a name="l00046"></a><a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a536e9b1c63a472ed8cfa86c30dd16180">00046</a>         <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36a536e9b1c63a472ed8cfa86c30dd16180">Stealth</a> = 2
+<a name="l00047"></a>00047     };
 <a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">00049</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a>
-<a name="l00050"></a>00050     {
-<a name="l00051"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a367d674fd3737eeec0a88166c7230bfc">00051</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a367d674fd3737eeec0a88166c7230bfc">attribute</a>[2]; <span class="comment">// Attributes that get class bonus</span>
-<a name="l00052"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a8fc8c9d0f7561a9c6138f2875ac77dc4">00052</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a8fc8c9d0f7561a9c6138f2875ac77dc4">specialization</a>; <span class="comment">// 0 = Combat, 1 = Magic, 2 = Stealth</span>
-<a name="l00053"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#adf6336fe799739a7a99365808272f6fc">00053</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#adf6336fe799739a7a99365808272f6fc">skills</a>[5][2]; <span class="comment">// Minor and major skills.</span>
-<a name="l00054"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">00054</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a0bbc396a98d44de5447037b77c70fcef">isPlayable</a>; <span class="comment">// 0x0001 - Playable class</span>
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056         <span class="comment">// I have no idea how to autocalculate these items...</span>
-<a name="l00057"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a61fdf5cf52f528f5c8c9185b73254eef">00057</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a61fdf5cf52f528f5c8c9185b73254eef">calc</a>;
-<a name="l00058"></a>00058     }; <span class="comment">// 60 bytes</span>
-<a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">00060</a>     std::string <a class="code" href="structESM_1_1Class.html#a108cee4dcb51fd92d7eb25dbc3298062">name</a>, <a class="code" href="structESM_1_1Class.html#a327d615adcd78244ca0a9f4f3a70273e">description</a>;
-<a name="l00061"></a><a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">00061</a>     <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a> <a class="code" href="structESM_1_1Class.html#a419888eb7a6bb4fe57c994261314107c">data</a>;
+<a name="l00049"></a><a class="code" href="structESM_1_1Class.html#aa63e8a8217716945d4853d517fa2d663">00049</a>     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html#a1c128df7a61c50c66afe7c7339cace36">Specialization</a> <a class="code" href="structESM_1_1Class.html#aa63e8a8217716945d4853d517fa2d663">sSpecializationIds</a>[3];
+<a name="l00050"></a><a class="code" href="structESM_1_1Class.html#aef96f55ace221c248e24108c8a9b832f">00050</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structESM_1_1Class.html#aef96f55ace221c248e24108c8a9b832f">sGmstSpecializationIds</a>[3];
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">00052</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a>
+<a name="l00053"></a>00053     {
+<a name="l00054"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a073ac30449b15060c43085c81a599a48">00054</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a073ac30449b15060c43085c81a599a48">mAttribute</a>[2]; <span class="comment">// Attributes that get class bonus</span>
+<a name="l00055"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a7c2825c82ecda2740727f5563bbc4376">00055</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a7c2825c82ecda2740727f5563bbc4376">mSpecialization</a>; <span class="comment">// 0 = Combat, 1 = Magic, 2 = Stealth</span>
+<a name="l00056"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#aa5cfda5bc72590df130fd11b4ebc47ad">00056</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#aa5cfda5bc72590df130fd11b4ebc47ad">mSkills</a>[5][2]; <span class="comment">// Minor and major skills.</span>
+<a name="l00057"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a54c48b8d79ac9f2f91b26a583850c058">00057</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a54c48b8d79ac9f2f91b26a583850c058">mIsPlayable</a>; <span class="comment">// 0x0001 - Playable class</span>
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <span class="comment">// I have no idea how to autocalculate these items...</span>
+<a name="l00060"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a9798922a5dace5cfb0983497960b27c3">00060</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a9798922a5dace5cfb0983497960b27c3">mCalc</a>;
+<a name="l00061"></a>00061     }; <span class="comment">// 60 bytes</span>
 <a name="l00062"></a>00062 
-<a name="l00063"></a>00063     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00064"></a>00064 };
-<a name="l00065"></a>00065 }
-<a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
+<a name="l00063"></a><a class="code" href="structESM_1_1Class.html#a5face572aa3cc8aace99d8cf8b0c73f8">00063</a>     std::string <a class="code" href="structESM_1_1Class.html#a5face572aa3cc8aace99d8cf8b0c73f8">mName</a>, <a class="code" href="structESM_1_1Class.html#a4f87eb01de769fe9f83d49fadaecadd0">mDescription</a>;
+<a name="l00064"></a><a class="code" href="structESM_1_1Class.html#ae3fd923f42e0dcce3fb4a2ca4a2a3307">00064</a>     <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a> <a class="code" href="structESM_1_1Class.html#ae3fd923f42e0dcce3fb4a2ca4a2a3307">mData</a>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a741207e2b256ca1fae214f0a2ef2c7de">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00068"></a>00068 };
+<a name="l00069"></a>00069 }
+<a name="l00070"></a>00070 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

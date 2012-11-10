@@ -85,6 +85,9 @@ Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
 MyGUI::delegates::CMultiDelegate1<br class="typebreak"/>
 &lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">EventHandle_String</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
+MyGUI::delegates::CMultiDelegate1<br class="typebreak"/>
+&lt; MyGUI::Widget * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a783b795c941067c93f2b6be4854a573f">EventHandle_Widget</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab3fde61b7ea7ec7d3c167f8876d5e807">MWList</a> ()</td></tr>
@@ -97,9 +100,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a2dacc5249b80e2fa40efca12a7df8529">getItemCount</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#aa5c08122903b8f0208dd665756c0d3df">getItemNameAt</a> (unsigned int at)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a53ebc02fa0331836579539ae63dca5da">clear</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a5ee4f9237e792b8265c89653b7ae2cfc">getItemWidget</a> (const std::string &amp;name)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get widget for an item name, useful to set up tooltip  <a href="#a5ee4f9237e792b8265c89653b7ae2cfc"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">EventHandle_String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab11344b7eaba6f8ed76c277beb2b9ae4">eventItemSelected</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a783b795c941067c93f2b6be4854a573f">EventHandle_Widget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#adb1b02ebbd94ef4bf21645129f0c2b99">eventWidgetSelected</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a21fb47fd41ed7401dc3541d9edbb3055">initialiseOverride</a> ()</td></tr>
@@ -123,6 +129,19 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef MyGUI::delegates::CMultiDelegate1&lt;std::string&gt; <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">MWGui::Widgets::MWList::EventHandle_String</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a783b795c941067c93f2b6be4854a573f"></a><!-- doxytag: member="MWGui::Widgets::MWList::EventHandle_Widget" ref="a783b795c941067c93f2b6be4854a573f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef MyGUI::delegates::CMultiDelegate1&lt;MyGUI::Widget*&gt; <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a783b795c941067c93f2b6be4854a573f">MWGui::Widgets::MWList::EventHandle_Widget</a></td>
         </tr>
       </table>
 </div>
@@ -247,6 +266,25 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="attention"><dt><b>Attention:</b></dt><dd>if there are separators, this method will return "" at the place where the separator is </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5ee4f9237e792b8265c89653b7ae2cfc"></a><!-- doxytag: member="MWGui::Widgets::MWList::getItemWidget" ref="a5ee4f9237e792b8265c89653b7ae2cfc" args="(const std::string &amp;name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::Widget * <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a5ee4f9237e792b8265c89653b7ae2cfc">MWList::getItemWidget</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get widget for an item name, useful to set up tooltip </p>
 
 </div>
 </div>
@@ -376,6 +414,20 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="adb1b02ebbd94ef4bf21645129f0c2b99"></a><!-- doxytag: member="MWGui::Widgets::MWList::eventWidgetSelected" ref="adb1b02ebbd94ef4bf21645129f0c2b99" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a783b795c941067c93f2b6be4854a573f">EventHandle_Widget</a> <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#adb1b02ebbd94ef4bf21645129f0c2b99">MWGui::Widgets::MWList::eventWidgetSelected</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Event: Item selected with the mouse. signature: void method(MyGUI::Widget* sender) </p>
+
+</div>
+</div>
 <a class="anchor" id="a9af661ef2f27a2c6f11bfc1777e77540"></a><!-- doxytag: member="MWGui::Widgets::MWList::mClient" ref="a9af661ef2f27a2c6f11bfc1777e77540" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +488,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

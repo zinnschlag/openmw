@@ -58,74 +58,86 @@
 <div class="title">components/esm/loadrace.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadrace_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_RACE_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_RACE_H</span>
+<a href="loadrace_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_RACE_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_RACE_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="defs_8hpp.html">defs.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM
-<a name="l00008"></a>00008 {
-<a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="comment">/*</span>
-<a name="l00011"></a>00011 <span class="comment"> * Race definition</span>
-<a name="l00012"></a>00012 <span class="comment"> */</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="spelllist_8hpp.html">spelllist.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>ESM
+<a name="l00009"></a>00009 {
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">class </span>ESMReader;
+<a name="l00012"></a>00012 <span class="keyword">class </span>ESMWriter;
 <a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="structESM_1_1Race.html">00014</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Race.html">Race</a>
-<a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="structESM_1_1Race_1_1SkillBonus.html">00016</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1SkillBonus.html">SkillBonus</a>
-<a name="l00017"></a>00017     {
-<a name="l00018"></a><a class="code" href="structESM_1_1Race_1_1SkillBonus.html#a1e49cf4a33a52b31f8906e1584552f99">00018</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1SkillBonus.html#a1e49cf4a33a52b31f8906e1584552f99">skill</a>; <span class="comment">// SkillEnum</span>
-<a name="l00019"></a><a class="code" href="structESM_1_1Race_1_1SkillBonus.html#ae0aefbd061416f85826c913f2553b409">00019</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1SkillBonus.html#ae0aefbd061416f85826c913f2553b409">bonus</a>;
-<a name="l00020"></a>00020     };
-<a name="l00021"></a>00021 
-<a name="l00022"></a><a class="code" href="structESM_1_1Race_1_1MaleFemale.html">00022</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1MaleFemale.html">MaleFemale</a>
-<a name="l00023"></a>00023     {
-<a name="l00024"></a><a class="code" href="structESM_1_1Race_1_1MaleFemale.html#aa052701e1954a943c4e81eda4d7d9385">00024</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1MaleFemale.html#aa052701e1954a943c4e81eda4d7d9385">male</a>, <a class="code" href="structESM_1_1Race_1_1MaleFemale.html#a5aa97f55a4e9df8e29c114ae06afecfc">female</a>;
-<a name="l00025"></a>00025     };
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html">00027</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html">MaleFemaleF</a>
-<a name="l00028"></a>00028     {
-<a name="l00029"></a><a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html#a88e9aaf9d09b9e7f68db88ac54ed3fb3">00029</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html#a88e9aaf9d09b9e7f68db88ac54ed3fb3">male</a>, <a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html#a97a1eac63f959ad20302f3685a27f735">female</a>;
-<a name="l00030"></a>00030     };
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0">00032</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0">Flags</a>
-<a name="l00033"></a>00033     {
-<a name="l00034"></a><a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0a098ae08e2d21acef5938167d0fc9bff6">00034</a>         <a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0a098ae08e2d21acef5938167d0fc9bff6">Playable</a> = 0x01,
-<a name="l00035"></a><a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0ad09216860ae0eab9552c6565beed1070">00035</a>         <a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0ad09216860ae0eab9552c6565beed1070">Beast</a> = 0x02
-<a name="l00036"></a>00036     };
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html">00038</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1RADTstruct.html">RADTstruct</a>
-<a name="l00039"></a>00039     {
-<a name="l00040"></a>00040         <span class="comment">// List of skills that get a bonus</span>
-<a name="l00041"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#ab5f9fe0616b658af1af4e8594ff06979">00041</a>         <a class="code" href="structESM_1_1Race_1_1SkillBonus.html">SkillBonus</a> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#ab5f9fe0616b658af1af4e8594ff06979">bonus</a>[7];
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043         <span class="comment">// Attribute values for male/female</span>
-<a name="l00044"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a4173e53bd926bdf47855200bf8f088b6">00044</a>         <a class="code" href="structESM_1_1Race_1_1MaleFemale.html">MaleFemale</a> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#ac76e2bf0bdf5381e8f3fdada13d9da88">strength</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#aee547c5b8c2a5f181ba0c8997ebfda4f">intelligence</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a4173e53bd926bdf47855200bf8f088b6">willpower</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a2f337ec9f6cac5817b0a0cfe3938348f">agility</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a76cdd63edf3ac4505ca718eecd78c05c">speed</a>,
-<a name="l00045"></a>00045                 <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a1e85b06dbc8e8bc59d5c7bbbee8f94de">endurance</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a73900cecff1c003f1b55d5b22cc89f36">personality</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#aedcc29eaf9780358c5d5819e51f1d3d7">luck</a>;
+<a name="l00014"></a>00014 <span class="comment">/*</span>
+<a name="l00015"></a>00015 <span class="comment"> * Race definition</span>
+<a name="l00016"></a>00016 <span class="comment"> */</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="structESM_1_1Race.html">00018</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Race.html">Race</a>
+<a name="l00019"></a>00019 {
+<a name="l00020"></a><a class="code" href="structESM_1_1Race_1_1SkillBonus.html">00020</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1SkillBonus.html">SkillBonus</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a><a class="code" href="structESM_1_1Race_1_1SkillBonus.html#ad6b1e18ac42c91f38e6c880c30ea5108">00022</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1SkillBonus.html#ad6b1e18ac42c91f38e6c880c30ea5108">mSkill</a>; <span class="comment">// SkillEnum</span>
+<a name="l00023"></a><a class="code" href="structESM_1_1Race_1_1SkillBonus.html#adfc9d988d944c827255833065763778e">00023</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1SkillBonus.html#adfc9d988d944c827255833065763778e">mBonus</a>;
+<a name="l00024"></a>00024     };
+<a name="l00025"></a>00025 
+<a name="l00026"></a><a class="code" href="structESM_1_1Race_1_1MaleFemale.html">00026</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1MaleFemale.html">MaleFemale</a>
+<a name="l00027"></a>00027     {
+<a name="l00028"></a><a class="code" href="structESM_1_1Race_1_1MaleFemale.html#abebaea9d54ec89212b5031c9ee87791f">00028</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1MaleFemale.html#abebaea9d54ec89212b5031c9ee87791f">mMale</a>, <a class="code" href="structESM_1_1Race_1_1MaleFemale.html#afdaf5c24e01d4df0c223295c0f653534">mFemale</a>;
+<a name="l00029"></a>00029     };
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html">00031</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html">MaleFemaleF</a>
+<a name="l00032"></a>00032     {
+<a name="l00033"></a><a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html#a2092663f12d9ecb838f66307ccc2f650">00033</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html#a2092663f12d9ecb838f66307ccc2f650">mMale</a>, <a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html#a8f9b0597f641074eb582344f4d1fe159">mFemale</a>;
+<a name="l00034"></a>00034     };
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0">00036</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0">Flags</a>
+<a name="l00037"></a>00037     {
+<a name="l00038"></a><a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0a098ae08e2d21acef5938167d0fc9bff6">00038</a>         <a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0a098ae08e2d21acef5938167d0fc9bff6">Playable</a> = 0x01,
+<a name="l00039"></a><a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0ad09216860ae0eab9552c6565beed1070">00039</a>         <a class="code" href="structESM_1_1Race.html#a54b4fcc4666d38c0aef2e173a9f9a7d0ad09216860ae0eab9552c6565beed1070">Beast</a> = 0x02
+<a name="l00040"></a>00040     };
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html">00042</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Race_1_1RADTstruct.html">RADTstruct</a>
+<a name="l00043"></a>00043     {
+<a name="l00044"></a>00044         <span class="comment">// List of skills that get a bonus</span>
+<a name="l00045"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a4b688bf99b250f065de873ae9d407571">00045</a>         <a class="code" href="structESM_1_1Race_1_1SkillBonus.html">SkillBonus</a> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a4b688bf99b250f065de873ae9d407571">mBonus</a>[7];
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047         <span class="comment">// The actual eye level height (in game units) is (probably) given</span>
-<a name="l00048"></a>00048         <span class="comment">// as &#39;height&#39; times 128. This has not been tested yet.</span>
-<a name="l00049"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a47f1a20fc3ad3249221d88b10b843b99">00049</a>         <a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html">MaleFemaleF</a> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a0b2c4e1048ef9372708dee27621eba90">height</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a47f1a20fc3ad3249221d88b10b843b99">weight</a>;
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a61f9bc9d7b4acb7149b4d6979dc157e1">00051</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a61f9bc9d7b4acb7149b4d6979dc157e1">flags</a>; <span class="comment">// 0x1 - playable, 0x2 - beast race</span>
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     }; <span class="comment">// Size = 140 bytes</span>
-<a name="l00054"></a>00054 
-<a name="l00055"></a><a class="code" href="structESM_1_1Race.html#a8f4831f6e0cc654ff73aaf21899ca837">00055</a>     <a class="code" href="structESM_1_1Race_1_1RADTstruct.html">RADTstruct</a> <a class="code" href="structESM_1_1Race.html#a8f4831f6e0cc654ff73aaf21899ca837">data</a>;
+<a name="l00047"></a>00047         <span class="comment">// Attribute values for male/female</span>
+<a name="l00048"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#aded3590ac9fe2501366b2442fe4dfe2d">00048</a>         <a class="code" href="structESM_1_1Race_1_1MaleFemale.html">MaleFemale</a> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a3952a7c868cbb1d63e305c92304ab1c8">mStrength</a>,
+<a name="l00049"></a>00049                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a2f1981df409926e55f85fe3204f5a235">mIntelligence</a>,
+<a name="l00050"></a>00050                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#aded3590ac9fe2501366b2442fe4dfe2d">mWillpower</a>,
+<a name="l00051"></a>00051                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a68fabcd4c3584fad9464ed34b8aca60c">mAgility</a>,
+<a name="l00052"></a>00052                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a08894e957fcade50abdd828ec89b9437">mSpeed</a>,
+<a name="l00053"></a>00053                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#af52adbb52355eb563503ac1d8fbbf0f1">mEndurance</a>,
+<a name="l00054"></a>00054                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a1949ab4bbf72575579654feec8e58a75">mPersonality</a>,
+<a name="l00055"></a>00055                    <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#ab2780a6b3738085a9d398e3989b7b761">mLuck</a>;
 <a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="structESM_1_1Race.html#ad15653fafbe71a000b339cca7a93c38f">00057</a>     std::string <a class="code" href="structESM_1_1Race.html#ad15653fafbe71a000b339cca7a93c38f">name</a>, <a class="code" href="structESM_1_1Race.html#a427f4a354a06e141f2c8cfdef6688275">description</a>;
-<a name="l00058"></a><a class="code" href="structESM_1_1Race.html#ae845537557eba6755477e6760678a019">00058</a>     <a class="code" href="structESM_1_1SpellList.html">SpellList</a> <a class="code" href="structESM_1_1Race.html#ae845537557eba6755477e6760678a019">powers</a>;
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Race.html#ad6bb83becc9ef2fa4f153baca2284b7c">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00061"></a>00061 };
-<a name="l00062"></a>00062 }
-<a name="l00063"></a>00063 <span class="preprocessor">#endif</span>
+<a name="l00057"></a>00057         <span class="comment">// The actual eye level height (in game units) is (probably) given</span>
+<a name="l00058"></a>00058         <span class="comment">// as &#39;height&#39; times 128. This has not been tested yet.</span>
+<a name="l00059"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a02384a9d83dcd837adad0343ceda7f29">00059</a>         <a class="code" href="structESM_1_1Race_1_1MaleFemaleF.html">MaleFemaleF</a> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#ab9885541be87af56c3a35c9d84517158">mHeight</a>, <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a02384a9d83dcd837adad0343ceda7f29">mWeight</a>;
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a1e197285bd08426c6ebcdce82c749db7">00061</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Race_1_1RADTstruct.html#a1e197285bd08426c6ebcdce82c749db7">mFlags</a>; <span class="comment">// 0x1 - playable, 0x2 - beast race</span>
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063     }; <span class="comment">// Size = 140 bytes</span>
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="structESM_1_1Race.html#a78955e93bedd0c1fbe5b4334272565eb">00065</a>     <a class="code" href="structESM_1_1Race_1_1RADTstruct.html">RADTstruct</a> <a class="code" href="structESM_1_1Race.html#a78955e93bedd0c1fbe5b4334272565eb">mData</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="structESM_1_1Race.html#a9212551bb193adec756dc2e07037d7a5">00067</a>     std::string <a class="code" href="structESM_1_1Race.html#a9212551bb193adec756dc2e07037d7a5">mName</a>, <a class="code" href="structESM_1_1Race.html#a16c948e985699937242a6007c8bcb18c">mDescription</a>;
+<a name="l00068"></a><a class="code" href="structESM_1_1Race.html#aa589484644ce7be4a789e858d170e6ef">00068</a>     <a class="code" href="structESM_1_1SpellList.html">SpellList</a> <a class="code" href="structESM_1_1Race.html#aa589484644ce7be4a789e858d170e6ef">mPowers</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Race.html#ad6bb83becc9ef2fa4f153baca2284b7c">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Race.html#a47c02837c4e6e48157d4d6d5f5ed0cb7">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00072"></a>00072 };
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 }
+<a name="l00075"></a>00075 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

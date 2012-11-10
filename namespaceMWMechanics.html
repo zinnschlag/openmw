@@ -75,6 +75,8 @@ Classes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for AI packages.  <a href="classMWMechanics_1_1AiPackage.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiSequence.html">AiSequence</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sequence of AI-packages for a single actor.  <a href="classMWMechanics_1_1AiSequence.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1Alchemy.html">Alchemy</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Potion creation via alchemy skill.  <a href="classMWMechanics_1_1Alchemy.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CreatureStats.html">CreatureStats</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Common creature stats.  <a href="classMWMechanics_1_1CreatureStats.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWMechanics_1_1EffectKey.html">EffectKey</a></td></tr>
@@ -102,7 +104,9 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a745c883c1fd08de2ee06cce62349a8dd">operator+</a> (const <a class="el" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> &amp;left, const <a class="el" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> &amp;right)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a5a8980361b4894f0c8f534570def9662">operator-</a> (const <a class="el" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> &amp;left, const <a class="el" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> &amp;right)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#aafc37d50817f9011398c6756f204cccb">spellSchoolToSkill</a> (int school)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#af831c31fc2cdbe75a32affef1098074b">getSpellSchool</a> (const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> *spell, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#ac9bd726d183784da95ff5b1ea7a8d810">getSpellSchool</a> (const std::string &amp;spellId, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#adae2c777a51402277ca78ce62a717097">getSpellSuccessChance</a> (const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> *spell, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a748d0befc0240e13c0c74bf4d0b07c99">getSpellSuccessChance</a> (const std::string &amp;spellId, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a1cf6546808e1a276bcd46f32a0bf78b6">operator==</a> (const <a class="el" href="classMWMechanics_1_1Stat.html">Stat</a>&lt; T &gt; &amp;left, const <a class="el" href="classMWMechanics_1_1Stat.html">Stat</a>&lt; T &gt; &amp;right)</td></tr>
@@ -141,12 +145,39 @@ Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="af831c31fc2cdbe75a32affef1098074b"></a><!-- doxytag: member="MWMechanics::getSpellSchool" ref="af831c31fc2cdbe75a32affef1098074b" args="(const ESM::Spell *spell, const MWWorld::Ptr &amp;actor)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="namespaceMWMechanics.html#af831c31fc2cdbe75a32affef1098074b">MWMechanics::getSpellSchool</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> *&#160;</td>
+          <td class="paramname"><em>spell</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>actor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ac9bd726d183784da95ff5b1ea7a8d810"></a><!-- doxytag: member="MWMechanics::getSpellSchool" ref="ac9bd726d183784da95ff5b1ea7a8d810" args="(const std::string &amp;spellId, const MWWorld::Ptr &amp;actor)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="namespaceMWMechanics.html#ac9bd726d183784da95ff5b1ea7a8d810">MWMechanics::getSpellSchool</a> </td>
+          <td class="memname">int <a class="el" href="namespaceMWMechanics.html#af831c31fc2cdbe75a32affef1098074b">MWMechanics::getSpellSchool</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>spellId</em>, </td>
@@ -168,12 +199,48 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="adae2c777a51402277ca78ce62a717097"></a><!-- doxytag: member="MWMechanics::getSpellSuccessChance" ref="adae2c777a51402277ca78ce62a717097" args="(const ESM::Spell *spell, const MWWorld::Ptr &amp;actor)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="namespaceMWMechanics.html#adae2c777a51402277ca78ce62a717097">MWMechanics::getSpellSuccessChance</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1Spell.html">ESM::Spell</a> *&#160;</td>
+          <td class="paramname"><em>spell</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>actor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spell</td><td>spell to cast </td></tr>
+    <tr><td class="paramname">actor</td><td>calculate spell success chance for this actor (depends on actor's skills) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="attention"><dt><b>Attention:</b></dt><dd>actor has to be an NPC and not a creature! </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>success chance from 0 to 100 (in percent) </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a748d0befc0240e13c0c74bf4d0b07c99"></a><!-- doxytag: member="MWMechanics::getSpellSuccessChance" ref="a748d0befc0240e13c0c74bf4d0b07c99" args="(const std::string &amp;spellId, const MWWorld::Ptr &amp;actor)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="namespaceMWMechanics.html#a748d0befc0240e13c0c74bf4d0b07c99">MWMechanics::getSpellSuccessChance</a> </td>
+          <td class="memname">float <a class="el" href="namespaceMWMechanics.html#adae2c777a51402277ca78ce62a717097">MWMechanics::getSpellSuccessChance</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>spellId</em>, </td>
@@ -192,15 +259,6 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">spellId</td><td>ID of spell </td></tr>
-    <tr><td class="paramname">actor</td><td>calculate spell success chance for this actor (depends on actor's skills) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="attention"><dt><b>Attention:</b></dt><dd>actor has to be an NPC and not a creature! </dd></dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>success chance from 0 to 100 (in percent) </dd></dl>
 
 </div>
 </div>
@@ -422,7 +480,7 @@ template&lt;typename T &gt; </div>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -103,6 +103,8 @@ int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a1abb2cc3cb5821d2abead63614fc41cf">getLevelProgress</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#ac45f77186b902086fa6bc374a6765df6">getLevelupAttributeMultiplier</a> (int attribute) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#aa79d81f81a62e39b1328339c97800b4c">levelUp</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a8c78494ae640a82e3a5cd9556e8d0784">flagAsUsed</a> (const std::string &amp;id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#ae48ec63346f34160ad58688f9474e9f4">hasBeenUsed</a> (const std::string &amp;id) const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a5c8aa3b9dbb0e2cbba554b4a164302b8">mFactionRank</a></td></tr>
@@ -111,6 +113,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWMechanics_1_1Stat.html">Stat</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a41c9fb7b705b3b6e98340003f1182aa9">mSkill</a> [27]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a28a536aa86c3ea4552854f4ced0d6484">mLevelProgress</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#aafbba68fde72d168911d2414402e76f5">mSkillIncreases</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">mUsedIds</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Additional stats for NPCs. </p>
@@ -160,6 +163,23 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a8c78494ae640a82e3a5cd9556e8d0784"></a><!-- doxytag: member="MWMechanics::NpcStats::flagAsUsed" ref="a8c78494ae640a82e3a5cd9556e8d0784" args="(const std::string &amp;id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1NpcStats.html#a8c78494ae640a82e3a5cd9556e8d0784">MWMechanics::NpcStats::flagAsUsed</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af589845a63b82ed26ffd63bc999d78d1"></a><!-- doxytag: member="MWMechanics::NpcStats::getDrawState" ref="af589845a63b82ed26ffd63bc999d78d1" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -338,6 +358,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae48ec63346f34160ad58688f9474e9f4"></a><!-- doxytag: member="MWMechanics::NpcStats::hasBeenUsed" ref="ae48ec63346f34160ad58688f9474e9f4" args="(const std::string &amp;id) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1NpcStats.html#ae48ec63346f34160ad58688f9474e9f4">MWMechanics::NpcStats::hasBeenUsed</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa4b982d9c7187a867fbb63d34479081e"></a><!-- doxytag: member="MWMechanics::NpcStats::increaseSkill" ref="aa4b982d9c7187a867fbb63d34479081e" args="(int skillIndex, const ESM::Class &amp;class_, bool preserveProgress)" -->
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +405,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000053">Todo:</a></b></dt><dd>check if character is the player, if levelling is ever implemented for NPCs </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>check if character is the player, if levelling is ever implemented for NPCs </dd></dl>
 
 </div>
 </div>
@@ -548,6 +585,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac59bb99c55401e8a588361dac8b09fc8"></a><!-- doxytag: member="MWMechanics::NpcStats::mUsedIds" ref="ac59bb99c55401e8a588361dac8b09fc8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; <a class="el" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">MWMechanics::NpcStats::mUsedIds</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>apps/openmw/mwmechanics/<a class="el" href="npcstats_8hpp_source.html">npcstats.hpp</a></li>
 <li>apps/openmw/mwmechanics/<a class="el" href="npcstats_8cpp.html">npcstats.cpp</a></li>
@@ -556,7 +606,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:11 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

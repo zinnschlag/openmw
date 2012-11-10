@@ -58,55 +58,63 @@
 <div class="title">components/esm/loadcont.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadcont_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_CONT_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_CONT_H</span>
+<a href="loadcont_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_CONT_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_CONT_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
-<a name="l00007"></a>00007 {
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="esmcommon_8hpp.html">esmcommon.hpp</a>&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="comment">/*</span>
-<a name="l00010"></a>00010 <span class="comment"> * Container definition</span>
-<a name="l00011"></a>00011 <span class="comment"> */</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="structESM_1_1ContItem.html">00013</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ContItem.html">ContItem</a>
-<a name="l00014"></a>00014 {
-<a name="l00015"></a><a class="code" href="structESM_1_1ContItem.html#af898ff4c83682fe9c5a50716f2fb2d51">00015</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ContItem.html#af898ff4c83682fe9c5a50716f2fb2d51">count</a>;
-<a name="l00016"></a><a class="code" href="structESM_1_1ContItem.html#ae3958b0f88553057aba209421017bc35">00016</a>     <a class="code" href="unionESM_1_1NAME__T.html">NAME32</a> <a class="code" href="structESM_1_1ContItem.html#ae3958b0f88553057aba209421017bc35">item</a>;
-<a name="l00017"></a>00017 };
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>ESM
+<a name="l00010"></a>00010 {
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">class </span>ESMReader;
+<a name="l00013"></a>00013 <span class="keyword">class </span>ESMWriter;
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="comment">/*</span>
+<a name="l00016"></a>00016 <span class="comment"> * Container definition</span>
+<a name="l00017"></a>00017 <span class="comment"> */</span>
 <a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="structESM_1_1InventoryList.html">00019</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1InventoryList.html">InventoryList</a>
+<a name="l00019"></a><a class="code" href="structESM_1_1ContItem.html">00019</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ContItem.html">ContItem</a>
 <a name="l00020"></a>00020 {
-<a name="l00021"></a><a class="code" href="structESM_1_1InventoryList.html#a4e047baed3522c60cc6cf8ad3b5b5c87">00021</a>     std::vector&lt;ContItem&gt; <a class="code" href="structESM_1_1InventoryList.html#a4e047baed3522c60cc6cf8ad3b5b5c87">list</a>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1InventoryList.html#abfc3bfc14650f8d820d6ab05a66f78b7">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00024"></a>00024 };
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="structESM_1_1Container.html">00026</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Container.html">Container</a>
-<a name="l00027"></a>00027 {
-<a name="l00028"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">00028</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">Flags</a>
-<a name="l00029"></a>00029     {
-<a name="l00030"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">00030</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">Organic</a> = 1, <span class="comment">// Objects cannot be placed in this container</span>
-<a name="l00031"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">00031</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">Respawn</a> = 2, <span class="comment">// Respawns after 4 months</span>
-<a name="l00032"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">00032</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">Unknown</a> = 8
-<a name="l00033"></a>00033     };
-<a name="l00034"></a>00034 
-<a name="l00035"></a><a class="code" href="structESM_1_1Container.html#af7de42b726412467fd5d91e1913aa03b">00035</a>     std::string <a class="code" href="structESM_1_1Container.html#ad45a23fdd1b8a4c96cda3df5cc3eb053">name</a>, <a class="code" href="structESM_1_1Container.html#a2c9390aec543378ac82e88ea6f2a5a85">model</a>, <a class="code" href="structESM_1_1Container.html#af7de42b726412467fd5d91e1913aa03b">script</a>;
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="structESM_1_1Container.html#a7465db6542db68db474ef5168ba767d0">00037</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Container.html#a7465db6542db68db474ef5168ba767d0">weight</a>; <span class="comment">// Not sure, might be max total weight allowed?</span>
-<a name="l00038"></a><a class="code" href="structESM_1_1Container.html#a753706a6322d4041d1739d5a5155f682">00038</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Container.html#a753706a6322d4041d1739d5a5155f682">flags</a>;
-<a name="l00039"></a><a class="code" href="structESM_1_1Container.html#aead84fc00d60f44e913cf3af37ec8df7">00039</a>     <a class="code" href="structESM_1_1InventoryList.html">InventoryList</a> <a class="code" href="structESM_1_1Container.html#aead84fc00d60f44e913cf3af37ec8df7">inventory</a>;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#a36b683b8d17bbd2a95d3a3e9058bff76">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00042"></a>00042 };
-<a name="l00043"></a>00043 }
-<a name="l00044"></a>00044 <span class="preprocessor">#endif</span>
+<a name="l00021"></a><a class="code" href="structESM_1_1ContItem.html#acf23a45236ae4e3292f70eb848c0f5a8">00021</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ContItem.html#acf23a45236ae4e3292f70eb848c0f5a8">mCount</a>;
+<a name="l00022"></a><a class="code" href="structESM_1_1ContItem.html#aabeda6050139a61caa7b06b812df4834">00022</a>     <a class="code" href="unionESM_1_1NAME__T.html">NAME32</a> <a class="code" href="structESM_1_1ContItem.html#aabeda6050139a61caa7b06b812df4834">mItem</a>;
+<a name="l00023"></a>00023 };
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="structESM_1_1InventoryList.html">00025</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1InventoryList.html">InventoryList</a>
+<a name="l00026"></a>00026 {
+<a name="l00027"></a><a class="code" href="structESM_1_1InventoryList.html#aba9047dd7d9950d95f6d983ea31fc4c9">00027</a>     std::vector&lt;ContItem&gt; <a class="code" href="structESM_1_1InventoryList.html#aba9047dd7d9950d95f6d983ea31fc4c9">mList</a>;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1InventoryList.html#abfc3bfc14650f8d820d6ab05a66f78b7">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1InventoryList.html#a812ef775f673f6057af735d92bde40c2">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00031"></a>00031 };
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="structESM_1_1Container.html">00033</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Container.html">Container</a>
+<a name="l00034"></a>00034 {
+<a name="l00035"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">00035</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">Flags</a>
+<a name="l00036"></a>00036     {
+<a name="l00037"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">00037</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">Organic</a> = 1, <span class="comment">// Objects cannot be placed in this container</span>
+<a name="l00038"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">00038</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">Respawn</a> = 2, <span class="comment">// Respawns after 4 months</span>
+<a name="l00039"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">00039</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">Unknown</a> = 8
+<a name="l00040"></a>00040     };
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structESM_1_1Container.html#a67da446b80a9df99132d866ad97e9a34">00042</a>     std::string <a class="code" href="structESM_1_1Container.html#afab444b861161ea4d5c4ab383c055ed0">mName</a>, <a class="code" href="structESM_1_1Container.html#a0c2e23b96c0b166133830d9f48fd9e46">mModel</a>, <a class="code" href="structESM_1_1Container.html#a67da446b80a9df99132d866ad97e9a34">mScript</a>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="structESM_1_1Container.html#aefe8892bc286f5956ae17281327d4978">00044</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Container.html#aefe8892bc286f5956ae17281327d4978">mWeight</a>; <span class="comment">// Not sure, might be max total weight allowed?</span>
+<a name="l00045"></a><a class="code" href="structESM_1_1Container.html#a0e821b3688a228b7dc6e050d7ae535cb">00045</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Container.html#a0e821b3688a228b7dc6e050d7ae535cb">mFlags</a>;
+<a name="l00046"></a><a class="code" href="structESM_1_1Container.html#aaac5bb04edcde55a09188a63e4588bbf">00046</a>     <a class="code" href="structESM_1_1InventoryList.html">InventoryList</a> <a class="code" href="structESM_1_1Container.html#aaac5bb04edcde55a09188a63e4588bbf">mInventory</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#a36b683b8d17bbd2a95d3a3e9058bff76">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#ad363cfd43b003769bafce7aa8c7c3a0c">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00050"></a>00050 };
+<a name="l00051"></a>00051 }
+<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -110,9 +110,9 @@
 <a name="l00058"></a>00058     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Y&gt;
 <a name="l00059"></a><a class="code" href="structMWWorld_1_1CellRefList.html#a707d02fc1170c498995cd610fc1ec550">00059</a>     <span class="keywordtype">void</span> <a class="code" href="structMWWorld_1_1CellRefList.html#a707d02fc1170c498995cd610fc1ec550">find</a>(<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>&amp; recList)
 <a name="l00060"></a>00060     {
-<a name="l00061"></a>00061       <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* obj = recList.find(ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
+<a name="l00061"></a>00061       <span class="keyword">const</span> <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* obj = recList.find(ref.<a class="code" href="classESM_1_1CellRef.html#a417b985f89787037c02484bdc640fee3">mRefID</a>);
 <a name="l00062"></a>00062       <span class="keywordflow">if</span>(obj == NULL)
-<a name="l00063"></a>00063         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error resolving cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a57ea4b4ffe530f1f13092d2d4ae18896">refID</a>);
+<a name="l00063"></a>00063         <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error resolving cell reference &quot;</span> + ref.<a class="code" href="classESM_1_1CellRef.html#a417b985f89787037c02484bdc640fee3">mRefID</a>);
 <a name="l00064"></a>00064 
 <a name="l00065"></a>00065       <a class="code" href="structMWWorld_1_1CellRefList.html#ae77fc495c97ab4935a273f91ba943c7e">list</a>.push_back(<a class="code" href="structMWWorld_1_1CellRefList.html#a5b5ebeafb565fa15cbf443635008533f">LiveRef</a>(ref, obj));
 <a name="l00066"></a>00066     }
@@ -121,7 +121,7 @@
 <a name="l00069"></a>00069     {
 <a name="l00070"></a>00070         <span class="keywordflow">for</span> (<span class="keyword">typename</span> std::list&lt;LiveRef&gt;::iterator iter (<a class="code" href="structMWWorld_1_1CellRefList.html#ae77fc495c97ab4935a273f91ba943c7e">list</a>.begin()); iter!=<a class="code" href="structMWWorld_1_1CellRefList.html#ae77fc495c97ab4935a273f91ba943c7e">list</a>.end(); ++iter)
 <a name="l00071"></a>00071         {
-<a name="l00072"></a>00072             <span class="keywordflow">if</span> (iter-&gt;mData.getCount() &gt; 0 &amp;&amp; iter-&gt;ref.refID == name)
+<a name="l00072"></a>00072             <span class="keywordflow">if</span> (iter-&gt;mData.getCount() &gt; 0 &amp;&amp; iter-&gt;ref.mRefID == name)
 <a name="l00073"></a>00073                 <span class="keywordflow">return</span> &amp;*iter;
 <a name="l00074"></a>00074         }
 <a name="l00075"></a>00075 
@@ -204,9 +204,9 @@
 <a name="l00156"></a>00156     }
 <a name="l00157"></a>00157 
 <a name="l00158"></a><a class="code" href="classMWWorld_1_1CellStore.html#a17cb820e98c05aa90a53d18848e22032">00158</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1CellStore.html#a17cb820e98c05aa90a53d18848e22032">operator==</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>) {
-<a name="l00159"></a>00159         <span class="keywordflow">return</span>  this-&gt;cell-&gt;name == cell.<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#a0a4f7e88b41d4e89c37efc01fa1fcded">name</a> &amp;&amp;
-<a name="l00160"></a>00160                 this-&gt;cell-&gt;data.gridX == cell.<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a181d5e37d88e2a705f3a2cc22f964a2e">gridX</a> &amp;&amp;
-<a name="l00161"></a>00161                 this-&gt;cell-&gt;data.gridY == cell.<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#ac6e5de9ed9bc54528d8542634933acf3">data</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a2844484e60f1da3ce76fd371de29f85a">gridY</a>;
+<a name="l00159"></a>00159         <span class="keywordflow">return</span>  this-&gt;cell-&gt;mName == cell.<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a> &amp;&amp;
+<a name="l00160"></a>00160                 this-&gt;cell-&gt;mData.mX == cell.<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a> &amp;&amp;
+<a name="l00161"></a>00161                 this-&gt;cell-&gt;mData.mY == cell.<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>;
 <a name="l00162"></a>00162     }
 <a name="l00163"></a>00163 
 <a name="l00164"></a><a class="code" href="classMWWorld_1_1CellStore.html#a89cd45cc08660bc0e8f3200b09ac151f">00164</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1CellStore.html#a89cd45cc08660bc0e8f3200b09ac151f">operator!=</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;<a class="code" href="classMWWorld_1_1CellStore.html#a26ba4d74bee918d79eb841e15aace027">cell</a>) {
@@ -241,7 +241,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

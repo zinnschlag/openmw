@@ -58,55 +58,67 @@
 <div class="title">components/esm/loadlocks.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadlocks_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_LOCKS_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_LOCKS_H</span>
+<a href="loadlocks_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_LOCKS_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_LOCKS_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
 <a name="l00007"></a>00007 {
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="comment">/*</span>
-<a name="l00010"></a>00010 <span class="comment"> * This file covers lockpicks (LOCK), probes (PROB) and armor repair</span>
-<a name="l00011"></a>00011 <span class="comment"> * items (REPA). These have nearly identical data structures.</span>
-<a name="l00012"></a>00012 <span class="comment"> */</span>
-<a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="structESM_1_1Tool.html">00014</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Tool.html">Tool</a>
-<a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="structESM_1_1Tool_1_1Data.html">00016</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Tool_1_1Data.html">Data</a>
-<a name="l00017"></a>00017     {
-<a name="l00018"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#a013e19fc82b2fa1d264eadce52ca9dd7">00018</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#a013e19fc82b2fa1d264eadce52ca9dd7">weight</a>;
-<a name="l00019"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#a5286a372fe40707627f97b5461334424">00019</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#a5286a372fe40707627f97b5461334424">value</a>;
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#a420a549619aa6309d053ff141665f16a">00021</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#a420a549619aa6309d053ff141665f16a">quality</a>; <span class="comment">// And when I say nearly identical structure, I</span>
-<a name="l00022"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#a5fafa8831408d376259ab664799379ee">00022</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#a5fafa8831408d376259ab664799379ee">uses</a>;      <span class="comment">// mean perfectly identical except that these two</span>
-<a name="l00023"></a>00023                        <span class="comment">// variables are swaped for repair items. Don&#39;t ask</span>
-<a name="l00024"></a>00024                        <span class="comment">// me why.</span>
-<a name="l00025"></a>00025     }; <span class="comment">// Size = 16</span>
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="structESM_1_1Tool.html#a97342cf974680887abae9dc372e45318">00027</a>     <a class="code" href="structESM_1_1Tool_1_1Data.html">Data</a> <a class="code" href="structESM_1_1Tool.html#a97342cf974680887abae9dc372e45318">data</a>;
-<a name="l00028"></a><a class="code" href="structESM_1_1Tool.html#a42288cb72c42d22762a09554feed1c89">00028</a>     std::string <a class="code" href="structESM_1_1Tool.html#a1fc4388521128964b271199f261ac4c5">name</a>, <a class="code" href="structESM_1_1Tool.html#ab747d707eaa8e2b934fe05c47f7a72d8">model</a>, <a class="code" href="structESM_1_1Tool.html#a5f4c5b5c88179e4d73dbaf9bcd2f5435">icon</a>, <a class="code" href="structESM_1_1Tool.html#a42288cb72c42d22762a09554feed1c89">script</a>;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Tool.html#ac69efaff439f84d2233ccb3210f46500">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00031"></a>00031 };
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="structESM_1_1Probe.html">00033</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Probe.html">Probe</a>: <a class="code" href="structESM_1_1Tool.html">Tool</a>
-<a name="l00034"></a>00034 {
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 };
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="structESM_1_1Repair.html">00038</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Repair.html">Repair</a>: <a class="code" href="structESM_1_1Tool.html">Tool</a>
-<a name="l00039"></a>00039 {
+<a name="l00009"></a>00009 <span class="keyword">class </span>ESMReader;
+<a name="l00010"></a>00010 <span class="keyword">class </span>ESMWriter;
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="comment">/*</span>
+<a name="l00013"></a>00013 <span class="comment"> * This file covers lockpicks (LOCK), probes (PROB) and armor repair</span>
+<a name="l00014"></a>00014 <span class="comment"> * items (REPA). These have nearly identical data structures.</span>
+<a name="l00015"></a>00015 <span class="comment"> */</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="structESM_1_1Tool.html">00017</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Tool.html">Tool</a>
+<a name="l00018"></a>00018 {
+<a name="l00019"></a><a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dd">00019</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dd">Type</a>
+<a name="l00020"></a>00020     {
+<a name="l00021"></a><a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dda3706661f33412289d8755f857ccb4ec1">00021</a>         <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dda3706661f33412289d8755f857ccb4ec1">Type_Pick</a>,
+<a name="l00022"></a><a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3ddaaaa45592028328d84b5c8a9a37df6d3c">00022</a>         <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3ddaaaa45592028328d84b5c8a9a37df6d3c">Type_Probe</a>,
+<a name="l00023"></a><a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dda9b079a4a2d0c8e6ab8b911df1a692481">00023</a>         <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dda9b079a4a2d0c8e6ab8b911df1a692481">Type_Repair</a>
+<a name="l00024"></a>00024     };
+<a name="l00025"></a>00025 
+<a name="l00026"></a><a class="code" href="structESM_1_1Tool_1_1Data.html">00026</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Tool_1_1Data.html">Data</a>
+<a name="l00027"></a>00027     {
+<a name="l00028"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#a14cb7682564d931044862c5cc89a6d1f">00028</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#a14cb7682564d931044862c5cc89a6d1f">mWeight</a>;
+<a name="l00029"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#ac9923838beebd0256dae88ef4661c251">00029</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#ac9923838beebd0256dae88ef4661c251">mValue</a>;
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#a54e19635bc5a4d3b529771803728c251">00031</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#a54e19635bc5a4d3b529771803728c251">mQuality</a>; <span class="comment">// And when I say nearly identical structure, I</span>
+<a name="l00032"></a><a class="code" href="structESM_1_1Tool_1_1Data.html#ac94529b0886ec69583fd721f42af6efa">00032</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Tool_1_1Data.html#ac94529b0886ec69583fd721f42af6efa">mUses</a>;      <span class="comment">// mean perfectly identical except that these two</span>
+<a name="l00033"></a>00033                        <span class="comment">// variables are swaped for repair items. Don&#39;t ask</span>
+<a name="l00034"></a>00034                        <span class="comment">// me why.</span>
+<a name="l00035"></a>00035     }; <span class="comment">// Size = 16</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="structESM_1_1Tool.html#aed7d539655d89ba117c521357f081b06">00037</a>     <a class="code" href="structESM_1_1Tool_1_1Data.html">Data</a> <a class="code" href="structESM_1_1Tool.html#aed7d539655d89ba117c521357f081b06">mData</a>;
+<a name="l00038"></a><a class="code" href="structESM_1_1Tool.html#a392bbe83394554536775033122d5bec8">00038</a>     <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dd">Type</a> <a class="code" href="structESM_1_1Tool.html#a392bbe83394554536775033122d5bec8">mType</a>;
+<a name="l00039"></a><a class="code" href="structESM_1_1Tool.html#a6dbc693219830bde3f7c27e5da947f80">00039</a>     std::string <a class="code" href="structESM_1_1Tool.html#a14fbe2e81923f06407f8a83b50fd166e">mName</a>, <a class="code" href="structESM_1_1Tool.html#a7ebf0f2930ace2e7283ce5bd45096a90">mModel</a>, <a class="code" href="structESM_1_1Tool.html#a516701318697571ef27ea035d2f44f09">mIcon</a>, <a class="code" href="structESM_1_1Tool.html#a6dbc693219830bde3f7c27e5da947f80">mScript</a>;
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041 };
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 }
-<a name="l00044"></a>00044 <span class="preprocessor">#endif</span>
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Tool.html#ac69efaff439f84d2233ccb3210f46500">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Tool.html#a12b19faf2638780b6e3e13a548682e71">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00043"></a>00043 };
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="structESM_1_1Probe.html">00045</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Probe.html">Probe</a>: <a class="code" href="structESM_1_1Tool.html">Tool</a>
+<a name="l00046"></a>00046 {
+<a name="l00047"></a><a class="code" href="structESM_1_1Probe.html#a7fa879168e43109c9e40b1e1cfb4e03e">00047</a>     <a class="code" href="structESM_1_1Probe.html#a7fa879168e43109c9e40b1e1cfb4e03e">Probe</a>() { <a class="code" href="structESM_1_1Tool.html#a392bbe83394554536775033122d5bec8">mType</a> = <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3ddaaaa45592028328d84b5c8a9a37df6d3c">Type_Probe</a>; }
+<a name="l00048"></a>00048 };
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="structESM_1_1Repair.html">00050</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Repair.html">Repair</a>: <a class="code" href="structESM_1_1Tool.html">Tool</a>
+<a name="l00051"></a>00051 {
+<a name="l00052"></a><a class="code" href="structESM_1_1Repair.html#a27c80ed9a3f5c11c5f74c0d0249dd84f">00052</a>     <a class="code" href="structESM_1_1Repair.html#a27c80ed9a3f5c11c5f74c0d0249dd84f">Repair</a>() { <a class="code" href="structESM_1_1Tool.html#a392bbe83394554536775033122d5bec8">mType</a> = <a class="code" href="structESM_1_1Tool.html#a72a4ad084fac7ae7fdcd8d87a3b5e3dda9b079a4a2d0c8e6ab8b911df1a692481">Type_Repair</a>; }
+<a name="l00053"></a>00053 };
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 }
+<a name="l00056"></a>00056 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

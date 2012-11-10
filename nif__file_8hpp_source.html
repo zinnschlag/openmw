@@ -99,7 +99,7 @@
 <a name="l00039"></a>00039 
 <a name="l00040"></a>00040 <span class="preprocessor">#include &lt;<a class="code" href="stdint_8h.html">libs/platform/stdint.h</a>&gt;</span>
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="preprocessor">#include &quot;<a class="code" href="record_8hpp.html">record.hpp</a>&quot;</span>
+<a name="l00042"></a>00042 <span class="preprocessor">#include &quot;<a class="code" href="components_2nif_2record_8hpp.html">record.hpp</a>&quot;</span>
 <a name="l00043"></a>00043 <span class="preprocessor">#include &quot;<a class="code" href="nif__types_8hpp.html">nif_types.hpp</a>&quot;</span>
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 <span class="keyword">namespace </span>Nif
@@ -317,7 +317,7 @@
 <a name="l00266"></a>00266 
 <a name="l00267"></a><a class="code" href="structNif_1_1KeyListT.html#a9989e62cc766d32379886df6e1971864">00267</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1KeyListT.html#a9989e62cc766d32379886df6e1971864">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif, <span class="keywordtype">bool</span> force=<span class="keyword">false</span>)
 <a name="l00268"></a>00268     {
-<a name="l00269"></a>00269         <span class="keywordtype">size_t</span> count = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
+<a name="l00269"></a>00269         <span class="keywordtype">size_t</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
 <a name="l00270"></a>00270         <span class="keywordflow">if</span>(count == 0 &amp;&amp; !force)
 <a name="l00271"></a>00271             <span class="keywordflow">return</span>;
 <a name="l00272"></a>00272 
@@ -325,7 +325,7 @@
 <a name="l00274"></a>00274         <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>.resize(count);
 <a name="l00275"></a>00275         <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">sLinearInterpolation</a>)
 <a name="l00276"></a>00276         {
-<a name="l00277"></a>00277             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; count;i++)
+<a name="l00277"></a>00277             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
 <a name="l00278"></a>00278             {
 <a name="l00279"></a>00279                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
 <a name="l00280"></a>00280                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
@@ -334,7 +334,7 @@
 <a name="l00283"></a>00283         }
 <a name="l00284"></a>00284         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">sQuadraticInterpolation</a>)
 <a name="l00285"></a>00285         {
-<a name="l00286"></a>00286             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; count;i++)
+<a name="l00286"></a>00286             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
 <a name="l00287"></a>00287             {
 <a name="l00288"></a>00288                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
 <a name="l00289"></a>00289                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
@@ -345,7 +345,7 @@
 <a name="l00294"></a>00294         }
 <a name="l00295"></a>00295         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">sTBCInterpolation</a>)
 <a name="l00296"></a>00296         {
-<a name="l00297"></a>00297             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; count;i++)
+<a name="l00297"></a>00297             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
 <a name="l00298"></a>00298             {
 <a name="l00299"></a>00299                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
 <a name="l00300"></a>00300                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
@@ -370,7 +370,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

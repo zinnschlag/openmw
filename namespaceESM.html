@@ -76,7 +76,6 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1AIPackage.html">AIPackage</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1AIPackageList.html">AIPackageList</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Attribute.html">Attribute</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1SpellList.html">SpellList</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Position.html">Position</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1ENAMstruct.html">ENAMstruct</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1EffectList.html">EffectList</a></td></tr>
@@ -87,6 +86,7 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1SaveData.html">SaveData</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1ESM__Context.html">ESM_Context</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classESM_1_1ESMReader.html">ESMReader</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classESM_1_1ESMWriter.html">ESMWriter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Activator.html">Activator</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Potion.html">Potion</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Apparatus.html">Apparatus</a></td></tr>
@@ -142,6 +142,7 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1StartScript.html">StartScript</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Static.html">Static</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1Weapon.html">Weapon</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1SpellList.html">SpellList</a></td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">Color</a></td></tr>
@@ -179,54 +180,6 @@ Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9">RangeType</a> { <a class="el" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a84b3a5815f7a99b5143e173c7195c91a">RT_Self</a> =  0, 
 <a class="el" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9a6b9058dbfb3ec738c530ff64389dbd05">RT_Touch</a> =  1, 
 <a class="el" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">RT_Target</a> =  2
- }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#ab37ae5163c00ceb8956f93797cabc2c9">Version</a> { <a class="el" href="namespaceESM.html#ab37ae5163c00ceb8956f93797cabc2c9a27192fa83a4a8660c8ef2f4bfbe19c52">VER_12</a> =  0x3f99999a, 
-<a class="el" href="namespaceESM.html#ab37ae5163c00ceb8956f93797cabc2c9afbd4adbcd48cc84f5116d1de35b1ecee">VER_13</a> =  0x3fa66666
- }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddc">FileType</a> { <a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddca88af95489bac12e3e6b879e145bdfc05">FT_ESP</a> =  0, 
-<a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddca746f74c4c65e4aed4c09aa8906e23ccf">FT_ESM</a> =  1, 
-<a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddca076a21bd2caf71938832324f63af9d7e">FT_ESS</a> =  32
- }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498">SpecialFile</a> { <a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498ad74ebdc9f54e713624d4b20f095e7d0c">SF_Other</a>, 
-<a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498a9a01864a8ba16ba008f728c7ed232057">SF_Morrowind</a>, 
-<a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498a594008301979f602c9a30dcddf96811e">SF_Tribunal</a>, 
-<a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498a10694addf7755371901370cfd0c43478">SF_Bloodmoon</a>
- }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">PartReferenceType</a> { <br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">PRT_Head</a> =  0, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">PRT_Hair</a> =  1, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">PRT_Neck</a> =  2, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">PRT_Cuirass</a> =  3, 
-<br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">PRT_Groin</a> =  4, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">PRT_Skirt</a> =  5, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">PRT_RHand</a> =  6, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">PRT_LHand</a> =  7, 
-<br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">PRT_RWrist</a> =  8, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">PRT_LWrist</a> =  9, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">PRT_Shield</a> =  10, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">PRT_RForearm</a> =  11, 
-<br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">PRT_LForearm</a> =  12, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">PRT_RUpperarm</a> =  13, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">PRT_LUpperarm</a> =  14, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">PRT_RFoot</a> =  15, 
-<br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">PRT_LFoot</a> =  16, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">PRT_RAnkle</a> =  17, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">PRT_LAnkle</a> =  18, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">PRT_RKnee</a> =  19, 
-<br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">PRT_LKnee</a> =  20, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">PRT_RLeg</a> =  21, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">PRT_LLeg</a> =  22, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">PRT_RPauldron</a> =  23, 
-<br/>
-&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">PRT_LPauldron</a> =  24, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">PRT_Weapon</a> =  25, 
-<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">PRT_Tail</a> =  26
-<br/>
  }</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6">RecNameInts</a> { <br/>
 &#160;&#160;<a class="el" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">REC_ACTI</a> =  0x49544341, 
@@ -285,6 +238,54 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">REC_STAT</a> =  0x54415453, 
 <br/>
 &#160;&#160;<a class="el" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">REC_WEAP</a> =  0x50414557
+<br/>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#ab37ae5163c00ceb8956f93797cabc2c9">Version</a> { <a class="el" href="namespaceESM.html#ab37ae5163c00ceb8956f93797cabc2c9a27192fa83a4a8660c8ef2f4bfbe19c52">VER_12</a> =  0x3f99999a, 
+<a class="el" href="namespaceESM.html#ab37ae5163c00ceb8956f93797cabc2c9afbd4adbcd48cc84f5116d1de35b1ecee">VER_13</a> =  0x3fa66666
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddc">FileType</a> { <a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddca88af95489bac12e3e6b879e145bdfc05">FT_ESP</a> =  0, 
+<a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddca746f74c4c65e4aed4c09aa8906e23ccf">FT_ESM</a> =  1, 
+<a class="el" href="namespaceESM.html#a66a36b3768bb90774db3e9d9c1641ddca076a21bd2caf71938832324f63af9d7e">FT_ESS</a> =  32
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498">SpecialFile</a> { <a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498ad74ebdc9f54e713624d4b20f095e7d0c">SF_Other</a>, 
+<a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498a9a01864a8ba16ba008f728c7ed232057">SF_Morrowind</a>, 
+<a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498a594008301979f602c9a30dcddf96811e">SF_Tribunal</a>, 
+<a class="el" href="namespaceESM.html#af2c6038c9231510336c0545a2fc82498a10694addf7755371901370cfd0c43478">SF_Bloodmoon</a>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">PartReferenceType</a> { <br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">PRT_Head</a> =  0, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">PRT_Hair</a> =  1, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">PRT_Neck</a> =  2, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">PRT_Cuirass</a> =  3, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">PRT_Groin</a> =  4, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">PRT_Skirt</a> =  5, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">PRT_RHand</a> =  6, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">PRT_LHand</a> =  7, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">PRT_RWrist</a> =  8, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">PRT_LWrist</a> =  9, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">PRT_Shield</a> =  10, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">PRT_RForearm</a> =  11, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">PRT_LForearm</a> =  12, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">PRT_RUpperarm</a> =  13, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">PRT_LUpperarm</a> =  14, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">PRT_RFoot</a> =  15, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">PRT_LFoot</a> =  16, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">PRT_RAnkle</a> =  17, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">PRT_LAnkle</a> =  18, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">PRT_RKnee</a> =  19, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">PRT_LKnee</a> =  20, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">PRT_RLeg</a> =  21, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">PRT_LLeg</a> =  22, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">PRT_RPauldron</a> =  23, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">PRT_LPauldron</a> =  24, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">PRT_Weapon</a> =  25, 
+<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">PRT_Tail</a> =  26
 <br/>
  }</td></tr>
 </table>
@@ -714,7 +715,7 @@ Enumerations</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

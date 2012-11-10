@@ -58,57 +58,62 @@
 <div class="title">components/esm/loadclot.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadclot_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_CLOT_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_CLOT_H</span>
+<a href="loadclot_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_CLOT_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_CLOT_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="loadarmo_8hpp.html">loadarmo.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM
-<a name="l00008"></a>00008 {
-<a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="comment">/*</span>
-<a name="l00011"></a>00011 <span class="comment"> * Clothing</span>
-<a name="l00012"></a>00012 <span class="comment"> */</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="loadarmo_8hpp.html">loadarmo.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>ESM
+<a name="l00009"></a>00009 {
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">class </span>ESMReader;
+<a name="l00012"></a>00012 <span class="keyword">class </span>ESMWriter;
 <a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="structESM_1_1Clothing.html">00014</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Clothing.html">Clothing</a>
-<a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022d">00016</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022d">Type</a>
-<a name="l00017"></a>00017     {
-<a name="l00018"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da69f075e868530753aa1554a8cdee1ad4">00018</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da69f075e868530753aa1554a8cdee1ad4">Pants</a> = 0,
-<a name="l00019"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da8101120d8c6e307c8ec920262a85a1d6">00019</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da8101120d8c6e307c8ec920262a85a1d6">Shoes</a> = 1,
-<a name="l00020"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da3730c0bd961ccefcb6e4b1647b8c2e2f">00020</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da3730c0bd961ccefcb6e4b1647b8c2e2f">Shirt</a> = 2,
-<a name="l00021"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da30190d43cc165f738e4bf557442480c3">00021</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da30190d43cc165f738e4bf557442480c3">Belt</a> = 3,
-<a name="l00022"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dafbf700047570c5a9440b9a9feafcf10c">00022</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dafbf700047570c5a9440b9a9feafcf10c">Robe</a> = 4,
-<a name="l00023"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dad060fa376d6fa11b13143364e3f49307">00023</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dad060fa376d6fa11b13143364e3f49307">RGlove</a> = 5,
-<a name="l00024"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da07bc52b428544364f9e265ecfc1fd743">00024</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da07bc52b428544364f9e265ecfc1fd743">LGlove</a> = 6,
-<a name="l00025"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dac844f85f98e51c329b067420cd5b1001">00025</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dac844f85f98e51c329b067420cd5b1001">Skirt</a> = 7,
-<a name="l00026"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dabf73a53e752f9001dd52c3389052f4c8">00026</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dabf73a53e752f9001dd52c3389052f4c8">Ring</a> = 8,
-<a name="l00027"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022daf91ad7cf0841e6c538979dddefb082e3">00027</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022daf91ad7cf0841e6c538979dddefb082e3">Amulet</a> = 9
-<a name="l00028"></a>00028     };
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html">00030</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html">CTDTstruct</a>
-<a name="l00031"></a>00031     {
-<a name="l00032"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#acd352954d481fe8dee2ab3e3223652cb">00032</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#acd352954d481fe8dee2ab3e3223652cb">type</a>;
-<a name="l00033"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#afeed2e8b2c57c2b291ee2991a1d69bd7">00033</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#afeed2e8b2c57c2b291ee2991a1d69bd7">weight</a>;
-<a name="l00034"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#acaaf32c35a22f16cf2dbb388d83f5245">00034</a>         <span class="keywordtype">short</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#acaaf32c35a22f16cf2dbb388d83f5245">value</a>;
-<a name="l00035"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a0bd959b966ac4d30c262606fde42a4a0">00035</a>         <span class="keywordtype">short</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a0bd959b966ac4d30c262606fde42a4a0">enchant</a>;
-<a name="l00036"></a>00036     };
-<a name="l00037"></a><a class="code" href="structESM_1_1Clothing.html#a7df88d7610d60eab22e34e56a8812347">00037</a>     <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html">CTDTstruct</a> <a class="code" href="structESM_1_1Clothing.html#a7df88d7610d60eab22e34e56a8812347">data</a>;
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="structESM_1_1Clothing.html#a5db5ccb5c10f00ba203a42c893de5536">00039</a>     <a class="code" href="structESM_1_1PartReferenceList.html">PartReferenceList</a> <a class="code" href="structESM_1_1Clothing.html#a5db5ccb5c10f00ba203a42c893de5536">parts</a>;
-<a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="structESM_1_1Clothing.html#a43e063c392be91f7812f14e73c27de0b">00041</a>     std::string <a class="code" href="structESM_1_1Clothing.html#a6c88dddf07e0931f4a56b9470bfb347b">name</a>, <a class="code" href="structESM_1_1Clothing.html#a91342441be405fe9482376e1bbf1772d">model</a>, <a class="code" href="structESM_1_1Clothing.html#ab693ab6a053e7a00c4d70761d4c41740">icon</a>, <a class="code" href="structESM_1_1Clothing.html#a951f78cc9b535309da64b53b00834abc">enchant</a>, <a class="code" href="structESM_1_1Clothing.html#a43e063c392be91f7812f14e73c27de0b">script</a>;
+<a name="l00014"></a>00014 <span class="comment">/*</span>
+<a name="l00015"></a>00015 <span class="comment"> * Clothing</span>
+<a name="l00016"></a>00016 <span class="comment"> */</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="structESM_1_1Clothing.html">00018</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Clothing.html">Clothing</a>
+<a name="l00019"></a>00019 {
+<a name="l00020"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022d">00020</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022d">Type</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da69f075e868530753aa1554a8cdee1ad4">00022</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da69f075e868530753aa1554a8cdee1ad4">Pants</a> = 0,
+<a name="l00023"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da8101120d8c6e307c8ec920262a85a1d6">00023</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da8101120d8c6e307c8ec920262a85a1d6">Shoes</a> = 1,
+<a name="l00024"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da3730c0bd961ccefcb6e4b1647b8c2e2f">00024</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da3730c0bd961ccefcb6e4b1647b8c2e2f">Shirt</a> = 2,
+<a name="l00025"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da30190d43cc165f738e4bf557442480c3">00025</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da30190d43cc165f738e4bf557442480c3">Belt</a> = 3,
+<a name="l00026"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dafbf700047570c5a9440b9a9feafcf10c">00026</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dafbf700047570c5a9440b9a9feafcf10c">Robe</a> = 4,
+<a name="l00027"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dad060fa376d6fa11b13143364e3f49307">00027</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dad060fa376d6fa11b13143364e3f49307">RGlove</a> = 5,
+<a name="l00028"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da07bc52b428544364f9e265ecfc1fd743">00028</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022da07bc52b428544364f9e265ecfc1fd743">LGlove</a> = 6,
+<a name="l00029"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dac844f85f98e51c329b067420cd5b1001">00029</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dac844f85f98e51c329b067420cd5b1001">Skirt</a> = 7,
+<a name="l00030"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dabf73a53e752f9001dd52c3389052f4c8">00030</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022dabf73a53e752f9001dd52c3389052f4c8">Ring</a> = 8,
+<a name="l00031"></a><a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022daf91ad7cf0841e6c538979dddefb082e3">00031</a>         <a class="code" href="structESM_1_1Clothing.html#a6884d9466f8570d7acd8e73183e4022daf91ad7cf0841e6c538979dddefb082e3">Amulet</a> = 9
+<a name="l00032"></a>00032     };
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html">00034</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html">CTDTstruct</a>
+<a name="l00035"></a>00035     {
+<a name="l00036"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#ac07e69ce45d3e728e852dc1ebde289b0">00036</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#ac07e69ce45d3e728e852dc1ebde289b0">mType</a>;
+<a name="l00037"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a2ff96089ad4a9b762ca65a01f6835498">00037</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a2ff96089ad4a9b762ca65a01f6835498">mWeight</a>;
+<a name="l00038"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a5d3cdf80106794cdba06cd27d6d4fb7d">00038</a>         <span class="keywordtype">short</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a5d3cdf80106794cdba06cd27d6d4fb7d">mValue</a>;
+<a name="l00039"></a><a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a6a095d3384c069476663e46c294eb62a">00039</a>         <span class="keywordtype">short</span> <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html#a6a095d3384c069476663e46c294eb62a">mEnchant</a>;
+<a name="l00040"></a>00040     };
+<a name="l00041"></a><a class="code" href="structESM_1_1Clothing.html#a94ac0a63439b7029b258bdf5ec370d82">00041</a>     <a class="code" href="structESM_1_1Clothing_1_1CTDTstruct.html">CTDTstruct</a> <a class="code" href="structESM_1_1Clothing.html#a94ac0a63439b7029b258bdf5ec370d82">mData</a>;
 <a name="l00042"></a>00042 
-<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Clothing.html#a27bc3886727c04aa4dc9cd8c6110e616">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00044"></a>00044 };
-<a name="l00045"></a>00045 }
-<a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
+<a name="l00043"></a><a class="code" href="structESM_1_1Clothing.html#afaa90b1620f49a3888922c66871541cc">00043</a>     <a class="code" href="structESM_1_1PartReferenceList.html">PartReferenceList</a> <a class="code" href="structESM_1_1Clothing.html#afaa90b1620f49a3888922c66871541cc">mParts</a>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="structESM_1_1Clothing.html#adb43b995a38ba9d0d4c9229ff9207e83">00045</a>     std::string <a class="code" href="structESM_1_1Clothing.html#a582f89a7b3993a1e84632a354833ab7a">mName</a>, <a class="code" href="structESM_1_1Clothing.html#a75443723fd383379101c009dec154aa3">mModel</a>, <a class="code" href="structESM_1_1Clothing.html#a747a0eca294af02aa9e84d5d2e2466a8">mIcon</a>, <a class="code" href="structESM_1_1Clothing.html#a383851d66f06fa8fb9a65971d0868045">mEnchant</a>, <a class="code" href="structESM_1_1Clothing.html#adb43b995a38ba9d0d4c9229ff9207e83">mScript</a>;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Clothing.html#a27bc3886727c04aa4dc9cd8c6110e616">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Clothing.html#a7c8ed53a4b2d9deadedec472a7458097">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00049"></a>00049 };
+<a name="l00050"></a>00050 }
+<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -58,63 +58,82 @@
 <div class="title">components/esm/loadmgef.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="loadmgef_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_MGEF_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_MGEF_H</span>
+<a href="loadmgef_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_MGEF_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_MGEF_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
 <a name="l00007"></a>00007 {
 <a name="l00008"></a>00008 
-<a name="l00009"></a><a class="code" href="structESM_1_1MagicEffect.html">00009</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1MagicEffect.html">MagicEffect</a>
-<a name="l00010"></a>00010 {
-<a name="l00011"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4">00011</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4">Flags</a>
-<a name="l00012"></a>00012     {
-<a name="l00013"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a1e12d0df4b6084b88817cd249e80016f">00013</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a1e12d0df4b6084b88817cd249e80016f">NoDuration</a> = 0x4,
-<a name="l00014"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a193cdc3aa01361cc85f9e6206b0be1a2">00014</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a193cdc3aa01361cc85f9e6206b0be1a2">SpellMaking</a> = 0x0200,
-<a name="l00015"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab37eb96f0f9c78d85deecf00699c6909">00015</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab37eb96f0f9c78d85deecf00699c6909">Enchanting</a> = 0x0400,
-<a name="l00016"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a2ba573255d0dc93f924c040039d89291">00016</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a2ba573255d0dc93f924c040039d89291">Negative</a> = 0x0800 <span class="comment">// A harmful effect. Will determine whether</span>
-<a name="l00017"></a>00017                           <span class="comment">// eg. NPCs regard this spell as an attack.</span>
-<a name="l00018"></a>00018     };
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">00020</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">MEDTstruct</a>
-<a name="l00021"></a>00021     {
-<a name="l00022"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a291d3e41c4cd1db57c1e2124784c479b">00022</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a291d3e41c4cd1db57c1e2124784c479b">school</a>; <span class="comment">// SpellSchool, see defs.hpp</span>
-<a name="l00023"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a348e7a5351a2cee7c54f6482a19f5bce">00023</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a348e7a5351a2cee7c54f6482a19f5bce">baseCost</a>;
-<a name="l00024"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#acca2f10c6f2d2c3cde1f1edd6035ff20">00024</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#acca2f10c6f2d2c3cde1f1edd6035ff20">flags</a>;
-<a name="l00025"></a>00025         <span class="comment">// Properties of the fired magic &#39;ball&#39; I think</span>
-<a name="l00026"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#af462e2a6f1aba9eda6ee856acf84abd9">00026</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#af462e2a6f1aba9eda6ee856acf84abd9">red</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#aa28d8d7cbcca035f4b146faa1283cdb8">blue</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#aec05c0d6ea5950a7d8b9037581aedf96">green</a>;
-<a name="l00027"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a6eb09b023f883ce7b0b798d65afc6d06">00027</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a6eb09b023f883ce7b0b798d65afc6d06">speed</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a9a9a086a6998bc2662ea79cf6af587fe">size</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a651aed032a7b6d848956dd3c1f0d4706">sizeCap</a>;
-<a name="l00028"></a>00028     }; <span class="comment">// 36 bytes</span>
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="structESM_1_1MagicEffect.html#a835e1a430edcda0a64c3e7e9f4a522ae">00030</a>     <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">MEDTstruct</a> <a class="code" href="structESM_1_1MagicEffect.html#a835e1a430edcda0a64c3e7e9f4a522ae">data</a>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="structESM_1_1MagicEffect.html#aae8930bdd9946ce07f7a2115dd2d46e4">00032</a>     std::string <a class="code" href="structESM_1_1MagicEffect.html#a9c505da011545c5381305ac687f6a9ca">icon</a>, <a class="code" href="structESM_1_1MagicEffect.html#aae8930bdd9946ce07f7a2115dd2d46e4">particle</a>, <span class="comment">// Textures</span>
-<a name="l00033"></a>00033             <a class="code" href="structESM_1_1MagicEffect.html#ad506a619edc2658f3d66166fb0e4ad8d">casting</a>, <a class="code" href="structESM_1_1MagicEffect.html#aa2a4493fa4f13b0f8ce7c5cceae7a873">hit</a>, <a class="code" href="structESM_1_1MagicEffect.html#a1fed87a68ec1010061da1a19e49a711a">area</a>, <span class="comment">// Statics</span>
-<a name="l00034"></a>00034             <a class="code" href="structESM_1_1MagicEffect.html#a55af5e5d3b06f2b76651ee68c0d98eaa">bolt</a>, <span class="comment">// Weapon</span>
-<a name="l00035"></a>00035             <a class="code" href="structESM_1_1MagicEffect.html#ab419939d8b1b2b310610c10971f5d873">castSound</a>, <a class="code" href="structESM_1_1MagicEffect.html#a50b3b3aba4dd0842b8f5d12ecf39979b">boltSound</a>, <a class="code" href="structESM_1_1MagicEffect.html#ae442a2814123e055d73a3153f44d2de0">hitSound</a>, <a class="code" href="structESM_1_1MagicEffect.html#a358b96f480876f81a9570e01db99c464">areaSound</a>, <span class="comment">// Sounds</span>
-<a name="l00036"></a>00036             <a class="code" href="structESM_1_1MagicEffect.html#ab0a98a4fbc4770d00046acfd83931339">description</a>;
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038     <span class="comment">// Index of this magical effect. Corresponds to one of the</span>
-<a name="l00039"></a>00039     <span class="comment">// hard-coded effects in the original engine:</span>
-<a name="l00040"></a>00040     <span class="comment">// 0-136 in Morrowind</span>
-<a name="l00041"></a>00041     <span class="comment">// 137 in Tribunal</span>
-<a name="l00042"></a>00042     <span class="comment">// 138-140 in Bloodmoon (also changes 64?)</span>
-<a name="l00043"></a>00043     <span class="comment">// 141-142 are summon effects introduced in bloodmoon, but not used</span>
-<a name="l00044"></a>00044     <span class="comment">// there. They can be redefined in mods by setting the name in GMST</span>
-<a name="l00045"></a>00045     <span class="comment">// sEffectSummonCreature04/05 creature id in</span>
-<a name="l00046"></a>00046     <span class="comment">// sMagicCreature04ID/05ID.</span>
-<a name="l00047"></a><a class="code" href="structESM_1_1MagicEffect.html#a14f9c6f52a663692ed863f59681afb71">00047</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect.html#a14f9c6f52a663692ed863f59681afb71">index</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1MagicEffect.html#ab227f3abf0fdc2afc77fefa9fe74c47d">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00050"></a>00050 };
-<a name="l00051"></a>00051 }
-<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
+<a name="l00009"></a>00009 <span class="keyword">class </span>ESMReader;
+<a name="l00010"></a>00010 <span class="keyword">class </span>ESMWriter;
+<a name="l00011"></a>00011 
+<a name="l00012"></a><a class="code" href="structESM_1_1MagicEffect.html">00012</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1MagicEffect.html">MagicEffect</a>
+<a name="l00013"></a>00013 {
+<a name="l00014"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4">00014</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4">Flags</a>
+<a name="l00015"></a>00015     {
+<a name="l00016"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a5d7419424ec99a4d332edc1bd6071e13">00016</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a5d7419424ec99a4d332edc1bd6071e13">TargetSkill</a> = 0x1, <span class="comment">// Affects a specific skill, which is specified elsewhere in the effect structure.</span>
+<a name="l00017"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab426afc1a5dbf5949fa79d20b833b33c">00017</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab426afc1a5dbf5949fa79d20b833b33c">TargetAttribute</a> = 0x2, <span class="comment">// Affects a specific attribute, which is specified elsewhere in the effect structure.</span>
+<a name="l00018"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a1e12d0df4b6084b88817cd249e80016f">00018</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a1e12d0df4b6084b88817cd249e80016f">NoDuration</a> = 0x4, <span class="comment">// Has no duration. Only runs effect once on cast.</span>
+<a name="l00019"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a6c71670ddaef69d5c864d9bd245cb42b">00019</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a6c71670ddaef69d5c864d9bd245cb42b">NoMagnitude</a> = 0x8, <span class="comment">// Has no magnitude.</span>
+<a name="l00020"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a00e0cd639c1a28e34bf07429de9d0208">00020</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a00e0cd639c1a28e34bf07429de9d0208">Harmful</a> = 0x10, <span class="comment">// Counts as a negative effect. Interpreted as useful for attack, and is treated as a bad effect in alchemy.</span>
+<a name="l00021"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a792940a3e44afdd7c29242a88de53505">00021</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a792940a3e44afdd7c29242a88de53505">ContinuousVfx</a> = 0x20, <span class="comment">// The effect&#39;s hit particle VFX repeats for the full duration of the spell, rather than occuring once on hit.</span>
+<a name="l00022"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a247d5dd0b5647f5bf4f8c3d6dde53681">00022</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a247d5dd0b5647f5bf4f8c3d6dde53681">CastSelf</a> = 0x40, <span class="comment">// Allows range - cast on self.</span>
+<a name="l00023"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab812fb16d5701e9454b4ad667b2278d0">00023</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab812fb16d5701e9454b4ad667b2278d0">CastTouch</a> = 0x80, <span class="comment">// Allows range - cast on touch.</span>
+<a name="l00024"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4aa11af2eb8f85d2f9bba7e7e1f751c929">00024</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4aa11af2eb8f85d2f9bba7e7e1f751c929">CastTarget</a> = 0x100, <span class="comment">// Allows range - cast on target.</span>
+<a name="l00025"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a318f15d79eac151fe81762d98866c04d">00025</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a318f15d79eac151fe81762d98866c04d">UncappedDamage</a> = 0x1000, <span class="comment">// Negates multiple cap behaviours. Allows an effect to reduce an attribute below zero; removes the normal minimum effect duration of 1 second.</span>
+<a name="l00026"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a0130d88201e00a0ce8afdefc9642381a">00026</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a0130d88201e00a0ce8afdefc9642381a">NonRecastable</a> = 0x4000, <span class="comment">// Does not land if parent spell is already affecting target. Shows &quot;you cannot re-cast&quot; message for self target.</span>
+<a name="l00027"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ac5071fd133d880c009992475a0db9588">00027</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ac5071fd133d880c009992475a0db9588">Unreflectable</a> = 0x10000, <span class="comment">// Cannot be reflected, the effect always lands normally.</span>
+<a name="l00028"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4aacbd65ea4d6ad50d7241dfd29ca44160">00028</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4aacbd65ea4d6ad50d7241dfd29ca44160">CasterLinked</a> = 0x20000, <span class="comment">// Must quench if caster is dead, or not an NPC/creature. Not allowed in containter/door trap spells.</span>
+<a name="l00029"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a193cdc3aa01361cc85f9e6206b0be1a2">00029</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a193cdc3aa01361cc85f9e6206b0be1a2">SpellMaking</a> = 0x0200,
+<a name="l00030"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab37eb96f0f9c78d85deecf00699c6909">00030</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4ab37eb96f0f9c78d85deecf00699c6909">Enchanting</a> = 0x0400,
+<a name="l00031"></a><a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a2ba573255d0dc93f924c040039d89291">00031</a>         <a class="code" href="structESM_1_1MagicEffect.html#a44b7fa8abe208024b302e1593e265bc4a2ba573255d0dc93f924c040039d89291">Negative</a> = 0x0800 <span class="comment">// A harmful effect. Will determine whether</span>
+<a name="l00032"></a>00032                           <span class="comment">// eg. NPCs regard this spell as an attack. (same as 0x10?)</span>
+<a name="l00033"></a>00033     };
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">00035</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">MEDTstruct</a>
+<a name="l00036"></a>00036     {
+<a name="l00037"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a79e0d321ccc849cf37f391832d14ea4d">00037</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a79e0d321ccc849cf37f391832d14ea4d">mSchool</a>; <span class="comment">// SpellSchool, see defs.hpp</span>
+<a name="l00038"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a3cea6c8ee6e51d6940393185f20b86ed">00038</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a3cea6c8ee6e51d6940393185f20b86ed">mBaseCost</a>;
+<a name="l00039"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#af2692fb06b4272b3df8cb70f61ca4d93">00039</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#af2692fb06b4272b3df8cb70f61ca4d93">mFlags</a>;
+<a name="l00040"></a>00040         <span class="comment">// Properties of the fired magic &#39;ball&#39; I think</span>
+<a name="l00041"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a317482502e9f761a78c2da4ab88c54d1">00041</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a317482502e9f761a78c2da4ab88c54d1">mRed</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#ad64bda59a4e830c6c4953368f8b39801">mBlue</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#ae0d4cae4919230b2273043faa9c13315">mGreen</a>;
+<a name="l00042"></a><a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#aa5c87295fb2e366d75fd0b33a99e1eed">00042</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#aa5c87295fb2e366d75fd0b33a99e1eed">mSpeed</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a543ee81d0c09fcf392660cd5c4995663">mSize</a>, <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a758c01d5c3c5abbb855a2a78353d8c38">mSizeCap</a>;
+<a name="l00043"></a>00043     }; <span class="comment">// 36 bytes</span>
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045     <span class="keyword">static</span> std::string <a class="code" href="structESM_1_1MagicEffect.html#a45daf339cc28def8e3c62011ec9d3deb">effectIdToString</a>(<span class="keywordtype">short</span> effectID);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="structESM_1_1MagicEffect.html#a77809644508acdf85b1713e4c9b3647b">00048</a>     <a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">MEDTstruct</a> <a class="code" href="structESM_1_1MagicEffect.html#a77809644508acdf85b1713e4c9b3647b">mData</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="structESM_1_1MagicEffect.html#a09684f416d455b9b028fa1d325f1c13e">00050</a>     std::string <a class="code" href="structESM_1_1MagicEffect.html#a23e7ba594517aeb6f21eac58e7f7ffb9">mIcon</a>, <a class="code" href="structESM_1_1MagicEffect.html#a09684f416d455b9b028fa1d325f1c13e">mParticle</a>; <span class="comment">// Textures</span>
+<a name="l00051"></a><a class="code" href="structESM_1_1MagicEffect.html#aa5f951c7d920f0e5d14c634559ab5f41">00051</a>     std::string <a class="code" href="structESM_1_1MagicEffect.html#aa6de9c1fcfbe931ef01169bacf35aa37">mCasting</a>, <a class="code" href="structESM_1_1MagicEffect.html#aa5f951c7d920f0e5d14c634559ab5f41">mHit</a>, <a class="code" href="structESM_1_1MagicEffect.html#a82aa26629ce8c80cd20bebe5b6f03e2a">mArea</a>; <span class="comment">// Statics</span>
+<a name="l00052"></a><a class="code" href="structESM_1_1MagicEffect.html#a914aa78d845f8d7883bc391b826d5c7f">00052</a>     std::string <a class="code" href="structESM_1_1MagicEffect.html#a914aa78d845f8d7883bc391b826d5c7f">mBolt</a>; <span class="comment">// Weapon</span>
+<a name="l00053"></a><a class="code" href="structESM_1_1MagicEffect.html#a02ca96e33c87a61c568296de4b593669">00053</a>     std::string <a class="code" href="structESM_1_1MagicEffect.html#add8ed41b0d02bb637bad36de4cd14aa9">mCastSound</a>, <a class="code" href="structESM_1_1MagicEffect.html#aef7c493007d583e7ab2e20b0db689335">mBoltSound</a>, <a class="code" href="structESM_1_1MagicEffect.html#a02ca96e33c87a61c568296de4b593669">mHitSound</a>, <a class="code" href="structESM_1_1MagicEffect.html#ae4d75cc4911fe1d8fb6a0742fea96e58">mAreaSound</a>; <span class="comment">// Sounds</span>
+<a name="l00054"></a><a class="code" href="structESM_1_1MagicEffect.html#a9ddf5d1b7a59fd2b078ecb9d1d137044">00054</a>     std::string <a class="code" href="structESM_1_1MagicEffect.html#a9ddf5d1b7a59fd2b078ecb9d1d137044">mDescription</a>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056     <span class="comment">// Index of this magical effect. Corresponds to one of the</span>
+<a name="l00057"></a>00057     <span class="comment">// hard-coded effects in the original engine:</span>
+<a name="l00058"></a>00058     <span class="comment">// 0-136 in Morrowind</span>
+<a name="l00059"></a>00059     <span class="comment">// 137 in Tribunal</span>
+<a name="l00060"></a>00060     <span class="comment">// 138-140 in Bloodmoon (also changes 64?)</span>
+<a name="l00061"></a>00061     <span class="comment">// 141-142 are summon effects introduced in bloodmoon, but not used</span>
+<a name="l00062"></a>00062     <span class="comment">// there. They can be redefined in mods by setting the name in GMST</span>
+<a name="l00063"></a>00063     <span class="comment">// sEffectSummonCreature04/05 creature id in</span>
+<a name="l00064"></a>00064     <span class="comment">// sMagicCreature04ID/05ID.</span>
+<a name="l00065"></a><a class="code" href="structESM_1_1MagicEffect.html#a8216135925bc681b752ef79f7454e88e">00065</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MagicEffect.html#a8216135925bc681b752ef79f7454e88e">mIndex</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1MagicEffect.html#ab227f3abf0fdc2afc77fefa9fe74c47d">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1MagicEffect.html#a0bcc9e2d8fa5ee41d0a2e81ff89ebdcd">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00069"></a>00069 };
+<a name="l00070"></a>00070 }
+<a name="l00071"></a>00071 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

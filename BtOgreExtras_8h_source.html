@@ -207,83 +207,85 @@
 <a name="l00206"></a>00206                 }
 <a name="l00207"></a>00207 
 <a name="l00208"></a>00208         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;setMaterial(<span class="stringliteral">&quot;BtOgre/DebugLines&quot;</span>);
-<a name="l00209"></a>00209     }
-<a name="l00210"></a>00210 
-<a name="l00211"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a4c6dd085d9f48c8daa99b5f1d1057455">00211</a>     <a class="code" href="classBtOgre_1_1DebugDrawer.html#a4c6dd085d9f48c8daa99b5f1d1057455">~DebugDrawer</a>()
-<a name="l00212"></a>00212     {
-<a name="l00213"></a>00213                 Ogre::MaterialManager::getSingleton().remove(<span class="stringliteral">&quot;BtOgre/DebugLines&quot;</span>);
-<a name="l00214"></a>00214                 Ogre::ResourceGroupManager::getSingleton().destroyResourceGroup(<span class="stringliteral">&quot;BtOgre&quot;</span>);
-<a name="l00215"></a>00215         <span class="keyword">delete</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>;
-<a name="l00216"></a>00216     }
-<a name="l00217"></a>00217 
-<a name="l00218"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a71ac1134b1ea4245bbe6d50edaf79641">00218</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a71ac1134b1ea4245bbe6d50edaf79641">step</a>()
-<a name="l00219"></a>00219     {
-<a name="l00220"></a>00220         <span class="keywordflow">if</span> (<a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a>)
-<a name="l00221"></a>00221         {
-<a name="l00222"></a>00222             <a class="code" href="classBtOgre_1_1DebugDrawer.html#ab0b4c19b7be8b613e5c9ecfc9c322b1b">mWorld</a>-&gt;debugDrawWorld();
-<a name="l00223"></a>00223             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#aeae04894ecfc07a0716b57908e82d497" title="Call this to update the hardware buffer after making changes.">update</a>();
-<a name="l00224"></a>00224             <a class="code" href="classBtOgre_1_1DebugDrawer.html#addc5fa120eef5b8fdf5bd82bbff7e9f8">mNode</a>-&gt;needUpdate();
-<a name="l00225"></a>00225             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a94299ba0cb265e9c167c0cbf6b6371d0" title="Remove all points from the point list.">clear</a>();
-<a name="l00226"></a>00226         }
-<a name="l00227"></a>00227         <span class="keywordflow">else</span>
-<a name="l00228"></a>00228         {
-<a name="l00229"></a>00229             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a94299ba0cb265e9c167c0cbf6b6371d0" title="Remove all points from the point list.">clear</a>();
-<a name="l00230"></a>00230             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#aeae04894ecfc07a0716b57908e82d497" title="Call this to update the hardware buffer after making changes.">update</a>();
-<a name="l00231"></a>00231             <a class="code" href="classBtOgre_1_1DebugDrawer.html#addc5fa120eef5b8fdf5bd82bbff7e9f8">mNode</a>-&gt;needUpdate();
-<a name="l00232"></a>00232         }
-<a name="l00233"></a>00233     }
-<a name="l00234"></a>00234 
-<a name="l00235"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a4ec058c55615e4cd949c75debd257e55">00235</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a4ec058c55615e4cd949c75debd257e55">drawLine</a>(<span class="keyword">const</span> btVector3&amp; from,<span class="keyword">const</span> btVector3&amp; to,<span class="keyword">const</span> btVector3&amp; color)
-<a name="l00236"></a>00236     {
-<a name="l00237"></a>00237         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(from));
-<a name="l00238"></a>00238         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(to));
-<a name="l00239"></a>00239     }
-<a name="l00240"></a>00240 
-<a name="l00241"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a45951480d9cf8fca5304227480f491c3">00241</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a45951480d9cf8fca5304227480f491c3">drawContactPoint</a>(<span class="keyword">const</span> btVector3&amp; PointOnB,<span class="keyword">const</span> btVector3&amp; normalOnB,btScalar distance,<span class="keywordtype">int</span> lifeTime,<span class="keyword">const</span> btVector3&amp; color)
-<a name="l00242"></a>00242     {
-<a name="l00243"></a>00243         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(PointOnB));
-<a name="l00244"></a>00244         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(PointOnB) + (<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(normalOnB) * distance * 20));
-<a name="l00245"></a>00245     }
-<a name="l00246"></a>00246 
-<a name="l00247"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a67261b00685fcf7abca4724639d97f89">00247</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a67261b00685fcf7abca4724639d97f89">reportErrorWarning</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* warningString)
-<a name="l00248"></a>00248     {
-<a name="l00249"></a>00249         Ogre::LogManager::getSingleton().logMessage(warningString);
-<a name="l00250"></a>00250     }
-<a name="l00251"></a>00251 
-<a name="l00252"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#aceb8a63ba9f41da03cc28f9f12ba9bdc">00252</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#aceb8a63ba9f41da03cc28f9f12ba9bdc">draw3dText</a>(<span class="keyword">const</span> btVector3&amp; location,<span class="keyword">const</span> <span class="keywordtype">char</span>* textString)
-<a name="l00253"></a>00253     {
-<a name="l00254"></a>00254     }
-<a name="l00255"></a>00255 
-<a name="l00256"></a>00256     <span class="comment">//0 for off, anything else for on.</span>
-<a name="l00257"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a1d57f334d3283eb8665c516234d13e72">00257</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a1d57f334d3283eb8665c516234d13e72">setDebugMode</a>(<span class="keywordtype">int</span> isOn)
-<a name="l00258"></a>00258     {
-<a name="l00259"></a>00259         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a> = (isOn == 0) ? <span class="keyword">false</span> : <span class="keyword">true</span>;
-<a name="l00260"></a>00260 
-<a name="l00261"></a>00261         <span class="keywordflow">if</span> (!<a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a>)
-<a name="l00262"></a>00262             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a94299ba0cb265e9c167c0cbf6b6371d0" title="Remove all points from the point list.">clear</a>();
-<a name="l00263"></a>00263     }
-<a name="l00264"></a>00264 
-<a name="l00265"></a>00265     <span class="comment">//0 for off, anything else for on.</span>
-<a name="l00266"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a7de45d541d3c99fd4ebb79f828f707e6">00266</a>     <span class="keywordtype">int</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a7de45d541d3c99fd4ebb79f828f707e6">getDebugMode</a>()<span class="keyword"> const</span>
-<a name="l00267"></a>00267 <span class="keyword">    </span>{
-<a name="l00268"></a>00268         <span class="keywordflow">return</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a>;
-<a name="l00269"></a>00269     }
-<a name="l00270"></a>00270 
-<a name="l00271"></a>00271 };
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;setVisibilityFlags (1024);
+<a name="l00211"></a>00211     }
+<a name="l00212"></a>00212 
+<a name="l00213"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a4c6dd085d9f48c8daa99b5f1d1057455">00213</a>     <a class="code" href="classBtOgre_1_1DebugDrawer.html#a4c6dd085d9f48c8daa99b5f1d1057455">~DebugDrawer</a>()
+<a name="l00214"></a>00214     {
+<a name="l00215"></a>00215                 Ogre::MaterialManager::getSingleton().remove(<span class="stringliteral">&quot;BtOgre/DebugLines&quot;</span>);
+<a name="l00216"></a>00216                 Ogre::ResourceGroupManager::getSingleton().destroyResourceGroup(<span class="stringliteral">&quot;BtOgre&quot;</span>);
+<a name="l00217"></a>00217         <span class="keyword">delete</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>;
+<a name="l00218"></a>00218     }
+<a name="l00219"></a>00219 
+<a name="l00220"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a71ac1134b1ea4245bbe6d50edaf79641">00220</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a71ac1134b1ea4245bbe6d50edaf79641">step</a>()
+<a name="l00221"></a>00221     {
+<a name="l00222"></a>00222         <span class="keywordflow">if</span> (<a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a>)
+<a name="l00223"></a>00223         {
+<a name="l00224"></a>00224             <a class="code" href="classBtOgre_1_1DebugDrawer.html#ab0b4c19b7be8b613e5c9ecfc9c322b1b">mWorld</a>-&gt;debugDrawWorld();
+<a name="l00225"></a>00225             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#aeae04894ecfc07a0716b57908e82d497" title="Call this to update the hardware buffer after making changes.">update</a>();
+<a name="l00226"></a>00226             <a class="code" href="classBtOgre_1_1DebugDrawer.html#addc5fa120eef5b8fdf5bd82bbff7e9f8">mNode</a>-&gt;needUpdate();
+<a name="l00227"></a>00227             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a94299ba0cb265e9c167c0cbf6b6371d0" title="Remove all points from the point list.">clear</a>();
+<a name="l00228"></a>00228         }
+<a name="l00229"></a>00229         <span class="keywordflow">else</span>
+<a name="l00230"></a>00230         {
+<a name="l00231"></a>00231             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a94299ba0cb265e9c167c0cbf6b6371d0" title="Remove all points from the point list.">clear</a>();
+<a name="l00232"></a>00232             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#aeae04894ecfc07a0716b57908e82d497" title="Call this to update the hardware buffer after making changes.">update</a>();
+<a name="l00233"></a>00233             <a class="code" href="classBtOgre_1_1DebugDrawer.html#addc5fa120eef5b8fdf5bd82bbff7e9f8">mNode</a>-&gt;needUpdate();
+<a name="l00234"></a>00234         }
+<a name="l00235"></a>00235     }
+<a name="l00236"></a>00236 
+<a name="l00237"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a4ec058c55615e4cd949c75debd257e55">00237</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a4ec058c55615e4cd949c75debd257e55">drawLine</a>(<span class="keyword">const</span> btVector3&amp; from,<span class="keyword">const</span> btVector3&amp; to,<span class="keyword">const</span> btVector3&amp; color)
+<a name="l00238"></a>00238     {
+<a name="l00239"></a>00239         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(from));
+<a name="l00240"></a>00240         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(to));
+<a name="l00241"></a>00241     }
+<a name="l00242"></a>00242 
+<a name="l00243"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a45951480d9cf8fca5304227480f491c3">00243</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a45951480d9cf8fca5304227480f491c3">drawContactPoint</a>(<span class="keyword">const</span> btVector3&amp; PointOnB,<span class="keyword">const</span> btVector3&amp; normalOnB,btScalar distance,<span class="keywordtype">int</span> lifeTime,<span class="keyword">const</span> btVector3&amp; color)
+<a name="l00244"></a>00244     {
+<a name="l00245"></a>00245         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(PointOnB));
+<a name="l00246"></a>00246         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a5ec121c317fd32d599323ea48e2f3d21" title="Add a point to the point list.">addPoint</a>(<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(PointOnB) + (<a class="code" href="classBtOgre_1_1Convert.html#a0d3feae7cabbe206197b723a3f1dfca2">Convert::toOgre</a>(normalOnB) * distance * 20));
+<a name="l00247"></a>00247     }
+<a name="l00248"></a>00248 
+<a name="l00249"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a67261b00685fcf7abca4724639d97f89">00249</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a67261b00685fcf7abca4724639d97f89">reportErrorWarning</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* warningString)
+<a name="l00250"></a>00250     {
+<a name="l00251"></a>00251         Ogre::LogManager::getSingleton().logMessage(warningString);
+<a name="l00252"></a>00252     }
+<a name="l00253"></a>00253 
+<a name="l00254"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#aceb8a63ba9f41da03cc28f9f12ba9bdc">00254</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#aceb8a63ba9f41da03cc28f9f12ba9bdc">draw3dText</a>(<span class="keyword">const</span> btVector3&amp; location,<span class="keyword">const</span> <span class="keywordtype">char</span>* textString)
+<a name="l00255"></a>00255     {
+<a name="l00256"></a>00256     }
+<a name="l00257"></a>00257 
+<a name="l00258"></a>00258     <span class="comment">//0 for off, anything else for on.</span>
+<a name="l00259"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a1d57f334d3283eb8665c516234d13e72">00259</a>     <span class="keywordtype">void</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a1d57f334d3283eb8665c516234d13e72">setDebugMode</a>(<span class="keywordtype">int</span> isOn)
+<a name="l00260"></a>00260     {
+<a name="l00261"></a>00261         <a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a> = (isOn == 0) ? <span class="keyword">false</span> : <span class="keyword">true</span>;
+<a name="l00262"></a>00262 
+<a name="l00263"></a>00263         <span class="keywordflow">if</span> (!<a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a>)
+<a name="l00264"></a>00264             <a class="code" href="classBtOgre_1_1DebugDrawer.html#a3faaae1f20b04a67e88120f06744e099">mLineDrawer</a>-&gt;<a class="code" href="classBtOgre_1_1DynamicLines.html#a94299ba0cb265e9c167c0cbf6b6371d0" title="Remove all points from the point list.">clear</a>();
+<a name="l00265"></a>00265     }
+<a name="l00266"></a>00266 
+<a name="l00267"></a>00267     <span class="comment">//0 for off, anything else for on.</span>
+<a name="l00268"></a><a class="code" href="classBtOgre_1_1DebugDrawer.html#a7de45d541d3c99fd4ebb79f828f707e6">00268</a>     <span class="keywordtype">int</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a7de45d541d3c99fd4ebb79f828f707e6">getDebugMode</a>()<span class="keyword"> const</span>
+<a name="l00269"></a>00269 <span class="keyword">    </span>{
+<a name="l00270"></a>00270         <span class="keywordflow">return</span> <a class="code" href="classBtOgre_1_1DebugDrawer.html#a60960e60dc7e50c3a81e4aa74f78079c">mDebugOn</a>;
+<a name="l00271"></a>00271     }
 <a name="l00272"></a>00272 
-<a name="l00273"></a>00273 }
+<a name="l00273"></a>00273 };
 <a name="l00274"></a>00274 
-<a name="l00275"></a>00275 <span class="preprocessor">#endif</span>
-<a name="l00276"></a>00276 <span class="preprocessor"></span>
-<a name="l00277"></a>00277 
-<a name="l00278"></a>00278 
+<a name="l00275"></a>00275 }
+<a name="l00276"></a>00276 
+<a name="l00277"></a>00277 <span class="preprocessor">#endif</span>
+<a name="l00278"></a>00278 <span class="preprocessor"></span>
 <a name="l00279"></a>00279 
 <a name="l00280"></a>00280 
+<a name="l00281"></a>00281 
+<a name="l00282"></a>00282 
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

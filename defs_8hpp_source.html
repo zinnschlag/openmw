@@ -58,10 +58,10 @@
 <div class="title">components/esm/defs.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="defs_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _ESM_DEFS_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _ESM_DEFS_H</span>
+<a href="defs_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef OPENMW_ESM_DEFS_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_ESM_DEFS_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="esm__reader_8hpp.html">esm_reader.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;<a class="code" href="stdint_8h.html">libs/platform/stdint.h</a>&gt;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
 <a name="l00007"></a>00007 {
@@ -95,66 +95,73 @@
 <a name="l00035"></a><a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">00035</a>     <a class="code" href="namespaceESM.html#a9055c71361f57b986dd3f6baade3ada9ae7455baa0eb2a50a5007c580ad55bbd7">RT_Target</a> = 2
 <a name="l00036"></a>00036 };
 <a name="l00037"></a>00037 
-<a name="l00041"></a><a class="code" href="structESM_1_1SpellList.html">00041</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1SpellList.html">SpellList</a>
-<a name="l00042"></a>00042 {
-<a name="l00043"></a><a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">00043</a>     std::vector&lt;std::string&gt; <a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">list</a>;
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="structESM_1_1SpellList.html#ac40710bdbbecc138b67004f926902f48">00045</a>     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1SpellList.html#ac40710bdbbecc138b67004f926902f48">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00046"></a>00046     {
-<a name="l00047"></a>00047         <span class="keywordflow">while</span> (esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;NPCS&quot;</span>))
-<a name="l00048"></a>00048             <a class="code" href="structESM_1_1SpellList.html#ac08abff4c0ceb48af76506f4da1b189a">list</a>.push_back(esm.<a class="code" href="classESM_1_1ESMReader.html#ab0b044c1028b117dfb0aae39135af948">getHString</a>());
-<a name="l00049"></a>00049     }
-<a name="l00050"></a>00050 };
-<a name="l00051"></a>00051 
-<a name="l00055"></a>00055 <span class="preprocessor">#pragma pack(push)</span>
-<a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#pragma pack(1)</span>
-<a name="l00057"></a>00057 <span class="preprocessor"></span>
-<a name="l00058"></a>00058 <span class="comment">// Position and rotation</span>
-<a name="l00059"></a><a class="code" href="structESM_1_1Position.html">00059</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Position.html">Position</a>
-<a name="l00060"></a>00060 {
-<a name="l00061"></a><a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">00061</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">pos</a>[3];
-<a name="l00062"></a><a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">00062</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">rot</a>[3];
-<a name="l00063"></a>00063 };
-<a name="l00064"></a>00064 
-<a name="l00065"></a><a class="code" href="structESM_1_1ENAMstruct.html">00065</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ENAMstruct.html">ENAMstruct</a>
-<a name="l00066"></a>00066 {
-<a name="l00067"></a>00067     <span class="comment">// Magical effect, hard-coded ID</span>
-<a name="l00068"></a><a class="code" href="structESM_1_1ENAMstruct.html#ae11587427b00038a17a75c9fd6d67c4f">00068</a>     <span class="keywordtype">short</span> <a class="code" href="structESM_1_1ENAMstruct.html#ae11587427b00038a17a75c9fd6d67c4f">effectID</a>;
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070     <span class="comment">// Which skills/attributes are affected (for restore/drain spells</span>
-<a name="l00071"></a>00071     <span class="comment">// etc.)</span>
-<a name="l00072"></a><a class="code" href="structESM_1_1ENAMstruct.html#a38a23ccaf7d0bdbc4b4e7ae3609144b4">00072</a>     <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structESM_1_1ENAMstruct.html#a38a23ccaf7d0bdbc4b4e7ae3609144b4">skill</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a8201ea6acdd7900cb3e369578f1be477">attribute</a>; <span class="comment">// -1 if N/A</span>
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074     <span class="comment">// Other spell parameters</span>
-<a name="l00075"></a><a class="code" href="structESM_1_1ENAMstruct.html#a528460cfc46321ccc53f90797d872923">00075</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ENAMstruct.html#a528460cfc46321ccc53f90797d872923">range</a>; <span class="comment">// 0 - self, 1 - touch, 2 - target (RangeType enum)</span>
-<a name="l00076"></a><a class="code" href="structESM_1_1ENAMstruct.html#a4527a953531fda08aaccebce4cad3f98">00076</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ENAMstruct.html#accf616c8da86d15dbdc1cbf470090b2c">area</a>, <a class="code" href="structESM_1_1ENAMstruct.html#afe241d5a556842d5ea5936bf1774300d">duration</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a4527a953531fda08aaccebce4cad3f98">magnMin</a>, <a class="code" href="structESM_1_1ENAMstruct.html#a6f1ae3b3127e5efdd3bb17b205f8f6e8">magnMax</a>;
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078     <span class="comment">// Struct size should be 24 bytes</span>
-<a name="l00079"></a>00079 };
-<a name="l00080"></a>00080 <span class="preprocessor">#pragma pack(pop)</span>
-<a name="l00081"></a>00081 <span class="preprocessor"></span>
-<a name="l00082"></a><a class="code" href="structESM_1_1EffectList.html">00082</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1EffectList.html">EffectList</a>
-<a name="l00083"></a>00083 {
-<a name="l00084"></a><a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">00084</a>     std::vector&lt;ENAMstruct&gt; <a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">list</a>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a><a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">00086</a>     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1EffectList.html#a6173fa4f07e3dd64d91faaeb21a27d16">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm)
-<a name="l00087"></a>00087     {
-<a name="l00088"></a>00088         <a class="code" href="structESM_1_1ENAMstruct.html">ENAMstruct</a> s;
-<a name="l00089"></a>00089         <span class="keywordflow">while</span> (esm.<a class="code" href="classESM_1_1ESMReader.html#a73984859aa2bc49103b828b2d0a1b43e">isNextSub</a>(<span class="stringliteral">&quot;ENAM&quot;</span>))
-<a name="l00090"></a>00090         {
-<a name="l00091"></a>00091             esm.<a class="code" href="classESM_1_1ESMReader.html#a1499e8005481bc7f13f4de0c2f3b9ee4">getHT</a>(s, 24);
-<a name="l00092"></a>00092             <a class="code" href="structESM_1_1EffectList.html#a08fca8dbbf43d01275dc453e171177cc">list</a>.push_back(s);
-<a name="l00093"></a>00093         }
-<a name="l00094"></a>00094     }
-<a name="l00095"></a>00095 };
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097 }
-<a name="l00098"></a>00098 <span class="preprocessor">#endif</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#pragma pack(push)</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#pragma pack(1)</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>
+<a name="l00041"></a>00041 <span class="comment">// Position and rotation</span>
+<a name="l00042"></a><a class="code" href="structESM_1_1Position.html">00042</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Position.html">Position</a>
+<a name="l00043"></a>00043 {
+<a name="l00044"></a><a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">00044</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#a6c6668173c33950e43a1459d75b386ac">pos</a>[3];
+<a name="l00045"></a><a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">00045</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Position.html#aebace0c4c7a308788ec9897e7a423e53">rot</a>[3];
+<a name="l00046"></a>00046 };
+<a name="l00047"></a>00047 <span class="preprocessor">#pragma pack(pop)</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span>
+<a name="l00049"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6">00049</a> <span class="keyword">enum</span> <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6">RecNameInts</a>
+<a name="l00050"></a>00050 {
+<a name="l00051"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">00051</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">REC_ACTI</a> = 0x49544341,
+<a name="l00052"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8fd0427003a6e3cb9858405f6f4b648c">00052</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8fd0427003a6e3cb9858405f6f4b648c">REC_ALCH</a> = 0x48434c41,
+<a name="l00053"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a96a8004725cc04e11f4ef4d52ae2793b">00053</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a96a8004725cc04e11f4ef4d52ae2793b">REC_APPA</a> = 0x41505041,
+<a name="l00054"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afbe071c34a2771eb347c7451843442a8">00054</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afbe071c34a2771eb347c7451843442a8">REC_ARMO</a> = 0x4f4d5241,
+<a name="l00055"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a67a1af6fa9df97cd5ee24b9c927ade3f">00055</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a67a1af6fa9df97cd5ee24b9c927ade3f">REC_BODY</a> = 0x59444f42,
+<a name="l00056"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ad2fb03dc49e49c229663fca8bc9fa95e">00056</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ad2fb03dc49e49c229663fca8bc9fa95e">REC_BOOK</a> = 0x4b4f4f42,
+<a name="l00057"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aae9853ad3b30cd77a0c9653ac851cd8e">00057</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aae9853ad3b30cd77a0c9653ac851cd8e">REC_BSGN</a> = 0x4e475342,
+<a name="l00058"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac33d59276a417d13f3dd70d8f1c3fab0">00058</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac33d59276a417d13f3dd70d8f1c3fab0">REC_CELL</a> = 0x4c4c4543,
+<a name="l00059"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4408fbaf290b05c62d6e9c7a4e722a5d">00059</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4408fbaf290b05c62d6e9c7a4e722a5d">REC_CLAS</a> = 0x53414c43,
+<a name="l00060"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a1bd73e3df7317ebb2c33d4c5c0964680">00060</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a1bd73e3df7317ebb2c33d4c5c0964680">REC_CLOT</a> = 0x544f4c43,
+<a name="l00061"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9bfd3e3b833e6527c67289a7a150d49c">00061</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9bfd3e3b833e6527c67289a7a150d49c">REC_CNTC</a> = 0x43544e43,
+<a name="l00062"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af518bf6b90a438ee36de184b403ca252">00062</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af518bf6b90a438ee36de184b403ca252">REC_CONT</a> = 0x544e4f43,
+<a name="l00063"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac2c265c0a95d5c938979e390a49e75b5">00063</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac2c265c0a95d5c938979e390a49e75b5">REC_CREA</a> = 0x41455243,
+<a name="l00064"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae44c85e0852275e615d80366311138c6">00064</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae44c85e0852275e615d80366311138c6">REC_CREC</a> = 0x43455243,
+<a name="l00065"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4604c46e6781f72e2318bf8ee3f50576">00065</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4604c46e6781f72e2318bf8ee3f50576">REC_DIAL</a> = 0x4c414944,
+<a name="l00066"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8ae6843f612237bf11e955a336a11c6f">00066</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8ae6843f612237bf11e955a336a11c6f">REC_DOOR</a> = 0x524f4f44,
+<a name="l00067"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af20fefed62eb4819be8b88c9cb84f9f3">00067</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af20fefed62eb4819be8b88c9cb84f9f3">REC_ENCH</a> = 0x48434e45,
+<a name="l00068"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a15e81ca42b57af59de372b9fd90940ee">00068</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a15e81ca42b57af59de372b9fd90940ee">REC_FACT</a> = 0x54434146,
+<a name="l00069"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9ccbcc6ff05ab84971cad35fd7eda052">00069</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9ccbcc6ff05ab84971cad35fd7eda052">REC_GLOB</a> = 0x424f4c47,
+<a name="l00070"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7e3bae6d37b9181c06bbf5f929228e2a">00070</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7e3bae6d37b9181c06bbf5f929228e2a">REC_GMST</a> = 0x54534d47,
+<a name="l00071"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ab6e29195be0c9d28f8ee4645e48b4f3f">00071</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ab6e29195be0c9d28f8ee4645e48b4f3f">REC_INFO</a> = 0x4f464e49,
+<a name="l00072"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9aba2344fc64fa7cd701b59d14d241fe">00072</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9aba2344fc64fa7cd701b59d14d241fe">REC_INGR</a> = 0x52474e49,
+<a name="l00073"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a891d8c55228ac64636f054449e388f09">00073</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a891d8c55228ac64636f054449e388f09">REC_LAND</a> = 0x444e414c,
+<a name="l00074"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae4c5dbb3b9c5ceb3b0480de749084b22">00074</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae4c5dbb3b9c5ceb3b0480de749084b22">REC_LEVC</a> = 0x4356454c,
+<a name="l00075"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d855e2fb119fd85f6cda0e8b88b4017">00075</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d855e2fb119fd85f6cda0e8b88b4017">REC_LEVI</a> = 0x4956454c,
+<a name="l00076"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa3dc65b732272a23303ea53d617719ff">00076</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa3dc65b732272a23303ea53d617719ff">REC_LIGH</a> = 0x4847494c,
+<a name="l00077"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac1527acf9780db28fef92ba6c7227bec">00077</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac1527acf9780db28fef92ba6c7227bec">REC_LOCK</a> = 0x4b434f4c,
+<a name="l00078"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac3e454b01c86c5c3bb13c1900cbf914e">00078</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac3e454b01c86c5c3bb13c1900cbf914e">REC_LTEX</a> = 0x5845544c,
+<a name="l00079"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afb8c9d077bd42936ab3bcd97f77e2b2f">00079</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afb8c9d077bd42936ab3bcd97f77e2b2f">REC_MGEF</a> = 0x4645474d,
+<a name="l00080"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a83e212eeded4404d765164492207118a">00080</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a83e212eeded4404d765164492207118a">REC_MISC</a> = 0x4353494d,
+<a name="l00081"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">00081</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">REC_NPC_</a> = 0x5f43504e,
+<a name="l00082"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9e20012ba60cbe9935c3b885ecdb26cd">00082</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9e20012ba60cbe9935c3b885ecdb26cd">REC_NPCC</a> = 0x4343504e,
+<a name="l00083"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a77182b5b45d7ae92f23a2e7173eb8f57">00083</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a77182b5b45d7ae92f23a2e7173eb8f57">REC_PGRD</a> = 0x44524750,
+<a name="l00084"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4e6b7c59294ef919246988da47c7aaff">00084</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4e6b7c59294ef919246988da47c7aaff">REC_PROB</a> = 0x424f5250,
+<a name="l00085"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a03ee8ac80aceedb635e940f3d89d51d2">00085</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a03ee8ac80aceedb635e940f3d89d51d2">REC_RACE</a> = 0x45434152,
+<a name="l00086"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a327bc58b7879caf12b870c5a56de85e3">00086</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a327bc58b7879caf12b870c5a56de85e3">REC_REGN</a> = 0x4e474552,
+<a name="l00087"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af84813a4e6aa5159ba895062d920bdac">00087</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af84813a4e6aa5159ba895062d920bdac">REC_REPA</a> = 0x41504552,
+<a name="l00088"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa768cf386940fd135a5844872e30a0a3">00088</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa768cf386940fd135a5844872e30a0a3">REC_SCPT</a> = 0x54504353,
+<a name="l00089"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac35cc007bc0d2a7f431dc72c410fa46e">00089</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac35cc007bc0d2a7f431dc72c410fa46e">REC_SKIL</a> = 0x4c494b53,
+<a name="l00090"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aff7d4e0da6d8007231b3410b9b83ac1d">00090</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aff7d4e0da6d8007231b3410b9b83ac1d">REC_SNDG</a> = 0x47444e53,
+<a name="l00091"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a41b6b8cf8460f12e8e9eb137b2760b6f">00091</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a41b6b8cf8460f12e8e9eb137b2760b6f">REC_SOUN</a> = 0x4e554f53,
+<a name="l00092"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d813eb97e4ac755ec87c457e5795528">00092</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d813eb97e4ac755ec87c457e5795528">REC_SPEL</a> = 0x4c455053,
+<a name="l00093"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a06590c2551054797d7e67282ed5f1653">00093</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a06590c2551054797d7e67282ed5f1653">REC_SSCR</a> = 0x52435353,
+<a name="l00094"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">00094</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">REC_STAT</a> = 0x54415453,
+<a name="l00095"></a><a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">00095</a>     <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">REC_WEAP</a> = 0x50414557
+<a name="l00096"></a>00096 };
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 }
+<a name="l00099"></a>00099 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

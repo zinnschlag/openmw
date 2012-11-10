@@ -119,7 +119,7 @@
 <a name="l00059"></a>00059 {
 <a name="l00060"></a>00060 
 <a name="l00061"></a>00061 <span class="comment">// FIXME: These should not be in NifOgre, it works agnostic of what model format is used</span>
-<a name="l00062"></a><a class="code" href="namespaceNifOgre.html#a1d1b484dd6c75abbc5db6ca872cd3a39">00062</a> <span class="keyword">typedef</span> std::map&lt;float,std::string&gt; <a class="code" href="namespaceNifOgre.html#a1d1b484dd6c75abbc5db6ca872cd3a39">TextKeyMap</a>;
+<a name="l00062"></a><a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">00062</a> <span class="keyword">typedef</span> std::multimap&lt;float,std::string&gt; <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a>;
 <a name="l00063"></a><a class="code" href="structNifOgre_1_1EntityList.html">00063</a> <span class="keyword">struct </span><a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> {
 <a name="l00064"></a><a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">00064</a>     std::vector&lt;Ogre::Entity*&gt; <a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">mEntities</a>;
 <a name="l00065"></a><a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">00065</a>     Ogre::Entity *<a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>;
@@ -133,7 +133,7 @@
 <a name="l00075"></a>00075 
 <a name="l00088"></a><a class="code" href="classNifOgre_1_1NIFLoader.html">00088</a> <span class="keyword">class </span><a class="code" href="classNifOgre_1_1NIFLoader.html">NIFLoader</a>
 <a name="l00089"></a>00089 {
-<a name="l00090"></a>00090     <span class="keyword">static</span> <a class="code" href="namespaceNifOgre.html#aa088589faa7a84345b6a934f2b0f83f6">MeshPairList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#acd0da2857fa1634e7b532349cf903dce">load</a>(std::string name, std::string skelName, <a class="code" href="namespaceNifOgre.html#a1d1b484dd6c75abbc5db6ca872cd3a39">TextKeyMap</a> *textkeys, <span class="keyword">const</span> std::string &amp;group);
+<a name="l00090"></a>00090     <span class="keyword">static</span> <a class="code" href="namespaceNifOgre.html#aa088589faa7a84345b6a934f2b0f83f6">MeshPairList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#acd0da2857fa1634e7b532349cf903dce">load</a>(std::string name, std::string skelName, <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> *textkeys, <span class="keyword">const</span> std::string &amp;group);
 <a name="l00091"></a>00091 
 <a name="l00092"></a>00092 <span class="keyword">public</span>:
 <a name="l00093"></a>00093     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#ad8f551db7b56b19c413c6e6a1c0f8db5">createEntities</a>(Ogre::Entity *parent, <span class="keyword">const</span> std::string &amp;bonename,
@@ -142,7 +142,7 @@
 <a name="l00096"></a>00096                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
 <a name="l00097"></a>00097 
 <a name="l00098"></a>00098     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#ad8f551db7b56b19c413c6e6a1c0f8db5">createEntities</a>(Ogre::SceneNode *parent,
-<a name="l00099"></a>00099                                      <a class="code" href="namespaceNifOgre.html#a1d1b484dd6c75abbc5db6ca872cd3a39">TextKeyMap</a> *textkeys,
+<a name="l00099"></a>00099                                      <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> *textkeys,
 <a name="l00100"></a>00100                                      <span class="keyword">const</span> std::string &amp;name,
 <a name="l00101"></a>00101                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
 <a name="l00102"></a>00102 };
@@ -156,7 +156,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:10 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

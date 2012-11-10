@@ -69,9 +69,9 @@
 <a name="l00009"></a>00009     <span class="keyword">class </span>Vector3;
 <a name="l00010"></a>00010 }
 <a name="l00011"></a>00011 
-<a name="l00012"></a><a class="code" href="namespaceESM.html">00012</a> <span class="keyword">namespace </span>ESM
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>ESM
 <a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">struct </span><a class="code" href="structESM_1_1Class.html">Class</a>;
+<a name="l00014"></a>00014     <span class="keyword">struct </span>Class;
 <a name="l00015"></a>00015 }
 <a name="l00016"></a>00016 
 <a name="l00017"></a>00017 <span class="keyword">namespace </span>MWWorld
@@ -94,35 +94,39 @@
 <a name="l00037"></a>00037 
 <a name="l00038"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#aa9d950f02b3ca9f6d669892be7bcd495">00038</a>             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#aa9d950f02b3ca9f6d669892be7bcd495">~MechanicsManager</a>() {}
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a16483ed8d1f22bd6a044537f938c8630" title="Register an actor for stats management.">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a001e7fd0e7b790085b2aad33847b5f20" title="Deregister an actor for stats management.">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ac9d469d923a3ce49e46a944928911a91" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore) = 0;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#aec39afa8600f5030f60736aaa0f2c54d">watchActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a8bddcad327864f45b08d6f8f9183ac9c">update</a> (std::vector&lt;std::pair&lt;std::string, Ogre::Vector3&gt; &gt;&amp; movement,
-<a name="l00054"></a>00054                 <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused) = 0;
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#af7924a2fc8b6e7f4b44a03c136e1f16f" title="Set player name.">setPlayerName</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ab325ffcccd86608e16ad3d1b0a4714e5" title="Set player race.">setPlayerRace</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> male) = 0;
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#adbe3e0a087db75579b4c6783c498f6e9" title="Set player birthsign.">setPlayerBirthsign</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) = 0;
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a152cdcedaa8829b72e545de833f0275a" title="Set player class to stock class.">setPlayerClass</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) = 0;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a152cdcedaa8829b72e545de833f0275a" title="Set player class to stock class.">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_) = 0;
-<a name="l00074"></a>00074     };
-<a name="l00075"></a>00075 }
+<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a16483ed8d1f22bd6a044537f938c8630">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a001e7fd0e7b790085b2aad33847b5f20" title="Deregister an actor for stats management.">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ac9d469d923a3ce49e46a944928911a91" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore) = 0;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#aec39afa8600f5030f60736aaa0f2c54d">watchActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a8bddcad327864f45b08d6f8f9183ac9c">update</a> (std::vector&lt;std::pair&lt;std::string, Ogre::Vector3&gt; &gt;&amp; movement,
+<a name="l00056"></a>00056                 <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused) = 0;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#af7924a2fc8b6e7f4b44a03c136e1f16f" title="Set player name.">setPlayerName</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ab325ffcccd86608e16ad3d1b0a4714e5" title="Set player race.">setPlayerRace</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> male) = 0;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#adbe3e0a087db75579b4c6783c498f6e9" title="Set player birthsign.">setPlayerBirthsign</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) = 0;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a152cdcedaa8829b72e545de833f0275a" title="Set player class to stock class.">setPlayerClass</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) = 0;
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a152cdcedaa8829b72e545de833f0275a" title="Set player class to stock class.">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_) = 0;
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077 <span class="preprocessor">#endif</span>
+<a name="l00077"></a>00077             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a6da272e7ee1f7a75c1aa5a3d39562dcd" title="If the player is sleeping, this should be called every hour.">restoreDynamicStats</a>() = 0;
+<a name="l00079"></a>00079             
+<a name="l00080"></a>00080             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a664cdaafc9bbde7b78b3cfd06e0f7ed5" title="Return the number of deaths for actors with the given ID.">countDeaths</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span> = 0;
+<a name="l00082"></a>00082     };
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 25 2012 18:48:09 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
