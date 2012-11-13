@@ -26,6 +26,27 @@ namespace MWGui
 {
     class DialogueHistory;
 
+    class PersuasionDialog : public WindowModal
+    {
+    public:
+        PersuasionDialog(MWBase::WindowManager& parWindowManager);
+
+        virtual void open();
+
+    private:
+        MyGUI::Button* mCancelButton;
+        MyGUI::Button* mAdmireButton;
+        MyGUI::Button* mIntimidateButton;
+        MyGUI::Button* mTauntButton;
+        MyGUI::Button* mBribe10Button;
+        MyGUI::Button* mBribe100Button;
+        MyGUI::Button* mBribe1000Button;
+        MyGUI::TextBox* mGoldLabel;
+
+        void onCancel (MyGUI::Widget* sender);
+        void onPersuade (MyGUI::Widget* sender);
+    };
+
     class DialogueWindow: public WindowBase, public ReferenceInterface
     {
     public:
@@ -47,8 +68,8 @@ namespace MWGui
         void addTitle(std::string text);
         void askQuestion(std::string question);
         void goodbye();
+        void onFrame();
 
-        // various service button visibilities, depending if the npc/creature talked to has these services
         // make sure to call these before setKeywords()
         void setServices(int services) { mServices = services; }
 
@@ -57,7 +78,9 @@ namespace MWGui
             Service_Trade = 0x01,
             Service_BuySpells = 0x02,
             Service_CreateSpells = 0x04,
-            Service_Enchant = 0x08
+            Service_Enchant = 0x08,
+            Service_Training = 0x10,
+            Service_Travel = 0x20
         };
 
     protected:
@@ -76,10 +99,6 @@ namespace MWGui
         */
         std::string parseText(std::string text);
 
-        // various service button visibilities, depending if the npc/creature talked to has these services
-        bool mShowTrade;
-        bool mShowSpells;
-
         int mServices;
 
         bool mEnabled;
@@ -88,6 +107,8 @@ namespace MWGui
         Widgets::MWList*   mTopicsList;
         MyGUI::ProgressPtr mDispositionBar;
         MyGUI::EditPtr     mDispositionText;
+
+        PersuasionDialog mPersuasionDialog;
     };
 }
 #endif
