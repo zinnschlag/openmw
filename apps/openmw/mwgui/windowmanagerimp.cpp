@@ -624,6 +624,8 @@ void WindowManager::changeCell(MWWorld::Ptr::CellStore* cell)
                 name = getGameSettingString("sDefaultCellname", "Wilderness");
         }
 
+        mMap->cellExplored(cell->mCell->getGridX(), cell->mCell->getGridY());
+
         mMap->setCellName( name );
         mHud->setCellName( name );
 

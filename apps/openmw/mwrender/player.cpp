@@ -18,13 +18,13 @@ namespace MWRender
     : mCamera(camera),
       mPlayerNode(node),
       mCameraNode(mPlayerNode->createChildSceneNode()),
-      mAnimation(0),
       mFirstPersonView(true),
       mPreviewMode(false),
       mFreeLook(true),
       mHeight(128.f),
       mCameraDistance(300.f),
-      mDistanceAdjusted(false)
+      mDistanceAdjusted(false),
+      mAnimation(NULL)
     {
         mVanity.enabled = false;
         mVanity.allowed = true;

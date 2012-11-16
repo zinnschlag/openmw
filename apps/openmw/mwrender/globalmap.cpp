@@ -1,12 +1,14 @@
 #include "globalmap.hpp"
 
 #include <boost/filesystem.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <OgreImage.h>
 #include <OgreTextureManager.h>
 #include <OgreColourValue.h>
 #include <OgreHardwareVertexBuffer.h>
 #include <OgreRoot.h>
+#include <OgreHardwarePixelBuffer.h>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -49,6 +51,7 @@ namespace MWRender
         mWidth = cellSize*(mMaxX-mMinX+1);
         mHeight = cellSize*(mMaxY-mMinY+1);
 
+        mExploredBuffer.resize((mMaxX-mMinX+1) * (mMaxY-mMinY+1) * 4);
 
         //if (!boost::filesystem::exists(mCacheDir + "/GlobalMap.png"))
         if (1)
@@ -157,13 +160,30 @@ namespace MWRender
             //image.save (mCacheDir + "/GlobalMap.png");
 
             tex = Ogre::TextureManager::getSingleton ().createManual ("GlobalMap.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-                Ogre::TEX_TYPE_2D, mWidth, mHeight, 0, Ogre::PF_B8G8R8, Ogre::TU_DEFAULT);
+                Ogre::TEX_TYPE_2D, mWidth, mHeight, 0, Ogre::PF_B8G8R8, Ogre::TU_STATIC);
             tex->loadImage(image);
         }
         else
             tex = Ogre::TextureManager::getSingleton ().getByName ("GlobalMap.png");
 
         tex->load();
+
+
+
+
+        mOverlayTexture = Ogre::TextureManager::getSingleton().createManual("GlobalMapOverlay", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+            Ogre::TEX_TYPE_2D, mWidth, mHeight, 0, Ogre::PF_A8B8G8R8, Ogre::TU_DYNAMIC_WRITE_ONLY);
+
+
+        std::vector<Ogre::uint32> buffer;
+        buffer.resize(mWidth * mHeight);
+
+        // initialize to (0, 0, 0, 0)
+        for (int p=0; p<mWidth * mHeight; ++p)
+            buffer[p] = 0;
+
+        memcpy(mOverlayTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD), &buffer[0], mWidth*mHeight*4);
+        mOverlayTexture->getBuffer()->unlock();
     }
 
     void GlobalMap::worldPosToImageSpace(float x, float z, float& imageX, float& imageY)
@@ -181,5 +201,32 @@ namespace MWRender
         imageY = 1.f-float(y - mMinY + 1) / (mMaxY - mMinY + 1);
     }
 
+    void GlobalMap::exploreCell(int cellX, int cellY)
+    {
+        float originX = (cellX - mMinX) * 24;
+        // NB y + 1, because we want the top left corner, not bottom left where the origin of the cell is
+        float originY = mHeight - (cellY+1 - mMinY) * 24;
 
+        if (cellX > mMaxX || cellX < mMinX || cellY > mMaxY || cellY < mMinY)
+            return;
+
+        Ogre::TexturePtr localMapTexture = Ogre::TextureManager::getSingleton().getByName("Cell_"
+            + boost::lexical_cast<std::string>(cellX) + "_" + boost::lexical_cast<std::string>(cellY));
+
+        // mipmap version - can't get ogre to generate automips..
+        /*if (!localMapTexture.isNull())
+        {
+            assert(localMapTexture->getBuffer(0, 4)->getWidth() == 64); // 1024 / 2^4
+
+            mOverlayTexture->getBuffer()->blit(localMapTexture->getBuffer(0, 4), Ogre::Image::Box(0,0,64, 64),
+                         Ogre::Image::Box(originX,originY,originX+24,originY+24));
+        }*/
+
+        if (!localMapTexture.isNull())
+        {
+
+            mOverlayTexture->getBuffer()->blit(localMapTexture->getBuffer(), Ogre::Image::Box(0,0,512,512),
+                         Ogre::Image::Box(originX,originY,originX+24,originY+24));
+        }
+    }
 }
