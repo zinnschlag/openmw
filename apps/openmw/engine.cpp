@@ -35,6 +35,7 @@
 
 #include "mwmechanics/mechanicsmanagerimp.hpp"
 
+#include "valgrind/callgrind.h"
 
 void OMW::Engine::executeLocalScripts()
 {
@@ -370,6 +371,8 @@ void OMW::Engine::go()
 
     mEnvironment.getWorld()->renderPlayer();
 
+    CALLGRIND_START_INSTRUMENTATION;
+
     if (const ESM::Cell *exterior = MWBase::Environment::get().getWorld()->getExterior (mCellName))
     {
         MWBase::Environment::get().getWorld()->indexToPosition (exterior->mData.mX, exterior->mData.mY,
@@ -381,6 +384,7 @@ void OMW::Engine::go()
         pos.pos[0] = pos.pos[1] = 0;
         MWBase::Environment::get().getWorld()->changeToInteriorCell (mCellName, pos);
     }
+    CALLGRIND_STOP_INSTRUMENTATION;
 
     std::cout << "\nPress Q/ESC or close window to exit.\n";
 
