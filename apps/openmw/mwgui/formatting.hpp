@@ -45,6 +45,7 @@ namespace MWGui
             void parseImage(const std::string& tag, bool createWidget=true);
             void parseDiv(const std::string& tag);
             void parseFont(const std::string& tag);
+
         private:
             MyGUI::Widget* mParent;
             int mWidth; // maximum width

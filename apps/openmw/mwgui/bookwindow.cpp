@@ -135,19 +135,18 @@ void BookWindow::onPrevPageButtonClicked (MyGUI::Widget* _sender)
 
 void BookWindow::updatePages()
 {
-    mLeftPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage * 2 + 1) );
-    mRightPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage * 2 + 2) );
+    unsigned int page = mCurrentPage * 2;
+    mLeftPageNumber->setCaption( boost::lexical_cast<std::string>(page + 1) );
+    mRightPageNumber->setCaption( boost::lexical_cast<std::string>(page + 2) );
 
     unsigned int i = 0;
     for (std::vector<MyGUI::Widget*>::iterator it = mPages.begin();
         it != mPages.end(); ++it)
     {
-        if (mCurrentPage * 2 == i || mCurrentPage * 2 + 1 == i)
-            (*it)->setVisible(true);
-        else
-        {
-            (*it)->setVisible(false);
-        }
+        (*it)->setVisible(page == i || page + 1 == i);
         ++i;
     }
+
+    mPrevPageButton->setVisible(page != 0);
+    mNextPageButton->setVisible(page + 2 < mPages.size());
 }
