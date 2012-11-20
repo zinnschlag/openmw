@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-#include <components/esm/esm_reader.hpp>
+#include <components/esm/esmreader.hpp>
 #include <components/esm/records.hpp>
 
 #include "../model/esm/esmfile.hpp"

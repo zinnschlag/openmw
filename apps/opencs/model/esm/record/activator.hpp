@@ -23,34 +23,34 @@ public:
 
     QString name()
     {
-        return QString::fromStdString(mActivator.name);
+        return QString::fromStdString(mActivator.mName);
     }
 
     void setName(QString name)
     {
-        mActivator.name = name.toStdString();
+        mActivator.mName = name.toStdString();
         emit nameChanged(name);
     }
 
     QString model()
     {
-        return QString::fromStdString(mActivator.model);
+        return QString::fromStdString(mActivator.mModel);
     }
 
     void setModel(QString model)
     {
-        mActivator.model = model.toStdString();
+        mActivator.mModel = model.toStdString();
         emit modelChanged(model);
     }
 
     QString script()
     {
-        return QString::fromStdString(mActivator.script);
+        return QString::fromStdString(mActivator.mScript);
     }
 
     void setScript(QString script)
     {
-        mActivator.script = script.toStdString();
+        mActivator.mScript = script.toStdString();
         emit scriptChanged(script);
     }
 

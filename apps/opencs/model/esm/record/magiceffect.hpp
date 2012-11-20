@@ -27,22 +27,22 @@ public:
 
     short effectID()
     {
-        return mMagicEffect.effectID;
+        return mMagicEffect.mEffectID;
     }
 
     void setEffectID(short id)
     {
-        mMagicEffect.effectID = id;
+        mMagicEffect.mEffectID = id;
     }
 
     int area()
     {
-        return mMagicEffect.area;
+        return mMagicEffect.mArea;
     }
 
     void setArea(int area)
     {
-        mMagicEffect.area = area;
+        mMagicEffect.mArea = area;
     }
 
     //TODO The rest of the properties

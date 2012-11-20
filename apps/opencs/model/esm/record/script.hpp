@@ -21,12 +21,12 @@ public:
 
     QString scriptId()
     {
-        return QString::fromStdString(mScript.data.name.toString());
+        return QString::fromStdString(mScript.mId);
     }
 
     QString text()
     {
-        return QString::fromStdString(mScript.scriptText);
+        return QString::fromStdString(mScript.mScriptText);
     }
 
 private:

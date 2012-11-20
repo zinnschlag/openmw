@@ -22,10 +22,10 @@ public:
 
     virtual void load(ESM::ESMReader &esm)
     {
-        //WTF is this :/
-        mPotion.load(esm, mId.toStdString());
+        mPotion.mId = mId.toStdString();
+        mPotion.load (esm);
 
-        for (std::vector<ESM::ENAMstruct>::const_iterator iter(mPotion.effects.list.begin()); iter!=mPotion.effects.list.end(); ++iter)
+        for (std::vector<ESM::ENAMstruct>::const_iterator iter(mPotion.mEffects.mList.begin()); iter!=mPotion.mEffects.mList.end(); ++iter)
         {
             MagicEffectDataItem *effect = new MagicEffectDataItem(*iter, this);
             this->appendChild(effect);
@@ -39,78 +39,78 @@ public:
 
     QString name()
     {
-        return QString::fromStdString(mPotion.name);
+        return QString::fromStdString(mPotion.mName);
     }
 
     void setName(QString name)
     {
-        mPotion.name = name.toStdString();
+        mPotion.mName = name.toStdString();
     }
 
 
     QString model()
     {
-        return QString::fromStdString(mPotion.model);
+        return QString::fromStdString(mPotion.mModel);
     }
 
     void setModel(QString model)
     {
-        mPotion.model = model.toStdString();
+        mPotion.mModel = model.toStdString();
     }
 
 
     QString script()
     {
-        return QString::fromStdString(mPotion.script);
+        return QString::fromStdString(mPotion.mScript);
     }
 
     void setScript(QString script)
     {
-        mPotion.script = script.toStdString();
+        mPotion.mScript = script.toStdString();
     }
 
 
     QString icon()
     {
-        return QString::fromStdString(mPotion.icon);
+        return QString::fromStdString(mPotion.mIcon);
     }
 
     void setIcon(QString icon)
     {
-        mPotion.icon = icon.toStdString();
+        mPotion.mIcon = icon.toStdString();
     }
 
 
     float weight()
     {
-        return mPotion.data.weight;
+        return mPotion.mData.mWeight;
     }
 
     void setWeight(float weight)
     {
-        mPotion.data.weight = weight;
+        mPotion.mData.mWeight = weight;
     }
 
 
     int value()
     {
-        return mPotion.data.value;
+        return mPotion.mData.mValue;
     }
 
     void setValue(int value)
     {
-        mPotion.data.value = value;
+        mPotion.mData.mValue = value;
     }
 
 
     int autoCalc()
     {
-        return mPotion.data.autoCalc;
+        return mPotion.mData.mAutoCalc;
     }
 
     void setAutoCalc(int autoCalc)
     {
-        mPotion.data.autoCalc = autoCalc;
+        mPotion.mData.mAutoCalc = autoCalc;
     }
 
 private:

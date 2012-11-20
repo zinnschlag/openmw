@@ -3,7 +3,7 @@
 
 #include "../modelitem.hpp"
 
-#include <components/esm/esm_reader.hpp>
+#include <components/esm/esmreader.hpp>
 #include <components/esm/records.hpp>
 
 class ESMDataItem : public ModelItem
