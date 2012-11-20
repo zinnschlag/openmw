@@ -38,6 +38,7 @@
 #include "countdialog.hpp"
 #include "tradewindow.hpp"
 #include "spellbuyingwindow.hpp"
+#include "travelwindow.hpp"
 #include "settingswindow.hpp"
 #include "confirmationdialog.hpp"
 #include "alchemywindow.hpp"
@@ -45,11 +46,16 @@
 #include "quickkeysmenu.hpp"
 #include "loadingscreen.hpp"
 #include "levelupdialog.hpp"
+#include "waitdialog.hpp"
+#include "spellcreationdialog.hpp"
+#include "enchantingdialog.hpp"
+#include "trainingwindow.hpp"
 
 using namespace MWGui;
 
 WindowManager::WindowManager(
-    const Compiler::Extensions& extensions, int fpsLevel, bool newGame, OEngine::Render::OgreRenderer *mOgre, const std::string& logpath, bool consoleOnlyScripts)
+    const Compiler::Extensions& extensions, int fpsLevel, bool newGame, OEngine::Render::OgreRenderer *mOgre,
+        const std::string& logpath, const std::string& cacheDir, bool consoleOnlyScripts)
   : mGuiManager(NULL)
   , mHud(NULL)
   , mMap(NULL)
@@ -65,13 +71,18 @@ WindowManager::WindowManager(
   , mCountDialog(NULL)
   , mTradeWindow(NULL)
   , mSpellBuyingWindow(NULL)
+  , mTravelWindow(NULL)
   , mSettingsWindow(NULL)
   , mConfirmationDialog(NULL)
   , mAlchemyWindow(NULL)
   , mSpellWindow(NULL)
   , mLoadingScreen(NULL)
   , mCharGen(NULL)
-  , mPlayerClass()
+  , mLevelupDialog(NULL)
+  , mWaitDialog(NULL)
+  , mSpellCreationDialog(NULL)
+  , mEnchantingDialog(NULL)
+  , mTrainingWindow(NULL)
   , mPlayerName()
   , mPlayerRaceId()
   , mPlayerAttributes()
@@ -129,7 +140,7 @@ WindowManager::WindowManager(
     mDragAndDrop->mDragAndDropWidget = dragAndDropWidget;
 
     mMenu = new MainMenu(w,h);
-    mMap = new MapWindow(*this);
+    mMap = new MapWindow(*this, cacheDir);
     mStatsWindow = new StatsWindow(*this);
     mConsole = new Console(w,h, consoleOnlyScripts);
     mJournal = new JournalWindow(*this);
@@ -137,6 +148,7 @@ WindowManager::WindowManager(
     mInventoryWindow = new InventoryWindow(*this,mDragAndDrop);
     mTradeWindow = new TradeWindow(*this);
     mSpellBuyingWindow = new SpellBuyingWindow(*this);
+    mTravelWindow = new TravelWindow(*this);
     mDialogueWindow = new DialogueWindow(*this);
     mContainerWindow = new ContainerWindow(*this,mDragAndDrop);
     mHud = new HUD(w,h, mShowFPSLevel, mDragAndDrop);
@@ -150,6 +162,10 @@ WindowManager::WindowManager(
     mSpellWindow = new SpellWindow(*this);
     mQuickKeysMenu = new QuickKeysMenu(*this);
     mLevelupDialog = new LevelupDialog(*this);
+    mWaitDialog = new WaitDialog(*this);
+    mSpellCreationDialog = new SpellCreationDialog(*this);
+    mEnchantingDialog = new EnchantingDialog(*this);
+    mTrainingWindow = new TrainingWindow(*this);
 
     mLoadingScreen = new LoadingScreen(mOgre->getScene (), mOgre->getWindow (), *this);
     mLoadingScreen->onResChange (w,h);
@@ -164,12 +180,12 @@ WindowManager::WindowManager(
     // Setup player stats
     for (int i = 0; i < ESM::Attribute::Length; ++i)
     {
-        mPlayerAttributes.insert(std::make_pair(ESM::Attribute::attributeIds[i], MWMechanics::Stat<int>()));
+        mPlayerAttributes.insert(std::make_pair(ESM::Attribute::sAttributeIds[i], MWMechanics::Stat<int>()));
     }
 
     for (int i = 0; i < ESM::Skill::Length; ++i)
     {
-        mPlayerSkillValues.insert(std::make_pair(ESM::Skill::skillIds[i], MWMechanics::Stat<float>()));
+        mPlayerSkillValues.insert(std::make_pair(ESM::Skill::sSkillIds[i], MWMechanics::Stat<float>()));
     }
 
     unsetSelectedSpell();
@@ -198,12 +214,17 @@ WindowManager::~WindowManager()
     delete mScrollWindow;
     delete mTradeWindow;
     delete mSpellBuyingWindow;
+    delete mTravelWindow;
     delete mSettingsWindow;
     delete mConfirmationDialog;
     delete mAlchemyWindow;
     delete mSpellWindow;
     delete mLoadingScreen;
     delete mLevelupDialog;
+    delete mWaitDialog;
+    delete mSpellCreationDialog;
+    delete mEnchantingDialog;
+    delete mTrainingWindow;
 
     cleanupGarbage();
 
@@ -247,11 +268,16 @@ void WindowManager::updateVisible()
     mBookWindow->setVisible(false);
     mTradeWindow->setVisible(false);
     mSpellBuyingWindow->setVisible(false);
+    mTravelWindow->setVisible(false);
     mSettingsWindow->setVisible(false);
     mAlchemyWindow->setVisible(false);
     mSpellWindow->setVisible(false);
     mQuickKeysMenu->setVisible(false);
     mLevelupDialog->setVisible(false);
+    mWaitDialog->setVisible(false);
+    mSpellCreationDialog->setVisible(false);
+    mEnchantingDialog->setVisible(false);
+    mTrainingWindow->setVisible(false);
 
     mHud->setVisible(true);
 
@@ -304,6 +330,13 @@ void WindowManager::updateVisible()
             mAlchemyWindow->setVisible(true);
             break;
         case GM_Rest:
+            mWaitDialog->setVisible(true);
+            break;
+        case GM_RestBed:
+            mWaitDialog->setVisible(true);
+            mWaitDialog->bedActivated();
+            break;
+        case GM_Levelup:
             mLevelupDialog->setVisible(true);
             break;
         case GM_Name:
@@ -344,6 +377,18 @@ void WindowManager::updateVisible()
             break;
         case GM_SpellBuying:
             mSpellBuyingWindow->setVisible(true);
+            break;
+        case GM_Travel:
+            mTravelWindow->setVisible(true);
+            break;
+        case GM_SpellCreation:
+            mSpellCreationDialog->setVisible(true);
+            break;
+        case GM_Enchanting:
+            mEnchantingDialog->setVisible(true);
+            break;
+        case GM_Training:
+            mTrainingWindow->setVisible(true);
             break;
         case GM_InterMessageBox:
             break;
@@ -453,8 +498,7 @@ void WindowManager::setValue (const std::string& id, int value)
 
 void WindowManager::setPlayerClass (const ESM::Class &class_)
 {
-    mPlayerClass = class_;
-    mStatsWindow->setValue("class", mPlayerClass.name);
+    mStatsWindow->setValue("class", class_.mName);
 }
 
 void WindowManager::configureSkills (const SkillList& major, const SkillList& minor)
@@ -506,11 +550,13 @@ int WindowManager::readPressedButton ()
     return mMessageBoxManager->readPressedButton();
 }
 
-const std::string &WindowManager::getGameSettingString(const std::string &id, const std::string &default_)
+std::string WindowManager::getGameSettingString(const std::string &id, const std::string &default_)
 {
-    const ESM::GameSetting *setting = MWBase::Environment::get().getWorld()->getStore().gameSettings.search(id);
-    if (setting && setting->type == ESM::VT_String)
-        return setting->str;
+    const ESM::GameSetting *setting =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().search(id);
+
+    if (setting && setting->mType == ESM::VT_String)
+        return setting->getString();
     return default_;
 }
 
@@ -536,49 +582,64 @@ void WindowManager::onFrame (float frameDuration)
         mDragAndDrop->mDraggedWidget->setPosition(MyGUI::InputManager::getInstance().getMousePosition());
     }
 
+    mDialogueWindow->onFrame();
+
     mInventoryWindow->onFrame();
 
     mStatsWindow->onFrame();
 
+    mWaitDialog->onFrame(frameDuration);
+
     mHud->onFrame(frameDuration);
 
+    mTrainingWindow->onFrame (frameDuration);
+
+    mTrainingWindow->checkReferenceAvailable();
     mDialogueWindow->checkReferenceAvailable();
     mTradeWindow->checkReferenceAvailable();
     mSpellBuyingWindow->checkReferenceAvailable();
+    mSpellCreationDialog->checkReferenceAvailable();
+    mEnchantingDialog->checkReferenceAvailable();
     mContainerWindow->checkReferenceAvailable();
     mConsole->checkReferenceAvailable();
 }
 
 void WindowManager::changeCell(MWWorld::Ptr::CellStore* cell)
 {
-    if (!(cell->cell->data.flags & ESM::Cell::Interior))
+    if (cell->mCell->isExterior())
     {
         std::string name;
-        if (cell->cell->name != "")
-            name = cell->cell->name;
+        if (cell->mCell->mName != "")
+        {
+            name = cell->mCell->mName;
+            mMap->addVisitedLocation (name, cell->mCell->getGridX (), cell->mCell->getGridY ());
+        }
         else
         {
-            const ESM::Region* region = MWBase::Environment::get().getWorld()->getStore().regions.search(cell->cell->region);
+            const ESM::Region* region =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Region>().search(cell->mCell->mRegion);
             if (region)
-                name = region->name;
+                name = region->mName;
             else
                 name = getGameSettingString("sDefaultCellname", "Wilderness");
         }
+
+        mMap->cellExplored(cell->mCell->getGridX(), cell->mCell->getGridY());
 
         mMap->setCellName( name );
         mHud->setCellName( name );
 
         mMap->setCellPrefix("Cell");
         mHud->setCellPrefix("Cell");
-        mMap->setActiveCell( cell->cell->data.gridX, cell->cell->data.gridY );
-        mHud->setActiveCell( cell->cell->data.gridX, cell->cell->data.gridY );
+        mMap->setActiveCell( cell->mCell->getGridX(), cell->mCell->getGridY() );
+        mHud->setActiveCell( cell->mCell->getGridX(), cell->mCell->getGridY() );
     }
     else
     {
-        mMap->setCellName( cell->cell->name );
-        mHud->setCellName( cell->cell->name );
-        mMap->setCellPrefix( cell->cell->name );
-        mHud->setCellPrefix( cell->cell->name );
+        mMap->setCellName( cell->mCell->mName );
+        mHud->setCellName( cell->mCell->mName );
+        mMap->setCellPrefix( cell->mCell->mName );
+        mHud->setCellPrefix( cell->mCell->mName );
     }
 
 }
@@ -661,9 +722,11 @@ void WindowManager::setDragDrop(bool dragDrop)
 
 void WindowManager::onRetrieveTag(const MyGUI::UString& _tag, MyGUI::UString& _result)
 {
-    const ESM::GameSetting *setting = MWBase::Environment::get().getWorld()->getStore().gameSettings.search(_tag);
-    if (setting && setting->type == ESM::VT_String)
-        _result = setting->str;
+    const ESM::GameSetting *setting =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find(_tag);
+
+    if (setting && setting->mType == ESM::VT_String)
+        _result = setting->getString();
     else
         _result = _tag;
 }
@@ -713,6 +776,13 @@ void WindowManager::pushGuiMode(GuiMode mode)
     if (mode==GM_Inventory && mAllowed==GW_None)
         return;
 
+
+    // If this mode already exists somewhere in the stack, just bring it to the front.
+    if (std::find(mGuiModes.begin(), mGuiModes.end(), mode) != mGuiModes.end())
+    {
+        mGuiModes.erase(std::find(mGuiModes.begin(), mGuiModes.end(), mode));
+    }
+
     mGuiModes.push_back(mode);
 
     bool gameMode = !isGuiMode();
@@ -752,8 +822,11 @@ void WindowManager::removeGuiMode(GuiMode mode)
 void WindowManager::setSelectedSpell(const std::string& spellId, int successChancePercent)
 {
     mHud->setSelectedSpell(spellId, successChancePercent);
-    const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find(spellId);
-    mSpellWindow->setTitle(spell->name);
+
+    const ESM::Spell* spell =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(spellId);
+
+    mSpellWindow->setTitle(spell->mName);
 }
 
 void WindowManager::setSelectedEnchantItem(const MWWorld::Ptr& item, int chargePercent)
@@ -825,6 +898,7 @@ MWGui::CountDialog* WindowManager::getCountDialog() { return mCountDialog; }
 MWGui::ConfirmationDialog* WindowManager::getConfirmationDialog() { return mConfirmationDialog; }
 MWGui::TradeWindow* WindowManager::getTradeWindow() { return mTradeWindow; }
 MWGui::SpellBuyingWindow* WindowManager::getSpellBuyingWindow() { return mSpellBuyingWindow; }
+MWGui::TravelWindow* WindowManager::getTravelWindow() { return mTravelWindow; }
 MWGui::SpellWindow* WindowManager::getSpellWindow() { return mSpellWindow; }
 MWGui::Console* WindowManager::getConsole() { return mConsole; }
 
@@ -930,4 +1004,34 @@ void WindowManager::setLoadingProgress (const std::string& stage, int depth, int
 void WindowManager::loadingDone ()
 {
     mLoadingScreen->loadingDone ();
+}
+
+bool WindowManager::getPlayerSleeping ()
+{
+    return mWaitDialog->getSleeping();
+}
+
+void WindowManager::wakeUpPlayer()
+{
+    mWaitDialog->wakeUp();
+}
+
+void WindowManager::addVisitedLocation(const std::string& name, int x, int y)
+{
+    mMap->addVisitedLocation (name, x, y);
+}
+
+void WindowManager::startSpellMaking(MWWorld::Ptr actor)
+{
+    mSpellCreationDialog->startSpellMaking (actor);
+}
+
+void WindowManager::startEnchanting (MWWorld::Ptr actor)
+{
+    mEnchantingDialog->startEnchanting (actor);
+}
+
+void WindowManager::startTraining(MWWorld::Ptr actor)
+{
+    mTrainingWindow->startTraining(actor);
 }

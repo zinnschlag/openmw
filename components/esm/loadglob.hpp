@@ -1,11 +1,15 @@
-#ifndef _ESM_GLOB_H
-#define _ESM_GLOB_H
+#ifndef OPENMW_ESM_GLOB_H
+#define OPENMW_ESM_GLOB_H
 
-#include "esm_reader.hpp"
+#include <string>
+
 #include "defs.hpp"
 
 namespace ESM
 {
+
+class ESMReader;
+class ESMWriter;
 
 /*
  * Global script variables
@@ -13,10 +17,12 @@ namespace ESM
 
 struct Global
 {
-    unsigned value;
-    VarType type;
+    std::string mId;
+    unsigned mValue;
+    VarType mType;
 
     void load(ESMReader &esm);
+    void save(ESMWriter &esm);
 };
 }
 #endif

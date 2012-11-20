@@ -5,7 +5,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -70,9 +70,9 @@ ReviewDialog::ReviewDialog(MWBase::WindowManager& parWindowManager)
     for (int idx = 0; idx < ESM::Attribute::Length; ++idx)
     {
         getWidget(attribute, std::string("Attribute") + boost::lexical_cast<std::string>(idx));
-        mAttributeWidgets.insert(std::make_pair(static_cast<int>(ESM::Attribute::attributeIds[idx]), attribute));
+        mAttributeWidgets.insert(std::make_pair(static_cast<int>(ESM::Attribute::sAttributeIds[idx]), attribute));
         attribute->setWindowManager(&mWindowManager);
-        attribute->setAttributeId(ESM::Attribute::attributeIds[idx]);
+        attribute->setAttributeId(ESM::Attribute::sAttributeIds[idx]);
         attribute->setAttributeValue(MWAttribute::AttributeValue(0, 0));
     }
 
@@ -108,28 +108,32 @@ void ReviewDialog::setPlayerName(const std::string &name)
 void ReviewDialog::setRace(const std::string &raceId)
 {
     mRaceId = raceId;
-    const ESM::Race *race = MWBase::Environment::get().getWorld()->getStore().races.search(mRaceId);
+
+    const ESM::Race *race =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Race>().search(mRaceId);
     if (race)
     {
         ToolTips::createRaceToolTip(mRaceWidget, race);
-        mRaceWidget->setCaption(race->name);
+        mRaceWidget->setCaption(race->mName);
     }
 }
 
 void ReviewDialog::setClass(const ESM::Class& class_)
 {
     mKlass = class_;
-    mClassWidget->setCaption(mKlass.name);
+    mClassWidget->setCaption(mKlass.mName);
     ToolTips::createClassToolTip(mClassWidget, mKlass);
 }
 
 void ReviewDialog::setBirthSign(const std::string& signId)
 {
     mBirthSignId = signId;
-    const ESM::BirthSign *sign = MWBase::Environment::get().getWorld()->getStore().birthSigns.search(mBirthSignId);
+
+    const ESM::BirthSign *sign =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::BirthSign>().search(mBirthSignId);
     if (sign)
     {
-        mBirthSignWidget->setCaption(sign->name);
+        mBirthSignWidget->setCaption(sign->mName);
         ToolTips::createBirthsignToolTip(mBirthSignWidget, mBirthSignId);
     }
 }
@@ -193,9 +197,9 @@ void ReviewDialog::configureSkills(const std::vector<int>& major, const std::vec
     std::set<int> skillSet;
     std::copy(major.begin(), major.end(), std::inserter(skillSet, skillSet.begin()));
     std::copy(minor.begin(), minor.end(), std::inserter(skillSet, skillSet.begin()));
-    boost::array<ESM::Skill::SkillEnum, ESM::Skill::Length>::const_iterator end = ESM::Skill::skillIds.end();
+    boost::array<ESM::Skill::SkillEnum, ESM::Skill::Length>::const_iterator end = ESM::Skill::sSkillIds.end();
     mMiscSkills.clear();
-    for (boost::array<ESM::Skill::SkillEnum, ESM::Skill::Length>::const_iterator it = ESM::Skill::skillIds.begin(); it != end; ++it)
+    for (boost::array<ESM::Skill::SkillEnum, ESM::Skill::Length>::const_iterator it = ESM::Skill::sSkillIds.begin(); it != end; ++it)
     {
         int skill = *it;
         if (skillSet.find(skill) == skillSet.end())
@@ -281,7 +285,7 @@ void ReviewDialog::addSkills(const SkillList &skills, const std::string &titleId
         if (skillId < 0 || skillId > ESM::Skill::Length) // Skip unknown skill indexes
             continue;
         assert(skillId >= 0 && skillId < ESM::Skill::Length);
-        const std::string &skillNameId = ESMS::Skill::sSkillNameIds[skillId];
+        const std::string &skillNameId = ESM::Skill::sSkillNameIds[skillId];
         const MWMechanics::Stat<float> &stat = mSkillValues.find(skillId)->second;
         float base = stat.getBase();
         float modified = stat.getModified();

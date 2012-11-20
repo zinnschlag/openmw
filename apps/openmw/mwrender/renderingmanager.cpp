@@ -13,12 +13,13 @@
 #include <OgreCompositionTargetPass.h>
 #include <OgreCompositionPass.h>
 #include <OgreHardwarePixelBuffer.h>
+#include <OgreControllerManager.h>
 
 #include <extern/shiny/Main/Factory.hpp>
 #include <extern/shiny/Platforms/Ogre/OgrePlatform.hpp>
 
 #include <components/esm/loadstat.hpp>
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 #include <components/settings/settings.hpp>
 
 #include "../mwbase/world.hpp" // these includes can be removed once the static-hack is gone
@@ -35,6 +36,7 @@
 #include "compositors.hpp"
 #include "npcanimation.hpp"
 #include "externalrendering.hpp"
+#include "globalmap.hpp"
 
 using namespace MWRender;
 using namespace Ogre;
@@ -43,7 +45,7 @@ namespace MWRender {
 
 RenderingManager::RenderingManager (OEngine::Render::OgreRenderer& _rend, const boost::filesystem::path& resDir,
                                     const boost::filesystem::path& cacheDir, OEngine::Physic::PhysicEngine* engine)
-    :mRendering(_rend), mObjects(mRendering), mActors(mRendering), mAmbientMode(0), mSunEnabled(0), mPhysicsEngine(engine)
+    : mRendering(_rend), mObjects(mRendering), mActors(mRendering), mAmbientMode(0), mSunEnabled(0), mPhysicsEngine(engine)
 {
     // select best shader mode
     bool openGL = (Ogre::Root::getSingleton ().getRenderSystem ()->getName().find("OpenGL") != std::string::npos);
@@ -66,7 +68,7 @@ RenderingManager::RenderingManager (OEngine::Render::OgreRenderer& _rend, const 
     // material system
     sh::OgrePlatform* platform = new sh::OgrePlatform("General", (resDir / "materials").string());
     if (!boost::filesystem::exists (cacheDir))
-        boost::filesystem::create_directory (cacheDir);
+        boost::filesystem::create_directories (cacheDir);
     platform->setCacheFolder (cacheDir.string());
     mFactory = new sh::Factory(platform);
 
@@ -100,7 +102,8 @@ RenderingManager::RenderingManager (OEngine::Render::OgreRenderer& _rend, const 
     MaterialManager::getSingleton().setDefaultTextureFiltering(tfo);
     MaterialManager::getSingleton().setDefaultAnisotropy( (filter == "anisotropic") ? Settings::Manager::getInt("anisotropy", "General") : 1 );
 
-    // Load resources
+    //ResourceGroupManager::getSingleton ().declareResource ("GlobalMap.png", "Texture", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
     ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
     // causes light flicker in opengl when moving..
@@ -129,6 +132,8 @@ RenderingManager::RenderingManager (OEngine::Render::OgreRenderer& _rend, const 
     sh::Factory::getInstance ().setSharedParameter ("waterTimer", sh::makeProperty<sh::FloatValue>(new sh::FloatValue(0)));
     sh::Factory::getInstance ().setSharedParameter ("windDir_windSpeed", sh::makeProperty<sh::Vector3>(new sh::Vector3(0.5, -0.8, 0.2)));
     sh::Factory::getInstance ().setSharedParameter ("waterSunFade_sunHeight", sh::makeProperty<sh::Vector2>(new sh::Vector2(1, 0.6)));
+    sh::Factory::getInstance ().setSharedParameter ("gammaCorrection", sh::makeProperty<sh::FloatValue>(new sh::FloatValue(
+            Settings::Manager::getFloat ("gamma", "Video"))));
 
     applyCompositors();
 
@@ -176,6 +181,8 @@ RenderingManager::~RenderingManager ()
     delete mOcclusionQuery;
     delete mCompositors;
     delete mWater;
+
+    delete mFactory;
 }
 
 MWRender::SkyManager* RenderingManager::getSkyManager()
@@ -200,7 +207,7 @@ void RenderingManager::removeCell (MWWorld::Ptr::CellStore *store)
     mObjects.removeCell(store);
     mActors.removeCell(store);
     mDebugging->cellRemoved(store);
-    if (store->cell->isExterior())
+    if (store->mCell->isExterior())
       mTerrainManager->cellRemoved(store);
 }
 
@@ -221,7 +228,7 @@ void RenderingManager::cellAdded (MWWorld::Ptr::CellStore *store)
 {
     mObjects.buildStaticGeometry (*store);
     mDebugging->cellAdded(store);
-    if (store->cell->isExterior())
+    if (store->mCell->isExterior())
       mTerrainManager->cellAdded(store);
     waterAdded(store);
 }
@@ -230,18 +237,12 @@ void RenderingManager::addObject (const MWWorld::Ptr& ptr){
     const MWWorld::Class& class_ =
             MWWorld::Class::get (ptr);
     class_.insertObjectRendering(ptr, *this);
-
 }
+
 void RenderingManager::removeObject (const MWWorld::Ptr& ptr)
 {
     if (!mObjects.deleteObject (ptr))
-    {
-        /// \todo delete non-object MW-references
-    }
-     if (!mActors.deleteObject (ptr))
-    {
-        /// \todo delete non-object MW-references
-    }
+        mActors.deleteObject (ptr);
 }
 
 void RenderingManager::moveObject (const MWWorld::Ptr& ptr, const Ogre::Vector3& position)
@@ -251,36 +252,45 @@ void RenderingManager::moveObject (const MWWorld::Ptr& ptr, const Ogre::Vector3&
             setPosition (position);
 }
 
-void RenderingManager::scaleObject (const MWWorld::Ptr& ptr, const Ogre::Vector3& scale){
-
+void RenderingManager::scaleObject (const MWWorld::Ptr& ptr, const Ogre::Vector3& scale)
+{
+    ptr.getRefData().getBaseNode()->setScale(scale);
 }
 
-bool
-RenderingManager::rotateObject(
-    const MWWorld::Ptr &ptr,
-    Ogre::Vector3 &rot,
-    bool adjust)
+bool RenderingManager::rotateObject( const MWWorld::Ptr &ptr, Ogre::Vector3 &rot, bool adjust)
 {
     bool isActive = ptr.getRefData().getBaseNode() != 0;
     bool isPlayer = isActive && ptr.getRefData().getHandle() == "player";
     bool force = true;
     
-    if (isPlayer) {
+    if (isPlayer)
         force = mPlayer->rotate(rot, adjust);
-    }
+    
     MWWorld::Class::get(ptr).adjustRotation(ptr, rot.x, rot.y, rot.z);
 
-    if (adjust) {
-        /// \note Stored and passed in radians
-        float *f = ptr.getRefData().getPosition().rot;
-        rot.x += f[0], rot.y += f[1], rot.z += f[2];
-    }
-    if (!isPlayer && isActive) {
+    if (!isPlayer && isActive)
+    {
         Ogre::Quaternion xr(Ogre::Radian(rot.x), Ogre::Vector3::UNIT_X);
         Ogre::Quaternion yr(Ogre::Radian(rot.y), Ogre::Vector3::UNIT_Y);
         Ogre::Quaternion zr(Ogre::Radian(rot.z), Ogre::Vector3::UNIT_Z);
-
-        ptr.getRefData().getBaseNode()->setOrientation(xr * yr * zr);
+        Ogre::Quaternion newo = adjust ? (xr * yr * zr) * ptr.getRefData().getBaseNode()->getOrientation() : xr * yr * zr;
+        rot.x = newo.x;
+        rot.y = newo.y;
+        rot.z = newo.z;
+        ptr.getRefData().getBaseNode()->setOrientation(newo);
+    }
+    else if(isPlayer)
+    {
+        rot.x = mPlayer->getPitch();
+        rot.z = mPlayer->getYaw();
+    }
+    else if (adjust)
+    {
+        // Stored and passed in radians
+        float *f = ptr.getRefData().getPosition().rot;
+        rot.x += f[0];
+        rot.y += f[1];
+        rot.z += f[2];
     }
     return force;
 }
@@ -305,7 +315,7 @@ RenderingManager::moveObjectToCell(
     child->setPosition(pos);
 }
 
-void RenderingManager::update (float duration)
+void RenderingManager::update (float duration, bool paused)
 {
     Ogre::Vector3 orig, dest;
     mPlayer->setCameraDistance();
@@ -320,12 +330,21 @@ void RenderingManager::update (float duration)
             mPlayer->setCameraDistance(test.second * orig.distance(dest), false, false);
         }
     }
+    mOcclusionQuery->update(duration);
+    
+    if(paused)
+    {
+        Ogre::ControllerManager::getSingleton().setTimeFactor(0.f);
+        return;
+    }
+    Ogre::ControllerManager::getSingleton().setTimeFactor(
+                MWBase::Environment::get().getWorld()->getTimeScaleFactor()/30.f);
+
     mPlayer->update(duration);
 
     mActors.update (duration);
     mObjects.update (duration);
 
-    mOcclusionQuery->update(duration);
 
     mSkyManager->update(duration);
 
@@ -342,7 +361,7 @@ void RenderingManager::update (float duration)
 
     float *fpos = data.getPosition().pos;
 
-    /// \note only for LocalMap::updatePlayer()
+    // only for LocalMap::updatePlayer()
     Ogre::Vector3 pos(fpos[0], -fpos[2], -fpos[1]);
 
     Ogre::SceneNode *node = data.getBaseNode();
@@ -358,22 +377,26 @@ void RenderingManager::update (float duration)
 
         mWater->updateUnderwater(
             world->isUnderwater(
-                *world->getPlayer().getPlayer().getCell()->cell,
+                *world->getPlayer().getPlayer().getCell()->mCell,
                 Ogre::Vector3(cam.x, -cam.z, cam.y))
         );
         mWater->update(duration);
     }
 }
 
-void RenderingManager::waterAdded (MWWorld::Ptr::CellStore *store){
-    if(store->cell->data.flags & store->cell->HasWater
-        || ((!(store->cell->data.flags & ESM::Cell::Interior))
-            && !MWBase::Environment::get().getWorld()->getStore().lands.search(store->cell->data.gridX,store->cell->data.gridY) )) // always use water, if the cell does not have land.
+void RenderingManager::waterAdded (MWWorld::Ptr::CellStore *store)
+{
+    const MWWorld::Store<ESM::Land> &lands =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Land>();
+
+    if(store->mCell->mData.mFlags & ESM::Cell::HasWater
+        || ((store->mCell->isExterior())
+            && !lands.search(store->mCell->getGridX(),store->mCell->getGridY()) )) // always use water, if the cell does not have land.
     {
         if(mWater == 0)
-            mWater = new MWRender::Water(mRendering.getCamera(), this, store->cell);
+            mWater = new MWRender::Water(mRendering.getCamera(), this, store->mCell);
         else
-            mWater->changeCell(store->cell);
+            mWater->changeCell(store->mCell);
         mWater->setActive(true);
     }
     else
@@ -450,7 +473,13 @@ bool RenderingManager::toggleRenderMode(int mode)
             return false;
         }
     }
-    else //if (mode == MWWorld::World::Render_Compositors)
+    else if (mode == MWBase::World::Render_BoundingBoxes)
+    {
+        bool show = !mRendering.getScene()->getShowBoundingBoxes();
+        mRendering.getScene()->showBoundingBoxes(show);
+        return show;
+    }
+    else //if (mode == MWBase::World::Render_Compositors)
     {
         return mCompositors->toggle();
     }
@@ -459,9 +488,9 @@ bool RenderingManager::toggleRenderMode(int mode)
 void RenderingManager::configureFog(MWWorld::Ptr::CellStore &mCell)
 {
     Ogre::ColourValue color;
-    color.setAsABGR (mCell.cell->ambi.fog);
+    color.setAsABGR (mCell.mCell->mAmbi.mFog);
 
-    configureFog(mCell.cell->ambi.fogDensity, color);
+    configureFog(mCell.mCell->mAmbi.mFogDensity, color);
 
     if (mWater)
         mWater->setViewportBackground (Ogre::ColourValue(0.8f, 0.9f, 1.0f));
@@ -511,7 +540,7 @@ void RenderingManager::setAmbientMode()
 
 void RenderingManager::configureAmbient(MWWorld::Ptr::CellStore &mCell)
 {
-    mAmbientColor.setAsABGR (mCell.cell->ambi.ambient);
+    mAmbientColor.setAsABGR (mCell.mCell->mAmbi.mAmbient);
     setAmbientMode();
 
     // Create a "sun" that shines light downwards. It doesn't look
@@ -521,7 +550,7 @@ void RenderingManager::configureAmbient(MWWorld::Ptr::CellStore &mCell)
         mSun = mRendering.getScene()->createLight();
     }
     Ogre::ColourValue colour;
-    colour.setAsABGR (mCell.cell->ambi.sunlight);
+    colour.setAsABGR (mCell.mCell->mAmbi.mSunlight);
     mSun->setDiffuseColour (colour);
     mSun->setType(Ogre::Light::LT_DIRECTIONAL);
     mSun->setDirection(0,-1,0);
@@ -605,7 +634,7 @@ void RenderingManager::setGlare(bool glare)
 
 void RenderingManager::requestMap(MWWorld::Ptr::CellStore* cell)
 {
-    if (!(cell->cell->data.flags & ESM::Cell::Interior))
+    if (cell->mCell->isExterior())
         mLocalMap->requestMap(cell);
     else
         mLocalMap->requestMap(cell, mObjects.getDimensions(cell));
@@ -746,6 +775,11 @@ void RenderingManager::processChangedSettings(const Settings::CategorySettingVec
         {
             sh::Factory::getInstance ().setShadersEnabled (Settings::Manager::getBool("shaders", "Objects"));
             mObjects.rebuildStaticGeometry ();
+        }
+        else if (it->second == "gamma" && it->first == "Video")
+        {
+            sh::Factory::getInstance ().setSharedParameter ("gammaCorrection", sh::makeProperty<sh::FloatValue>(new sh::FloatValue(
+                    Settings::Manager::getFloat ("gamma", "Video"))));
         }
         else if (it->second == "shader mode" && it->first == "General")
         {

@@ -42,6 +42,7 @@ namespace MWGui
     class Console;
     class SpellWindow;
     class TradeWindow;
+    class TravelWindow;
     class SpellBuyingWindow;
     class ConfirmationDialog;
     class CountDialog;
@@ -108,6 +109,7 @@ namespace MWBase
             virtual MWGui::ConfirmationDialog* getConfirmationDialog() = 0;
             virtual MWGui::TradeWindow* getTradeWindow() = 0;
             virtual MWGui::SpellBuyingWindow* getSpellBuyingWindow() = 0;
+            virtual MWGui::TravelWindow* getTravelWindow() = 0;
             virtual MWGui::SpellWindow* getSpellWindow() = 0;
             virtual MWGui::Console* getConsole() = 0;
 
@@ -189,6 +191,8 @@ namespace MWBase
             virtual void allowMouse() = 0;
             virtual void notifyInputActionBound() = 0;
 
+            virtual void addVisitedLocation(const std::string& name, int x, int y) = 0;
+
             virtual void removeDialog(OEngine::GUI::Layout* dialog) = 0;
             ///< Hides dialog and schedules dialog to be deleted.
 
@@ -211,7 +215,7 @@ namespace MWBase
              * @param id Identifier for the GMST setting, e.g. "aName"
              * @param default Default value if the GMST setting cannot be used.
              */
-            virtual const std::string &getGameSettingString(const std::string &id, const std::string &default_) = 0;
+            virtual std::string getGameSettingString(const std::string &id, const std::string &default_) = 0;
 
             virtual void processChangedSettings(const Settings::CategorySettingVector& changed) = 0;
 
@@ -222,6 +226,13 @@ namespace MWBase
 
             virtual void enableRest() = 0;
             virtual bool getRestEnabled() = 0;
+
+            virtual bool getPlayerSleeping() = 0;
+            virtual void wakeUpPlayer() = 0;
+
+            virtual void startSpellMaking(MWWorld::Ptr actor) = 0;
+            virtual void startEnchanting(MWWorld::Ptr actor) = 0;
+            virtual void startTraining(MWWorld::Ptr actor) = 0;
     };
 }
 

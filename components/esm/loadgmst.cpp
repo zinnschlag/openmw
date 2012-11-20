@@ -2,7 +2,10 @@
 
 #include <stdexcept>
 
-#include "defs.hpp"
+#include <boost/algorithm/string.hpp>
+
+#include "esmreader.hpp"
+#include "esmwriter.hpp"
 
 namespace ESM
 {
@@ -11,15 +14,15 @@ namespace ESM
 /// working properly in its current state and I doubt it can be fixed without breaking other stuff.
 
 // Some handy macros
-#define cI(s,x) { if(id == (s)) return (i == (x)); }
-#define cF(s,x) { if(id == (s)) return (f == (x)); }
-#define cS(s,x) { if(id == (s)) return (str == (x)); }
+#define cI(s,x) { label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mI == (x)); }
+#define cF(s,x) { label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mF == (x)); }
+#define cS(s,x) { label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mStr == (x)); }
 
 bool GameSetting::isDirtyTribunal()
 {
     /*
-     Here, id contains the game setting name, and we check the
-     setting for certain values. If it matches, this is a "dirty"
+     Here, mId contains the game setting name, and we check the
+     setting for certain values. If it matches, this is a "mDirty"
      entry. The correct entry (as defined in Tribunal and Bloodmoon
      esms) are given in the comments. Many of the values are correct,
      and are marked as 'same'. We still ignore them though, as they
@@ -27,6 +30,7 @@ bool GameSetting::isDirtyTribunal()
      from other mods.
      */
 
+    std::string label;
     // Strings
     cS("sProfitValue", "Profit Value"); // 'Profit:'
     cS("sEditNote", "Edit Note"); // same
@@ -49,14 +53,15 @@ bool GameSetting::isDirtyTribunal()
     // or goods to bring his Profit to a positive value.'
     // [The difference here is "Profit Value" -> "Profit"]
 
-    // Strings that matches the id
-    cS("sEffectSummonFabricant", id);// 'Summon Fabricant'
+    // Strings that matches the mId
+    cS("sEffectSummonFabricant", "sEffectSummonFabricant");// 'Summon Fabricant'
     return false;
 }
 
 // Bloodmoon variant
 bool GameSetting::isDirtyBloodmoon()
 {
+    std::string label;
     // Strings
     cS("sWerewolfPopup", "Werewolf"); // same
     cS("sWerewolfRestMessage",
@@ -67,17 +72,17 @@ bool GameSetting::isDirtyBloodmoon()
             "You have been detected changing from a werewolf state.");
     // 'You have been detected as a known werewolf.'
 
-    // Strings that matches the id
-    cS("sMagicCreature01ID", id); // 'BM_wolf_grey_summon'
-    cS("sMagicCreature02ID", id); // 'BM_bear_black_summon'
-    cS("sMagicCreature03ID", id); // 'BM_wolf_bone_summon'
-    cS("sMagicCreature04ID", id); // same
-    cS("sMagicCreature05ID", id); // same
-    cS("sEffectSummonCreature01", id); // 'Calf Wolf'
-    cS("sEffectSummonCreature02", id); // 'Calf Bear'
-    cS("sEffectSummonCreature03", id); // 'Summon Bonewolf'
-    cS("sEffectSummonCreature04", id); // same
-    cS("sEffectSummonCreature05", id); // same
+    // Strings that matches the mId
+    cS("sMagicCreature01ID", "sMagicCreature01ID"); // 'BM_wolf_grey_summon'
+    cS("sMagicCreature02ID", "sMagicCreature02ID"); // 'BM_bear_black_summon'
+    cS("sMagicCreature03ID", "sMagicCreature03ID"); // 'BM_wolf_bone_summon'
+    cS("sMagicCreature04ID", "sMagicCreature04ID"); // same
+    cS("sMagicCreature05ID", "sMagicCreature05ID"); // same
+    cS("sEffectSummonCreature01", "sEffectSummonCreature01"); // 'Calf Wolf'
+    cS("sEffectSummonCreature02", "sEffectSummonCreature02"); // 'Calf Bear'
+    cS("sEffectSummonCreature03", "sEffectSummonCreature03"); // 'Summon Bonewolf'
+    cS("sEffectSummonCreature04", "sEffectSummonCreature04"); // same
+    cS("sEffectSummonCreature05", "sEffectSummonCreature05"); // same
 
     // Integers
     cI("iWereWolfBounty", 10000); // 1000
@@ -133,14 +138,14 @@ bool GameSetting::isDirtyBloodmoon()
 
 void GameSetting::load(ESMReader &esm)
 {
-    assert(id != "");
+    assert(mId != "");
 
-    dirty = false;
+    mDirty = false;
 
     // We are apparently allowed to be empty
     if (!esm.hasMoreSubs())
     {
-        type = VT_None;
+        mType = VT_None;
         return;
     }
 
@@ -149,59 +154,69 @@ void GameSetting::load(ESMReader &esm)
     NAME n = esm.retSubName();
     if (n == "STRV")
     {
-        str = esm.getHString();
-        type = VT_String;
+        mStr = esm.getHString();
+        mType = VT_String;
     }
     else if (n == "INTV")
     {
-        esm.getHT(i);
-        type = VT_Int;
+        esm.getHT(mI);
+        mType = VT_Int;
     }
     else if (n == "FLTV")
     {
-        esm.getHT(f);
-        type = VT_Float;
+        esm.getHT(mF);
+        mType = VT_Float;
     }
     else
         esm.fail("Unwanted subrecord type");
 
     int spf = esm.getSpecial();
 
-    // Check if this is one of the dirty values mentioned above. If it
-    // is, we set the dirty flag. This will ONLY work if you've set
+    // Check if this is one of the mDirty values mentioned above. If it
+    // is, we set the mDirty flag. This will ONLY work if you've set
     // the 'id' string correctly before calling load().
 
     if ((spf != SF_Tribunal && isDirtyTribunal()) || (spf != SF_Bloodmoon
             && isDirtyBloodmoon()))
-        dirty = true;
+        mDirty = true;
+}
+void GameSetting::save(ESMWriter &esm)
+{
+    switch(mType)
+    {
+    case VT_String: esm.writeHNString("STRV", mStr); break;
+    case VT_Int: esm.writeHNT("INTV", mI); break;
+    case VT_Float: esm.writeHNT("FLTV", mF); break;
+    default: break;
+    }
 }
 
 int GameSetting::getInt() const
 {
-    switch (type)
+    switch (mType)
     {
-        case VT_Float: return static_cast<int> (f);
-        case VT_Int: return i;
-        default: throw std::runtime_error ("GMST " + id + " is not of a numeric type");
+        case VT_Float: return static_cast<int> (mF);
+        case VT_Int: return mI;
+        default: throw std::runtime_error ("GMST " + mId + " is not of a numeric type");
     }
 }
 
-int GameSetting::getFloat() const
+float GameSetting::getFloat() const
 {
-    switch (type)
+    switch (mType)
     {
-        case VT_Float: return f;
-        case VT_Int: return i;
-        default: throw std::runtime_error ("GMST " + id + " is not of a numeric type");
+        case VT_Float: return mF;
+        case VT_Int: return mI;
+        default: throw std::runtime_error ("GMST " + mId + " is not of a numeric type");
     }
 }
 
 std::string GameSetting::getString() const
 {
-    if (type==VT_String)
-        return str;
+    if (mType==VT_String)
+        return mStr;
         
-    throw std::runtime_error ("GMST " + id + " is not a string");
+    throw std::runtime_error ("GMST " + mId + " is not a string");
 }
 
 }

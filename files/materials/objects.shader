@@ -112,6 +112,8 @@
         shUniform(float, far) @shAutoConstant(far, far_clip_distance)
 #endif
 
+        shUniform(float, gammaCorrection) @shSharedParameter(gammaCorrection, gammaCorrection)
+
 #if LIGHTING
         shInput(float3, normalPassthrough)
         shInput(float3, objSpacePositionPassthrough)
@@ -155,10 +157,15 @@
         shUniform(float4, shadowFar_fadeStart) @shSharedParameter(shadowFar_fadeStart)
 #endif
 
-#if UNDERWATER
+#if (UNDERWATER) || (FOG)
         shUniform(float4x4, worldMatrix) @shAutoConstant(worldMatrix, world_matrix)
-        shUniform(float, waterLevel) @shSharedParameter(waterLevel)
         shUniform(float4, cameraPos) @shAutoConstant(cameraPos, camera_position) 
+#endif
+
+#if UNDERWATER
+
+        shUniform(float, waterLevel) @shSharedParameter(waterLevel)
+
         shUniform(float4, lightDirectionWS0) @shAutoConstant(lightDirectionWS0, light_position, 0)
         
         shSampler2D(causticMap)
@@ -173,7 +180,8 @@
     SH_START_PROGRAM
     {
         shOutputColour(0) = shSample(diffuseMap, UV);
-
+        shOutputColour(0).xyz = gammaCorrectRead(shOutputColour(0).xyz);
+        
 #if LIGHTING
         float3 normal = normalize(normalPassthrough);
         float3 lightDir;
@@ -208,8 +216,12 @@
 
 
         float3 caustics = float3(1,1,1);
-#if UNDERWATER
+
+#if (UNDERWATER) || (FOG)
     float3 worldPos = shMatrixMult(worldMatrix, float4(objSpacePositionPassthrough,1)).xyz;
+#endif
+
+#if UNDERWATER
     float3 waterEyePos = float3(1,1,1);
     // NOTE: this calculation would be wrong for non-uniform scaling
     float4 worldNormal = shMatrixMult(worldMatrix, float4(normal.xyz, 0));
@@ -253,13 +265,13 @@
 #endif
 
 #if FOG
-        float fogValue = shSaturate((depthPassthrough - fogParams.y) * fogParams.w);
+        float fogValue = shSaturate((length(cameraPos.xyz-worldPos) - fogParams.y) * fogParams.w);
         
         #if UNDERWATER
         // regular fog only if fragment is above water
         if (worldPos.y > waterLevel)
         #endif
-        shOutputColour(0).xyz = shLerp (shOutputColour(0).xyz, fogColour, fogValue);
+        shOutputColour(0).xyz = shLerp (shOutputColour(0).xyz, gammaCorrectRead(fogColour), fogValue);
 #endif
 
         // prevent negative colour output (for example with negative lights)
@@ -274,12 +286,11 @@
         
         float waterSunGradient = dot(eyeVec, -normalize(lightDirectionWS0.xyz));
         waterSunGradient = shSaturate(pow(waterSunGradient*0.7+0.3,2.0));  
-        float3 waterSunColour = float3(0.0,1.0,0.85)*waterSunGradient * 0.5;
+        float3 waterSunColour = gammaCorrectRead(float3(0.0,1.0,0.85)) *waterSunGradient * 0.5;
         
         float waterGradient = dot(eyeVec, float3(0.0,-1.0,0.0));
         waterGradient = clamp((waterGradient*0.5+0.5),0.2,1.0);
-        float3 watercolour = (float3(0.0078, 0.5176, 0.700)+waterSunColour)*waterGradient*2.0;
-        float3 waterext = float3(0.6, 0.9, 1.0);//water extinction
+        float3 watercolour = ( gammaCorrectRead(float3(0.0078, 0.5176, 0.700))+waterSunColour)*waterGradient*2.0;
         watercolour = shLerp(watercolour*0.3*waterSunFade_sunHeight.x, watercolour, shSaturate(1.0-exp(-waterSunFade_sunHeight.y*SUN_EXT)));
         watercolour = (cameraPos.y <= waterLevel) ? watercolour : watercolour*0.3;
     
@@ -291,6 +302,8 @@
         float isUnderwater = (worldPos.y < waterLevel) ? 1.0 : 0.0;
         shOutputColour(0).xyz = shLerp (shOutputColour(0).xyz, watercolour, fogAmount * isUnderwater * waterEnabled);
 #endif
+
+        shOutputColour(0).xyz = gammaCorrectOutput(shOutputColour(0).xyz);
 
 #if MRT
         shOutputColour(1) = float4(depthPassthrough / far,1,1,1);

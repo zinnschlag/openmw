@@ -4,7 +4,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include "../mwbase/world.hpp"
 #include "../mwbase/environment.hpp"
@@ -26,10 +26,13 @@ namespace
 {
     bool sortSpells(const std::string& left, const std::string& right)
     {
-        const ESM::Spell* a = MWBase::Environment::get().getWorld()->getStore().spells.find(left);
-        const ESM::Spell* b = MWBase::Environment::get().getWorld()->getStore().spells.find(right);
+        const MWWorld::Store<ESM::Spell> &spells =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>();
 
-        int cmp = a->name.compare(b->name);
+        const ESM::Spell* a = spells.find(left);
+        const ESM::Spell* b = spells.find(right);
+
+        int cmp = a->mName.compare(b->mName);
         return cmp < 0;
     }
 
@@ -139,20 +142,24 @@ namespace MWGui
             spellList.push_back(*it);
         }
 
+        const MWWorld::ESMStore &esmStore =
+            MWBase::Environment::get().getWorld()->getStore();
+
         std::vector<std::string> powers;
         std::vector<std::string>::iterator it = spellList.begin();
         while (it != spellList.end())
         {
-            const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find(*it);
-            if (spell->data.type == ESM::Spell::ST_Power)
+            const ESM::Spell* spell = esmStore.get<ESM::Spell>().find(*it);
+
+            if (spell->mData.mType == ESM::Spell::ST_Power)
             {
                 powers.push_back(*it);
                 it = spellList.erase(it);
             }
-            else if (spell->data.type == ESM::Spell::ST_Ability
-                || spell->data.type == ESM::Spell::ST_Blight
-                || spell->data.type == ESM::Spell::ST_Curse
-                || spell->data.type == ESM::Spell::ST_Disease)
+            else if (spell->mData.mType == ESM::Spell::ST_Ability
+                || spell->mData.mType == ESM::Spell::ST_Blight
+                || spell->mData.mType == ESM::Spell::ST_Curse
+                || spell->mData.mType == ESM::Spell::ST_Disease)
             {
                 it = spellList.erase(it);
             }
@@ -170,8 +177,10 @@ namespace MWGui
             if (enchantId != "")
             {
                 // only add items with "Cast once" or "Cast on use"
-                const ESM::Enchantment* enchant = MWBase::Environment::get().getWorld()->getStore().enchants.find(enchantId);
-                int type = enchant->data.type;
+                const ESM::Enchantment* enchant =
+                    esmStore.get<ESM::Enchantment>().find(enchantId);
+
+                int type = enchant->mData.mType;
                 if (type != ESM::Enchantment::CastOnce
                     && type != ESM::Enchantment::WhenUsed)
                     continue;
@@ -191,10 +200,10 @@ namespace MWGui
 
         for (std::vector<std::string>::const_iterator it = powers.begin(); it != powers.end(); ++it)
         {
-            const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find(*it);
+            const ESM::Spell* spell = esmStore.get<ESM::Spell>().find(*it);
             MyGUI::Button* t = mSpellView->createWidget<MyGUI::Button>("SpellText",
                 MyGUI::IntCoord(4, mHeight, mWidth-8, spellHeight), MyGUI::Align::Left | MyGUI::Align::Top);
-            t->setCaption(spell->name);
+            t->setCaption(spell->mName);
             t->setTextAlign(MyGUI::Align::Left);
             t->setUserString("ToolTipType", "Spell");
             t->setUserString("Spell", *it);
@@ -211,10 +220,10 @@ namespace MWGui
         addGroup("#{sSpells}", "#{sCostChance}");
         for (std::vector<std::string>::const_iterator it = spellList.begin(); it != spellList.end(); ++it)
         {
-            const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find(*it);
+            const ESM::Spell* spell = esmStore.get<ESM::Spell>().find(*it);
             MyGUI::Button* t = mSpellView->createWidget<MyGUI::Button>("SpellText",
                 MyGUI::IntCoord(4, mHeight, mWidth-8, spellHeight), MyGUI::Align::Left | MyGUI::Align::Top);
-            t->setCaption(spell->name);
+            t->setCaption(spell->mName);
             t->setTextAlign(MyGUI::Align::Left);
             t->setUserString("ToolTipType", "Spell");
             t->setUserString("Spell", *it);
@@ -225,7 +234,7 @@ namespace MWGui
             // cost / success chance
             MyGUI::Button* costChance = mSpellView->createWidget<MyGUI::Button>("SpellText",
                 MyGUI::IntCoord(4, mHeight, mWidth-8, spellHeight), MyGUI::Align::Left | MyGUI::Align::Top);
-            std::string cost = boost::lexical_cast<std::string>(spell->data.cost);
+            std::string cost = boost::lexical_cast<std::string>(spell->mData.mCost);
             std::string chance = boost::lexical_cast<std::string>(int(MWMechanics::getSpellSuccessChance(*it, player)));
             costChance->setCaption(cost + "/" + chance);
             costChance->setTextAlign(MyGUI::Align::Right);
@@ -244,7 +253,8 @@ namespace MWGui
         {
             MWWorld::Ptr item = *it;
 
-            const ESM::Enchantment* enchant = MWBase::Environment::get().getWorld()->getStore().enchants.find(MWWorld::Class::get(item).getEnchantment(item));
+            const ESM::Enchantment* enchant =
+                esmStore.get<ESM::Enchantment>().find(MWWorld::Class::get(item).getEnchantment(item));
 
             // check if the item is currently equipped (will display in a different color)
             bool equipped = false;
@@ -272,9 +282,9 @@ namespace MWGui
             MyGUI::Button* costCharge = mSpellView->createWidget<MyGUI::Button>(equipped ? "SpellText" : "SpellTextUnequipped",
                 MyGUI::IntCoord(4, mHeight, mWidth-8, spellHeight), MyGUI::Align::Left | MyGUI::Align::Top);
 
-            std::string cost = boost::lexical_cast<std::string>(enchant->data.cost);
-            std::string charge = boost::lexical_cast<std::string>(enchant->data.charge); /// \todo track current charge
-            if (enchant->data.type == ESM::Enchantment::CastOnce)
+            std::string cost = boost::lexical_cast<std::string>(enchant->mData.mCost);
+            std::string charge = boost::lexical_cast<std::string>(enchant->mData.mCharge); /// \todo track current charge
+            if (enchant->mData.mType == ESM::Enchantment::CastOnce)
             {
                 // this is Morrowind behaviour
                 cost = "100";
@@ -378,9 +388,11 @@ namespace MWGui
         if (MyGUI::InputManager::getInstance().isShiftPressed())
         {
             // delete spell, if allowed
-            const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find(spellId);
-            if (spell->data.flags & ESM::Spell::F_Always
-                || spell->data.type == ESM::Spell::ST_Power)
+            const ESM::Spell* spell =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(spellId);
+
+            if (spell->mData.mFlags & ESM::Spell::F_Always
+                || spell->mData.mType == ESM::Spell::ST_Power)
             {
                 mWindowManager.messageBox("#{sDeleteSpellError}", std::vector<std::string>());
             }
@@ -390,7 +402,7 @@ namespace MWGui
                 mSpellToDelete = spellId;
                 ConfirmationDialog* dialog = mWindowManager.getConfirmationDialog();
                 std::string question = mWindowManager.getGameSettingString("sQuestionDeleteSpell", "Delete %s?");
-                question = boost::str(boost::format(question) % spell->name);
+                question = boost::str(boost::format(question) % spell->mName);
                 dialog->open(question);
                 dialog->eventOkClicked.clear();
                 dialog->eventOkClicked += MyGUI::newDelegate(this, &SpellWindow::onDeleteSpellAccept);

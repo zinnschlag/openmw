@@ -4,7 +4,7 @@
 #include <OgreMaterialManager.h>
 #include <OgreHardwarePixelBuffer.h>
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -108,10 +108,10 @@ void LocalMap::requestMap(MWWorld::Ptr::CellStore* cell)
 
     mCameraRotNode->setOrientation(Quaternion::IDENTITY);
 
-    std::string name = "Cell_"+coordStr(cell->cell->data.gridX, cell->cell->data.gridY);
+    int x = cell->mCell->getGridX();
+    int y = cell->mCell->getGridY();
 
-    int x = cell->cell->data.gridX;
-    int y = cell->cell->data.gridY;
+    std::string name = "Cell_"+coordStr(x, y);
 
     mCameraPosNode->setPosition(Vector3(0,0,0));
 
@@ -163,7 +163,7 @@ void LocalMap::requestMap(MWWorld::Ptr::CellStore* cell,
     const int segsX = std::ceil( length.x / sSize );
     const int segsY = std::ceil( length.y / sSize );
 
-    mInteriorName = cell->cell->name;
+    mInteriorName = cell->mCell->mName;
 
     for (int x=0; x<segsX; ++x)
     {
@@ -173,7 +173,7 @@ void LocalMap::requestMap(MWWorld::Ptr::CellStore* cell,
             Vector2 newcenter = start + 4096;
 
             render(newcenter.x - center.x, newcenter.y - center.y, z.y, z.x, sSize, sSize,
-                cell->cell->name + "_" + coordStr(x,y));
+                cell->mCell->mName + "_" + coordStr(x,y));
         }
     }
 }

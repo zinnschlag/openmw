@@ -7,6 +7,7 @@
 #include "review.hpp"
 #include "dialogue.hpp"
 #include "mode.hpp"
+#include "inventorywindow.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/soundmanager.hpp"
@@ -221,7 +222,7 @@ void CharacterCreation::spawnDialog(const char id)
             mPickClassDialog = 0;
             mPickClassDialog = new PickClassDialog(*mWM);
             mPickClassDialog->setNextButtonShow(mCreationStage >= CSE_ClassChosen);
-            mPickClassDialog->setClassId(mPlayerClass.name);
+            mPickClassDialog->setClassId(mPlayerClass.mName);
             mPickClassDialog->eventDone += MyGUI::newDelegate(this, &CharacterCreation::onPickClassDialogDone);
             mPickClassDialog->eventBack += MyGUI::newDelegate(this, &CharacterCreation::onPickClassDialogBack);
             mPickClassDialog->setVisible(true);
@@ -232,6 +233,7 @@ void CharacterCreation::spawnDialog(const char id)
             mBirthSignDialog = 0;
             mBirthSignDialog = new BirthDialog(*mWM);
             mBirthSignDialog->setNextButtonShow(mCreationStage >= CSE_BirthSignChosen);
+            mBirthSignDialog->setBirthId(mPlayerBirthSignId);
             mBirthSignDialog->eventDone += MyGUI::newDelegate(this, &CharacterCreation::onBirthSignDialogDone);
             mBirthSignDialog->eventBack += MyGUI::newDelegate(this, &CharacterCreation::onBirthSignDialogBack);
             mBirthSignDialog->setVisible(true);
@@ -356,7 +358,9 @@ void CharacterCreation::onPickClassDialogDone(WindowBase* parWindow)
         const std::string &classId = mPickClassDialog->getClassId();
         if (!classId.empty())
             MWBase::Environment::get().getMechanicsManager()->setPlayerClass(classId);
-        const ESM::Class *klass = MWBase::Environment::get().getWorld()->getStore().classes.find(classId);
+
+        const ESM::Class *klass =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Class>().find(classId);
         if (klass)
         {
             mPlayerClass = *klass;
@@ -456,9 +460,16 @@ void CharacterCreation::onRaceDialogBack()
 {
     if (mRaceDialog)
     {
-        mPlayerRaceId = mRaceDialog->getRaceId();
-        if (!mPlayerRaceId.empty())
-            MWBase::Environment::get().getMechanicsManager()->setPlayerRace(mPlayerRaceId, mRaceDialog->getGender() == RaceDialog::GM_Male);
+        const ESM::NPC &data = mRaceDialog->getResult();
+        mPlayerRaceId = data.mRace;
+        if (!mPlayerRaceId.empty()) {
+            MWBase::Environment::get().getMechanicsManager()->setPlayerRace(
+                data.mRace,
+                data.isMale(),
+                data.mHead,
+                data.mHair
+            );
+        }
         mWM->removeDialog(mRaceDialog);
         mRaceDialog = 0;
     }
@@ -471,10 +482,18 @@ void CharacterCreation::onRaceDialogDone(WindowBase* parWindow)
 {
     if (mRaceDialog)
     {
-        mPlayerRaceId = mRaceDialog->getRaceId();
-        mWM->setValue("race", mPlayerRaceId);
-        if (!mPlayerRaceId.empty())
-            MWBase::Environment::get().getMechanicsManager()->setPlayerRace(mPlayerRaceId, mRaceDialog->getGender() == RaceDialog::GM_Male);
+        const ESM::NPC &data = mRaceDialog->getResult();
+        mPlayerRaceId = data.mRace;
+        if (!mPlayerRaceId.empty()) {
+            MWBase::Environment::get().getMechanicsManager()->setPlayerRace(
+                data.mRace,
+                data.isMale(),
+                data.mHead,
+                data.mHair
+            );
+        }
+        mWM->getInventoryWindow()->rebuildAvatar();
+
         mWM->removeDialog(mRaceDialog);
         mRaceDialog = 0;
     }
@@ -537,25 +556,26 @@ void CharacterCreation::onCreateClassDialogDone(WindowBase* parWindow)
     if (mCreateClassDialog)
     {
         ESM::Class klass;
-        klass.name = mCreateClassDialog->getName();
-        klass.description = mCreateClassDialog->getDescription();
-        klass.data.specialization = mCreateClassDialog->getSpecializationId();
-        klass.data.isPlayable = 0x1;
+        klass.mName = mCreateClassDialog->getName();
+        klass.mDescription = mCreateClassDialog->getDescription();
+        klass.mData.mSpecialization = mCreateClassDialog->getSpecializationId();
+        klass.mData.mIsPlayable = 0x1;
 
         std::vector<int> attributes = mCreateClassDialog->getFavoriteAttributes();
         assert(attributes.size() == 2);
-        klass.data.attribute[0] = attributes[0];
-        klass.data.attribute[1] = attributes[1];
+        klass.mData.mAttribute[0] = attributes[0];
+        klass.mData.mAttribute[1] = attributes[1];
 
         std::vector<ESM::Skill::SkillEnum> majorSkills = mCreateClassDialog->getMajorSkills();
         std::vector<ESM::Skill::SkillEnum> minorSkills = mCreateClassDialog->getMinorSkills();
-        assert(majorSkills.size() >= sizeof(klass.data.skills)/sizeof(klass.data.skills[0]));
-        assert(minorSkills.size() >= sizeof(klass.data.skills)/sizeof(klass.data.skills[0]));
-        for (size_t i = 0; i < sizeof(klass.data.skills)/sizeof(klass.data.skills[0]); ++i)
+        assert(majorSkills.size() >= sizeof(klass.mData.mSkills)/sizeof(klass.mData.mSkills[0]));
+        assert(minorSkills.size() >= sizeof(klass.mData.mSkills)/sizeof(klass.mData.mSkills[0]));
+        for (size_t i = 0; i < sizeof(klass.mData.mSkills)/sizeof(klass.mData.mSkills[0]); ++i)
         {
-            klass.data.skills[i][1] = majorSkills[i];
-            klass.data.skills[i][0] = minorSkills[i];
+            klass.mData.mSkills[i][1] = majorSkills[i];
+            klass.mData.mSkills[i][0] = minorSkills[i];
         }
+
         MWBase::Environment::get().getMechanicsManager()->setPlayerClass(klass);
         mPlayerClass = klass;
         mWM->setPlayerClass(klass);
@@ -728,7 +748,10 @@ void CharacterCreation::onGenerateClassDone(WindowBase* parWindow)
     mGenerateClassResultDialog = 0;
 
     MWBase::Environment::get().getMechanicsManager()->setPlayerClass(mGenerateClass);
-    const ESM::Class *klass = MWBase::Environment::get().getWorld()->getStore().classes.find(mGenerateClass);
+
+    const ESM::Class *klass =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Class>().find(mGenerateClass);
+
     mPlayerClass = *klass;
     mWM->setPlayerClass(mPlayerClass);
 

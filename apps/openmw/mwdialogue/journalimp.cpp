@@ -1,7 +1,7 @@
 
 #include "journalimp.hpp"
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -40,7 +40,7 @@ namespace MWDialogue
         quest.addEntry (entry); // we are doing slicing on purpose here
 
         std::vector<std::string> empty;
-        std::string notification = MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sJournalEntry")->str;
+        std::string notification = "#{sJournalEntry}";
         MWBase::Environment::get().getWindowManager()->messageBox (notification, empty);
     }
 

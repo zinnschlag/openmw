@@ -10,6 +10,7 @@
 #include <components/interpreter/opcodes.hpp>
 
 #include "../mwbase/environment.hpp"
+#include "../mwbase/windowmanager.hpp"
 
 #include "../mwworld/class.hpp"
 
@@ -20,6 +21,26 @@ namespace MWScript
 {
     namespace Misc
     {
+        class OpGetPcSleep : public Interpreter::Opcode0
+        {
+        public:
+
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                runtime.push (MWBase::Environment::get().getWindowManager ()->getPlayerSleeping());
+            }
+        };
+
+        class OpWakeUpPc : public Interpreter::Opcode0
+        {
+        public:
+
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                MWBase::Environment::get().getWindowManager ()->wakeUpPlayer();
+            }
+        };
+
         class OpXBox : public Interpreter::Opcode0
         {
             public:
@@ -108,6 +129,24 @@ namespace MWScript
 
                     context.report (enabled ?
                         "Collision Mesh Rendering -> On" : "Collision Mesh Rendering -> Off");
+                }
+        };
+
+
+        class OpToggleCollisionBoxes : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    InterpreterContext& context =
+                        static_cast<InterpreterContext&> (runtime.getContext());
+
+                    bool enabled =
+                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWBase::World::Render_BoundingBoxes);
+
+                    context.report (enabled ?
+                        "Bounding Box Rendering -> On" : "Bounding Box Rendering -> Off");
                 }
         };
 
@@ -241,6 +280,7 @@ namespace MWScript
         const int opcodeUnlock = 0x200008c;
         const int opcodeUnlockExplicit = 0x200008d;
         const int opcodeToggleCollisionDebug = 0x2000132;
+        const int opcodeToggleCollisionBoxes = 0x20001ac;
         const int opcodeToggleWireframe = 0x200013b;
         const int opcodeFadeIn = 0x200013c;
         const int opcodeFadeOut = 0x200013d;
@@ -249,6 +289,8 @@ namespace MWScript
         const int opcodeTogglePathgrid = 0x2000146;
         const int opcodeDontSaveObject = 0x2000153;
         const int opcodeToggleVanityMode = 0x2000174;
+        const int opcodeGetPcSleep = 0x200019f;
+        const int opcodeWakeUpPc = 0x20001a2;
 
         void registerExtensions (Compiler::Extensions& extensions)
         {
@@ -257,9 +299,9 @@ namespace MWScript
             extensions.registerInstruction ("activate", "", opcodeActivate);
             extensions.registerInstruction ("lock", "/l", opcodeLock, opcodeLockExplicit);
             extensions.registerInstruction ("unlock", "", opcodeUnlock, opcodeUnlockExplicit);
-            extensions.registerInstruction ("togglecollisionboxes", "", opcodeToggleCollisionDebug);
+            extensions.registerInstruction ("togglecollisionboxes", "", opcodeToggleCollisionBoxes);
             extensions.registerInstruction ("togglecollisiongrid", "", opcodeToggleCollisionDebug);
-            extensions.registerInstruction ("tcb", "", opcodeToggleCollisionDebug);
+            extensions.registerInstruction ("tcb", "", opcodeToggleCollisionBoxes);
             extensions.registerInstruction ("tcg", "", opcodeToggleCollisionDebug);
             extensions.registerInstruction ("twf", "", opcodeToggleWireframe);
             extensions.registerInstruction ("togglewireframe", "", opcodeToggleWireframe);
@@ -273,6 +315,8 @@ namespace MWScript
             extensions.registerInstruction ("dontsaveobject", "", opcodeDontSaveObject);
             extensions.registerInstruction ("togglevanitymode", "", opcodeToggleVanityMode);
             extensions.registerInstruction ("tvm", "", opcodeToggleVanityMode);
+            extensions.registerFunction ("getpcsleep", 'l', "", opcodeGetPcSleep);
+            extensions.registerInstruction ("wakeuppc", "", opcodeWakeUpPc);
         }
 
         void installOpcodes (Interpreter::Interpreter& interpreter)
@@ -285,6 +329,7 @@ namespace MWScript
             interpreter.installSegment5 (opcodeUnlock, new OpUnlock<ImplicitRef>);
             interpreter.installSegment5 (opcodeUnlockExplicit, new OpUnlock<ExplicitRef>);
             interpreter.installSegment5 (opcodeToggleCollisionDebug, new OpToggleCollisionDebug);
+            interpreter.installSegment5 (opcodeToggleCollisionBoxes, new OpToggleCollisionBoxes);
             interpreter.installSegment5 (opcodeToggleWireframe, new OpToggleWireframe);
             interpreter.installSegment5 (opcodeFadeIn, new OpFadeIn);
             interpreter.installSegment5 (opcodeFadeOut, new OpFadeOut);
@@ -293,6 +338,8 @@ namespace MWScript
             interpreter.installSegment5 (opcodeToggleWater, new OpToggleWater);
             interpreter.installSegment5 (opcodeDontSaveObject, new OpDontSaveObject);
             interpreter.installSegment5 (opcodeToggleVanityMode, new OpToggleVanityMode);
+            interpreter.installSegment5 (opcodeGetPcSleep, new OpGetPcSleep);
+            interpreter.installSegment5 (opcodeWakeUpPc, new OpWakeUpPc);
         }
     }
 }

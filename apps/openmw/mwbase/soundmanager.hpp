@@ -37,7 +37,7 @@ namespace MWBase
                 Play_Normal  = 0, /* tracked, non-looping, multi-instance, environment */
                 Play_Loop    = 1<<0, /* Sound will continually loop until explicitly stopped */
                 Play_NoEnv   = 1<<1, /* Do not apply environment effects (eg, underwater filters) */
-                Play_NoTrack = 1<<2, /* (3D only) Play the sound at the given object's position
+                Play_NoTrack = 1<<2  /* (3D only) Play the sound at the given object's position
                                       * but do not keep it updated (the sound will not move with
                                       * the object and will not stop when the object is deleted. */
             };
@@ -112,12 +112,9 @@ namespace MWBase
             virtual bool getSoundPlaying(MWWorld::Ptr reference, const std::string& soundId) const = 0;
             ///< Is the given sound currently playing on the given object?
 
-            virtual void updateObject(MWWorld::Ptr reference) = 0;
-            ///< Update the position of all sounds connected to the given object.
-
             virtual void update(float duration) = 0;
 
-            virtual void setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir) = 0;
+            virtual void setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir, const Ogre::Vector3 &up) = 0;
     };
 
     inline int operator|(SoundManager::PlayMode a, SoundManager::PlayMode b)

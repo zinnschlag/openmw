@@ -12,6 +12,7 @@
 #include <components/nifbullet/bullet_nif_loader.hpp>
 
 //#include "../mwbase/world.hpp" // FIXME
+#include "../mwbase/environment.hpp"
 
 #include "ptr.hpp"
 #include "class.hpp"
@@ -96,6 +97,10 @@ namespace MWWorld
         if(hasWater){
             playerphysics->waterHeight = waterHeight;
         }
+        for(std::map<std::string,OEngine::Physic::PhysicActor*>::iterator it = mEngine->PhysicActorMap.begin(); it != mEngine->PhysicActorMap.end();it++)
+        {
+            it->second->setCurrentWater(hasWater, waterHeight);
+        }
 
     }
 
@@ -172,17 +177,20 @@ namespace MWWorld
         //set the DebugRenderingMode. To disable it,set it to 0
         //eng->setDebugRenderingMode(1);
 
-        //set the walkdirection to 0 (no movement) for every actor)
+        //set the movement keys to 0 (no movement) for every actor)
         for(std::map<std::string,OEngine::Physic::PhysicActor*>::iterator it = mEngine->PhysicActorMap.begin(); it != mEngine->PhysicActorMap.end();it++)
         {
             OEngine::Physic::PhysicActor* act = it->second;
-            act->setWalkDirection(btVector3(0,0,0));
+            act->setMovement(0,0,0);
         }
+
         playerMove::playercmd& pm_ref = playerphysics->cmd;
+
 
         pm_ref.rightmove = 0;
         pm_ref.forwardmove = 0;
         pm_ref.upmove = 0;
+       
 
 		//playerphysics->ps.move_type = PM_NOCLIP;
         for (std::vector<std::pair<std::string, Ogre::Vector3> >::const_iterator iter (actors.begin());
@@ -193,10 +201,12 @@ namespace MWWorld
                 playerphysics->ps.viewangles.x =
                     Ogre::Radian(mPlayerData.pitch).valueDegrees();
 
+
+
                 playerphysics->ps.viewangles.y =
                     Ogre::Radian(mPlayerData.yaw).valueDegrees() + 90;
 
-                pm_ref.rightmove = -iter->second.x;
+                pm_ref.rightmove = iter->second.x;
                 pm_ref.forwardmove = -iter->second.y;
                 pm_ref.upmove = iter->second.z;
             }
@@ -208,16 +218,17 @@ namespace MWWorld
         const std::vector<std::pair<std::string, Ogre::Vector3> >& actors)
     {
         Pmove(playerphysics);
+       
 
         std::vector< std::pair<std::string, Ogre::Vector3> > response;
         for(std::map<std::string,OEngine::Physic::PhysicActor*>::iterator it = mEngine->PhysicActorMap.begin(); it != mEngine->PhysicActorMap.end();it++)
         {
-            btVector3 newPos = it->second->getPosition();
 
-            Ogre::Vector3 coord(newPos.x(), newPos.y(), newPos.z());
+            Ogre::Vector3 coord = it->second->getPosition();
             if(it->first == "player"){
 
-                coord = playerphysics->ps.origin;
+                coord = playerphysics->ps.origin ;
+                 
             }
 
 
@@ -239,44 +250,53 @@ namespace MWWorld
         mEngine->removeHeightField(x, y);
     }
 
-    void PhysicsSystem::addObject (const std::string& handle, const std::string& mesh,
-        const Ogre::Quaternion& rotation, float scale, const Ogre::Vector3& position)
+    void PhysicsSystem::addObject (const Ptr& ptr)
     {
-        handleToMesh[handle] = mesh;
-        OEngine::Physic::RigidBody* body = mEngine->createRigidBody(mesh,handle,scale);
+        std::string mesh = MWWorld::Class::get(ptr).getModel(ptr);
+        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
+        handleToMesh[node->getName()] = mesh;
+        OEngine::Physic::RigidBody* body = mEngine->createAndAdjustRigidBody(mesh, node->getName(), node->getScale().x, node->getPosition(), node->getOrientation());
         mEngine->addRigidBody(body);
-        btTransform tr;
-        tr.setOrigin(btVector3(position.x,position.y,position.z));
-        tr.setRotation(btQuaternion(rotation.x,rotation.y,rotation.z,rotation.w));
-        body->setWorldTransform(tr);
     }
 
-    void PhysicsSystem::addActor (const std::string& handle, const std::string& mesh,
-        const Ogre::Vector3& position)
+    void PhysicsSystem::addActor (const Ptr& ptr)
     {
+        std::string mesh = MWWorld::Class::get(ptr).getModel(ptr);
+        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
         //TODO:optimize this. Searching the std::map isn't very efficient i think.
-        mEngine->addCharacter(handle);
-        OEngine::Physic::PhysicActor* act = mEngine->getCharacter(handle);
-        act->setPosition(btVector3(position.x,position.y,position.z));
+        mEngine->addCharacter(node->getName(), mesh, node->getPosition(), node->getScale().x, node->getOrientation());
     }
 
     void PhysicsSystem::removeObject (const std::string& handle)
     {
         //TODO:check if actor???
+
         mEngine->removeCharacter(handle);
         mEngine->removeRigidBody(handle);
         mEngine->deleteRigidBody(handle);
     }
 
-    void PhysicsSystem::moveObject (const std::string& handle, const Ogre::Vector3& position)
+    void PhysicsSystem::moveObject (const Ptr& ptr)
     {
+        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
+        std::string handle = node->getName();
+        Ogre::Vector3 position = node->getPosition();
         if (OEngine::Physic::RigidBody* body = mEngine->getRigidBody(handle))
         {
             // TODO very dirty hack to avoid crash during setup -> needs cleaning up to allow
             // start positions others than 0, 0, 0
-            btTransform tr = body->getWorldTransform();
-            tr.setOrigin(btVector3(position.x,position.y,position.z));
-            body->setWorldTransform(tr);
+            
+            
+            if(dynamic_cast<btBoxShape*>(body->getCollisionShape()) == NULL){
+                btTransform tr = body->getWorldTransform();
+                tr.setOrigin(btVector3(position.x,position.y,position.z));
+                body->setWorldTransform(tr);
+            }
+            else{
+                //For objects that contain a box shape.  
+                //Do any such objects exist?  Perhaps animated objects?
+                mEngine->boxAdjustExternal(handleToMesh[handle], body, node->getScale().x, position, node->getOrientation());
+            }
         }
         if (OEngine::Physic::PhysicActor* act = mEngine->getCharacter(handle))
         {
@@ -288,43 +308,47 @@ namespace MWWorld
             }
             else
             {
-                act->setPosition(btVector3(position.x,position.y,position.z));
+                act->setPosition(position);
             }
         }
     }
 
-    void PhysicsSystem::rotateObject (const std::string& handle, const Ogre::Quaternion& rotation)
+    void PhysicsSystem::rotateObject (const Ptr& ptr)
     {
+        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
+        std::string handle = node->getName();
+        Ogre::Quaternion rotation = node->getOrientation();
         if (OEngine::Physic::PhysicActor* act = mEngine->getCharacter(handle))
         {
-            act->setRotation(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+            //Needs to be changed
+            act->setRotation(rotation);
         }
         if (OEngine::Physic::RigidBody* body = mEngine->getRigidBody(handle))
         {
-            body->getWorldTransform().setRotation(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+            if(dynamic_cast<btBoxShape*>(body->getCollisionShape()) == NULL)
+                body->getWorldTransform().setRotation(btQuaternion(rotation.x, rotation.y, rotation.z, rotation.w));
+            else
+                mEngine->boxAdjustExternal(handleToMesh[handle], body, node->getScale().x, node->getPosition(), rotation);
         }
     }
 
-    void PhysicsSystem::scaleObject (const std::string& handle, float scale)
+    void PhysicsSystem::scaleObject (const Ptr& ptr)
     {
+        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
+        std::string handle = node->getName();
         if(handleToMesh.find(handle) != handleToMesh.end())
         {
-            btTransform transform = mEngine->getRigidBody(handle)->getWorldTransform();
             removeObject(handle);
-
-            Ogre::Quaternion quat = Ogre::Quaternion(transform.getRotation().getW(), transform.getRotation().getX(), transform.getRotation().getY(), transform.getRotation().getZ());
-            Ogre::Vector3 vec = Ogre::Vector3(transform.getOrigin().getX(), transform.getOrigin().getY(), transform.getOrigin().getZ());
-            addObject(handle, handleToMesh[handle], quat, scale, vec);
+            addObject(ptr);
         }
+
+        if (OEngine::Physic::PhysicActor* act = mEngine->getCharacter(handle))
+            act->setScale(node->getScale().x);
     }
 
     bool PhysicsSystem::toggleCollisionMode()
     {
-		if(playerphysics->ps.move_type==PM_NOCLIP)
-			playerphysics->ps.move_type=PM_NORMAL;
-
-		else
-			playerphysics->ps.move_type=PM_NOCLIP;
+        playerphysics->ps.move_type = (playerphysics->ps.move_type == PM_NOCLIP ? PM_NORMAL : PM_NOCLIP);
         for(std::map<std::string,OEngine::Physic::PhysicActor*>::iterator it = mEngine->PhysicActorMap.begin(); it != mEngine->PhysicActorMap.end();it++)
         {
             if (it->first=="player")
@@ -335,8 +359,6 @@ namespace MWWorld
                 if(cmode)
                 {
                     act->enableCollisions(false);
-                    act->setGravity(0.);
-                    act->setVerticalVelocity(0);
                     mFreeFly = true;
                     return false;
                 }
@@ -344,31 +366,12 @@ namespace MWWorld
                 {
                     mFreeFly = false;
                     act->enableCollisions(true);
-                    act->setGravity(4.);
-                    act->setVerticalVelocity(0);
                     return true;
                 }
             }
         }
 
         throw std::logic_error ("can't find player");
-    }
-
-    void PhysicsSystem::insertObjectPhysics(const MWWorld::Ptr& ptr, const std::string model){
-
-        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
-
-        addObject(
-            node->getName(),
-            model,
-            node->getOrientation(),
-            node->getScale().x,
-            node->getPosition());
-    }
-
-    void PhysicsSystem::insertActorPhysics(const MWWorld::Ptr& ptr, const std::string model){
-        Ogre::SceneNode* node = ptr.getRefData().getBaseNode();
-        addActor (node->getName(), model, node->getPosition());
     }
 
     bool PhysicsSystem::getObjectAABB(const MWWorld::Ptr &ptr, Ogre::Vector3 &min, Ogre::Vector3 &max)
@@ -378,7 +381,7 @@ namespace MWWorld
             return false;
         }
         btVector3 btMin, btMax;
-        float scale = ptr.getCellRef().scale;
+        float scale = ptr.getCellRef().mScale;
         mEngine->getObjectAABB(model, scale, btMin, btMax);
 
         min.x = btMin.x();

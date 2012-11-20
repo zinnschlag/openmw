@@ -4,15 +4,14 @@
 #include "../mwbase/windowmanager.hpp"
 #include "../mwbase/world.hpp"
 
-#include "../mwworld/player.hpp"
-#include "../mwworld/class.hpp"
-
 #include "../mwmechanics/npcstats.hpp"
 
 #include "../mwgui/bookwindow.hpp"
 #include "../mwgui/scrollwindow.hpp"
 
-#include <components/esm_store/store.hpp>
+#include "player.hpp"
+#include "class.hpp"
+#include "esmstore.hpp"
 
 namespace MWWorld
 {
@@ -24,7 +23,7 @@ namespace MWWorld
     {
         LiveCellRef<ESM::Book> *ref = getTarget().get<ESM::Book>();
 
-        if (ref->base->data.isScroll)
+        if (ref->mBase->mData.mIsScroll)
         {
             MWBase::Environment::get().getWindowManager()->pushGuiMode(MWGui::GM_Scroll);
             MWBase::Environment::get().getWindowManager()->getScrollWindow()->open(getTarget());
@@ -35,22 +34,24 @@ namespace MWWorld
             MWBase::Environment::get().getWindowManager()->getBookWindow()->open(getTarget());
         }
 
-        /*
+        MWWorld::Ptr player = MWBase::Environment::get().getWorld ()->getPlayer().getPlayer();
+        MWMechanics::NpcStats& npcStats = MWWorld::Class::get(player).getNpcStats (player);
+
         // Skill gain from books
-        if (ref->base->data.skillID >= 0 && ref->base->data.skillID < ESM::Skill::Length)
+        if (ref->mBase->mData.mSkillID >= 0 && ref->mBase->mData.mSkillID < ESM::Skill::Length
+                && !npcStats.hasBeenUsed (ref->mBase->mId))
         {
-            MWWorld::Ptr player = MWBase::Environment::get().getWorld ()->getPlayer().getPlayer();
-            MWMechanics::NpcStats& npcStats = MWWorld::Class::get(player).getNpcStats (player);
             MWWorld::LiveCellRef<ESM::NPC> *playerRef = player.get<ESM::NPC>();
-            const ESM::Class *class_ = MWBase::Environment::get().getWorld()->getStore().classes.find (
-                playerRef->base->cls);
 
-            npcStats.increaseSkill (ref->base->data.skillID, *class_, true);
+            const ESM::Class *class_ =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Class>().find (
+                    playerRef->mBase->mClass
+                );
 
-            /// \todo Remove skill from the book. Right now you can read as many times as you want
-            /// and the skill will still increase.
+            npcStats.increaseSkill (ref->mBase->mData.mSkillID, *class_, true);
+
+            npcStats.flagAsUsed (ref->mBase->mId);
         }
-        */
 
     }
 }

@@ -20,6 +20,7 @@
 
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/actiontalk.hpp"
+#include "../mwworld/actionopen.hpp"
 #include "../mwworld/inventorystore.hpp"
 #include "../mwworld/customdata.hpp"
 #include "../mwworld/physicssystem.hpp"
@@ -61,53 +62,62 @@ namespace MWClass
             MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
 
             // NPC stats
-            if (!ref->base->faction.empty())
+            if (!ref->mBase->mFaction.empty())
             {
-                std::string faction = ref->base->faction;
+                std::string faction = ref->mBase->mFaction;
                 boost::algorithm::to_lower(faction);
-                if(ref->base->npdt52.gold != -10)
+                if(ref->mBase->mNpdt52.mGold != -10)
                 {
-                    data->mNpcStats.getFactionRanks()[faction] = (int)ref->base->npdt52.rank;
+                    data->mNpcStats.getFactionRanks()[faction] = (int)ref->mBase->mNpdt52.mRank;
                 }
                 else
                 {
-                    data->mNpcStats.getFactionRanks()[faction] = (int)ref->base->npdt12.rank;
+                    data->mNpcStats.getFactionRanks()[faction] = (int)ref->mBase->mNpdt12.mRank;
                 }
             }
 
             // creature stats
-            if(ref->base->npdt52.gold != -10)
+            if(ref->mBase->mNpdt52.mGold != -10)
             {
                 for (int i=0; i<27; ++i)
-                    data->mNpcStats.getSkill (i).setBase (ref->base->npdt52.skills[i]);
+                    data->mNpcStats.getSkill (i).setBase (ref->mBase->mNpdt52.mSkills[i]);
 
-                data->mCreatureStats.getAttribute(0).set (ref->base->npdt52.strength);
-                data->mCreatureStats.getAttribute(1).set (ref->base->npdt52.intelligence);
-                data->mCreatureStats.getAttribute(2).set (ref->base->npdt52.willpower);
-                data->mCreatureStats.getAttribute(3).set (ref->base->npdt52.agility);
-                data->mCreatureStats.getAttribute(4).set (ref->base->npdt52.speed);
-                data->mCreatureStats.getAttribute(5).set (ref->base->npdt52.endurance);
-                data->mCreatureStats.getAttribute(6).set (ref->base->npdt52.personality);
-                data->mCreatureStats.getAttribute(7).set (ref->base->npdt52.luck);
-                data->mCreatureStats.getHealth().set (ref->base->npdt52.health);
-                data->mCreatureStats.getMagicka().set (ref->base->npdt52.mana);
-                data->mCreatureStats.getFatigue().set (ref->base->npdt52.fatigue);
+                data->mCreatureStats.getAttribute(0).set (ref->mBase->mNpdt52.mStrength);
+                data->mCreatureStats.getAttribute(1).set (ref->mBase->mNpdt52.mIntelligence);
+                data->mCreatureStats.getAttribute(2).set (ref->mBase->mNpdt52.mWillpower);
+                data->mCreatureStats.getAttribute(3).set (ref->mBase->mNpdt52.mAgility);
+                data->mCreatureStats.getAttribute(4).set (ref->mBase->mNpdt52.mSpeed);
+                data->mCreatureStats.getAttribute(5).set (ref->mBase->mNpdt52.mEndurance);
+                data->mCreatureStats.getAttribute(6).set (ref->mBase->mNpdt52.mPersonality);
+                data->mCreatureStats.getAttribute(7).set (ref->mBase->mNpdt52.mLuck);
+                data->mCreatureStats.setHealth (ref->mBase->mNpdt52.mHealth);
+                data->mCreatureStats.setMagicka (ref->mBase->mNpdt52.mMana);
+                data->mCreatureStats.setFatigue (ref->mBase->mNpdt52.mFatigue);
 
-                data->mCreatureStats.setLevel(ref->base->npdt52.level);
+                data->mCreatureStats.setLevel(ref->mBase->mNpdt52.mLevel);
+                data->mNpcStats.setBaseDisposition(ref->mBase->mNpdt52.mDisposition);
+                data->mNpcStats.setReputation(ref->mBase->mNpdt52.mReputation);
             }
             else
             {
-                /// \todo do something with npdt12 maybe:p
+                /// \todo do something with mNpdt12 maybe:p
+                for (int i=0; i<8; ++i)
+                    data->mCreatureStats.getAttribute (i).set (10);
+
+                for (int i=0; i<3; ++i)
+                    data->mCreatureStats.setDynamic (i, 10);
+
+                data->mCreatureStats.setLevel (1);
             }
 
-            data->mCreatureStats.setHello(ref->base->mAiData.mHello);
-            data->mCreatureStats.setFight(ref->base->mAiData.mFight);
-            data->mCreatureStats.setFlee(ref->base->mAiData.mFlee);
-            data->mCreatureStats.setAlarm(ref->base->mAiData.mAlarm);
+            data->mCreatureStats.setAiSetting (0, ref->mBase->mAiData.mHello);
+            data->mCreatureStats.setAiSetting (1, ref->mBase->mAiData.mFight);
+            data->mCreatureStats.setAiSetting (2, ref->mBase->mAiData.mFlee);
+            data->mCreatureStats.setAiSetting (3, ref->mBase->mAiData.mAlarm);
 
             // spells
-            for (std::vector<std::string>::const_iterator iter (ref->base->spells.list.begin());
-                iter!=ref->base->spells.list.end(); ++iter)
+            for (std::vector<std::string>::const_iterator iter (ref->mBase->mSpells.mList.begin());
+                iter!=ref->mBase->mSpells.mList.end(); ++iter)
                 data->mCreatureStats.getSpells().add (*iter);
 
             // store
@@ -120,7 +130,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::NPC> *ref =
             ptr.get<ESM::NPC>();
 
-        return ref->base->mId;
+        return ref->mBase->mId;
     }
 
     void Npc::insertObjectRendering (const MWWorld::Ptr& ptr, MWRender::RenderingInterface& renderingInterface) const
@@ -130,7 +140,7 @@ namespace MWClass
 
     void Npc::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics) const
     {
-        physics.insertActorPhysics(ptr, getModel(ptr));
+        physics.addActor(ptr);
         MWBase::Environment::get().getMechanicsManager()->addActor(ptr);
     }
 
@@ -138,9 +148,10 @@ namespace MWClass
     {
         MWWorld::LiveCellRef<ESM::NPC> *ref =
             ptr.get<ESM::NPC>();
-        assert(ref->base != NULL);
+        assert(ref->mBase != NULL);
 
-        std::string headID = ref->base->head;
+        std::string headID = ref->mBase->mHead;
+
         int end = headID.find_last_of("head_") - 4;
         std::string bodyRaceID = headID.substr(0, end);
 
@@ -153,6 +164,7 @@ namespace MWClass
             model = "meshes\\base_animkna.nif";
         }
         return model;
+
     }
 
     std::string Npc::getName (const MWWorld::Ptr& ptr) const
@@ -160,7 +172,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::NPC> *ref =
             ptr.get<ESM::NPC>();
 
-        return ref->base->name;
+        return ref->mBase->mName;
     }
 
     MWMechanics::CreatureStats& Npc::getCreatureStats (const MWWorld::Ptr& ptr) const
@@ -180,7 +192,10 @@ namespace MWClass
     boost::shared_ptr<MWWorld::Action> Npc::activate (const MWWorld::Ptr& ptr,
         const MWWorld::Ptr& actor) const
     {
-        return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionTalk (ptr));
+        if (MWWorld::Class::get (ptr).getCreatureStats (ptr).isDead())
+            return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionOpen(ptr));
+        else
+            return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionTalk (ptr));
     }
 
     MWWorld::ContainerStore& Npc::getContainerStore (const MWWorld::Ptr& ptr)
@@ -204,7 +219,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::NPC> *ref =
             ptr.get<ESM::NPC>();
 
-        return ref->base->script;
+        return ref->mBase->mScript;
     }
 
     void Npc::setForceStance (const MWWorld::Ptr& ptr, Stance stance, bool force) const
@@ -297,16 +312,24 @@ namespace MWClass
     {
         Ogre::Vector3 vector (0, 0, 0);
 
-        vector.x = - getMovementSettings (ptr).mLeftRight * 127;
+        vector.x = getMovementSettings (ptr).mLeftRight * 127;
         vector.y = getMovementSettings (ptr).mForwardBackward * 127;
-		vector.z = getMovementSettings(ptr).mUpDown * 127;
+        vector.z = getMovementSettings(ptr).mUpDown * 127;
 
         //if (getStance (ptr, Run, false))
         //    vector *= 2;
 
         return vector;
     }
+    
+    bool Npc::isEssential (const MWWorld::Ptr& ptr) const
+    {
+        MWWorld::LiveCellRef<ESM::NPC> *ref =
+            ptr.get<ESM::NPC>();
 
+        return ref->mBase->mFlags & ESM::NPC::Essential;
+    }
+    
     void Npc::registerSelf()
     {
         boost::shared_ptr<Class> instance (new Npc);
@@ -326,11 +349,11 @@ namespace MWClass
             ptr.get<ESM::NPC>();
 
         MWGui::ToolTipInfo info;
-        info.caption = ref->base->name;
+        info.caption = ref->mBase->mName;
 
         std::string text;
         if (MWBase::Environment::get().getWindowManager()->getFullHelp())
-            text += MWGui::ToolTips::getMiscString(ref->base->script, "Script");
+            text += MWGui::ToolTips::getMiscString(ref->mBase->mScript, "Script");
         info.text = text;
 
         return info;
@@ -374,8 +397,10 @@ namespace MWClass
 
         MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
 
-        const ESM::Class *class_ = MWBase::Environment::get().getWorld()->getStore().classes.find (
-            ref->base->cls);
+        const ESM::Class *class_ =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Class>().find (
+                ref->mBase->mClass
+            );
 
         stats.useSkill (skill, *class_, usageType);
     }
@@ -392,6 +417,6 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::NPC> *ref =
             ptr.get<ESM::NPC>();
 
-        return MWWorld::Ptr(&cell.npcs.insert(*ref), &cell);
+        return MWWorld::Ptr(&cell.mNpcs.insert(*ref), &cell);
     }
 }

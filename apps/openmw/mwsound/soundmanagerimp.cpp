@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <map>
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -116,26 +116,25 @@ namespace MWSound
     std::string SoundManager::lookup(const std::string &soundId,
                        float &volume, float &min, float &max)
     {
-        const ESM::Sound *snd = MWBase::Environment::get().getWorld()->getStore().sounds.search(soundId);
-        if(snd == NULL)
-            throw std::runtime_error(std::string("Failed to lookup sound ")+soundId);
+        const ESM::Sound *snd =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Sound>().find(soundId);
 
-        volume *= pow(10.0, (snd->data.volume/255.0*3348.0 - 3348.0) / 2000.0);
+        volume *= pow(10.0, (snd->mData.mVolume/255.0*3348.0 - 3348.0) / 2000.0);
 
-        if(snd->data.minRange == 0 && snd->data.maxRange == 0)
+        if(snd->mData.mMinRange == 0 && snd->mData.mMaxRange == 0)
         {
             min = 100.0f;
             max = 2000.0f;
         }
         else
         {
-            min = snd->data.minRange * 20.0f;
-            max = snd->data.maxRange * 50.0f;
+            min = snd->mData.mMinRange * 20.0f;
+            max = snd->mData.mMaxRange * 50.0f;
             min = std::max(min, 1.0f);
             max = std::max(min, max);
         }
 
-        return "Sound/"+snd->sound;
+        return "Sound/"+snd->mSound;
     }
 
 
@@ -296,7 +295,7 @@ namespace MWSound
         }
         catch(std::exception &e)
         {
-            std::cout <<"Sound Error: "<<e.what()<< std::endl;
+            //std::cout <<"Sound Error: "<<e.what()<< std::endl;
         }
         return sound;
     }
@@ -332,7 +331,7 @@ namespace MWSound
         }
         catch(std::exception &e)
         {
-            std::cout <<"Sound Error: "<<e.what()<< std::endl;
+            //std::cout <<"Sound Error: "<<e.what()<< std::endl;
         }
         return sound;
     }
@@ -404,18 +403,6 @@ namespace MWSound
         return isPlaying(ptr, soundId);
     }
 
-    void SoundManager::updateObject(MWWorld::Ptr ptr)
-    {
-        const ESM::Position &pos = ptr.getRefData().getPosition();;
-        const Ogre::Vector3 objpos(pos.pos[0], pos.pos[1], pos.pos[2]);
-        SoundMap::iterator snditer = mActiveSounds.begin();
-        while(snditer != mActiveSounds.end())
-        {
-            if(snditer->second.first == ptr)
-                snditer->first->setPosition(objpos);
-            snditer++;
-        }
-    }
 
     void SoundManager::updateRegionSound(float duration)
     {
@@ -426,27 +413,29 @@ namespace MWSound
 
         //If the region has changed
         timePassed += duration;
-        if((current->cell->data.flags & current->cell->Interior) || timePassed < 10)
+        if(!current->mCell->isExterior() || timePassed < 10)
             return;
         timePassed = 0;
 
-        if(regionName != current->cell->region)
+        if(regionName != current->mCell->mRegion)
         {
-            regionName = current->cell->region;
+            regionName = current->mCell->mRegion;
             total = 0;
         }
 
-        const ESM::Region *regn = MWBase::Environment::get().getWorld()->getStore().regions.search(regionName);
+        const ESM::Region *regn =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Region>().search(regionName);
+
         if (regn == NULL)
             return;
 
         std::vector<ESM::Region::SoundRef>::const_iterator soundIter;
         if(total == 0)
         {
-            soundIter = regn->soundList.begin();
-            while(soundIter != regn->soundList.end())
+            soundIter = regn->mSoundList.begin();
+            while(soundIter != regn->mSoundList.end())
             {
-                total += (int)soundIter->chance;
+                total += (int)soundIter->mChance;
                 soundIter++;
             }
             if(total == 0)
@@ -456,11 +445,11 @@ namespace MWSound
         int r = (int)(rand()/((double)RAND_MAX+1) * total);
         int pos = 0;
 
-        soundIter = regn->soundList.begin();
-        while(soundIter != regn->soundList.end())
+        soundIter = regn->mSoundList.begin();
+        while(soundIter != regn->mSoundList.end())
         {
-            const std::string go = soundIter->sound.toString();
-            int chance = (int) soundIter->chance;
+            const std::string go = soundIter->mSound.toString();
+            int chance = (int) soundIter->mChance;
             //std::cout << "Sound: " << go.name <<" Chance:" <<  chance << "\n";
             soundIter++;
             if(r - pos < chance)
@@ -489,16 +478,16 @@ namespace MWSound
 
         MWWorld::Ptr player =
             MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
-        const ESM::Cell *cell = player.getCell()->cell;
+        const ESM::Cell *cell = player.getCell()->mCell;
 
         Environment env = Env_Normal;
-        if((cell->data.flags&cell->HasWater) && mListenerPos.z < cell->water)
+        if((cell->mData.mFlags&cell->HasWater) && mListenerPos.z < cell->mWater)
             env = Env_Underwater;
 
         mOutput->updateListener(
             mListenerPos,
             mListenerDir,
-            Ogre::Vector3::UNIT_Z,
+            mListenerUp,
             env
         );
 
@@ -558,10 +547,11 @@ namespace MWSound
         }
     }
 
-    void SoundManager::setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir)
+    void SoundManager::setListenerPosDir(const Ogre::Vector3 &pos, const Ogre::Vector3 &dir, const Ogre::Vector3 &up)
     {
         mListenerPos = pos;
         mListenerDir = dir;
+        mListenerUp  = up;
     }
 
     // Default readAll implementation, for decoders that can't do anything

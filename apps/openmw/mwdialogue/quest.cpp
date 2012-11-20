@@ -1,7 +1,7 @@
 
 #include "quest.hpp"
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -18,12 +18,13 @@ namespace MWDialogue
 
     const std::string Quest::getName() const
     {
-        const ESM::Dialogue *dialogue = MWBase::Environment::get().getWorld()->getStore().dialogs.find (mTopic);
+        const ESM::Dialogue *dialogue =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>().find (mTopic);
 
         for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
             iter!=dialogue->mInfo.end(); ++iter)
-            if (iter->questStatus==ESM::DialInfo::QS_Name)
-                return iter->response;
+            if (iter->mQuestStatus==ESM::DialInfo::QS_Name)
+                return iter->mResponse;
 
         return "";
     }
@@ -35,17 +36,18 @@ namespace MWDialogue
 
     void Quest::setIndex (int index)
     {
-        const ESM::Dialogue *dialogue = MWBase::Environment::get().getWorld()->getStore().dialogs.find (mTopic);
+        const ESM::Dialogue *dialogue =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>().find (mTopic);
 
         for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
             iter!=dialogue->mInfo.end(); ++iter)
-            if (iter->data.disposition==index && iter->questStatus!=ESM::DialInfo::QS_Name)
+            if (iter->mData.mDisposition==index && iter->mQuestStatus!=ESM::DialInfo::QS_Name)
             {
                 mIndex = index;
 
-                if (iter->questStatus==ESM::DialInfo::QS_Finished)
+                if (iter->mQuestStatus==ESM::DialInfo::QS_Finished)
                     mFinished = true;
-                else if (iter->questStatus==ESM::DialInfo::QS_Restart)
+                else if (iter->mQuestStatus==ESM::DialInfo::QS_Restart)
                     mFinished = false;
 
                 return;
@@ -63,13 +65,14 @@ namespace MWDialogue
     {
         int index = -1;
 
-        const ESM::Dialogue *dialogue = MWBase::Environment::get().getWorld()->getStore().dialogs.find (entry.mTopic);
+        const ESM::Dialogue *dialogue =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>().find (entry.mTopic);
 
         for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
             iter!=dialogue->mInfo.end(); ++iter)
-            if (iter->id==entry.mInfoId)
+            if (iter->mId == entry.mInfoId)
             {
-                index = iter->data.disposition; /// \todo cleanup info structure
+                index = iter->mData.mDisposition; /// \todo cleanup info structure
                 break;
             }
 

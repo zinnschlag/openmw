@@ -4,6 +4,7 @@
 #include <set>
 #include <vector>
 #include <string>
+#include <map>
 
 namespace Ogre
 {
@@ -22,6 +23,7 @@ namespace MWMechanics
     {
             std::set<MWWorld::Ptr> mActors;
             float mDuration;
+            std::map<std::string, int> mDeathCount;
 
             void updateNpc (const MWWorld::Ptr& ptr, float duration, bool paused);
 
@@ -31,12 +33,17 @@ namespace MWMechanics
 
             void calculateCreatureStatModifiers (const MWWorld::Ptr& ptr);
 
+            void calculateRestoration (const MWWorld::Ptr& ptr, float duration);
+
+
         public:
 
             Actors();
 
             void addActor (const MWWorld::Ptr& ptr);
             ///< Register an actor for stats management
+            ///
+            /// \note Dead actors are ignored.
 
             void removeActor (const MWWorld::Ptr& ptr);
             ///< Deregister an actor for stats management
@@ -54,6 +61,11 @@ namespace MWMechanics
             ///< This function is normally called automatically during the update process, but it can
             /// also be called explicitly at any time to force an update.
 
+            void restoreDynamicStats();
+            ///< If the player is sleeping, this should be called every hour.
+            
+            int countDeaths (const std::string& id) const;
+            ///< Return the number of deaths for actors with the given ID.
     };
 }
 

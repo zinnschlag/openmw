@@ -20,6 +20,7 @@
 
 #include "mwscript/scriptmanagerimp.hpp"
 #include "mwscript/extensions.hpp"
+#include "mwscript/interpretercontext.hpp"
 
 #include "mwsound/soundmanagerimp.hpp"
 
@@ -101,7 +102,7 @@ bool OMW::Engine::frameRenderingQueued (const Ogre::FrameEvent& evt)
             MWBase::Environment::get().getWorld()->doPhysics (movement, mEnvironment.getFrameDuration());
 
         // update world
-        MWBase::Environment::get().getWorld()->update (evt.timeSinceLastFrame);
+        MWBase::Environment::get().getWorld()->update (evt.timeSinceLastFrame, MWBase::Environment::get().getWindowManager()->isGuiMode());
 
         // update GUI
         Ogre::RenderWindow* window = mOgre->getWindow();
@@ -163,9 +164,8 @@ void OMW::Engine::loadBSA()
         std::cout << "Data dir " << dataDirectory << std::endl;
         Bsa::addDir(dataDirectory, mFSStrict);
 
-        // Workaround: Mygui does not find textures in non-BSA subfolders, _unless_ they are explicitely added like this
-        // For splash screens, this is OK to do, but eventually we will need an investigation why this is necessary
-        Bsa::addDir(dataDirectory + "/Splash", mFSStrict);
+        // Workaround until resource listing capabilities are added to DirArchive, we need those to list available splash screens
+        addResourcesDirectory (dataDirectory);
     }
 }
 
@@ -307,6 +307,8 @@ void OMW::Engine::go()
 
     //addResourcesDirectory(mResDir);
 
+    addResourcesDirectory(mCfgMgr.getCachePath ().string());
+
     addResourcesDirectory(mResDir / "mygui");
     addResourcesDirectory(mResDir / "water");
     addResourcesDirectory(mResDir / "gbuffer");
@@ -337,7 +339,7 @@ void OMW::Engine::go()
 
     mEnvironment.setWindowManager (new MWGui::WindowManager(
         mExtensions, mFpsLevel, mNewGame, mOgre, mCfgMgr.getLogPath().string() + std::string("/"),
-        mScriptConsoleMode));
+        mCfgMgr.getCachePath ().string(), mScriptConsoleMode));
 
     // Create sound system
     mEnvironment.setSoundManager (new MWSound::SoundManager(mUseSound));
@@ -354,7 +356,7 @@ void OMW::Engine::go()
 
     // Create dialog system
     mEnvironment.setJournal (new MWDialogue::Journal);
-    mEnvironment.setDialogueManager (new MWDialogue::DialogueManager (mExtensions));
+    mEnvironment.setDialogueManager (new MWDialogue::DialogueManager (mExtensions, mVerboseScripts));
 
     // Sets up the input system
     mEnvironment.setInputManager (new MWInput::InputManager (*mOgre,
@@ -370,7 +372,7 @@ void OMW::Engine::go()
 
     if (const ESM::Cell *exterior = MWBase::Environment::get().getWorld()->getExterior (mCellName))
     {
-        MWBase::Environment::get().getWorld()->indexToPosition (exterior->data.gridX, exterior->data.gridY,
+        MWBase::Environment::get().getWorld()->indexToPosition (exterior->mData.mX, exterior->mData.mY,
             pos.pos[0], pos.pos[1], true);
         MWBase::Environment::get().getWorld()->changeToExteriorCell (pos);
     }
@@ -422,21 +424,10 @@ void OMW::Engine::activate()
     if (handle.empty())
         return;
 
-    // the faced handle is not updated immediately, so on a cell change it might
-    // point to an object that doesn't exist anymore
-    // therefore, we are catching the "Unknown Ogre handle" exception that occurs in this case
-    MWWorld::Ptr ptr;
-    try
-    {
-        ptr = MWBase::Environment::get().getWorld()->getPtrViaHandle (handle);
+    MWWorld::Ptr ptr = MWBase::Environment::get().getWorld()->searchPtrViaHandle (handle);
 
-        if (ptr.isEmpty())
-            return;
-    }
-    catch (std::runtime_error&)
-    {
+    if (ptr.isEmpty())
         return;
-    }
 
     MWScript::InterpreterContext interpreterContext (&ptr.getRefData().getLocals(), ptr);
 

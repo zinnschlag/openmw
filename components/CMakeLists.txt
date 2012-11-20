@@ -34,16 +34,12 @@ add_component_dir (file_finder
     file_finder filename_less search
     )
 
-add_component_dir (esm_store
-    reclists store
-    )
-
 add_component_dir (esm
-    attr defs esm_reader loadacti loadalch loadappa loadarmo loadbody loadbook loadbsgn loadcell
+    attr defs esmcommon esmreader esmwriter loadacti loadalch loadappa loadarmo loadbody loadbook loadbsgn loadcell
     loadclas loadclot loadcont loadcrea loadcrec loaddial loaddoor loadench loadfact loadglob loadgmst
     loadinfo loadingr loadland loadlevlist loadligh loadlocks loadltex loadmgef loadmisc loadnpcc
     loadnpc loadpgrd loadrace loadregn loadscpt loadskil loadsndg loadsoun loadspel loadsscr loadstat
-    loadweap records aipackage
+    loadweap records aipackage effectlist spelllist
     )
 
 add_component_dir (misc

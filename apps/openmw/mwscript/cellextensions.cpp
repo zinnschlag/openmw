@@ -1,7 +1,7 @@
 
 #include "cellextensions.hpp"
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include <components/compiler/extensions.hpp>
 
@@ -45,7 +45,7 @@ namespace MWScript
 
                     if (const ESM::Cell *exterior = MWBase::Environment::get().getWorld()->getExterior (cell))
                     {
-                        MWBase::Environment::get().getWorld()->indexToPosition (exterior->data.gridX, exterior->data.gridY,
+                        MWBase::Environment::get().getWorld()->indexToPosition (exterior->mData.mX, exterior->mData.mY,
                             pos.pos[0], pos.pos[1], true);
                         MWBase::Environment::get().getWorld()->changeToExteriorCell (pos);
                     }
@@ -87,8 +87,7 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     bool interior =
-                        MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->cell->data.flags &
-                            ESM::Cell::Interior;
+                        !MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->mCell->isExterior();
 
                     runtime.push (interior ? 1 : 0);
                 }
@@ -103,16 +102,16 @@ namespace MWScript
                     std::string name = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    const ESM::Cell *cell = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->cell;
+                    const ESM::Cell *cell = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->mCell;
 
-                    std::string current = cell->name;
+                    std::string current = cell->mName;
 
-                    if (!(cell->data.flags & ESM::Cell::Interior) && current.empty())
+                    if (!(cell->mData.mFlags & ESM::Cell::Interior) && current.empty())
                     {
                         const ESM::Region *region =
-                            MWBase::Environment::get().getWorld()->getStore().regions.find (cell->region);
+                            MWBase::Environment::get().getWorld()->getStore().get<ESM::Region>().find (cell->mRegion);
 
-                        current = region->name;
+                        current = region->mName;
                     }
 
                     bool match = current.length()>=name.length() &&
@@ -143,7 +142,7 @@ namespace MWScript
 
                     MWWorld::Ptr::CellStore *cell = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell();
 
-                    if (!(cell->cell->data.flags & ESM::Cell::Interior))
+                    if (cell->mCell->isExterior())
                         throw std::runtime_error("Can't set water level in exterior cell");
 
                     cell->mWaterLevel = level;
@@ -161,7 +160,7 @@ namespace MWScript
 
                     MWWorld::Ptr::CellStore *cell = MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell();
 
-                    if (!(cell->cell->data.flags & ESM::Cell::Interior))
+                    if (cell->mCell->isExterior())
                         throw std::runtime_error("Can't set water level in exterior cell");
 
                     cell->mWaterLevel +=level;

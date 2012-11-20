@@ -7,7 +7,7 @@
 #include <exception>
 
 #include <components/esm/loadscpt.hpp>
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include <components/compiler/scanner.hpp>
 #include <components/compiler/context.hpp>
@@ -17,7 +17,7 @@
 
 namespace MWScript
 {
-    ScriptManager::ScriptManager (const ESMS::ESMStore& store, bool verbose,
+    ScriptManager::ScriptManager (const MWWorld::ESMStore& store, bool verbose,
         Compiler::Context& compilerContext)
     : mErrorHandler (std::cerr), mStore (store), mVerbose (verbose),
       mCompilerContext (compilerContext), mParser (mErrorHandler, mCompilerContext),
@@ -31,14 +31,14 @@ namespace MWScript
 
         bool Success = true;
 
-        if (const ESM::Script *script = mStore.scripts.find (name))
+        if (const ESM::Script *script = mStore.get<ESM::Script>().find (name))
         {
             if (mVerbose)
                 std::cout << "compiling script: " << name << std::endl;
 
             try
             {
-                std::istringstream input (script->scriptText);
+                std::istringstream input (script->mScriptText);
 
                 Compiler::Scanner scanner (mErrorHandler, input, mCompilerContext.getExtensions());
 
@@ -62,7 +62,7 @@ namespace MWScript
             {
                 std::cerr
                     << "compiling failed: " << name << std::endl
-                    << script->scriptText
+                    << script->mScriptText
                     << std::endl << std::endl;
             }
 
@@ -125,15 +125,14 @@ namespace MWScript
 
     std::pair<int, int> ScriptManager::compileAll()
     {
-        typedef ESMS::ScriptListT<ESM::Script>::MapType Container;
-
-        const Container& scripts = mStore.scripts.list;
-
         int count = 0;
         int success = 0;
 
-        for (Container::const_iterator iter (scripts.begin()); iter!=scripts.end(); ++iter, ++count)
-            if (compile (iter->first))
+        const MWWorld::Store<ESM::Script>& scripts = mStore.get<ESM::Script>();
+        MWWorld::Store<ESM::Script>::iterator it = scripts.begin();
+
+        for (; it != scripts.end(); ++it, ++count)
+            if (compile (it->mId))
                 ++success;
 
         return std::make_pair (count, success);
@@ -170,7 +169,7 @@ namespace MWScript
     int ScriptManager::getLocalIndex (const std::string& scriptId, const std::string& variable,
         char type)
     {
-        const ESM::Script *script = mStore.scripts.find (scriptId);
+        const ESM::Script *script = mStore.get<ESM::Script>().find (scriptId);
 
         int offset = 0;
         int size = 0;
@@ -180,19 +179,19 @@ namespace MWScript
             case 's':
 
                 offset = 0;
-                size = script->data.numShorts;
+                size = script->mData.mNumShorts;
                 break;
 
             case 'l':
 
-                offset = script->data.numShorts;
-                size = script->data.numLongs;
+                offset = script->mData.mNumShorts;
+                size = script->mData.mNumLongs;
                 break;
 
             case 'f':
 
-                offset = script->data.numShorts+script->data.numLongs;
-                size = script->data.numFloats;
+                offset = script->mData.mNumShorts+script->mData.mNumLongs;
+                size = script->mData.mNumFloats;
 
             default:
 
@@ -200,7 +199,7 @@ namespace MWScript
         }
 
         for (int i=0; i<size; ++i)
-            if (script->varNames.at (i+offset)==variable)
+            if (script->mVarNames.at (i+offset)==variable)
                 return i;
 
         throw std::runtime_error ("unable to access local variable " + variable + " of " + scriptId);

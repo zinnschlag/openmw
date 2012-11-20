@@ -1,7 +1,7 @@
 
 #include "spells.hpp"
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include <components/esm/loadspel.hpp>
 
@@ -14,7 +14,7 @@ namespace MWMechanics
 {
     void Spells::addSpell (const ESM::Spell *spell, MagicEffects& effects) const
     {
-        effects.add (spell->effects);
+        effects.add (spell->mEffects);
     }
 
     Spells::TIterator Spells::begin() const
@@ -50,10 +50,11 @@ namespace MWMechanics
 
         for (TIterator iter = mSpells.begin(); iter!=mSpells.end(); ++iter)
         {
-            const ESM::Spell *spell = MWBase::Environment::get().getWorld()->getStore().spells.find (*iter);
+            const ESM::Spell *spell =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find (*iter);
 
-            if (spell->data.type==ESM::Spell::ST_Ability || spell->data.type==ESM::Spell::ST_Blight ||
-                spell->data.type==ESM::Spell::ST_Disease || spell->data.type==ESM::Spell::ST_Curse)
+            if (spell->mData.mType==ESM::Spell::ST_Ability || spell->mData.mType==ESM::Spell::ST_Blight ||
+                spell->mData.mType==ESM::Spell::ST_Disease || spell->mData.mType==ESM::Spell::ST_Curse)
                 addSpell (spell, effects);
         }
 
@@ -73,5 +74,33 @@ namespace MWMechanics
     const std::string Spells::getSelectedSpell() const
     {
         return mSelectedSpell;
+    }
+    
+    bool Spells::hasCommonDisease() const
+    {
+        for (TIterator iter = mSpells.begin(); iter!=mSpells.end(); ++iter)
+        {
+            const ESM::Spell *spell =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find (*iter);
+        
+            if (spell->mData.mFlags & ESM::Spell::ST_Disease)
+                return true;
+        }
+        
+        return false;
+    }
+
+    bool Spells::hasBlightDisease() const
+    {
+        for (TIterator iter = mSpells.begin(); iter!=mSpells.end(); ++iter)
+        {
+            const ESM::Spell *spell =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find (*iter);
+        
+            if (spell->mData.mFlags & ESM::Spell::ST_Blight)
+                return true;
+        }
+        
+        return false;    
     }
 }

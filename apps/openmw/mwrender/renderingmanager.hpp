@@ -44,6 +44,7 @@ namespace MWRender
     class Water;
     class Compositors;
     class ExternalRendering;
+    class GlobalMap;
 
 class RenderingManager: private RenderingInterface, public Ogre::WindowEventListener {
 
@@ -124,7 +125,7 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     /// \param store Cell the object was in previously (\a ptr has already been updated to the new cell).
     void moveObjectToCell (const MWWorld::Ptr& ptr, const Ogre::Vector3& position, MWWorld::CellStore *store);
 
-    void update (float duration);
+    void update (float duration, bool paused);
 
     void setAmbientColour(const Ogre::ColourValue& colour);
     void setSunColour(const Ogre::ColourValue& colour);
@@ -217,6 +218,8 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     TerrainManager* mTerrainManager;
 
     MWRender::Water *mWater;
+
+    GlobalMap* mGlobalMap;
 
     OEngine::Render::OgreRenderer &mRendering;
 

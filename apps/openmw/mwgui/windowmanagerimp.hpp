@@ -63,6 +63,10 @@ namespace MWGui
   class QuickKeysMenu;
   class LoadingScreen;
   class LevelupDialog;
+  class WaitDialog;
+  class SpellCreationDialog;
+  class EnchantingDialog;
+  class TrainingWindow;
 
   class WindowManager : public MWBase::WindowManager
   {
@@ -70,7 +74,9 @@ namespace MWGui
     typedef std::pair<std::string, int> Faction;
     typedef std::vector<Faction> FactionList;
 
-    WindowManager(const Compiler::Extensions& extensions, int fpsLevel, bool newGame, OEngine::Render::OgreRenderer *mOgre, const std::string& logpath, bool consoleOnlyScripts);
+    WindowManager(const Compiler::Extensions& extensions, int fpsLevel, bool newGame,
+                  OEngine::Render::OgreRenderer *mOgre, const std::string& logpath,
+                  const std::string& cacheDir, bool consoleOnlyScripts);
     virtual ~WindowManager();
 
     /**
@@ -108,6 +114,7 @@ namespace MWGui
     virtual MWGui::ConfirmationDialog* getConfirmationDialog();
     virtual MWGui::TradeWindow* getTradeWindow();
     virtual MWGui::SpellBuyingWindow* getSpellBuyingWindow();
+    virtual MWGui::TravelWindow* getTravelWindow();
     virtual MWGui::SpellWindow* getSpellWindow();
     virtual MWGui::Console* getConsole();
 
@@ -171,6 +178,8 @@ namespace MWGui
     virtual void allowMouse();
     virtual void notifyInputActionBound();
 
+    virtual void addVisitedLocation(const std::string& name, int x, int y);
+
     virtual void removeDialog(OEngine::GUI::Layout* dialog); ///< Hides dialog and schedules dialog to be deleted.
 
     virtual void messageBox (const std::string& message, const std::vector<std::string>& buttons);
@@ -191,7 +200,7 @@ namespace MWGui
      * @param id Identifier for the GMST setting, e.g. "aName"
      * @param default Default value if the GMST setting cannot be used.
      */
-    virtual const std::string &getGameSettingString(const std::string &id, const std::string &default_);
+    virtual std::string getGameSettingString(const std::string &id, const std::string &default_);
 
     virtual void processChangedSettings(const Settings::CategorySettingVector& changed);
 
@@ -202,6 +211,13 @@ namespace MWGui
 
     virtual void enableRest() { mRestAllowed = true; }
     virtual bool getRestEnabled() { return mRestAllowed; }
+
+    virtual bool getPlayerSleeping();
+    virtual void wakeUpPlayer();
+
+    virtual void startSpellMaking(MWWorld::Ptr actor);
+    virtual void startEnchanting(MWWorld::Ptr actor);
+    virtual void startTraining(MWWorld::Ptr actor);
 
   private:
     OEngine::GUI::MyGUIManager *mGuiManager;
@@ -222,6 +238,7 @@ namespace MWGui
     CountDialog* mCountDialog;
     TradeWindow* mTradeWindow;
     SpellBuyingWindow* mSpellBuyingWindow;
+    TravelWindow* mTravelWindow;
     SettingsWindow* mSettingsWindow;
     ConfirmationDialog* mConfirmationDialog;
     AlchemyWindow* mAlchemyWindow;
@@ -229,6 +246,10 @@ namespace MWGui
     QuickKeysMenu* mQuickKeysMenu;
     LoadingScreen* mLoadingScreen;
     LevelupDialog* mLevelupDialog;
+    WaitDialog* mWaitDialog;
+    SpellCreationDialog* mSpellCreationDialog;
+    EnchantingDialog* mEnchantingDialog;
+    TrainingWindow* mTrainingWindow;
 
     CharacterCreation* mCharGen;
 
@@ -240,7 +261,6 @@ namespace MWGui
 
     /// \todo get rid of this stuff. Move it to the respective UI element classes, if needed.
     // Various stats about player as needed by window manager
-    ESM::Class mPlayerClass;
     std::string mPlayerName;
     std::string mPlayerRaceId;
     std::map<int, MWMechanics::Stat<int> > mPlayerAttributes;

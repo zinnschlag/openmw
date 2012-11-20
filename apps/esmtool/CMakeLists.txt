@@ -1,5 +1,9 @@
 set(ESMTOOL
   esmtool.cpp
+  labels.hpp
+  labels.cpp
+  record.hpp
+  record.cpp
 )
 source_group(apps\\esmtool FILES ${ESMTOOL})
 

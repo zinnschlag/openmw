@@ -7,8 +7,14 @@
 
 #include <components/esm/loadnpc.hpp>
 
+#include "../mwworld/esmstore.hpp"
+
 #include "../mwworld/class.hpp"
 #include "../mwworld/inventorystore.hpp"
+
+#include "../mwbase/world.hpp"
+#include "../mwbase/environment.hpp"
+#include "../mwbase/windowmanager.hpp"
 
 #include "creaturestats.hpp"
 
@@ -18,9 +24,9 @@ namespace MWMechanics
     {
         // magic effects
         adjustMagicEffects (ptr);
-        calculateCreatureStatModifiers (ptr);
         calculateDynamicStats (ptr);
-        
+        calculateCreatureStatModifiers (ptr);
+
         // AI
         CreatureStats& creatureStats =  MWWorld::Class::get (ptr).getCreatureStats (ptr);
         creatureStats.getAiSequence().execute (ptr);
@@ -67,13 +73,63 @@ namespace MWMechanics
         double magickaFactor =
             creatureStats.getMagicEffects().get (EffectKey (84)).mMagnitude * 0.1 + 0.5;
 
-        creatureStats.getHealth().setBase(
-            static_cast<int> (0.5 * (strength + endurance)) + creatureStats.getLevelHealthBonus ());
+        DynamicStat<float> health = creatureStats.getHealth();
+        health.setBase (static_cast<int> (0.5 * (strength + endurance)) + creatureStats.getLevelHealthBonus ());
+        creatureStats.setHealth (health);
 
-        creatureStats.getMagicka().setBase(
-            static_cast<int> (intelligence + magickaFactor * intelligence));
+        DynamicStat<float> magicka = creatureStats.getMagicka();
+        magicka.setBase (static_cast<int> (intelligence + magickaFactor * intelligence));
+        creatureStats.setMagicka (magicka);
+       
+        DynamicStat<float> fatigue = creatureStats.getFatigue();
+        fatigue.setBase (strength+willpower+agility+endurance);
+        creatureStats.setFatigue (fatigue);
+    }
 
-        creatureStats.getFatigue().setBase(strength+willpower+agility+endurance);
+    void Actors::calculateRestoration (const MWWorld::Ptr& ptr, float duration)
+    {
+        CreatureStats& stats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
+
+        if (duration == 3600)
+        {
+            // stunted magicka
+            bool stunted = stats.getMagicEffects ().get(MWMechanics::EffectKey(136)).mMagnitude > 0;
+
+            int endurance = stats.getAttribute (ESM::Attribute::Endurance).getModified ();
+            
+            DynamicStat<float> health = stats.getHealth();
+            health.setCurrent (health.getCurrent() + 0.1 * endurance);
+            stats.setHealth (health);
+
+            const MWWorld::ESMStore& store = MWBase::Environment::get().getWorld()->getStore();
+
+            float fFatigueReturnBase = store.get<ESM::GameSetting>().find("fFatigueReturnBase")->getFloat ();
+            float fFatigueReturnMult = store.get<ESM::GameSetting>().find("fFatigueReturnMult")->getFloat ();
+            float fEndFatigueMult = store.get<ESM::GameSetting>().find("fEndFatigueMult")->getFloat ();
+
+            float capacity = MWWorld::Class::get(ptr).getCapacity(ptr);
+            float encumbrance = MWWorld::Class::get(ptr).getEncumbrance(ptr);
+            float normalizedEncumbrance = (capacity == 0 ? 1 : encumbrance/capacity);
+            if (normalizedEncumbrance > 1)
+                normalizedEncumbrance = 1;
+
+            float x = fFatigueReturnBase + fFatigueReturnMult * (1 - normalizedEncumbrance);
+            x *= fEndFatigueMult * endurance;
+            
+            DynamicStat<float> fatigue = stats.getFatigue();
+            fatigue.setCurrent (fatigue.getCurrent() + 3600 * x);
+            stats.setFatigue (fatigue);
+            
+            if (!stunted)
+            {
+                float fRestMagicMult = store.get<ESM::GameSetting>().find("fRestMagicMult")->getFloat ();
+                
+                DynamicStat<float> magicka = stats.getMagicka();
+                magicka.setCurrent (magicka.getCurrent()
+                    + fRestMagicMult * stats.getAttribute(ESM::Attribute::Intelligence).getModified());
+                stats.setMagicka (magicka);
+            }
+        }
     }
 
     void Actors::calculateCreatureStatModifiers (const MWWorld::Ptr& ptr)
@@ -81,7 +137,7 @@ namespace MWMechanics
         CreatureStats& creatureStats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
 
         // attributes
-        for (int i=0; i<5; ++i)
+        for (int i=0; i<8; ++i)
         {
             int modifier =
                 creatureStats.getMagicEffects().get (EffectKey (79, i)).mMagnitude;
@@ -93,21 +149,26 @@ namespace MWMechanics
 
         // dynamic stats
         MagicEffects effects = creatureStats.getMagicEffects();
-        creatureStats.getHealth().setModifier(
-            effects.get(EffectKey(80)).mMagnitude - effects.get(EffectKey(18)).mMagnitude);
-
-        creatureStats.getMagicka().setModifier(
-            effects.get(EffectKey(81)).mMagnitude - effects.get(EffectKey(19)).mMagnitude);
-
-        creatureStats.getFatigue().setModifier(
-            effects.get(EffectKey(82)).mMagnitude - effects.get(EffectKey(20)).mMagnitude);
+        
+        for (int i=0; i<3; ++i)
+        {
+            DynamicStat<float> stat = creatureStats.getDynamic (i);
+            
+            stat.setModifier (
+                effects.get (EffectKey(80+i)).mMagnitude - effects.get (EffectKey(18+i)).mMagnitude);
+        
+            creatureStats.setDynamic (i, stat);
+        }        
     }
 
     Actors::Actors() : mDuration (0) {}
 
     void Actors::addActor (const MWWorld::Ptr& ptr)
     {
-        mActors.insert (ptr);
+        if (!MWWorld::Class::get (ptr).getCreatureStats (ptr).isDead())
+            mActors.insert (ptr);
+        else
+            MWBase::Environment::get().getWorld()->playAnimationGroup (ptr, "death1", 2);
     }
 
     void Actors::removeActor (const MWWorld::Ptr& ptr)
@@ -140,13 +201,51 @@ namespace MWMechanics
         {
             float totalDuration = mDuration;
             mDuration = 0;
+            
+            std::set<MWWorld::Ptr>::iterator iter (mActors.begin());
 
-            for (std::set<MWWorld::Ptr>::iterator iter (mActors.begin()); iter!=mActors.end(); ++iter)
+            while (iter!=mActors.end())
             {
-                updateActor (*iter, totalDuration);
+                if (!MWWorld::Class::get (*iter).getCreatureStats (*iter).isDead())
+                {
+                    updateActor (*iter, totalDuration);
 
-                if (iter->getTypeName()==typeid (ESM::NPC).name())
-                    updateNpc (*iter, totalDuration, paused);
+                    if (iter->getTypeName()==typeid (ESM::NPC).name())
+                        updateNpc (*iter, totalDuration, paused);
+                }
+
+                if (MWWorld::Class::get (*iter).getCreatureStats (*iter).isDead())
+                {
+                    // workaround: always keep player alive for now
+                    // \todo remove workaround, once player death can be handled
+                    if (iter->getRefData().getHandle()=="player")
+                    {
+                        MWMechanics::DynamicStat<float> stat (
+                            MWWorld::Class::get (*iter).getCreatureStats (*iter).getHealth());
+                            
+                        if (stat.getModified()<1)
+                        {
+                            stat.setModified (1, 0);
+                            MWWorld::Class::get (*iter).getCreatureStats (*iter).setHealth (stat);
+                        }
+
+                        MWWorld::Class::get (*iter).getCreatureStats (*iter).resurrect();
+                        ++iter;
+                        continue;
+                    }
+
+                    ++mDeathCount[MWWorld::Class::get (*iter).getId (*iter)];
+
+                    MWBase::Environment::get().getWorld()->playAnimationGroup (*iter, "death1", 0);
+
+                    if (MWWorld::Class::get (*iter).isEssential (*iter))
+                        MWBase::Environment::get().getWindowManager()->messageBox (
+                            "#{sKilledEssential}", std::vector<std::string>());
+
+                    mActors.erase (iter++);
+                }
+                else
+                    ++iter;
             }
         }
 
@@ -158,5 +257,23 @@ namespace MWMechanics
             if (vector!=Ogre::Vector3::ZERO)
                 movement.push_back (std::make_pair (iter->getRefData().getHandle(), vector));
         }
+    }
+
+    void Actors::restoreDynamicStats()
+    {
+        for (std::set<MWWorld::Ptr>::iterator iter (mActors.begin()); iter!=mActors.end(); ++iter)
+        {
+            calculateRestoration (*iter, 3600);
+        }
+    }
+    
+    int Actors::countDeaths (const std::string& id) const
+    {
+        std::map<std::string, int>::const_iterator iter = mDeathCount.find (id);
+
+        if (iter!=mDeathCount.end())
+            return iter->second;
+
+        return 0;
     }
 }

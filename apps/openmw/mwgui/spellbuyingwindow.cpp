@@ -8,6 +8,7 @@
 #include "../mwbase/world.hpp"
 #include "../mwbase/soundmanager.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/mechanicsmanager.hpp"
 
 #include "../mwworld/player.hpp"
 #include "../mwworld/manualref.hpp"
@@ -24,7 +25,6 @@ namespace MWGui
 
     SpellBuyingWindow::SpellBuyingWindow(MWBase::WindowManager& parWindowManager) :
         WindowBase("openmw_spell_buying_window.layout", parWindowManager)
-        , ContainerBase(NULL) // no drag&drop
         , mCurrentY(0)
         , mLastPos(0)
     {
@@ -50,13 +50,27 @@ namespace MWGui
 
     void SpellBuyingWindow::addSpell(const std::string& spellId)
     {
-        const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find(spellId);
-        int price = spell->data.cost*MWBase::Environment::get().getWorld()->getStore().gameSettings.search("fSpellValueMult")->f;
-        MyGUI::Button* toAdd = mSpellsView->createWidget<MyGUI::Button>((price>mWindowManager.getInventoryWindow()->getPlayerGold()) ? "SandTextGreyedOut" : "SpellText", 0, mCurrentY, 200, sLineHeight, MyGUI::Align::Default);
+        const MWWorld::ESMStore &store =
+            MWBase::Environment::get().getWorld()->getStore();
+
+        const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(spellId);
+        int price = spell->mData.mCost*store.get<ESM::GameSetting>().find("fSpellValueMult")->getFloat();
+        price = MWBase::Environment::get().getMechanicsManager()->getBarterOffer(mPtr,price,true);
+
+        MyGUI::Button* toAdd =
+            mSpellsView->createWidget<MyGUI::Button>(
+                (price>mWindowManager.getInventoryWindow()->getPlayerGold()) ? "SandTextGreyedOut" : "SandTextButton",
+                0,
+                mCurrentY,
+                200,
+                sLineHeight,
+                MyGUI::Align::Default
+            );
+
         mCurrentY += sLineHeight;
-        /// \todo price adjustment depending on merchantile skill
+
         toAdd->setUserData(price);
-        toAdd->setCaption(spell->name+"   -   "+boost::lexical_cast<std::string>(price)+MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sgp")->str);
+        toAdd->setCaptionWithReplacing(spell->mName+"   -   "+boost::lexical_cast<std::string>(price)+"#{sgp}");
         toAdd->setSize(toAdd->getTextSize().width,sLineHeight);
         toAdd->eventMouseWheel += MyGUI::newDelegate(this, &SpellBuyingWindow::onMouseWheel);
         toAdd->setUserString("ToolTipType", "Spell");
@@ -77,7 +91,7 @@ namespace MWGui
     void SpellBuyingWindow::startSpellBuying(const MWWorld::Ptr& actor)
     {
         center();
-        mActor = actor;
+        mPtr = actor;
         clearSpells();
 
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
@@ -87,9 +101,10 @@ namespace MWGui
          
         for (MWMechanics::Spells::TIterator iter = merchantSpells.begin(); iter!=merchantSpells.end(); ++iter)
         {
-            const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().spells.find (*iter);
+            const ESM::Spell* spell =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find (*iter);
             
-            if (spell->data.type!=ESM::Spell::ST_Spell)
+            if (spell->mData.mType!=ESM::Spell::ST_Spell)
                 continue; // don't try to sell diseases, curses or powers
             
             if (std::find (playerSpells.begin(), playerSpells.end(), *iter)!=playerSpells.end())
@@ -114,7 +129,7 @@ namespace MWGui
             MWMechanics::Spells& spells = stats.getSpells();
             spells.add (mSpellsWidgetMap.find(_sender)->second);
             mWindowManager.getTradeWindow()->addOrRemoveGold(-price);
-            startSpellBuying(mActor);
+            startSpellBuying(mPtr);
 
             MWBase::Environment::get().getSoundManager()->playSound ("Item Gold Up", 1.0, 1.0);
         }
@@ -127,8 +142,7 @@ namespace MWGui
 
     void SpellBuyingWindow::updateLabels()
     {
-        mPlayerGold->setCaption(MWBase::Environment::get().getWorld()->getStore().gameSettings.search("sGold")->str
-            + ": " + boost::lexical_cast<std::string>(mWindowManager.getInventoryWindow()->getPlayerGold()));
+        mPlayerGold->setCaptionWithReplacing("#{sGold}: " + boost::lexical_cast<std::string>(mWindowManager.getInventoryWindow()->getPlayerGold()));
         mPlayerGold->setCoord(8,
                               mPlayerGold->getTop(),
                               mPlayerGold->getTextSize().width,

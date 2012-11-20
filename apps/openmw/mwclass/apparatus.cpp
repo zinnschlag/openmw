@@ -33,18 +33,17 @@ namespace MWClass
     void Apparatus::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics) const
     {
         const std::string model = getModel(ptr);
-        if(!model.empty()) {
-            physics.insertObjectPhysics(ptr, model);
-        }
+        if(!model.empty())
+            physics.addObject(ptr);
     }
 
     std::string Apparatus::getModel(const MWWorld::Ptr &ptr) const
     {
         MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
-        assert(ref->base != NULL);
+        assert(ref->mBase != NULL);
 
-        const std::string &model = ref->base->model;
+        const std::string &model = ref->mBase->mModel;
         if (!model.empty()) {
             return "meshes\\" + model;
         }
@@ -56,7 +55,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
 
-        return ref->base->name;
+        return ref->mBase->mName;
     }
 
     boost::shared_ptr<MWWorld::Action> Apparatus::activate (const MWWorld::Ptr& ptr,
@@ -75,7 +74,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
 
-        return ref->base->script;
+        return ref->mBase->mScript;
     }
 
     int Apparatus::getValue (const MWWorld::Ptr& ptr) const
@@ -83,7 +82,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
 
-        return ref->base->data.value;
+        return ref->mBase->mData.mValue;
     }
 
     void Apparatus::registerSelf()
@@ -108,7 +107,7 @@ namespace MWClass
           MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
 
-        return ref->base->icon;
+        return ref->mBase->mIcon;
     }
 
     bool Apparatus::hasToolTip (const MWWorld::Ptr& ptr) const
@@ -116,7 +115,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
 
-        return (ref->base->name != "");
+        return (ref->mBase->mName != "");
     }
 
     MWGui::ToolTipInfo Apparatus::getToolTipInfo (const MWWorld::Ptr& ptr) const
@@ -125,19 +124,17 @@ namespace MWClass
             ptr.get<ESM::Apparatus>();
 
         MWGui::ToolTipInfo info;
-        info.caption = ref->base->name + MWGui::ToolTips::getCountString(ptr.getRefData().getCount());
-        info.icon = ref->base->icon;
-
-        const ESMS::ESMStore& store = MWBase::Environment::get().getWorld()->getStore();
+        info.caption = ref->mBase->mName + MWGui::ToolTips::getCountString(ptr.getRefData().getCount());
+        info.icon = ref->mBase->mIcon;
 
         std::string text;
-        text += "\n" + store.gameSettings.search("sQuality")->str + ": " + MWGui::ToolTips::toString(ref->base->data.quality);
-        text += "\n" + store.gameSettings.search("sWeight")->str + ": " + MWGui::ToolTips::toString(ref->base->data.weight);
-        text += MWGui::ToolTips::getValueString(ref->base->data.value, store.gameSettings.search("sValue")->str);
+        text += "\n#{sQuality}: " + MWGui::ToolTips::toString(ref->mBase->mData.mQuality);
+        text += "\n#{sWeight}: " + MWGui::ToolTips::toString(ref->mBase->mData.mWeight);
+        text += MWGui::ToolTips::getValueString(ref->mBase->mData.mValue, "#{sValue}");
 
         if (MWBase::Environment::get().getWindowManager()->getFullHelp()) {
-            text += MWGui::ToolTips::getMiscString(ref->ref.owner, "Owner");
-            text += MWGui::ToolTips::getMiscString(ref->base->script, "Script");
+            text += MWGui::ToolTips::getMiscString(ref->mRef.mOwner, "Owner");
+            text += MWGui::ToolTips::getMiscString(ref->mBase->mScript, "Script");
         }
         info.text = text;
 
@@ -156,6 +153,6 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Apparatus> *ref =
             ptr.get<ESM::Apparatus>();
 
-        return MWWorld::Ptr(&cell.appas.insert(*ref), &cell);
+        return MWWorld::Ptr(&cell.mAppas.insert(*ref), &cell);
     }
 }

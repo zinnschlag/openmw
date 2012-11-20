@@ -1,7 +1,7 @@
 #ifndef MWGUI_WIDGETS_H
 #define MWGUI_WIDGETS_H
 
-#include <components/esm_store/store.hpp>
+#include "../mwworld/esmstore.hpp"
 
 #include <MyGUI.h>
 
@@ -32,6 +32,7 @@ namespace MWGui
                 , mRange(-1)
                 , mDuration(-1)
                 , mSkill(-1)
+                , mArea(0)
                 , mAttribute(-1)
                 , mEffectID(-1)
                 , mNoTarget(false)
@@ -51,6 +52,9 @@ namespace MWGui
             // value of -1 here means the value is unavailable
             int mMagnMin, mMagnMax, mRange, mDuration;
 
+            // value of 0 -> no area effect
+            int mArea;
+
             bool operator==(const SpellEffectParams& other) const
             {
                 if (mEffectID !=  other.mEffectID)
@@ -66,7 +70,7 @@ namespace MWGui
                                         || mEffectID == 21 // drain skill
                                         || mEffectID == 83 // fortify skill
                                         || mEffectID == 26); // damage skill
-                return ((other.mSkill == mSkill) || !involvesSkill) && ((other.mAttribute == mAttribute) && !involvesAttribute);
+                return ((other.mSkill == mSkill) || !involvesSkill) && ((other.mAttribute == mAttribute) && !involvesAttribute) && (other.mArea == mArea);
             }
         };
 
@@ -249,12 +253,6 @@ namespace MWGui
             void setWindowManager(MWBase::WindowManager* parWindowManager) { mWindowManager = parWindowManager; }
             void setSpellEffect(const SpellEffectParams& params);
 
-            std::string effectIDToString(const short effectID);
-            bool effectHasMagnitude (const std::string& effect);
-            bool effectHasDuration (const std::string& effect);
-            bool effectInvolvesAttribute (const std::string& effect);
-            bool effectInvolvesSkill (const std::string& effect);
-
             int getRequestedWidth() const { return mRequestedWidth; }
 
         protected:
@@ -357,10 +355,13 @@ namespace MWGui
         protected:
             virtual void align() = 0;
 
-            virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
-
+            virtual void _setPropertyImpl(const std::string& _key, const std::string& _value);
 
             int mSpacing; // how much space to put between elements
+
+            int mPadding; // outer padding
+
+            bool mAutoResize; // auto resize the box so that it exactly fits all elements
         };
 
         class HBox : public Box, public MyGUI::Widget
@@ -369,10 +370,16 @@ namespace MWGui
 
         public:
             virtual void setSize (const MyGUI::IntSize &_value);
+            virtual void setCoord (const MyGUI::IntCoord &_value);
 
         protected:
             virtual void align();
             virtual MyGUI::IntSize getRequestedSize();
+
+            virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+
+            virtual void onWidgetCreated(MyGUI::Widget* _widget);
+            virtual void onWidgetDestroy(MyGUI::Widget* _widget);
         };
 
         class VBox : public Box, public MyGUI::Widget
@@ -381,10 +388,16 @@ namespace MWGui
 
         public:
             virtual void setSize (const MyGUI::IntSize &_value);
+            virtual void setCoord (const MyGUI::IntCoord &_value);
 
         protected:
             virtual void align();
             virtual MyGUI::IntSize getRequestedSize();
+
+            virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+
+            virtual void onWidgetCreated(MyGUI::Widget* _widget);
+            virtual void onWidgetDestroy(MyGUI::Widget* _widget);
         };
     }
 }

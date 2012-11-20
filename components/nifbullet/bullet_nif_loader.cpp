@@ -69,9 +69,12 @@ btVector3 ManualBulletShapeLoader::getbtVector(Ogre::Vector3 &v)
 
 void ManualBulletShapeLoader::loadResource(Ogre::Resource *resource)
 {
-    cShape = static_cast<BulletShape *>(resource);
+    cShape = static_cast<OEngine::Physic::BulletShape *>(resource);
     resourceName = cShape->getName();
-    cShape->collide = false;
+    cShape->mCollide = false;
+    mBoundingBox = NULL;
+    cShape->boxTranslation = Ogre::Vector3(0,0,0);
+    cShape->boxRotation = Ogre::Quaternion::IDENTITY;
 
     mTriMesh = new btTriangleMesh();
 
@@ -105,7 +108,7 @@ void ManualBulletShapeLoader::loadResource(Ogre::Resource *resource)
     handleNode(node,0,NULL,hasCollisionNode,false,false);
 
     //if collide = false, then it does a second pass which create a shape for raycasting.
-    if(cShape->collide == false)
+    if(cShape->mCollide == false)
     {
         handleNode(node,0,NULL,hasCollisionNode,false,true);
     }
@@ -125,9 +128,14 @@ void ManualBulletShapeLoader::loadResource(Ogre::Resource *resource)
             delete m_meshInterface;
         }
     };
+    if(mBoundingBox != NULL)
+       cShape->Shape = mBoundingBox;
 
-    currentShape = new TriangleMeshShape(mTriMesh,true);
-    cShape->Shape = currentShape;
+    else
+    {
+        currentShape = new TriangleMeshShape(mTriMesh,true);
+        cShape->Shape = currentShape;
+    }
 }
 
 bool ManualBulletShapeLoader::hasRootCollisionNode(Nif::Node* node)
@@ -169,6 +177,7 @@ void ManualBulletShapeLoader::handleNode(Nif::Node *node, int flags,
     if (node->name.find("marker") != std::string::npos)
     {
         flags |= 0x800;
+        cShape->mIgnore = true;
     }
 
     // Check for extra data
@@ -185,7 +194,8 @@ void ManualBulletShapeLoader::handleNode(Nif::Node *node, int flags,
             // affecting the entire subtree of this node
             Nif::NiStringExtraData *sd = (Nif::NiStringExtraData*)e;
 
-            if (sd->string == "NCO")
+            // not sure what the difference between NCO and NCC is, or if there even is one
+            if (sd->string == "NCO" || sd->string == "NCC")
             {
                 // No collision. Use an internal flag setting to mark this.
                 flags |= 0x800;
@@ -218,6 +228,17 @@ void ManualBulletShapeLoader::handleNode(Nif::Node *node, int flags,
 
     }
 
+    if(node->hasBounds)
+    {
+
+        
+        btVector3 boxsize = getbtVector((node->boundXYZ));
+        cShape->boxTranslation = node->boundPos;
+        cShape->boxRotation = node->boundRot;
+
+        mBoundingBox = new btBoxShape(boxsize);
+    }
+
 
     // For NiNodes, loop through children
     if (node->recType == Nif::RC_NiNode)
@@ -234,7 +255,7 @@ void ManualBulletShapeLoader::handleNode(Nif::Node *node, int flags,
     }
     else if (node->recType == Nif::RC_NiTriShape && (isCollisionNode || !hasCollisionNode))
     {
-        cShape->collide = !(flags&0x800);
+        cShape->mCollide = !(flags&0x800);
         handleNiTriShape(dynamic_cast<Nif::NiTriShape*>(node), flags,node->trafo.rotation,node->trafo.pos,node->trafo.scale,raycastingOnly);
     }
     else if(node->recType == Nif::RC_RootCollisionNode)
@@ -293,8 +314,8 @@ void ManualBulletShapeLoader::handleNiTriShape(Nif::NiTriShape *shape, int flags
 void ManualBulletShapeLoader::load(const std::string &name,const std::string &group)
 {
     // Check if the resource already exists
-    Ogre::ResourcePtr ptr = BulletShapeManager::getSingleton().getByName(name, group);
+    Ogre::ResourcePtr ptr = OEngine::Physic::BulletShapeManager::getSingleton().getByName(name, group);
     if (!ptr.isNull())
         return;
-    BulletShapeManager::getSingleton().create(name,group,true,this);
+    OEngine::Physic::BulletShapeManager::getSingleton().create(name,group,true,this);
 }
