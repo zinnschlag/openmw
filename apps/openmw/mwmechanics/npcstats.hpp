@@ -9,6 +9,8 @@
 #include "stat.hpp"
 #include "drawstate.hpp"
 
+#include "../mwworld/esmstore.hpp"
+
 namespace ESM
 {
     struct Class;
@@ -35,6 +37,17 @@ namespace MWMechanics
                 Flag_Sneak = 8
             };
 
+            enum AIPackage
+            {
+            	AiNone = -1,
+                AiWander = 0,
+                AiTravel = 1,
+            	AiEscort = 2,
+                AiFollow = 3,
+            	AiActivate = 4,
+            	Pursue = 5,
+            };
+
         private:
 
             /// NPCs other than the player can only have one faction. But for the sake of consistency
@@ -59,6 +72,17 @@ namespace MWMechanics
             std::vector<int> mSkillIncreases; // number of skill increases for each attribute
 
             std::set<std::string> mUsedIds;
+
+            // AI properties
+            AIPackage mAiPackage;
+            bool mAiPackageDone;
+            bool mAiDetected;
+            std::string mObjectID;
+            std::string mCellID;
+            float mRange;
+            float mDuration;
+            float mTime;
+            ESM::Position mToPosition;
 
         public:
 
@@ -133,6 +157,28 @@ namespace MWMechanics
             void setWerewolf (bool set);
 
             int getWerewolfKills() const;
+
+            // AI setters and getters for script functions
+
+            void setAiActivate (std::string objectID);
+
+            void setAiTravel (float x, float y, float z);
+
+            void setAiEscort (std::string actorID, float duration, float x, float y, float z);
+
+            void setAiEscortCell (std::string actorID, std::string cellID, float duration, float x, float y, float z);
+
+            void setAiWander (float range, float duration, float time);
+
+            void setAiFollow (std::string actorID, float duration, float x, float y, float z);
+
+            void setAiFollowCell (std::string actorID, std::string cellID, float duration, float x, float y, float z);
+
+            bool getGetAiPackageDone ();
+
+            int getGetCurrentAIPackage ();
+
+            bool getAiGetDetected (std::string actorID);
     };
 }
 

@@ -351,3 +351,98 @@ int MWMechanics::NpcStats::getWerewolfKills() const
 {
     return mWerewolfKills;
 }
+
+// AI setters and getters for script functions
+
+void MWMechanics::NpcStats::setAiActivate (std::string objectID)
+{
+	mAiPackage = AiActivate;
+	mObjectID = objectID;
+	mAiPackageDone = false;
+}
+
+void MWMechanics::NpcStats::setAiTravel (float x, float y, float z)
+{
+	mAiPackage = AiTravel;
+	mToPosition.rot[0] = mToPosition.rot[1] = mToPosition.rot[2] = 0;
+	mToPosition.pos[0] = x;
+	mToPosition.pos[1] = y;
+	mToPosition.pos[2] = z;
+	mAiPackageDone = false;
+}
+
+void MWMechanics::NpcStats::setAiEscort (std::string actorID, float duration, float x, float y, float z)
+{
+	mAiPackage = AiEscort;
+	mObjectID = actorID;
+	mCellID = "";
+	mDuration = duration;
+	mToPosition.rot[0] = mToPosition.rot[1] = mToPosition.rot[2] = 0;
+	mToPosition.pos[0] = x;
+	mToPosition.pos[1] = y;
+	mToPosition.pos[2] = z;
+	mAiPackageDone = false;
+}
+
+void MWMechanics::NpcStats::setAiEscortCell (std::string actorID, std::string cellID, float duration, float x, float y, float z)
+{
+	mAiPackage = AiEscort;
+	mObjectID = actorID;
+	mCellID = cellID;
+	mDuration = duration;
+	mToPosition.rot[0] = mToPosition.rot[1] = mToPosition.rot[2] = 0;
+	mToPosition.pos[0] = x;
+	mToPosition.pos[1] = y;
+	mToPosition.pos[2] = z;
+	mAiPackageDone = false;
+}
+
+void MWMechanics::NpcStats::setAiWander (float range, float duration, float time)
+{
+	mAiPackage = AiWander;
+	mRange = range;
+	mDuration = duration;
+	mTime = time;
+	mAiPackageDone = false;
+}
+
+void MWMechanics::NpcStats::setAiFollow (std::string actorID, float duration, float x, float y, float z)
+{
+	mAiPackage = AiFollow;
+	mObjectID = actorID;
+	mCellID = "";
+	mDuration = duration;
+	mToPosition.rot[0] = mToPosition.rot[1] = mToPosition.rot[2] = 0;
+	mToPosition.pos[0] = x;
+	mToPosition.pos[1] = y;
+	mToPosition.pos[2] = z;
+	mAiPackageDone = false;
+}
+
+void MWMechanics::NpcStats::setAiFollowCell (std::string actorID, std::string cellID, float duration, float x, float y, float z)
+{
+	mAiPackage = AiFollow;
+	mObjectID = actorID;
+	mCellID = cellID;
+	mDuration = duration;
+	mToPosition.rot[0] = mToPosition.rot[1] = mToPosition.rot[2] = 0;
+	mToPosition.pos[0] = x;
+	mToPosition.pos[1] = y;
+	mToPosition.pos[2] = z;
+	mAiPackageDone = false;
+}
+
+bool MWMechanics::NpcStats::getGetAiPackageDone ()
+{
+	return mAiPackageDone;
+}
+
+int MWMechanics::NpcStats::getGetCurrentAIPackage ()
+{
+	return mAiPackage;
+}
+
+bool MWMechanics::NpcStats::getAiGetDetected (std::string actorID)
+{
+	return mAiDetected;
+}
