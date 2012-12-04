@@ -105,9 +105,9 @@ void PersuasionDialog::onPersuade(MyGUI::Widget *sender)
         type = MWBase::MechanicsManager::PT_Bribe1000;
     }
 
+    setVisible(false);
     MWBase::Environment::get().getDialogueManager()->persuade(type);
 
-    setVisible(false);
 }
 
 void PersuasionDialog::open()

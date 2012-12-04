@@ -132,6 +132,7 @@ namespace MWGui
         }
         if (goldFound)
         {
+            assert(gold.getRefData().getCount() >= -amount);
             gold.getRefData().setCount(gold.getRefData().getCount() + amount);
         }
         else
