@@ -431,6 +431,7 @@ namespace MWDialogue
     void DialogueManager::persuade(int type)
     {
         bool success;
+	bool skillincrease = 1;
         float temp, perm;
         MWBase::Environment::get().getMechanicsManager()->getPersuasionDispositionChange(
                     mActor, MWBase::MechanicsManager::PersuasionType(type), mTemporaryDispositionChange,
@@ -445,12 +446,6 @@ namespace MWDialogue
         else if (curDisp + mTemporaryDispositionChange > 100)
             mTemporaryDispositionChange = 100 - curDisp;
 
-        // practice skill
-        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
-
-        if (success)
-            MWWorld::Class::get(player).skillUsageSucceeded(player, ESM::Skill::Speechcraft, 0);
-
         // add status message to dialogue window
         std::string text;
 
@@ -460,8 +455,16 @@ namespace MWDialogue
             text = "sTaunt";
         else if (type == MWBase::MechanicsManager::PT_Intimidate)
             text = "sIntimidate";
-        else
+        else{
             text = "sBribe";
+	    skillincrease = success;
+	}
+	
+	if (skillincrease){
+	  // practice skill
+	  MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
+	  MWWorld::Class::get(player).skillUsageSucceeded(player, ESM::Skill::Speechcraft, -1);
+	}
 
         text += (success ? "Success" : "Fail");
 

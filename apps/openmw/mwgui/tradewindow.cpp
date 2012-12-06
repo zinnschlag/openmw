@@ -239,7 +239,10 @@ namespace MWGui
                 MWBase::Environment::get().getDialogueManager()->applyTemporaryDispositionChange(iBarterFailDisposition);
                 return;
             }
-        }
+            
+            //skill use!
+	    MWWorld::Class::get(playerPtr).skillUsageSucceeded(playerPtr, ESM::Skill::Mercantile, 0);
+	}
 
         int iBarterSuccessDisposition = gmst.find("iBarterSuccessDisposition")->getInt();
         MWBase::Environment::get().getDialogueManager()->applyTemporaryDispositionChange(iBarterSuccessDisposition);
