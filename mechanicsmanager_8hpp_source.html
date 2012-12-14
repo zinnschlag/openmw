@@ -107,7 +107,7 @@
 <a name="l00061"></a>00061 
 <a name="l00062"></a>00062             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#af7924a2fc8b6e7f4b44a03c136e1f16f" title="Set player name.">setPlayerName</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ab325ffcccd86608e16ad3d1b0a4714e5" title="Set player race.">setPlayerRace</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> male) = 0;
+<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a8bf8fa1c62691847511286c8f73596f7" title="Set player race.">setPlayerRace</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> male, <span class="keyword">const</span> std::string &amp;head, <span class="keyword">const</span> std::string &amp;hair) = 0;
 <a name="l00067"></a>00067 
 <a name="l00068"></a>00068             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#adbe3e0a087db75579b4c6783c498f6e9" title="Set player birthsign.">setPlayerBirthsign</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) = 0;
 <a name="l00070"></a>00070 
@@ -116,17 +116,33 @@
 <a name="l00074"></a>00074             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a152cdcedaa8829b72e545de833f0275a" title="Set player class to stock class.">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_) = 0;
 <a name="l00076"></a>00076 
 <a name="l00077"></a>00077             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a6da272e7ee1f7a75c1aa5a3d39562dcd" title="If the player is sleeping, this should be called every hour.">restoreDynamicStats</a>() = 0;
-<a name="l00079"></a>00079             
-<a name="l00080"></a>00080             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a664cdaafc9bbde7b78b3cfd06e0f7ed5" title="Return the number of deaths for actors with the given ID.">countDeaths</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span> = 0;
-<a name="l00082"></a>00082     };
-<a name="l00083"></a>00083 }
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085 <span class="preprocessor">#endif</span>
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a9c08bc46cec81a7f65f47ef060680eb4" title="This is used by every service to determine the price of objects given the trading skills of the playe...">getBarterOffer</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr,<span class="keywordtype">int</span> basePrice, <span class="keywordtype">bool</span> buying) = 0;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#adc9ccded89f7f90627f443942e5d1a84" title="Calculate the diposition of an NPC toward the player.">getDerivedDisposition</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00085"></a>00085             
+<a name="l00086"></a>00086             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a664cdaafc9bbde7b78b3cfd06e0f7ed5" title="Return the number of deaths for actors with the given ID.">countDeaths</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span> = 0;
+<a name="l00088"></a>00088 
+<a name="l00089"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">00089</a>             <span class="keyword">enum</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">PersuasionType</a>
+<a name="l00090"></a>00090             {
+<a name="l00091"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8cac1771a2a2788a850e371e4c90929954f">00091</a>                 <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8cac1771a2a2788a850e371e4c90929954f">PT_Admire</a>,
+<a name="l00092"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8ca174abe0f08859102d18f8a0fa599580c">00092</a>                 <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8ca174abe0f08859102d18f8a0fa599580c">PT_Intimidate</a>,
+<a name="l00093"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8ca62e685e29b9a2f567d9ac8add1334e14">00093</a>                 <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8ca62e685e29b9a2f567d9ac8add1334e14">PT_Taunt</a>,
+<a name="l00094"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8caf6bea0668d454588be61da9961994ed6">00094</a>                 <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8caf6bea0668d454588be61da9961994ed6">PT_Bribe10</a>,
+<a name="l00095"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8cab98fc2cf9d2d0fad658d24f2318a860b">00095</a>                 <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8cab98fc2cf9d2d0fad658d24f2318a860b">PT_Bribe100</a>,
+<a name="l00096"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8ca5ce2773102ffe8855bd18647d72a6136">00096</a>                 <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8ca5ce2773102ffe8855bd18647d72a6136">PT_Bribe1000</a>
+<a name="l00097"></a>00097             };
+<a name="l00098"></a>00098             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a699d208441feb7a9c2da946d86af19f4" title="Perform a persuasion action on NPC.">getPersuasionDispositionChange</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc, <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">PersuasionType</a> type,
+<a name="l00099"></a>00099                 <span class="keywordtype">float</span> currentTemporaryDispositionDelta, <span class="keywordtype">bool</span>&amp; success, <span class="keywordtype">float</span>&amp; tempChange, <span class="keywordtype">float</span>&amp; permChange) = 0;
+<a name="l00101"></a>00101     };
+<a name="l00102"></a>00102 }
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -65,121 +65,134 @@
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;OgreResourceManager.h&gt;</span>
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;btBulletCollisionCommon.h&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;OgreVector3.h&gt;</span>
-<a name="l00008"></a>00008 <span class="comment">//For some reason, Ogre Singleton  cannot be used in another namespace, that&#39;s why there is no namespace here.</span>
-<a name="l00009"></a>00009 <span class="comment">//But the risk of name collision seems pretty low here.</span>
-<a name="l00010"></a>00010 
-<a name="l00014"></a><a class="code" href="classBulletShape.html">00014</a> <span class="keyword">class </span><a class="code" href="classBulletShape.html">BulletShape</a> : <span class="keyword">public</span> Ogre::Resource
-<a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="classBulletShape.html#a372788fbff13d136328b5281de8c666b">00016</a>     Ogre::String <a class="code" href="classBulletShape.html#a372788fbff13d136328b5281de8c666b">mString</a>;
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">protected</span>:
-<a name="l00019"></a>00019     <span class="keywordtype">void</span> <a class="code" href="classBulletShape.html#a44dc751901cab31705b18a06f06491a1">loadImpl</a>();
-<a name="l00020"></a>00020     <span class="keywordtype">void</span> <a class="code" href="classBulletShape.html#a4d29a5d8bf68acd7d1db40e7bee6275f">unloadImpl</a>();
-<a name="l00021"></a>00021     <span class="keywordtype">size_t</span> <a class="code" href="classBulletShape.html#ab040a75d291a8e33bc6dccb88e8ec15b">calculateSize</a>() <span class="keyword">const</span>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023     <span class="keywordtype">void</span> <a class="code" href="classBulletShape.html#acb75af441a04ed743c2bf11780102226">deleteShape</a>(btCollisionShape* mShape);
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>OEngine {
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>Physic
+<a name="l00011"></a>00011 {
+<a name="l00012"></a>00012 
+<a name="l00016"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">00016</a> <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a> : <span class="keyword">public</span> Ogre::Resource
+<a name="l00017"></a>00017 {
+<a name="l00018"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#aae74efa3507f1110f09b8001fb7b344a">00018</a>     Ogre::String <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#aae74efa3507f1110f09b8001fb7b344a">mString</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">protected</span>:
+<a name="l00021"></a>00021     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a7bb1138fb4cb27053d39e34df1eea280">loadImpl</a>();
+<a name="l00022"></a>00022     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#af38dfbe700973d70e79196c305a25385">unloadImpl</a>();
+<a name="l00023"></a>00023     <span class="keywordtype">size_t</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#af4656b85f5d19fc79fa28e03ac0a2527">calculateSize</a>() <span class="keyword">const</span>;
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="keyword">public</span>:
+<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a00cb645cae9a9d339f4197ae5a125f52">deleteShape</a>(btCollisionShape* mShape);
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027     <a class="code" href="classBulletShape.html#a86caa8f7c86b0bb7be4ad4d88b3157af">BulletShape</a>(Ogre::ResourceManager *creator, <span class="keyword">const</span> Ogre::String &amp;name,
-<a name="l00028"></a>00028         Ogre::ResourceHandle handle, <span class="keyword">const</span> Ogre::String &amp;group, <span class="keywordtype">bool</span> isManual = <span class="keyword">false</span>,
-<a name="l00029"></a>00029         Ogre::ManualResourceLoader *loader = 0);
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031     <span class="keyword">virtual</span> <a class="code" href="classBulletShape.html#a07b53a78b33aa17f3f3bb7d4b1abeaa4">~BulletShape</a>();
+<a name="l00027"></a>00027 <span class="keyword">public</span>:
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#affadeeee1ba6a708c72f3f79561c2379">BulletShape</a>(Ogre::ResourceManager *creator, <span class="keyword">const</span> Ogre::String &amp;name,
+<a name="l00030"></a>00030         Ogre::ResourceHandle handle, <span class="keyword">const</span> Ogre::String &amp;group, <span class="keywordtype">bool</span> isManual = <span class="keyword">false</span>,
+<a name="l00031"></a>00031         Ogre::ManualResourceLoader *loader = 0);
 <a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classBulletShape.html#af7e81d8562d229fa354b034e833eb59c">00033</a>     btCollisionShape* <a class="code" href="classBulletShape.html#af7e81d8562d229fa354b034e833eb59c">Shape</a>;
-<a name="l00034"></a><a class="code" href="classBulletShape.html#a56b664e7804872b05f4852b7aa20242d">00034</a>     Ogre::Vector3 <a class="code" href="classBulletShape.html#a56b664e7804872b05f4852b7aa20242d">boxTranslation</a>;
-<a name="l00035"></a><a class="code" href="classBulletShape.html#a27ce17442897fe8715a90b1a2406ad11">00035</a>     Ogre::Quaternion <a class="code" href="classBulletShape.html#a27ce17442897fe8715a90b1a2406ad11">boxRotation</a>;
-<a name="l00036"></a>00036     <span class="comment">//this flag indicate if the shape is used for collision or if it&#39;s for raycasting only.</span>
-<a name="l00037"></a><a class="code" href="classBulletShape.html#a04da5a6da3b5564e752519012af9644e">00037</a>     <span class="keywordtype">bool</span> <a class="code" href="classBulletShape.html#a04da5a6da3b5564e752519012af9644e">mCollide</a>;
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="classBulletShape.html#a2df7440bbd7e5d8a36ece59ac130cb66">00039</a>     <span class="keywordtype">bool</span> <a class="code" href="classBulletShape.html#a2df7440bbd7e5d8a36ece59ac130cb66">mIgnore</a>;
-<a name="l00040"></a>00040 };
-<a name="l00041"></a>00041 
-<a name="l00045"></a><a class="code" href="classBulletShapePtr.html">00045</a> <span class="keyword">class </span><a class="code" href="classBulletShapePtr.html">BulletShapePtr</a> : <span class="keyword">public</span> Ogre::SharedPtr&lt;BulletShape&gt;
-<a name="l00046"></a>00046 {
-<a name="l00047"></a>00047 <span class="keyword">public</span>:
-<a name="l00048"></a><a class="code" href="classBulletShapePtr.html#aebd98d3a7bed112978b27de3aa8844c1">00048</a>     <a class="code" href="classBulletShapePtr.html#aebd98d3a7bed112978b27de3aa8844c1">BulletShapePtr</a>() : Ogre::SharedPtr&lt;<a class="code" href="classBulletShape.html">BulletShape</a>&gt;() {}
-<a name="l00049"></a><a class="code" href="classBulletShapePtr.html#ab1678c0bfe5e47b34f853e1059f7983d">00049</a>     <span class="keyword">explicit</span> <a class="code" href="classBulletShapePtr.html#ab1678c0bfe5e47b34f853e1059f7983d">BulletShapePtr</a>(<a class="code" href="classBulletShape.html">BulletShape</a> *rep) : Ogre::SharedPtr&lt;<a class="code" href="classBulletShape.html">BulletShape</a>&gt;(rep) {}
-<a name="l00050"></a><a class="code" href="classBulletShapePtr.html#a2127a3341ecf46c1e3315b39117c61f7">00050</a>     <a class="code" href="classBulletShapePtr.html#a2127a3341ecf46c1e3315b39117c61f7">BulletShapePtr</a>(<span class="keyword">const</span> <a class="code" href="classBulletShapePtr.html">BulletShapePtr</a> &amp;r) : Ogre::SharedPtr&lt;<a class="code" href="classBulletShape.html">BulletShape</a>&gt;(r) {}
-<a name="l00051"></a><a class="code" href="classBulletShapePtr.html#a174dbf4d903c3a7a138b2f95fb0bffc3">00051</a>     <a class="code" href="classBulletShapePtr.html#aebd98d3a7bed112978b27de3aa8844c1">BulletShapePtr</a>(<span class="keyword">const</span> Ogre::ResourcePtr &amp;r) : Ogre::SharedPtr&lt;<a class="code" href="classBulletShape.html">BulletShape</a>&gt;()
-<a name="l00052"></a>00052     {
-<a name="l00053"></a>00053         <span class="keywordflow">if</span>( r.isNull() )
-<a name="l00054"></a>00054             <span class="keywordflow">return</span>;
-<a name="l00055"></a>00055         <span class="comment">// lock &amp; copy other mutex pointer</span>
-<a name="l00056"></a>00056         OGRE_LOCK_MUTEX(*r.OGRE_AUTO_MUTEX_NAME)
-<a name="l00057"></a>00057             OGRE_COPY_AUTO_SHARED_MUTEX(r.OGRE_AUTO_MUTEX_NAME)
-<a name="l00058"></a>00058             pRep = <span class="keyword">static_cast&lt;</span><a class="code" href="classBulletShape.html">BulletShape</a>*<span class="keyword">&gt;</span>(r.getPointer());
-<a name="l00059"></a>00059         pUseCount = r.useCountPointer();
-<a name="l00060"></a>00060         useFreeMethod = r.freeMethod();
-<a name="l00061"></a>00061         <span class="keywordflow">if</span> (pUseCount)
-<a name="l00062"></a>00062         {
-<a name="l00063"></a>00063             ++(*pUseCount);
-<a name="l00064"></a>00064         }
-<a name="l00065"></a>00065     }
-<a name="l00066"></a>00066 
-<a name="l00068"></a><a class="code" href="classBulletShapePtr.html#ab1e00032acfc877047f25d320a0b04e5">00068</a>     <a class="code" href="classBulletShapePtr.html">BulletShapePtr</a>&amp; <a class="code" href="classBulletShapePtr.html#ab1e00032acfc877047f25d320a0b04e5" title="Operator used to convert a ResourcePtr to a BulletShapePtr.">operator=</a>(<span class="keyword">const</span> Ogre::ResourcePtr&amp; r)
-<a name="l00069"></a>00069     {
-<a name="l00070"></a>00070         <span class="keywordflow">if</span>(pRep == static_cast&lt;BulletShape*&gt;(r.getPointer()))
-<a name="l00071"></a>00071             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00072"></a>00072         release();
-<a name="l00073"></a>00073         <span class="keywordflow">if</span>( r.isNull() )
-<a name="l00074"></a>00074             <span class="keywordflow">return</span> *<span class="keyword">this</span>; <span class="comment">// resource ptr is null, so the call to release above has done all we need to do.</span>
-<a name="l00075"></a>00075         <span class="comment">// lock &amp; copy other mutex pointer</span>
-<a name="l00076"></a>00076         OGRE_LOCK_MUTEX(*r.OGRE_AUTO_MUTEX_NAME)
-<a name="l00077"></a>00077             OGRE_COPY_AUTO_SHARED_MUTEX(r.OGRE_AUTO_MUTEX_NAME)
-<a name="l00078"></a>00078             pRep = <span class="keyword">static_cast&lt;</span><a class="code" href="classBulletShape.html">BulletShape</a>*<span class="keyword">&gt;</span>(r.getPointer());
-<a name="l00079"></a>00079         pUseCount = r.useCountPointer();
-<a name="l00080"></a>00080         useFreeMethod = r.freeMethod();
-<a name="l00081"></a>00081         <span class="keywordflow">if</span> (pUseCount)
-<a name="l00082"></a>00082         {
-<a name="l00083"></a>00083             ++(*pUseCount);
-<a name="l00084"></a>00084         }
-<a name="l00085"></a>00085         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00086"></a>00086     }
-<a name="l00087"></a>00087 };
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089 
+<a name="l00033"></a>00033     <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a9d9270145976694fdb1d56e8437b9889">~BulletShape</a>();
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#abf5e236e05829692b0e130b68e8d14a8">00035</a>     btCollisionShape* <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#abf5e236e05829692b0e130b68e8d14a8">Shape</a>;
+<a name="l00036"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a7fcfcf75326d1d76201f2b60c4aa30a0">00036</a>     Ogre::Vector3 <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a7fcfcf75326d1d76201f2b60c4aa30a0">boxTranslation</a>;
+<a name="l00037"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#aae7e3e6d9642f84b6d377f27d7ef11bc">00037</a>     Ogre::Quaternion <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#aae7e3e6d9642f84b6d377f27d7ef11bc">boxRotation</a>;
+<a name="l00038"></a>00038     <span class="comment">//this flag indicate if the shape is used for collision or if it&#39;s for raycasting only.</span>
+<a name="l00039"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a3cce37969b2ec79a71efcb8ccef229d3">00039</a>     <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#a3cce37969b2ec79a71efcb8ccef229d3">mCollide</a>;
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#acb03266d75e03665c2fbf0c7c7c5ece3">00041</a>     <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html#acb03266d75e03665c2fbf0c7c7c5ece3">mIgnore</a>;
+<a name="l00042"></a>00042 };
+<a name="l00043"></a>00043 
+<a name="l00047"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html">00047</a> <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html">BulletShapePtr</a> : <span class="keyword">public</span> Ogre::SharedPtr&lt;BulletShape&gt;
+<a name="l00048"></a>00048 {
+<a name="l00049"></a>00049 <span class="keyword">public</span>:
+<a name="l00050"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a711ebecd6351c164bac43b45d5ae0c22">00050</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a711ebecd6351c164bac43b45d5ae0c22">BulletShapePtr</a>() : Ogre::SharedPtr&lt;<a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a>&gt;() {}
+<a name="l00051"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a9dbc3bc723dadadcaccd87c78bb39c45">00051</a>     <span class="keyword">explicit</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a9dbc3bc723dadadcaccd87c78bb39c45">BulletShapePtr</a>(<a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a> *rep) : Ogre::SharedPtr&lt;<a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a>&gt;(rep) {}
+<a name="l00052"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a33c64f3e853d0bdae3fd7b98e8cc8fd2">00052</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a33c64f3e853d0bdae3fd7b98e8cc8fd2">BulletShapePtr</a>(<span class="keyword">const</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html">BulletShapePtr</a> &amp;r) : Ogre::SharedPtr&lt;<a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a>&gt;(r) {}
+<a name="l00053"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a4702cba209e3ffd1a93e355b431f382f">00053</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#a711ebecd6351c164bac43b45d5ae0c22">BulletShapePtr</a>(<span class="keyword">const</span> Ogre::ResourcePtr &amp;r) : Ogre::SharedPtr&lt;<a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a>&gt;()
+<a name="l00054"></a>00054     {
+<a name="l00055"></a>00055         <span class="keywordflow">if</span>( r.isNull() )
+<a name="l00056"></a>00056             <span class="keywordflow">return</span>;
+<a name="l00057"></a>00057         <span class="comment">// lock &amp; copy other mutex pointer</span>
+<a name="l00058"></a>00058         OGRE_LOCK_MUTEX(*r.OGRE_AUTO_MUTEX_NAME)
+<a name="l00059"></a>00059             OGRE_COPY_AUTO_SHARED_MUTEX(r.OGRE_AUTO_MUTEX_NAME)
+<a name="l00060"></a>00060             pRep = <span class="keyword">static_cast&lt;</span><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a>*<span class="keyword">&gt;</span>(r.getPointer());
+<a name="l00061"></a>00061         pUseCount = r.useCountPointer();
+<a name="l00062"></a>00062         useFreeMethod = r.freeMethod();
+<a name="l00063"></a>00063         <span class="keywordflow">if</span> (pUseCount)
+<a name="l00064"></a>00064         {
+<a name="l00065"></a>00065             ++(*pUseCount);
+<a name="l00066"></a>00066         }
+<a name="l00067"></a>00067     }
+<a name="l00068"></a>00068 
+<a name="l00070"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#adb4a313c668555df9e1e6e43794c3465">00070</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html">BulletShapePtr</a>&amp; <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html#adb4a313c668555df9e1e6e43794c3465" title="Operator used to convert a ResourcePtr to a BulletShapePtr.">operator=</a>(<span class="keyword">const</span> Ogre::ResourcePtr&amp; r)
+<a name="l00071"></a>00071     {
+<a name="l00072"></a>00072         <span class="keywordflow">if</span>(pRep == static_cast&lt;BulletShape*&gt;(r.getPointer()))
+<a name="l00073"></a>00073             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00074"></a>00074         release();
+<a name="l00075"></a>00075         <span class="keywordflow">if</span>( r.isNull() )
+<a name="l00076"></a>00076             <span class="keywordflow">return</span> *<span class="keyword">this</span>; <span class="comment">// resource ptr is null, so the call to release above has done all we need to do.</span>
+<a name="l00077"></a>00077         <span class="comment">// lock &amp; copy other mutex pointer</span>
+<a name="l00078"></a>00078         OGRE_LOCK_MUTEX(*r.OGRE_AUTO_MUTEX_NAME)
+<a name="l00079"></a>00079             OGRE_COPY_AUTO_SHARED_MUTEX(r.OGRE_AUTO_MUTEX_NAME)
+<a name="l00080"></a>00080             pRep = <span class="keyword">static_cast&lt;</span><a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">BulletShape</a>*<span class="keyword">&gt;</span>(r.getPointer());
+<a name="l00081"></a>00081         pUseCount = r.useCountPointer();
+<a name="l00082"></a>00082         useFreeMethod = r.freeMethod();
+<a name="l00083"></a>00083         <span class="keywordflow">if</span> (pUseCount)
+<a name="l00084"></a>00084         {
+<a name="l00085"></a>00085             ++(*pUseCount);
+<a name="l00086"></a>00086         }
+<a name="l00087"></a>00087         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00088"></a>00088     }
+<a name="l00089"></a>00089 };
 <a name="l00090"></a>00090 
 <a name="l00091"></a>00091 
-<a name="l00110"></a><a class="code" href="classBulletShapeManager.html">00110</a> <span class="keyword">class </span><a class="code" href="classBulletShapeManager.html">BulletShapeManager</a> : <span class="keyword">public</span> Ogre::ResourceManager, <span class="keyword">public</span> Ogre::Singleton&lt;BulletShapeManager&gt;
-<a name="l00111"></a>00111 {
-<a name="l00112"></a>00112 <span class="keyword">protected</span>:
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114     <span class="comment">// must implement this from ResourceManager&#39;s interface</span>
-<a name="l00115"></a>00115     Ogre::Resource *<a class="code" href="classBulletShapeManager.html#a498d11703f6803a3c6fe7b542e4aebbc">createImpl</a>(<span class="keyword">const</span> Ogre::String &amp;name, Ogre::ResourceHandle handle,
-<a name="l00116"></a>00116         <span class="keyword">const</span> Ogre::String &amp;group, <span class="keywordtype">bool</span> isManual, Ogre::ManualResourceLoader *loader,
-<a name="l00117"></a>00117         <span class="keyword">const</span> Ogre::NameValuePairList *createParams);
-<a name="l00118"></a>00118 
-<a name="l00119"></a>00119 <span class="keyword">public</span>:
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093 
+<a name="l00112"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">00112</a> <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a> : <span class="keyword">public</span> Ogre::ResourceManager
+<a name="l00113"></a>00113 {
+<a name="l00114"></a>00114 <span class="keyword">protected</span>:
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116     <span class="comment">// must implement this from ResourceManager&#39;s interface</span>
+<a name="l00117"></a>00117     Ogre::Resource *<a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#a5cedd45cd462a8060e5e6b752c8c3deb">createImpl</a>(<span class="keyword">const</span> Ogre::String &amp;name, Ogre::ResourceHandle handle,
+<a name="l00118"></a>00118         <span class="keyword">const</span> Ogre::String &amp;group, <span class="keywordtype">bool</span> isManual, Ogre::ManualResourceLoader *loader,
+<a name="l00119"></a>00119         <span class="keyword">const</span> Ogre::NameValuePairList *createParams);
 <a name="l00120"></a>00120 
-<a name="l00121"></a>00121     <a class="code" href="classBulletShapeManager.html#adb31cfdbe70e905f6d7bb4a231c8d2b5">BulletShapeManager</a>();
-<a name="l00122"></a>00122     <span class="keyword">virtual</span> <a class="code" href="classBulletShapeManager.html#ac260d79063590f22ff72ad859576f515">~BulletShapeManager</a>();
-<a name="l00123"></a>00123 
-<a name="l00124"></a>00124     <span class="keyword">virtual</span> <a class="code" href="classBulletShapePtr.html">BulletShapePtr</a> <a class="code" href="classBulletShapeManager.html#a631fa22a29b3291ce704400802755f18">load</a>(<span class="keyword">const</span> Ogre::String &amp;name, <span class="keyword">const</span> Ogre::String &amp;group);
-<a name="l00125"></a>00125 
-<a name="l00126"></a>00126     <span class="keyword">static</span> <a class="code" href="classBulletShapeManager.html">BulletShapeManager</a> &amp;<a class="code" href="classBulletShapeManager.html#a252a35d17db6ec2df12496b4847c7d06">getSingleton</a>();
-<a name="l00127"></a>00127     <span class="keyword">static</span> <a class="code" href="classBulletShapeManager.html">BulletShapeManager</a> *<a class="code" href="classBulletShapeManager.html#a0c3875dde4408d06100d59fcc9ec856f">getSingletonPtr</a>();
-<a name="l00128"></a>00128 };
+<a name="l00121"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#a31f885b699b44873c5e6b6caf833b071">00121</a>     <span class="keyword">static</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a> *<a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#a31f885b699b44873c5e6b6caf833b071">sThis</a>;
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 <span class="keyword">private</span>:
+<a name="l00125"></a>00125     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#ac1b9b44566e8bb7c60b73e94c07ee83f">BulletShapeManager</a>(<span class="keyword">const</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a> &amp;);
+<a name="l00126"></a>00126 
+<a name="l00128"></a>00128     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a>&amp; <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#a75c98e4a0d3f4a6c66515d33c4d0033d" title="Private operator= . This is a forbidden operation.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a> &amp;);
 <a name="l00129"></a>00129 
-<a name="l00130"></a><a class="code" href="classBulletShapeLoader.html">00130</a> <span class="keyword">class </span><a class="code" href="classBulletShapeLoader.html">BulletShapeLoader</a> : <span class="keyword">public</span> Ogre::ManualResourceLoader
-<a name="l00131"></a>00131 {
-<a name="l00132"></a>00132 <span class="keyword">public</span>:
-<a name="l00133"></a>00133 
-<a name="l00134"></a><a class="code" href="classBulletShapeLoader.html#af40a2c61e71c9ed7a6356dcf533057b6">00134</a>     <a class="code" href="classBulletShapeLoader.html#af40a2c61e71c9ed7a6356dcf533057b6">BulletShapeLoader</a>(){};
-<a name="l00135"></a><a class="code" href="classBulletShapeLoader.html#aebcee3e7752fe55b60d5264a2b8b3979">00135</a>     <span class="keyword">virtual</span> <a class="code" href="classBulletShapeLoader.html#aebcee3e7752fe55b60d5264a2b8b3979">~BulletShapeLoader</a>() {}
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classBulletShapeLoader.html#aff9f0b21d721b9e21a0d62b9827216fd">loadResource</a>(Ogre::Resource *resource);
-<a name="l00138"></a>00138 
-<a name="l00139"></a>00139     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classBulletShapeLoader.html#a5c54d4768db984d3d28037b4344d2abb">load</a>(<span class="keyword">const</span> std::string &amp;name,<span class="keyword">const</span> std::string &amp;group);
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131 <span class="keyword">public</span>:
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#ac1b9b44566e8bb7c60b73e94c07ee83f">BulletShapeManager</a>();
+<a name="l00134"></a>00134     <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#a6c59d51572f4490e7834c8c6324a77e6">~BulletShapeManager</a>();
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136     <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapePtr.html">BulletShapePtr</a> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#aac2615d9e2475303b5eae5cbf959ca33">load</a>(<span class="keyword">const</span> Ogre::String &amp;name, <span class="keyword">const</span> Ogre::String &amp;group);
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     <span class="keyword">static</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a> &amp;<a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#ab1a46180f769b2290ccd75e7ff42a7c0">getSingleton</a>();
+<a name="l00139"></a>00139     <span class="keyword">static</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html">BulletShapeManager</a> *<a class="code" href="classOEngine_1_1Physic_1_1BulletShapeManager.html#a8f1c7290de4fcd18a1bc2849c918fca9">getSingletonPtr</a>();
 <a name="l00140"></a>00140 };
 <a name="l00141"></a>00141 
-<a name="l00142"></a>00142 <span class="preprocessor">#endif</span>
+<a name="l00142"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html">00142</a> <span class="keyword">class </span><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html">BulletShapeLoader</a> : <span class="keyword">public</span> Ogre::ManualResourceLoader
+<a name="l00143"></a>00143 {
+<a name="l00144"></a>00144 <span class="keyword">public</span>:
+<a name="l00145"></a>00145 
+<a name="l00146"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html#a3d37919f24546d6349b888a6a93a801f">00146</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html#a3d37919f24546d6349b888a6a93a801f">BulletShapeLoader</a>(){};
+<a name="l00147"></a><a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html#a86b1e04289fd30194581334526f26479">00147</a>     <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html#a86b1e04289fd30194581334526f26479">~BulletShapeLoader</a>() {}
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html#ab899c265f63820dbcf6bbc38934f9710">loadResource</a>(Ogre::Resource *resource);
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Physic_1_1BulletShapeLoader.html#a252da0516982be0113a7672f327ffea7">load</a>(<span class="keyword">const</span> std::string &amp;name,<span class="keyword">const</span> std::string &amp;group);
+<a name="l00152"></a>00152 };
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 }
+<a name="l00155"></a>00155 }
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -63,6 +63,7 @@
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="loadgmst_8hpp_source.html">loadgmst.hpp</a>&quot;</code><br/>
 <code>#include &lt;stdexcept&gt;</code><br/>
+<code>#include &lt;boost/algorithm/string.hpp&gt;</code><br/>
 <code>#include &quot;<a class="el" href="esmreader_8hpp_source.html">esmreader.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="esmwriter_8hpp_source.html">esmwriter.hpp</a>&quot;</code><br/>
 </div><table class="memberdecls">
@@ -73,9 +74,9 @@ Namespaces</h2></td></tr>
 <br/></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="loadgmst_8cpp.html#af282754c766fb1701b026da0c3dba8de">cI</a>(s, x)&#160;&#160;&#160;{ if(mId == (s)) return (mI == (x)); }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="loadgmst_8cpp.html#a8a0e0c117cc4e1cfcbf63185340c27f7">cF</a>(s, x)&#160;&#160;&#160;{ if(mId == (s)) return (mF == (x)); }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="loadgmst_8cpp.html#aeee86922005896781801e7c733ebe86b">cS</a>(s, x)&#160;&#160;&#160;{ if(mId == (s)) return (mStr == (x)); }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="loadgmst_8cpp.html#af282754c766fb1701b026da0c3dba8de">cI</a>(s, x)&#160;&#160;&#160;{ label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mI == (x)); }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="loadgmst_8cpp.html#a8a0e0c117cc4e1cfcbf63185340c27f7">cF</a>(s, x)&#160;&#160;&#160;{ label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mF == (x)); }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="loadgmst_8cpp.html#aeee86922005896781801e7c733ebe86b">cS</a>(s, x)&#160;&#160;&#160;{ label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mStr == (x)); }</td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="a8a0e0c117cc4e1cfcbf63185340c27f7"></a><!-- doxytag: member="loadgmst.cpp::cF" ref="a8a0e0c117cc4e1cfcbf63185340c27f7" args="(s, x)" -->
@@ -97,7 +98,7 @@ Defines</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;{ if(mId == (s)) return (mF == (x)); }</td>
+          <td></td><td>&#160;&#160;&#160;{ label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mF == (x)); }</td>
         </tr>
       </table>
 </div>
@@ -124,12 +125,12 @@ Defines</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;{ if(mId == (s)) return (mI == (x)); }</td>
+          <td></td><td>&#160;&#160;&#160;{ label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mI == (x)); }</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>Review GMST "fixing". Probably remove completely or at least make it optional. Its definitely not working properly in its current state and I doubt it can be fixed without breaking other stuff. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000074">Todo:</a></b></dt><dd>Review GMST "fixing". Probably remove completely or at least make it optional. Its definitely not working properly in its current state and I doubt it can be fixed without breaking other stuff. </dd></dl>
 
 </div>
 </div>
@@ -152,7 +153,7 @@ Defines</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;{ if(mId == (s)) return (mStr == (x)); }</td>
+          <td></td><td>&#160;&#160;&#160;{ label = (s); boost::algorithm::to_lower(label); if (mId == label) return (mStr == (x)); }</td>
         </tr>
       </table>
 </div>
@@ -164,7 +165,7 @@ Defines</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

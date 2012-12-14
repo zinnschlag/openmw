@@ -81,9 +81,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#aab1ae645cf85e2c77772d32cbd7faf07">getHeight</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#ac91aaa27d3c604927b65a4ea85889a64">worldPosToImageSpace</a> (float x, float z, float &amp;imageX, float &amp;imageY)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#af22cbf0feaa1cf1463ea5d3ff3d4c33a">cellTopLeftCornerToImageSpace</a> (int x, int y, float &amp;imageX, float &amp;imageY)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#a98961ac097afd55b42dfdda95f978069">exploreCell</a> (int cellX, int cellY)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#a48788efa82ddb900b2d83c4b46f2e8ce">mCacheDir</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; int, <br class="typebreak"/>
+int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#a542940e75b26d947da5750f1aa042cee">mExploredCells</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::TexturePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#a9dc3c930b387952eda4953742cdaeb97">mOverlayTexture</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; Ogre::uchar &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#a2060082eb40b2c5b8ea253ccdf6b484c">mExploredBuffer</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">mWidth</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">mHeight</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1GlobalMap.html#af2a443570afc6dd12f29cbea4b959699">mMinX</a></td></tr>
@@ -137,6 +142,33 @@ Private Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">float &amp;&#160;</td>
           <td class="paramname"><em>imageY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a98961ac097afd55b42dfdda95f978069"></a><!-- doxytag: member="MWRender::GlobalMap::exploreCell" ref="a98961ac097afd55b42dfdda95f978069" args="(int cellX, int cellY)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1GlobalMap.html#a98961ac097afd55b42dfdda95f978069">MWRender::GlobalMap::exploreCell</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>cellX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>cellY</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -257,6 +289,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2060082eb40b2c5b8ea253ccdf6b484c"></a><!-- doxytag: member="MWRender::GlobalMap::mExploredBuffer" ref="a2060082eb40b2c5b8ea253ccdf6b484c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;Ogre::uchar&gt; <a class="el" href="classMWRender_1_1GlobalMap.html#a2060082eb40b2c5b8ea253ccdf6b484c">MWRender::GlobalMap::mExploredBuffer</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a542940e75b26d947da5750f1aa042cee"></a><!-- doxytag: member="MWRender::GlobalMap::mExploredCells" ref="a542940e75b26d947da5750f1aa042cee" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt;int,int&gt; &gt; <a class="el" href="classMWRender_1_1GlobalMap.html#a542940e75b26d947da5750f1aa042cee">MWRender::GlobalMap::mExploredCells</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af12b3984beca47a8f8ea55059f8f86c6"></a><!-- doxytag: member="MWRender::GlobalMap::mHeight" ref="af12b3984beca47a8f8ea55059f8f86c6" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -322,6 +380,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9dc3c930b387952eda4953742cdaeb97"></a><!-- doxytag: member="MWRender::GlobalMap::mOverlayTexture" ref="a9dc3c930b387952eda4953742cdaeb97" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::TexturePtr <a class="el" href="classMWRender_1_1GlobalMap.html#a9dc3c930b387952eda4953742cdaeb97">MWRender::GlobalMap::mOverlayTexture</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ab02df92b2b8e4585e1d90580d4612646"></a><!-- doxytag: member="MWRender::GlobalMap::mWidth" ref="ab02df92b2b8e4585e1d90580d4612646" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -343,7 +414,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

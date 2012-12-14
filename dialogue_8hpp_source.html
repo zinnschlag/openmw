@@ -86,67 +86,91 @@
 <a name="l00026"></a>00026 {
 <a name="l00027"></a>00027     <span class="keyword">class </span>DialogueHistory;
 <a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="classMWGui_1_1DialogueWindow.html">00029</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a>: <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>
+<a name="l00029"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html">00029</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1PersuasionDialog.html">PersuasionDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
 <a name="l00030"></a>00030     {
 <a name="l00031"></a>00031     <span class="keyword">public</span>:
-<a name="l00032"></a>00032         <a class="code" href="classMWGui_1_1DialogueWindow.html#a69035ce5f57f697c766796663b6fe224">DialogueWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00032"></a>00032         <a class="code" href="classMWGui_1_1PersuasionDialog.html#abab9619b02929b7283bc1ecfacd6ee06">PersuasionDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034         <span class="comment">// Events</span>
-<a name="l00035"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">00035</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">EventHandle_Void</a>;
-<a name="l00036"></a>00036 
-<a name="l00040"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">00040</a>         <a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">EventHandle_Void</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">eventBye</a>;
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a500decb74e5373ef4736151d3ea87f61">startDialogue</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor, std::string npcName);
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a8f260fea7460f99252e33f1765470baa">stopDialogue</a>();
-<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a313a3bb403b6232aab8bb82286299112">setKeywords</a>(std::list&lt;std::string&gt; keyWord);
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a01abf55cdc78db17fc449cf8e4ec03ec">removeKeyword</a>(std::string keyWord);
-<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a829f99c68bc955f67db27eae15bc30f1">addText</a>(std::string text);
-<a name="l00047"></a>00047         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aaef2ad62ee8c70b18bf54e7a94c76f8c">addTitle</a>(std::string text);
-<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a1ccedf8aa2c49785b30d311e323e7df2">askQuestion</a>(std::string question);
-<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a705c46f736b1f72033472311a4bfa3a1">goodbye</a>();
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="comment">// make sure to call these before setKeywords()</span>
-<a name="l00052"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a0277242a6b928465936685014824a754">00052</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a0277242a6b928465936685014824a754">setServices</a>(<span class="keywordtype">int</span> services) { <a class="code" href="classMWGui_1_1DialogueWindow.html#a127cad87993b99bdcfa4db6b6a679125">mServices</a> = services; }
-<a name="l00053"></a>00053 
-<a name="l00054"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8df">00054</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8df">Services</a>
-<a name="l00055"></a>00055         {
-<a name="l00056"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab2cd4af440bc376dcc51f49f5719d980">00056</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab2cd4af440bc376dcc51f49f5719d980">Service_Trade</a> = 0x01,
-<a name="l00057"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa98e606e97d8869445bb6974ef4a6781e">00057</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa98e606e97d8869445bb6974ef4a6781e">Service_BuySpells</a> = 0x02,
-<a name="l00058"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab1d1188fa8ca112e35421bdf4b453b9b">00058</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab1d1188fa8ca112e35421bdf4b453b9b">Service_CreateSpells</a> = 0x04,
-<a name="l00059"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfaa93858f349217d1b8b8bee863e03e2c7">00059</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfaa93858f349217d1b8b8bee863e03e2c7">Service_Enchant</a> = 0x08,
-<a name="l00060"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfae4e67e8c116e01a74c7032d120497276">00060</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfae4e67e8c116e01a74c7032d120497276">Service_Training</a> = 0x10,
-<a name="l00061"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa3679cc8132d61c53cf36d21ab0deafbf">00061</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa3679cc8132d61c53cf36d21ab0deafbf">Service_Travel</a> = 0x20
-<a name="l00062"></a>00062         };
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keyword">protected</span>:
-<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae53f4fe22d04386c86729e679d028f5c">onSelectTopic</a>(std::string topic);
-<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae0ce905338988088802f7e53085a6531">onByeClicked</a>(MyGUI::Widget* _sender);
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ab757342f9226310a91a31bb5cf20902a">onHistoryClicked</a>(MyGUI::Widget* _sender);
-<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#afe66b40d55da54154f6bfb71446e0527">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
-<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aeb38624c2956eec12b0c385ad74c1343">onWindowResize</a>(MyGUI::Window* _sender);
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a95914bdfa1f2c8c2789dbd355358082f" title="called when reference has become unavailable">onReferenceUnavailable</a>();
+<a name="l00034"></a>00034         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PersuasionDialog.html#a4bc3b2daf7f003bbeba5dfdb2e525df3">open</a>();
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036     <span class="keyword">private</span>:
+<a name="l00037"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#ac800e9ce3aa29573e8d8ee01a6da55d0">00037</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#ac800e9ce3aa29573e8d8ee01a6da55d0">mCancelButton</a>;
+<a name="l00038"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#a8033f87e167ca36ba33cf0569314c689">00038</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#a8033f87e167ca36ba33cf0569314c689">mAdmireButton</a>;
+<a name="l00039"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#a63c7aa5b4786c800a6ecc7ca17575369">00039</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#a63c7aa5b4786c800a6ecc7ca17575369">mIntimidateButton</a>;
+<a name="l00040"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#a99648c6b5d22064b09765c966ec01bf3">00040</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#a99648c6b5d22064b09765c966ec01bf3">mTauntButton</a>;
+<a name="l00041"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#abf766e5d8a00a0a818b804939a773f65">00041</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#abf766e5d8a00a0a818b804939a773f65">mBribe10Button</a>;
+<a name="l00042"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#aa2cb8a76ceba87904896d620a5aa8158">00042</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#aa2cb8a76ceba87904896d620a5aa8158">mBribe100Button</a>;
+<a name="l00043"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#ae7fa9d6b9d0db4338b0f69ddec0b692d">00043</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1PersuasionDialog.html#ae7fa9d6b9d0db4338b0f69ddec0b692d">mBribe1000Button</a>;
+<a name="l00044"></a><a class="code" href="classMWGui_1_1PersuasionDialog.html#a1c8c657d99102da2237267d3c5383fcc">00044</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1PersuasionDialog.html#a1c8c657d99102da2237267d3c5383fcc">mGoldLabel</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PersuasionDialog.html#a8b42e24fa6a0a7c2607b485e80f85eda">onCancel</a> (MyGUI::Widget* sender);
+<a name="l00047"></a>00047         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1PersuasionDialog.html#a1ee2268497eea2a0bf82e7eab3b34d05">onPersuade</a> (MyGUI::Widget* sender);
+<a name="l00048"></a>00048     };
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWGui_1_1DialogueWindow.html">00050</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a>: <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>
+<a name="l00051"></a>00051     {
+<a name="l00052"></a>00052     <span class="keyword">public</span>:
+<a name="l00053"></a>00053         <a class="code" href="classMWGui_1_1DialogueWindow.html#a69035ce5f57f697c766796663b6fe224">DialogueWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055         <span class="comment">// Events</span>
+<a name="l00056"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">00056</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">EventHandle_Void</a>;
+<a name="l00057"></a>00057 
+<a name="l00061"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">00061</a>         <a class="code" href="classMWGui_1_1DialogueWindow.html#ab8df7d3c6caff9ed2ae5c48d1dc3b279">EventHandle_Void</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#aa29983cd4205205d7fb33ac0a5137847">eventBye</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a500decb74e5373ef4736151d3ea87f61">startDialogue</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor, std::string npcName);
+<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a8f260fea7460f99252e33f1765470baa">stopDialogue</a>();
+<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a313a3bb403b6232aab8bb82286299112">setKeywords</a>(std::list&lt;std::string&gt; keyWord);
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a01abf55cdc78db17fc449cf8e4ec03ec">removeKeyword</a>(std::string keyWord);
+<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a829f99c68bc955f67db27eae15bc30f1">addText</a>(std::string text);
+<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aaef2ad62ee8c70b18bf54e7a94c76f8c">addTitle</a>(std::string text);
+<a name="l00069"></a>00069         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a1ccedf8aa2c49785b30d311e323e7df2">askQuestion</a>(std::string question);
+<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a705c46f736b1f72033472311a4bfa3a1">goodbye</a>();
+<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#acdd0a47f3dc00ca438f41fd9b47e46e0">onFrame</a>();
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keyword">private</span>:
-<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a3bc25509f07685e0cc383f37eba37368">updateOptions</a>();
-<a name="l00078"></a>00078         std::string <a class="code" href="classMWGui_1_1DialogueWindow.html#acb898f0a7c2fc8af79a46aea0c411cc1">parseText</a>(std::string text);
-<a name="l00079"></a>00079 
-<a name="l00080"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a127cad87993b99bdcfa4db6b6a679125">00080</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a127cad87993b99bdcfa4db6b6a679125">mServices</a>;
-<a name="l00081"></a>00081 
-<a name="l00082"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a56f5a7ab49d66d0c8cd6e2e136f4d693">00082</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a56f5a7ab49d66d0c8cd6e2e136f4d693">mEnabled</a>;
-<a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ab6da59e58dc3a0402d5ea1c2e958ea97">00084</a>         <a class="code" href="classMWGui_1_1DialogueHistory.html">DialogueHistory</a>*   <a class="code" href="classMWGui_1_1DialogueWindow.html#ab6da59e58dc3a0402d5ea1c2e958ea97">mHistory</a>;
-<a name="l00085"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a1b7e665430fb3758c82398466e8b2ec3">00085</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>*   <a class="code" href="classMWGui_1_1DialogueWindow.html#a1b7e665430fb3758c82398466e8b2ec3">mTopicsList</a>;
-<a name="l00086"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a6df9987f842634791b5c1078037f93c9">00086</a>         MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#a6df9987f842634791b5c1078037f93c9">mDispositionBar</a>;
-<a name="l00087"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#afb27f0e7f700f4b024f31799c926fef5">00087</a>         MyGUI::EditPtr     <a class="code" href="classMWGui_1_1DialogueWindow.html#afb27f0e7f700f4b024f31799c926fef5">mDispositionText</a>;
-<a name="l00088"></a>00088     };
-<a name="l00089"></a>00089 }
-<a name="l00090"></a>00090 <span class="preprocessor">#endif</span>
+<a name="l00073"></a>00073         <span class="comment">// make sure to call these before setKeywords()</span>
+<a name="l00074"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a0277242a6b928465936685014824a754">00074</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a0277242a6b928465936685014824a754">setServices</a>(<span class="keywordtype">int</span> services) { <a class="code" href="classMWGui_1_1DialogueWindow.html#a127cad87993b99bdcfa4db6b6a679125">mServices</a> = services; }
+<a name="l00075"></a>00075 
+<a name="l00076"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8df">00076</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8df">Services</a>
+<a name="l00077"></a>00077         {
+<a name="l00078"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab2cd4af440bc376dcc51f49f5719d980">00078</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab2cd4af440bc376dcc51f49f5719d980">Service_Trade</a> = 0x01,
+<a name="l00079"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa98e606e97d8869445bb6974ef4a6781e">00079</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa98e606e97d8869445bb6974ef4a6781e">Service_BuySpells</a> = 0x02,
+<a name="l00080"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab1d1188fa8ca112e35421bdf4b453b9b">00080</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfab1d1188fa8ca112e35421bdf4b453b9b">Service_CreateSpells</a> = 0x04,
+<a name="l00081"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfaa93858f349217d1b8b8bee863e03e2c7">00081</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfaa93858f349217d1b8b8bee863e03e2c7">Service_Enchant</a> = 0x08,
+<a name="l00082"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfae4e67e8c116e01a74c7032d120497276">00082</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfae4e67e8c116e01a74c7032d120497276">Service_Training</a> = 0x10,
+<a name="l00083"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa3679cc8132d61c53cf36d21ab0deafbf">00083</a>             <a class="code" href="classMWGui_1_1DialogueWindow.html#a4168e9e564b0dac9e456ef4a5e61d8dfa3679cc8132d61c53cf36d21ab0deafbf">Service_Travel</a> = 0x20
+<a name="l00084"></a>00084         };
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <span class="keyword">protected</span>:
+<a name="l00087"></a>00087         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae53f4fe22d04386c86729e679d028f5c">onSelectTopic</a>(std::string topic);
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ae0ce905338988088802f7e53085a6531">onByeClicked</a>(MyGUI::Widget* _sender);
+<a name="l00089"></a>00089         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#ab757342f9226310a91a31bb5cf20902a">onHistoryClicked</a>(MyGUI::Widget* _sender);
+<a name="l00090"></a>00090         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#afe66b40d55da54154f6bfb71446e0527">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
+<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#aeb38624c2956eec12b0c385ad74c1343">onWindowResize</a>(MyGUI::Window* _sender);
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a95914bdfa1f2c8c2789dbd355358082f" title="called when reference has become unavailable">onReferenceUnavailable</a>();
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     <span class="keyword">private</span>:
+<a name="l00096"></a>00096         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a3bc25509f07685e0cc383f37eba37368">updateOptions</a>();
+<a name="l00100"></a>00100         std::string <a class="code" href="classMWGui_1_1DialogueWindow.html#acb898f0a7c2fc8af79a46aea0c411cc1">parseText</a>(std::string text);
+<a name="l00101"></a>00101 
+<a name="l00102"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a127cad87993b99bdcfa4db6b6a679125">00102</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a127cad87993b99bdcfa4db6b6a679125">mServices</a>;
+<a name="l00103"></a>00103 
+<a name="l00104"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a56f5a7ab49d66d0c8cd6e2e136f4d693">00104</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1DialogueWindow.html#a56f5a7ab49d66d0c8cd6e2e136f4d693">mEnabled</a>;
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#ab6da59e58dc3a0402d5ea1c2e958ea97">00106</a>         <a class="code" href="classMWGui_1_1DialogueHistory.html">DialogueHistory</a>*   <a class="code" href="classMWGui_1_1DialogueWindow.html#ab6da59e58dc3a0402d5ea1c2e958ea97">mHistory</a>;
+<a name="l00107"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a1b7e665430fb3758c82398466e8b2ec3">00107</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>*   <a class="code" href="classMWGui_1_1DialogueWindow.html#a1b7e665430fb3758c82398466e8b2ec3">mTopicsList</a>;
+<a name="l00108"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a6df9987f842634791b5c1078037f93c9">00108</a>         MyGUI::ProgressPtr <a class="code" href="classMWGui_1_1DialogueWindow.html#a6df9987f842634791b5c1078037f93c9">mDispositionBar</a>;
+<a name="l00109"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#afb27f0e7f700f4b024f31799c926fef5">00109</a>         MyGUI::EditPtr     <a class="code" href="classMWGui_1_1DialogueWindow.html#afb27f0e7f700f4b024f31799c926fef5">mDispositionText</a>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a><a class="code" href="classMWGui_1_1DialogueWindow.html#a7def2c05662ee70db7068860d1afb922">00111</a>         <a class="code" href="classMWGui_1_1PersuasionDialog.html">PersuasionDialog</a> <a class="code" href="classMWGui_1_1DialogueWindow.html#a7def2c05662ee70db7068860d1afb922">mPersuasionDialog</a>;
+<a name="l00112"></a>00112     };
+<a name="l00113"></a>00113 }
+<a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

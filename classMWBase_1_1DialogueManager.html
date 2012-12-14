@@ -84,11 +84,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a60c838c45a8e10d09a3c39e7929a7bbd">addTopic</a> (const std::string &amp;topic)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a09ffcfd98f1a447ff36f3494d210e548">askQuestion</a> (const std::string &amp;question, int choice)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#afa4c183cf9f2b85bd15e67e6cf9857c1">goodbye</a> ()=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a194408362e59e51b911adc931a69c3fa">getFaction</a> () const =0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get the faction of the actor you are talking with  <a href="#a194408362e59e51b911adc931a69c3fa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#ab67857e83a6226c0fe044166162f8d95">getActor</a> () const =0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the actor the player is currently talking to.  <a href="#ab67857e83a6226c0fe044166162f8d95"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a32fb9f672fb59fefc47ab574121c38e6">keywordSelected</a> (const std::string &amp;keyword)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a5e7411f3934cf921daee77ad8bdcf456">goodbyeSelected</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a05a80bc77d3ee4291f62d6ab76f7d8be">questionAnswered</a> (const std::string &amp;answer)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a702c0af58694da573838f415822dd60a">persuade</a> (int type)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a983111f847f6fdbc0e0b619ef1cabeec">getTemporaryDispositionChange</a> () const =0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a228e929ff60f661151d60784abf73c03">applyTemporaryDispositionChange</a> (int delta)=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1DialogueManager.html#a1949f289a89c63a13da26c3c5eda84a9">DialogueManager</a> (const <a class="el" href="classMWBase_1_1DialogueManager.html">DialogueManager</a> &amp;)</td></tr>
@@ -170,6 +173,25 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a228e929ff60f661151d60784abf73c03"></a><!-- doxytag: member="MWBase::DialogueManager::applyTemporaryDispositionChange" ref="a228e929ff60f661151d60784abf73c03" args="(int delta)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1DialogueManager.html#a228e929ff60f661151d60784abf73c03">MWBase::DialogueManager::applyTemporaryDispositionChange</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>delta</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWDialogue_1_1DialogueManager.html#af5aa1fa18a7de0bbd79f20ecc15ec537">MWDialogue::DialogueManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a09ffcfd98f1a447ff36f3494d210e548"></a><!-- doxytag: member="MWBase::DialogueManager::askQuestion" ref="a09ffcfd98f1a447ff36f3494d210e548" args="(const std::string &amp;question, int choice)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -199,12 +221,12 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a194408362e59e51b911adc931a69c3fa"></a><!-- doxytag: member="MWBase::DialogueManager::getFaction" ref="a194408362e59e51b911adc931a69c3fa" args="() const =0" -->
+<a class="anchor" id="ab67857e83a6226c0fe044166162f8d95"></a><!-- doxytag: member="MWBase::DialogueManager::getActor" ref="ab67857e83a6226c0fe044166162f8d95" args="() const =0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::string <a class="el" href="classMWBase_1_1DialogueManager.html#a194408362e59e51b911adc931a69c3fa">MWBase::DialogueManager::getFaction</a> </td>
+          <td class="memname">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> <a class="el" href="classMWBase_1_1DialogueManager.html#ab67857e83a6226c0fe044166162f8d95">MWBase::DialogueManager::getActor</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [pure virtual]</code></td>
@@ -213,9 +235,27 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>get the faction of the actor you are talking with </p>
+<p>Return the actor the player is currently talking to. </p>
 
-<p>Implemented in <a class="el" href="classMWDialogue_1_1DialogueManager.html#aadf975bdb65d015cb8ee7e6b428b9e37">MWDialogue::DialogueManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWDialogue_1_1DialogueManager.html#a5bfd8a794f5c77fcc973b127a76e996e">MWDialogue::DialogueManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a983111f847f6fdbc0e0b619ef1cabeec"></a><!-- doxytag: member="MWBase::DialogueManager::getTemporaryDispositionChange" ref="a983111f847f6fdbc0e0b619ef1cabeec" args="() const =0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int <a class="el" href="classMWBase_1_1DialogueManager.html#a983111f847f6fdbc0e0b619ef1cabeec">MWBase::DialogueManager::getTemporaryDispositionChange</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWDialogue_1_1DialogueManager.html#aeecf5d637a2a7526065dfc839b6866e3">MWDialogue::DialogueManager</a>.</p>
 
 </div>
 </div>
@@ -293,6 +333,25 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a702c0af58694da573838f415822dd60a"></a><!-- doxytag: member="MWBase::DialogueManager::persuade" ref="a702c0af58694da573838f415822dd60a" args="(int type)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1DialogueManager.html#a702c0af58694da573838f415822dd60a">MWBase::DialogueManager::persuade</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWDialogue_1_1DialogueManager.html#a6e9503322396b5610945e461164d4468">MWDialogue::DialogueManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a05a80bc77d3ee4291f62d6ab76f7d8be"></a><!-- doxytag: member="MWBase::DialogueManager::questionAnswered" ref="a05a80bc77d3ee4291f62d6ab76f7d8be" args="(const std::string &amp;answer)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -338,7 +397,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

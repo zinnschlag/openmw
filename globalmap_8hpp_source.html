@@ -63,41 +63,50 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>MWRender
-<a name="l00007"></a>00007 {
-<a name="l00008"></a>00008 
-<a name="l00009"></a><a class="code" href="classMWRender_1_1GlobalMap.html">00009</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1GlobalMap.html">GlobalMap</a>
-<a name="l00010"></a>00010     {
-<a name="l00011"></a>00011     <span class="keyword">public</span>:
-<a name="l00012"></a>00012         <a class="code" href="classMWRender_1_1GlobalMap.html#a047ef09d72f131ea3f651fa4e18275d9">GlobalMap</a>(<span class="keyword">const</span> std::string&amp; cacheDir);
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#a422a598cec2b105d693f3b2e0a019a3f">render</a>();
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;OgreTexture.h&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWRender
+<a name="l00009"></a>00009 {
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="classMWRender_1_1GlobalMap.html">00011</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1GlobalMap.html">GlobalMap</a>
+<a name="l00012"></a>00012     {
+<a name="l00013"></a>00013     <span class="keyword">public</span>:
+<a name="l00014"></a>00014         <a class="code" href="classMWRender_1_1GlobalMap.html#a047ef09d72f131ea3f651fa4e18275d9">GlobalMap</a>(<span class="keyword">const</span> std::string&amp; cacheDir);
 <a name="l00015"></a>00015 
-<a name="l00016"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a7366387837de875e1881af5f7a9bbcf2">00016</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#a7366387837de875e1881af5f7a9bbcf2">getWidth</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">mWidth</a>; }
-<a name="l00017"></a><a class="code" href="classMWRender_1_1GlobalMap.html#aab1ae645cf85e2c77772d32cbd7faf07">00017</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#aab1ae645cf85e2c77772d32cbd7faf07">getHeight</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">mHeight</a>; }
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#ac91aaa27d3c604927b65a4ea85889a64">worldPosToImageSpace</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> z, <span class="keywordtype">float</span>&amp; imageX, <span class="keywordtype">float</span>&amp; imageY);
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af22cbf0feaa1cf1463ea5d3ff3d4c33a">cellTopLeftCornerToImageSpace</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">float</span>&amp; imageX, <span class="keywordtype">float</span>&amp; imageY);
+<a name="l00016"></a>00016         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#a422a598cec2b105d693f3b2e0a019a3f">render</a>();
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a7366387837de875e1881af5f7a9bbcf2">00018</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#a7366387837de875e1881af5f7a9bbcf2">getWidth</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">mWidth</a>; }
+<a name="l00019"></a><a class="code" href="classMWRender_1_1GlobalMap.html#aab1ae645cf85e2c77772d32cbd7faf07">00019</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#aab1ae645cf85e2c77772d32cbd7faf07">getHeight</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">mHeight</a>; }
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#ac91aaa27d3c604927b65a4ea85889a64">worldPosToImageSpace</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> z, <span class="keywordtype">float</span>&amp; imageX, <span class="keywordtype">float</span>&amp; imageY);
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025     <span class="keyword">private</span>:
-<a name="l00026"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a48788efa82ddb900b2d83c4b46f2e8ce">00026</a>         std::string <a class="code" href="classMWRender_1_1GlobalMap.html#a48788efa82ddb900b2d83c4b46f2e8ce">mCacheDir</a>;
-<a name="l00027"></a>00027 
-<a name="l00028"></a><a class="code" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">00028</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">mWidth</a>;
-<a name="l00029"></a><a class="code" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">00029</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">mHeight</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a95c31b8ba05a7dc39ca26632ff399074">00031</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af2a443570afc6dd12f29cbea4b959699">mMinX</a>, <a class="code" href="classMWRender_1_1GlobalMap.html#ad2fefa423295c3d43d338c5c77697261">mMaxX</a>, <a class="code" href="classMWRender_1_1GlobalMap.html#a95c31b8ba05a7dc39ca26632ff399074">mMinY</a>, <a class="code" href="classMWRender_1_1GlobalMap.html#a06e181a6493d669260dc27bc222acd28">mMaxY</a>;
-<a name="l00032"></a>00032     };
+<a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af22cbf0feaa1cf1463ea5d3ff3d4c33a">cellTopLeftCornerToImageSpace</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">float</span>&amp; imageX, <span class="keywordtype">float</span>&amp; imageY);
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1GlobalMap.html#a98961ac097afd55b42dfdda95f978069">exploreCell</a> (<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY);
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     <span class="keyword">private</span>:
+<a name="l00030"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a48788efa82ddb900b2d83c4b46f2e8ce">00030</a>         std::string <a class="code" href="classMWRender_1_1GlobalMap.html#a48788efa82ddb900b2d83c4b46f2e8ce">mCacheDir</a>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a542940e75b26d947da5750f1aa042cee">00032</a>         std::vector&lt; std::pair&lt;int,int&gt; &gt; <a class="code" href="classMWRender_1_1GlobalMap.html#a542940e75b26d947da5750f1aa042cee">mExploredCells</a>;
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034 }
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="preprocessor">#endif</span>
-<a name="l00037"></a>00037 <span class="preprocessor"></span>
+<a name="l00034"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a9dc3c930b387952eda4953742cdaeb97">00034</a>         Ogre::TexturePtr <a class="code" href="classMWRender_1_1GlobalMap.html#a9dc3c930b387952eda4953742cdaeb97">mOverlayTexture</a>;
+<a name="l00035"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a2060082eb40b2c5b8ea253ccdf6b484c">00035</a>         std::vector&lt;Ogre::uchar&gt; <a class="code" href="classMWRender_1_1GlobalMap.html#a2060082eb40b2c5b8ea253ccdf6b484c">mExploredBuffer</a>;
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">00037</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#ab02df92b2b8e4585e1d90580d4612646">mWidth</a>;
+<a name="l00038"></a><a class="code" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">00038</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af12b3984beca47a8f8ea55059f8f86c6">mHeight</a>;
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="classMWRender_1_1GlobalMap.html#a95c31b8ba05a7dc39ca26632ff399074">00040</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1GlobalMap.html#af2a443570afc6dd12f29cbea4b959699">mMinX</a>, <a class="code" href="classMWRender_1_1GlobalMap.html#ad2fefa423295c3d43d338c5c77697261">mMaxX</a>, <a class="code" href="classMWRender_1_1GlobalMap.html#a95c31b8ba05a7dc39ca26632ff399074">mMinY</a>, <a class="code" href="classMWRender_1_1GlobalMap.html#a06e181a6493d669260dc27bc222acd28">mMaxY</a>;
+<a name="l00041"></a>00041     };
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043 }
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="preprocessor">#endif</span>
+<a name="l00046"></a>00046 <span class="preprocessor"></span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

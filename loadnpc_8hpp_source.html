@@ -177,14 +177,25 @@
 <a name="l00117"></a>00117     <span class="comment">// Implementation moved to load_impl.cpp</span>
 <a name="l00118"></a>00118     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1NPC.html#a0c818b2d49974a0392e848f308696fe8">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
 <a name="l00119"></a>00119     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1NPC.html#a81a5a18b897b1d01c1f54d0623502517">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00120"></a>00120 };
-<a name="l00121"></a>00121 }
-<a name="l00122"></a>00122 <span class="preprocessor">#endif</span>
+<a name="l00120"></a>00120 
+<a name="l00121"></a><a class="code" href="structESM_1_1NPC.html#a8b7ee1fb404dac430b9c2d2648861b3d">00121</a>     <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1NPC.html#a8b7ee1fb404dac430b9c2d2648861b3d">isMale</a>()<span class="keyword"> const </span>{
+<a name="l00122"></a>00122         <span class="keywordflow">return</span> (<a class="code" href="structESM_1_1NPC.html#a08fbded86042de864818438678a932e4">mFlags</a> &amp; <a class="code" href="structESM_1_1NPC.html#a115253db50132f792eb7c47b4f6da583af0b779a0c699340b27041f13cb918dc5">Female</a>) == 0;
+<a name="l00123"></a>00123     }
+<a name="l00124"></a>00124 
+<a name="l00125"></a><a class="code" href="structESM_1_1NPC.html#aa828d6a9f0a601a375332bb860380cef">00125</a>     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1NPC.html#aa828d6a9f0a601a375332bb860380cef">setIsMale</a>(<span class="keywordtype">bool</span> value) {
+<a name="l00126"></a>00126         <a class="code" href="structESM_1_1NPC.html#a08fbded86042de864818438678a932e4">mFlags</a> |= <a class="code" href="structESM_1_1NPC.html#a115253db50132f792eb7c47b4f6da583af0b779a0c699340b27041f13cb918dc5">Female</a>;
+<a name="l00127"></a>00127         <span class="keywordflow">if</span> (value) {
+<a name="l00128"></a>00128             <a class="code" href="structESM_1_1NPC.html#a08fbded86042de864818438678a932e4">mFlags</a> ^= <a class="code" href="structESM_1_1NPC.html#a115253db50132f792eb7c47b4f6da583af0b779a0c699340b27041f13cb918dc5">Female</a>;
+<a name="l00129"></a>00129         }
+<a name="l00130"></a>00130     }
+<a name="l00131"></a>00131 };
+<a name="l00132"></a>00132 }
+<a name="l00133"></a>00133 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

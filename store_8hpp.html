@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>OpenMW: components/esm_store/store.hpp File Reference</title>
+<title>OpenMW: apps/openmw/mwworld/store.hpp File Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -58,28 +58,46 @@
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">components/esm_store/store.hpp File Reference</div>  </div>
+<div class="title">apps/openmw/mwworld/store.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="records_8hpp_source.html">components/esm/records.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="reclists_8hpp_source.html">reclists.hpp</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;string&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;map&gt;</code><br/>
+<code>#include &lt;stdexcept&gt;</code><br/>
+<code>#include &quot;<a class="el" href="recordcmp_8hpp_source.html">recordcmp.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="store_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1StoreBase.html">MWWorld::StoreBase</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1SharedIterator.html">MWWorld::SharedIterator&lt; T &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html">MWWorld::Store&lt; T &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store_3_01ESM_1_1LandTexture_01_4.html">MWWorld::Store&lt; ESM::LandTexture &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store_3_01ESM_1_1Land_01_4.html">MWWorld::Store&lt; ESM::Land &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1Store_3_01ESM_1_1Land_01_4_1_1Compare.html">MWWorld::Store&lt; ESM::Land &gt;::Compare</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html">MWWorld::Store&lt; ESM::Cell &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1Store_3_01ESM_1_1Cell_01_4_1_1ExtCmp.html">MWWorld::Store&lt; ESM::Cell &gt;::ExtCmp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">MWWorld::Store&lt; ESM::Pathgrid &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html">MWWorld::Store&lt; ESM::Pathgrid &gt;::IntExtOrdering</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html">MWWorld::Store&lt; ESM::Pathgrid &gt;::ExtCompare</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1IndexedStore.html">MWWorld::IndexedStore&lt; T &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1IndexedStore_1_1Compare.html">MWWorld::IndexedStore&lt; T &gt;::Compare</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">MWWorld::Store&lt; ESM::Skill &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">MWWorld::Store&lt; ESM::MagicEffect &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">MWWorld::Store&lt; ESM::Attribute &gt;</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceESMS.html">ESMS</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>ESM/ESP record store. </p>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWWorld.html">MWWorld</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p><a class="el" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a> data. </p>
 <br/></td></tr>
 </table>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

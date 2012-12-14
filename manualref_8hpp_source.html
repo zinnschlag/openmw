@@ -63,109 +63,91 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;boost/any.hpp&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="store_8hpp.html">components/esm_store/store.hpp</a>&gt;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="ptr_8hpp.html">ptr.hpp</a>&quot;</span>
-<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="cellstore_8hpp.html">cellstore.hpp</a>&quot;</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">namespace </span>MWWorld
-<a name="l00012"></a>00012 {
-<a name="l00014"></a><a class="code" href="classMWWorld_1_1ManualRef.html">00014</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>
-<a name="l00015"></a>00015     {
-<a name="l00016"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">00016</a>             boost::any <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>;
-<a name="l00017"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">00017</a>             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>;
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp;);
-<a name="l00020"></a>00020             <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#a177ab26b23ec2b77ef07a9c17796359a">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp;);
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00023"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">00023</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1RecListT.html">ESMS::RecListT&lt;T&gt;</a>&amp; list, <span class="keyword">const</span> std::string&amp; name)
-<a name="l00024"></a>00024             {
-<a name="l00025"></a>00025                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.<a class="code" href="structESMS_1_1RecListT.html#a87982a3a1e1112a6e33e18fccf1022d9">search</a> (name))
-<a name="l00026"></a>00026                 {
-<a name="l00027"></a>00027                     <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;T&gt;</a> ref;
-<a name="l00028"></a>00028                     ref.<a class="code" href="structMWWorld_1_1LiveCellRef.html#afe6b790b904330bba44c00650c522813">base</a> = instance;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030                     <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a> = ref;
-<a name="l00031"></a>00031                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;<a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;T&gt;</a>&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00034"></a>00034                 }
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00037"></a>00037             }
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00040"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ad7018336311c52b1f40add3b4adb2004">00040</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1RecListWithIDT.html" title="Modified version of RecListT for records, that need to store their own ID.">ESMS::RecListWithIDT&lt;T&gt;</a>&amp; list, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="esmstore_8hpp.html">esmstore.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="ptr_8hpp.html">ptr.hpp</a>&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="cellstore_8hpp.html">cellstore.hpp</a>&quot;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWWorld
+<a name="l00011"></a>00011 {
+<a name="l00013"></a><a class="code" href="classMWWorld_1_1ManualRef.html">00013</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>
+<a name="l00014"></a>00014     {
+<a name="l00015"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">00015</a>             boost::any <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>;
+<a name="l00016"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">00016</a>             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>;
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp;);
+<a name="l00019"></a>00019             <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#a177ab26b23ec2b77ef07a9c17796359a">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp;);
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00022"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">00022</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">MWWorld::Store&lt;T&gt;</a>&amp; list, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00023"></a>00023             {
+<a name="l00024"></a>00024                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a> (name))
+<a name="l00025"></a>00025                 {
+<a name="l00026"></a>00026                     <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;T&gt;</a> ref;
+<a name="l00027"></a>00027                     ref.<a class="code" href="structMWWorld_1_1LiveCellRef.html#a812cd2550bd10576a53e820b2e1cffa7">mBase</a> = instance;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029                     <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a> = ref;
+<a name="l00030"></a>00030                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;<a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;T&gt;</a>&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00033"></a>00033                 }
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00036"></a>00036             }
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038         <span class="keyword">public</span>:
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a650599e0f85feba64202eb5396a6b8d6">00040</a>             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; name)
 <a name="l00041"></a>00041             {
-<a name="l00042"></a>00042                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.<a class="code" href="structESMS_1_1RecListWithIDT.html#afb20f969526d1de2999a56636b07a1e1">search</a> (name))
-<a name="l00043"></a>00043                 {
-<a name="l00044"></a>00044                     <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;T&gt;</a> ref;
-<a name="l00045"></a>00045                     ref.<a class="code" href="structMWWorld_1_1LiveCellRef.html#afe6b790b904330bba44c00650c522813">base</a> = instance;
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047                     <a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a> = ref;
-<a name="l00048"></a>00048                     <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a> = <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> (&amp;boost::any_cast&lt;<a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;T&gt;</a>&amp;&gt; (<a class="code" href="classMWWorld_1_1ManualRef.html#a50d09175666ff112a2d7e7a82e02c0d8">mRef</a>), 0);
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00051"></a>00051                 }
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00054"></a>00054             }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056         <span class="keyword">public</span>:
-<a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a5b964cd43e9b020251a483de67d33b9f">00058</a>             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="structESMS_1_1ESMStore.html">ESMS::ESMStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; name)
-<a name="l00059"></a>00059             {
-<a name="l00060"></a>00060                 <span class="comment">// create</span>
-<a name="l00061"></a>00061                 <span class="keywordflow">if</span> (!<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#af0845a05784c720e40603b76285c8838">activators</a>, name) &amp;&amp;
-<a name="l00062"></a>00062                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a9eb0ee356397c98d6e69b94e8b82661e">potions</a>, name) &amp;&amp;
-<a name="l00063"></a>00063                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ac8a4177466dd89bc2bd6015a401ca13d">appas</a>, name) &amp;&amp;
-<a name="l00064"></a>00064                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a7e0373859db8f894a0c59828d315c7e1">armors</a>, name) &amp;&amp;
-<a name="l00065"></a>00065                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a8a4721367640868f558e8296e1b3d465">books</a>, name) &amp;&amp;
-<a name="l00066"></a>00066                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a9766c9a0a2f534da624517c94b2a5562">clothes</a>, name) &amp;&amp;
-<a name="l00067"></a>00067                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#acd93ce60ec3a2e8698f24d80012ce5f7">containers</a>, name) &amp;&amp;
-<a name="l00068"></a>00068                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a0dfdb5147e9db14db0ec2d0b4a1d94b3">creatures</a>, name) &amp;&amp;
-<a name="l00069"></a>00069                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a9fd3f0f7fa0789164042612ff680aeb7">doors</a>, name) &amp;&amp;
-<a name="l00070"></a>00070                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a821eee337c0ad61f5a56d7a9b59e3d0e">ingreds</a>, name) &amp;&amp;
-<a name="l00071"></a>00071                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ad47657a3e620f8533539ee5524c169a9">creatureLists</a>, name) &amp;&amp;
-<a name="l00072"></a>00072                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ab62e75064765dbc8efe8ddeb771c6294">itemLists</a>, name) &amp;&amp;
-<a name="l00073"></a>00073                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a7bda857d44ab9732e4eadd06ba15739a">lights</a>, name) &amp;&amp;
-<a name="l00074"></a>00074                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a1222b11585153303449e942aa12fc3d2">lockpicks</a>, name) &amp;&amp;
-<a name="l00075"></a>00075                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ae764c4405c3a1d3c7aca084c1ac67805">miscItems</a>, name) &amp;&amp;
-<a name="l00076"></a>00076                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a540fd76cbfd0ccd9ebfcbe22168bf506">npcs</a>, name) &amp;&amp;
-<a name="l00077"></a>00077                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#a309eef5525f4c702975214c2ba99ce80">probes</a>, name) &amp;&amp;
-<a name="l00078"></a>00078                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#ad4d6171b6c3614c0c2205456e8c8892f">repairs</a>, name) &amp;&amp;
-<a name="l00079"></a>00079                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#abc637fadaf4dd0c51c92c124cbcb0620">statics</a>, name) &amp;&amp;
-<a name="l00080"></a>00080                     !<a class="code" href="classMWWorld_1_1ManualRef.html#a1726f2e97f1097ab1bdfb2475ce365c4">create</a> (store.<a class="code" href="structESMS_1_1ESMStore.html#aadde42a9e9c577c72f242e3b2ce556bd">weapons</a>, name))
-<a name="l00081"></a>00081                     <span class="keywordflow">throw</span> std::logic_error (<span class="stringliteral">&quot;failed to create manual cell ref for &quot;</span> + name);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083                 <span class="comment">// initialise</span>
-<a name="l00084"></a>00084                 <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; cellRef = <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>.<a class="code" href="classMWWorld_1_1Ptr.html#ac7dc2521d5840cd2b197f22b81a6624e">getCellRef</a>();
-<a name="l00085"></a>00085                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a417b985f89787037c02484bdc640fee3">mRefID</a> = name;
-<a name="l00086"></a>00086                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a6be30fde570fd6a29c15398db74f1249">mRefnum</a> = -1;
-<a name="l00087"></a>00087                 cellRef.<a class="code" href="classESM_1_1CellRef.html#ac91bf3ffc72c608e74a2b34e3955d9cb">mScale</a> = 1;
-<a name="l00088"></a>00088                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a908da9aef1f8b665b3a70889a1131c2f">mFactIndex</a> = 0;
-<a name="l00089"></a>00089                 cellRef.<a class="code" href="classESM_1_1CellRef.html#aba0b3675d0b8d9a22b9f0fda5970830c">mCharge</a> = 0;
-<a name="l00090"></a>00090                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a498c5b040dc7a250e26c181aa6d9618e">mIntv</a> = 0;
-<a name="l00091"></a>00091                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a21b6dcb823597d0f8d1fbe5287cf7312">mNam9</a> = 0;
-<a name="l00092"></a>00092                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a34f73ffd66499acbb093be6b4790bf5d">mTeleport</a> = <span class="keyword">false</span>;
-<a name="l00093"></a>00093                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a14da4d3daf012d6b959c7bbaaecf0255">mLockLevel</a> = 0;
-<a name="l00094"></a>00094                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a9844882230ba8b8b584334a95ca51d7b">mUnam</a> = 0;
-<a name="l00095"></a>00095             }
-<a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">00097</a>             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">getPtr</a>()<span class="keyword"> const</span>
-<a name="l00098"></a>00098 <span class="keyword">            </span>{
-<a name="l00099"></a>00099                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>;
-<a name="l00100"></a>00100             }
-<a name="l00101"></a>00101     };
-<a name="l00102"></a>00102 }
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00042"></a>00042                 <span class="comment">// create</span>
+<a name="l00043"></a>00043                 <span class="keywordflow">if</span> (!<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Activator.html">ESM::Activator</a>&gt;(), name) &amp;&amp;
+<a name="l00044"></a>00044                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Potion.html">ESM::Potion</a>&gt;(), name) &amp;&amp;
+<a name="l00045"></a>00045                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Apparatus.html">ESM::Apparatus</a>&gt;(), name) &amp;&amp;
+<a name="l00046"></a>00046                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Armor.html">ESM::Armor</a>&gt;(), name) &amp;&amp;
+<a name="l00047"></a>00047                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Book.html">ESM::Book</a>&gt;(), name) &amp;&amp;
+<a name="l00048"></a>00048                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Clothing.html">ESM::Clothing</a>&gt;(), name) &amp;&amp;
+<a name="l00049"></a>00049                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Container.html">ESM::Container</a>&gt;(), name) &amp;&amp;
+<a name="l00050"></a>00050                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Creature.html">ESM::Creature</a>&gt;(), name) &amp;&amp;
+<a name="l00051"></a>00051                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Door.html">ESM::Door</a>&gt;(), name) &amp;&amp;
+<a name="l00052"></a>00052                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Ingredient.html">ESM::Ingredient</a>&gt;(), name) &amp;&amp;
+<a name="l00053"></a>00053                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1CreatureLevList.html">ESM::CreatureLevList</a>&gt;(), name) &amp;&amp;
+<a name="l00054"></a>00054                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1ItemLevList.html">ESM::ItemLevList</a>&gt;(), name) &amp;&amp;
+<a name="l00055"></a>00055                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Light.html">ESM::Light</a>&gt;(), name) &amp;&amp;
+<a name="l00056"></a>00056                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Tool.html">ESM::Tool</a>&gt;(), name) &amp;&amp;
+<a name="l00057"></a>00057                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Miscellaneous.html">ESM::Miscellaneous</a>&gt;(), name) &amp;&amp;
+<a name="l00058"></a>00058                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1NPC.html">ESM::NPC</a>&gt;(), name) &amp;&amp;
+<a name="l00059"></a>00059                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Probe.html">ESM::Probe</a>&gt;(), name) &amp;&amp;
+<a name="l00060"></a>00060                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Repair.html">ESM::Repair</a>&gt;(), name) &amp;&amp;
+<a name="l00061"></a>00061                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Static.html">ESM::Static</a>&gt;(), name) &amp;&amp;
+<a name="l00062"></a>00062                     !<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Weapon.html">ESM::Weapon</a>&gt;(), name))
+<a name="l00063"></a>00063                     <span class="keywordflow">throw</span> std::logic_error (<span class="stringliteral">&quot;failed to create manual cell ref for &quot;</span> + name);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065                 <span class="comment">// initialise</span>
+<a name="l00066"></a>00066                 <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; cellRef = <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>.<a class="code" href="classMWWorld_1_1Ptr.html#ac7dc2521d5840cd2b197f22b81a6624e">getCellRef</a>();
+<a name="l00067"></a>00067                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a417b985f89787037c02484bdc640fee3">mRefID</a> = name;
+<a name="l00068"></a>00068                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a6be30fde570fd6a29c15398db74f1249">mRefnum</a> = -1;
+<a name="l00069"></a>00069                 cellRef.<a class="code" href="classESM_1_1CellRef.html#ac91bf3ffc72c608e74a2b34e3955d9cb">mScale</a> = 1;
+<a name="l00070"></a>00070                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a908da9aef1f8b665b3a70889a1131c2f">mFactIndex</a> = 0;
+<a name="l00071"></a>00071                 cellRef.<a class="code" href="classESM_1_1CellRef.html#aba0b3675d0b8d9a22b9f0fda5970830c">mCharge</a> = 0;
+<a name="l00072"></a>00072                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a498c5b040dc7a250e26c181aa6d9618e">mIntv</a> = 0;
+<a name="l00073"></a>00073                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a21b6dcb823597d0f8d1fbe5287cf7312">mNam9</a> = 0;
+<a name="l00074"></a>00074                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a34f73ffd66499acbb093be6b4790bf5d">mTeleport</a> = <span class="keyword">false</span>;
+<a name="l00075"></a>00075                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a14da4d3daf012d6b959c7bbaaecf0255">mLockLevel</a> = 0;
+<a name="l00076"></a>00076                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a9844882230ba8b8b584334a95ca51d7b">mUnam</a> = 0;
+<a name="l00077"></a>00077             }
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">00079</a>             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">getPtr</a>()<span class="keyword"> const</span>
+<a name="l00080"></a>00080 <span class="keyword">            </span>{
+<a name="l00081"></a>00081                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>;
+<a name="l00082"></a>00082             }
+<a name="l00083"></a>00083     };
+<a name="l00084"></a>00084 }
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

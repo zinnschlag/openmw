@@ -86,8 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a99b11a2760312b6a66d46e3ccec886e7">update</a> (std::vector&lt; std::pair&lt; std::string, Ogre::Vector3 &gt; &gt; &amp;movement, float duration, bool paused)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a222c4716b4cb2e6e69457ec7ade8745d">setPlayerName</a> (const std::string &amp;name)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player name.  <a href="#a222c4716b4cb2e6e69457ec7ade8745d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1605f42f7700abdd4d3e0963188813b1">setPlayerRace</a> (const std::string &amp;id, bool male)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player race.  <a href="#a1605f42f7700abdd4d3e0963188813b1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#aa4cff5ce8c7bbf3db175e9ef1ed03340">setPlayerRace</a> (const std::string &amp;id, bool male, const std::string &amp;head, const std::string &amp;hair)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player race.  <a href="#aa4cff5ce8c7bbf3db175e9ef1ed03340"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a8bb81b01284b91cf17ad6245805ad1c4">setPlayerBirthsign</a> (const std::string &amp;id)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player birthsign.  <a href="#a8bb81b01284b91cf17ad6245805ad1c4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a466d672ca027794db3b1f0cb889bb3d9">setPlayerClass</a> (const std::string &amp;id)</td></tr>
@@ -96,8 +96,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player class to custom class.  <a href="#a994dfe829c40096b926f5271d2f4b16a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a41cff4f5a7ce44b4630d4ca9b05cfc72">restoreDynamicStats</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">If the player is sleeping, this should be called every hour.  <a href="#a41cff4f5a7ce44b4630d4ca9b05cfc72"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a42d08c62edb89e75619ebdb65e90c17d">getBarterOffer</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, int basePrice, bool buying)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used by every service to determine the price of objects given the trading skills of the player and NPC.  <a href="#a42d08c62edb89e75619ebdb65e90c17d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a0c2c6d5345db990b0f03ecb101b12b5c">getDerivedDisposition</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the diposition of an NPC toward the player.  <a href="#a0c2c6d5345db990b0f03ecb101b12b5c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1564623b242a249bb088d0ff3b1df0de">countDeaths</a> (const std::string &amp;id) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of deaths for actors with the given ID.  <a href="#a1564623b242a249bb088d0ff3b1df0de"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ad1921771e8711eb299c61a1d8cae6444">getPersuasionDispositionChange</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;npc, <a class="el" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">PersuasionType</a> type, float currentTemporaryDispositionDelta, bool &amp;success, float &amp;tempChange, float &amp;permChange)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a persuasion action on NPC.  <a href="#ad1921771e8711eb299c61a1d8cae6444"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1MechanicsManager.html#ac23cfdb32ea2282daf63c0c6f2f8b86e">buildPlayer</a> ()</td></tr>
@@ -208,6 +214,119 @@ Private Attributes</h2></td></tr>
 <p>Deregister all actors in the given cell. </p>
 
 <p>Implements <a class="el" href="classMWBase_1_1MechanicsManager.html#ac9d469d923a3ce49e46a944928911a91">MWBase::MechanicsManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a42d08c62edb89e75619ebdb65e90c17d"></a><!-- doxytag: member="MWMechanics::MechanicsManager::getBarterOffer" ref="a42d08c62edb89e75619ebdb65e90c17d" args="(const MWWorld::Ptr &amp;ptr, int basePrice, bool buying)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a42d08c62edb89e75619ebdb65e90c17d">MWMechanics::MechanicsManager::getBarterOffer</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>basePrice</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>buying</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>This is used by every service to determine the price of objects given the trading skills of the player and NPC. </p>
+
+<p>Implements <a class="el" href="classMWBase_1_1MechanicsManager.html#a9c08bc46cec81a7f65f47ef060680eb4">MWBase::MechanicsManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0c2c6d5345db990b0f03ecb101b12b5c"></a><!-- doxytag: member="MWMechanics::MechanicsManager::getDerivedDisposition" ref="a0c2c6d5345db990b0f03ecb101b12b5c" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a0c2c6d5345db990b0f03ecb101b12b5c">MWMechanics::MechanicsManager::getDerivedDisposition</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Calculate the diposition of an NPC toward the player. </p>
+
+<p>Implements <a class="el" href="classMWBase_1_1MechanicsManager.html#adc9ccded89f7f90627f443942e5d1a84">MWBase::MechanicsManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad1921771e8711eb299c61a1d8cae6444"></a><!-- doxytag: member="MWMechanics::MechanicsManager::getPersuasionDispositionChange" ref="ad1921771e8711eb299c61a1d8cae6444" args="(const MWWorld::Ptr &amp;npc, PersuasionType type, float currentTemporaryDispositionDelta, bool &amp;success, float &amp;tempChange, float &amp;permChange)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1MechanicsManager.html#ad1921771e8711eb299c61a1d8cae6444">MWMechanics::MechanicsManager::getPersuasionDispositionChange</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>npc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">PersuasionType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>currentTemporaryDispositionDelta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>success</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>tempChange</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>permChange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Perform a persuasion action on NPC. </p>
+
+<p>Implements <a class="el" href="classMWBase_1_1MechanicsManager.html#a699d208441feb7a9c2da946d86af19f4">MWBase::MechanicsManager</a>.</p>
 
 </div>
 </div>
@@ -336,12 +455,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1605f42f7700abdd4d3e0963188813b1"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerRace" ref="a1605f42f7700abdd4d3e0963188813b1" args="(const std::string &amp;id, bool male)" -->
+<a class="anchor" id="aa4cff5ce8c7bbf3db175e9ef1ed03340"></a><!-- doxytag: member="MWMechanics::MechanicsManager::setPlayerRace" ref="aa4cff5ce8c7bbf3db175e9ef1ed03340" args="(const std::string &amp;id, bool male, const std::string &amp;head, const std::string &amp;hair)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1605f42f7700abdd4d3e0963188813b1">MWMechanics::MechanicsManager::setPlayerRace</a> </td>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1MechanicsManager.html#aa4cff5ce8c7bbf3db175e9ef1ed03340">MWMechanics::MechanicsManager::setPlayerRace</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>id</em>, </td>
@@ -350,7 +469,19 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>male</em>&#160;</td>
+          <td class="paramname"><em>male</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>head</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>hair</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -363,7 +494,7 @@ Private Attributes</h2></td></tr>
 
 <p>Set player race. </p>
 
-<p>Implements <a class="el" href="classMWBase_1_1MechanicsManager.html#ab325ffcccd86608e16ad3d1b0a4714e5">MWBase::MechanicsManager</a>.</p>
+<p>Implements <a class="el" href="classMWBase_1_1MechanicsManager.html#a8bf8fa1c62691847511286c8f73596f7">MWBase::MechanicsManager</a>.</p>
 
 </div>
 </div>
@@ -529,7 +660,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

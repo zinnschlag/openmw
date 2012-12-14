@@ -73,6 +73,8 @@
 <code>#include &quot;<a class="el" href="manualref_8hpp_source.html">../mwworld/manualref.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mwworld_2class_8hpp_source.html">../mwworld/class.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="containerstore_8hpp_source.html">../mwworld/containerstore.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="actionequip_8hpp_source.html">../mwworld/actionequip.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="inventorystore_8hpp_source.html">../mwworld/inventorystore.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="interpretercontext_8hpp_source.html">interpretercontext.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ref_8hpp_source.html">ref.hpp</a>&quot;</code><br/>
 </div><table class="memberdecls">
@@ -81,6 +83,11 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpAddItem.html">MWScript::Container::OpAddItem&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpGetItemCount.html">MWScript::Container::OpGetItemCount&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpRemoveItem.html">MWScript::Container::OpRemoveItem&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpEquip.html">MWScript::Container::OpEquip&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpGetArmorType.html">MWScript::Container::OpGetArmorType&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpHasItemEquipped.html">MWScript::Container::OpHasItemEquipped&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpHasSoulGem.html">MWScript::Container::OpHasSoulGem&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Container_1_1OpGetWeaponType.html">MWScript::Container::OpGetWeaponType&lt; R &gt;</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02containerextensions_8cpp_03.html">anonymous_namespace{containerextensions.cpp}</a></td></tr>
@@ -103,12 +110,22 @@ Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a9cec041b040ccef171623ad091928928">MWScript::Container::opcodeGetItemCountExplicit</a> = 0x2000079</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#ae619c8c35774d208a797f6c7c7fb264f">MWScript::Container::opcodeRemoveItem</a> = 0x200007a</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#afec301d8f66bf672b1343d23582aabde">MWScript::Container::opcodeRemoveItemExplicit</a> = 0x200007b</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a6d4b1a0c87894f2f3f84747d47c11ed5">MWScript::Container::opcodeEquip</a> = 0x20001b3</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#ac1648af3baa2ef9a9be21cc23a8bd7d8">MWScript::Container::opcodeEquipExplicit</a> = 0x20001b4</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a0fc996c2636371c8935594d6098c1600">MWScript::Container::opcodeGetArmorType</a> = 0x20001d1</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a192a747df5bfb849056928adaa7e5861">MWScript::Container::opcodeGetArmorTypeExplicit</a> = 0x20001d2</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a8e4bf768f0e9e7b5c812b37f889cf983">MWScript::Container::opcodeHasItemEquipped</a> = 0x20001d5</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#afd8f77b5d21c309e9db923756ecbf210">MWScript::Container::opcodeHasItemEquippedExplicit</a> = 0x20001d6</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a292d842e4169d67d7d5860e643bfb60c">MWScript::Container::opcodeHasSoulGem</a> = 0x20001de</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#af583b339090aa3fd5e3a1a1db075f21a">MWScript::Container::opcodeHasSoulGemExplicit</a> = 0x20001df</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a8f33820abd790e14b7da441d6f8c517d">MWScript::Container::opcodeGetWeaponType</a> = 0x20001e0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Container.html#a972c8b2d9e8c9490cfa1c11462802f53">MWScript::Container::opcodeGetWeaponTypeExplicit</a> = 0x20001e1</td></tr>
 </table>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

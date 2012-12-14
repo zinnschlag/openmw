@@ -107,7 +107,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a8ba134d3a829c162611011d1b97e83df">setWaterHeight</a> (const float height)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a9b46689311f4111b61a854fcf372c051">toggleWater</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa6fbdae901ddf3822e832604ed000d21">moveObjectToCell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const Ogre::Vector3 &amp;position, <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *store)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a368eb94ff4cfd0a7d8c5602c3faf8ede">update</a> (float duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a2e03fc527e4c8ef6c4e342d380f200d7">update</a> (float duration, bool paused)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a708e72ad138ea15f7dcd24862637a84d">setAmbientColour</a> (const Ogre::ColourValue &amp;colour)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ad3968aef01cc6070276434b745b830a6">setSunColour</a> (const Ogre::ColourValue &amp;colour)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a3269bf086242c837b2bbef131036e4f7">setSunDirection</a> (const Ogre::Vector3 &amp;direction)</td></tr>
@@ -341,7 +341,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000048">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
 
 </div>
 </div>
@@ -752,7 +752,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000056">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000047">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
 
 </div>
 </div>
@@ -926,8 +926,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>delete non-object MW-references </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>delete non-object MW-references </dd></dl>
 
 </div>
 </div>
@@ -1022,7 +1020,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if object needs to be rotated physically </dd></dl>
-<dl class="note"><dt><b>Note:</b></dt><dd>Stored and passed in radians </dd></dl>
 
 </div>
 </div>
@@ -1521,21 +1518,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a368eb94ff4cfd0a7d8c5602c3faf8ede"></a><!-- doxytag: member="MWRender::RenderingManager::update" ref="a368eb94ff4cfd0a7d8c5602c3faf8ede" args="(float duration)" -->
+<a class="anchor" id="a2e03fc527e4c8ef6c4e342d380f200d7"></a><!-- doxytag: member="MWRender::RenderingManager::update" ref="a2e03fc527e4c8ef6c4e342d380f200d7" args="(float duration, bool paused)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a368eb94ff4cfd0a7d8c5602c3faf8ede">MWRender::RenderingManager::update</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a2e03fc527e4c8ef6c4e342d380f200d7">MWRender::RenderingManager::update</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>duration</em></td><td>)</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>paused</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="note"><dt><b>Note:</b></dt><dd>only for <a class="el" href="classMWRender_1_1LocalMap.html#ae76ef2ffa53b658f74bbca6970b194ed">LocalMap::updatePlayer()</a> </dd></dl>
 
 </div>
 </div>
@@ -1892,7 +1898,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 10 2012 08:51:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
