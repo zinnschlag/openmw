@@ -25,6 +25,15 @@
 #include "inventorywindow.hpp"
 #include "travelwindow.hpp"
 
+
+
+
+
+
+#include "../mwworld/player.hpp"
+
+
+
 using namespace MWGui;
 using namespace Widgets;
 
@@ -377,12 +386,15 @@ std::string DialogueWindow::parseText(std::string text)
             for(i++ ; i < text.length() && !isspace(text[i]); i++){
                 escapeword += text[i];
             }
-            //std::cout << '|' << escapeword << '|' << std::endl;
             
             start = i;
 
-            /* TODO: Add in all other escape sequences + fix PCNAME_HERE */
-            if(     escapeword == "PCName.") retval += "PCNAME_HERE";
+            /* TODO: Add in all other escape sequences */
+            if(     escapeword == "PCName."){ 
+                MWBase::World *world = MWBase::Environment::get().getWorld();
+                ESM::NPC player = *world->getPlayer().getPlayer().get<ESM::NPC>()->mBase;
+                retval += player.mName;
+            }
             else if(escapeword == "Name.") retval += mActorName;
             
             else retval += "%" + escapeword;
