@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <iterator>
+#include <ctype.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
@@ -23,6 +24,15 @@
 #include "spellbuyingwindow.hpp"
 #include "inventorywindow.hpp"
 #include "travelwindow.hpp"
+
+
+
+
+
+
+#include "../mwworld/player.hpp"
+
+
 
 using namespace MWGui;
 using namespace Widgets;
@@ -256,6 +266,7 @@ void DialogueWindow::startDialogue(MWWorld::Ptr actor, std::string npcName)
     mPtr = actor;
     mTopicsList->setEnabled(true);
     setTitle(npcName);
+    mActorName = npcName;
 
     mTopicsList->clear();
     mHistory->setCaption("");
@@ -362,7 +373,35 @@ std::string DialogueWindow::parseText(std::string text)
     {
         addColorInString(text,*it,"#686EBA","#B29154");
     }
-    return text;
+   
+   
+    
+    // Replace all escape sequences with their corresponding values.
+    std::string retval = "";
+    int start = 0;
+    for(unsigned int i = 0; i < text.length(); i++){
+        if(text[i] == '%'){
+            retval = text.substr(start, i-start);
+            std::string escapeword = "";
+            for(i++ ; i < text.length() && isalpha(text[i]); i++){
+                escapeword += text[i];
+            }
+            
+            start = i;
+
+            /* TODO: Add in all other escape sequences */
+            if(     escapeword == "PCName"){ 
+                MWBase::World *world = MWBase::Environment::get().getWorld();
+                ESM::NPC player = *world->getPlayer().getPlayer().get<ESM::NPC>()->mBase;
+                retval += player.mName;
+            }
+            else if(escapeword == "Name") retval += mActorName;
+            
+            else retval += "%" + escapeword;
+        }
+    }
+    retval += text.substr(start, text.length() - start);
+    return retval;
 }
 
 void DialogueWindow::addText(std::string text)

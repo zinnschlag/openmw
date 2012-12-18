@@ -109,6 +109,8 @@ namespace MWGui
         MyGUI::EditPtr     mDispositionText;
 
         PersuasionDialog mPersuasionDialog;
+
+        std::string mActorName;
     };
 }
 #endif
