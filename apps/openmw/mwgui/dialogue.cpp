@@ -383,19 +383,19 @@ std::string DialogueWindow::parseText(std::string text)
         if(text[i] == '%'){
             retval = text.substr(start, i-start);
             std::string escapeword = "";
-            for(i++ ; i < text.length() && !isspace(text[i]); i++){
+            for(i++ ; i < text.length() && isalpha(text[i]); i++){
                 escapeword += text[i];
             }
             
             start = i;
 
             /* TODO: Add in all other escape sequences */
-            if(     escapeword == "PCName."){ 
+            if(     escapeword == "PCName"){ 
                 MWBase::World *world = MWBase::Environment::get().getWorld();
                 ESM::NPC player = *world->getPlayer().getPlayer().get<ESM::NPC>()->mBase;
                 retval += player.mName;
             }
-            else if(escapeword == "Name.") retval += mActorName;
+            else if(escapeword == "Name") retval += mActorName;
             
             else retval += "%" + escapeword;
         }
