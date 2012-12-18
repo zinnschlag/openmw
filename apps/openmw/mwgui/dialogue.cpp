@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <iterator>
+#include <ctype.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
@@ -256,6 +257,7 @@ void DialogueWindow::startDialogue(MWWorld::Ptr actor, std::string npcName)
     mPtr = actor;
     mTopicsList->setEnabled(true);
     setTitle(npcName);
+    mActorName = npcName;
 
     mTopicsList->clear();
     mHistory->setCaption("");
@@ -362,7 +364,32 @@ std::string DialogueWindow::parseText(std::string text)
     {
         addColorInString(text,*it,"#686EBA","#B29154");
     }
-    return text;
+   
+   
+    
+    // Replace all escape sequences with their corresponding values.
+    std::string retval = "";
+    int start = 0;
+    for(unsigned int i = 0; i < text.length(); i++){
+        if(text[i] == '%'){
+            retval = text.substr(start, i-start);
+            std::string escapeword = "";
+            for(i++ ; i < text.length() && !isspace(text[i]); i++){
+                escapeword += text[i];
+            }
+            //std::cout << '|' << escapeword << '|' << std::endl;
+            
+            start = i;
+
+            /* TODO: Add in all other escape sequences + fix PCNAME_HERE */
+            if(     escapeword == "PCName.") retval += "PCNAME_HERE";
+            else if(escapeword == "Name.") retval += mActorName;
+            
+            else retval += "%" + escapeword;
+        }
+    }
+    retval += text.substr(start, text.length() - start);
+    return retval;
 }
 
 void DialogueWindow::addText(std::string text)
