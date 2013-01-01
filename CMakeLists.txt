@@ -68,6 +68,15 @@ endif()
 cmake_minimum_required(VERSION 2.6)
 
 #
+#	force release mode to build PDBs, and enable multi-processor builds on MSVC
+#
+if (MSVC)
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+	set (CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
+	set (CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /DEBUG")
+endif()
+
+#
 # Pre-built binaries being used?
 #
 IF(EXISTS "${CMAKE_SOURCE_DIR}/prebuilt/vc100-mt-gd/ogre_1_7_1")
