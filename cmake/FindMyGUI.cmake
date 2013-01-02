@@ -30,6 +30,12 @@ MyGUI.h
 "${MYGUISDK}/MyGUIEngine/include"
 NO_DEFAULT_PATH )
 
+# windows hack (if previous command mysteriously fails)
+if (MYGUISDK AND NOT MYGUI_INCLUDE_DIRS)
+	set (MYGUI_INCLUDE_DIRS "${MYGUISDK}/MyGUIEngine/include")
+	MESSAGE(WARNING "MyGUI include directory not found defaulting to '${MYGUI_INCLUDE_DIRS}'")
+endif ()
+
 find_path ( MYGUI_PLATFORM_INCLUDE_DIRS
 MyGUI_OgrePlatform.h
 "${MYGUISDK}/Platforms/Ogre/OgrePlatform/include"
