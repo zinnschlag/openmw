@@ -115,7 +115,7 @@ void ESMReader::open(const std::string &file)
 
 void ESMReader::openRaw(const std::string &file)
 {
-    open (openConstrainedFileDataStream (file.c_str ()), file);
+    openRaw (openConstrainedFileDataStream (file.c_str ()), file);
 }
 
 int64_t ESMReader::getHNLong(const char *name)
