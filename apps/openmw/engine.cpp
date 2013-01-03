@@ -326,6 +326,8 @@ void OMW::Engine::go()
     windowSettings.fsaa = (aa.substr(0, 4) == "MSAA") ? aa.substr(5, aa.size()-5) : "0";
     mOgre->createWindow("OpenMW", windowSettings);
 
+	Nif::NIFFile::lock_cache (); // lock NIFFile cache for initializiation...
+
     loadBSA();
 
     // cursor replacer (converts the cursor from the bsa so they can be used by mygui)
@@ -408,6 +410,8 @@ void OMW::Engine::go()
 
     if (!mStartupScript.empty())
         MWBase::Environment::get().getWindowManager()->executeInConsole (mStartupScript);
+
+	Nif::NIFFile::unlock_cache (); // let go now that we are good 2 go...
 
     // Start the main rendering loop
     mOgre->start();
