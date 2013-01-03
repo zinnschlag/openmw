@@ -174,7 +174,7 @@ static void insertTextKeys(const Nif::NiTextKeyExtraData *tk, TextKeyMap *textke
 }
 
 
-void buildBones(Ogre::Skeleton *skel, const Nif::Node *node, std::vector<Nif::NiKeyframeController*> &ctrls, Ogre::Bone *parent=NULL)
+void buildBones(Ogre::Skeleton *skel, const Nif::Node *node, std::vector<Nif::NiKeyframeController const*> &ctrls, Ogre::Bone *parent=NULL)
 {
     Ogre::Bone *bone;
     if(!skel->hasBone(node->name))
@@ -228,10 +228,11 @@ void loadResource(Ogre::Resource *resource)
     Ogre::Skeleton *skel = dynamic_cast<Ogre::Skeleton*>(resource);
     OgreAssert(skel, "Attempting to load a skeleton into a non-skeleton resource!");
 
-    Nif::NIFFile nif(skel->getName());
+    Nif::NIFFile::ptr pnif(Nif::NIFFile::create (skel->getName()));
+    Nif::NIFFile & nif = *pnif.get ();
     const Nif::Node *node = dynamic_cast<const Nif::Node*>(nif.getRecord(0));
 
-    std::vector<Nif::NiKeyframeController*> ctrls;
+    std::vector<Nif::NiKeyframeController const*> ctrls;
     buildBones(skel, node, ctrls);
 
     std::vector<std::string> targets;
@@ -242,7 +243,7 @@ void loadResource(Ogre::Resource *resource)
     float maxtime = 0.0f;
     for(size_t i = 0;i < ctrls.size();i++)
     {
-        Nif::NiKeyframeController *ctrl = ctrls[i];
+        Nif::NiKeyframeController const *ctrl = ctrls[i];
         maxtime = std::max(maxtime, ctrl->timeStop);
         Nif::Named *target = dynamic_cast<Nif::Named*>(ctrl->target.getPtr());
         if(target != NULL)
@@ -265,8 +266,8 @@ void loadResource(Ogre::Resource *resource)
 
     for(size_t i = 0;i < ctrls.size();i++)
     {
-        Nif::NiKeyframeController *kfc = ctrls[i];
-        Nif::NiKeyframeData *kf = kfc->data.getPtr();
+        Nif::NiKeyframeController const *kfc = ctrls[i];
+        Nif::NiKeyframeData const *kf = kfc->data.getPtr();
 
         /* Get the keyframes and make sure they're sorted first to last */
         QuaternionKeyList quatkeys = kf->mRotations;
@@ -695,7 +696,7 @@ class NIFMeshLoader : Ogre::ManualResourceLoader
 
 
     // Convert NiTriShape to Ogre::SubMesh
-    void handleNiTriShape(Ogre::Mesh *mesh, Nif::NiTriShape *shape)
+    void handleNiTriShape(Ogre::Mesh *mesh, Nif::NiTriShape const *shape)
     {
         Ogre::SkeletonPtr skel;
         const Nif::NiTriShapeData *data = shape->data.getPtr();
@@ -893,18 +894,18 @@ class NIFMeshLoader : Ogre::ManualResourceLoader
             sub->setMaterialName(mMaterialName);
     }
 
-    bool findTriShape(Ogre::Mesh *mesh, Nif::Node *node)
+    bool findTriShape(Ogre::Mesh *mesh, Nif::Node const *node)
     {
         if(node->recType == Nif::RC_NiTriShape && mShapeName == node->name)
         {
-            handleNiTriShape(mesh, dynamic_cast<Nif::NiTriShape*>(node));
+            handleNiTriShape(mesh, dynamic_cast<Nif::NiTriShape const *>(node));
             return true;
         }
 
-        Nif::NiNode *ninode = dynamic_cast<Nif::NiNode*>(node);
+        Nif::NiNode const *ninode = dynamic_cast<Nif::NiNode const *>(node);
         if(ninode)
         {
-            Nif::NodeList &children = ninode->children;
+            Nif::NodeList const &children = ninode->children;
             for(size_t i = 0;i < children.length();i++)
             {
                 if(!children[i].empty())
@@ -940,8 +941,8 @@ public:
             return;
         }
 
-        Nif::NIFFile nif(mName);
-        Nif::Node *node = dynamic_cast<Nif::Node*>(nif.getRecord(0));
+        Nif::NIFFile::ptr nif = Nif::NIFFile::create (mName);
+        Nif::Node const *node = dynamic_cast<Nif::Node const *>(nif->getRecord(0));
         findTriShape(mesh, node);
     }
 
@@ -1032,7 +1033,8 @@ MeshPairList NIFLoader::load(std::string name, std::string skelName, TextKeyMap 
     std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     std::transform(skelName.begin(), skelName.end(), skelName.begin(), ::tolower);
 
-    Nif::NIFFile nif(name);
+    Nif::NIFFile::ptr pnif = Nif::NIFFile::create (name);
+    Nif::NIFFile & nif = *pnif.get ();
     if (nif.numRecords() < 1)
     {
         nif.warn("Found no records in NIF.");
@@ -1040,10 +1042,10 @@ MeshPairList NIFLoader::load(std::string name, std::string skelName, TextKeyMap 
     }
 
     // The first record is assumed to be the root node
-    Nif::Record *r = nif.getRecord(0);
+    Nif::Record const *r = nif.getRecord(0);
     assert(r != NULL);
 
-    Nif::Node *node = dynamic_cast<Nif::Node*>(r);
+    Nif::Node const *node = dynamic_cast<Nif::Node const *>(r);
     if(node == NULL)
     {
         nif.warn("First record in file was not a node, but a "+

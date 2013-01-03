@@ -406,6 +406,8 @@ namespace MWWorld
 
     void Scene::insertCell (Ptr::CellStore &cell)
     {
+		Nif::NIFFile::lock_cache ();
+
         // Loop through all references in the cell
         insertCellRefList(mRendering, cell.mActivators, cell, *mPhysics);
         insertCellRefList(mRendering, cell.mPotions, cell, *mPhysics);
@@ -427,6 +429,8 @@ namespace MWWorld
         insertCellRefList(mRendering, cell.mRepairs, cell, *mPhysics);
         insertCellRefList(mRendering, cell.mStatics, cell, *mPhysics);
         insertCellRefList(mRendering, cell.mWeapons, cell, *mPhysics);
+
+		Nif::NIFFile::unlock_cache ();
     }
 
     void Scene::addObjectToScene (const Ptr& ptr)
