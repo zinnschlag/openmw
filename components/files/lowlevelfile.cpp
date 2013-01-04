@@ -4,6 +4,12 @@
 #include <sstream>
 #include <cassert>
 
+#if FILE_API == FILE_API_POSIX
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#endif
+
 #if FILE_API == FILE_API_STDIO
 /*
  *
@@ -115,7 +121,7 @@ LowLevelFile::LowLevelFile ()
 LowLevelFile::~LowLevelFile ()
 {
 	if (mHandle != -1)
-		_close (mHandle);
+		::close (mHandle);
 }
 
 void LowLevelFile::open (char const * filename)
@@ -128,7 +134,7 @@ void LowLevelFile::open (char const * filename)
 	static const int openFlags = O_RDONLY;
 #endif
 
-	mHandle = open (filename, openFlags, 0);
+	mHandle = ::open (filename, openFlags, 0);
 
 	if (mHandle == -1)
 	{
@@ -142,7 +148,7 @@ void LowLevelFile::close ()
 {
 	assert (mHandle != -1);
 
-	close (mHandle);
+	::close (mHandle);
 
 	mHandle = -1;
 }
@@ -151,12 +157,12 @@ size_t LowLevelFile::size ()
 {
 	assert (mHandle != -1);
 
-	size_t oldPosition = _tell (mHandle);
+	size_t oldPosition = ::lseek (mHandle, 0, SEEK_CUR);
 
 	if (oldPosition == size_t (-1))
 		throw std::runtime_error ("A query operation on a file failed.");
 
-	size_t Size = lseek (mHandle, 0, SEEK_END);
+	size_t Size = ::lseek (mHandle, 0, SEEK_END);
 
 	if (Size == size_t (-1))
 		throw std::runtime_error ("A query operation on a file failed.");
@@ -171,7 +177,7 @@ void LowLevelFile::seek (size_t Position)
 {
 	assert (mHandle != -1);
 
-	if (lseek (mHandle, Position, SEEK_SET) == -1)
+	if (::lseek (mHandle, Position, SEEK_SET) == -1)
 		throw std::runtime_error ("A seek operation on a file failed.");
 }
 
@@ -179,7 +185,7 @@ size_t LowLevelFile::tell ()
 {
 	assert (mHandle != -1);
 
-	size_t Position = tell (mHandle);
+	size_t Position = ::lseek (mHandle, 0, SEEK_CUR);
 
 	if (Position == size_t (-1))
 		throw std::runtime_error ("A query operation on a file failed.");
@@ -191,7 +197,7 @@ size_t LowLevelFile::read (void * data, size_t size)
 {
 	assert (mHandle != -1);
 
-	int amount = read (mHandle, data, size);
+	int amount = ::read (mHandle, data, size);
 
 	if (amount == -1)
 		throw std::runtime_error ("A read operation on a file failed.");

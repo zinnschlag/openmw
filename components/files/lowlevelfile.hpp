@@ -18,10 +18,6 @@
 #if FILE_API == FILE_API_STDIO
 #include <cstdio>
 #elif FILE_API == FILE_API_POSIX
-#include <fcntl.h>
-#if defined (_MSC_VER)
-#include <io.h>
-#endif
 #elif FILE_API == FILE_API_WIN32
 #include <windows.h>
 #else
