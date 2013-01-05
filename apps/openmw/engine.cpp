@@ -278,6 +278,8 @@ std::string OMW::Engine::loadSettings (Settings::Manager & settings)
 
 void OMW::Engine::prepareEngine (Settings::Manager & settings)
 {
+    Nif::NIFFile::CacheLock cachelock;
+
     std::string renderSystem = settings.getString("render system", "Video");
     if (renderSystem == "")
     {
