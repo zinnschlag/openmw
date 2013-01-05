@@ -172,6 +172,8 @@ namespace MWWorld
 
     void Scene::changeCell (int X, int Y, const ESM::Position& position, bool adjustPlayerPos)
     {
+        Nif::NIFFile::lock_cache ();
+
         mRendering.preCellChange(mCurrentCell);
 
         // remove active
@@ -296,6 +298,8 @@ namespace MWWorld
         mCellChanged = true;
 
         MWBase::Environment::get().getWindowManager ()->loadingDone ();
+
+        Nif::NIFFile::lock_cache ();
     }
 
     //We need the ogre renderer and a scene node.

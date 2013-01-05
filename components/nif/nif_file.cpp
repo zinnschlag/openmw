@@ -38,6 +38,112 @@ using namespace std;
 using namespace Nif;
 using namespace Misc;
 
+int NIFFile::sCacheLockLevel = 0;
+NIFFile::loaded_map NIFFile::sLoadedMap;
+NIFFile::locked_files NIFFile::sLockedFiles;
+
+void NIFFile::lock_cache ()
+{
+	sCacheLockLevel++;
+}
+
+void NIFFile::unlock_cache ()
+{
+	if (--sCacheLockLevel)
+		sLockedFiles.clear ();
+}
+
+/// Open a NIF stream. The name is used for error messages.
+NIFFile::NIFFile(const std::string &name, psudo_private_modifier)
+    : filename(name)
+{
+	inp = Ogre::ResourceGroupManager::getSingleton().openResource(name);
+    parse();
+}
+
+NIFFile::~NIFFile()
+{
+	{
+		//TODO: hold lock on sLoadedMap while manipulating it...
+
+		loaded_map::iterator i = sLoadedMap.find (filename);
+
+		// its got to be in here, it just might not be us...
+		assert (i != sLoadedMap.end ());
+
+		// if weak_ptr is still expired, this resource hasn't been recreated
+		// between the initiation of the final release due to destruction
+		// of the last shared pointer and this thread acquiring the lock on
+		// the loader map
+		if (i->second.expired ())
+			sLoadedMap.erase (i);
+	}
+
+	// go ahead and perform the rest of the destruct outside the lock
+	// on sLoaderMap
+
+    for(std::size_t i=0; i<records.size(); i++)
+        delete records[i];
+}
+
+//NOTE: this is not thread safe, and it would probably be tricky to
+//		make it so. If the weak_ptr is expired before the destructor
+//		is called, then it would be relatively easy, otherwise
+//		a shared pointer is not the right solution
+NIFFile::ptr NIFFile::create (const std::string &name)
+{
+	//TODO: hold lock on sLoadedMap for whole function...
+
+	ptr result;
+
+	// lookup the resource
+	loaded_map::iterator i = sLoadedMap.find (name);
+
+	if (i == sLoadedMap.end ()) // it doesn't existing currently,
+	{							// or hasn't in the very near past
+
+		// create it now, for smoother threading if needed, the
+		// loading should be performed outside of the sLoaderMap
+		// lock and an alternate mechanism should be used to
+		// synchronize threads competing to load the same resource
+		result = boost::make_shared <NIFFile> (name, psudo_private_modifier());
+
+		// if we are locking the cache add an extra reference
+		// to keep the file in memory
+		if (sCacheLockLevel > 0)
+			sLockedFiles.push_back (result);
+
+		// stash a reference to the resource so that future
+		// calls can benefit
+		sLoadedMap [name] = boost::weak_ptr <NIFFile> (result);
+	}
+	else // it may (probably) still exists
+	{
+		// attempt to get the reference
+		result = i->second.lock ();
+
+		if (!result) // resource is in the process of being destroyed
+		{
+			// create a new instance, to replace the one that has
+			// begun the irreversible process of being destroyed
+			result = boost::make_shared <NIFFile> (name, psudo_private_modifier());
+
+			// respect the cache lock...
+			if (sCacheLockLevel > 0)
+				sLockedFiles.push_back (result);
+
+			// we potentially overwrite an expired pointer here
+			// but the other thread performing the delete on
+			// the previous copy of this resource will detect it
+			// and make sure not to erase the new reference
+			sLoadedMap [name] = boost::weak_ptr <NIFFile> (result);
+		}
+	}
+
+	// we made it!
+	return result;
+}
+
 /* This file implements functions from the NIFFile class. It is also
    where we stash all the functions we couldn't add as inline
    definitions in the record types.
@@ -211,14 +317,14 @@ void NiSkinInstance::post(NIFFile *nif)
     }
 }
 
-Ogre::Matrix4 Node::getLocalTransform()
+Ogre::Matrix4 Node::getLocalTransform() const
 {
     Ogre::Matrix4 mat4(Ogre::Matrix4::IDENTITY);
     mat4.makeTransform(trafo.pos, Ogre::Vector3(trafo.scale), Ogre::Quaternion(trafo.rotation));
     return mat4;
 }
 
-Ogre::Matrix4 Node::getWorldTransform()
+Ogre::Matrix4 Node::getWorldTransform() const
 {
     if(parent != NULL)
         return parent->getWorldTransform() * getLocalTransform();
