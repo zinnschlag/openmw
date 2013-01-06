@@ -41,8 +41,8 @@ struct LightInfo
 
 
     LightInfo() :
-        flickerVariation(0), resetTime(0.5),
-        flickerSlowVariation(0), time(0), interior(true),
+        flickerVariation(12), resetTime(0),
+        flickerSlowVariation(4), time(0), interior(true),
         type(LT_Normal), radius(1.0)
     {
     }
