@@ -395,47 +395,23 @@ void Objects::update(const float dt)
             }
             else if (it->type == LT_Flicker)
             {
-                // Let's do a 50% -> 100% sine wave pulse over 1 second:
-                // This is 75% +/- 25%
-                pulseConstant = (const float)(0.75 + sin(phase) * 0.25);
+                it->resetTime += dt*it->flickerVariation;
+                if(it->resetTime>=2 * Ogre::Math::PI){
+                    it->resetTime-=2 * Ogre::Math::PI;
+                    it->flickerVariation=(.5+rand()/(float)RAND_MAX)*12.;
+                }
 
-                // Then add a 25% flicker variation:
-                it->resetTime -= dt;
-                if (it->resetTime < 0)
-                {
-                    it->flickerVariation = (rand() % 1000) / 1000 * 0.25;
-                    it->resetTime = 0.5;
-                }
-                if (it->resetTime > 0.25)
-                {
-                    pulseConstant = (pulseConstant+it->flickerVariation) * (1-it->resetTime * 2.0f) + pulseConstant * it->resetTime * 2.0f;
-                }
-                else
-                {
-                    pulseConstant = (pulseConstant+it->flickerVariation) * (it->resetTime * 2.0f) + pulseConstant * (1-it->resetTime * 2.0f);
-                }
+                pulseConstant = (const float)(0.75 + sin(it->resetTime) * 0.25);
             }
             else if (it->type == LT_FlickerSlow)
             {
-                // Let's do a 50% -> 100% sine wave pulse over 1 second:
-                // This is 75% +/- 25%
-                pulseConstant = (const float)(0.75 + sin(phase / 4.0) * 0.25);
+                it->resetTime += dt*it->flickerSlowVariation;
+                if(it->resetTime>=2 * Ogre::Math::PI){
+                    it->resetTime-=2 * Ogre::Math::PI;
+                    it->flickerSlowVariation=(.5+rand()/(float)RAND_MAX)*4.;
+                }
 
-                // Then add a 25% flicker variation:
-                it->resetTime -= dt;
-                if (it->resetTime < 0)
-                {
-                    it->flickerVariation = (rand() % 1000) / 1000 * 0.25;
-                    it->resetTime = 0.5;
-                }
-                if (it->resetTime > 0.5)
-                {
-                    pulseConstant = (pulseConstant+it->flickerVariation) * (1-it->resetTime) + pulseConstant * it->resetTime;
-                }
-                else
-                {
-                    pulseConstant = (pulseConstant+it->flickerVariation) * (it->resetTime) + pulseConstant * (1-it->resetTime);
-                }
+                pulseConstant = (const float)(0.80 + sin(it->resetTime) * 0.20);
             }
             else if (it->type == LT_Pulse)
             {
