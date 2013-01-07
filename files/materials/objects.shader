@@ -112,8 +112,6 @@
         shUniform(float, far) @shAutoConstant(far, far_clip_distance)
 #endif
 
-        shUniform(float, gammaCorrection) @shSharedParameter(gammaCorrection, gammaCorrection)
-
 #if LIGHTING
         shInput(float3, normalPassthrough)
         shInput(float3, objSpacePositionPassthrough)
@@ -190,9 +188,9 @@
 
 #if HAS_VERTEXCOLOR
         // ambient vertex colour tracking, FFP behaviour
-        float3 ambient = colourPassthrough.xyz * lightAmbient.xyz;
+        float3 ambient = gammaCorrectRead(colourPassthrough.xyz) * lightAmbient.xyz;
 #else
-        float3 ambient = materialAmbient.xyz * lightAmbient.xyz;
+        float3 ambient = gammaCorrectRead(materialAmbient.xyz) * lightAmbient.xyz;
 #endif
     
             // shadows only for the first (directional) light
@@ -231,7 +229,6 @@
         caustics = float3(1,1,1);
 #endif
 
-    
     @shForeach(@shGlobalSettingString(num_lights))
     
         /// \todo use the array auto params for lights, and use a real for-loop with auto param "light_count" iterations 
@@ -243,25 +240,26 @@
 #if @shIterator == 0
 
     #if (SHADOWS || SHADOWS_PSSM)
-        diffuse += materialDiffuse.xyz * lightDiffuse@shIterator.xyz * (1.0 / ((lightAttenuation@shIterator.y) + (lightAttenuation@shIterator.z * d) + (lightAttenuation@shIterator.w * d * d))) * max(dot(normal, lightDir), 0) * shadow * caustics;
+        diffuse += lightDiffuse@shIterator.xyz * (1.0 / ((lightAttenuation@shIterator.y) + (lightAttenuation@shIterator.z * d) + (lightAttenuation@shIterator.w * d * d))) * max(dot(normal, lightDir), 0) * shadow * caustics;
         
     #else
-        diffuse += materialDiffuse.xyz * lightDiffuse@shIterator.xyz * (1.0 / ((lightAttenuation@shIterator.y) + (lightAttenuation@shIterator.z * d) + (lightAttenuation@shIterator.w * d * d))) * max(dot(normal, lightDir), 0) * caustics;
+        diffuse += lightDiffuse@shIterator.xyz * (1.0 / ((lightAttenuation@shIterator.y) + (lightAttenuation@shIterator.z * d) + (lightAttenuation@shIterator.w * d * d))) * max(dot(normal, lightDir), 0) * caustics;
         
     #endif
     
 #else
-        diffuse += materialDiffuse.xyz * lightDiffuse@shIterator.xyz * (1.0 / ((lightAttenuation@shIterator.y) + (lightAttenuation@shIterator.z * d) + (lightAttenuation@shIterator.w * d * d))) * max(dot(normal, lightDir), 0);
+        diffuse += lightDiffuse@shIterator.xyz * (1.0 / ((lightAttenuation@shIterator.y) + (lightAttenuation@shIterator.z * d) + (lightAttenuation@shIterator.w * d * d))) * max(dot(normal, lightDir), 0);
 #endif
 
     @shEndForeach
 
-        shOutputColour(0).xyz *= (ambient + diffuse + materialEmissive.xyz);
+    diffuse*=gammaCorrectRead(materialDiffuse.xyz);
+    shOutputColour(0).xyz *= (ambient + diffuse + gammaCorrectRead(materialEmissive.xyz));
 #endif
 
 
 #if HAS_VERTEXCOLOR && !LIGHTING
-        shOutputColour(0).xyz *= colourPassthrough.xyz;
+        shOutputColour(0).xyz *= gammaCorrectRead(colourPassthrough.xyz);
 #endif
 
 #if FOG
@@ -286,11 +284,11 @@
         
         float waterSunGradient = dot(eyeVec, -normalize(lightDirectionWS0.xyz));
         waterSunGradient = shSaturate(pow(waterSunGradient*0.7+0.3,2.0));  
-        float3 waterSunColour = gammaCorrectRead(float3(0.0,1.0,0.85)) *waterSunGradient * 0.5;
+        float3 waterSunColour = float3(0.0,1.0,0.85) *waterSunGradient * 0.5; //float3 constant needs to be in linear form!
         
         float waterGradient = dot(eyeVec, float3(0.0,-1.0,0.0));
         waterGradient = clamp((waterGradient*0.5+0.5),0.2,1.0);
-        float3 watercolour = ( gammaCorrectRead(float3(0.0078, 0.5176, 0.700))+waterSunColour)*waterGradient*2.0;
+        float3 watercolour = ( float3(0.0078, 0.5176, 0.700)+waterSunColour)*waterGradient*2.0; //float3 constant needs to be in linear form!
         watercolour = shLerp(watercolour*0.3*waterSunFade_sunHeight.x, watercolour, shSaturate(1.0-exp(-waterSunFade_sunHeight.y*SUN_EXT)));
         watercolour = (cameraPos.y <= waterLevel) ? watercolour : watercolour*0.3;
     

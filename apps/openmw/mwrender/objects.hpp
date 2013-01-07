@@ -68,12 +68,14 @@ class Objects{
     void clearSceneNode (Ogre::SceneNode *node);
     ///< Remove all movable objects from \a node.
 
+
 public:
     Objects(OEngine::Render::OgreRenderer& renderer): mRenderer (renderer), mIsStatic(false) {}
     ~Objects(){}
     void insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_);
     void insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh);
     void insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius);
+    ///< color is assumed to be in sRGB space
 
     void enableLights();
     void disableLights();
@@ -95,6 +97,11 @@ public:
 
     /// Updates containing cell for object rendering data
     void updateObjectCell(const MWWorld::Ptr &ptr);
+
+    static void sRGB2linear (float *r, float *g, float *b);
+    ///< transform r,g,b into a linear color space. uses the same approximation as the object shader.
+    static void sRGB2linear (Ogre::ColourValue *color);
+    ///< transform color into a linear color space. uses the same approximation as the object shader.
 };
 }
 #endif

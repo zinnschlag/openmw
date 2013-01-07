@@ -1,5 +1,5 @@
-#define gammaCorrectRead(v) pow(max(v, 0.00001f), float3(gammaCorrection,gammaCorrection,gammaCorrection))
-#define gammaCorrectOutput(v) pow(max(v, 0.00001f), float3(1.f/gammaCorrection,1.f/gammaCorrection,1.f/gammaCorrection))
+#define gammaCorrectRead(v) pow(v, float3(2.2f,2.2f,2.2f))
+#define gammaCorrectOutput(v) pow(v, float3(1.f/2.2f,1.f/2.2f,1.f/2.2f))
 
 
 
@@ -12,7 +12,7 @@
     #define shSaturate(a) saturate(a)
 
     #define shSampler2D(name) , uniform sampler2D name : register(s@shCounter(0)) @shUseSampler(name)
-    
+
     #define shSamplerCube(name) , uniform samplerCUBE name : register(s@shCounter(0)) @shUseSampler(name)
 
     #define shMatrixMult(m, v) mul(m, v)
@@ -25,7 +25,7 @@
     #define shOutput(type, name) , out type name : TEXCOORD@shCounter(2)
 
     #define shNormalInput(type) , in type normal : NORMAL
-    
+
     #define shColourInput(type) , in type colour : COLOR
 
     #ifdef SH_VERTEX_SHADER
@@ -89,10 +89,10 @@
 
     #define float4x4 mat4
     #define float3x3 mat3
-    
+
     // GLSL 1.3
     #if 0
-    
+
     // automatically recognized by ogre when the input name equals this
     #define shInputPosition vertex
 
@@ -127,13 +127,13 @@
 
 
     #endif
-    
+
     #endif
-    
+
     // GLSL 1.2
-    
+
     #if 1
-    
+
     // automatically recognized by ogre when the input name equals this
     #define shInputPosition vertex
 
@@ -151,7 +151,7 @@
     #ifdef SH_VERTEX_SHADER
 
         #define SH_BEGIN_PROGRAM \
-            attribute vec4 vertex; 
+            attribute vec4 vertex;
         #define SH_START_PROGRAM \
             void main(void)
 
@@ -159,15 +159,15 @@
 
     #ifdef SH_FRAGMENT_SHADER
 
-        #define shDeclareMrtOutput(num) 
+        #define shDeclareMrtOutput(num)
 
         #define SH_BEGIN_PROGRAM
-        
+
         #define SH_START_PROGRAM \
             void main(void)
 
 
     #endif
-    
+
     #endif
 #endif
