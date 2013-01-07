@@ -72,10 +72,13 @@ namespace MWWorld
             Ptr getPtrViaHandle (const std::string& handle, Ptr::CellStore& cellStore);
 
             std::string mFacedHandle;
+            float mFacedDistance;
             Ptr mFaced1;
             Ptr mFaced2;
             std::string mFaced1Name;
             std::string mFaced2Name;
+            float mFaced1Distance;
+            float mFaced2Distance;
             int mNumFacing;
             std::map<std::string,std::string> mFallback;
 
@@ -89,6 +92,13 @@ namespace MWWorld
 
             virtual void
             copyObjectToCell(const Ptr &ptr, CellStore &cell, const ESM::Position &pos);
+
+            void updateWindowManager ();
+            void performUpdateSceneQueries ();
+            void processFacedQueryResults (MWRender::OcclusionQuery* query);
+            void beginFacedQueryProcess (MWRender::OcclusionQuery* query);
+            void beginSingleFacedQueryProcess (MWRender::OcclusionQuery* query, std::vector < std::pair < float, std::string > > & results);
+            void beginDoubleFacedQueryProcess (MWRender::OcclusionQuery* query, std::vector < std::pair < float, std::string > > & results);
 
         public:
 
@@ -217,8 +227,8 @@ namespace MWWorld
 
             virtual void markCellAsUnchanged();
 
-            virtual std::string getFacedHandle();
-            ///< Return handle of the object the player is looking at
+            virtual MWWorld::Ptr getFacedHandle();
+            ///< Return pointer to the object the player is looking at, if it is within activation range
 
             virtual void deleteObject (const Ptr& ptr);
 

@@ -573,23 +573,30 @@ namespace MWWorld
         return mWorldScene->markCellAsUnchanged();
     }
 
-    std::string World::getFacedHandle()
+    MWWorld::Ptr World::getFacedHandle()
     {
+        std::pair<std::string, float> result;
+
         if (!mRendering->occlusionQuerySupported())
-        {
-            std::pair<std::string, float> result = mPhysics->getFacedHandle (*this);
-
-            if (result.first.empty() ||
-                    result.second>getStore().get<ESM::GameSetting>().find ("iMaxActivateDist")->getInt())
-                return "";
-
-            return result.first;
-        }
+            result = mPhysics->getFacedHandle (*this);
         else
-        {
-            // updated every few frames in update()
-            return mFacedHandle;
-        }
+            result = std::make_pair (mFacedHandle, mFacedDistance);
+
+        if (result.first.empty())
+            return MWWorld::Ptr ();
+
+        MWWorld::Ptr object = searchPtrViaHandle (result.first);
+
+        float ActivationDistance = getStore().get<ESM::GameSetting>().find ("iMaxActivateDist")->getInt();
+
+        static float NpcActivationDistance = 240;
+        if (object.getTypeName ().find("NPC") != std::string::npos)
+            ActivationDistance = NpcActivationDistance;
+
+        if (result.second > ActivationDistance)
+            return MWWorld::Ptr ();
+
+        return object;
     }
 
     void World::deleteObject (const Ptr& ptr)
@@ -895,8 +902,15 @@ namespace MWWorld
 
         mWeatherManager->update (duration);
 
+        performUpdateSceneQueries ();
+
+        updateWindowManager ();
+    }
+
+    void World::updateWindowManager ()
+    {
         // inform the GUI about focused object
-        MWWorld::Ptr object = searchPtrViaHandle(mFacedHandle);
+        MWWorld::Ptr object = getFacedHandle ();
 
         MWBase::Environment::get().getWindowManager()->setFocusObject(object);
 
@@ -918,7 +932,10 @@ namespace MWWorld
                     screenCoords[0], screenCoords[1], screenCoords[2], screenCoords[3]);
             }
         }
+    }
 
+    void World::performUpdateSceneQueries ()
+    {
         if (!mRendering->occlusionQuerySupported())
         {
             // cast a ray from player to sun to detect if the sun is visible
@@ -937,19 +954,36 @@ namespace MWWorld
             MWRender::OcclusionQuery* query = mRendering->getOcclusionQuery();
             if (!query->occlusionTestPending())
             {
+                processFacedQueryResults (query);
+                beginFacedQueryProcess (query);
+            }
+        }
+    }
+
+    void World::processFacedQueryResults (MWRender::OcclusionQuery* query)
+    {
                 // get result of last query
-                if (mNumFacing == 0) mFacedHandle = "";
+                if (mNumFacing == 0)
+                {
+                    mFacedHandle = "";
+                    mFacedDistance = FLT_MAX;
+                }
                 else if (mNumFacing == 1)
                 {
                     bool result = query->getTestResult();
                     mFacedHandle = result ? mFaced1Name : "";
+                    mFacedDistance = result ? mFaced1Distance : FLT_MAX;
                 }
                 else if (mNumFacing == 2)
                 {
                     bool result = query->getTestResult();
                     mFacedHandle = result ? mFaced2Name : mFaced1Name;
+                    mFacedDistance = result ? mFaced1Distance : mFaced1Distance;
                 }
+    }
 
+    void World::beginFacedQueryProcess (MWRender::OcclusionQuery* query)
+    {
                 // send new query
                 // figure out which object we want to test against
                 std::vector < std::pair < float, std::string > > results;
@@ -981,8 +1015,19 @@ namespace MWWorld
                 }
                 else if (results.size() == 1)
                 {
+                    beginSingleFacedQueryProcess (query, results);
+                }
+                else
+                {
+                    beginDoubleFacedQueryProcess (query, results);
+                }
+    }
+
+    void World::beginSingleFacedQueryProcess (MWRender::OcclusionQuery* query, std::vector < std::pair < float, std::string > > & results)
+    {
                     mFaced1 = getPtrViaHandle(results.front().second);
                     mFaced1Name = results.front().second;
+                    mFaced1Distance = results.front().first;
                     mNumFacing = 1;
 
                     btVector3 p;
@@ -1001,11 +1046,14 @@ namespace MWWorld
                     //std::cout << "Type 1 " << mFaced1.getTypeName() <<  std::endl;
 
                     query->occlusionTest(pos, node);
-                }
-                else
-                {
+    }
+
+    void World::beginDoubleFacedQueryProcess (MWRender::OcclusionQuery* query, std::vector < std::pair < float, std::string > > & results)
+    {
                     mFaced1Name = results.front().second;
                     mFaced2Name = results[1].second;
+                    mFaced1Distance = results.at (0).first;
+                    mFaced2Distance = results.at (1).first;
                     mFaced1 = getPtrViaHandle(results.front().second);
                     mFaced2 = getPtrViaHandle(results[1].second);
                     mNumFacing = 2;
@@ -1027,6 +1075,7 @@ namespace MWWorld
                     if (!query->isPotentialOccluder(node1) && (mFaced1.getTypeName().find("Static") == std::string::npos))
                     {
                         mFacedHandle = mFaced1Name;
+                        mFacedDistance = mFaced1Distance;
                         //std::cout << "node1 Not an occluder" << std::endl;
                         return;
                     }
@@ -1035,6 +1084,7 @@ namespace MWWorld
                     if (mFaced2.getTypeName().find("Static") != std::string::npos)
                     {
                         mFacedHandle = mFaced1Name;
+                        mFacedDistance = mFaced1Distance;
                         return;
                     }
 
@@ -1043,13 +1093,11 @@ namespace MWWorld
                         && mFaced2.getTypeName().find("Door") != std::string::npos)
                     {
                         mFacedHandle = mFaced2Name;
+                        mFacedDistance = mFaced2Distance;
                         return;
                     }
 
                     query->occlusionTest(pos, node2);
-                }
-            }
-        }
     }
 
     bool World::isCellExterior() const
