@@ -25,6 +25,22 @@ namespace MWScript
 {
     namespace Misc
     {
+        class OpPlayBink : public Interpreter::Opcode0
+        {
+        public:
+
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                std::string name = runtime.getStringLiteral (runtime[0].mInteger);
+                runtime.pop();
+
+                bool allowSkipping = runtime[0].mInteger;
+                runtime.pop();
+
+                MWBase::Environment::get().getWorld ()->playVideo (name, allowSkipping);
+            }
+        };
+
         class OpGetPcSleep : public Interpreter::Opcode0
         {
         public:
@@ -425,6 +441,8 @@ namespace MWScript
         const int opcodeSetDeleteExplicit = 0x20001e6;
         const int opcodeGetSquareRoot = 0x20001e7;
 
+        const int opcodePlayBink = 0x20001f3;
+
         void registerExtensions (Compiler::Extensions& extensions)
         {
             extensions.registerFunction ("xbox", 'l', "", opcodeXBox);
@@ -450,6 +468,7 @@ namespace MWScript
             extensions.registerInstruction ("tvm", "", opcodeToggleVanityMode);
             extensions.registerFunction ("getpcsleep", 'l', "", opcodeGetPcSleep);
             extensions.registerInstruction ("wakeuppc", "", opcodeWakeUpPc);
+            extensions.registerInstruction ("playbink", "Sl", opcodePlayBink);
             extensions.registerFunction ("getlocked", 'l', "", opcodeGetLocked, opcodeGetLockedExplicit);
             extensions.registerFunction ("geteffect", 'l', "l", opcodeGetEffect, opcodeGetEffectExplicit);
             extensions.registerFunction ("getattacked", 'l', "", opcodeGetAttacked, opcodeGetAttackedExplicit);
@@ -481,6 +500,7 @@ namespace MWScript
             interpreter.installSegment5 (opcodeToggleVanityMode, new OpToggleVanityMode);
             interpreter.installSegment5 (opcodeGetPcSleep, new OpGetPcSleep);
             interpreter.installSegment5 (opcodeWakeUpPc, new OpWakeUpPc);
+            interpreter.installSegment5 (opcodePlayBink, new OpPlayBink);
             interpreter.installSegment5 (opcodeGetLocked, new OpGetLocked<ImplicitRef>);
             interpreter.installSegment5 (opcodeGetLockedExplicit, new OpGetLocked<ExplicitRef>);
             interpreter.installSegment5 (opcodeGetEffect, new OpGetEffect<ImplicitRef>);
