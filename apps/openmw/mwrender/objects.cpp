@@ -87,13 +87,12 @@ void Objects::insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_)
     mIsStatic = static_;
 }
 
-void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
+void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh, Ogre::Vector3 *lightPos)
 {
     Ogre::SceneNode* insert = ptr.getRefData().getBaseNode();
     assert(insert);
-
     Ogre::AxisAlignedBox bounds = Ogre::AxisAlignedBox::BOX_NULL;
-    NifOgre::EntityList entities = NifOgre::NIFLoader::createEntities(insert, NULL, mesh);
+    NifOgre::EntityList entities = NifOgre::NIFLoader::createEntities(insert, NULL, mesh, lightPos);
     for(size_t i = 0;i < entities.mEntities.size();i++)
     {
         const Ogre::AxisAlignedBox &tmp = entities.mEntities[i]->getBoundingBox();
@@ -204,7 +203,7 @@ void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
     }
 }
 
-void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius)
+void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius, const Ogre::Vector3& pos)
 {
     Ogre::SceneNode* insert = mRenderer.getScene()->getSceneNode(ptr.getRefData().getHandle());
     assert(insert);
@@ -263,6 +262,7 @@ void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, f
         light->setAttenuation(r*10, 0, 0, attenuation);
     }
 
+    light->setPosition(pos);
     insert->attachObject(light);
     mLights.push_back(info);
 }
