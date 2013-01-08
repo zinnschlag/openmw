@@ -69,7 +69,7 @@ typedef std::vector< std::pair<std::string,std::string> > MeshPairList;
  */
 class NIFLoader
 {
-    static MeshPairList load(std::string name, std::string skelName, const std::string &group);
+    static MeshPairList load(std::string name, std::string skelName, const std::string &group, Ogre::Vector3 *lightPos=NULL);
 
 public:
     static EntityList createEntities(Ogre::Entity *parent, const std::string &bonename,
@@ -80,6 +80,7 @@ public:
     static EntityList createEntities(Ogre::SceneNode *parent,
                                      TextKeyMap *textkeys,
                                      const std::string &name,
+                                     Ogre::Vector3 *lightPos=NULL,
                                      const std::string &group="General");
 };
 

@@ -960,7 +960,7 @@ public:
         findTriShape(mesh, node);
     }
 
-    void createMeshes(const Nif::Node *node, MeshPairList &meshes, int flags=0)
+    void createMeshes(const Nif::Node *node, MeshPairList &meshes, int flags=0, Ogre::Vector3 *lightPos=NULL)
     {
         flags |= node->flags;
 
@@ -994,6 +994,15 @@ public:
             e = e->extra;
         }
 
+        if(lightPos!=NULL && node->name.find("AttachLight")!=node->name.npos && node->recType == Nif::RC_NiNode){
+			Nif::Node node2=*node;
+			Ogre::Matrix4 mat4 = node2.getWorldTransform();
+			Ogre::Vector4 vec4(0,0,0, 1.0f);
+			vec4 = mat4*vec4;
+			lightPos->x=vec4.x;
+			lightPos->y=vec4.y;
+			lightPos->z=vec4.z;
+        }
         if(node->recType == Nif::RC_NiTriShape)
         {
             const Nif::NiTriShape *shape = dynamic_cast<const Nif::NiTriShape*>(node);
@@ -1032,7 +1041,7 @@ public:
             for(size_t i = 0;i < children.length();i++)
             {
                 if(!children[i].empty())
-                    createMeshes(children[i].getPtr(), meshes, flags);
+                    createMeshes(children[i].getPtr(), meshes, flags, lightPos);
             }
         }
     }
@@ -1042,12 +1051,19 @@ NIFMeshLoader::LoaderMap NIFMeshLoader::sLoaders;
 
 typedef std::map<std::string,MeshPairList> MeshPairMap;
 static MeshPairMap sMeshPairMap;
+typedef std::map<std::string,Ogre::Vector3> MeshLightMap;
+static MeshLightMap sMeshLightMap;
 
-MeshPairList NIFLoader::load(std::string name, std::string skelName, const std::string &group)
+MeshPairList NIFLoader::load(std::string name, std::string skelName, const std::string &group, Ogre::Vector3 *lightPos)
 {
     std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     std::transform(skelName.begin(), skelName.end(), skelName.begin(), ::tolower);
 
+    if(lightPos!=NULL){
+        MeshLightMap::const_iterator meshiter = sMeshLightMap.find(name+"@skel="+skelName);
+        if(meshiter != sMeshLightMap.end())
+            *lightPos=meshiter->second;
+    }
     MeshPairMap::const_iterator meshiter = sMeshPairMap.find(name+"@skel="+skelName);
     if(meshiter != sMeshPairMap.end())
         return meshiter->second;
@@ -1076,16 +1092,18 @@ MeshPairList NIFLoader::load(std::string name, std::string skelName, const std::
     bool hasSkel = skelldr.createSkeleton(name, group, node);
 
     NIFMeshLoader meshldr(name, group, (hasSkel ? skelName : std::string()));
-    meshldr.createMeshes(node, meshes);
-
+    meshldr.createMeshes(node, meshes, 0, lightPos);
+    if(lightPos!=NULL){
+        Ogre::Vector3 &nLight=sMeshLightMap[name+"@skel="+skelName];
+        nLight=*lightPos;
+    }
     return meshes;
 }
 
-EntityList NIFLoader::createEntities(Ogre::SceneNode *parent, TextKeyMap *textkeys, const std::string &name, const std::string &group)
+EntityList NIFLoader::createEntities(Ogre::SceneNode *parent, TextKeyMap *textkeys, const std::string &name, Ogre::Vector3 *lightPos, const std::string &group)
 {
     EntityList entitylist;
-
-    MeshPairList meshes = load(name, name, group);
+    MeshPairList meshes = load(name, name, group, lightPos);
     if(meshes.size() == 0)
         return entitylist;
 
