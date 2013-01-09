@@ -35,15 +35,16 @@ namespace MWClass
         MWRender::Objects& objects = renderingInterface.getObjects();
         objects.insertBegin(ptr, ptr.getRefData().isEnabled(), false);
 
+        Ogre::Vector3 lightPos(0,0,0); //light should be placed at (0,0,0) if there is no mesh
         if (!model.empty())
-            objects.insertMesh(ptr, "meshes\\" + model);
+            objects.insertMesh(ptr, "meshes\\" + model, &lightPos);
 
         const int color = ref->mBase->mData.mColor;
         const float r = ((color >> 0) & 0xFF) / 255.0f;
         const float g = ((color >> 8) & 0xFF) / 255.0f;
         const float b = ((color >> 16) & 0xFF) / 255.0f;
         const float radius = float (ref->mBase->mData.mRadius);
-        objects.insertLight (ptr, r, g, b, radius);
+        objects.insertLight (ptr, r, g, b, radius, lightPos);
     }
 
     void Light::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics) const
