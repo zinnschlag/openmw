@@ -36,6 +36,7 @@
 
 #include "mwmechanics/mechanicsmanagerimp.hpp"
 
+#include <boost/chrono.hpp>
 
 void OMW::Engine::executeLocalScripts()
 {
@@ -408,12 +409,18 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
 
 void OMW::Engine::go()
 {
+    using boost::chrono::milliseconds;
+    using boost::chrono::duration_cast;
+    using boost::chrono::high_resolution_clock;
+
     assert (!mCellName.empty());
     assert (!mMaster.empty());
     assert (!mOgre);
 
     Settings::Manager settings;
-	std::string settingspath;
+    std::string settingspath;
+
+    high_resolution_clock::time_point initStartTime = high_resolution_clock::now ();
 
     settingspath = loadSettings (settings);
 
@@ -425,6 +432,9 @@ void OMW::Engine::go()
     if (!mStartupScript.empty())
         MWBase::Environment::get().getWindowManager()->executeInConsole (mStartupScript);
 
+    high_resolution_clock::duration initDuration = high_resolution_clock::now () - initStartTime;
+
+    std::cout << "\nInitialization took: " << duration_cast <milliseconds> (initDuration) << '\n';
     std::cout << "\nPress Q/ESC or close window to exit.\n";
 
     // Start the main rendering loop
