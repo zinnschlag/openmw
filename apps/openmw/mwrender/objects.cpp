@@ -21,7 +21,7 @@ using namespace MWRender;
 float Objects::lightLinearValue = 3;
 float Objects::lightLinearRadiusMult = 1;
 
-float Objects::lightQuadraticValue = 16;
+float Objects::lightQuadraticValue = 4;
 float Objects::lightQuadraticRadiusMult = 1;
 
 bool Objects::lightOutQuadInLin = true;
@@ -87,13 +87,12 @@ void Objects::insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_)
     mIsStatic = static_;
 }
 
-void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
+void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh, Ogre::Vector3 *lightPos)
 {
     Ogre::SceneNode* insert = ptr.getRefData().getBaseNode();
     assert(insert);
-
     Ogre::AxisAlignedBox bounds = Ogre::AxisAlignedBox::BOX_NULL;
-    NifOgre::EntityList entities = NifOgre::NIFLoader::createEntities(insert, NULL, mesh);
+    NifOgre::EntityList entities = NifOgre::NIFLoader::createEntities(insert, NULL, mesh, lightPos);
     for(size_t i = 0;i < entities.mEntities.size();i++)
     {
         const Ogre::AxisAlignedBox &tmp = entities.mEntities[i]->getBoundingBox();
@@ -204,14 +203,18 @@ void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
     }
 }
 
-void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius)
+void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius, const Ogre::Vector3& pos)
 {
     Ogre::SceneNode* insert = mRenderer.getScene()->getSceneNode(ptr.getRefData().getHandle());
     assert(insert);
     Ogre::Light *light = mRenderer.getScene()->createLight();
+    MWWorld::LiveCellRef<ESM::Light> *ref = ptr.get<ESM::Light>();
+
+    // Convert values into a linear color space for gamma-correct rendering.
+    // Conversion is done here as opposed to the shader to save shader runtime.
+    sRGB2linear(&r,&g,&b);
     light->setDiffuseColour (r, g, b);
 
-    MWWorld::LiveCellRef<ESM::Light> *ref = ptr.get<ESM::Light>();
 
     LightInfo info;
     info.name = light->getName();
@@ -238,31 +241,10 @@ void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, f
     info.time = Ogre::Math::RangeRandom(-500, +500);
     info.phase = Ogre::Math::RangeRandom(-500, +500);
 
-    // adjust the lights depending if we're in an interior or exterior cell
-    // quadratic means the light intensity falls off quite fast, resulting in a
-    // dark, atmospheric environment (perfect for exteriors)
-    // for interiors, we want more "warm" lights, so use linear attenuation.
-    bool quadratic = false;
-    if (!lightOutQuadInLin)
-        quadratic = lightQuadratic;
-    else
-    {
-        quadratic = !info.interior;
-    }
-
-    if (!quadratic)
-    {
-        float r = radius * lightLinearRadiusMult;
-        float attenuation = lightLinearValue / r;
-        light->setAttenuation(r*10, 0, attenuation, 0);
-    }
-    else
-    {
-        float r = radius * lightQuadraticRadiusMult;
-        float attenuation = lightQuadraticValue / pow(r, 2);
-        light->setAttenuation(r*10, 0, 0, attenuation);
-    }
-
+    float quadRadius = radius * lightQuadraticRadiusMult;
+    float attenuation = lightQuadraticValue / pow(quadRadius, 2);
+    light->setAttenuation(quadRadius*10, 0, 0, attenuation);
+    light->setPosition(pos);
     insert->attachObject(light);
     mLights.push_back(info);
 }
@@ -518,5 +500,17 @@ void Objects::updateObjectCell(const MWWorld::Ptr &ptr)
     /// \note Still unaware how to move aabb and static w/o full rebuild,
     /// moving static objects may cause problems
     insertMesh(ptr, MWWorld::Class::get(ptr).getModel(ptr));
+}
+
+void Objects::sRGB2linear (float *r, float *g, float *b)
+{
+	*r=pow(*r,2.2);
+	*g=pow(*g,2.2);
+	*b=pow(*b,2.2);
+}
+
+void Objects::sRGB2linear (Ogre::ColourValue *color)
+{
+	Objects::sRGB2linear(&color->r,&color->g,&color->b);
 }
 

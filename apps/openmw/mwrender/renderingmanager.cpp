@@ -266,10 +266,10 @@ bool RenderingManager::rotateObject( const MWWorld::Ptr &ptr, Ogre::Vector3 &rot
     bool isActive = ptr.getRefData().getBaseNode() != 0;
     bool isPlayer = isActive && ptr.getRefData().getHandle() == "player";
     bool force = true;
-    
+
     if (isPlayer)
         force = mPlayer->rotate(rot, adjust);
-    
+
     MWWorld::Class::get(ptr).adjustRotation(ptr, rot.x, rot.y, rot.z);
 
     if (!isPlayer && isActive)
@@ -358,7 +358,7 @@ void RenderingManager::update (float duration, bool paused)
 
     mSkyManager->setGlare(mOcclusionQuery->getSunVisibility());
 
-    MWWorld::RefData &data = 
+    MWWorld::RefData &data =
         MWBase::Environment::get()
             .getWorld()
             ->getPlayer()
@@ -557,6 +557,7 @@ void RenderingManager::configureAmbient(MWWorld::Ptr::CellStore &mCell)
     }
     Ogre::ColourValue colour;
     colour.setAsABGR (mCell.mCell->mAmbi.mSunlight);
+    Objects::sRGB2linear(&colour);
     mSun->setDiffuseColour (colour);
     mSun->setType(Ogre::Light::LT_DIRECTIONAL);
     mSun->setDirection(0,-1,0);
@@ -594,15 +595,19 @@ void RenderingManager::skipAnimation (const MWWorld::Ptr& ptr)
 void RenderingManager::setSunColour(const Ogre::ColourValue& colour)
 {
     if (!mSunEnabled) return;
-    mSun->setDiffuseColour(colour);
-    mSun->setSpecularColour(colour);
-    mTerrainManager->setDiffuse(colour);
+    Ogre::ColourValue newColour(colour);
+    Objects::sRGB2linear(&newColour);
+    mSun->setDiffuseColour(newColour);
+    mSun->setSpecularColour(newColour);
+    mTerrainManager->setDiffuse(newColour);
 }
 
 void RenderingManager::setAmbientColour(const Ogre::ColourValue& colour)
 {
-    mRendering.getScene()->setAmbientLight(colour);
-    mTerrainManager->setAmbient(colour);
+    Ogre::ColourValue newColour(colour);
+    Objects::sRGB2linear(&newColour);
+    mRendering.getScene()->setAmbientLight(newColour);
+    mTerrainManager->setAmbient(newColour);
 }
 
 void RenderingManager::sunEnable()
