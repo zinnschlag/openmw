@@ -6,6 +6,7 @@
 #include <components/compiler/extensions.hpp>
 #include <components/files/collections.hpp>
 #include <components/translation/translation.hpp>
+#include <components/settings/settings.hpp>
 
 #include "mwbase/environment.hpp"
 
@@ -142,6 +143,12 @@ namespace OMW
 
             /// Start as a new game.
             void setNewGame(bool newGame);
+
+            /// Load settings from various files, returns the path to the user settings file
+            std::string loadSettings (Settings::Manager & settings);
+
+            /// Prepare engine for game play
+            void prepareEngine (Settings::Manager & settings);
 
             /// Initialise and enter main loop.
             void go();
