@@ -36,6 +36,7 @@
 
 #include "mwmechanics/mechanicsmanagerimp.hpp"
 
+#include <boost/chrono.hpp>
 
 void OMW::Engine::executeLocalScripts()
 {
@@ -240,18 +241,9 @@ void OMW::Engine::setNewGame(bool newGame)
     mNewGame = newGame;
 }
 
-// Initialise and enter main loop.
-
-void OMW::Engine::go()
+std::string OMW::Engine::loadSettings (Settings::Manager & settings)
 {
-    assert (!mCellName.empty());
-    assert (!mMaster.empty());
-    assert (!mOgre);
-
-    mOgre = new OEngine::Render::OgreRenderer;
-
     // Create the settings manager and load default settings file
-    Settings::Manager settings;
     const std::string localdefault = mCfgMgr.getLocalPath().string() + "/settings-default.cfg";
     const std::string globaldefault = mCfgMgr.getGlobalPath().string() + "/settings-default.cfg";
 
@@ -272,10 +264,6 @@ void OMW::Engine::go()
     else if (boost::filesystem::exists(globaldefault))
         settings.loadUser(globaldefault);
 
-    // Get the path for the keybinder xml file
-    std::string keybinderUser = (mCfgMgr.getUserPath() / "input.xml").string();
-    bool keybinderUserExists = boost::filesystem::exists(keybinderUser);
-
     mFpsLevel = settings.getInt("fps", "HUD");
 
     // load nif overrides
@@ -284,6 +272,13 @@ void OMW::Engine::go()
         nifOverrides.loadTransparencyOverrides(mCfgMgr.getLocalPath().string() + "/transparency-overrides.cfg");
     else if (boost::filesystem::exists(mCfgMgr.getGlobalPath().string() + "/transparency-overrides.cfg"))
         nifOverrides.loadTransparencyOverrides(mCfgMgr.getGlobalPath().string() + "/transparency-overrides.cfg");
+
+    return settingspath;
+}
+
+void OMW::Engine::prepareEngine (Settings::Manager & settings)
+{
+    Nif::NIFFile::CacheLock cachelock;
 
     std::string renderSystem = settings.getString("render system", "Video");
     if (renderSystem == "")
@@ -294,6 +289,9 @@ void OMW::Engine::go()
         renderSystem = "OpenGL Rendering Subsystem";
 #endif
     }
+
+    mOgre = new OEngine::Render::OgreRenderer;
+    
     mOgre->configure(
         mCfgMgr.getLogPath().string(),
         renderSystem,
@@ -365,6 +363,11 @@ void OMW::Engine::go()
     mEnvironment.setDialogueManager (new MWDialogue::DialogueManager (mExtensions, mVerboseScripts, mTranslationDataStorage));
 
     // Sets up the input system
+
+    // Get the path for the keybinder xml file
+    std::string keybinderUser = (mCfgMgr.getUserPath() / "input.xml").string();
+    bool keybinderUserExists = boost::filesystem::exists(keybinderUser);
+
     mEnvironment.setInputManager (new MWInput::InputManager (*mOgre,
         MWBase::Environment::get().getWorld()->getPlayer(),
          *MWBase::Environment::get().getWindowManager(), mDebug, *this, keybinderUser, keybinderUserExists));
@@ -388,12 +391,7 @@ void OMW::Engine::go()
         MWBase::Environment::get().getWorld()->changeToInteriorCell (mCellName, pos);
     }
 
-    std::cout << "\nPress Q/ESC or close window to exit.\n";
-
     mOgre->getRoot()->addFrameListener (this);
-
-    // Play some good 'ol tunes
-    MWBase::Environment::get().getSoundManager()->playPlaylist(std::string("Explore"));
 
     // scripts
     if (mCompileAll)
@@ -407,9 +405,39 @@ void OMW::Engine::go()
                 << "%)"
                 << std::endl;
     }
+}
+
+// Initialise and enter main loop.
+
+void OMW::Engine::go()
+{
+    using boost::chrono::milliseconds;
+    using boost::chrono::duration_cast;
+    using boost::chrono::high_resolution_clock;
+
+    assert (!mCellName.empty());
+    assert (!mMaster.empty());
+    assert (!mOgre);
+
+    Settings::Manager settings;
+    std::string settingspath;
+
+    high_resolution_clock::time_point initStartTime = high_resolution_clock::now ();
+
+    settingspath = loadSettings (settings);
+
+    prepareEngine (settings);
+
+    // Play some good 'ol tunes
+    MWBase::Environment::get().getSoundManager()->playPlaylist(std::string("Explore"));
 
     if (!mStartupScript.empty())
         MWBase::Environment::get().getWindowManager()->executeInConsole (mStartupScript);
+
+    high_resolution_clock::duration initDuration = high_resolution_clock::now () - initStartTime;
+
+    std::cout << "\nInitialization took: " << duration_cast <milliseconds> (initDuration) << '\n';
+    std::cout << "\nPress Q/ESC or close window to exit.\n";
 
     // Start the main rendering loop
     mOgre->start();
