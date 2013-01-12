@@ -133,6 +133,7 @@ OMW::Engine::Engine(Files::ConfigurationManager& configurationManager)
   , mFSStrict (false)
   , mScriptConsoleMode (false)
   , mCfgMgr(configurationManager)
+  , mEncoder(0)
 {
     std::srand ( std::time(NULL) );
     MWClass::registerClasses();
@@ -143,6 +144,7 @@ OMW::Engine::~Engine()
     mEnvironment.cleanup();
     delete mScriptContext;
     delete mOgre;
+    delete mEncoder;
 }
 
 // Load all BSA files in data directory.
@@ -326,15 +328,15 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
     MWGui::CursorReplace replacer;
 
     // Create encoder
-    ToUTF8::Utf8Encoder encoder (mEncoding);
+    mEncoder = new ToUTF8::Utf8Encoder (mEncoding);
 
     // Create the world
     mEnvironment.setWorld (new MWWorld::World (*mOgre, mFileCollections, mMaster,
-        mResDir, mCfgMgr.getCachePath(), mNewGame, &encoder, mFallbackMap,
+        mResDir, mCfgMgr.getCachePath(), mNewGame, mEncoder, mFallbackMap,
         mActivationDistanceOverride));
 
     //Load translation data
-    mTranslationDataStorage.setEncoder(&encoder);
+    mTranslationDataStorage.setEncoder(mEncoder);
     mTranslationDataStorage.loadTranslationData(mFileCollections, mMaster);
 
     // Create window manager - this manages all the MW-specific GUI windows
@@ -413,6 +415,7 @@ void OMW::Engine::go()
     assert (!mCellName.empty());
     assert (!mMaster.empty());
     assert (!mOgre);
+    assert (!mEncoder);
 
     Settings::Manager settings;
 	std::string settingspath;
