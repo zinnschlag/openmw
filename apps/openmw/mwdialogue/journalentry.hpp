@@ -5,7 +5,7 @@
 
 namespace MWWorld 
 {
-    struct ESMStore;
+    class ESMStore;
 }
 
 namespace MWDialogue

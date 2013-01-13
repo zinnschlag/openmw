@@ -16,7 +16,7 @@ namespace CSMWorld
 {
     class IdTableProxyModel;
     class IdTable;
-    class RecordBase;
+    struct RecordBase;
 
     class ModifyCommand : public QUndoCommand
     {
