@@ -13,6 +13,7 @@
 #include "../mwbase/scriptmanager.hpp"
 
 #include "globalscripts.hpp"
+#include "specialvars.hpp"
 
 namespace MWWorld
 {
@@ -47,6 +48,7 @@ namespace MWScript
 
             ScriptCollection mScripts;
             GlobalScripts mGlobalScripts;
+            SpecialVars mSpecialVars;
 
         public:
 
@@ -73,6 +75,9 @@ namespace MWScript
                 char type);
             ///< Return index of the variable of the given name and type in the given script. Will
             /// throw an exception, if there is no such script or variable or the type does not match.
+            
+            virtual SpecialVars& getSpecialVars ();
+            virtual void resetSpecialVars ();
     };
 }
 

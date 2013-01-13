@@ -14,6 +14,7 @@
 #include <components/compiler/exception.hpp>
 
 #include "extensions.hpp"
+#include "interpretercontext.hpp"
 
 namespace MWScript
 {
@@ -109,7 +110,29 @@ namespace MWScript
                     installOpcodes (mInterpreter);
                     mOpcodesInstalled = true;
                 }
+                
+                bool hasRef = true;
+                MWWorld::Ptr ref;
+                try
+                {
+                    ref = dynamic_cast<InterpreterContext*>(&interpreterContext)->getReference();
+                }
+                catch (...)
+                {
+                    hasRef = false;
+                }
 
+                if(hasRef)
+                {
+                    for(unsigned int i = 0; i < mSpecialVars.mOnPCEquip.size(); ++i)
+                    {
+                        if(ref == mSpecialVars.mOnPCEquip[i])
+                        {
+                            interpreterContext.setLocalShort(getLocals(name).getIndex("onpcequip"), 1);
+                        }
+                    }
+                }
+                
                 mInterpreter.run (&iter->second.first[0], iter->second.first.size(), interpreterContext);
             }
             catch (const std::exception& e)
@@ -204,4 +227,15 @@ namespace MWScript
 
         throw std::runtime_error ("unable to access local variable " + variable + " of " + scriptId);
     }
+   
+    SpecialVars& ScriptManager::getSpecialVars ()
+    {
+        return mSpecialVars;
+    }
+
+    void ScriptManager::resetSpecialVars ()
+    {
+        mSpecialVars.mOnPCEquip.clear();
+    }
+
 }
