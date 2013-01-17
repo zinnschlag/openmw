@@ -355,7 +355,7 @@ class MovieAudioDecoder : public MWSound::Sound_Decoder
                 return -1;
 
             /* if update, update the audio clock w/pts */
-            if((uint64_t)pkt->pts != AV_NOPTS_VALUE)
+            if(pkt->pts != AV_NOPTS_VALUE)
                 mAudioClock = av_q2d(mAVStream->time_base)*pkt->pts;
         }
     }
@@ -739,10 +739,10 @@ void VideoState::video_thread_loop(VideoState *self)
             throw std::runtime_error("Error decoding video frame");
 
         pts = 0;
-        if((uint64_t)packet->dts != AV_NOPTS_VALUE)
+        if(packet->dts != AV_NOPTS_VALUE)
             pts = packet->dts;
-        else if(pFrame->opaque && *(uint64_t*)pFrame->opaque != AV_NOPTS_VALUE)
-            pts = *(uint64_t*)pFrame->opaque;
+        else if(pFrame->opaque && *(int64_t*)pFrame->opaque != AV_NOPTS_VALUE)
+            pts = *(int64_t*)pFrame->opaque;
         pts *= av_q2d((*self->video_st)->time_base);
 
         av_free_packet(packet);

@@ -34,8 +34,8 @@
 namespace Nif
 {
     class Node;
-    class Transformation;
-    class NiTriShape;
+    struct Transformation;
+    struct NiTriShape;
 }
 
 namespace NifOgre

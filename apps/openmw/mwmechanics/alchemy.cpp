@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <map>
 
+#include <boost/lexical_cast.hpp>
+
 #include <components/esm/loadskil.hpp>
 #include <components/esm/loadappa.hpp>
 #include <components/esm/loadgmst.hpp>
@@ -144,7 +146,7 @@ void MWMechanics::Alchemy::updateEffects()
             MWBase::Environment::get().getWorld()->getStore().get<ESM::MagicEffect>().find (iter->mId);         
         
         if (magicEffect->mData.mBaseCost<=0)
-            throw std::runtime_error ("invalid base cost for magic effect " + iter->mId);
+            throw std::runtime_error ("invalid base cost for magic effect " + boost::lexical_cast<std::string>(iter->mId));
         
         float fPotionT1MagMul =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find ("fPotionT1MagMult")->getFloat();

@@ -33,7 +33,7 @@
 namespace Nif
 {
 
-class NiNode;
+struct NiNode;
 
 /** A Node is an object that's part of the main NIF tree. It has
     parent node (unless it's the root), and transformation (location

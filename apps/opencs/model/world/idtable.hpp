@@ -6,7 +6,7 @@
 namespace CSMWorld
 {
     class IdCollectionBase;
-    class RecordBase;
+    struct RecordBase;
 
     class IdTable : public QAbstractTableModel
     {

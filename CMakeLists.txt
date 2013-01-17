@@ -334,7 +334,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 endif()
 
 # Compiler settings
-if (CMAKE_COMPILER_IS_GNUCC)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_definitions (-Wall -Wextra -Wno-unused-parameter -Wno-reorder -std=c++0x -pedantic)
 
     # Silence warnings in OGRE headers. Remove once OGRE got fixed!
@@ -344,8 +344,14 @@ if (CMAKE_COMPILER_IS_GNUCC)
                 OUTPUT_VARIABLE GCC_VERSION)
     if ("${GCC_VERSION}" VERSION_GREATER 4.6 OR "${GCC_VERSION}" VERSION_EQUAL 4.6)
         add_definitions (-Wno-unused-but-set-parameter)
-    endif("${GCC_VERSION}" VERSION_GREATER 4.6 OR "${GCC_VERSION}" VERSION_EQUAL 4.6)
-endif (CMAKE_COMPILER_IS_GNUCC)
+    endif()
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    add_definitions (-Wall -Wextra -Wno-unused-parameter -Wno-reorder -std=c++0x -pedantic)
+
+    # Silence warnings in OGRE headers. Remove once OGRE got fixed!
+    add_definitions (-Wno-ignored-qualifiers)
+    add_definitions (-Wno-overloaded-virtual)
+endif ()
 
 if(DPKG_PROGRAM)
     SET(CMAKE_INSTALL_PREFIX "/usr")
