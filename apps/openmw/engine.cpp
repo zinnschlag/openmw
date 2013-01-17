@@ -55,6 +55,7 @@ void OMW::Engine::executeLocalScripts()
             break;
     }
 
+    MWBase::Environment::get().getScriptManager()->resetSpecialVars();
     localScripts.setIgnore (MWWorld::Ptr());
 }
 
