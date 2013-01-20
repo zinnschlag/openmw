@@ -121,6 +121,13 @@ bool MWDialogue::Filter::testSelectStructs (const ESM::DialInfo& info) const
     return true;
 }
 
+bool MWDialogue::Filter::testDisposition (const ESM::DialInfo& info) const
+{
+    int actorDisposition = MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(mActor);
+
+    return actorDisposition >= info.mData.mDisposition;
+}
+
 bool MWDialogue::Filter::testSelectStruct (const SelectWrapper& select) const
 {
     if (select.isNpcOnly() && mActor.getTypeName()!=typeid (ESM::NPC).name())
@@ -547,18 +554,50 @@ MWDialogue::Filter::Filter (const MWWorld::Ptr& actor, int choice, bool talkedTo
 : mActor (actor), mChoice (choice), mTalkedToPlayer (talkedToPlayer)
 {}
 
-bool MWDialogue::Filter::operator() (const ESM::DialInfo& info) const
+const ESM::DialInfo *MWDialogue::Filter::search (const ESM::Dialogue& dialogue, const bool fallbackToInfoRefusal) const
 {
-    return testActor (info) && testPlayer (info) && testSelectStructs (info);
-}
+    bool infoRefusal = false;
 
-const ESM::DialInfo *MWDialogue::Filter::search (const ESM::Dialogue& dialogue) const
-{
+    // Iterate over topic responses to find a matching one
     for (std::vector<ESM::DialInfo>::const_iterator iter = dialogue.mInfo.begin();
         iter!=dialogue.mInfo.end(); ++iter)
-        if ((*this) (*iter))
-            return &*iter;
+    {
+        if (testActor (*iter) && testPlayer (*iter) && testSelectStructs (*iter))
+        {
+            if (testDisposition (*iter))
+                return &*iter;
+            else
+                infoRefusal = true;
+        }
+    }
+
+    if (infoRefusal && fallbackToInfoRefusal)
+    {
+        // No response is valid because of low NPC disposition,
+        // search a response in the topic "Info Refusal"
+
+        const MWWorld::Store<ESM::Dialogue> &dialogues =
+            MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>();
+
+        const ESM::Dialogue& infoRefusalDialogue = *dialogues.find ("Info Refusal");
+
+        for (std::vector<ESM::DialInfo>::const_iterator iter = infoRefusalDialogue.mInfo.begin();
+            iter!=infoRefusalDialogue.mInfo.end(); ++iter)
+            if (testActor (*iter) && testPlayer (*iter) && testSelectStructs (*iter) && testDisposition(*iter))
+                return &*iter;
+    }
 
     return 0;
 }
 
+bool MWDialogue::Filter::responseAvailable (const ESM::Dialogue& dialogue) const
+{
+    for (std::vector<ESM::DialInfo>::const_iterator iter = dialogue.mInfo.begin();
+        iter!=dialogue.mInfo.end(); ++iter)
+    {
+        if (testActor (*iter) && testPlayer (*iter) && testSelectStructs (*iter))
+            return true;
+    }
+
+    return false;
+}
