@@ -54,6 +54,9 @@ if(WIN32)
 endif(WIN32)
 
 find_package(Qt4 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
+
+QT4_ADD_RESOURCES (OPENCS_RCC_SRC ../../files/cs/resources.qrc)
+
 include(${QT_USE_FILE})
 
 qt4_wrap_ui(OPENCS_UI_HDR ${OPENCS_UI})
@@ -65,6 +68,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable(opencs
     ${OPENCS_SRC}
     ${OPENCS_UI_HDR}
+    ${OPENCS_RCC_SRC}
     ${OPENCS_MOC_SRC}
     ${OPENCS_RES_SRC}
 )

@@ -31,6 +31,7 @@ int CSMWorld::IdTable::columnCount (const QModelIndex & parent) const
 
 QVariant CSMWorld::IdTable::data  (const QModelIndex & index, int role) const
 {
+
     if (role!=Qt::DisplayRole && role!=Qt::EditRole)
         return QVariant();
 

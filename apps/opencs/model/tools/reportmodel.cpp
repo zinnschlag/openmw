@@ -2,6 +2,9 @@
 #include "reportmodel.hpp"
 
 #include <stdexcept>
+#include <sstream>
+
+#include <QIcon>
 
 int CSMTools::ReportModel::rowCount (const QModelIndex & parent) const
 {
@@ -21,11 +24,23 @@ int CSMTools::ReportModel::columnCount (const QModelIndex & parent) const
 
 QVariant CSMTools::ReportModel::data (const QModelIndex & index, int role) const
 {
+    if (role==Qt::DecorationRole && index.column()==0)
+    {
+        std::ostringstream stream;
+
+        stream << ":/type/" << static_cast<int> (mRows.at (index.row()).first.getType()) << ".png";
+
+        return QIcon (stream.str().c_str());
+    }
+
+    if (role==Qt::TextAlignmentRole && index.column()==0)
+        return Qt::AlignCenter;
+
     if (role!=Qt::DisplayRole)
         return QVariant();
 
     if (index.column()==0)
-        return static_cast<int> (mRows.at (index.row()).first.getType());
+        return mRows.at (index.row()).first.getTypeName().c_str();
     else
         return mRows.at (index.row()).second.c_str();
 }
