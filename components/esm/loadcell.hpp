@@ -68,7 +68,7 @@ public:
   std::string mKey, mTrap; // Key and trap ID names, if any
 
   // No idea - occurs ONCE in Morrowind.esm, for an activator
-  char mUnam;
+  signed char mUnam;
 
   // Occurs in Tribunal.esm, eg. in the cell "Mournhold, Plaza
   // Brindisi Dorom", where it has the value 100. Also only for
