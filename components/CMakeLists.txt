@@ -43,7 +43,7 @@ add_component_dir (esm
     )
 
 add_component_dir (misc
-    slice_array stringops
+    endianess slice_array stringops
     )
 
 add_component_dir (files
