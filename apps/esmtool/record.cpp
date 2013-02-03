@@ -155,7 +155,7 @@ RecordBase::create(ESM::NAME type)
 {
     RecordBase *record = 0;
 
-    switch (type.val) {
+    switch (type.toInt32BE()) {
     case ESM::REC_ACTI:
     {
         record = new EsmTool::Record<ESM::Activator>;

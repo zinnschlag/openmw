@@ -26,19 +26,19 @@ void DialInfo::load(ESMReader &esm)
     esm.getSubName();
     const NAME &subName = esm.retSubName();
 
-    if (subName.val == REC_ONAM)
+    if (subName == REC_ONAM)
     {
         mActor = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_RNAM)
+    if (subName == REC_RNAM)
     {
         mRace = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_CNAM)
+    if (subName == REC_CNAM)
     {
         mClass = esm.getHString();
         if (esm.isEmptyOrGetName())
@@ -46,7 +46,7 @@ void DialInfo::load(ESMReader &esm)
     }
 
     mFactionLess = false;
-    if (subName.val == REC_FNAM)
+    if (subName == REC_FNAM)
     {
         mNpcFaction = esm.getHString();
         if (mNpcFaction == "FFFF")
@@ -54,44 +54,44 @@ void DialInfo::load(ESMReader &esm)
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_ANAM)
+    if (subName == REC_ANAM)
     {
         mCell = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_DNAM)
+    if (subName == REC_DNAM)
     {
         mPcFaction = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_SNAM)
+    if (subName == REC_SNAM)
     {
         mSound = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_NAME)
+    if (subName == REC_NAME)
     {
         mResponse = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
 
-    while (subName.val == REC_SCVR)
+    while (subName == REC_SCVR)
     {
         SelectStruct ss;
 
         ss.mSelectRule = esm.getHString();
         esm.isEmptyOrGetName();
 
-        if (subName.val == REC_INTV)
+        if (subName == REC_INTV)
         {
             ss.mType = VT_Int;
             esm.getHT(ss.mI);
         }
-        else if (subName.val == REC_FLTV)
+        else if (subName == REC_FLTV)
         {
             ss.mType = VT_Float;
             esm.getHT(ss.mF);
@@ -107,7 +107,7 @@ void DialInfo::load(ESMReader &esm)
             return;
     }
 
-    if (subName.val == REC_BNAM)
+    if (subName == REC_BNAM)
     {
         mResultScript = esm.getHString();
         if (esm.isEmptyOrGetName())
@@ -116,13 +116,13 @@ void DialInfo::load(ESMReader &esm)
 
     mQuestStatus = QS_None;
 
-    if (subName.val == REC_QSTN)
+    if (subName == REC_QSTN)
         mQuestStatus = QS_Name;
-    else if (subName.val == REC_QSTF)
+    else if (subName == REC_QSTF)
         mQuestStatus = QS_Finished;
-    else if (subName.val == REC_QSTR)
+    else if (subName == REC_QSTR)
         mQuestStatus = QS_Restart;
-    else if (subName.val == REC_DELE)
+    else if (subName == REC_DELE)
         mQuestStatus = QS_Deleted;
     else
         esm.fail(
@@ -161,7 +161,7 @@ void DialInfo::save(ESMWriter &esm)
     }
 
     esm.writeHNOString("BNAM", mResultScript);
-    
+
     switch(mQuestStatus)
     {
     case QS_Name: esm.writeHNT("QSTN",'\1'); break;

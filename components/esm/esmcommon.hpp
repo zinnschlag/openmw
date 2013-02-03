@@ -6,9 +6,11 @@
 #include <libs/platform/stdint.h>
 #include <libs/platform/string.h>
 
+#include "components/misc/endianess.hpp"
+
 namespace ESM
 {
-enum Version
+enum Version  // in little endian
   {
     VER_12 = 0x3f99999a,
     VER_13 = 0x3fa66666
@@ -32,16 +34,15 @@ enum SpecialFile
     SF_Bloodmoon
   };
 
-/* A structure used for holding fixed-length strings. In the case of
-   LEN=4, it can be more efficient to match the string as a 32 bit
-   number, therefore the struct is implemented as a union with an int.
- */
+/* A class used for holding fixed-length strings. */
+/* In the case of LEN=4, it can be more efficient to match the string
+   as a 32 bit number. */
 template <int LEN>
 union NAME_T
 {
-    char name[LEN];
-    int32_t val;
-    
+  char name[LEN];
+  uint32_t val32h;  // in host byte order
+
   bool operator==(const char *str) const
   {
     for(int i=0; i<LEN; i++)
@@ -57,10 +58,13 @@ union NAME_T
   }
   bool operator!=(const std::string &str) const { return !((*this)==str); }
 
-  bool operator==(int v) const { return v == val; }
-  bool operator!=(int v) const { return v != val; }
+  bool operator==(uint32_t v32be) const { return val32h == be32toh(v32be); }
+  bool operator!=(uint32_t v32be) const { return val32h != be32toh(v32be); }
 
   std::string toString() const { return std::string(name, strnlen(name, LEN)); }
+
+  uint32_t toInt32BE() const { return htobe32(val32h); }
+  void setAs32BE(uint32_t v32be) { val32h = be32toh(v32be); }
 };
 
 typedef NAME_T<4> NAME;
@@ -74,11 +78,10 @@ typedef NAME_T<256> NAME256;
 struct HEDRstruct
 {
   /* File format version. This is actually a float, the supported
-     versions are 1.2 and 1.3. These correspond to:
-     1.2 = 0x3f99999a and 1.3 = 0x3fa66666
+     versions are 1.2 (0x9a99993f) and 1.3 (0x66666a3f).
   */
-  int version;
-  int type;           // 0=esp, 1=esm, 32=ess
+  uint32_t version;
+  uint32_t type;      // 0=esp, 1=esm, 32=ess
   NAME32 author;      // Author's name
   NAME256 desc;       // File description
   int records;        // Number of records? Not used.

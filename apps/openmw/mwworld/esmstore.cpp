@@ -32,10 +32,10 @@ void ESMStore::load(ESM::ESMReader &esm)
         esm.getRecHeader();
 
         // Look up the record type.
-        std::map<int, StoreBase *>::iterator it = mStores.find(n.val);
+        std::map<int, StoreBase *>::iterator it = mStores.find(n.toInt32BE());
 
         if (it == mStores.end()) {
-            if (n.val == ESM::REC_INFO) {
+            if (n == ESM::REC_INFO) {
                 if (dialogue) {
                     dialogue->mInfo.push_back(ESM::DialInfo());
                     dialogue->mInfo.back().load(esm);
@@ -43,9 +43,9 @@ void ESMStore::load(ESM::ESMReader &esm)
                     std::cerr << "error: info record without dialog" << std::endl;
                     esm.skipRecord();
                 }
-            } else if (n.val == ESM::REC_MGEF) {
+            } else if (n == ESM::REC_MGEF) {
                 mMagicEffects.load (esm);
-            } else if (n.val == ESM::REC_SKIL) {
+            } else if (n == ESM::REC_SKIL) {
                 mSkills.load (esm);
             } else {
                 // Not found (this would be an error later)
@@ -57,7 +57,7 @@ void ESMStore::load(ESM::ESMReader &esm)
             std::string id = esm.getHNOString("NAME");
             it->second->load(esm, id);
 
-            if (n.val==ESM::REC_DIAL) {
+            if (n == ESM::REC_DIAL) {
                 // dirty hack, but it is better than non-const search()
                 // or friends
                 dialogue = &mDialogs.mStatic.back();
@@ -66,8 +66,8 @@ void ESMStore::load(ESM::ESMReader &esm)
                 dialogue = 0;
             }
             // Insert the reference into the global lookup
-            if (!id.empty() && isCacheableRecord(n.val)) {
-                mIds[id] = n.val;
+            if (!id.empty() && isCacheableRecord(n.toInt32BE())) {
+                mIds[id] = n.toInt32BE();
             }
         }
     }

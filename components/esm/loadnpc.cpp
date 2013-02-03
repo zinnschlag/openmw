@@ -50,13 +50,13 @@ void NPC::load(ESMReader &esm)
         mHasAI = false;
 
     while (esm.isNextSub("DODT") || esm.isNextSub("DNAM")) {
-        if (esm.retSubName() == 0x54444f44) { // DODT struct
+        if (esm.retSubName() == REC_DODT) {
             Dest dodt;
             esm.getHExact(&dodt.mPos, 24);
             mTransport.push_back(dodt);
-        } else if (esm.retSubName() == 0x4d414e44) { // DNAM struct
+        } else if (esm.retSubName() == REC_DNAM) {
             mTransport.back().mCellName = esm.getHString();
-        } 
+        }
     }
     mAiPackage.load(esm);
     esm.skipRecord();
@@ -71,14 +71,14 @@ void NPC::save(ESMWriter &esm)
     esm.writeHNCString("BNAM", mHead);
     esm.writeHNCString("KNAM", mHair);
     esm.writeHNOCString("SCRI", mScript);
-    
+
     if (mNpdtType == 52)
         esm.writeHNT("NPDT", mNpdt52, 52);
     else if (mNpdtType == 12)
         esm.writeHNT("NPDT", mNpdt12, 12);
 
     esm.writeHNT("FLAG", mFlags);
-    
+
     mInventory.save(esm);
     mSpells.save(esm);
     if (mHasAI) {

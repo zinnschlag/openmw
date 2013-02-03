@@ -223,7 +223,8 @@ public:
 
   void getExact(void*x, int size);
   void getName(NAME &name) { getT(name); }
-  void getUint(uint32_t &u) { getT(u); }
+  void getSint(int32_t &i) { getT(i); i = le32toh(i); }
+  void getUint(uint32_t &u) { getT(u); u = le32toh(u); }
 
   // Read the next 'size' bytes and return them as a string. Converts
   // them from native encoding to UTF8 in the process.

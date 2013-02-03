@@ -33,7 +33,7 @@ struct ESMData
     static const std::set<int> sLabeledRec;
 };
 
-static const int sLabeledRecIds[] = {
+static const uint32_t sLabeledRecIds[] = {
     ESM::REC_GLOB, ESM::REC_CLAS, ESM::REC_FACT, ESM::REC_RACE, ESM::REC_SOUN,
     ESM::REC_REGN, ESM::REC_BSGN, ESM::REC_LTEX, ESM::REC_STAT, ESM::REC_DOOR,
     ESM::REC_MISC, ESM::REC_WEAP, ESM::REC_CONT, ESM::REC_SPEL, ESM::REC_CREA,
@@ -325,17 +325,17 @@ int load(Arguments& info)
             EsmTool::RecordBase *record = EsmTool::RecordBase::create(n);
 
             if (record == 0) {
-                if (std::find(skipped.begin(), skipped.end(), n.val) == skipped.end())
+                if (std::find(skipped.begin(), skipped.end(), n.toInt32BE()) == skipped.end())
                 {
                     std::cout << "Skipping " << n.toString() << " records." << std::endl;
-                    skipped.push_back(n.val);
+                    skipped.push_back(n.toInt32BE());
                 }
 
                 esm.skipRecord();
                 if (quiet) break;
                 std::cout << "  Skipping\n";
             } else {
-                if (record->getType().val == ESM::REC_GMST) {
+                if (record->getType() == ESM::REC_GMST) {
                     // preset id for GameSetting record
                     record->cast<ESM::GameSetting>()->get().mId = id;
                 }
@@ -344,7 +344,7 @@ int load(Arguments& info)
                 record->load(esm);
                 if (!quiet && interested) record->print();
 
-                if (record->getType().val == ESM::REC_CELL && loadCells) {
+                if (record->getType() == ESM::REC_CELL && loadCells) {
                     loadCell(record->cast<ESM::Cell>()->get(), esm, info);
                 }
 
@@ -353,7 +353,7 @@ int load(Arguments& info)
                 } else {
                     delete record;
                 }
-                ++info.data.mRecordStats[n.val];
+                ++info.data.mRecordStats[n.toInt32BE()];
             }
         }
 
@@ -408,7 +408,7 @@ int clone(Arguments& info)
     Stats &stats = info.data.mRecordStats;
     for (Stats::iterator it = stats.begin(); it != stats.end(); ++it)
     {
-        name.val = it->first;
+        name.setAs32BE(it->first);
         float amount = it->second;
         std::cout << std::setw(digitCount) << amount << " " << name.toString() << "  ";
 
@@ -442,12 +442,12 @@ int clone(Arguments& info)
     {
         EsmTool::RecordBase *record = *it;
 
-        name.val = record->getType().val;
+        name.setAs32BE(record->getType().toInt32BE());
 
         esm.startRecord(name.toString(), record->getFlags());
 
         // TODO wrap this with std::set
-        if (ESMData::sLabeledRec.count(name.val) > 0) {
+        if (ESMData::sLabeledRec.count(name.toInt32BE()) > 0) {
             esm.writeHNCString("NAME", record->getId());
         } else {
             esm.writeHNOString("NAME", record->getId());
@@ -455,7 +455,7 @@ int clone(Arguments& info)
 
         record->save(esm);
 
-        if (name.val == ESM::REC_CELL) {
+        if (name == ESM::REC_CELL) {
             ESM::Cell *ptr = &record->cast<ESM::Cell>()->get();
             if (!info.data.mCellRefs[ptr].empty()) {
                 typedef std::deque<ESM::CellRef> RefList;
