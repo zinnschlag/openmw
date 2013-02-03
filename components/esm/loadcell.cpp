@@ -135,8 +135,11 @@ void Cell::load(ESMReader &esm)
         mRegion = esm.getHNOString("RGNN");
 
         mMapColor = 0;
-        esm.getHNOT(mMapColor, "NAM5");
-        mMapColor = le32toh(mMapColor);
+        if (esm.isNextSub("NAM5"))
+        {
+            esm.getHT(mMapColor);
+            mMapColor = le32toh(mMapColor);
+        }
     }
     if (esm.isNextSub("NAM0")) {
         esm.getHT(mNAM0);
@@ -229,28 +232,45 @@ bool Cell::getNextRef(ESMReader &esm, CellRef &ref)
     // getHNOT will not change the existing value if the subrecord is
     // missing
     ref.mScale = 1.0;
-    esm.getHNOT(ref.mScale, "XSCL");
-    ref.mScale = letoh_float(ref.mScale);
+    if (esm.isNextSub("XSCL"))
+    {
+        esm.getHT(ref.mScale);
+        ref.mScale = letoh_float(ref.mScale);
+    }
 
     ref.mOwner = esm.getHNOString("ANAM");
     ref.mGlob = esm.getHNOString("BNAM");
     ref.mSoul = esm.getHNOString("XSOL");
 
     ref.mFaction = esm.getHNOString("CNAM");
+
     ref.mFactIndex = -2;
-    esm.getHNOT(ref.mFactIndex, "INDX");
-    ref.mFactIndex = le32toh(ref.mFactIndex);
+    if (esm.isNextSub("INDX"))
+    {
+        esm.getHT(ref.mFactIndex);
+        ref.mFactIndex = le32toh(ref.mFactIndex);
+    }
 
     ref.mCharge = -1.0;
-    esm.getHNOT(ref.mCharge, "XCHG");
-    ref.mCharge = letoh_float(ref.mCharge);
+    if (esm.isNextSub("XCHG"))
+    {
+        esm.getHT(ref.mCharge);
+        ref.mCharge = letoh_float(ref.mCharge);
+    }
 
     ref.mIntv = -1;
+    if (esm.isNextSub("INTV"))
+    {
+        esm.getHT(ref.mIntv);
+        ref.mIntv = le32toh(ref.mIntv);
+    }
+
     ref.mNam9 = 0;
-    esm.getHNOT(ref.mIntv, "INTV");
-    esm.getHNOT(ref.mNam9, "NAM9");
-    ref.mIntv = le32toh(ref.mIntv);
-    ref.mNam9 = le32toh(ref.mNam9);
+    if (esm.isNextSub("NAM9"))
+    {
+        esm.getHT(ref.mNam9);
+        ref.mNam9 = le32toh(ref.mNam9);
+    }
 
     // Present for doors that teleport you to another cell.
     if (esm.isNextSub("DODT"))
@@ -268,18 +288,28 @@ bool Cell::getNextRef(ESMReader &esm, CellRef &ref)
 
     // Integer, despite the name suggesting otherwise
     ref.mLockLevel = -1;
-    esm.getHNOT(ref.mLockLevel, "FLTV");
-    ref.mLockLevel = le32toh(ref.mLockLevel);
+    if (esm.isNextSub("FLTV"))
+    {
+        esm.getHT(ref.mLockLevel);
+        ref.mLockLevel = le32toh(ref.mLockLevel);
+    }
 
     ref.mKey = esm.getHNOString("KNAM");
     ref.mTrap = esm.getHNOString("TNAM");
 
     ref.mUnam = -1;
-    esm.getHNOT(ref.mUnam, "UNAM");
+    if (esm.isNextSub("UNAM"))
+    {
+        esm.getHT(ref.mUnam);
+    }
 
+    // Integer, despite the name suggesting otherwise
     ref.mFltv = 0;
-    esm.getHNOT(ref.mFltv, "FLTV");
-    ref.mFltv = le32toh(ref.mFltv);
+    if (esm.isNextSub("FLTV"))
+    {
+        esm.getHT(ref.mFltv);
+        ref.mFltv = le32toh(ref.mFltv);
+    }
 
     esm.getHNT(ref.mPos, "DATA", 24);
     for (size_t i = 0; i < 3; i++)
@@ -295,7 +325,6 @@ bool Cell::getNextRef(ESMReader &esm, CellRef &ref)
     {
         esm.getHT(ref.mNam0);
         ref.mNam0 = le32toh(ref.mNam0);
-        //esm.getHNOT(NAM0, "NAM0");
     }
 
     return true;

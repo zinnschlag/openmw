@@ -101,9 +101,15 @@ enum RecNames
 // Hexadecimal versions of the various subrecord names (in big-endian order).
 enum SubNames
 {
+    REC_AI_W = FOURCHAR('A','I','_','W'),
+    REC_AI_T = FOURCHAR('A','I','_','T'),
+    REC_AI_F = FOURCHAR('A','I','_','F'),
+    REC_AI_E = FOURCHAR('A','I','_','E'),
+    REC_AI_A = FOURCHAR('A','I','_','A'),
     REC_ANAM = FOURCHAR('A','N','A','M'),
     REC_BNAM = FOURCHAR('B','N','A','M'),
     REC_CNAM = FOURCHAR('C','N','A','M'),
+    REC_CNDT = FOURCHAR('C','N','D','T'),
     REC_DELE = FOURCHAR('D','E','L','E'),
     REC_DNAM = FOURCHAR('D','N','A','M'),
     REC_DODT = FOURCHAR('D','O','D','T'),

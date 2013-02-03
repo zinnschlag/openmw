@@ -92,14 +92,6 @@ public:
     getHT(x);
   }
 
-  // Optional version of getHNT
-  template <typename X>
-  void getHNOT(X &x, const char* name)
-  {
-      if(isNextSub(name))
-          getHT(x);
-  }
-
   // Version with extra size checking, to make sure the compiler
   // doesn't mess up our struct padding.
   template <typename X>

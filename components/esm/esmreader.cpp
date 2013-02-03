@@ -130,7 +130,7 @@ int64_t ESMReader::getHNLong(const char *name)
 {
     int64_t val;
     getHNT(val, name);
-    return val;
+    return le64toh(val);
 }
 
 std::string ESMReader::getHNOString(const char* name)

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 
+#include "defs.hpp"
 #include "esmcommon.hpp"
 
 namespace ESM
@@ -54,11 +55,11 @@ namespace ESM
 
     enum
     {
-        AI_Wander = 0x575f4941,
-        AI_Travel = 0x545f4941,
-        AI_Follow = 0x465f4941,
-        AI_Escort = 0x455f4941,
-        AI_Activate = 0x415f4941
+        AI_Wander = REC_AI_W,
+        AI_Travel = REC_AI_T,
+        AI_Follow = REC_AI_F,
+        AI_Escort = REC_AI_E,
+        AI_Activate = REC_AI_A
     };
 
     /// \note Used for storaging packages in a single container

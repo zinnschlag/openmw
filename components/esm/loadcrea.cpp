@@ -38,8 +38,11 @@ void Creature::load(ESMReader &esm)
     mFlags = le32toh(mFlags);
 
     mScale = 1.0;
-    esm.getHNOT(mScale, "XSCL");
-    mScale = letoh_float(mScale);
+    if (esm.isNextSub("XSCL"))
+    {
+        esm.getHT(mScale);
+        mScale = letoh_float(mScale);
+    }
 
     mInventory.load(esm);
     mSpells.load(esm);
@@ -47,6 +50,7 @@ void Creature::load(ESMReader &esm)
     if (esm.isNextSub("AIDT"))
     {
         esm.getHExact(&mAiData, sizeof(mAiData));
+        mAiData.mServices = le32toh(mAiData.mServices);
         mHasAI = true;
     }
     else
@@ -96,6 +100,7 @@ void Creature::save(ESMWriter &esm)
     mInventory.save(esm);
     mSpells.save(esm);
     if (mHasAI) {
+        mAiData.mServices = htole32(mAiData.mServices);
         esm.writeHNT("AIDT", mAiData, sizeof(mAiData));
     }
     mAiPackage.save(esm);
