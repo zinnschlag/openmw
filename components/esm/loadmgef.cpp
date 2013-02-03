@@ -37,32 +37,53 @@ namespace ESM
 
 void MagicEffect::load(ESMReader &esm)
 {
-  esm.getHNT(mIndex, "INDX");
+    esm.getHNT(mIndex, "INDX");
+    mIndex = le32toh(mIndex);
 
-  esm.getHNT(mData, "MEDT", 36);
-  if (mIndex>=0 && mIndex<NumberOfHardcodedFlags)
-    mData.mFlags |= HardcodedFlags[mIndex];
+    esm.getHNT(mData, "MEDT", 36);
+    mData.mSchool = le32toh(mData.mSchool);
+    mData.mBaseCost = letoh_float(mData.mBaseCost);
+    mData.mFlags = le32toh(mData.mFlags);
+    mData.mRed = le32toh(mData.mRed);
+    mData.mBlue = le32toh(mData.mBlue);
+    mData.mGreen = le32toh(mData.mGreen);
+    mData.mSpeed = letoh_float(mData.mSpeed);
+    mData.mSize = letoh_float(mData.mSize);
+    mData.mSizeCap = letoh_float(mData.mSizeCap);
 
-  mIcon = esm.getHNOString("ITEX");
-  mParticle = esm.getHNOString("PTEX");
+    if (mIndex>=0 && mIndex<NumberOfHardcodedFlags)
+        mData.mFlags |= HardcodedFlags[mIndex];
 
-  mBoltSound = esm.getHNOString("BSND");
-  mCastSound = esm.getHNOString("CSND");
-  mHitSound = esm.getHNOString("HSND");
-  mAreaSound = esm.getHNOString("ASND");
+    mIcon = esm.getHNOString("ITEX");
+    mParticle = esm.getHNOString("PTEX");
 
-  mCasting = esm.getHNOString("CVFX");
-  mBolt = esm.getHNOString("BVFX");
-  mHit = esm.getHNOString("HVFX");
-  mArea = esm.getHNOString("AVFX");
+    mBoltSound = esm.getHNOString("BSND");
+    mCastSound = esm.getHNOString("CSND");
+    mHitSound = esm.getHNOString("HSND");
+    mAreaSound = esm.getHNOString("ASND");
 
-  mDescription = esm.getHNOString("DESC");
+    mCasting = esm.getHNOString("CVFX");
+    mBolt = esm.getHNOString("BVFX");
+    mHit = esm.getHNOString("HVFX");
+    mArea = esm.getHNOString("AVFX");
+
+    mDescription = esm.getHNOString("DESC");
 }
 void MagicEffect::save(ESMWriter &esm)
 {
+    mIndex = htole32(mIndex);
     esm.writeHNT("INDX", mIndex);
 
     mData.mFlags &= 0xe00;
+    mData.mSchool = htole32(mData.mSchool);
+    mData.mBaseCost = htole_float(mData.mBaseCost);
+    mData.mFlags = htole32(mData.mFlags);
+    mData.mRed = htole32(mData.mRed);
+    mData.mBlue = htole32(mData.mBlue);
+    mData.mGreen = htole32(mData.mGreen);
+    mData.mSpeed = htole_float(mData.mSpeed);
+    mData.mSize = htole_float(mData.mSize);
+    mData.mSizeCap = htole_float(mData.mSizeCap);
     esm.writeHNT("MEDT", mData, 36);
     if (mIndex>=0 && mIndex<NumberOfHardcodedFlags) {
         mData.mFlags |= HardcodedFlags[mIndex];
@@ -74,7 +95,7 @@ void MagicEffect::save(ESMWriter &esm)
     esm.writeHNOCString("CSND", mCastSound);
     esm.writeHNOCString("HSND", mHitSound);
     esm.writeHNOCString("ASND", mAreaSound);
-    
+
     esm.writeHNOCString("CVFX", mCasting);
     esm.writeHNOCString("BVFX", mBolt);
     esm.writeHNOCString("HVFX", mHit);

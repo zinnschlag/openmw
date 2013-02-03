@@ -15,7 +15,11 @@ void DialInfo::load(ESMReader &esm)
     // Not present if deleted
     if (esm.isNextSub("DATA")) {
         esm.getHT(mData, 12);
+        mData.mUnknown1 = le32toh(mData.mUnknown1);
+        mData.mDisposition = le32toh(mData.mDisposition);
     }
+
+    mQuestStatus = QS_None;
 
     // What follows is somewhat spaghetti-ish, but it's worth if for
     // an extra speedup. INFO is by far the most common record type.
@@ -90,11 +94,13 @@ void DialInfo::load(ESMReader &esm)
         {
             ss.mType = VT_Int;
             esm.getHT(ss.mI);
+            ss.mI = le32toh(ss.mI);
         }
         else if (subName == REC_FLTV)
         {
             ss.mType = VT_Float;
             esm.getHT(ss.mF);
+            ss.mF = letoh_float(ss.mF);
         }
         else
             esm.fail(
@@ -113,8 +119,6 @@ void DialInfo::load(ESMReader &esm)
         if (esm.isEmptyOrGetName())
             return;
     }
-
-    mQuestStatus = QS_None;
 
     if (subName == REC_QSTN)
         mQuestStatus = QS_Name;
@@ -139,7 +143,11 @@ void DialInfo::save(ESMWriter &esm)
     esm.writeHNCString("INAM", mId);
     esm.writeHNCString("PNAM", mPrev);
     esm.writeHNCString("NNAM", mNext);
+
+    mData.mUnknown1 = htole32(mData.mUnknown1);
+    mData.mDisposition = htole32(mData.mDisposition);
     esm.writeHNT("DATA", mData, 12);
+
     esm.writeHNOCString("ONAM", mActor);
     esm.writeHNOCString("RNAM", mRace);
     esm.writeHNOCString("CNAM", mClass);
@@ -154,8 +162,8 @@ void DialInfo::save(ESMWriter &esm)
         esm.writeHNString("SCVR", it->mSelectRule);
         switch(it->mType)
         {
-        case VT_Int: esm.writeHNT("INTV", it->mI); break;
-        case VT_Float: esm.writeHNT("FLTV", it->mF); break;
+        case VT_Int: it->mI = htole32(it->mI); esm.writeHNT("INTV", it->mI); break;
+        case VT_Float: it->mF = htole_float(it->mF); esm.writeHNT("FLTV", it->mF); break;
         default: break;
         }
     }

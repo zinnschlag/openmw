@@ -96,13 +96,28 @@ namespace ESM
 void Skill::load(ESMReader &esm)
 {
     esm.getHNT(mIndex, "INDX");
+    mIndex = le32toh(mIndex);
+
     esm.getHNT(mData, "SKDT", 24);
+    mData.mAttribute = le32toh(mData.mAttribute);
+    mData.mSpecialization = le32toh(mData.mSpecialization);
+    for (size_t i = 0; i < 4; i++)
+        mData.mUseValue[i] = letoh_float(mData.mUseValue[i]);
+
     mDescription = esm.getHNOString("DESC");
 }
+
 void Skill::save(ESMWriter &esm)
 {
+    mIndex = htole32(mIndex);
     esm.writeHNT("INDX", mIndex);
+
+    mData.mAttribute = htole32(mData.mAttribute);
+    mData.mSpecialization = htole32(mData.mSpecialization);
+    for (size_t i = 0; i < 4; i++)
+        mData.mUseValue[i] = htole_float(mData.mUseValue[i]);
     esm.writeHNT("SKDT", mData, 24);
+
     esm.writeHNOString("DESC", mDescription);
 }
 }

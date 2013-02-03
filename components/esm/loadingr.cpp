@@ -10,7 +10,17 @@ void Ingredient::load(ESMReader &esm)
 {
     mModel = esm.getHNString("MODL");
     mName = esm.getHNString("FNAM");
+
     esm.getHNT(mData, "IRDT", 56);
+    mData.mWeight = letoh_float(mData.mWeight);
+    mData.mValue = le32toh(mData.mValue);
+    for (size_t i = 0; i < 4; i++)
+        mData.mEffectID[i] = le32toh(mData.mEffectID[i]);
+    for (size_t i = 0; i < 4; i++)
+        mData.mSkills[i] = le32toh(mData.mSkills[i]);
+    for (size_t i = 0; i < 4; i++)
+        mData.mAttributes[i] = le32toh(mData.mAttributes[i]);
+
     mScript = esm.getHNOString("SCRI");
     mIcon = esm.getHNOString("ITEX");
     // horrible hack to fix broken data in records
@@ -24,7 +34,7 @@ void Ingredient::load(ESMReader &esm)
         {
             mData.mAttributes[i] = -1;
         }
-        
+
         // is this relevant in cycle from 0 to 4?
         if (mData.mEffectID[i] != 89 &&
             mData.mEffectID[i] != 26 &&
@@ -41,7 +51,17 @@ void Ingredient::save(ESMWriter &esm)
 {
     esm.writeHNCString("MODL", mModel);
     esm.writeHNCString("FNAM", mName);
+
+    mData.mWeight = htole_float(mData.mWeight);
+    mData.mValue = htole32(mData.mValue);
+    for (size_t i = 0; i < 4; i++)
+        mData.mEffectID[i] = htole32(mData.mEffectID[i]);
+    for (size_t i = 0; i < 4; i++)
+        mData.mSkills[i] = htole32(mData.mSkills[i]);
+    for (size_t i = 0; i < 4; i++)
+        mData.mAttributes[i] = htole32(mData.mAttributes[i]);
     esm.writeHNT("IRDT", mData, 56);
+
     esm.writeHNOCString("SCRI", mScript);
     esm.writeHNOCString("ITEX", mIcon);
 }
