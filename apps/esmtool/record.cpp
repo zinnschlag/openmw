@@ -832,7 +832,8 @@ void Record<ESM::Land>::print()
     if (mData.mDataTypes) mData.loadData(mData.mDataTypes);
     if (mData.mDataLoaded)
     {
-        std::cout << "  Height Offset: " << mData.mLandData->mHeightOffset << std::endl;
+        float mHeightOffset = mData.mLandData->mHeights[0] / ESM::Land::HEIGHT_SCALE;
+        std::cout << "  Height Offset: " << mHeightOffset << std::endl;
         // Lots of missing members.
         std::cout << "  Unknown1: " << mData.mLandData->mUnk1 << std::endl;
         std::cout << "  Unknown2: " << mData.mLandData->mUnk2 << std::endl;
@@ -1233,7 +1234,7 @@ void Record<ESM::Script>::print()
     std::cout << "  ByteCode: ";
     std::vector<char>::iterator cit;
     for (cit = mData.mScriptData.begin(); cit != mData.mScriptData.end(); cit++)
-        std::cout << boost::format("%02X") % (int)(*cit);
+        std::cout << boost::format("%02X") % ((uint32_t)(*cit) & 0x000000ff);
     std::cout << std::endl;
 }
 

@@ -73,7 +73,6 @@ struct Land
 
     struct LandData
     {
-        float mHeightOffset;
         float mHeights[LAND_NUM_VERTS];
         VNML mNormals;
         uint16_t mTextures[LAND_NUM_TEXTURES];
