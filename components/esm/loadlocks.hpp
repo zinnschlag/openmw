@@ -14,6 +14,7 @@ class ESMWriter;
  * items (REPA). These have nearly identical data structures.
  */
 
+template <typename T>
 struct Tool
 {
     enum Type
@@ -23,18 +24,19 @@ struct Tool
         Type_Repair
     };
 
+    template <typename S>
     struct Data
     {
         float mWeight;
         int mValue;
 
         float mQuality; // And when I say nearly identical structure, I
-        int mUses;      // mean perfectly identical except that these two
+        S mUses;      // mean perfectly identical except that these two
                        // variables are swaped for repair items. Don't ask
                        // me why.
     }; // Size = 16
 
-    Data mData;
+    Data<T> mData;
     Type mType;
     std::string mId, mName, mModel, mIcon, mScript;
 
@@ -42,15 +44,16 @@ struct Tool
     void save(ESMWriter &esm);
 };
 
-struct Probe: Tool
+struct Probe: public Tool<int>
 {
     Probe() { mType = Type_Probe; }
 };
 
-struct Repair: Tool
+struct Repair: public Tool<float>
 {
     Repair() { mType = Type_Repair; }
 };
 
-}
-#endif
+}  // namespace ESM
+#endif // OPENMW_ESM_LOCKS_H
+

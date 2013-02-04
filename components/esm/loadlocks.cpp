@@ -6,7 +6,8 @@
 namespace ESM
 {
 
-void Tool::load(ESMReader &esm)
+template<typename T>
+void Tool<T>::load(ESMReader &esm)
 {
     mModel = esm.getHNString("MODL");
     mName = esm.getHNString("FNAM");
@@ -22,8 +23,8 @@ void Tool::load(ESMReader &esm)
     {
         mType = Type_Repair;
         // Swap t.data.quality and t.data.uses for repair items (sigh)
-        float tmp = *((float*) &mData.mUses);
-        mData.mUses = *((int*) &mData.mQuality);
+        T tmp = mData.mUses;
+        mData.mUses = mData.mQuality;
         mData.mQuality = tmp;
     }
     else if (n == "LKDT")
@@ -35,7 +36,8 @@ void Tool::load(ESMReader &esm)
     mIcon = esm.getHNOString("ITEX");
 }
 
-void Tool::save(ESMWriter &esm)
+template<typename T>
+void Tool<T>::save(ESMWriter &esm)
 {
     esm.writeHNCString("MODL", mModel);
     esm.writeHNCString("FNAM", mName);
@@ -48,11 +50,11 @@ void Tool::save(ESMWriter &esm)
     case Type_Probe: typeName = "PBDT"; break;
     }
     
-    Data write = mData;
+    Data<T> write = mData;
     if (mType == Type_Repair)
     {
-        float tmp = *((float*) &write.mUses);
-        write.mUses = *((int*) &write.mQuality);
+        T tmp = write.mUses;
+        write.mUses = write.mQuality;
         write.mQuality = tmp;
     }
 
@@ -61,5 +63,6 @@ void Tool::save(ESMWriter &esm)
     esm.writeHNOCString("ITEX", mIcon);
 }
 
+}  // namespace ESM
 
-}
+template class ESM::Tool<int>;

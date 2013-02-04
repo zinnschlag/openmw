@@ -32,7 +32,7 @@ namespace MWWorld
         Store<ESM::CreatureLevList> mCreatureLists;
         Store<ESM::ItemLevList>     mItemLists;
         Store<ESM::Light>           mLights;
-        Store<ESM::Tool>            mLockpicks;
+        Store<ESM::Tool<int>>       mLockpicks;
         Store<ESM::Miscellaneous>   mMiscItems;
         Store<ESM::NPC>             mNpcs;
         Store<ESM::LoadNPCC>        mNpcChange;
@@ -308,7 +308,7 @@ namespace MWWorld
     }
 
     template <>
-    inline const Store<ESM::Tool> &ESMStore::get<ESM::Tool>() const {
+    inline const Store<ESM::Tool<int>> &ESMStore::get<ESM::Tool<int>>() const {
         return mLockpicks;
     }
 
