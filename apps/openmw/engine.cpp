@@ -149,12 +149,18 @@ OMW::Engine::~Engine()
 
 void OMW::Engine::loadBSA()
 {
-    const Files::MultiDirCollection& bsa = mFileCollections.getCollection (".bsa");
-
-    for (Files::MultiDirCollection::TIter iter(bsa.begin()); iter!=bsa.end(); ++iter)
+    for (std::vector<std::string>::const_iterator archive = mArchives.begin(); archive != mArchives.end(); ++archive)
     {
-        std::cout << "Adding " << iter->second.string() << std::endl;
-        Bsa::addBSA(iter->second.string());
+        if (mFileCollections.doesExist(*archive))
+        {
+            const std::string archivePath = mFileCollections.getPath(*archive).string();
+            std::cout << "Adding " << archivePath << std::endl;
+            Bsa::addBSA(archivePath);
+        }
+        else
+        {
+            std::cout << "Archive " << *archive << " not found" << std::endl;
+        }
     }
 
     const Files::PathContainer& dataDirs = mFileCollections.getPaths();
@@ -194,6 +200,13 @@ void OMW::Engine::setDataDirs (const Files::PathContainer& dataDirs)
     mDataDirs = dataDirs;
     mFileCollections = Files::Collections (dataDirs, !mFSStrict);
 }
+
+// Set archives
+void OMW::Engine::setArchives (const std::vector<std::string>& archives)
+{
+    mArchives = archives;
+}
+
 
 // Set resource dir
 void OMW::Engine::setResourceDir (const boost::filesystem::path& parResDir)

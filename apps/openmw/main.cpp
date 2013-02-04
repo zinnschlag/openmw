@@ -100,6 +100,9 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
         ("data-local", bpo::value<std::string>()->default_value(""),
             "set local data directory (highest priority)")
 
+        ("archive", bpo::value<StringsVector>()->default_value(StringsVector(), "archive")
+            ->multitoken(), "set BSA archives (later archives have higher priority)")
+
         ("resources", bpo::value<std::string>()->default_value("resources"),
             "set resources directory")
 
@@ -200,6 +203,15 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
     cfgMgr.processPaths(dataDirs);
 
     engine.setDataDirs(dataDirs);
+
+    // archives
+    StringsVector archives = variables["archive"].as<StringsVector>();
+    if (archives.empty())
+    {
+        std::cout << "No archive given. Assuming Morrowind.bsa" << std::endl;
+        archives.push_back("Morrowind.bsa");
+    }
+    engine.setArchives(archives);
 
     engine.setResourceDir(variables["resources"].as<std::string>());
 

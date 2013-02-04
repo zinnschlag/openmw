@@ -64,6 +64,7 @@ namespace OMW
             ToUTF8::FromType mEncoding;
             ToUTF8::Utf8Encoder* mEncoder;
             Files::PathContainer mDataDirs;
+            std::vector<std::string> mArchives;
             boost::filesystem::path mResDir;
             OEngine::Render::OgreRenderer *mOgre;
             std::string mCellName;
@@ -98,7 +99,7 @@ namespace OMW
             /// add a .zip resource
             void addZipResource (const boost::filesystem::path& path);
 
-            /// Load all BSA files in data directory.
+            /// Load BSA files.
             void loadBSA();
 
             void executeLocalScripts();
@@ -123,6 +124,9 @@ namespace OMW
 
             /// Set data dirs
             void setDataDirs(const Files::PathContainer& dataDirs);
+
+            /// Set BSA archives
+            void setArchives(const std::vector<std::string>& archives);
 
             /// Set resource dir
             void setResourceDir(const boost::filesystem::path& parResDir);
