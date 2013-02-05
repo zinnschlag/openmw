@@ -81,7 +81,7 @@ namespace MWBase
             virtual ~World() {}
 
             virtual OEngine::Render::Fader* getFader() = 0;
-            ///< \ŧodo remove this function. Rendering details should not be exposed.
+            ///< \todo remove this function. Rendering details should not be exposed.
 
             virtual MWWorld::CellStore *getExterior (int x, int y) = 0;
 
