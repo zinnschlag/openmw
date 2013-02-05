@@ -146,11 +146,26 @@ std::string dialogTypeLabel(int idx)
         "Persuasion",
         "Journal"
     };
-    
+
     if (idx >= 0 && idx <= 4)
         return dialogTypeLabels[idx];
     else if (idx == -1)
         return "Deleted";
+    else
+        return "Invalid";
+}
+
+std::string dialogInfoGenderLabel(int idx)
+{
+    const char* genderLabels [] = {
+        "Male",
+        "Female"
+    };
+
+    if (idx >= 0 && idx <= 1)
+        return genderLabels[idx];
+    else if (idx == -1)
+        return "N/A";
     else
         return "Invalid";
 }

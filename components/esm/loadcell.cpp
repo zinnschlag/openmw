@@ -229,8 +229,6 @@ bool Cell::getNextRef(ESMReader &esm, CellRef &ref)
 
     ref.mRefID = esm.getHNString("NAME");
 
-    // getHNOT will not change the existing value if the subrecord is
-    // missing
     ref.mScale = 1.0;
     if (esm.isNextSub("XSCL"))
     {

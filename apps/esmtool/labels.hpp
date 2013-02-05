@@ -9,6 +9,7 @@ std::string meshTypeLabel(signed char idx);
 std::string clothingTypeLabel(int idx);
 std::string armorTypeLabel(int idx);
 std::string dialogTypeLabel(int idx);
+std::string dialogInfoGenderLabel(int idx);
 std::string questStatusLabel(int idx);
 std::string creatureTypeLabel(int idx);
 std::string soundTypeLabel(int idx);
