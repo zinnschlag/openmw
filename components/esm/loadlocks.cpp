@@ -66,3 +66,4 @@ void Tool<T>::save(ESMWriter &esm)
 }  // namespace ESM
 
 template class ESM::Tool<int>;
+template class ESM::Tool<float>;
