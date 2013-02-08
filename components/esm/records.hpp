@@ -26,7 +26,7 @@
 #include "loadland.hpp"
 #include "loadlevlist.hpp"
 #include "loadligh.hpp"
-#include "loadlocks.hpp"
+#include "loadtools.hpp"
 #include "loadltex.hpp"
 #include "loadmgef.hpp"
 #include "loadmisc.hpp"

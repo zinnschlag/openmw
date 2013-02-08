@@ -105,8 +105,6 @@ namespace EsmTool
     template<> void Record<ESM::ItemLevList>::print();
     template<> void Record<ESM::Light>::print();
     template<> void Record<ESM::Tool>::print();
-    template<> void Record<ESM::Probe>::print();
-    template<> void Record<ESM::Repair>::print();
     template<> void Record<ESM::LandTexture>::print();
     template<> void Record<ESM::MagicEffect>::print();
     template<> void Record<ESM::Miscellaneous>::print();

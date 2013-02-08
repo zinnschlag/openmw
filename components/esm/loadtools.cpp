@@ -1,4 +1,4 @@
-#include "loadlocks.hpp"
+#include "loadtools.hpp"
 
 #include "esmreader.hpp"
 #include "esmwriter.hpp"
@@ -17,15 +17,13 @@ void Tool::load(ESMReader &esm)
     // picks, PBDT for probes
 
     esm.getHT(mData, 16);
+    mData.mWeight = letoh_float(mData.mWeight);
+    mData.mValue = le32toh(mData.mValue);
+    mData.mQU1.mUses = le32toh(mData.mQU1.mUses);
+    mData.mQU2.mUses = le32toh(mData.mQU2.mUses);
 
     if (n == "RIDT")
-    {
         mType = Type_Repair;
-        // Swap t.data.quality and t.data.uses for repair items (sigh)
-        float tmp = *((float*) &mData.mUses);
-        mData.mUses = *((int*) &mData.mQuality);
-        mData.mQuality = tmp;
-    }
     else if (n == "LKDT")
         mType = Type_Pick;
     else if (n == "PBDT")
@@ -39,7 +37,7 @@ void Tool::save(ESMWriter &esm)
 {
     esm.writeHNCString("MODL", mModel);
     esm.writeHNCString("FNAM", mName);
-    
+
     std::string typeName;
     switch(mType)
     {
@@ -47,16 +45,13 @@ void Tool::save(ESMWriter &esm)
     case Type_Pick: typeName = "LKDT"; break;
     case Type_Probe: typeName = "PBDT"; break;
     }
-    
-    Data write = mData;
-    if (mType == Type_Repair)
-    {
-        float tmp = *((float*) &write.mUses);
-        write.mUses = *((int*) &write.mQuality);
-        write.mQuality = tmp;
-    }
 
-    esm.writeHNT(typeName, write, 16);
+    mData.mWeight = htole_float(mData.mWeight);
+    mData.mValue = htole32(mData.mValue);
+    mData.mQU1.mUses = htole32(mData.mQU1.mUses);
+    mData.mQU2.mUses = htole32(mData.mQU2.mUses);
+    esm.writeHNT(typeName, mData, 16);
+
     esm.writeHNOString("SCRI", mScript);
     esm.writeHNOCString("ITEX", mIcon);
 }

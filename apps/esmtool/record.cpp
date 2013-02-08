@@ -308,7 +308,7 @@ RecordBase::create(ESM::NAME type)
     }
     case ESM::REC_PROB:
     {
-        record = new EsmTool::Record<ESM::Probe>;
+        record = new EsmTool::Record<ESM::Tool>;
         break;
     }
     case ESM::REC_RACE:
@@ -323,7 +323,7 @@ RecordBase::create(ESM::NAME type)
     }
     case ESM::REC_REPA:
     {
-        record = new EsmTool::Record<ESM::Repair>;
+        record = new EsmTool::Record<ESM::Tool>;
         break;
     }
     case ESM::REC_SCPT:
@@ -919,39 +919,8 @@ void Record<ESM::Tool>::print()
     std::cout << "  Type: " << mData.mType << std::endl;
     std::cout << "  Weight: " << mData.mData.mWeight << std::endl;
     std::cout << "  Value: " << mData.mData.mValue << std::endl;
-    std::cout << "  Quality: " << mData.mData.mQuality << std::endl;
-    std::cout << "  Uses: " << mData.mData.mUses << std::endl;
-}
-
-template<>
-void Record<ESM::Probe>::print()
-{
-    std::cout << "  Name: " << mData.mName << std::endl;
-    std::cout << "  Model: " << mData.mModel << std::endl;
-    std::cout << "  Icon: " << mData.mIcon << std::endl;
-    if (mData.mScript != "")
-        std::cout << "  Script: " << mData.mScript << std::endl;
-    // BUG? No Type Label?
-    std::cout << "  Type: " << mData.mType << std::endl;
-    std::cout << "  Weight: " << mData.mData.mWeight << std::endl;
-    std::cout << "  Value: " << mData.mData.mValue << std::endl;
-    std::cout << "  Quality: " << mData.mData.mQuality << std::endl;
-    std::cout << "  Uses: " << mData.mData.mUses << std::endl;
-}
-
-template<>
-void Record<ESM::Repair>::print()
-{
-    std::cout << "  Name: " << mData.mName << std::endl;
-    std::cout << "  Model: " << mData.mModel << std::endl;
-    std::cout << "  Icon: " << mData.mIcon << std::endl;
-    if (mData.mScript != "")
-        std::cout << "  Script: " << mData.mScript << std::endl;
-    std::cout << "  Type: " << mData.mType << std::endl;
-    std::cout << "  Weight: " << mData.mData.mWeight << std::endl;
-    std::cout << "  Value: " << mData.mData.mValue << std::endl;
-    std::cout << "  Quality: " << mData.mData.mQuality << std::endl;
-    std::cout << "  Uses: " << mData.mData.mUses << std::endl;
+    std::cout << "  Quality: " << mData.getQuality() << std::endl;
+    std::cout << "  Uses: " << mData.getUses() << std::endl;
 }
 
 template<>
