@@ -75,6 +75,8 @@ void BSAFile::readHeader()
     assert(!isLoaded);
 
     std::ifstream input(filename.c_str(), std::ios_base::binary);
+    if(!input)
+        fail("File doesn't exist");
 
     // Total archive size
     size_t fsize = 0;
