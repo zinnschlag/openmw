@@ -8,6 +8,8 @@
 using namespace Ogre;
 using namespace std;
 
+#define TEST_BSA_FILE_PATH "../../../data/Morrowind.bsa"
+
 int main()
 {
   // Disable Ogre logging
@@ -19,7 +21,7 @@ int main()
   Root *root = new Root("","","");
 
   // Add the BSA
-  Bsa::addBSA("../../data/Morrowind.bsa");
+  Bsa::addBSA(TEST_BSA_FILE_PATH);
 
   // Pick a sample file
   String tex = "textures\\tx_natural_cavern_wall13.dds";
