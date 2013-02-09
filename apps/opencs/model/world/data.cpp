@@ -82,7 +82,7 @@ void CSMWorld::Data::loadFile (const boost::filesystem::path& path, bool base)
         ESM::NAME n = reader.getRecName();
         reader.getRecHeader();
 
-        switch (n.val)
+        switch (n.toInt32BE())
         {
             case ESM::REC_GLOB: mGlobals.load (reader, base); break;
             case ESM::REC_GMST: mGmsts.load (reader, base); break;
