@@ -17,6 +17,7 @@
 #include "../mwmechanics/npcstats.hpp"
 
 #include "tooltips.hpp"
+#include <components/settings/userdefaults.hpp>
 
 
 using namespace MWGui;
@@ -39,7 +40,8 @@ StatsWindow::StatsWindow (MWBase::WindowManager& parWindowManager)
   , mSkillWidgets()
   , mChanged(true)
 {
-    setCoord(0,0,498, 342);
+    MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Stats");
+    setCoord(pos.left, pos.top, pos.width, pos.height);
 
     const char *names[][2] =
     {
@@ -63,6 +65,7 @@ StatsWindow::StatsWindow (MWBase::WindowManager& parWindowManager)
     getWidget(mSkillView, "SkillView");
     getWidget(mLeftPane, "LeftPane");
     getWidget(mRightPane, "RightPane");
+    relayoutWidgets();
 
     for (int i = 0; i < ESM::Skill::Length; ++i)
     {
@@ -82,11 +85,18 @@ void StatsWindow::onMouseWheel(MyGUI::Widget* _sender, int _rel)
         mSkillView->setViewOffset(MyGUI::IntPoint(0, mSkillView->getViewOffset().top + _rel*0.3));
 }
 
+void StatsWindow::relayoutWidgets()
+{
+    MyGUI::IntCoord pos = mMainWidget->getCoord();
+    mLeftPane->setCoord( MyGUI::IntCoord(0, 0, 0.44 * pos.width, pos.height) );
+    mRightPane->setCoord( MyGUI::IntCoord(0.44 * pos.width, 0, 0.56 * pos.width, pos.height) );
+    mSkillView->setCanvasSize (mSkillView->getWidth(), std::max(mSkillView->getHeight(), mClientHeight));
+}
+
 void StatsWindow::onWindowResize(MyGUI::Window* window)
 {
-    mLeftPane->setCoord( MyGUI::IntCoord(0, 0, 0.44*window->getSize().width, window->getSize().height) );
-    mRightPane->setCoord( MyGUI::IntCoord(0.44*window->getSize().width, 0, 0.56*window->getSize().width, window->getSize().height) );
-    mSkillView->setCanvasSize (mSkillView->getWidth(), std::max(mSkillView->getHeight(), mClientHeight));
+    Settings::UserDefaults::setMyGUICoord("Stats", mMainWidget->getCoord());
+    relayoutWidgets();
 }
 
 void StatsWindow::setBar(const std::string& name, const std::string& tname, int val, int max)

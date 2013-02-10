@@ -6,11 +6,16 @@
 #include <components/compiler/extensions.hpp>
 #include <components/files/collections.hpp>
 #include <components/translation/translation.hpp>
-#include <components/settings/settings.hpp>
 
 #include "mwbase/environment.hpp"
 
 #include "mwworld/ptr.hpp"
+
+namespace Settings
+{
+    class Manager;
+    class UserDefaults;
+}
 
 namespace Compiler
 {
@@ -108,6 +113,9 @@ namespace OMW
 
             /// Load settings from various files, returns the path to the user settings file
             std::string loadSettings (Settings::Manager & settings);
+
+            /// Load GUI defaults from various files, returns the path to user GUI defaults file
+            std::string loadUserDefaults (Settings::UserDefaults & settings);
 
             /// Prepare engine for game play
             void prepareEngine (Settings::Manager & settings);

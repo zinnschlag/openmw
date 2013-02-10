@@ -3,7 +3,7 @@ project (Components)
 # source files
 
 add_component_dir (settings
-    settings
+    settings userdefaults
     )
 
 add_component_dir (nifoverrides

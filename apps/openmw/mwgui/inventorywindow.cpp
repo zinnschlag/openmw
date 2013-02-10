@@ -25,6 +25,7 @@
 #include "bookwindow.hpp"
 #include "scrollwindow.hpp"
 #include "spellwindow.hpp"
+#include <components/settings/userdefaults.hpp>
 
 namespace MWGui
 {
@@ -67,7 +68,8 @@ namespace MWGui
 
         mFilterAll->setStateSelected(true);
 
-        setCoord(0, 342, 498, 258);
+        MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Inventory");
+        setCoord(pos.left, pos.top, pos.width, pos.height);
 
         mPreview.setup();
 
@@ -102,6 +104,7 @@ namespace MWGui
             mLastXSize = mMainWidget->getSize().width;
             mLastYSize = mMainWidget->getSize().height;
         }
+        Settings::UserDefaults::setMyGUICoord("Inventory", mMainWidget->getCoord());
     }
 
     void InventoryWindow::onFilterChanged(MyGUI::Widget* _sender)

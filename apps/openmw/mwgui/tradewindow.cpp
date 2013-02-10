@@ -18,6 +18,7 @@
 #include "../mwworld/player.hpp"
 
 #include "inventorywindow.hpp"
+#include <components/settings/userdefaults.hpp>
 
 static const float BALANCE_CHANGE_INITIAL_PAUSE = 0.5; // in seconds
 static const float BALANCE_CHANGE_INTERVAL = 0.1; // in seconds
@@ -69,7 +70,8 @@ namespace MWGui
         mDecreaseButton->eventMouseButtonPressed += MyGUI::newDelegate(this, &TradeWindow::onDecreaseButtonPressed);
         mDecreaseButton->eventMouseButtonReleased += MyGUI::newDelegate(this, &TradeWindow::onBalanceButtonReleased);
 
-        setCoord(400, 0, 400, 300);
+        MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Trade");
+        setCoord(pos.left, pos.top, pos.width, pos.height);
 
         static_cast<MyGUI::Window*>(mMainWidget)->eventWindowChangeCoord += MyGUI::newDelegate(this, &TradeWindow::onWindowResize);
     }
@@ -116,6 +118,7 @@ namespace MWGui
 
     void TradeWindow::onWindowResize(MyGUI::Window* _sender)
     {
+        Settings::UserDefaults::setMyGUICoord("Trade", mMainWidget->getCoord());
         drawItems();
     }
 

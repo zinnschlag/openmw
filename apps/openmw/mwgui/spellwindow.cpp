@@ -21,6 +21,7 @@
 
 #include "inventorywindow.hpp"
 #include "confirmationdialog.hpp"
+#include <components/settings/userdefaults.hpp>
 
 namespace
 {
@@ -54,7 +55,8 @@ namespace MWGui
         getWidget(mSpellView, "SpellView");
         getWidget(mEffectBox, "EffectsBox");
 
-        setCoord(498, 300, 302, 300);
+        MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Spell");
+        setCoord(pos.left, pos.top, pos.width, pos.height);
 
         updateSpells();
 
@@ -335,6 +337,7 @@ namespace MWGui
 
     void SpellWindow::onWindowResize(MyGUI::Window* _sender)
     {
+        Settings::UserDefaults::setMyGUICoord("Spell", mMainWidget->getCoord());
         updateSpells();
     }
 
