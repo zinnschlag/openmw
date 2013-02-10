@@ -13,6 +13,8 @@
 
 #include <components/nifbullet/bullet_nif_loader.hpp>
 #include <components/nifogre/ogre_nif_loader.hpp>
+#include <components/settings/settings.hpp>
+#include <components/settings/userdefaults.hpp>
 
 #include "mwinput/inputmanagerimp.hpp"
 
@@ -288,6 +290,33 @@ std::string OMW::Engine::loadSettings (Settings::Manager & settings)
     return settingspath;
 }
 
+std::string OMW::Engine::loadUserDefaults(Settings::UserDefaults &defaults)
+{
+    // Create the settings manager and load default settings file
+    const std::string localpath = mCfgMgr.getLocalPath().string() + "/userdefaults-default.cfg";
+    const std::string globalpath = mCfgMgr.getGlobalPath().string() + "/userdefaults-default.cfg";
+
+    // prefer local
+    if (boost::filesystem::exists(localpath))
+        defaults.loadDefault(localpath);
+    else if (boost::filesystem::exists(globalpath))
+        defaults.loadDefault(globalpath);
+    else
+        throw std::runtime_error ("No default settings file found!"
+                                  " Make sure the file \"userdefaults-default.cfg\" was properly installed.");
+
+    // load user settings if they exist, otherwise just load the default settings as user settings
+    const std::string path = mCfgMgr.getUserPath().string() + "/userdefaults.cfg";
+    if (boost::filesystem::exists(path))
+        defaults.loadUser(path);
+    else if (boost::filesystem::exists(localpath))
+        defaults.loadUser(localpath);
+    else if (boost::filesystem::exists(globalpath))
+        defaults.loadUser(globalpath);
+
+    return path;
+}
+
 void OMW::Engine::prepareEngine (Settings::Manager & settings)
 {
     Nif::NIFFile::CacheLock cachelock;
@@ -425,9 +454,10 @@ void OMW::Engine::go()
     assert (!mOgre);
 
     Settings::Manager settings;
-	std::string settingspath;
+    Settings::UserDefaults userDefaults;
 
-    settingspath = loadSettings (settings);
+    std::string settingspath = loadSettings (settings);
+    std::string userDefaultsPath = loadUserDefaults(userDefaults);
 
     // Create encoder
     ToUTF8::Utf8Encoder encoder (mEncoding);
@@ -448,6 +478,7 @@ void OMW::Engine::go()
 
     // Save user settings
     settings.saveUser(settingspath);
+    userDefaults.saveUser(userDefaultsPath);
 
     std::cout << "Quitting peacefully.\n";
 }

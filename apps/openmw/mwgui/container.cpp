@@ -24,6 +24,7 @@
 #include "countdialog.hpp"
 #include "tradewindow.hpp"
 #include "inventorywindow.hpp"
+#include <components/settings/userdefaults.hpp>
 
 using namespace MWGui;
 using namespace Widgets;
@@ -613,7 +614,8 @@ ContainerWindow::ContainerWindow(MWBase::WindowManager& parWindowManager,DragAnd
 
     static_cast<MyGUI::Window*>(mMainWidget)->eventWindowChangeCoord += MyGUI::newDelegate(this, &ContainerWindow::onWindowResize);
 
-    setCoord(200,0,600,300);
+    MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Container");
+    setCoord(pos.left, pos.top, pos.width, pos.height);
 }
 
 ContainerWindow::~ContainerWindow()
@@ -622,6 +624,7 @@ ContainerWindow::~ContainerWindow()
 
 void ContainerWindow::onWindowResize(MyGUI::Window* window)
 {
+    Settings::UserDefaults::setMyGUICoord("Container", mMainWidget->getCoord());
     drawItems();
 }
 

@@ -12,6 +12,7 @@
 #include "../mwworld/player.hpp"
 
 #include "../mwrender/globalmap.hpp"
+#include <components/settings/userdefaults.hpp>
 
 using namespace MWGui;
 
@@ -261,7 +262,8 @@ MapWindow::MapWindow(MWBase::WindowManager& parWindowManager, const std::string&
     : MWGui::WindowPinnableBase("openmw_map_window.layout", parWindowManager)
     , mGlobal(false)
 {
-    setCoord(500,0,320,300);
+    MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Map");
+    setCoord(pos.left, pos.top, pos.width, pos.height);
 
     mGlobalMapRender = new MWRender::GlobalMap(cacheDir);
     mGlobalMapRender->render();
@@ -288,6 +290,9 @@ MapWindow::MapWindow(MWBase::WindowManager& parWindowManager, const std::string&
     getWidget(mEventBoxLocal, "EventBoxLocal");
     mEventBoxLocal->eventMouseDrag += MyGUI::newDelegate(this, &MapWindow::onMouseDrag);
     mEventBoxLocal->eventMouseButtonPressed += MyGUI::newDelegate(this, &MapWindow::onDragStart);
+
+    static_cast<MyGUI::Window*>(mMainWidget)->eventWindowChangeCoord
+            += MyGUI::newDelegate(this, &MapWindow::onWindowResize);
 
     LocalMapBase::init(mLocalMap, mPlayerArrowLocal, this);
 }
@@ -367,6 +372,11 @@ void MapWindow::onWorldButtonClicked(MyGUI::Widget* _sender)
 
     if (mGlobal)
         globalMapUpdatePlayer ();
+}
+
+void MapWindow::onWindowResize(MyGUI::Window *window)
+{
+    Settings::UserDefaults::setMyGUICoord("Map", mMainWidget->getCoord());
 }
 
 void MapWindow::onPinToggled()

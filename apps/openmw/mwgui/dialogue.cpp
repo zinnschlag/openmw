@@ -25,6 +25,7 @@
 #include "spellbuyingwindow.hpp"
 #include "inventorywindow.hpp"
 #include "travelwindow.hpp"
+#include <components/settings/userdefaults.hpp>
 
 using namespace MWGui;
 using namespace Widgets;
@@ -130,7 +131,9 @@ DialogueWindow::DialogueWindow(MWBase::WindowManager& parWindowManager)
     , mEnabled(false)
     , mServices(0)
 {
-    // Centre dialog
+    MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Dialogue");
+    setCoord(pos.left, pos.top, pos.width, pos.height);
+    // Explicitly align to center dialog
     center();
 
     mPersuasionDialog.setVisible(false);
@@ -207,6 +210,7 @@ void DialogueWindow::onHistoryClicked(MyGUI::Widget* _sender)
 
 void DialogueWindow::onWindowResize(MyGUI::Window* _sender)
 {
+    Settings::UserDefaults::setMyGUICoord("Dialogue", mMainWidget->getCoord());
     mTopicsList->adjustSize();
 }
 

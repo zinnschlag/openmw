@@ -18,6 +18,10 @@
 #include "../mwworld/player.hpp"
 
 #include "inventorywindow.hpp"
+#include <components/settings/userdefaults.hpp>
+
+static const float BALANCE_CHANGE_INITIAL_PAUSE = 0.5; // in seconds
+static const float BALANCE_CHANGE_INTERVAL = 0.1; // in seconds
 
 namespace MWGui
 {
@@ -25,6 +29,8 @@ namespace MWGui
         WindowBase("openmw_trade_window.layout", parWindowManager)
         , ContainerBase(NULL) // no drag&drop
         , mCurrentBalance(0)
+        , mBalanceButtonsState(BBS_None)
+        , mBalanceChangePause(0.0)
     {
         MyGUI::ScrollView* itemView;
         MyGUI::Widget* containerWidget;
@@ -59,10 +65,13 @@ namespace MWGui
 
         mCancelButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onCancelButtonClicked);
         mOfferButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onOfferButtonClicked);
-        mIncreaseButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onIncreaseButtonClicked);
-        mDecreaseButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TradeWindow::onDecreaseButtonClicked);
+        mIncreaseButton->eventMouseButtonPressed += MyGUI::newDelegate(this, &TradeWindow::onIncreaseButtonPressed);
+        mIncreaseButton->eventMouseButtonReleased += MyGUI::newDelegate(this, &TradeWindow::onBalanceButtonReleased);
+        mDecreaseButton->eventMouseButtonPressed += MyGUI::newDelegate(this, &TradeWindow::onDecreaseButtonPressed);
+        mDecreaseButton->eventMouseButtonReleased += MyGUI::newDelegate(this, &TradeWindow::onBalanceButtonReleased);
 
-        setCoord(400, 0, 400, 300);
+        MyGUI::IntCoord pos = Settings::UserDefaults::getMyGUICoord("Trade");
+        setCoord(pos.left, pos.top, pos.width, pos.height);
 
         static_cast<MyGUI::Window*>(mMainWidget)->eventWindowChangeCoord += MyGUI::newDelegate(this, &TradeWindow::onWindowResize);
     }
@@ -109,6 +118,7 @@ namespace MWGui
 
     void TradeWindow::onWindowResize(MyGUI::Window* _sender)
     {
+        Settings::UserDefaults::setMyGUICoord("Trade", mMainWidget->getCoord());
         drawItems();
     }
 
@@ -140,6 +150,21 @@ namespace MWGui
             MWWorld::ManualRef ref(MWBase::Environment::get().getWorld()->getStore(), "Gold_001");
             ref.getPtr().getRefData().setCount(amount);
             playerStore.add(ref.getPtr());
+        }
+    }
+
+    void TradeWindow::onFrame(float frameDuration)
+    {
+        if (!mMainWidget->getVisible() || mBalanceButtonsState == BBS_None)
+            return;
+
+        mBalanceChangePause -= frameDuration;
+        if (mBalanceChangePause < 0.0) {
+            mBalanceChangePause += BALANCE_CHANGE_INTERVAL;
+            if (mBalanceButtonsState == BBS_Increase)
+                onIncreaseButtonTriggered();
+            else if (mBalanceButtonsState == BBS_Decrease)
+                onDecreaseButtonTriggered();
         }
     }
 
@@ -242,7 +267,7 @@ namespace MWGui
 
             //skill use!
             MWWorld::Class::get(playerPtr).skillUsageSucceeded(playerPtr, ESM::Skill::Mercantile, 0);
-	}
+    }
 
         int iBarterSuccessDisposition = gmst.find("iBarterSuccessDisposition")->getInt();
         MWBase::Environment::get().getDialogueManager()->applyTemporaryDispositionChange(iBarterSuccessDisposition);
@@ -271,14 +296,33 @@ namespace MWGui
         mWindowManager.removeGuiMode(GM_Barter);
     }
 
-    void TradeWindow::onIncreaseButtonClicked(MyGUI::Widget* _sender)
+    void TradeWindow::onIncreaseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+    {
+        mBalanceButtonsState = BBS_Increase;
+        mBalanceChangePause = BALANCE_CHANGE_INITIAL_PAUSE;
+        onIncreaseButtonTriggered();
+    }
+
+    void TradeWindow::onDecreaseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+    {
+        mBalanceButtonsState = BBS_Decrease;
+        mBalanceChangePause = BALANCE_CHANGE_INITIAL_PAUSE;
+        onDecreaseButtonTriggered();
+    }
+
+    void TradeWindow::onBalanceButtonReleased(MyGUI::Widget *_sender, int _left, int _top, MyGUI::MouseButton _id)
+    {
+        mBalanceButtonsState = BBS_None;
+    }
+
+    void TradeWindow::onIncreaseButtonTriggered()
     {
         if(mCurrentBalance<=-1) mCurrentBalance -= 1;
         if(mCurrentBalance>=1) mCurrentBalance += 1;
         updateLabels();
     }
 
-    void TradeWindow::onDecreaseButtonClicked(MyGUI::Widget* _sender)
+    void TradeWindow::onDecreaseButtonTriggered()
     {
         if(mCurrentBalance<-1) mCurrentBalance += 1;
         if(mCurrentBalance>1) mCurrentBalance -= 1;
