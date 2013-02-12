@@ -84,9 +84,9 @@ namespace MWScript
                     Interpreter::Type_Float angle = runtime[0].mFloat;
                     runtime.pop();
 
-                    float ax = Ogre::Radian(ptr.getRefData().getPosition().rot[0]).valueDegrees();
-                    float ay = Ogre::Radian(ptr.getRefData().getPosition().rot[1]).valueDegrees();
-                    float az = Ogre::Radian(ptr.getRefData().getPosition().rot[2]).valueDegrees();
+                    Ogre::Real ax = Ogre::Radian(ptr.getRefData().getPosition().rot[0]).valueDegrees();
+                    Ogre::Real ay = Ogre::Radian(ptr.getRefData().getPosition().rot[1]).valueDegrees();
+                    Ogre::Real az = Ogre::Radian(ptr.getRefData().getPosition().rot[2]).valueDegrees();
 
                     if (axis == "x")
                     {
@@ -119,15 +119,15 @@ namespace MWScript
 
                     if (axis == "x")
                     {
-                        runtime.push(Ogre::Radian(ptr.getRefData().getPosition().rot[0]).valueDegrees());
+                        runtime.push((Interpreter::Type_Float)Ogre::Radian(ptr.getRefData().getPosition().rot[0]).valueDegrees());
                     }
                     else if (axis == "y")
                     {
-                        runtime.push(Ogre::Radian(ptr.getRefData().getPosition().rot[1]).valueDegrees());
+                        runtime.push((Interpreter::Type_Float)Ogre::Radian(ptr.getRefData().getPosition().rot[1]).valueDegrees());
                     }
                     else if (axis == "z")
                     {
-                        runtime.push(Ogre::Radian(ptr.getRefData().getPosition().rot[2]).valueDegrees());
+                        runtime.push((Interpreter::Type_Float)Ogre::Radian(ptr.getRefData().getPosition().rot[2]).valueDegrees());
                     }
                     else
                         throw std::runtime_error ("invalid ration axis: " + axis);
@@ -148,15 +148,15 @@ namespace MWScript
 
                     if (axis=="x")
                     {
-                        runtime.push(Ogre::Radian(ptr.getCellRef().mPos.rot[0]).valueDegrees());
+                        runtime.push((Interpreter::Type_Float)Ogre::Radian(ptr.getCellRef().mPos.rot[0]).valueDegrees());
                     }
                     else if (axis=="y")
                     {
-                        runtime.push(Ogre::Radian(ptr.getCellRef().mPos.rot[1]).valueDegrees());
+                        runtime.push((Interpreter::Type_Float)Ogre::Radian(ptr.getCellRef().mPos.rot[1]).valueDegrees());
                     }
                     else if (axis=="z")
                     {
-                        runtime.push(Ogre::Radian(ptr.getCellRef().mPos.rot[2]).valueDegrees());
+                        runtime.push((Interpreter::Type_Float)Ogre::Radian(ptr.getCellRef().mPos.rot[2]).valueDegrees());
                     }
                     else
                         throw std::runtime_error ("invalid ration axis: " + axis);

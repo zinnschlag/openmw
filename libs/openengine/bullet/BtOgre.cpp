@@ -56,7 +56,7 @@ namespace BtOgre {
             const unsigned int vSize = (unsigned int)vbuf->getVertexSize();
 
             unsigned char* vertex = static_cast<unsigned char*>(vbuf->lock(Ogre::HardwareBuffer::HBL_READ_ONLY));
-            float* pReal;
+            Ogre::Real* pReal;
             Ogre::Vector3 * curVertices = &mVertexBuffer[prev_size];
             const unsigned int vertexCount = (unsigned int)data->vertexCount;
             for(unsigned int j = 0; j < vertexCount; ++j)
@@ -103,7 +103,7 @@ namespace BtOgre {
             const unsigned int vSize = (unsigned int)vbuf->getVertexSize();
 
             unsigned char* vertex = static_cast<unsigned char*>(vbuf->lock(Ogre::HardwareBuffer::HBL_READ_ONLY));
-            float* pReal;
+            Ogre::Real* pReal;
             Ogre::Vector3 * curVertices = &mVertexBuffer[prev_size];
             const unsigned int vertexCount = (unsigned int)data->vertexCount;
             for(unsigned int j = 0; j < vertexCount; ++j)

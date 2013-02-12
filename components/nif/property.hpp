@@ -129,8 +129,8 @@ public:
         if(textures[5].inUse)
         {
             // Ignore these at the moment
-            /*float lumaScale =*/ nif->getFloat();
-            /*float lumaOffset =*/ nif->getFloat();
+            /*Ogre::Real lumaScale =*/ nif->getReal();
+            /*Ogre::Real lumaOffset =*/ nif->getReal();
             /*const Vector4 *lumaMatrix =*/ nif->getVector4();
         }
         textures[6].read(nif); // Decal
@@ -168,7 +168,7 @@ struct S_MaterialProperty
 {
     // The vector components are R,G,B
     Ogre::Vector3 ambient, diffuse, specular, emissive;
-    float glossiness, alpha;
+    Ogre::Real glossiness, alpha;
 
     void read(NIFFile *nif)
     {
@@ -176,8 +176,8 @@ struct S_MaterialProperty
         diffuse = nif->getVector3();
         specular = nif->getVector3();
         emissive = nif->getVector3();
-        glossiness = nif->getFloat();
-        alpha = nif->getFloat();
+        glossiness = nif->getReal();
+        alpha = nif->getReal();
     }
 };
 

@@ -65,7 +65,7 @@ class NiTextKeyExtraData : public Extra
 public:
     struct TextKey
     {
-        float time;
+        Ogre::Real time;
         std::string text;
     };
     std::vector<TextKey> list;
@@ -80,7 +80,7 @@ public:
         list.resize(keynum);
         for(int i=0; i<keynum; i++)
         {
-            list[i].time = nif->getFloat();
+            list[i].time = nif->getReal();
             list[i].text = nif->getString();
         }
     }

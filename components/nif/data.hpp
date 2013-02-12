@@ -100,7 +100,7 @@ public:
     std::vector<Ogre::Vector4> colors;
     std::vector< std::vector<Ogre::Vector2> > uvlist;
     Ogre::Vector3 center;
-    float radius;
+    Ogre::Real radius;
 
     void read(NIFFile *nif)
     {
@@ -113,7 +113,7 @@ public:
             nif->getVector3s(normals, verts);
 
         center = nif->getVector3();
-        radius = nif->getFloat();
+        radius = nif->getReal();
 
         if(nif->getInt())
             nif->getVector4s(colors, verts);
@@ -177,7 +177,7 @@ public:
         activeCount = nif->getUShort();
 
         // Skip all the info, we don't support particles yet
-        nif->getFloat();  // Active radius ?
+        nif->getReal();   // Active radius ?
         nif->getUShort(); // Number of valid entries in the following arrays ?
 
         if(nif->getInt())
@@ -219,7 +219,7 @@ public:
 class NiUVData : public Record
 {
 public:
-    FloatKeyList mKeyList[4];
+    RealKeyList mKeyList[4];
 
     void read(NIFFile *nif)
     {
@@ -231,7 +231,7 @@ public:
 class NiFloatData : public Record
 {
 public:
-    FloatKeyList mKeyList;
+    RealKeyList mKeyList;
 
     void read(NIFFile *nif)
     {
@@ -330,13 +330,13 @@ public:
     {
         Ogre::Matrix3 rotation; // Rotation offset from bone?
         Ogre::Vector3 trans;    // Translation
-        float scale;            // Probably scale (always 1)
+        Ogre::Real scale;       // Probably scale (always 1)
     };
 
     struct VertWeight
     {
         short vertex;
-        float weight;
+        Ogre::Real weight;
     };
 
     struct BoneInfo
@@ -353,7 +353,7 @@ public:
     {
         trafo.rotation = nif->getMatrix3();
         trafo.trans = nif->getVector3();
-        trafo.scale = nif->getFloat();
+        trafo.scale = nif->getReal();
 
         int boneNum = nif->getInt();
         nif->getInt(); // -1
@@ -365,7 +365,7 @@ public:
 
             bi.trafo.rotation = nif->getMatrix3();
             bi.trafo.trans = nif->getVector3();
-            bi.trafo.scale = nif->getFloat();
+            bi.trafo.scale = nif->getReal();
             bi.unknown = nif->getVector4();
 
             // Number of vertex weights
@@ -373,7 +373,7 @@ public:
             for(size_t j = 0;j < bi.weights.size();j++)
             {
                 bi.weights[j].vertex = nif->getUShort();
-                bi.weights[j].weight = nif->getFloat();
+                bi.weights[j].weight = nif->getReal();
             }
         }
     }
@@ -382,7 +382,7 @@ public:
 struct NiMorphData : public Record
 {
     struct MorphData {
-        FloatKeyList mData;
+        RealKeyList mData;
         std::vector<Ogre::Vector3> mVertices;
     };
     std::vector<MorphData> mMorphs;
@@ -410,7 +410,7 @@ struct NiKeyframeData : public Record
 {
     QuaternionKeyList mRotations;
     Vector3KeyList mTranslations;
-    FloatKeyList mScales;
+    RealKeyList mScales;
 
     void read(NIFFile *nif)
     {

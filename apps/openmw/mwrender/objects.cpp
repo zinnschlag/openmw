@@ -60,23 +60,22 @@ void Objects::insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_)
     }
 
     Ogre::SceneNode* insert = cellnode->createChildSceneNode();
-    const float *f = ptr.getRefData().getPosition().pos;
+    const float *pos = ptr.getRefData().getPosition().pos;
 
-    insert->setPosition(f[0], f[1], f[2]);
+    insert->setPosition(pos[0], pos[1], pos[2]);
     insert->setScale(ptr.getCellRef().mScale, ptr.getCellRef().mScale, ptr.getCellRef().mScale);
 
-
     // Convert MW rotation to a quaternion:
-    f = ptr.getCellRef().mPos.rot;
+    const float *rot = ptr.getCellRef().mPos.rot;
 
     // Rotate around X axis
-    Ogre::Quaternion xr(Ogre::Radian(-f[0]), Ogre::Vector3::UNIT_X);
+    Ogre::Quaternion xr(Ogre::Radian(-rot[0]), Ogre::Vector3::UNIT_X);
 
     // Rotate around Y axis
-    Ogre::Quaternion yr(Ogre::Radian(-f[1]), Ogre::Vector3::UNIT_Y);
+    Ogre::Quaternion yr(Ogre::Radian(-rot[1]), Ogre::Vector3::UNIT_Y);
 
     // Rotate around Z axis
-    Ogre::Quaternion zr(Ogre::Radian(-f[2]), Ogre::Vector3::UNIT_Z);
+    Ogre::Quaternion zr(Ogre::Radian(-rot[2]), Ogre::Vector3::UNIT_Z);
 
     // Rotates first around z, then y, then x
     insert->setOrientation(xr*yr*zr);
@@ -103,7 +102,7 @@ void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
     }
     Ogre::Vector3 extents = bounds.getSize();
     extents *= insert->getScale();
-    float size = std::max(std::max(extents.x, extents.y), extents.z);
+    Ogre::Real size = std::max(std::max(extents.x, extents.y), extents.z);
 
     bool small = (size < Settings::Manager::getInt("small object size", "Viewing distance")) && Settings::Manager::getBool("limit small object distance", "Viewing distance");
 
@@ -204,7 +203,7 @@ void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
     }
 }
 
-void Objects::insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius)
+void Objects::insertLight (const MWWorld::Ptr& ptr, Ogre::Real r, Ogre::Real g, Ogre::Real b, Ogre::Real radius)
 {
     Ogre::SceneNode* insert = mRenderer.getScene()->getSceneNode(ptr.getRefData().getHandle());
     assert(insert);

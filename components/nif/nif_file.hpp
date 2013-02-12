@@ -158,43 +158,45 @@ public:
     short getShort() { return read_le16(); }
     unsigned short getUShort() { return read_le16(); }
     int getInt() { return read_le32(); }
-    float getFloat() { return read_le32f(); }
+    /*float getFloat() { return read_le32f(); }*/
+    Ogre::Real getReal() {
+        float f = read_le32f();
+        return (Ogre::Real)f;
+    }
     Ogre::Vector2 getVector2()
     {
-        float a[2];
+        Ogre::Real a[2];
         for(size_t i = 0;i < 2;i++)
-            a[i] = getFloat();
+            a[i] = getReal();
         return Ogre::Vector2(a);
     }
     Ogre::Vector3 getVector3()
     {
-        float a[3];
+        Ogre::Real a[3];
         for(size_t i = 0;i < 3;i++)
-            a[i] = getFloat();
+            a[i] = getReal();
         return Ogre::Vector3(a);
     }
     Ogre::Vector4 getVector4()
     {
-        float a[4];
+        Ogre::Real a[4];
         for(size_t i = 0;i < 4;i++)
-            a[i] = getFloat();
+            a[i] = getReal();
         return Ogre::Vector4(a);
     }
     Ogre::Matrix3 getMatrix3()
     {
         Ogre::Real a[3][3];
         for(size_t i = 0;i < 3;i++)
-        {
             for(size_t j = 0;j < 3;j++)
-                a[i][j] = Ogre::Real(getFloat());
-        }
+                a[i][j] = getReal();
         return Ogre::Matrix3(a);
     }
     Ogre::Quaternion getQuaternion()
     {
-        float a[4];
+        Ogre::Real a[4];
         for(size_t i = 0;i < 4;i++)
-            a[i] = getFloat();
+            a[i] = getReal();
         return Ogre::Quaternion(a);
     }
     Transformation getTrafo()
@@ -202,7 +204,7 @@ public:
         Transformation t;
         t.pos = getVector3();
         t.rotation = getMatrix3();
-        t.scale = getFloat();
+        t.scale = getReal();
         return t;
     }
 
@@ -227,11 +229,11 @@ public:
         for(size_t i = 0;i < vec.size();i++)
             vec[i] = getShort();
     }
-    void getFloats(std::vector<float> &vec, size_t size)
+    void getReals(std::vector<Ogre::Real> &vec, size_t size)
     {
         vec.resize(size);
         for(size_t i = 0;i < vec.size();i++)
-            vec[i] = getFloat();
+            vec[i] = getReal();
     }
     void getVector2s(std::vector<Ogre::Vector2> &vec, size_t size)
     {
@@ -256,15 +258,15 @@ public:
 
 template<typename T>
 struct KeyT {
-    float mTime;
+    Ogre::Real mTime;
     T mValue;
-    T mForwardValue;  // Only for Quadratic interpolation
-    T mBackwardValue; // Only for Quadratic interpolation
-    float mTension;    // Only for TBC interpolation
-    float mBias;       // Only for TBC interpolation
-    float mContinuity; // Only for TBC interpolation
+    T mForwardValue;        // Only for Quadratic interpolation
+    T mBackwardValue;       // Only for Quadratic interpolation
+    Ogre::Real mTension;    // Only for TBC interpolation
+    Ogre::Real mBias;       // Only for TBC interpolation
+    Ogre::Real mContinuity; // Only for TBC interpolation
 };
-typedef KeyT<float> FloatKey;
+typedef KeyT<Ogre::Real> RealKey;
 typedef KeyT<Ogre::Vector3> Vector3Key;
 typedef KeyT<Ogre::Vector4> Vector4Key;
 typedef KeyT<Ogre::Quaternion> QuaternionKey;
@@ -293,7 +295,7 @@ struct KeyListT {
             for(size_t i = 0;i < count;i++)
             {
                 KeyT<T> &key = mKeys[i];
-                key.mTime = nif->getFloat();
+                key.mTime = nif->getReal();
                 key.mValue = (nif->*getValue)();
             }
         }
@@ -302,7 +304,7 @@ struct KeyListT {
             for(size_t i = 0;i < count;i++)
             {
                 KeyT<T> &key = mKeys[i];
-                key.mTime = nif->getFloat();
+                key.mTime = nif->getReal();
                 key.mValue = (nif->*getValue)();
                 key.mForwardValue = (nif->*getValue)();
                 key.mBackwardValue = (nif->*getValue)();
@@ -313,18 +315,18 @@ struct KeyListT {
             for(size_t i = 0;i < count;i++)
             {
                 KeyT<T> &key = mKeys[i];
-                key.mTime = nif->getFloat();
+                key.mTime = nif->getReal();
                 key.mValue = (nif->*getValue)();
-                key.mTension = nif->getFloat();
-                key.mBias = nif->getFloat();
-                key.mContinuity = nif->getFloat();
+                key.mTension = nif->getReal();
+                key.mBias = nif->getReal();
+                key.mContinuity = nif->getReal();
             }
         }
         else
             nif->warn("Unhandled interpolation type: "+Ogre::StringConverter::toString(mInterpolationType));
     }
 };
-typedef KeyListT<float,&NIFFile::getFloat> FloatKeyList;
+typedef KeyListT<Ogre::Real,&NIFFile::getReal> RealKeyList;
 typedef KeyListT<Ogre::Vector3,&NIFFile::getVector3> Vector3KeyList;
 typedef KeyListT<Ogre::Vector4,&NIFFile::getVector4> Vector4KeyList;
 typedef KeyListT<Ogre::Quaternion,&NIFFile::getQuaternion> QuaternionKeyList;

@@ -560,7 +560,7 @@ void PM_Friction(void)
 {
 	
 	Ogre::Vector3	vec;
-	float* vel;
+	Ogre::Real* vel;
 	float	speed, newspeed, control;
 	float	drop;
 	

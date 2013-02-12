@@ -37,14 +37,14 @@ struct NiLight : Effect
 {
     struct SLight
     {
-        float dimmer;
+        Ogre::Real dimmer;
         Ogre::Vector3 ambient;
         Ogre::Vector3 diffuse;
         Ogre::Vector3 specular;
 
         void read(NIFFile *nif)
         {
-            dimmer = nif->getFloat();
+            dimmer = nif->getReal();
             ambient = nif->getVector3();
             diffuse = nif->getVector3();
             specular = nif->getVector3();

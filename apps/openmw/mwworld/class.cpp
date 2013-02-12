@@ -222,7 +222,7 @@ namespace MWWorld
     {
     }
 
-    void Class::adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const
+    void Class::adjustRotation(const MWWorld::Ptr& ptr, Ogre::Real& x, Ogre::Real& y, Ogre::Real& z) const
     {
     }
 

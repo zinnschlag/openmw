@@ -182,29 +182,30 @@ struct NiCamera : Node
     struct Camera
     {
         // Camera frustrum
-        float left, right, top, bottom, nearDist, farDist;
+        Ogre::Real left, right, top, bottom;
+        Ogre::Real nearDist, farDist;
 
         // Viewport
-        float vleft, vright, vtop, vbottom;
+        Ogre::Real vleft, vright, vtop, vbottom;
 
         // Level of detail modifier
-        float LOD;
+        Ogre::Real LOD;
 
         void read(NIFFile *nif)
         {
-            left = nif->getFloat();
-            right = nif->getFloat();
-            top = nif->getFloat();
-            bottom = nif->getFloat();
-            nearDist = nif->getFloat();
-            farDist = nif->getFloat();
+            left = nif->getReal();
+            right = nif->getReal();
+            top = nif->getReal();
+            bottom = nif->getReal();
+            nearDist = nif->getReal();
+            farDist = nif->getReal();
 
-            vleft = nif->getFloat();
-            vright = nif->getFloat();
-            vtop = nif->getFloat();
-            vbottom = nif->getFloat();
+            vleft = nif->getReal();
+            vright = nif->getReal();
+            vtop = nif->getReal();
+            vbottom = nif->getReal();
 
-            LOD = nif->getFloat();
+            LOD = nif->getReal();
         }
     };
     Camera cam;
