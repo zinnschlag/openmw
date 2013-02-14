@@ -1,7 +1,7 @@
 
 #include "repair.hpp"
 
-#include <components/esm/loadlocks.hpp>
+#include <components/esm/loadtools.hpp>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -129,8 +129,8 @@ namespace MWClass
 
         /// \todo store remaining uses somewhere
 
-        text += "\n#{sUses}: " + MWGui::ToolTips::toString(ref->mBase->mData.mUses);
-        text += "\n#{sQuality}: " + MWGui::ToolTips::toString(ref->mBase->mData.mQuality);
+        text += "\n#{sUses}: " + MWGui::ToolTips::toString(ref->mBase->getUses());
+        text += "\n#{sQuality}: " + MWGui::ToolTips::toString(ref->mBase->getQuality());
         text += "\n#{sWeight}: " + MWGui::ToolTips::toString(ref->mBase->mData.mWeight);
         text += MWGui::ToolTips::getValueString(ref->mBase->mData.mValue, "#{sValue}");
 

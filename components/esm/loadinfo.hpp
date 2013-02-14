@@ -81,27 +81,6 @@ struct DialInfo
     // Status of this quest item
     QuestStatus mQuestStatus;
 
-    // Hexadecimal versions of the various subrecord names.
-    enum SubNames
-    {
-        REC_ONAM = 0x4d414e4f,
-        REC_RNAM = 0x4d414e52,
-        REC_CNAM = 0x4d414e43,
-        REC_FNAM = 0x4d414e46,
-        REC_ANAM = 0x4d414e41,
-        REC_DNAM = 0x4d414e44,
-        REC_SNAM = 0x4d414e53,
-        REC_NAME = 0x454d414e,
-        REC_SCVR = 0x52564353,
-        REC_INTV = 0x56544e49,
-        REC_FLTV = 0x56544c46,
-        REC_BNAM = 0x4d414e42,
-        REC_QSTN = 0x4e545351,
-        REC_QSTF = 0x46545351,
-        REC_QSTR = 0x52545351,
-        REC_DELE = 0x454c4544
-    };
-
     void load(ESMReader &esm);
     void save(ESMWriter &esm);
 };

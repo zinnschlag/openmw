@@ -8,18 +8,20 @@ namespace ESM
 
 void Global::load(ESMReader &esm)
 {
-    std::string tmp = esm.getHNString("FNAM");
-    if (tmp == "s")
-        mType = VT_Short;
-    else if (tmp == "l")
-        mType = VT_Int;
-    else if (tmp == "f")
-        mType = VT_Float;
-    else
-        esm.fail("Illegal global variable type " + tmp);
+    std::string type = esm.getHNString("FNAM");
 
     // Note: Both floats and longs are represented as floats.
     esm.getHNT(mValue, "FLTV");
+    mValue = letoh_float(mValue);
+
+    if (type == "s") {
+        mType = VT_Short;
+    } else if (type == "l") {
+        mType = VT_Int;
+    } else if (type == "f") {
+        mType = VT_Float;
+    } else
+        esm.fail("Illegal global variable type " + type);
 }
 
 void Global::save(ESMWriter &esm)
@@ -41,6 +43,8 @@ void Global::save(ESMWriter &esm)
     default:
         return;
     }
+
+    mValue = htole_float(mValue);
     esm.writeHNT("FLTV", mValue);
 }
 

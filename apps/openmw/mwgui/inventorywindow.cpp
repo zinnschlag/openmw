@@ -7,6 +7,8 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include <components/compiler/locals.hpp>
+
 #include "../mwbase/world.hpp"
 #include "../mwbase/environment.hpp"
 #include "../mwbase/soundmanager.hpp"
@@ -240,6 +242,12 @@ namespace MWGui
             if (it != invStore.end() && *it == item)
             {
                 invStore.equip(slot, invStore.end());
+                std::string script = MWWorld::Class::get(*it).getScript(*it);
+                
+                // Unset OnPCEquip Variable on item's script, if it has a script with that variable declared
+                if(script != "")
+                    (*it).mRefData->getLocals().setVarByInt(script, "onpcequip", 0);
+                
                 return;
             }
         }
@@ -316,7 +324,7 @@ namespace MWGui
             && (type != typeid(ESM::Ingredient).name())
             && (type != typeid(ESM::Light).name())
             && (type != typeid(ESM::Miscellaneous).name())
-            && (type != typeid(ESM::Tool).name())
+            && (type != typeid(ESM::Lockpick).name())
             && (type != typeid(ESM::Probe).name())
             && (type != typeid(ESM::Repair).name())
             && (type != typeid(ESM::Weapon).name())

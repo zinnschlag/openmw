@@ -36,8 +36,8 @@ class Controller : public Record
 public:
     ControllerPtr next;
     int flags;
-    float frequency, phase;
-    float timeStart, timeStop;
+    Ogre::Real frequency, phase;
+    Ogre::Real timeStart, timeStop;
     ControlledPtr target;
 
     void read(NIFFile *nif)
@@ -46,10 +46,10 @@ public:
 
         flags = nif->getUShort();
 
-        frequency = nif->getFloat();
-        phase = nif->getFloat();
-        timeStart = nif->getFloat();
-        timeStop = nif->getFloat();
+        frequency = nif->getReal();
+        phase = nif->getReal();
+        timeStart = nif->getReal();
+        timeStop = nif->getReal();
 
         target.read(nif);
     }

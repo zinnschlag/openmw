@@ -155,7 +155,7 @@ RecordBase::create(ESM::NAME type)
 {
     RecordBase *record = 0;
 
-    switch (type.val) {
+    switch (type.toInt32BE()) {
     case ESM::REC_ACTI:
     {
         record = new EsmTool::Record<ESM::Activator>;
@@ -308,7 +308,7 @@ RecordBase::create(ESM::NAME type)
     }
     case ESM::REC_PROB:
     {
-        record = new EsmTool::Record<ESM::Probe>;
+        record = new EsmTool::Record<ESM::Tool>;
         break;
     }
     case ESM::REC_RACE:
@@ -323,7 +323,7 @@ RecordBase::create(ESM::NAME type)
     }
     case ESM::REC_REPA:
     {
-        record = new EsmTool::Record<ESM::Repair>;
+        record = new EsmTool::Record<ESM::Tool>;
         break;
     }
     case ESM::REC_SCPT:
@@ -510,7 +510,7 @@ void Record<ESM::Cell>::print()
     }
     else
         std::cout << "  Map Color: " << boost::format("0x%08X") % mData.mMapColor << std::endl;
-    std::cout << "  Water Level Int: " << mData.mWaterInt << std::endl;
+    std::cout << "  Water Level: " << mData.mWater << std::endl;
     std::cout << "  NAM0: " << mData.mNAM0 << std::endl;
 
 }
@@ -770,7 +770,8 @@ void Record<ESM::DialInfo>::print()
     if (mData.mData.mDisposition > 0)
         std::cout << "  Disposition: " << mData.mData.mDisposition << std::endl;
     if (mData.mData.mGender != ESM::DialInfo::NA)
-        std::cout << "  Gender: " << mData.mData.mGender << std::endl;
+        std::cout << "  Gender: " << dialogInfoGenderLabel(mData.mData.mGender)
+                  << " (" << (int)mData.mData.mGender << ")" << std::endl;
     if (mData.mSound != "")
         std::cout << "  Sound File: " << mData.mSound << std::endl;
 
@@ -832,10 +833,33 @@ void Record<ESM::Land>::print()
     if (mData.mDataTypes) mData.loadData(mData.mDataTypes);
     if (mData.mDataLoaded)
     {
-        std::cout << "  Height Offset: " << mData.mLandData->mHeightOffset << std::endl;
+        float mHeightOffset = mData.mLandData->mHeights[0] / ESM::Land::HEIGHT_SCALE;
+        std::cout << "  Height Offset: " << mHeightOffset << std::endl;
+        if (mData.mLandData->mUsingColours)
+        {
+            std::cout << "  Colors: [skipped]";
+            // Color dump is huge (65 x 65 x RGB).
+            /*std::cout << "  Colors: ";*/
+            /*for (int i = 0; i < 3 * ESM::Land::LAND_NUM_VERTS; i += 3)
+            {
+                uint32_t colorRed   = (uint32_t)(mData.mLandData->mColours[i+0]) & 0x000000ff;
+                uint32_t colorGreen = (uint32_t)(mData.mLandData->mColours[i+1]) & 0x000000ff;
+                uint32_t colorBlue  = (uint32_t)(mData.mLandData->mColours[i+2]) & 0x000000ff;
+                std::cout << boost::format("%02X%02X%02X ") % colorRed % colorGreen % colorBlue;
+            }*/
+            std::cout << std::endl;
+        }
+        if (mData.isDataLoaded(ESM::Land::DATA_VTEX))
+        {
+            std::cout << "  Textures: ";
+            for (int i = 0; i < ESM::Land::LAND_NUM_TEXTURES; i++)
+                std::cout << boost::format("%04X ") % ((uint32_t)(mData.mLandData->mTextures[i]) & 0x0000ffff);
+            std::cout << std::endl;
+        }
+
         // Lots of missing members.
-        std::cout << "  Unknown1: " << mData.mLandData->mUnk1 << std::endl;
-        std::cout << "  Unknown2: " << mData.mLandData->mUnk2 << std::endl;
+        std::cout << "  Unknown1: " << (int)mData.mLandData->mUnk1 << std::endl;
+        std::cout << "  Unknown2: " << (int)mData.mLandData->mUnk2 << std::endl;
     }
     if (!wasLoaded) mData.unloadData();
 }
@@ -895,39 +919,8 @@ void Record<ESM::Tool>::print()
     std::cout << "  Type: " << mData.mType << std::endl;
     std::cout << "  Weight: " << mData.mData.mWeight << std::endl;
     std::cout << "  Value: " << mData.mData.mValue << std::endl;
-    std::cout << "  Quality: " << mData.mData.mQuality << std::endl;
-    std::cout << "  Uses: " << mData.mData.mUses << std::endl;
-}
-
-template<>
-void Record<ESM::Probe>::print()
-{
-    std::cout << "  Name: " << mData.mName << std::endl;
-    std::cout << "  Model: " << mData.mModel << std::endl;
-    std::cout << "  Icon: " << mData.mIcon << std::endl;
-    if (mData.mScript != "")
-        std::cout << "  Script: " << mData.mScript << std::endl;
-    // BUG? No Type Label?
-    std::cout << "  Type: " << mData.mType << std::endl;
-    std::cout << "  Weight: " << mData.mData.mWeight << std::endl;
-    std::cout << "  Value: " << mData.mData.mValue << std::endl;
-    std::cout << "  Quality: " << mData.mData.mQuality << std::endl;
-    std::cout << "  Uses: " << mData.mData.mUses << std::endl;
-}
-
-template<>
-void Record<ESM::Repair>::print()
-{
-    std::cout << "  Name: " << mData.mName << std::endl;
-    std::cout << "  Model: " << mData.mModel << std::endl;
-    std::cout << "  Icon: " << mData.mIcon << std::endl;
-    if (mData.mScript != "")
-        std::cout << "  Script: " << mData.mScript << std::endl;
-    std::cout << "  Type: " << mData.mType << std::endl;
-    std::cout << "  Weight: " << mData.mData.mWeight << std::endl;
-    std::cout << "  Value: " << mData.mData.mValue << std::endl;
-    std::cout << "  Quality: " << mData.mData.mQuality << std::endl;
-    std::cout << "  Uses: " << mData.mData.mUses << std::endl;
+    std::cout << "  Quality: " << mData.getQuality() << std::endl;
+    std::cout << "  Uses: " << mData.getUses() << std::endl;
 }
 
 template<>
@@ -1233,7 +1226,7 @@ void Record<ESM::Script>::print()
     std::cout << "  ByteCode: ";
     std::vector<char>::iterator cit;
     for (cit = mData.mScriptData.begin(); cit != mData.mScriptData.end(); cit++)
-        std::cout << boost::format("%02X") % (int)(*cit);
+        std::cout << boost::format("%02X") % ((uint32_t)(*cit) & 0x000000ff);
     std::cout << std::endl;
 }
 

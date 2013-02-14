@@ -9,12 +9,15 @@ namespace ESM
 void LeveledListBase::load(ESMReader &esm)
 {
     esm.getHNT(mFlags, "DATA");
+    mFlags = le32toh(mFlags);
+
     esm.getHNT(mChanceNone, "NNAM");
 
     if (esm.isNextSub("INDX"))
     {
         int len;
         esm.getHT(len);
+        len = le32toh(len);
         mList.resize(len);
     }
     else
@@ -31,17 +34,25 @@ void LeveledListBase::load(ESMReader &esm)
         LevelItem &li = mList[i];
         li.mId = esm.getHNString(mRecName);
         esm.getHNT(li.mLevel, "INTV");
+        li.mLevel = le16toh(li.mLevel);
     }
 }
+
 void LeveledListBase::save(ESMWriter &esm)
 {
+    mFlags = htole32(mFlags);
     esm.writeHNT("DATA", mFlags);
+
     esm.writeHNT("NNAM", mChanceNone);
-    esm.writeHNT<int>("INDX", mList.size());
-    
+
+    int len = mList.size();
+    len = htole32(len);
+    esm.writeHNT<int>("INDX", len);
+
     for (std::vector<LevelItem>::iterator it = mList.begin(); it != mList.end(); ++it)
     {
         esm.writeHNCString(mRecName, it->mId);
+        it->mLevel = htole16(it->mLevel);
         esm.writeHNT("INTV", it->mLevel);
     }
 }

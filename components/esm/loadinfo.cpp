@@ -15,7 +15,11 @@ void DialInfo::load(ESMReader &esm)
     // Not present if deleted
     if (esm.isNextSub("DATA")) {
         esm.getHT(mData, 12);
+        mData.mUnknown1 = le32toh(mData.mUnknown1);
+        mData.mDisposition = le32toh(mData.mDisposition);
     }
+
+    mQuestStatus = QS_None;
 
     // What follows is somewhat spaghetti-ish, but it's worth if for
     // an extra speedup. INFO is by far the most common record type.
@@ -26,19 +30,19 @@ void DialInfo::load(ESMReader &esm)
     esm.getSubName();
     const NAME &subName = esm.retSubName();
 
-    if (subName.val == REC_ONAM)
+    if (subName == REC_ONAM)
     {
         mActor = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_RNAM)
+    if (subName == REC_RNAM)
     {
         mRace = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_CNAM)
+    if (subName == REC_CNAM)
     {
         mClass = esm.getHString();
         if (esm.isEmptyOrGetName())
@@ -46,7 +50,7 @@ void DialInfo::load(ESMReader &esm)
     }
 
     mFactionLess = false;
-    if (subName.val == REC_FNAM)
+    if (subName == REC_FNAM)
     {
         mNpcFaction = esm.getHString();
         if (mNpcFaction == "FFFF")
@@ -54,47 +58,49 @@ void DialInfo::load(ESMReader &esm)
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_ANAM)
+    if (subName == REC_ANAM)
     {
         mCell = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_DNAM)
+    if (subName == REC_DNAM)
     {
         mPcFaction = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_SNAM)
+    if (subName == REC_SNAM)
     {
         mSound = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
-    if (subName.val == REC_NAME)
+    if (subName == REC_NAME)
     {
         mResponse = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
 
-    while (subName.val == REC_SCVR)
+    while (subName == REC_SCVR)
     {
         SelectStruct ss;
 
         ss.mSelectRule = esm.getHString();
         esm.isEmptyOrGetName();
 
-        if (subName.val == REC_INTV)
+        if (subName == REC_INTV)
         {
             ss.mType = VT_Int;
             esm.getHT(ss.mI);
+            ss.mI = le32toh(ss.mI);
         }
-        else if (subName.val == REC_FLTV)
+        else if (subName == REC_FLTV)
         {
             ss.mType = VT_Float;
             esm.getHT(ss.mF);
+            ss.mF = letoh_float(ss.mF);
         }
         else
             esm.fail(
@@ -107,22 +113,20 @@ void DialInfo::load(ESMReader &esm)
             return;
     }
 
-    if (subName.val == REC_BNAM)
+    if (subName == REC_BNAM)
     {
         mResultScript = esm.getHString();
         if (esm.isEmptyOrGetName())
             return;
     }
 
-    mQuestStatus = QS_None;
-
-    if (subName.val == REC_QSTN)
+    if (subName == REC_QSTN)
         mQuestStatus = QS_Name;
-    else if (subName.val == REC_QSTF)
+    else if (subName == REC_QSTF)
         mQuestStatus = QS_Finished;
-    else if (subName.val == REC_QSTR)
+    else if (subName == REC_QSTR)
         mQuestStatus = QS_Restart;
-    else if (subName.val == REC_DELE)
+    else if (subName == REC_DELE)
         mQuestStatus = QS_Deleted;
     else
         esm.fail(
@@ -139,7 +143,11 @@ void DialInfo::save(ESMWriter &esm)
     esm.writeHNCString("INAM", mId);
     esm.writeHNCString("PNAM", mPrev);
     esm.writeHNCString("NNAM", mNext);
+
+    mData.mUnknown1 = htole32(mData.mUnknown1);
+    mData.mDisposition = htole32(mData.mDisposition);
     esm.writeHNT("DATA", mData, 12);
+
     esm.writeHNOCString("ONAM", mActor);
     esm.writeHNOCString("RNAM", mRace);
     esm.writeHNOCString("CNAM", mClass);
@@ -154,14 +162,14 @@ void DialInfo::save(ESMWriter &esm)
         esm.writeHNString("SCVR", it->mSelectRule);
         switch(it->mType)
         {
-        case VT_Int: esm.writeHNT("INTV", it->mI); break;
-        case VT_Float: esm.writeHNT("FLTV", it->mF); break;
+        case VT_Int: it->mI = htole32(it->mI); esm.writeHNT("INTV", it->mI); break;
+        case VT_Float: it->mF = htole_float(it->mF); esm.writeHNT("FLTV", it->mF); break;
         default: break;
         }
     }
 
     esm.writeHNOString("BNAM", mResultScript);
-    
+
     switch(mQuestStatus)
     {
     case QS_Name: esm.writeHNT("QSTN",'\1'); break;

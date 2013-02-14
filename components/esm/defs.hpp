@@ -3,6 +3,8 @@
 
 #include <libs/platform/stdint.h>
 
+#include "components/misc/endianess.hpp"
+
 namespace ESM
 {
 
@@ -46,53 +48,82 @@ struct Position
 };
 #pragma pack(pop)
 
-enum RecNameInts
+// Hexadecimal versions of record names (in big-endian order).
+enum RecNames
 {
-    REC_ACTI = 0x49544341,
-    REC_ALCH = 0x48434c41,
-    REC_APPA = 0x41505041,
-    REC_ARMO = 0x4f4d5241,
-    REC_BODY = 0x59444f42,
-    REC_BOOK = 0x4b4f4f42,
-    REC_BSGN = 0x4e475342,
-    REC_CELL = 0x4c4c4543,
-    REC_CLAS = 0x53414c43,
-    REC_CLOT = 0x544f4c43,
-    REC_CNTC = 0x43544e43,
-    REC_CONT = 0x544e4f43,
-    REC_CREA = 0x41455243,
-    REC_CREC = 0x43455243,
-    REC_DIAL = 0x4c414944,
-    REC_DOOR = 0x524f4f44,
-    REC_ENCH = 0x48434e45,
-    REC_FACT = 0x54434146,
-    REC_GLOB = 0x424f4c47,
-    REC_GMST = 0x54534d47,
-    REC_INFO = 0x4f464e49,
-    REC_INGR = 0x52474e49,
-    REC_LAND = 0x444e414c,
-    REC_LEVC = 0x4356454c,
-    REC_LEVI = 0x4956454c,
-    REC_LIGH = 0x4847494c,
-    REC_LOCK = 0x4b434f4c,
-    REC_LTEX = 0x5845544c,
-    REC_MGEF = 0x4645474d,
-    REC_MISC = 0x4353494d,
-    REC_NPC_ = 0x5f43504e,
-    REC_NPCC = 0x4343504e,
-    REC_PGRD = 0x44524750,
-    REC_PROB = 0x424f5250,
-    REC_RACE = 0x45434152,
-    REC_REGN = 0x4e474552,
-    REC_REPA = 0x41504552,
-    REC_SCPT = 0x54504353,
-    REC_SKIL = 0x4c494b53,
-    REC_SNDG = 0x47444e53,
-    REC_SOUN = 0x4e554f53,
-    REC_SPEL = 0x4c455053,
-    REC_SSCR = 0x52435353,
-    REC_STAT = 0x54415453,
-    REC_WEAP = 0x50414557
+    REC_ACTI = FOURCHAR('A','C','T','I'),
+    REC_ALCH = FOURCHAR('A','L','C','H'),
+    REC_APPA = FOURCHAR('A','P','P','A'),
+    REC_ARMO = FOURCHAR('A','R','M','O'),
+    REC_BODY = FOURCHAR('B','O','D','Y'),
+    REC_BOOK = FOURCHAR('B','O','O','K'),
+    REC_BSGN = FOURCHAR('B','S','G','N'),
+    REC_CELL = FOURCHAR('C','E','L','L'),
+    REC_CLAS = FOURCHAR('C','L','A','S'),
+    REC_CLOT = FOURCHAR('C','L','O','T'),
+    REC_CNTC = FOURCHAR('C','N','T','C'),
+    REC_CONT = FOURCHAR('C','O','N','T'),
+    REC_CREA = FOURCHAR('C','R','E','A'),
+    REC_CREC = FOURCHAR('C','R','E','C'),
+    REC_DIAL = FOURCHAR('D','I','A','L'),
+    REC_DOOR = FOURCHAR('D','O','O','R'),
+    REC_ENCH = FOURCHAR('E','N','C','H'),
+    REC_FACT = FOURCHAR('F','A','C','T'),
+    REC_GLOB = FOURCHAR('G','L','O','B'),
+    REC_GMST = FOURCHAR('G','M','S','T'),
+    REC_INFO = FOURCHAR('I','N','F','O'),
+    REC_INGR = FOURCHAR('I','N','G','R'),
+    REC_LAND = FOURCHAR('L','A','N','D'),
+    REC_LEVC = FOURCHAR('L','E','V','C'),
+    REC_LEVI = FOURCHAR('L','E','V','I'),
+    REC_LIGH = FOURCHAR('L','I','G','H'),
+    REC_LOCK = FOURCHAR('L','O','C','K'),
+    REC_LTEX = FOURCHAR('L','T','E','X'),
+    REC_MGEF = FOURCHAR('M','G','E','F'),
+    REC_MISC = FOURCHAR('M','I','S','C'),
+    REC_NPC_ = FOURCHAR('N','P','C','_'),
+    REC_NPCC = FOURCHAR('N','P','C','C'),
+    REC_PGRD = FOURCHAR('P','G','R','D'),
+    REC_PROB = FOURCHAR('P','R','O','B'),
+    REC_RACE = FOURCHAR('R','A','C','E'),
+    REC_REGN = FOURCHAR('R','E','G','N'),
+    REC_REPA = FOURCHAR('R','E','P','A'),
+    REC_SCPT = FOURCHAR('S','C','P','T'),
+    REC_SKIL = FOURCHAR('S','K','I','L'),
+    REC_SNDG = FOURCHAR('S','N','D','G'),
+    REC_SOUN = FOURCHAR('S','O','U','N'),
+    REC_SPEL = FOURCHAR('S','P','E','L'),
+    REC_SSCR = FOURCHAR('S','S','C','R'),
+    REC_STAT = FOURCHAR('S','T','A','T'),
+    REC_WEAP = FOURCHAR('W','E','A','P')
+};
+
+// Hexadecimal versions of the various subrecord names (in big-endian order).
+enum SubNames
+{
+    REC_AI_W = FOURCHAR('A','I','_','W'),
+    REC_AI_T = FOURCHAR('A','I','_','T'),
+    REC_AI_F = FOURCHAR('A','I','_','F'),
+    REC_AI_E = FOURCHAR('A','I','_','E'),
+    REC_AI_A = FOURCHAR('A','I','_','A'),
+    REC_ANAM = FOURCHAR('A','N','A','M'),
+    REC_BNAM = FOURCHAR('B','N','A','M'),
+    REC_CNAM = FOURCHAR('C','N','A','M'),
+    REC_CNDT = FOURCHAR('C','N','D','T'),
+    REC_DELE = FOURCHAR('D','E','L','E'),
+    REC_DNAM = FOURCHAR('D','N','A','M'),
+    REC_DODT = FOURCHAR('D','O','D','T'),
+    REC_FLTV = FOURCHAR('F','L','T','V'),
+    REC_FNAM = FOURCHAR('F','N','A','M'),
+    REC_INTV = FOURCHAR('I','N','T','V'),
+    REC_NAME = FOURCHAR('N','A','M','E'),
+    REC_ONAM = FOURCHAR('O','N','A','M'),
+    REC_QSTN = FOURCHAR('Q','S','T','N'),
+    REC_QSTF = FOURCHAR('Q','S','T','F'),
+    REC_QSTR = FOURCHAR('Q','S','T','R'),
+    REC_RNAM = FOURCHAR('R','N','A','M'),
+    REC_SCVR = FOURCHAR('S','C','V','R'),
+    REC_SNAM = FOURCHAR('S','N','A','M')
 };
 
 }

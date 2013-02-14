@@ -19,6 +19,12 @@ void Script::load(ESMReader &esm)
     mData = data.mData;
     mId = data.mName.toString();
 
+    mData.mNumShorts = le32toh(mData.mNumShorts);
+    mData.mNumLongs = le32toh(mData.mNumLongs);
+    mData.mNumFloats = le32toh(mData.mNumFloats);
+    mData.mScriptDataSize = le32toh(mData.mScriptDataSize);
+    mData.mStringTableSize = le32toh(mData.mStringTableSize);
+
     // List of local variables
     if (esm.isNextSub("SCVR"))
     {
@@ -50,6 +56,7 @@ void Script::load(ESMReader &esm)
     // Script text
     mScriptText = esm.getHNOString("SCTX");
 }
+
 void Script::save(ESMWriter &esm)
 {
     std::string varNameString;
@@ -63,8 +70,13 @@ void Script::save(ESMWriter &esm)
     data.mData = mData;
     memcpy(data.mName.name, mId.c_str(), mId.size());
 
+    data.mData.mNumShorts = htole32(mData.mNumShorts);
+    data.mData.mNumLongs = htole32(mData.mNumLongs);
+    data.mData.mNumFloats = htole32(mData.mNumFloats);
+    data.mData.mScriptDataSize = htole32(mData.mScriptDataSize);
+    data.mData.mStringTableSize = htole32(mData.mStringTableSize);
     esm.writeHNT("SCHD", data, 52);
-    
+
     if (!mVarNames.empty())
     {
         esm.startSubRecord("SCVR");

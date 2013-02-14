@@ -41,8 +41,8 @@ void ESMReader::close()
     mCtx.leftRec = 0;
     mCtx.leftSub = 0;
     mCtx.subCached = false;
-    mCtx.recName.val = 0;
-    mCtx.subName.val = 0;
+    mCtx.recName.setAs32BE(0);
+    mCtx.subName.setAs32BE(0);
 }
 
 void ESMReader::openRaw(Ogre::DataStreamPtr _esm, const std::string &name)
@@ -76,6 +76,9 @@ void ESMReader::open(Ogre::DataStreamPtr _esm, const std::string &name)
 
     // Get the header
     getHNT(mCtx.header, "HEDR", 300);
+    mCtx.header.version = le32toh(mCtx.header.version);
+    mCtx.header.type = le32toh(mCtx.header.type);
+    mCtx.header.records = le32toh(mCtx.header.records);
 
     if (mCtx.header.version != VER_12 && mCtx.header.version != VER_13)
         fail("Unsupported file format version");
@@ -127,7 +130,7 @@ int64_t ESMReader::getHNLong(const char *name)
 {
     int64_t val;
     getHNT(val, name);
-    return val;
+    return le64toh(val);
 }
 
 std::string ESMReader::getHNOString(const char* name)
@@ -250,7 +253,7 @@ void ESMReader::getSubHeader()
         fail("End of record while reading sub-record header");
 
     // Get subrecord size
-    getT(mCtx.leftSub);
+    getUint(mCtx.leftSub);
 
     // Adjust number of record bytes left
     mCtx.leftRec -= mCtx.leftSub + 4;

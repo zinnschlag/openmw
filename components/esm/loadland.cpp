@@ -16,14 +16,14 @@ void Land::LandData::save(ESMWriter &esm)
         offsets.mHeightOffset = mHeights[0] / HEIGHT_SCALE;
         offsets.mUnk1 = mUnk1;
         offsets.mUnk2 = mUnk2;
-    
+
         float prevY = mHeights[0], prevX;
         int number = 0; // avoid multiplication
         for (int i = 0; i < LAND_SIZE; ++i) {
             float diff = (mHeights[number] - prevY) / HEIGHT_SCALE;
             offsets.mHeightData[number] =
                 (diff >= 0) ? (int8_t) (diff + 0.5) : (int8_t) (diff - 0.5);
-        
+
             prevX = prevY = mHeights[number];
             ++number;
 
@@ -36,6 +36,9 @@ void Land::LandData::save(ESMWriter &esm)
                 ++number;
             }
         }
+
+        offsets.mHeightOffset = htole_float(offsets.mHeightOffset);
+        offsets.mUnk1 = htole16(offsets.mUnk1);
         esm.writeHNT("VHGT", offsets, sizeof(VHGT));
     }
     if (mDataTypes & Land::DATA_WNAM) {
@@ -47,6 +50,8 @@ void Land::LandData::save(ESMWriter &esm)
     if (mDataTypes & Land::DATA_VTEX) {
         static uint16_t vtex[LAND_NUM_TEXTURES];
         transposeTextureData(mTextures, vtex);
+        for (int i = 0; i < LAND_NUM_TEXTURES; i++)
+            vtex[i] = htole16(vtex[i]);
         esm.writeHNT("VTEX", vtex, sizeof(vtex));
     }
 }
@@ -81,14 +86,16 @@ Land::~Land()
 void Land::load(ESMReader &esm)
 {
     mEsm = &esm;
+    mPlugin = mEsm->getIndex();
 
     // Get the grid location
     esm.getSubNameIs("INTV");
     esm.getSubHeaderIs(8);
-    esm.getT<int>(mX);
-    esm.getT<int>(mY);
+    esm.getSint(mX);
+    esm.getSint(mY);
 
     esm.getHNT(mFlags, "DATA");
+    mFlags = le32toh(mFlags);
 
     // Store the file position
     mContext = esm.getContext();
@@ -133,10 +140,11 @@ void Land::load(ESMReader &esm)
 void Land::save(ESMWriter &esm)
 {
     esm.startSubRecord("INTV");
-    esm.writeT(mX);
-    esm.writeT(mY);
+    esm.writeT(htole32(mX));
+    esm.writeT(htole32(mY));
     esm.endRecord("INTV");
 
+    mFlags = htole32(mFlags);
     esm.writeHNT("DATA", mFlags);
 
     // TODO: Land!
@@ -153,7 +161,7 @@ void Land::save(ESMWriter &esm)
 }
 
 /// \todo remove memory allocation when only defaults needed
-void Land::loadData(int flags)
+void Land::loadData(int32_t flags)
 {
     // Try to load only available data
     int actual = flags & mDataTypes;
@@ -177,7 +185,7 @@ void Land::loadData(int flags)
     if (mEsm->isNextSub("VHGT")) {
         static VHGT vhgt;
         if (condLoad(actual, DATA_VHGT, &vhgt, sizeof(vhgt))) {
-            float rowOffset = vhgt.mHeightOffset;
+            float rowOffset = letoh_float(vhgt.mHeightOffset);
             for (int y = 0; y < LAND_SIZE; y++) {
                 rowOffset += vhgt.mHeightData[y * LAND_SIZE];
 
@@ -189,7 +197,7 @@ void Land::loadData(int flags)
                     mLandData->mHeights[x + y * LAND_SIZE] = colOffset * HEIGHT_SCALE;
                 }
             }
-            mLandData->mUnk1 = vhgt.mUnk1;
+            mLandData->mUnk1 = le16toh(vhgt.mUnk1);
             mLandData->mUnk2 = vhgt.mUnk2;
         }
     } else if ((flags & DATA_VHGT) && (mDataLoaded & DATA_VHGT) == 0) {
@@ -211,6 +219,8 @@ void Land::loadData(int flags)
     if (mEsm->isNextSub("VTEX")) {
         static uint16_t vtex[LAND_NUM_TEXTURES];
         if (condLoad(actual, DATA_VTEX, vtex, sizeof(vtex))) {
+            for (int i = 0; i < LAND_NUM_TEXTURES; i++)
+                vtex[i] = le16toh(vtex[i]);
             LandData::transposeTextureData(vtex, mLandData->mTextures);
         }
     } else if ((flags & DATA_VTEX) && (mDataLoaded & DATA_VTEX) == 0) {

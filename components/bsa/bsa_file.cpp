@@ -75,6 +75,8 @@ void BSAFile::readHeader()
     assert(!isLoaded);
 
     std::ifstream input(filename.c_str(), std::ios_base::binary);
+    if(!input)
+        fail("File doesn't exist");
 
     // Total archive size
     size_t fsize = 0;
@@ -94,6 +96,9 @@ void BSAFile::readHeader()
         uint32_t head[3];
 
         input.read(reinterpret_cast<char*>(head), 12);
+        head[0] = le32toh(head[0]);
+        head[1] = le32toh(head[1]);
+        head[2] = le32toh(head[2]);
 
         if(head[0] != 0x100)
             fail("Unrecognized BSA header");
@@ -115,6 +120,8 @@ void BSAFile::readHeader()
     // Read the offset info into a temporary buffer
     vector<uint32_t> offsets(3*filenum);
     input.read(reinterpret_cast<char*>(&offsets[0]), 12*filenum);
+    for(size_t i = 0; i < 3*filenum; i++)
+        offsets[i] = le32toh(offsets[i]);
 
     // Read the string table
     stringBuf.resize(dirsize-12*filenum);

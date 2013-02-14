@@ -69,25 +69,25 @@ class BoundsFinder
 {
     struct MaxMinFinder
     {
-        float max, min;
+        Ogre::Real max, min;
 
         MaxMinFinder()
         {
-            min = std::numeric_limits<float>::infinity();
+            min = std::numeric_limits<Ogre::Real>::infinity();
             max = -min;
         }
 
-        void add(float f)
+        void add(Ogre::Real f)
         {
             if (f > max) max = f;
             if (f < min) min = f;
         }
 
         // Return Max(max**2, min**2)
-        float getMaxSquared()
+        Ogre::Real getMaxSquared()
         {
-            float m1 = max*max;
-            float m2 = min*min;
+            Ogre::Real m1 = max*max;
+            Ogre::Real m2 = min*min;
             if (m1 >= m2) return m1;
             return m2;
         }
@@ -97,9 +97,9 @@ class BoundsFinder
 
 public:
     // Add 'verts' vertices to the calculation. The 'data' pointer is
-    // expected to point to 3*verts floats representing x,y,z for each
+    // expected to point to 3*verts reals representing x,y,z for each
     // point.
-    void add(float *data, int verts)
+    void add(Ogre::Real *data, int verts)
     {
         for (int i=0;i<verts;i++)
         {
@@ -119,7 +119,7 @@ public:
     }
 
     // Compute radius
-    float getRadius()
+    Ogre::Real getRadius()
     {
         assert(isValid());
 
@@ -128,22 +128,22 @@ public:
         return sqrt(X.getMaxSquared() + Y.getMaxSquared() + Z.getMaxSquared());
     }
 
-    float minX() {
+    Ogre::Real minX() {
         return X.min;
     }
-    float maxX() {
+    Ogre::Real maxX() {
         return X.max;
     }
-    float minY() {
+    Ogre::Real minY() {
         return Y.min;
     }
-    float maxY() {
+    Ogre::Real maxY() {
         return Y.max;
     }
-    float minZ() {
+    Ogre::Real minZ() {
         return Z.min;
     }
-    float maxZ() {
+    Ogre::Real maxZ() {
         return Z.max;
     }
 };
@@ -264,7 +264,7 @@ void loadResource(Ogre::Resource *resource)
     if(ctrls.size() == 0) // No animations? Then we're done.
         return;
 
-    float maxtime = 0.0f;
+    Ogre::Real maxtime = 0.0;
     for(size_t i = 0;i < ctrls.size();i++)
     {
         Nif::NiKeyframeController const *ctrl = ctrls[i];
@@ -296,14 +296,14 @@ void loadResource(Ogre::Resource *resource)
         /* Get the keyframes and make sure they're sorted first to last */
         Nif::QuaternionKeyList quatkeys = kf->mRotations;
         Nif::Vector3KeyList trankeys = kf->mTranslations;
-        Nif::FloatKeyList scalekeys = kf->mScales;
+        Nif::RealKeyList scalekeys = kf->mScales;
         std::sort(quatkeys.mKeys.begin(), quatkeys.mKeys.end(), KeyTimeSort<Ogre::Quaternion>());
         std::sort(trankeys.mKeys.begin(), trankeys.mKeys.end(), KeyTimeSort<Ogre::Vector3>());
-        std::sort(scalekeys.mKeys.begin(), scalekeys.mKeys.end(), KeyTimeSort<float>());
+        std::sort(scalekeys.mKeys.begin(), scalekeys.mKeys.end(), KeyTimeSort<Ogre::Real>());
 
         Nif::QuaternionKeyList::VecType::const_iterator quatiter = quatkeys.mKeys.begin();
         Nif::Vector3KeyList::VecType::const_iterator traniter = trankeys.mKeys.begin();
-        Nif::FloatKeyList::VecType::const_iterator scaleiter = scalekeys.mKeys.begin();
+        Nif::RealKeyList::VecType::const_iterator scaleiter = scalekeys.mKeys.begin();
 
         Ogre::Bone *bone = skel->getBone(targets[i]);
         const Ogre::Quaternion startquat = bone->getInitialOrientation();
@@ -324,7 +324,7 @@ void loadResource(Ogre::Resource *resource)
 
         while(!didlast)
         {
-            float curtime = kfc->timeStop;
+            Ogre::Real curtime = kfc->timeStop;
 
             //Get latest time
             if(quatiter != quatkeys.mKeys.end())
@@ -372,7 +372,7 @@ void loadResource(Ogre::Resource *resource)
             else
             {
                 Nif::QuaternionKeyList::VecType::const_iterator last = quatiter-1;
-                float diff = (curtime-last->mTime) / (quatiter->mTime-last->mTime);
+                Ogre::Real diff = (curtime-last->mTime) / (quatiter->mTime-last->mTime);
                 kframe->setRotation(Ogre::Quaternion::nlerp(diff, lastquat, curquat));
             }
             if(traniter == trankeys.mKeys.end() || traniter == trankeys.mKeys.begin())
@@ -380,15 +380,15 @@ void loadResource(Ogre::Resource *resource)
             else
             {
                 Nif::Vector3KeyList::VecType::const_iterator last = traniter-1;
-                float diff = (curtime-last->mTime) / (traniter->mTime-last->mTime);
+                Ogre::Real diff = (curtime-last->mTime) / (traniter->mTime-last->mTime);
                 kframe->setTranslate(lasttrans + ((curtrans-lasttrans)*diff));
             }
             if(scaleiter == scalekeys.mKeys.end() || scaleiter == scalekeys.mKeys.begin())
                 kframe->setScale(curscale);
             else
             {
-                Nif::FloatKeyList::VecType::const_iterator last = scaleiter-1;
-                float diff = (curtime-last->mTime) / (scaleiter->mTime-last->mTime);
+                Nif::RealKeyList::VecType::const_iterator last = scaleiter-1;
+                Ogre::Real diff = (curtime-last->mTime) / (scaleiter->mTime-last->mTime);
                 kframe->setScale(lastscale + ((curscale-lastscale)*diff));
             }
         }
@@ -503,8 +503,8 @@ static Ogre::String getMaterial(const Nif::NiTriShape *shape, const Ogre::String
     Ogre::Vector3 diffuse(1.0f);
     Ogre::Vector3 specular(0.0f);
     Ogre::Vector3 emissive(0.0f);
-    float glossiness = 0.0f;
-    float alpha = 1.0f;
+    Ogre::Real glossiness = 0.0;
+    Ogre::Real alpha = 1.0;
     int alphaFlags = -1;
 //    ubyte alphaTest = 0;
     Ogre::String texName;
@@ -753,7 +753,7 @@ class NIFMeshLoader : Ogre::ManualResourceLoader
                 for(size_t i = 0;i < weights.size();i++)
                 {
                     size_t index = weights[i].vertex;
-                    float weight = weights[i].weight;
+                    Ogre::Real weight = weights[i].weight;
 
                     newVerts.at(index) += (mat*srcVerts[index]) * weight;
                     if(newNorms.size() > index)

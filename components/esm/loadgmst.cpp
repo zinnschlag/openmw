@@ -30,11 +30,13 @@ void GameSetting::load(ESMReader &esm)
     else if (n == "INTV")
     {
         esm.getHT(mI);
+        mI = le32toh(mI);
         mType = VT_Int;
     }
     else if (n == "FLTV")
     {
         esm.getHT(mF);
+        mF = letoh_float(mF);
         mType = VT_Float;
     }
     else
@@ -46,8 +48,8 @@ void GameSetting::save(ESMWriter &esm)
     switch(mType)
     {
     case VT_String: esm.writeHNString("STRV", mStr); break;
-    case VT_Int: esm.writeHNT("INTV", mI); break;
-    case VT_Float: esm.writeHNT("FLTV", mF); break;
+    case VT_Int: mI = htole32(mI); esm.writeHNT("INTV", mI); break;
+    case VT_Float: mF = htole_float(mF); esm.writeHNT("FLTV", mF); break;
     default: break;
     }
 }
@@ -76,8 +78,29 @@ std::string GameSetting::getString() const
 {
     if (mType==VT_String)
         return mStr;
-        
+
     throw std::runtime_error ("GMST " + mId + " is not a string");
 }
 
+    void GameSetting::blank()
+    {
+        mStr.clear();
+        mI = 0;
+        mF = 0;
+        mType = VT_Float;
+    }
+
+    bool operator== (const GameSetting& left, const GameSetting& right)
+    {
+        if (left.mType!=right.mType)
+            return false;
+
+        switch (left.mType)
+        {
+            case VT_Float: return left.mF==right.mF;
+            case VT_Int: return left.mI==right.mI;
+            case VT_String: return left.mStr==right.mStr;
+            default: return false;
+        }
+    }
 }

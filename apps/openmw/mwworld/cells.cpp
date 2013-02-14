@@ -84,7 +84,7 @@ MWWorld::Ptr MWWorld::Cells::getPtrAndCache (const std::string& name, Ptr::CellS
     return ptr;
 }
 
-MWWorld::Cells::Cells (const MWWorld::ESMStore& store, ESM::ESMReader& reader)
+MWWorld::Cells::Cells (const MWWorld::ESMStore& store, std::vector<ESM::ESMReader>& reader)
 : mStore (store), mReader (reader),
   mIdCache (20, std::pair<std::string, Ptr::CellStore *> ("", (Ptr::CellStore*)0)), /// \todo make cache size configurable
   mIdCacheIndex (0)
@@ -119,6 +119,7 @@ MWWorld::Ptr::CellStore *MWWorld::Cells::getExterior (int x, int y)
 
     if (result->second.mState!=Ptr::CellStore::State_Loaded)
     {
+        // Multiple plugin support for landscape data is much easier than for references. The last plugin wins.
         result->second.load (mStore, mReader);
         fillContainers (result->second);
     }
@@ -204,7 +205,7 @@ MWWorld::Ptr MWWorld::Cells::getPtr (const std::string& name, Ptr::CellStore& ce
     if (MWWorld::LiveCellRef<ESM::Light> *ref = cell.mLights.find (name))
         ptr = Ptr (ref, &cell);
 
-    if (MWWorld::LiveCellRef<ESM::Tool> *ref = cell.mLockpicks.find (name))
+    if (MWWorld::LiveCellRef<ESM::Lockpick> *ref = cell.mLockpicks.find (name))
         ptr = Ptr (ref, &cell);
 
     if (MWWorld::LiveCellRef<ESM::Miscellaneous> *ref = cell.mMiscItems.find (name))

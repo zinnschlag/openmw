@@ -54,7 +54,7 @@ namespace MWWorld
 
             MWWorld::Scene *mWorldScene;
             MWWorld::Player *mPlayer;
-            ESM::ESMReader mEsm;
+            std::vector<ESM::ESMReader> mEsm;
             MWWorld::ESMStore mStore;
             LocalScripts mLocalScripts;
             MWWorld::Globals *mGlobalVariables;
@@ -91,8 +91,8 @@ namespace MWWorld
             bool moveObjectImp (const Ptr& ptr, float x, float y, float z);
             ///< @return true if the active cell (cell player is in) changed
 
-            virtual void
-            copyObjectToCell(const Ptr &ptr, CellStore &cell, const ESM::Position &pos);
+            
+            Ptr copyObjectToCell(const Ptr &ptr, CellStore &cell, const ESM::Position &pos);
 
             void updateWindowManager ();
             void performUpdateSceneQueries ();
@@ -107,18 +107,20 @@ namespace MWWorld
 
             void removeContainerScripts(const Ptr& reference);
             void addContainerScripts(const Ptr& reference, Ptr::CellStore* cell);
+            void PCDropped (const Ptr& item);
 
         public:
 
             World (OEngine::Render::OgreRenderer& renderer,
                 const Files::Collections& fileCollections,
-                const std::string& master, const boost::filesystem::path& resDir, const boost::filesystem::path& cacheDir, bool newGame,
+                const std::vector<std::string>& master, const std::vector<std::string>& plugins,
+        	const boost::filesystem::path& resDir, const boost::filesystem::path& cacheDir, bool newGame,
                 ToUTF8::Utf8Encoder* encoder, std::map<std::string,std::string> fallbackMap, int mActivationDistanceOverride);
 
             virtual ~World();
 
             virtual OEngine::Render::Fader* getFader();
-            ///< \ŧodo remove this function. Rendering details should not be exposed.
+            ///< \todo remove this function. Rendering details should not be exposed.
 
             virtual CellStore *getExterior (int x, int y);
 
@@ -142,7 +144,7 @@ namespace MWWorld
 
             virtual const MWWorld::ESMStore& getStore() const;
 
-            virtual ESM::ESMReader& getEsmReader();
+            virtual std::vector<ESM::ESMReader>& getEsmReader();
 
             virtual LocalScripts& getLocalScripts();
 

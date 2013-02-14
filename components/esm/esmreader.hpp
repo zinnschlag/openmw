@@ -78,6 +78,17 @@ public:
 
   void openRaw(const std::string &file);
 
+  // This is a quick hack for multiple esm/esp files. Each plugin introduces its own
+  //  terrain palette, but ESMReader does not pass a reference to the correct plugin
+  //  to the individual load() methods. This hack allows to pass this reference
+  //  indirectly to the load() method.
+  int mIdx;
+  void setIndex(const int index) {mIdx = index; mCtx.index = index;}
+  const int getIndex() {return mIdx;}
+  
+  void setGlobalReaderList(std::vector<ESMReader> *list) {mGlobalReaderList = list;}
+  std::vector<ESMReader> *getGlobalReaderList() {return mGlobalReaderList;}
+
   /*************************************************************************
    *
    *  Medium-level reading shortcuts
@@ -90,14 +101,6 @@ public:
   {
     getSubNameIs(name);
     getHT(x);
-  }
-
-  // Optional version of getHNT
-  template <typename X>
-  void getHNOT(X &x, const char* name)
-  {
-      if(isNextSub(name))
-          getHT(x);
   }
 
   // Version with extra size checking, to make sure the compiler
@@ -223,7 +226,8 @@ public:
 
   void getExact(void*x, int size);
   void getName(NAME &name) { getT(name); }
-  void getUint(uint32_t &u) { getT(u); }
+  void getSint(int32_t &i) { getT(i); i = le32toh(i); }
+  void getUint(uint32_t &u) { getT(u); u = le32toh(u); }
 
   // Read the next 'size' bytes and return them as a string. Converts
   // them from native encoding to UTF8 in the process.
@@ -251,6 +255,7 @@ private:
 
   SaveData mSaveData;
   MasterList mMasters;
+  std::vector<ESMReader> *mGlobalReaderList;
   ToUTF8::Utf8Encoder* mEncoder;
 };
 }

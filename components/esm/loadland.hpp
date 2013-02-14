@@ -23,6 +23,7 @@ struct Land
     int mFlags; // Only first four bits seem to be used, don't know what
     // they mean.
     int mX, mY; // Map coordinates.
+    int mPlugin; // Plugin index, used to reference the correct material palette.
 
     // File context. This allows the ESM reader to be 'reset' to this
     // location later when we are ready to load the full data set.
@@ -73,7 +74,6 @@ struct Land
 
     struct LandData
     {
-        float mHeightOffset;
         float mHeights[LAND_NUM_VERTS];
         VNML mNormals;
         uint16_t mTextures[LAND_NUM_TEXTURES];

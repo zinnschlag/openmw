@@ -81,7 +81,7 @@ namespace MWBase
             virtual ~World() {}
 
             virtual OEngine::Render::Fader* getFader() = 0;
-            ///< \ŧodo remove this function. Rendering details should not be exposed.
+            ///< \todo remove this function. Rendering details should not be exposed.
 
             virtual MWWorld::CellStore *getExterior (int x, int y) = 0;
 
@@ -105,7 +105,7 @@ namespace MWBase
 
             virtual const MWWorld::ESMStore& getStore() const = 0;
 
-            virtual ESM::ESMReader& getEsmReader() = 0;
+            virtual std::vector<ESM::ESMReader>& getEsmReader() = 0;
 
             virtual MWWorld::LocalScripts& getLocalScripts() = 0;
 

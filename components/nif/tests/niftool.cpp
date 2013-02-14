@@ -5,12 +5,12 @@
 #include "../nif_file.hpp"
 #include <iostream>
 #include <iomanip>
-#include "../../mangle/stream/servers/file_stream.hpp"
+//#include "../../mangle/stream/servers/file_stream.hpp"
 #include "../node.hpp"
 #include "../controller.hpp"
 #include "../data.hpp"
 
-using namespace Mangle::Stream;
+//using namespace Mangle::Stream;
 using namespace std;
 using namespace Nif;
 

@@ -9,6 +9,11 @@ namespace ESM
 void Pathgrid::load(ESMReader &esm)
 {
     esm.getHNT(mData, "DATA", 12);
+    mData.mX = le32toh(mData.mX);
+    mData.mY = le32toh(mData.mY);
+    mData.mS1 = le16toh(mData.mS1);
+    mData.mS2 = le16toh(mData.mS2);
+
     mCell = esm.getHNString("NAME");
 
     // keep track of total connections so we can reserve edge vector size
@@ -29,6 +34,10 @@ void Pathgrid::load(ESMReader &esm)
             {
                 Point p;
                 esm.getExact(&p, sizeof(Point));
+                p.mX = le32toh(p.mX);
+                p.mY = le32toh(p.mY);
+                p.mZ = le32toh(p.mZ);
+
                 mPoints.push_back(p);
                 edgeCount += p.mConnectionNum;
             }
@@ -50,6 +59,7 @@ void Pathgrid::load(ESMReader &esm)
             {
                 int currentValue;
                 esm.getT(currentValue);
+                currentValue = le32toh(currentValue);
                 rawConnections.push_back(currentValue);
             }
 
@@ -72,24 +82,33 @@ void Pathgrid::load(ESMReader &esm)
 }
 void Pathgrid::save(ESMWriter &esm)
 {
+    mData.mX = htole32(mData.mX);
+    mData.mY = htole32(mData.mY);
+    mData.mS1 = htole16(mData.mS1);
+    mData.mS2 = htole16(mData.mS2);
     esm.writeHNT("DATA", mData, 12);
+
     esm.writeHNCString("NAME", mCell);
-    
+
     if (!mPoints.empty())
     {
         esm.startSubRecord("PGRP");
         for (PointList::iterator it = mPoints.begin(); it != mPoints.end(); ++it)
         {
+            it->mX = htole32(it->mX);
+            it->mY = htole32(it->mY);
+            it->mZ = htole32(it->mZ);
             esm.writeT(*it);
         }
         esm.endRecord("PGRP");
     }
-    
+
     if (!mEdges.empty())
     {
         esm.startSubRecord("PGRC");
         for (std::vector<Edge>::iterator it = mEdges.begin(); it != mEdges.end(); ++it)
         {
+            it->mV1 = htole32(it->mV1);
             esm.writeT(it->mV1);
         }
         esm.endRecord("PGRC");

@@ -221,7 +221,7 @@ namespace MWWorld
 
             virtual void adjustScale(const MWWorld::Ptr& ptr,float& scale) const;
 
-            virtual void adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const;
+            virtual void adjustRotation(const MWWorld::Ptr& ptr, Ogre::Real& x, Ogre::Real& y, Ogre::Real& z) const;
 
             virtual std::string getModel(const MWWorld::Ptr &ptr) const;
 

@@ -7,10 +7,10 @@
 #include <fstream>
 #include <exception>
 
-#include "../../mangle/stream/filters/buffer_stream.hpp"
+//#include "../../mangle/stream/filters/buffer_stream.hpp"
 
 using namespace std;
-using namespace Mangle::Stream;
+//using namespace Mangle::Stream;
 using namespace Bsa;
 
 int main(int argc, char** argv)

@@ -29,7 +29,7 @@ struct LightInfo
     // Constants
     std::string name; // ogre handle
     Ogre::ColourValue colour;
-    float radius;
+    Ogre::Real radius;
     bool interior; // Does this light belong to an interior or exterior cell
     LightType type;
 
@@ -73,7 +73,7 @@ public:
     ~Objects(){}
     void insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_);
     void insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh);
-    void insertLight (const MWWorld::Ptr& ptr, float r, float g, float b, float radius);
+    void insertLight (const MWWorld::Ptr& ptr, Ogre::Real r, Ogre::Real g, Ogre::Real b, Ogre::Real radius);
 
     void enableLights();
     void disableLights();
