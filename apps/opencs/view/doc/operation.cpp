@@ -64,8 +64,6 @@ void CSVDoc::Operation::setBarColor (int type)
             "margin: 2px 1px 1p 2px;"
           "}";
 
-    // "QProgressBar::chunk {background-color: %1;}";
-
     QString topColor = "#F2F6F8";
     QString bottomColor = "#E0EFF9";
     QString midTopColor = "#D8E1E7";
@@ -82,7 +80,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#F17432";
         midBottomColor = "#EA5507";
         bottomColor = "#FB955E";  // red gloss #2
-        //break;
+        break;
 
     case CSMDoc::State_Searching:
 
@@ -90,7 +88,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#ABD3EE";
         midBottomColor = "#89C3EB";
         bottomColor = "#D5EBFB"; //blue gloss #4
-        //break;
+        break;
 
     case CSMDoc::State_Verifying:
 
@@ -98,7 +96,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#8EB92A";
         midBottomColor = "#72AA00";
         bottomColor = "#9ECB2D";  //green gloss
-        //break;
+        break;
 
     case CSMDoc::State_Compiling:
 
@@ -106,7 +104,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#C19E67";
         midBottomColor = "#B68D4C";
         bottomColor = "#E9D4B3";  //l Brown 3D
-        //break;
+        break;
 
     default:
 
