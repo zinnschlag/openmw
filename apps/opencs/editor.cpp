@@ -43,6 +43,10 @@ void CS::Editor::createDocument()
 int CS::Editor::run()
 {
     /// \todo Instead of creating an empty document, open a small welcome dialogue window with buttons for new/load/recent projects
+    CSVDoc::StartupDialog* startup_dialog = new CSVDoc::StartupDialog();
+
+    startup_dialog->show();
+
     createDocument();
 
     return QApplication::exec();

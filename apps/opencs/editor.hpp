@@ -5,6 +5,7 @@
 
 #include "model/doc/documentmanager.hpp"
 #include "view/doc/viewmanager.hpp"
+#include "view/doc/startupdialog.hpp"
 
 namespace CS
 {
