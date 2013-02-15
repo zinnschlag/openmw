@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(resources);
     Application mApplication (argc, argv);
 
-    mApplication.setWindowIcon(QIcon(":/images/openmw.ico"));
+    mApplication.setWindowIcon(QIcon(":./openmw.ico"));
 
     CS::Editor editor;
 
