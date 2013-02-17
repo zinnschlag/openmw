@@ -5,7 +5,15 @@
 CSVDoc::StartupDialog::StartupDialog(QWidget *parent) :
     QDialog(parent)
 {
-    //set modal startup values
+    initWindow();
+    initWidgets();
+    buildLayout();
+
+}
+
+void StartupDialog::initWindow()
+{
+    //set dialog startup values.
     //Dialog acts as a main window, here.  Should probably start the main window
     //as a view without a document, then display this startup dialog over it.
 
@@ -18,7 +26,10 @@ CSVDoc::StartupDialog::StartupDialog(QWidget *parent) :
     int top = (d->height() - this->height()) / 2;
 
     this->move(left, top);
+}
 
+void StartupDialog::initWidgets()
+{
     //create document buttons
     mNewDocumentButton = new QPushButton(tr("&New"));
     mExistingDocumentButton = new QPushButton(tr("Open &Existing..."));
@@ -46,7 +57,10 @@ CSVDoc::StartupDialog::StartupDialog(QWidget *parent) :
     mRecentDocumentFrame = new QFrame;
     mRecentDocumentFrame->setWindowTitle(QString("Recent Plugins..."));
     //mRecentDocumentFrame->
+}
 
+void buildLayout()
+{
     //create and build form layouts
     QHBoxLayout* leftSideLayout = new QHBoxLayout;
     QHBoxLayout* rightSideLayout = new QHBoxLayout;
@@ -68,5 +82,4 @@ CSVDoc::StartupDialog::StartupDialog(QWidget *parent) :
     mainLayout->addLayout (lowerLayout);
 
     setLayout (mainLayout);
-
 }

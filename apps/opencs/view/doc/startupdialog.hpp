@@ -26,6 +26,10 @@ namespace CSVDoc
         QPushButton* mRecentDocumentButton;
         QFrame* mRecentDocumentFrame;
 
+        void buildLayout();
+        void initWindow();
+        void initWidgets();
+
     //signals:
     
     //public slots:
