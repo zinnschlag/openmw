@@ -40,8 +40,8 @@ namespace MWClass
 
     std::string Lockpick::getModel(const MWWorld::Ptr &ptr) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
         assert(ref->mBase != NULL);
 
         const std::string &model = ref->mBase->mModel;
@@ -53,8 +53,8 @@ namespace MWClass
 
     std::string Lockpick::getName (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         return ref->mBase->mName;
     }
@@ -71,8 +71,8 @@ namespace MWClass
 
     std::string Lockpick::getScript (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         return ref->mBase->mScript;
     }
@@ -88,8 +88,8 @@ namespace MWClass
 
     int Lockpick::getValue (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         return ref->mBase->mData.mValue;
     }
@@ -98,7 +98,7 @@ namespace MWClass
     {
         boost::shared_ptr<Class> instance (new Lockpick);
 
-        registerClass (typeid (ESM::Tool).name(), instance);
+        registerClass (typeid (ESM::Tool<int>).name(), instance);
     }
 
     std::string Lockpick::getUpSoundId (const MWWorld::Ptr& ptr) const
@@ -113,24 +113,24 @@ namespace MWClass
 
     std::string Lockpick::getInventoryIcon (const MWWorld::Ptr& ptr) const
     {
-          MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+          MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         return ref->mBase->mIcon;
     }
 
     bool Lockpick::hasToolTip (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         return (ref->mBase->mName != "");
     }
 
     MWGui::ToolTipInfo Lockpick::getToolTipInfo (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         MWGui::ToolTipInfo info;
         info.caption = ref->mBase->mName + MWGui::ToolTips::getCountString(ptr.getRefData().getCount());
@@ -167,8 +167,8 @@ namespace MWClass
     MWWorld::Ptr
     Lockpick::copyToCellImpl(const MWWorld::Ptr &ptr, MWWorld::CellStore &cell) const
     {
-        MWWorld::LiveCellRef<ESM::Tool> *ref =
-            ptr.get<ESM::Tool>();
+        MWWorld::LiveCellRef<ESM::Tool<int> > *ref =
+            ptr.get<ESM::Tool<int> >();
 
         return MWWorld::Ptr(&cell.mLockpicks.insert(*ref), &cell);
     }

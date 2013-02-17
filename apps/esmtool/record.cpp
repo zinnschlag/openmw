@@ -278,7 +278,7 @@ RecordBase::create(ESM::NAME type)
     }
     case ESM::REC_LOCK:
     {
-        record = new EsmTool::Record<ESM::Tool>;
+        record = new EsmTool::Record<ESM::Tool<int> >;
         break;
     }
     case ESM::REC_LTEX:
@@ -885,7 +885,7 @@ void Record<ESM::Light>::print()
 }
 
 template<>
-void Record<ESM::Tool>::print()
+void Record<ESM::Tool<int> >::print()
 {
     std::cout << "  Name: " << mData.mName << std::endl;
     std::cout << "  Model: " << mData.mModel << std::endl;
