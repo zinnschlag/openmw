@@ -8,8 +8,7 @@
 #include <components/files/configurationmanager.hpp>
 #include <components/files/ogreplugin.hpp>
 #include <components/settings/settings.hpp>
-
-#include "utils/naturalsort.hpp"
+#include <components/fileorderlist/utils/naturalsort.hpp>
 
 #include "graphicspage.hpp"
 
@@ -114,6 +113,8 @@ bool GraphicsPage::setupOgre()
 #endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
         pluginDir = OGRE_PLUGIN_DIR_REL;
+        if (pluginDir == "NOTFOUND")
+            pluginDir = OGRE_PLUGIN_DIR_DBG;
 #endif
     }
 

@@ -21,6 +21,7 @@ opencs_units (model/world
     idtable idtableproxymodel
     )
 
+
 opencs_units_noqt (model/world
     universalid data record idcollection commands columnbase
     )
@@ -40,8 +41,9 @@ opencs_units_noqt (model/tools
 
 
 opencs_units (view/doc
-    viewmanager view operations operation subview
+    viewmanager view operations operation subview startup opendialog
     )
+
 
 opencs_units_noqt (view/doc
     subviewfactory
@@ -57,7 +59,7 @@ opencs_units (view/world
     )
 
 opencs_units_noqt (view/world
-    dialoguesubview util subviews
+    dialoguesubview util subviews enumdelegate vartypedelegate
     )
 
 
@@ -73,7 +75,7 @@ opencs_units_noqt (view/tools
 set (OPENCS_US
     )
 
-set (OPENCS_RES
+set (OPENCS_RES ../../files/opencs/resources.qrc
     )
 
 source_group (opencs FILES ${OPENCS_SRC} ${OPENCS_HDR})
