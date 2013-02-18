@@ -184,6 +184,8 @@ void OgreRenderer::configure(const std::string &logPath,
 #endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
         pluginDir = OGRE_PLUGIN_DIR_REL;
+        if (pluginDir == "NOTFOUND")
+            pluginDir = OGRE_PLUGIN_DIR_DBG;
 #endif
     }
 
@@ -197,7 +199,7 @@ void OgreRenderer::configure(const std::string &logPath,
 
     RenderSystem* rs = mRoot->getRenderSystemByName(renderSystem);
     if (rs == 0)
-        throw std::runtime_error ("RenderSystem with name " + renderSystem + " not found, make sure the plugins are loaded");
+        throw std::runtime_error ("RenderSystem with name " + renderSystem + " not found, make sure the plugins are loaded (pluginDir: " + pluginDir + ")");
     mRoot->setRenderSystem(rs);
 
     if (rs->getName().find("OpenGL") != std::string::npos)
