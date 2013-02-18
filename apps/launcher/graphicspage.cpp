@@ -113,6 +113,8 @@ bool GraphicsPage::setupOgre()
 #endif
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
         pluginDir = OGRE_PLUGIN_DIR_REL;
+        if (pluginDir == "NOTFOUND")
+            pluginDir = OGRE_PLUGIN_DIR_DBG;
 #endif
     }
 
