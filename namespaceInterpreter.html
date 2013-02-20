@@ -57,7 +57,8 @@
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Interpreter Namespace Reference<div class="ingroups"><a class="el" href="group__components.html">Components</a></div></div>  </div>
 </div><!--header-->
@@ -142,12 +143,21 @@ Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#abd3418551637652a80542b1c1ea29bc7">Type_Float</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a1c45ee288722de2cf053dc21eedeb1d8">Check</a> (const std::string str, const std::string escword, unsigned int *i, unsigned int *start)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a31e88c7b1947b6334d235c5651de1ff4">longerStr</a> (const std::string a, const std::string b)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#ae73cdba2977b6a2b4c818b5798ce8b18">fixDefinesReal</a> (std::string text, char eschar, bool isBook, <a class="el" href="classInterpreter_1_1Context.html">Context</a> &amp;context)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a996d9f4c1b474903ee033ba80c6ae33e">fixDefinesDialog</a> (std::string text, <a class="el" href="classInterpreter_1_1Context.html">Context</a> &amp;context)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a183dedd14612dc81fed6aee4fe257160">fixDefinesMsgBox</a> (std::string text, <a class="el" href="classInterpreter_1_1Context.html">Context</a> &amp;context)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#acd0bddd15bbca95e5e8f9bbed6d31b03">fixDefinesBook</a> (std::string text, <a class="el" href="classInterpreter_1_1Context.html">Context</a> &amp;context)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a0122059fdbb8956fa48c32bfb8a3e6de">installOpcodes</a> (<a class="el" href="classInterpreter_1_1Interpreter.html">Interpreter</a> &amp;interpreter)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a849b4a2477ccfac841f461b9ae7d12ed">formatMessage</a> (const std::string &amp;message, <a class="el" href="classInterpreter_1_1Runtime.html">Runtime</a> &amp;runtime)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#acbc9443af18cde44515b19fe67684297">getData</a> (<a class="el" href="unionInterpreter_1_1Data.html">Data</a> &amp;data)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceInterpreter.html#a96cb9485dd3710e7e391d9a434978251">Type_Integer</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#a0827daa53506ebb3e0adef8448e1ebe7">getData</a> (<a class="el" href="unionInterpreter_1_1Data.html">Data</a> &amp;data)</td></tr>
+<tr><td colspan="2"><h2><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceInterpreter.html#ab66d79a33a90ca3ecb146d50f767a6e1">globals</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>script interpreter </p>
@@ -218,6 +228,165 @@ Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a1c45ee288722de2cf053dc21eedeb1d8"></a><!-- doxytag: member="Interpreter::Check" ref="a1c45ee288722de2cf053dc21eedeb1d8" args="(const std::string str, const std::string escword, unsigned int *i, unsigned int *start)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="namespaceInterpreter.html#a1c45ee288722de2cf053dc21eedeb1d8">Interpreter::Check</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>escword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>start</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acd0bddd15bbca95e5e8f9bbed6d31b03"></a><!-- doxytag: member="Interpreter::fixDefinesBook" ref="acd0bddd15bbca95e5e8f9bbed6d31b03" args="(std::string text, Context &amp;context)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespaceInterpreter.html#acd0bddd15bbca95e5e8f9bbed6d31b03">Interpreter::fixDefinesBook</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Context &amp;&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a996d9f4c1b474903ee033ba80c6ae33e"></a><!-- doxytag: member="Interpreter::fixDefinesDialog" ref="a996d9f4c1b474903ee033ba80c6ae33e" args="(std::string text, Context &amp;context)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespaceInterpreter.html#a996d9f4c1b474903ee033ba80c6ae33e">Interpreter::fixDefinesDialog</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Context &amp;&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a183dedd14612dc81fed6aee4fe257160"></a><!-- doxytag: member="Interpreter::fixDefinesMsgBox" ref="a183dedd14612dc81fed6aee4fe257160" args="(std::string text, Context &amp;context)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespaceInterpreter.html#a183dedd14612dc81fed6aee4fe257160">Interpreter::fixDefinesMsgBox</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Context &amp;&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae73cdba2977b6a2b4c818b5798ce8b18"></a><!-- doxytag: member="Interpreter::fixDefinesReal" ref="ae73cdba2977b6a2b4c818b5798ce8b18" args="(std::string text, char eschar, bool isBook, Context &amp;context)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="namespaceInterpreter.html#ae73cdba2977b6a2b4c818b5798ce8b18">Interpreter::fixDefinesReal</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>eschar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isBook</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Context &amp;&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a849b4a2477ccfac841f461b9ae7d12ed"></a><!-- doxytag: member="Interpreter::formatMessage" ref="a849b4a2477ccfac841f461b9ae7d12ed" args="(const std::string &amp;message, Runtime &amp;runtime)" -->
 <div class="memitem">
 <div class="memproto">
@@ -300,11 +469,52 @@ template&lt;&gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a31e88c7b1947b6334d235c5651de1ff4"></a><!-- doxytag: member="Interpreter::longerStr" ref="a31e88c7b1947b6334d235c5651de1ff4" args="(const std::string a, const std::string b)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="namespaceInterpreter.html#a31e88c7b1947b6334d235c5651de1ff4">Interpreter::longerStr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="ab66d79a33a90ca3ecb146d50f767a6e1"></a><!-- doxytag: member="Interpreter::globals" ref="ab66d79a33a90ca3ecb146d50f767a6e1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="namespaceInterpreter.html#ab66d79a33a90ca3ecb146d50f767a6e1">Interpreter::globals</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

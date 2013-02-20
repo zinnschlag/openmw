@@ -93,47 +93,53 @@
 <a name="l00033"></a>00033 
 <a name="l00034"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a82b34a8c7db4a408dd9bb28957e69188">00034</a>         uint64_t <a class="code" href="classMWSound_1_1OpenAL__Output.html#a82b34a8c7db4a408dd9bb28957e69188">mBufferCacheMemSize</a>;
 <a name="l00035"></a>00035 
-<a name="l00036"></a>00036         ALuint <a class="code" href="classMWSound_1_1OpenAL__Output.html#a1ab32679c535dba8010fc8bb4ca741a5">getBuffer</a>(<span class="keyword">const</span> std::string &amp;fname);
-<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#ae9d70551dfd97d2b15f373154d84540a">bufferFinished</a>(ALuint buffer);
+<a name="l00036"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">00036</a>         <span class="keyword">typedef</span> std::vector&lt;Sound*&gt; <a class="code" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">SoundVec</a>;
+<a name="l00037"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a46248fa571bc226441aa88520be5d428">00037</a>         <a class="code" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">SoundVec</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a46248fa571bc226441aa88520be5d428">mActiveSounds</a>;
 <a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a11c03f99fb3841c3feaa5ecac6f9b162">00039</a>         <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a11c03f99fb3841c3feaa5ecac6f9b162">mLastEnvironment</a>;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041         <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classMWSound_1_1OpenAL__Output.html#a449d29514d18193f1088eaa9fc0a17ec">enumerate</a>();
-<a name="l00042"></a>00042         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a6fd840cc9297e9f65ff829f7e61d1f97">init</a>(<span class="keyword">const</span> std::string &amp;devname=<span class="stringliteral">&quot;&quot;</span>);
-<a name="l00043"></a>00043         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a01b47a901df40eb9b263c96ab6d07af5">deinit</a>();
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keyword">virtual</span> <a class="code" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a276e56d89399abf10d3bacdb68415b46">playSound</a>(<span class="keyword">const</span> std::string &amp;fname, <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">int</span> flags);
-<a name="l00046"></a>00046         <span class="keyword">virtual</span> <a class="code" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a334bc838c2334159d118a444326a3fb5">playSound3D</a>(<span class="keyword">const</span> std::string &amp;fname, <span class="keyword">const</span> Ogre::Vector3 &amp;pos,
-<a name="l00047"></a>00047                                      <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> min, <span class="keywordtype">float</span> max, <span class="keywordtype">int</span> flags);
-<a name="l00048"></a>00048         <span class="keyword">virtual</span> <a class="code" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a2fea995df1971ff80f483dff75e214fa">streamSound</a>(<span class="keyword">const</span> std::string &amp;fname, <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">int</span> flags);
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#abbe2abeda60072a5c8dc74a41b2dee77">updateListener</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;pos, <span class="keyword">const</span> Ogre::Vector3 &amp;atdir, <span class="keyword">const</span> Ogre::Vector3 &amp;updir, <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> env);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052         <a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a>&amp; <a class="code" href="classMWSound_1_1OpenAL__Output.html#a5e1e83d4d2eccb2cd5acc1c3a22cb461">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;rhs);
-<a name="l00053"></a>00053         <a class="code" href="classMWSound_1_1OpenAL__Output.html#a9a820e4a48b3cc09151724e64dab0441">OpenAL_Output</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;rhs);
+<a name="l00039"></a>00039         ALuint <a class="code" href="classMWSound_1_1OpenAL__Output.html#a1ab32679c535dba8010fc8bb4ca741a5">getBuffer</a>(<span class="keyword">const</span> std::string &amp;fname);
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#ae9d70551dfd97d2b15f373154d84540a">bufferFinished</a>(ALuint buffer);
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a11c03f99fb3841c3feaa5ecac6f9b162">00042</a>         <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a11c03f99fb3841c3feaa5ecac6f9b162">mLastEnvironment</a>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044         <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classMWSound_1_1OpenAL__Output.html#a449d29514d18193f1088eaa9fc0a17ec">enumerate</a>();
+<a name="l00045"></a>00045         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a6fd840cc9297e9f65ff829f7e61d1f97">init</a>(<span class="keyword">const</span> std::string &amp;devname=<span class="stringliteral">&quot;&quot;</span>);
+<a name="l00046"></a>00046         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a01b47a901df40eb9b263c96ab6d07af5">deinit</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keyword">virtual</span> <a class="code" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a15bc0010f8be33d48277c2e63463a2e3">playSound</a>(<span class="keyword">const</span> std::string &amp;fname, <span class="keywordtype">float</span> vol, <span class="keywordtype">float</span> basevol, <span class="keywordtype">float</span> pitch, <span class="keywordtype">int</span> flags);
+<a name="l00049"></a>00049         <span class="keyword">virtual</span> <a class="code" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a0504224938afabead516eb26ac068820">playSound3D</a>(<span class="keyword">const</span> std::string &amp;fname, <span class="keyword">const</span> Ogre::Vector3 &amp;pos,
+<a name="l00050"></a>00050                                              <span class="keywordtype">float</span> vol, <span class="keywordtype">float</span> basevol, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> min, <span class="keywordtype">float</span> max, <span class="keywordtype">int</span> flags);
+<a name="l00051"></a>00051         <span class="keyword">virtual</span> <a class="code" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a655f8a7f18093df4cf51173bda6afa35">streamSound</a>(<a class="code" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> decoder, <span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">int</span> flags);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#abbe2abeda60072a5c8dc74a41b2dee77">updateListener</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;pos, <span class="keyword">const</span> Ogre::Vector3 &amp;atdir, <span class="keyword">const</span> Ogre::Vector3 &amp;updir, <a class="code" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> env);
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055         <a class="code" href="classMWSound_1_1OpenAL__Output.html#a9a820e4a48b3cc09151724e64dab0441">OpenAL_Output</a>(<a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;<a class="code" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>);
-<a name="l00056"></a>00056         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a3ba011185e3d38e4753433a69bda7d17">~OpenAL_Output</a>();
+<a name="l00055"></a>00055         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#ad6e52a78bdb477f2673dea0e4c624470">pauseSounds</a>(<span class="keywordtype">int</span> types);
+<a name="l00056"></a>00056         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a58888dd8892070f000c6dc21fc7e7309">resumeSounds</a>(<span class="keywordtype">int</span> types);
 <a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#aa30cc7220179f861bdced3caeb133578">00058</a>         <span class="keyword">class </span><a class="code" href="structMWSound_1_1OpenAL__Output_1_1StreamThread.html">StreamThread</a>;
-<a name="l00059"></a>00059         std::auto_ptr&lt;StreamThread&gt; <a class="code" href="classMWSound_1_1OpenAL__Output.html#aa30cc7220179f861bdced3caeb133578">mStreamThread</a>;
+<a name="l00058"></a>00058         <a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a>&amp; <a class="code" href="classMWSound_1_1OpenAL__Output.html#a5e1e83d4d2eccb2cd5acc1c3a22cb461">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;rhs);
+<a name="l00059"></a>00059         <a class="code" href="classMWSound_1_1OpenAL__Output.html#a9a820e4a48b3cc09151724e64dab0441">OpenAL_Output</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;rhs);
 <a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a21ab59c979295abcf18a4023fb5e1b56">00061</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Sound.html">OpenAL_Sound</a>;
-<a name="l00062"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a84c3ae6874af8ca0178562f20187ce37">00062</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Sound3D.html">OpenAL_Sound3D</a>;
-<a name="l00063"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#abab80fd63ec517bb7de5e31acb2d6c8b">00063</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__SoundStream.html">OpenAL_SoundStream</a>;
-<a name="l00064"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#aee940642f2974e262db9284c0b1d9766">00064</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
-<a name="l00065"></a>00065     };
-<a name="l00066"></a>00066 <span class="preprocessor">#ifndef DEFAULT_OUTPUT</span>
-<a name="l00067"></a>00067 <span class="preprocessor"></span><span class="preprocessor">#define DEFAULT_OUTPUT (::MWSound::OpenAL_Output)</span>
-<a name="l00068"></a>00068 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00069"></a>00069 <span class="preprocessor"></span>}
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071 <span class="preprocessor">#endif</span>
+<a name="l00061"></a>00061         <a class="code" href="classMWSound_1_1OpenAL__Output.html#a9a820e4a48b3cc09151724e64dab0441">OpenAL_Output</a>(<a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;<a class="code" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>);
+<a name="l00062"></a>00062         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1OpenAL__Output.html#a3ba011185e3d38e4753433a69bda7d17">~OpenAL_Output</a>();
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#aa30cc7220179f861bdced3caeb133578">00064</a>         <span class="keyword">class </span><a class="code" href="structMWSound_1_1OpenAL__Output_1_1StreamThread.html">StreamThread</a>;
+<a name="l00065"></a>00065         std::auto_ptr&lt;StreamThread&gt; <a class="code" href="classMWSound_1_1OpenAL__Output.html#aa30cc7220179f861bdced3caeb133578">mStreamThread</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a21ab59c979295abcf18a4023fb5e1b56">00067</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Sound.html">OpenAL_Sound</a>;
+<a name="l00068"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#a84c3ae6874af8ca0178562f20187ce37">00068</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Sound3D.html">OpenAL_Sound3D</a>;
+<a name="l00069"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#abab80fd63ec517bb7de5e31acb2d6c8b">00069</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__SoundStream.html">OpenAL_SoundStream</a>;
+<a name="l00070"></a><a class="code" href="classMWSound_1_1OpenAL__Output.html#aee940642f2974e262db9284c0b1d9766">00070</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
+<a name="l00071"></a>00071     };
+<a name="l00072"></a>00072 <span class="preprocessor">#ifndef DEFAULT_OUTPUT</span>
+<a name="l00073"></a>00073 <span class="preprocessor"></span><span class="preprocessor">#define DEFAULT_OUTPUT(x) ::MWSound::OpenAL_Output((x))</span>
+<a name="l00074"></a>00074 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00075"></a>00075 <span class="preprocessor"></span>}
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

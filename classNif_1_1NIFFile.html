@@ -62,10 +62,14 @@
 </div>
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a>  </div>
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">Nif::NIFFile Class Reference</div>  </div>
 </div><!--header-->
@@ -75,19 +79,28 @@
 
 <p><a href="classNif_1_1NIFFile-members.html">List of all members.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNif_1_1NIFFile_1_1CacheLock.html">CacheLock</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile_1_1LoadedCache.html">LoadedCache</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classNif_1_1NIFFile.html">NIFFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191">fail</a> (const std::string &amp;msg)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for error handling.  <a href="#a5866189e6fe1e24bcf1ea7a61a72b191"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">warn</a> (const std::string &amp;msg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a27f40acafb07c867405fdf5f59ebcad5">NIFFile</a> (const std::string &amp;name)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a NIF stream. The name is used for error messages.  <a href="#a27f40acafb07c867405fdf5f59ebcad5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a8357eec05956b077948148337b7b9e55">NIFFile</a> (const std::string &amp;name, <a class="el" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a NIF stream. The name is used for error messages.  <a href="#a8357eec05956b077948148337b7b9e55"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aa40f6972b2f75c8cd17a7052130644cf">~NIFFile</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNif_1_1Record.html">Record</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6b124e8975b3ae4869a94e3717a656f4">getRecord</a> (size_t index)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a given record.  <a href="#a6b124e8975b3ae4869a94e3717a656f4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a621e2ff4d52b8d92a2b1202a783214ff">numRecords</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of records.  <a href="#a621e2ff4d52b8d92a2b1202a783214ff"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a> (size_t <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e">numRecords</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of records.  <a href="#a6939793e6604f78cf926ab7cf915420e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a> (size_t size)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aee3b24e13c5e6c590eadb57986a32699">getChar</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6ef1d960a7e20c1f76a97417b266caec">getShort</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#ad8ff791452adc55d284b7dabb40fdc8a">getUShort</a> ()</td></tr>
@@ -101,23 +114,30 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNif_1_1Transformation.html">Transformation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a4567b8568706d9019b18f56c9ffda0b1">getTrafo</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aa2ac1ce26e521dc2f113e0c865a53660">getString</a> (size_t length)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#adfd86e41f54ca03aa7d91b48e0539bbb">getString</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aae0edb3dbd3f3baf392d87779c49504c">getShorts</a> (std::vector&lt; short &gt; &amp;vec, size_t <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a49860b679aa6f7142465bbfd1301cf5b">getFloats</a> (std::vector&lt; float &gt; &amp;vec, size_t <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a621feb5780e3dee74c8fa5071e889bbb">getVector2s</a> (std::vector&lt; Ogre::Vector2 &gt; &amp;vec, size_t <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a77899590fead72d60a1212c4d06b6e79">getVector3s</a> (std::vector&lt; Ogre::Vector3 &gt; &amp;vec, size_t <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a3760ffd6e90acf583fd5a2c2cae9d7eb">getVector4s</a> (std::vector&lt; Ogre::Vector4 &gt; &amp;vec, size_t <a class="el" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aae0edb3dbd3f3baf392d87779c49504c">getShorts</a> (std::vector&lt; short &gt; &amp;vec, size_t size)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a49860b679aa6f7142465bbfd1301cf5b">getFloats</a> (std::vector&lt; float &gt; &amp;vec, size_t size)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a621feb5780e3dee74c8fa5071e889bbb">getVector2s</a> (std::vector&lt; Ogre::Vector2 &gt; &amp;vec, size_t size)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a77899590fead72d60a1212c4d06b6e79">getVector3s</a> (std::vector&lt; Ogre::Vector3 &gt; &amp;vec, size_t size)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a3760ffd6e90acf583fd5a2c2cae9d7eb">getVector4s</a> (std::vector&lt; Ogre::Vector4 &gt; &amp;vec, size_t size)</td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6424fbe68637bf142eb10c623b4803a8">create</a> (const std::string &amp;name)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a5ab6333fe67d153ea0f7d3b0939757d8">lockCache</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#ad8c19dddf7977d90177a3b2bea3c89fd">unlockCache</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-types"></a>
 Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a5b4799d92f00e643a74535ab711c7aff">NIFVersion</a> { <a class="el" href="classNif_1_1NIFFile.html#a5b4799d92f00e643a74535ab711c7affad6f96c046440ed0cda7a51d2b116e215">VER_MW</a> =  0x04000002
  }</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a233fbc791e965e8910221db2167a58e3">parse</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse the file.  <a href="#a233fbc791e965e8910221db2167a58e3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a77f3211bde39d0c9595aee1156e4ea00">parse</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse the file.  <a href="#a77f3211bde39d0c9595aee1156e4ea00"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#af07b555f84adeda8a5ee7548b3cd14bf">read_byte</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#ab7b0384c059c1950607e3ed184e23580">read_le16</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a30536b9b1f0f0bbe20d4646098ba2e3a">read_le32</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a683b92e3b8d6fb99accb189632696a0f">read_le32f</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">NIFFile</a> (<a class="el" href="classNif_1_1NIFFile.html">NIFFile</a> const &amp;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a4ca9dfc030ee2b9500e35843b6ae9d50">operator=</a> (<a class="el" href="classNif_1_1NIFFile.html">NIFFile</a> const &amp;)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a54bd42e21f719cc2a6ab89436d2d47c9">ver</a></td></tr>
@@ -128,7 +148,24 @@ Private Attributes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File name, used for error messages.  <a href="#a76712f5d61681d69278015a1e0f8deee"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structNif_1_1Record.html">Record</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af">records</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> list.  <a href="#aab283f5cdaa552a9e367372cc0ae40af"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="friends"></a>
+Friends</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6c62eae5b37688466e5a275bc72bc165">LoadedCache</a></td></tr>
 </table>
+<hr/><h2>Member Typedef Documentation</h2>
+<a class="anchor" id="a60cdc89b7ccec6e73ffa44fcf6cc7e04"></a><!-- doxytag: member="Nif::NIFFile::ptr" ref="a60cdc89b7ccec6e73ffa44fcf6cc7e04" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::shared_ptr&lt;<a class="el" href="classNif_1_1NIFFile.html">NIFFile</a>&gt; <a class="el" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">Nif::NIFFile::ptr</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a5b4799d92f00e643a74535ab711c7aff"></a><!-- doxytag: member="Nif::NIFFile::NIFVersion" ref="a5b4799d92f00e643a74535ab711c7aff" args="" -->
 <div class="memitem">
@@ -150,16 +187,43 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a27f40acafb07c867405fdf5f59ebcad5"></a><!-- doxytag: member="Nif::NIFFile::NIFFile" ref="a27f40acafb07c867405fdf5f59ebcad5" args="(const std::string &amp;name)" -->
+<a class="anchor" id="ae008e78df1b545479d08e2dbde88d2da"></a><!-- doxytag: member="Nif::NIFFile::NIFFile" ref="ae008e78df1b545479d08e2dbde88d2da" args="(NIFFile const &amp;)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classNif_1_1NIFFile.html#a27f40acafb07c867405fdf5f59ebcad5">Nif::NIFFile::NIFFile</a> </td>
+          <td class="memname"><a class="el" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">Nif::NIFFile::NIFFile</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNif_1_1NIFFile.html">NIFFile</a> const &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8357eec05956b077948148337b7b9e55"></a><!-- doxytag: member="Nif::NIFFile::NIFFile" ref="a8357eec05956b077948148337b7b9e55" args="(const std::string &amp;name, psudo_private_modifier)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">Nif::NIFFile::NIFFile</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -177,7 +241,7 @@ Private Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classNif_1_1NIFFile.html#aa40f6972b2f75c8cd17a7052130644cf">Nif::NIFFile::~NIFFile</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -186,6 +250,23 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a6424fbe68637bf142eb10c623b4803a8"></a><!-- doxytag: member="Nif::NIFFile::create" ref="a6424fbe68637bf142eb10c623b4803a8" args="(const std::string &amp;name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">NIFFile::ptr</a> <a class="el" href="classNif_1_1NIFFile.html#a6424fbe68637bf142eb10c623b4803a8">Nif::NIFFile::create</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a5866189e6fe1e24bcf1ea7a61a72b191"></a><!-- doxytag: member="Nif::NIFFile::fail" ref="a5866189e6fe1e24bcf1ea7a61a72b191" args="(const std::string &amp;msg)" -->
 <div class="memitem">
 <div class="memproto">
@@ -568,12 +649,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a621e2ff4d52b8d92a2b1202a783214ff"></a><!-- doxytag: member="Nif::NIFFile::numRecords" ref="a621e2ff4d52b8d92a2b1202a783214ff" args="()" -->
+<a class="anchor" id="a5ab6333fe67d153ea0f7d3b0939757d8"></a><!-- doxytag: member="Nif::NIFFile::lockCache" ref="a5ab6333fe67d153ea0f7d3b0939757d8" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classNif_1_1NIFFile.html#a621e2ff4d52b8d92a2b1202a783214ff">Nif::NIFFile::numRecords</a> </td>
+          <td class="memname">void <a class="el" href="classNif_1_1NIFFile.html#a5ab6333fe67d153ea0f7d3b0939757d8">Nif::NIFFile::lockCache</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6939793e6604f78cf926ab7cf915420e"></a><!-- doxytag: member="Nif::NIFFile::numRecords" ref="a6939793e6604f78cf926ab7cf915420e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e">Nif::NIFFile::numRecords</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline]</code></td>
@@ -586,12 +683,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a233fbc791e965e8910221db2167a58e3"></a><!-- doxytag: member="Nif::NIFFile::parse" ref="a233fbc791e965e8910221db2167a58e3" args="()" -->
+<a class="anchor" id="a4ca9dfc030ee2b9500e35843b6ae9d50"></a><!-- doxytag: member="Nif::NIFFile::operator=" ref="a4ca9dfc030ee2b9500e35843b6ae9d50" args="(NIFFile const &amp;)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classNif_1_1NIFFile.html#a233fbc791e965e8910221db2167a58e3">NIFFile::parse</a> </td>
+          <td class="memname">void Nif::NIFFile::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNif_1_1NIFFile.html">NIFFile</a> const &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a77f3211bde39d0c9595aee1156e4ea00"></a><!-- doxytag: member="Nif::NIFFile::parse" ref="a77f3211bde39d0c9595aee1156e4ea00" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classNif_1_1NIFFile.html#a77f3211bde39d0c9595aee1156e4ea00">Nif::NIFFile::parse</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [private]</code></td>
@@ -685,6 +799,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad8c19dddf7977d90177a3b2bea3c89fd"></a><!-- doxytag: member="Nif::NIFFile::unlockCache" ref="ad8c19dddf7977d90177a3b2bea3c89fd" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classNif_1_1NIFFile.html#ad8c19dddf7977d90177a3b2bea3c89fd">Nif::NIFFile::unlockCache</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="abd7ec2e1e5aa286c5aeb6df12a9b6996"></a><!-- doxytag: member="Nif::NIFFile::warn" ref="abd7ec2e1e5aa286c5aeb6df12a9b6996" args="(const std::string &amp;msg)" -->
 <div class="memitem">
 <div class="memproto">
@@ -695,6 +825,20 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Friends And Related Function Documentation</h2>
+<a class="anchor" id="a6c62eae5b37688466e5a275bc72bc165"></a><!-- doxytag: member="Nif::NIFFile::LoadedCache" ref="a6c62eae5b37688466e5a275bc72bc165" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classNif_1_1NIFFile_1_1LoadedCache.html">LoadedCache</a><code> [friend]</code></td>
         </tr>
       </table>
 </div>
@@ -771,7 +915,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

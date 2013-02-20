@@ -66,7 +66,7 @@
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="records_8hpp.html">components/esm/records.hpp</a>&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="store_8hpp.html">store.hpp</a>&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWWorld 
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWWorld
 <a name="l00010"></a>00010 {
 <a name="l00011"></a><a class="code" href="classMWWorld_1_1ESMStore.html">00011</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1ESMStore.html">ESMStore</a>
 <a name="l00012"></a>00012     {
@@ -217,7 +217,7 @@
 <a name="l00158"></a>00158             std::ostringstream id;
 <a name="l00159"></a>00159             <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;$dynamic&quot;</span> &lt;&lt; <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>++;
 <a name="l00160"></a>00160             record.mId = <span class="keywordtype">id</span>.str();
-<a name="l00161"></a>00161             
+<a name="l00161"></a>00161 
 <a name="l00162"></a>00162             T *ptr = store.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(record);
 <a name="l00163"></a>00163             <span class="keywordflow">for</span> (<a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it) {
 <a name="l00164"></a>00164                 <span class="keywordflow">if</span> (it-&gt;second == &amp;store) {
@@ -238,7 +238,7 @@
 <a name="l00179"></a>00179 
 <a name="l00180"></a>00180     <span class="keyword">template</span> &lt;&gt;
 <a name="l00181"></a><a class="code" href="namespaceMWWorld.html#ac21fe147b1ac60b4d6809f7fdb89da07">00181</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *ESMStore::insert&lt;ESM::NPC&gt;(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> &amp;npc) {
-<a name="l00182"></a>00182         <span class="keywordflow">if</span> (<a class="code" href="classMWWorld_1_1StringUtils.html#a1ea0bebb7704031a0ad4b5cdb50ba01a">StringUtils::ciEqual</a>(npc.mId, <span class="stringliteral">&quot;player&quot;</span>)) {
+<a name="l00182"></a>00182         <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(npc.mId, <span class="stringliteral">&quot;player&quot;</span>)) {
 <a name="l00183"></a>00183             <span class="keywordflow">return</span> mNpcs.insert(npc);
 <a name="l00184"></a>00184         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mNpcs.search(npc.mId) != 0) {
 <a name="l00185"></a>00185             std::ostringstream msg;
@@ -250,7 +250,7 @@
 <a name="l00191"></a>00191         std::ostringstream id;
 <a name="l00192"></a>00192         <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;$dynamic&quot;</span> &lt;&lt; mDynamicCount++;
 <a name="l00193"></a>00193         record.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a> = <span class="keywordtype">id</span>.str();
-<a name="l00194"></a>00194             
+<a name="l00194"></a>00194 
 <a name="l00195"></a>00195         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *ptr = mNpcs.insert(record);
 <a name="l00196"></a>00196         mIds[ptr-&gt;<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a>] = <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">ESM::REC_NPC_</a>;
 <a name="l00197"></a>00197         <span class="keywordflow">return</span> ptr;
@@ -487,7 +487,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

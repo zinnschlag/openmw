@@ -109,44 +109,74 @@
 <a name="l00049"></a>00049 
 <a name="l00050"></a>00050             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#a95b2a7958932bf94e093edcac2a642f9">setGlobalFloat</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value) = 0;
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classInterpreter_1_1Context.html#a818c2e14385d2640f27861341e7c5ea4">isScriptRunning</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#aea2e1f748464c7c8842fa1cb4b9cb72a">startScript</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
+<a name="l00052"></a>00052             <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classInterpreter_1_1Context.html#afee2314ecbec756143285c4002cb4c21">getGlobals</a> () <span class="keyword">const</span> = 0;
+<a name="l00053"></a>00053             
+<a name="l00054"></a>00054             <span class="keyword">virtual</span> <span class="keywordtype">char</span> <a class="code" href="classInterpreter_1_1Context.html#a4611cd26308038bcd7244df54f9ad5ee">getGlobalType</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#a34f0e4289ce1a61bd10e559381658766">stopScript</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Context.html#a638a9cfd1c57368cf8a0e7714d443454">getDistance</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span>
-<a name="l00059"></a>00059                  = 0;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Context.html#a68fbf17440e2a56c41d80a5e7b4cee83">getSecondsPassed</a>() <span class="keyword">const</span> = 0;
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classInterpreter_1_1Context.html#a2adbd6ea00bc1e3bd2f88aa3ffdf9efa">isDisabled</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span> = 0;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#ac01c1e9f4fdbca7241a85a1ea642f826">enable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) = 0;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#a8cc40ba02b8db00ebe52295380220ca8">disable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) = 0;
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Context.html#ad871ba71120d961b9db8acf0f3530818">getMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Context.html#adc1918cc7965f07eed6c1706f4b72ce4">getMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Context.html#ae0357181dd0787d13c0e79c1f5a7c3d9">getMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#ab273af10b562bdb667d587f861c81df8">setMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value) = 0;
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#aedea9c2ab0a6cf738b02982dc7048e54">setMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value) = 0;
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#ae034cf8fbcc1c803584e2f1bd1d40a86">setMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value)
-<a name="l00080"></a>00080                 = 0;
-<a name="l00081"></a>00081     };
-<a name="l00082"></a>00082 }
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#aa3cf20fdb2e3f8b80ff8bb7084fa3e1e">getActionBinding</a>(<span class="keyword">const</span> std::string&amp; action) <span class="keyword">const</span> = 0;
+<a name="l00057"></a>00057             
+<a name="l00058"></a>00058             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#ad0cccf27acc82f6b8625cda7f6f32e69">getNPCName</a>() <span class="keyword">const</span> = 0;
+<a name="l00059"></a>00059             
+<a name="l00060"></a>00060             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#a2cf9b83ea2ba708103addfb03b63dd1b">getNPCRace</a>() <span class="keyword">const</span> = 0;
+<a name="l00061"></a>00061             
+<a name="l00062"></a>00062             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#a39270b64b659ea7f5ebed79ec78979e9">getNPCClass</a>() <span class="keyword">const</span> = 0;
+<a name="l00063"></a>00063             
+<a name="l00064"></a>00064             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#acd0cb878baa57d76f40a008c21797b6a">getNPCFaction</a>() <span class="keyword">const</span> = 0;
+<a name="l00065"></a>00065             
+<a name="l00066"></a>00066             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#aab41d1a4a5b0145bde843f68fc5b216c">getNPCRank</a>() <span class="keyword">const</span> = 0;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#ae399ec62ac6d30a171ae4245d647cc80">getPCName</a>() <span class="keyword">const</span> = 0;
+<a name="l00069"></a>00069             
+<a name="l00070"></a>00070             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#a6cfc1936fd0a71d1b4f327598c7e9132">getPCRace</a>() <span class="keyword">const</span> = 0;
+<a name="l00071"></a>00071             
+<a name="l00072"></a>00072             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#ae2fba5906266d36a940443b8a6fcda12">getPCClass</a>() <span class="keyword">const</span> = 0;
+<a name="l00073"></a>00073             
+<a name="l00074"></a>00074             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#ad39588e00a69760c8fd622da30225faf">getPCRank</a>() <span class="keyword">const</span> = 0;
+<a name="l00075"></a>00075             
+<a name="l00076"></a>00076             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#aafb6220c923f72f079e8ae7b92c0d0d5">getPCNextRank</a>() <span class="keyword">const</span> = 0;
+<a name="l00077"></a>00077             
+<a name="l00078"></a>00078             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Context.html#a9ea6fedb391d259a23eb4d57c14b4600">getPCBounty</a>() <span class="keyword">const</span> = 0;
+<a name="l00079"></a>00079             
+<a name="l00080"></a>00080             <span class="keyword">virtual</span> std::string <a class="code" href="classInterpreter_1_1Context.html#a9a92e29c7e40abf076b3ad0d77a8eac0">getCurrentCellName</a>() <span class="keyword">const</span> = 0;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classInterpreter_1_1Context.html#a818c2e14385d2640f27861341e7c5ea4">isScriptRunning</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084 <span class="preprocessor">#endif</span>
+<a name="l00084"></a>00084             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#aea2e1f748464c7c8842fa1cb4b9cb72a">startScript</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#a34f0e4289ce1a61bd10e559381658766">stopScript</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Context.html#a638a9cfd1c57368cf8a0e7714d443454">getDistance</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span>
+<a name="l00089"></a>00089                  = 0;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Context.html#a68fbf17440e2a56c41d80a5e7b4cee83">getSecondsPassed</a>() <span class="keyword">const</span> = 0;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classInterpreter_1_1Context.html#a2adbd6ea00bc1e3bd2f88aa3ffdf9efa">isDisabled</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span> = 0;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#ac01c1e9f4fdbca7241a85a1ea642f826">enable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) = 0;
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#a8cc40ba02b8db00ebe52295380220ca8">disable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) = 0;
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Context.html#ad871ba71120d961b9db8acf0f3530818">getMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classInterpreter_1_1Context.html#adc1918cc7965f07eed6c1706f4b72ce4">getMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classInterpreter_1_1Context.html#ae0357181dd0787d13c0e79c1f5a7c3d9">getMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span> = 0;
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#ab273af10b562bdb667d587f861c81df8">setMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value) = 0;
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#aedea9c2ab0a6cf738b02982dc7048e54">setMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value) = 0;
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classInterpreter_1_1Context.html#ae034cf8fbcc1c803584e2f1bd1d40a86">setMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value)
+<a name="l00110"></a>00110                 = 0;
+<a name="l00111"></a>00111     };
+<a name="l00112"></a>00112 }
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

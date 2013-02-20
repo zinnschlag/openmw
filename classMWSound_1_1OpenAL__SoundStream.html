@@ -65,7 +65,8 @@
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <div class="title">MWSound::OpenAL_SoundStream Class Reference</div>  </div>
 </div><!--header-->
@@ -75,15 +76,17 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a394b5ea33fa7b9dca7c1dcde1dfeefc2">OpenAL_SoundStream</a> (<a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;<a class="el" href="to__utf8_8cpp.html#aab6e7d894410ef19f19fa9d4ae362158">output</a>, ALuint src, <a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> decoder)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a3e847379bfaa222253655989b8e7d3d8">OpenAL_SoundStream</a> (<a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;output, ALuint src, <a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> decoder, float basevol, float pitch, int flags)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#af3c769b4ea4561c1d8a809969107651e">~OpenAL_SoundStream</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a72fb348232b535098ef799f949de89e4">stop</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#aef890e8afacba4d22df2090a0b47d10b">isPlaying</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a815df51fd973fabb2629e45ad96479e7">getTimeOffset</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a31690fab5748d8b33c5005f631c276e7">update</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a540b5e7f7b73228ec072400df783b097">play</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#aa6a583c16e2c05619a5724dd38163266">process</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#aa9634ec11491b44a5b6aeb6850e36351">updateAll</a> (bool local)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#ad9c0b570511c215fea59bfdeb27ca4d8">OpenAL_SoundStream</a> (const <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html">OpenAL_SoundStream</a> &amp;rhs)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html">OpenAL_SoundStream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#ad133fa3ceafa95012bdb9a817ab595b4">operator=</a> (const <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html">OpenAL_SoundStream</a> &amp;rhs)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
@@ -94,12 +97,16 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ALenum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a9fddbcacc3ba7c6d19e1084af684bf67">mFormat</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ALsizei&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#aca597b4b3a68d9f289b855f5e813f6f2">mSampleRate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ALuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a286b0511b70150dbf5d7c5e29bbaffc8">mBufferSize</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">ALuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#ac431db799c396e13eb70aff3fb72ee84">mSamplesQueued</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#ad44a8a57648202ee660a3db1612c55c6">mDecoder</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#aaa1cf79e7e6b13221274d0270faddbd7">mIsFinished</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const ALuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a6be5324d99af1d1d3000b43f2c6dabe6">sNumBuffers</a> = 6</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const ALfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#ad79648f8c60e862169fb9c78bfadaaa0">sBufferLength</a> = 0.125f</td></tr>
+<tr><td colspan="2"><h2><a name="friends"></a>
+Friends</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a6b4229294eca41f1ffb09c11f02ed116">OpenAL_Output</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad9c0b570511c215fea59bfdeb27ca4d8"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::OpenAL_SoundStream" ref="ad9c0b570511c215fea59bfdeb27ca4d8" args="(const OpenAL_SoundStream &amp;rhs)" -->
@@ -119,7 +126,7 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a394b5ea33fa7b9dca7c1dcde1dfeefc2"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::OpenAL_SoundStream" ref="a394b5ea33fa7b9dca7c1dcde1dfeefc2" args="(OpenAL_Output &amp;output, ALuint src, DecoderPtr decoder)" -->
+<a class="anchor" id="a3e847379bfaa222253655989b8e7d3d8"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::OpenAL_SoundStream" ref="a3e847379bfaa222253655989b8e7d3d8" args="(OpenAL_Output &amp;output, ALuint src, DecoderPtr decoder, float basevol, float pitch, int flags)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -139,7 +146,25 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a>&#160;</td>
-          <td class="paramname"><em>decoder</em>&#160;</td>
+          <td class="paramname"><em>decoder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>basevol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>pitch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -169,6 +194,24 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a815df51fd973fabb2629e45ad96479e7"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::getTimeOffset" ref="a815df51fd973fabb2629e45ad96479e7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a815df51fd973fabb2629e45ad96479e7">MWSound::OpenAL_SoundStream::getTimeOffset</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classMWSound_1_1Sound.html#af0c65308feea169d7744a8321ac41edb">MWSound::Sound</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aef890e8afacba4d22df2090a0b47d10b"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::isPlaying" ref="aef890e8afacba4d22df2090a0b47d10b" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -272,6 +315,39 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa9634ec11491b44a5b6aeb6850e36351"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::updateAll" ref="aa9634ec11491b44a5b6aeb6850e36351" args="(bool local)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#aa9634ec11491b44a5b6aeb6850e36351">MWSound::OpenAL_SoundStream::updateAll</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>local</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Friends And Related Function Documentation</h2>
+<a class="anchor" id="a6b4229294eca41f1ffb09c11f02ed116"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::OpenAL_Output" ref="a6b4229294eca41f1ffb09c11f02ed116" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a><code> [friend]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWSound_1_1Sound.html#a6b4229294eca41f1ffb09c11f02ed116">MWSound::Sound</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a3aeefb6599221cb5eeda0671fa71e28b"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::mBuffers" ref="a3aeefb6599221cb5eeda0671fa71e28b" args="[sNumBuffers]" -->
 <div class="memitem">
@@ -364,6 +440,19 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac431db799c396e13eb70aff3fb72ee84"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::mSamplesQueued" ref="ac431db799c396e13eb70aff3fb72ee84" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ALuint <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#ac431db799c396e13eb70aff3fb72ee84">MWSound::OpenAL_SoundStream::mSamplesQueued</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a753dbcd1154a90673ee4ed4f449c8e39"></a><!-- doxytag: member="MWSound::OpenAL_SoundStream::mSource" ref="a753dbcd1154a90673ee4ed4f449c8e39" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -410,7 +499,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

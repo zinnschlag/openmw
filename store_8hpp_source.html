@@ -165,12 +165,12 @@
 <a name="l00105"></a>00105 
 <a name="l00106"></a><a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">00106</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
 <a name="l00107"></a>00107             T item;
-<a name="l00108"></a>00108             item.<a class="code" href="structESM_1_1Activator.html#a0f74b021c08f7703df11af11a76871c6">mId</a> = <a class="code" href="classMWWorld_1_1StringUtils.html#ac45f2f83d178039d3ac0c5c13b118d79" title="Returns lower case copy of input string.">StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
+<a name="l00108"></a>00108             item.<a class="code" href="structESM_1_1Activator.html#a0f74b021c08f7703df11af11a76871c6">mId</a> = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
 <a name="l00109"></a>00109 
 <a name="l00110"></a>00110             <span class="keyword">typename</span> std::vector&lt;T&gt;::const_iterator it =
 <a name="l00111"></a>00111                 std::lower_bound(<a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.begin(), <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.end(), item, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
 <a name="l00112"></a>00112 
-<a name="l00113"></a>00113             <span class="keywordflow">if</span> (it != <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.end() &amp;&amp; <a class="code" href="classMWWorld_1_1StringUtils.html#a1ea0bebb7704031a0ad4b5cdb50ba01a">StringUtils::ciEqual</a>(it-&gt;mId, <span class="keywordtype">id</span>)) {
+<a name="l00113"></a>00113             <span class="keywordflow">if</span> (it != <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.end() &amp;&amp; <a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(it-&gt;mId, <span class="keywordtype">id</span>)) {
 <a name="l00114"></a>00114                 <span class="keywordflow">return</span> &amp;(*it);
 <a name="l00115"></a>00115             }
 <a name="l00116"></a>00116 
@@ -194,7 +194,7 @@
 <a name="l00134"></a>00134 
 <a name="l00135"></a><a class="code" href="classMWWorld_1_1Store.html#a7789a2c4a2a851fc83bc987f5c3327a1">00135</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store.html#a7789a2c4a2a851fc83bc987f5c3327a1">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
 <a name="l00136"></a>00136             <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.push_back(T());
-<a name="l00137"></a>00137             <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.back().mId = <a class="code" href="classMWWorld_1_1StringUtils.html#ac45f2f83d178039d3ac0c5c13b118d79" title="Returns lower case copy of input string.">StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
+<a name="l00137"></a>00137             <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.back().mId = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
 <a name="l00138"></a>00138             <a class="code" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a>.back().load(esm);
 <a name="l00139"></a>00139         }
 <a name="l00140"></a>00140 
@@ -229,7 +229,7 @@
 <a name="l00169"></a>00169         }
 <a name="l00170"></a>00170 
 <a name="l00171"></a><a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">00171</a>         T *<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(<span class="keyword">const</span> T &amp;item) {
-<a name="l00172"></a>00172             std::string <span class="keywordtype">id</span> = <a class="code" href="classMWWorld_1_1StringUtils.html#ac45f2f83d178039d3ac0c5c13b118d79" title="Returns lower case copy of input string.">StringUtils::lowerCase</a>(item.mId);
+<a name="l00172"></a>00172             std::string <span class="keywordtype">id</span> = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(item.mId);
 <a name="l00173"></a>00173             std::pair&lt;typename Dynamic::iterator, bool&gt; result =
 <a name="l00174"></a>00174                 <a class="code" href="classMWWorld_1_1Store.html#adf1ee2fc4ac57cfd1874a832e2ba33a3">mDynamic</a>.insert(std::pair&lt;std::string, T&gt;(<span class="keywordtype">id</span>, item));
 <a name="l00175"></a>00175             T *ptr = &amp;result.first-&gt;second;
@@ -242,7 +242,7 @@
 <a name="l00182"></a>00182         }
 <a name="l00183"></a>00183 
 <a name="l00184"></a><a class="code" href="classMWWorld_1_1Store.html#aeaced64393d3ff47f9205298bdc5fd62">00184</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store.html#aeaced64393d3ff47f9205298bdc5fd62">erase</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
-<a name="l00185"></a>00185             std::string key = <a class="code" href="classMWWorld_1_1StringUtils.html#ac45f2f83d178039d3ac0c5c13b118d79" title="Returns lower case copy of input string.">StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
+<a name="l00185"></a>00185             std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
 <a name="l00186"></a>00186             <span class="keyword">typename</span> Dynamic::iterator it = <a class="code" href="classMWWorld_1_1Store.html#adf1ee2fc4ac57cfd1874a832e2ba33a3">mDynamic</a>.find(key);
 <a name="l00187"></a>00187             <span class="keywordflow">if</span> (it == <a class="code" href="classMWWorld_1_1Store.html#adf1ee2fc4ac57cfd1874a832e2ba33a3">mDynamic</a>.end()) {
 <a name="l00188"></a>00188                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
@@ -273,7 +273,7 @@
 <a name="l00213"></a><a class="code" href="classMWWorld_1_1Store.html#a79f3c25751e349c7217a83792ec7cfe6">00213</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="esmtool_8cpp.html#ac99c5aa1e9babf153d159744c70347d1">Store&lt;ESM::Script&gt;::load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
 <a name="l00214"></a>00214         mStatic.push_back(<a class="code" href="classESM_1_1Script.html">ESM::Script</a>());
 <a name="l00215"></a>00215         mStatic.back().load(esm);
-<a name="l00216"></a>00216         <a class="code" href="namespaceanonymous__namespace_02dialoguemanagerimp_8cpp_03.html#a2b117c93f0f2af8d04a7e99e0990b2c0">StringUtils::toLower</a>(mStatic.back().mId);
+<a name="l00216"></a>00216         <a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2" title="Transforms input string to lower case w/o copy.">Misc::StringUtils::toLower</a>(mStatic.back().mId);
 <a name="l00217"></a>00217     }
 <a name="l00218"></a>00218 
 <a name="l00219"></a>00219     <span class="keyword">template</span> &lt;&gt;
@@ -445,12 +445,12 @@
 <a name="l00385"></a>00385 
 <a name="l00386"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a491c2e45f6b01dcf50e9b0bb1d333708">00386</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a491c2e45f6b01dcf50e9b0bb1d333708">search</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
 <a name="l00387"></a>00387             <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> cell;
-<a name="l00388"></a>00388             cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a> = StringUtils::lowerCase(<span class="keywordtype">id</span>);
+<a name="l00388"></a>00388             cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a> = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
 <a name="l00389"></a>00389 
 <a name="l00390"></a>00390             std::vector&lt;ESM::Cell&gt;::const_iterator it =
 <a name="l00391"></a>00391                 std::lower_bound(mInt.begin(), mInt.end(), cell, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
 <a name="l00392"></a>00392 
-<a name="l00393"></a>00393             <span class="keywordflow">if</span> (it != mInt.end() &amp;&amp; StringUtils::ciEqual(it-&gt;mName, <span class="keywordtype">id</span>)) {
+<a name="l00393"></a>00393             <span class="keywordflow">if</span> (it != mInt.end() &amp;&amp; <a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(it-&gt;mName, <span class="keywordtype">id</span>)) {
 <a name="l00394"></a>00394                 <span class="keywordflow">return</span> &amp;(*it);
 <a name="l00395"></a>00395             }
 <a name="l00396"></a>00396 
@@ -549,7 +549,7 @@
 <a name="l00490"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a6b0e61d781b6b38261e024d56ba1fc52">00490</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a6b0e61d781b6b38261e024d56ba1fc52">searchExtByName</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
 <a name="l00491"></a>00491             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedExt.begin();
 <a name="l00492"></a>00492             <span class="keywordflow">for</span> (; it != mSharedExt.end(); ++it) {
-<a name="l00493"></a>00493                 <span class="keywordflow">if</span> (StringUtils::ciEqual((*it)-&gt;mName, <span class="keywordtype">id</span>)) {
+<a name="l00493"></a>00493                 <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>((*it)-&gt;mName, <span class="keywordtype">id</span>)) {
 <a name="l00494"></a>00494                     <span class="keywordflow">return</span> *it;
 <a name="l00495"></a>00495                 }
 <a name="l00496"></a>00496             }
@@ -559,7 +559,7 @@
 <a name="l00501"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a158d78c3a1067ae469cf2e6fe0e640d7">00501</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a158d78c3a1067ae469cf2e6fe0e640d7">searchExtByRegion</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
 <a name="l00502"></a>00502             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedExt.begin();
 <a name="l00503"></a>00503             <span class="keywordflow">for</span> (; it != mSharedExt.end(); ++it) {
-<a name="l00504"></a>00504                 <span class="keywordflow">if</span> (StringUtils::ciEqual((*it)-&gt;mRegion, <span class="keywordtype">id</span>)) {
+<a name="l00504"></a>00504                 <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>((*it)-&gt;mRegion, <span class="keywordtype">id</span>)) {
 <a name="l00505"></a>00505                     <span class="keywordflow">return</span> *it;
 <a name="l00506"></a>00506                 }
 <a name="l00507"></a>00507             }
@@ -599,7 +599,7 @@
 <a name="l00541"></a>00541                 ptr = &amp;result.first-&gt;second;
 <a name="l00542"></a>00542                 mSharedExt.push_back(ptr);
 <a name="l00543"></a>00543             } <span class="keywordflow">else</span> {
-<a name="l00544"></a>00544                 std::string key = StringUtils::lowerCase(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
+<a name="l00544"></a>00544                 std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
 <a name="l00545"></a>00545 
 <a name="l00546"></a>00546                 <span class="comment">// duplicate insertions are avoided by search(ESM::Cell &amp;)</span>
 <a name="l00547"></a>00547                 std::pair&lt;DynamicInt::iterator, bool&gt; result =
@@ -619,7 +619,7 @@
 <a name="l00561"></a>00561         }
 <a name="l00562"></a>00562 
 <a name="l00563"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#affe56ecedbfb26bbc3206cd3c7040e9f">00563</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#affe56ecedbfb26bbc3206cd3c7040e9f">erase</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
-<a name="l00564"></a>00564             std::string key = StringUtils::lowerCase(<span class="keywordtype">id</span>);
+<a name="l00564"></a>00564             std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
 <a name="l00565"></a>00565             DynamicInt::iterator it = mDynamicInt.find(key);
 <a name="l00566"></a>00566 
 <a name="l00567"></a>00567             <span class="keywordflow">if</span> (it == mDynamicInt.end()) {
@@ -749,7 +749,7 @@
 <a name="l00691"></a>00691             pg.<a class="code" href="structESM_1_1Pathgrid.html#afb5d4bb0796240396597758d146f63fb">mCell</a> = name;
 <a name="l00692"></a>00692 
 <a name="l00693"></a>00693             <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> it = std::lower_bound(mIntBegin, mIntEnd, pg, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
-<a name="l00694"></a>00694             <span class="keywordflow">if</span> (it != mIntEnd &amp;&amp; StringUtils::ciEqual(it-&gt;mCell, name)) {
+<a name="l00694"></a>00694             <span class="keywordflow">if</span> (it != mIntEnd &amp;&amp; <a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(it-&gt;mCell, name)) {
 <a name="l00695"></a>00695                 <span class="keywordflow">return</span> &amp;(*it);
 <a name="l00696"></a>00696             }
 <a name="l00697"></a>00697             <span class="keywordflow">return</span> 0;
@@ -821,7 +821,7 @@
 <a name="l00763"></a>00763 
 <a name="l00764"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#ab3bda90f686748184abb83da38a9ccf3">00764</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#ab3bda90f686748184abb83da38a9ccf3">IndexedStore</a>() {}
 <a name="l00765"></a>00765 
-<a name="l00766"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">00766</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">IndexedStore</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>) {
+<a name="l00766"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">00766</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">IndexedStore</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size) {
 <a name="l00767"></a>00767             mStatic.reserve(size);
 <a name="l00768"></a>00768         }
 <a name="l00769"></a>00769 
@@ -873,7 +873,7 @@
 <a name="l00816"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">00816</a>     <span class="keyword">struct </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Skill&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Skill&gt;
 <a name="l00817"></a>00817     {
 <a name="l00818"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#a09d72893aca5f8974b451e36a95319bb">00818</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#a09d72893aca5f8974b451e36a95319bb">Store</a>() {}
-<a name="l00819"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#aa46f921e17c628dd6c6790b6d40780ad">00819</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
+<a name="l00819"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#aa46f921e17c628dd6c6790b6d40780ad">00819</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size)
 <a name="l00820"></a>00820           : <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Skill&gt;(size)
 <a name="l00821"></a>00821         {}
 <a name="l00822"></a>00822     };
@@ -882,7 +882,7 @@
 <a name="l00825"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">00825</a>     <span class="keyword">struct </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::MagicEffect&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::MagicEffect&gt;
 <a name="l00826"></a>00826     {
 <a name="l00827"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a2fee5455000ac89c80b2c2ec82b3be26">00827</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a2fee5455000ac89c80b2c2ec82b3be26">Store</a>() {}
-<a name="l00828"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a3eb832d6a85b7f8d6cfa81efa3e40bd6">00828</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="to__utf8_8cpp.html#a439227feff9d7f55384e8780cfc2eb82">size</a>)
+<a name="l00828"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a3eb832d6a85b7f8d6cfa81efa3e40bd6">00828</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size)
 <a name="l00829"></a>00829           : <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::MagicEffect&gt;(size)
 <a name="l00830"></a>00830         {}
 <a name="l00831"></a>00831     };
@@ -948,7 +948,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -94,32 +94,34 @@
 <a name="l00034"></a>00034         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#ab69020227a20ac068a22c1956294910a">open</a>(<span class="keyword">const</span> std::string &amp;fname);
 <a name="l00035"></a>00035         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a8a125f6c594fc449afbb20255c25f15d">close</a>();
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a8bf8a7c24e3894b2dccda598152a3977">getInfo</a>(<span class="keywordtype">int</span> *samplerate, <a class="code" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> *chans, <a class="code" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> *type);
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a7bb87965fd5c62649b4fbf94c1c1046a">read</a>(<span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> bytes);
-<a name="l00040"></a>00040         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a6495e519f1e9d36234ed2e79b847e475">readAll</a>(std::vector&lt;char&gt; &amp;<a class="code" href="to__utf8_8cpp.html#aab6e7d894410ef19f19fa9d4ae362158">output</a>);
-<a name="l00041"></a>00041         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#ac9597240c00b69a50f92cf41e8628230">rewind</a>();
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043         <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a>&amp; <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a8ff137d016103ee6e2c1551a3a30c4d0">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a> &amp;rhs);
-<a name="l00044"></a>00044         <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#aa7701964f263d7b117ad4af7c1c7f55a">MpgSnd_Decoder</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a> &amp;rhs);
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046         <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#aa7701964f263d7b117ad4af7c1c7f55a">MpgSnd_Decoder</a>();
-<a name="l00047"></a>00047     <span class="keyword">public</span>:
-<a name="l00048"></a>00048         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a5437acaebdb7d10635a6cf20420b741a">~MpgSnd_Decoder</a>();
-<a name="l00049"></a>00049 
-<a name="l00050"></a><a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#aee940642f2974e262db9284c0b1d9766">00050</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
-<a name="l00051"></a>00051     };
-<a name="l00052"></a>00052 <span class="preprocessor">#ifndef DEFAULT_DECODER</span>
-<a name="l00053"></a><a class="code" href="mpgsnd__decoder_8hpp.html#af0d7b03d4657a88205082c0bcdeebaf6">00053</a> <span class="preprocessor"></span><span class="preprocessor">#define DEFAULT_DECODER (::MWSound::MpgSnd_Decoder)</span>
-<a name="l00054"></a>00054 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00055"></a>00055 <span class="preprocessor"></span>}
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057 <span class="preprocessor">#endif</span>
+<a name="l00037"></a>00037         <span class="keyword">virtual</span> std::string <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a6ea9603fed8fd914ba1aef9bd0ab9b27">getName</a>();
+<a name="l00038"></a>00038         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a8bf8a7c24e3894b2dccda598152a3977">getInfo</a>(<span class="keywordtype">int</span> *samplerate, <a class="code" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> *chans, <a class="code" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> *type);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a7bb87965fd5c62649b4fbf94c1c1046a">read</a>(<span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> bytes);
+<a name="l00041"></a>00041         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a6495e519f1e9d36234ed2e79b847e475">readAll</a>(std::vector&lt;char&gt; &amp;output);
+<a name="l00042"></a>00042         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#ac9597240c00b69a50f92cf41e8628230">rewind</a>();
+<a name="l00043"></a>00043         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a20d85f6645035953a0e7ea402c7054d5">getSampleOffset</a>();
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045         <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a>&amp; <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a8ff137d016103ee6e2c1551a3a30c4d0">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a> &amp;rhs);
+<a name="l00046"></a>00046         <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#aa7701964f263d7b117ad4af7c1c7f55a">MpgSnd_Decoder</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html">MpgSnd_Decoder</a> &amp;rhs);
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#aa7701964f263d7b117ad4af7c1c7f55a">MpgSnd_Decoder</a>();
+<a name="l00049"></a>00049     <span class="keyword">public</span>:
+<a name="l00050"></a>00050         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#a5437acaebdb7d10635a6cf20420b741a">~MpgSnd_Decoder</a>();
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classMWSound_1_1MpgSnd__Decoder.html#aee940642f2974e262db9284c0b1d9766">00052</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
+<a name="l00053"></a>00053     };
+<a name="l00054"></a>00054 <span class="preprocessor">#ifndef DEFAULT_DECODER</span>
+<a name="l00055"></a><a class="code" href="mpgsnd__decoder_8hpp.html#af0d7b03d4657a88205082c0bcdeebaf6">00055</a> <span class="preprocessor"></span><span class="preprocessor">#define DEFAULT_DECODER (::MWSound::MpgSnd_Decoder)</span>
+<a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00057"></a>00057 <span class="preprocessor"></span>}
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

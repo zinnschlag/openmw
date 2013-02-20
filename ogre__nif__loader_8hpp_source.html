@@ -90,73 +90,56 @@
 <a name="l00030"></a>00030 
 <a name="l00031"></a>00031 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00032"></a>00032 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00033"></a>00033 <span class="preprocessor">#include &lt;cassert&gt;</span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;boost/algorithm/string.hpp&gt;</span>
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;../nif/node.hpp&quot;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;<a class="code" href="strings_8h.html">libs/platform/strings.h</a>&gt;</span>
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="keyword">class </span><a class="code" href="classBoundsFinder.html">BoundsFinder</a>;
-<a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="structciLessBoost.html">00042</a> <span class="keyword">struct </span><a class="code" href="structciLessBoost.html">ciLessBoost</a> : std::binary_function&lt;std::string, std::string, bool&gt;
-<a name="l00043"></a>00043 {
-<a name="l00044"></a><a class="code" href="structciLessBoost.html#a681ad866393bd6298660759161d79ea4">00044</a>     <span class="keywordtype">bool</span> <a class="code" href="structciLessBoost.html#a681ad866393bd6298660759161d79ea4">operator() </a>(<span class="keyword">const</span> std::string &amp; s1, <span class="keyword">const</span> std::string &amp; s2)<span class="keyword"> const</span>
-<a name="l00045"></a>00045 <span class="keyword">    </span>{
-<a name="l00046"></a>00046         <span class="comment">//case insensitive version of is_less</span>
-<a name="l00047"></a>00047         <span class="keywordflow">return</span> boost::algorithm::lexicographical_compare(s1, s2, boost::algorithm::is_iless());
-<a name="l00048"></a>00048     }
-<a name="l00049"></a>00049 };
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="keyword">namespace </span>Nif
-<a name="l00052"></a>00052 {
-<a name="l00053"></a>00053     <span class="keyword">class </span>Node;
-<a name="l00054"></a>00054     <span class="keyword">class </span>Transformation;
-<a name="l00055"></a>00055     <span class="keyword">class </span>NiTriShape;
-<a name="l00056"></a>00056 }
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="keyword">namespace </span>Nif
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036     <span class="keyword">class </span>Node;
+<a name="l00037"></a>00037     <span class="keyword">class </span>Transformation;
+<a name="l00038"></a>00038     <span class="keyword">class </span>NiTriShape;
+<a name="l00039"></a>00039 }
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>NifOgre
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 <span class="comment">// FIXME: These should not be in NifOgre, it works agnostic of what model format is used</span>
+<a name="l00045"></a><a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">00045</a> <span class="keyword">typedef</span> std::multimap&lt;float,std::string&gt; <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a>;
+<a name="l00046"></a><a class="code" href="structNifOgre_1_1EntityList.html">00046</a> <span class="keyword">struct </span><a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> {
+<a name="l00047"></a><a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">00047</a>     std::vector&lt;Ogre::Entity*&gt; <a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">mEntities</a>;
+<a name="l00048"></a><a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">00048</a>     Ogre::Entity *<a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="structNifOgre_1_1EntityList.html#a120c5a419182e11aa1f46c3d4342a693">00050</a>     <a class="code" href="structNifOgre_1_1EntityList.html#a120c5a419182e11aa1f46c3d4342a693">EntityList</a>() : <a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>(0)
+<a name="l00051"></a>00051     { }
+<a name="l00052"></a>00052 };
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 
+<a name="l00056"></a><a class="code" href="namespaceNifOgre.html#a1d4e053f2cf7e2decddca7a3e8299c56">00056</a> <span class="keyword">typedef</span> std::vector&lt; std::pair&lt;std::string,std::string&gt; &gt; <a class="code" href="namespaceNifOgre.html#a1d4e053f2cf7e2decddca7a3e8299c56">MeshPairList</a>;
 <a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="namespaceNifOgre.html">00058</a> <span class="keyword">namespace </span>NifOgre
-<a name="l00059"></a>00059 {
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="comment">// FIXME: These should not be in NifOgre, it works agnostic of what model format is used</span>
-<a name="l00062"></a><a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">00062</a> <span class="keyword">typedef</span> std::multimap&lt;float,std::string&gt; <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a>;
-<a name="l00063"></a><a class="code" href="structNifOgre_1_1EntityList.html">00063</a> <span class="keyword">struct </span><a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> {
-<a name="l00064"></a><a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">00064</a>     std::vector&lt;Ogre::Entity*&gt; <a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">mEntities</a>;
-<a name="l00065"></a><a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">00065</a>     Ogre::Entity *<a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="structNifOgre_1_1EntityList.html#a120c5a419182e11aa1f46c3d4342a693">00067</a>     <a class="code" href="structNifOgre_1_1EntityList.html#a120c5a419182e11aa1f46c3d4342a693">EntityList</a>() : <a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>(0)
-<a name="l00068"></a>00068     { }
-<a name="l00069"></a>00069 };
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071 
-<a name="l00074"></a><a class="code" href="namespaceNifOgre.html#aa088589faa7a84345b6a934f2b0f83f6">00074</a> <span class="keyword">typedef</span> std::vector&lt; std::pair&lt;Ogre::MeshPtr,std::string&gt; &gt; <a class="code" href="namespaceNifOgre.html#aa088589faa7a84345b6a934f2b0f83f6">MeshPairList</a>;
-<a name="l00075"></a>00075 
-<a name="l00088"></a><a class="code" href="classNifOgre_1_1NIFLoader.html">00088</a> <span class="keyword">class </span><a class="code" href="classNifOgre_1_1NIFLoader.html">NIFLoader</a>
-<a name="l00089"></a>00089 {
-<a name="l00090"></a>00090     <span class="keyword">static</span> <a class="code" href="namespaceNifOgre.html#aa088589faa7a84345b6a934f2b0f83f6">MeshPairList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#acd0da2857fa1634e7b532349cf903dce">load</a>(std::string name, std::string skelName, <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> *textkeys, <span class="keyword">const</span> std::string &amp;group);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <span class="keyword">public</span>:
-<a name="l00093"></a>00093     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#ad8f551db7b56b19c413c6e6a1c0f8db5">createEntities</a>(Ogre::Entity *parent, <span class="keyword">const</span> std::string &amp;bonename,
-<a name="l00094"></a>00094                                      Ogre::SceneNode *parentNode,
-<a name="l00095"></a>00095                                      <span class="keyword">const</span> std::string &amp;name,
-<a name="l00096"></a>00096                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#ad8f551db7b56b19c413c6e6a1c0f8db5">createEntities</a>(Ogre::SceneNode *parent,
-<a name="l00099"></a>00099                                      <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> *textkeys,
-<a name="l00100"></a>00100                                      <span class="keyword">const</span> std::string &amp;name,
-<a name="l00101"></a>00101                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
-<a name="l00102"></a>00102 };
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 }
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif</span>
-<a name="l00107"></a>00107 <span class="preprocessor"></span>
-<a name="l00108"></a>00108 
+<a name="l00070"></a><a class="code" href="classNifOgre_1_1NIFLoader.html">00070</a> <span class="keyword">class </span><a class="code" href="classNifOgre_1_1NIFLoader.html">NIFLoader</a>
+<a name="l00071"></a>00071 {
+<a name="l00072"></a>00072     <span class="keyword">static</span> <a class="code" href="namespaceNifOgre.html#a1d4e053f2cf7e2decddca7a3e8299c56">MeshPairList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#a8a5b056b67686e9a0c953a6903f7f83a">load</a>(std::string name, std::string skelName, <span class="keyword">const</span> std::string &amp;group);
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 <span class="keyword">public</span>:
+<a name="l00075"></a>00075     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#a835e63d294b24a9613ac76fce6496768">createEntities</a>(Ogre::Entity *parent, <span class="keyword">const</span> std::string &amp;bonename,
+<a name="l00076"></a>00076                                      Ogre::SceneNode *parentNode,
+<a name="l00077"></a>00077                                      <span class="keyword">const</span> std::string &amp;name,
+<a name="l00078"></a>00078                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1NIFLoader.html#a835e63d294b24a9613ac76fce6496768">createEntities</a>(Ogre::SceneNode *parent,
+<a name="l00081"></a>00081                                      <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> *textkeys,
+<a name="l00082"></a>00082                                      <span class="keyword">const</span> std::string &amp;name,
+<a name="l00083"></a>00083                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00084"></a>00084 };
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 <span class="preprocessor">#endif</span>
+<a name="l00089"></a>00089 <span class="preprocessor"></span>
+<a name="l00090"></a>00090 
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

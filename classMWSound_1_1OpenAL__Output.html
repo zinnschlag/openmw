@@ -85,6 +85,7 @@ Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
 ALuint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#ac9d98b416ef71425a179ed2912f69009">NameMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; ALuint, ALuint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#ad017cbcd1c8613da1caad4e6e6147467">IDRefMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="classMWSound_1_1Sound.html">Sound</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">SoundVec</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ALuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a1ab32679c535dba8010fc8bb4ca741a5">getBuffer</a> (const std::string &amp;fname)</td></tr>
@@ -92,10 +93,12 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a449d29514d18193f1088eaa9fc0a17ec">enumerate</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a6fd840cc9297e9f65ff829f7e61d1f97">init</a> (const std::string &amp;devname=&quot;&quot;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a01b47a901df40eb9b263c96ab6d07af5">deinit</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a276e56d89399abf10d3bacdb68415b46">playSound</a> (const std::string &amp;fname, float volume, float pitch, int flags)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a334bc838c2334159d118a444326a3fb5">playSound3D</a> (const std::string &amp;fname, const Ogre::Vector3 &amp;pos, float volume, float pitch, float min, float max, int flags)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a2fea995df1971ff80f483dff75e214fa">streamSound</a> (const std::string &amp;fname, float volume, float pitch, int flags)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a15bc0010f8be33d48277c2e63463a2e3">playSound</a> (const std::string &amp;fname, float vol, float basevol, float pitch, int flags)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a0504224938afabead516eb26ac068820">playSound3D</a> (const std::string &amp;fname, const Ogre::Vector3 &amp;pos, float vol, float basevol, float pitch, float min, float max, int flags)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a655f8a7f18093df4cf51173bda6afa35">streamSound</a> (<a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a> decoder, float volume, float pitch, int flags)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#abbe2abeda60072a5c8dc74a41b2dee77">updateListener</a> (const Ogre::Vector3 &amp;pos, const Ogre::Vector3 &amp;atdir, const Ogre::Vector3 &amp;updir, <a class="el" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a> env)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#ad6e52a78bdb477f2673dea0e4c624470">pauseSounds</a> (int types)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a58888dd8892070f000c6dc21fc7e7309">resumeSounds</a> (int types)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a5e1e83d4d2eccb2cd5acc1c3a22cb461">operator=</a> (const <a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;rhs)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a9a820e4a48b3cc09151724e64dab0441">OpenAL_Output</a> (const <a class="el" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a> &amp;rhs)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a6215992e48e197e3983f50432eda258b">OpenAL_Output</a> (<a class="el" href="classMWSound_1_1SoundManager.html">SoundManager</a> &amp;<a class="el" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>)</td></tr>
@@ -109,6 +112,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1OpenAL__Output.html#ac9d98b416ef71425a179ed2912f69009">NameMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a92faf9eef6ba3939c38f3d3105f6b45b">mBufferCache</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1OpenAL__Output.html#ad017cbcd1c8613da1caad4e6e6147467">IDRefMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a56c7ec53a494190d8a98c123f67cce30">mBufferRefs</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a82b34a8c7db4a408dd9bb28957e69188">mBufferCacheMemSize</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">SoundVec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a46248fa571bc226441aa88520be5d428">mActiveSounds</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWSound.html#a7465fae544c26c23b8ff87f4a96d1494">Environment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a11c03f99fb3841c3feaa5ecac6f9b162">mLastEnvironment</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::auto_ptr&lt; <a class="el" href="structMWSound_1_1OpenAL__Output_1_1StreamThread.html">StreamThread</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1OpenAL__Output.html#aa30cc7220179f861bdced3caeb133578">mStreamThread</a></td></tr>
 <tr><td colspan="2"><h2><a name="friends"></a>
@@ -151,6 +155,19 @@ Friends</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef std::map&lt;std::string,ALuint&gt; <a class="el" href="classMWSound_1_1OpenAL__Output.html#ac9d98b416ef71425a179ed2912f69009">MWSound::OpenAL_Output::NameMap</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3b1a4e2a67f06f3eb95f4a76c53fd76d"></a><!-- doxytag: member="MWSound::OpenAL_Output::SoundVec" ref="a3b1a4e2a67f06f3eb95f4a76c53fd76d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="classMWSound_1_1Sound.html">Sound</a>*&gt; <a class="el" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">MWSound::OpenAL_Output::SoundVec</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -316,12 +333,31 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a276e56d89399abf10d3bacdb68415b46"></a><!-- doxytag: member="MWSound::OpenAL_Output::playSound" ref="a276e56d89399abf10d3bacdb68415b46" args="(const std::string &amp;fname, float volume, float pitch, int flags)" -->
+<a class="anchor" id="ad6e52a78bdb477f2673dea0e4c624470"></a><!-- doxytag: member="MWSound::OpenAL_Output::pauseSounds" ref="ad6e52a78bdb477f2673dea0e4c624470" args="(int types)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a276e56d89399abf10d3bacdb68415b46">MWSound::OpenAL_Output::playSound</a> </td>
+          <td class="memname">void <a class="el" href="classMWSound_1_1OpenAL__Output.html#ad6e52a78bdb477f2673dea0e4c624470">MWSound::OpenAL_Output::pauseSounds</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>types</em></td><td>)</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#a0c7b9a87a16b7195be82b8d358d7d0e3">MWSound::Sound_Output</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a15bc0010f8be33d48277c2e63463a2e3"></a><!-- doxytag: member="MWSound::OpenAL_Output::playSound" ref="a15bc0010f8be33d48277c2e63463a2e3" args="(const std::string &amp;fname, float vol, float basevol, float pitch, int flags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a15bc0010f8be33d48277c2e63463a2e3">MWSound::OpenAL_Output::playSound</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>fname</em>, </td>
@@ -330,7 +366,13 @@ Friends</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>volume</em>, </td>
+          <td class="paramname"><em>vol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>basevol</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -353,16 +395,16 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#a9eaa54eaeee28fac3955153ac98a3e03">MWSound::Sound_Output</a>.</p>
+<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#af9e4d9f8385253f10268b1dbf500229c">MWSound::Sound_Output</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a334bc838c2334159d118a444326a3fb5"></a><!-- doxytag: member="MWSound::OpenAL_Output::playSound3D" ref="a334bc838c2334159d118a444326a3fb5" args="(const std::string &amp;fname, const Ogre::Vector3 &amp;pos, float volume, float pitch, float min, float max, int flags)" -->
+<a class="anchor" id="a0504224938afabead516eb26ac068820"></a><!-- doxytag: member="MWSound::OpenAL_Output::playSound3D" ref="a0504224938afabead516eb26ac068820" args="(const std::string &amp;fname, const Ogre::Vector3 &amp;pos, float vol, float basevol, float pitch, float min, float max, int flags)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a334bc838c2334159d118a444326a3fb5">MWSound::OpenAL_Output::playSound3D</a> </td>
+          <td class="memname"><a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a0504224938afabead516eb26ac068820">MWSound::OpenAL_Output::playSound3D</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>fname</em>, </td>
@@ -377,7 +419,13 @@ Friends</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>volume</em>, </td>
+          <td class="paramname"><em>vol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>basevol</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -412,19 +460,38 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#a62d2dc98857c65c3915f877f7668d766">MWSound::Sound_Output</a>.</p>
+<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#ac7448a3024be84cc8a19e67c93cf2b68">MWSound::Sound_Output</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2fea995df1971ff80f483dff75e214fa"></a><!-- doxytag: member="MWSound::OpenAL_Output::streamSound" ref="a2fea995df1971ff80f483dff75e214fa" args="(const std::string &amp;fname, float volume, float pitch, int flags)" -->
+<a class="anchor" id="a58888dd8892070f000c6dc21fc7e7309"></a><!-- doxytag: member="MWSound::OpenAL_Output::resumeSounds" ref="a58888dd8892070f000c6dc21fc7e7309" args="(int types)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a2fea995df1971ff80f483dff75e214fa">MWSound::OpenAL_Output::streamSound</a> </td>
+          <td class="memname">void <a class="el" href="classMWSound_1_1OpenAL__Output.html#a58888dd8892070f000c6dc21fc7e7309">MWSound::OpenAL_Output::resumeSounds</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fname</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>types</em></td><td>)</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#ab0a4c2d393f9712f102b32b9be72c972">MWSound::Sound_Output</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a655f8a7f18093df4cf51173bda6afa35"></a><!-- doxytag: member="MWSound::OpenAL_Output::streamSound" ref="a655f8a7f18093df4cf51173bda6afa35" args="(DecoderPtr decoder, float volume, float pitch, int flags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">MWBase::SoundPtr</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a655f8a7f18093df4cf51173bda6afa35">MWSound::OpenAL_Output::streamSound</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">DecoderPtr</a>&#160;</td>
+          <td class="paramname"><em>decoder</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -453,7 +520,7 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#abeee596ae831cdd4248e0578e0d56b72">MWSound::Sound_Output</a>.</p>
+<p>Implements <a class="el" href="classMWSound_1_1Sound__Output.html#ae4c95d52f187733be27d3462b62d56cd">MWSound::Sound_Output</a>.</p>
 
 </div>
 </div>
@@ -554,6 +621,19 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a46248fa571bc226441aa88520be5d428"></a><!-- doxytag: member="MWSound::OpenAL_Output::mActiveSounds" ref="a46248fa571bc226441aa88520be5d428" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWSound_1_1OpenAL__Output.html#a3b1a4e2a67f06f3eb95f4a76c53fd76d">SoundVec</a> <a class="el" href="classMWSound_1_1OpenAL__Output.html#a46248fa571bc226441aa88520be5d428">MWSound::OpenAL_Output::mActiveSounds</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a92faf9eef6ba3939c38f3d3105f6b45b"></a><!-- doxytag: member="MWSound::OpenAL_Output::mBufferCache" ref="a92faf9eef6ba3939c38f3d3105f6b45b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -679,7 +759,7 @@ Friends</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

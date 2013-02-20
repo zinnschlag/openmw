@@ -133,55 +133,85 @@
 <a name="l00075"></a>00075             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a352ca1d769a7b87f101d50e9fa8dcefb">setGlobalLong</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value);
 <a name="l00076"></a>00076 
 <a name="l00077"></a>00077             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#aeaad394b3690a0c8f1de2559d5c62c9d">setGlobalFloat</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value);
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a546a7e12ebb3661f3c054af7cb13ed80">isScriptRunning</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00078"></a>00078             
+<a name="l00079"></a>00079             <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classMWScript_1_1InterpreterContext.html#a90ee9d604c4a93a6c54ff401d6bb004b">getGlobals</a> () <span class="keyword">const</span>;
 <a name="l00080"></a>00080 
-<a name="l00081"></a>00081             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ad53a204810b1e03ac397aaa4318f313e">startScript</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#adda3edef8e439407160c5bcab98192f3">stopScript</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ac2c42930be8e23a2b463e492257464e6">getDistance</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ab355641249597455d6a6c27f23dc2ad4">hasBeenActivated</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a58681ea3cc189037873ddd9c437b56eb">hasActivationBeenHandled</a>() <span class="keyword">const</span>;
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#adf03acb61d730201bae5641599f9d901">activate</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, boost::shared_ptr&lt;MWWorld::Action&gt; action);
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a6889e4d2cdaf42bdc34db84b64bb99c9" title="Execute the action defined by the last activate call.">executeActivation</a>();
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a8ab8a867cc95e0f5d388e9071ab90bae" title="Discard the action defined by the last activate call.">clearActivation</a>();
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a7899ae6882a7d588930b61299f241486">getSecondsPassed</a>() <span class="keyword">const</span>;
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a9b8236e398dec50579ec951fe137483f">isDisabled</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span>;
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a968125c390b092649bbec419ddbaf10e">enable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00081"></a>00081             <span class="keyword">virtual</span> <span class="keywordtype">char</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a598516d4e4e9a629acae918e5cac543c">getGlobalType</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00082"></a>00082             
+<a name="l00083"></a>00083             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#aec7ad8c1414aa46164e66be25adcd8b0">getActionBinding</a>(<span class="keyword">const</span> std::string&amp; action) <span class="keyword">const</span>;
+<a name="l00084"></a>00084             
+<a name="l00085"></a>00085             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a2e2ef2246468531b72952ef6759bf3e3">getNPCName</a>() <span class="keyword">const</span>;
+<a name="l00086"></a>00086             
+<a name="l00087"></a>00087             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#ad162f2dc90f858a5ec9dd500ac671c7d">getNPCRace</a>() <span class="keyword">const</span>;
+<a name="l00088"></a>00088             
+<a name="l00089"></a>00089             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a2a2dd548f8bd78698e701b9b59aeb76b">getNPCClass</a>() <span class="keyword">const</span>;
+<a name="l00090"></a>00090             
+<a name="l00091"></a>00091             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a14a1a6677f24f228d018260e3b735ed8">getNPCFaction</a>() <span class="keyword">const</span>;
+<a name="l00092"></a>00092             
+<a name="l00093"></a>00093             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a95a6962aa4967d1a3769af5df2231469">getNPCRank</a>() <span class="keyword">const</span>;
+<a name="l00094"></a>00094             
+<a name="l00095"></a>00095             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a9bb38c35585bf715a93d03d8e17a6da6">getPCName</a>() <span class="keyword">const</span>;
+<a name="l00096"></a>00096             
+<a name="l00097"></a>00097             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a114f902c995d5e88751b0c552948211a">getPCRace</a>() <span class="keyword">const</span>;
+<a name="l00098"></a>00098             
+<a name="l00099"></a>00099             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#ac33aae8ee287a085e4ed5e6f6741b594">getPCClass</a>() <span class="keyword">const</span>;
+<a name="l00100"></a>00100             
+<a name="l00101"></a>00101             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#ada16a0c2a8403a4fd193d1fead67695c">getPCRank</a>() <span class="keyword">const</span>;
+<a name="l00102"></a>00102             
+<a name="l00103"></a>00103             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a58da8dc13d1efb14a3e12c2e90cf3502">getPCNextRank</a>() <span class="keyword">const</span>;
+<a name="l00104"></a>00104             
+<a name="l00105"></a>00105             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#aa3d58d1a96110466b03959c2af82012d">getPCBounty</a>() <span class="keyword">const</span>;
+<a name="l00106"></a>00106             
+<a name="l00107"></a>00107             <span class="keyword">virtual</span> std::string <a class="code" href="classMWScript_1_1InterpreterContext.html#a61016e1b957b63d07917921e92ab4320">getCurrentCellName</a>() <span class="keyword">const</span>;
 <a name="l00108"></a>00108 
-<a name="l00109"></a>00109             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#aeff1b0e8f837fe598bbce9e8c46f9851">disable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00109"></a>00109             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a546a7e12ebb3661f3c054af7cb13ed80">isScriptRunning</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
 <a name="l00110"></a>00110 
-<a name="l00111"></a>00111             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ae2fbaa9efba142bf29c00f3a3af88281">getMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00111"></a>00111             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ad53a204810b1e03ac397aaa4318f313e">startScript</a> (<span class="keyword">const</span> std::string&amp; name);
 <a name="l00112"></a>00112 
-<a name="l00113"></a>00113             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a259a9addc018e2c69e5c00c1be706bb3">getMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00113"></a>00113             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#adda3edef8e439407160c5bcab98192f3">stopScript</a> (<span class="keyword">const</span> std::string&amp; name);
 <a name="l00114"></a>00114 
-<a name="l00115"></a>00115             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a87fdeff433b3d588cba2ec2059b92ac0">getMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00115"></a>00115             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ac2c42930be8e23a2b463e492257464e6">getDistance</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span>;
 <a name="l00116"></a>00116 
-<a name="l00117"></a>00117             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a5e15698dbb4f4733d80654af43f8a1a7">setMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value);
-<a name="l00118"></a>00118 
-<a name="l00119"></a>00119             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#aa14b7b2984edbda463c07984116c0ef7">setMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value);
+<a name="l00117"></a>00117             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ab355641249597455d6a6c27f23dc2ad4">hasBeenActivated</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00120"></a>00120 
-<a name="l00121"></a>00121             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#af35790393c0814c2fe43665b5e326e17">setMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value);
+<a name="l00121"></a>00121             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a58681ea3cc189037873ddd9c437b56eb">hasActivationBeenHandled</a>() <span class="keyword">const</span>;
 <a name="l00122"></a>00122 
-<a name="l00123"></a>00123             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWScript_1_1InterpreterContext.html#a91de8fd58f6ea541bd74eeee8540493f" title="Reference, that the script is running from (can be empty)">getReference</a>();
-<a name="l00125"></a>00125     };
-<a name="l00126"></a>00126 }
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128 <span class="preprocessor">#endif</span>
+<a name="l00123"></a>00123             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#adf03acb61d730201bae5641599f9d901">activate</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, boost::shared_ptr&lt;MWWorld::Action&gt; action);
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a6889e4d2cdaf42bdc34db84b64bb99c9" title="Execute the action defined by the last activate call.">executeActivation</a>();
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a8ab8a867cc95e0f5d388e9071ab90bae" title="Discard the action defined by the last activate call.">clearActivation</a>();
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a7899ae6882a7d588930b61299f241486">getSecondsPassed</a>() <span class="keyword">const</span>;
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a9b8236e398dec50579ec951fe137483f">isDisabled</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>) <span class="keyword">const</span>;
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a968125c390b092649bbec419ddbaf10e">enable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#aeff1b0e8f837fe598bbce9e8c46f9851">disable</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#ae2fbaa9efba142bf29c00f3a3af88281">getMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a259a9addc018e2c69e5c00c1be706bb3">getMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a87fdeff433b3d588cba2ec2059b92ac0">getMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#a5e15698dbb4f4733d80654af43f8a1a7">setMemberShort</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value);
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#aa14b7b2984edbda463c07984116c0ef7">setMemberLong</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value);
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1InterpreterContext.html#af35790393c0814c2fe43665b5e326e17">setMemberFloat</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value);
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWScript_1_1InterpreterContext.html#a91de8fd58f6ea541bd74eeee8540493f" title="Reference, that the script is running from (can be empty)">getReference</a>();
+<a name="l00155"></a>00155     };
+<a name="l00156"></a>00156 }
+<a name="l00157"></a>00157 
+<a name="l00158"></a>00158 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

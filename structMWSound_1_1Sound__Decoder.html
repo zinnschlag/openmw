@@ -78,10 +78,12 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#aa918999bf85473d3994a386df95a3c50">open</a> (const std::string &amp;fname)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#a75da71391690768d4564361acd084f67">close</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#ac3886920add5cb24c212810baefb6eb4">getName</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#ab07d7aeb1b22076d67ef811d1d495691">getInfo</a> (int *samplerate, <a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> *chans, <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> *type)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#a8a876bdaf252cdb22e188b94a79eb8a9">read</a> (char *buffer, size_t bytes)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#a1675b5d242bb6c7a3700a98f06f48de1">readAll</a> (std::vector&lt; char &gt; &amp;<a class="el" href="to__utf8_8cpp.html#aab6e7d894410ef19f19fa9d4ae362158">output</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#a1675b5d242bb6c7a3700a98f06f48de1">readAll</a> (std::vector&lt; char &gt; &amp;output)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#ac2e9ce382d8c348834be5f41305fcac3">rewind</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#ac661a59eab737206584479fc0ab9d82f">getSampleOffset</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#ad0eed8aedf3f372745d38f016b8c7b20">Sound_Decoder</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWSound_1_1Sound__Decoder.html#a5e9d70556178494dde6447fc2aa9570f">~Sound_Decoder</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
@@ -193,6 +195,42 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWSound_1_1FFmpeg__Decoder.html#a758575c687c99bcd689166e8f23bad75">MWSound::FFmpeg_Decoder</a>, <a class="el" href="classMWSound_1_1MpgSnd__Decoder.html#a8bf8a7c24e3894b2dccda598152a3977">MWSound::MpgSnd_Decoder</a>, and <a class="el" href="classMWSound_1_1Audiere__Decoder.html#a76f821e50cf02a9cf48d4e42f8157abe">MWSound::Audiere_Decoder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac3886920add5cb24c212810baefb6eb4"></a><!-- doxytag: member="MWSound::Sound_Decoder::getName" ref="ac3886920add5cb24c212810baefb6eb4" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string <a class="el" href="structMWSound_1_1Sound__Decoder.html#ac3886920add5cb24c212810baefb6eb4">MWSound::Sound_Decoder::getName</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWSound_1_1FFmpeg__Decoder.html#a4ff47bed5f35569d725af47039e0ec91">MWSound::FFmpeg_Decoder</a>, <a class="el" href="classMWSound_1_1MpgSnd__Decoder.html#a6ea9603fed8fd914ba1aef9bd0ab9b27">MWSound::MpgSnd_Decoder</a>, and <a class="el" href="classMWSound_1_1Audiere__Decoder.html#ad5df3d73ce2c35fec9125168b836af78">MWSound::Audiere_Decoder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac661a59eab737206584479fc0ab9d82f"></a><!-- doxytag: member="MWSound::Sound_Decoder::getSampleOffset" ref="ac661a59eab737206584479fc0ab9d82f" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual size_t <a class="el" href="structMWSound_1_1Sound__Decoder.html#ac661a59eab737206584479fc0ab9d82f">MWSound::Sound_Decoder::getSampleOffset</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWSound_1_1FFmpeg__Decoder.html#ad824e0bcb16d6228a50bad04ab67bb33">MWSound::FFmpeg_Decoder</a>, <a class="el" href="classMWSound_1_1MpgSnd__Decoder.html#a20d85f6645035953a0e7ea402c7054d5">MWSound::MpgSnd_Decoder</a>, and <a class="el" href="classMWSound_1_1Audiere__Decoder.html#a094e4b3201cee2f58229d6601bf1f082">MWSound::Audiere_Decoder</a>.</p>
 
 </div>
 </div>
@@ -320,7 +358,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

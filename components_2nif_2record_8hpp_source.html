@@ -150,29 +150,30 @@
 <a name="l00091"></a>00091     <span class="comment">// Record type and type name</span>
 <a name="l00092"></a><a class="code" href="structNif_1_1Record.html#ad098dbda5f26c489daf7cd97476c395c">00092</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1Record.html#ad098dbda5f26c489daf7cd97476c395c">recType</a>;
 <a name="l00093"></a><a class="code" href="structNif_1_1Record.html#a4cb8bc76d084683634cad8a826f71f0f">00093</a>     std::string <a class="code" href="structNif_1_1Record.html#a4cb8bc76d084683634cad8a826f71f0f">recName</a>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="structNif_1_1Record.html#a70512459b761e56e36884b151e716c70">00095</a>     <a class="code" href="structNif_1_1Record.html#a70512459b761e56e36884b151e716c70">Record</a>() : <a class="code" href="structNif_1_1Record.html#ad098dbda5f26c489daf7cd97476c395c">recType</a>(<a class="code" href="namespaceNif.html#ac2dbe27f55b01576aa2c98834a577787a7d40287941fddbd9240a667ea69641d7">RC_MISSING</a>) {}
-<a name="l00096"></a>00096 
-<a name="l00098"></a>00098     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structNif_1_1Record.html#a9aa8ecf9d614d84b3e53f63540c6d89b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif) = 0;
-<a name="l00099"></a>00099 
-<a name="l00101"></a><a class="code" href="structNif_1_1Record.html#add8020851a10fee527dc37bc20bddd55">00101</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structNif_1_1Record.html#add8020851a10fee527dc37bc20bddd55" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif) {}
-<a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="structNif_1_1Record.html#a00a47dcc89a02be0d4791e96010f0715">00103</a>     <span class="keyword">virtual</span> <a class="code" href="structNif_1_1Record.html#a00a47dcc89a02be0d4791e96010f0715">~Record</a>() {}
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105     <span class="comment">/*</span>
-<a name="l00106"></a>00106 <span class="comment">       Use these later if you want custom allocation of all NIF objects</span>
-<a name="l00107"></a>00107 <span class="comment">    static void* operator new(size_t size);</span>
-<a name="l00108"></a>00108 <span class="comment">    static void operator delete(void *p);</span>
-<a name="l00109"></a>00109 <span class="comment">    */</span>
-<a name="l00110"></a>00110 };
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112 } <span class="comment">// Namespace</span>
-<a name="l00113"></a>00113 <span class="preprocessor">#endif</span>
+<a name="l00094"></a><a class="code" href="structNif_1_1Record.html#ae6dddb2bb355e52d638ef368a37b01ad">00094</a>     <span class="keywordtype">size_t</span> <a class="code" href="structNif_1_1Record.html#ae6dddb2bb355e52d638ef368a37b01ad">recIndex</a>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="structNif_1_1Record.html#a70512459b761e56e36884b151e716c70">00096</a>     <a class="code" href="structNif_1_1Record.html#a70512459b761e56e36884b151e716c70">Record</a>() : <a class="code" href="structNif_1_1Record.html#ad098dbda5f26c489daf7cd97476c395c">recType</a>(<a class="code" href="namespaceNif.html#ac2dbe27f55b01576aa2c98834a577787a7d40287941fddbd9240a667ea69641d7">RC_MISSING</a>), <a class="code" href="structNif_1_1Record.html#ae6dddb2bb355e52d638ef368a37b01ad">recIndex</a>(~(size_t)0) {}
+<a name="l00097"></a>00097 
+<a name="l00099"></a>00099     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structNif_1_1Record.html#a9aa8ecf9d614d84b3e53f63540c6d89b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif) = 0;
+<a name="l00100"></a>00100 
+<a name="l00102"></a><a class="code" href="structNif_1_1Record.html#add8020851a10fee527dc37bc20bddd55">00102</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structNif_1_1Record.html#add8020851a10fee527dc37bc20bddd55" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif) {}
+<a name="l00103"></a>00103 
+<a name="l00104"></a><a class="code" href="structNif_1_1Record.html#a00a47dcc89a02be0d4791e96010f0715">00104</a>     <span class="keyword">virtual</span> <a class="code" href="structNif_1_1Record.html#a00a47dcc89a02be0d4791e96010f0715">~Record</a>() {}
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106     <span class="comment">/*</span>
+<a name="l00107"></a>00107 <span class="comment">       Use these later if you want custom allocation of all NIF objects</span>
+<a name="l00108"></a>00108 <span class="comment">    static void* operator new(size_t size);</span>
+<a name="l00109"></a>00109 <span class="comment">    static void operator delete(void *p);</span>
+<a name="l00110"></a>00110 <span class="comment">    */</span>
+<a name="l00111"></a>00111 };
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 } <span class="comment">// Namespace</span>
+<a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

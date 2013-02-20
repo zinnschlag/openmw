@@ -82,14 +82,18 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a3ee4e4ef394ac1ad595c5ce6d3beed64">open</a> (const std::string &amp;fname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a51ac2252476d9208f22c40e145e11ce6">close</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#ad5df3d73ce2c35fec9125168b836af78">getName</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a76f821e50cf02a9cf48d4e42f8157abe">getInfo</a> (int *samplerate, <a class="el" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> *chans, <a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> *type)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#aecd3a0898fe0deffad3d5c5dd5670257">read</a> (char *buffer, size_t bytes)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a48e5b5f805600c5ee833bec8abdb82da">rewind</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a094e4b3201cee2f58229d6601bf1f082">getSampleOffset</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWSound_1_1Audiere__Decoder.html">Audiere_Decoder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a8f716aea1c2745768af8a9ef66f32a28">operator=</a> (const <a class="el" href="classMWSound_1_1Audiere__Decoder.html">Audiere_Decoder</a> &amp;rhs)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a85276ffa8bd18b7da1fdec4e7fbcaefd">Audiere_Decoder</a> (const <a class="el" href="classMWSound_1_1Audiere__Decoder.html">Audiere_Decoder</a> &amp;rhs)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a3900ab46d4c219e6b60151daca6e7c63">Audiere_Decoder</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a16cefbd781e91192b1374f5249e8263c">mSoundFileName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">audiere::FilePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#af374ac42042a5814e853c17379ac7b11">mSoundFile</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">audiere::SampleSourcePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#af626ec9a91f055f14e1b79b39720a1fc">mSoundSource</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#acfc9dd453a44db79f2b4be7120c560ba">mSampleRate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Audiere__Decoder.html#a8bb17944b0d17f2cce23b4866e7734fd">mSampleType</a></td></tr>
@@ -199,6 +203,42 @@ Friends</h2></td></tr>
 <div class="memdoc">
 
 <p>Implements <a class="el" href="structMWSound_1_1Sound__Decoder.html#ab07d7aeb1b22076d67ef811d1d495691">MWSound::Sound_Decoder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad5df3d73ce2c35fec9125168b836af78"></a><!-- doxytag: member="MWSound::Audiere_Decoder::getName" ref="ad5df3d73ce2c35fec9125168b836af78" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string <a class="el" href="classMWSound_1_1Audiere__Decoder.html#ad5df3d73ce2c35fec9125168b836af78">MWSound::Audiere_Decoder::getName</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="structMWSound_1_1Sound__Decoder.html#ac3886920add5cb24c212810baefb6eb4">MWSound::Sound_Decoder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a094e4b3201cee2f58229d6601bf1f082"></a><!-- doxytag: member="MWSound::Audiere_Decoder::getSampleOffset" ref="a094e4b3201cee2f58229d6601bf1f082" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual size_t <a class="el" href="classMWSound_1_1Audiere__Decoder.html#a094e4b3201cee2f58229d6601bf1f082">MWSound::Audiere_Decoder::getSampleOffset</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="structMWSound_1_1Sound__Decoder.html#ac661a59eab737206584479fc0ab9d82f">MWSound::Sound_Decoder</a>.</p>
 
 </div>
 </div>
@@ -339,6 +379,32 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af374ac42042a5814e853c17379ac7b11"></a><!-- doxytag: member="MWSound::Audiere_Decoder::mSoundFile" ref="af374ac42042a5814e853c17379ac7b11" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">audiere::FilePtr <a class="el" href="classMWSound_1_1Audiere__Decoder.html#af374ac42042a5814e853c17379ac7b11">MWSound::Audiere_Decoder::mSoundFile</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a16cefbd781e91192b1374f5249e8263c"></a><!-- doxytag: member="MWSound::Audiere_Decoder::mSoundFileName" ref="a16cefbd781e91192b1374f5249e8263c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWSound_1_1Audiere__Decoder.html#a16cefbd781e91192b1374f5249e8263c">MWSound::Audiere_Decoder::mSoundFileName</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af626ec9a91f055f14e1b79b39720a1fc"></a><!-- doxytag: member="MWSound::Audiere_Decoder::mSoundSource" ref="af626ec9a91f055f14e1b79b39720a1fc" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -359,7 +425,7 @@ Friends</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

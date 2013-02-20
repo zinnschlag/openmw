@@ -85,83 +85,23 @@
 <a name="l00025"></a><a class="code" href="structESM_1_1GameSetting.html#afb5066e6bc0f59b44fcdee9f0d214b66">00025</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1GameSetting.html#afb5066e6bc0f59b44fcdee9f0d214b66">mF</a>;
 <a name="l00026"></a><a class="code" href="structESM_1_1GameSetting.html#a4a80f4d79950164fd89e7b1ff7903aea">00026</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3">VarType</a> <a class="code" href="structESM_1_1GameSetting.html#a4a80f4d79950164fd89e7b1ff7903aea">mType</a>;
 <a name="l00027"></a>00027 
-<a name="l00028"></a>00028     <span class="comment">// Set to true if this is a &#39;dirty&#39; entry which should be ignored</span>
-<a name="l00029"></a><a class="code" href="structESM_1_1GameSetting.html#af1408cd72b2110914dbd7ea3cc0a5d09">00029</a>     <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1GameSetting.html#af1408cd72b2110914dbd7ea3cc0a5d09">mDirty</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031     <span class="comment">/*</span>
-<a name="l00032"></a>00032 <span class="comment">     These functions check if this game setting is one of the &quot;dirty&quot;</span>
-<a name="l00033"></a>00033 <span class="comment">     GMST records found in many mods. These are due to a serious bug in</span>
-<a name="l00034"></a>00034 <span class="comment">     the official TES3 editor. It only occurs in the newer editor</span>
-<a name="l00035"></a>00035 <span class="comment">     versions that came with Tribunal and Bloodmoon, and only if a</span>
-<a name="l00036"></a>00036 <span class="comment">     modder tries to make a mod without loading the corresponding</span>
-<a name="l00037"></a>00037 <span class="comment">     expansion master file. For example, if you have Tribunal installed</span>
-<a name="l00038"></a>00038 <span class="comment">     and try to make a mod without loading Tribunal.esm, the editor</span>
-<a name="l00039"></a>00039 <span class="comment">     will insert these GMST records as a replacement for the entries it</span>
-<a name="l00040"></a>00040 <span class="comment">     cannot find in the ESMs.</span>
-<a name="l00041"></a>00041 <span class="comment"></span>
-<a name="l00042"></a>00042 <span class="comment">     The values of these &quot;dirty&quot; records differ in general from their</span>
-<a name="l00043"></a>00043 <span class="comment">     values as defined in Tribunal.esm and Bloodmoon.esm, and are</span>
-<a name="l00044"></a>00044 <span class="comment">     always set to the same &quot;default&quot; values. Most of these values are</span>
-<a name="l00045"></a>00045 <span class="comment">     nonsensical, ie. changing the &quot;Seller Max&quot; string to &quot;Max Sale&quot;,</span>
-<a name="l00046"></a>00046 <span class="comment">     or change the stats of werewolves to useless values like 1. Some</span>
-<a name="l00047"></a>00047 <span class="comment">     of them break certain spell effects.</span>
-<a name="l00048"></a>00048 <span class="comment"></span>
-<a name="l00049"></a>00049 <span class="comment">     It is most likely that these values are just leftover values from</span>
-<a name="l00050"></a>00050 <span class="comment">     an early stage of development that are inserted as default values</span>
-<a name="l00051"></a>00051 <span class="comment">     by the editor code. They are supposed to be overridden when the</span>
-<a name="l00052"></a>00052 <span class="comment">     correct esm file is loaded. When it isn&#39;t loaded however, you get</span>
-<a name="l00053"></a>00053 <span class="comment">     stuck with the initial value, and this gets written to every mod</span>
-<a name="l00054"></a>00054 <span class="comment">     by the editor, for some reason.</span>
-<a name="l00055"></a>00055 <span class="comment"></span>
-<a name="l00056"></a>00056 <span class="comment">     Bethesda themselves have fallen for this bug. If you install both</span>
-<a name="l00057"></a>00057 <span class="comment">     Tribunal and Bloodmoon, the updated Tribunal.esm will contain the</span>
-<a name="l00058"></a>00058 <span class="comment">     dirty GMST settings from Bloodmoon, and Bloodmoon.esm will contain</span>
-<a name="l00059"></a>00059 <span class="comment">     some of the dirty settings from Tribunal. In other words, this bug</span>
-<a name="l00060"></a>00060 <span class="comment">     affects the game EVEN IF YOU DO NOT USE ANY MODS!</span>
-<a name="l00061"></a>00061 <span class="comment"></span>
-<a name="l00062"></a>00062 <span class="comment">     The guys at Bethesda are well aware of this bug (and many others),</span>
-<a name="l00063"></a>00063 <span class="comment">     as the mod community and fan base complained about them for a long</span>
-<a name="l00064"></a>00064 <span class="comment">     time. But unfortunately it was never fixed.</span>
-<a name="l00065"></a>00065 <span class="comment"></span>
-<a name="l00066"></a>00066 <span class="comment">     There are several tools available to help modders remove these</span>
-<a name="l00067"></a>00067 <span class="comment">     records from their files, but not all modders use them, and they</span>
-<a name="l00068"></a>00068 <span class="comment">     really shouldn&#39;t have to. In this file we choose instead to reject</span>
-<a name="l00069"></a>00069 <span class="comment">     all the corrupt values at load time.</span>
-<a name="l00070"></a>00070 <span class="comment"></span>
-<a name="l00071"></a>00071 <span class="comment">     These functions checks if the current game setting is one of the</span>
-<a name="l00072"></a>00072 <span class="comment">     &quot;dirty&quot; ones as described above. TODO: I have not checked this</span>
-<a name="l00073"></a>00073 <span class="comment">     against other sources yet, do that later. Currently recognizes 22</span>
-<a name="l00074"></a>00074 <span class="comment">     values for tribunal and 50 for bloodmoon. Legitimate GMSTs in mods</span>
-<a name="l00075"></a>00075 <span class="comment">     (setting values other than the default &quot;dirty&quot; ones) are not</span>
-<a name="l00076"></a>00076 <span class="comment">     affected and will work correctly.</span>
-<a name="l00077"></a>00077 <span class="comment">     */</span>
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="comment">/*</span>
-<a name="l00080"></a>00080 <span class="comment">     Checks for dirty tribunal values. These will be ignored if found</span>
-<a name="l00081"></a>00081 <span class="comment">     in any file except when they are found in &quot;Tribunal.esm&quot;.</span>
-<a name="l00082"></a>00082 <span class="comment">     */</span>
-<a name="l00083"></a>00083     <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1GameSetting.html#ae7be8919c4cd4ea4d58bbce2edb65f9b">isDirtyTribunal</a>();
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085     <span class="comment">// Bloodmoon variant</span>
-<a name="l00086"></a>00086     <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1GameSetting.html#a4a6514d5bbfc1429525ddbffe8483d52">isDirtyBloodmoon</a>();
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#a8fa3189e8030de1738d413c52aee111b">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00089"></a>00089     
-<a name="l00090"></a>00090     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1GameSetting.html#a1fcd19eb4d50405ecf1e9b4920a48f9d" title="Throws an exception if GMST is not of type int or float.">getInt</a>() <span class="keyword">const</span>;
-<a name="l00092"></a>00092     
-<a name="l00093"></a>00093     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1GameSetting.html#adf86d0e6166ce3e4ec8a75ab31380344" title="Throws an exception if GMST is not of type int or float.">getFloat</a>() <span class="keyword">const</span>;
-<a name="l00095"></a>00095     
-<a name="l00096"></a>00096     std::string <a class="code" href="structESM_1_1GameSetting.html#a5a65ccb12013396de6a17c3a41051391" title="Throwns an exception if GMST is not of type string.">getString</a>() <span class="keyword">const</span>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#af96bff1212bccc97463a927b16a3a2e6">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00100"></a>00100 };
-<a name="l00101"></a>00101 }
-<a name="l00102"></a>00102 <span class="preprocessor">#endif</span>
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#a8fa3189e8030de1738d413c52aee111b">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00029"></a>00029     
+<a name="l00030"></a>00030     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1GameSetting.html#a1fcd19eb4d50405ecf1e9b4920a48f9d" title="Throws an exception if GMST is not of type int or float.">getInt</a>() <span class="keyword">const</span>;
+<a name="l00032"></a>00032     
+<a name="l00033"></a>00033     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1GameSetting.html#adf86d0e6166ce3e4ec8a75ab31380344" title="Throws an exception if GMST is not of type int or float.">getFloat</a>() <span class="keyword">const</span>;
+<a name="l00035"></a>00035     
+<a name="l00036"></a>00036     std::string <a class="code" href="structESM_1_1GameSetting.html#a5a65ccb12013396de6a17c3a41051391" title="Throwns an exception if GMST is not of type string.">getString</a>() <span class="keyword">const</span>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#af96bff1212bccc97463a927b16a3a2e6">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00040"></a>00040 };
+<a name="l00041"></a>00041 }
+<a name="l00042"></a>00042 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

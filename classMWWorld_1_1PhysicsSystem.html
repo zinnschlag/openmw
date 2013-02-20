@@ -92,13 +92,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a52c16a320fde8845321b8e507cc8f4b9">rotateObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ab8f6e0b40dc2c6d91650685e630645b9">scaleObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a8d6a65ca01b17c38e18aa9364608bc31">toggleCollisionMode</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a4d9703cecc5c7c990b8aea6359ebb62d">getFacedHandle</a> (<a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;world)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a2739a27aed58b555dd6719312fcc3481">getFacedHandle</a> (<a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;world, float queryDistance)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; float, <br class="typebreak"/>
+std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a24fede6b413ecfdca1983a8dcb7a90a8">getFacedHandles</a> (float queryDistance)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; float, <br class="typebreak"/>
+std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a6288498bdb235349e105594bd9d713a1">getFacedHandles</a> (float mouseX, float mouseY, float queryDistance)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">btVector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a568a7a2dadf33d2ecab3882dabb4c4ec">getRayPoint</a> (float extent)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">btVector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a7b726770aa470ec25a51411fd2fc9360">getRayPoint</a> (float extent, float mouseX, float mouseY)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; float, <br class="typebreak"/>
-std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a4484dbc6079fc968060013d88641b157">getFacedObjects</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; float, <br class="typebreak"/>
-std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ad2d8767a9d7d29d3975c557b2b113b62">getFacedObjects</a> (float mouseX, float mouseY)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ae21736125cae33d490e31b56e3042555">castRay</a> (const Ogre::Vector3 &amp;from, const Ogre::Vector3 &amp;to)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, Ogre::Vector3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a358fafa48df810d701ed2053751b86a7">castRay</a> (const Ogre::Vector3 &amp;orig, const Ogre::Vector3 &amp;dir, float len)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, Ogre::Vector3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#adaa3f102d2e0318e481b101442e07b94">castRay</a> (float mouseX, float mouseY)</td></tr>
@@ -348,8 +348,8 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <div class="memdoc">
 
 <p>cast ray from the mouse, return true if it hit something and the first result (in OGRE coordinates) </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000061">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000062">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000084">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
 
 </div>
 </div>
@@ -417,54 +417,21 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
-<a class="anchor" id="a4d9703cecc5c7c990b8aea6359ebb62d"></a><!-- doxytag: member="MWWorld::PhysicsSystem::getFacedHandle" ref="a4d9703cecc5c7c990b8aea6359ebb62d" args="(MWWorld::World &amp;world)" -->
+<a class="anchor" id="a2739a27aed58b555dd6719312fcc3481"></a><!-- doxytag: member="MWWorld::PhysicsSystem::getFacedHandle" ref="a2739a27aed58b555dd6719312fcc3481" args="(MWWorld::World &amp;world, float queryDistance)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; std::string, float &gt; <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a4d9703cecc5c7c990b8aea6359ebb62d">MWWorld::PhysicsSystem::getFacedHandle</a> </td>
+          <td class="memname">std::pair&lt; float, std::string &gt; <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a2739a27aed58b555dd6719312fcc3481">MWWorld::PhysicsSystem::getFacedHandle</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;&#160;</td>
-          <td class="paramname"><em>world</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a4484dbc6079fc968060013d88641b157"></a><!-- doxytag: member="MWWorld::PhysicsSystem::getFacedObjects" ref="a4484dbc6079fc968060013d88641b157" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::pair&lt; float, std::string &gt; &gt; <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a4484dbc6079fc968060013d88641b157">MWWorld::PhysicsSystem::getFacedObjects</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad2d8767a9d7d29d3975c557b2b113b62"></a><!-- doxytag: member="MWWorld::PhysicsSystem::getFacedObjects" ref="ad2d8767a9d7d29d3975c557b2b113b62" args="(float mouseX, float mouseY)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::pair&lt; float, std::string &gt; &gt; <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a4484dbc6079fc968060013d88641b157">MWWorld::PhysicsSystem::getFacedObjects</a> </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>mouseX</em>, </td>
+          <td class="paramname"><em>world</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>mouseY</em>&#160;</td>
+          <td class="paramname"><em>queryDistance</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -474,7 +441,56 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000058">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a24fede6b413ecfdca1983a8dcb7a90a8"></a><!-- doxytag: member="MWWorld::PhysicsSystem::getFacedHandles" ref="a24fede6b413ecfdca1983a8dcb7a90a8" args="(float queryDistance)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; float, std::string &gt; &gt; <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a24fede6b413ecfdca1983a8dcb7a90a8">MWWorld::PhysicsSystem::getFacedHandles</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>queryDistance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6288498bdb235349e105594bd9d713a1"></a><!-- doxytag: member="MWWorld::PhysicsSystem::getFacedHandles" ref="a6288498bdb235349e105594bd9d713a1" args="(float mouseX, float mouseY, float queryDistance)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; float, std::string &gt; &gt; <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a24fede6b413ecfdca1983a8dcb7a90a8">MWWorld::PhysicsSystem::getFacedHandles</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>mouseX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>mouseY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>queryDistance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -525,7 +541,6 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000059">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
 
 </div>
 </div>
@@ -559,7 +574,6 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000060">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
 
 </div>
 </div>
@@ -877,7 +891,7 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

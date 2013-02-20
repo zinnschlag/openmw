@@ -78,10 +78,10 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#a3eb5a46fc81172f822a78e21b65441ca">TradeWindow</a> (<a class="el" href="classMWBase_1_1WindowManager.html">MWBase::WindowManager</a> &amp;parWindowManager)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#a8634fdf4a835d361c888b92116f33d5b">startTrade</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> actor)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#a5cd05f3b910d9b75b12e0db69bcdfc2f">sellToNpc</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">only used for adjusting the gold balance  <a href="#a5cd05f3b910d9b75b12e0db69bcdfc2f"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#a76fe0d0050684eb59b31580c093bd22c">buyFromNpc</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">only used for adjusting the gold balance  <a href="#a76fe0d0050684eb59b31580c093bd22c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#a74533a71f198d9bec717456d5fcd3add">sellToNpc</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>, bool boughtItem)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">only used for adjusting the gold balance  <a href="#a74533a71f198d9bec717456d5fcd3add"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#a1d8a662e97ca6c8244fedebf65a88d2a">buyFromNpc</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>, bool soldItem)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">only used for adjusting the gold balance  <a href="#a1d8a662e97ca6c8244fedebf65a88d2a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#ad8bc1c5b1f7f927eb238e817f39232d6">npcAcceptsItem</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1TradeWindow.html#ab44ec13f6fd1820316489ac612fc9239">addOrRemoveGold</a> (int gold)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
@@ -156,12 +156,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a76fe0d0050684eb59b31580c093bd22c"></a><!-- doxytag: member="MWGui::TradeWindow::buyFromNpc" ref="a76fe0d0050684eb59b31580c093bd22c" args="(MWWorld::Ptr item, int count)" -->
+<a class="anchor" id="a1d8a662e97ca6c8244fedebf65a88d2a"></a><!-- doxytag: member="MWGui::TradeWindow::buyFromNpc" ref="a1d8a662e97ca6c8244fedebf65a88d2a" args="(MWWorld::Ptr item, int count, bool soldItem)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWGui_1_1TradeWindow.html#a76fe0d0050684eb59b31580c093bd22c">MWGui::TradeWindow::buyFromNpc</a> </td>
+          <td class="memname">void <a class="el" href="classMWGui_1_1TradeWindow.html#a1d8a662e97ca6c8244fedebf65a88d2a">MWGui::TradeWindow::buyFromNpc</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
           <td class="paramname"><em>item</em>, </td>
@@ -170,7 +170,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em>&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>soldItem</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -289,7 +295,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000032">Todo:</a></b></dt><dd>what about potions, there doesn't seem to be a flag for them?? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>what about potions, there doesn't seem to be a flag for them?? </dd></dl>
 
 </div>
 </div>
@@ -415,12 +421,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5cd05f3b910d9b75b12e0db69bcdfc2f"></a><!-- doxytag: member="MWGui::TradeWindow::sellToNpc" ref="a5cd05f3b910d9b75b12e0db69bcdfc2f" args="(MWWorld::Ptr item, int count)" -->
+<a class="anchor" id="a74533a71f198d9bec717456d5fcd3add"></a><!-- doxytag: member="MWGui::TradeWindow::sellToNpc" ref="a74533a71f198d9bec717456d5fcd3add" args="(MWWorld::Ptr item, int count, bool boughtItem)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWGui_1_1TradeWindow.html#a5cd05f3b910d9b75b12e0db69bcdfc2f">MWGui::TradeWindow::sellToNpc</a> </td>
+          <td class="memname">void <a class="el" href="classMWGui_1_1TradeWindow.html#a74533a71f198d9bec717456d5fcd3add">MWGui::TradeWindow::sellToNpc</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
           <td class="paramname"><em>item</em>, </td>
@@ -429,7 +435,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>count</em>&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boughtItem</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -707,7 +719,7 @@ Protected Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:34 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

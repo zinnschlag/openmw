@@ -62,39 +62,40 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MWGUI_SCROLLWINDOW_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWGui
-<a name="l00009"></a>00009 {
-<a name="l00010"></a><a class="code" href="classMWGui_1_1ScrollWindow.html">00010</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ScrollWindow.html">ScrollWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00011"></a>00011     {
-<a name="l00012"></a>00012         <span class="keyword">public</span>:
-<a name="l00013"></a>00013             <a class="code" href="classMWGui_1_1ScrollWindow.html#a149e616d8ead1dbf19d5b7f40fe80328">ScrollWindow</a> (<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">open</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> scroll);
-<a name="l00016"></a>00016             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ScrollWindow.html#a19b1be2cb83b1de638d9ee5712a91028">setTakeButtonShow</a>(<span class="keywordtype">bool</span> show);
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018         <span class="keyword">protected</span>:
-<a name="l00019"></a>00019             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ScrollWindow.html#a0298cdfd8d6315a89c62275df70d229c">onCloseButtonClicked</a> (MyGUI::Widget* _sender);
-<a name="l00020"></a>00020             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ScrollWindow.html#ab5b308df2575198e4eb9a408e534b3ef">onTakeButtonClicked</a> (MyGUI::Widget* _sender);
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022         <span class="keyword">private</span>:
-<a name="l00023"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#abd82adf3fdd4ed189f024083e91cfdbc">00023</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1ScrollWindow.html#abd82adf3fdd4ed189f024083e91cfdbc">mCloseButton</a>;
-<a name="l00024"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#a4a3d049f6b8beb19f2de94d5b131b45f">00024</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1ScrollWindow.html#a4a3d049f6b8beb19f2de94d5b131b45f">mTakeButton</a>;
-<a name="l00025"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#a5d09cb4ee16e411114588abf5bcb7c1f">00025</a>             MyGUI::ScrollView* <a class="code" href="classMWGui_1_1ScrollWindow.html#a5d09cb4ee16e411114588abf5bcb7c1f">mTextView</a>;
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#a5818e541d161490d6b7a3d2e69154da2">00027</a>             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1ScrollWindow.html#a5818e541d161490d6b7a3d2e69154da2">mScroll</a>;
-<a name="l00028"></a>00028     };
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 }
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#endif</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="imagebutton_8hpp.html">imagebutton.hpp</a>&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWGui
+<a name="l00010"></a>00010 {
+<a name="l00011"></a><a class="code" href="classMWGui_1_1ScrollWindow.html">00011</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ScrollWindow.html">ScrollWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00012"></a>00012     {
+<a name="l00013"></a>00013         <span class="keyword">public</span>:
+<a name="l00014"></a>00014             <a class="code" href="classMWGui_1_1ScrollWindow.html#a149e616d8ead1dbf19d5b7f40fe80328">ScrollWindow</a> (<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">open</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> scroll);
+<a name="l00017"></a>00017             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ScrollWindow.html#a19b1be2cb83b1de638d9ee5712a91028">setTakeButtonShow</a>(<span class="keywordtype">bool</span> show);
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019         <span class="keyword">protected</span>:
+<a name="l00020"></a>00020             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ScrollWindow.html#a0298cdfd8d6315a89c62275df70d229c">onCloseButtonClicked</a> (MyGUI::Widget* _sender);
+<a name="l00021"></a>00021             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ScrollWindow.html#ab5b308df2575198e4eb9a408e534b3ef">onTakeButtonClicked</a> (MyGUI::Widget* _sender);
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023         <span class="keyword">private</span>:
+<a name="l00024"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#ab4bf14b7f387850237c13d829fa23462">00024</a>             <a class="code" href="classMWGui_1_1ImageButton.html" title="allows using different image textures depending on the button state">MWGui::ImageButton</a>* <a class="code" href="classMWGui_1_1ScrollWindow.html#ab4bf14b7f387850237c13d829fa23462">mCloseButton</a>;
+<a name="l00025"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#a120e4d4c63cbe01d801439ff9fdead02">00025</a>             <a class="code" href="classMWGui_1_1ImageButton.html" title="allows using different image textures depending on the button state">MWGui::ImageButton</a>* <a class="code" href="classMWGui_1_1ScrollWindow.html#a120e4d4c63cbe01d801439ff9fdead02">mTakeButton</a>;
+<a name="l00026"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#a5d09cb4ee16e411114588abf5bcb7c1f">00026</a>             MyGUI::ScrollView* <a class="code" href="classMWGui_1_1ScrollWindow.html#a5d09cb4ee16e411114588abf5bcb7c1f">mTextView</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="classMWGui_1_1ScrollWindow.html#a5818e541d161490d6b7a3d2e69154da2">00028</a>             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1ScrollWindow.html#a5818e541d161490d6b7a3d2e69154da2">mScroll</a>;
+<a name="l00029"></a>00029     };
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 }
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:33 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

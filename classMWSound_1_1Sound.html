@@ -79,9 +79,11 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#aa06762af74f9d3581939ddeafdea2018">stop</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#a9d6befc9be8e90111226ca531b147f1f">isPlaying</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#af0c65308feea169d7744a8321ac41edb">getTimeOffset</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#a46b13d10404d616296cbd031441c3fe6">setPosition</a> (const Ogre::Vector3 &amp;pos)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#a6390712c8ff10421706d98dfa5010d79">setVolume</a> (float volume)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#a9cf888643a24797722e46661bb1e5ef1">Sound</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">MWBase::SoundManager::PlayType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#a41d4aac3447210f5283172e767a27fbd">getPlayType</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#af92b9c006c2958dcdc78761acacbc45e">Sound</a> (const Ogre::Vector3 &amp;pos, float vol, float basevol, float pitch, float mindist, float maxdist, int flags)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWSound_1_1Sound.html#a9f145161b5a283e0fe2426791a24cc14">~Sound</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -120,15 +122,56 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9cf888643a24797722e46661bb1e5ef1"></a><!-- doxytag: member="MWSound::Sound::Sound" ref="a9cf888643a24797722e46661bb1e5ef1" args="()" -->
+<a class="anchor" id="af92b9c006c2958dcdc78761acacbc45e"></a><!-- doxytag: member="MWSound::Sound::Sound" ref="af92b9c006c2958dcdc78761acacbc45e" args="(const Ogre::Vector3 &amp;pos, float vol, float basevol, float pitch, float mindist, float maxdist, int flags)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classMWSound_1_1Sound.html#aa0c56554fc1439d65192c1ee799f9820">MWSound::Sound::Sound</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramtype">const Ogre::Vector3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>vol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>basevol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>pitch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>mindist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxdist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -153,6 +196,40 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a41d4aac3447210f5283172e767a27fbd"></a><!-- doxytag: member="MWSound::Sound::getPlayType" ref="a41d4aac3447210f5283172e767a27fbd" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">MWBase::SoundManager::PlayType</a> <a class="el" href="classMWSound_1_1Sound.html#a41d4aac3447210f5283172e767a27fbd">MWSound::Sound::getPlayType</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af0c65308feea169d7744a8321ac41edb"></a><!-- doxytag: member="MWSound::Sound::getTimeOffset" ref="af0c65308feea169d7744a8321ac41edb" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double <a class="el" href="classMWSound_1_1Sound.html#af0c65308feea169d7744a8321ac41edb">MWSound::Sound::getTimeOffset</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWSound_1_1OpenAL__Sound.html#a9fff62748225d9e2272e8a8632d101a5">MWSound::OpenAL_Sound</a>, and <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a815df51fd973fabb2629e45ad96479e7">MWSound::OpenAL_SoundStream</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a9d6befc9be8e90111226ca531b147f1f"></a><!-- doxytag: member="MWSound::Sound::isPlaying" ref="a9d6befc9be8e90111226ca531b147f1f" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -270,6 +347,8 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classMWSound_1_1OpenAL__Sound.html#a6b4229294eca41f1ffb09c11f02ed116">MWSound::OpenAL_Sound</a>, and <a class="el" href="classMWSound_1_1OpenAL__SoundStream.html#a6b4229294eca41f1ffb09c11f02ed116">MWSound::OpenAL_SoundStream</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aee940642f2974e262db9284c0b1d9766"></a><!-- doxytag: member="MWSound::Sound::SoundManager" ref="aee940642f2974e262db9284c0b1d9766" args="" -->
@@ -384,7 +463,7 @@ Friends</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 14 2012 11:05:35 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
