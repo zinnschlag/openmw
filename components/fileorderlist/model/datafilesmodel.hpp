@@ -55,6 +55,8 @@ private:
     
     QList<EsmFile *> mFiles;
     QHash<QString, Qt::CheckState> mCheckStates;
+    
+    static bool lessThanEsmFile(const EsmFile *e1, const EsmFile *e2);
 
     QString mEncoding;
 

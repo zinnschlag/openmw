@@ -6,7 +6,6 @@
 #include "model/datafilesmodel.hpp"
 #include "model/esm/esmfile.hpp"
 
-#include "utils/filedialog.hpp"
 #include "utils/lineedit.hpp"
 
 #include "datafileslist.hpp"
@@ -105,8 +104,6 @@ DataFilesList::DataFilesList(Files::ConfigurationManager &cfg, QWidget *parent)
     pageLayout->addWidget(mFilesTable);
 
     connect(mFilesTable, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(setCheckState(QModelIndex)));
-    
-    connect(mFilesModel, SIGNAL(checkedItemsChanged(QStringList,QStringList)), mFilesModel, SLOT(slotcheckedItemsChanged(QStringList,QStringList)));
 
     connect(filterLineEdit, SIGNAL(textChanged(QString)), this, SLOT(filterChanged(QString)));
 
@@ -291,4 +288,9 @@ void DataFilesList::setCheckState(const QString& element, Qt::CheckState state)
 QStringList DataFilesList::checkedFiles()
 {
     return mFilesModel->checkedItems();
+}
+
+QAbstractItemModel * DataFilesList::model()
+{
+    return (QAbstractItemModel *)mFilesModel;
 }

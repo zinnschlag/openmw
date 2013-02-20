@@ -3,6 +3,8 @@
 
 class DataFilesList;
 class QDialogButtonBox;
+class QComboBox;
+class OpenFileProxyModel;
 
 class OpenDialog : public QDialog {
     Q_OBJECT
@@ -12,6 +14,8 @@ public:
     void getFileList(std::vector<boost::filesystem::path>& paths);
 private:
     DataFilesList * mFileSelector;
-    QDialogButtonBox * buttonBox;
+    QDialogButtonBox * mButtonBox;
+    QComboBox * mEditedFileSelector;
+    OpenFileProxyModel * mFilesProxyModel;
     Files::ConfigurationManager mCfgMgr;
 };

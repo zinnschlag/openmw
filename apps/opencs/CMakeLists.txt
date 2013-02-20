@@ -5,7 +5,7 @@ opencs_units (. editor)
 
 
 opencs_units (model/doc
-    document
+    document openfileproxymodel
     )
 
 opencs_units_noqt (model/doc

@@ -1,5 +1,10 @@
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
+#include <QComboBox>
+#include <QSortFilterProxyModel>
+#include <QLabel>
+
+#include "../../model/doc/openfileproxymodel.hpp"
 
 #include <components/fileorderlist/datafileslist.hpp>
 
@@ -47,10 +52,25 @@ OpenDialog::OpenDialog(QWidget * parent) : QDialog(parent)
     dataDirs.insert(dataDirs.end(), mDataLocal.begin(), mDataLocal.end());
     mFileSelector->setupDataFiles(dataDirs, encoding);
     
-    buttonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::Cancel, Qt::Horizontal, this);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    layout->addWidget(buttonBox);
+    QHBoxLayout *selectedFileLayout = new QHBoxLayout(this);
+    QLabel *selectedFileLabel = new QLabel(tr("Selected File: "), this);
+    selectedFileLayout->addWidget(selectedFileLabel);
+    
+    mEditedFileSelector = new QComboBox(this);
+    mEditedFileSelector->setInsertPolicy(QComboBox::InsertAtBottom);
+    
+    mFilesProxyModel = new OpenFileProxyModel(this);
+    mFilesProxyModel->setDynamicSortFilter(true);
+    mFilesProxyModel->setSourceModel(mFileSelector->model());
+    mEditedFileSelector->setModel(mFilesProxyModel);
+    connect(mFilesProxyModel, SIGNAL(layoutChanged()), mEditedFileSelector, SLOT(update()));
+    selectedFileLayout->addWidget(mEditedFileSelector, 1); //strech mEditedFileSelector   
+    layout->addLayout(selectedFileLayout);
+    
+    mButtonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::Cancel, Qt::Horizontal, this);
+    connect(mButtonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(mButtonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    layout->addWidget(mButtonBox);
     
     setLayout(layout);
     setWindowTitle(tr("Open"));

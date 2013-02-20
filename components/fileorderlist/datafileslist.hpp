@@ -31,6 +31,7 @@ public:
     void uncheckAll();
     QStringList checkedFiles();
     void setCheckState(const QString& element, Qt::CheckState);
+    QAbstractItemModel * model();
     
 
 public slots:

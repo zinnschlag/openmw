@@ -217,7 +217,7 @@ bool DataFilesModel::setData(const QModelIndex &index, const QVariant &value, in
     return false;
 }
 
-bool lessThanEsmFile(const EsmFile *e1, const EsmFile *e2)
+bool DataFilesModel::lessThanEsmFile(const EsmFile *e1, const EsmFile *e2)
 {
     //Masters first then alphabetically
     if (e1->fileName().endsWith(".esm") && !e2->fileName().endsWith(".esm"))
