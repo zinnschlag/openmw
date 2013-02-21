@@ -97,6 +97,8 @@ namespace CSVDoc
             void verify();
 
             void addGlobalsSubView();
+
+            void abortOperation(int type);
     };
 }
 

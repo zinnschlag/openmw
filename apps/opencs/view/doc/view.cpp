@@ -125,6 +125,8 @@ CSVDoc::View::View (ViewManager& viewManager, CSMDoc::Document *document, int to
 
     CSVWorld::addSubViewFactories (mSubViewFactory);
     CSVTools::addSubViewFactories (mSubViewFactory);
+
+    connect (mOperations, SIGNAL (abortOperation (int)), this, SLOT (abortOperation(int)));
 }
 
 CSVDoc::View::~View()
@@ -213,4 +215,10 @@ void CSVDoc::View::verify()
 void CSVDoc::View::addGlobalsSubView()
 {
     addSubView (CSMWorld::UniversalId::Type_Globals);
+}
+
+void CSVDoc::View::abortOperation (int type)
+{
+    mDocument->abortOperation(type);
+    mOperations->quitOperation(type);
 }

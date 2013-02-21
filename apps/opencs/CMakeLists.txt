@@ -40,7 +40,11 @@ opencs_units_noqt (model/tools
 
 
 opencs_units (view/doc
+<<<<<<< HEAD
     viewmanager view operations operation subview startupdialog
+=======
+    viewmanager view operations operation subview startup
+>>>>>>> next
     )
 
 opencs_units_noqt (view/doc

@@ -1,16 +1,23 @@
 #ifndef CSV_DOC_OPERATION_H
 #define CSV_DOC_OPERATION_H
 
-#include <QProgressBar>
+#include <QObject>
+
+class QProgressBar;
+class QPushButton;
+class QVBoxLayout;
 
 namespace CSVDoc
 {
-    class Operation : public QProgressBar
+    class Operation: public QObject
     {
             Q_OBJECT
 
             int mType;
             bool mStalling;
+            QProgressBar *mProgressBar;
+            QPushButton  *mAbortButton;
+            QVBoxLayout  *mVBoxLayout;
 
             // not implemented
             Operation (const Operation&);
@@ -29,6 +36,15 @@ namespace CSVDoc
         private:
 
             void setBarColor (int type);
+            QVBoxLayout* getLayout() const;
+
+        signals:
+
+            void abortOperation (int type);
+
+        private slots:
+
+            void abortOperation ();
     };
 }
 

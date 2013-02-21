@@ -1,8 +1,11 @@
 
-#include "operation.hpp"
-
 #include <sstream>
 
+#include <QProgressBar>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+#include "operation.hpp"
 #include "../../model/doc/document.hpp"
 
 void CSVDoc::Operation::updateLabel (int threads)
@@ -28,12 +31,20 @@ void CSVDoc::Operation::updateLabel (int threads)
             stream << name << " (%p%)";
         }
 
-        setFormat (stream.str().c_str());
+        mProgressBar->setFormat (stream.str().c_str());
     }
 }
 
 CSVDoc::Operation::Operation (int type) : mType (type), mStalling (false)
 {
+    mProgressBar = new QProgressBar ();
+    mAbortButton = new QPushButton ("Abort");
+    mVBoxLayout = new QVBoxLayout();
+
+    mVBoxLayout->addWidget (mProgressBar);
+    mVBoxLayout->addWidget (mAbortButton);
+
+    connect (mAbortButton, SIGNAL (clicked()), this, SLOT (abortOperation()));
     /// \todo Add a cancel button or a pop up menu with a cancel item
     setBarColor( type);
     updateLabel();
@@ -44,8 +55,8 @@ CSVDoc::Operation::Operation (int type) : mType (type), mStalling (false)
 void CSVDoc::Operation::setProgress (int current, int max, int threads)
 {
     updateLabel (threads);
-    setRange (0, max);
-    setValue (current);
+    mProgressBar->setRange (0, max);
+    mProgressBar->setValue (current);
 }
 
 int CSVDoc::Operation::getType() const
@@ -115,4 +126,14 @@ void CSVDoc::Operation::setBarColor (int type)
     }
 
     setStyleSheet(style.arg(topColor).arg(midTopColor).arg(midBottomColor).arg(bottomColor));
+}
+
+QVBoxLayout *CSVDoc::Operation::getLayout() const
+{
+    return mVBoxLayout;
+}
+
+void CSVDoc::Operation::abortOperation()
+{
+    emit abortOperation (mType);
 }
