@@ -52,6 +52,7 @@
 #include "enchantingdialog.hpp"
 #include "trainingwindow.hpp"
 #include "imagebutton.hpp"
+#include "exposedwindow.hpp"
 
 using namespace MWGui;
 
@@ -109,7 +110,6 @@ WindowManager::WindowManager(
   , mHudEnabled(true)
   , mTranslationDataStorage (translationDataStorage)
 {
-
     // Set up the GUI system
     mGuiManager = new OEngine::GUI::MyGUIManager(mOgre->getWindow(), mOgre->getScene(), false, logpath);
     mGui = mGuiManager->getGui();
@@ -128,6 +128,7 @@ WindowManager::WindowManager(
     MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::AutoSizedTextBox>("Widget");
     MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::AutoSizedButton>("Widget");
     MyGUI::FactoryManager::getInstance().registerFactory<MWGui::ImageButton>("Widget");
+    MyGUI::FactoryManager::getInstance().registerFactory<MWGui::ExposedWindow>("Widget");
 
     MyGUI::LanguageManager::getInstance().eventRequestTag = MyGUI::newDelegate(this, &WindowManager::onRetrieveTag);
 
@@ -195,6 +196,9 @@ WindowManager::WindowManager(
 
     unsetSelectedSpell();
     unsetSelectedWeapon();
+
+    if (newGame)
+        disallowAll ();
 
     // Set up visibility
     updateVisible();
@@ -308,9 +312,16 @@ void WindowManager::updateVisible()
     setSpellVisibility((mAllowed & GW_Magic) && !mSpellWindow->pinned());
     setHMSVisibility((mAllowed & GW_Stats) && !mStatsWindow->pinned());
 
-    // If in game mode, don't show anything.
+    // If in game mode, show only the pinned windows
     if (gameMode)
+    {
+        mMap->setVisible(mMap->pinned());
+        mStatsWindow->setVisible(mStatsWindow->pinned());
+        mInventoryWindow->setVisible(mInventoryWindow->pinned());
+        mSpellWindow->setVisible(mSpellWindow->pinned());
+
         return;
+    }
 
     GuiMode mode = mGuiModes.back();
 
@@ -325,6 +336,12 @@ void WindowManager::updateVisible()
             mSettingsWindow->setVisible(true);
             break;
         case GM_Console:
+            // Show the pinned windows
+            mMap->setVisible(mMap->pinned());
+            mStatsWindow->setVisible(mStatsWindow->pinned());
+            mInventoryWindow->setVisible(mInventoryWindow->pinned());
+            mSpellWindow->setVisible(mSpellWindow->pinned());
+
             mConsole->enable();
             break;
         case GM_Scroll:
@@ -560,6 +577,11 @@ void WindowManager::messageBox (const std::string& message, const std::vector<st
     }
 }
 
+void WindowManager::enterPressed ()
+{
+    mMessageBoxManager->enterPressed();
+}
+
 int WindowManager::readPressedButton ()
 {
     return mMessageBoxManager->readPressedButton();
@@ -608,6 +630,7 @@ void WindowManager::onFrame (float frameDuration)
     mHud->onFrame(frameDuration);
 
     mTrainingWindow->onFrame (frameDuration);
+    mTradeWindow->onFrame(frameDuration);
 
     mTrainingWindow->checkReferenceAvailable();
     mDialogueWindow->checkReferenceAvailable();
@@ -937,12 +960,23 @@ bool WindowManager::isAllowed (GuiWindow wnd) const
 void WindowManager::allow (GuiWindow wnd)
 {
     mAllowed = (GuiWindow)(mAllowed | wnd);
+
+    if (wnd & GW_Inventory)
+    {
+        mBookWindow->setInventoryAllowed (true);
+        mScrollWindow->setInventoryAllowed (true);
+    }
+
     updateVisible();
 }
 
 void WindowManager::disallowAll()
 {
     mAllowed = GW_None;
+
+    mBookWindow->setInventoryAllowed (false);
+    mScrollWindow->setInventoryAllowed (false);
+
     updateVisible();
 }
 

@@ -30,7 +30,7 @@ add_openmw_dir (mwgui
     formatting inventorywindow container hud countdialog tradewindow settingswindow
     confirmationdialog alchemywindow referenceinterface spellwindow mainmenu quickkeysmenu
     itemselection spellbuyingwindow loadingscreen levelupdialog waitdialog spellcreationdialog
-    enchantingdialog trainingwindow travelwindow imagebutton
+    enchantingdialog trainingwindow travelwindow imagebutton exposedwindow
     )
 
 add_openmw_dir (mwdialogue
@@ -125,6 +125,12 @@ if(APPLE)
     find_library(COCOA_FRAMEWORK Cocoa)
     find_library(IOKIT_FRAMEWORK IOKit)
     target_link_libraries(openmw ${CARBON_FRAMEWORK} ${COCOA_FRAMEWORK} ${IOKIT_FRAMEWORK})
+
+    if (FFMPEG_FOUND)
+        find_library(COREVIDEO_FRAMEWORK CoreVideo)
+        find_library(VDA_FRAMEWORK VideoDecodeAcceleration)
+        target_link_libraries(openmw ${COREVIDEO_FRAMEWORK} ${VDA_FRAMEWORK})
+    endif()
 endif(APPLE)
 
 if(DPKG_PROGRAM)

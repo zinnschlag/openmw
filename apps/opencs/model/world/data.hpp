@@ -4,7 +4,10 @@
 #include <map>
 #include <vector>
 
+#include <boost/filesystem/path.hpp>
+
 #include <components/esm/loadglob.hpp>
+#include <components/esm/loadgmst.hpp>
 
 #include "idcollection.hpp"
 #include "universalid.hpp"
@@ -16,6 +19,7 @@ namespace CSMWorld
     class Data
     {
             IdCollection<ESM::Global> mGlobals;
+            IdCollection<ESM::GameSetting> mGmsts;
             std::vector<QAbstractTableModel *> mModels;
             std::map<UniversalId::Type, QAbstractTableModel *> mModelIndex;
 
@@ -36,6 +40,10 @@ namespace CSMWorld
 
             IdCollection<ESM::Global>& getGlobals();
 
+            const IdCollection<ESM::GameSetting>& getGmsts() const;
+
+            IdCollection<ESM::GameSetting>& getGmsts();
+
             QAbstractTableModel *getTableModel (const UniversalId& id);
             ///< If no table model is available for \a id, an exception is thrown.
             ///
@@ -44,6 +52,9 @@ namespace CSMWorld
 
             void merge();
             ///< Merge modified into base.
+
+            void loadFile (const boost::filesystem::path& path, bool base);
+            ///< Merging content of a file into base or modified.
     };
 }
 

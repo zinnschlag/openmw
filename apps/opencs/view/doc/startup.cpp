@@ -17,4 +17,6 @@ CSVDoc::StartupDialogue::StartupDialogue()
     layout->addWidget (loadDocument);
 
     setLayout (layout);
+
 }
+
