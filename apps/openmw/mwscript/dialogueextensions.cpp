@@ -15,6 +15,9 @@
 #include "../mwworld/player.hpp"
 #include "../mwmechanics/npcstats.hpp"
 
+#include "../mwgui/bookwindow.hpp"
+#include "../mwbase/windowmanager.hpp"
+
 #include "interpretercontext.hpp"
 #include "ref.hpp"
 
@@ -188,6 +191,22 @@ namespace MWScript
                 }
         };
 
+        class OpShowBook : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    std::string book = runtime.getStringLiteral (runtime[0].mInteger);
+                    runtime.pop();
+
+                    auto ptr = MWBase::Environment::get().getWorld ()->getPtr (book, false);
+
+                    MWBase::Environment::get().getWindowManager()->pushGuiMode(MWGui::GM_Book);
+                    MWBase::Environment::get().getWindowManager()->getBookWindow()->open(ptr);
+                }
+        };
+
         const int opcodeJournal = 0x2000133;
         const int opcodeSetJournalIndex = 0x2000134;
         const int opcodeGetJournalIndex = 0x2000135;
@@ -204,6 +223,7 @@ namespace MWScript
         const int opcodeGetReputationExplicit = 0x20001b2;
         const int opcodeSameFaction = 0x20001b5;
         const int opcodeSameFactionExplicit = 0x20001b6;
+        const int opcodeShowBook = 0x20001fc;
 
         void registerExtensions (Compiler::Extensions& extensions)
         {
@@ -224,6 +244,7 @@ namespace MWScript
                 opcodeGetReputationExplicit);
             extensions.registerFunction("samefaction", 'l', "", opcodeSameFaction,
                 opcodeSameFactionExplicit);
+            extensions.registerInstruction("showbook", "S", opcodeShowBook);
         }
 
         void installOpcodes (Interpreter::Interpreter& interpreter)
@@ -244,6 +265,7 @@ namespace MWScript
             interpreter.installSegment5 (opcodeGetReputationExplicit, new OpGetReputation<ExplicitRef>);
             interpreter.installSegment5 (opcodeSameFaction, new OpSameFaction<ImplicitRef>);
             interpreter.installSegment5 (opcodeSameFactionExplicit, new OpSameFaction<ExplicitRef>);
+            interpreter.installSegment5 (opcodeShowBook, new OpShowBook);
         }
     }
 
