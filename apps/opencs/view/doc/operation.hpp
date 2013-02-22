@@ -3,9 +3,9 @@
 
 #include <QObject>
 
+class QHBoxLayout;
 class QProgressBar;
 class QPushButton;
-class QVBoxLayout;
 
 namespace CSVDoc
 {
@@ -15,9 +15,9 @@ namespace CSVDoc
 
             int mType;
             bool mStalling;
+            QHBoxLayout *mLayout;
             QProgressBar *mProgressBar;
-            QPushButton  *mAbortButton;
-            QVBoxLayout  *mVBoxLayout;
+            QPushButton *mAbortButton;
 
             // not implemented
             Operation (const Operation&);
@@ -28,15 +28,18 @@ namespace CSVDoc
         public:
 
             Operation (int type);
+            ~Operation();
 
             void setProgress (int current, int max, int threads);
 
             int getType() const;
+            QHBoxLayout *getLayout() const;
+            void deleteLayout();
 
         private:
 
             void setBarColor (int type);
-            QVBoxLayout* getLayout() const;
+
 
         signals:
 

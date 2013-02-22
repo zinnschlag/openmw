@@ -59,11 +59,15 @@ CSVDoc::View *CSVDoc::ViewManager::addView (CSMDoc::Document *document)
             this, SLOT (progress (int, int, int, int, CSMDoc::Document *)));
     }
 
+    QMainWindow* mMainWindow = new QMainWindow;
+
     View *view = new View (*this, document, countViews (document)+1);
 
     mViews.push_back (view);
 
-    view->show();
+    mMainWindow->setCentralWidget (view);
+    mMainWindow->show();
+    mMainWindow->addDockWidget (Qt::BottomDockWidgetArea, view->getOperations());
 
     connect (view, SIGNAL (newDocumentRequest ()), this, SIGNAL (newDocumentRequest()));
     connect (view, SIGNAL (loadDocumentRequest ()), this, SIGNAL (loadDocumentRequest()));
