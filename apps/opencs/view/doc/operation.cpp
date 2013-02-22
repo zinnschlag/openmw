@@ -39,17 +39,15 @@ CSVDoc::Operation::Operation (int type) : mType (type), mStalling (false)
 {
     mProgressBar = new QProgressBar ();
     mAbortButton = new QPushButton ("Abort");
-    mVBoxLayout = new QVBoxLayout();
+    mLayout = new QHBoxLayout;
 
-    mVBoxLayout->addWidget (mProgressBar);
-    mVBoxLayout->addWidget (mAbortButton);
+    mLayout->addWidget (mProgressBar);
+    mLayout->addWidget (mAbortButton);
 
     connect (mAbortButton, SIGNAL (clicked()), this, SLOT (abortOperation()));
-    /// \todo Add a cancel button or a pop up menu with a cancel item
+
     setBarColor( type);
     updateLabel();
-
-    /// \todo assign different progress bar colours to allow the user to distinguish easily between operation types
 }
 
 void CSVDoc::Operation::setProgress (int current, int max, int threads)
@@ -125,15 +123,22 @@ void CSVDoc::Operation::setBarColor (int type)
         midBottomColor = "#B5C6D0";  // gray gloss for undefined ops
     }
 
-    setStyleSheet(style.arg(topColor).arg(midTopColor).arg(midBottomColor).arg(bottomColor));
+    mProgressBar->setStyleSheet(style.arg(topColor).arg(midTopColor).arg(midBottomColor).arg(bottomColor));
 }
 
-QVBoxLayout *CSVDoc::Operation::getLayout() const
+QHBoxLayout *CSVDoc::Operation::getLayout() const
 {
-    return mVBoxLayout;
+    return mLayout;
 }
 
 void CSVDoc::Operation::abortOperation()
 {
     emit abortOperation (mType);
+}
+
+CSVDoc::Operation::~Operation()
+{
+    delete mProgressBar;
+    delete mAbortButton;
+    delete mLayout;
 }

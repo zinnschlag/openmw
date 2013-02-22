@@ -125,7 +125,7 @@ CSVDoc::View::View (ViewManager& viewManager, CSMDoc::Document *document, int to
     resize (300, 300); /// \todo get default size from settings and set reasonable minimal size
 
     mOperations = new Operations;
-    addDockWidget (Qt::BottomDockWidgetArea, mOperations);
+    //addDockWidget (Qt::BottomDockWidgetArea, mOperations);
 
     updateTitle();
 
@@ -229,9 +229,15 @@ void CSVDoc::View::abortOperation (int type)
 {
     mDocument->abortOperation(type);
     mOperations->quitOperation(type);
+    updateActions();
 }
 
 void CSVDoc::View::addGmstsSubView()
 {
     addSubView (CSMWorld::UniversalId::Type_Gmsts);
+}
+
+QDockWidget* CSVDoc::View::getOperations() const
+{
+    return mOperations;
 }
