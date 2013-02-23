@@ -2,21 +2,24 @@
 #include "operations.hpp"
 
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "operation.hpp"
 
 CSVDoc::Operations::Operations()
 {
     /// \todo make widget height fixed (exactly the height required to display all operations)
-
-    setFeatures (QDockWidget::NoDockWidgetFeatures);
-
-    QWidget *widget = new QWidget;
-    setWidget (widget);
-
+    QWidget *widgetContainer = new QWidget (this);
     mLayout = new QVBoxLayout;
 
-    widget->setLayout (mLayout);
+    widgetContainer->setLayout (mLayout);
+
+    setWidget (widgetContainer);
+
+    setFixedHeight (widgetContainer->height());
+    setTitleBarWidget (new QWidget (this));
+
+    setFeatures (QDockWidget::NoDockWidgetFeatures);
 }
 
 void CSVDoc::Operations::setProgress (int current, int max, int type, int threads)
@@ -30,7 +33,8 @@ void CSVDoc::Operations::setProgress (int current, int max, int type, int thread
 
     Operation *operation = new Operation (type);
 
-    mLayout->addWidget (operation);
+    connect (operation, SIGNAL (abortOperation (int)), this, SIGNAL (abortOperation (int)));
+    mLayout->addLayout (operation->getLayout());
     mOperations.push_back (operation);
     operation->setProgress (current, max, threads);
 }

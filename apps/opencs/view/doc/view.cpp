@@ -125,7 +125,7 @@ CSVDoc::View::View (ViewManager& viewManager, CSMDoc::Document *document, int to
     resize (300, 300); /// \todo get default size from settings and set reasonable minimal size
 
     mOperations = new Operations;
-    addDockWidget (Qt::BottomDockWidgetArea, mOperations);
+    //addDockWidget (Qt::BottomDockWidgetArea, mOperations);
 
     updateTitle();
 
@@ -133,6 +133,8 @@ CSVDoc::View::View (ViewManager& viewManager, CSMDoc::Document *document, int to
 
     CSVWorld::addSubViewFactories (mSubViewFactory);
     CSVTools::addSubViewFactories (mSubViewFactory);
+
+    connect (mOperations, SIGNAL (abortOperation (int)), this, SLOT (abortOperation(int)));
 }
 
 CSVDoc::View::~View()
@@ -223,7 +225,19 @@ void CSVDoc::View::addGlobalsSubView()
     addSubView (CSMWorld::UniversalId::Type_Globals);
 }
 
+void CSVDoc::View::abortOperation (int type)
+{
+    mDocument->abortOperation(type);
+    mOperations->quitOperation(type);
+    updateActions();
+}
+
 void CSVDoc::View::addGmstsSubView()
 {
     addSubView (CSMWorld::UniversalId::Type_Gmsts);
+}
+
+QDockWidget* CSVDoc::View::getOperations() const
+{
+    return mOperations;
 }

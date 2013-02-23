@@ -1,8 +1,11 @@
 
-#include "operation.hpp"
-
 #include <sstream>
 
+#include <QProgressBar>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+#include "operation.hpp"
 #include "../../model/doc/document.hpp"
 
 void CSVDoc::Operation::updateLabel (int threads)
@@ -28,24 +31,30 @@ void CSVDoc::Operation::updateLabel (int threads)
             stream << name << " (%p%)";
         }
 
-        setFormat (stream.str().c_str());
+        mProgressBar->setFormat (stream.str().c_str());
     }
 }
 
 CSVDoc::Operation::Operation (int type) : mType (type), mStalling (false)
 {
-    /// \todo Add a cancel button or a pop up menu with a cancel item
+    mProgressBar = new QProgressBar ();
+    mAbortButton = new QPushButton ("Abort");
+    mLayout = new QHBoxLayout;
+
+    mLayout->addWidget (mProgressBar);
+    mLayout->addWidget (mAbortButton);
+
+    connect (mAbortButton, SIGNAL (clicked()), this, SLOT (abortOperation()));
+
     setBarColor( type);
     updateLabel();
-
-    /// \todo assign different progress bar colours to allow the user to distinguish easily between operation types
 }
 
 void CSVDoc::Operation::setProgress (int current, int max, int threads)
 {
     updateLabel (threads);
-    setRange (0, max);
-    setValue (current);
+    mProgressBar->setRange (0, max);
+    mProgressBar->setValue (current);
 }
 
 int CSVDoc::Operation::getType() const
@@ -64,8 +73,6 @@ void CSVDoc::Operation::setBarColor (int type)
             "margin: 2px 1px 1p 2px;"
           "}";
 
-    // "QProgressBar::chunk {background-color: %1;}";
-
     QString topColor = "#F2F6F8";
     QString bottomColor = "#E0EFF9";
     QString midTopColor = "#D8E1E7";
@@ -82,7 +89,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#F17432";
         midBottomColor = "#EA5507";
         bottomColor = "#FB955E";  // red gloss #2
-        //break;
+        break;
 
     case CSMDoc::State_Searching:
 
@@ -90,7 +97,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#ABD3EE";
         midBottomColor = "#89C3EB";
         bottomColor = "#D5EBFB"; //blue gloss #4
-        //break;
+        break;
 
     case CSMDoc::State_Verifying:
 
@@ -98,7 +105,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#8EB92A";
         midBottomColor = "#72AA00";
         bottomColor = "#9ECB2D";  //green gloss
-        //break;
+        break;
 
     case CSMDoc::State_Compiling:
 
@@ -106,7 +113,7 @@ void CSVDoc::Operation::setBarColor (int type)
         midTopColor = "#C19E67";
         midBottomColor = "#B68D4C";
         bottomColor = "#E9D4B3";  //l Brown 3D
-        //break;
+        break;
 
     default:
 
@@ -116,5 +123,22 @@ void CSVDoc::Operation::setBarColor (int type)
         midBottomColor = "#B5C6D0";  // gray gloss for undefined ops
     }
 
-    setStyleSheet(style.arg(topColor).arg(midTopColor).arg(midBottomColor).arg(bottomColor));
+    mProgressBar->setStyleSheet(style.arg(topColor).arg(midTopColor).arg(midBottomColor).arg(bottomColor));
+}
+
+QHBoxLayout *CSVDoc::Operation::getLayout() const
+{
+    return mLayout;
+}
+
+void CSVDoc::Operation::abortOperation()
+{
+    emit abortOperation (mType);
+}
+
+CSVDoc::Operation::~Operation()
+{
+    delete mProgressBar;
+    delete mAbortButton;
+    delete mLayout;
 }

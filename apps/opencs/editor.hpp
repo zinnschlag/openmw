@@ -6,6 +6,7 @@
 #include "model/doc/documentmanager.hpp"
 
 #include "view/doc/viewmanager.hpp"
+
 #include "view/doc/startup.hpp"
 #include "view/doc/opendialog.hpp"
 

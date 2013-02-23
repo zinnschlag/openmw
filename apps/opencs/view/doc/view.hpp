@@ -5,6 +5,7 @@
 #include <map>
 
 #include <QMainWindow>
+#include <QDockWidget>
 
 #include "subviewfactory.hpp"
 
@@ -80,6 +81,8 @@ namespace CSVDoc
 
             void updateProgress (int current, int max, int type, int threads);
 
+            QDockWidget *getOperations() const;
+
         signals:
 
             void newDocumentRequest();
@@ -100,7 +103,11 @@ namespace CSVDoc
 
             void addGlobalsSubView();
 
+
+            void abortOperation(int type);
+
             void addGmstsSubView();
+
     };
 }
 
