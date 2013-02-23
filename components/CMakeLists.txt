@@ -6,6 +6,10 @@ add_component_dir (settings
     settings
     )
 
+add_component_dir (debug
+    perfomancetimer
+    )
+
 add_component_dir (nifoverrides
     nifoverrides
     )
