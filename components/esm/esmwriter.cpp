@@ -144,7 +144,7 @@ void ESMWriter::writeHNString(const std::string& name, const std::string& data, 
 
     if (static_cast<int> (data.size()) < size)
     {
-        for (int i = data.size(); i < size; ++i)
+        for (size_t i = data.size(); i < size; ++i)
             write("\0",1);
     }
 
