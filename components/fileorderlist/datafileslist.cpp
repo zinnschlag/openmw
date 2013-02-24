@@ -155,9 +155,9 @@ bool DataFilesList::setupDataFiles(Files::PathContainer dataDirs, const QString 
     return true;
 }
 
-void DataFilesList::selectedFiles(std::vector<boost::filesystem::path>& paths)
+void DataFilesList::selectedFiles(std::vector<boost::filesystem::path>& paths, const QString lastItem)
 {
-    QStringList pluginPaths = mFilesModel->checkedItemsPaths();
+    QStringList pluginPaths = mFilesModel->sortedItemsPaths(lastItem);
     foreach (const QString &path, pluginPaths)
     {
         paths.push_back(path.toStdString());

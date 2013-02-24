@@ -3,6 +3,7 @@
 #include <QComboBox>
 #include <QSortFilterProxyModel>
 #include <QLabel>
+#include <QPushButton>
 
 #include "../../model/doc/openfileproxymodel.hpp"
 
@@ -52,24 +53,28 @@ OpenDialog::OpenDialog(QWidget * parent) : QDialog(parent)
     dataDirs.insert(dataDirs.end(), mDataLocal.begin(), mDataLocal.end());
     mFileSelector->setupDataFiles(dataDirs, encoding);
     
-    QHBoxLayout *selectedFileLayout = new QHBoxLayout(this);
+    QHBoxLayout *selectedFileLayout = new QHBoxLayout();
     QLabel *selectedFileLabel = new QLabel(tr("Selected File: "), this);
     selectedFileLayout->addWidget(selectedFileLabel);
     
     mEditedFileSelector = new QComboBox(this);
     mEditedFileSelector->setInsertPolicy(QComboBox::InsertAtBottom);
+    connect(mEditedFileSelector, SIGNAL(currentIndexChanged(int)), this, SLOT(enableOpenButton()));
     
     mFilesProxyModel = new OpenFileProxyModel(this);
     mFilesProxyModel->setDynamicSortFilter(true);
     mFilesProxyModel->setSourceModel(mFileSelector->model());
     mEditedFileSelector->setModel(mFilesProxyModel);
     connect(mFilesProxyModel, SIGNAL(layoutChanged()), mEditedFileSelector, SLOT(update()));
+    //signal currentIndexChanged() isn't allways emited when currentIndex changes, workaround for this
+    connect(mFilesProxyModel, SIGNAL(layoutChanged()), this, SLOT(enableOpenButton()));
     selectedFileLayout->addWidget(mEditedFileSelector, 1); //strech mEditedFileSelector   
     layout->addLayout(selectedFileLayout);
     
     mButtonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::Cancel, Qt::Horizontal, this);
     connect(mButtonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(mButtonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    mButtonBox->button(QDialogButtonBox::Open)->setEnabled(false);
     layout->addWidget(mButtonBox);
     
     setLayout(layout);
@@ -78,5 +83,13 @@ OpenDialog::OpenDialog(QWidget * parent) : QDialog(parent)
 
 void OpenDialog::getFileList(std::vector<boost::filesystem::path>& paths)
 {
-    mFileSelector->selectedFiles(paths);
+    mFileSelector->selectedFiles(paths, mEditedFileSelector->currentText());
+}
+
+void OpenDialog::enableOpenButton()
+{
+    if (mEditedFileSelector->currentIndex() != -1)
+        mButtonBox->button(QDialogButtonBox::Open)->setEnabled(true);
+    else
+        mButtonBox->button(QDialogButtonBox::Open)->setEnabled(false);
 }

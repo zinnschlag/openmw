@@ -41,6 +41,7 @@ public:
     QStringList checkedItems();
     QStringList uncheckedItems();
     QStringList checkedItemsPaths();
+    QStringList sortedItemsPaths(const QString lastItem);
 
     Qt::CheckState checkState(const QModelIndex &index);
     void setCheckState(const QModelIndex &index, Qt::CheckState state);

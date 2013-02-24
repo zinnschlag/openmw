@@ -27,7 +27,7 @@ public:
     DataFilesList(Files::ConfigurationManager& cfg, QWidget *parent = 0);
 
     bool setupDataFiles(Files::PathContainer dataDirs, const QString encoding);
-    void selectedFiles(std::vector<boost::filesystem::path>& paths);
+    void selectedFiles(std::vector<boost::filesystem::path>& paths, const QString lastItem);
     void uncheckAll();
     QStringList checkedFiles();
     void setCheckState(const QString& element, Qt::CheckState);

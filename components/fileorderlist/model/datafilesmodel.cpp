@@ -362,6 +362,34 @@ QStringList DataFilesModel::checkedItemsPaths()
     return list;
 }
 
+QStringList DataFilesModel::sortedItemsPaths(const QString lastItem)
+{
+    QStringList list;
+    QString lastPath;
+    
+    QList<EsmFile *>::ConstIterator it;
+    QList<EsmFile *>::ConstIterator itEnd = mFiles.constEnd();
+    
+    int i = 0;
+    for (it = mFiles.constBegin(); it != itEnd; ++it) {
+        EsmFile *file = item(i);
+        ++i;
+        
+        if (mCheckStates[file->fileName()] == Qt::Checked && canBeChecked(file))
+        {
+            if (lastItem.compare(file->fileName()))
+                list << file->path();
+            else
+                lastPath = file->path();
+        }
+    }
+    
+    if (!lastPath.isEmpty())
+        list << lastPath;
+    
+    return list;
+}
+
 void DataFilesModel::uncheckAll()
 {
     emit layoutAboutToBeChanged();

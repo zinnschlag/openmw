@@ -12,6 +12,8 @@ public:
     OpenDialog(QWidget * parent = 0);
     
     void getFileList(std::vector<boost::filesystem::path>& paths);
+private slots:
+    void enableOpenButton();
 private:
     DataFilesList * mFileSelector;
     QDialogButtonBox * mButtonBox;
