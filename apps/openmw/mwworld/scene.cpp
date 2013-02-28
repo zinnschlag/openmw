@@ -217,7 +217,7 @@ namespace MWWorld
                 }
             }
 
-            MWBase::Environment::get().getWindowManager ()->setLoadingProgress ("Unloading cells", 0, current, numUnload);
+            //MWBase::Environment::get().getWindowManager ()->setLoadingProgress ("Unloading cells", 0, current, numUnload);
             unloadCell (active++);
             ++current;
         }
