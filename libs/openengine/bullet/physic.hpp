@@ -129,8 +129,9 @@ namespace Physic
 		void operator delete (void * Data) { _aligned_free (Data); }
 #endif
 
+
     private:
-        
+
         OEngine::Physic::RigidBody* mBody;
         Ogre::Vector3 mBoxScaledTranslation;
         btQuaternion mBoxRotationInverse;
