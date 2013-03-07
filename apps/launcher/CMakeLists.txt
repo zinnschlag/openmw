@@ -1,9 +1,18 @@
 set(LAUNCHER
+    datafilespage.cpp
     graphicspage.cpp
     main.cpp
     maindialog.cpp
     playpage.cpp
-    datafilespage.cpp
+
+    model/pluginsproxymodel.cpp
+
+    settings/gamesettings.cpp
+    settings/graphicssettings.cpp
+    settings/launchersettings.cpp
+
+    utils/checkablemessagebox.cpp
+    utils/comboboxlineedit.cpp
     utils/profilescombobox.cpp
     utils/textinputdialog.cpp
 
@@ -11,20 +20,35 @@ set(LAUNCHER
 )
 
 set(LAUNCHER_HEADER
+    datafilespage.hpp
     graphicspage.hpp
     maindialog.hpp
     playpage.hpp
-    datafilespage.hpp
+
+    model/pluginsproxymodel.hpp
+
+    settings/gamesettings.hpp
+    settings/graphicssettings.hpp
+    settings/launchersettings.hpp
+    settings/settingsbase.hpp
+
+    utils/checkablemessagebox.hpp
+    utils/comboboxlineedit.hpp
     utils/profilescombobox.hpp
     utils/textinputdialog.hpp
 )
 
 # Headers that must be pre-processed
 set(LAUNCHER_HEADER_MOC
+    datafilespage.hpp
     graphicspage.hpp
     maindialog.hpp
     playpage.hpp
-    datafilespage.hpp
+
+    model/pluginsproxymodel.hpp
+
+    utils/checkablemessagebox.hpp
+    utils/comboboxlineedit.hpp
     utils/profilescombobox.hpp
     utils/textinputdialog.hpp
 )
@@ -58,6 +82,7 @@ ENDIF(OGRE_STATIC)
 add_executable(omwlauncher
     ${GUI_TYPE}
     ${LAUNCHER}
+    ${LAUNCHER_HEADER}
     ${RCC_SRCS}
     ${MOC_SRCS}
 )
