@@ -26,6 +26,9 @@ namespace Compiler
         
             int getStringSize() const;
             ///< Return size of string block (in bytes).
+
+            int getStringCount() const;
+            ///< Return strings count to check boundaries.
         
             void append (std::vector<Interpreter::Type_Code>& code) const;
             ///< Apepnd literal blocks to code.

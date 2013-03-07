@@ -29,6 +29,11 @@ namespace Compiler
         return size;
     }
 
+    int Literals::getStringCount() const
+    {
+        return mStrings.size();
+    }
+
     void Literals::append (std::vector<Interpreter::Type_Code>& code) const
     {
         for (std::vector<Interpreter::Type_Integer>::const_iterator iter (mIntegers.begin());
