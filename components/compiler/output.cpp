@@ -24,8 +24,7 @@ namespace Compiler
         assert (mLiterals.getFloatSize()%4==0);
         code.push_back (static_cast<Interpreter::Type_Code> (mLiterals.getFloatSize()/4));
         
-        assert (mLiterals.getStringSize()%4==0);
-        code.push_back (static_cast<Interpreter::Type_Code> (mLiterals.getStringSize()/4));
+        code.push_back (static_cast<Interpreter::Type_Code> (mLiterals.getStringCount()));
         
         // code
         std::copy (mCode.begin(), mCode.end(), std::back_inserter (code));
