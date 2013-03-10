@@ -537,6 +537,10 @@ void OMW::Engine::setEncoding(const ToUTF8::FromType& encoding)
 
 void OMW::Engine::setFallbackValues(std::map<std::string,std::string> fallbackMap)
 {
+    if(fallbackMap.size()==0){
+        std::cout<<"ERROR: You have to import fallback settings! Run mwiniimport."<<std::endl;
+        exit (EXIT_FAILURE);
+    }
     mFallbackMap = fallbackMap;
 }
 
