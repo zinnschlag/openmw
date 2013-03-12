@@ -224,8 +224,8 @@ bool CSVDoc::ViewManager::showSaveInProgressMessageBox (CSVDoc::View *view)
     {
         //disconnect to avoid segmentation fault
         disconnect (document, SIGNAL (stateChanged (int, CSMDoc::Document *)), this, SLOT (onExitWarningHandler(int, CSMDoc::Document *)));
-
         view->abortOperation(CSMDoc::State_Saving);
+
         mExitOnSaveStateChange = true;
     }
 
@@ -233,8 +233,9 @@ bool CSVDoc::ViewManager::showSaveInProgressMessageBox (CSVDoc::View *view)
     {
         //abort shutdown, allow save to complete
         //disconnection to prevent unintended view closures
-        mExitOnSaveStateChange = false;
         disconnect (document, SIGNAL (stateChanged (int, CSMDoc::Document *)), this, SLOT (onExitWarningHandler(int, CSMDoc::Document *)));
+
+        mExitOnSaveStateChange = false;
         retVal = false;
     }
 
