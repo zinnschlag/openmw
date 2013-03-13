@@ -21,10 +21,7 @@ using namespace MWRender;
 std::string Objects::getFallback (const std::string& key) const
 {
     std::map<std::string,std::string>::const_iterator it;
-    if((it = mFallbackMap.find(key)) == mFallbackMap.end())
-    {
-        return "";
-    }
+    it = mFallbackMap.find(key);
     return it->second;
 }
 
