@@ -56,21 +56,24 @@ class Objects{
     Ogre::SceneNode* mRootNode;
     bool mIsStatic;
     static int uniqueID;
+    const std::map<std::string,std::string>& mFallbackMap;
+    std::string getFallback (const std::string& key) const;
+    float getFallbackFloat (const std::string& key) const;
+    bool getFallbackBool (const std::string& key) const;
+    float lightLinearValue();
+    float lightLinearRadiusMult();
 
-    static float lightLinearValue;
-    static float lightLinearRadiusMult;
+    bool lightQuadratic();
+    float lightQuadraticValue();
+    float lightQuadraticRadiusMult();
 
-    static bool lightQuadratic;
-    static float lightQuadraticValue;
-    static float lightQuadraticRadiusMult;
-
-    static bool lightOutQuadInLin;
+    bool lightOutQuadInLin();
 
     void clearSceneNode (Ogre::SceneNode *node);
     ///< Remove all movable objects from \a node.
 
 public:
-    Objects(OEngine::Render::OgreRenderer& renderer): mRenderer (renderer), mIsStatic(false) {}
+    Objects(OEngine::Render::OgreRenderer& renderer, const std::map<std::string,std::string>& fallbackMap): mRenderer (renderer), mIsStatic(false), mFallbackMap(fallbackMap) {}
     ~Objects(){}
     void insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_);
     void insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh, bool light=false);
