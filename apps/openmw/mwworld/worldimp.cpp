@@ -2,6 +2,8 @@
 
 #include <libs/openengine/bullet/physic.hpp>
 
+#include <boost/lexical_cast.hpp>
+
 #include <components/bsa/bsa_archive.hpp>
 #include <components/files/collections.hpp>
 #include <components/compiler/locals.hpp>
@@ -187,7 +189,7 @@ namespace MWWorld
         mPhysics = new PhysicsSystem(renderer);
         mPhysEngine = mPhysics->getEngine();
 
-        mRendering = new MWRender::RenderingManager(renderer, resDir, cacheDir, mPhysEngine);
+        mRendering = new MWRender::RenderingManager(renderer, resDir, cacheDir, mPhysEngine, mFallback);
 
         mPhysEngine->setSceneManager(renderer.getScene());
 
