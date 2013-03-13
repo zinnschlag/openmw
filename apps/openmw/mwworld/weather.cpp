@@ -22,10 +22,7 @@ using namespace MWSound;
 std::string WeatherManager::getFallback (const std::string& key) const
 {
     std::map<std::string,std::string>::const_iterator it;
-    if((it = mFallback.find(key)) == mFallback.end())
-    {
-        return "";
-    }
+    it = mFallback.find(key);
     return it->second;
 }
 std::string WeatherManager::getFallbackString(const std::string& fall) const

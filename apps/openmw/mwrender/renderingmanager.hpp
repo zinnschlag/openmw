@@ -60,7 +60,7 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
 
   public:
     RenderingManager(OEngine::Render::OgreRenderer& _rend, const boost::filesystem::path& resDir,
-                     const boost::filesystem::path& cacheDir, OEngine::Physic::PhysicEngine* engine);
+                     const boost::filesystem::path& cacheDir, OEngine::Physic::PhysicEngine* engine,const std::map<std::string,std::string>& fallbackMap);
     virtual ~RenderingManager();
 
     void togglePOV() {
@@ -219,6 +219,8 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     void applyCompositors();
 
     bool mSunEnabled;
+
+    const std::map<std::string,std::string>& mFallbackMap;
 
     SkyManager* mSkyManager;
 
