@@ -2,8 +2,6 @@
 
 #include <libs/openengine/bullet/physic.hpp>
 
-#include <boost/lexical_cast.hpp>
-
 #include <components/bsa/bsa_archive.hpp>
 #include <components/files/collections.hpp>
 #include <components/compiler/locals.hpp>
@@ -156,23 +154,11 @@ namespace MWWorld
             mRendering->skyDisable();
     }
 
-    void World::setFallbackValues (const std::map<std::string,std::string>& fallbackMap)
-    {
-        mFallback = fallbackMap;
-    }
 
     std::string World::getFallback (const std::string& key) const
     {
-        return getFallback(key, "");
-    }
-
-    std::string World::getFallback (const std::string& key, const std::string& def) const
-    {
         std::map<std::string,std::string>::const_iterator it;
-        if((it = mFallback.find(key)) == mFallback.end())
-        {
-            return def;
-        }
+        it = mFallback.find(key);
         return it->second;
     }
 
