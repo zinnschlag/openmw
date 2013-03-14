@@ -10,6 +10,7 @@
 #include "cells.hpp"
 #include "localscripts.hpp"
 #include "timestamp.hpp"
+#include "fallback.hpp"
 
 #include "../mwbase/world.hpp"
 
@@ -49,6 +50,7 @@ namespace MWWorld
 
     class World : public MWBase::World
     {
+            MWWorld::Fallback* mFallback;
             MWRender::RenderingManager* mRendering;
 
             MWWorld::WeatherManager* mWeatherManager;
@@ -82,7 +84,7 @@ namespace MWWorld
             float mFaced1Distance;
             float mFaced2Distance;
             int mNumFacing;
-            std::map<std::string,std::string> mFallback;
+            std::map<std::string,std::string> mFallbackMap;
 
             unsigned long lastTick;
             Ogre::Timer mTimer;

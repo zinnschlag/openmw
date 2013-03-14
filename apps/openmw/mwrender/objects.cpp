@@ -13,54 +13,33 @@
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/class.hpp"
 
-#include <boost/lexical_cast.hpp>
-
 #include "renderconst.hpp"
 
 using namespace MWRender;
-std::string Objects::getFallback (const std::string& key) const
-{
-    std::map<std::string,std::string>::const_iterator it;
-    it = mFallbackMap.find(key);
-    return it->second;
-}
-
-float Objects::getFallbackFloat (const std::string& key) const
-{
-    std::string fallback=getFallback(key);
-    return boost::lexical_cast<float>(fallback);
-}
-
-bool Objects::getFallbackBool (const std::string& key) const
-{
-    std::string fallback=getFallback(key);
-    return boost::lexical_cast<bool>(fallback);
-}
-
 float Objects::lightLinearValue()
 {
-    return getFallbackFloat("LightAttenuation_LinearValue");
+    return mFallback->getFallbackFloat("LightAttenuation_LinearValue");
 }
 float Objects::lightLinearRadiusMult()
 {
-    return getFallbackFloat("LightAttenuation_LinearRadiusMult");
+    return mFallback->getFallbackFloat("LightAttenuation_LinearRadiusMult");
 }
 float Objects::lightQuadraticValue()
 {
-    return getFallbackFloat("LightAttenuation_QuadraticValue");
+    return mFallback->getFallbackFloat("LightAttenuation_QuadraticValue");
 }
 float Objects::lightQuadraticRadiusMult()
 {
-    return getFallbackFloat("LightAttenuation_QuadraticRadiusMult");
+    return mFallback->getFallbackFloat("LightAttenuation_QuadraticRadiusMult");
 }
 
 bool Objects::lightOutQuadInLin()
 {
-    return getFallbackBool("LightAttenuation_OutQuadInLin");
+    return mFallback->getFallbackBool("LightAttenuation_OutQuadInLin");
 }
 bool Objects::lightQuadratic()
 {
-    return getFallbackBool("LightAttenuation_UseQuadratic");
+    return mFallback->getFallbackBool("LightAttenuation_UseQuadratic");
 }
 
 int Objects::uniqueID = 0;
