@@ -50,7 +50,7 @@ namespace MWWorld
 
     class World : public MWBase::World
     {
-            MWWorld::Fallback* mFallback;
+            MWWorld::Fallback mFallback;
             MWRender::RenderingManager* mRendering;
 
             MWWorld::WeatherManager* mWeatherManager;

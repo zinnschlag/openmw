@@ -2,8 +2,11 @@
 #include "boost/lexical_cast.hpp"
 namespace MWWorld
 {
-    Fallback::Fallback(const std::map<std::string,std::string>& fallbackMap):mFallbackMap(fallbackMap){}
-
+    Fallback::Fallback() {}
+    void Fallback::setFallbackMap(const std::map<std::string,std::string>& fallbackMap)
+    {
+        mFallbackMap=fallbackMap;
+    }
     std::string Fallback::getFallbackString(const std::string& fall) const
     {
         std::map<std::string,std::string>::const_iterator it;

@@ -156,7 +156,7 @@ namespace MWWorld
 
     std::string World::getFallback (const std::string& key) const
     {
-        return mFallback->getFallbackString(key);
+        return mFallback.getFallbackString(key);
     }
 
     World::World (OEngine::Render::OgreRenderer& renderer,
@@ -168,15 +168,15 @@ namespace MWWorld
       mSky (true), mCells (mStore, mEsm),
       mNumFacing(0), mActivationDistanceOverride (mActivationDistanceOverride)
     {
-        mFallback = new Fallback(fallbackMap);
+        mFallback.setFallbackMap(fallbackMap);
         mPhysics = new PhysicsSystem(renderer);
         mPhysEngine = mPhysics->getEngine();
 
-        mRendering = new MWRender::RenderingManager(renderer, resDir, cacheDir, mPhysEngine, mFallback);
+        mRendering = new MWRender::RenderingManager(renderer, resDir, cacheDir, mPhysEngine, &mFallback);
 
         mPhysEngine->setSceneManager(renderer.getScene());
 
-        mWeatherManager = new MWWorld::WeatherManager(mRendering,mFallback);
+        mWeatherManager = new MWWorld::WeatherManager(mRendering,&mFallback);
 
         int idx = 0;
         // NOTE: We might need to reserve one more for the running game / save.
@@ -239,7 +239,6 @@ namespace MWWorld
 
     World::~World()
     {
-        delete mFallback;
         delete mWeatherManager;
         delete mWorldScene;
         delete mGlobalVariables;
