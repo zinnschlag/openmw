@@ -5,10 +5,9 @@ namespace MWWorld
 {
     class Fallback
     {
-            std::map<std::string,std::string> mFallbackMap;
+            const std::map<std::string,std::string> mFallbackMap;
         public:
-            Fallback();
-            void setFallbackMap(const std::map<std::string,std::string>& fallbackMap);
+            Fallback(const std::map<std::string,std::string> fallback):mFallbackMap(fallback){};
             std::string getFallbackString(const std::string& fall) const;
             float getFallbackFloat(const std::string& fall) const;
             bool getFallbackBool(const std::string& fall) const;
