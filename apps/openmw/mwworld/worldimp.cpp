@@ -166,10 +166,9 @@ namespace MWWorld
         ToUTF8::Utf8Encoder* encoder, const std::map<std::string,std::string>& fallbackMap, int mActivationDistanceOverride)
     : mPlayer (0), mLocalScripts (mStore), mGlobalVariables (0),
       mSky (true), mCells (mStore, mEsm),
-      mNumFacing(0), mActivationDistanceOverride (mActivationDistanceOverride),
-      mFallbackMap (fallbackMap)
+      mNumFacing(0), mActivationDistanceOverride (mActivationDistanceOverride)
     {
-        mFallback = new Fallback(mFallbackMap);
+        mFallback = new Fallback(fallbackMap);
         mPhysics = new PhysicsSystem(renderer);
         mPhysEngine = mPhysics->getEngine();
 
@@ -240,6 +239,7 @@ namespace MWWorld
 
     World::~World()
     {
+        delete mFallback;
         delete mWeatherManager;
         delete mWorldScene;
         delete mGlobalVariables;

@@ -4,7 +4,7 @@ namespace MWWorld
 {
     Fallback::Fallback(const std::map<std::string,std::string>& fallbackMap):mFallbackMap(fallbackMap){}
 
-    std::string Fallback::getFallbackString(const std::string& fall)
+    std::string Fallback::getFallbackString(const std::string& fall) const
     {
         std::map<std::string,std::string>::const_iterator it;
         if((it = mFallbackMap.find(fall)) == mFallbackMap.end())
@@ -13,7 +13,7 @@ namespace MWWorld
         }
         return it->second;
     }
-    float Fallback::getFallbackFloat(const std::string& fall)
+    float Fallback::getFallbackFloat(const std::string& fall) const
     {
         std::string fallback=getFallbackString(fall);
         if(fallback=="")
@@ -21,7 +21,7 @@ namespace MWWorld
         else
             return boost::lexical_cast<float>(fallback);
     }
-    bool Fallback::getFallbackBool(const std::string& fall)
+    bool Fallback::getFallbackBool(const std::string& fall) const
     {
         std::string fallback=getFallbackString(fall);
         if(fallback=="")
@@ -29,16 +29,20 @@ namespace MWWorld
         else
             return boost::lexical_cast<bool>(fallback);
     }
-    Ogre::ColourValue Fallback::getFallbackColour(const std::string& fall)
+    Ogre::ColourValue Fallback::getFallbackColour(const std::string& fall) const
     {
-        std::string sum;
-        std::string ret[3];
-        sum=getFallbackString(fall);
-        unsigned int j=0;
-        for(unsigned int i=0;i<sum.length();i++){
-            if(sum[i]==',') j++;
-            else ret[j]+=sum[i];
+        std::string sum=getFallbackString(fall);
+        if(sum=="")
+            return Ogre::ColourValue(0,0,0);
+        else
+        {
+            std::string ret[3];
+            unsigned int j=0;
+            for(unsigned int i=0;i<sum.length();i++){
+                if(sum[i]==',') j++;
+                else ret[j]+=sum[i];
+            }
+            return Ogre::ColourValue(boost::lexical_cast<int>(ret[0])/255.f,boost::lexical_cast<int>(ret[1])/255.f,boost::lexical_cast<int>(ret[2])/255.f);
         }
-        return Ogre::ColourValue(boost::lexical_cast<int>(ret[0])/255.f,boost::lexical_cast<int>(ret[1])/255.f,boost::lexical_cast<int>(ret[2])/255.f);
     }
 }

@@ -8,10 +8,10 @@ namespace MWWorld
             const std::map<std::string,std::string>& mFallbackMap;
         public:
             Fallback(const std::map<std::string,std::string>& fallbackMap);
-            std::string getFallbackString(const std::string& fall);
-            float getFallbackFloat(const std::string& fall);
-            bool getFallbackBool(const std::string& fall);
-            Ogre::ColourValue getFallbackColour(const std::string& fall);
+            std::string getFallbackString(const std::string& fall) const;
+            float getFallbackFloat(const std::string& fall) const;
+            bool getFallbackBool(const std::string& fall) const;
+            Ogre::ColourValue getFallbackColour(const std::string& fall) const;
     };
 }
 #endif
