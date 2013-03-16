@@ -121,7 +121,7 @@ bool MWDialogue::Filter::testSelectStructs (const ESM::DialInfo& info) const
     return true;
 }
 
-bool MWDialogue::Filter::testDisposition (const ESM::DialInfo& info) const
+bool MWDialogue::Filter::testDisposition (const ESM::DialInfo& info, bool invert) const
 {
     bool isCreature = (mActor.getTypeName() != typeid (ESM::NPC).name());
 
@@ -129,8 +129,9 @@ bool MWDialogue::Filter::testDisposition (const ESM::DialInfo& info) const
         return true;
 
     int actorDisposition = MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(mActor);
-
-    return actorDisposition >= info.mData.mDisposition;
+    // For service refusal, the disposition check is inverted. However, a value of 0 still means "always succeed".
+    return invert ? (info.mData.mDisposition == 0 || actorDisposition < info.mData.mDisposition)
+                  : (actorDisposition >= info.mData.mDisposition);
 }
 
 bool MWDialogue::Filter::testSelectStruct (const SelectWrapper& select) const
@@ -412,25 +413,25 @@ bool MWDialogue::Filter::getSelectStructBoolean (const SelectWrapper& select) co
 
             return false;
 
-        case SelectWrapper::Function_Id:
+        case SelectWrapper::Function_NotId:
 
-            return select.getName()==Misc::StringUtils::lowerCase (MWWorld::Class::get (mActor).getId (mActor));
+            return select.getName()!=Misc::StringUtils::lowerCase (MWWorld::Class::get (mActor).getId (mActor));
 
-        case SelectWrapper::Function_Faction:
+        case SelectWrapper::Function_NotFaction:
 
-            return Misc::StringUtils::lowerCase (mActor.get<ESM::NPC>()->mBase->mFaction)==select.getName();
+            return Misc::StringUtils::lowerCase (mActor.get<ESM::NPC>()->mBase->mFaction)!=select.getName();
 
-        case SelectWrapper::Function_Class:
+        case SelectWrapper::Function_NotClass:
 
-            return Misc::StringUtils::lowerCase (mActor.get<ESM::NPC>()->mBase->mClass)==select.getName();
+            return Misc::StringUtils::lowerCase (mActor.get<ESM::NPC>()->mBase->mClass)!=select.getName();
 
-        case SelectWrapper::Function_Race:
+        case SelectWrapper::Function_NotRace:
 
-            return Misc::StringUtils::lowerCase (mActor.get<ESM::NPC>()->mBase->mRace)==select.getName();
+            return Misc::StringUtils::lowerCase (mActor.get<ESM::NPC>()->mBase->mRace)!=select.getName();
 
-        case SelectWrapper::Function_Cell:
+        case SelectWrapper::Function_NotCell:
 
-            return Misc::StringUtils::lowerCase (mActor.getCell()->mCell->mName)==select.getName();
+            return Misc::StringUtils::lowerCase (mActor.getCell()->mCell->mName)!=select.getName();
 
         case SelectWrapper::Function_SameGender:
 
@@ -570,7 +571,7 @@ const ESM::DialInfo* MWDialogue::Filter::search (const ESM::Dialogue& dialogue, 
 }
 
 std::vector<const ESM::DialInfo *> MWDialogue::Filter::list (const ESM::Dialogue& dialogue,
-    bool fallbackToInfoRefusal, bool searchAll) const
+    bool fallbackToInfoRefusal, bool searchAll, bool invertDisposition) const
 {
     std::vector<const ESM::DialInfo *> infos;
 
@@ -582,7 +583,7 @@ std::vector<const ESM::DialInfo *> MWDialogue::Filter::list (const ESM::Dialogue
     {
         if (testActor (*iter) && testPlayer (*iter) && testSelectStructs (*iter))
         {
-            if (testDisposition (*iter)) {
+            if (testDisposition (*iter, invertDisposition)) {
                 infos.push_back(&*iter);
                 if (!searchAll)
                     break;
@@ -604,7 +605,7 @@ std::vector<const ESM::DialInfo *> MWDialogue::Filter::list (const ESM::Dialogue
 
         for (std::vector<ESM::DialInfo>::const_iterator iter = infoRefusalDialogue.mInfo.begin();
             iter!=infoRefusalDialogue.mInfo.end(); ++iter)
-            if (testActor (*iter) && testPlayer (*iter) && testSelectStructs (*iter) && testDisposition(*iter)) {
+            if (testActor (*iter) && testPlayer (*iter) && testSelectStructs (*iter) && testDisposition(*iter, invertDisposition)) {
                 infos.push_back(&*iter);
                 if (!searchAll)
                     break;
