@@ -58,7 +58,9 @@ namespace MWGui
         MWWorld::Ptr mSoul;
 
         float mCurrentEnchantmentPoints;
-        MWMechanics::Enchanting mEnchanting;
+        ESM::Clothing ClothingEnch;
+        ESM::Weapon WeaponEnch;
+        ESM::Armor ArmorEnch;
     };
 
 }

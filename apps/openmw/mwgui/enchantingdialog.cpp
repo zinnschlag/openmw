@@ -5,9 +5,11 @@
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwworld/player.hpp"
+#include "../mwworld/manualref.hpp"
 
 #include "itemselection.hpp"
 #include "container.hpp"
+#include "inventorywindow.hpp"
 
 namespace MWGui
 {
@@ -172,15 +174,71 @@ namespace MWGui
 
         //mWindowManager.messageBox("#{sInventorySelectNoSoul}");
     }
+
     void EnchantingDialog::onBuyButtonClicked(MyGUI::Widget* sender)
     {
-        std::string name=mName->getCaption();
-        if(name.empty()||mItem.isEmpty()||mSoul.isEmpty())
+        if (mEffects.size() <= 0)
+        {
+            mWindowManager.messageBox ("#{sNotifyMessage30}", std::vector<std::string>());
             return;
-        const std::string typeName=mItem.getTypeName();
-        if((typeName!="ESM::Armor")&&(typeName!="ESM::Weapon")&&(typeName!="ESM::Clothing"))
+        }
+
+        if (mName->getCaption ().empty())
+        {
+            mWindowManager.messageBox ("#{sNotifyMessage10}", std::vector<std::string>());
             return;
-        std::cout<<typeid(MWWorld::Class::get(mItem)).name()<<std::endl;
-        mEnchanting.setOldItem(mItem);
+        }
+
+        if (mCastCost->getCaption() == "0")
+        {
+            mWindowManager.messageBox ("#{sEnchantmentMenu8}", std::vector<std::string>());
+            return;
+        }
+
+        if (boost::lexical_cast<int>(mPrice->getCaption()) > mWindowManager.getInventoryWindow()->getPlayerGold())
+        {
+            mWindowManager.messageBox ("#{sNotifyMessage18}", std::vector<std::string>());
+            return;
+        }
+        const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+        std::string typeName = mItem.getTypeName();
+        std::string newItemName = mName->getCaption();
+        std::string oldItemId = MWWorld::Class::get(mItem).getId(mItem);
+        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
+        if (typeName=="ESM::Armor")
+        {
+            const ESM::Armor *record;
+            ESM::Armor newItem;
+            ESM::Armor oldItem = *store.get<ESM::Armor>().find(oldItemId);
+            newItem=oldItem;
+            newItem.mName=newItemName;
+            record = MWBase::Environment::get().getWorld()->createRecord (newItem);
+            MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
+            MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
+        }
+        else if(typeName=="ESM::Weapon")
+        {
+            const ESM::Weapon *record;
+            ESM::Weapon newItem;
+            ESM::Weapon oldItem = *store.get<ESM::Weapon>().find(oldItemId);
+            newItem=oldItem;
+            newItem.mName=newItemName;
+            record = MWBase::Environment::get().getWorld()->createRecord (newItem);
+            MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
+            MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
+        }
+        else if(typeName=="ESM::Clothing")
+        {
+            const ESM::Clothing *record;
+            ESM::Clothing newItem;
+            ESM::Clothing oldItem = *store.get<ESM::Clothing>().find(oldItemId);
+            newItem=oldItem;
+            newItem.mName=newItemName;
+            record = MWBase::Environment::get().getWorld()->createRecord (newItem);
+            MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
+            MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
+        }
+
+
     }
 }
