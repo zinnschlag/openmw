@@ -19,6 +19,7 @@ namespace MWGui
         , mItemSelectionDialog(NULL)
         , mCurrentEnchantmentPoints(0)
     {
+        getWidget(mName, "NameEdit");
         getWidget(mCancelButton, "CancelButton");
         getWidget(mAvailableEffectsList, "AvailableEffects");
         getWidget(mUsedEffectsView, "UsedEffects");
@@ -36,6 +37,7 @@ namespace MWGui
         mCancelButton->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onCancelButtonClicked);
         mItemBox->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onSelectItem);
         mSoulBox->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onSelectSoul);
+        mBuyButton->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onBuyButtonClicked);
     }
 
     EnchantingDialog::~EnchantingDialog()
@@ -169,5 +171,16 @@ namespace MWGui
         mItemSelectionDialog->drawItems ();
 
         //mWindowManager.messageBox("#{sInventorySelectNoSoul}");
+    }
+    void EnchantingDialog::onBuyButtonClicked(MyGUI::Widget* sender)
+    {
+        std::string name=mName->getCaption();
+        if(name.empty()||mItem.isEmpty()||mSoul.isEmpty())
+            return;
+        const std::string typeName=mItem.getTypeName();
+        if((typeName!="ESM::Armor")&&(typeName!="ESM::Weapon")&&(typeName!="ESM::Clothing"))
+            return;
+        std::cout<<typeid(MWWorld::Class::get(mItem)).name()<<std::endl;
+        mEnchanting.setOldItem(mItem);
     }
 }
