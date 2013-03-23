@@ -202,43 +202,61 @@ namespace MWGui
         }
         const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
         std::string typeName = mItem.getTypeName();
+        std::string oldItemId = mItem.getCellRef().mRefID;
         std::string newItemName = mName->getCaption();
-        std::string oldItemId = MWWorld::Class::get(mItem).getId(mItem);
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
-        if (typeName=="ESM::Armor")
+
+        ESM::Enchantment mEnchantment;
+        ESM::EffectList effectList;
+        effectList.mList = mEffects;
+        mEnchantment.mData.mCost = 1000; //TO IMPLEMENT
+        mEnchantment.mEffects = effectList;
+        mEnchantment.mData.mCharge = 1000; //To implement
+        mEnchantment.mData.mType = 3; //To implement
+        const ESM::Enchantment *enchantment;
+        enchantment = MWBase::Environment::get().getWorld()->createRecord (mEnchantment);
+        
+        if (typeName=="N3ESM5ArmorE") //Just for test
         {
             const ESM::Armor *record;
             ESM::Armor newItem;
             ESM::Armor oldItem = *store.get<ESM::Armor>().find(oldItemId);
             newItem=oldItem;
             newItem.mName=newItemName;
+            newItem.mId="";
+            newItem.mData.mEnchant=1000; //TO IMPLEMENT
+            newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
             MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
         }
-        else if(typeName=="ESM::Weapon")
+        else if(typeName=="N3ESM5WeaponE") //Just for test
         {
             const ESM::Weapon *record;
             ESM::Weapon newItem;
             ESM::Weapon oldItem = *store.get<ESM::Weapon>().find(oldItemId);
             newItem=oldItem;
             newItem.mName=newItemName;
+            newItem.mId="";
+            newItem.mData.mEnchant=1000; //TO IMPLEMENT
+            newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
             MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
         }
-        else if(typeName=="ESM::Clothing")
+        else if(typeName=="N3ESM5ClothingE") //Just for test
         {
             const ESM::Clothing *record;
             ESM::Clothing newItem;
             ESM::Clothing oldItem = *store.get<ESM::Clothing>().find(oldItemId);
             newItem=oldItem;
             newItem.mName=newItemName;
+            newItem.mId="";
+            newItem.mData.mEnchant=1000; //TO IMPLEMENT
+            newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
             MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
         }
-
-
     }
 }

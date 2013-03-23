@@ -303,6 +303,10 @@ namespace MWWorld
             ///< Create a new record (of type clothing) in the ESM store.
             /// \return pointer to created record
 
+            virtual const ESM::Enchantment *createRecord (const ESM::Enchantment& record);
+            ///< Create a new record (of type enchantment) in the ESM store.
+            /// \return pointer to created record
+
             virtual void update (float duration, bool paused);
 
             virtual bool placeObject (const Ptr& object, float cursorX, float cursorY);

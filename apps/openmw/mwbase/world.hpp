@@ -275,6 +275,10 @@ namespace MWBase
             ///< Create a new record (of type clothing) in the ESM store.
             /// \return pointer to created record
 
+            virtual const ESM::Enchantment *createRecord (const ESM::Enchantment& record) = 0;
+            ///< Create a new record (of type enchantment) in the ESM store.
+            /// \return pointer to created record
+
             virtual void update (float duration, bool paused) = 0;
 
             virtual bool placeObject(const MWWorld::Ptr& object, float cursorX, float cursorY) = 0;

@@ -963,6 +963,11 @@ namespace MWWorld
         return mStore.insert(record);
     }
 
+    const ESM::Enchantment *World::createRecord (const ESM::Enchantment& record)
+    {
+        return mStore.insert(record);
+    }
+
     void World::update (float duration, bool paused)
     {
         mWeatherManager->update (duration);
