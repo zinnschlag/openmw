@@ -38,6 +38,7 @@ namespace MWGui
         void onSoulCancel();
         void onBuyButtonClicked(MyGUI::Widget* sender);
         void updateLabels();
+        void onTypeButtonClicked(MyGUI::Widget* sender);
 
         ItemSelectionDialog* mItemSelectionDialog;
 
@@ -58,6 +59,8 @@ namespace MWGui
         MWWorld::Ptr mSoul;
 
         float mCurrentEnchantmentPoints;
+        int enchanttype;
+        int mChargeValue;
         ESM::Clothing ClothingEnch;
         ESM::Weapon WeaponEnch;
         ESM::Armor ArmorEnch;

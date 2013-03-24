@@ -40,6 +40,8 @@ namespace MWGui
         mItemBox->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onSelectItem);
         mSoulBox->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onSelectSoul);
         mBuyButton->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onBuyButtonClicked);
+        mTypeButton->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onTypeButtonClicked);
+        enchanttype=0;
     }
 
     EnchantingDialog::~EnchantingDialog()
@@ -57,8 +59,26 @@ namespace MWGui
     void EnchantingDialog::updateLabels()
     {
         mEnchantmentPoints->setCaption(boost::lexical_cast<std::string>(mCurrentEnchantmentPoints)
-                                       + " / " + (mItem.isEmpty() ? "0" : boost::lexical_cast<std::string>(
-            MWWorld::Class::get(mItem).getEnchantmentPoints(mItem))));
+                                       + " / " + (mItem.isEmpty() ? "0" : boost::lexical_cast<std::string>(MWWorld::Class::get(mItem).getEnchantmentPoints(mItem))));
+        switch(enchanttype)
+        {
+            case 0:
+                mTypeButton->setCaption("CastOnce");
+                mAddEffectDialog.constantEffect=false;
+                break;
+            case 1:
+                mTypeButton->setCaption("WhenStrikes");
+                mAddEffectDialog.constantEffect=false;
+                break;
+            case 2:
+                mTypeButton->setCaption("WhenUsed");
+                mAddEffectDialog.constantEffect=false;
+                break;
+            case 3:
+                mTypeButton->setCaption("ConstantEffect");
+                mAddEffectDialog.constantEffect=true;
+                break;
+        }
     }
 
     void EnchantingDialog::startEnchanting (MWWorld::Ptr actor)
@@ -175,6 +195,15 @@ namespace MWGui
         //mWindowManager.messageBox("#{sInventorySelectNoSoul}");
     }
 
+    void EnchantingDialog::onTypeButtonClicked(MyGUI::Widget* sender)
+    {
+        if(enchanttype==3)
+            enchanttype=0;
+        else
+            ++enchanttype;
+        updateLabels();
+    }
+
     void EnchantingDialog::onBuyButtonClicked(MyGUI::Widget* sender)
     {
         if (mEffects.size() <= 0)
@@ -211,8 +240,12 @@ namespace MWGui
         effectList.mList = mEffects;
         mEnchantment.mData.mCost = 1000; //TO IMPLEMENT
         mEnchantment.mEffects = effectList;
-        mEnchantment.mData.mCharge = 1000; //To implement
-        mEnchantment.mData.mType = 3; //To implement
+        if(enchanttype==3)
+            mChargeValue=0;
+        else
+            mChargeValue=1000;
+        mEnchantment.mData.mCharge = mChargeValue;
+        mEnchantment.mData.mType = enchanttype;
         const ESM::Enchantment *enchantment;
         enchantment = MWBase::Environment::get().getWorld()->createRecord (mEnchantment);
         
@@ -224,7 +257,7 @@ namespace MWGui
             newItem=oldItem;
             newItem.mName=newItemName;
             newItem.mId="";
-            newItem.mData.mEnchant=1000; //TO IMPLEMENT
+            newItem.mData.mEnchant=mChargeValue;
             newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
@@ -238,7 +271,7 @@ namespace MWGui
             newItem=oldItem;
             newItem.mName=newItemName;
             newItem.mId="";
-            newItem.mData.mEnchant=1000; //TO IMPLEMENT
+            newItem.mData.mEnchant=mChargeValue;
             newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
@@ -252,11 +285,12 @@ namespace MWGui
             newItem=oldItem;
             newItem.mName=newItemName;
             newItem.mId="";
-            newItem.mData.mEnchant=1000; //TO IMPLEMENT
+            newItem.mData.mEnchant=mChargeValue;
             newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
             MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
         }
+        mWindowManager.removeGuiMode (GM_Enchanting);
     }
 }
