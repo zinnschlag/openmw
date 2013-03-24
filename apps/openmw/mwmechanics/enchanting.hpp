@@ -3,20 +3,33 @@
 #include <string>
 #include "../mwworld/ptr.hpp"
 #include <components/esm/effectlist.hpp>
+#include "../mwbase/world.hpp"
+#include "../mwbase/environment.hpp"
 namespace MWMechanics
 {
     class Enchanting
     {
             
-            MWWorld::Ptr mOldItem;
-            MWWorld::Ptr mNewItem;
-            int mEnchant;
+            MWWorld::Ptr mOldItemPtr;
+            const MWWorld::Ptr *mNewItemPtr;
+            int mEnchantType;
+            int mCharge;
+
+            //ESM::Clothing mClothingEnch;
+            //ESM::Weapon mWeaponEnch;
+            //ESM::Armor mArmorEnch;
+
+            ESM::EffectList mEffectList;
+            ESM::Enchantment mEnchantment;
+
+            std::string mNewItemName;
         public:
-            void setOldItem(MWWorld::Ptr OldItem);
-            void setNewItemName(const std::string s);
-            void setEnchantment(int enchant);
+            void setOldItem(MWWorld::Ptr oldItem);
+            void setNewItemName(std::string s);
+            void setEffect(ESM::EffectList effectList);
+            void setEnchantType(int enchantType);
             void create();
-            MWWorld::Ptr getNewItem();
+            const MWWorld::Ptr *getNewItem();
     };
 }
 #endif

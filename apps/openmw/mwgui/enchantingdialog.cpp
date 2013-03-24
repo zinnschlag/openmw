@@ -229,68 +229,16 @@ namespace MWGui
             mWindowManager.messageBox ("#{sNotifyMessage18}", std::vector<std::string>());
             return;
         }
-        const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
-        std::string typeName = mItem.getTypeName();
-        std::string oldItemId = mItem.getCellRef().mRefID;
-        std::string newItemName = mName->getCaption();
-        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
 
-        ESM::Enchantment mEnchantment;
+        mEnchanting.setOldItem(mItem);
+        mEnchanting.setNewItemName(mName->getCaption());
+
         ESM::EffectList effectList;
         effectList.mList = mEffects;
-        mEnchantment.mData.mCost = 1000; //TO IMPLEMENT
-        mEnchantment.mEffects = effectList;
-        if(enchanttype==3)
-            mChargeValue=0;
-        else
-            mChargeValue=1000;
-        mEnchantment.mData.mCharge = mChargeValue;
-        mEnchantment.mData.mType = enchanttype;
-        const ESM::Enchantment *enchantment;
-        enchantment = MWBase::Environment::get().getWorld()->createRecord (mEnchantment);
-        
-        if (typeName=="N3ESM5ArmorE") //Just for test
-        {
-            const ESM::Armor *record;
-            ESM::Armor newItem;
-            ESM::Armor oldItem = *store.get<ESM::Armor>().find(oldItemId);
-            newItem=oldItem;
-            newItem.mName=newItemName;
-            newItem.mId="";
-            newItem.mData.mEnchant=mChargeValue;
-            newItem.mEnchant=enchantment->mId;
-            record = MWBase::Environment::get().getWorld()->createRecord (newItem);
-            MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
-            MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
-        }
-        else if(typeName=="N3ESM5WeaponE") //Just for test
-        {
-            const ESM::Weapon *record;
-            ESM::Weapon newItem;
-            ESM::Weapon oldItem = *store.get<ESM::Weapon>().find(oldItemId);
-            newItem=oldItem;
-            newItem.mName=newItemName;
-            newItem.mId="";
-            newItem.mData.mEnchant=mChargeValue;
-            newItem.mEnchant=enchantment->mId;
-            record = MWBase::Environment::get().getWorld()->createRecord (newItem);
-            MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
-            MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
-        }
-        else if(typeName=="N3ESM5ClothingE") //Just for test
-        {
-            const ESM::Clothing *record;
-            ESM::Clothing newItem;
-            ESM::Clothing oldItem = *store.get<ESM::Clothing>().find(oldItemId);
-            newItem=oldItem;
-            newItem.mName=newItemName;
-            newItem.mId="";
-            newItem.mData.mEnchant=mChargeValue;
-            newItem.mEnchant=enchantment->mId;
-            record = MWBase::Environment::get().getWorld()->createRecord (newItem);
-            MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
-            MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
-        }
+        mEnchanting.setEffect(effectList);
+        mEnchanting.setEnchantType(enchanttype);
+
+        mEnchanting.create();
         mWindowManager.removeGuiMode (GM_Enchanting);
     }
 }

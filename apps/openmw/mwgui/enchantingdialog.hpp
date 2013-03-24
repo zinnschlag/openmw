@@ -60,10 +60,7 @@ namespace MWGui
 
         float mCurrentEnchantmentPoints;
         int enchanttype;
-        int mChargeValue;
-        ESM::Clothing ClothingEnch;
-        ESM::Weapon WeaponEnch;
-        ESM::Armor ArmorEnch;
+        MWMechanics::Enchanting mEnchanting;
     };
 
 }
