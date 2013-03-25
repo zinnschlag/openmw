@@ -34,7 +34,7 @@ namespace MWMechanics
 
     void Enchanting::setSoulGem(MWWorld::Ptr soulGem)
     {
-        mSoulGem=soulGem;
+        mSoulGemPtr=soulGem;
     }
 
     void Enchanting::create()
@@ -44,10 +44,10 @@ namespace MWMechanics
         if(mEnchantType==3)
             mCharge=0;
         else
-           mCharge=1000;
-        mEnchantment.mData.mCharge = mCharge;
+           mCharge=10000;
+        mEnchantment.mData.mCharge = mCharge; //TODO
         mEnchantment.mData.mType = mEnchantType;
-        mEnchantment.mData.mCost = 1000; //TO IMPLEMENT
+        mEnchantment.mData.mCost = getEnchantCost();
         mEnchantment.mEffects = mEffectList;
         const ESM::Enchantment *enchantment;
         enchantment = MWBase::Environment::get().getWorld()->createRecord (mEnchantment);
@@ -109,6 +109,9 @@ namespace MWMechanics
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
             MWWorld::Class::get (player).getContainerStore (player).add (ref.getPtr());
         }
+
+        mOldItemPtr.getRefData().setCount(0);
+        mSoulGemPtr.getRefData().setCount(0);
     }
     
     void Enchanting::nextEnchantType()
@@ -136,5 +139,36 @@ namespace MWMechanics
         {
             mEnchantType=0;
         }
+    }
+
+    int Enchanting::getEnchantCost()
+    {
+        const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+        float cost = 0;
+        std::vector<ESM::ENAMstruct> mEffects = mEffectList.mList;
+        int i=mEffects.size();
+        for (std::vector<ESM::ENAMstruct>::const_iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+        {
+            const ESM::MagicEffect* effect = store.get<ESM::MagicEffect>().find(it->mEffectID);
+
+            float cost1 = ((it->mMagnMin + it->mMagnMax)*it->mDuration*effect->mData.mBaseCost*0.025);
+
+            float cost2 = (std::max(1, it->mArea)*0.125*effect->mData.mBaseCost);
+
+            if(mEnchantType==3)
+            {
+                cost1 *= 100;
+                cost2 *= 2;
+            }
+            if(effect->mData.mFlags & ESM::MagicEffect::CastTarget)
+                cost1 *= 1.5;
+
+            float fullcost = cost1+cost2;
+            fullcost*= i;
+            i--;
+
+            cost+=fullcost;
+        }
+        return cost;
     }
 }

@@ -19,7 +19,6 @@ namespace MWGui
         : WindowBase("openmw_enchanting_dialog.layout", parWindowManager)
         , EffectEditorBase(parWindowManager)
         , mItemSelectionDialog(NULL)
-        , mCurrentEnchantmentPoints(0)
     {
         getWidget(mName, "NameEdit");
         getWidget(mCancelButton, "CancelButton");
@@ -57,7 +56,7 @@ namespace MWGui
 
     void EnchantingDialog::updateLabels()
     {
-        mEnchantmentPoints->setCaption(boost::lexical_cast<std::string>(mCurrentEnchantmentPoints)
+        mEnchantmentPoints->setCaption(boost::lexical_cast<std::string>(mEnchanting.getEnchantCost())
                                        + " / " + (mItem.isEmpty() ? "0" : boost::lexical_cast<std::string>(MWWorld::Class::get(mItem).getEnchantmentPoints(mItem))));
         switch(mEnchanting.getEnchantType())
         {
@@ -197,6 +196,13 @@ namespace MWGui
         //mWindowManager.messageBox("#{sInventorySelectNoSoul}");
     }
 
+    void EnchantingDialog::notifyEffectsChanged ()
+    {
+        mEffectList.mList = mEffects;
+        mEnchanting.setEffect(mEffectList);
+        updateLabels();
+    }
+
     void EnchantingDialog::onTypeButtonClicked(MyGUI::Widget* sender)
     {
         mEnchanting.nextEnchantType();
@@ -230,10 +236,7 @@ namespace MWGui
         }
 
         mEnchanting.setNewItemName(mName->getCaption());
-
-        ESM::EffectList effectList;
-        effectList.mList = mEffects;
-        mEnchanting.setEffect(effectList);
+        mEnchanting.setEffect(mEffectList);
 
         mEnchanting.create();
         mWindowManager.removeGuiMode (GM_Enchanting);

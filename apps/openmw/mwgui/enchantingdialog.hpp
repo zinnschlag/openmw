@@ -25,6 +25,7 @@ namespace MWGui
 
     protected:
         virtual void onReferenceUnavailable();
+        virtual void notifyEffectsChanged ();
 
         void onCancelButtonClicked(MyGUI::Widget* sender);
         void onSelectItem (MyGUI::Widget* sender);
@@ -58,8 +59,8 @@ namespace MWGui
         MWWorld::Ptr mItem;
         MWWorld::Ptr mSoul;
 
-        float mCurrentEnchantmentPoints;
         MWMechanics::Enchanting mEnchanting;
+        ESM::EffectList mEffectList;
     };
 
 }

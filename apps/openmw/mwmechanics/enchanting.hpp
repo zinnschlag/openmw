@@ -11,15 +11,13 @@ namespace MWMechanics
     {
             
             MWWorld::Ptr mOldItemPtr;
-            MWWorld::Ptr mSoulGem;
+            MWWorld::Ptr mSoulGemPtr;
             const MWWorld::Ptr *mNewItemPtr;
             int mEnchantType;
+
+            int mEnchantCost;
             int mCharge;
             int mUsedEnchantmentPoints;
-
-            //ESM::Clothing mClothingEnch;
-            //ESM::Weapon mWeaponEnch;
-            //ESM::Armor mArmorEnch;
 
             ESM::EffectList mEffectList;
             ESM::Enchantment mEnchantment;
@@ -34,9 +32,9 @@ namespace MWMechanics
             void setEffect(ESM::EffectList effectList);
             void setSoulGem(MWWorld::Ptr soulGem);
             void create();
-            const MWWorld::Ptr *getNewItem();
             void nextEnchantType();
             int getEnchantType();
+            int getEnchantCost();
     };
 }
 #endif
