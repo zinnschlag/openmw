@@ -41,7 +41,6 @@ namespace MWGui
         mSoulBox->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onSelectSoul);
         mBuyButton->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onBuyButtonClicked);
         mTypeButton->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onTypeButtonClicked);
-        enchanttype=0;
     }
 
     EnchantingDialog::~EnchantingDialog()
@@ -60,7 +59,7 @@ namespace MWGui
     {
         mEnchantmentPoints->setCaption(boost::lexical_cast<std::string>(mCurrentEnchantmentPoints)
                                        + " / " + (mItem.isEmpty() ? "0" : boost::lexical_cast<std::string>(MWWorld::Class::get(mItem).getEnchantmentPoints(mItem))));
-        switch(enchanttype)
+        switch(mEnchanting.getEnchantType())
         {
             case 0:
                 mTypeButton->setCaption("CastOnce");
@@ -130,6 +129,8 @@ namespace MWGui
         image->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onRemoveItem);
 
         mItem = item;
+        mEnchanting.setOldItem(mItem);
+        mEnchanting.nextEnchantType();
         updateLabels();
     }
 
@@ -165,6 +166,7 @@ namespace MWGui
         image->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onRemoveSoul);
 
         mSoul = item;
+        mEnchanting.setSoulGem(mSoul);
         updateLabels();
     }
 
@@ -197,10 +199,7 @@ namespace MWGui
 
     void EnchantingDialog::onTypeButtonClicked(MyGUI::Widget* sender)
     {
-        if(enchanttype==3)
-            enchanttype=0;
-        else
-            ++enchanttype;
+        mEnchanting.nextEnchantType();
         updateLabels();
     }
 
@@ -230,13 +229,11 @@ namespace MWGui
             return;
         }
 
-        mEnchanting.setOldItem(mItem);
         mEnchanting.setNewItemName(mName->getCaption());
 
         ESM::EffectList effectList;
         effectList.mList = mEffects;
         mEnchanting.setEffect(effectList);
-        mEnchanting.setEnchantType(enchanttype);
 
         mEnchanting.create();
         mWindowManager.removeGuiMode (GM_Enchanting);

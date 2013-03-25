@@ -59,7 +59,6 @@ namespace MWGui
         MWWorld::Ptr mSoul;
 
         float mCurrentEnchantmentPoints;
-        int enchanttype;
         MWMechanics::Enchanting mEnchanting;
     };
 

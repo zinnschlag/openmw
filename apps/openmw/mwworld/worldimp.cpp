@@ -968,6 +968,11 @@ namespace MWWorld
         return mStore.insert(record);
     }
 
+    const ESM::Book *World::createRecord (const ESM::Book& record)
+    {
+        return mStore.insert(record);
+    }
+
     void World::update (float duration, bool paused)
     {
         mWeatherManager->update (duration);

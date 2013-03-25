@@ -307,6 +307,10 @@ namespace MWWorld
             ///< Create a new record (of type enchantment) in the ESM store.
             /// \return pointer to created record
 
+            virtual const ESM::Book *createRecord (const ESM::Book& record);
+            ///< Create a new record (of type book) in the ESM store.
+            /// \return pointer to created record
+
             virtual void update (float duration, bool paused);
 
             virtual bool placeObject (const Ptr& object, float cursorX, float cursorY);
