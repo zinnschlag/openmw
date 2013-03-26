@@ -13,8 +13,16 @@ namespace MWMechanics
     void Enchanting::setOldItem(MWWorld::Ptr oldItem)
     {
         mOldItemPtr=oldItem;
-        mObjectType = mOldItemPtr.getTypeName();
-        mOldItemId = mOldItemPtr.getCellRef().mRefID;
+        if(!mOldItemPtr.isEmpty())
+        {
+            mObjectType = mOldItemPtr.getTypeName();
+            mOldItemId = mOldItemPtr.getCellRef().mRefID;
+        }
+        else
+        {
+            mObjectType="";
+            mOldItemId="";
+        }
     }
 
     void Enchanting::setNewItemName(std::string s)
@@ -41,11 +49,12 @@ namespace MWMechanics
     {
         MWWorld::Ptr player= MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
         const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+
+        mEnchantment.mData.mCharge = getGemCharge();
         if(mEnchantType==3)
-            mCharge=0;
-        else
-           mCharge=10000;
-        mEnchantment.mData.mCharge = mCharge; //TODO
+        {
+            mEnchantment.mData.mCharge=0;
+        }
         mEnchantment.mData.mType = mEnchantType;
         mEnchantment.mData.mCost = getEnchantCost();
         mEnchantment.mEffects = mEffectList;
@@ -60,7 +69,7 @@ namespace MWMechanics
             newItem=oldItem;
             newItem.mName=mNewItemName;
             newItem.mId="";
-            newItem.mData.mEnchant=mCharge;
+            newItem.mData.mEnchant=getGemCharge();
             newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
@@ -74,7 +83,7 @@ namespace MWMechanics
             newItem=oldItem;
             newItem.mName=mNewItemName;
             newItem.mId="";
-            newItem.mData.mEnchant=mCharge;
+            newItem.mData.mEnchant=getGemCharge();
             newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
@@ -88,7 +97,7 @@ namespace MWMechanics
             newItem=oldItem;
             newItem.mName=mNewItemName;
             newItem.mId="";
-            newItem.mData.mEnchant=mCharge;
+            newItem.mData.mEnchant=getGemCharge();
             newItem.mEnchant=enchantment->mId;
             record = MWBase::Environment::get().getWorld()->createRecord (newItem);
             MWWorld::ManualRef ref (MWBase::Environment::get().getWorld()->getStore(), record->mId);
@@ -117,12 +126,20 @@ namespace MWMechanics
     void Enchanting::nextEnchantType()
     {
         mEnchantType++;
+        if (mOldItemPtr.isEmpty())
+        {
+            mEnchantType = 0;
+            return;
+        }
         if ((mObjectType == typeid(ESM::Armor).name())||(mObjectType == typeid(ESM::Clothing).name()))
         {
             switch(mEnchantType)
             {
                 case 1:
                     mEnchantType = 2;
+                case 3:
+                    if(getGemCharge()<400)
+                        mEnchantType=2;
                 case 4:
                     mEnchantType = 2;
             }
@@ -170,5 +187,20 @@ namespace MWMechanics
             cost+=fullcost;
         }
         return cost;
+    }
+    int Enchanting::getGemCharge()
+    {
+        const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+        if(mSoulGemPtr.isEmpty())
+            return 0;
+        const ESM::Creature* soul = store.get<ESM::Creature>().find(mSoulGemPtr.getCellRef().mSoul);
+        return soul->mData.mSoul;
+    }
+
+    int Enchanting::getMaxEnchantValue()
+    {
+        if (mOldItemPtr.isEmpty())
+            return 0;
+        return MWWorld::Class::get(mOldItemPtr).getEnchantmentPoints(mOldItemPtr);
     }
 }

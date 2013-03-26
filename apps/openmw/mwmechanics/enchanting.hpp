@@ -15,10 +15,6 @@ namespace MWMechanics
             const MWWorld::Ptr *mNewItemPtr;
             int mEnchantType;
 
-            int mEnchantCost;
-            int mCharge;
-            int mUsedEnchantmentPoints;
-
             ESM::EffectList mEffectList;
             ESM::Enchantment mEnchantment;
 
@@ -35,6 +31,8 @@ namespace MWMechanics
             void nextEnchantType();
             int getEnchantType();
             int getEnchantCost();
+            int getMaxEnchantValue();
+            int getGemCharge();
     };
 }
 #endif

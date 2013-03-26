@@ -57,7 +57,10 @@ namespace MWGui
     void EnchantingDialog::updateLabels()
     {
         mEnchantmentPoints->setCaption(boost::lexical_cast<std::string>(mEnchanting.getEnchantCost())
-                                       + " / " + (mItem.isEmpty() ? "0" : boost::lexical_cast<std::string>(MWWorld::Class::get(mItem).getEnchantmentPoints(mItem))));
+                                       + " / " + boost::lexical_cast<std::string>(mEnchanting.getMaxEnchantValue()));
+
+        mCharge->setCaption(boost::lexical_cast<std::string>(mEnchanting.getGemCharge()));
+
         switch(mEnchanting.getEnchantType())
         {
             case 0:
@@ -127,8 +130,7 @@ namespace MWGui
         image->setUserData(item);
         image->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onRemoveItem);
 
-        mItem = item;
-        mEnchanting.setOldItem(mItem);
+        mEnchanting.setOldItem(item);
         mEnchanting.nextEnchantType();
         updateLabels();
     }
@@ -137,7 +139,7 @@ namespace MWGui
     {
         while (mItemBox->getChildCount ())
             MyGUI::Gui::getInstance ().destroyWidget (mItemBox->getChildAt(0));
-        mItem = MWWorld::Ptr();
+        mEnchanting.setOldItem(MWWorld::Ptr());
         updateLabels();
     }
 
@@ -164,8 +166,7 @@ namespace MWGui
         image->setUserData(item);
         image->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onRemoveSoul);
 
-        mSoul = item;
-        mEnchanting.setSoulGem(mSoul);
+        mEnchanting.setSoulGem(item);
         updateLabels();
     }
 
@@ -173,7 +174,7 @@ namespace MWGui
     {
         while (mSoulBox->getChildCount ())
             MyGUI::Gui::getInstance ().destroyWidget (mSoulBox->getChildAt(0));
-        mSoul = MWWorld::Ptr();
+        mEnchanting.setSoulGem(MWWorld::Ptr());
         updateLabels();
     }
 

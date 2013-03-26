@@ -56,9 +56,6 @@ namespace MWGui
         MyGUI::TextBox* mCharge;
         MyGUI::TextBox* mPrice;
 
-        MWWorld::Ptr mItem;
-        MWWorld::Ptr mSoul;
-
         MWMechanics::Enchanting mEnchanting;
         ESM::EffectList mEffectList;
     };
