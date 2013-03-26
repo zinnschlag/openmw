@@ -153,6 +153,13 @@ namespace MWGui
     void EnchantingDialog::onSoulSelected(MWWorld::Ptr item)
     {
         mItemSelectionDialog->setVisible(false);
+        mEnchanting.setSoulGem(item);
+
+        if(mEnchanting.getGemCharge()==0)
+        {
+            mWindowManager.messageBox ("#{sNotifyMessage32}", std::vector<std::string>());
+            return
+        }
 
         while (mSoulBox->getChildCount ())
             MyGUI::Gui::getInstance ().destroyWidget (mSoulBox->getChildAt(0));
@@ -167,8 +174,6 @@ namespace MWGui
         image->setUserString ("ToolTipType", "ItemPtr");
         image->setUserData(item);
         image->eventMouseButtonClick += MyGUI::newDelegate(this, &EnchantingDialog::onRemoveSoul);
-
-        mEnchanting.setSoulGem(item);
         updateLabels();
     }
 
