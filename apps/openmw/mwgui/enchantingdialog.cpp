@@ -61,24 +61,24 @@ namespace MWGui
 
         mCharge->setCaption(boost::lexical_cast<std::string>(mEnchanting.getGemCharge()));
 
-        mCastCost->setCaption(boost::lexical_cast<std::string>(mEnchanting.getEnchantCost());
+        mCastCost->setCaption(boost::lexical_cast<std::string>(mEnchanting.getEnchantCost()));
 
         switch(mEnchanting.getEnchantType())
         {
             case 0:
-                mTypeButton->setCaption("CastOnce");
+                mTypeButton->setCaption(mWindowManager.getGameSettingString("sItemCastOnce","Cast Once"));
                 mAddEffectDialog.constantEffect=false;
                 break;
             case 1:
-                mTypeButton->setCaption("WhenStrikes");
+                mTypeButton->setCaption(mWindowManager.getGameSettingString("sItemCastWhenStrikes", "When Strikes"));
                 mAddEffectDialog.constantEffect=false;
                 break;
             case 2:
-                mTypeButton->setCaption("WhenUsed");
+                mTypeButton->setCaption(mWindowManager.getGameSettingString("sItemCastWhenUsed", "When Used"));
                 mAddEffectDialog.constantEffect=false;
                 break;
             case 3:
-                mTypeButton->setCaption("ConstantEffect");
+                mTypeButton->setCaption(mWindowManager.getGameSettingString("sItemCastConstant", "Cast Constant"));
                 mAddEffectDialog.constantEffect=true;
                 break;
         }
@@ -229,6 +229,18 @@ namespace MWGui
         if (boost::lexical_cast<int>(mPrice->getCaption()) > mWindowManager.getInventoryWindow()->getPlayerGold())
         {
             mWindowManager.messageBox ("#{sNotifyMessage18}", std::vector<std::string>());
+            return;
+        }
+
+        if (mEnchanting.soulEmpty())
+        {
+            mWindowManager.messageBox ("#{sNotifyMessage52}", std::vector<std::string>());
+            return;
+        }
+
+        if (mEnchanting.itemEmpty())
+        {
+            mWindowManager.messageBox ("#{sNotifyMessage11}", std::vector<std::string>());
             return;
         }
 

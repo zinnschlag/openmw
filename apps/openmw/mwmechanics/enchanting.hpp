@@ -33,6 +33,8 @@ namespace MWMechanics
             int getEnchantCost();
             int getMaxEnchantValue();
             int getGemCharge();
+            bool soulEmpty();
+            bool itemEmpty();
     };
 }
 #endif

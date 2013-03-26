@@ -13,7 +13,7 @@ namespace MWMechanics
     void Enchanting::setOldItem(MWWorld::Ptr oldItem)
     {
         mOldItemPtr=oldItem;
-        if(!mOldItemPtr.isEmpty())
+        if(!itemEmpty())
         {
             mObjectType = mOldItemPtr.getTypeName();
             mOldItemId = mOldItemPtr.getCellRef().mRefID;
@@ -126,7 +126,7 @@ namespace MWMechanics
     void Enchanting::nextEnchantType()
     {
         mEnchantType++;
-        if (mOldItemPtr.isEmpty())
+        if (itemEmpty())
         {
             mEnchantType = 0;
             return;
@@ -191,7 +191,7 @@ namespace MWMechanics
     int Enchanting::getGemCharge()
     {
         const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
-        if(mSoulGemPtr.isEmpty())
+        if(soulEmpty())
             return 0;
         const ESM::Creature* soul = store.get<ESM::Creature>().find(mSoulGemPtr.getCellRef().mSoul);
         return soul->mData.mSoul;
@@ -199,8 +199,21 @@ namespace MWMechanics
 
     int Enchanting::getMaxEnchantValue()
     {
-        if (mOldItemPtr.isEmpty())
+        if (itemEmpty())
             return 0;
         return MWWorld::Class::get(mOldItemPtr).getEnchantmentPoints(mOldItemPtr);
+    }
+    bool Enchanting::soulEmpty()
+    {
+        if (mOldItemPtr.isEmpty())
+            return true;
+        return false;
+    }
+
+    bool Enchanting::itemEmpty()
+    {
+        if(mSoulGemPtr.isEmpty())
+            return true;
+        return false;
     }
 }
