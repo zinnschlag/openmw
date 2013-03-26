@@ -158,7 +158,7 @@ namespace MWGui
         if(mEnchanting.getGemCharge()==0)
         {
             mWindowManager.messageBox ("#{sNotifyMessage32}", std::vector<std::string>());
-            return
+            return;
         }
 
         while (mSoulBox->getChildCount ())

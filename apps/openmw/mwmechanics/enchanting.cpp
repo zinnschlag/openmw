@@ -193,7 +193,7 @@ namespace MWMechanics
         const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
         if(soulEmpty())
             return 0;
-        if(mSoulGemPtr.getCellRef().mSoul.empty())
+        if(mSoulGemPtr.getCellRef().mSoul=="")
             return 0;
         const ESM::Creature* soul = store.get<ESM::Creature>().find(mSoulGemPtr.getCellRef().mSoul);
         return soul->mData.mSoul;
@@ -207,14 +207,14 @@ namespace MWMechanics
     }
     bool Enchanting::soulEmpty()
     {
-        if (mOldItemPtr.isEmpty())
+        if (mSoulGemPtr.isEmpty())
             return true;
         return false;
     }
 
     bool Enchanting::itemEmpty()
     {
-        if(mSoulGemPtr.isEmpty())
+        if(mOldItemPtr.isEmpty())
             return true;
         return false;
     }
