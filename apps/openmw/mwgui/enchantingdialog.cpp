@@ -61,6 +61,8 @@ namespace MWGui
 
         mCharge->setCaption(boost::lexical_cast<std::string>(mEnchanting.getGemCharge()));
 
+        mCastCost->setCaption(boost::lexical_cast<std::string>(mEnchanting.getEnchantCost());
+
         switch(mEnchanting.getEnchantType())
         {
             case 0:
@@ -221,12 +223,6 @@ namespace MWGui
         if (mName->getCaption ().empty())
         {
             mWindowManager.messageBox ("#{sNotifyMessage10}", std::vector<std::string>());
-            return;
-        }
-
-        if (mCastCost->getCaption() == "0")
-        {
-            mWindowManager.messageBox ("#{sEnchantmentMenu8}", std::vector<std::string>());
             return;
         }
 
