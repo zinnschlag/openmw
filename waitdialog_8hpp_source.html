@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -107,29 +108,30 @@
 <a name="l00047"></a><a class="code" href="classMWGui_1_1WaitDialog.html#a3636c7651c675626dffb0422df21beeb">00047</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a3636c7651c675626dffb0422df21beeb">mSleeping</a>;
 <a name="l00048"></a><a class="code" href="classMWGui_1_1WaitDialog.html#acf4ca06e0f2ffc5c7579a823ef38e8c5">00048</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WaitDialog.html#acf4ca06e0f2ffc5c7579a823ef38e8c5">mCurHour</a>;
 <a name="l00049"></a><a class="code" href="classMWGui_1_1WaitDialog.html#a785b54e4013eaafc5b5c81455f1746e9">00049</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a785b54e4013eaafc5b5c81455f1746e9">mHours</a>;
-<a name="l00050"></a><a class="code" href="classMWGui_1_1WaitDialog.html#a41d24439de9ddb3ba4a92087120e9ad4">00050</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a41d24439de9ddb3ba4a92087120e9ad4">mRemainingTime</a>;
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classMWGui_1_1WaitDialog.html#a8072a6724248e792017b0c08a0662d71">00052</a>         <a class="code" href="classMWGui_1_1WaitDialogProgressBar.html">WaitDialogProgressBar</a> <a class="code" href="classMWGui_1_1WaitDialog.html#a8072a6724248e792017b0c08a0662d71">mProgressBar</a>;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a945bb084cf150a4cc722cda73bb46935">onUntilHealedButtonClicked</a>(MyGUI::Widget* sender);
-<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#abefb0d0ac03e8aa38820ea586d467f3f">onWaitButtonClicked</a>(MyGUI::Widget* sender);
-<a name="l00056"></a>00056         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a9c03116f84aa3915dc96735a1c04a337">onCancelButtonClicked</a>(MyGUI::Widget* sender);
-<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#aa8a64cacdf39df5fb65fe46a9cb2d4d3">onHourSliderChangedPosition</a>(MyGUI::ScrollBar* sender, <span class="keywordtype">size_t</span> position);
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a5cad42f32fd92df269837aadd6ce44a2">setCanRest</a>(<span class="keywordtype">bool</span> canRest);
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#aa6894a1ad9cfcc722681c695351065b6">startWaiting</a>();
-<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#af62a37165afcc836824b908108125008">stopWaiting</a>();
-<a name="l00063"></a>00063     };
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065 }
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067 <span class="preprocessor">#endif</span>
+<a name="l00050"></a><a class="code" href="classMWGui_1_1WaitDialog.html#aef45008feaeefdced1e30f02ea0ca272">00050</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WaitDialog.html#aef45008feaeefdced1e30f02ea0ca272">mManualHours</a>; <span class="comment">// stores the hours to rest selected via slider</span>
+<a name="l00051"></a><a class="code" href="classMWGui_1_1WaitDialog.html#a41d24439de9ddb3ba4a92087120e9ad4">00051</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a41d24439de9ddb3ba4a92087120e9ad4">mRemainingTime</a>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classMWGui_1_1WaitDialog.html#a8072a6724248e792017b0c08a0662d71">00053</a>         <a class="code" href="classMWGui_1_1WaitDialogProgressBar.html">WaitDialogProgressBar</a> <a class="code" href="classMWGui_1_1WaitDialog.html#a8072a6724248e792017b0c08a0662d71">mProgressBar</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a945bb084cf150a4cc722cda73bb46935">onUntilHealedButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00056"></a>00056         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#abefb0d0ac03e8aa38820ea586d467f3f">onWaitButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a9c03116f84aa3915dc96735a1c04a337">onCancelButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00058"></a>00058         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#aa8a64cacdf39df5fb65fe46a9cb2d4d3">onHourSliderChangedPosition</a>(MyGUI::ScrollBar* sender, <span class="keywordtype">size_t</span> position);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a5cad42f32fd92df269837aadd6ce44a2">setCanRest</a>(<span class="keywordtype">bool</span> canRest);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#a92339891db903cb7d127eef8d46dca12">startWaiting</a>(<span class="keywordtype">int</span> hoursToWait);
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WaitDialog.html#af62a37165afcc836824b908108125008">stopWaiting</a>();
+<a name="l00064"></a>00064     };
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 }
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

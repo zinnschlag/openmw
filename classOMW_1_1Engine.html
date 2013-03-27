@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -84,11 +85,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a0f76223cf6928271ce1c354962dfc5f4">enableFSStrict</a> (bool fsStrict)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a468836c12fd5efd736716ba2b3ac0f17">setDataDirs</a> (const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> &amp;dataDirs)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set data dirs.  <a href="#a468836c12fd5efd736716ba2b3ac0f17"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ae28a2e0b15be1bdb20a905c35d3faa85">addArchive</a> (const std::string &amp;archive)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add BSA archive.  <a href="#ae28a2e0b15be1bdb20a905c35d3faa85"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a6a099254817e38c0cce67966fe8d7f67">setResourceDir</a> (const boost::filesystem::path &amp;parResDir)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set resource dir.  <a href="#a6a099254817e38c0cce67966fe8d7f67"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ae8b626216a9b31cd0cad6789c516bb95">setCell</a> (const std::string &amp;cellName)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set start cell name (only interiors for now)  <a href="#ae8b626216a9b31cd0cad6789c516bb95"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a90c3b5dff2bc246ff87c8f5bfb60f610">addMaster</a> (const std::string &amp;master)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a759849e0258b33218b45e232d77ff857">addPlugin</a> (const std::string &amp;plugin)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#aa5e23aa479451132f02a3ac2ef6c8425">showFPS</a> (int level)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable fps counter.  <a href="#aa5e23aa479451132f02a3ac2ef6c8425"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#af3e7d3979b6f1926d7fa02d85b124abe">setDebugMode</a> (bool debugMode)</td></tr>
@@ -124,9 +128,10 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a1932927150b4baa7f8d651980de76db4">addZipResource</a> (const boost::filesystem::path &amp;path)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">add a .zip resource  <a href="#a1932927150b4baa7f8d651980de76db4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ab4f3fe84d61bcce023726a9363bd832a">loadBSA</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Load all BSA files in data directory.  <a href="#ab4f3fe84d61bcce023726a9363bd832a"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Load BSA files.  <a href="#ab4f3fe84d61bcce023726a9363bd832a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a1e4662ac66618bc5493c320f4e0e869a">executeLocalScripts</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a6da583116f27cad659fe9b06c3fef0c8">frameRenderingQueued</a> (const Ogre::FrameEvent &amp;evt)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ad5f70225381f21808a2990099dc90f4e">frameStarted</a> (const Ogre::FrameEvent &amp;evt)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#af4c2c4c9946608486bfc3f17be85b8b2">loadSettings</a> (<a class="el" href="classSettings_1_1Manager.html">Settings::Manager</a> &amp;settings)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Load settings from various files, returns the path to the user settings file.  <a href="#af4c2c4c9946608486bfc3f17be85b8b2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a9edab665083b0f5db2cda761f3e9c2c3">prepareEngine</a> (<a class="el" href="classSettings_1_1Manager.html">Settings::Manager</a> &amp;settings)</td></tr>
@@ -137,10 +142,12 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">ToUTF8::FromType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ac7fd1623a21179ef12eb551415894873">mEncoding</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#aecd9421d9a329d1b8da042382170f5b7">mEncoder</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a05ff0ff6f4ad6d8e22c86aebc8c94ce1">mDataDirs</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a28ba85658356bf8caa78a7026be5deff">mArchives</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a63775934f92a4b3214b67e68f197de90">mResDir</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a2478fa356e45c34253fa9ddefe014eef">mOgre</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a8ef2ba9e08c6dc9f9931952f4e221074">mCellName</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a7c1cb3e17150c132d433d4fcb602c6b7">mMaster</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ab09fa1a1ad454b1fafaec1ed443fd7c3">mMaster</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#af643e2519d98d50b0bbaf12836347484">mPlugins</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#ab91da2e7673ecd05b6ba42831f75ce87">mFpsLevel</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a853e575314aa8bea0b692f1108963639">mDebug</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMW_1_1Engine.html#a6616fc4bad55f3b223238cee09da394b">mVerboseScripts</a></td></tr>
@@ -232,6 +239,25 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
+<a class="anchor" id="ae28a2e0b15be1bdb20a905c35d3faa85"></a><!-- doxytag: member="OMW::Engine::addArchive" ref="ae28a2e0b15be1bdb20a905c35d3faa85" args="(const std::string &amp;archive)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classOMW_1_1Engine.html#ae28a2e0b15be1bdb20a905c35d3faa85">OMW::Engine::addArchive</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>archive</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Add BSA archive. </p>
+
+</div>
+</div>
 <a class="anchor" id="a90c3b5dff2bc246ff87c8f5bfb60f610"></a><!-- doxytag: member="OMW::Engine::addMaster" ref="a90c3b5dff2bc246ff87c8f5bfb60f610" args="(const std::string &amp;master)" -->
 <div class="memitem">
 <div class="memproto">
@@ -248,8 +274,28 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <div class="memdoc">
 <p>Set master file (esm)</p>
 <ul>
-<li>If the given name does not have an extension, ".esm" is added automatically</li>
-<li>Currently OpenMW only supports one master at the same time. </li>
+<li>If the given name does not have an extension, ".esm" is added automatically </li>
+</ul>
+
+</div>
+</div>
+<a class="anchor" id="a759849e0258b33218b45e232d77ff857"></a><!-- doxytag: member="OMW::Engine::addPlugin" ref="a759849e0258b33218b45e232d77ff857" args="(const std::string &amp;plugin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classOMW_1_1Engine.html#a759849e0258b33218b45e232d77ff857">OMW::Engine::addPlugin</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>plugin</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Same as "addMaster", but for plugin files (esp)</p>
+<ul>
+<li>If the given name does not have an extension, ".esp" is added automatically </li>
 </ul>
 
 </div>
@@ -344,6 +390,23 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
+<a class="anchor" id="ad5f70225381f21808a2990099dc90f4e"></a><!-- doxytag: member="OMW::Engine::frameStarted" ref="ad5f70225381f21808a2990099dc90f4e" args="(const Ogre::FrameEvent &amp;evt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classOMW_1_1Engine.html#ad5f70225381f21808a2990099dc90f4e">OMW::Engine::frameStarted</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Ogre::FrameEvent &amp;&#160;</td>
+          <td class="paramname"><em>evt</em></td><td>)</td>
+          <td><code> [private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a8d1b9febc202c89a2472919691065b0f"></a><!-- doxytag: member="OMW::Engine::go" ref="a8d1b9febc202c89a2472919691065b0f" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -376,7 +439,7 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 </div>
 <div class="memdoc">
 
-<p>Load all BSA files in data directory. </p>
+<p>Load BSA files. </p>
 
 </div>
 </div>
@@ -750,6 +813,19 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
+<a class="anchor" id="a28ba85658356bf8caa78a7026be5deff"></a><!-- doxytag: member="OMW::Engine::mArchives" ref="a28ba85658356bf8caa78a7026be5deff" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="classOMW_1_1Engine.html#a28ba85658356bf8caa78a7026be5deff">OMW::Engine::mArchives</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a8ef2ba9e08c6dc9f9931952f4e221074"></a><!-- doxytag: member="OMW::Engine::mCellName" ref="a8ef2ba9e08c6dc9f9931952f4e221074" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -932,12 +1008,12 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
-<a class="anchor" id="a7c1cb3e17150c132d433d4fcb602c6b7"></a><!-- doxytag: member="OMW::Engine::mMaster" ref="a7c1cb3e17150c132d433d4fcb602c6b7" args="" -->
+<a class="anchor" id="ab09fa1a1ad454b1fafaec1ed443fd7c3"></a><!-- doxytag: member="OMW::Engine::mMaster" ref="ab09fa1a1ad454b1fafaec1ed443fd7c3" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string <a class="el" href="classOMW_1_1Engine.html#a7c1cb3e17150c132d433d4fcb602c6b7">OMW::Engine::mMaster</a><code> [private]</code></td>
+          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="classOMW_1_1Engine.html#ab09fa1a1ad454b1fafaec1ed443fd7c3">OMW::Engine::mMaster</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -964,6 +1040,19 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>* <a class="el" href="classOMW_1_1Engine.html#a2478fa356e45c34253fa9ddefe014eef">OMW::Engine::mOgre</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af643e2519d98d50b0bbaf12836347484"></a><!-- doxytag: member="OMW::Engine::mPlugins" ref="af643e2519d98d50b0bbaf12836347484" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="classOMW_1_1Engine.html#af643e2519d98d50b0bbaf12836347484">OMW::Engine::mPlugins</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -1070,7 +1159,7 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

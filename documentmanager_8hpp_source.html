@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -64,35 +65,37 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>CSMDoc
-<a name="l00008"></a>00008 {
-<a name="l00009"></a>00009     <span class="keyword">class </span>Document;
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="classCSMDoc_1_1DocumentManager.html">00011</a>     <span class="keyword">class </span><a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>
-<a name="l00012"></a>00012     {
-<a name="l00013"></a><a class="code" href="classCSMDoc_1_1DocumentManager.html#a2e8bab7e2d82c0efa3518dd76d921faf">00013</a>             std::vector&lt;Document *&gt; <a class="code" href="classCSMDoc_1_1DocumentManager.html#a2e8bab7e2d82c0efa3518dd76d921faf">mDocuments</a>;
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015             <a class="code" href="classCSMDoc_1_1DocumentManager.html#af8dd8df97a4681a69dba10751459f3b2">DocumentManager</a> (<span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>&amp;);
-<a name="l00016"></a>00016             <a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>&amp; <a class="code" href="classCSMDoc_1_1DocumentManager.html#a15c3ded7a27b1b2996af93405cae45fc">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>&amp;);
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018         <span class="keyword">public</span>:
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;boost/filesystem/path.hpp&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>CSMDoc
+<a name="l00010"></a>00010 {
+<a name="l00011"></a>00011     <span class="keyword">class </span>Document;
+<a name="l00012"></a>00012 
+<a name="l00013"></a><a class="code" href="classCSMDoc_1_1DocumentManager.html">00013</a>     <span class="keyword">class </span><a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>
+<a name="l00014"></a>00014     {
+<a name="l00015"></a><a class="code" href="classCSMDoc_1_1DocumentManager.html#a2e8bab7e2d82c0efa3518dd76d921faf">00015</a>             std::vector&lt;Document *&gt; <a class="code" href="classCSMDoc_1_1DocumentManager.html#a2e8bab7e2d82c0efa3518dd76d921faf">mDocuments</a>;
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017             <a class="code" href="classCSMDoc_1_1DocumentManager.html#af8dd8df97a4681a69dba10751459f3b2">DocumentManager</a> (<span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>&amp;);
+<a name="l00018"></a>00018             <a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>&amp; <a class="code" href="classCSMDoc_1_1DocumentManager.html#a15c3ded7a27b1b2996af93405cae45fc">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a>&amp;);
 <a name="l00019"></a>00019 
-<a name="l00020"></a>00020             <a class="code" href="classCSMDoc_1_1DocumentManager.html#af8dd8df97a4681a69dba10751459f3b2">DocumentManager</a>();
+<a name="l00020"></a>00020         <span class="keyword">public</span>:
 <a name="l00021"></a>00021 
-<a name="l00022"></a>00022             <a class="code" href="classCSMDoc_1_1DocumentManager.html#a390e20a3f9e11f660037f05aec2b0d00">~DocumentManager</a>();
+<a name="l00022"></a>00022             <a class="code" href="classCSMDoc_1_1DocumentManager.html#af8dd8df97a4681a69dba10751459f3b2">DocumentManager</a>();
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024             <a class="code" href="classCSMDoc_1_1Document.html">Document</a> *<a class="code" href="classCSMDoc_1_1DocumentManager.html#a48b841d988dc4383b527af64f4bf51d5" title="The ownership of the returned document is not transferred to the caller.">addDocument</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027             <span class="keywordtype">bool</span> <a class="code" href="classCSMDoc_1_1DocumentManager.html#a3a71a028c151630ff0966e143f73f4aa">removeDocument</a> (<a class="code" href="classCSMDoc_1_1Document.html">Document</a> *document);
-<a name="l00029"></a>00029     };
-<a name="l00030"></a>00030 }
+<a name="l00024"></a>00024             <a class="code" href="classCSMDoc_1_1DocumentManager.html#a390e20a3f9e11f660037f05aec2b0d00">~DocumentManager</a>();
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026             <a class="code" href="classCSMDoc_1_1Document.html">Document</a> *<a class="code" href="classCSMDoc_1_1DocumentManager.html#adf399bf1fc83c9272848df0e32ab4dba">addDocument</a> (<span class="keyword">const</span> std::vector&lt;boost::filesystem::path&gt;&amp; files, <span class="keywordtype">bool</span> new_);
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#endif</span>
+<a name="l00032"></a>00032             <span class="keywordtype">bool</span> <a class="code" href="classCSMDoc_1_1DocumentManager.html#a3a71a028c151630ff0966e143f73f4aa">removeDocument</a> (<a class="code" href="classCSMDoc_1_1Document.html">Document</a> *document);
+<a name="l00034"></a>00034     };
+<a name="l00035"></a>00035 }
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -94,7 +95,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a6a534ffbaa5665a821922d68663c26ab">changeToExteriorCell</a> (const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Move to exterior cell.  <a href="#a6a534ffbaa5665a821922d68663c26ab"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a3c7a12edb1452c6654756057da7b7001">markCellAsUnchanged</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a466dfc1d6d442ab73a5ad177ad7f3283">insertCell</a> (<a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;cell)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#abcd28bc757b3ff53e90f1036bd6fbcab">update</a> (float duration, bool paused)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a53eb5bcf1b9ea13fad66f82968d3bbf3">addObjectToScene</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an object that already exists in the world model to the scene.  <a href="#a53eb5bcf1b9ea13fad66f82968d3bbf3"></a><br/></td></tr>
@@ -104,6 +104,7 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#accfd7908f7e0a71b16166d85057820f9">playerCellChange</a> (<a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *cell, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a119ae258497bc1e2ecff45c7fd63c5c3">insertCell</a> (<a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;cell, bool rescale)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#af6cf40957624ab9e179839a3aee8582e">mCurrentCell</a></td></tr>
@@ -328,16 +329,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a466dfc1d6d442ab73a5ad177ad7f3283"></a><!-- doxytag: member="MWWorld::Scene::insertCell" ref="a466dfc1d6d442ab73a5ad177ad7f3283" args="(Ptr::CellStore &amp;cell)" -->
+<a class="anchor" id="a119ae258497bc1e2ecff45c7fd63c5c3"></a><!-- doxytag: member="MWWorld::Scene::insertCell" ref="a119ae258497bc1e2ecff45c7fd63c5c3" args="(Ptr::CellStore &amp;cell, bool rescale)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWWorld_1_1Scene.html#a466dfc1d6d442ab73a5ad177ad7f3283">MWWorld::Scene::insertCell</a> </td>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1Scene.html#a119ae258497bc1e2ecff45c7fd63c5c3">MWWorld::Scene::insertCell</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;&#160;</td>
-          <td class="paramname"><em>cell</em></td><td>)</td>
+          <td class="paramname"><em>cell</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>rescale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -376,6 +387,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000091">Todo:</a></b></dt><dd>rescale depending on the state of a new GMST </dd></dl>
 
 </div>
 </div>
@@ -565,7 +577,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

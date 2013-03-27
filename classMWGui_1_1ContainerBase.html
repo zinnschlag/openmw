@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -123,15 +124,16 @@ Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a86252cc033ae0637dfb249d33a4d0fdf">getCountString</a> (const int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a7c713653b47d8bd6182ca24bb7d75907">isTradeWindow</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a0ae91572ef603ccf2a76475a283ff3eb">isInventory</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a8333f3ba59f18e5d8fd8e112295168e5">getEquippedItems</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a4542f74de0645302d6ce6b08748a964a">getEquippedItems</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#ad8166f6971abd6197a61b6d66d60a9f9">_unequipItem</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a2fdb9b0e625af256999d6179b4ed355c">isTrading</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a6fb3fcc9f1aa4f5285994a057d0bdc1e">onSelectedItemImpl</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a6c53ed0a45d33dffce07145059d830bc">ignoreEquippedItems</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a46e433cfb309f18aa1b22a328a621366">itemsToIgnore</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a558696650ad8213214fd748d5a59b8d9">notifyContentChanged</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#acb47473277dbe5b44671b347206d34ed">mDisplayEquippedItems</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#ad871647d441c1ea71ae893c2c235bb6b">mHighlightEquippedItems</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::ScrollView *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a7f2a0650b586a86acf4afddb1d02bf8b">mItemView</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#a9b6661e1f890c9ae0f527d10969a514c">mContainerWidget</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1ContainerBase.html#acad9bceb504f734f752c9c827fb44eaf">mSelectedItem</a></td></tr>
@@ -313,7 +315,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>performance improvement: don't create/destroy all the widgets everytime the container window changes size, only reposition them </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo:</a></b></dt><dd>performance improvement: don't create/destroy all the widgets everytime the container window changes size, only reposition them </dd></dl>
 
 </div>
 </div>
@@ -366,39 +368,19 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8333f3ba59f18e5d8fd8e112295168e5"></a><!-- doxytag: member="MWGui::ContainerBase::getEquippedItems" ref="a8333f3ba59f18e5d8fd8e112295168e5" args="()" -->
+<a class="anchor" id="a4542f74de0645302d6ce6b08748a964a"></a><!-- doxytag: member="MWGui::ContainerBase::getEquippedItems" ref="a4542f74de0645302d6ce6b08748a964a" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&gt; <a class="el" href="classMWGui_1_1ContainerBase.html#a8333f3ba59f18e5d8fd8e112295168e5">MWGui::ContainerBase::getEquippedItems</a> </td>
+          <td class="memname">std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt; <a class="el" href="classMWGui_1_1ContainerBase.html#a4542f74de0645302d6ce6b08748a964a">ContainerBase::getEquippedItems</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td><code> [inline, protected, virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classMWGui_1_1TradeWindow.html#a20eef731477d4dbb89d68c8f1a31a22c">MWGui::TradeWindow</a>, and <a class="el" href="classMWGui_1_1InventoryWindow.html#a17998087bd8c5c0561938809a849bfcd">MWGui::InventoryWindow</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6c53ed0a45d33dffce07145059d830bc"></a><!-- doxytag: member="MWGui::ContainerBase::ignoreEquippedItems" ref="a6c53ed0a45d33dffce07145059d830bc" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool <a class="el" href="classMWGui_1_1ContainerBase.html#a6c53ed0a45d33dffce07145059d830bc">MWGui::ContainerBase::ignoreEquippedItems</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline, protected, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classMWGui_1_1TradeWindow.html#a7dd8b3ffb1486177ae25696604aacb98">MWGui::TradeWindow</a>.</p>
 
 </div>
 </div>
@@ -788,6 +770,19 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acb47473277dbe5b44671b347206d34ed"></a><!-- doxytag: member="MWGui::ContainerBase::mDisplayEquippedItems" ref="acb47473277dbe5b44671b347206d34ed" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWGui_1_1ContainerBase.html#acb47473277dbe5b44671b347206d34ed">MWGui::ContainerBase::mDisplayEquippedItems</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ad58fa9de9fc0371aca7cd0f409c50d05"></a><!-- doxytag: member="MWGui::ContainerBase::mDragAndDrop" ref="ad58fa9de9fc0371aca7cd0f409c50d05" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -807,6 +802,19 @@ Protected Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classMWGui_1_1ContainerBase.html#a402852007c8251936d09c009a14b9f31">Filter</a> <a class="el" href="classMWGui_1_1ContainerBase.html#a9ee0d4f627be06c75f2ab8a4902a5f27">MWGui::ContainerBase::mFilter</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad871647d441c1ea71ae893c2c235bb6b"></a><!-- doxytag: member="MWGui::ContainerBase::mHighlightEquippedItems" ref="ad871647d441c1ea71ae893c2c235bb6b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWGui_1_1ContainerBase.html#ad871647d441c1ea71ae893c2c235bb6b">MWGui::ContainerBase::mHighlightEquippedItems</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -848,7 +856,7 @@ Protected Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

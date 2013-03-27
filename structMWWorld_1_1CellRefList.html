@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -80,7 +81,7 @@
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef</a>&lt; <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1CellRefList.html#a5b5ebeafb565fa15cbf443635008533f">LiveRef</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef std::list&lt; <a class="el" href="structMWWorld_1_1CellRefList.html#a5b5ebeafb565fa15cbf443635008533f">LiveRef</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1CellRefList.html#a827a815fbe116de121a383592ad7eefa">List</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt; <a class="el" href="structMWWorld_1_1CellRefList.html#a5b5ebeafb565fa15cbf443635008533f">LiveRef</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1CellRefList.html#a827a815fbe116de121a383592ad7eefa">List</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWWorld_1_1CellRefList.html#aa679202603c8ac5941a160edfc4d3232">load</a> (<a class="el" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, const <a class="el" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;esmStore)</td></tr>
@@ -103,7 +104,7 @@ struct MWWorld::CellRefList&lt; X &gt;</h3>
 template&lt;typename X&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::list&lt;<a class="el" href="structMWWorld_1_1CellRefList.html#a5b5ebeafb565fa15cbf443635008533f">LiveRef</a>&gt; <a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &gt;::<a class="el" href="structMWWorld_1_1CellRefList.html#a827a815fbe116de121a383592ad7eefa">List</a></td>
+          <td class="memname">typedef <a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt;<a class="el" href="structMWWorld_1_1CellRefList.html#a5b5ebeafb565fa15cbf443635008533f">LiveRef</a>&gt; <a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &gt;::<a class="el" href="structMWWorld_1_1CellRefList.html#a827a815fbe116de121a383592ad7eefa">List</a></td>
         </tr>
       </table>
 </div>
@@ -169,7 +170,7 @@ template&lt;typename X&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename X&gt; </div>
+template&lt;typename X &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void <a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a> &gt;::<a class="el" href="structMWWorld_1_1CellRefList.html#aa679202603c8ac5941a160edfc4d3232">load</a> </td>
@@ -186,13 +187,12 @@ template&lt;typename X&gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td><code> [inline]</code></td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Searches for reference of appropriate type in given <a class="el" href="classMWWorld_1_1ESMStore.html">ESMStore</a>. If reference exists, loads it into container, throws an exception on miss </p>
-<dl class="note"><dt><b>Note:</b></dt><dd>redundant because Store&lt;X&gt;::find() throws exception on miss </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>no longer redundant - changed to <a class="el" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">Store&lt;X&gt;::search()</a>, don't throw an exception on miss, try to continue (that's how MW does it, anyway) </dd></dl>
 
 </div>
 </div>
@@ -212,14 +212,15 @@ template&lt;typename X&gt; </div>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>apps/openmw/mwworld/<a class="el" href="cellstore_8hpp_source.html">cellstore.hpp</a></li>
+<li>apps/openmw/mwworld/<a class="el" href="cellstore_8cpp.html">cellstore.cpp</a></li>
 </ul>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

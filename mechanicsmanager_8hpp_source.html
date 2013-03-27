@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -94,16 +95,17 @@
 <a name="l00037"></a>00037 
 <a name="l00038"></a><a class="code" href="classMWBase_1_1MechanicsManager.html#aa9d950f02b3ca9f6d669892be7bcd495">00038</a>             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#aa9d950f02b3ca9f6d669892be7bcd495">~MechanicsManager</a>() {}
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a16483ed8d1f22bd6a044537f938c8630">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a001e7fd0e7b790085b2aad33847b5f20" title="Deregister an actor for stats management.">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ac9d469d923a3ce49e46a944928911a91" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore) = 0;
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#aec39afa8600f5030f60736aaa0f2c54d">watchActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a8bddcad327864f45b08d6f8f9183ac9c">update</a> (std::vector&lt;std::pair&lt;std::string, Ogre::Vector3&gt; &gt;&amp; movement,
-<a name="l00056"></a>00056                 <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused) = 0;
+<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#af7c582ab8154859c6ac8de69c62b5158" title="Register an object for management.">add</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <span class="keyword">remove</span> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ab400434daf87ec6a4f581895f6d8726e" title="Moves an object to a new cell.">updateCell</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr) = 0;
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#ab2a36be44f6076c5950773d159fda088" title="Deregister all objects in the given cell.">drop</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore) = 0;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#aec39afa8600f5030f60736aaa0f2c54d">watchActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a424362aa671ec1f0384ed948b66b4f11">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused) = 0;
 <a name="l00061"></a>00061 
 <a name="l00062"></a>00062             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#af7924a2fc8b6e7f4b44a03c136e1f16f" title="Set player name.">setPlayerName</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
 <a name="l00064"></a>00064 
@@ -134,15 +136,19 @@
 <a name="l00097"></a>00097             };
 <a name="l00098"></a>00098             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a699d208441feb7a9c2da946d86af19f4" title="Perform a persuasion action on NPC.">getPersuasionDispositionChange</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc, <a class="code" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">PersuasionType</a> type,
 <a name="l00099"></a>00099                 <span class="keywordtype">float</span> currentTemporaryDispositionDelta, <span class="keywordtype">bool</span>&amp; success, <span class="keywordtype">float</span>&amp; tempChange, <span class="keywordtype">float</span>&amp; permChange) = 0;
-<a name="l00101"></a>00101     };
-<a name="l00102"></a>00102 }
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#a02409b3d17844c02b8de812b5378e3a1">playAnimationGroup</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> number=1) = 0;
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1MechanicsManager.html#afe783818658da2e06a8f4c4d3bb92c60">skipAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) = 0;
+<a name="l00112"></a>00112     };
+<a name="l00113"></a>00113 }
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

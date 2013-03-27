@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -73,13 +74,13 @@
 <a name="l00013"></a>00013 
 <a name="l00014"></a>00014 <span class="keyword">namespace </span>MWGui
 <a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="classMWGui_1_1TextInputDialog.html">00016</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1TextInputDialog.html">TextInputDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00016"></a><a class="code" href="classMWGui_1_1TextInputDialog.html">00016</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1TextInputDialog.html">TextInputDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
 <a name="l00017"></a>00017     {
 <a name="l00018"></a>00018     <span class="keyword">public</span>:
 <a name="l00019"></a>00019         <a class="code" href="classMWGui_1_1TextInputDialog.html#a97a92bce62e5b9f1fe4a7469fe87a59d">TextInputDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
 <a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classMWGui_1_1TextInputDialog.html#a66d2171a337fdf17cce85e3b74d335f2">00021</a>         std::string <a class="code" href="classMWGui_1_1TextInputDialog.html#a66d2171a337fdf17cce85e3b74d335f2">getTextInput</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#aa2eda3e33a8b10b8edfb4a52bff71921">mTextEdit</a> ? <a class="code" href="classMWGui_1_1TextInputDialog.html#aa2eda3e33a8b10b8edfb4a52bff71921">mTextEdit</a>-&gt;getOnlyText() : <span class="stringliteral">&quot;&quot;</span>; }
-<a name="l00022"></a><a class="code" href="classMWGui_1_1TextInputDialog.html#a0273baabf5228967c5486d9270a9bcb0">00022</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#a0273baabf5228967c5486d9270a9bcb0">setTextInput</a>(<span class="keyword">const</span> std::string &amp;text) { <span class="keywordflow">if</span> (<a class="code" href="classMWGui_1_1TextInputDialog.html#aa2eda3e33a8b10b8edfb4a52bff71921">mTextEdit</a>) <a class="code" href="classMWGui_1_1TextInputDialog.html#aa2eda3e33a8b10b8edfb4a52bff71921">mTextEdit</a>-&gt;setOnlyText(text); }
+<a name="l00021"></a><a class="code" href="classMWGui_1_1TextInputDialog.html#a66d2171a337fdf17cce85e3b74d335f2">00021</a>         std::string <a class="code" href="classMWGui_1_1TextInputDialog.html#a66d2171a337fdf17cce85e3b74d335f2">getTextInput</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#a565a3390df9d9536ecda9e5c8cc929da">mTextEdit</a> ? <a class="code" href="classMWGui_1_1TextInputDialog.html#a565a3390df9d9536ecda9e5c8cc929da">mTextEdit</a>-&gt;getOnlyText() : <span class="stringliteral">&quot;&quot;</span>; }
+<a name="l00022"></a><a class="code" href="classMWGui_1_1TextInputDialog.html#a0273baabf5228967c5486d9270a9bcb0">00022</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#a0273baabf5228967c5486d9270a9bcb0">setTextInput</a>(<span class="keyword">const</span> std::string &amp;text) { <span class="keywordflow">if</span> (<a class="code" href="classMWGui_1_1TextInputDialog.html#a565a3390df9d9536ecda9e5c8cc929da">mTextEdit</a>) <a class="code" href="classMWGui_1_1TextInputDialog.html#a565a3390df9d9536ecda9e5c8cc929da">mTextEdit</a>-&gt;setOnlyText(text); }
 <a name="l00023"></a>00023 
 <a name="l00024"></a>00024         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#aa32905e0dc45f37bda240734a9566e12">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
 <a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#aac5a6cd6ee92e263a54fd1c5101888e4">setTextLabel</a>(<span class="keyword">const</span> std::string &amp;label);
@@ -90,7 +91,7 @@
 <a name="l00030"></a>00030         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TextInputDialog.html#a5b8f155c3b013a6985969757397dd214">onTextAccepted</a>(MyGUI::Edit* _sender);
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032     <span class="keyword">private</span>:
-<a name="l00033"></a><a class="code" href="classMWGui_1_1TextInputDialog.html#aa2eda3e33a8b10b8edfb4a52bff71921">00033</a>         MyGUI::EditPtr <a class="code" href="classMWGui_1_1TextInputDialog.html#aa2eda3e33a8b10b8edfb4a52bff71921">mTextEdit</a>;
+<a name="l00033"></a><a class="code" href="classMWGui_1_1TextInputDialog.html#a565a3390df9d9536ecda9e5c8cc929da">00033</a>         MyGUI::EditBox* <a class="code" href="classMWGui_1_1TextInputDialog.html#a565a3390df9d9536ecda9e5c8cc929da">mTextEdit</a>;
 <a name="l00034"></a>00034     };
 <a name="l00035"></a>00035 }
 <a name="l00036"></a>00036 <span class="preprocessor">#endif</span>
@@ -98,7 +99,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

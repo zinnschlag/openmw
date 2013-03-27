@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -149,47 +150,52 @@
 <a name="l00089"></a>00089 {
 <a name="l00090"></a><a class="code" href="structESM_1_1MasterData.html#a02072a390520e7f14e487d638ef63b0c">00090</a>   std::string <a class="code" href="structESM_1_1MasterData.html#a02072a390520e7f14e487d638ef63b0c">name</a>;
 <a name="l00091"></a><a class="code" href="structESM_1_1MasterData.html#a65f4f52d2186844c861c7ffe2cba5ebb">00091</a>   uint64_t <a class="code" href="structESM_1_1MasterData.html#a65f4f52d2186844c861c7ffe2cba5ebb">size</a>;
-<a name="l00092"></a>00092 };
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094 <span class="comment">// Data that is only present in save game files</span>
-<a name="l00095"></a><a class="code" href="structESM_1_1SaveData.html">00095</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1SaveData.html">SaveData</a>
-<a name="l00096"></a>00096 {
-<a name="l00097"></a><a class="code" href="structESM_1_1SaveData.html#adbc0eab1480cfcb39efdd11062a8ecac">00097</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1SaveData.html#adbc0eab1480cfcb39efdd11062a8ecac">pos</a>[6];     <span class="comment">// Player position and rotation</span>
-<a name="l00098"></a><a class="code" href="structESM_1_1SaveData.html#a0734e0771cd09be20eeb21384d2b0e78">00098</a>   <a class="code" href="unionESM_1_1NAME__T.html">NAME64</a> <a class="code" href="structESM_1_1SaveData.html#a0734e0771cd09be20eeb21384d2b0e78">cell</a>;      <span class="comment">// Cell name</span>
-<a name="l00099"></a><a class="code" href="structESM_1_1SaveData.html#a88fe315a3f4aa3602397a21cf1ffaffb">00099</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1SaveData.html#a88fe315a3f4aa3602397a21cf1ffaffb">unk2</a>;       <span class="comment">// Unknown value - possibly game time?</span>
-<a name="l00100"></a><a class="code" href="structESM_1_1SaveData.html#a1cc863566788b454e4f6ae8b059bdd7e">00100</a>   <a class="code" href="unionESM_1_1NAME__T.html">NAME32</a> <a class="code" href="structESM_1_1SaveData.html#a1cc863566788b454e4f6ae8b059bdd7e">player</a>;    <span class="comment">// Player name</span>
-<a name="l00101"></a>00101 };
-<a name="l00102"></a>00102 <span class="preprocessor">#pragma pack(pop)</span>
-<a name="l00103"></a>00103 <span class="preprocessor"></span>
-<a name="l00104"></a>00104 <span class="comment">/* This struct defines a file &#39;context&#39; which can be saved and later</span>
-<a name="l00105"></a>00105 <span class="comment">   restored by an ESMReader instance. It will save the position within</span>
-<a name="l00106"></a>00106 <span class="comment">   a file, and when restored will let you read from that position as</span>
-<a name="l00107"></a>00107 <span class="comment">   if you never left it.</span>
-<a name="l00108"></a>00108 <span class="comment"> */</span>
-<a name="l00109"></a><a class="code" href="structESM_1_1ESM__Context.html">00109</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ESM__Context.html">ESM_Context</a>
-<a name="l00110"></a>00110 {
-<a name="l00111"></a><a class="code" href="structESM_1_1ESM__Context.html#ad0df675112a92a3bf2c2673ec69a6971">00111</a>   std::string <a class="code" href="structESM_1_1ESM__Context.html#ad0df675112a92a3bf2c2673ec69a6971">filename</a>;
-<a name="l00112"></a><a class="code" href="structESM_1_1ESM__Context.html#a71763c3281920d747a01812797fbf18c">00112</a>   uint32_t <a class="code" href="structESM_1_1ESM__Context.html#ace031ad1c9ce6292d98a5e0c7369caea">leftRec</a>, <a class="code" href="structESM_1_1ESM__Context.html#a71763c3281920d747a01812797fbf18c">leftSub</a>;
-<a name="l00113"></a><a class="code" href="structESM_1_1ESM__Context.html#a75910d7f5670ae5db64094a186ab5838">00113</a>   <span class="keywordtype">size_t</span> <a class="code" href="structESM_1_1ESM__Context.html#a75910d7f5670ae5db64094a186ab5838">leftFile</a>;
-<a name="l00114"></a><a class="code" href="structESM_1_1ESM__Context.html#a2a6bbdac590deeee8e5347ed0fc98659">00114</a>   <a class="code" href="unionESM_1_1NAME__T.html">NAME</a> <a class="code" href="structESM_1_1ESM__Context.html#a87c0dd9908d3892e4e77ce91d916a355">recName</a>, <a class="code" href="structESM_1_1ESM__Context.html#a2a6bbdac590deeee8e5347ed0fc98659">subName</a>;
-<a name="l00115"></a><a class="code" href="structESM_1_1ESM__Context.html#a65b2b67c25bcec49f6a7cb9867125908">00115</a>   <a class="code" href="structESM_1_1HEDRstruct.html" title="File header data for all ES files.">HEDRstruct</a> <a class="code" href="structESM_1_1ESM__Context.html#a65b2b67c25bcec49f6a7cb9867125908">header</a>;
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117   <span class="comment">// True if subName has been read but not used.</span>
-<a name="l00118"></a><a class="code" href="structESM_1_1ESM__Context.html#aa85a7be5a363164f49d7e0d489e33c88">00118</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1ESM__Context.html#aa85a7be5a363164f49d7e0d489e33c88">subCached</a>;
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120   <span class="comment">// File position. Only used for stored contexts, not regularly</span>
-<a name="l00121"></a>00121   <span class="comment">// updated within the reader itself.</span>
-<a name="l00122"></a><a class="code" href="structESM_1_1ESM__Context.html#af112d648e4ebc351d3ef26815cb6b3c7">00122</a>   <span class="keywordtype">size_t</span> <a class="code" href="structESM_1_1ESM__Context.html#af112d648e4ebc351d3ef26815cb6b3c7">filePos</a>;
-<a name="l00123"></a>00123 };
+<a name="l00092"></a><a class="code" href="structESM_1_1MasterData.html#a01bd4bef578b87319e360ee75e648a73">00092</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1MasterData.html#a01bd4bef578b87319e360ee75e648a73">index</a>; <span class="comment">// Position of the parent file in the global list of loaded files</span>
+<a name="l00093"></a>00093 };
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 <span class="comment">// Data that is only present in save game files</span>
+<a name="l00096"></a><a class="code" href="structESM_1_1SaveData.html">00096</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1SaveData.html">SaveData</a>
+<a name="l00097"></a>00097 {
+<a name="l00098"></a><a class="code" href="structESM_1_1SaveData.html#adbc0eab1480cfcb39efdd11062a8ecac">00098</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1SaveData.html#adbc0eab1480cfcb39efdd11062a8ecac">pos</a>[6];     <span class="comment">// Player position and rotation</span>
+<a name="l00099"></a><a class="code" href="structESM_1_1SaveData.html#a0734e0771cd09be20eeb21384d2b0e78">00099</a>   <a class="code" href="unionESM_1_1NAME__T.html">NAME64</a> <a class="code" href="structESM_1_1SaveData.html#a0734e0771cd09be20eeb21384d2b0e78">cell</a>;      <span class="comment">// Cell name</span>
+<a name="l00100"></a><a class="code" href="structESM_1_1SaveData.html#a88fe315a3f4aa3602397a21cf1ffaffb">00100</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1SaveData.html#a88fe315a3f4aa3602397a21cf1ffaffb">unk2</a>;       <span class="comment">// Unknown value - possibly game time?</span>
+<a name="l00101"></a><a class="code" href="structESM_1_1SaveData.html#a1cc863566788b454e4f6ae8b059bdd7e">00101</a>   <a class="code" href="unionESM_1_1NAME__T.html">NAME32</a> <a class="code" href="structESM_1_1SaveData.html#a1cc863566788b454e4f6ae8b059bdd7e">player</a>;    <span class="comment">// Player name</span>
+<a name="l00102"></a>00102 };
+<a name="l00103"></a>00103 <span class="preprocessor">#pragma pack(pop)</span>
+<a name="l00104"></a>00104 <span class="preprocessor"></span>
+<a name="l00105"></a>00105 <span class="comment">/* This struct defines a file &#39;context&#39; which can be saved and later</span>
+<a name="l00106"></a>00106 <span class="comment">   restored by an ESMReader instance. It will save the position within</span>
+<a name="l00107"></a>00107 <span class="comment">   a file, and when restored will let you read from that position as</span>
+<a name="l00108"></a>00108 <span class="comment">   if you never left it.</span>
+<a name="l00109"></a>00109 <span class="comment"> */</span>
+<a name="l00110"></a><a class="code" href="structESM_1_1ESM__Context.html">00110</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1ESM__Context.html">ESM_Context</a>
+<a name="l00111"></a>00111 {
+<a name="l00112"></a><a class="code" href="structESM_1_1ESM__Context.html#ad0df675112a92a3bf2c2673ec69a6971">00112</a>   std::string <a class="code" href="structESM_1_1ESM__Context.html#ad0df675112a92a3bf2c2673ec69a6971">filename</a>;
+<a name="l00113"></a><a class="code" href="structESM_1_1ESM__Context.html#a71763c3281920d747a01812797fbf18c">00113</a>   uint32_t <a class="code" href="structESM_1_1ESM__Context.html#ace031ad1c9ce6292d98a5e0c7369caea">leftRec</a>, <a class="code" href="structESM_1_1ESM__Context.html#a71763c3281920d747a01812797fbf18c">leftSub</a>;
+<a name="l00114"></a><a class="code" href="structESM_1_1ESM__Context.html#a75910d7f5670ae5db64094a186ab5838">00114</a>   <span class="keywordtype">size_t</span> <a class="code" href="structESM_1_1ESM__Context.html#a75910d7f5670ae5db64094a186ab5838">leftFile</a>;
+<a name="l00115"></a><a class="code" href="structESM_1_1ESM__Context.html#a2a6bbdac590deeee8e5347ed0fc98659">00115</a>   <a class="code" href="unionESM_1_1NAME__T.html">NAME</a> <a class="code" href="structESM_1_1ESM__Context.html#a87c0dd9908d3892e4e77ce91d916a355">recName</a>, <a class="code" href="structESM_1_1ESM__Context.html#a2a6bbdac590deeee8e5347ed0fc98659">subName</a>;
+<a name="l00116"></a><a class="code" href="structESM_1_1ESM__Context.html#a65b2b67c25bcec49f6a7cb9867125908">00116</a>   <a class="code" href="structESM_1_1HEDRstruct.html" title="File header data for all ES files.">HEDRstruct</a> <a class="code" href="structESM_1_1ESM__Context.html#a65b2b67c25bcec49f6a7cb9867125908">header</a>;
+<a name="l00117"></a>00117   <span class="comment">// When working with multiple esX files, we will generate lists of all files that</span>
+<a name="l00118"></a>00118   <span class="comment">//  actually contribute to a specific cell. Therefore, we need to store the index</span>
+<a name="l00119"></a>00119   <span class="comment">//  of the file belonging to this contest. See CellStore::(list/load)refs for details.</span>
+<a name="l00120"></a><a class="code" href="structESM_1_1ESM__Context.html#a33acc0ac2951462d8884ced68ac2b17f">00120</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1ESM__Context.html#a33acc0ac2951462d8884ced68ac2b17f">index</a>;
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122   <span class="comment">// True if subName has been read but not used.</span>
+<a name="l00123"></a><a class="code" href="structESM_1_1ESM__Context.html#aa85a7be5a363164f49d7e0d489e33c88">00123</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1ESM__Context.html#aa85a7be5a363164f49d7e0d489e33c88">subCached</a>;
 <a name="l00124"></a>00124 
-<a name="l00125"></a>00125 }
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127 <span class="preprocessor">#endif</span>
+<a name="l00125"></a>00125   <span class="comment">// File position. Only used for stored contexts, not regularly</span>
+<a name="l00126"></a>00126   <span class="comment">// updated within the reader itself.</span>
+<a name="l00127"></a><a class="code" href="structESM_1_1ESM__Context.html#af112d648e4ebc351d3ef26815cb6b3c7">00127</a>   <span class="keywordtype">size_t</span> <a class="code" href="structESM_1_1ESM__Context.html#af112d648e4ebc351d3ef26815cb6b3c7">filePos</a>;
+<a name="l00128"></a>00128 };
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130 }
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -83,8 +84,8 @@
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
-MyGUI::delegates::CMultiDelegate1<br class="typebreak"/>
-&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">EventHandle_String</a></td></tr>
+MyGUI::delegates::CMultiDelegate2<br class="typebreak"/>
+&lt; const std::string &amp;, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#af643126a9134f64d0d73f68cc2a6b88f">EventHandle_StringInt</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
 MyGUI::delegates::CMultiDelegate1<br class="typebreak"/>
 &lt; MyGUI::Widget * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a783b795c941067c93f2b6be4854a573f">EventHandle_Widget</a></td></tr>
@@ -104,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get widget for an item name, useful to set up tooltip  <a href="#a5ee4f9237e792b8265c89653b7ae2cfc"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">EventHandle_String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab11344b7eaba6f8ed76c277beb2b9ae4">eventItemSelected</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#af643126a9134f64d0d73f68cc2a6b88f">EventHandle_StringInt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a4cc469121715ebbc04798593a3ebc1f7">eventItemSelected</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a783b795c941067c93f2b6be4854a573f">EventHandle_Widget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#adb1b02ebbd94ef4bf21645129f0c2b99">eventWidgetSelected</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -114,7 +115,7 @@ Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a2ab58c2b9272012d72b345ff2492003f">onItemSelected</a> (MyGUI::Widget *_sender)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::ScrollView *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab0361b7b14a5f798db42da37934a08b9">mScrollView</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWScrollView.html">MWGui::Widgets::MWScrollView</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#adcb6c8b5b4c488d5729eb8ed5cbd4887">mScrollView</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a9af661ef2f27a2c6f11bfc1777e77540">mClient</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab4ac4bafa0e949bb78d52b8ac3f4042d">mItems</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a5db58563682638a0c4112f814e9b0d41">mItemHeight</a></td></tr>
@@ -123,12 +124,12 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>a very simple list widget that supports word-wrapping entries </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>if the width or height of the list changes, you must call <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab89e0c93a7c93c31b1e9be5749df278e">adjustSize()</a> method </dd></dl>
 </div><hr/><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="a95e999bd44d66dce809b05a301a089fc"></a><!-- doxytag: member="MWGui::Widgets::MWList::EventHandle_String" ref="a95e999bd44d66dce809b05a301a089fc" args="" -->
+<a class="anchor" id="af643126a9134f64d0d73f68cc2a6b88f"></a><!-- doxytag: member="MWGui::Widgets::MWList::EventHandle_StringInt" ref="af643126a9134f64d0d73f68cc2a6b88f" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef MyGUI::delegates::CMultiDelegate1&lt;std::string&gt; <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">MWGui::Widgets::MWList::EventHandle_String</a></td>
+          <td class="memname">typedef MyGUI::delegates::CMultiDelegate2&lt;const std::string&amp;, int&gt; <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#af643126a9134f64d0d73f68cc2a6b88f">MWGui::Widgets::MWList::EventHandle_StringInt</a></td>
         </tr>
       </table>
 </div>
@@ -400,12 +401,12 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="ab11344b7eaba6f8ed76c277beb2b9ae4"></a><!-- doxytag: member="MWGui::Widgets::MWList::eventItemSelected" ref="ab11344b7eaba6f8ed76c277beb2b9ae4" args="" -->
+<a class="anchor" id="a4cc469121715ebbc04798593a3ebc1f7"></a><!-- doxytag: member="MWGui::Widgets::MWList::eventItemSelected" ref="a4cc469121715ebbc04798593a3ebc1f7" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a95e999bd44d66dce809b05a301a089fc">EventHandle_String</a> <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab11344b7eaba6f8ed76c277beb2b9ae4">MWGui::Widgets::MWList::eventItemSelected</a></td>
+          <td class="memname"><a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#af643126a9134f64d0d73f68cc2a6b88f">EventHandle_StringInt</a> <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#a4cc469121715ebbc04798593a3ebc1f7">MWGui::Widgets::MWList::eventItemSelected</a></td>
         </tr>
       </table>
 </div>
@@ -467,12 +468,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab0361b7b14a5f798db42da37934a08b9"></a><!-- doxytag: member="MWGui::Widgets::MWList::mScrollView" ref="ab0361b7b14a5f798db42da37934a08b9" args="" -->
+<a class="anchor" id="adcb6c8b5b4c488d5729eb8ed5cbd4887"></a><!-- doxytag: member="MWGui::Widgets::MWList::mScrollView" ref="adcb6c8b5b4c488d5729eb8ed5cbd4887" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MyGUI::ScrollView* <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#ab0361b7b14a5f798db42da37934a08b9">MWGui::Widgets::MWList::mScrollView</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classMWGui_1_1Widgets_1_1MWScrollView.html">MWGui::Widgets::MWScrollView</a>* <a class="el" href="classMWGui_1_1Widgets_1_1MWList.html#adcb6c8b5b4c488d5729eb8ed5cbd4887">MWGui::Widgets::MWList::mScrollView</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -488,7 +489,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

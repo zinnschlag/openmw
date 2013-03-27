@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -97,7 +98,7 @@
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039         <span class="keyword">struct </span>{
 <a name="l00040"></a><a class="code" href="classMWRender_1_1Player.html#aa37eb42ffd016662f3ccaf5adb1a9f3e">00040</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Player.html#a0d4ec645dbd2baf663923a63503a77a7">enabled</a>, <a class="code" href="classMWRender_1_1Player.html#a4cd7d836f8a46e4a17d83a86ab29039e">allowed</a>, <a class="code" href="classMWRender_1_1Player.html#aa37eb42ffd016662f3ccaf5adb1a9f3e">forced</a>;
-<a name="l00041"></a>00041         } <a class="code" href="classMWRender_1_1Player.html#ad5798fd1bf50f8ec7601f36307c6c593">mVanity</a>;
+<a name="l00041"></a>00041         } <a class="code" href="classMWRender_1_1Player.html#a9b8fe42e46ef3ffb3a5094d8a416e22c">mVanity</a>;
 <a name="l00042"></a>00042 
 <a name="l00043"></a><a class="code" href="classMWRender_1_1Player.html#a60cce47ce7ae31148f0b18063e755455">00043</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Player.html#a60cce47ce7ae31148f0b18063e755455">mHeight</a>, <a class="code" href="classMWRender_1_1Player.html#a7ba4d98f31591d5de12fd99ef9ef2972">mCameraDistance</a>;
 <a name="l00044"></a><a class="code" href="classMWRender_1_1Player.html#a498b335613eb45163cc8fa25efd8191e">00044</a>         <a class="code" href="structMWRender_1_1Player_1_1CamData.html">CamData</a> <a class="code" href="classMWRender_1_1Player.html#a69109a457241c53196e499073f637609">mMainCam</a>, <a class="code" href="classMWRender_1_1Player.html#a498b335613eb45163cc8fa25efd8191e">mPreviewCam</a>;
@@ -142,26 +143,30 @@
 <a name="l00094"></a>00094 
 <a name="l00096"></a>00096         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#ae32de1620ea48e9a1092ef18f3aa4e69" title="Restore default camera distance for current mode.">setCameraDistance</a>();
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#a62c85d0209dad79508270aeaee4ee430">setAnimation</a>(<a class="code" href="classMWRender_1_1NpcAnimation.html">MWRender::NpcAnimation</a> *anim);
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#a3b98f9021df396d5ae57cef88ce4c9e8">setHeight</a>(<span class="keywordtype">float</span> height);
-<a name="l00101"></a>00101         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Player.html#a7415f6a54d5b5faea690d419bee24d7c">getHeight</a>();
-<a name="l00102"></a>00102 
-<a name="l00105"></a>00105         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Player.html#afe9ed71c3b863c676a858aae1fdf8ea5">getPosition</a>(Ogre::Vector3 &amp;player, Ogre::Vector3 &amp;camera);
-<a name="l00106"></a>00106         Ogre::Vector3 <a class="code" href="classMWRender_1_1Player.html#afe9ed71c3b863c676a858aae1fdf8ea5">getPosition</a>();
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#ad63b09856b74d222faa0abaffc09449a">getSightAngles</a>(<span class="keywordtype">float</span> &amp;pitch, <span class="keywordtype">float</span> &amp;yaw);
+<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#aa252f3a1db96d566f70fcaa690a319f8">setAnimation</a>(<a class="code" href="classMWRender_1_1NpcAnimation.html">NpcAnimation</a> *anim);
+<a name="l00099"></a><a class="code" href="classMWRender_1_1Player.html#a78959508c459b0c4ca1412d244b75c39">00099</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html">NpcAnimation</a> *<a class="code" href="classMWRender_1_1Player.html#a78959508c459b0c4ca1412d244b75c39">getAnimation</a>()<span class="keyword"> const</span>
+<a name="l00100"></a>00100 <span class="keyword">        </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1Player.html#a8242d7c5d03c91db987183bc21097896">mAnimation</a>; }
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#a3b98f9021df396d5ae57cef88ce4c9e8">setHeight</a>(<span class="keywordtype">float</span> height);
+<a name="l00103"></a>00103         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Player.html#a7415f6a54d5b5faea690d419bee24d7c">getHeight</a>();
+<a name="l00104"></a>00104 
+<a name="l00107"></a>00107         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Player.html#afe9ed71c3b863c676a858aae1fdf8ea5">getPosition</a>(Ogre::Vector3 &amp;player, Ogre::Vector3 &amp;camera);
+<a name="l00108"></a>00108         Ogre::Vector3 <a class="code" href="classMWRender_1_1Player.html#afe9ed71c3b863c676a858aae1fdf8ea5">getPosition</a>();
 <a name="l00109"></a>00109 
-<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#a7a52efcb08f70bf5cba4812c69db849b">togglePlayerLooking</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
-<a name="l00111"></a>00111     };
-<a name="l00112"></a>00112 }
+<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#ad63b09856b74d222faa0abaffc09449a">getSightAngles</a>(<span class="keywordtype">float</span> &amp;pitch, <span class="keywordtype">float</span> &amp;yaw);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Player.html#a7a52efcb08f70bf5cba4812c69db849b">togglePlayerLooking</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
 <a name="l00113"></a>00113 
-<a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
+<a name="l00114"></a>00114         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Player.html#a128e8d1af0064f1511052709353fe8f1">isVanityOrPreviewModeEnabled</a>();
+<a name="l00115"></a>00115     };
+<a name="l00116"></a>00116 }
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

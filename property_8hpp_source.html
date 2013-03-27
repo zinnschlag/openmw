@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -81,8 +82,8 @@
 <a name="l00021"></a>00021 <span class="comment"></span>
 <a name="l00022"></a>00022 <span class="comment"> */</span>
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="preprocessor">#ifndef _NIF_PROPERTY_H_</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define _NIF_PROPERTY_H_</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#ifndef OPENMW_COMPONENTS_NIF_PROPERTY_HPP</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_COMPONENTS_NIF_PROPERTY_HPP</span>
 <a name="l00026"></a>00026 <span class="preprocessor"></span>
 <a name="l00027"></a>00027 <span class="preprocessor">#include &quot;<a class="code" href="controlled_8hpp.html">controlled.hpp</a>&quot;</span>
 <a name="l00028"></a>00028 
@@ -95,10 +96,10 @@
 <a name="l00035"></a>00035     <span class="comment">// The meaning of these depends on the actual property type.</span>
 <a name="l00036"></a><a class="code" href="classNif_1_1Property.html#a0ab437d796f95c957ca8673b20fc0d1a">00036</a>     <span class="keywordtype">int</span> <a class="code" href="classNif_1_1Property.html#a0ab437d796f95c957ca8673b20fc0d1a">flags</a>;
 <a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="classNif_1_1Property.html#ae8f992830917d81f6d65fdf83a9ec796">00038</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Property.html#ae8f992830917d81f6d65fdf83a9ec796" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00038"></a><a class="code" href="classNif_1_1Property.html#a1a9fb4bd5789414c2655400599f7e6de">00038</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Property.html#a1a9fb4bd5789414c2655400599f7e6de" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00039"></a>00039     {
-<a name="l00040"></a>00040         <a class="code" href="classNif_1_1Property.html#ae8f992830917d81f6d65fdf83a9ec796" title="Parses the record from file.">Named::read</a>(nif);
-<a name="l00041"></a>00041         <a class="code" href="classNif_1_1Property.html#a0ab437d796f95c957ca8673b20fc0d1a">flags</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad8ff791452adc55d284b7dabb40fdc8a">getUShort</a>();
+<a name="l00040"></a>00040         <a class="code" href="classNif_1_1Property.html#a1a9fb4bd5789414c2655400599f7e6de" title="Parses the record from file.">Named::read</a>(nif);
+<a name="l00041"></a>00041         <a class="code" href="classNif_1_1Property.html#a0ab437d796f95c957ca8673b20fc0d1a">flags</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2986df675228d5744cbf465e00fb7af1">getUShort</a>();
 <a name="l00042"></a>00042     }
 <a name="l00043"></a>00043 };
 <a name="l00044"></a>00044 
@@ -127,20 +128,20 @@
 <a name="l00067"></a><a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a68defd02ad8f9beb325750238d34932d">00067</a>         <span class="keywordtype">int</span> <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ad5141a9dc6aaa65dbf2b9d718a7a7235">clamp</a>, <span class="keyword">set</span>, <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a422b96793c8f33c08da29c7d2acff1ac">filter</a>;
 <a name="l00068"></a><a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae3ecadfa59b65a11758b8db190728c4b">00068</a>         <span class="keywordtype">short</span> <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae3ecadfa59b65a11758b8db190728c4b">unknown2</a>;
 <a name="l00069"></a>00069 
-<a name="l00070"></a><a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">00070</a>         <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00070"></a><a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">00070</a>         <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00071"></a>00071         {
-<a name="l00072"></a>00072             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a6a80e94e39559abec572d206a2accaa0">inUse</a> = !!nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
+<a name="l00072"></a>00072             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a6a80e94e39559abec572d206a2accaa0">inUse</a> = !!nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
 <a name="l00073"></a>00073             <span class="keywordflow">if</span>(!<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a6a80e94e39559abec572d206a2accaa0">inUse</a>) <span class="keywordflow">return</span>;
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a929de85cc5cdc52c8ec22d6692bbafa6">texture</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
-<a name="l00076"></a>00076             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ad5141a9dc6aaa65dbf2b9d718a7a7235">clamp</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
-<a name="l00077"></a>00077             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a422b96793c8f33c08da29c7d2acff1ac">filter</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
-<a name="l00078"></a>00078             <span class="keyword">set</span> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
+<a name="l00075"></a>00075             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a929de85cc5cdc52c8ec22d6692bbafa6">texture</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00076"></a>00076             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ad5141a9dc6aaa65dbf2b9d718a7a7235">clamp</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00077"></a>00077             <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#a422b96793c8f33c08da29c7d2acff1ac">filter</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00078"></a>00078             <span class="keyword">set</span> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
 <a name="l00079"></a>00079 
 <a name="l00080"></a>00080             <span class="comment">// I have no idea, but I think these are actually two</span>
 <a name="l00081"></a>00081             <span class="comment">// PS2-specific shorts (ps2L and ps2K), followed by an unknown</span>
 <a name="l00082"></a>00082             <span class="comment">// short.</span>
-<a name="l00083"></a>00083             nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(6);
+<a name="l00083"></a>00083             nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aa37ee3a6879a7607c78a9387d03f3d0f">skip</a>(6);
 <a name="l00084"></a>00084         }
 <a name="l00085"></a>00085 
 <a name="l00086"></a><a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#aeb11ca458e90a0f95afdfdb0e532a74b">00086</a>         <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#aeb11ca458e90a0f95afdfdb0e532a74b">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -171,29 +172,29 @@
 <a name="l00111"></a>00111 <span class="comment">     */</span>
 <a name="l00112"></a><a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">00112</a>     <a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html">Texture</a> <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[7];
 <a name="l00113"></a>00113 
-<a name="l00114"></a><a class="code" href="classNif_1_1NiTexturingProperty.html#a63c34da3c76ff583a8f664d219761fca">00114</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiTexturingProperty.html#a63c34da3c76ff583a8f664d219761fca" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00114"></a><a class="code" href="classNif_1_1NiTexturingProperty.html#ac588a0d903cf836ae3d6d958ab6789ba">00114</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiTexturingProperty.html#ac588a0d903cf836ae3d6d958ab6789ba" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00115"></a>00115     {
-<a name="l00116"></a>00116         <a class="code" href="classNif_1_1NiTexturingProperty.html#a63c34da3c76ff583a8f664d219761fca" title="Parses the record from file.">Property::read</a>(nif);
-<a name="l00117"></a>00117         <a class="code" href="classNif_1_1NiTexturingProperty.html#aeb20a352c3c19b1eac20a0b5a2a2fd02">apply</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
+<a name="l00116"></a>00116         <a class="code" href="classNif_1_1NiTexturingProperty.html#ac588a0d903cf836ae3d6d958ab6789ba" title="Parses the record from file.">Property::read</a>(nif);
+<a name="l00117"></a>00117         <a class="code" href="classNif_1_1NiTexturingProperty.html#aeb20a352c3c19b1eac20a0b5a2a2fd02">apply</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
 <a name="l00118"></a>00118 
 <a name="l00119"></a>00119         <span class="comment">// Unknown, always 7. Probably the number of textures to read</span>
 <a name="l00120"></a>00120         <span class="comment">// below</span>
-<a name="l00121"></a>00121         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
+<a name="l00121"></a>00121         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
 <a name="l00122"></a>00122 
-<a name="l00123"></a>00123         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[0].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Base</span>
-<a name="l00124"></a>00124         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[1].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Dark</span>
-<a name="l00125"></a>00125         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[2].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Detail</span>
-<a name="l00126"></a>00126         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[3].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Gloss (never present)</span>
-<a name="l00127"></a>00127         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[4].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Glow</span>
-<a name="l00128"></a>00128         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[5].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Bump map</span>
+<a name="l00123"></a>00123         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[0].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Base</span>
+<a name="l00124"></a>00124         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[1].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Dark</span>
+<a name="l00125"></a>00125         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[2].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Detail</span>
+<a name="l00126"></a>00126         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[3].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Gloss (never present)</span>
+<a name="l00127"></a>00127         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[4].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Glow</span>
+<a name="l00128"></a>00128         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[5].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Bump map</span>
 <a name="l00129"></a>00129         <span class="keywordflow">if</span>(<a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[5].inUse)
 <a name="l00130"></a>00130         {
 <a name="l00131"></a>00131             <span class="comment">// Ignore these at the moment</span>
-<a name="l00132"></a>00132             <span class="comment">/*float lumaScale =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00133"></a>00133             <span class="comment">/*float lumaOffset =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00134"></a>00134             <span class="comment">/*const Vector4 *lumaMatrix =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a6fe2a993cb37caeca098dd0c650e3d99">getVector4</a>();
+<a name="l00132"></a>00132             <span class="comment">/*float lumaScale =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00133"></a>00133             <span class="comment">/*float lumaOffset =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00134"></a>00134             <span class="comment">/*const Vector4 *lumaMatrix =*/</span> nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ae79497842488797e8634cf34ffeade2f">getVector4</a>();
 <a name="l00135"></a>00135         }
-<a name="l00136"></a>00136         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[6].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae6ba057d8cd657527a11d1a2ae602441">read</a>(nif); <span class="comment">// Decal</span>
+<a name="l00136"></a>00136         <a class="code" href="classNif_1_1NiTexturingProperty.html#a06ea01a60ca9742013d774c37b835b67">textures</a>[6].<a class="code" href="structNif_1_1NiTexturingProperty_1_1Texture.html#ae7f5b9fa1f5da572790810d29007a1a7">read</a>(nif); <span class="comment">// Decal</span>
 <a name="l00137"></a>00137     }
 <a name="l00138"></a>00138 
 <a name="l00139"></a><a class="code" href="classNif_1_1NiTexturingProperty.html#ac1e28aad1620fd56f6b40f49acb1b157">00139</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiTexturingProperty.html#ac1e28aad1620fd56f6b40f49acb1b157" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -217,9 +218,9 @@
 <a name="l00157"></a>00157 {
 <a name="l00158"></a><a class="code" href="structNif_1_1StructPropT.html#a5d28b47374b7ff56e2459af5946cba01">00158</a>     T <a class="code" href="structNif_1_1StructPropT.html#a5d28b47374b7ff56e2459af5946cba01">data</a>;
 <a name="l00159"></a>00159 
-<a name="l00160"></a><a class="code" href="structNif_1_1StructPropT.html#a8006bdb894bcf7d37c434d109163e095">00160</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1StructPropT.html#a8006bdb894bcf7d37c434d109163e095" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00160"></a><a class="code" href="structNif_1_1StructPropT.html#adb785460bc14d78e348c90a3676c35de">00160</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1StructPropT.html#adb785460bc14d78e348c90a3676c35de" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00161"></a>00161     {
-<a name="l00162"></a>00162         <a class="code" href="structNif_1_1StructPropT.html#a8006bdb894bcf7d37c434d109163e095" title="Parses the record from file.">Property::read</a>(nif);
+<a name="l00162"></a>00162         <a class="code" href="structNif_1_1StructPropT.html#adb785460bc14d78e348c90a3676c35de" title="Parses the record from file.">Property::read</a>(nif);
 <a name="l00163"></a>00163         <a class="code" href="structNif_1_1StructPropT.html#a5d28b47374b7ff56e2459af5946cba01">data</a>.read(nif);
 <a name="l00164"></a>00164     }
 <a name="l00165"></a>00165 };
@@ -230,14 +231,14 @@
 <a name="l00170"></a><a class="code" href="structNif_1_1S__MaterialProperty.html#a1aa29f18a1979571bc834cc25a5c5dda">00170</a>     Ogre::Vector3 <a class="code" href="structNif_1_1S__MaterialProperty.html#a5a38edb2bf181a6da40bf03ae35f3f32">ambient</a>, <a class="code" href="structNif_1_1S__MaterialProperty.html#a635e4e174d8cd596985c924a2f86a97d">diffuse</a>, <a class="code" href="structNif_1_1S__MaterialProperty.html#a1aa29f18a1979571bc834cc25a5c5dda">specular</a>, <a class="code" href="structNif_1_1S__MaterialProperty.html#aaf6347d17d6dca29ea9e89e29977e6e4">emissive</a>;
 <a name="l00171"></a><a class="code" href="structNif_1_1S__MaterialProperty.html#aedccd04d52fbf24bb7f27b597c2b7238">00171</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1S__MaterialProperty.html#aedccd04d52fbf24bb7f27b597c2b7238">glossiness</a>, <a class="code" href="structNif_1_1S__MaterialProperty.html#a0b5010bb53124ab77a0a12e9a89109c9">alpha</a>;
 <a name="l00172"></a>00172 
-<a name="l00173"></a><a class="code" href="structNif_1_1S__MaterialProperty.html#a8fd836b877c4b9ba14207ff61169d534">00173</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__MaterialProperty.html#a8fd836b877c4b9ba14207ff61169d534">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00173"></a><a class="code" href="structNif_1_1S__MaterialProperty.html#ab74389b4f32c10f7a54de270dbf9f385">00173</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__MaterialProperty.html#ab74389b4f32c10f7a54de270dbf9f385">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00174"></a>00174     {
-<a name="l00175"></a>00175         <a class="code" href="structNif_1_1S__MaterialProperty.html#a5a38edb2bf181a6da40bf03ae35f3f32">ambient</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aabe4b71251bda622cbb14373ca0b243e">getVector3</a>();
-<a name="l00176"></a>00176         <a class="code" href="structNif_1_1S__MaterialProperty.html#a635e4e174d8cd596985c924a2f86a97d">diffuse</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aabe4b71251bda622cbb14373ca0b243e">getVector3</a>();
-<a name="l00177"></a>00177         <a class="code" href="structNif_1_1S__MaterialProperty.html#a1aa29f18a1979571bc834cc25a5c5dda">specular</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aabe4b71251bda622cbb14373ca0b243e">getVector3</a>();
-<a name="l00178"></a>00178         <a class="code" href="structNif_1_1S__MaterialProperty.html#aaf6347d17d6dca29ea9e89e29977e6e4">emissive</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aabe4b71251bda622cbb14373ca0b243e">getVector3</a>();
-<a name="l00179"></a>00179         <a class="code" href="structNif_1_1S__MaterialProperty.html#aedccd04d52fbf24bb7f27b597c2b7238">glossiness</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00180"></a>00180         <a class="code" href="structNif_1_1S__MaterialProperty.html#a0b5010bb53124ab77a0a12e9a89109c9">alpha</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
+<a name="l00175"></a>00175         <a class="code" href="structNif_1_1S__MaterialProperty.html#a5a38edb2bf181a6da40bf03ae35f3f32">ambient</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aed2ea1926729a700f8fa6fcad681307c">getVector3</a>();
+<a name="l00176"></a>00176         <a class="code" href="structNif_1_1S__MaterialProperty.html#a635e4e174d8cd596985c924a2f86a97d">diffuse</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aed2ea1926729a700f8fa6fcad681307c">getVector3</a>();
+<a name="l00177"></a>00177         <a class="code" href="structNif_1_1S__MaterialProperty.html#a1aa29f18a1979571bc834cc25a5c5dda">specular</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aed2ea1926729a700f8fa6fcad681307c">getVector3</a>();
+<a name="l00178"></a>00178         <a class="code" href="structNif_1_1S__MaterialProperty.html#aaf6347d17d6dca29ea9e89e29977e6e4">emissive</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aed2ea1926729a700f8fa6fcad681307c">getVector3</a>();
+<a name="l00179"></a>00179         <a class="code" href="structNif_1_1S__MaterialProperty.html#aedccd04d52fbf24bb7f27b597c2b7238">glossiness</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00180"></a>00180         <a class="code" href="structNif_1_1S__MaterialProperty.html#a0b5010bb53124ab77a0a12e9a89109c9">alpha</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
 <a name="l00181"></a>00181     }
 <a name="l00182"></a>00182 };
 <a name="l00183"></a>00183 
@@ -254,10 +255,10 @@
 <a name="l00194"></a>00194 <span class="comment">    */</span>
 <a name="l00195"></a><a class="code" href="structNif_1_1S__VertexColorProperty.html#aad85ac9b38925e0750e83af16cbfaa64">00195</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1S__VertexColorProperty.html#aad85ac9b38925e0750e83af16cbfaa64">vertmode</a>, <a class="code" href="structNif_1_1S__VertexColorProperty.html#a7c47bdce68ab0c4b0097ecae749fcbf4">lightmode</a>;
 <a name="l00196"></a>00196 
-<a name="l00197"></a><a class="code" href="structNif_1_1S__VertexColorProperty.html#a01e91a9650abec590791050668d50faf">00197</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__VertexColorProperty.html#a01e91a9650abec590791050668d50faf">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00197"></a><a class="code" href="structNif_1_1S__VertexColorProperty.html#a060a7f0c49a2966d9d69ea855bf9c3dc">00197</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__VertexColorProperty.html#a060a7f0c49a2966d9d69ea855bf9c3dc">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00198"></a>00198     {
-<a name="l00199"></a>00199         <a class="code" href="structNif_1_1S__VertexColorProperty.html#aad85ac9b38925e0750e83af16cbfaa64">vertmode</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
-<a name="l00200"></a>00200         <a class="code" href="structNif_1_1S__VertexColorProperty.html#a7c47bdce68ab0c4b0097ecae749fcbf4">lightmode</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aa6bd631400b0261ee51ed549ae6aa672">getInt</a>();
+<a name="l00199"></a>00199         <a class="code" href="structNif_1_1S__VertexColorProperty.html#aad85ac9b38925e0750e83af16cbfaa64">vertmode</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00200"></a>00200         <a class="code" href="structNif_1_1S__VertexColorProperty.html#a7c47bdce68ab0c4b0097ecae749fcbf4">lightmode</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
 <a name="l00201"></a>00201     }
 <a name="l00202"></a>00202 };
 <a name="l00203"></a>00203 
@@ -311,23 +312,80 @@
 <a name="l00251"></a>00251     <span class="comment">// Tested against when certain flags are set (see above.)</span>
 <a name="l00252"></a><a class="code" href="structNif_1_1S__AlphaProperty.html#a002a212e51e8ce1dfa6b8345c4b55001">00252</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="structNif_1_1S__AlphaProperty.html#a002a212e51e8ce1dfa6b8345c4b55001">threshold</a>;
 <a name="l00253"></a>00253 
-<a name="l00254"></a><a class="code" href="structNif_1_1S__AlphaProperty.html#afa6d561a09a19512e26a7e14fff60f66">00254</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__AlphaProperty.html#afa6d561a09a19512e26a7e14fff60f66">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00254"></a><a class="code" href="structNif_1_1S__AlphaProperty.html#a7e5eab8ff5255d2e296ef6957c74c4e8">00254</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__AlphaProperty.html#a7e5eab8ff5255d2e296ef6957c74c4e8">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00255"></a>00255     {
-<a name="l00256"></a>00256         <a class="code" href="structNif_1_1S__AlphaProperty.html#a002a212e51e8ce1dfa6b8345c4b55001">threshold</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aee3b24e13c5e6c590eadb57986a32699">getChar</a>();
+<a name="l00256"></a>00256         <a class="code" href="structNif_1_1S__AlphaProperty.html#a002a212e51e8ce1dfa6b8345c4b55001">threshold</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a8c253ed584a2f08cdc2e31aa8f7fd153">getChar</a>();
 <a name="l00257"></a>00257     }
 <a name="l00258"></a>00258 };
 <a name="l00259"></a>00259 
-<a name="l00260"></a><a class="code" href="namespaceNif.html#a2bc9c22c5379264e5b8a3733a9db9599">00260</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_AlphaProperty&gt;</a> <a class="code" href="namespaceNif.html#a2bc9c22c5379264e5b8a3733a9db9599">NiAlphaProperty</a>;
-<a name="l00261"></a><a class="code" href="namespaceNif.html#afe7b234d2c2879121e44097bee37e38c">00261</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_MaterialProperty&gt;</a> <a class="code" href="namespaceNif.html#afe7b234d2c2879121e44097bee37e38c">NiMaterialProperty</a>;
-<a name="l00262"></a><a class="code" href="namespaceNif.html#a849f237435cb80832629f787df40ffcb">00262</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_VertexColorProperty&gt;</a> <a class="code" href="namespaceNif.html#a849f237435cb80832629f787df40ffcb">NiVertexColorProperty</a>;
-<a name="l00263"></a>00263 
-<a name="l00264"></a>00264 } <span class="comment">// Namespace</span>
-<a name="l00265"></a>00265 <span class="preprocessor">#endif</span>
+<a name="l00260"></a>00260 <span class="comment">/*</span>
+<a name="l00261"></a>00261 <span class="comment">    Docs taken from:</span>
+<a name="l00262"></a>00262 <span class="comment">    http://niftools.sourceforge.net/doc/nif/NiStencilProperty.html</span>
+<a name="l00263"></a>00263 <span class="comment"> */</span>
+<a name="l00264"></a><a class="code" href="structNif_1_1S__StencilProperty.html">00264</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1S__StencilProperty.html">S_StencilProperty</a>
+<a name="l00265"></a>00265 {
+<a name="l00266"></a>00266     <span class="comment">// Is stencil test enabled?</span>
+<a name="l00267"></a><a class="code" href="structNif_1_1S__StencilProperty.html#ad43ce2b3b95f5e9d719a7310a49206f2">00267</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="structNif_1_1S__StencilProperty.html#ad43ce2b3b95f5e9d719a7310a49206f2">enabled</a>;
+<a name="l00268"></a>00268 
+<a name="l00269"></a>00269     <span class="comment">/*</span>
+<a name="l00270"></a>00270 <span class="comment">        0   TEST_NEVER</span>
+<a name="l00271"></a>00271 <span class="comment">        1   TEST_LESS</span>
+<a name="l00272"></a>00272 <span class="comment">        2   TEST_EQUAL</span>
+<a name="l00273"></a>00273 <span class="comment">        3   TEST_LESS_EQUAL</span>
+<a name="l00274"></a>00274 <span class="comment">        4   TEST_GREATER</span>
+<a name="l00275"></a>00275 <span class="comment">        5   TEST_NOT_EQUAL</span>
+<a name="l00276"></a>00276 <span class="comment">        6   TEST_GREATER_EQUAL</span>
+<a name="l00277"></a>00277 <span class="comment">        7   TEST_ALWAYS</span>
+<a name="l00278"></a>00278 <span class="comment">     */</span>
+<a name="l00279"></a><a class="code" href="structNif_1_1S__StencilProperty.html#aedf1e7974081e51a74b0f72bf89ace16">00279</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1S__StencilProperty.html#aedf1e7974081e51a74b0f72bf89ace16">compareFunc</a>;
+<a name="l00280"></a><a class="code" href="structNif_1_1S__StencilProperty.html#aa35b58bcfbe0664f89804e4823964e9e">00280</a>     <span class="keywordtype">unsigned</span> <a class="code" href="structNif_1_1S__StencilProperty.html#aa35b58bcfbe0664f89804e4823964e9e">stencilRef</a>;
+<a name="l00281"></a><a class="code" href="structNif_1_1S__StencilProperty.html#a19bf050cc2c1ae7f5e4a50e9f8055406">00281</a>     <span class="keywordtype">unsigned</span> <a class="code" href="structNif_1_1S__StencilProperty.html#a19bf050cc2c1ae7f5e4a50e9f8055406">stencilMask</a>;
+<a name="l00282"></a>00282     <span class="comment">/*</span>
+<a name="l00283"></a>00283 <span class="comment">        Stencil test fail action, depth test fail action and depth test pass action:</span>
+<a name="l00284"></a>00284 <span class="comment">        0   ACTION_KEEP</span>
+<a name="l00285"></a>00285 <span class="comment">        1   ACTION_ZERO</span>
+<a name="l00286"></a>00286 <span class="comment">        2   ACTION_REPLACE</span>
+<a name="l00287"></a>00287 <span class="comment">        3   ACTION_INCREMENT</span>
+<a name="l00288"></a>00288 <span class="comment">        4   ACTION_DECREMENT</span>
+<a name="l00289"></a>00289 <span class="comment">        5   ACTION_INVERT</span>
+<a name="l00290"></a>00290 <span class="comment">     */</span>
+<a name="l00291"></a><a class="code" href="structNif_1_1S__StencilProperty.html#a330072c624c20a326fbeb817226742b7">00291</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1S__StencilProperty.html#a330072c624c20a326fbeb817226742b7">failAction</a>;
+<a name="l00292"></a><a class="code" href="structNif_1_1S__StencilProperty.html#ac2089afe529014483a9b5a22569a97a8">00292</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1S__StencilProperty.html#ac2089afe529014483a9b5a22569a97a8">zFailAction</a>;
+<a name="l00293"></a><a class="code" href="structNif_1_1S__StencilProperty.html#a9e90b80ea98b4af18506f89f77c30f47">00293</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1S__StencilProperty.html#a9e90b80ea98b4af18506f89f77c30f47">zPassAction</a>;
+<a name="l00294"></a>00294     <span class="comment">/*</span>
+<a name="l00295"></a>00295 <span class="comment">        Face draw mode:</span>
+<a name="l00296"></a>00296 <span class="comment">        0   DRAW_CCW_OR_BOTH</span>
+<a name="l00297"></a>00297 <span class="comment">        1   DRAW_CCW        [default]</span>
+<a name="l00298"></a>00298 <span class="comment">        2   DRAW_CW</span>
+<a name="l00299"></a>00299 <span class="comment">        3   DRAW_BOTH</span>
+<a name="l00300"></a>00300 <span class="comment">     */</span>
+<a name="l00301"></a><a class="code" href="structNif_1_1S__StencilProperty.html#a1ef5728f545999e756069a99b5c5af7a">00301</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1S__StencilProperty.html#a1ef5728f545999e756069a99b5c5af7a">drawMode</a>;
+<a name="l00302"></a>00302 
+<a name="l00303"></a><a class="code" href="structNif_1_1S__StencilProperty.html#aab1f7c768718f528eff98b826b85571d">00303</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1S__StencilProperty.html#aab1f7c768718f528eff98b826b85571d">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00304"></a>00304     {
+<a name="l00305"></a>00305         <a class="code" href="structNif_1_1S__StencilProperty.html#ad43ce2b3b95f5e9d719a7310a49206f2">enabled</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a8c253ed584a2f08cdc2e31aa8f7fd153">getChar</a>();
+<a name="l00306"></a>00306         <a class="code" href="structNif_1_1S__StencilProperty.html#aedf1e7974081e51a74b0f72bf89ace16">compareFunc</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00307"></a>00307         <a class="code" href="structNif_1_1S__StencilProperty.html#aa35b58bcfbe0664f89804e4823964e9e">stencilRef</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a5f44383bba7106430d163d4447a149b4">getUInt</a>();
+<a name="l00308"></a>00308         <a class="code" href="structNif_1_1S__StencilProperty.html#a19bf050cc2c1ae7f5e4a50e9f8055406">stencilMask</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a5f44383bba7106430d163d4447a149b4">getUInt</a>();
+<a name="l00309"></a>00309         <a class="code" href="structNif_1_1S__StencilProperty.html#a330072c624c20a326fbeb817226742b7">failAction</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00310"></a>00310         <a class="code" href="structNif_1_1S__StencilProperty.html#ac2089afe529014483a9b5a22569a97a8">zFailAction</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00311"></a>00311         <a class="code" href="structNif_1_1S__StencilProperty.html#a9e90b80ea98b4af18506f89f77c30f47">zPassAction</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00312"></a>00312         <a class="code" href="structNif_1_1S__StencilProperty.html#a1ef5728f545999e756069a99b5c5af7a">drawMode</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00313"></a>00313     }
+<a name="l00314"></a>00314 };
+<a name="l00315"></a>00315 
+<a name="l00316"></a><a class="code" href="namespaceNif.html#a2bc9c22c5379264e5b8a3733a9db9599">00316</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_AlphaProperty&gt;</a> <a class="code" href="namespaceNif.html#a2bc9c22c5379264e5b8a3733a9db9599">NiAlphaProperty</a>;
+<a name="l00317"></a><a class="code" href="namespaceNif.html#afe7b234d2c2879121e44097bee37e38c">00317</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_MaterialProperty&gt;</a> <a class="code" href="namespaceNif.html#afe7b234d2c2879121e44097bee37e38c">NiMaterialProperty</a>;
+<a name="l00318"></a><a class="code" href="namespaceNif.html#a849f237435cb80832629f787df40ffcb">00318</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_VertexColorProperty&gt;</a> <a class="code" href="namespaceNif.html#a849f237435cb80832629f787df40ffcb">NiVertexColorProperty</a>;
+<a name="l00319"></a><a class="code" href="namespaceNif.html#a283a4ca9bf1afa9233f726ee9b86ca5e">00319</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1StructPropT.html">StructPropT&lt;S_StencilProperty&gt;</a> <a class="code" href="namespaceNif.html#a283a4ca9bf1afa9233f726ee9b86ca5e">NiStencilProperty</a>;
+<a name="l00320"></a>00320 
+<a name="l00321"></a>00321 } <span class="comment">// Namespace</span>
+<a name="l00322"></a>00322 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

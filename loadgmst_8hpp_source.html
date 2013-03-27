@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -63,7 +64,7 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="defs_8hpp.html">defs.hpp</a>&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="variant_8hpp.html">variant.hpp</a>&quot;</span>
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>ESM
 <a name="l00009"></a>00009 {
@@ -79,29 +80,31 @@
 <a name="l00019"></a><a class="code" href="structESM_1_1GameSetting.html">00019</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1GameSetting.html">GameSetting</a>
 <a name="l00020"></a>00020 {
 <a name="l00021"></a><a class="code" href="structESM_1_1GameSetting.html#ac8da63b4853bcec14f1ce958365db97f">00021</a>     std::string <a class="code" href="structESM_1_1GameSetting.html#ac8da63b4853bcec14f1ce958365db97f">mId</a>;
-<a name="l00022"></a>00022     <span class="comment">// One of these is used depending on the variable type</span>
-<a name="l00023"></a><a class="code" href="structESM_1_1GameSetting.html#a51c838a2ce00890ff404dca652c608ec">00023</a>     std::string <a class="code" href="structESM_1_1GameSetting.html#a51c838a2ce00890ff404dca652c608ec">mStr</a>;
-<a name="l00024"></a><a class="code" href="structESM_1_1GameSetting.html#a787e953daec50afbeb4e6a717ab70622">00024</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1GameSetting.html#a787e953daec50afbeb4e6a717ab70622">mI</a>;
-<a name="l00025"></a><a class="code" href="structESM_1_1GameSetting.html#afb5066e6bc0f59b44fcdee9f0d214b66">00025</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1GameSetting.html#afb5066e6bc0f59b44fcdee9f0d214b66">mF</a>;
-<a name="l00026"></a><a class="code" href="structESM_1_1GameSetting.html#a4a80f4d79950164fd89e7b1ff7903aea">00026</a>     <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3">VarType</a> <a class="code" href="structESM_1_1GameSetting.html#a4a80f4d79950164fd89e7b1ff7903aea">mType</a>;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#a8fa3189e8030de1738d413c52aee111b">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00029"></a>00029     
-<a name="l00030"></a>00030     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1GameSetting.html#a1fcd19eb4d50405ecf1e9b4920a48f9d" title="Throws an exception if GMST is not of type int or float.">getInt</a>() <span class="keyword">const</span>;
-<a name="l00032"></a>00032     
-<a name="l00033"></a>00033     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1GameSetting.html#adf86d0e6166ce3e4ec8a75ab31380344" title="Throws an exception if GMST is not of type int or float.">getFloat</a>() <span class="keyword">const</span>;
-<a name="l00035"></a>00035     
-<a name="l00036"></a>00036     std::string <a class="code" href="structESM_1_1GameSetting.html#a5a65ccb12013396de6a17c3a41051391" title="Throwns an exception if GMST is not of type string.">getString</a>() <span class="keyword">const</span>;
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#af96bff1212bccc97463a927b16a3a2e6">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00040"></a>00040 };
-<a name="l00041"></a>00041 }
-<a name="l00042"></a>00042 <span class="preprocessor">#endif</span>
+<a name="l00022"></a>00022 
+<a name="l00023"></a><a class="code" href="structESM_1_1GameSetting.html#a05962e96350aa0b120aa4f5aad51d67f">00023</a>     <a class="code" href="classESM_1_1Variant.html">Variant</a> <a class="code" href="structESM_1_1GameSetting.html#a05962e96350aa0b120aa4f5aad51d67f">mValue</a>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#a8fa3189e8030de1738d413c52aee111b">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00026"></a>00026 
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1GameSetting.html#a1fcd19eb4d50405ecf1e9b4920a48f9d" title="Throws an exception if GMST is not of type int or float.">getInt</a>() <span class="keyword">const</span>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1GameSetting.html#adf86d0e6166ce3e4ec8a75ab31380344" title="Throws an exception if GMST is not of type int or float.">getFloat</a>() <span class="keyword">const</span>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035     std::string <a class="code" href="structESM_1_1GameSetting.html#a5a65ccb12013396de6a17c3a41051391" title="Throwns an exception if GMST is not of type string.">getString</a>() <span class="keyword">const</span>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#af96bff1212bccc97463a927b16a3a2e6">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1GameSetting.html#aeac079f39728c5393b0163952aff9128" title="Set record to default state (does not touch the ID).">blank</a>();
+<a name="l00042"></a>00042 };
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044     <span class="keywordtype">bool</span> <a class="code" href="namespaceESM.html#afd7c0db437d580c274e5ad45c966497d" title="Some overloaded copare operators.">operator== </a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1GameSetting.html">GameSetting</a>&amp; left, <span class="keyword">const</span> <a class="code" href="structESM_1_1GameSetting.html">GameSetting</a>&amp; right);
+<a name="l00045"></a>00045 }
+<a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

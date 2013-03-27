@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -81,12 +82,12 @@
 <a name="l00021"></a>00021 <span class="comment"></span>
 <a name="l00022"></a>00022 <span class="comment"> */</span>
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="preprocessor">#ifndef _NIF_CONTROLLER_H_</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define _NIF_CONTROLLER_H_</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#ifndef OPENMW_COMPONENTS_NIF_CONTROLLER_HPP</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_COMPONENTS_NIF_CONTROLLER_HPP</span>
 <a name="l00026"></a>00026 <span class="preprocessor"></span>
 <a name="l00027"></a>00027 <span class="preprocessor">#include &quot;<a class="code" href="components_2nif_2record_8hpp.html">record.hpp</a>&quot;</span>
-<a name="l00028"></a>00028 <span class="preprocessor">#include &quot;<a class="code" href="nif__file_8hpp.html">nif_file.hpp</a>&quot;</span>
-<a name="l00029"></a>00029 <span class="preprocessor">#include &quot;<a class="code" href="record__ptr_8hpp.html">record_ptr.hpp</a>&quot;</span>
+<a name="l00028"></a>00028 <span class="preprocessor">#include &quot;<a class="code" href="niffile_8hpp.html">niffile.hpp</a>&quot;</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#include &quot;<a class="code" href="recordptr_8hpp.html">recordptr.hpp</a>&quot;</span>
 <a name="l00030"></a>00030 
 <a name="l00031"></a>00031 <span class="keyword">namespace </span>Nif
 <a name="l00032"></a>00032 {
@@ -100,18 +101,18 @@
 <a name="l00040"></a><a class="code" href="classNif_1_1Controller.html#a5dd1cbcf4166f80aeeb0c3d0170181bf">00040</a>     <span class="keywordtype">float</span> <a class="code" href="classNif_1_1Controller.html#afefd928dff3fdfa65f53eabefde39ec6">timeStart</a>, <a class="code" href="classNif_1_1Controller.html#a5dd1cbcf4166f80aeeb0c3d0170181bf">timeStop</a>;
 <a name="l00041"></a><a class="code" href="classNif_1_1Controller.html#a2b07bed7b7089f4a347ff5260cbee7d5">00041</a>     <a class="code" href="classNif_1_1RecordPtrT.html">ControlledPtr</a> <a class="code" href="classNif_1_1Controller.html#a2b07bed7b7089f4a347ff5260cbee7d5">target</a>;
 <a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classNif_1_1Controller.html#ae7cba25db654f826bae2a3ce55a51e48">00043</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Controller.html#ae7cba25db654f826bae2a3ce55a51e48" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00043"></a><a class="code" href="classNif_1_1Controller.html#ae472de3e63c0b1f412a867f734e65cea">00043</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Controller.html#ae472de3e63c0b1f412a867f734e65cea" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00044"></a>00044     {
-<a name="l00045"></a>00045         <a class="code" href="classNif_1_1Controller.html#abe3b0bb2ee366c09712575961bf893e3">next</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00045"></a>00045         <a class="code" href="classNif_1_1Controller.html#abe3b0bb2ee366c09712575961bf893e3">next</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047         <a class="code" href="classNif_1_1Controller.html#a88c5acf8892ea194934ba3882871034e">flags</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad8ff791452adc55d284b7dabb40fdc8a">getUShort</a>();
+<a name="l00047"></a>00047         <a class="code" href="classNif_1_1Controller.html#a88c5acf8892ea194934ba3882871034e">flags</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2986df675228d5744cbf465e00fb7af1">getUShort</a>();
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049         <a class="code" href="classNif_1_1Controller.html#ad5e1bb058c07a96e4fbe43b25c91bcc6">frequency</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00050"></a>00050         <a class="code" href="classNif_1_1Controller.html#ac19a3db1760221ec052c62c52a57492c">phase</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00051"></a>00051         <a class="code" href="classNif_1_1Controller.html#afefd928dff3fdfa65f53eabefde39ec6">timeStart</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
-<a name="l00052"></a>00052         <a class="code" href="classNif_1_1Controller.html#a5dd1cbcf4166f80aeeb0c3d0170181bf">timeStop</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ae00b58ce6a80a20f458ee313e7e5f05c">getFloat</a>();
+<a name="l00049"></a>00049         <a class="code" href="classNif_1_1Controller.html#ad5e1bb058c07a96e4fbe43b25c91bcc6">frequency</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00050"></a>00050         <a class="code" href="classNif_1_1Controller.html#ac19a3db1760221ec052c62c52a57492c">phase</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00051"></a>00051         <a class="code" href="classNif_1_1Controller.html#afefd928dff3fdfa65f53eabefde39ec6">timeStart</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00052"></a>00052         <a class="code" href="classNif_1_1Controller.html#a5dd1cbcf4166f80aeeb0c3d0170181bf">timeStop</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054         <a class="code" href="classNif_1_1Controller.html#a2b07bed7b7089f4a347ff5260cbee7d5">target</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00054"></a>00054         <a class="code" href="classNif_1_1Controller.html#a2b07bed7b7089f4a347ff5260cbee7d5">target</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00055"></a>00055     }
 <a name="l00056"></a>00056 
 <a name="l00057"></a><a class="code" href="classNif_1_1Controller.html#ac919dafa9d8af1f0ab3c1b5a2bea41df">00057</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1Controller.html#ac919dafa9d8af1f0ab3c1b5a2bea41df" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -125,14 +126,14 @@
 <a name="l00065"></a><a class="code" href="classNif_1_1NiBSPArrayController.html">00065</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiBSPArrayController.html">NiBSPArrayController</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controller.html">Controller</a>
 <a name="l00066"></a>00066 {
 <a name="l00067"></a>00067 <span class="keyword">public</span>:
-<a name="l00068"></a><a class="code" href="classNif_1_1NiBSPArrayController.html#a375bc7e3e9580c7a2f5722f5e2dc7637">00068</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiBSPArrayController.html#a375bc7e3e9580c7a2f5722f5e2dc7637" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00068"></a><a class="code" href="classNif_1_1NiBSPArrayController.html#a9ef01e0ae5500b0b96948be219010f4a">00068</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiBSPArrayController.html#a9ef01e0ae5500b0b96948be219010f4a" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00069"></a>00069     {
-<a name="l00070"></a>00070         <a class="code" href="classNif_1_1NiBSPArrayController.html#a375bc7e3e9580c7a2f5722f5e2dc7637" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00070"></a>00070         <a class="code" href="classNif_1_1NiBSPArrayController.html#a9ef01e0ae5500b0b96948be219010f4a" title="Parses the record from file.">Controller::read</a>(nif);
 <a name="l00071"></a>00071 
 <a name="l00072"></a>00072         <span class="comment">// At the moment, just skip it all</span>
-<a name="l00073"></a>00073         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(111);
-<a name="l00074"></a>00074         <span class="keywordtype">int</span> <a class="code" href="namespaceMWRender_1_1Flicker.html#a0a612ce9ed66df3f44ca8aec0aac7aca">s</a> = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad8ff791452adc55d284b7dabb40fdc8a">getUShort</a>();
-<a name="l00075"></a>00075         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(15 + s*40);
+<a name="l00073"></a>00073         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aa37ee3a6879a7607c78a9387d03f3d0f">skip</a>(111);
+<a name="l00074"></a>00074         <span class="keywordtype">int</span> <a class="code" href="namespaceMWRender_1_1Flicker.html#a0a612ce9ed66df3f44ca8aec0aac7aca">s</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2986df675228d5744cbf465e00fb7af1">getUShort</a>();
+<a name="l00075"></a>00075         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aa37ee3a6879a7607c78a9387d03f3d0f">skip</a>(15 + s*40);
 <a name="l00076"></a>00076     }
 <a name="l00077"></a>00077 };
 <a name="l00078"></a><a class="code" href="namespaceNif.html#a19ae1dd47b4b296b8264acf54b47affa">00078</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1NiBSPArrayController.html">NiBSPArrayController</a> <a class="code" href="namespaceNif.html#a19ae1dd47b4b296b8264acf54b47affa">NiParticleSystemController</a>;
@@ -142,10 +143,10 @@
 <a name="l00082"></a>00082 <span class="keyword">public</span>:
 <a name="l00083"></a><a class="code" href="classNif_1_1NiMaterialColorController.html#ab6fcd87354d9371303d40d7a0bfa94f3">00083</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiPosDataPtr</a> <a class="code" href="classNif_1_1NiMaterialColorController.html#ab6fcd87354d9371303d40d7a0bfa94f3">data</a>;
 <a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="classNif_1_1NiMaterialColorController.html#aa7f206bb746f913e5924a51aefb89b5c">00085</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiMaterialColorController.html#aa7f206bb746f913e5924a51aefb89b5c" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00085"></a><a class="code" href="classNif_1_1NiMaterialColorController.html#a702958f9aba48b29d4049cc6efc52d06">00085</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiMaterialColorController.html#a702958f9aba48b29d4049cc6efc52d06" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00086"></a>00086     {
-<a name="l00087"></a>00087         <a class="code" href="classNif_1_1NiMaterialColorController.html#aa7f206bb746f913e5924a51aefb89b5c" title="Parses the record from file.">Controller::read</a>(nif);
-<a name="l00088"></a>00088         <a class="code" href="classNif_1_1NiMaterialColorController.html#ab6fcd87354d9371303d40d7a0bfa94f3">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00087"></a>00087         <a class="code" href="classNif_1_1NiMaterialColorController.html#a702958f9aba48b29d4049cc6efc52d06" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00088"></a>00088         <a class="code" href="classNif_1_1NiMaterialColorController.html#ab6fcd87354d9371303d40d7a0bfa94f3">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00089"></a>00089     }
 <a name="l00090"></a>00090 
 <a name="l00091"></a><a class="code" href="classNif_1_1NiMaterialColorController.html#a852158d0b60b255780dce95130109b32">00091</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiMaterialColorController.html#a852158d0b60b255780dce95130109b32" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -161,18 +162,18 @@
 <a name="l00101"></a><a class="code" href="classNif_1_1NiPathController.html#aa123edc9f37aa9d1989d96373aefed85">00101</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiPosDataPtr</a> <a class="code" href="classNif_1_1NiPathController.html#aa123edc9f37aa9d1989d96373aefed85">posData</a>;
 <a name="l00102"></a><a class="code" href="classNif_1_1NiPathController.html#a927e30094cc7f99134be99496d8bef40">00102</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiFloatDataPtr</a> <a class="code" href="classNif_1_1NiPathController.html#a927e30094cc7f99134be99496d8bef40">floatData</a>;
 <a name="l00103"></a>00103 
-<a name="l00104"></a><a class="code" href="classNif_1_1NiPathController.html#affe3d62c80009ee9baa026ec694e572d">00104</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiPathController.html#affe3d62c80009ee9baa026ec694e572d" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00104"></a><a class="code" href="classNif_1_1NiPathController.html#a078fbf396b22cdf8ff1ab5b30e091e8b">00104</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiPathController.html#a078fbf396b22cdf8ff1ab5b30e091e8b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00105"></a>00105     {
-<a name="l00106"></a>00106         <a class="code" href="classNif_1_1NiPathController.html#affe3d62c80009ee9baa026ec694e572d" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00106"></a>00106         <a class="code" href="classNif_1_1NiPathController.html#a078fbf396b22cdf8ff1ab5b30e091e8b" title="Parses the record from file.">Controller::read</a>(nif);
 <a name="l00107"></a>00107 
 <a name="l00108"></a>00108         <span class="comment">/*</span>
 <a name="l00109"></a>00109 <span class="comment">           int = 1</span>
 <a name="l00110"></a>00110 <span class="comment">           2xfloat</span>
 <a name="l00111"></a>00111 <span class="comment">           short = 0 or 1</span>
 <a name="l00112"></a>00112 <span class="comment">        */</span>
-<a name="l00113"></a>00113         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a9a2247fbeae6cee63033db9eb6eed134">skip</a>(14);
-<a name="l00114"></a>00114         <a class="code" href="classNif_1_1NiPathController.html#aa123edc9f37aa9d1989d96373aefed85">posData</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
-<a name="l00115"></a>00115         <a class="code" href="classNif_1_1NiPathController.html#a927e30094cc7f99134be99496d8bef40">floatData</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00113"></a>00113         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#aa37ee3a6879a7607c78a9387d03f3d0f">skip</a>(14);
+<a name="l00114"></a>00114         <a class="code" href="classNif_1_1NiPathController.html#aa123edc9f37aa9d1989d96373aefed85">posData</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00115"></a>00115         <a class="code" href="classNif_1_1NiPathController.html#a927e30094cc7f99134be99496d8bef40">floatData</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00116"></a>00116     }
 <a name="l00117"></a>00117 
 <a name="l00118"></a><a class="code" href="classNif_1_1NiPathController.html#adf6aed623c4f426c0aacfac490d2bc8d">00118</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiPathController.html#adf6aed623c4f426c0aacfac490d2bc8d" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -189,12 +190,12 @@
 <a name="l00129"></a>00129 <span class="keyword">public</span>:
 <a name="l00130"></a><a class="code" href="classNif_1_1NiUVController.html#ab3218c15b314bbcdff5362f05403c426">00130</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiUVDataPtr</a> <a class="code" href="classNif_1_1NiUVController.html#ab3218c15b314bbcdff5362f05403c426">data</a>;
 <a name="l00131"></a>00131 
-<a name="l00132"></a><a class="code" href="classNif_1_1NiUVController.html#a25082a1f8f5bd232747e5ffc7fd54915">00132</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiUVController.html#a25082a1f8f5bd232747e5ffc7fd54915" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00132"></a><a class="code" href="classNif_1_1NiUVController.html#a3da76e703fa4e1d887f9309b8f715817">00132</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiUVController.html#a3da76e703fa4e1d887f9309b8f715817" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00133"></a>00133     {
-<a name="l00134"></a>00134         <a class="code" href="classNif_1_1NiUVController.html#a25082a1f8f5bd232747e5ffc7fd54915" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00134"></a>00134         <a class="code" href="classNif_1_1NiUVController.html#a3da76e703fa4e1d887f9309b8f715817" title="Parses the record from file.">Controller::read</a>(nif);
 <a name="l00135"></a>00135 
-<a name="l00136"></a>00136         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#ad8ff791452adc55d284b7dabb40fdc8a">getUShort</a>(); <span class="comment">// always 0</span>
-<a name="l00137"></a>00137         <a class="code" href="classNif_1_1NiUVController.html#ab3218c15b314bbcdff5362f05403c426">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00136"></a>00136         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2986df675228d5744cbf465e00fb7af1">getUShort</a>(); <span class="comment">// always 0</span>
+<a name="l00137"></a>00137         <a class="code" href="classNif_1_1NiUVController.html#ab3218c15b314bbcdff5362f05403c426">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00138"></a>00138     }
 <a name="l00139"></a>00139 
 <a name="l00140"></a><a class="code" href="classNif_1_1NiUVController.html#ae99a41889380207fda24b4cb638e4cb2">00140</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiUVController.html#ae99a41889380207fda24b4cb638e4cb2" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -209,10 +210,10 @@
 <a name="l00149"></a>00149 <span class="keyword">public</span>:
 <a name="l00150"></a><a class="code" href="classNif_1_1NiKeyframeController.html#a2c78bd01ad12ec40fa6836bf5db79f6b">00150</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiKeyframeDataPtr</a> <a class="code" href="classNif_1_1NiKeyframeController.html#a2c78bd01ad12ec40fa6836bf5db79f6b">data</a>;
 <a name="l00151"></a>00151 
-<a name="l00152"></a><a class="code" href="classNif_1_1NiKeyframeController.html#a9a9f158c2dfcf7ba3187bbbe896d6ef1">00152</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiKeyframeController.html#a9a9f158c2dfcf7ba3187bbbe896d6ef1" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00152"></a><a class="code" href="classNif_1_1NiKeyframeController.html#a323df0319b5c0e129394c46b532774a8">00152</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiKeyframeController.html#a323df0319b5c0e129394c46b532774a8" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00153"></a>00153     {
-<a name="l00154"></a>00154         <a class="code" href="classNif_1_1NiKeyframeController.html#a9a9f158c2dfcf7ba3187bbbe896d6ef1" title="Parses the record from file.">Controller::read</a>(nif);
-<a name="l00155"></a>00155         <a class="code" href="classNif_1_1NiKeyframeController.html#a2c78bd01ad12ec40fa6836bf5db79f6b">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00154"></a>00154         <a class="code" href="classNif_1_1NiKeyframeController.html#a323df0319b5c0e129394c46b532774a8" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00155"></a>00155         <a class="code" href="classNif_1_1NiKeyframeController.html#a2c78bd01ad12ec40fa6836bf5db79f6b">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00156"></a>00156     }
 <a name="l00157"></a>00157 
 <a name="l00158"></a><a class="code" href="classNif_1_1NiKeyframeController.html#a4c30bdf7018cabcef6c1a8619e5d814e">00158</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiKeyframeController.html#a4c30bdf7018cabcef6c1a8619e5d814e" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -227,10 +228,10 @@
 <a name="l00167"></a>00167 <span class="keyword">public</span>:
 <a name="l00168"></a><a class="code" href="classNif_1_1NiAlphaController.html#ab4ad3e8517cd78a123ac27d66922f16a">00168</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiFloatDataPtr</a> <a class="code" href="classNif_1_1NiAlphaController.html#ab4ad3e8517cd78a123ac27d66922f16a">data</a>;
 <a name="l00169"></a>00169 
-<a name="l00170"></a><a class="code" href="classNif_1_1NiAlphaController.html#a542b3ff2bf056ac9ba6c90a5c41b26f0">00170</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiAlphaController.html#a542b3ff2bf056ac9ba6c90a5c41b26f0" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00170"></a><a class="code" href="classNif_1_1NiAlphaController.html#a1b82022f562cc25b1122036fcc4d9e4b">00170</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiAlphaController.html#a1b82022f562cc25b1122036fcc4d9e4b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00171"></a>00171     {
-<a name="l00172"></a>00172         <a class="code" href="classNif_1_1NiAlphaController.html#a542b3ff2bf056ac9ba6c90a5c41b26f0" title="Parses the record from file.">Controller::read</a>(nif);
-<a name="l00173"></a>00173         <a class="code" href="classNif_1_1NiAlphaController.html#ab4ad3e8517cd78a123ac27d66922f16a">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00172"></a>00172         <a class="code" href="classNif_1_1NiAlphaController.html#a1b82022f562cc25b1122036fcc4d9e4b" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00173"></a>00173         <a class="code" href="classNif_1_1NiAlphaController.html#ab4ad3e8517cd78a123ac27d66922f16a">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00174"></a>00174     }
 <a name="l00175"></a>00175 
 <a name="l00176"></a><a class="code" href="classNif_1_1NiAlphaController.html#a040eeee68196da78c8a21ed627693071">00176</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiAlphaController.html#a040eeee68196da78c8a21ed627693071" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -245,11 +246,11 @@
 <a name="l00185"></a>00185 <span class="keyword">public</span>:
 <a name="l00186"></a><a class="code" href="classNif_1_1NiGeomMorpherController.html#ae69556bd07b5937a0143f5e481378081">00186</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiMorphDataPtr</a> <a class="code" href="classNif_1_1NiGeomMorpherController.html#ae69556bd07b5937a0143f5e481378081">data</a>;
 <a name="l00187"></a>00187 
-<a name="l00188"></a><a class="code" href="classNif_1_1NiGeomMorpherController.html#ae7a358460203c824455476fa7c51cd60">00188</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiGeomMorpherController.html#ae7a358460203c824455476fa7c51cd60" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00188"></a><a class="code" href="classNif_1_1NiGeomMorpherController.html#ade471ad86c8d707a04cbad80a625674b">00188</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiGeomMorpherController.html#ade471ad86c8d707a04cbad80a625674b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00189"></a>00189     {
-<a name="l00190"></a>00190         <a class="code" href="classNif_1_1NiGeomMorpherController.html#ae7a358460203c824455476fa7c51cd60" title="Parses the record from file.">Controller::read</a>(nif);
-<a name="l00191"></a>00191         <a class="code" href="classNif_1_1NiGeomMorpherController.html#ae69556bd07b5937a0143f5e481378081">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
-<a name="l00192"></a>00192         nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#aee3b24e13c5e6c590eadb57986a32699">getChar</a>(); <span class="comment">// always 0</span>
+<a name="l00190"></a>00190         <a class="code" href="classNif_1_1NiGeomMorpherController.html#ade471ad86c8d707a04cbad80a625674b" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00191"></a>00191         <a class="code" href="classNif_1_1NiGeomMorpherController.html#ae69556bd07b5937a0143f5e481378081">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00192"></a>00192         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a8c253ed584a2f08cdc2e31aa8f7fd153">getChar</a>(); <span class="comment">// always 0</span>
 <a name="l00193"></a>00193     }
 <a name="l00194"></a>00194 
 <a name="l00195"></a><a class="code" href="classNif_1_1NiGeomMorpherController.html#a2081681a640f1bd34afb11e3f503cebf">00195</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiGeomMorpherController.html#a2081681a640f1bd34afb11e3f503cebf" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -264,10 +265,10 @@
 <a name="l00204"></a>00204 <span class="keyword">public</span>:
 <a name="l00205"></a><a class="code" href="classNif_1_1NiVisController.html#ab58d5c1d38b8deada718790d350fb5f0">00205</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiVisDataPtr</a> <a class="code" href="classNif_1_1NiVisController.html#ab58d5c1d38b8deada718790d350fb5f0">data</a>;
 <a name="l00206"></a>00206 
-<a name="l00207"></a><a class="code" href="classNif_1_1NiVisController.html#ae995bf36865008a2e473c691d26a7b88">00207</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiVisController.html#ae995bf36865008a2e473c691d26a7b88" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00207"></a><a class="code" href="classNif_1_1NiVisController.html#a3fffbc06a280c44e02620f028f10a3fc">00207</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiVisController.html#a3fffbc06a280c44e02620f028f10a3fc" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
 <a name="l00208"></a>00208     {
-<a name="l00209"></a>00209         <a class="code" href="classNif_1_1NiVisController.html#ae995bf36865008a2e473c691d26a7b88" title="Parses the record from file.">Controller::read</a>(nif);
-<a name="l00210"></a>00210         <a class="code" href="classNif_1_1NiVisController.html#ab58d5c1d38b8deada718790d350fb5f0">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#aa062adeec24141a1a101d99069546122" title="Read the index from the nif.">read</a>(nif);
+<a name="l00209"></a>00209         <a class="code" href="classNif_1_1NiVisController.html#a3fffbc06a280c44e02620f028f10a3fc" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00210"></a>00210         <a class="code" href="classNif_1_1NiVisController.html#ab58d5c1d38b8deada718790d350fb5f0">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
 <a name="l00211"></a>00211     }
 <a name="l00212"></a>00212 
 <a name="l00213"></a><a class="code" href="classNif_1_1NiVisController.html#a7d1621d80b3f108ce39118b28a3b0b0f">00213</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiVisController.html#a7d1621d80b3f108ce39118b28a3b0b0f" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
@@ -283,7 +284,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

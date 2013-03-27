@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -72,14 +73,14 @@
 <a name="l00012"></a>00012 
 <a name="l00013"></a><a class="code" href="structCSMWorld_1_1FloatValueColumn.html#a5979e47493ddaf1ce5a39d9dc0003e25">00013</a>         <span class="keyword">virtual</span> QVariant <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record) <span class="keyword">const</span>
 <a name="l00014"></a>00014         {
-<a name="l00015"></a>00015             <span class="keywordflow">return</span> record.<a class="code" href="structCSMWorld_1_1Column.html#a6b66714ce96956d7cd9b6e0ea7a550d0">get</a>().mValue;
+<a name="l00015"></a>00015             <span class="keywordflow">return</span> record.<a class="code" href="structCSMWorld_1_1Column.html#a6b66714ce96956d7cd9b6e0ea7a550d0">get</a>().mValue.getFloat();
 <a name="l00016"></a>00016         }
 <a name="l00017"></a>00017 
 <a name="l00018"></a><a class="code" href="structCSMWorld_1_1FloatValueColumn.html#abbaa6389c1bbb37de715df04ddb850cd">00018</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <span class="keyword">set</span> (<a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record, <span class="keyword">const</span> QVariant&amp; data)
 <a name="l00019"></a>00019         {
-<a name="l00020"></a>00020             ESXRecordT base = record.getBase();
-<a name="l00021"></a>00021             base.mValue = data.toFloat();
-<a name="l00022"></a>00022             record.setModified (base);
+<a name="l00020"></a>00020             ESXRecordT record2 = record.get();
+<a name="l00021"></a>00021             record2.mValue.setFloat (data.toFloat());
+<a name="l00022"></a>00022             record.setModified (record2);
 <a name="l00023"></a>00023         }
 <a name="l00024"></a>00024 
 <a name="l00025"></a><a class="code" href="structCSMWorld_1_1FloatValueColumn.html#acf94d701ec02e54aaa082d3f8a5e45cf">00025</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structCSMWorld_1_1FloatValueColumn.html#acf94d701ec02e54aaa082d3f8a5e45cf">isEditable</a>()<span class="keyword"> const</span>
@@ -139,7 +140,7 @@
 <a name="l00079"></a><a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#afde7caf1ed98cf512e5e06026848fcd7">00079</a>         <span class="keywordtype">int</span> <a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#afde7caf1ed98cf512e5e06026848fcd7">mType</a>;
 <a name="l00080"></a>00080 
 <a name="l00081"></a><a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#a4bfd56aba81c3807b3edb450376697ed">00081</a>         <a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#a4bfd56aba81c3807b3edb450376697ed">FixedRecordTypeColumn</a> (<span class="keywordtype">int</span> type)
-<a name="l00082"></a>00082         : <a class="code" href="structCSMWorld_1_1Column.html">Column</a>&lt;ESXRecordT&gt; (<span class="stringliteral">&quot;Type&quot;</span>, <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>::<a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560a88d2f093419245646fa1c7c565529b53">Display_Integer</a>, 0), <a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#afde7caf1ed98cf512e5e06026848fcd7">mType</a> (type) {}
+<a name="l00082"></a>00082         : <a class="code" href="structCSMWorld_1_1Column.html">Column</a>&lt;ESXRecordT&gt; (<span class="stringliteral">&quot;Record Type&quot;</span>, <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>::<a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560a88d2f093419245646fa1c7c565529b53">Display_Integer</a>, 0), <a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#afde7caf1ed98cf512e5e06026848fcd7">mType</a> (type) {}
 <a name="l00083"></a>00083 
 <a name="l00084"></a><a class="code" href="structCSMWorld_1_1FixedRecordTypeColumn.html#a7843a459444795cb4127eead17fa8a76">00084</a>         <span class="keyword">virtual</span> QVariant <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record) <span class="keyword">const</span>
 <a name="l00085"></a>00085         {
@@ -151,14 +152,99 @@
 <a name="l00091"></a>00091             <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00092"></a>00092         }
 <a name="l00093"></a>00093     };
-<a name="l00094"></a>00094 }
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 <span class="preprocessor">#endif</span>
+<a name="l00094"></a>00094 
+<a name="l00096"></a>00096     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT&gt;
+<a name="l00097"></a><a class="code" href="structCSMWorld_1_1VarTypeColumn.html">00097</a>     <span class="keyword">struct </span><a class="code" href="structCSMWorld_1_1VarTypeColumn.html">VarTypeColumn</a> : <span class="keyword">public</span> <a class="code" href="structCSMWorld_1_1Column.html">Column</a>&lt;ESXRecordT&gt;
+<a name="l00098"></a>00098     {
+<a name="l00099"></a><a class="code" href="structCSMWorld_1_1VarTypeColumn.html#addf1912216a26768da77cc83c8bcc4f6">00099</a>         <a class="code" href="structCSMWorld_1_1VarTypeColumn.html#addf1912216a26768da77cc83c8bcc4f6">VarTypeColumn</a> (<a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">ColumnBase::Display</a> display) : <a class="code" href="structCSMWorld_1_1Column.html">Column</a>&lt;ESXRecordT&gt; (<span class="stringliteral">&quot;Type&quot;</span>, display) {}
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="structCSMWorld_1_1VarTypeColumn.html#a4c76b9250888e544c19af8c7afc455dd">00101</a>         <span class="keyword">virtual</span> QVariant <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record) <span class="keyword">const</span>
+<a name="l00102"></a>00102         {
+<a name="l00103"></a>00103             <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span> (record.get().mValue.getType());
+<a name="l00104"></a>00104         }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="structCSMWorld_1_1VarTypeColumn.html#a34be098a6d0a4ed0c07a5a9ba0bd029c">00106</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <span class="keyword">set</span> (<a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record, <span class="keyword">const</span> QVariant&amp; data)
+<a name="l00107"></a>00107         {
+<a name="l00108"></a>00108             ESXRecordT record2 = record.<a class="code" href="structCSMWorld_1_1Column.html#a6b66714ce96956d7cd9b6e0ea7a550d0">get</a>();
+<a name="l00109"></a>00109             record2.mValue.setType (static_cast&lt;ESM::VarType&gt; (data.toInt()));
+<a name="l00110"></a>00110             record.setModified (record2);
+<a name="l00111"></a>00111         }
+<a name="l00112"></a>00112 
+<a name="l00113"></a><a class="code" href="structCSMWorld_1_1VarTypeColumn.html#a81d5536ab456f73cad6a6beec81fae89">00113</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structCSMWorld_1_1VarTypeColumn.html#a81d5536ab456f73cad6a6beec81fae89">isEditable</a>()<span class="keyword"> const</span>
+<a name="l00114"></a>00114 <span class="keyword">        </span>{
+<a name="l00115"></a>00115             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00116"></a>00116         }
+<a name="l00117"></a>00117     };
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT&gt;
+<a name="l00120"></a><a class="code" href="structCSMWorld_1_1VarValueColumn.html">00120</a>     <span class="keyword">struct </span><a class="code" href="structCSMWorld_1_1VarValueColumn.html">VarValueColumn</a> : <span class="keyword">public</span> <a class="code" href="structCSMWorld_1_1Column.html">Column</a>&lt;ESXRecordT&gt;
+<a name="l00121"></a>00121     {
+<a name="l00122"></a><a class="code" href="structCSMWorld_1_1VarValueColumn.html#aa3d52633d07df6ba648dafbc495d14d2">00122</a>         <a class="code" href="structCSMWorld_1_1VarValueColumn.html#aa3d52633d07df6ba648dafbc495d14d2">VarValueColumn</a>() : <a class="code" href="structCSMWorld_1_1Column.html">Column</a>&lt;ESXRecordT&gt; (<span class="stringliteral">&quot;Value&quot;</span>, <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>::<a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560a30fffa5df68d837a5f0f00f3720298a8">Display_Var</a>) {}
+<a name="l00123"></a>00123 
+<a name="l00124"></a><a class="code" href="structCSMWorld_1_1VarValueColumn.html#a192476e6b6205fdadf83952063ade597">00124</a>         <span class="keyword">virtual</span> QVariant <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record) <span class="keyword">const</span>
+<a name="l00125"></a>00125         {
+<a name="l00126"></a>00126             <span class="keywordflow">switch</span> (record.get().mValue.getType())
+<a name="l00127"></a>00127             {
+<a name="l00128"></a>00128                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a95df60952bfee1bb4dffbcf2dee8125e">ESM::VT_String</a>:
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130                     <span class="keywordflow">return</span> record.get().mValue.getString().c_str(); <span class="keywordflow">break</span>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a67e2e56a0f8045b76de6a0ab5c49bd62">ESM::VT_Int</a>:
+<a name="l00133"></a>00133                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a694d1f9dc8c05f836a5cf5a7143b68a8">ESM::VT_Short</a>:
+<a name="l00134"></a>00134                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aa1d8c1972bdd8d174a402b9dd2aee334">ESM::VT_Long</a>:
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136                     <span class="keywordflow">return</span> record.get().mValue.getInteger(); <span class="keywordflow">break</span>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ac92ad886d9dd151050f9072e7448623d">ESM::VT_Float</a>:
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140                     <span class="keywordflow">return</span> record.get().mValue.getFloat(); <span class="keywordflow">break</span>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142                 <span class="keywordflow">default</span>: <span class="keywordflow">return</span> QVariant();
+<a name="l00143"></a>00143             }
+<a name="l00144"></a>00144         }
+<a name="l00145"></a>00145 
+<a name="l00146"></a><a class="code" href="structCSMWorld_1_1VarValueColumn.html#aec08c4515ebe7b26dfb27c2ad42c2871">00146</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <span class="keyword">set</span> (<a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record, <span class="keyword">const</span> QVariant&amp; data)
+<a name="l00147"></a>00147         {
+<a name="l00148"></a>00148             ESXRecordT record2 = record.get();
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150             <span class="keywordflow">switch</span> (record2.mValue.getType())
+<a name="l00151"></a>00151             {
+<a name="l00152"></a>00152                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a95df60952bfee1bb4dffbcf2dee8125e">ESM::VT_String</a>:
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154                     record2.mValue.setString (data.toString().toUtf8().constData());
+<a name="l00155"></a>00155                     <span class="keywordflow">break</span>;
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a67e2e56a0f8045b76de6a0ab5c49bd62">ESM::VT_Int</a>:
+<a name="l00158"></a>00158                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3a694d1f9dc8c05f836a5cf5a7143b68a8">ESM::VT_Short</a>:
+<a name="l00159"></a>00159                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3aa1d8c1972bdd8d174a402b9dd2aee334">ESM::VT_Long</a>:
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161                     record2.mValue.setInteger (data.toInt());
+<a name="l00162"></a>00162                     <span class="keywordflow">break</span>;
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164                 <span class="keywordflow">case</span> <a class="code" href="namespaceESM.html#a10b1496b720d7e383a46a8f2ff2ef5f3ac92ad886d9dd151050f9072e7448623d">ESM::VT_Float</a>:
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166                     record2.mValue.setFloat (data.toFloat());
+<a name="l00167"></a>00167                     <span class="keywordflow">break</span>;
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169                 <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;
+<a name="l00170"></a>00170             }
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172             record.setModified (record2);
+<a name="l00173"></a>00173         }
+<a name="l00174"></a>00174 
+<a name="l00175"></a><a class="code" href="structCSMWorld_1_1VarValueColumn.html#aaa8895e353cfb1beb076c1578689fef6">00175</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structCSMWorld_1_1VarValueColumn.html#aaa8895e353cfb1beb076c1578689fef6">isEditable</a>()<span class="keyword"> const</span>
+<a name="l00176"></a>00176 <span class="keyword">        </span>{
+<a name="l00177"></a>00177             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00178"></a>00178         }
+<a name="l00179"></a>00179     };
+<a name="l00180"></a>00180 }
+<a name="l00181"></a>00181 
+<a name="l00182"></a>00182 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

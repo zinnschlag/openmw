@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -61,54 +62,105 @@
 <a href="util_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef CSV_WORLD_UTIL_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define CSV_WORLD_UTIL_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QAbstractTableModel&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QStyledItemDelegate&gt;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">class </span>QUndoStack;
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;QAbstractTableModel&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;QStyledItemDelegate&gt;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>CSVWorld
-<a name="l00010"></a>00010 {
-<a name="l00014"></a><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html">00014</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html" title="Getting the data out of an editor widgetUse commands instead of manipulating the model directly...">NastyTableModelHack</a> : <span class="keyword">public</span> QAbstractTableModel
-<a name="l00015"></a>00015     {
-<a name="l00016"></a><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac58c213ea688187f76f0f9e6c268f140">00016</a>             QAbstractItemModel&amp; <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac58c213ea688187f76f0f9e6c268f140">mModel</a>;
-<a name="l00017"></a><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac0548b1b82a34cc2a3c4ddcb8aa01bf2">00017</a>             QVariant <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac0548b1b82a34cc2a3c4ddcb8aa01bf2">mData</a>;
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019         <span class="keyword">public</span>:
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021             <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#a78c7996c3331da614a4e54a1b2ce61e3">NastyTableModelHack</a> (QAbstractItemModel&amp; model);
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;../../model/world/columnbase.hpp&quot;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">class </span>QUndoStack;
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>CSVWorld
+<a name="l00014"></a>00014 {
+<a name="l00018"></a><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html">00018</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html" title="Getting the data out of an editor widget.">NastyTableModelHack</a> : <span class="keyword">public</span> QAbstractTableModel
+<a name="l00019"></a>00019     {
+<a name="l00020"></a><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac58c213ea688187f76f0f9e6c268f140">00020</a>             QAbstractItemModel&amp; <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac58c213ea688187f76f0f9e6c268f140">mModel</a>;
+<a name="l00021"></a><a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac0548b1b82a34cc2a3c4ddcb8aa01bf2">00021</a>             QVariant <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac0548b1b82a34cc2a3c4ddcb8aa01bf2">mData</a>;
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#a445d797a18497980570e0805f2a536b0">rowCount</a> (<span class="keyword">const</span> QModelIndex &amp; parent = QModelIndex()) <span class="keyword">const</span>;
+<a name="l00023"></a>00023         <span class="keyword">public</span>:
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#a65cdb2636ad212a4e2f78a6ea676e001">columnCount</a> (<span class="keyword">const</span> QModelIndex &amp; parent = QModelIndex()) <span class="keyword">const</span>;
+<a name="l00025"></a>00025             <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#a78c7996c3331da614a4e54a1b2ce61e3">NastyTableModelHack</a> (QAbstractItemModel&amp; model);
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027             QVariant <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#abbec8d6d8ca4f4f5ae20921776a74d3a">data</a>  (<span class="keyword">const</span> QModelIndex &amp; index, <span class="keywordtype">int</span> role = Qt::DisplayRole) <span class="keyword">const</span>;
+<a name="l00027"></a>00027             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#a445d797a18497980570e0805f2a536b0">rowCount</a> (<span class="keyword">const</span> QModelIndex &amp; parent = QModelIndex()) <span class="keyword">const</span>;
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029             <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#afac6dcef9ffd7f710e2282ec5d0dcc8c">setData</a> (<span class="keyword">const</span> QModelIndex &amp;index, <span class="keyword">const</span> QVariant &amp;value, <span class="keywordtype">int</span> role = Qt::EditRole);
+<a name="l00029"></a>00029             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#a65cdb2636ad212a4e2f78a6ea676e001">columnCount</a> (<span class="keyword">const</span> QModelIndex &amp; parent = QModelIndex()) <span class="keyword">const</span>;
 <a name="l00030"></a>00030 
-<a name="l00031"></a>00031             QVariant <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac656efad83c195c6fcd411e03c05f258">getData</a>() <span class="keyword">const</span>;
-<a name="l00032"></a>00032     };
-<a name="l00033"></a>00033 
-<a name="l00035"></a><a class="code" href="classCSVWorld_1_1CommandDelegate.html">00035</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> : <span class="keyword">public</span> QStyledItemDelegate
-<a name="l00036"></a>00036     {
-<a name="l00037"></a><a class="code" href="classCSVWorld_1_1CommandDelegate.html#affc667c9bc2dde2f886444d89e4bf088">00037</a>             QUndoStack&amp; <a class="code" href="classCSVWorld_1_1CommandDelegate.html#affc667c9bc2dde2f886444d89e4bf088">mUndoStack</a>;
-<a name="l00038"></a><a class="code" href="classCSVWorld_1_1CommandDelegate.html#afe64dbbb5aa108aac5594bc6c6451165">00038</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#afe64dbbb5aa108aac5594bc6c6451165">mEditLock</a>;
+<a name="l00031"></a>00031             QVariant <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#abbec8d6d8ca4f4f5ae20921776a74d3a">data</a>  (<span class="keyword">const</span> QModelIndex &amp; index, <span class="keywordtype">int</span> role = Qt::DisplayRole) <span class="keyword">const</span>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033             <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#afac6dcef9ffd7f710e2282ec5d0dcc8c">setData</a> (<span class="keyword">const</span> QModelIndex &amp;index, <span class="keyword">const</span> QVariant &amp;value, <span class="keywordtype">int</span> role = Qt::EditRole);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035             QVariant <a class="code" href="classCSVWorld_1_1NastyTableModelHack.html#ac656efad83c195c6fcd411e03c05f258">getData</a>() <span class="keyword">const</span>;
+<a name="l00036"></a>00036     };
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a>;
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040         <span class="keyword">public</span>:
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042             <a class="code" href="classCSVWorld_1_1CommandDelegate.html#aed24dfb3061189e9fb6a677ed38d1e7f">CommandDelegate</a> (QUndoStack&amp; undoStack, QObject *parent);
+<a name="l00040"></a><a class="code" href="classCSVWorld_1_1CommandDelegateFactory.html">00040</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1CommandDelegateFactory.html">CommandDelegateFactory</a>
+<a name="l00041"></a>00041     {
+<a name="l00042"></a>00042         <span class="keyword">public</span>:
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#a1ec347c7a8558a26d3403f1195052e5d">setModelData</a> (QWidget *editor, QAbstractItemModel *model, <span class="keyword">const</span> QModelIndex&amp; index) <span class="keyword">const</span>;
+<a name="l00044"></a>00044             <span class="keyword">virtual</span> <a class="code" href="classCSVWorld_1_1CommandDelegateFactory.html#a5691e27570a79c111ea80b641d2b87f3">~CommandDelegateFactory</a>();
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#a398adcfa6965c12155ff1deb0a7a181e">setEditLock</a> (<span class="keywordtype">bool</span> locked);
-<a name="l00047"></a>00047     };
-<a name="l00048"></a>00048 }
+<a name="l00046"></a>00046             <span class="keyword">virtual</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> *<a class="code" href="classCSVWorld_1_1CommandDelegateFactory.html#af48d0456a74268110687ced6ce43b824" title="The ownership of the returned CommandDelegate is transferred to the caller.">makeDelegate</a> (QUndoStack&amp; undoStack, QObject *parent) <span class="keyword">const</span> = 0;
+<a name="l00048"></a>00048     };
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050 <span class="preprocessor">#endif</span>
+<a name="l00050"></a><a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html">00050</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a>
+<a name="l00051"></a>00051     {
+<a name="l00052"></a><a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#aaeb3c26ee02153a0a8cd46f0feb12c62">00052</a>             <span class="keyword">static</span> <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a> *<a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#aaeb3c26ee02153a0a8cd46f0feb12c62">sThis</a>;
+<a name="l00053"></a><a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#a00cc50ee22c8ea5d992235a9963d1210">00053</a>             std::map&lt;CSMWorld::ColumnBase::Display, CommandDelegateFactory *&gt; <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#a00cc50ee22c8ea5d992235a9963d1210">mFactories</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055         <span class="keyword">private</span>:
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057             <span class="comment">// not implemented</span>
+<a name="l00058"></a>00058             <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#a94db55dc7544c5f54e534956a822f214">CommandDelegateFactoryCollection</a> (<span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a>&amp;);
+<a name="l00059"></a>00059             <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a>&amp; <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#a29f38d529260f347e4960ab54100ad9e">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a>&amp;);
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061         <span class="keyword">public</span>:
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063             <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#a94db55dc7544c5f54e534956a822f214">CommandDelegateFactoryCollection</a>();
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065             <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#ab27fcf7d4361632ee4908ce1d92fddaf">~CommandDelegateFactoryCollection</a>();
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#abcfd505bd7c2dd4acebb4015d13cfae4">add</a> (<a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">CSMWorld::ColumnBase::Display</a> display, <a class="code" href="classCSVWorld_1_1CommandDelegateFactory.html">CommandDelegateFactory</a> *factory);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072             <a class="code" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> *<a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html#a492a623e53993da793f5ff1386adb025">makeDelegate</a> (<a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">CSMWorld::ColumnBase::Display</a> display, QUndoStack&amp; undoStack,
+<a name="l00073"></a>00073                 QObject *parent) <span class="keyword">const</span>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a>&amp; <span class="keyword">get</span>();
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     };
+<a name="l00081"></a>00081 
+<a name="l00083"></a><a class="code" href="classCSVWorld_1_1CommandDelegate.html">00083</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> : <span class="keyword">public</span> QStyledItemDelegate
+<a name="l00084"></a>00084     {
+<a name="l00085"></a><a class="code" href="classCSVWorld_1_1CommandDelegate.html#affc667c9bc2dde2f886444d89e4bf088">00085</a>             QUndoStack&amp; <a class="code" href="classCSVWorld_1_1CommandDelegate.html#affc667c9bc2dde2f886444d89e4bf088">mUndoStack</a>;
+<a name="l00086"></a><a class="code" href="classCSVWorld_1_1CommandDelegate.html#afe64dbbb5aa108aac5594bc6c6451165">00086</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#afe64dbbb5aa108aac5594bc6c6451165">mEditLock</a>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088         <span class="keyword">protected</span>:
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090             QUndoStack&amp; <a class="code" href="classCSVWorld_1_1CommandDelegate.html#ad6bde478033611484fd13d9d4655610d">getUndoStack</a>() <span class="keyword">const</span>;
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#a6968868b94007ac78a4d3ede4495f870">setModelDataImp</a> (QWidget *editor, QAbstractItemModel *model,
+<a name="l00093"></a>00093                 <span class="keyword">const</span> QModelIndex&amp; index) <span class="keyword">const</span>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095         <span class="keyword">public</span>:
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097             <a class="code" href="classCSVWorld_1_1CommandDelegate.html#aed24dfb3061189e9fb6a677ed38d1e7f">CommandDelegate</a> (QUndoStack&amp; undoStack, QObject *parent);
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#a1ec347c7a8558a26d3403f1195052e5d">setModelData</a> (QWidget *editor, QAbstractItemModel *model,
+<a name="l00100"></a>00100                 <span class="keyword">const</span> QModelIndex&amp; index) <span class="keyword">const</span>;
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#a398adcfa6965c12155ff1deb0a7a181e">setEditLock</a> (<span class="keywordtype">bool</span> locked);
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104             <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1CommandDelegate.html#aa437fdc007357222761a76738a427557">isEditLocked</a>() <span class="keyword">const</span>;
+<a name="l00105"></a>00105     };
+<a name="l00106"></a>00106 }
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

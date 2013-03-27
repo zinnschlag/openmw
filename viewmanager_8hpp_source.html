@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -71,54 +72,62 @@
 <a name="l00011"></a>00011     <span class="keyword">class </span>DocumentManager;
 <a name="l00012"></a>00012 }
 <a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">namespace </span>CSVDoc
+<a name="l00014"></a><a class="code" href="namespaceCSVWorld.html">00014</a> <span class="keyword">namespace </span>CSVWorld
 <a name="l00015"></a>00015 {
-<a name="l00016"></a>00016     <span class="keyword">class </span>View;
-<a name="l00017"></a>00017 
-<a name="l00018"></a><a class="code" href="classCSVDoc_1_1ViewManager.html">00018</a>     <span class="keyword">class </span><a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a> : <span class="keyword">public</span> QObject
-<a name="l00019"></a>00019     {
-<a name="l00020"></a>00020             Q_OBJECT
-<a name="l00021"></a>00021 
-<a name="l00022"></a><a class="code" href="classCSVDoc_1_1ViewManager.html#a8ba9bcd98d966b3f59054d6a22a4f37d">00022</a>             <a class="code" href="classCSMDoc_1_1DocumentManager.html">CSMDoc::DocumentManager</a>&amp; <a class="code" href="classCSVDoc_1_1ViewManager.html#a8ba9bcd98d966b3f59054d6a22a4f37d">mDocumentManager</a>;
-<a name="l00023"></a><a class="code" href="classCSVDoc_1_1ViewManager.html#a687101d21e57f54a05a099a6ed7c96a6">00023</a>             std::vector&lt;View *&gt; <a class="code" href="classCSVDoc_1_1ViewManager.html#a687101d21e57f54a05a099a6ed7c96a6">mViews</a>;
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025             <span class="comment">// not implemented</span>
-<a name="l00026"></a>00026             <a class="code" href="classCSVDoc_1_1ViewManager.html#a35e8894bd39f6a1795624162073811a5">ViewManager</a> (<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp;);
-<a name="l00027"></a>00027             <a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp; <a class="code" href="classCSVDoc_1_1ViewManager.html#a83052835eecf09f11094ca60de7cc266">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp;);
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a85fa0455efa5ba8744cd758b1d2a4aeb">updateIndices</a>();
+<a name="l00016"></a>00016     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CommandDelegateFactoryCollection</a>;
+<a name="l00017"></a>00017 }
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>CSVDoc
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021     <span class="keyword">class </span>View;
+<a name="l00022"></a>00022 
+<a name="l00023"></a><a class="code" href="classCSVDoc_1_1ViewManager.html">00023</a>     <span class="keyword">class </span><a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a> : <span class="keyword">public</span> QObject
+<a name="l00024"></a>00024     {
+<a name="l00025"></a>00025             Q_OBJECT
+<a name="l00026"></a>00026 
+<a name="l00027"></a><a class="code" href="classCSVDoc_1_1ViewManager.html#a8ba9bcd98d966b3f59054d6a22a4f37d">00027</a>             <a class="code" href="classCSMDoc_1_1DocumentManager.html">CSMDoc::DocumentManager</a>&amp; <a class="code" href="classCSVDoc_1_1ViewManager.html#a8ba9bcd98d966b3f59054d6a22a4f37d">mDocumentManager</a>;
+<a name="l00028"></a><a class="code" href="classCSVDoc_1_1ViewManager.html#a687101d21e57f54a05a099a6ed7c96a6">00028</a>             std::vector&lt;View *&gt; <a class="code" href="classCSVDoc_1_1ViewManager.html#a687101d21e57f54a05a099a6ed7c96a6">mViews</a>;
+<a name="l00029"></a><a class="code" href="classCSVDoc_1_1ViewManager.html#ae994b5101a31a101f58108f0bb8d5d17">00029</a>             <a class="code" href="classCSVWorld_1_1CommandDelegateFactoryCollection.html" title="Use commands instead of manipulating the model directly.">CSVWorld::CommandDelegateFactoryCollection</a> *<a class="code" href="classCSVDoc_1_1ViewManager.html#ae994b5101a31a101f58108f0bb8d5d17">mDelegateFactories</a>;
 <a name="l00030"></a>00030 
-<a name="l00031"></a>00031         <span class="keyword">public</span>:
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033             <a class="code" href="classCSVDoc_1_1ViewManager.html#a35e8894bd39f6a1795624162073811a5">ViewManager</a> (<a class="code" href="classCSMDoc_1_1DocumentManager.html">CSMDoc::DocumentManager</a>&amp; documentManager);
+<a name="l00031"></a>00031             <span class="comment">// not implemented</span>
+<a name="l00032"></a>00032             <a class="code" href="classCSVDoc_1_1ViewManager.html#a35e8894bd39f6a1795624162073811a5">ViewManager</a> (<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp;);
+<a name="l00033"></a>00033             <a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp; <a class="code" href="classCSVDoc_1_1ViewManager.html#a83052835eecf09f11094ca60de7cc266">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp;);
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035             <span class="keyword">virtual</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#abc3222ebfc90f79473f4f9e68e3ce71e">~ViewManager</a>();
+<a name="l00035"></a>00035             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a85fa0455efa5ba8744cd758b1d2a4aeb">updateIndices</a>();
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037             <a class="code" href="classCSVDoc_1_1View.html">View</a> *<a class="code" href="classCSVDoc_1_1ViewManager.html#a4d453175020c3a307f81b2b6c2a09c29" title="The ownership of the returned view is not transferred.">addView</a> (<a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040             <span class="keywordtype">int</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a62689921cc262426b7ccd4a8d9b7bbe2" title="Return number of views for document.">countViews</a> (<span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document) <span class="keyword">const</span>;
+<a name="l00037"></a>00037         <span class="keyword">public</span>:
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039             <a class="code" href="classCSVDoc_1_1ViewManager.html#a35e8894bd39f6a1795624162073811a5">ViewManager</a> (<a class="code" href="classCSMDoc_1_1DocumentManager.html">CSMDoc::DocumentManager</a>&amp; documentManager);
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041             <span class="keyword">virtual</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#abc3222ebfc90f79473f4f9e68e3ce71e">~ViewManager</a>();
 <a name="l00042"></a>00042 
-<a name="l00043"></a>00043             <span class="keywordtype">bool</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a2ae095091b6c79d2da6f85ea0427eed2">closeRequest</a> (<a class="code" href="classCSVDoc_1_1View.html">View</a> *view);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         signals:
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#ac47d9b9913ec08b25c0b3e15d8d0617c">newDocumentRequest</a>();
+<a name="l00043"></a>00043             <a class="code" href="classCSVDoc_1_1View.html">View</a> *<a class="code" href="classCSVDoc_1_1ViewManager.html#a4d453175020c3a307f81b2b6c2a09c29" title="The ownership of the returned view is not transferred.">addView</a> (<a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046             <span class="keywordtype">int</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a62689921cc262426b7ccd4a8d9b7bbe2" title="Return number of views for document.">countViews</a> (<span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document) <span class="keyword">const</span>;
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049         <span class="keyword">private</span> slots:
+<a name="l00049"></a>00049             <span class="keywordtype">bool</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a2ae095091b6c79d2da6f85ea0427eed2">closeRequest</a> (<a class="code" href="classCSVDoc_1_1View.html">View</a> *view);
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a60396f60fa25ae314d10db852fdb714c">documentStateChanged</a> (<span class="keywordtype">int</span> state, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
+<a name="l00051"></a>00051         signals:
 <a name="l00052"></a>00052 
-<a name="l00053"></a>00053             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a123996107f0082e93b950cadd1ac2dbf">progress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> threads, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
-<a name="l00054"></a>00054     };
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 }
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058 <span class="preprocessor">#endif</span>
+<a name="l00053"></a>00053             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#ac47d9b9913ec08b25c0b3e15d8d0617c">newDocumentRequest</a>();
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a799b6cc0e4d7b54afa5828c1d019e6c9">loadDocumentRequest</a>();
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057         <span class="keyword">private</span> slots:
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a60396f60fa25ae314d10db852fdb714c">documentStateChanged</a> (<span class="keywordtype">int</span> <a class="code" href="namespaceMWMechanics.html#ac60fc9fba81496d4e6f8c9ffb6c67b78">state</a>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1ViewManager.html#a123996107f0082e93b950cadd1ac2dbf">progress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> threads, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
+<a name="l00062"></a>00062     };
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 }
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

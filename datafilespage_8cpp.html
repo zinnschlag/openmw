@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -54,96 +55,30 @@
   </div>
 </div>
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">apps/launcher/datafilespage.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;QtGui&gt;</code><br/>
-<code>#include &lt;<a class="el" href="esmreader_8hpp_source.html">components/esm/esmreader.hpp</a>&gt;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="datafilespage_8hpp_source.html">datafilespage.hpp</a>&quot;</code><br/>
+<code>#include &lt;QPushButton&gt;</code><br/>
+<code>#include &lt;QMessageBox&gt;</code><br/>
+<code>#include &lt;QCheckBox&gt;</code><br/>
+<code>#include &lt;QMenu&gt;</code><br/>
 <code>#include &lt;<a class="el" href="configurationmanager_8hpp_source.html">components/files/configurationmanager.hpp</a>&gt;</code><br/>
-<code>#include &quot;<a class="el" href="datafilesmodel_8hpp_source.html">model/datafilesmodel.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="esmfile_8hpp_source.html">model/esm/esmfile.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="profilescombobox_8hpp_source.html">utils/profilescombobox.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="filedialog_8hpp_source.html">utils/filedialog.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="lineedit_8hpp_source.html">utils/lineedit.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="naturalsort_8hpp_source.html">utils/naturalsort.hpp</a>&quot;</code><br/>
+<code>#include &lt;<a class="el" href="datafilesmodel_8hpp_source.html">components/fileorderlist/model/datafilesmodel.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="pluginsproxymodel_8hpp_source.html">components/fileorderlist/model/pluginsproxymodel.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="esmfile_8hpp_source.html">components/fileorderlist/model/esm/esmfile.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="lineedit_8hpp_source.html">components/fileorderlist/utils/lineedit.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="naturalsort_8hpp_source.html">components/fileorderlist/utils/naturalsort.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="profilescombobox_8hpp_source.html">components/fileorderlist/utils/profilescombobox.hpp</a>&gt;</code><br/>
+<code>#include &quot;<a class="el" href="gamesettings_8hpp_source.html">settings/gamesettings.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="launchersettings_8hpp_source.html">settings/launchersettings.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="textinputdialog_8hpp_source.html">utils/textinputdialog.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="datafilespage_8hpp_source.html">datafilespage.hpp</a>&quot;</code><br/>
-<code>#include &lt;boost/version.hpp&gt;</code><br/>
-</div><table class="memberdecls">
-<tr><td colspan="2"><h2><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost.html">boost</a></td></tr>
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost.html#a8e662a6decf6a3696e44cdf2eb72ca77">boost::lexical_cast&lt; boost::filesystem::path, std::string &gt;</a> (const std::string &amp;arg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="datafilespage_8cpp.html#a86911486726f6b471708e859d2dacf33">rowGreaterThan</a> (const QModelIndex &amp;index1, const QModelIndex &amp;index2)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="datafilespage_8cpp.html#aeb04c7e6a171bd6fb1c1cebb44067b7b">rowSmallerThan</a> (const QModelIndex &amp;index1, const QModelIndex &amp;index2)</td></tr>
-</table>
-<hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a86911486726f6b471708e859d2dacf33"></a><!-- doxytag: member="datafilespage.cpp::rowGreaterThan" ref="a86911486726f6b471708e859d2dacf33" args="(const QModelIndex &amp;index1, const QModelIndex &amp;index2)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="datafilespage_8cpp.html#a86911486726f6b471708e859d2dacf33">rowGreaterThan</a> </td>
-          <td>(</td>
-          <td class="paramtype">const QModelIndex &amp;&#160;</td>
-          <td class="paramname"><em>index1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const QModelIndex &amp;&#160;</td>
-          <td class="paramname"><em>index2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aeb04c7e6a171bd6fb1c1cebb44067b7b"></a><!-- doxytag: member="datafilespage.cpp::rowSmallerThan" ref="aeb04c7e6a171bd6fb1c1cebb44067b7b" args="(const QModelIndex &amp;index1, const QModelIndex &amp;index2)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="datafilespage_8cpp.html#aeb04c7e6a171bd6fb1c1cebb44067b7b">rowSmallerThan</a> </td>
-          <td>(</td>
-          <td class="paramtype">const QModelIndex &amp;&#160;</td>
-          <td class="paramname"><em>index1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const QModelIndex &amp;&#160;</td>
-          <td class="paramname"><em>index2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

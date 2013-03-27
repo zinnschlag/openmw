@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -96,13 +97,13 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a2a508b79a10fc5ce70d881d58b43cff8">compile</a> (const std::string &amp;cmd, std::vector&lt; <a class="el" href="namespaceInterpreter.html#a4e3835dc7f60eb2ebfe308342e61b152">Interpreter::Type_Code</a> &gt; &amp;code)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a9230798291bd67fcec5d0ce311a6ccee">executeScript</a> (const std::string &amp;script)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a53a27988153814ed8686ce3edb748a23">printError</a> (const std::string &amp;error)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a73312fb56f31afd32ea5beaa71282fcc">executeTopic</a> (const std::string &amp;topic)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a8f2325e55fe4ab6c388027358dde1930">executeTopic</a> (const std::string &amp;topic, bool randomResponse=false)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <br class="typebreak"/>
 <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#ab2e09b7bdd25c4942404dc4526426c7a">mDialogueMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a5d8f3a8f7cefd185a5d5decd13e09568">mKnownTopics</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a01f8b38a878438782da994fcc1ef94bf">mActorKnownTopics</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a01f8b38a878438782da994fcc1ef94bf">mActorKnownTopics</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTranslation_1_1Storage.html">Translation::Storage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a6a2607d4d4dddbc36f82c5cc4616dba9">mTranslationDataStorage</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWScript_1_1CompilerContext.html">MWScript::CompilerContext</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#a53b3f00dae3a02fafeb030861f04abee">mCompilerContext</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::ostream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1DialogueManager.html#ade860472bfc5edf514a144c160d9443f">mErrorStream</a></td></tr>
@@ -264,16 +265,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a73312fb56f31afd32ea5beaa71282fcc"></a><!-- doxytag: member="MWDialogue::DialogueManager::executeTopic" ref="a73312fb56f31afd32ea5beaa71282fcc" args="(const std::string &amp;topic)" -->
+<a class="anchor" id="a8f2325e55fe4ab6c388027358dde1930"></a><!-- doxytag: member="MWDialogue::DialogueManager::executeTopic" ref="a8f2325e55fe4ab6c388027358dde1930" args="(const std::string &amp;topic, bool randomResponse=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWDialogue_1_1DialogueManager.html#a73312fb56f31afd32ea5beaa71282fcc">MWDialogue::DialogueManager::executeTopic</a> </td>
+          <td class="memname">void <a class="el" href="classMWDialogue_1_1DialogueManager.html#a8f2325e55fe4ab6c388027358dde1930">MWDialogue::DialogueManager::executeTopic</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>topic</em></td><td>)</td>
-          <td><code> [private]</code></td>
+          <td class="paramname"><em>topic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>randomResponse</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -500,7 +511,7 @@ Private Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::list&lt;std::string&gt; <a class="el" href="classMWDialogue_1_1DialogueManager.html#a01f8b38a878438782da994fcc1ef94bf">MWDialogue::DialogueManager::mActorKnownTopics</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt;std::string&gt; <a class="el" href="classMWDialogue_1_1DialogueManager.html#a01f8b38a878438782da994fcc1ef94bf">MWDialogue::DialogueManager::mActorKnownTopics</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -711,7 +722,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

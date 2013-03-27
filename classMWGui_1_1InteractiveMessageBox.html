@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -64,6 +65,7 @@
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">MWGui::InteractiveMessageBox Class Reference</div>  </div>
@@ -77,17 +79,21 @@
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a783f12fc07bfc0b9b435c544ad2d6b76">InteractiveMessageBox</a> (<a class="el" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a> &amp;parMessageBoxManager, const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#ad1ff5efc8be94e082b9435a3e725dd0e">enterPressed</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a988091cc03464b074570089840b0cfaa">mousePressed</a> (MyGUI::Widget *_widget)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a0ca88f1b7124a34954e9202c8f773982">readPressedButton</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a734a34ecb392a929057e200458ea72d6">mMarkedToDelete</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a697bb7f5a0befb8efa9a980f1c96e049">buttonActivated</a> (MyGUI::Widget *_widget)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#ad112a4e9e29c7244c669025406be4fc2">mMessageBoxManager</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::EditPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#ab0d1808cebe7d2857f3d8a53a48a0576">mMessageWidget</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::WidgetPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a38ff3c4a589ad1532bf048c75923bcb4">mButtonsWidget</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; MyGUI::ButtonPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a82286513b16a9534353fc4d1b591c2f7">mButtons</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::EditBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a15d01178f609ab31b9df3fcae5aaa4c9">mMessageWidget</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a99091bb04570cb7cce6e651d57cf9f05">mButtonsWidget</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; MyGUI::Button * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a1e5fa8572b3b927aa3fdf235f2730bcb">mButtons</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#ad672dcbb3ae88fbc2d8ace7fa04e78ee">mTextButtonPadding</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a427e88256d28047beb57ad4a073db803">mButtonPressed</a></td></tr>
 </table>
@@ -126,6 +132,39 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a697bb7f5a0befb8efa9a980f1c96e049"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::buttonActivated" ref="a697bb7f5a0befb8efa9a980f1c96e049" args="(MyGUI::Widget *_widget)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a697bb7f5a0befb8efa9a980f1c96e049">InteractiveMessageBox::buttonActivated</a> </td>
+          <td>(</td>
+          <td class="paramtype">MyGUI::Widget *&#160;</td>
+          <td class="paramname"><em>_widget</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad1ff5efc8be94e082b9435a3e725dd0e"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::enterPressed" ref="ad1ff5efc8be94e082b9435a3e725dd0e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#ad1ff5efc8be94e082b9435a3e725dd0e">InteractiveMessageBox::enterPressed</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a988091cc03464b074570089840b0cfaa"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mousePressed" ref="a988091cc03464b074570089840b0cfaa" args="(MyGUI::Widget *_widget)" -->
 <div class="memitem">
 <div class="memproto">
@@ -173,12 +212,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a82286513b16a9534353fc4d1b591c2f7"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mButtons" ref="a82286513b16a9534353fc4d1b591c2f7" args="" -->
+<a class="anchor" id="a1e5fa8572b3b927aa3fdf235f2730bcb"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mButtons" ref="a1e5fa8572b3b927aa3fdf235f2730bcb" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;MyGUI::ButtonPtr&gt; <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a82286513b16a9534353fc4d1b591c2f7">MWGui::InteractiveMessageBox::mButtons</a><code> [private]</code></td>
+          <td class="memname">std::vector&lt;MyGUI::Button*&gt; <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a1e5fa8572b3b927aa3fdf235f2730bcb">MWGui::InteractiveMessageBox::mButtons</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -186,12 +225,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a38ff3c4a589ad1532bf048c75923bcb4"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mButtonsWidget" ref="a38ff3c4a589ad1532bf048c75923bcb4" args="" -->
+<a class="anchor" id="a99091bb04570cb7cce6e651d57cf9f05"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mButtonsWidget" ref="a99091bb04570cb7cce6e651d57cf9f05" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MyGUI::WidgetPtr <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a38ff3c4a589ad1532bf048c75923bcb4">MWGui::InteractiveMessageBox::mButtonsWidget</a><code> [private]</code></td>
+          <td class="memname">MyGUI::Widget* <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a99091bb04570cb7cce6e651d57cf9f05">MWGui::InteractiveMessageBox::mButtonsWidget</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -225,12 +264,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab0d1808cebe7d2857f3d8a53a48a0576"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mMessageWidget" ref="ab0d1808cebe7d2857f3d8a53a48a0576" args="" -->
+<a class="anchor" id="a15d01178f609ab31b9df3fcae5aaa4c9"></a><!-- doxytag: member="MWGui::InteractiveMessageBox::mMessageWidget" ref="a15d01178f609ab31b9df3fcae5aaa4c9" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MyGUI::EditPtr <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#ab0d1808cebe7d2857f3d8a53a48a0576">MWGui::InteractiveMessageBox::mMessageWidget</a><code> [private]</code></td>
+          <td class="memname">MyGUI::EditBox* <a class="el" href="classMWGui_1_1InteractiveMessageBox.html#a15d01178f609ab31b9df3fcae5aaa4c9">MWGui::InteractiveMessageBox::mMessageWidget</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -259,7 +298,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

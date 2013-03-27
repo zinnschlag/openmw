@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -89,9 +90,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#aa64daa94b2d741d00af26bb40ca119e1">setUp</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Store.html#ae718554d6c006ba6e67ce437b3394de0">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#ad49cd6e32c130f7d112a4e7d4e443d0e">begin</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Store.html#ae718554d6c006ba6e67ce437b3394de0">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a6d338a67279d73b168514e80b5b508e4">end</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a234d135f7e633178a4638797c4781ebf">getSize</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#aa3a5ec344fdc439c299bbd7aae797abd">listIdentifier</a> (std::vector&lt; std::string &gt; &amp;list) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a02b300166c41288ff49af4595dbd98b9">getSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#aa3a5ec344fdc439c299bbd7aae797abd">listIdentifier</a> (std::vector&lt; std::string &gt; &amp;<a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a> (const T &amp;item)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#abbf1d7ed43d30bc09c93a5dac4635519">eraseStatic</a> (const std::string &amp;id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#aeaced64393d3ff47f9205298bdc5fd62">erase</a> (const std::string &amp;id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a9338dcb6fe032994ba7302a566139102">erase</a> (const T &amp;item)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
@@ -103,7 +105,7 @@ Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a907206ef8039906ae469274f96f47011">Dynamic</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a12d7a25d8d272e88a725bad3078e199d">mStatic</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#a390d81d2902dc73582f80fd495cc9fcf">mShared</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Store.html#adf1ee2fc4ac57cfd1874a832e2ba33a3">mDynamic</a></td></tr>
 <tr><td colspan="2"><h2><a name="friends"></a>
@@ -257,6 +259,27 @@ template&lt;class T&gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="abbf1d7ed43d30bc09c93a5dac4635519"></a><!-- doxytag: member="MWWorld::Store::eraseStatic" ref="abbf1d7ed43d30bc09c93a5dac4635519" args="(const std::string &amp;id)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWWorld_1_1Store.html">MWWorld::Store</a>&lt; T &gt;::<a class="el" href="classMWWorld_1_1Store.html#abbf1d7ed43d30bc09c93a5dac4635519">eraseStatic</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="structMWWorld_1_1StoreBase.html#a65f35b8a6336fa581c638bdb4f978596">MWWorld::StoreBase</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ae9f2eb571e7c734e644d9367518ff40b"></a><!-- doxytag: member="MWWorld::Store::find" ref="ae9f2eb571e7c734e644d9367518ff40b" args="(const std::string &amp;id) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -276,14 +299,14 @@ template&lt;class T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a234d135f7e633178a4638797c4781ebf"></a><!-- doxytag: member="MWWorld::Store::getSize" ref="a234d135f7e633178a4638797c4781ebf" args="() const " -->
+<a class="anchor" id="a02b300166c41288ff49af4595dbd98b9"></a><!-- doxytag: member="MWWorld::Store::getSize" ref="a02b300166c41288ff49af4595dbd98b9" args="() const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classMWWorld_1_1Store.html">MWWorld::Store</a>&lt; T &gt;::<a class="el" href="classMWWorld_1_1Store.html#a234d135f7e633178a4638797c4781ebf">getSize</a> </td>
+          <td class="memname">size_t <a class="el" href="classMWWorld_1_1Store.html">MWWorld::Store</a>&lt; T &gt;::<a class="el" href="classMWWorld_1_1Store.html#a02b300166c41288ff49af4595dbd98b9">getSize</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [inline, virtual]</code></td>
@@ -292,7 +315,7 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Implements <a class="el" href="structMWWorld_1_1StoreBase.html#afd2f8741a1112fbbd3e36e032ed474c9">MWWorld::StoreBase</a>.</p>
+<p>Implements <a class="el" href="structMWWorld_1_1StoreBase.html#a3f78f11634ccdc9612453a106d773403">MWWorld::StoreBase</a>.</p>
 
 </div>
 </div>
@@ -515,14 +538,14 @@ template&lt;class T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a9738906cb799b292f714bb3e3fd1d500"></a><!-- doxytag: member="MWWorld::Store::mStatic" ref="a9738906cb799b292f714bb3e3fd1d500" args="" -->
+<a class="anchor" id="a12d7a25d8d272e88a725bad3078e199d"></a><!-- doxytag: member="MWWorld::Store::mStatic" ref="a12d7a25d8d272e88a725bad3078e199d" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;T&gt; <a class="el" href="classMWWorld_1_1Store.html">MWWorld::Store</a>&lt; T &gt;::<a class="el" href="classMWWorld_1_1Store.html#a9738906cb799b292f714bb3e3fd1d500">mStatic</a><code> [private]</code></td>
+          <td class="memname">std::map&lt;std::string, T&gt; <a class="el" href="classMWWorld_1_1Store.html">MWWorld::Store</a>&lt; T &gt;::<a class="el" href="classMWWorld_1_1Store.html#a12d7a25d8d272e88a725bad3078e199d">mStatic</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -537,7 +560,7 @@ template&lt;class T&gt; </div>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

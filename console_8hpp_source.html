@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -108,8 +109,8 @@
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056 
 <a name="l00057"></a>00057     <span class="keyword">public</span>:
-<a name="l00058"></a><a class="code" href="classMWGui_1_1Console.html#accd3c1250b3e810fe92c2e7c9320de05">00058</a>     MyGUI::EditPtr <a class="code" href="classMWGui_1_1Console.html#accd3c1250b3e810fe92c2e7c9320de05">command</a>;
-<a name="l00059"></a><a class="code" href="classMWGui_1_1Console.html#aed3faf6d5a0effad87e4deba86ed06e3">00059</a>     MyGUI::EditPtr <a class="code" href="classMWGui_1_1Console.html#aed3faf6d5a0effad87e4deba86ed06e3">history</a>;
+<a name="l00058"></a><a class="code" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">00058</a>     MyGUI::EditBox* <a class="code" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">command</a>;
+<a name="l00059"></a><a class="code" href="classMWGui_1_1Console.html#a392d6eec0c4d0deabd632196a84c1f24">00059</a>     MyGUI::EditBox* <a class="code" href="classMWGui_1_1Console.html#a392d6eec0c4d0deabd632196a84c1f24">history</a>;
 <a name="l00060"></a>00060 
 <a name="l00061"></a><a class="code" href="classMWGui_1_1Console.html#a650d87880ba0b4ac74be89986a4b5cae">00061</a>     <span class="keyword">typedef</span> std::list&lt;std::string&gt; <a class="code" href="classMWGui_1_1Console.html#a650d87880ba0b4ac74be89986a4b5cae">StringList</a>;
 <a name="l00062"></a>00062 
@@ -140,17 +141,17 @@
 <a name="l00088"></a>00088 
 <a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#ad26c0032aeb97f9d6a6587fef1501573" title="Error message.">printError</a>(<span class="keyword">const</span> std::string &amp;msg);
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#ab033e843ca6fb2049c0cccddfa3d7c49">execute</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="classMWGui_1_1Console.html#accd3c1250b3e810fe92c2e7c9320de05">command</a>);
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#ab033e843ca6fb2049c0cccddfa3d7c49">execute</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">command</a>);
 <a name="l00093"></a>00093 
-<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a8d0e2e679513840fb244df2fec0dcd28">executeFile</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="classMWGui_1_1Console.html#accd3c1250b3e810fe92c2e7c9320de05">command</a>);
+<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a8d0e2e679513840fb244df2fec0dcd28">executeFile</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">command</a>);
 <a name="l00095"></a>00095 
 <a name="l00096"></a>00096   <span class="keyword">private</span>:
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a6cdd782d608d8e18330baa1e4debe563">keyPress</a>(MyGUI::WidgetPtr _sender,
+<a name="l00098"></a>00098     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#aa6572364be79063ca831595cde076b7a">keyPress</a>(MyGUI::Widget* _sender,
 <a name="l00099"></a>00099                   MyGUI::KeyCode key,
 <a name="l00100"></a>00100                   MyGUI::Char _char);
 <a name="l00101"></a>00101 
-<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#a4a4be8e320d92b7f442db1fa4e73e4f4">acceptCommand</a>(MyGUI::EditPtr _sender);
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1Console.html#ad92278fdad9d0f042fe7b0232e765047">acceptCommand</a>(MyGUI::EditBox* _sender);
 <a name="l00103"></a>00103 
 <a name="l00104"></a>00104     std::string <a class="code" href="classMWGui_1_1Console.html#a1bd1849b23216bbbcb609b2a71515077">complete</a>( std::string input, std::vector&lt;std::string&gt; &amp;matches );
 <a name="l00105"></a>00105   };
@@ -160,7 +161,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -89,25 +90,27 @@
 <a name="l00040"></a>00040             std::vector&lt;std::string&gt; <a class="code" href="classMWGui_1_1BookTextParser.html#aed3ab3697b069eaad4077b0ba031d922">split</a>(std::string text, <span class="keyword">const</span> <span class="keywordtype">int</span> width, <span class="keyword">const</span> <span class="keywordtype">int</span> height);
 <a name="l00041"></a>00041 
 <a name="l00042"></a>00042         <span class="keyword">protected</span>:
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#a0af2cf3be69ef620ffad8ff2b334028a">parseSubText</a>(std::string text);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#a1f3b36b18b07bef91eed62a10248ad3a">parseImage</a>(std::string tag, <span class="keywordtype">bool</span> createWidget=<span class="keyword">true</span>);
-<a name="l00046"></a>00046             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#ac2643aa0db64b8784a49ee0e83788f19">parseDiv</a>(std::string tag);
-<a name="l00047"></a>00047             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#a25e9e3c9c1ce623b7e81a538ff98c67a">parseFont</a>(std::string tag);
-<a name="l00048"></a>00048         <span class="keyword">private</span>:
-<a name="l00049"></a><a class="code" href="classMWGui_1_1BookTextParser.html#a9b950e40f170855555fc02ee0ec77a09">00049</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1BookTextParser.html#a9b950e40f170855555fc02ee0ec77a09">mParent</a>;
-<a name="l00050"></a><a class="code" href="classMWGui_1_1BookTextParser.html#af65ebef1115640b938cf4909ef56dfff">00050</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1BookTextParser.html#af65ebef1115640b938cf4909ef56dfff">mWidth</a>; <span class="comment">// maximum width</span>
-<a name="l00051"></a><a class="code" href="classMWGui_1_1BookTextParser.html#ad1f159d1d38a901f7258cb3c9e40fa8b">00051</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1BookTextParser.html#ad1f159d1d38a901f7258cb3c9e40fa8b">mHeight</a>; <span class="comment">// current height</span>
-<a name="l00052"></a><a class="code" href="classMWGui_1_1BookTextParser.html#a9a39189a255b8a6cb2f9f65cc3a4289c">00052</a>             <a class="code" href="structMWGui_1_1TextStyle.html">TextStyle</a> <a class="code" href="classMWGui_1_1BookTextParser.html#a9a39189a255b8a6cb2f9f65cc3a4289c">mTextStyle</a>;
-<a name="l00053"></a>00053     };
-<a name="l00054"></a>00054 }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="preprocessor">#endif</span>
+<a name="l00043"></a>00043             <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1BookTextParser.html#aecf37df1e2c9bc1995d4cb416f90e460">widthForCharGlyph</a>(<span class="keywordtype">unsigned</span> unicodeChar) <span class="keyword">const</span>;
+<a name="l00044"></a>00044             <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1BookTextParser.html#afadfab3a9c315025305d843a2eedff28">currentFontHeight</a>() <span class="keyword">const</span>;
+<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#a0af2cf3be69ef620ffad8ff2b334028a">parseSubText</a>(std::string text);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#a1f3b36b18b07bef91eed62a10248ad3a">parseImage</a>(std::string tag, <span class="keywordtype">bool</span> createWidget=<span class="keyword">true</span>);
+<a name="l00048"></a>00048             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#ac2643aa0db64b8784a49ee0e83788f19">parseDiv</a>(std::string tag);
+<a name="l00049"></a>00049             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BookTextParser.html#a25e9e3c9c1ce623b7e81a538ff98c67a">parseFont</a>(std::string tag);
+<a name="l00050"></a>00050         <span class="keyword">private</span>:
+<a name="l00051"></a><a class="code" href="classMWGui_1_1BookTextParser.html#a9b950e40f170855555fc02ee0ec77a09">00051</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1BookTextParser.html#a9b950e40f170855555fc02ee0ec77a09">mParent</a>;
+<a name="l00052"></a><a class="code" href="classMWGui_1_1BookTextParser.html#af65ebef1115640b938cf4909ef56dfff">00052</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1BookTextParser.html#af65ebef1115640b938cf4909ef56dfff">mWidth</a>; <span class="comment">// maximum width</span>
+<a name="l00053"></a><a class="code" href="classMWGui_1_1BookTextParser.html#ad1f159d1d38a901f7258cb3c9e40fa8b">00053</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1BookTextParser.html#ad1f159d1d38a901f7258cb3c9e40fa8b">mHeight</a>; <span class="comment">// current height</span>
+<a name="l00054"></a><a class="code" href="classMWGui_1_1BookTextParser.html#a9a39189a255b8a6cb2f9f65cc3a4289c">00054</a>             <a class="code" href="structMWGui_1_1TextStyle.html">TextStyle</a> <a class="code" href="classMWGui_1_1BookTextParser.html#a9a39189a255b8a6cb2f9f65cc3a4289c">mTextStyle</a>;
+<a name="l00055"></a>00055     };
+<a name="l00056"></a>00056 }
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

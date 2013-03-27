@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -232,45 +233,48 @@
 <a name="l00197"></a>00197 
 <a name="l00198"></a>00198             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#acfde963aaa065b1668c5f18e093b759d" title="Hides dialog and schedules dialog to be deleted.">removeDialog</a>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* dialog) = 0;
 <a name="l00200"></a>00200 
-<a name="l00201"></a>00201             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a03f1ec69668162cbb087e1d9d4f2ca7c">messageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons) = 0;
-<a name="l00202"></a>00202             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1WindowManager.html#a1d1504945e480f15348ff5489b43203d" title="returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;Interact...">readPressedButton</a>() = 0;
-<a name="l00204"></a>00204 
-<a name="l00205"></a>00205             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a18f8bb397f18a6e2980a20180a0d5d73">onFrame</a> (<span class="keywordtype">float</span> frameDuration) = 0;
-<a name="l00206"></a>00206 
-<a name="l00208"></a>00208             <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWBase_1_1WindowManager.html#a1f21d972f6531277439af94ae2a93ec5">getPlayerSkillValues</a>() = 0;
-<a name="l00209"></a>00209             <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWBase_1_1WindowManager.html#aaac5ff524358e02ce8b3c708d2e91a54">getPlayerAttributeValues</a>() = 0;
-<a name="l00210"></a>00210             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWBase_1_1WindowManager.html#a9c0a5d3d6a79c679e29841749b2c9374">getPlayerMinorSkills</a>() = 0;
-<a name="l00211"></a>00211             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWBase_1_1WindowManager.html#a021d157dbfda9d802f8127bb9b89347e">getPlayerMajorSkills</a>() = 0;
-<a name="l00212"></a>00212 
-<a name="l00220"></a>00220             <span class="keyword">virtual</span> std::string <a class="code" href="classMWBase_1_1WindowManager.html#abf41d3bcda8d80e24d3e859bd9238afa">getGameSettingString</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>, <span class="keyword">const</span> std::string &amp;default_) = 0;
-<a name="l00221"></a>00221 
-<a name="l00222"></a>00222             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a7af4855ed629f199545a5a5b1dc24b33">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; changed) = 0;
-<a name="l00223"></a>00223 
-<a name="l00224"></a>00224             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a00d2cf033d91e3bd565f0debea0f6887">executeInConsole</a> (<span class="keyword">const</span> std::string&amp; path) = 0;
-<a name="l00225"></a>00225 
-<a name="l00226"></a>00226             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#adf334263f4d2de602ad82df89e343dd5">setLoadingProgress</a> (<span class="keyword">const</span> std::string&amp; stage, <span class="keywordtype">int</span> depth, <span class="keywordtype">int</span> current, <span class="keywordtype">int</span> total) = 0;
-<a name="l00227"></a>00227             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a7e65d9822146789f58897cf3c381f9b2">loadingDone</a>() = 0;
-<a name="l00228"></a>00228 
-<a name="l00229"></a>00229             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a71008d412e0bc3e4b60ea027795644ef">enableRest</a>() = 0;
-<a name="l00230"></a>00230             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1WindowManager.html#a2cf63d51b1f446421252ff422e4e6431">getRestEnabled</a>() = 0;
-<a name="l00231"></a>00231 
-<a name="l00232"></a>00232             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1WindowManager.html#a36a4751f56d3d7479879209d8db1eb5a">getPlayerSleeping</a>() = 0;
-<a name="l00233"></a>00233             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#ab26717f84d10dd3622632cc3247aed8a">wakeUpPlayer</a>() = 0;
-<a name="l00234"></a>00234 
-<a name="l00235"></a>00235             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#abfa2c05b22d5e358f109edd13f683b80">startSpellMaking</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor) = 0;
-<a name="l00236"></a>00236             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a55b2635d3e14729c70f6766dbe3c1d65">startEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor) = 0;
-<a name="l00237"></a>00237             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#ab23eef49c49982d7116bf93ba4836e4d">startTraining</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor) = 0;
-<a name="l00238"></a>00238 
-<a name="l00239"></a>00239             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; <a class="code" href="classMWBase_1_1WindowManager.html#ae21743c315c85356ba44eb5a03e013d4">getTranslationDataStorage</a>() <span class="keyword">const</span> = 0;
-<a name="l00240"></a>00240     };
-<a name="l00241"></a>00241 }
-<a name="l00242"></a>00242 
-<a name="l00243"></a>00243 <span class="preprocessor">#endif</span>
+<a name="l00201"></a>00201             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a2ca195509703fb2a36eb121a90c44b5b">messageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons = std::vector&lt;std::string&gt;()) = 0;
+<a name="l00202"></a>00202             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#aaf48f281a775044581137afd4b134ba4">enterPressed</a> () = 0;
+<a name="l00203"></a>00203             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1WindowManager.html#a1d1504945e480f15348ff5489b43203d" title="returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;Interact...">readPressedButton</a>() = 0;
+<a name="l00205"></a>00205 
+<a name="l00206"></a>00206             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a18f8bb397f18a6e2980a20180a0d5d73">onFrame</a> (<span class="keywordtype">float</span> frameDuration) = 0;
+<a name="l00207"></a>00207 
+<a name="l00209"></a>00209             <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWBase_1_1WindowManager.html#a1f21d972f6531277439af94ae2a93ec5">getPlayerSkillValues</a>() = 0;
+<a name="l00210"></a>00210             <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWBase_1_1WindowManager.html#aaac5ff524358e02ce8b3c708d2e91a54">getPlayerAttributeValues</a>() = 0;
+<a name="l00211"></a>00211             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWBase_1_1WindowManager.html#a9c0a5d3d6a79c679e29841749b2c9374">getPlayerMinorSkills</a>() = 0;
+<a name="l00212"></a>00212             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWBase_1_1WindowManager.html#a021d157dbfda9d802f8127bb9b89347e">getPlayerMajorSkills</a>() = 0;
+<a name="l00213"></a>00213 
+<a name="l00221"></a>00221             <span class="keyword">virtual</span> std::string <a class="code" href="classMWBase_1_1WindowManager.html#abf41d3bcda8d80e24d3e859bd9238afa">getGameSettingString</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>, <span class="keyword">const</span> std::string &amp;default_) = 0;
+<a name="l00222"></a>00222 
+<a name="l00223"></a>00223             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a7af4855ed629f199545a5a5b1dc24b33">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; changed) = 0;
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a00d2cf033d91e3bd565f0debea0f6887">executeInConsole</a> (<span class="keyword">const</span> std::string&amp; path) = 0;
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#adf334263f4d2de602ad82df89e343dd5">setLoadingProgress</a> (<span class="keyword">const</span> std::string&amp; stage, <span class="keywordtype">int</span> depth, <span class="keywordtype">int</span> current, <span class="keywordtype">int</span> total) = 0;
+<a name="l00228"></a>00228             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a7e65d9822146789f58897cf3c381f9b2">loadingDone</a>() = 0;
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a71008d412e0bc3e4b60ea027795644ef">enableRest</a>() = 0;
+<a name="l00231"></a>00231             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1WindowManager.html#a2cf63d51b1f446421252ff422e4e6431">getRestEnabled</a>() = 0;
+<a name="l00232"></a>00232 
+<a name="l00233"></a>00233             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1WindowManager.html#a36a4751f56d3d7479879209d8db1eb5a">getPlayerSleeping</a>() = 0;
+<a name="l00234"></a>00234             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#ab26717f84d10dd3622632cc3247aed8a">wakeUpPlayer</a>() = 0;
+<a name="l00235"></a>00235 
+<a name="l00236"></a>00236             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#abfa2c05b22d5e358f109edd13f683b80">startSpellMaking</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor) = 0;
+<a name="l00237"></a>00237             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a55b2635d3e14729c70f6766dbe3c1d65">startEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor) = 0;
+<a name="l00238"></a>00238             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#ab23eef49c49982d7116bf93ba4836e4d">startTraining</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor) = 0;
+<a name="l00239"></a>00239 
+<a name="l00240"></a>00240             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1WindowManager.html#a9119af297460b3835036dc70fe9322cf">changePointer</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
+<a name="l00241"></a>00241 
+<a name="l00242"></a>00242             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; <a class="code" href="classMWBase_1_1WindowManager.html#ae21743c315c85356ba44eb5a03e013d4">getTranslationDataStorage</a>() <span class="keyword">const</span> = 0;
+<a name="l00243"></a>00243     };
+<a name="l00244"></a>00244 }
+<a name="l00245"></a>00245 
+<a name="l00246"></a>00246 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

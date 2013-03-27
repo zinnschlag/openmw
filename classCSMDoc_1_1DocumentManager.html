@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -78,8 +79,7 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#af8dd8df97a4681a69dba10751459f3b2">DocumentManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a390e20a3f9e11f660037f05aec2b0d00">~DocumentManager</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMDoc_1_1Document.html">Document</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a48b841d988dc4383b527af64f4bf51d5">addDocument</a> (const std::string &amp;name)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The ownership of the returned document is not transferred to the caller.  <a href="#a48b841d988dc4383b527af64f4bf51d5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMDoc_1_1Document.html">Document</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#adf399bf1fc83c9272848df0e32ab4dba">addDocument</a> (const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a3a71a028c151630ff0966e143f73f4aa">removeDocument</a> (<a class="el" href="classCSMDoc_1_1Document.html">Document</a> *document)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -140,22 +140,37 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a48b841d988dc4383b527af64f4bf51d5"></a><!-- doxytag: member="CSMDoc::DocumentManager::addDocument" ref="a48b841d988dc4383b527af64f4bf51d5" args="(const std::string &amp;name)" -->
+<a class="anchor" id="adf399bf1fc83c9272848df0e32ab4dba"></a><!-- doxytag: member="CSMDoc::DocumentManager::addDocument" ref="adf399bf1fc83c9272848df0e32ab4dba" args="(const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> * <a class="el" href="classCSMDoc_1_1DocumentManager.html#a48b841d988dc4383b527af64f4bf51d5">CSMDoc::DocumentManager::addDocument</a> </td>
+          <td class="memname"><a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> * <a class="el" href="classCSMDoc_1_1DocumentManager.html#adf399bf1fc83c9272848df0e32ab4dba">CSMDoc::DocumentManager::addDocument</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; boost::filesystem::path &gt; &amp;&#160;</td>
+          <td class="paramname"><em>files</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>new_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>The ownership of the returned document is not transferred to the caller. </p>
+<p>The ownership of the returned document is not transferred to the caller.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_</td><td>Do not load the last content file in <em>files</em> and instead create in an appropriate way. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -216,7 +231,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

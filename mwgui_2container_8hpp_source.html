@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -142,71 +143,75 @@
 <a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a8f983ad7dd3004560037a15aace367de">drawItems</a>();
 <a name="l00083"></a>00083 
 <a name="l00084"></a>00084     <span class="keyword">protected</span>:
-<a name="l00085"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a7f2a0650b586a86acf4afddb1d02bf8b">00085</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1ContainerBase.html#a7f2a0650b586a86acf4afddb1d02bf8b">mItemView</a>;
-<a name="l00086"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a9b6661e1f890c9ae0f527d10969a514c">00086</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1ContainerBase.html#a9b6661e1f890c9ae0f527d10969a514c">mContainerWidget</a>;
+<a name="l00085"></a><a class="code" href="classMWGui_1_1ContainerBase.html#acb47473277dbe5b44671b347206d34ed">00085</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#acb47473277dbe5b44671b347206d34ed">mDisplayEquippedItems</a>;
+<a name="l00086"></a><a class="code" href="classMWGui_1_1ContainerBase.html#ad871647d441c1ea71ae893c2c235bb6b">00086</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#ad871647d441c1ea71ae893c2c235bb6b">mHighlightEquippedItems</a>;
 <a name="l00087"></a>00087 
-<a name="l00088"></a><a class="code" href="classMWGui_1_1ContainerBase.html#acad9bceb504f734f752c9c827fb44eaf">00088</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1ContainerBase.html#acad9bceb504f734f752c9c827fb44eaf">mSelectedItem</a>;
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classMWGui_1_1ContainerBase.html#ad58fa9de9fc0371aca7cd0f409c50d05">00090</a>         <a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* <a class="code" href="classMWGui_1_1ContainerBase.html#ad58fa9de9fc0371aca7cd0f409c50d05">mDragAndDrop</a>;
-<a name="l00091"></a>00091 
-<a name="l00092"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a9ee0d4f627be06c75f2ab8a4902a5f27">00092</a>         <a class="code" href="classMWGui_1_1ContainerBase.html#a402852007c8251936d09c009a14b9f31">Filter</a> <a class="code" href="classMWGui_1_1ContainerBase.html#a9ee0d4f627be06c75f2ab8a4902a5f27">mFilter</a>;
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094         <span class="comment">// bought items are put in a separate ContainerStore so that they don&#39;t stack with other (not bought) items.</span>
-<a name="l00095"></a><a class="code" href="classMWGui_1_1ContainerBase.html#aabe3cb13e10f9a1cd18df92416bb5c5a">00095</a>         <a class="code" href="classMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a> <a class="code" href="classMWGui_1_1ContainerBase.html#aabe3cb13e10f9a1cd18df92416bb5c5a">mBoughtItems</a>;
+<a name="l00088"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a7f2a0650b586a86acf4afddb1d02bf8b">00088</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1ContainerBase.html#a7f2a0650b586a86acf4afddb1d02bf8b">mItemView</a>;
+<a name="l00089"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a9b6661e1f890c9ae0f527d10969a514c">00089</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1ContainerBase.html#a9b6661e1f890c9ae0f527d10969a514c">mContainerWidget</a>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classMWGui_1_1ContainerBase.html#acad9bceb504f734f752c9c827fb44eaf">00091</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1ContainerBase.html#acad9bceb504f734f752c9c827fb44eaf">mSelectedItem</a>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classMWGui_1_1ContainerBase.html#ad58fa9de9fc0371aca7cd0f409c50d05">00093</a>         <a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* <a class="code" href="classMWGui_1_1ContainerBase.html#ad58fa9de9fc0371aca7cd0f409c50d05">mDragAndDrop</a>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a9ee0d4f627be06c75f2ab8a4902a5f27">00095</a>         <a class="code" href="classMWGui_1_1ContainerBase.html#a402852007c8251936d09c009a14b9f31">Filter</a> <a class="code" href="classMWGui_1_1ContainerBase.html#a9ee0d4f627be06c75f2ab8a4902a5f27">mFilter</a>;
 <a name="l00096"></a>00096 
-<a name="l00097"></a>00097         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a46f8e13ae65966bb4b64f466e4e0c8b8">onSelectedItem</a>(MyGUI::Widget* _sender);
-<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#aa2e2610b88b6a039b32f6173a185b489">onContainerClicked</a>(MyGUI::Widget* _sender);
-<a name="l00099"></a>00099         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#adc810bb48c28461960571c65c10d2a58">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
-<a name="l00100"></a>00100 
-<a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#aab7ff39d2f46ca4a2f5257c21ed8fd6e" title="start dragging an item (drag &amp; drop)">startDragItem</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
+<a name="l00097"></a>00097         <span class="comment">// bought items are put in a separate ContainerStore so that they don&#39;t stack with other (not bought) items.</span>
+<a name="l00098"></a><a class="code" href="classMWGui_1_1ContainerBase.html#aabe3cb13e10f9a1cd18df92416bb5c5a">00098</a>         <a class="code" href="classMWWorld_1_1ContainerStore.html">MWWorld::ContainerStore</a> <a class="code" href="classMWGui_1_1ContainerBase.html#aabe3cb13e10f9a1cd18df92416bb5c5a">mBoughtItems</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a46f8e13ae65966bb4b64f466e4e0c8b8">onSelectedItem</a>(MyGUI::Widget* _sender);
+<a name="l00101"></a>00101         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#aa2e2610b88b6a039b32f6173a185b489">onContainerClicked</a>(MyGUI::Widget* _sender);
+<a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#adc810bb48c28461960571c65c10d2a58">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
 <a name="l00103"></a>00103 
-<a name="l00105"></a>00105         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a0014b3780252c248b01829a2c3246329" title="sell an item from this container">sellItem</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
+<a name="l00105"></a>00105         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#aab7ff39d2f46ca4a2f5257c21ed8fd6e" title="start dragging an item (drag &amp; drop)">startDragItem</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
 <a name="l00106"></a>00106 
-<a name="l00108"></a>00108         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#ac36d7d23ae256dfdcb91bfdc7845b347" title="sell an item from this container, that was previously just bought">sellAlreadyBoughtItem</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
+<a name="l00108"></a>00108         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a0014b3780252c248b01829a2c3246329" title="sell an item from this container">sellItem</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
 <a name="l00109"></a>00109 
-<a name="l00110"></a>00110         std::string <a class="code" href="classMWGui_1_1ContainerBase.html#a86252cc033ae0637dfb249d33a4d0fdf">getCountString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
-<a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a7c713653b47d8bd6182ca24bb7d75907">00112</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a7c713653b47d8bd6182ca24bb7d75907">isTradeWindow</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
-<a name="l00113"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a0ae91572ef603ccf2a76475a283ff3eb">00113</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a0ae91572ef603ccf2a76475a283ff3eb">isInventory</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
-<a name="l00114"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a8333f3ba59f18e5d8fd8e112295168e5">00114</a>         <span class="keyword">virtual</span> std::vector&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1ContainerBase.html#a8333f3ba59f18e5d8fd8e112295168e5">getEquippedItems</a>() { <span class="keywordflow">return</span> std::vector&lt;MWWorld::Ptr&gt;(); }
-<a name="l00115"></a><a class="code" href="classMWGui_1_1ContainerBase.html#ad8166f6971abd6197a61b6d66d60a9f9">00115</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#ad8166f6971abd6197a61b6d66d60a9f9">_unequipItem</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item) { ; }
-<a name="l00116"></a>00116 
-<a name="l00117"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a2fdb9b0e625af256999d6179b4ed355c">00117</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a2fdb9b0e625af256999d6179b4ed355c">isTrading</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
-<a name="l00118"></a>00118 
-<a name="l00119"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a6fb3fcc9f1aa4f5285994a057d0bdc1e">00119</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a6fb3fcc9f1aa4f5285994a057d0bdc1e">onSelectedItemImpl</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item) { ; }
-<a name="l00120"></a>00120 
-<a name="l00121"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a6c53ed0a45d33dffce07145059d830bc">00121</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a6c53ed0a45d33dffce07145059d830bc">ignoreEquippedItems</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
-<a name="l00122"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a46e433cfb309f18aa1b22a328a621366">00122</a>         <span class="keyword">virtual</span> std::vector&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1ContainerBase.html#a46e433cfb309f18aa1b22a328a621366">itemsToIgnore</a>() { <span class="keywordflow">return</span> std::vector&lt;MWWorld::Ptr&gt;(); }
+<a name="l00111"></a>00111         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#ac36d7d23ae256dfdcb91bfdc7845b347" title="sell an item from this container, that was previously just bought">sellAlreadyBoughtItem</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113         std::string <a class="code" href="classMWGui_1_1ContainerBase.html#a86252cc033ae0637dfb249d33a4d0fdf">getCountString</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
+<a name="l00114"></a>00114 
+<a name="l00115"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a7c713653b47d8bd6182ca24bb7d75907">00115</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a7c713653b47d8bd6182ca24bb7d75907">isTradeWindow</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
+<a name="l00116"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a0ae91572ef603ccf2a76475a283ff3eb">00116</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a0ae91572ef603ccf2a76475a283ff3eb">isInventory</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
+<a name="l00117"></a>00117         <span class="keyword">virtual</span> std::vector&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1ContainerBase.html#a4542f74de0645302d6ce6b08748a964a">getEquippedItems</a>();
+<a name="l00118"></a><a class="code" href="classMWGui_1_1ContainerBase.html#ad8166f6971abd6197a61b6d66d60a9f9">00118</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#ad8166f6971abd6197a61b6d66d60a9f9">_unequipItem</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item) { ; }
+<a name="l00119"></a>00119 
+<a name="l00120"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a2fdb9b0e625af256999d6179b4ed355c">00120</a>         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a2fdb9b0e625af256999d6179b4ed355c">isTrading</a>() { <span class="keywordflow">return</span> <span class="keyword">false</span>; }
+<a name="l00121"></a>00121 
+<a name="l00122"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a6fb3fcc9f1aa4f5285994a057d0bdc1e">00122</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a6fb3fcc9f1aa4f5285994a057d0bdc1e">onSelectedItemImpl</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item) { ; }
 <a name="l00123"></a>00123 
-<a name="l00124"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a558696650ad8213214fd748d5a59b8d9">00124</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a558696650ad8213214fd748d5a59b8d9">notifyContentChanged</a>() { ; }
-<a name="l00125"></a>00125     };
-<a name="l00126"></a>00126 
-<a name="l00127"></a><a class="code" href="classMWGui_1_1ContainerWindow.html">00127</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ContainerWindow.html">ContainerWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ContainerBase.html">ContainerBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00128"></a>00128     {
-<a name="l00129"></a>00129     <span class="keyword">public</span>:
-<a name="l00130"></a>00130         <a class="code" href="classMWGui_1_1ContainerWindow.html#a36910d114c8a3c5246a3faa58025c0eb">ContainerWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager,<a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* dragAndDrop);
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#ae677496c4cb305dceb3561405239fa19">~ContainerWindow</a>();
+<a name="l00124"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a46e433cfb309f18aa1b22a328a621366">00124</a>         <span class="keyword">virtual</span> std::vector&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1ContainerBase.html#a46e433cfb309f18aa1b22a328a621366">itemsToIgnore</a>() { <span class="keywordflow">return</span> std::vector&lt;MWWorld::Ptr&gt;(); }
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="classMWGui_1_1ContainerBase.html#a558696650ad8213214fd748d5a59b8d9">00126</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerBase.html#a558696650ad8213214fd748d5a59b8d9">notifyContentChanged</a>() { ; }
+<a name="l00127"></a>00127     };
+<a name="l00128"></a>00128 
+<a name="l00129"></a><a class="code" href="classMWGui_1_1ContainerWindow.html">00129</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ContainerWindow.html">ContainerWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ContainerBase.html">ContainerBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00130"></a>00130     {
+<a name="l00131"></a>00131     <span class="keyword">public</span>:
+<a name="l00132"></a>00132         <a class="code" href="classMWGui_1_1ContainerWindow.html#a36910d114c8a3c5246a3faa58025c0eb">ContainerWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager,<a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* dragAndDrop);
 <a name="l00133"></a>00133 
-<a name="l00134"></a>00134         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">open</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> container);
+<a name="l00134"></a>00134         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#ae677496c4cb305dceb3561405239fa19">~ContainerWindow</a>();
 <a name="l00135"></a>00135 
-<a name="l00136"></a>00136     <span class="keyword">protected</span>:
-<a name="l00137"></a><a class="code" href="classMWGui_1_1ContainerWindow.html#acb6464ccb955c3e75e2aaa6106098b74">00137</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1ContainerWindow.html#acb6464ccb955c3e75e2aaa6106098b74">mTakeButton</a>;
-<a name="l00138"></a><a class="code" href="classMWGui_1_1ContainerWindow.html#a7d17bde9552a67ccb7997d2c8d8d8f2d">00138</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1ContainerWindow.html#a7d17bde9552a67ccb7997d2c8d8d8f2d">mCloseButton</a>;
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#a582e2e241b6b01d55275b9b31d680c9e">onWindowResize</a>(MyGUI::Window* <a class="code" href="ogre__common_8cpp.html#ae1f8b65b3ad5afe5312d8963e3cc7f60">window</a>);
-<a name="l00141"></a>00141         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#ac5a9f89022238af79f24030415aa7410">onCloseButtonClicked</a>(MyGUI::Widget* _sender);
-<a name="l00142"></a>00142         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#a143233e48ed0b44d6e2768c9760d6700">onTakeAllButtonClicked</a>(MyGUI::Widget* _sender);
-<a name="l00143"></a>00143 
-<a name="l00144"></a>00144         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#ad4874dcdb9481029a40f6b15b44db9b5" title="called when reference has become unavailable">onReferenceUnavailable</a>();
-<a name="l00145"></a>00145     };
-<a name="l00146"></a>00146 }
-<a name="l00147"></a>00147 <span class="preprocessor">#endif // CONTAINER_H</span>
+<a name="l00136"></a>00136         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">open</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> container, <span class="keywordtype">bool</span> loot=<span class="keyword">false</span>);
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     <span class="keyword">protected</span>:
+<a name="l00139"></a><a class="code" href="classMWGui_1_1ContainerWindow.html#a567118460e73d436ab6918afef02d3b9">00139</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1ContainerWindow.html#a567118460e73d436ab6918afef02d3b9">mDisposeCorpseButton</a>;
+<a name="l00140"></a><a class="code" href="classMWGui_1_1ContainerWindow.html#acb6464ccb955c3e75e2aaa6106098b74">00140</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1ContainerWindow.html#acb6464ccb955c3e75e2aaa6106098b74">mTakeButton</a>;
+<a name="l00141"></a><a class="code" href="classMWGui_1_1ContainerWindow.html#a7d17bde9552a67ccb7997d2c8d8d8f2d">00141</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1ContainerWindow.html#a7d17bde9552a67ccb7997d2c8d8d8f2d">mCloseButton</a>;
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#a582e2e241b6b01d55275b9b31d680c9e">onWindowResize</a>(MyGUI::Window* <a class="code" href="ogre__common_8cpp.html#ae1f8b65b3ad5afe5312d8963e3cc7f60">window</a>);
+<a name="l00144"></a>00144         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#ac5a9f89022238af79f24030415aa7410">onCloseButtonClicked</a>(MyGUI::Widget* _sender);
+<a name="l00145"></a>00145         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#a143233e48ed0b44d6e2768c9760d6700">onTakeAllButtonClicked</a>(MyGUI::Widget* _sender);
+<a name="l00146"></a>00146         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#a5d98591c087f8895ae1f829761463810">onDisposeCorpseButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ContainerWindow.html#ad4874dcdb9481029a40f6b15b44db9b5" title="called when reference has become unavailable">onReferenceUnavailable</a>();
+<a name="l00149"></a>00149     };
+<a name="l00150"></a>00150 }
+<a name="l00151"></a>00151 <span class="preprocessor">#endif // CONTAINER_H</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

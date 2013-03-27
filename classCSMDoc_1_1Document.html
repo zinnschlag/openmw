@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -86,7 +87,7 @@ Signals</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a0f1ed9a09d8f39663255100f6168b5dd">progress</a> (int current, int max, int type, int threads, <a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a6db059ad589f863cf628e6d7b2a1ea80">Document</a> (const std::string &amp;name)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ab49af7b51149c463ac2994963672b4b6">Document</a> (const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QUndoStack &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a957f3e6dda44e1e37da75b2a4555eb8f">getUndoStack</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a5777353f5e927b32a9790eafc4b9bd90">getState</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a7145b57f82737553e9378c2c6192d80f">getName</a> () const </td></tr>
@@ -107,6 +108,12 @@ Private Slots</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a3151defec1f537249a449cf0a69ef73f">Document</a> (const <a class="el" href="classCSMDoc_1_1Document.html">Document</a> &amp;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMDoc_1_1Document.html">Document</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a25d5035243b8d700993851e0b179dccb">operator=</a> (const <a class="el" href="classCSMDoc_1_1Document.html">Document</a> &amp;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ae34e5d0ef5d79c1cc454da70eb9de540">load</a> (const std::vector&lt; boost::filesystem::path &gt;::const_iterator &amp;begin, const std::vector&lt; boost::filesystem::path &gt;::const_iterator &amp;end, bool lastAsModified)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a69cc2bb93282c32d87e568269bf02747">createBase</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a0e8f10248304816951b91d1009480faf">addOptionalGmsts</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a2768b1a3799d835976998159d30bcae7">addOptionalGlobals</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a86ba6e35b258dff5b7d102cb98947d9f">addOptionalGmst</a> (const <a class="el" href="structESM_1_1GameSetting.html">ESM::GameSetting</a> &amp;gmst)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ada5a5f6cf619ff8a6f23cb4b45b5b844">addOptionalGlobal</a> (const <a class="el" href="structESM_1_1Global.html">ESM::Global</a> &amp;global)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#afd3898225ca22e98281caa70cb96e26c">mName</a></td></tr>
@@ -136,23 +143,35 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6db059ad589f863cf628e6d7b2a1ea80"></a><!-- doxytag: member="CSMDoc::Document::Document" ref="a6db059ad589f863cf628e6d7b2a1ea80" args="(const std::string &amp;name)" -->
+<a class="anchor" id="ab49af7b51149c463ac2994963672b4b6"></a><!-- doxytag: member="CSMDoc::Document::Document" ref="ab49af7b51149c463ac2994963672b4b6" args="(const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classCSMDoc_1_1Document.html#a3151defec1f537249a449cf0a69ef73f">CSMDoc::Document::Document</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; boost::filesystem::path &gt; &amp;&#160;</td>
+          <td class="paramname"><em>files</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>new_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>replace name with ESX list </dd></dl>
-<p>&lt;</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>replace with ESX list </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>adjust last file name: </dd></dl>
+<ul>
+<li>make sure it is located in the data-local directory (adjust path if necessary) </li>
+<li>make sure the extension matches the new scheme (change it if necesarry) </li>
+</ul>
 
 </div>
 </div>
@@ -171,6 +190,89 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ada5a5f6cf619ff8a6f23cb4b45b5b844"></a><!-- doxytag: member="CSMDoc::Document::addOptionalGlobal" ref="ada5a5f6cf619ff8a6f23cb4b45b5b844" args="(const ESM::Global &amp;global)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#ada5a5f6cf619ff8a6f23cb4b45b5b844">CSMDoc::Document::addOptionalGlobal</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1Global.html">ESM::Global</a> &amp;&#160;</td>
+          <td class="paramname"><em>global</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2768b1a3799d835976998159d30bcae7"></a><!-- doxytag: member="CSMDoc::Document::addOptionalGlobals" ref="a2768b1a3799d835976998159d30bcae7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#a2768b1a3799d835976998159d30bcae7">CSMDoc::Document::addOptionalGlobals</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a86ba6e35b258dff5b7d102cb98947d9f"></a><!-- doxytag: member="CSMDoc::Document::addOptionalGmst" ref="a86ba6e35b258dff5b7d102cb98947d9f" args="(const ESM::GameSetting &amp;gmst)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#a86ba6e35b258dff5b7d102cb98947d9f">CSMDoc::Document::addOptionalGmst</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1GameSetting.html">ESM::GameSetting</a> &amp;&#160;</td>
+          <td class="paramname"><em>gmst</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0e8f10248304816951b91d1009480faf"></a><!-- doxytag: member="CSMDoc::Document::addOptionalGmsts" ref="a0e8f10248304816951b91d1009480faf" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#a0e8f10248304816951b91d1009480faf">CSMDoc::Document::addOptionalGmsts</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a69cc2bb93282c32d87e568269bf02747"></a><!-- doxytag: member="CSMDoc::Document::createBase" ref="a69cc2bb93282c32d87e568269bf02747" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#a69cc2bb93282c32d87e568269bf02747">CSMDoc::Document::createBase</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>add GMSTs </dd></dl>
 
 </div>
 </div>
@@ -219,7 +321,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>replace with ESX list </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>replace with ESX list </dd></dl>
 
 </div>
 </div>
@@ -271,6 +373,45 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae34e5d0ef5d79c1cc454da70eb9de540"></a><!-- doxytag: member="CSMDoc::Document::load" ref="ae34e5d0ef5d79c1cc454da70eb9de540" args="(const std::vector&lt; boost::filesystem::path &gt;::const_iterator &amp;begin, const std::vector&lt; boost::filesystem::path &gt;::const_iterator &amp;end, bool lastAsModified)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#ae34e5d0ef5d79c1cc454da70eb9de540">CSMDoc::Document::load</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; boost::filesystem::path &gt;::const_iterator &amp;&#160;</td>
+          <td class="paramname"><em>begin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; boost::filesystem::path &gt;::const_iterator &amp;&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>lastAsModified</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lastAsModified</td><td>Store the last file in Modified instead of merging it into Base. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -504,7 +645,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>replace name with ESX list </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>replace name with ESX list </dd></dl>
 
 </div>
 </div>
@@ -572,7 +713,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

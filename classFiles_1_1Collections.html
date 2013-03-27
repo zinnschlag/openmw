@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -80,6 +81,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Directories are listed with increasing priority.  <a href="#a979fb02249c563f49fd5439a96bd29e0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1Collections.html#a23427b3301886bc5543481881e90f9e9">Collections</a> (const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> &amp;directories, bool foldCase)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classFiles_1_1MultiDirCollection.html">MultiDirCollection</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1Collections.html#a115ee60576c97eb804dceb90e1891dde">getCollection</a> (const std::string &amp;extension) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1Collections.html#a5ffc81ffe77b0cc81da1510a6005e475">getPath</a> (const std::string &amp;file) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1Collections.html#a9134e10740f20278b3b82473767a8c42">doesExist</a> (const std::string &amp;file) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">Files::PathContainer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFiles_1_1Collections.html#ac1043b02320cf3d635f451eef661d321">getPaths</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -153,6 +156,24 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a9134e10740f20278b3b82473767a8c42"></a><!-- doxytag: member="Files::Collections::doesExist" ref="a9134e10740f20278b3b82473767a8c42" args="(const std::string &amp;file) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classFiles_1_1Collections.html#a9134e10740f20278b3b82473767a8c42">Files::Collections::doesExist</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>Does a file with the given name exist? </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a115ee60576c97eb804dceb90e1891dde"></a><!-- doxytag: member="Files::Collections::getCollection" ref="a115ee60576c97eb804dceb90e1891dde" args="(const std::string &amp;extension) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -167,6 +188,25 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5ffc81ffe77b0cc81da1510a6005e475"></a><!-- doxytag: member="Files::Collections::getPath" ref="a5ffc81ffe77b0cc81da1510a6005e475" args="(const std::string &amp;file) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::filesystem::path <a class="el" href="classFiles_1_1Collections.html#a5ffc81ffe77b0cc81da1510a6005e475">Files::Collections::getPath</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return full path (including filename) of <em>file</em>.</p>
+<p>If the file does not exist in any of the collection's directories, an exception is thrown. <em>file</em> must include the extension. </p>
 
 </div>
 </div>
@@ -234,7 +274,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

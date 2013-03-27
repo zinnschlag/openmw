@@ -44,6 +44,7 @@
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
   <div id="navrow2" class="tabs2">
@@ -103,7 +104,7 @@
 <a name="l00043"></a>00043             <span class="keyword">const</span> <a class="code" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a>* effect =
 <a name="l00044"></a>00044                 <a class="code" href="classMWBase_1_1Environment.html#a73f12633762b049c03c80fe215873faa" title="Return instance of this class.">MWBase::Environment::get</a>().<a class="code" href="classMWBase_1_1Environment.html#ae14e166d8f5ff8629be119333d502660">getWorld</a>()-&gt;<a class="code" href="classMWBase_1_1World.html#a2ba0910cb944786065e37dc5f3fcda35">getStore</a>().<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a>&gt;().<a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a>(it-&gt;mEffectID);
 <a name="l00045"></a>00045             <span class="keywordtype">int</span> _school = effect-&gt;<a class="code" href="structESM_1_1MagicEffect.html#a77809644508acdf85b1713e4c9b3647b">mData</a>.<a class="code" href="structESM_1_1MagicEffect_1_1MEDTstruct.html#a79e0d321ccc849cf37f391832d14ea4d">mSchool</a>;
-<a name="l00046"></a>00046             <span class="keywordtype">int</span> _skillLevel = stats.<a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<a class="code" href="namespaceMWMechanics.html#aafc37d50817f9011398c6756f204cccb">spellSchoolToSkill</a>(_school)).<a class="code" href="classMWMechanics_1_1Stat.html#a06aa5b430ca2e74a1516d474106ba3d9">getModified</a>();
+<a name="l00046"></a>00046             <span class="keywordtype">int</span> _skillLevel = stats.<a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<a class="code" href="namespaceMWMechanics.html#aafc37d50817f9011398c6756f204cccb">spellSchoolToSkill</a>(_school)).<a class="code" href="classMWMechanics_1_1Stat.html#a736beef5e63468fea1198abbc19c2acc">getModified</a>();
 <a name="l00047"></a>00047 
 <a name="l00048"></a>00048             <span class="keywordflow">if</span> (school == -1)
 <a name="l00049"></a>00049             {
@@ -142,15 +143,15 @@
 <a name="l00088"></a>00088         <a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a>&amp; stats = <a class="code" href="classMWWorld_1_1Class.html#ab7e4f668b03c9b77ff8e29735d894da6" title="If there is no class for this key, an exception is thrown.">MWWorld::Class::get</a>(actor).<a class="code" href="classMWWorld_1_1Class.html#a288815e0879a88ccd87b4871be64202b">getNpcStats</a>(actor);
 <a name="l00089"></a>00089         <a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a>&amp; creatureStats = <a class="code" href="classMWWorld_1_1Class.html#ab7e4f668b03c9b77ff8e29735d894da6" title="If there is no class for this key, an exception is thrown.">MWWorld::Class::get</a>(actor).<a class="code" href="classMWWorld_1_1Class.html#a5095a30e5baa5742b3d393610fd73d60">getCreatureStats</a>(actor);
 <a name="l00090"></a>00090 
-<a name="l00091"></a>00091         <span class="keywordtype">int</span> skillLevel = stats.<a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<a class="code" href="namespaceMWMechanics.html#af831c31fc2cdbe75a32affef1098074b">getSpellSchool</a>(spell, actor)).<a class="code" href="classMWMechanics_1_1Stat.html#a06aa5b430ca2e74a1516d474106ba3d9">getModified</a>();
+<a name="l00091"></a>00091         <span class="keywordtype">int</span> skillLevel = stats.<a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<a class="code" href="namespaceMWMechanics.html#af831c31fc2cdbe75a32affef1098074b">getSpellSchool</a>(spell, actor)).<a class="code" href="classMWMechanics_1_1Stat.html#a736beef5e63468fea1198abbc19c2acc">getModified</a>();
 <a name="l00092"></a>00092 
 <a name="l00093"></a>00093         <span class="comment">// Sound magic effect (reduces spell casting chance)</span>
 <a name="l00094"></a>00094         <span class="keywordtype">int</span> soundMagnitude = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#a2b7019ffe2ea9ecaace020bd12845e68">getMagicEffects</a>().<a class="code" href="classMWMechanics_1_1MagicEffects.html#aa9771d1e0e2d3fa1378fc3bb0c338a28" title="This function can safely be used for keys that are not present.">get</a> (<a class="code" href="structMWMechanics_1_1EffectKey.html">MWMechanics::EffectKey</a> (48)).<a class="code" href="structMWMechanics_1_1EffectParam.html#a50ce99011aa12bfea65cf047809e11ed">mMagnitude</a>;
 <a name="l00095"></a>00095 
-<a name="l00096"></a>00096         <span class="keywordtype">int</span> willpower = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">getAttribute</a>(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5ca821c7cd333f3894c3779c67f40e8c0ff">ESM::Attribute::Willpower</a>).<a class="code" href="classMWMechanics_1_1Stat.html#a06aa5b430ca2e74a1516d474106ba3d9">getModified</a>();
-<a name="l00097"></a>00097         <span class="keywordtype">int</span> luck = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">getAttribute</a>(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5cac885a4a01e36e15de7fbf63664b66420">ESM::Attribute::Luck</a>).<a class="code" href="classMWMechanics_1_1Stat.html#a06aa5b430ca2e74a1516d474106ba3d9">getModified</a>();
+<a name="l00096"></a>00096         <span class="keywordtype">int</span> willpower = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">getAttribute</a>(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5ca821c7cd333f3894c3779c67f40e8c0ff">ESM::Attribute::Willpower</a>).<a class="code" href="classMWMechanics_1_1Stat.html#a736beef5e63468fea1198abbc19c2acc">getModified</a>();
+<a name="l00097"></a>00097         <span class="keywordtype">int</span> luck = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#a628a4bd7ffd60d84d432898892b9545e">getAttribute</a>(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5cac885a4a01e36e15de7fbf63664b66420">ESM::Attribute::Luck</a>).<a class="code" href="classMWMechanics_1_1Stat.html#a736beef5e63468fea1198abbc19c2acc">getModified</a>();
 <a name="l00098"></a>00098         <span class="keywordtype">int</span> currentFatigue = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#ae962c8518e43e517e2aec4d89a5aafe2">getFatigue</a>().<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>();
-<a name="l00099"></a>00099         <span class="keywordtype">int</span> maxFatigue = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#ae962c8518e43e517e2aec4d89a5aafe2">getFatigue</a>().<a class="code" href="classMWMechanics_1_1DynamicStat.html#a03c6dab9a06e4c3b533a3eedf7f05ee3">getModified</a>();
+<a name="l00099"></a>00099         <span class="keywordtype">int</span> maxFatigue = creatureStats.<a class="code" href="classMWMechanics_1_1CreatureStats.html#ae962c8518e43e517e2aec4d89a5aafe2">getFatigue</a>().<a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>();
 <a name="l00100"></a>00100         <span class="keywordtype">int</span> spellCost = spell-&gt;<a class="code" href="structESM_1_1Spell.html#ada0950e3b6d386037c12e1422a5ff9ae">mData</a>.<a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#a3e1391d11f3f59c07b504bc3d02e5fcf">mCost</a>;
 <a name="l00101"></a>00101 
 <a name="l00102"></a>00102         <span class="comment">// There we go, all needed variables are there, lets go</span>
@@ -174,7 +175,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 20 2013 14:40:01 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
