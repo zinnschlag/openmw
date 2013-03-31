@@ -288,8 +288,6 @@ namespace MWInput
                 triedToMove = true;
                 mPlayer.setLeftRight (1);
             }
-            else
-                mPlayer.setLeftRight (0);
 
             if (actionIsActive(A_MoveForward))
             {
@@ -303,8 +301,6 @@ namespace MWInput
                 mPlayer.setAutoMove (false);
                 mPlayer.setForwardBackward (-1);
             }
-            else
-                mPlayer.setForwardBackward (0);
 
             mPlayer.setSneak(actionIsActive(A_Sneak));
 
@@ -313,8 +309,6 @@ namespace MWInput
                 mPlayer.setUpDown (1);
                 triedToMove = true;
             }
-            else
-                mPlayer.setUpDown (0);
 
             if (mAlwaysRunActive)
                 mPlayer.setRunState(!actionIsActive(A_Run));
@@ -544,11 +538,11 @@ namespace MWInput
         {
             resetIdleTime();
 
-            float x = arg.state.X.rel * mCameraSensitivity * 0.2;
-            float y = arg.state.Y.rel * mCameraSensitivity * 0.2 * (mInvertY ? -1 : 1) * mUIYMultiplier;
+            float x = arg.state.X.rel * mCameraSensitivity * 0.2f;
+            float y = arg.state.Y.rel * mCameraSensitivity * 0.2f * (mInvertY ? -1 : 1) * mUIYMultiplier;
 
-            MWBase::World *world = MWBase::Environment::get().getWorld();
-            world->rotateObject(world->getPlayer().getPlayer(), -y, 0.f, x, true);
+            mPlayer.setYaw(x);
+            mPlayer.setPitch(-y);
 
             if (arg.state.Z.rel)
                 MWBase::Environment::get().getWorld()->changeVanityModeScale(arg.state.Z.rel);
