@@ -158,7 +158,7 @@ namespace MWDialogue
                     std::cout << MWWorld::Class::get (actor).getName (actor);
                     if(MWWorld::Class::get (actor).getName (actor) == "Vivec")
                     {
-                        std::string text = "You may ask why i wanted to become god? It's simple: I just wanted to be like God Emperor of OpenMW called Zini…";
+                        std::string text = "You ask why I wanted to become a god? It's simple: I just wanted to be like the God Emperor of OpenMW called Zini.";
                         parseText(text);
                         MWScript::InterpreterContext interpreterContext(&mActor.getRefData().getLocals(),mActor);
                         win->addText (Interpreter::fixDefinesDialog(text, interpreterContext));
