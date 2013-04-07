@@ -362,6 +362,7 @@ namespace MWWorld
             }
 
             virtual void renderPlayer();
+            virtual bool isVanityOrPreviewModeEnabled();
 
             virtual void setupExternalRendering (MWRender::ExternalRendering& rendering);
 

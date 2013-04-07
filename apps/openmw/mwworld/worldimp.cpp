@@ -1370,6 +1370,11 @@ namespace MWWorld
         mPhysics->addActor(mPlayer->getPlayer());
     }
 
+    bool World::isVanityOrPreviewModeEnabled()
+    {
+        return mRendering->isVanityOrPreviewModeEnabled();
+    }
+
     void World::setupExternalRendering (MWRender::ExternalRendering& rendering)
     {
         mRendering->setupExternalRendering (rendering);

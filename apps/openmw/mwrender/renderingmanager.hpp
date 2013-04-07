@@ -205,6 +205,8 @@ class RenderingManager: private RenderingInterface, public Ogre::WindowEventList
     void stopVideo();
     void frameStarted(float dt);
 
+    bool isVanityOrPreviewModeEnabled();
+
   protected:
 	virtual void windowResized(Ogre::RenderWindow* rw);
     virtual void windowClosed(Ogre::RenderWindow* rw);
