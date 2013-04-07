@@ -315,12 +315,13 @@ namespace MWInput
                 mPlayer.setRunState(actionIsActive(A_Run));
 
             // if player tried to start moving, but can't (due to being overencumbered), display a notification.
-            if (triedToMove)
+            if (triedToMove || mPlayer.getAutoMove())
             {
                 MWWorld::Ptr player = MWBase::Environment::get().getWorld ()->getPlayer ().getPlayer ();
                 mOverencumberedMessageDelay -= dt;
                 if (MWWorld::Class::get(player).getEncumbrance(player) >= MWWorld::Class::get(player).getCapacity(player))
                 {
+                    mPlayer.setAutoMove(false);
                     if (mOverencumberedMessageDelay <= 0)
                     {
                         MWBase::Environment::get().getWindowManager ()->messageBox("#{sNotifyMessage59}");
