@@ -19,6 +19,7 @@
 #include "../mwmechanics/movement.hpp"
 
 #include "../mwworld/ptr.hpp"
+#include "../mwworld/player.hpp"
 #include "../mwworld/actiontalk.hpp"
 #include "../mwworld/actionopen.hpp"
 #include "../mwworld/inventorystore.hpp"
@@ -421,8 +422,13 @@ namespace MWClass
     {
         MWMechanics::Movement &movement = getMovementSettings(ptr);
         Ogre::Vector3 vec(movement.mPosition);
+
+        // Do not reset forwards value is player is automoving
+        MWWorld::Player &player = MWBase::Environment::get().getWorld()->getPlayer();
+        if(!player.getAutoMove() && player.getPlayer() == ptr)
+            movement.mPosition[1] = 0.0f;
+        
         movement.mPosition[0] = 0.0f;
-        movement.mPosition[1] = 0.0f;
         movement.mPosition[2] = 0.0f;
         return vec;
     }
