@@ -29,6 +29,7 @@
 #include "../mwbase/world.hpp"
 
 #include "../mwworld/class.hpp"
+#include "../mwworld/player.hpp"
 
 
 namespace MWMechanics
@@ -234,7 +235,8 @@ void CharacterController::update(float duration, Movement &movement)
             // Apply any sideways movement manually
             movement.mPosition[0] += vec.x * (speed*duration);
         }
-        else if(rot.z != 0.0f && !inwater && !sneak)
+        else if(rot.z != 0.0f && !inwater && !sneak && 
+            (mPtr != MWBase::Environment::get().getWorld()->getPlayer().getPlayer() || !MWBase::Environment::get().getWorld()->isVanityOrPreviewModeEnabled()))
         {
             if(rot.z > 0.0f)
                 setState(CharState_TurnRight, true);

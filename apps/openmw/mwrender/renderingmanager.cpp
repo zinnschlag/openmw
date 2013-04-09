@@ -945,4 +945,9 @@ void RenderingManager::frameStarted(float dt)
     mWater->frameStarted(dt);
 }
 
+bool RenderingManager::isVanityOrPreviewModeEnabled()
+{
+    return mPlayer->isVanityOrPreviewModeEnabled();    
+}
+
 } // namespace
