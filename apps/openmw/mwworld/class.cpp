@@ -264,6 +264,11 @@ namespace MWWorld
         throw std::runtime_error ("class can't be enchanted");
     }
 
+    int Class::canBeEquipped(const MWWorld::Ptr &npc, const MWWorld::Ptr &item) const
+    {
+        return 1;
+    }
+
     void Class::adjustPosition(const MWWorld::Ptr& ptr) const
     {
     }

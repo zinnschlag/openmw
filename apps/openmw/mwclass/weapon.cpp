@@ -384,6 +384,32 @@ namespace MWClass
             ref->mBase = record;
     }
 
+    int Weapon::canBeEquipped(const MWWorld::Ptr &npc, const MWWorld::Ptr &item) const
+    {
+        std::pair<std::vector<int>, bool> slots = MWWorld::Class::get(item).getEquipmentSlots(item);
+
+        // equip the item in the first free slot
+        for (std::vector<int>::const_iterator slot=slots.first.begin();
+            slot!=slots.first.end(); ++slot)
+        {
+            if(*slot == MWWorld::InventoryStore::Slot_CarriedRight)
+            {
+                if(item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::LongBladeTwoHand ||
+                item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::BluntTwoClose || 
+                item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::BluntTwoWide || 
+                item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::SpearTwoWide ||
+                item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::AxeTwoHand || 
+                item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::MarksmanBow || 
+                item.get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::MarksmanCrossbow)
+                {
+                    return 2;
+                }
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     boost::shared_ptr<MWWorld::Action> Weapon::use (const MWWorld::Ptr& ptr) const
     {
         boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionEquip(ptr));
