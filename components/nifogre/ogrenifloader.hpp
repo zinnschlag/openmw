@@ -39,11 +39,20 @@ namespace NifOgre
 
 typedef std::multimap<float,std::string> TextKeyMap;
 static const char sTextKeyExtraDataID[] = "TextKeyExtraData";
-struct EntityList {
-    std::vector<Ogre::Entity*> mEntities;
+struct ObjectList {
     Ogre::Entity *mSkelBase;
+    std::vector<Ogre::Entity*> mEntities;
+    std::vector<Ogre::ParticleSystem*> mParticles;
 
-    EntityList() : mSkelBase(0)
+    // We could actually have Ogre::Camera objects, but that means more
+    // maintenance when switching cameras. The information in the NiCamera node
+    // is pretty much useless too anyway. So instead, this is just a list of
+    // bones in the mSkelBase which are NiCamera nodes.
+    std::vector<Ogre::Bone*> mCameras;
+
+    std::vector<Ogre::Controller<Ogre::Real> > mControllers;
+
+    ObjectList() : mSkelBase(0)
     { }
 };
 
@@ -51,17 +60,37 @@ struct EntityList {
 class Loader
 {
 public:
-    static EntityList createEntities(Ogre::Entity *parent, const std::string &bonename,
-                                     Ogre::SceneNode *parentNode,
-                                     std::string name,
-                                     const std::string &group="General");
+    static ObjectList createObjects(Ogre::Entity *parent, const std::string &bonename,
+                                    Ogre::SceneNode *parentNode,
+                                    std::string name,
+                                    const std::string &group="General");
 
-    static EntityList createEntities(Ogre::SceneNode *parentNode,
-                                     std::string name,
-                                     const std::string &group="General");
+    static ObjectList createObjects(Ogre::SceneNode *parentNode,
+                                    std::string name,
+                                    const std::string &group="General");
 
-    static Ogre::SkeletonPtr getSkeleton(std::string name, const std::string &group="General");
+    static ObjectList createObjectBase(Ogre::SceneManager *sceneMgr,
+                                       std::string name,
+                                       const std::string &group="General");
 };
+
+// FIXME: Should be with other general Ogre extensions.
+template<typename T>
+class NodeTargetValue : public Ogre::ControllerValue<T>
+{
+protected:
+    Ogre::Node *mNode;
+
+public:
+    NodeTargetValue(Ogre::Node *target) : mNode(target)
+    { }
+
+    void setNode(Ogre::Node *target)
+    { mNode = target; }
+    Ogre::Node *getNode() const
+    { return mNode; }
+};
+typedef Ogre::SharedPtr<NodeTargetValue<Ogre::Real> > NodeTargetValueRealPtr;
 
 }
 
