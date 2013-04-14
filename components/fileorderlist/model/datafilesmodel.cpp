@@ -278,7 +278,8 @@ void DataFilesModel::addFiles(const QString &path)
     } else if (mEncoding == QLatin1String("win1250")) {
         codec = QTextCodec::codecForName("windows-1250");
     } else {
-        return; // This should never happen;
+        qWarning() << "Invalid encoding specified: " << mEncoding;
+        return;
     }
 
     QTextDecoder *decoder = codec->makeDecoder();
@@ -298,7 +299,7 @@ void DataFilesModel::addFiles(const QString &path)
             QStringList masters;
 
             for (unsigned int i = 0; i < mlist.size(); ++i) {
-                QString master = QString::fromStdString(mlist[i].name);
+                QString master = decoder->toUnicode(mlist[i].name.c_str());
                 masters.append(master);
             }
 
@@ -321,8 +322,8 @@ void DataFilesModel::addFiles(const QString &path)
         }
 
     }
-
     delete decoder;
+
 }
 
 QModelIndex DataFilesModel::indexFromItem(EsmFile *item) const

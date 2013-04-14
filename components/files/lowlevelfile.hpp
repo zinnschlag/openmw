@@ -30,26 +30,26 @@ class LowLevelFile
 {
 public:
 
-	LowLevelFile ();
-	~LowLevelFile ();
+    LowLevelFile();
+    ~LowLevelFile();
 
-	void open (char const * filename);
-	void close ();
+    void open(const char *filename);
+    void close();
 
-	size_t size ();
+    size_t size();
 
-	void seek (size_t Position);
-	size_t tell ();
+    void seek(size_t Position);
+    size_t tell();
 
-	size_t read (void * data, size_t size);
+    size_t read(void *data, size_t size);
 
 private:
 #if FILE_API == FILE_API_STDIO
-	FILE* mHandle;
+    FILE* mHandle;
 #elif FILE_API == FILE_API_POSIX
-	int mHandle;
+    int mHandle;
 #elif FILE_API == FILE_API_WIN32
-	HANDLE mHandle;
+    HANDLE mHandle;
 #endif
 };
 

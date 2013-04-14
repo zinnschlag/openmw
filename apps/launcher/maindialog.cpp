@@ -11,6 +11,9 @@
 
 #include <QDebug>
 
+#include <boost/filesystem.hpp>
+#include <boost/locale.hpp>
+
 #include "utils/checkablemessagebox.hpp"
 
 #include "playpage.hpp"
@@ -20,6 +23,12 @@
 MainDialog::MainDialog()
     : mGameSettings(mCfgMgr)
 {
+    // Set boost filesystem encoding to UTF-8
+    std::locale loc = boost::locale::generator().generate("");
+    std::locale::global(loc);
+
+    boost::filesystem::path::imbue(std::locale());
+
     // Install the stylesheet font
     QFile file;
     QFontDatabase fontDatabase;
@@ -29,11 +38,11 @@ MainDialog::MainDialog()
     // Check if the font is installed
     if (!fonts.contains("EB Garamond")) {
 
-        QString font = QString::fromStdString(mCfgMgr.getGlobalDataPath().string()) + QString("resources/mygui/EBGaramond-Regular.ttf");
+        QString font = QString::fromStdString(mCfgMgr.getGlobalDataPath().generic_string()) + QString("resources/mygui/EBGaramond-Regular.ttf");
         file.setFileName(font);
 
         if (!file.exists()) {
-            font = QString::fromStdString(mCfgMgr.getLocalPath().string()) + QString("resources/mygui/EBGaramond-Regular.ttf");
+            font = QString::fromStdString(mCfgMgr.getLocalPath().generic_string()) + QString("resources/mygui/EBGaramond-Regular.ttf");
         }
 
         fontDatabase.addApplicationFont(font);
@@ -207,7 +216,7 @@ bool MainDialog::showFirstRunDialog()
         }
 
         // Create the file if it doesn't already exist, else the importer will fail
-        QString path = QString::fromStdString(mCfgMgr.getUserPath().string()) + QString("openmw.cfg");
+        QString path = QString::fromStdString(mCfgMgr.getUserPath().generic_string()) + QString("openmw.cfg");
         QFile file(path);
 
         if (!file.exists()) {
@@ -310,7 +319,7 @@ void MainDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous)
 
 bool MainDialog::setupLauncherSettings()
 {
-    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().string());
+    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().generic_string());
 
     QStringList paths;
     paths.append(QString("launcher.cfg"));
@@ -344,8 +353,8 @@ bool MainDialog::setupLauncherSettings()
 
 bool MainDialog::setupGameSettings()
 {
-    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().string());
-    QString globalPath = QString::fromStdString(mCfgMgr.getGlobalPath().string());
+    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().generic_string());
+    QString globalPath = QString::fromStdString(mCfgMgr.getGlobalPath().generic_string());
 
     QStringList paths;
     paths.append(userPath + QString("openmw.cfg"));
@@ -427,8 +436,8 @@ bool MainDialog::setupGameSettings()
 
 bool MainDialog::setupGraphicsSettings()
 {
-    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().string());
-    QString globalPath = QString::fromStdString(mCfgMgr.getGlobalPath().string());
+    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().generic_string());
+    QString globalPath = QString::fromStdString(mCfgMgr.getGlobalPath().generic_string());
 
     QFile localDefault(QString("settings-default.cfg"));
     QFile globalDefault(globalPath + QString("settings-default.cfg"));
@@ -514,7 +523,7 @@ bool MainDialog::writeSettings()
     mGraphicsPage->saveSettings();
     mDataFilesPage->saveSettings();
 
-    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().string());
+    QString userPath = QString::fromStdString(mCfgMgr.getUserPath().generic_string());
     QDir dir(userPath);
 
     if (!dir.exists()) {
