@@ -42,22 +42,22 @@ protected:
     MWWorld::Ptr mPtr;
     MWMechanics::CharacterController *mController;
 
-    Ogre::SceneNode* mInsert;
-    NifOgre::ObjectList mObjectList;
+    Ogre::SceneNode *mInsert;
+    Ogre::Entity *mSkelBase;
+    std::vector<NifOgre::ObjectList> mObjectLists;
     std::map<std::string,NifOgre::TextKeyMap> mTextKeys;
     Ogre::Node *mAccumRoot;
     Ogre::Bone *mNonAccumRoot;
     Ogre::Vector3 mAccumulate;
     Ogre::Vector3 mLastPosition;
-
-    std::vector<NifOgre::ObjectList> mAnimationSources;
+    Ogre::Animation *mCurrentAnim;
 
     std::vector<Ogre::Controller<Ogre::Real> > *mCurrentControllers;
     NifOgre::TextKeyMap *mCurrentKeys;
+    NifOgre::TextKeyMap::const_iterator mStartKey;
+    NifOgre::TextKeyMap::const_iterator mStopKey;
     NifOgre::TextKeyMap::const_iterator mNextKey;
-    Ogre::Animation *mCurrentAnim;
     float mCurrentTime;
-    float mStopTime;
     bool mPlaying;
     bool mLooping;
 
@@ -78,22 +78,14 @@ protected:
      * moving anything, and set the end time to the specified stop marker. If
      * the marker is not found, it resets to the beginning or end respectively.
      */
-    void reset(const std::string &start, const std::string &stop);
+    void reset(const std::string &start, const std::string &stop=std::string());
 
     bool handleEvent(float time, const std::string &evt);
 
-    /* Specifies a list of skeleton names to use as animation sources. */
-    void setAnimationSources(const std::vector<std::string> &names);
-
-    /* Specifies a single skeleton name to use as an animation source. */
-    void setAnimationSource(const std::string &name)
-    {
-        std::vector<std::string> names(1, name);
-        setAnimationSources(names);
-    }
-
-    void createObjectList(Ogre::SceneNode *node, const std::string &model);
+    void addObjectList(Ogre::SceneNode *node, const std::string &model, bool baseonly);
     static void destroyObjectList(Ogre::SceneManager *sceneMgr, NifOgre::ObjectList &objects);
+
+    static void setRenderProperties(const NifOgre::ObjectList &objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue);
 
 public:
     Animation(const MWWorld::Ptr &ptr);
