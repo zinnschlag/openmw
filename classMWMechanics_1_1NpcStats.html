@@ -88,6 +88,9 @@ Public Types</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a58fc094a8b7b001d0ba35e132c4e9855">NpcStats</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a40f207e7d669c2790dc03442909eed12">getProfit</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">for mercenary companions. starts out as 0, and changes when items are added or removed through the UI.  <a href="#a40f207e7d669c2790dc03442909eed12"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a98dd9fd130183f25e587f8ef73cd20cf">modifyProfit</a> (int diff)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">DrawState_</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#af589845a63b82ed26ffd63bc999d78d1">getDrawState</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a2a25bb162a4dcca29c6b93992c418275">setDrawState</a> (<a class="el" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">DrawState_</a> <a class="el" href="namespaceMWMechanics.html#ac60fc9fba81496d4e6f8c9ffb6c67b78">state</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a6c7df19cbd554695c0b3c94272e75db4">getBaseDisposition</a> () const </td></tr>
@@ -137,6 +140,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#acbacc532470258e7af879309df29e367">mReputation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a2cce1214cd222b607509a7aef287cc5b">mWerewolf</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a4837961f693d490fffbd51d32151ea36">mWerewolfKills</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#acff4422d16d106f6bb9cd36efd37033f">mProfit</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#a28a536aa86c3ea4552854f4ced0d6484">mLevelProgress</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#aafbba68fde72d168911d2414402e76f5">mSkillIncreases</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">mUsedIds</a></td></tr>
@@ -369,6 +373,24 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a40f207e7d669c2790dc03442909eed12"></a><!-- doxytag: member="MWMechanics::NpcStats::getProfit" ref="a40f207e7d669c2790dc03442909eed12" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1NpcStats.html#a40f207e7d669c2790dc03442909eed12">MWMechanics::NpcStats::getProfit</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>for mercenary companions. starts out as 0, and changes when items are added or removed through the UI. </p>
+
+</div>
+</div>
 <a class="anchor" id="ac5db546ad9de885fed55b36b76fb8308"></a><!-- doxytag: member="MWMechanics::NpcStats::getReputation" ref="ac5db546ad9de885fed55b36b76fb8308" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +577,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000072">Todo:</a></b></dt><dd>check if character is the player, if levelling is ever implemented for NPCs </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000068">Todo:</a></b></dt><dd>check if character is the player, if levelling is ever implemented for NPCs </dd></dl>
 
 </div>
 </div>
@@ -618,6 +640,23 @@ Private Attributes</h2></td></tr>
           <td class="memname">void <a class="el" href="classMWMechanics_1_1NpcStats.html#aa79d81f81a62e39b1328339c97800b4c">MWMechanics::NpcStats::levelUp</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a98dd9fd130183f25e587f8ef73cd20cf"></a><!-- doxytag: member="MWMechanics::NpcStats::modifyProfit" ref="a98dd9fd130183f25e587f8ef73cd20cf" args="(int diff)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1NpcStats.html#a98dd9fd130183f25e587f8ef73cd20cf">MWMechanics::NpcStats::modifyProfit</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>diff</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -924,6 +963,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acff4422d16d106f6bb9cd36efd37033f"></a><!-- doxytag: member="MWMechanics::NpcStats::mProfit" ref="acff4422d16d106f6bb9cd36efd37033f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1NpcStats.html#acff4422d16d106f6bb9cd36efd37033f">MWMechanics::NpcStats::mProfit</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="acbacc532470258e7af879309df29e367"></a><!-- doxytag: member="MWMechanics::NpcStats::mReputation" ref="acbacc532470258e7af879309df29e367" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1023,7 +1075,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

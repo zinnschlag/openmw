@@ -64,31 +64,36 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="loadscpt_8hpp.html">components/esm/loadscpt.hpp</a>&gt;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">components/interpreter/types.hpp</a>&gt;</span>
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWScript
-<a name="l00010"></a>00010 {
-<a name="l00011"></a><a class="code" href="classMWScript_1_1Locals.html">00011</a>     <span class="keyword">class </span><a class="code" href="classMWScript_1_1Locals.html">Locals</a>
-<a name="l00012"></a>00012     {
-<a name="l00013"></a>00013         <span class="keyword">public</span>:
-<a name="l00014"></a><a class="code" href="classMWScript_1_1Locals.html#a686673942e065cabfcc2b5e25898fb8a">00014</a>             std::vector&lt;Interpreter::Type_Short&gt; <a class="code" href="classMWScript_1_1Locals.html#a686673942e065cabfcc2b5e25898fb8a">mShorts</a>;
-<a name="l00015"></a><a class="code" href="classMWScript_1_1Locals.html#ab406bfaa42573df7f84420b1d2793224">00015</a>             std::vector&lt;Interpreter::Type_Integer&gt; <a class="code" href="classMWScript_1_1Locals.html#ab406bfaa42573df7f84420b1d2793224">mLongs</a>;
-<a name="l00016"></a><a class="code" href="classMWScript_1_1Locals.html#a523c085418704d4f1cba84b426c51d93">00016</a>             std::vector&lt;Interpreter::Type_Float&gt; <a class="code" href="classMWScript_1_1Locals.html#a523c085418704d4f1cba84b426c51d93">mFloats</a>;
-<a name="l00017"></a>00017             
-<a name="l00018"></a>00018             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1Locals.html#a34f9a0654b6213a7543e697dd9fac1d6">configure</a> (<span class="keyword">const</span> <a class="code" href="classESM_1_1Script.html">ESM::Script</a>&amp; script);
-<a name="l00019"></a>00019             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1Locals.html#a280019b496848a01c61d9120eb009cd6">setVarByInt</a>(<span class="keyword">const</span> std::string&amp; script, <span class="keyword">const</span> std::string&amp; var, <span class="keywordtype">int</span> val);
-<a name="l00020"></a>00020         
-<a name="l00021"></a>00021     };
-<a name="l00022"></a>00022 }
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="preprocessor">#endif</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">components/interpreter/types.hpp</a>&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>ESM
+<a name="l00009"></a>00009 {
+<a name="l00010"></a>00010     <span class="keyword">struct </span>Script;
+<a name="l00011"></a>00011 }
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWScript
+<a name="l00014"></a>00014 {
+<a name="l00015"></a><a class="code" href="classMWScript_1_1Locals.html">00015</a>     <span class="keyword">class </span><a class="code" href="classMWScript_1_1Locals.html">Locals</a>
+<a name="l00016"></a>00016     {
+<a name="l00017"></a>00017         <span class="keyword">public</span>:
+<a name="l00018"></a><a class="code" href="classMWScript_1_1Locals.html#a686673942e065cabfcc2b5e25898fb8a">00018</a>             std::vector&lt;Interpreter::Type_Short&gt; <a class="code" href="classMWScript_1_1Locals.html#a686673942e065cabfcc2b5e25898fb8a">mShorts</a>;
+<a name="l00019"></a><a class="code" href="classMWScript_1_1Locals.html#ab406bfaa42573df7f84420b1d2793224">00019</a>             std::vector&lt;Interpreter::Type_Integer&gt; <a class="code" href="classMWScript_1_1Locals.html#ab406bfaa42573df7f84420b1d2793224">mLongs</a>;
+<a name="l00020"></a><a class="code" href="classMWScript_1_1Locals.html#a523c085418704d4f1cba84b426c51d93">00020</a>             std::vector&lt;Interpreter::Type_Float&gt; <a class="code" href="classMWScript_1_1Locals.html#a523c085418704d4f1cba84b426c51d93">mFloats</a>;
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022             <span class="keywordtype">void</span> <a class="code" href="classMWScript_1_1Locals.html#a34f9a0654b6213a7543e697dd9fac1d6">configure</a> (<span class="keyword">const</span> <a class="code" href="classESM_1_1Script.html">ESM::Script</a>&amp; script);
+<a name="l00023"></a>00023             <span class="keywordtype">bool</span> <a class="code" href="classMWScript_1_1Locals.html#a280019b496848a01c61d9120eb009cd6">setVarByInt</a>(<span class="keyword">const</span> std::string&amp; script, <span class="keyword">const</span> std::string&amp; var, <span class="keywordtype">int</span> val);
+<a name="l00024"></a>00024             <span class="keywordtype">int</span> <a class="code" href="classMWScript_1_1Locals.html#a1f39ce1a274328fbc1234d4ca8609cc3" title="if var does not exist, returns 0">getIntVar</a> (<span class="keyword">const</span> std::string&amp; script, <span class="keyword">const</span> std::string&amp; var); 
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026     };
+<a name="l00027"></a>00027 }
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="preprocessor">#endif</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

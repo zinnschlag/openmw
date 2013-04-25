@@ -124,138 +124,147 @@
 <a name="l00065"></a>00065 
 <a name="l00067"></a><a class="code" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af">00067</a>     std::vector&lt;Record*&gt; <a class="code" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af" title="Record list.">records</a>;
 <a name="l00068"></a>00068 
-<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a77f3211bde39d0c9595aee1156e4ea00" title="Parse the file.">parse</a>();
+<a name="l00070"></a><a class="code" href="classNif_1_1NIFFile.html#a7624ac93a86f5a24ea14b8b93dcc60cd">00070</a>     std::vector&lt;Record*&gt; <a class="code" href="classNif_1_1NIFFile.html#a7624ac93a86f5a24ea14b8b93dcc60cd" title="Root list.">roots</a>;
 <a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="classNif_1_1NIFFile.html#a6c62eae5b37688466e5a275bc72bc165">00072</a>     <span class="keyword">class </span><a class="code" href="classNif_1_1NIFFile_1_1LoadedCache.html">LoadedCache</a>;
-<a name="l00073"></a>00073     <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classNif_1_1NIFFile_1_1LoadedCache.html">LoadedCache</a>;
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a77f3211bde39d0c9595aee1156e4ea00" title="Parse the file.">parse</a>();
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075     <span class="comment">// attempt to protect NIFFile from misuse...</span>
-<a name="l00076"></a><a class="code" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">00076</a>     <span class="keyword">struct </span><a class="code" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a> {}; <span class="comment">// this dirty little trick should optimize out</span>
-<a name="l00077"></a>00077     <a class="code" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">NIFFile</a> (<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> <span class="keyword">const</span> &amp;);
-<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a4ca9dfc030ee2b9500e35843b6ae9d50">operator = </a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> <span class="keyword">const</span> &amp;);
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 <span class="keyword">public</span>:
-<a name="l00082"></a><a class="code" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191">00082</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191" title="Used for error handling.">fail</a>(<span class="keyword">const</span> std::string &amp;msg)
-<a name="l00083"></a>00083     {
-<a name="l00084"></a>00084         std::string err = <span class="stringliteral">&quot;NIFFile Error: &quot;</span> + msg;
-<a name="l00085"></a>00085         err += <span class="stringliteral">&quot;\nFile: &quot;</span> + <a class="code" href="classNif_1_1NIFFile.html#a76712f5d61681d69278015a1e0f8deee" title="File name, used for error messages.">filename</a>;
-<a name="l00086"></a>00086         <span class="keywordflow">throw</span> std::runtime_error(err);
-<a name="l00087"></a>00087     }
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">00089</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">warn</a>(<span class="keyword">const</span> std::string &amp;msg)
-<a name="l00090"></a>00090     {
-<a name="l00091"></a>00091         std::cerr &lt;&lt; <span class="stringliteral">&quot;NIFFile Warning: &quot;</span> &lt;&lt; msg &lt;&lt;std::endl
-<a name="l00092"></a>00092                   &lt;&lt; <span class="stringliteral">&quot;File: &quot;</span> &lt;&lt; <a class="code" href="classNif_1_1NIFFile.html#a76712f5d61681d69278015a1e0f8deee" title="File name, used for error messages.">filename</a> &lt;&lt;std::endl;
-<a name="l00093"></a>00093     }
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">00095</a>     <span class="keyword">typedef</span> boost::shared_ptr &lt;NIFFile&gt; <a class="code" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a>;
-<a name="l00096"></a>00096 
-<a name="l00098"></a>00098     <a class="code" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">NIFFile</a>(<span class="keyword">const</span> std::string &amp;name, <a class="code" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a>);
-<a name="l00099"></a>00099     <a class="code" href="classNif_1_1NIFFile.html#aa40f6972b2f75c8cd17a7052130644cf">~NIFFile</a>();
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101     <span class="keyword">static</span> <a class="code" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a> <a class="code" href="classNif_1_1NIFFile.html#a6424fbe68637bf142eb10c623b4803a8">create</a> (<span class="keyword">const</span> std::string &amp;name);
-<a name="l00102"></a>00102     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a5ab6333fe67d153ea0f7d3b0939757d8">lockCache</a> ();
-<a name="l00103"></a>00103     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#ad8c19dddf7977d90177a3b2bea3c89fd">unlockCache</a> ();
-<a name="l00104"></a>00104 
-<a name="l00105"></a><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html">00105</a>     <span class="keyword">struct </span><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html">CacheLock</a>
-<a name="l00106"></a>00106     {
-<a name="l00107"></a><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a87a5a5c5483419d0b3b974502bb755bf">00107</a>         <a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a87a5a5c5483419d0b3b974502bb755bf">CacheLock</a> () { <a class="code" href="classNif_1_1NIFFile.html#a5ab6333fe67d153ea0f7d3b0939757d8">lockCache</a> (); }
-<a name="l00108"></a><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a1448af47ea2eab6b5cba95eae34d31b3">00108</a>         <a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a1448af47ea2eab6b5cba95eae34d31b3">~CacheLock</a> () { <a class="code" href="classNif_1_1NIFFile.html#ad8c19dddf7977d90177a3b2bea3c89fd">unlockCache</a> (); }
-<a name="l00109"></a>00109     };
-<a name="l00110"></a>00110 
-<a name="l00112"></a><a class="code" href="classNif_1_1NIFFile.html#a6b124e8975b3ae4869a94e3717a656f4">00112</a>     <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *<a class="code" href="classNif_1_1NIFFile.html#a6b124e8975b3ae4869a94e3717a656f4" title="Get a given record.">getRecord</a>(<span class="keywordtype">size_t</span> index)
-<a name="l00113"></a>00113     {
-<a name="l00114"></a>00114         <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *res = <a class="code" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af" title="Record list.">records</a>.at(index);
-<a name="l00115"></a>00115         assert(res != NULL);
-<a name="l00116"></a>00116         <span class="keywordflow">return</span> res;
-<a name="l00117"></a>00117     }
-<a name="l00118"></a>00118 
-<a name="l00120"></a><a class="code" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e">00120</a>     <span class="keywordtype">size_t</span> <a class="code" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e" title="Number of records.">numRecords</a>() { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af" title="Record list.">records</a>.size(); }
-<a name="l00121"></a>00121 };
-<a name="l00122"></a>00122 
+<a name="l00075"></a><a class="code" href="classNif_1_1NIFFile.html#a6c62eae5b37688466e5a275bc72bc165">00075</a>     <span class="keyword">class </span><a class="code" href="classNif_1_1NIFFile_1_1LoadedCache.html">LoadedCache</a>;
+<a name="l00076"></a>00076     <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classNif_1_1NIFFile_1_1LoadedCache.html">LoadedCache</a>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="comment">// attempt to protect NIFFile from misuse...</span>
+<a name="l00079"></a><a class="code" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">00079</a>     <span class="keyword">struct </span><a class="code" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a> {}; <span class="comment">// this dirty little trick should optimize out</span>
+<a name="l00080"></a>00080     <a class="code" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">NIFFile</a> (<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> <span class="keyword">const</span> &amp;);
+<a name="l00081"></a>00081     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a4ca9dfc030ee2b9500e35843b6ae9d50">operator = </a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> <span class="keyword">const</span> &amp;);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083 <span class="keyword">public</span>:
+<a name="l00085"></a><a class="code" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191">00085</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a5866189e6fe1e24bcf1ea7a61a72b191" title="Used for error handling.">fail</a>(<span class="keyword">const</span> std::string &amp;msg)
+<a name="l00086"></a>00086     {
+<a name="l00087"></a>00087         std::string err = <span class="stringliteral">&quot;NIFFile Error: &quot;</span> + msg;
+<a name="l00088"></a>00088         err += <span class="stringliteral">&quot;\nFile: &quot;</span> + <a class="code" href="classNif_1_1NIFFile.html#a76712f5d61681d69278015a1e0f8deee" title="File name, used for error messages.">filename</a>;
+<a name="l00089"></a>00089         <span class="keywordflow">throw</span> std::runtime_error(err);
+<a name="l00090"></a>00090     }
+<a name="l00091"></a>00091 
+<a name="l00092"></a><a class="code" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">00092</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">warn</a>(<span class="keyword">const</span> std::string &amp;msg)
+<a name="l00093"></a>00093     {
+<a name="l00094"></a>00094         std::cerr &lt;&lt; <span class="stringliteral">&quot;NIFFile Warning: &quot;</span> &lt;&lt; msg &lt;&lt;std::endl
+<a name="l00095"></a>00095                   &lt;&lt; <span class="stringliteral">&quot;File: &quot;</span> &lt;&lt; <a class="code" href="classNif_1_1NIFFile.html#a76712f5d61681d69278015a1e0f8deee" title="File name, used for error messages.">filename</a> &lt;&lt;std::endl;
+<a name="l00096"></a>00096     }
+<a name="l00097"></a>00097 
+<a name="l00098"></a><a class="code" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">00098</a>     <span class="keyword">typedef</span> boost::shared_ptr &lt;NIFFile&gt; <a class="code" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a>;
+<a name="l00099"></a>00099 
+<a name="l00101"></a>00101     <a class="code" href="classNif_1_1NIFFile.html#ae008e78df1b545479d08e2dbde88d2da">NIFFile</a>(<span class="keyword">const</span> std::string &amp;name, <a class="code" href="structNif_1_1NIFFile_1_1psudo__private__modifier.html">psudo_private_modifier</a>);
+<a name="l00102"></a>00102     <a class="code" href="classNif_1_1NIFFile.html#aa40f6972b2f75c8cd17a7052130644cf">~NIFFile</a>();
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="keyword">static</span> <a class="code" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a> <a class="code" href="classNif_1_1NIFFile.html#a6424fbe68637bf142eb10c623b4803a8">create</a> (<span class="keyword">const</span> std::string &amp;name);
+<a name="l00105"></a>00105     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#a5ab6333fe67d153ea0f7d3b0939757d8">lockCache</a> ();
+<a name="l00106"></a>00106     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NIFFile.html#ad8c19dddf7977d90177a3b2bea3c89fd">unlockCache</a> ();
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html">00108</a>     <span class="keyword">struct </span><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html">CacheLock</a>
+<a name="l00109"></a>00109     {
+<a name="l00110"></a><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a87a5a5c5483419d0b3b974502bb755bf">00110</a>         <a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a87a5a5c5483419d0b3b974502bb755bf">CacheLock</a> () { <a class="code" href="classNif_1_1NIFFile.html#a5ab6333fe67d153ea0f7d3b0939757d8">lockCache</a> (); }
+<a name="l00111"></a><a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a1448af47ea2eab6b5cba95eae34d31b3">00111</a>         <a class="code" href="structNif_1_1NIFFile_1_1CacheLock.html#a1448af47ea2eab6b5cba95eae34d31b3">~CacheLock</a> () { <a class="code" href="classNif_1_1NIFFile.html#ad8c19dddf7977d90177a3b2bea3c89fd">unlockCache</a> (); }
+<a name="l00112"></a>00112     };
+<a name="l00113"></a>00113 
+<a name="l00115"></a><a class="code" href="classNif_1_1NIFFile.html#a6b124e8975b3ae4869a94e3717a656f4">00115</a>     <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *<a class="code" href="classNif_1_1NIFFile.html#a6b124e8975b3ae4869a94e3717a656f4" title="Get a given record.">getRecord</a>(<span class="keywordtype">size_t</span> index)
+<a name="l00116"></a>00116     {
+<a name="l00117"></a>00117         <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *res = <a class="code" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af" title="Record list.">records</a>.at(index);
+<a name="l00118"></a>00118         assert(res != NULL);
+<a name="l00119"></a>00119         <span class="keywordflow">return</span> res;
+<a name="l00120"></a>00120     }
+<a name="l00122"></a><a class="code" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e">00122</a>     <span class="keywordtype">size_t</span> <a class="code" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e" title="Number of records.">numRecords</a>() { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af" title="Record list.">records</a>.size(); }
 <a name="l00123"></a>00123 
-<a name="l00124"></a>00124 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00125"></a><a class="code" href="structNif_1_1KeyT.html">00125</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1KeyT.html">KeyT</a> {
-<a name="l00126"></a><a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">00126</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a>;
-<a name="l00127"></a><a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">00127</a>     T <a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a>;
-<a name="l00128"></a><a class="code" href="structNif_1_1KeyT.html#a0e5236499f6c2d118138a15dc77c0ac7">00128</a>     T <a class="code" href="structNif_1_1KeyT.html#a0e5236499f6c2d118138a15dc77c0ac7">mForwardValue</a>;  <span class="comment">// Only for Quadratic interpolation</span>
-<a name="l00129"></a><a class="code" href="structNif_1_1KeyT.html#ae750bac7be65ceda344c4ea24d948fdb">00129</a>     T <a class="code" href="structNif_1_1KeyT.html#ae750bac7be65ceda344c4ea24d948fdb">mBackwardValue</a>; <span class="comment">// Only for Quadratic interpolation</span>
-<a name="l00130"></a><a class="code" href="structNif_1_1KeyT.html#a60134fa74f9b8af5362d3823695238d1">00130</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#a60134fa74f9b8af5362d3823695238d1">mTension</a>;    <span class="comment">// Only for TBC interpolation</span>
-<a name="l00131"></a><a class="code" href="structNif_1_1KeyT.html#abe75dbb3434c41a7af46bfcfcec1b415">00131</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#abe75dbb3434c41a7af46bfcfcec1b415">mBias</a>;       <span class="comment">// Only for TBC interpolation</span>
-<a name="l00132"></a><a class="code" href="structNif_1_1KeyT.html#a89ab580abdaaff52e0ec83e978831bcb">00132</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#a89ab580abdaaff52e0ec83e978831bcb">mContinuity</a>; <span class="comment">// Only for TBC interpolation</span>
+<a name="l00125"></a><a class="code" href="classNif_1_1NIFFile.html#a21e0a3c75d0512353f71333923f43bd7">00125</a>     <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *<a class="code" href="classNif_1_1NIFFile.html#a21e0a3c75d0512353f71333923f43bd7" title="Get a given root.">getRoot</a>(<span class="keywordtype">size_t</span> index=0)
+<a name="l00126"></a>00126     {
+<a name="l00127"></a>00127         <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *res = <a class="code" href="classNif_1_1NIFFile.html#a7624ac93a86f5a24ea14b8b93dcc60cd" title="Root list.">roots</a>.at(index);
+<a name="l00128"></a>00128         assert(res != NULL);
+<a name="l00129"></a>00129         <span class="keywordflow">return</span> res;
+<a name="l00130"></a>00130     }
+<a name="l00132"></a><a class="code" href="classNif_1_1NIFFile.html#aa2ad2e03d81c965afc407ce565084232">00132</a>     <span class="keywordtype">size_t</span> <a class="code" href="classNif_1_1NIFFile.html#aa2ad2e03d81c965afc407ce565084232" title="Number of roots.">numRoots</a>() { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1NIFFile.html#a7624ac93a86f5a24ea14b8b93dcc60cd" title="Root list.">roots</a>.size(); }
 <a name="l00133"></a>00133 };
-<a name="l00134"></a><a class="code" href="namespaceNif.html#a7a69667acb55b5df069105f7fe248a2d">00134</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;float&gt;</a> <a class="code" href="namespaceNif.html#a7a69667acb55b5df069105f7fe248a2d">FloatKey</a>;
-<a name="l00135"></a><a class="code" href="namespaceNif.html#ae1a1bce3899ec67c37f33f1ba08abc99">00135</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;Ogre::Vector3&gt;</a> <a class="code" href="namespaceNif.html#ae1a1bce3899ec67c37f33f1ba08abc99">Vector3Key</a>;
-<a name="l00136"></a><a class="code" href="namespaceNif.html#af0b2a928db35fbc1660841281b067afb">00136</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;Ogre::Vector4&gt;</a> <a class="code" href="namespaceNif.html#af0b2a928db35fbc1660841281b067afb">Vector4Key</a>;
-<a name="l00137"></a><a class="code" href="namespaceNif.html#aa9e0a20a4242589561af7346146fe60f">00137</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;Ogre::Quaternion&gt;</a> <a class="code" href="namespaceNif.html#aa9e0a20a4242589561af7346146fe60f">QuaternionKey</a>;
-<a name="l00138"></a>00138 
-<a name="l00139"></a>00139 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, T (NIFStream::*getValue)()&gt;
-<a name="l00140"></a><a class="code" href="structNif_1_1KeyListT.html">00140</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1KeyListT.html">KeyListT</a> {
-<a name="l00141"></a><a class="code" href="structNif_1_1KeyListT.html#a04f99e57d9b6ba972583b32463c4b48c">00141</a>     <span class="keyword">typedef</span> std::vector&lt; KeyT&lt;T&gt; &gt; <a class="code" href="structNif_1_1KeyListT.html#a04f99e57d9b6ba972583b32463c4b48c">VecType</a>;
-<a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">00143</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">sLinearInterpolation</a> = 1;
-<a name="l00144"></a><a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">00144</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">sQuadraticInterpolation</a> = 2;
-<a name="l00145"></a><a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">00145</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">sTBCInterpolation</a> = 3;
-<a name="l00146"></a>00146 
-<a name="l00147"></a><a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">00147</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a>;
-<a name="l00148"></a><a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">00148</a>     <a class="code" href="structNif_1_1KeyListT.html#a04f99e57d9b6ba972583b32463c4b48c">VecType</a> <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>;
-<a name="l00149"></a>00149 
-<a name="l00150"></a><a class="code" href="structNif_1_1KeyListT.html#ab2e40189e28b9fceaa1d9e0af855d853">00150</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1KeyListT.html#ab2e40189e28b9fceaa1d9e0af855d853">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif, <span class="keywordtype">bool</span> force=<span class="keyword">false</span>)
-<a name="l00151"></a>00151     {
-<a name="l00152"></a>00152         <span class="keywordtype">size_t</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
-<a name="l00153"></a>00153         <span class="keywordflow">if</span>(count == 0 &amp;&amp; !force)
-<a name="l00154"></a>00154             <span class="keywordflow">return</span>;
-<a name="l00155"></a>00155 
-<a name="l00156"></a>00156         <a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
-<a name="l00157"></a>00157         <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>.resize(count);
-<a name="l00158"></a>00158         <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">sLinearInterpolation</a>)
-<a name="l00159"></a>00159         {
-<a name="l00160"></a>00160             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
-<a name="l00161"></a>00161             {
-<a name="l00162"></a>00162                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
-<a name="l00163"></a>00163                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00164"></a>00164                 key.<a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a> = (nif-&gt;*getValue)();
-<a name="l00165"></a>00165             }
-<a name="l00166"></a>00166         }
-<a name="l00167"></a>00167         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">sQuadraticInterpolation</a>)
-<a name="l00168"></a>00168         {
-<a name="l00169"></a>00169             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
-<a name="l00170"></a>00170             {
-<a name="l00171"></a>00171                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
-<a name="l00172"></a>00172                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00173"></a>00173                 key.<a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a> = (nif-&gt;*getValue)();
-<a name="l00174"></a>00174                 key.<a class="code" href="structNif_1_1KeyT.html#a0e5236499f6c2d118138a15dc77c0ac7">mForwardValue</a> = (nif-&gt;*getValue)();
-<a name="l00175"></a>00175                 key.<a class="code" href="structNif_1_1KeyT.html#ae750bac7be65ceda344c4ea24d948fdb">mBackwardValue</a> = (nif-&gt;*getValue)();
-<a name="l00176"></a>00176             }
-<a name="l00177"></a>00177         }
-<a name="l00178"></a>00178         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">sTBCInterpolation</a>)
-<a name="l00179"></a>00179         {
-<a name="l00180"></a>00180             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
-<a name="l00181"></a>00181             {
-<a name="l00182"></a>00182                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
-<a name="l00183"></a>00183                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00184"></a>00184                 key.<a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a> = (nif-&gt;*getValue)();
-<a name="l00185"></a>00185                 key.<a class="code" href="structNif_1_1KeyT.html#a60134fa74f9b8af5362d3823695238d1">mTension</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00186"></a>00186                 key.<a class="code" href="structNif_1_1KeyT.html#abe75dbb3434c41a7af46bfcfcec1b415">mBias</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00187"></a>00187                 key.<a class="code" href="structNif_1_1KeyT.html#a89ab580abdaaff52e0ec83e978831bcb">mContinuity</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00137"></a><a class="code" href="structNif_1_1KeyT.html">00137</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1KeyT.html">KeyT</a> {
+<a name="l00138"></a><a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">00138</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a>;
+<a name="l00139"></a><a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">00139</a>     T <a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a>;
+<a name="l00140"></a><a class="code" href="structNif_1_1KeyT.html#a0e5236499f6c2d118138a15dc77c0ac7">00140</a>     T <a class="code" href="structNif_1_1KeyT.html#a0e5236499f6c2d118138a15dc77c0ac7">mForwardValue</a>;  <span class="comment">// Only for Quadratic interpolation</span>
+<a name="l00141"></a><a class="code" href="structNif_1_1KeyT.html#ae750bac7be65ceda344c4ea24d948fdb">00141</a>     T <a class="code" href="structNif_1_1KeyT.html#ae750bac7be65ceda344c4ea24d948fdb">mBackwardValue</a>; <span class="comment">// Only for Quadratic interpolation</span>
+<a name="l00142"></a><a class="code" href="structNif_1_1KeyT.html#a60134fa74f9b8af5362d3823695238d1">00142</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#a60134fa74f9b8af5362d3823695238d1">mTension</a>;    <span class="comment">// Only for TBC interpolation</span>
+<a name="l00143"></a><a class="code" href="structNif_1_1KeyT.html#abe75dbb3434c41a7af46bfcfcec1b415">00143</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#abe75dbb3434c41a7af46bfcfcec1b415">mBias</a>;       <span class="comment">// Only for TBC interpolation</span>
+<a name="l00144"></a><a class="code" href="structNif_1_1KeyT.html#a89ab580abdaaff52e0ec83e978831bcb">00144</a>     <span class="keywordtype">float</span> <a class="code" href="structNif_1_1KeyT.html#a89ab580abdaaff52e0ec83e978831bcb">mContinuity</a>; <span class="comment">// Only for TBC interpolation</span>
+<a name="l00145"></a>00145 };
+<a name="l00146"></a><a class="code" href="namespaceNif.html#a7a69667acb55b5df069105f7fe248a2d">00146</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;float&gt;</a> <a class="code" href="namespaceNif.html#a7a69667acb55b5df069105f7fe248a2d">FloatKey</a>;
+<a name="l00147"></a><a class="code" href="namespaceNif.html#ae1a1bce3899ec67c37f33f1ba08abc99">00147</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;Ogre::Vector3&gt;</a> <a class="code" href="namespaceNif.html#ae1a1bce3899ec67c37f33f1ba08abc99">Vector3Key</a>;
+<a name="l00148"></a><a class="code" href="namespaceNif.html#af0b2a928db35fbc1660841281b067afb">00148</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;Ogre::Vector4&gt;</a> <a class="code" href="namespaceNif.html#af0b2a928db35fbc1660841281b067afb">Vector4Key</a>;
+<a name="l00149"></a><a class="code" href="namespaceNif.html#aa9e0a20a4242589561af7346146fe60f">00149</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;Ogre::Quaternion&gt;</a> <a class="code" href="namespaceNif.html#aa9e0a20a4242589561af7346146fe60f">QuaternionKey</a>;
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, T (NIFStream::*getValue)()&gt;
+<a name="l00152"></a><a class="code" href="structNif_1_1KeyListT.html">00152</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1KeyListT.html">KeyListT</a> {
+<a name="l00153"></a><a class="code" href="structNif_1_1KeyListT.html#a04f99e57d9b6ba972583b32463c4b48c">00153</a>     <span class="keyword">typedef</span> std::vector&lt; KeyT&lt;T&gt; &gt; <a class="code" href="structNif_1_1KeyListT.html#a04f99e57d9b6ba972583b32463c4b48c">VecType</a>;
+<a name="l00154"></a>00154 
+<a name="l00155"></a><a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">00155</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">sLinearInterpolation</a> = 1;
+<a name="l00156"></a><a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">00156</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">sQuadraticInterpolation</a> = 2;
+<a name="l00157"></a><a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">00157</a>     <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">sTBCInterpolation</a> = 3;
+<a name="l00158"></a>00158 
+<a name="l00159"></a><a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">00159</a>     <span class="keywordtype">int</span> <a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a>;
+<a name="l00160"></a><a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">00160</a>     <a class="code" href="structNif_1_1KeyListT.html#a04f99e57d9b6ba972583b32463c4b48c">VecType</a> <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>;
+<a name="l00161"></a>00161 
+<a name="l00162"></a><a class="code" href="structNif_1_1KeyListT.html#ab2e40189e28b9fceaa1d9e0af855d853">00162</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1KeyListT.html#ab2e40189e28b9fceaa1d9e0af855d853">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif, <span class="keywordtype">bool</span> force=<span class="keyword">false</span>)
+<a name="l00163"></a>00163     {
+<a name="l00164"></a>00164         <span class="keywordtype">size_t</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00165"></a>00165         <span class="keywordflow">if</span>(count == 0 &amp;&amp; !force)
+<a name="l00166"></a>00166             <span class="keywordflow">return</span>;
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168         <a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00169"></a>00169         <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>.resize(count);
+<a name="l00170"></a>00170         <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#a9a42525dbb681c92ed549bc42a250868">sLinearInterpolation</a>)
+<a name="l00171"></a>00171         {
+<a name="l00172"></a>00172             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
+<a name="l00173"></a>00173             {
+<a name="l00174"></a>00174                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
+<a name="l00175"></a>00175                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00176"></a>00176                 key.<a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a> = (nif-&gt;*getValue)();
+<a name="l00177"></a>00177             }
+<a name="l00178"></a>00178         }
+<a name="l00179"></a>00179         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#ad199bb4e1c9262024c4e97b2c3daf84a">sQuadraticInterpolation</a>)
+<a name="l00180"></a>00180         {
+<a name="l00181"></a>00181             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
+<a name="l00182"></a>00182             {
+<a name="l00183"></a>00183                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
+<a name="l00184"></a>00184                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00185"></a>00185                 key.<a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a> = (nif-&gt;*getValue)();
+<a name="l00186"></a>00186                 key.<a class="code" href="structNif_1_1KeyT.html#a0e5236499f6c2d118138a15dc77c0ac7">mForwardValue</a> = (nif-&gt;*getValue)();
+<a name="l00187"></a>00187                 key.<a class="code" href="structNif_1_1KeyT.html#ae750bac7be65ceda344c4ea24d948fdb">mBackwardValue</a> = (nif-&gt;*getValue)();
 <a name="l00188"></a>00188             }
 <a name="l00189"></a>00189         }
-<a name="l00190"></a>00190         <span class="keywordflow">else</span>
-<a name="l00191"></a>00191             nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ad4d789ae6f380fdd885e46fd29c5beef">file</a>-&gt;<a class="code" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">warn</a>(<span class="stringliteral">&quot;Unhandled interpolation type: &quot;</span>+Ogre::StringConverter::toString(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a>));
-<a name="l00192"></a>00192     }
-<a name="l00193"></a>00193 };
-<a name="l00194"></a><a class="code" href="namespaceNif.html#a73bc4de24b7b82da0c7736518b0c05cc">00194</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;float,&amp;NIFStream::getFloat&gt;</a> <a class="code" href="namespaceNif.html#a73bc4de24b7b82da0c7736518b0c05cc">FloatKeyList</a>;
-<a name="l00195"></a><a class="code" href="namespaceNif.html#ad596a1734e1dfc68f4d9f760f3635ee3">00195</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;Ogre::Vector3,&amp;NIFStream::getVector3&gt;</a> <a class="code" href="namespaceNif.html#ad596a1734e1dfc68f4d9f760f3635ee3">Vector3KeyList</a>;
-<a name="l00196"></a><a class="code" href="namespaceNif.html#a6a4b7f32161e307208af07b487e0f8a0">00196</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;Ogre::Vector4,&amp;NIFStream::getVector4&gt;</a> <a class="code" href="namespaceNif.html#a6a4b7f32161e307208af07b487e0f8a0">Vector4KeyList</a>;
-<a name="l00197"></a><a class="code" href="namespaceNif.html#a6bcea7622b978c3da42cc429eaea8df9">00197</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;Ogre::Quaternion,&amp;NIFStream::getQuaternion&gt;</a> <a class="code" href="namespaceNif.html#a6bcea7622b978c3da42cc429eaea8df9">QuaternionKeyList</a>;
-<a name="l00198"></a>00198 
-<a name="l00199"></a>00199 } <span class="comment">// Namespace</span>
-<a name="l00200"></a>00200 <span class="preprocessor">#endif</span>
+<a name="l00190"></a>00190         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a> == <a class="code" href="structNif_1_1KeyListT.html#a220b81e3c2113e32d19addbe779859b0">sTBCInterpolation</a>)
+<a name="l00191"></a>00191         {
+<a name="l00192"></a>00192             <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;i++)
+<a name="l00193"></a>00193             {
+<a name="l00194"></a>00194                 <a class="code" href="structNif_1_1KeyT.html">KeyT&lt;T&gt;</a> &amp;key = <a class="code" href="structNif_1_1KeyListT.html#ac4d9066d44071a245cc5cd6aa7d822f2">mKeys</a>[i];
+<a name="l00195"></a>00195                 key.<a class="code" href="structNif_1_1KeyT.html#a53d93e6605204733703ef13df421bd8c">mTime</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00196"></a>00196                 key.<a class="code" href="structNif_1_1KeyT.html#a7b330dd90f1592ade975d25ec08e2b68">mValue</a> = (nif-&gt;*getValue)();
+<a name="l00197"></a>00197                 key.<a class="code" href="structNif_1_1KeyT.html#a60134fa74f9b8af5362d3823695238d1">mTension</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00198"></a>00198                 key.<a class="code" href="structNif_1_1KeyT.html#abe75dbb3434c41a7af46bfcfcec1b415">mBias</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00199"></a>00199                 key.<a class="code" href="structNif_1_1KeyT.html#a89ab580abdaaff52e0ec83e978831bcb">mContinuity</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00200"></a>00200             }
+<a name="l00201"></a>00201         }
+<a name="l00202"></a>00202         <span class="keywordflow">else</span>
+<a name="l00203"></a>00203             nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ad4d789ae6f380fdd885e46fd29c5beef">file</a>-&gt;<a class="code" href="classNif_1_1NIFFile.html#abd7ec2e1e5aa286c5aeb6df12a9b6996">warn</a>(<span class="stringliteral">&quot;Unhandled interpolation type: &quot;</span>+Ogre::StringConverter::toString(<a class="code" href="structNif_1_1KeyListT.html#ae2a4f269698d6963facd5dcf2481bfc9">mInterpolationType</a>));
+<a name="l00204"></a>00204     }
+<a name="l00205"></a>00205 };
+<a name="l00206"></a><a class="code" href="namespaceNif.html#a73bc4de24b7b82da0c7736518b0c05cc">00206</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;float,&amp;NIFStream::getFloat&gt;</a> <a class="code" href="namespaceNif.html#a73bc4de24b7b82da0c7736518b0c05cc">FloatKeyList</a>;
+<a name="l00207"></a><a class="code" href="namespaceNif.html#ad596a1734e1dfc68f4d9f760f3635ee3">00207</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;Ogre::Vector3,&amp;NIFStream::getVector3&gt;</a> <a class="code" href="namespaceNif.html#ad596a1734e1dfc68f4d9f760f3635ee3">Vector3KeyList</a>;
+<a name="l00208"></a><a class="code" href="namespaceNif.html#a6a4b7f32161e307208af07b487e0f8a0">00208</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;Ogre::Vector4,&amp;NIFStream::getVector4&gt;</a> <a class="code" href="namespaceNif.html#a6a4b7f32161e307208af07b487e0f8a0">Vector4KeyList</a>;
+<a name="l00209"></a><a class="code" href="namespaceNif.html#a6bcea7622b978c3da42cc429eaea8df9">00209</a> <span class="keyword">typedef</span> <a class="code" href="structNif_1_1KeyListT.html">KeyListT&lt;Ogre::Quaternion,&amp;NIFStream::getQuaternion&gt;</a> <a class="code" href="namespaceNif.html#a6bcea7622b978c3da42cc429eaea8df9">QuaternionKeyList</a>;
+<a name="l00210"></a>00210 
+<a name="l00211"></a>00211 } <span class="comment">// Namespace</span>
+<a name="l00212"></a>00212 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

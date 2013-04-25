@@ -101,6 +101,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a given record.  <a href="#a6b124e8975b3ae4869a94e3717a656f4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6939793e6604f78cf926ab7cf915420e">numRecords</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of records.  <a href="#a6939793e6604f78cf926ab7cf915420e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNif_1_1Record.html">Record</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a21e0a3c75d0512353f71333923f43bd7">getRoot</a> (size_t index=0)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a given root.  <a href="#a21e0a3c75d0512353f71333923f43bd7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aa2ad2e03d81c965afc407ce565084232">numRoots</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of roots.  <a href="#aa2ad2e03d81c965afc407ce565084232"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classNif_1_1NIFFile.html#a60cdc89b7ccec6e73ffa44fcf6cc7e04">ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6424fbe68637bf142eb10c623b4803a8">create</a> (const std::string &amp;name)</td></tr>
@@ -124,6 +128,8 @@ Private Attributes</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">File name, used for error messages.  <a href="#a76712f5d61681d69278015a1e0f8deee"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structNif_1_1Record.html">Record</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#aab283f5cdaa552a9e367372cc0ae40af">records</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> list.  <a href="#aab283f5cdaa552a9e367372cc0ae40af"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structNif_1_1Record.html">Record</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a7624ac93a86f5a24ea14b8b93dcc60cd">roots</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Root list.  <a href="#a7624ac93a86f5a24ea14b8b93dcc60cd"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="friends"></a>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNif_1_1NIFFile.html#a6c62eae5b37688466e5a275bc72bc165">LoadedCache</a></td></tr>
@@ -281,6 +287,25 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a21e0a3c75d0512353f71333923f43bd7"></a><!-- doxytag: member="Nif::NIFFile::getRoot" ref="a21e0a3c75d0512353f71333923f43bd7" args="(size_t index=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNif_1_1Record.html">Record</a>* <a class="el" href="classNif_1_1NIFFile.html#a21e0a3c75d0512353f71333923f43bd7">Nif::NIFFile::getRoot</a> </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>index</em> = <code>0</code></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get a given root. </p>
+
+</div>
+</div>
 <a class="anchor" id="a5ab6333fe67d153ea0f7d3b0939757d8"></a><!-- doxytag: member="Nif::NIFFile::lockCache" ref="a5ab6333fe67d153ea0f7d3b0939757d8" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -312,6 +337,24 @@ Friends</h2></td></tr>
 <div class="memdoc">
 
 <p>Number of records. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa2ad2e03d81c965afc407ce565084232"></a><!-- doxytag: member="Nif::NIFFile::numRoots" ref="aa2ad2e03d81c965afc407ce565084232" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classNif_1_1NIFFile.html#aa2ad2e03d81c965afc407ce565084232">Nif::NIFFile::numRoots</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Number of roots. </p>
 
 </div>
 </div>
@@ -428,6 +471,21 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7624ac93a86f5a24ea14b8b93dcc60cd"></a><!-- doxytag: member="Nif::NIFFile::roots" ref="a7624ac93a86f5a24ea14b8b93dcc60cd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structNif_1_1Record.html">Record</a>*&gt; <a class="el" href="classNif_1_1NIFFile.html#a7624ac93a86f5a24ea14b8b93dcc60cd">Nif::NIFFile::roots</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Root list. </p>
+
+</div>
+</div>
 <a class="anchor" id="a54bd42e21f719cc2a6ab89436d2d47c9"></a><!-- doxytag: member="Nif::NIFFile::ver" ref="a54bd42e21f719cc2a6ab89436d2d47c9" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -451,7 +509,7 @@ Friends</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

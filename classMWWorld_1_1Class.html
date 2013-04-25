@@ -96,6 +96,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#af9df004f312c7cbd6667cc0ba90a1722">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#af9df004f312c7cbd6667cc0ba90a1722"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a9bb333ba7a376100bf2a6be12e4b11ad">getName</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const =0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a4950b1c76dea1cb6c5345e3cfc5e2367">adjustPosition</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust position to stand on ground. Must be called post model load.  <a href="#a4950b1c76dea1cb6c5345e3cfc5e2367"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <br class="typebreak"/>
 <a class="el" href="classMWMechanics_1_1CreatureStats.html">MWMechanics::CreatureStats</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a5095a30e5baa5742b3d393610fd73d60">getCreatureStats</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a5963827820fe8384a4962a9e9734d3df">hasToolTip</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
@@ -126,6 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structMWMechanics_1_1Movement.html">MWMechanics::Movement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a2fe5e15560aa224f5e5ef4e92bda540b">getMovementSettings</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return desired movement.  <a href="#a2fe5e15560aa224f5e5ef4e92bda540b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#acd0718e72d5652a053e7886f8a58fb38">getMovementVector</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ad00ed9576b3986fd09be16fd67d957f4">getRotationVector</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return desired rotations, as euler angles.  <a href="#ad00ed9576b3986fd09be16fd67d957f4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; std::vector<br class="typebreak"/>
 &lt; int &gt;, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ae0d0d41fb229c8d8767f7bccc7b16f1c">getEquipmentSlots</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a7d1053372ca15eb2defd45ec5b683a37">getEquipmentSkill</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
@@ -138,12 +142,19 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a105dd4ac772cdb27fc71e90bfaf6c7d5">hasDetected</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr2) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ae9776c74b125bf38e4edff57b328e8e7">getUpSoundId</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a51291a711bf9349f7eb101d80360d3d0">getDownSoundId</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ada0af1a43244d374f539cb33992c65fc">getArmorRating</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a774e2c3ba06980e5cd72234ed71df7de">getInventoryIcon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return name of inventory icon.  <a href="#a774e2c3ba06980e5cd72234ed71df7de"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ad954afc19b235b2e23c14603ceaec866">getEnchantment</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a717ce1d87d79dade46931b5b4ba13e99">getEnchantmentPoints</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#aee38953cfd287b857646936940db411d">adjustScale</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float &amp;scale) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#aa7b4f6eaa68ec67fd40f5e535b197eda">adjustRotation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float &amp;x, float &amp;y, float &amp;z) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a5d62573e2be1e72329e6674c87b13c84">canSell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int npcServices) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>.  <a href="#a5d62573e2be1e72329e6674c87b13c84"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a3cf1d4bc6ad496e8ab24c5aae5c74cba">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ab0c30b606055933abda6750a2f627458">applyEnchantment</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;enchId, int enchCharge, const std::string &amp;newName) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; int, <br class="typebreak"/>
+std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#ace2757fcce58e7d9b7eee0d3a0d138bb">canBeEquipped</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;npc) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a33213a5a47a7432fa55f70f159ccac37">copyToCell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> &amp;cell) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#afca36d36b27f544f09466b8275232b92">copyToCell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> &amp;cell, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Class.html#a52e0d01fba8ae28035c23f85f5579293">isActor</a> () const </td></tr>
@@ -277,6 +288,27 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 
 </div>
 </div>
+<a class="anchor" id="a4950b1c76dea1cb6c5345e3cfc5e2367"></a><!-- doxytag: member="MWWorld::Class::adjustPosition" ref="a4950b1c76dea1cb6c5345e3cfc5e2367" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1Class.html#a4950b1c76dea1cb6c5345e3cfc5e2367">MWWorld::Class::adjustPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Adjust position to stand on ground. Must be called post model load. </p>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#aa416cc85a7060074480b6d678d2264cc">MWClass::Npc</a>, and <a class="el" href="classMWClass_1_1Creature.html#abe77e184208085ba5b5b54eb2fe2dd84">MWClass::Creature</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aa7b4f6eaa68ec67fd40f5e535b197eda"></a><!-- doxytag: member="MWWorld::Class::adjustRotation" ref="aa7b4f6eaa68ec67fd40f5e535b197eda" args="(const MWWorld::Ptr &amp;ptr, float &amp;x, float &amp;y, float &amp;z) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -343,6 +375,8 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#aa9722925efa1fae94dec5a309a57bbcc">MWClass::Npc</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad55a73a42a6bcaf7cf1bfaaefd5ec7e8"></a><!-- doxytag: member="MWWorld::Class::apply" ref="ad55a73a42a6bcaf7cf1bfaaefd5ec7e8" args="(const MWWorld::Ptr &amp;ptr, const std::string &amp;id, const MWWorld::Ptr &amp;actor) const " -->
@@ -386,6 +420,108 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <p>(default implementation: ignore and return false) </p>
 
 <p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#af6723ba6a47b408d1af74c9d34613228">MWClass::Npc</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab0c30b606055933abda6750a2f627458"></a><!-- doxytag: member="MWWorld::Class::applyEnchantment" ref="ab0c30b606055933abda6750a2f627458" args="(const MWWorld::Ptr &amp;ptr, const std::string &amp;enchId, int enchCharge, const std::string &amp;newName) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1Class.html#ab0c30b606055933abda6750a2f627458">MWWorld::Class::applyEnchantment</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>enchId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>enchCharge</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>newName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Armor.html#acec3b227f02ace0f5cb3910d4ccb5fde">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#ac5c10fe4b46b049834cbd358e28bd0bd">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#ac499c2f6c7a7e4457b71257f74a84621">MWClass::Clothing</a>, and <a class="el" href="classMWClass_1_1Book.html#acd16099876c28d334c40ac2de257c6bc">MWClass::Book</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ace2757fcce58e7d9b7eee0d3a0d138bb"></a><!-- doxytag: member="MWWorld::Class::canBeEquipped" ref="ace2757fcce58e7d9b7eee0d3a0d138bb" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Ptr &amp;npc) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; int, std::string &gt; <a class="el" href="classMWWorld_1_1Class.html#ace2757fcce58e7d9b7eee0d3a0d138bb">MWWorld::Class::canBeEquipped</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>npc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return 0 if player cannot equip item. 1 if can equip. 2 if it's twohanded weapon. 3 if twohanded weapon conflicts with that. Second item in the pair specifies the error message </p>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Armor.html#a7d417e715ec856ab8bcc3e9908c33ba0">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a4cef378561b5a9b9a57cc081666eb0aa">MWClass::Weapon</a>, and <a class="el" href="classMWClass_1_1Clothing.html#af216e0b7864021532780d6082e60a61c">MWClass::Clothing</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d62573e2be1e72329e6674c87b13c84"></a><!-- doxytag: member="MWWorld::Class::canSell" ref="a5d62573e2be1e72329e6674c87b13c84" args="(const MWWorld::Ptr &amp;item, int npcServices) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWWorld_1_1Class.html#a5d62573e2be1e72329e6674c87b13c84">MWWorld::Class::canSell</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>npcServices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>. </p>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Armor.html#aca83532849f6773571050b2586696c27">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a2b22f30962a85e0ead358d9674916709">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#a8f42da4f4d31c8369ee8b72d53f23ef6">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Repair.html#a4853d884879a8f0205238fe9832decb7">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Book.html#a38612f8112190aa7b1c918a2407dde0e">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Light.html#a96f5c123d314e3e25cad24ffe25fcd41">MWClass::Light</a>, <a class="el" href="classMWClass_1_1Lockpick.html#ac79f607abb44f9e224be108d64fa60d2">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Probe.html#a61efabb256a0f2a337707c46e2a44ca8">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a3cc66cfb0c87686bae6d801d07a6d5ce">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a44b5965cd9a980886d3e34120eb8faa6">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#a1c85d5d44a63c02489312a29291a29c2">MWClass::Miscellaneous</a>, and <a class="el" href="classMWClass_1_1Potion.html#a347845dcb8b446636b8249f8f11b7763">MWClass::Potion</a>.</p>
 
 </div>
 </div>
@@ -516,6 +652,26 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 
 </div>
 </div>
+<a class="anchor" id="ada0af1a43244d374f539cb33992c65fc"></a><!-- doxytag: member="MWWorld::Class::getArmorRating" ref="ada0af1a43244d374f539cb33992c65fc" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWWorld_1_1Class.html#ada0af1a43244d374f539cb33992c65fc">MWWorld::Class::getArmorRating</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>combined armor rating of this actor </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a5aaab955c03754b78b3f3e2cec1e6737">MWClass::Npc</a>, and <a class="el" href="classMWClass_1_1Creature.html#afef30b56dd153096f60e4c92fddf0a1c">MWClass::Creature</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a5969231dc5558154176b8522e3a3cf70"></a><!-- doxytag: member="MWWorld::Class::getCapacity" ref="a5969231dc5558154176b8522e3a3cf70" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -613,6 +769,26 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <dl class="return"><dt><b>Returns:</b></dt><dd>the enchantment ID if the object is enchanted, otherwise an empty string (default implementation: return empty string) </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classMWClass_1_1Armor.html#a92e81fc731238fc41a73714f311bc3f5">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a127fd65d04cd5887de6a8d5b86fbbe60">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#ae8584bfd85a13c63424ead5adb39d2cf">MWClass::Clothing</a>, and <a class="el" href="classMWClass_1_1Book.html#a6d398829ab22c15b331a18b444f73a4a">MWClass::Book</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a717ce1d87d79dade46931b5b4ba13e99"></a><!-- doxytag: member="MWWorld::Class::getEnchantmentPoints" ref="a717ce1d87d79dade46931b5b4ba13e99" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">short <a class="el" href="classMWWorld_1_1Class.html#a717ce1d87d79dade46931b5b4ba13e99">MWWorld::Class::getEnchantmentPoints</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>the number of enchantment points available for possible enchanting </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Weapon.html#abefe768e9844ba1dd0cb1e851db88cf5">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Armor.html#a2dd4c82fe5cfb272ad2378a41da9bf91">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Clothing.html#ae310aec2f4d2b46706ace288c8220d1f">MWClass::Clothing</a>, and <a class="el" href="classMWClass_1_1Book.html#ab3ac904f35a4caef12c6c6dde311ac38">MWClass::Book</a>.</p>
 
 </div>
 </div>
@@ -753,7 +929,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <div class="memdoc">
 <p>Return item max health or throw an exception, if class does not have item health (default implementation: throw an exceoption) </p>
 
-<p>Reimplemented in <a class="el" href="classMWClass_1_1Weapon.html#a207e1deaec17b71cda75533182937416">MWClass::Weapon</a>, and <a class="el" href="classMWClass_1_1Armor.html#aaca9ba6aacfcb2e74245b80d20e27799">MWClass::Armor</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Repair.html#a4f760b296e11250beffd09e9a1691cb1">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Weapon.html#a207e1deaec17b71cda75533182937416">MWClass::Weapon</a>, and <a class="el" href="classMWClass_1_1Armor.html#aaca9ba6aacfcb2e74245b80d20e27799">MWClass::Armor</a>.</p>
 
 </div>
 </div>
@@ -793,7 +969,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a802295256c006cf2a3e72010333f774b">MWClass::Npc</a>, <a class="el" href="classMWClass_1_1Armor.html#ac1137ba61cbb3309189c9cd0af881a8d">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a087f4376bb50fe8f41460aa09f9642b4">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#ac0c0a196229ad1a613efa5e566074bd5">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Creature.html#aba27a2d3d4809228bc2f475ce5ba3ce5">MWClass::Creature</a>, <a class="el" href="classMWClass_1_1Container.html#ada988dbd108015d71eb8a70a0a9a609f">MWClass::Container</a>, <a class="el" href="classMWClass_1_1Light.html#ac2bb661a194576d4088f486d2590e6d5">MWClass::Light</a>, <a class="el" href="classMWClass_1_1Lockpick.html#ac0238a76be3a5927bf4e7691541136fd">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Probe.html#abb652c0cd45177b0a9205a8a80a659f2">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a4dfc1b77e9b88347881fb5c3ad07fae8">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Book.html#afc9fd383700c8271341ce1a8811122e0">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a3a79e557337129fbdd1a137128b1fe74">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Potion.html#a8532f27b491ae16b2234d07429b59107">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#a4636b990ac93aef2d6bd786b7d27ff94">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Repair.html#a5ab28a9e00c0efb7f9d7f1ec2e4506ed">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Door.html#a5d47908f59861dd617eab680ebf1d568">MWClass::Door</a>, <a class="el" href="classMWClass_1_1Activator.html#afd914dd7e5f9f12248f9f20163d1124e">MWClass::Activator</a>, and <a class="el" href="classMWClass_1_1Static.html#a5cf7884395e177b292df767b69d3b6dc">MWClass::Static</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a802295256c006cf2a3e72010333f774b">MWClass::Npc</a>, <a class="el" href="classMWClass_1_1Armor.html#ac1137ba61cbb3309189c9cd0af881a8d">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a087f4376bb50fe8f41460aa09f9642b4">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#ac0c0a196229ad1a613efa5e566074bd5">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Creature.html#aba27a2d3d4809228bc2f475ce5ba3ce5">MWClass::Creature</a>, <a class="el" href="classMWClass_1_1Book.html#afc9fd383700c8271341ce1a8811122e0">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Container.html#ada988dbd108015d71eb8a70a0a9a609f">MWClass::Container</a>, <a class="el" href="classMWClass_1_1Light.html#ac2bb661a194576d4088f486d2590e6d5">MWClass::Light</a>, <a class="el" href="classMWClass_1_1Lockpick.html#ac0238a76be3a5927bf4e7691541136fd">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Probe.html#abb652c0cd45177b0a9205a8a80a659f2">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a4dfc1b77e9b88347881fb5c3ad07fae8">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a3a79e557337129fbdd1a137128b1fe74">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Potion.html#a8532f27b491ae16b2234d07429b59107">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#a4636b990ac93aef2d6bd786b7d27ff94">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Repair.html#a5ab28a9e00c0efb7f9d7f1ec2e4506ed">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Door.html#a5d47908f59861dd617eab680ebf1d568">MWClass::Door</a>, <a class="el" href="classMWClass_1_1Activator.html#afd914dd7e5f9f12248f9f20163d1124e">MWClass::Activator</a>, and <a class="el" href="classMWClass_1_1Static.html#a5cf7884395e177b292df767b69d3b6dc">MWClass::Static</a>.</p>
 
 </div>
 </div>
@@ -875,6 +1051,27 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <p>Return NPC stats or throw an exception, if class does not have NPC stats (default implementation: throw an exceoption) </p>
 
 <p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a0cc99909b3aa876f47b51f9a2f0787b8">MWClass::Npc</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad00ed9576b3986fd09be16fd67d957f4"></a><!-- doxytag: member="MWWorld::Class::getRotationVector" ref="ad00ed9576b3986fd09be16fd67d957f4" args="(const Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::Vector3 <a class="el" href="classMWWorld_1_1Class.html#ad00ed9576b3986fd09be16fd67d957f4">MWWorld::Class::getRotationVector</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return desired rotations, as euler angles. </p>
+
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a09a9201127c01d7e22fee2e669e9ee78">MWClass::Npc</a>.</p>
 
 </div>
 </div>
@@ -972,7 +1169,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>the content of the tool tip to be displayed. raises exception if the object has no tooltip. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a07809fd24ca3999b3f0059642173b83e">MWClass::Npc</a>, <a class="el" href="classMWClass_1_1Armor.html#a1fa917c854bbf010934ad4e965662abe">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Clothing.html#aeec0be6617b235b66ce8e06bac4817e7">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a3b21c5f526ac8ba9ece665a7506788a2">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Book.html#ac03a2bb01aac2df71847731ca97f1fb0">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Container.html#a7c4741fefb9e9e69f7700272fab701c8">MWClass::Container</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a13171b7a43afdd705a6a518da7ca6f51">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Creature.html#a024b03fe7d6644ee9de3c36084f608a3">MWClass::Creature</a>, <a class="el" href="classMWClass_1_1Door.html#a85b8685bab421e6a4c75ae710777345c">MWClass::Door</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a9f291275986c73c64da6ded22bf54a57">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#a990b5d1306a639226d489eb221145bee">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Potion.html#acaba43f0223281a2413e35fc8e9f424b">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Probe.html#a99ac768419a4726d4b28302bd8e773a8">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Repair.html#a9a0cc25fc08aa4c7172a60e04178c805">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Weapon.html#a43e7102209c95295fd50f508c966dce4">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Activator.html#ac3e59c2469ee3518412c7175ad6fbede">MWClass::Activator</a>, and <a class="el" href="classMWClass_1_1Light.html#a7441d8364cfbb7772449dd33f5dc8787">MWClass::Light</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a07809fd24ca3999b3f0059642173b83e">MWClass::Npc</a>, <a class="el" href="classMWClass_1_1Armor.html#a1fa917c854bbf010934ad4e965662abe">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Clothing.html#aeec0be6617b235b66ce8e06bac4817e7">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a3b21c5f526ac8ba9ece665a7506788a2">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Book.html#ac03a2bb01aac2df71847731ca97f1fb0">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Container.html#a7c4741fefb9e9e69f7700272fab701c8">MWClass::Container</a>, <a class="el" href="classMWClass_1_1Creature.html#a024b03fe7d6644ee9de3c36084f608a3">MWClass::Creature</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a13171b7a43afdd705a6a518da7ca6f51">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Door.html#a85b8685bab421e6a4c75ae710777345c">MWClass::Door</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a9f291275986c73c64da6ded22bf54a57">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#a990b5d1306a639226d489eb221145bee">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Potion.html#acaba43f0223281a2413e35fc8e9f424b">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Probe.html#a99ac768419a4726d4b28302bd8e773a8">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Repair.html#a9a0cc25fc08aa4c7172a60e04178c805">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Weapon.html#a43e7102209c95295fd50f508c966dce4">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Activator.html#ac3e59c2469ee3518412c7175ad6fbede">MWClass::Activator</a>, and <a class="el" href="classMWClass_1_1Light.html#a7441d8364cfbb7772449dd33f5dc8787">MWClass::Light</a>.</p>
 
 </div>
 </div>
@@ -1061,7 +1258,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>Item health data available? (default implementation: false) </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classMWClass_1_1Weapon.html#a24c611415c5a9d3d689288140dcba77a">MWClass::Weapon</a>, and <a class="el" href="classMWClass_1_1Armor.html#a98ab18b8897aa3fb238ff6963bf2d987">MWClass::Armor</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Repair.html#aae4998eb18f3dec1f8bdd08cb67a7c26">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Weapon.html#a24c611415c5a9d3d689288140dcba77a">MWClass::Weapon</a>, and <a class="el" href="classMWClass_1_1Armor.html#a98ab18b8897aa3fb238ff6963bf2d987">MWClass::Armor</a>.</p>
 
 </div>
 </div>
@@ -1081,7 +1278,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if this object has a tooltip when focused (default implementation: false) </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a503270aa83f8fc07fe827c51ed4d50ca">MWClass::Npc</a>, <a class="el" href="classMWClass_1_1Armor.html#abede7cbbc3a7a76f5635a7b58a7231c0">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Clothing.html#ada39ef9b2a9ab3334f36063b50a3a14c">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Apparatus.html#ad7c2f50bb44f55d1f0ed60c933144e71">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Book.html#af6b707c10f395764360ec912758b7e14">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Container.html#aa5fe10b7fea4dfe037d6faf63a7f58da">MWClass::Container</a>, <a class="el" href="classMWClass_1_1Ingredient.html#aee55ecdc25ad3912970acb61d105976b">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Creature.html#a9698ef7620f1620b25723c54b9e5cc3d">MWClass::Creature</a>, <a class="el" href="classMWClass_1_1Door.html#a2d77770f549c0c832d3809464075727a">MWClass::Door</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a5bc87bdc1ef90a3253687ccf8dfefee7">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#ac3e840f674269d367a1162238bffac47">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Potion.html#a1b812391f4942c2ae0930bf3d00c1171">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Probe.html#a8c73e2ea3b199302a012bb5c652a909d">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Repair.html#ab7b06344500adaa5eb9ae9fcba9b29ad">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Weapon.html#a948115f2d435930f6f957e191deb7838">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Activator.html#a05bd23e5a3e7af20ff750e927a1abeeb">MWClass::Activator</a>, and <a class="el" href="classMWClass_1_1Light.html#a70cf54ced78e5684dc594053207698d9">MWClass::Light</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Npc.html#a503270aa83f8fc07fe827c51ed4d50ca">MWClass::Npc</a>, <a class="el" href="classMWClass_1_1Armor.html#abede7cbbc3a7a76f5635a7b58a7231c0">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Clothing.html#ada39ef9b2a9ab3334f36063b50a3a14c">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Apparatus.html#ad7c2f50bb44f55d1f0ed60c933144e71">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Book.html#af6b707c10f395764360ec912758b7e14">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Container.html#aa5fe10b7fea4dfe037d6faf63a7f58da">MWClass::Container</a>, <a class="el" href="classMWClass_1_1Creature.html#a9698ef7620f1620b25723c54b9e5cc3d">MWClass::Creature</a>, <a class="el" href="classMWClass_1_1Ingredient.html#aee55ecdc25ad3912970acb61d105976b">MWClass::Ingredient</a>, <a class="el" href="classMWClass_1_1Door.html#a2d77770f549c0c832d3809464075727a">MWClass::Door</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a5bc87bdc1ef90a3253687ccf8dfefee7">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#ac3e840f674269d367a1162238bffac47">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Potion.html#a1b812391f4942c2ae0930bf3d00c1171">MWClass::Potion</a>, <a class="el" href="classMWClass_1_1Probe.html#a8c73e2ea3b199302a012bb5c652a909d">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Repair.html#ab7b06344500adaa5eb9ae9fcba9b29ad">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Weapon.html#a948115f2d435930f6f957e191deb7838">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Activator.html#a05bd23e5a3e7af20ff750e927a1abeeb">MWClass::Activator</a>, and <a class="el" href="classMWClass_1_1Light.html#a70cf54ced78e5684dc594053207698d9">MWClass::Light</a>.</p>
 
 </div>
 </div>
@@ -1407,7 +1604,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 <div class="memdoc">
 <p>Generate action for using via inventory menu (default implementation: return a null action). </p>
 
-<p>Reimplemented in <a class="el" href="classMWClass_1_1Armor.html#accd7e273b54d445265b97eaf8bb8a948">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a6b800862169a75d9aa9cbfcf8c9dea29">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#abae8822ee9009b6732e6fbcf7e323afe">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Light.html#a657e7ab2a6dd6ce154b48211e19a655b">MWClass::Light</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a34955f772677d9fbff1eb57448f88bd3">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Probe.html#af5339eda925a8f96281a47306ea6c690">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Book.html#a32333cb09f657ca514a13f3c30f1cbf5">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a46650cb9cd08f62bd998a8cfd7749b99">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a463659a45fc89406c8f5bb0f997583bc">MWClass::Ingredient</a>, and <a class="el" href="classMWClass_1_1Potion.html#aac1f73b7df4739432b1bd3481adb0fd4">MWClass::Potion</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWClass_1_1Armor.html#accd7e273b54d445265b97eaf8bb8a948">MWClass::Armor</a>, <a class="el" href="classMWClass_1_1Weapon.html#a6b800862169a75d9aa9cbfcf8c9dea29">MWClass::Weapon</a>, <a class="el" href="classMWClass_1_1Clothing.html#abae8822ee9009b6732e6fbcf7e323afe">MWClass::Clothing</a>, <a class="el" href="classMWClass_1_1Book.html#a32333cb09f657ca514a13f3c30f1cbf5">MWClass::Book</a>, <a class="el" href="classMWClass_1_1Light.html#a657e7ab2a6dd6ce154b48211e19a655b">MWClass::Light</a>, <a class="el" href="classMWClass_1_1Lockpick.html#a34955f772677d9fbff1eb57448f88bd3">MWClass::Lockpick</a>, <a class="el" href="classMWClass_1_1Probe.html#af5339eda925a8f96281a47306ea6c690">MWClass::Probe</a>, <a class="el" href="classMWClass_1_1Repair.html#a1d71716f347e5b8714b190f2f85d981f">MWClass::Repair</a>, <a class="el" href="classMWClass_1_1Miscellaneous.html#aec015278b2199ffbf2d1d3fca06d266b">MWClass::Miscellaneous</a>, <a class="el" href="classMWClass_1_1Apparatus.html#a46650cb9cd08f62bd998a8cfd7749b99">MWClass::Apparatus</a>, <a class="el" href="classMWClass_1_1Ingredient.html#a463659a45fc89406c8f5bb0f997583bc">MWClass::Ingredient</a>, and <a class="el" href="classMWClass_1_1Potion.html#aac1f73b7df4739432b1bd3481adb0fd4">MWClass::Potion</a>.</p>
 
 </div>
 </div>
@@ -1433,7 +1630,7 @@ boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Class.html">Class</a> 
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

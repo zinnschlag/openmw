@@ -90,6 +90,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1Parser.html#a397cd594eeb58b15523fac465fb23eb4">parseName</a> (const std::string &amp;name, const <a class="el" href="structCompiler_1_1TokenLoc.html">TokenLoc</a> &amp;loc, <a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;scanner)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1Parser.html#a019a87a3e56f7ed90600e446d2d08ba9">parseKeyword</a> (int keyword, const <a class="el" href="structCompiler_1_1TokenLoc.html">TokenLoc</a> &amp;loc, <a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;scanner)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1Parser.html#a282f90e670b07e6303662793010965ca">parseSpecial</a> (int code, const <a class="el" href="structCompiler_1_1TokenLoc.html">TokenLoc</a> &amp;loc, <a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;scanner)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1Parser.html#ae16d18bda09c386d1d932d069f11fc23">parseComment</a> (const std::string &amp;comment, const <a class="el" href="structCompiler_1_1TokenLoc.html">TokenLoc</a> &amp;loc, <a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;scanner)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1Parser.html#aed5509d503c76b48bcd1cd58f634bb32">parseEOF</a> (<a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;scanner)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCompiler_1_1Parser.html#a0682c0b0d8dc86311456911ac2330c0c">reset</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset parser to clean state.  <a href="#a0682c0b0d8dc86311456911ac2330c0c"></a><br/></td></tr>
@@ -228,6 +229,46 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae16d18bda09c386d1d932d069f11fc23"></a><!-- doxytag: member="Compiler::Parser::parseComment" ref="ae16d18bda09c386d1d932d069f11fc23" args="(const std::string &amp;comment, const TokenLoc &amp;loc, Scanner &amp;scanner)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCompiler_1_1Parser.html#ae16d18bda09c386d1d932d069f11fc23">Compiler::Parser::parseComment</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>comment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structCompiler_1_1TokenLoc.html">TokenLoc</a> &amp;&#160;</td>
+          <td class="paramname"><em>loc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classCompiler_1_1Scanner.html">Scanner</a> &amp;&#160;</td>
+          <td class="paramname"><em>scanner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Handle comment token. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>fetch another token?</dd></dl>
+<ul>
+<li>Default-implementation: ignored (and return true). </li>
+</ul>
+
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#ae6aa4b3ca058011d7a9e6b77569660f1">CSVWorld::ScriptHighlighter</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aed5509d503c76b48bcd1cd58f634bb32"></a><!-- doxytag: member="Compiler::Parser::parseEOF" ref="aed5509d503c76b48bcd1cd58f634bb32" args="(Scanner &amp;scanner)" -->
 <div class="memitem">
 <div class="memproto">
@@ -247,7 +288,7 @@ Private Attributes</h2></td></tr>
 <li>Default-implementation: Report an error. </li>
 </ul>
 
-<p>Reimplemented in <a class="el" href="classCompiler_1_1FileParser.html#a28e768882bc76c5a58a5ea8f3fdfe787">Compiler::FileParser</a>, and <a class="el" href="classCompiler_1_1ScriptParser.html#a040a2f8f49142e9f2fd754fffe21982e">Compiler::ScriptParser</a>.</p>
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#aa4a6eee47c90cb1ec8f7fcb469443cde">CSVWorld::ScriptHighlighter</a>, <a class="el" href="classCompiler_1_1FileParser.html#a28e768882bc76c5a58a5ea8f3fdfe787">Compiler::FileParser</a>, and <a class="el" href="classCompiler_1_1ScriptParser.html#a040a2f8f49142e9f2fd754fffe21982e">Compiler::ScriptParser</a>.</p>
 
 </div>
 </div>
@@ -287,7 +328,7 @@ Private Attributes</h2></td></tr>
 <li>Default-implementation: Report an error. </li>
 </ul>
 
-<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#a804c2feb270c570c3cd23b1791022b01">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#ad1974b2a07b5eda0740c4dc5e56443e4">Compiler::LineParser</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#a3a84f3fe3a81045a0044e63f0f435afa">Compiler::SkipParser</a>.</p>
+<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#a804c2feb270c570c3cd23b1791022b01">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#ad1974b2a07b5eda0740c4dc5e56443e4">Compiler::LineParser</a>, <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#a290e0e2fe589ba56f7785339eb34a350">CSVWorld::ScriptHighlighter</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#a3a84f3fe3a81045a0044e63f0f435afa">Compiler::SkipParser</a>.</p>
 
 </div>
 </div>
@@ -327,7 +368,7 @@ Private Attributes</h2></td></tr>
 <li>Default-implementation: Report an error. </li>
 </ul>
 
-<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#adc347b98a99e99cff16dbee34b3fde0b">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#aa97e57e3ba77d4d6f0f630790cdc4aa5">Compiler::LineParser</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#ae501e7dcc9fd33e2d9ae820aead9597a">Compiler::SkipParser</a>.</p>
+<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#adc347b98a99e99cff16dbee34b3fde0b">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#aa97e57e3ba77d4d6f0f630790cdc4aa5">Compiler::LineParser</a>, <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#ae836a2f9f981e840be3d9cc77152cf8a">CSVWorld::ScriptHighlighter</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#ae501e7dcc9fd33e2d9ae820aead9597a">Compiler::SkipParser</a>.</p>
 
 </div>
 </div>
@@ -367,7 +408,7 @@ Private Attributes</h2></td></tr>
 <li>Default-implementation: Report an error. </li>
 </ul>
 
-<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#a6cd2c78c499c5c1cf1a251d531d9f7fb">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#afd5aea253297d8554842ab61db598f43">Compiler::LineParser</a>, <a class="el" href="classCompiler_1_1ControlParser.html#ab1aae5031c4fa0dd86331d37efe814b1">Compiler::ControlParser</a>, <a class="el" href="classCompiler_1_1FileParser.html#af3bd91acb6a4caee02f06762af4ccf69">Compiler::FileParser</a>, <a class="el" href="classCompiler_1_1ScriptParser.html#a10da1e889f3f50e522c0d17dca0817c0">Compiler::ScriptParser</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#a3620dc359d3c39c962d3b9f8f8264fc4">Compiler::SkipParser</a>.</p>
+<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#a6cd2c78c499c5c1cf1a251d531d9f7fb">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#afd5aea253297d8554842ab61db598f43">Compiler::LineParser</a>, <a class="el" href="classCompiler_1_1ControlParser.html#ab1aae5031c4fa0dd86331d37efe814b1">Compiler::ControlParser</a>, <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#a2f8ccc6a05b48a2b579084152c155c6f">CSVWorld::ScriptHighlighter</a>, <a class="el" href="classCompiler_1_1FileParser.html#af3bd91acb6a4caee02f06762af4ccf69">Compiler::FileParser</a>, <a class="el" href="classCompiler_1_1ScriptParser.html#a10da1e889f3f50e522c0d17dca0817c0">Compiler::ScriptParser</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#a3620dc359d3c39c962d3b9f8f8264fc4">Compiler::SkipParser</a>.</p>
 
 </div>
 </div>
@@ -407,7 +448,7 @@ Private Attributes</h2></td></tr>
 <li>Default-implementation: Report an error. </li>
 </ul>
 
-<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#a59c09bdb767489a2eb5e14e94f81e012">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#afe095ea12d87c371f0e3fb47a1c346bf">Compiler::LineParser</a>, <a class="el" href="classCompiler_1_1ControlParser.html#ad1584d22372ff2af2329c62a6ac9c322">Compiler::ControlParser</a>, <a class="el" href="classCompiler_1_1FileParser.html#a0fbb0d755d4a2bd3fe9efe0685dd83ad">Compiler::FileParser</a>, <a class="el" href="classCompiler_1_1ScriptParser.html#a5dc162358cb90aa08b004118533c9e1c">Compiler::ScriptParser</a>, <a class="el" href="classCompiler_1_1StringParser.html#a700a6b7a3281dceae801b2041ef55c53">Compiler::StringParser</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#a90d61ada082798b10a2db292eae7767b">Compiler::SkipParser</a>.</p>
+<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#a59c09bdb767489a2eb5e14e94f81e012">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#afe095ea12d87c371f0e3fb47a1c346bf">Compiler::LineParser</a>, <a class="el" href="classCompiler_1_1ControlParser.html#ad1584d22372ff2af2329c62a6ac9c322">Compiler::ControlParser</a>, <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#af880a3ff88079b46184e2d50d717d2e2">CSVWorld::ScriptHighlighter</a>, <a class="el" href="classCompiler_1_1FileParser.html#a0fbb0d755d4a2bd3fe9efe0685dd83ad">Compiler::FileParser</a>, <a class="el" href="classCompiler_1_1ScriptParser.html#a5dc162358cb90aa08b004118533c9e1c">Compiler::ScriptParser</a>, <a class="el" href="classCompiler_1_1StringParser.html#a700a6b7a3281dceae801b2041ef55c53">Compiler::StringParser</a>, and <a class="el" href="classCompiler_1_1SkipParser.html#a90d61ada082798b10a2db292eae7767b">Compiler::SkipParser</a>.</p>
 
 </div>
 </div>
@@ -447,7 +488,7 @@ Private Attributes</h2></td></tr>
 <li>Default-implementation: Report an error. </li>
 </ul>
 
-<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#ac71a6c2adcbe49bce2ff5dd1e2f21382">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#aa337250c016fb634b7df66eecdd7bf1d">Compiler::LineParser</a>, <a class="el" href="classCompiler_1_1ControlParser.html#a5a1ac385af716c01587c06e7eb35cef0">Compiler::ControlParser</a>, <a class="el" href="classCompiler_1_1FileParser.html#a7afb899eabbd64efdeb7e787ed60d1b0">Compiler::FileParser</a>, <a class="el" href="classCompiler_1_1ScriptParser.html#afb18ea8cd27cc9563428f9097cb7e6a6">Compiler::ScriptParser</a>, <a class="el" href="classCompiler_1_1SkipParser.html#a7e11a7c614aa0d524c026ae10bca4dfb">Compiler::SkipParser</a>, and <a class="el" href="classCompiler_1_1StringParser.html#a4fa7b7fe1267a4c3bf83cd97a1e1deea">Compiler::StringParser</a>.</p>
+<p>Reimplemented in <a class="el" href="classCompiler_1_1ExprParser.html#ac71a6c2adcbe49bce2ff5dd1e2f21382">Compiler::ExprParser</a>, <a class="el" href="classCompiler_1_1LineParser.html#aa337250c016fb634b7df66eecdd7bf1d">Compiler::LineParser</a>, <a class="el" href="classCompiler_1_1ControlParser.html#a5a1ac385af716c01587c06e7eb35cef0">Compiler::ControlParser</a>, <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#a4012e11dc0c7468317e15ab6468fe005">CSVWorld::ScriptHighlighter</a>, <a class="el" href="classCompiler_1_1FileParser.html#a7afb899eabbd64efdeb7e787ed60d1b0">Compiler::FileParser</a>, <a class="el" href="classCompiler_1_1ScriptParser.html#afb18ea8cd27cc9563428f9097cb7e6a6">Compiler::ScriptParser</a>, <a class="el" href="classCompiler_1_1SkipParser.html#a7e11a7c614aa0d524c026ae10bca4dfb">Compiler::SkipParser</a>, and <a class="el" href="classCompiler_1_1StringParser.html#a4fa7b7fe1267a4c3bf83cd97a1e1deea">Compiler::StringParser</a>.</p>
 
 </div>
 </div>
@@ -641,6 +682,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#aee82694c6c2ecb890eb2e456066cb5ee">CSVWorld::ScriptHighlighter</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="adffabbd95177ec8bd5124f47ff2dbbfc"></a><!-- doxytag: member="Compiler::Parser::mEmpty" ref="adffabbd95177ec8bd5124f47ff2dbbfc" args="" -->
@@ -667,6 +710,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1ScriptHighlighter.html#acb7cb8e32eaf647acb5744a3f4822ce3">CSVWorld::ScriptHighlighter</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a35c94b8f1f8a5838bbabae945324433b"></a><!-- doxytag: member="Compiler::Parser::mOptional" ref="a35c94b8f1f8a5838bbabae945324433b" args="" -->
@@ -690,7 +735,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

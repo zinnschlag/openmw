@@ -77,8 +77,9 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a686f3d988d2454fb2e2f2dfb67b36c5f">InventoryWindow</a> (<a class="el" href="classMWBase_1_1WindowManager.html">MWBase::WindowManager</a> &amp;parWindowManager, <a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a> *dragAndDrop)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a65bcdfab8a0aca44ca4808a77dc5e5a6">InventoryWindow</a> (<a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a> *dragAndDrop)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#ac7d616bb2a9dc937ef5e4b31ae78bf87">open</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#ab038f26b537bed923097b0c1355b1c47">doRenderUpdate</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a53c1c9291ba296d706f653fee4e94d06">startTrade</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">start trading, disables item drag&amp;drop  <a href="#a53c1c9291ba296d706f653fee4e94d06"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a5249ce46995c9f017ca75e1da9ab357f">onFrame</a> ()</td></tr>
@@ -102,11 +103,11 @@ Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a7e472852133ec64b6eff1f0b75ec0ee9">notifyContentChanged</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a27b7514addf4331e4a64a1fd9e1b85aa">mPreviewDirty</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a78bea79e5be632287fb21c7eb9b47146">mAvatar</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::ImageBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a3a7919dbdfe6ab4a2ca4b600627612fb">mAvatarImage</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#abf72b443fecddad6248c15a8633bd88d">mArmorRating</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::ProgressBar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a35247e16dadc49ce9bc1de1fb3a7387e">mEncumbranceBar</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::TextBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a5007c830904d0e431c3a8235967cf632">mEncumbranceText</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">Widgets::MWDynamicStat</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a87472fc68998cc0781802d52095dbf81">mEncumbranceBar</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#afeb1e7411b3914f9c697a80555955a20">mLeftPane</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Widget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#ae3bb81eadf025cf03bba5dc460a2a857">mRightPane</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">MyGUI::Button *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#aa21cf60ce59995198e4b8f4f8111e054">mFilterAll</a></td></tr>
@@ -120,26 +121,16 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1InventoryWindow.html#a1ab158ed99b722c8cbfde8a116c83d38">mTrading</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a686f3d988d2454fb2e2f2dfb67b36c5f"></a><!-- doxytag: member="MWGui::InventoryWindow::InventoryWindow" ref="a686f3d988d2454fb2e2f2dfb67b36c5f" args="(MWBase::WindowManager &amp;parWindowManager, DragAndDrop *dragAndDrop)" -->
+<a class="anchor" id="a65bcdfab8a0aca44ca4808a77dc5e5a6"></a><!-- doxytag: member="MWGui::InventoryWindow::InventoryWindow" ref="a65bcdfab8a0aca44ca4808a77dc5e5a6" args="(DragAndDrop *dragAndDrop)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWGui_1_1InventoryWindow.html#a686f3d988d2454fb2e2f2dfb67b36c5f">MWGui::InventoryWindow::InventoryWindow</a> </td>
+          <td class="memname"><a class="el" href="classMWGui_1_1InventoryWindow.html#a65bcdfab8a0aca44ca4808a77dc5e5a6">MWGui::InventoryWindow::InventoryWindow</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMWBase_1_1WindowManager.html">MWBase::WindowManager</a> &amp;&#160;</td>
-          <td class="paramname"><em>parWindowManager</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a> *&#160;</td>
-          <td class="paramname"><em>dragAndDrop</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>dragAndDrop</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -164,6 +155,22 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="classMWGui_1_1ContainerBase.html#ad8166f6971abd6197a61b6d66d60a9f9">MWGui::ContainerBase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab038f26b537bed923097b0c1355b1c47"></a><!-- doxytag: member="MWGui::InventoryWindow::doRenderUpdate" ref="ab038f26b537bed923097b0c1355b1c47" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWGui_1_1InventoryWindow.html#ab038f26b537bed923097b0c1355b1c47">MWGui::InventoryWindow::doRenderUpdate</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -275,7 +282,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>track weapon durability </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000053">Todo:</a></b></dt><dd>track weapon durability </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWGui_1_1ContainerBase.html#a558696650ad8213214fd748d5a59b8d9">MWGui::ContainerBase</a>.</p>
 
@@ -295,7 +302,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd>scripts </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000052">Todo:</a></b></dt><dd>scripts </dd></dl>
 
 </div>
 </div>
@@ -419,7 +426,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000051">Todo:</a></b></dt><dd>scripts </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>scripts </dd></dl>
 
 </div>
 </div>
@@ -513,25 +520,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a35247e16dadc49ce9bc1de1fb3a7387e"></a><!-- doxytag: member="MWGui::InventoryWindow::mEncumbranceBar" ref="a35247e16dadc49ce9bc1de1fb3a7387e" args="" -->
+<a class="anchor" id="a87472fc68998cc0781802d52095dbf81"></a><!-- doxytag: member="MWGui::InventoryWindow::mEncumbranceBar" ref="a87472fc68998cc0781802d52095dbf81" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MyGUI::ProgressBar* <a class="el" href="classMWGui_1_1InventoryWindow.html#a35247e16dadc49ce9bc1de1fb3a7387e">MWGui::InventoryWindow::mEncumbranceBar</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a5007c830904d0e431c3a8235967cf632"></a><!-- doxytag: member="MWGui::InventoryWindow::mEncumbranceText" ref="a5007c830904d0e431c3a8235967cf632" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MyGUI::TextBox* <a class="el" href="classMWGui_1_1InventoryWindow.html#a5007c830904d0e431c3a8235967cf632">MWGui::InventoryWindow::mEncumbranceText</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classMWGui_1_1Widgets_1_1MWDynamicStat.html">Widgets::MWDynamicStat</a>* <a class="el" href="classMWGui_1_1InventoryWindow.html#a87472fc68998cc0781802d52095dbf81">MWGui::InventoryWindow::mEncumbranceBar</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -656,6 +650,19 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a27b7514addf4331e4a64a1fd9e1b85aa"></a><!-- doxytag: member="MWGui::InventoryWindow::mPreviewDirty" ref="a27b7514addf4331e4a64a1fd9e1b85aa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWGui_1_1InventoryWindow.html#a27b7514addf4331e4a64a1fd9e1b85aa">MWGui::InventoryWindow::mPreviewDirty</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae3bb81eadf025cf03bba5dc460a2a857"></a><!-- doxytag: member="MWGui::InventoryWindow::mRightPane" ref="ae3bb81eadf025cf03bba5dc460a2a857" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -690,7 +697,7 @@ Protected Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -77,7 +77,7 @@
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#a7b696ba85c7889416794d28c3b190505">AiTravel</a> (float x, float y, float z)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#acf69db3de436ffba1685a2cac2e3aa10">clone</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#a71cb161d615605fb3a44b72ea12af485">clone</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#af848784eda17b28ce9f9954521b7f8c5">execute</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#aa7b531e7c3eecb0070ff6c5f1ce1baf3">getTypeId</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">0: Wanter, 1 Travel, 2 Escort, 3 Follow, 4 Activate  <a href="#aa7b531e7c3eecb0070ff6c5f1ce1baf3"></a><br/></td></tr>
@@ -86,6 +86,9 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#a0bddcf9422fee7031b74c2e2819790fd">mX</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#abdda81e9b4637ca2c65b500238d46d73">mY</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#a830036576512c1d4b88a0828a79d6710">mZ</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#a1695842a30278de3c45bebdbb1cc9937">cellX</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#ab1e829a0bc55022b65023b66a144188d">cellY</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWMechanics_1_1PathFinder.html">PathFinder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1AiTravel.html#abe5448711af5b0955f61be9dc2861565">mPathFinder</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7b696ba85c7889416794d28c3b190505"></a><!-- doxytag: member="MWMechanics::AiTravel::AiTravel" ref="a7b696ba85c7889416794d28c3b190505" args="(float x, float y, float z)" -->
@@ -122,12 +125,12 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="acf69db3de436ffba1685a2cac2e3aa10"></a><!-- doxytag: member="MWMechanics::AiTravel::clone" ref="acf69db3de436ffba1685a2cac2e3aa10" args="() const " -->
+<a class="anchor" id="a71cb161d615605fb3a44b72ea12af485"></a><!-- doxytag: member="MWMechanics::AiTravel::clone" ref="a71cb161d615605fb3a44b72ea12af485" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWMechanics_1_1AiTravel.html">MWMechanics::AiTravel</a> * <a class="el" href="classMWMechanics_1_1AiTravel.html#acf69db3de436ffba1685a2cac2e3aa10">MWMechanics::AiTravel::clone</a> </td>
+          <td class="memname"><a class="el" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> * <a class="el" href="classMWMechanics_1_1AiTravel.html#a71cb161d615605fb3a44b72ea12af485">MWMechanics::AiTravel::clone</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [virtual]</code></td>
@@ -181,6 +184,45 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a1695842a30278de3c45bebdbb1cc9937"></a><!-- doxytag: member="MWMechanics::AiTravel::cellX" ref="a1695842a30278de3c45bebdbb1cc9937" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1AiTravel.html#a1695842a30278de3c45bebdbb1cc9937">MWMechanics::AiTravel::cellX</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab1e829a0bc55022b65023b66a144188d"></a><!-- doxytag: member="MWMechanics::AiTravel::cellY" ref="ab1e829a0bc55022b65023b66a144188d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1AiTravel.html#ab1e829a0bc55022b65023b66a144188d">MWMechanics::AiTravel::cellY</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abe5448711af5b0955f61be9dc2861565"></a><!-- doxytag: member="MWMechanics::AiTravel::mPathFinder" ref="abe5448711af5b0955f61be9dc2861565" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWMechanics_1_1PathFinder.html">PathFinder</a> <a class="el" href="classMWMechanics_1_1AiTravel.html#abe5448711af5b0955f61be9dc2861565">MWMechanics::AiTravel::mPathFinder</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0bddcf9422fee7031b74c2e2819790fd"></a><!-- doxytag: member="MWMechanics::AiTravel::mX" ref="a0bddcf9422fee7031b74c2e2819790fd" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +270,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

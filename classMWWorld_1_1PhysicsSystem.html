@@ -79,7 +79,7 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ada14d0d259af7c214360fd9c7cbb84b0">PhysicsSystem</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ae91acbda373f7f1a388bd4140f607f70">~PhysicsSystem</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a9df53c7be65752fba7dfddd2ad842d52">addObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a27640418507d9b0ae6b9f35c79ef0fab">addObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, bool placeable=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a198dea62bce18443a87cfa644cb5fdae">addActor</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a5ab49d15ff1004eb85f339b27cd6f7bb">addHeightField</a> (float *heights, int x, int y, float yoffset, float triSize, float sqrtVerts)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ab530579ecff09f4bd92a1b1883983dab">removeHeightField</a> (int x, int y)</td></tr>
@@ -89,6 +89,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ab8f6e0b40dc2c6d91650685e630645b9">scaleObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a8d6a65ca01b17c38e18aa9364608bc31">toggleCollisionMode</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ae277b9859e4b7a3a9bccf264adca5ff2">move</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const Ogre::Vector3 &amp;movement, float time, bool gravity)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#ad81fcdfeca778cf6e10c0e29a50f2bc6">traceDown</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a2739a27aed58b555dd6719312fcc3481">getFacedHandle</a> (<a class="el" href="classMWWorld_1_1World.html">MWWorld::World</a> &amp;world, float queryDistance)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; float, <br class="typebreak"/>
 std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1PhysicsSystem.html#a24fede6b413ecfdca1983a8dcb7a90a8">getFacedHandles</a> (float queryDistance)</td></tr>
@@ -240,16 +241,26 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
-<a class="anchor" id="a9df53c7be65752fba7dfddd2ad842d52"></a><!-- doxytag: member="MWWorld::PhysicsSystem::addObject" ref="a9df53c7be65752fba7dfddd2ad842d52" args="(const MWWorld::Ptr &amp;ptr)" -->
+<a class="anchor" id="a27640418507d9b0ae6b9f35c79ef0fab"></a><!-- doxytag: member="MWWorld::PhysicsSystem::addObject" ref="a27640418507d9b0ae6b9f35c79ef0fab" args="(const MWWorld::Ptr &amp;ptr, bool placeable=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a9df53c7be65752fba7dfddd2ad842d52">MWWorld::PhysicsSystem::addObject</a> </td>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1PhysicsSystem.html#a27640418507d9b0ae6b9f35c79ef0fab">MWWorld::PhysicsSystem::addObject</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>placeable</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -343,8 +354,8 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <div class="memdoc">
 
 <p>cast ray from the mouse, return true if it hit something and the first result (in OGRE coordinates) </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000088">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000089">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000084">Todo:</a></b></dt><dd>make this distance (ray length) configurable </dd></dl>
 
 </div>
 </div>
@@ -718,6 +729,23 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
+<a class="anchor" id="ad81fcdfeca778cf6e10c0e29a50f2bc6"></a><!-- doxytag: member="MWWorld::PhysicsSystem::traceDown" ref="ad81fcdfeca778cf6e10c0e29a50f2bc6" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::Vector3 <a class="el" href="classMWWorld_1_1PhysicsSystem.html#ad81fcdfeca778cf6e10c0e29a50f2bc6">MWWorld::PhysicsSystem::traceDown</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="adc775d97c2de1b029978dfd7fe102866"></a><!-- doxytag: member="MWWorld::PhysicsSystem::updatePlayerData" ref="adc775d97c2de1b029978dfd7fe102866" args="(Ogre::Vector3 &amp;eyepos, float pitch, float yaw)" -->
 <div class="memitem">
 <div class="memproto">
@@ -851,7 +879,7 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -62,39 +62,73 @@
 <a href="enchantingdialog_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MWGUI_ENCHANTINGDIALOG_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MWGUI_ENCHANTINGDIALOG_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="referenceinterface_8hpp.html">referenceinterface.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="spellcreationdialog_8hpp.html">spellcreationdialog.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="spellcreationdialog_8hpp.html">spellcreationdialog.hpp</a>&quot;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;../mwbase/windowmanager.hpp&quot;</span>
 <a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwbase/windowmanager.hpp&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwmechanics/enchanting.hpp&quot;</span>
 <a name="l00009"></a>00009 
 <a name="l00010"></a>00010 <span class="keyword">namespace </span>MWGui
 <a name="l00011"></a>00011 {
 <a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html">00013</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1EnchantingDialog.html">EnchantingDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html">EffectEditorBase</a>
-<a name="l00014"></a>00014     {
-<a name="l00015"></a>00015     <span class="keyword">public</span>:
-<a name="l00016"></a>00016         <a class="code" href="classMWGui_1_1EnchantingDialog.html#a68c592b19cfad5437da0d7c584f13dd6">EnchantingDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a26cf868e29d1f1cc90377e9d54f1b2f2">open</a>();
-<a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a4bda6f1435bae7b8472dc2d60dd3de08">startEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00013"></a>00013     <span class="keyword">class </span>ItemSelectionDialog;
+<a name="l00014"></a>00014 
+<a name="l00015"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html">00015</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1EnchantingDialog.html">EnchantingDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html">EffectEditorBase</a>
+<a name="l00016"></a>00016     {
+<a name="l00017"></a>00017     <span class="keyword">public</span>:
+<a name="l00018"></a>00018         <a class="code" href="classMWGui_1_1EnchantingDialog.html#a15630e6153b49f15b018e7432a8cb1d2">EnchantingDialog</a>();
+<a name="l00019"></a>00019         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a3d76de64df17c8dd948cb62f61b890ef">~EnchantingDialog</a>();
 <a name="l00020"></a>00020 
-<a name="l00021"></a>00021     <span class="keyword">protected</span>:
-<a name="l00022"></a>00022         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a61ab0c52d45250fa62e0209faa7303bd" title="called when reference has become unavailable">onReferenceUnavailable</a>();
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#af2d97c7991e4abfeb01cedddef7c4783">onCancelButtonClicked</a>(MyGUI::Widget* sender);
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a091d7dfb213f4f7205ea6087a51df244">00026</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a091d7dfb213f4f7205ea6087a51df244">mCancelButton</a>;
-<a name="l00027"></a>00027     };
+<a name="l00021"></a>00021         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a26cf868e29d1f1cc90377e9d54f1b2f2">open</a>();
+<a name="l00022"></a>00022         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a4bda6f1435bae7b8472dc2d60dd3de08">startEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00023"></a>00023         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a8ff8a887af21d508bcca47e63016624d">startSelfEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> soulgem);
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025     <span class="keyword">protected</span>:
+<a name="l00026"></a>00026         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a61ab0c52d45250fa62e0209faa7303bd" title="called when reference has become unavailable">onReferenceUnavailable</a>();
+<a name="l00027"></a>00027         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#ab6c156260a8846052fb61b1e7d19eae0">notifyEffectsChanged</a> ();
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029 }
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
+<a name="l00029"></a>00029         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#af2d97c7991e4abfeb01cedddef7c4783">onCancelButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00030"></a>00030         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#aa778386295ae9f821c33ba9da98956bb">onSelectItem</a> (MyGUI::Widget* sender);
+<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#aa4cabca3a6b66a5492f1fe1fc86a47d6">onSelectSoul</a> (MyGUI::Widget* sender);
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#adfae4b6ee26c4358dce771f69101bbe8">onRemoveItem</a> (MyGUI::Widget* sender);
+<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a57be96ec9b00b350925968a7d13f61bb">onRemoveSoul</a> (MyGUI::Widget* sender);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a2d385e77dc137d72ce7aef5367b6e94d">onItemSelected</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00036"></a>00036         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a5a34a5a458cfce2348b5b10c0d79e6e2">onItemCancel</a>();
+<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a14c34492d11d4f211e0355a0ecc9c65c">onSoulSelected</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a4d3aa9e6497cb3688ddf401960953b23">onSoulCancel</a>();
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#aa23d6beb65f9018cc0e5482de7de25bf">onBuyButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a29006efc3c8f4bbc17f47cf3021160c2">updateLabels</a>();
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EnchantingDialog.html#aa86f104c1a6ab30952a1ec6230e3baa1">onTypeButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a6db3161bfe5f9e833192ba4f166a0681">00043</a>         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html">ItemSelectionDialog</a>* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a6db3161bfe5f9e833192ba4f166a0681">mItemSelectionDialog</a>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a091d7dfb213f4f7205ea6087a51df244">00045</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a091d7dfb213f4f7205ea6087a51df244">mCancelButton</a>;
+<a name="l00046"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a9b4925794e905f7f8c8e71a7a56a091d">00046</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a9b4925794e905f7f8c8e71a7a56a091d">mItemBox</a>;
+<a name="l00047"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#ac286785d99f803d198cf423978b7172c">00047</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#ac286785d99f803d198cf423978b7172c">mSoulBox</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a1899f23b75a1366dc8d27c19476acd48">00049</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a1899f23b75a1366dc8d27c19476acd48">mTypeButton</a>;
+<a name="l00050"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a5c904ea92a486adbe0816399abbbfa53">00050</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a5c904ea92a486adbe0816399abbbfa53">mBuyButton</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#abf13be1e18f427828e63da18ac69efaf">00052</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#abf13be1e18f427828e63da18ac69efaf">mName</a>;
+<a name="l00053"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a1c10de8fc64d25de354261178dea0985">00053</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a1c10de8fc64d25de354261178dea0985">mEnchantmentPoints</a>;
+<a name="l00054"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#ac3ac49498cfdada96b3599f44d09b739">00054</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#ac3ac49498cfdada96b3599f44d09b739">mCastCost</a>;
+<a name="l00055"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a5448d86ae7892898d1114ec94d0f111f">00055</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a5448d86ae7892898d1114ec94d0f111f">mCharge</a>;
+<a name="l00056"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a464b71406096d74413dbdae6ed10534b">00056</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a464b71406096d74413dbdae6ed10534b">mPrice</a>;
+<a name="l00057"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a7934f76cd38a42448c1c0f6cc26aea93">00057</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1EnchantingDialog.html#a7934f76cd38a42448c1c0f6cc26aea93">mPriceText</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a246ec5f789b44afba26f4a33325fe389">00059</a>         <a class="code" href="classMWMechanics_1_1Enchanting.html">MWMechanics::Enchanting</a> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a246ec5f789b44afba26f4a33325fe389">mEnchanting</a>;
+<a name="l00060"></a><a class="code" href="classMWGui_1_1EnchantingDialog.html#a849615a9a488812da42559867859c3c0">00060</a>         <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a> <a class="code" href="classMWGui_1_1EnchantingDialog.html#a849615a9a488812da42559867859c3c0">mEffectList</a>;
+<a name="l00061"></a>00061     };
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 }
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

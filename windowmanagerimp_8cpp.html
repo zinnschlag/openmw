@@ -55,39 +55,26 @@
   </div>
 </div>
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">apps/openmw/mwgui/windowmanagerimp.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="windowmanagerimp_8hpp_source.html">windowmanagerimp.hpp</a>&quot;</code><br/>
-<code>#include &lt;cassert&gt;</code><br/>
-<code>#include &lt;iterator&gt;</code><br/>
-<code>#include &lt;MyGUI_UString.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="renderer_8hpp_source.html">openengine/ogre/renderer.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="manager_8hpp_source.html">openengine/gui/manager.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="settings_8hpp_source.html">components/settings/settings.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="translation_8hpp_source.html">components/translation/translation.hpp</a>&gt;</code><br/>
-<code>#include &quot;<a class="el" href="environment_8hpp_source.html">../mwbase/environment.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="mechanicsmanager_8hpp_source.html">../mwbase/mechanicsmanager.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="inputmanager_8hpp_source.html">../mwbase/inputmanager.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="ptr_8hpp_source.html">../mwworld/ptr.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="cellstore_8hpp_source.html">../mwworld/cellstore.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="console_8hpp_source.html">console.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="journalwindow_8hpp_source.html">journalwindow.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="charactercreation_8hpp_source.html">charactercreation.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="text__input_8hpp_source.html">text_input.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="review_8hpp_source.html">review.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="dialogue_8hpp_source.html">dialogue.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="dialogue__history_8hpp_source.html">dialogue_history.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="map__window_8hpp_source.html">map_window.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="stats__window_8hpp_source.html">stats_window.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="dialoguehistory_8hpp_source.html">dialoguehistory.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="statswindow_8hpp_source.html">statswindow.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="messagebox_8hpp_source.html">messagebox.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="mwgui_2container_8hpp_source.html">container.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="inventorywindow_8hpp_source.html">inventorywindow.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tooltips_8hpp_source.html">tooltips.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="scrollwindow_8hpp_source.html">scrollwindow.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="bookwindow_8hpp_source.html">bookwindow.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="apps_2openmw_2mwgui_2list_8hpp_source.html">list.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="hud_8hpp_source.html">hud.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mainmenu_8hpp_source.html">mainmenu.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="countdialog_8hpp_source.html">countdialog.hpp</a>&quot;</code><br/>
@@ -102,18 +89,25 @@
 <code>#include &quot;<a class="el" href="loadingscreen_8hpp_source.html">loadingscreen.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="levelupdialog_8hpp_source.html">levelupdialog.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="waitdialog_8hpp_source.html">waitdialog.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="spellcreationdialog_8hpp_source.html">spellcreationdialog.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="enchantingdialog_8hpp_source.html">enchantingdialog.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="trainingwindow_8hpp_source.html">trainingwindow.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="imagebutton_8hpp_source.html">imagebutton.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="exposedwindow_8hpp_source.html">exposedwindow.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="cursor_8hpp_source.html">cursor.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="spellicons_8hpp_source.html">spellicons.hpp</a>&quot;</code><br/>
-</div></div><!-- contents -->
+<code>#include &quot;<a class="el" href="merchantrepair_8hpp_source.html">merchantrepair.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="mwgui_2repair_8hpp_source.html">repair.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="soulgemdialog_8hpp_source.html">soulgemdialog.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="companionwindow_8hpp_source.html">companionwindow.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="inventorywindow_8hpp_source.html">inventorywindow.hpp</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr><td colspan="2"><h2><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWGui.html">MWGui</a></td></tr>
+</table>
+</div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

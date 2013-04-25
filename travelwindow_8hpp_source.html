@@ -63,62 +63,59 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MWGUI_TravelWINDOW_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="mwgui_2container_8hpp.html">container.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>MyGUI
-<a name="l00010"></a>00010 {
-<a name="l00011"></a>00011   <span class="keyword">class </span>Gui;
-<a name="l00012"></a>00012   <span class="keyword">class </span>Widget;
-<a name="l00013"></a>00013 }
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="keyword">namespace </span>MWGui
-<a name="l00016"></a>00016 {
-<a name="l00017"></a>00017     <span class="keyword">class </span>WindowManager;
-<a name="l00018"></a>00018 }
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="keyword">namespace </span>MWGui
-<a name="l00022"></a>00022 {
-<a name="l00023"></a><a class="code" href="classMWGui_1_1TravelWindow.html">00023</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1TravelWindow.html">TravelWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00024"></a>00024     {
-<a name="l00025"></a>00025         <span class="keyword">public</span>:
-<a name="l00026"></a>00026             <a class="code" href="classMWGui_1_1TravelWindow.html#a81e5de83e87f8e4828aacf9857f75c65">TravelWindow</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a395348e23fc3484ebbbdf1afe84bcaba">startTravel</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030         <span class="keyword">protected</span>:
-<a name="l00031"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a202b5e6ea2d1a202aff9c26b57866f8b">00031</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1TravelWindow.html#a202b5e6ea2d1a202aff9c26b57866f8b">mCancelButton</a>;
-<a name="l00032"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a01075baac93d9b5e7b194d2ffdd230b0">00032</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1TravelWindow.html#a01075baac93d9b5e7b194d2ffdd230b0">mPlayerGold</a>;
-<a name="l00033"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a5c42f5085a7c1740a98d67e88b4900aa">00033</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1TravelWindow.html#a5c42f5085a7c1740a98d67e88b4900aa">mDestinations</a>;
-<a name="l00034"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a459244c53c81f18ccacf2e6b29723471">00034</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1TravelWindow.html#a459244c53c81f18ccacf2e6b29723471">mSelect</a>;
-<a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a3b8844b798dab71764facadc489bd745">00036</a>             MyGUI::ScrollView* <a class="code" href="classMWGui_1_1TravelWindow.html#a3b8844b798dab71764facadc489bd745">mDestinationsView</a>;
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a5540c757141948c5b273b4fd9ef28f2a">00038</a>             std::map&lt;MyGUI::Widget*, std::string&gt; <a class="code" href="classMWGui_1_1TravelWindow.html#a5540c757141948c5b273b4fd9ef28f2a">mDestinationsWidgetMap</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a50f0cd8c89aa5b2212fac38f51f4033a">onCancelButtonClicked</a>(MyGUI::Widget* _sender);
-<a name="l00041"></a>00041             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#aa8da69518ba8fb84d850135115815734">onTravelButtonClick</a>(MyGUI::Widget* _sender);
-<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#aa721b3618a9339d2e547bb732c366e9f">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a433557eae680f0f24af7b6bd860fcc7b">addDestination</a>(<span class="keyword">const</span> std::string&amp; destinationID,<a class="code" href="structESM_1_1Position.html">ESM::Position</a> pos,<span class="keywordtype">bool</span> interior);
-<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#ad57f16e058fe0eb95125ec945e67e98c">clearDestinations</a>();
-<a name="l00045"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a39e64791feab4b0b354899f84adc00ce">00045</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a39e64791feab4b0b354899f84adc00ce">mLastPos</a>,<a class="code" href="classMWGui_1_1TravelWindow.html#a489a1e276b9ae13b23ae7f1b438e3c69">mCurrentY</a>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classMWGui_1_1TravelWindow.html#aa482faa448f1a7755bcc2d2c5a57abc4">00047</a>             <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1TravelWindow.html#aa482faa448f1a7755bcc2d2c5a57abc4">sLineHeight</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#ad53dbb7c5f0ccc071cc5dec985fc99eb">updateLabels</a>();
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a57f42be573de99d876d3d1b32f3c0339" title="called when reference has become unavailable">onReferenceUnavailable</a>();
-<a name="l00052"></a>00052     };
-<a name="l00053"></a>00053 }
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>MyGUI
+<a name="l00007"></a>00007 {
+<a name="l00008"></a>00008   <span class="keyword">class </span>Gui;
+<a name="l00009"></a>00009   <span class="keyword">class </span>Widget;
+<a name="l00010"></a>00010 }
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>MWGui
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014     <span class="keyword">class </span>WindowManager;
+<a name="l00015"></a>00015 }
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>MWGui
+<a name="l00019"></a>00019 {
+<a name="l00020"></a><a class="code" href="classMWGui_1_1TravelWindow.html">00020</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1TravelWindow.html">TravelWindow</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a>00022         <span class="keyword">public</span>:
+<a name="l00023"></a>00023             <a class="code" href="classMWGui_1_1TravelWindow.html#aae3d442891d577b2420238e1958c2aee">TravelWindow</a>();
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a395348e23fc3484ebbbdf1afe84bcaba">startTravel</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027         <span class="keyword">protected</span>:
+<a name="l00028"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a202b5e6ea2d1a202aff9c26b57866f8b">00028</a>             MyGUI::Button* <a class="code" href="classMWGui_1_1TravelWindow.html#a202b5e6ea2d1a202aff9c26b57866f8b">mCancelButton</a>;
+<a name="l00029"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a01075baac93d9b5e7b194d2ffdd230b0">00029</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1TravelWindow.html#a01075baac93d9b5e7b194d2ffdd230b0">mPlayerGold</a>;
+<a name="l00030"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a5c42f5085a7c1740a98d67e88b4900aa">00030</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1TravelWindow.html#a5c42f5085a7c1740a98d67e88b4900aa">mDestinations</a>;
+<a name="l00031"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a459244c53c81f18ccacf2e6b29723471">00031</a>             MyGUI::TextBox* <a class="code" href="classMWGui_1_1TravelWindow.html#a459244c53c81f18ccacf2e6b29723471">mSelect</a>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a3b8844b798dab71764facadc489bd745">00033</a>             MyGUI::ScrollView* <a class="code" href="classMWGui_1_1TravelWindow.html#a3b8844b798dab71764facadc489bd745">mDestinationsView</a>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a5540c757141948c5b273b4fd9ef28f2a">00035</a>             std::map&lt;MyGUI::Widget*, std::string&gt; <a class="code" href="classMWGui_1_1TravelWindow.html#a5540c757141948c5b273b4fd9ef28f2a">mDestinationsWidgetMap</a>;
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a50f0cd8c89aa5b2212fac38f51f4033a">onCancelButtonClicked</a>(MyGUI::Widget* _sender);
+<a name="l00038"></a>00038             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#aa8da69518ba8fb84d850135115815734">onTravelButtonClick</a>(MyGUI::Widget* _sender);
+<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#aa721b3618a9339d2e547bb732c366e9f">onMouseWheel</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> _rel);
+<a name="l00040"></a>00040             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a433557eae680f0f24af7b6bd860fcc7b">addDestination</a>(<span class="keyword">const</span> std::string&amp; destinationID,<a class="code" href="structESM_1_1Position.html">ESM::Position</a> pos,<span class="keywordtype">bool</span> interior);
+<a name="l00041"></a>00041             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#ad57f16e058fe0eb95125ec945e67e98c">clearDestinations</a>();
+<a name="l00042"></a><a class="code" href="classMWGui_1_1TravelWindow.html#a39e64791feab4b0b354899f84adc00ce">00042</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a39e64791feab4b0b354899f84adc00ce">mLastPos</a>,<a class="code" href="classMWGui_1_1TravelWindow.html#a489a1e276b9ae13b23ae7f1b438e3c69">mCurrentY</a>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="classMWGui_1_1TravelWindow.html#aa482faa448f1a7755bcc2d2c5a57abc4">00044</a>             <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1TravelWindow.html#aa482faa448f1a7755bcc2d2c5a57abc4">sLineHeight</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#ad53dbb7c5f0ccc071cc5dec985fc99eb">updateLabels</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1TravelWindow.html#a57f42be573de99d876d3d1b32f3c0339" title="called when reference has become unavailable">onReferenceUnavailable</a>();
+<a name="l00049"></a>00049     };
+<a name="l00050"></a>00050 }
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

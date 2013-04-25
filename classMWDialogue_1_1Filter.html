@@ -79,7 +79,7 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#acd515a1c05c8840aba6fb9b8c0ff631b">Filter</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor, int choice, bool talkedToPlayer)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; const <br class="typebreak"/>
-<a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#af98e8da1a2509f3fbe2b3c359a44521b">list</a> (const <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &amp;dialogue, bool fallbackToInfoRefusal, bool searchAll) const </td></tr>
+<a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#a6149bd16bfaa574d0ac69958a875c680">list</a> (const <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &amp;dialogue, bool fallbackToInfoRefusal, bool searchAll, bool invertDisposition=false) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#aab55e50181b357e0e35d3b602c63c41b">search</a> (const <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &amp;dialogue, const bool fallbackToInfoRefusal) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#a8446a9a89db0edd7358e9d8f124fab92">responseAvailable</a> (const <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &amp;dialogue) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a matching response exist? (disposition is ignored for this check)  <a href="#a8446a9a89db0edd7358e9d8f124fab92"></a><br/></td></tr>
@@ -91,8 +91,8 @@ Private Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Do the player and the cell the player is currently in match <em>info</em>?  <a href="#ac6eca111194d26fb68c0561f9e5f2077"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#ab50a3fabe6c448f9eb6474a16b8482b3">testSelectStructs</a> (const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> &amp;info) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Are all select structs matching?  <a href="#ab50a3fabe6c448f9eb6474a16b8482b3"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#a7ca3191457282cf27ad0589bf7a66112">testDisposition</a> (const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> &amp;info) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the actor disposition toward the player high enough?  <a href="#a7ca3191457282cf27ad0589bf7a66112"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#a457ec49ec0a4ebe2bf5a719fd92bc12f">testDisposition</a> (const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> &amp;info, bool invert=false) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the actor disposition toward the player high enough (or low enough, if <em>invert</em> is true)?  <a href="#a457ec49ec0a4ebe2bf5a719fd92bc12f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#acdc105671a6c8f1536267a34251e56d3">testSelectStruct</a> (const <a class="el" href="classMWDialogue_1_1SelectWrapper.html">SelectWrapper</a> &amp;select) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#af7ae6e380372f3a35b48451035b3da1c">testSelectStructNumeric</a> (const <a class="el" href="classMWDialogue_1_1SelectWrapper.html">SelectWrapper</a> &amp;select) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWDialogue_1_1Filter.html#a60b07e8170fb7aaff7e252554be1e4ba">getSelectStructInteger</a> (const <a class="el" href="classMWDialogue_1_1SelectWrapper.html">SelectWrapper</a> &amp;select) const </td></tr>
@@ -268,12 +268,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af98e8da1a2509f3fbe2b3c359a44521b"></a><!-- doxytag: member="MWDialogue::Filter::list" ref="af98e8da1a2509f3fbe2b3c359a44521b" args="(const ESM::Dialogue &amp;dialogue, bool fallbackToInfoRefusal, bool searchAll) const " -->
+<a class="anchor" id="a6149bd16bfaa574d0ac69958a875c680"></a><!-- doxytag: member="MWDialogue::Filter::list" ref="a6149bd16bfaa574d0ac69958a875c680" args="(const ESM::Dialogue &amp;dialogue, bool fallbackToInfoRefusal, bool searchAll, bool invertDisposition=false) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> * &gt; <a class="el" href="classMWDialogue_1_1Filter.html#af98e8da1a2509f3fbe2b3c359a44521b">MWDialogue::Filter::list</a> </td>
+          <td class="memname">std::vector&lt; const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> * &gt; <a class="el" href="classMWDialogue_1_1Filter.html#a6149bd16bfaa574d0ac69958a875c680">MWDialogue::Filter::list</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structESM_1_1Dialogue.html">ESM::Dialogue</a> &amp;&#160;</td>
           <td class="paramname"><em>dialogue</em>, </td>
@@ -288,7 +288,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>searchAll</em>&#160;</td>
+          <td class="paramname"><em>searchAll</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>invertDisposition</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -367,22 +373,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7ca3191457282cf27ad0589bf7a66112"></a><!-- doxytag: member="MWDialogue::Filter::testDisposition" ref="a7ca3191457282cf27ad0589bf7a66112" args="(const ESM::DialInfo &amp;info) const " -->
+<a class="anchor" id="a457ec49ec0a4ebe2bf5a719fd92bc12f"></a><!-- doxytag: member="MWDialogue::Filter::testDisposition" ref="a457ec49ec0a4ebe2bf5a719fd92bc12f" args="(const ESM::DialInfo &amp;info, bool invert=false) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWDialogue_1_1Filter.html#a7ca3191457282cf27ad0589bf7a66112">MWDialogue::Filter::testDisposition</a> </td>
+          <td class="memname">bool <a class="el" href="classMWDialogue_1_1Filter.html#a457ec49ec0a4ebe2bf5a719fd92bc12f">MWDialogue::Filter::testDisposition</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structESM_1_1DialInfo.html">ESM::DialInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>info</em></td><td>)</td>
-          <td> const<code> [private]</code></td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>invert</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Is the actor disposition toward the player high enough? </p>
+<p>Is the actor disposition toward the player high enough (or low enough, if <em>invert</em> is true)? </p>
 
 </div>
 </div>
@@ -506,7 +522,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

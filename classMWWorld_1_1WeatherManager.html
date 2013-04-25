@@ -77,7 +77,7 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a92ff964971ef2924a90cdad0ff8594bf">WeatherManager</a> (<a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *, const std::map&lt; std::string, std::string &gt; &amp;fallbackMap)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a35f6d79b2e5411e762120847d19da32e">WeatherManager</a> (<a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *, <a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *fallback)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a89c3cfe5f6c04b08608c955bb46a3c74">changeWeather</a> (const std::string &amp;region, const unsigned int id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#adf3a824f4a93bb7a23f8f5bc695bff0e">update</a> (float duration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a8ca48f37acbbb5746b7f17cae2d9b2d4">setHour</a> (const float hour)</td></tr>
@@ -86,10 +86,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a1e4b8acd39d0fc11950560c0be383cd3">getWeatherID</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a2a3c5a90bdd3aa80d5b5e734b4967bce">getFallback</a> (const std::string &amp;key) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a274b9ac820ed0cce95852badd6de410e">getFallbackString</a> (const std::string &amp;fall) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a0a1a104ccae701b346ddabcaa3fff61b">getFallbackFloat</a> (const std::string &amp;fall) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::ColourValue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a64492e61a987e48f17af71419269e75f">getFallbackColour</a> (const std::string &amp;fall) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a72d3f0a2f96ecbf80255b27292171186">setFallbackWeather</a> (<a class="el" href="structMWWorld_1_1Weather.html">Weather</a> &amp;weather, const std::string &amp;name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1WeatherResult.html">WeatherResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#af3ae33b567dec83c8308a04c7bc37f6f">transition</a> (const float factor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1WeatherResult.html">WeatherResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#afedec944c615b0d07b7d4dd256096ea0">getResult</a> (const Ogre::String &amp;weather)</td></tr>
@@ -99,8 +95,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#ae3d34b7631164953efbc91882de4b97b">mHour</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a2e3190571cb7221c5e214fdcfbf1a53c">mDay</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a5e8f9827fd0f7fe251a5584e5015afc8">mMonth</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <br class="typebreak"/>
-std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a920f6a93c2a0219f106e79f3b0fbb13c">mFallback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a7d1ca5d727ba75ae5ef4c56b91a051c1">mFallback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a4a037d147ee845a8d0a172321d780575">mRendering</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; Ogre::String, <a class="el" href="structMWWorld_1_1Weather.html">Weather</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a6f72deee3490d068fd349738041c9d08">mWeatherSettings</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <br class="typebreak"/>
@@ -132,12 +127,12 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Interface for weather settings </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a92ff964971ef2924a90cdad0ff8594bf"></a><!-- doxytag: member="MWWorld::WeatherManager::WeatherManager" ref="a92ff964971ef2924a90cdad0ff8594bf" args="(MWRender::RenderingManager *, const std::map&lt; std::string, std::string &gt; &amp;fallbackMap)" -->
+<a class="anchor" id="a35f6d79b2e5411e762120847d19da32e"></a><!-- doxytag: member="MWWorld::WeatherManager::WeatherManager" ref="a35f6d79b2e5411e762120847d19da32e" args="(MWRender::RenderingManager *, MWWorld::Fallback *fallback)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1WeatherManager.html#a92ff964971ef2924a90cdad0ff8594bf">WeatherManager::WeatherManager</a> </td>
+          <td class="memname"><a class="el" href="classMWWorld_1_1WeatherManager.html#a35f6d79b2e5411e762120847d19da32e">WeatherManager::WeatherManager</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *&#160;</td>
           <td class="paramname"><em>rendering</em>, </td>
@@ -145,8 +140,8 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>fallbackMap</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *&#160;</td>
+          <td class="paramname"><em>fallback</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -209,74 +204,6 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a2a3c5a90bdd3aa80d5b5e734b4967bce"></a><!-- doxytag: member="MWWorld::WeatherManager::getFallback" ref="a2a3c5a90bdd3aa80d5b5e734b4967bce" args="(const std::string &amp;key) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string <a class="el" href="classMWWorld_1_1WeatherManager.html#a2a3c5a90bdd3aa80d5b5e734b4967bce">WeatherManager::getFallback</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> const<code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a64492e61a987e48f17af71419269e75f"></a><!-- doxytag: member="MWWorld::WeatherManager::getFallbackColour" ref="a64492e61a987e48f17af71419269e75f" args="(const std::string &amp;fall) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ColourValue <a class="el" href="classMWWorld_1_1WeatherManager.html#a64492e61a987e48f17af71419269e75f">WeatherManager::getFallbackColour</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fall</em></td><td>)</td>
-          <td> const<code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0a1a104ccae701b346ddabcaa3fff61b"></a><!-- doxytag: member="MWWorld::WeatherManager::getFallbackFloat" ref="a0a1a104ccae701b346ddabcaa3fff61b" args="(const std::string &amp;fall) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWWorld_1_1WeatherManager.html#a0a1a104ccae701b346ddabcaa3fff61b">WeatherManager::getFallbackFloat</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fall</em></td><td>)</td>
-          <td> const<code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a274b9ac820ed0cce95852badd6de410e"></a><!-- doxytag: member="MWWorld::WeatherManager::getFallbackString" ref="a274b9ac820ed0cce95852badd6de410e" args="(const std::string &amp;fall) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string <a class="el" href="classMWWorld_1_1WeatherManager.html#a274b9ac820ed0cce95852badd6de410e">WeatherManager::getFallbackString</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fall</em></td><td>)</td>
-          <td> const<code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -492,12 +419,12 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
-<a class="anchor" id="a920f6a93c2a0219f106e79f3b0fbb13c"></a><!-- doxytag: member="MWWorld::WeatherManager::mFallback" ref="a920f6a93c2a0219f106e79f3b0fbb13c" args="" -->
+<a class="anchor" id="a7d1ca5d727ba75ae5ef4c56b91a051c1"></a><!-- doxytag: member="MWWorld::WeatherManager::mFallback" ref="a7d1ca5d727ba75ae5ef4c56b91a051c1" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::map&lt;std::string,std::string&gt; <a class="el" href="classMWWorld_1_1WeatherManager.html#a920f6a93c2a0219f106e79f3b0fbb13c">MWWorld::WeatherManager::mFallback</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* <a class="el" href="classMWWorld_1_1WeatherManager.html#a7d1ca5d727ba75ae5ef4c56b91a051c1">MWWorld::WeatherManager::mFallback</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -851,7 +778,7 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

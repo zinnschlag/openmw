@@ -62,7 +62,7 @@
 <a href="birth_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MWGUI_BIRTH_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MWGUI_BIRTH_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="window__base_8hpp.html">window_base.hpp</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="windowbase_8hpp.html">windowbase.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="comment">/*</span>
 <a name="l00007"></a>00007 <span class="comment">  This file contains the dialog for choosing a birth sign.</span>
@@ -74,7 +74,7 @@
 <a name="l00013"></a><a class="code" href="classMWGui_1_1BirthDialog.html">00013</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1BirthDialog.html">BirthDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
 <a name="l00014"></a>00014     {
 <a name="l00015"></a>00015     <span class="keyword">public</span>:
-<a name="l00016"></a>00016         <a class="code" href="classMWGui_1_1BirthDialog.html#a48d7d381751faf4250a3903de4994ef3">BirthDialog</a>(<a class="code" href="classMWBase_1_1WindowManager.html" title="Interface for widnow manager (implemented in MWGui)">MWBase::WindowManager</a>&amp; parWindowManager);
+<a name="l00016"></a>00016         <a class="code" href="classMWGui_1_1BirthDialog.html#ae8f5e488c8dbaced8c4fc52f41272e9a">BirthDialog</a>();
 <a name="l00017"></a>00017 
 <a name="l00018"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583b">00018</a>         <span class="keyword">enum</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a7316ecc594a03515c2813075819d583b">Gender</a>
 <a name="l00019"></a>00019         {
@@ -83,10 +83,10 @@
 <a name="l00022"></a>00022         };
 <a name="l00023"></a>00023 
 <a name="l00024"></a><a class="code" href="classMWGui_1_1BirthDialog.html#ac9c099d3334acf604ae3bed691575470">00024</a>         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWGui_1_1BirthDialog.html#ac9c099d3334acf604ae3bed691575470">getBirthId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a440394c63d4b14fb08c41ef80c302c55">mCurrentBirthId</a>; }
-<a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a34580ade6979dc4d4ef159e7e5b176d3">setBirthId</a>(<span class="keyword">const</span> std::string &amp;raceId);
+<a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a7019e28ed2d5f08f45155435136f0d00">setBirthId</a>(<span class="keyword">const</span> std::string &amp;raceId);
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a32d929cd5f75168e363d88d8732fd594">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
-<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#af3ba6e33650297ef044045b29fb73f5e">open</a>();
+<a name="l00027"></a>00027         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a17522103ca81a32d73f6d109f9d761bc">setNextButtonShow</a>(<span class="keywordtype">bool</span> shown);
+<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#adc4b70dfb4f5bec28c6719e53671c8bd">open</a>();
 <a name="l00029"></a>00029 
 <a name="l00030"></a>00030         <span class="comment">// Events</span>
 <a name="l00031"></a><a class="code" href="classMWGui_1_1BirthDialog.html#adef8b356ec354665c98a4e1680a5ce45">00031</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1BirthDialog.html#adef8b356ec354665c98a4e1680a5ce45">EventHandle_Void</a>;
@@ -94,14 +94,14 @@
 <a name="l00036"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a847b6211cd3a1b483ba84b92e6a7aae6">00036</a>         <a class="code" href="classMWGui_1_1BirthDialog.html#adef8b356ec354665c98a4e1680a5ce45">EventHandle_Void</a> <a class="code" href="classMWGui_1_1BirthDialog.html#a847b6211cd3a1b483ba84b92e6a7aae6">eventBack</a>;
 <a name="l00037"></a>00037 
 <a name="l00038"></a>00038     <span class="keyword">protected</span>:
-<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a7d062ef759e33640031ea0b7476d00ad">onSelectBirth</a>(MyGUI::ListBox* _sender, <span class="keywordtype">size_t</span> _index);
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a3083ced443e2c7685e7a2f5f9c2dd65c">onSelectBirth</a>(MyGUI::ListBox* _sender, <span class="keywordtype">size_t</span> _index);
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a23257180dafd4d0261cd202cfc51492b">onOkClicked</a>(MyGUI::Widget* _sender);
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a4abc8acfac6586f453bb6bd4e04980f0">onBackClicked</a>(MyGUI::Widget* _sender);
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#ae7022b22f686dca59d3500691fae50ca">onOkClicked</a>(MyGUI::Widget* _sender);
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a2cfa98a04d020d92c9b3999e168b9f46">onBackClicked</a>(MyGUI::Widget* _sender);
 <a name="l00043"></a>00043 
 <a name="l00044"></a>00044     <span class="keyword">private</span>:
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a320680e488ffd9576f76354ca9bc78a7">updateBirths</a>();
-<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#aba96782e90906f1608324f27bd11a96e">updateSpells</a>();
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#a4cfa6b49aa91ed8f7c03db1e55929cdb">updateBirths</a>();
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1BirthDialog.html#ac8fa31e6c52ab817809762bf3119a95b">updateSpells</a>();
 <a name="l00047"></a>00047 
 <a name="l00048"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a0bf022057ef869bc1b6192289bcd34b6">00048</a>         MyGUI::ListBox* <a class="code" href="classMWGui_1_1BirthDialog.html#a0bf022057ef869bc1b6192289bcd34b6">mBirthList</a>;
 <a name="l00049"></a><a class="code" href="classMWGui_1_1BirthDialog.html#a8c5602334a63302067dc9ad8ea5d2987">00049</a>         MyGUI::Widget*  <a class="code" href="classMWGui_1_1BirthDialog.html#a8c5602334a63302067dc9ad8ea5d2987">mSpellArea</a>;
@@ -116,7 +116,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

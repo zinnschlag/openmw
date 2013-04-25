@@ -86,11 +86,11 @@
 <a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define OPENMW_COMPONENTS_NIFOGRE_OGRENIFLOADER_HPP</span>
 <a name="l00026"></a>00026 <span class="preprocessor"></span>
 <a name="l00027"></a>00027 <span class="preprocessor">#include &lt;OgreResource.h&gt;</span>
-<a name="l00028"></a>00028 <span class="preprocessor">#include &lt;OgreMesh.h&gt;</span>
-<a name="l00029"></a>00029 <span class="preprocessor">#include &lt;OgreSkeleton.h&gt;</span>
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="preprocessor">#include &lt;vector&gt;</span>
-<a name="l00032"></a>00032 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00028"></a>00028 <span class="preprocessor">#include &lt;OgreController.h&gt;</span>
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00031"></a>00031 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00032"></a>00032 <span class="preprocessor">#include &lt;map&gt;</span>
 <a name="l00033"></a>00033 
 <a name="l00034"></a>00034 
 <a name="l00035"></a>00035 <span class="comment">// FIXME: This namespace really doesn&#39;t do anything Nif-specific. Any supportable</span>
@@ -100,62 +100,77 @@
 <a name="l00039"></a>00039 
 <a name="l00040"></a><a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">00040</a> <span class="keyword">typedef</span> std::multimap&lt;float,std::string&gt; <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a>;
 <a name="l00041"></a><a class="code" href="namespaceNifOgre.html#a86f0536367e865d893eb5c88dab7649a">00041</a> <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code" href="namespaceNifOgre.html#a86f0536367e865d893eb5c88dab7649a">sTextKeyExtraDataID</a>[] = <span class="stringliteral">&quot;TextKeyExtraData&quot;</span>;
-<a name="l00042"></a><a class="code" href="structNifOgre_1_1EntityList.html">00042</a> <span class="keyword">struct </span><a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> {
-<a name="l00043"></a><a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">00043</a>     std::vector&lt;Ogre::Entity*&gt; <a class="code" href="structNifOgre_1_1EntityList.html#a8f92416d2090f5a2603bc4b76649796d">mEntities</a>;
-<a name="l00044"></a><a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">00044</a>     Ogre::Entity *<a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>;
-<a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="structNifOgre_1_1EntityList.html#a120c5a419182e11aa1f46c3d4342a693">00046</a>     <a class="code" href="structNifOgre_1_1EntityList.html#a120c5a419182e11aa1f46c3d4342a693">EntityList</a>() : <a class="code" href="structNifOgre_1_1EntityList.html#ad0337e028601433b0db64eb2e348dbc5">mSkelBase</a>(0)
-<a name="l00047"></a>00047     { }
-<a name="l00048"></a>00048 };
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="comment">/* This holds a list of mesh names, the names of their parent nodes, and the offset</span>
-<a name="l00052"></a>00052 <span class="comment"> * from their parent nodes. */</span>
-<a name="l00053"></a><a class="code" href="structNifOgre_1_1MeshInfo.html">00053</a> <span class="keyword">struct </span><a class="code" href="structNifOgre_1_1MeshInfo.html">MeshInfo</a> {
-<a name="l00054"></a><a class="code" href="structNifOgre_1_1MeshInfo.html#aa6119f03b1eb47d5b24ee4a4d68926a8">00054</a>     std::string <a class="code" href="structNifOgre_1_1MeshInfo.html#aa6119f03b1eb47d5b24ee4a4d68926a8">mMeshName</a>;
-<a name="l00055"></a><a class="code" href="structNifOgre_1_1MeshInfo.html#a59e57f511d8ccd62ff318fd9c0d9f8b5">00055</a>     std::string <a class="code" href="structNifOgre_1_1MeshInfo.html#a59e57f511d8ccd62ff318fd9c0d9f8b5">mTargetNode</a>;
-<a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="structNifOgre_1_1MeshInfo.html#a50386eef61974aeeaacb451a5eb03273">00057</a>     <a class="code" href="structNifOgre_1_1MeshInfo.html#a50386eef61974aeeaacb451a5eb03273">MeshInfo</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> std::string &amp;target)
-<a name="l00058"></a>00058       : <a class="code" href="structNifOgre_1_1MeshInfo.html#aa6119f03b1eb47d5b24ee4a4d68926a8">mMeshName</a>(name), <a class="code" href="structNifOgre_1_1MeshInfo.html#a59e57f511d8ccd62ff318fd9c0d9f8b5">mTargetNode</a>(target)
-<a name="l00059"></a>00059     { }
-<a name="l00060"></a>00060 };
-<a name="l00061"></a><a class="code" href="namespaceNifOgre.html#a5a3faf0ec875dd9840af999a46ebea33">00061</a> <span class="keyword">typedef</span> std::vector&lt;MeshInfo&gt; <a class="code" href="namespaceNifOgre.html#a5a3faf0ec875dd9840af999a46ebea33">MeshInfoList</a>;
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classNifOgre_1_1Loader.html">00063</a> <span class="keyword">class </span><a class="code" href="classNifOgre_1_1Loader.html">Loader</a>
-<a name="l00064"></a>00064 {
-<a name="l00065"></a>00065     <span class="keyword">static</span> <a class="code" href="namespaceNifOgre.html#a5a3faf0ec875dd9840af999a46ebea33">MeshInfoList</a> <a class="code" href="classNifOgre_1_1Loader.html#a1d2a26bdda5de89f7e5b9c7346147ffc">load</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> std::string &amp;group);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067 <span class="keyword">public</span>:
-<a name="l00068"></a>00068     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1Loader.html#ab9cd20c34df9613de236f635adb7eafe">createEntities</a>(Ogre::Entity *parent, <span class="keyword">const</span> std::string &amp;bonename,
-<a name="l00069"></a>00069                                      Ogre::SceneNode *parentNode,
-<a name="l00070"></a>00070                                      std::string name,
-<a name="l00071"></a>00071                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1EntityList.html">EntityList</a> <a class="code" href="classNifOgre_1_1Loader.html#ab9cd20c34df9613de236f635adb7eafe">createEntities</a>(Ogre::SceneNode *parentNode,
-<a name="l00074"></a>00074                                      std::string name,
-<a name="l00075"></a>00075                                      <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00042"></a><a class="code" href="structNifOgre_1_1ObjectList.html">00042</a> <span class="keyword">struct </span><a class="code" href="structNifOgre_1_1ObjectList.html">ObjectList</a> {
+<a name="l00043"></a><a class="code" href="structNifOgre_1_1ObjectList.html#a7cce942bdbb88e4cae5cbf3243b7b763">00043</a>     Ogre::Entity *<a class="code" href="structNifOgre_1_1ObjectList.html#a7cce942bdbb88e4cae5cbf3243b7b763">mSkelBase</a>;
+<a name="l00044"></a><a class="code" href="structNifOgre_1_1ObjectList.html#a86c51d663300c30bad1ae1b12b9ec5d4">00044</a>     std::vector&lt;Ogre::Entity*&gt; <a class="code" href="structNifOgre_1_1ObjectList.html#a86c51d663300c30bad1ae1b12b9ec5d4">mEntities</a>;
+<a name="l00045"></a><a class="code" href="structNifOgre_1_1ObjectList.html#a81e5d3053e6f616162601fb52e79a80a">00045</a>     std::vector&lt;Ogre::ParticleSystem*&gt; <a class="code" href="structNifOgre_1_1ObjectList.html#a81e5d3053e6f616162601fb52e79a80a">mParticles</a>;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="comment">// We could actually have Ogre::Camera objects, but that means more</span>
+<a name="l00048"></a>00048     <span class="comment">// maintenance when switching cameras. The information in the NiCamera node</span>
+<a name="l00049"></a>00049     <span class="comment">// is pretty much useless too anyway. So instead, this is just a list of</span>
+<a name="l00050"></a>00050     <span class="comment">// bones in the mSkelBase which are NiCamera nodes.</span>
+<a name="l00051"></a><a class="code" href="structNifOgre_1_1ObjectList.html#addbc5d78b98f7508a5f229a5972603a2">00051</a>     std::vector&lt;Ogre::Bone*&gt; <a class="code" href="structNifOgre_1_1ObjectList.html#addbc5d78b98f7508a5f229a5972603a2">mCameras</a>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="structNifOgre_1_1ObjectList.html#a2e293fc8740ce7141a1a8b6b8a29bc72">00053</a>     std::vector&lt;Ogre::Controller&lt;Ogre::Real&gt; &gt; <a class="code" href="structNifOgre_1_1ObjectList.html#a2e293fc8740ce7141a1a8b6b8a29bc72">mControllers</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="structNifOgre_1_1ObjectList.html#aee1ce4bcc5fb483c28e538322375a665">00055</a>     <a class="code" href="structNifOgre_1_1ObjectList.html#aee1ce4bcc5fb483c28e538322375a665">ObjectList</a>() : <a class="code" href="structNifOgre_1_1ObjectList.html#a7cce942bdbb88e4cae5cbf3243b7b763">mSkelBase</a>(0)
+<a name="l00056"></a>00056     { }
+<a name="l00057"></a>00057 };
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 
+<a name="l00060"></a><a class="code" href="classNifOgre_1_1Loader.html">00060</a> <span class="keyword">class </span><a class="code" href="classNifOgre_1_1Loader.html">Loader</a>
+<a name="l00061"></a>00061 {
+<a name="l00062"></a>00062 <span class="keyword">public</span>:
+<a name="l00063"></a>00063     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1ObjectList.html">ObjectList</a> <a class="code" href="classNifOgre_1_1Loader.html#a3d6906bfd33e5e6c588c432805c51c54">createObjects</a>(Ogre::Entity *parent, <span class="keyword">const</span> std::string &amp;bonename,
+<a name="l00064"></a>00064                                     Ogre::SceneNode *parentNode,
+<a name="l00065"></a>00065                                     std::string name,
+<a name="l00066"></a>00066                                     <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1ObjectList.html">ObjectList</a> <a class="code" href="classNifOgre_1_1Loader.html#a3d6906bfd33e5e6c588c432805c51c54">createObjects</a>(Ogre::SceneNode *parentNode,
+<a name="l00069"></a>00069                                     std::string name,
+<a name="l00070"></a>00070                                     <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keyword">static</span> <a class="code" href="structNifOgre_1_1ObjectList.html">ObjectList</a> <a class="code" href="classNifOgre_1_1Loader.html#a8f3f08e8866432f9e874d8f2e1dfcc46">createObjectBase</a>(Ogre::SceneManager *sceneMgr,
+<a name="l00073"></a>00073                                        std::string name,
+<a name="l00074"></a>00074                                        <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
+<a name="l00075"></a>00075 };
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077     <span class="keyword">static</span> Ogre::SkeletonPtr <a class="code" href="classNifOgre_1_1Loader.html#a08b88c928a4c812883c6e1bf9830e955">getSkeleton</a>(std::string name, <span class="keyword">const</span> std::string &amp;group=<span class="stringliteral">&quot;General&quot;</span>);
-<a name="l00078"></a>00078 };
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 }
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082 <span class="keyword">namespace </span>std
-<a name="l00083"></a>00083 {
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085 <span class="comment">// These operators allow extra data types to be stored in an Ogre::Any</span>
-<a name="l00086"></a>00086 <span class="comment">// object, which can then be stored in user object bindings on the nodes</span>
+<a name="l00077"></a>00077 <span class="comment">// FIXME: Should be with other general Ogre extensions.</span>
+<a name="l00078"></a>00078 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00079"></a><a class="code" href="classNifOgre_1_1NodeTargetValue.html">00079</a> <span class="keyword">class </span><a class="code" href="classNifOgre_1_1NodeTargetValue.html">NodeTargetValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;T&gt;
+<a name="l00080"></a>00080 {
+<a name="l00081"></a>00081 <span class="keyword">protected</span>:
+<a name="l00082"></a><a class="code" href="classNifOgre_1_1NodeTargetValue.html#a60c330439767188d5bb8e1501f3830c9">00082</a>     Ogre::Node *<a class="code" href="classNifOgre_1_1NodeTargetValue.html#a60c330439767188d5bb8e1501f3830c9">mNode</a>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084 <span class="keyword">public</span>:
+<a name="l00085"></a><a class="code" href="classNifOgre_1_1NodeTargetValue.html#ae5138cf6940c13a4832f458e732dd05e">00085</a>     <a class="code" href="classNifOgre_1_1NodeTargetValue.html#ae5138cf6940c13a4832f458e732dd05e">NodeTargetValue</a>(Ogre::Node *target) : <a class="code" href="classNifOgre_1_1NodeTargetValue.html#a60c330439767188d5bb8e1501f3830c9">mNode</a>(target)
+<a name="l00086"></a>00086     { }
 <a name="l00087"></a>00087 
-<a name="l00088"></a>00088 ostream&amp; <a class="code" href="namespacestd.html#ae9d9cc4347bc47cc35f57e560c4cfaca">operator&lt;&lt;</a>(ostream &amp;<a class="code" href="namespaceMWRender_1_1Flicker.html#a44695f8729867f497f7379ce7d135479">o</a>, <span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a>&amp;);
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090 }
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <span class="preprocessor">#endif</span>
+<a name="l00088"></a><a class="code" href="classNifOgre_1_1NodeTargetValue.html#a3c056ddb1afaa1564263a31a479073c2">00088</a>     <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NodeTargetValue.html#a3c056ddb1afaa1564263a31a479073c2">setNode</a>(Ogre::Node *target)
+<a name="l00089"></a>00089     { <a class="code" href="classNifOgre_1_1NodeTargetValue.html#a60c330439767188d5bb8e1501f3830c9">mNode</a> = target; }
+<a name="l00090"></a><a class="code" href="classNifOgre_1_1NodeTargetValue.html#af755381b8a59235302a8cf28d7c98572">00090</a>     Ogre::Node *<a class="code" href="classNifOgre_1_1NodeTargetValue.html#af755381b8a59235302a8cf28d7c98572">getNode</a>()<span class="keyword"> const</span>
+<a name="l00091"></a>00091 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNifOgre_1_1NodeTargetValue.html#a60c330439767188d5bb8e1501f3830c9">mNode</a>; }
+<a name="l00092"></a>00092 };
+<a name="l00093"></a><a class="code" href="namespaceNifOgre.html#a9f3f377a647b56de8456aa35340a81f6">00093</a> <span class="keyword">typedef</span> Ogre::SharedPtr&lt;NodeTargetValue&lt;Ogre::Real&gt; &gt; <a class="code" href="namespaceNifOgre.html#a9f3f377a647b56de8456aa35340a81f6">NodeTargetValueRealPtr</a>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 }
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 <span class="keyword">namespace </span>std
+<a name="l00098"></a>00098 {
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 <span class="comment">// These operators allow extra data types to be stored in an Ogre::Any</span>
+<a name="l00101"></a>00101 <span class="comment">// object, which can then be stored in user object bindings on the nodes</span>
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103 ostream&amp; <a class="code" href="namespacestd.html#ae9d9cc4347bc47cc35f57e560c4cfaca">operator&lt;&lt;</a>(ostream &amp;<a class="code" href="namespaceMWRender_1_1Flicker.html#a44695f8729867f497f7379ce7d135479">o</a>, <span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a>&amp;);
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105 }
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

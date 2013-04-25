@@ -86,7 +86,7 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">btVector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#ac2257d55393c7de84d9753312c6f94a4">getbtVector</a> (Ogre::Vector3 const &amp;v)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#a890f42406993f8e7aa7a2e1921bb17c1">handleNode</a> (btTriangleMesh *<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <a class="el" href="classNif_1_1Node.html">Nif::Node</a> const *node, int flags, bool hasCollisionNode, bool isCollisionNode, bool raycasting)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae5f67a4afb88b76c74ceef89ee6979a2">handleNode</a> (btTriangleMesh *<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <a class="el" href="classNif_1_1Node.html">Nif::Node</a> const *node, int flags, bool isCollisionNode, bool raycasting, bool isMarker)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#abeb4b263c4a4300bcd319798810b316d">hasRootCollisionNode</a> (const <a class="el" href="classNif_1_1Node.html">Nif::Node</a> *node)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4ea5c5493a9cac1f930e5ea801d06c61">handleNiTriShape</a> (btTriangleMesh *<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, const <a class="el" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, int flags, const Ogre::Matrix4 &amp;transform, bool raycasting)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
@@ -213,12 +213,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a890f42406993f8e7aa7a2e1921bb17c1"></a><!-- doxytag: member="NifBullet::ManualBulletShapeLoader::handleNode" ref="a890f42406993f8e7aa7a2e1921bb17c1" args="(btTriangleMesh *mesh, Nif::Node const *node, int flags, bool hasCollisionNode, bool isCollisionNode, bool raycasting)" -->
+<a class="anchor" id="ae5f67a4afb88b76c74ceef89ee6979a2"></a><!-- doxytag: member="NifBullet::ManualBulletShapeLoader::handleNode" ref="ae5f67a4afb88b76c74ceef89ee6979a2" args="(btTriangleMesh *mesh, Nif::Node const *node, int flags, bool isCollisionNode, bool raycasting, bool isMarker)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#a890f42406993f8e7aa7a2e1921bb17c1">NifBullet::ManualBulletShapeLoader::handleNode</a> </td>
+          <td class="memname">void <a class="el" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae5f67a4afb88b76c74ceef89ee6979a2">NifBullet::ManualBulletShapeLoader::handleNode</a> </td>
           <td>(</td>
           <td class="paramtype">btTriangleMesh *&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
@@ -239,19 +239,19 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hasCollisionNode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>isCollisionNode</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>raycasting</em>&#160;</td>
+          <td class="paramname"><em>raycasting</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isMarker</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -262,7 +262,7 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Parse a node. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000106">Todo:</a></b></dt><dd>don't do this in the editor </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000102">Todo:</a></b></dt><dd>don't do this in the editor </dd></dl>
 
 </div>
 </div>
@@ -425,7 +425,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

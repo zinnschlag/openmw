@@ -115,48 +115,52 @@
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055             <a class="code" href="classMWBase_1_1DialogueManager.html#ad5b0429af1e05c0803fa66f0c74fda1c">DialogueManager</a> (<span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions, <span class="keywordtype">bool</span> scriptVerbose, <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; translationDataStorage);
 <a name="l00056"></a>00056 
-<a name="l00057"></a>00057             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a2a537be1a3a201dfbede541ac70f42b5">startDialogue</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00057"></a>00057             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#afc6eca6ea52683cb4d6384a8c6975d76">isInChoice</a>() <span class="keyword">const</span>;
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#ab83706b4c6705f2accfe351b3c4e8ec4">addTopic</a> (<span class="keyword">const</span> std::string&amp; topic);
+<a name="l00059"></a>00059             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a2a537be1a3a201dfbede541ac70f42b5">startDialogue</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6842e0e89bf7378cdfba8dcb51212df3">askQuestion</a> (<span class="keyword">const</span> std::string&amp; question,<span class="keywordtype">int</span> choice);
+<a name="l00061"></a>00061             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#ab83706b4c6705f2accfe351b3c4e8ec4">addTopic</a> (<span class="keyword">const</span> std::string&amp; topic);
 <a name="l00062"></a>00062 
-<a name="l00063"></a>00063             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a175022712bc50e58c0bf28717537a6a7">goodbye</a>();
+<a name="l00063"></a>00063             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6842e0e89bf7378cdfba8dcb51212df3">askQuestion</a> (<span class="keyword">const</span> std::string&amp; question,<span class="keywordtype">int</span> choice);
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a5bfd8a794f5c77fcc973b127a76e996e" title="Return the actor the player is currently talking to.">getActor</a>() <span class="keyword">const</span>;
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068             <span class="comment">//calbacks for the GUI</span>
-<a name="l00069"></a>00069             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a06ee1184e48a0c987a081a01aa85d2eb">keywordSelected</a> (<span class="keyword">const</span> std::string&amp; keyword);
-<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6d5083eaa463b01e86a1594732cf71bc">goodbyeSelected</a>();
-<a name="l00071"></a>00071             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a8e925601adf1813d45c077a27addb8de">questionAnswered</a> (<span class="keyword">const</span> std::string&amp; answer);
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6e9503322396b5610945e461164d4468">persuade</a> (<span class="keywordtype">int</span> type);
-<a name="l00074"></a>00074             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#aeecf5d637a2a7526065dfc839b6866e3">getTemporaryDispositionChange</a> () <span class="keyword">const</span>;
-<a name="l00075"></a>00075             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#af5aa1fa18a7de0bbd79f20ecc15ec537">applyTemporaryDispositionChange</a> (<span class="keywordtype">int</span> delta);
-<a name="l00076"></a>00076     };
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html">00079</a>     <span class="keyword">struct </span><a class="code" href="structMWDialogue_1_1HyperTextToken.html">HyperTextToken</a>
-<a name="l00080"></a>00080     {
-<a name="l00081"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html#aec89a4ae41607e5c2299591dee361bfd">00081</a>         <a class="code" href="structMWDialogue_1_1HyperTextToken.html#aec89a4ae41607e5c2299591dee361bfd">HyperTextToken</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keywordtype">bool</span> link) : <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a17f7df39dbcbbce48e0b2d3fcfcfefcf">mText</a>(text), <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a5c45520b376244f22e38c2b5ff5c6441">mLink</a>(link) {}
+<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a175022712bc50e58c0bf28717537a6a7">goodbye</a>();
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a5bfd8a794f5c77fcc973b127a76e996e" title="Return the actor the player is currently talking to.">getActor</a>() <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a08d435c6bda96b8802456a26131338ca">checkServiceRefused</a> ();
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072             <span class="comment">//calbacks for the GUI</span>
+<a name="l00073"></a>00073             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a06ee1184e48a0c987a081a01aa85d2eb">keywordSelected</a> (<span class="keyword">const</span> std::string&amp; keyword);
+<a name="l00074"></a>00074             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6d5083eaa463b01e86a1594732cf71bc">goodbyeSelected</a>();
+<a name="l00075"></a>00075             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a8e925601adf1813d45c077a27addb8de">questionAnswered</a> (<span class="keyword">const</span> std::string&amp; answer);
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#a6e9503322396b5610945e461164d4468">persuade</a> (<span class="keywordtype">int</span> type);
+<a name="l00078"></a>00078             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#aeecf5d637a2a7526065dfc839b6866e3">getTemporaryDispositionChange</a> () <span class="keyword">const</span>;
+<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWDialogue_1_1DialogueManager.html#af5aa1fa18a7de0bbd79f20ecc15ec537">applyTemporaryDispositionChange</a> (<span class="keywordtype">int</span> delta);
+<a name="l00080"></a>00080     };
+<a name="l00081"></a>00081 
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html#a17f7df39dbcbbce48e0b2d3fcfcfefcf">00083</a>         std::string <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a17f7df39dbcbbce48e0b2d3fcfcfefcf">mText</a>;
-<a name="l00084"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html#a5c45520b376244f22e38c2b5ff5c6441">00084</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a5c45520b376244f22e38c2b5ff5c6441">mLink</a>;
-<a name="l00085"></a>00085     };
+<a name="l00083"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html">00083</a>     <span class="keyword">struct </span><a class="code" href="structMWDialogue_1_1HyperTextToken.html">HyperTextToken</a>
+<a name="l00084"></a>00084     {
+<a name="l00085"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html#aec89a4ae41607e5c2299591dee361bfd">00085</a>         <a class="code" href="structMWDialogue_1_1HyperTextToken.html#aec89a4ae41607e5c2299591dee361bfd">HyperTextToken</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keywordtype">bool</span> link) : <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a17f7df39dbcbbce48e0b2d3fcfcfefcf">mText</a>(text), <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a5c45520b376244f22e38c2b5ff5c6441">mLink</a>(link) {}
 <a name="l00086"></a>00086 
-<a name="l00087"></a>00087     <span class="comment">// In translations (at least Russian) the links are marked with @#, so</span>
-<a name="l00088"></a>00088     <span class="comment">// it should be a function to parse it</span>
-<a name="l00089"></a>00089     std::vector&lt;HyperTextToken&gt; <a class="code" href="namespaceMWDialogue.html#aa76a808e35c6df9a9b519b32b1f543c7">ParseHyperText</a>(<span class="keyword">const</span> std::string&amp; text);
+<a name="l00087"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html#a17f7df39dbcbbce48e0b2d3fcfcfefcf">00087</a>         std::string <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a17f7df39dbcbbce48e0b2d3fcfcfefcf">mText</a>;
+<a name="l00088"></a><a class="code" href="structMWDialogue_1_1HyperTextToken.html#a5c45520b376244f22e38c2b5ff5c6441">00088</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWDialogue_1_1HyperTextToken.html#a5c45520b376244f22e38c2b5ff5c6441">mLink</a>;
+<a name="l00089"></a>00089     };
 <a name="l00090"></a>00090 
-<a name="l00091"></a>00091     <span class="keywordtype">size_t</span> <a class="code" href="namespaceMWDialogue.html#ad4f353f7e3fde5a4157b8191b3a935c5">RemovePseudoAsterisks</a>(std::string&amp; phrase);
-<a name="l00092"></a>00092 }
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094 <span class="preprocessor">#endif</span>
+<a name="l00091"></a>00091     <span class="comment">// In translations (at least Russian) the links are marked with @#, so</span>
+<a name="l00092"></a>00092     <span class="comment">// it should be a function to parse it</span>
+<a name="l00093"></a>00093     std::vector&lt;HyperTextToken&gt; <a class="code" href="namespaceMWDialogue.html#aa76a808e35c6df9a9b519b32b1f543c7">ParseHyperText</a>(<span class="keyword">const</span> std::string&amp; text);
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     <span class="keywordtype">size_t</span> <a class="code" href="namespaceMWDialogue.html#ad4f353f7e3fde5a4157b8191b3a935c5">RemovePseudoAsterisks</a>(std::string&amp; phrase);
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

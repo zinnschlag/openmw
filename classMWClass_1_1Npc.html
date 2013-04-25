@@ -84,6 +84,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add reference into a cell for rendering.  <a href="#a36696e361c54ac8304750cbdff02a442"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a551f0511619adb0168c49866e3721357">insertObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> &amp;physics) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add reference into a cell for rendering (default implementation: don't render anything).  <a href="#a551f0511619adb0168c49866e3721357"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#aa416cc85a7060074480b6d678d2264cc">adjustPosition</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust position to stand on ground. Must be called post model load.  <a href="#aa416cc85a7060074480b6d678d2264cc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a56b0b9ad7af29387d051b9dc85cf001c">getName</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <br class="typebreak"/>
 <a class="el" href="classMWMechanics_1_1CreatureStats.html">MWMechanics::CreatureStats</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a4e14fac84a2000f45324a8e49099d016">getCreatureStats</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
@@ -114,9 +116,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structMWMechanics_1_1Movement.html">MWMechanics::Movement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a0eb8ea9da7025a9869a92dd3e7e1369d">getMovementSettings</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return desired movement.  <a href="#a0eb8ea9da7025a9869a92dd3e7e1369d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a4cc2529dc7c297b6f24a6286ee4829d3">getMovementVector</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a09a9201127c01d7e22fee2e669e9ee78">getRotationVector</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return desired rotations, as euler angles.  <a href="#a09a9201127c01d7e22fee2e669e9ee78"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a9665d52b2f42bd557a1fd0f2e17c163d">getCapacity</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#ac36db52e4617b06043a71d0c13b41cb2">getEncumbrance</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a5aaab955c03754b78b3f3e2cec1e6737">getArmorRating</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#af6723ba6a47b408d1af74c9d34613228">apply</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;id, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#aa9722925efa1fae94dec5a309a57bbcc">adjustScale</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float &amp;scale) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a99d29bf3c5ac65e316e59cfc57671e92">skillUsageSucceeded</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, int skill, int usageType) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Inform actor <em>ptr</em> that a skill use has succeeded.  <a href="#a99d29bf3c5ac65e316e59cfc57671e92"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a04c84a885a08cc6e5884646513ad165a">adjustRotation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float &amp;x, float &amp;y, float &amp;z) const </td></tr>
@@ -182,6 +188,27 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa416cc85a7060074480b6d678d2264cc"></a><!-- doxytag: member="MWClass::Npc::adjustPosition" ref="aa416cc85a7060074480b6d678d2264cc" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Npc.html#aa416cc85a7060074480b6d678d2264cc">MWClass::Npc::adjustPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Adjust position to stand on ground. Must be called post model load. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a4950b1c76dea1cb6c5345e3cfc5e2367">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a04c84a885a08cc6e5884646513ad165a"></a><!-- doxytag: member="MWClass::Npc::adjustRotation" ref="a04c84a885a08cc6e5884646513ad165a" args="(const MWWorld::Ptr &amp;ptr, float &amp;x, float &amp;y, float &amp;z) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -223,6 +250,35 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa9722925efa1fae94dec5a309a57bbcc"></a><!-- doxytag: member="MWClass::Npc::adjustScale" ref="aa9722925efa1fae94dec5a309a57bbcc" args="(const MWWorld::Ptr &amp;ptr, float &amp;scale) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Npc.html#aa9722925efa1fae94dec5a309a57bbcc">MWClass::Npc::adjustScale</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>scale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#aee38953cfd287b857646936940db411d">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="af6723ba6a47b408d1af74c9d34613228"></a><!-- doxytag: member="MWClass::Npc::apply" ref="af6723ba6a47b408d1af74c9d34613228" args="(const MWWorld::Ptr &amp;ptr, const std::string &amp;id, const MWWorld::Ptr &amp;actor) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -261,7 +317,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Any effect? </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000038">Todo:</a></b></dt><dd>consider instant effects </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo:</a></b></dt><dd>consider instant effects </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ad55a73a42a6bcaf7cf1bfaaefd5ec7e8">MWWorld::Class</a>.</p>
 
@@ -310,6 +366,26 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5aaab955c03754b78b3f3e2cec1e6737"></a><!-- doxytag: member="MWClass::Npc::getArmorRating" ref="a5aaab955c03754b78b3f3e2cec1e6737" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWClass_1_1Npc.html#a5aaab955c03754b78b3f3e2cec1e6737">MWClass::Npc::getArmorRating</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>combined armor rating of this actor </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ada0af1a43244d374f539cb33992c65fc">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -559,6 +635,27 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a09a9201127c01d7e22fee2e669e9ee78"></a><!-- doxytag: member="MWClass::Npc::getRotationVector" ref="a09a9201127c01d7e22fee2e669e9ee78" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::Vector3 <a class="el" href="classMWClass_1_1Npc.html#a09a9201127c01d7e22fee2e669e9ee78">MWClass::Npc::getRotationVector</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return desired rotations, as euler angles. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ad00ed9576b3986fd09be16fd67d957f4">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a1bbf72d7d18373011b906b78af34e38f"></a><!-- doxytag: member="MWClass::Npc::getScript" ref="a1bbf72d7d18373011b906b78af34e38f" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -673,7 +770,7 @@ Static Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if this object has a tooltip when focused (default implementation: false) </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd>We don't want tooltips for NPCs in combat mode. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>We don't want tooltips for NPCs in combat mode. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5963827820fe8384a4962a9e9734d3df">MWWorld::Class</a>.</p>
 
@@ -1124,7 +1221,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

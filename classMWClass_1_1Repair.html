@@ -71,7 +71,7 @@
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="MWClass::Repair" --><!-- doxytag: inherits="MWWorld::Class" -->
-<p><code>#include &lt;<a class="el" href="repair_8hpp_source.html">repair.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="mwclass_2repair_8hpp_source.html">repair.hpp</a>&gt;</code></p>
 
 <p><a href="classMWClass_1_1Repair-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -98,6 +98,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#abd1552716a598523418444914b566e97">getInventoryIcon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return name of inventory icon.  <a href="#abd1552716a598523418444914b566e97"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#a5ab28a9e00c0efb7f9d7f1ec2e4506ed">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#a1d71716f347e5b8714b190f2f85d981f">use</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#aae4998eb18f3dec1f8bdd08cb67a7c26">hasItemHealth</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#a4f760b296e11250beffd09e9a1691cb1">getItemMaxHealth</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#a4853d884879a8f0205238fe9832decb7">canSell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int npcServices) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>.  <a href="#a4853d884879a8f0205238fe9832decb7"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Repair.html#ac7856cfd917f5a5a38eeb74e2871e65c">registerSelf</a> ()</td></tr>
@@ -134,6 +140,37 @@ Private Member Functions</h2></td></tr>
 <p>Generate action for activation. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a83b938e2a49f3d97a5f1d000b9ea88ac">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4853d884879a8f0205238fe9832decb7"></a><!-- doxytag: member="MWClass::Repair::canSell" ref="a4853d884879a8f0205238fe9832decb7" args="(const MWWorld::Ptr &amp;item, int npcServices) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWClass_1_1Repair.html#a4853d884879a8f0205238fe9832decb7">MWClass::Repair::canSell</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>npcServices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5d62573e2be1e72329e6674c87b13c84">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -205,6 +242,26 @@ Private Member Functions</h2></td></tr>
 <p>Return name of inventory icon. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a774e2c3ba06980e5cd72234ed71df7de">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4f760b296e11250beffd09e9a1691cb1"></a><!-- doxytag: member="MWClass::Repair::getItemMaxHealth" ref="a4f760b296e11250beffd09e9a1691cb1" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWClass_1_1Repair.html#a4f760b296e11250beffd09e9a1691cb1">MWClass::Repair::getItemMaxHealth</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return item max health or throw an exception, if class does not have item health (default implementation: throw an exceoption) </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ac230262e8f77d5fb656404c3022f8418">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -283,7 +340,6 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>the content of the tool tip to be displayed. raises exception if the object has no tooltip. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo:</a></b></dt><dd>store remaining uses somewhere </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ab291e165e1edabc4cf54f06921965f5a">MWWorld::Class</a>.</p>
 
@@ -328,6 +384,26 @@ Private Member Functions</h2></td></tr>
 <p>Return trade value of the object. Throws an exception, if the object can't be traded. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#aac9905152f95beda5f9430429159b3d1">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aae4998eb18f3dec1f8bdd08cb67a7c26"></a><!-- doxytag: member="MWClass::Repair::hasItemHealth" ref="aae4998eb18f3dec1f8bdd08cb67a7c26" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWClass_1_1Repair.html#aae4998eb18f3dec1f8bdd08cb67a7c26">MWClass::Repair::hasItemHealth</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>Item health data available? (default implementation: false) </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a035d847bc3caaaf4923d6eed143b3fbb">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -429,15 +505,35 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1d71716f347e5b8714b190f2f85d981f"></a><!-- doxytag: member="MWClass::Repair::use" ref="a1d71716f347e5b8714b190f2f85d981f" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt; <a class="el" href="classMWClass_1_1Repair.html#a1d71716f347e5b8714b190f2f85d981f">MWClass::Repair::use</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Generate action for using via inventory menu (default implementation: return a null action). </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5fc32e1d2b49ae205d2c2fafba21bf60">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>apps/openmw/mwclass/<a class="el" href="repair_8hpp_source.html">repair.hpp</a></li>
-<li>apps/openmw/mwclass/<a class="el" href="repair_8cpp.html">repair.cpp</a></li>
+<li>apps/openmw/mwclass/<a class="el" href="mwclass_2repair_8hpp_source.html">repair.hpp</a></li>
+<li>apps/openmw/mwclass/<a class="el" href="mwclass_2repair_8cpp.html">repair.cpp</a></li>
 </ul>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

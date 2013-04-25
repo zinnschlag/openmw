@@ -102,80 +102,108 @@
 <a name="l00041"></a><a class="code" href="classCSVDoc_1_1View.html#a9ca025fec78cb74310284d3a65ffbc58">00041</a>             std::vector&lt;QAction *&gt; <a class="code" href="classCSVDoc_1_1View.html#a9ca025fec78cb74310284d3a65ffbc58">mEditingActions</a>;
 <a name="l00042"></a><a class="code" href="classCSVDoc_1_1View.html#a87ec4f39c6c892b56efff9689ee3ad33">00042</a>             <a class="code" href="classCSVDoc_1_1Operations.html">Operations</a> *<a class="code" href="classCSVDoc_1_1View.html#a87ec4f39c6c892b56efff9689ee3ad33">mOperations</a>;
 <a name="l00043"></a><a class="code" href="classCSVDoc_1_1View.html#a2e98634f26404887aa32912b85159840">00043</a>             <a class="code" href="classCSVDoc_1_1SubViewFactoryManager.html">SubViewFactoryManager</a> <a class="code" href="classCSVDoc_1_1View.html#a2e98634f26404887aa32912b85159840">mSubViewFactory</a>;
-<a name="l00044"></a><a class="code" href="classCSVDoc_1_1View.html#a15522979a248f7d16bd358f15822a398">00044</a>             QMainWindow* <a class="code" href="classCSVDoc_1_1View.html#a15522979a248f7d16bd358f15822a398">mSubViewWindow</a>;
+<a name="l00044"></a><a class="code" href="classCSVDoc_1_1View.html#ac47c2c5154d8952e4830c4e2388d8964">00044</a>             QMainWindow <a class="code" href="classCSVDoc_1_1View.html#ac47c2c5154d8952e4830c4e2388d8964">mSubViewWindow</a>;
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046             <span class="comment">// not implemented</span>
-<a name="l00047"></a>00047             <a class="code" href="classCSVDoc_1_1View.html#a9a7ab866caf370eed1c1059791172e98">View</a> (<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1View.html">View</a>&amp;);
-<a name="l00048"></a>00048             <a class="code" href="classCSVDoc_1_1View.html">View</a>&amp; <a class="code" href="classCSVDoc_1_1View.html#a99125a70dc80cbdd192175ae457b7dbd">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1View.html">View</a>&amp;);
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050         <span class="keyword">private</span>:
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#adbefb1a9b57333a4cc2076315b604d2e">closeEvent</a> (QCloseEvent *event);
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a763f0bcec463f0dd1fceb0a3178e3c2c">setupFileMenu</a>();
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a6a13f6c96af1b950054bc168a75c3fb9">setupEditMenu</a>();
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a3db11071078cbbbf8729d498ea55a3e4">setupViewMenu</a>();
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a20bc1aa4147bb43a396e3bc87f4a3a52">setupWorldMenu</a>();
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a43a40d3674d5a411bb6f86ffa00ed388">setupUi</a>();
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#ad2c78846a2c6be6478fe7d333cd0ff79">updateTitle</a>();
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#af149cf8b032d1ae3275c3e2e14267444">updateActions</a>();
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068         <span class="keyword">public</span>:
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <a class="code" href="classCSVDoc_1_1View.html#a9a7ab866caf370eed1c1059791172e98">View</a> (<a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp; viewManager, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document, <span class="keywordtype">int</span> totalViews, QMainWindow *viewParent);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047             <span class="comment">// not implemented</span>
+<a name="l00048"></a>00048             <a class="code" href="classCSVDoc_1_1View.html#a9a7ab866caf370eed1c1059791172e98">View</a> (<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1View.html">View</a>&amp;);
+<a name="l00049"></a>00049             <a class="code" href="classCSVDoc_1_1View.html">View</a>&amp; <a class="code" href="classCSVDoc_1_1View.html#a99125a70dc80cbdd192175ae457b7dbd">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVDoc_1_1View.html">View</a>&amp;);
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051         <span class="keyword">private</span>:
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#adbefb1a9b57333a4cc2076315b604d2e">closeEvent</a> (QCloseEvent *event);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a763f0bcec463f0dd1fceb0a3178e3c2c">setupFileMenu</a>();
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a6a13f6c96af1b950054bc168a75c3fb9">setupEditMenu</a>();
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a3db11071078cbbbf8729d498ea55a3e4">setupViewMenu</a>();
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a20bc1aa4147bb43a396e3bc87f4a3a52">setupWorldMenu</a>();
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a43a40d3674d5a411bb6f86ffa00ed388">setupUi</a>();
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#ad2c78846a2c6be6478fe7d333cd0ff79">updateTitle</a>();
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#af149cf8b032d1ae3275c3e2e14267444">updateActions</a>();
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#aca059398eb4250b878f04e9e0dd2b584">exitApplication</a>();
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071         <span class="keyword">public</span>:
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073             <span class="keyword">virtual</span> <a class="code" href="classCSVDoc_1_1View.html#abdb4ded61e895d24d3834547c3ab6ba3">~View</a>();
+<a name="l00073"></a>00073             <a class="code" href="classCSVDoc_1_1View.html#a9a7ab866caf370eed1c1059791172e98">View</a> (<a class="code" href="classCSVDoc_1_1ViewManager.html">ViewManager</a>&amp; viewManager, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document, <span class="keywordtype">int</span> totalViews);
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *<a class="code" href="classCSVDoc_1_1View.html#af8f09486a51ab0f2e9d54d4e92c4af60">getDocument</a>() <span class="keyword">const</span>;
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077             <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *<a class="code" href="classCSVDoc_1_1View.html#af8f09486a51ab0f2e9d54d4e92c4af60">getDocument</a>();
+<a name="l00077"></a>00077             <span class="keyword">virtual</span> <a class="code" href="classCSVDoc_1_1View.html#abdb4ded61e895d24d3834547c3ab6ba3">~View</a>();
 <a name="l00078"></a>00078 
-<a name="l00079"></a>00079             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#aa0e9a0b2f4aedb8fd291ea22685dcdfb">setIndex</a> (<span class="keywordtype">int</span> viewIndex, <span class="keywordtype">int</span> totalViews);
+<a name="l00079"></a>00079             <span class="keyword">const</span> <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *<a class="code" href="classCSVDoc_1_1View.html#af8f09486a51ab0f2e9d54d4e92c4af60">getDocument</a>() <span class="keyword">const</span>;
 <a name="l00080"></a>00080 
-<a name="l00081"></a>00081             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a2bae5902c0fd627f29ee75a2e193845a">updateDocumentState</a>();
+<a name="l00081"></a>00081             <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *<a class="code" href="classCSVDoc_1_1View.html#af8f09486a51ab0f2e9d54d4e92c4af60">getDocument</a>();
 <a name="l00082"></a>00082 
-<a name="l00083"></a>00083             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a79783a24ab05dfd31e8dea8d947d67ce">updateProgress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> threads);
+<a name="l00083"></a>00083             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#aa0e9a0b2f4aedb8fd291ea22685dcdfb">setIndex</a> (<span class="keywordtype">int</span> viewIndex, <span class="keywordtype">int</span> totalViews);
 <a name="l00084"></a>00084 
-<a name="l00085"></a>00085             QDockWidget *<a class="code" href="classCSVDoc_1_1View.html#a80d3090927908d2d7d943e153600da89">getOperations</a>() <span class="keyword">const</span>;
+<a name="l00085"></a>00085             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a2bae5902c0fd627f29ee75a2e193845a">updateDocumentState</a>();
 <a name="l00086"></a>00086 
-<a name="l00087"></a>00087         signals:
+<a name="l00087"></a>00087             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a79783a24ab05dfd31e8dea8d947d67ce">updateProgress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> threads);
 <a name="l00088"></a>00088 
-<a name="l00089"></a>00089             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a04a4d31acb247a531b088d5b44bbf69f">newDocumentRequest</a>();
+<a name="l00089"></a>00089             <a class="code" href="classCSVDoc_1_1Operations.html">Operations</a> *<a class="code" href="classCSVDoc_1_1View.html#a5144c184505175d8cc6b1160667b0fca">getOperations</a>() <span class="keyword">const</span>;
 <a name="l00090"></a>00090 
-<a name="l00091"></a>00091             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a172182ba4089191a19980df3d25c0c33">loadDocumentRequest</a>();
+<a name="l00091"></a>00091         signals:
 <a name="l00092"></a>00092 
-<a name="l00093"></a>00093         <span class="keyword">public</span> slots:
+<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a04a4d31acb247a531b088d5b44bbf69f">newDocumentRequest</a>();
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#acbac4ec10f664fd8cae0a0cd38471157">addSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>);
+<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a172182ba4089191a19980df3d25c0c33">loadDocumentRequest</a>();
 <a name="l00096"></a>00096 
-<a name="l00097"></a>00097         <span class="keyword">private</span> slots:
+<a name="l00097"></a>00097             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a918ce0dd50812e2d5d237fe9e9063f95">exitApplicationRequest</a> (<a class="code" href="classCSVDoc_1_1View.html">CSVDoc::View</a> *view);
 <a name="l00098"></a>00098 
-<a name="l00099"></a>00099             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a380aa1b218df44362a1f8fa7dbf48362">newView</a>();
+<a name="l00099"></a>00099         <span class="keyword">public</span> slots:
 <a name="l00100"></a>00100 
-<a name="l00101"></a>00101             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a13fb14cd3f5019d03839eea307188468">save</a>();
+<a name="l00101"></a>00101             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#acbac4ec10f664fd8cae0a0cd38471157">addSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>);
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#ade81d52a37a5886752f5c42b4cf7c2ae">verify</a>();
+<a name="l00103"></a>00103             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a220ef1df62bfcbe52037542e6abafeef">abortOperation</a> (<span class="keywordtype">int</span> type);
 <a name="l00104"></a>00104 
-<a name="l00105"></a>00105             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#aa7e5f16b9e3ec91d21eb70db6ec13377">addGlobalsSubView</a>();
+<a name="l00105"></a>00105         <span class="keyword">private</span> slots:
 <a name="l00106"></a>00106 
-<a name="l00107"></a>00107             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a544815ac1a74589b524e48a900fc4aec">addGmstsSubView</a>();
+<a name="l00107"></a>00107             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a380aa1b218df44362a1f8fa7dbf48362">newView</a>();
 <a name="l00108"></a>00108 
-<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a220ef1df62bfcbe52037542e6abafeef">abortOperation</a> (<span class="keywordtype">int</span> type);
-<a name="l00110"></a>00110     };
-<a name="l00111"></a>00111 }
+<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a13fb14cd3f5019d03839eea307188468">save</a>();
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#af24d1a051e7f64e94932019d23d8fd8f">exit</a>();
 <a name="l00112"></a>00112 
-<a name="l00113"></a>00113 <span class="preprocessor">#endif</span>
+<a name="l00113"></a>00113             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#ade81d52a37a5886752f5c42b4cf7c2ae">verify</a>();
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#aa7e5f16b9e3ec91d21eb70db6ec13377">addGlobalsSubView</a>();
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a544815ac1a74589b524e48a900fc4aec">addGmstsSubView</a>();
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a6dfe61bd7c29a2f18ce1074c3ad75b48">addSkillsSubView</a>();
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#ab900acfd44dffa8e5a6b88b6bee54dc4">addClassesSubView</a>();
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a10a9840d5b3237e5def7f173b61a6cb8">addFactionsSubView</a>();
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#ac0f94f25f46b25fc4e3973bc0c5c2458">addRacesSubView</a>();
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a1b497cde6241824d4907c423f3c26169">addSoundsSubView</a>();
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a2a0cf2cfd5e1af04b445a40f69ac36d6">addScriptsSubView</a>();
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a9a35dc4bd54fa557185f344c00b1f894">addRegionsSubView</a>();
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a0899783f8b05f7c500f0bac87c9d4b5c">addBirthsignsSubView</a>();
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a0b74b776530855992dc77c5b54e38e05">addSpellsSubView</a>();
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1View.html#a42d37f2e9d933ab9a243a28f216a1804">addCellsSubView</a>();
+<a name="l00138"></a>00138     };
+<a name="l00139"></a>00139 }
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -72,13 +72,13 @@
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="MWRender::Objects" -->
-<p><code>#include &lt;<a class="el" href="objects_8hpp_source.html">objects.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="mwrender_2objects_8hpp_source.html">objects.hpp</a>&gt;</code></p>
 
 <p><a href="classMWRender_1_1Objects-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#af31931e476e24e7120e879c1e2d9b33d">Objects</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;renderer)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#ab0c08a0c012c41eef5c49c3f328e9d21">Objects</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;renderer, <a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *fallback)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a591d8286b3f6c062e6b726c227c5dc6e">~Objects</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#aabaa0d435b1e3ec44433174b8600395d">insertBegin</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, bool enabled, bool static_)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a7499149b4412c25e57d213820c83f825">insertMesh</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, bool light=false)</td></tr>
@@ -98,6 +98,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates containing cell for object rendering data.  <a href="#a14ca20262a6328c5ddb786053953c14b"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a510574d470a839011dc6281e312f743f">lightLinearValue</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a0f9c3f68171b35278d02c52151c9ec40">lightLinearRadiusMult</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#ad7ee6c64636e5eb538c9a1d3a4345b13">lightQuadratic</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a2d6e4508c7ccc811f84a1fc74024c588">lightQuadraticValue</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#af30e274c756ba5607b7be99f0ad271d7">lightQuadraticRadiusMult</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a5a04faec6178ab13ca37873578813290">lightOutQuadInLin</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a30e2df112aabb1b8e83821e28f4a4572">clearSceneNode</a> (Ogre::SceneNode *node)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all movable objects from <em>node</em>.  <a href="#a30e2df112aabb1b8e83821e28f4a4572"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
@@ -114,27 +120,32 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structMWRender_1_1LightInfo.html">LightInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a739265b2d8f1cd33280b0bb64632887a">mLights</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a01fa97fea1479b9269a2273bb9e138de">mRootNode</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a985406982ebdf11eca7e37aabe884d29">mIsStatic</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#abe9ffaf9dfc1f479ac60e529ac7026d9">mFallback</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a022e2c2846b8bc1c3430000fc8a52af8">uniqueID</a> = 0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a140ba20e22c90590d92c4e3cf29899c0">lightLinearValue</a> = 3</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a9df6168b06103d58959a5c0d03dfa07f">lightLinearRadiusMult</a> = 1</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#af7add7718a8f7eb8b5aa2790b4e785f3">lightQuadratic</a> = false</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#ab8c8886dd097ef2d31f960c75c594d88">lightQuadraticValue</a> = 16</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a635232f10c85858db9418ae597714a68">lightQuadraticRadiusMult</a> = 1</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a1b827740bcfe6acf12dcb066f2e62c86">lightOutQuadInLin</a> = true</td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af31931e476e24e7120e879c1e2d9b33d"></a><!-- doxytag: member="MWRender::Objects::Objects" ref="af31931e476e24e7120e879c1e2d9b33d" args="(OEngine::Render::OgreRenderer &amp;renderer)" -->
+<a class="anchor" id="ab0c08a0c012c41eef5c49c3f328e9d21"></a><!-- doxytag: member="MWRender::Objects::Objects" ref="ab0c08a0c012c41eef5c49c3f328e9d21" args="(OEngine::Render::OgreRenderer &amp;renderer, MWWorld::Fallback *fallback)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1Objects.html#af31931e476e24e7120e879c1e2d9b33d">MWRender::Objects::Objects</a> </td>
+          <td class="memname"><a class="el" href="classMWRender_1_1Objects.html#ab0c08a0c012c41eef5c49c3f328e9d21">MWRender::Objects::Objects</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *&#160;</td>
+          <td class="paramname"><em>fallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -363,6 +374,102 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0f9c3f68171b35278d02c52151c9ec40"></a><!-- doxytag: member="MWRender::Objects::lightLinearRadiusMult" ref="a0f9c3f68171b35278d02c52151c9ec40" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#a0f9c3f68171b35278d02c52151c9ec40">Objects::lightLinearRadiusMult</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a510574d470a839011dc6281e312f743f"></a><!-- doxytag: member="MWRender::Objects::lightLinearValue" ref="a510574d470a839011dc6281e312f743f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#a510574d470a839011dc6281e312f743f">Objects::lightLinearValue</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5a04faec6178ab13ca37873578813290"></a><!-- doxytag: member="MWRender::Objects::lightOutQuadInLin" ref="a5a04faec6178ab13ca37873578813290" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Objects.html#a5a04faec6178ab13ca37873578813290">Objects::lightOutQuadInLin</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad7ee6c64636e5eb538c9a1d3a4345b13"></a><!-- doxytag: member="MWRender::Objects::lightQuadratic" ref="ad7ee6c64636e5eb538c9a1d3a4345b13" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Objects.html#ad7ee6c64636e5eb538c9a1d3a4345b13">Objects::lightQuadratic</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af30e274c756ba5607b7be99f0ad271d7"></a><!-- doxytag: member="MWRender::Objects::lightQuadraticRadiusMult" ref="af30e274c756ba5607b7be99f0ad271d7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#af30e274c756ba5607b7be99f0ad271d7">Objects::lightQuadraticRadiusMult</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2d6e4508c7ccc811f84a1fc74024c588"></a><!-- doxytag: member="MWRender::Objects::lightQuadraticValue" ref="a2d6e4508c7ccc811f84a1fc74024c588" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#a2d6e4508c7ccc811f84a1fc74024c588">Objects::lightQuadraticValue</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a18acef51e92f8962f8c77d600388cdb6"></a><!-- doxytag: member="MWRender::Objects::rebuildStaticGeometry" ref="a18acef51e92f8962f8c77d600388cdb6" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -462,85 +569,6 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a9df6168b06103d58959a5c0d03dfa07f"></a><!-- doxytag: member="MWRender::Objects::lightLinearRadiusMult" ref="a9df6168b06103d58959a5c0d03dfa07f" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#a9df6168b06103d58959a5c0d03dfa07f">Objects::lightLinearRadiusMult</a> = 1<code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a140ba20e22c90590d92c4e3cf29899c0"></a><!-- doxytag: member="MWRender::Objects::lightLinearValue" ref="a140ba20e22c90590d92c4e3cf29899c0" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#a140ba20e22c90590d92c4e3cf29899c0">Objects::lightLinearValue</a> = 3<code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000075">Todo:</a></b></dt><dd>Replace these, once fallback values from the ini file are available. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a1b827740bcfe6acf12dcb066f2e62c86"></a><!-- doxytag: member="MWRender::Objects::lightOutQuadInLin" ref="a1b827740bcfe6acf12dcb066f2e62c86" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1Objects.html#a1b827740bcfe6acf12dcb066f2e62c86">Objects::lightOutQuadInLin</a> = true<code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="af7add7718a8f7eb8b5aa2790b4e785f3"></a><!-- doxytag: member="MWRender::Objects::lightQuadratic" ref="af7add7718a8f7eb8b5aa2790b4e785f3" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1Objects.html#af7add7718a8f7eb8b5aa2790b4e785f3">Objects::lightQuadratic</a> = false<code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a635232f10c85858db9418ae597714a68"></a><!-- doxytag: member="MWRender::Objects::lightQuadraticRadiusMult" ref="a635232f10c85858db9418ae597714a68" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#a635232f10c85858db9418ae597714a68">Objects::lightQuadraticRadiusMult</a> = 1<code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab8c8886dd097ef2d31f960c75c594d88"></a><!-- doxytag: member="MWRender::Objects::lightQuadraticValue" ref="ab8c8886dd097ef2d31f960c75c594d88" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Objects.html#ab8c8886dd097ef2d31f960c75c594d88">Objects::lightQuadraticValue</a> = 16<code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a3b54f549a3be7007e8da700ff01cb69f"></a><!-- doxytag: member="MWRender::Objects::mBounds" ref="a3b54f549a3be7007e8da700ff01cb69f" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -560,6 +588,19 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::map&lt;<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *, Ogre::SceneNode *&gt; <a class="el" href="classMWRender_1_1Objects.html#a0af914c27832c38a58ed37f66be024e7">MWRender::Objects::mCellSceneNodes</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abe9ffaf9dfc1f479ac60e529ac7026d9"></a><!-- doxytag: member="MWRender::Objects::mFallback" ref="abe9ffaf9dfc1f479ac60e529ac7026d9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* <a class="el" href="classMWRender_1_1Objects.html#abe9ffaf9dfc1f479ac60e529ac7026d9">MWRender::Objects::mFallback</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -659,14 +700,14 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>apps/openmw/mwrender/<a class="el" href="objects_8hpp_source.html">objects.hpp</a></li>
-<li>apps/openmw/mwrender/<a class="el" href="objects_8cpp.html">objects.cpp</a></li>
+<li>apps/openmw/mwrender/<a class="el" href="mwrender_2objects_8hpp_source.html">objects.hpp</a></li>
+<li>apps/openmw/mwrender/<a class="el" href="mwrender_2objects_8cpp.html">objects.cpp</a></li>
 </ul>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

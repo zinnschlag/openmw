@@ -98,10 +98,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#a78ed6cbb65c5425105991e4ee2033249">getInventoryIcon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return name of inventory icon.  <a href="#a78ed6cbb65c5425105991e4ee2033249"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#a6d398829ab22c15b331a18b444f73a4a">getEnchantment</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#acd16099876c28d334c40ac2de257c6bc">applyEnchantment</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;enchId, int enchCharge, const std::string &amp;newName) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#a32333cb09f657ca514a13f3c30f1cbf5">use</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate action for using via inventory menu.  <a href="#a32333cb09f657ca514a13f3c30f1cbf5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#afc9fd383700c8271341ce1a8811122e0">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#ab3ac904f35a4caef12c6c6dde311ac38">getEnchantmentPoints</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#a38612f8112190aa7b1c918a2407dde0e">canSell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int npcServices) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>.  <a href="#a38612f8112190aa7b1c918a2407dde0e"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Book.html#a5703a4d56ac303ac4879cb428eb1f46e">registerSelf</a> ()</td></tr>
@@ -138,6 +142,78 @@ Private Member Functions</h2></td></tr>
 <p>Generate action for activation. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a83b938e2a49f3d97a5f1d000b9ea88ac">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acd16099876c28d334c40ac2de257c6bc"></a><!-- doxytag: member="MWClass::Book::applyEnchantment" ref="acd16099876c28d334c40ac2de257c6bc" args="(const MWWorld::Ptr &amp;ptr, const std::string &amp;enchId, int enchCharge, const std::string &amp;newName) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Book.html#acd16099876c28d334c40ac2de257c6bc">MWClass::Book::applyEnchantment</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>enchId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>enchCharge</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>newName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ab0c30b606055933abda6750a2f627458">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a38612f8112190aa7b1c918a2407dde0e"></a><!-- doxytag: member="MWClass::Book::canSell" ref="a38612f8112190aa7b1c918a2407dde0e" args="(const MWWorld::Ptr &amp;item, int npcServices) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWClass_1_1Book.html#a38612f8112190aa7b1c918a2407dde0e">MWClass::Book::canSell</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>npcServices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5d62573e2be1e72329e6674c87b13c84">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -208,6 +284,26 @@ Private Member Functions</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>the enchantment ID if the object is enchanted, otherwise an empty string </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ad954afc19b235b2e23c14603ceaec866">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab3ac904f35a4caef12c6c6dde311ac38"></a><!-- doxytag: member="MWClass::Book::getEnchantmentPoints" ref="ab3ac904f35a4caef12c6c6dde311ac38" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">short <a class="el" href="classMWClass_1_1Book.html#ab3ac904f35a4caef12c6c6dde311ac38">MWClass::Book::getEnchantmentPoints</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>the number of enchantment points available for possible enchanting </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a717ce1d87d79dade46931b5b4ba13e99">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -481,7 +577,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

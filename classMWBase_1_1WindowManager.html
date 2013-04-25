@@ -92,6 +92,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">can be anywhere in the stack  <a href="#ab36f5f1555718fb7cdfa2683a5779356"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">MWGui::GuiMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a56dab6321540108db0654e35bcde9788">getMode</a> () const =0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#acbea74d90003b269859a0d8c8c2cc5c4">isGuiMode</a> () const =0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#af8417df2d7a3397382afbb6a8dba1ee5">isConsoleMode</a> () const =0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a04ae7a2baf97008ff41a2907b5517146">toggleVisible</a> (<a class="el" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">MWGui::GuiWindow</a> wnd)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#aded2b7d576368af65c474e714837796d">disallowAll</a> ()=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Disallow all inventory mode windows.  <a href="#aded2b7d576368af65c474e714837796d"></a><br/></td></tr>
@@ -155,8 +156,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a417053b1e0abfa31814bcf95e5fcc67f">setSpellVisibility</a> (bool visible)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ab7c43ec1df190c554402c8737fe71f9d">activateQuickKey</a> (int index)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#af01c2622d413420d5856b2604b6b4030">setSelectedSpell</a> (const std::string &amp;spellId, int successChancePercent)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ae52a84274d30058655d4645feed786db">setSelectedEnchantItem</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int chargePercent)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a8f2a638a94edf750ee8ebfad12a2c498">setSelectedWeapon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int durabilityPercent)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ac0a6fef7b2245c3dcdbbb70f572ea863">setSelectedEnchantItem</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#aecd10cd7dfb9ee4180fdb0e4cc3904f1">setSelectedWeapon</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a98486424a80418ea8c5c3024c898ec0f">unsetSelectedSpell</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a781429e5fcd617019a2eac8b8f5e206e">unsetSelectedWeapon</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#af1d9e819fab4dcc2086f8b1321681b44">showCrosshair</a> (bool show)=0</td></tr>
@@ -188,9 +189,15 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a2cf63d51b1f446421252ff422e4e6431">getRestEnabled</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a36a4751f56d3d7479879209d8db1eb5a">getPlayerSleeping</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ab26717f84d10dd3622632cc3247aed8a">wakeUpPlayer</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a50231aeba3fd86513a1921fab020feb4">showCompanionWindow</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> actor)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#abfa2c05b22d5e358f109edd13f683b80">startSpellMaking</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> actor)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a55b2635d3e14729c70f6766dbe3c1d65">startEnchanting</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> actor)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a6633c9464efb839157cf25df283b939d">startSelfEnchanting</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> soulgem)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ab23eef49c49982d7116bf93ba4836e4d">startTraining</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> actor)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a0463e1e1861e9f661084a99fbf539436">startRepair</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> actor)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a0d8d13e278c1cb8431adce7a4e56c18c">startRepairItem</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a370530391de75ee502aa772e76bd55a8">showSoulgemDialog</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a135d3d1071f340def9d7cd04458b22ff">frameStarted</a> (float dt)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#a9119af297460b3835036dc70fe9322cf">changePointer</a> (const std::string &amp;name)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <br class="typebreak"/>
 <a class="el" href="classTranslation_1_1Storage.html">Translation::Storage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1WindowManager.html#ae21743c315c85356ba44eb5a03e013d4">getTranslationDataStorage</a> () const =0</td></tr>
@@ -267,7 +274,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classMWGui_1_1WindowManager.html#a19fd6e41c42760af82460d9851780d82">MWGui::WindowManager</a>.</p>
+<p>Reimplemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0ef70f5f7815d8a2d59356fdaa2086ff">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -287,7 +294,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ae4604c6c85325d81918ba4fc2a630d6b">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a94e1ffc2b2ee425889ffe260d7f05fdc">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -322,7 +329,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a44c5d4e092c9a9392030d313ead5b679">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a6bc11a4ceeb9469a7c1c316f03467945">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -343,7 +350,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Allow one or more windows. </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#adfdbaaf95ff1dd6c89afaa5d05ed5dbd">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -361,7 +368,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a43041d50196695c00d21598ccc036db4">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3e66e99dc9abc113b9e7e7da67c0bcd6">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -382,7 +389,7 @@ Private Member Functions</h2></td></tr>
 
 <p>change the active cell </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#af2cd3cddd6708cb877883318b43d1e7b">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa475532129fe1b363fde18bb608fc461">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -401,7 +408,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0810f9505c6fa4f8add67a580c221fa7">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#adf51f18e19415dd50e5e68a2c3135396">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -432,7 +439,7 @@ Private Member Functions</h2></td></tr>
 
 <p>configure skill groups, each set contains the skill ID for that group. </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a1c5b60ad1c2af5d3ef474f426e1ac682">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#afce1d618e0f7d04e6fda5c563fc5dfd2">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -452,7 +459,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Disallow all inventory mode windows. </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a87dbd300297dc0354bdaea68c31d4921">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -470,7 +477,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0ecb68514f4637230613fb86f82bef62">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa18a3c43a6dd0f3680c58d43a0786320">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -506,7 +513,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a110f032d5465ef6bf9c4f9b166f7d8fe">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a980230e2122706ad52d07e0ffa4a61a5">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -525,7 +532,26 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#afdfbd3f158cb6db0403d20bbdb030194">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#abf4eb9f6cf95a90d73a75f8c5ca704c0">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a135d3d1071f340def9d7cd04458b22ff"></a><!-- doxytag: member="MWBase::WindowManager::frameStarted" ref="a135d3d1071f340def9d7cd04458b22ff" args="(float dt)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a135d3d1071f340def9d7cd04458b22ff">MWBase::WindowManager::frameStarted</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a28b85d0f75f4db90d193936fb7e7e801">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -543,7 +569,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aac3859afd562786cbf2d18ce61d25598">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a9bab3646b3f9d42ec02713bcdcaa93ea">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -561,7 +587,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#abf65c2f95e23d79fdc2114cd6ab03901">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#accaa26ca861f8d643e2a3cca5c735f80">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -579,7 +605,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a54644638aefa95fee59d6331e8287082">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a79408310345720ae38ee568cb850c6ec">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -597,7 +623,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a429030f02ce6dc439944dc7f5207f1a0">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a7ff6e4491f1d3c24d95905db80112e3e">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -615,7 +641,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a1e6d9d6c3dd9961d6577a263d2909c61">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a11782afa49f4ab8a2b634b353eacb04d">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -632,9 +658,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000027">Todo:</a></b></dt><dd>investigate, if we really need to expose every single lousy UI element to the outside world </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000035">Todo:</a></b></dt><dd>investigate, if we really need to expose every single lousy UI element to the outside world </dd></dl>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aad87ad92631f75f3405707f138f7dd71">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a177c26a5b16491f3f953d5c6ebd741b1">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -652,7 +678,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa092e4410018a1579257e691e3f9ac71">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a81ba0c3cf296481ba2dd4a12944259ad">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -689,7 +715,7 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac48fe30a0e175068b19e494bcf1e6469">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#afa5897c0bf08c19884afdedd4a6e88fa">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -707,7 +733,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#acaee08f4f4aa4e006a1d823ef559a7f8">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a1c3d1a70361be326e25991a0634151a5">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -725,7 +751,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a88df837ebadfe0292834ef396b5a1413">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a4425ce523692205ff47c61f39d4bfc28">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -743,7 +769,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a8a610e8d1a5b238f05ff178719515eb4">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ab7acb6e578b42b86eb360dea73c9c383">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -772,7 +798,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a42f0c47cee311959a59e0a2c96537914">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a1523fba5f4a6ad2d579793db3bf519db">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -801,7 +827,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a640e5fc4b4d029eb4ecb79baa7c9b2f6">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a37731765a9b0080794fc7dfeb7b32c06">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -819,7 +845,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#af016c83eaa33e8f7c7933bc78f5fb0f2">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2567f38e4a62678475bd6f4563093673">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -837,7 +863,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0ddfaf3f1ac98fcb3351dbd6fe6ee73b">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0fc9e017a373c57cac21854e717eccd3">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -855,7 +881,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#acd5db968628c9f98004e056e003dc70e">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a87988517017a6cdf71a58502a0556114">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -872,9 +898,9 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000028">Todo:</a></b></dt><dd>get rid of this stuff. Move it to the respective UI element classes, if needed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo:</a></b></dt><dd>get rid of this stuff. Move it to the respective UI element classes, if needed. </dd></dl>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ae93c48c91642b0333214481663af8356">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3a10e7da1a5892157ad8c1bdad6c75c9">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -892,7 +918,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a9c04bd294ab647b3d0c34b0ea5f74e53">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ab985e151ab59efc1746f11e29aceefa2">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -928,7 +954,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac6d880512dcf99e295a8f2bd372e211d">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a756cb90f6af17bb1f52415ed39f346b1">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -946,7 +972,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a76530b83933de98cced953c3955a79d8">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#abb48635dc11977f6b6c8a52b89297ab7">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -964,7 +990,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a06d66c04f09c896c3a7ff84ac6122737">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#afb61095afbbb2a42defc230819e1d44d">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -982,7 +1008,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#af5c8e31d8572bdb154b4d9de6ba9067f">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ad8ea0425c70fb94252d5069a1775c37c">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1000,7 +1026,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#abd003405a44a99653d04717b38895a41">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0ac7a7b8c26a4fe169e206ca26d7df3c">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1018,7 +1044,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ae15aefb3ee125157aee7700bef73a242">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac5095e0751393fdda0721ceb9e11b2fb">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1036,7 +1062,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a944f7487af88d083de7699fe8892043b">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a500f94a5daf23cb440a379f15a59bf16">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1054,7 +1080,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#abea021f2e1c36004f0be1b10d44427c8">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a43ff8b413986261db420e14f8677bbc6">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1073,7 +1099,25 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2522b781a9305ae173b323fe0b99ae78">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a5f5607e9fef1ca109f3fb6489cdc3d4c">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af8417df2d7a3397382afbb6a8dba1ee5"></a><!-- doxytag: member="MWBase::WindowManager::isConsoleMode" ref="af8417df2d7a3397382afbb6a8dba1ee5" args="() const =0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1WindowManager.html#af8417df2d7a3397382afbb6a8dba1ee5">MWBase::WindowManager::isConsoleMode</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac90e8b239ced28aa337c8cc8d06eb508">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1091,7 +1135,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a4efdeb669d78c4dbeae81609505e5111">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1109,7 +1153,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa600fccc521a28d150212ceec27244c1">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ad37a8d21672a55a4c4a6527250fb10dd">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1138,7 +1182,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0f58510f4ef2a2efe62992d03c69b528">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a64f9c7e85718ad49ff6a606c8917d3a1">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1156,7 +1200,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aff24f6e7e26ab0c5a2298c6e5aab2369">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a5e1990b1c9b031f529bc8cdbd584c105">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1175,7 +1219,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a1f46d928eb3132d95cbec12a8044ab5f">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2f52c12d86d6bb31adc62b06cef3de19">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1212,7 +1256,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a4c6eb4a270720cc16eeb5d41d6f7fc88">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0b79ceda0174bec3ff9efc8ee03ea336">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1231,7 +1275,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac8daca1a1d8db572b9fea503f1374ef0">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a23592b3fd52e7ffbd0eb0a16800bd578">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1250,7 +1294,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a34ebc4d36614591386cf83f44515518e">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0767a1ab9cb727c7bd0243c35226b428">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1270,7 +1314,7 @@ Private Member Functions</h2></td></tr>
 
 <p>returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;InteractiveMessageBox) </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a682fd81cc7d39293ab5085e257c5e035">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa876c9181fcc3a03dc3d8cb6edce3643">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1291,7 +1335,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Hides dialog and schedules dialog to be deleted. </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3d505dd79e939c072c5c58f5e1b21ba1">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#acf618f8bad0da3bc79196c8aba7405ba">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1312,7 +1356,7 @@ Private Member Functions</h2></td></tr>
 
 <p>can be anywhere in the stack </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac5cb34815c086ca37b2ccb54cec7048c">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a6162cf9ad2be7221c1b83ce122af4851">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1333,7 +1377,7 @@ Private Member Functions</h2></td></tr>
 
 <p>set the current bounty value </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a99600ac1daa291c85eb8bb13345dcec6">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a6cd033ff1abf1a7a198da6bab8337e3c">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1352,7 +1396,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac906085a510e59af205d169f1e4ecad9">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ae534f943448b97c05c598a6082448e68">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1371,7 +1415,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a28891cc646c5db1054fb728f6ccaa621">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a73279617752364728aaa6eeef7dd3850">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1412,7 +1456,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a59ed30a0547917d8be5cdb192df7bfcd">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a29a43e1db2e129232449f1f41901dcba">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1433,7 +1477,7 @@ Private Member Functions</h2></td></tr>
 
 <p>sets the visibility of the hud health/magicka/stamina bars </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ae1a19e013c2b335d17b778b8a2b5a2af">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a076ab02a94672652c82e6c93124d428f">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1464,7 +1508,7 @@ Private Member Functions</h2></td></tr>
 
 <p>set the index of the map texture that should be used (for interiors) </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a7a50bcfed1a79e79f3b3dad48e12b370">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ad769488f19047c7b3b22915b10a7193a">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1505,7 +1549,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ac79274bb8901e3a233d8d59edd01cf41">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a10e70e31700560520a252a29c8fcc6b5">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1526,7 +1570,7 @@ Private Member Functions</h2></td></tr>
 
 <p>sets the visibility of the hud minimap </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a986f7e8450177a9292bd0c395041bee6">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a15ed320381bc03f73e80de9985c22d21">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1545,7 +1589,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2a8a5e9b9b0d27fdf178f68f589b90eb">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aaa0aabb771ae624875a766d924bfbbc0">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1566,7 +1610,7 @@ Private Member Functions</h2></td></tr>
 
 <p>set current class of player </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ad28c356a1c4fd12556a3769adb4b60c3">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a10ffe98205678fcf7161873307a81f88">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1597,7 +1641,7 @@ Private Member Functions</h2></td></tr>
 
 <p>set player view direction in map space </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a415ab729a2411d861c1778c133d26f5b">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a793d9739453fa7210323056af63bb69b">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1628,7 +1672,7 @@ Private Member Functions</h2></td></tr>
 
 <p>set player position in map space </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2c57bfc7cf60eb3bf140d1112f61188d">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a09a01b668e760cf029c884cc71549b46">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1649,36 +1693,26 @@ Private Member Functions</h2></td></tr>
 
 <p>set the current reputation value </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a085162f8751777079a86d4ce0d6dba13">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a48130c0f78b9ca887ca4e1ccebd7403e">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae52a84274d30058655d4645feed786db"></a><!-- doxytag: member="MWBase::WindowManager::setSelectedEnchantItem" ref="ae52a84274d30058655d4645feed786db" args="(const MWWorld::Ptr &amp;item, int chargePercent)=0" -->
+<a class="anchor" id="ac0a6fef7b2245c3dcdbbb70f572ea863"></a><!-- doxytag: member="MWBase::WindowManager::setSelectedEnchantItem" ref="ac0a6fef7b2245c3dcdbbb70f572ea863" args="(const MWWorld::Ptr &amp;item)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#ae52a84274d30058655d4645feed786db">MWBase::WindowManager::setSelectedEnchantItem</a> </td>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#ac0a6fef7b2245c3dcdbbb70f572ea863">MWBase::WindowManager::setSelectedEnchantItem</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>chargePercent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [pure virtual]</code></td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a8c8bc9546e20dabade776c4c959a015e">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a8ff93541d0131cfa6ab7ad43ee2ca473">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1707,36 +1741,26 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a835f479e2b42f5b1bacf0d756a535196">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a186adc98c6e5a97cbff0e49324397557">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8f2a638a94edf750ee8ebfad12a2c498"></a><!-- doxytag: member="MWBase::WindowManager::setSelectedWeapon" ref="a8f2a638a94edf750ee8ebfad12a2c498" args="(const MWWorld::Ptr &amp;item, int durabilityPercent)=0" -->
+<a class="anchor" id="aecd10cd7dfb9ee4180fdb0e4cc3904f1"></a><!-- doxytag: member="MWBase::WindowManager::setSelectedWeapon" ref="aecd10cd7dfb9ee4180fdb0e4cc3904f1" args="(const MWWorld::Ptr &amp;item)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a8f2a638a94edf750ee8ebfad12a2c498">MWBase::WindowManager::setSelectedWeapon</a> </td>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#aecd10cd7dfb9ee4180fdb0e4cc3904f1">MWBase::WindowManager::setSelectedWeapon</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>durabilityPercent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [pure virtual]</code></td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a1f9ab08ebf436ee719b2b34108d73500">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#af69c8aa279be26327445e9134c38e7af">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1755,7 +1779,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a198c55e1f7faa62740da5ff1a6c2dc67">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a4122224010f5ffcae4e354a31d682e72">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1786,7 +1810,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Set value for the given ID. </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a297eb73d6a9a7ea5ee9238682ff97370">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1815,7 +1839,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#addce13e068891bcab36ef973ec4b9d1a">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a928849f0c4ffb33fe14363dc74d2ed26">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1844,7 +1868,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3fb626f392d4fa150b91cc876ab37dfe">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3b11c333428800213c2bc62b49493c25">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1873,7 +1897,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a7fd62756eb1dda2ba022493ff25403c5">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a422d7ef54baafe0dbebcab315dea285e">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1902,7 +1926,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0d32e3e4444759da7a31318b46615d4c">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a97a2a12be2a13c20d1092209ba964d37">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1921,7 +1945,26 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a24fbb13c077b9b6a88fe8e6e5a831ef7">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a70f524e2e4acccdc6d839e3405a70b80">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a50231aeba3fd86513a1921fab020feb4"></a><!-- doxytag: member="MWBase::WindowManager::showCompanionWindow" ref="a50231aeba3fd86513a1921fab020feb4" args="(MWWorld::Ptr actor)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a50231aeba3fd86513a1921fab020feb4">MWBase::WindowManager::showCompanionWindow</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
+          <td class="paramname"><em>actor</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a678823d516ff55e041cc33a93f3add8c">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1940,7 +1983,26 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a836e2e05abc70c6272bc3d64fe7d8c7c">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a902d1e3f8dbeb128a87c68bb7256f273">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a370530391de75ee502aa772e76bd55a8"></a><!-- doxytag: member="MWBase::WindowManager::showSoulgemDialog" ref="a370530391de75ee502aa772e76bd55a8" args="(MWWorld::Ptr item)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a370530391de75ee502aa772e76bd55a8">MWBase::WindowManager::showSoulgemDialog</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#afb89d5bc0e8f5c530bc1e40e151877c1">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1959,7 +2021,64 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2ddc80b8550f0f47031e96fa896cf578">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a169ee28e16d96b8e085726ad4c095880">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0463e1e1861e9f661084a99fbf539436"></a><!-- doxytag: member="MWBase::WindowManager::startRepair" ref="a0463e1e1861e9f661084a99fbf539436" args="(MWWorld::Ptr actor)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a0463e1e1861e9f661084a99fbf539436">MWBase::WindowManager::startRepair</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
+          <td class="paramname"><em>actor</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aade231b3374027ad04211629868f83bf">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0d8d13e278c1cb8431adce7a4e56c18c"></a><!-- doxytag: member="MWBase::WindowManager::startRepairItem" ref="a0d8d13e278c1cb8431adce7a4e56c18c" args="(MWWorld::Ptr item)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a0d8d13e278c1cb8431adce7a4e56c18c">MWBase::WindowManager::startRepairItem</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2c4b9b3d62012f7a1e4bf23a7205f734">MWGui::WindowManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6633c9464efb839157cf25df283b939d"></a><!-- doxytag: member="MWBase::WindowManager::startSelfEnchanting" ref="a6633c9464efb839157cf25df283b939d" args="(MWWorld::Ptr soulgem)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1WindowManager.html#a6633c9464efb839157cf25df283b939d">MWBase::WindowManager::startSelfEnchanting</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
+          <td class="paramname"><em>soulgem</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a17b5431e3c568e25bdde8f29a132b387">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1978,7 +2097,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a73703d96c748f522c982c91c8f8a9d87">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ab27b3a1d079d81ff649d0a301d781b95">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -1997,7 +2116,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a3075fd8754106d2f8a2ea888114ae463">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#acb3621cc1a80db64e1ac0b9352233a73">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2015,7 +2134,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a63806e39d11e94f5cce91bdb810b35d1">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a6ca67161928268123c8e3c3d50e19682">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2035,7 +2154,7 @@ Private Member Functions</h2></td></tr>
 
 <p>show extra info in item tooltips (owner, script) </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2bfdd088101623aeca975d389ceb775e">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a64ef297c13887a3847c3a9800019368c">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2053,7 +2172,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a52f3bf133e0daa993e65845be0dfc4eb">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#afc822ae8f62d1317fc828aad1de6be7f">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2072,7 +2191,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#acc70b35529647cbdd53727bb9e5cd10d">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a19dfd4c859d0d058631664bdb3317d58">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2090,7 +2209,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a5ec2658655298f4d4d2ae1dcf3a28f17">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#af418821a5bab33a8f7009f8dffc88ae4">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2108,7 +2227,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#abf8fcc74a47443ef274057b59974567f">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a9be074db15b54834115ea9a40944b46f">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2127,7 +2246,7 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Should be called each frame to update windows/gui elements. This could mean updating sizes of gui elements or opening new dialogs. </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2f4cf0c33b385871bcd8daec214f526f">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#ad5ec44de27deec8fd33e4e2160360f94">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2147,7 +2266,7 @@ Private Member Functions</h2></td></tr>
 
 <p>update display of skills, factions, birth sign, reputation and bounty </p>
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a26ef5d995e1cfeed90eea60107d5db79">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a2c9dfccf5786a150f23fed6b8d8a6175">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2165,7 +2284,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa19031b21feb30bf3c3285386d8f27cc">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a0dc65836bb25708df6cdd30e32d2d5c1">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2200,7 +2319,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#aa9b5926eff0c460c73ed2d9e23dd7f7f">MWGui::WindowManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWGui_1_1WindowManager.html#a01e61087245fba8bf4ae33b2d15bc0a5">MWGui::WindowManager</a>.</p>
 
 </div>
 </div>
@@ -2211,7 +2330,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:03 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -123,51 +123,52 @@
 <a name="l00063"></a>00063         <span class="keyword">public</span>:
 <a name="l00064"></a>00064 
 <a name="l00065"></a>00065             <a class="code" href="classCSMDoc_1_1Document.html#a3151defec1f537249a449cf0a69ef73f">Document</a> (<span class="keyword">const</span> std::vector&lt;boost::filesystem::path&gt;&amp; files, <span class="keywordtype">bool</span> new_);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             QUndoStack&amp; <a class="code" href="classCSMDoc_1_1Document.html#a957f3e6dda44e1e37da75b2a4555eb8f">getUndoStack</a>();
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069             <span class="keywordtype">int</span> <a class="code" href="classCSMDoc_1_1Document.html#a5777353f5e927b32a9790eafc4b9bd90">getState</a>() <span class="keyword">const</span>;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071             <span class="keyword">const</span> std::string&amp; <a class="code" href="classCSMDoc_1_1Document.html#a7145b57f82737553e9378c2c6192d80f">getName</a>() <span class="keyword">const</span>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#ad79298efc2ab12f512039986ea4b5d78">save</a>();
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076             <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a> <a class="code" href="classCSMDoc_1_1Document.html#ab78b83efc9004274f6fc2575393fe7c0">verify</a>();
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a28b2ac93c6d0a4c42be88f525b7058be">abortOperation</a> (<span class="keywordtype">int</span> type);
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080             <span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1Data.html">CSMWorld::Data</a>&amp; <a class="code" href="classCSMDoc_1_1Document.html#a3d2c0634e7eec5055abc612006da7763">getData</a>() <span class="keyword">const</span>;
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082             <a class="code" href="classCSMWorld_1_1Data.html">CSMWorld::Data</a>&amp; <a class="code" href="classCSMDoc_1_1Document.html#a3d2c0634e7eec5055abc612006da7763">getData</a>();
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084             <a class="code" href="classCSMTools_1_1ReportModel.html">CSMTools::ReportModel</a> *<a class="code" href="classCSMDoc_1_1Document.html#aee49730eed85495888d49d399b05416a" title="The ownership of the returned report is not transferred.">getReport</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>);
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087         signals:
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#af92fdee829a59983467399b921335f4d">stateChanged</a> (<span class="keywordtype">int</span> <a class="code" href="namespaceMWMechanics.html#ac60fc9fba81496d4e6f8c9ffb6c67b78">state</a>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a0f1ed9a09d8f39663255100f6168b5dd">progress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> threads, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093         <span class="keyword">private</span> slots:
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a72efe466f37e9b24f0a2cc9b261c2c0e">modificationStateChanged</a> (<span class="keywordtype">bool</span> clean);
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#ae9d6e5e674f95d492f1635dfe0150237">operationDone</a> (<span class="keywordtype">int</span> type);
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a2701809ca57a732c732197030e1a2ea2" title="dummy implementation -&gt; remove when proper save is implemented.">saving</a>();
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102         <span class="keyword">public</span> slots:
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a0f1ed9a09d8f39663255100f6168b5dd">progress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type);
-<a name="l00105"></a>00105     };
-<a name="l00106"></a>00106 }
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108 <span class="preprocessor">#endif</span>
+<a name="l00066"></a>00066             <a class="code" href="classCSMDoc_1_1Document.html#a10be508e20e2935ece42718b6d4fbd8d">~Document</a>();
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068             QUndoStack&amp; <a class="code" href="classCSMDoc_1_1Document.html#a957f3e6dda44e1e37da75b2a4555eb8f">getUndoStack</a>();
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070             <span class="keywordtype">int</span> <a class="code" href="classCSMDoc_1_1Document.html#a5777353f5e927b32a9790eafc4b9bd90">getState</a>() <span class="keyword">const</span>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072             <span class="keyword">const</span> std::string&amp; <a class="code" href="classCSMDoc_1_1Document.html#a7145b57f82737553e9378c2c6192d80f">getName</a>() <span class="keyword">const</span>;
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#ad79298efc2ab12f512039986ea4b5d78">save</a>();
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077             <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a> <a class="code" href="classCSMDoc_1_1Document.html#ab78b83efc9004274f6fc2575393fe7c0">verify</a>();
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a28b2ac93c6d0a4c42be88f525b7058be">abortOperation</a> (<span class="keywordtype">int</span> type);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081             <span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1Data.html">CSMWorld::Data</a>&amp; <a class="code" href="classCSMDoc_1_1Document.html#a3d2c0634e7eec5055abc612006da7763">getData</a>() <span class="keyword">const</span>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083             <a class="code" href="classCSMWorld_1_1Data.html">CSMWorld::Data</a>&amp; <a class="code" href="classCSMDoc_1_1Document.html#a3d2c0634e7eec5055abc612006da7763">getData</a>();
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085             <a class="code" href="classCSMTools_1_1ReportModel.html">CSMTools::ReportModel</a> *<a class="code" href="classCSMDoc_1_1Document.html#aee49730eed85495888d49d399b05416a" title="The ownership of the returned report is not transferred.">getReport</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>);
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088         signals:
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#af92fdee829a59983467399b921335f4d">stateChanged</a> (<span class="keywordtype">int</span> <a class="code" href="namespaceMWMechanics.html#ac60fc9fba81496d4e6f8c9ffb6c67b78">state</a>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a0f1ed9a09d8f39663255100f6168b5dd">progress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> threads, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document);
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094         <span class="keyword">private</span> slots:
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a72efe466f37e9b24f0a2cc9b261c2c0e">modificationStateChanged</a> (<span class="keywordtype">bool</span> clean);
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#ae9d6e5e674f95d492f1635dfe0150237">operationDone</a> (<span class="keywordtype">int</span> type);
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a2701809ca57a732c732197030e1a2ea2" title="dummy implementation -&gt; remove when proper save is implemented.">saving</a>();
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103         <span class="keyword">public</span> slots:
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105             <span class="keywordtype">void</span> <a class="code" href="classCSMDoc_1_1Document.html#a0f1ed9a09d8f39663255100f6168b5dd">progress</a> (<span class="keywordtype">int</span> current, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> type);
+<a name="l00106"></a>00106     };
+<a name="l00107"></a>00107 }
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

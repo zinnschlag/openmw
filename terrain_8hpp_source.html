@@ -95,43 +95,46 @@
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1TerrainManager.html#ada24ab546977432abe5d355d7a473f5c">cellAdded</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* store);
 <a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a495f44e2ab9485b8fcef5ecaa006bf00">cellRemoved</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* store);
-<a name="l00043"></a>00043     <span class="keyword">private</span>:
-<a name="l00044"></a><a class="code" href="classMWRender_1_1TerrainManager.html#a03e446398844614d2f108b141202ef0f">00044</a>         Ogre::TerrainGlobalOptions* <a class="code" href="classMWRender_1_1TerrainManager.html#a03e446398844614d2f108b141202ef0f">mTerrainGlobals</a>;
-<a name="l00045"></a><a class="code" href="classMWRender_1_1TerrainManager.html#ac798aeac73807e7c16376cbbc3fbeb0c">00045</a>         Ogre::TerrainGroup <a class="code" href="classMWRender_1_1TerrainManager.html#ac798aeac73807e7c16376cbbc3fbeb0c">mTerrainGroup</a>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classMWRender_1_1TerrainManager.html#a1a229c6470f87dff48e298433f288142">00047</a>         <a class="code" href="classMWRender_1_1RenderingManager.html">RenderingManager</a>* <a class="code" href="classMWRender_1_1TerrainManager.html#a1a229c6470f87dff48e298433f288142">mRendering</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="classMWRender_1_1TerrainManager.html#aa0d35f8e83120ca78c007bbaa7352431">00049</a>         <a class="code" href="classMWRender_1_1TerrainMaterial_1_1Profile.html">TerrainMaterial::Profile</a>* <a class="code" href="classMWRender_1_1TerrainManager.html#aa0d35f8e83120ca78c007bbaa7352431">mActiveProfile</a>;
-<a name="l00050"></a>00050 
-<a name="l00054"></a><a class="code" href="classMWRender_1_1TerrainManager.html#aaa2b25a4150cf53588b02fa91d8a5ec9">00054</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1TerrainManager.html#aaa2b25a4150cf53588b02fa91d8a5ec9">mLandSize</a> = (<a class="code" href="structESM_1_1Land.html#aaa4d74bab6c1078d6bf3dceb290d6ae6">ESM::Land::LAND_SIZE</a> - 1)/2 + 1;
-<a name="l00055"></a>00055 
-<a name="l00059"></a><a class="code" href="classMWRender_1_1TerrainManager.html#ac5df0a393c45b1dd40b07b8907fee870">00059</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1TerrainManager.html#ac5df0a393c45b1dd40b07b8907fee870">mWorldSize</a> = <a class="code" href="structESM_1_1Land.html#a0747f579dd8cdbeea6fe2915d9d28e57">ESM::Land::REAL_SIZE</a>/2;
-<a name="l00060"></a>00060 
-<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a4686d6f3a9d7673992e1d2135ae94c05">initTerrainTextures</a>(Ogre::Terrain::ImportData* terrainData,
-<a name="l00076"></a>00076                                  <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
-<a name="l00077"></a>00077                                  <span class="keywordtype">int</span> fromX, <span class="keywordtype">int</span> fromY, <span class="keywordtype">int</span> size,
-<a name="l00078"></a>00078                                  std::map&lt;uint16_t, int&gt;&amp; indexes, <span class="keywordtype">size_t</span> plugin);
-<a name="l00079"></a>00079 
-<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a755756c7cd22316cf3d7fd7aec9edc8d">initTerrainBlendMaps</a>(Ogre::Terrain* terrain,
-<a name="l00092"></a>00092                                   <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
-<a name="l00093"></a>00093                                   <span class="keywordtype">int</span> fromX, <span class="keywordtype">int</span> fromY, <span class="keywordtype">int</span> size,
-<a name="l00094"></a>00094                                   <span class="keyword">const</span> std::map&lt;uint16_t, int&gt;&amp; indexes);
-<a name="l00095"></a>00095 
-<a name="l00106"></a>00106         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a4f0a6d34cc0b7940d72887a74a5bb945">getLtexIndexAt</a>(<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00107"></a>00107 
-<a name="l00118"></a>00118         Ogre::TexturePtr <a class="code" href="classMWRender_1_1TerrainManager.html#a3856d575382efbb037b0e43e440dfd81">getVertexColours</a>(<a class="code" href="structESM_1_1Land.html">ESM::Land</a>* land,
-<a name="l00119"></a>00119                                           <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
-<a name="l00120"></a>00120                                           <span class="keywordtype">int</span> fromX, <span class="keywordtype">int</span> fromY, <span class="keywordtype">int</span> size);
-<a name="l00121"></a>00121     };
-<a name="l00122"></a>00122 
-<a name="l00123"></a>00123 }
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125 <span class="preprocessor">#endif // _GAME_RENDER_TERRAIN_H</span>
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a18d61e45e9efec5ac73253550d494a22">getTerrainHeightAt</a> (Ogre::Vector3 worldPos);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046     <span class="keyword">private</span>:
+<a name="l00047"></a><a class="code" href="classMWRender_1_1TerrainManager.html#a03e446398844614d2f108b141202ef0f">00047</a>         Ogre::TerrainGlobalOptions* <a class="code" href="classMWRender_1_1TerrainManager.html#a03e446398844614d2f108b141202ef0f">mTerrainGlobals</a>;
+<a name="l00048"></a><a class="code" href="classMWRender_1_1TerrainManager.html#ac798aeac73807e7c16376cbbc3fbeb0c">00048</a>         Ogre::TerrainGroup <a class="code" href="classMWRender_1_1TerrainManager.html#ac798aeac73807e7c16376cbbc3fbeb0c">mTerrainGroup</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWRender_1_1TerrainManager.html#a1a229c6470f87dff48e298433f288142">00050</a>         <a class="code" href="classMWRender_1_1RenderingManager.html">RenderingManager</a>* <a class="code" href="classMWRender_1_1TerrainManager.html#a1a229c6470f87dff48e298433f288142">mRendering</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classMWRender_1_1TerrainManager.html#aa0d35f8e83120ca78c007bbaa7352431">00052</a>         <a class="code" href="classMWRender_1_1TerrainMaterial_1_1Profile.html">TerrainMaterial::Profile</a>* <a class="code" href="classMWRender_1_1TerrainManager.html#aa0d35f8e83120ca78c007bbaa7352431">mActiveProfile</a>;
+<a name="l00053"></a>00053 
+<a name="l00057"></a><a class="code" href="classMWRender_1_1TerrainManager.html#aaa2b25a4150cf53588b02fa91d8a5ec9">00057</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1TerrainManager.html#aaa2b25a4150cf53588b02fa91d8a5ec9">mLandSize</a> = (<a class="code" href="structESM_1_1Land.html#aaa4d74bab6c1078d6bf3dceb290d6ae6">ESM::Land::LAND_SIZE</a> - 1)/2 + 1;
+<a name="l00058"></a>00058 
+<a name="l00062"></a><a class="code" href="classMWRender_1_1TerrainManager.html#ac5df0a393c45b1dd40b07b8907fee870">00062</a>         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1TerrainManager.html#ac5df0a393c45b1dd40b07b8907fee870">mWorldSize</a> = <a class="code" href="structESM_1_1Land.html#a0747f579dd8cdbeea6fe2915d9d28e57">ESM::Land::REAL_SIZE</a>/2;
+<a name="l00063"></a>00063 
+<a name="l00078"></a>00078         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a4686d6f3a9d7673992e1d2135ae94c05">initTerrainTextures</a>(Ogre::Terrain::ImportData* terrainData,
+<a name="l00079"></a>00079                                  <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
+<a name="l00080"></a>00080                                  <span class="keywordtype">int</span> fromX, <span class="keywordtype">int</span> fromY, <span class="keywordtype">int</span> size,
+<a name="l00081"></a>00081                                  std::map&lt;uint16_t, int&gt;&amp; indexes, <span class="keywordtype">size_t</span> plugin);
+<a name="l00082"></a>00082 
+<a name="l00094"></a>00094         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a755756c7cd22316cf3d7fd7aec9edc8d">initTerrainBlendMaps</a>(Ogre::Terrain* terrain,
+<a name="l00095"></a>00095                                   <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
+<a name="l00096"></a>00096                                   <span class="keywordtype">int</span> fromX, <span class="keywordtype">int</span> fromY, <span class="keywordtype">int</span> size,
+<a name="l00097"></a>00097                                   <span class="keyword">const</span> std::map&lt;uint16_t, int&gt;&amp; indexes);
+<a name="l00098"></a>00098 
+<a name="l00109"></a>00109         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1TerrainManager.html#a4f0a6d34cc0b7940d72887a74a5bb945">getLtexIndexAt</a>(<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00110"></a>00110 
+<a name="l00121"></a>00121         Ogre::TexturePtr <a class="code" href="classMWRender_1_1TerrainManager.html#a3856d575382efbb037b0e43e440dfd81">getVertexColours</a>(<a class="code" href="structESM_1_1Land.html">ESM::Land</a>* land,
+<a name="l00122"></a>00122                                           <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
+<a name="l00123"></a>00123                                           <span class="keywordtype">int</span> fromX, <span class="keywordtype">int</span> fromY, <span class="keywordtype">int</span> size);
+<a name="l00124"></a>00124     };
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 }
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128 <span class="preprocessor">#endif // _GAME_RENDER_TERRAIN_H</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

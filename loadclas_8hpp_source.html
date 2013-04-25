@@ -85,7 +85,7 @@
 <a name="l00024"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da105eb36d5544915356448cc3beef7d20">00024</a>         <a class="code" href="structESM_1_1Clothing.html">Clothing</a> = 0x00004,
 <a name="l00025"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dac988c81583f7d5babbfb847d83f3e178">00025</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dac988c81583f7d5babbfb847d83f3e178">Books</a> = 0x00008,
 <a name="l00026"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da0d4735b8ce7f1ec664faec49bd7b4f47">00026</a>         <a class="code" href="structESM_1_1Ingredient.html">Ingredient</a> = 0x00010,
-<a name="l00027"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">00027</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">Lockpick</a> = 0x00020,
+<a name="l00027"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da08d57b0161256a9bf8c602fa313433f9">00027</a>         <a class="code" href="structESM_1_1Lockpick.html">Lockpick</a> = 0x00020,
 <a name="l00028"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da8d4a3f0018345486b873d277586cd24f">00028</a>         <a class="code" href="structESM_1_1Probe.html">Probe</a> = 0x00040,
 <a name="l00029"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dabd60edc74502b320078a8bb06fa50a59">00029</a>         <a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02dabd60edc74502b320078a8bb06fa50a59">Lights</a> = 0x00080,
 <a name="l00030"></a><a class="code" href="structESM_1_1Class.html#a617d2ab52ac200f0aa1d85eeaa02d02da4c483e4a067cc8fc9cc17246984bf683">00030</a>         <a class="code" href="structESM_1_1Apparatus.html">Apparatus</a> = 0x00100,
@@ -119,21 +119,28 @@
 <a name="l00058"></a>00058 
 <a name="l00059"></a>00059         <span class="comment">// I have no idea how to autocalculate these items...</span>
 <a name="l00060"></a><a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a9798922a5dace5cfb0983497960b27c3">00060</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#a9798922a5dace5cfb0983497960b27c3">mCalc</a>;
-<a name="l00061"></a>00061     }; <span class="comment">// 60 bytes</span>
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="structESM_1_1Class.html#a5face572aa3cc8aace99d8cf8b0c73f8">00063</a>     std::string <a class="code" href="structESM_1_1Class.html#a255b9b02f0baeee033fa5d25614d9bd1">mId</a>, <a class="code" href="structESM_1_1Class.html#a5face572aa3cc8aace99d8cf8b0c73f8">mName</a>, <a class="code" href="structESM_1_1Class.html#a4f87eb01de769fe9f83d49fadaecadd0">mDescription</a>;
-<a name="l00064"></a><a class="code" href="structESM_1_1Class.html#ae3fd923f42e0dcce3fb4a2ca4a2a3307">00064</a>     <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a> <a class="code" href="structESM_1_1Class.html#ae3fd923f42e0dcce3fb4a2ca4a2a3307">mData</a>;
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a741207e2b256ca1fae214f0a2ef2c7de">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00068"></a>00068 };
-<a name="l00069"></a>00069 }
-<a name="l00070"></a>00070 <span class="preprocessor">#endif</span>
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keywordtype">int</span>&amp; <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#ab0b00f9f61d824da13772b58b2c40c6a" title="Throws an exception for invalid values of index.">getSkill</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> major);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html#ab0b00f9f61d824da13772b58b2c40c6a" title="Throws an exception for invalid values of index.">getSkill</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> major) <span class="keyword">const</span>;
+<a name="l00067"></a>00067     }; <span class="comment">// 60 bytes</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="structESM_1_1Class.html#a5face572aa3cc8aace99d8cf8b0c73f8">00069</a>     std::string <a class="code" href="structESM_1_1Class.html#a255b9b02f0baeee033fa5d25614d9bd1">mId</a>, <a class="code" href="structESM_1_1Class.html#a5face572aa3cc8aace99d8cf8b0c73f8">mName</a>, <a class="code" href="structESM_1_1Class.html#a4f87eb01de769fe9f83d49fadaecadd0">mDescription</a>;
+<a name="l00070"></a><a class="code" href="structESM_1_1Class.html#ae3fd923f42e0dcce3fb4a2ca4a2a3307">00070</a>     <a class="code" href="structESM_1_1Class_1_1CLDTstruct.html">CLDTstruct</a> <a class="code" href="structESM_1_1Class.html#ae3fd923f42e0dcce3fb4a2ca4a2a3307">mData</a>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a00afed930b990c4cdfe8c6d86d8a820a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#a741207e2b256ca1fae214f0a2ef2c7de">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Class.html#ad065e21ab25c26d5ddd4cd60e76c8881" title="Set record to default state (does not touch the ID/index).">blank</a>();
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078 };
+<a name="l00079"></a>00079 }
+<a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

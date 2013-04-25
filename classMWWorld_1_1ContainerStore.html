@@ -86,8 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a71670323082addcc92d290120c409c6f">begin</a> (int mask=<a class="el" href="classMWWorld_1_1ContainerStore.html#a17042290d6394f4caf3115c519e8d9fc">Type_All</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ab7165a7ef4e2053f7c0b712d017a9f5d">end</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ab1a5e63be34ec718dd5bea436c8ada4c">add</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#af65b0df1ac301a6a7f2e90fbc0091531">fill</a> (const <a class="el" href="structESM_1_1InventoryList.html">ESM::InventoryList</a> &amp;items, const <a class="el" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert items into *this.  <a href="#af65b0df1ac301a6a7f2e90fbc0091531"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ade6390a90abc2dfa30e439eb8c4a9f28">fill</a> (const <a class="el" href="structESM_1_1InventoryList.html">ESM::InventoryList</a> &amp;items, const std::string &amp;owner, const <a class="el" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert items into *this.  <a href="#ade6390a90abc2dfa30e439eb8c4a9f28"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ac246b1e5933763a3e51a37a74dbf3b29">clear</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty container.  <a href="#ac246b1e5933763a3e51a37a74dbf3b29"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#afe50dbc2ca1bf2dc3e63c8a66f1fc537">flagAsModified</a> ()</td></tr>
@@ -121,6 +121,7 @@ Protected Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#af4283222f8c3f98188c99738fc8be224">addImp</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a21fe5b06919e9ba2ed6260dcc7362d42">addInitialItem</a> (const std::string &amp;id, const std::string &amp;owner, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>, unsigned char failChance=0, bool topLevel=true)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="structESM_1_1Potion.html">ESM::Potion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#af01f27826bbfb2dcfae333fc8297bfdc">potions</a></td></tr>
@@ -133,7 +134,8 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a><br class="typebreak"/>
 &lt; <a class="el" href="structESM_1_1Ingredient.html">ESM::Ingredient</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a57bc4f1dfea3af1bd09fc5a950cfa6c4">ingreds</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="structESM_1_1Light.html">ESM::Light</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a4279efd5dc46b500ff1b6a9bfff608ea">lights</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="structESM_1_1Tool.html">ESM::Tool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#add0058b4f3a36942fbad81b3445026ed">lockpicks</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a><br class="typebreak"/>
+&lt; <a class="el" href="structESM_1_1Lockpick.html">ESM::Lockpick</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a51b0511138f31ae8a31ffb2d4acf6433">lockpicks</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a><br class="typebreak"/>
 &lt; <a class="el" href="structESM_1_1Miscellaneous.html">ESM::Miscellaneous</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#aa15bd88c5e02efac9b54c743fb44397f">miscItems</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt; <a class="el" href="structESM_1_1Probe.html">ESM::Probe</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a6fc04ae19375ec3c7c4461ca25097cd8">probes</a></td></tr>
@@ -237,6 +239,52 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a21fe5b06919e9ba2ed6260dcc7362d42"></a><!-- doxytag: member="MWWorld::ContainerStore::addInitialItem" ref="a21fe5b06919e9ba2ed6260dcc7362d42" args="(const std::string &amp;id, const std::string &amp;owner, int count, unsigned char failChance=0, bool topLevel=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1ContainerStore.html#a21fe5b06919e9ba2ed6260dcc7362d42">MWWorld::ContainerStore::addInitialItem</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>failChance</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>topLevel</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>implement item restocking (indicated by negative count) </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a71670323082addcc92d290120c409c6f"></a><!-- doxytag: member="MWWorld::ContainerStore::begin" ref="a71670323082addcc92d290120c409c6f" args="(int mask=Type_All)" -->
 <div class="memitem">
 <div class="memproto">
@@ -288,15 +336,21 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af65b0df1ac301a6a7f2e90fbc0091531"></a><!-- doxytag: member="MWWorld::ContainerStore::fill" ref="af65b0df1ac301a6a7f2e90fbc0091531" args="(const ESM::InventoryList &amp;items, const MWWorld::ESMStore &amp;store)" -->
+<a class="anchor" id="ade6390a90abc2dfa30e439eb8c4a9f28"></a><!-- doxytag: member="MWWorld::ContainerStore::fill" ref="ade6390a90abc2dfa30e439eb8c4a9f28" args="(const ESM::InventoryList &amp;items, const std::string &amp;owner, const MWWorld::ESMStore &amp;store)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWWorld_1_1ContainerStore.html#af65b0df1ac301a6a7f2e90fbc0091531">MWWorld::ContainerStore::fill</a> </td>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1ContainerStore.html#ade6390a90abc2dfa30e439eb8c4a9f28">MWWorld::ContainerStore::fill</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structESM_1_1InventoryList.html">ESM::InventoryList</a> &amp;&#160;</td>
           <td class="paramname"><em>items</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -314,8 +368,6 @@ Friends</h2></td></tr>
 <div class="memdoc">
 
 <p>Insert items into *this. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000084">Todo:</a></b></dt><dd>implement leveled item lists </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000085">Todo:</a></b></dt><dd>implement item restocking (indicated by negative count) </dd></dl>
 
 </div>
 </div>
@@ -418,7 +470,7 @@ Friends</h2></td></tr>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the two specified objects can stack with each other </dd></dl>
 <dl class="note"><dt><b>Note:</b></dt><dd>ptr1 is the item that is already in this container </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>add current weapon/armor health, remaining lockpick/repair uses, current enchantment charge here as soon as they are implemented </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>add current enchantment charge here when it is implemented </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classMWWorld_1_1InventoryStore.html#aecbe10a167acbbdd7ba85bca8672e9e8">MWWorld::InventoryStore</a>.</p>
 
@@ -517,12 +569,12 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="add0058b4f3a36942fbad81b3445026ed"></a><!-- doxytag: member="MWWorld::ContainerStore::lockpicks" ref="add0058b4f3a36942fbad81b3445026ed" args="" -->
+<a class="anchor" id="a51b0511138f31ae8a31ffb2d4acf6433"></a><!-- doxytag: member="MWWorld::ContainerStore::lockpicks" ref="a51b0511138f31ae8a31ffb2d4acf6433" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt;<a class="el" href="structESM_1_1Tool.html">ESM::Tool</a>&gt; <a class="el" href="classMWWorld_1_1ContainerStore.html#add0058b4f3a36942fbad81b3445026ed">MWWorld::ContainerStore::lockpicks</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="structMWWorld_1_1CellRefList.html">MWWorld::CellRefList</a>&lt;<a class="el" href="structESM_1_1Lockpick.html">ESM::Lockpick</a>&gt; <a class="el" href="classMWWorld_1_1ContainerStore.html#a51b0511138f31ae8a31ffb2d4acf6433">MWWorld::ContainerStore::lockpicks</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -824,7 +876,7 @@ Friends</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:04 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

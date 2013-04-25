@@ -70,52 +70,53 @@
 <a name="l00009"></a>00009   <span class="keyword">class </span>LogManager;
 <a name="l00010"></a>00010   <span class="keyword">class </span>OgreDataManager;
 <a name="l00011"></a>00011   <span class="keyword">class </span>OgreRenderManager;
-<a name="l00012"></a>00012 }
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">namespace </span>Ogre
-<a name="l00015"></a>00015 {
-<a name="l00016"></a>00016   <span class="keyword">class </span>RenderWindow;
-<a name="l00017"></a>00017   <span class="keyword">class </span>SceneManager;
-<a name="l00018"></a>00018 }
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">namespace </span>OEngine {
-<a name="l00021"></a>00021 <span class="keyword">namespace </span>GUI
-<a name="l00022"></a>00022 {
-<a name="l00023"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html">00023</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html">MyGUIManager</a>
-<a name="l00024"></a>00024     {
-<a name="l00025"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">00025</a>         MyGUI::Gui *<a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">mGui</a>;
-<a name="l00026"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a82946913c634ed6c51086bfa92c88466">00026</a>         MyGUI::LogManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a82946913c634ed6c51086bfa92c88466">mLogManager</a>;
-<a name="l00027"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae303638cd0dc728d43f6185864a3f67a">00027</a>         MyGUI::OgreDataManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae303638cd0dc728d43f6185864a3f67a">mDataManager</a>;
-<a name="l00028"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a86b698ed2c2a28b1de770ea1624d7532">00028</a>         MyGUI::OgreRenderManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a86b698ed2c2a28b1de770ea1624d7532">mRenderManager</a>;
-<a name="l00029"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ab51626737a2793a77d57655a74e4b1b5">00029</a>         Ogre::SceneManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ab51626737a2793a77d57655a74e4b1b5">mSceneMgr</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="keyword">public</span>:
-<a name="l00033"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a4ddc6079696a0080534afa82b67a890a">00033</a>         <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a4ddc6079696a0080534afa82b67a890a">MyGUIManager</a>() : <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a82946913c634ed6c51086bfa92c88466">mLogManager</a>(NULL), <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae303638cd0dc728d43f6185864a3f67a">mDataManager</a>(NULL), <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a86b698ed2c2a28b1de770ea1624d7532">mRenderManager</a>(NULL),  <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">mGui</a>(NULL) {}
-<a name="l00034"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a56bd8f18a5a8d2252f449d5be926dbee">00034</a>         <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a4ddc6079696a0080534afa82b67a890a">MyGUIManager</a>(Ogre::RenderWindow *wnd, Ogre::SceneManager *<a class="code" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>, <span class="keywordtype">bool</span> logging=<span class="keyword">false</span>, <span class="keyword">const</span> std::string&amp; logDir = std::string(<span class="stringliteral">&quot;&quot;</span>))
-<a name="l00035"></a>00035         {
-<a name="l00036"></a>00036             <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a0926e117d29e73c4ea31ca3f23bd9602">setup</a>(wnd,mgr,logging, logDir);
-<a name="l00037"></a>00037         }
-<a name="l00038"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a52f05b5c4f1a6ac517248c3e084f7767">00038</a>         <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a52f05b5c4f1a6ac517248c3e084f7767">~MyGUIManager</a>()
-<a name="l00039"></a>00039         {
-<a name="l00040"></a>00040             <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ad615cc307768a25eb74ce47b470506e2">shutdown</a>();
-<a name="l00041"></a>00041         }
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ac478c0d03b17a8e9f39fd4a86d030c16">updateWindow</a> (Ogre::RenderWindow* wnd);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a0926e117d29e73c4ea31ca3f23bd9602">setup</a>(Ogre::RenderWindow *wnd, Ogre::SceneManager *mgr, <span class="keywordtype">bool</span> logging=<span class="keyword">false</span>, <span class="keyword">const</span> std::string&amp; logDir = std::string(<span class="stringliteral">&quot;&quot;</span>));
-<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ad615cc307768a25eb74ce47b470506e2">shutdown</a>();
-<a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a9f336e08ba83c8d659731c55cb34e2a8">00048</a>         MyGUI::Gui *<a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a9f336e08ba83c8d659731c55cb34e2a8">getGui</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">mGui</a>; }
-<a name="l00049"></a>00049     };
-<a name="l00050"></a>00050 }
+<a name="l00012"></a>00012   <span class="keyword">class </span>ShaderBasedRenderManager;
+<a name="l00013"></a>00013 }
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">namespace </span>Ogre
+<a name="l00016"></a>00016 {
+<a name="l00017"></a>00017   <span class="keyword">class </span>RenderWindow;
+<a name="l00018"></a>00018   <span class="keyword">class </span>SceneManager;
+<a name="l00019"></a>00019 }
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">namespace </span>OEngine {
+<a name="l00022"></a>00022 <span class="keyword">namespace </span>GUI
+<a name="l00023"></a>00023 {
+<a name="l00024"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html">00024</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html">MyGUIManager</a>
+<a name="l00025"></a>00025     {
+<a name="l00026"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">00026</a>         MyGUI::Gui *<a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">mGui</a>;
+<a name="l00027"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a82946913c634ed6c51086bfa92c88466">00027</a>         MyGUI::LogManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a82946913c634ed6c51086bfa92c88466">mLogManager</a>;
+<a name="l00028"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae303638cd0dc728d43f6185864a3f67a">00028</a>         MyGUI::OgreDataManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae303638cd0dc728d43f6185864a3f67a">mDataManager</a>;
+<a name="l00029"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a86b698ed2c2a28b1de770ea1624d7532">00029</a>         MyGUI::OgreRenderManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a86b698ed2c2a28b1de770ea1624d7532">mRenderManager</a>;
+<a name="l00030"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#af1b34b28c95060023e64d403281bde27">00030</a>         <a class="code" href="classMyGUI_1_1ShaderBasedRenderManager.html">MyGUI::ShaderBasedRenderManager</a>* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#af1b34b28c95060023e64d403281bde27">mShaderRenderManager</a>;
+<a name="l00031"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ab51626737a2793a77d57655a74e4b1b5">00031</a>         Ogre::SceneManager* <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ab51626737a2793a77d57655a74e4b1b5">mSceneMgr</a>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034     <span class="keyword">public</span>:
+<a name="l00035"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a56bd8f18a5a8d2252f449d5be926dbee">00035</a>         <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a56bd8f18a5a8d2252f449d5be926dbee">MyGUIManager</a>(Ogre::RenderWindow *wnd, Ogre::SceneManager *<a class="code" href="ogre__common_8cpp.html#a1334793cc488e5f81371ba7d5f9fdf3e">mgr</a>, <span class="keywordtype">bool</span> logging=<span class="keyword">false</span>, <span class="keyword">const</span> std::string&amp; logDir = std::string(<span class="stringliteral">&quot;&quot;</span>))
+<a name="l00036"></a>00036         {
+<a name="l00037"></a>00037             <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a0926e117d29e73c4ea31ca3f23bd9602">setup</a>(wnd,mgr,logging, logDir);
+<a name="l00038"></a>00038         }
+<a name="l00039"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a52f05b5c4f1a6ac517248c3e084f7767">00039</a>         <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a52f05b5c4f1a6ac517248c3e084f7767">~MyGUIManager</a>()
+<a name="l00040"></a>00040         {
+<a name="l00041"></a>00041             <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ad615cc307768a25eb74ce47b470506e2">shutdown</a>();
+<a name="l00042"></a>00042         }
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ac478c0d03b17a8e9f39fd4a86d030c16">updateWindow</a> (Ogre::RenderWindow* wnd);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a0926e117d29e73c4ea31ca3f23bd9602">setup</a>(Ogre::RenderWindow *wnd, Ogre::SceneManager *mgr, <span class="keywordtype">bool</span> logging=<span class="keyword">false</span>, <span class="keyword">const</span> std::string&amp; logDir = std::string(<span class="stringliteral">&quot;&quot;</span>));
+<a name="l00047"></a>00047         <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ad615cc307768a25eb74ce47b470506e2">shutdown</a>();
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a9f336e08ba83c8d659731c55cb34e2a8">00049</a>         MyGUI::Gui *<a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#a9f336e08ba83c8d659731c55cb34e2a8">getGui</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html#ae3f2687a98ed7b1959505e59fdf5d3a5">mGui</a>; }
+<a name="l00050"></a>00050     };
 <a name="l00051"></a>00051 }
-<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
+<a name="l00052"></a>00052 }
+<a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 27 2013 10:12:02 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
