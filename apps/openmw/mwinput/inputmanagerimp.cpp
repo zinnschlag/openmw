@@ -904,8 +904,9 @@ namespace MWInput
     void InputManager::enableDetectingBindingMode (int action)
     {
         ICS::Control* c = mInputCtrl->getChannel (action)->getAttachedControls ().front().control;
-
-        mInputCtrl->enableDetectingBindingState (c, ICS::Control::INCREASE);
+        if (!OIS::KC_ESCAPE) { // Don't let the player rebind the ESC key
+            mInputCtrl->enableDetectingBindingState (c, ICS::Control::INCREASE);
+        }
     }
 
     void InputManager::mouseAxisBindingDetected(ICS::InputControlSystem* ICS, ICS::Control* control
