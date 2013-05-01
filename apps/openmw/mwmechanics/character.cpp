@@ -158,36 +158,6 @@ void CharacterController::update(float duration, Movement &movement)
         const Ogre::Vector3 &rot = cls.getRotationVector(mPtr);
         speed = cls.getSpeed(mPtr);
 
-        //player is falling down
-        if(!onground && gravity && mLastHeight>mPtr.getRefData().getPosition().pos[2])
-            mFallDistance+=(mLastHeight-mPtr.getRefData().getPosition().pos[2]);
-
-        //player just finished falling
-        if(onground && gravity && mFallDistance>0)
-        {
-            float healthLost = cls.getFallDamage(mPtr, mFallDistance);
-
-            if(healthLost>0.0f)
-            {
-                DynamicStat<float> health = cls.getCreatureStats(mPtr).getHealth();
-                int current = health.getCurrent();
-                float realHealthLost = healthLost * (1.0f - (0.25 * 1.25f/*fatigueTerm*/));
-                health.setModified (health.getModified()-static_cast<int>(realHealthLost), 0);
-                health.setCurrent (current-static_cast<int>(realHealthLost));
-                cls.getCreatureStats(mPtr).setHealth (health);
-                MWWorld::Class::get(mPtr).skillUsageSucceeded(mPtr, ESM::Skill::Acrobatics, 1);
-
-                const float acrobaticsSkill = cls.getNpcStats (mPtr).getSkill (ESM::Skill::Acrobatics).getModified();
-                if(acrobaticsSkill*1.25f/*fatigueTerm*/<healthLost)
-                {
-                    //TODO: actor falls over
-                }
-            }
-
-            setState(CharState_Idle, true);
-            mFallDistance=0;
-        }
-
         // advance athletics
         if (vec.squaredLength() > 0 && mPtr == MWBase::Environment::get().getWorld()->getPlayer().getPlayer())
         {
@@ -208,39 +178,6 @@ void CharacterController::update(float duration, Movement &movement)
                     MWWorld::Class::get(mPtr).skillUsageSucceeded(mPtr, ESM::Skill::Athletics, 0);
                     mSecondsOfRunning -= 1;
                 }
-            }
-        }
-
-        // FIXME: X/Y movement should be disallowed except for the initial thrust (which would be carried by "physics" until landing).
-        if(onground && gravity && vec.z > 0.0f)
-        {
-            //Advance acrobatics on jump, decrease fatigue
-            if(getState()!=CharState_Jump)
-            {
-                setState(CharState_Jump, true);
-                MWWorld::Class::get(mPtr).skillUsageSucceeded(mPtr, ESM::Skill::Acrobatics, 0);
-
-                const float normalizedEncumbrance = cls.getEncumbrance(mPtr) / cls.getCapacity(mPtr);
-                const float fatigueJumpBase = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find ("fFatigueJumpBase")->getFloat();
-                const float fatigueJumpMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find ("fFatigueJumpMult")->getFloat();
-                DynamicStat<float> fatigue = cls.getCreatureStats(mPtr).getDynamic(2);
-                int current = fatigue.getCurrent();
-                fatigue.setModified(fatigue.getModified()-static_cast<int>(fatigueJumpBase + ((1 - normalizedEncumbrance) * fatigueJumpMult)), 0);
-                fatigue.setCurrent(current-static_cast<int>(fatigueJumpBase + ((1 - normalizedEncumbrance) * fatigueJumpMult)));
-                cls.getCreatureStats(mPtr).setDynamic (2, fatigue);
-            }
-
-            float x = cls.getJump(mPtr);
-
-            if(vec.x == 0 && vec.y == 0)
-                movement.mPosition[2] += x*duration;
-            else
-            {
-                /* FIXME: this would be more correct if we were going into a jumping state,
-                 * rather than normal walking/idle states. */
-                //Ogre::Vector3 lat = Ogre::Vector3(vec.x, vec.y, 0.0f).normalisedCopy();
-                //movement += Ogre::Vector3(lat.x, lat.y, 1.0f) * x * 0.707f * duration;
-                movement.mPosition[2] += x * 0.707f * duration;
             }
         }
 
@@ -297,6 +234,66 @@ void CharacterController::update(float duration, Movement &movement)
         movement.mRotation[0] += rot.x * duration;
         movement.mRotation[1] += rot.y * duration;
         movement.mRotation[2] += rot.z * duration;
+
+        if(mFallDistance>0 && inwater)
+            mFallDistance=0;
+
+        //player is falling down
+        if(!onground && gravity && !inwater && mLastHeight>mPtr.getRefData().getPosition().pos[2])
+            mFallDistance+=(mLastHeight-mPtr.getRefData().getPosition().pos[2]);
+
+        //player just finished falling
+        if(onground && gravity && mFallDistance>0)
+        {
+            float healthLost = cls.getFallDamage(mPtr, mFallDistance);
+
+            if(healthLost>0.0f)
+            {
+                DynamicStat<float> health = cls.getCreatureStats(mPtr).getHealth();
+                int current = health.getCurrent();
+                float realHealthLost = healthLost * (1.0f - (0.25 * 1.25f/*fatigueTerm*/));
+                health.setModified (health.getModified()-static_cast<int>(realHealthLost), 0);
+                health.setCurrent (current-static_cast<int>(realHealthLost));
+                cls.getCreatureStats(mPtr).setHealth (health);
+                MWWorld::Class::get(mPtr).skillUsageSucceeded(mPtr, ESM::Skill::Acrobatics, 1);
+
+                const float acrobaticsSkill = cls.getNpcStats (mPtr).getSkill (ESM::Skill::Acrobatics).getModified();
+                if(acrobaticsSkill*1.25f/*fatigueTerm*/<healthLost)
+                {
+                    //TODO: actor falls over
+                }
+            }
+            mFallDistance=0;
+        }
+
+        // FIXME: CharState_Jump should be set, and X/Y movement should be disallowed except for the initial thrust (which would be carried by "physics" until landing).
+        if(onground && gravity && vec.z > 0.0f)
+        {
+            //Advance acrobatics on jump, decrease fatigue
+            MWWorld::Class::get(mPtr).skillUsageSucceeded(mPtr, ESM::Skill::Acrobatics, 0);
+
+            const float normalizedEncumbrance = cls.getEncumbrance(mPtr) / cls.getCapacity(mPtr);
+            const float fatigueJumpBase = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find ("fFatigueJumpBase")->getFloat();
+            const float fatigueJumpMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find ("fFatigueJumpMult")->getFloat();
+            DynamicStat<float> fatigue = cls.getCreatureStats(mPtr).getDynamic(2);
+            int current = fatigue.getCurrent();
+            fatigue.setModified(fatigue.getModified()-static_cast<int>(fatigueJumpBase + ((1 - normalizedEncumbrance) * fatigueJumpMult)), 0);
+            fatigue.setCurrent(current-static_cast<int>(fatigueJumpBase + ((1 - normalizedEncumbrance) * fatigueJumpMult)));
+            cls.getCreatureStats(mPtr).setDynamic (2, fatigue);
+
+            float x = cls.getJump(mPtr);
+
+            if(vec.x == 0 && vec.y == 0)
+                movement.mPosition[2] += x*duration;
+            else
+            {
+                /* FIXME: this would be more correct if we were going into a jumping state,
+                 * rather than normal walking/idle states. */
+                //Ogre::Vector3 lat = Ogre::Vector3(vec.x, vec.y, 0.0f).normalisedCopy();
+                //movement += Ogre::Vector3(lat.x, lat.y, 1.0f) * x * 0.707f * duration;
+                movement.mPosition[2] += x * 0.707f * duration;
+            }
+        }
     }
 
     if(mAnimation && !mSkipAnim)
