@@ -381,6 +381,10 @@ namespace MWWorld
             virtual void activateDoor(const MWWorld::Ptr& door);
             ///< activate (open or close) an non-teleport door
 
+            virtual bool getPlayerStandingOn (const MWWorld::Ptr& object); ///< @return true if the player is standing on \a object
+            virtual bool getActorStandingOn (const MWWorld::Ptr& object); ///< @return true if any actor is standing on \a object
+            virtual float getWindSpeed();
+
             virtual void setupExternalRendering (MWRender::ExternalRendering& rendering);
 
             virtual int canRest();
