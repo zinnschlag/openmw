@@ -317,14 +317,14 @@ namespace Compiler
 
                 case Scanner::K_startscript:
 
-                    mExprParser.parseArguments ("c", scanner, mCode, true);
+                    mExprParser.parseArguments ("c", scanner, mCode, true, true);
                     Generator::startScript (mCode);
                     mState = EndState;
                     return true;
 
                 case Scanner::K_stopscript:
 
-                    mExprParser.parseArguments ("c", scanner, mCode, true);
+                    mExprParser.parseArguments ("c", scanner, mCode, true, true);
                     Generator::stopScript (mCode);
                     mState = EndState;
                     return true;

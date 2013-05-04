@@ -96,7 +96,7 @@ namespace Compiler
             /// \return Type ('l': integer, 'f': float)
 
             int parseArguments (const std::string& arguments, Scanner& scanner,
-                std::vector<Interpreter::Type_Code>& code, bool invert = false);
+                std::vector<Interpreter::Type_Code>& code, bool invert = false, bool isScriptName = false);
             ///< Parse sequence of arguments specified by \a arguments.
             /// \param arguments Each character represents one arguments ('l': integer,
             /// 'f': float, 'S': string, 'c': string (case smashed), '/': following arguments are

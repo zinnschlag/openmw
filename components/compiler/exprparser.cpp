@@ -670,7 +670,7 @@ namespace Compiler
     }
 
     int ExprParser::parseArguments (const std::string& arguments, Scanner& scanner,
-        std::vector<Interpreter::Type_Code>& code, bool invert)
+        std::vector<Interpreter::Type_Code>& code, bool invert, bool isScriptName)
     {
         bool optional = false;
         int optionalCount = 0;
@@ -695,7 +695,7 @@ namespace Compiler
                     stringParser.setOptional (true);
 
                 if (*iter=='c') stringParser.smashCase();
-                scanner.scan (stringParser);
+                scanner.scan (stringParser, isScriptName);
 
                 if (optional && stringParser.isEmpty())
                     break;
@@ -720,7 +720,7 @@ namespace Compiler
                 if (optional)
                     parser.setOptional (true);
 
-                scanner.scan (parser);
+                scanner.scan (parser, isScriptName);
 
                 if (optional && parser.isEmpty())
                     break;
