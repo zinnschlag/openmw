@@ -45,7 +45,7 @@ namespace Compiler
         mLoc = mPrevLoc;
     }
 
-    bool Scanner::scanToken (Parser& parser)
+    bool Scanner::scanToken (Parser& parser, bool isScriptName)
     {
         switch (mPutback)
         {
@@ -133,7 +133,7 @@ namespace Compiler
         {
             bool cont = false;
 
-            if (scanName (c, parser, cont))
+            if (scanName (c, parser, cont, isScriptName))
             {
                 mLoc.mLiteral.clear();
                 return cont;
@@ -264,11 +264,12 @@ namespace Compiler
         0
     };
 
-    bool Scanner::scanName (char c, Parser& parser, bool& cont)
+    bool Scanner::scanName (char c, Parser& parser, bool& cont, bool isScriptName)
     {
         std::string name;
 
-        if (!scanName (c, name))
+
+        if (!scanName (c, name, isScriptName || mIsScriptName))
             return false;
 
         TokenLoc loc (mLoc);
@@ -292,6 +293,11 @@ namespace Compiler
         if (keywords[i])
         {
             cont = parser.parseKeyword (i, loc, *this);
+
+            // allow - after begin or end
+            if(i == 0 || i == 1)
+                mIsScriptName = true;
+
             return true;
         }
 
@@ -309,8 +315,10 @@ namespace Compiler
         return true;
     }
 
-    bool Scanner::scanName (char c, std::string& name)
+    bool Scanner::scanName (char c, std::string& name, bool isScriptName)
     {
+        mIsScriptName = false;
+
         bool first = false;
         bool error = false;
 
@@ -344,7 +352,7 @@ namespace Compiler
             }
             else if (!(c=='"' && name.empty()))
             {
-                if (!(std::isalpha (c) || std::isdigit (c) || c=='_'))
+                if (!(std::isalpha (c) || std::isdigit (c) || c=='_' || (isScriptName && c=='-'))) // only allow - in script names
                 {
                     putback (c);
                     break;
@@ -495,13 +503,13 @@ namespace Compiler
     Scanner::Scanner (ErrorHandler& errorHandler, std::istream& inputStream,
         const Extensions *extensions)
     : mErrorHandler (errorHandler), mStream (inputStream), mExtensions (extensions),
-      mPutback (Putback_None)
+      mPutback (Putback_None), mIsScriptName(false)
     {
     }
 
-    void Scanner::scan (Parser& parser)
+    void Scanner::scan (Parser& parser, bool isScriptName)
     {
-        while (scanToken (parser));
+        while (scanToken (parser, isScriptName));
     }
 
     void Scanner::putbackSpecial (int code, const TokenLoc& loc)

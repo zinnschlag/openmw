@@ -37,6 +37,7 @@ namespace Compiler
             float mPutbackFloat;
             std::string mPutbackName;
             TokenLoc mPutbackLoc;
+            bool mIsScriptName;
 
         public:
 
@@ -80,15 +81,15 @@ namespace Compiler
 
             void putback (char c);
 
-            bool scanToken (Parser& parser);
+            bool scanToken (Parser& parser, bool isScriptName);
 
             bool scanInt (char c, Parser& parser, bool& cont);
 
             bool scanFloat (const std::string& intValue, Parser& parser, bool& cont);
 
-            bool scanName (char c, Parser& parser, bool& cont);
+            bool scanName (char c, Parser& parser, bool& cont, bool isScriptName);
 
-            bool scanName (char c, std::string& name);
+            bool scanName (char c, std::string& name, bool isScriptName);
 
             bool scanSpecial (char c, Parser& parser, bool& cont);
 
@@ -100,7 +101,7 @@ namespace Compiler
                 const Extensions *extensions = 0);
             ///< constructor
 
-            void scan (Parser& parser);
+            void scan (Parser& parser, bool isScriptName = false);
             ///< Scan a token and deliver it to the parser.
 
             void putbackSpecial (int code, const TokenLoc& loc);
