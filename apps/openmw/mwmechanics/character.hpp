@@ -15,6 +15,16 @@ namespace MWMechanics
 
 class Movement;
 
+enum Priority {
+    Priority_Default,
+    Priority_Weapon,
+    Priority_Torch,
+
+    Priority_Death,
+
+    Num_Priorities
+};
+
 enum CharacterState {
     CharState_SpecialIdle,
     CharState_Idle,
@@ -67,6 +77,21 @@ enum CharacterState {
     CharState_Death5
 };
 
+enum WeaponType {
+    WeapType_None,
+
+    WeapType_HandToHand,
+    WeapType_OneHand,
+    WeapType_TwoHand,
+    WeapType_TwoWide,
+    WeapType_BowAndArrow,
+    WeapType_Crossbow,
+    WeapType_ThowWeapon,
+    WeapType_PickProbe,
+
+    WeapType_Spell
+};
+
 class CharacterController
 {
     MWWorld::Ptr mPtr;
@@ -76,17 +101,22 @@ class CharacterController
     AnimationQueue mAnimQueue;
 
     CharacterState mCharState;
-    bool mLooping;
+    WeaponType mWeaponType;
     bool mSkipAnim;
 
     // counted for skill increase
     float mSecondsOfSwimming;
     float mSecondsOfRunning;
 
-    bool mMovingAnim;
+    // Gets an animation group name from the current character state, and whether it should loop.
+    void getCurrentGroup(std::string &group, Priority &prio, bool &loops) const;
+
+    static void getWeaponGroup(WeaponType weaptype, std::string &group);
+
+    void clearAnimQueue();
 
 public:
-    CharacterController(const MWWorld::Ptr &ptr, MWRender::Animation *anim, CharacterState state, bool loop);
+    CharacterController(const MWWorld::Ptr &ptr, MWRender::Animation *anim, CharacterState state);
     virtual ~CharacterController();
 
     void updatePtr(const MWWorld::Ptr &ptr);
@@ -96,7 +126,7 @@ public:
     void playGroup(const std::string &groupname, int mode, int count);
     void skipAnim();
 
-    void setState(CharacterState state, bool loop);
+    void setState(CharacterState state);
     CharacterState getState() const
     { return mCharState; }
 

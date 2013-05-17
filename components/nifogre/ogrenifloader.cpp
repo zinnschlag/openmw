@@ -748,9 +748,7 @@ class NIFObjectLoader
 
         if(node->recType == Nif::RC_NiCamera)
         {
-            int trgtid = NIFSkeletonLoader::lookupOgreBoneHandle(name, node->recIndex);
-            Ogre::Bone *trgtbone = objectlist.mSkelBase->getSkeleton()->getBone(trgtid);
-            objectlist.mCameras.push_back(trgtbone);
+            /* Ignored */
         }
 
         if(node->recType == Nif::RC_NiTriShape && !(flags&0x80000000))
@@ -819,6 +817,64 @@ public:
             createSkelBase(name, group, sceneMgr, node, objectlist);
         }
         createObjects(name, group, sceneMgr, node, objectlist, flags, 0, 0);
+    }
+
+    static void loadKf(Ogre::Skeleton *skel, const std::string &name,
+                       TextKeyMap &textKeys, std::vector<Ogre::Controller<Ogre::Real> > &ctrls)
+    {
+        Nif::NIFFile::ptr nif = Nif::NIFFile::create(name);
+        if(nif->numRoots() < 1)
+        {
+            nif->warn("Found no root nodes in "+name+".");
+            return;
+        }
+
+        const Nif::Record *r = nif->getRoot(0);
+        assert(r != NULL);
+
+        if(r->recType != Nif::RC_NiSequenceStreamHelper)
+        {
+            nif->warn("First root was not a NiSequenceStreamHelper, but a "+
+                      r->recName+".");
+            return;
+        }
+        const Nif::NiSequenceStreamHelper *seq = static_cast<const Nif::NiSequenceStreamHelper*>(r);
+
+        Nif::ExtraPtr extra = seq->extra;
+        if(extra.empty() || extra->recType != Nif::RC_NiTextKeyExtraData)
+        {
+            nif->warn("First extra data was not a NiTextKeyExtraData, but a "+
+                      (extra.empty() ? std::string("nil") : extra->recName)+".");
+            return;
+        }
+
+        extractTextKeys(static_cast<const Nif::NiTextKeyExtraData*>(extra.getPtr()), textKeys);
+
+        extra = extra->extra;
+        Nif::ControllerPtr ctrl = seq->controller;
+        for(;!extra.empty() && !ctrl.empty();(extra=extra->extra),(ctrl=ctrl->next))
+        {
+            if(extra->recType != Nif::RC_NiStringExtraData || ctrl->recType != Nif::RC_NiKeyframeController)
+            {
+                nif->warn("Unexpected extra data "+extra->recName+" with controller "+ctrl->recName);
+                continue;
+            }
+
+            const Nif::NiStringExtraData *strdata = static_cast<const Nif::NiStringExtraData*>(extra.getPtr());
+            const Nif::NiKeyframeController *key = static_cast<const Nif::NiKeyframeController*>(ctrl.getPtr());
+
+            if(key->data.empty())
+                continue;
+            if(!skel->hasBone(strdata->string))
+                continue;
+
+            Ogre::Bone *trgtbone = skel->getBone(strdata->string);
+            Ogre::ControllerValueRealPtr srcval;
+            Ogre::ControllerValueRealPtr dstval(OGRE_NEW KeyframeController::Value(trgtbone, key->data.getPtr()));
+            Ogre::ControllerFunctionRealPtr func(OGRE_NEW KeyframeController::Function(key, false));
+
+            ctrls.push_back(Ogre::Controller<Ogre::Real>(srcval, dstval, func));
+        }
     }
 };
 
@@ -913,5 +969,15 @@ ObjectList Loader::createObjectBase(Ogre::SceneNode *parentNode, std::string nam
 
     return objectlist;
 }
+
+
+void Loader::createKfControllers(Ogre::Entity *skelBase,
+                                 const std::string &name,
+                                 TextKeyMap &textKeys,
+                                 std::vector<Ogre::Controller<Ogre::Real> > &ctrls)
+{
+    NIFObjectLoader::loadKf(skelBase->getSkeleton(), name, textKeys, ctrls);
+}
+
 
 } // namespace NifOgre

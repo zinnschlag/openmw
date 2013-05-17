@@ -99,24 +99,25 @@ NpcAnimation::NpcAnimation(const MWWorld::Ptr& ptr, Ogre::SceneNode* node, MWWor
 
     bool isBeast = (race->mData.mFlags & ESM::Race::Beast) != 0;
     std::string smodel = (!isBeast ? "meshes\\base_anim.nif" : "meshes\\base_animkna.nif");
+    setObjectRoot(node, smodel, true);
 
-    addObjectList(node, smodel, true);
+    addAnimSource(smodel);
     if(mBodyPrefix.find("argonian") != std::string::npos)
-        addObjectList(node, "meshes\\argonian_swimkna.nif", true);
+        addAnimSource("meshes\\argonian_swimkna.nif");
     else if(!mNpc->isMale() && !isBeast)
-        addObjectList(node, "meshes\\base_anim_female.nif", true);
+        addAnimSource("meshes\\base_anim_female.nif");
     if(mNpc->mModel.length() > 0)
-        addObjectList(node, "meshes\\"+mNpc->mModel, true);
+        addAnimSource("meshes\\"+mNpc->mModel);
     if(mViewMode == VM_FirstPerson)
     {
         /* A bit counter-intuitive, but unlike third-person anims, it seems
          * beast races get both base_anim.1st.nif and base_animkna.1st.nif.
          */
-        addObjectList(node, "meshes\\base_anim.1st.nif", true);
+        addAnimSource("meshes\\base_anim.1st.nif");
         if(isBeast)
-            addObjectList(node, "meshes\\base_animkna.1st.nif", true);
+            addAnimSource("meshes\\base_animkna.1st.nif");
         if(!mNpc->isMale() && !isBeast)
-            addObjectList(node, "meshes\\base_anim_female.1st.nif", true);
+            addAnimSource("meshes\\base_anim_female.1st.nif");
     }
 
     forceUpdate();
@@ -132,24 +133,26 @@ void NpcAnimation::setViewMode(NpcAnimation::ViewMode viewMode)
     const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
     const ESM::Race *race = store.get<ESM::Race>().find(mNpc->mRace);
     bool isBeast = (race->mData.mFlags & ESM::Race::Beast) != 0;
+    std::string smodel = (!isBeast ? "meshes\\base_anim.nif" : "meshes\\base_animkna.nif");
 
-    clearExtraSources();
+    clearAnimSources();
+    addAnimSource(smodel);
     if(mBodyPrefix.find("argonian") != std::string::npos)
-        addObjectList(node, "meshes\\argonian_swimkna.nif", true);
+        addAnimSource("meshes\\argonian_swimkna.nif");
     else if(!mNpc->isMale() && !isBeast)
-        addObjectList(node, "meshes\\base_anim_female.nif", true);
+        addAnimSource("meshes\\base_anim_female.nif");
     if(mNpc->mModel.length() > 0)
-        addObjectList(node, "meshes\\"+mNpc->mModel, true);
+        addAnimSource("meshes\\"+mNpc->mModel);
     if(mViewMode == VM_FirstPerson)
     {
         /* A bit counter-intuitive, but unlike third-person anims, it seems
          * beast races get both base_anim.1st.nif and base_animkna.1st.nif.
          */
-        addObjectList(node, "meshes\\base_anim.1st.nif", true);
+        addAnimSource("meshes\\base_anim.1st.nif");
         if(isBeast)
-            addObjectList(node, "meshes\\base_animkna.1st.nif", true);
+            addAnimSource("meshes\\base_animkna.1st.nif");
         if(!mNpc->isMale() && !isBeast)
-            addObjectList(node, "meshes\\base_anim_female.1st.nif", true);
+            addAnimSource("meshes\\base_anim_female.1st.nif");
     }
     MWBase::Environment::get().getMechanicsManager()->forceStateUpdate(mPtr);
 
@@ -338,8 +341,6 @@ void NpcAnimation::updateParts(bool forceupdate)
         if (mPartPriorities[part] < 1 && bodypart)
             addOrReplaceIndividualPart(part, -1,1, "meshes\\"+bodypart->mModel);
     }
-
-    showWeapons(mShowWeapons);
 }
 
 NifOgre::ObjectList NpcAnimation::insertBoundedPart(const std::string &model, int group, const std::string &bonename)
@@ -450,31 +451,31 @@ bool NpcAnimation::addOrReplaceIndividualPart(int type, int group, int priority,
 
 void NpcAnimation::addPartGroup(int group, int priority, const std::vector<ESM::PartReference> &parts)
 {
+    const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+    const MWWorld::Store<ESM::BodyPart> &partStore = store.get<ESM::BodyPart>();
+
     const char *ext = (mViewMode == VM_FirstPerson) ? ".1st" : "";
-    for(std::size_t i = 0; i < parts.size(); i++)
+    std::vector<ESM::PartReference>::const_iterator part(parts.begin());
+    for(;part != parts.end();part++)
     {
-        const ESM::PartReference &part = parts[i];
-
-        const MWWorld::Store<ESM::BodyPart> &partStore =
-            MWBase::Environment::get().getWorld()->getStore().get<ESM::BodyPart>();
-
         const ESM::BodyPart *bodypart = 0;
-        if(!mNpc->isMale())
-            bodypart = partStore.search(part.mFemale+ext);
-        if(!bodypart)
-            bodypart = partStore.search(part.mMale+ext);
+        if(!mNpc->isMale() && !part->mFemale.empty())
+            bodypart = partStore.search(part->mFemale+ext);
+        if(!bodypart && !part->mMale.empty())
+            bodypart = partStore.search(part->mMale+ext);
 
         if(bodypart)
-            addOrReplaceIndividualPart(part.mPart, group, priority, "meshes\\"+bodypart->mModel);
+            addOrReplaceIndividualPart(part->mPart, group, priority, "meshes\\"+bodypart->mModel);
         else
-            reserveIndividualPart(part.mPart, group, priority);
+            reserveIndividualPart(part->mPart, group, priority);
     }
 }
 
 void NpcAnimation::showWeapons(bool showWeapon)
 {
     mShowWeapons = showWeapon;
-    if(showWeapon)
+    if(showWeapon &&
+       mViewMode != VM_FirstPerson/* FIXME: Remove this once first-person bodies work */)
     {
         MWWorld::InventoryStore &inv = MWWorld::Class::get(mPtr).getInventoryStore(mPtr);
         mWeapon = inv.getSlot(MWWorld::InventoryStore::Slot_CarriedRight);

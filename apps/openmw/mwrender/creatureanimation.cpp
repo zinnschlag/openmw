@@ -21,11 +21,12 @@ CreatureAnimation::CreatureAnimation(const MWWorld::Ptr &ptr)
     {
         std::string model = "meshes\\"+ref->mBase->mModel;
 
-        if((ref->mBase->mFlags&ESM::Creature::Biped))
-            addObjectList(mPtr.getRefData().getBaseNode(), "meshes\\base_anim.nif", true);
+        setObjectRoot(mPtr.getRefData().getBaseNode(), model, false);
+        setRenderProperties(mObjectRoot, RV_Actors, RQG_Main, RQG_Alpha);
 
-        addObjectList(mPtr.getRefData().getBaseNode(), model, false);
-        setRenderProperties(mObjects.back().mObjectList, RV_Actors, RQG_Main, RQG_Alpha);
+        if((ref->mBase->mFlags&ESM::Creature::Biped))
+            addAnimSource("meshes\\base_anim.nif");
+        addAnimSource(model);
     }
 }
 

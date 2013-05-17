@@ -14,35 +14,51 @@ namespace MWRender
 
 class Animation
 {
+public:
+    enum Group {
+        Group_LowerBody = 1<<0,
+
+        Group_Torso = 1<<1,
+        Group_LeftArm = 1<<2,
+        Group_RightArm = 1<<3,
+
+        Group_UpperBody = Group_Torso | Group_LeftArm | Group_RightArm,
+
+        Group_All = Group_LowerBody | Group_UpperBody
+    };
+
 protected:
+    /* This is the number of *discrete* groups. */
+    static const size_t sNumGroups = 4;
+
     class AnimationValue : public Ogre::ControllerValue<Ogre::Real>
     {
     private:
         Animation *mAnimation;
-        size_t mIndex;
+        std::string mAnimationName;
 
     public:
-        AnimationValue(Animation *anim, size_t layeridx)
-          : mAnimation(anim), mIndex(layeridx)
+        AnimationValue(Animation *anim)
+          : mAnimation(anim)
         { }
+
+        void setAnimName(const std::string &name)
+        { mAnimationName = name; }
+        const std::string &getAnimName() const
+        { return mAnimationName; }
 
         virtual Ogre::Real getValue() const;
         virtual void setValue(Ogre::Real value);
     };
 
-    struct ObjectInfo {
-        NifOgre::ObjectList mObjectList;
-        /* Bit-field specifying which animation layers this object list is
-         * explicitly animating on (1 = layer 0, 2 = layer 1, 4 = layer 2.
-         * etc).
-         */
-        int mActiveLayers;
+    struct AnimSource : public Ogre::AnimationAlloc {
+        NifOgre::TextKeyMap mTextKeys;
+        std::vector<Ogre::Controller<Ogre::Real> > mControllers[sNumGroups];
     };
+    typedef std::vector< Ogre::SharedPtr<AnimSource> > AnimSourceList;
 
-    struct AnimLayer {
-        std::string mGroupName;
-        std::vector<Ogre::Controller<Ogre::Real> > *mControllers;
-        const NifOgre::TextKeyMap *mTextKeys;
+    struct AnimState {
+        Ogre::SharedPtr<AnimSource> mSource;
         NifOgre::TextKeyMap::const_iterator mStartKey;
         NifOgre::TextKeyMap::const_iterator mLoopStartKey;
         NifOgre::TextKeyMap::const_iterator mStopKey;
@@ -53,28 +69,39 @@ protected:
         bool mPlaying;
         size_t mLoopCount;
 
-        AnimLayer();
+        int mPriority;
+        int mGroups;
+        bool mAutoDisable;
+
+        AnimState() : mTime(0.0f), mPlaying(false), mLoopCount(0),
+                      mPriority(0), mGroups(0), mAutoDisable(true)
+        { }
     };
+    typedef std::map<std::string,AnimState> AnimStateMap;
 
     MWWorld::Ptr mPtr;
 
     Ogre::SceneNode *mInsert;
     Ogre::Entity *mSkelBase;
-    std::vector<ObjectInfo> mObjects;
+    NifOgre::ObjectList mObjectRoot;
+    AnimSourceList mAnimSources;
     Ogre::Node *mAccumRoot;
-    Ogre::Bone *mNonAccumRoot;
+    Ogre::Node *mNonAccumRoot;
     NifOgre::NodeTargetValue<Ogre::Real> *mNonAccumCtrl;
     Ogre::Vector3 mAccumulate;
-    Ogre::Vector3 mLastPosition;
 
-    std::vector<Ogre::Controller<Ogre::Real> > mActiveCtrls;
+    AnimStateMap mStates;
+
+    Ogre::SharedPtr<AnimationValue> mAnimationValuePtr[sNumGroups];
 
     float mAnimVelocity;
     float mAnimSpeedMult;
 
-    static const size_t sMaxLayers = 1;
-    AnimLayer mLayer[sMaxLayers];
-    Ogre::SharedPtr<Ogre::ControllerValue<Ogre::Real> > mAnimationValuePtr[sMaxLayers];
+    /* Sets the appropriate animations on the bone groups based on priority.
+     */
+    void resetActiveGroups();
+
+    static size_t detectAnimGroup(const Ogre::Node *node);
 
     static float calcAnimVelocity(const NifOgre::TextKeyMap &keys,
                                   NifOgre::NodeTargetValue<Ogre::Real> *nonaccumctrl,
@@ -85,9 +112,9 @@ protected:
      * bone names) are positioned identically. */
     void updateSkeletonInstance(const Ogre::SkeletonInstance *skelsrc, Ogre::SkeletonInstance *skel);
 
-    /* Updates the position of the accum root node for the current time, and
-     * returns the wanted movement vector from the previous update. */
-    void updatePosition(Ogre::Vector3 &position);
+    /* Updates the position of the accum root node for the given time, and
+     * returns the wanted movement vector from the previous time. */
+    void updatePosition(float oldtime, float newtime, Ogre::Vector3 &position);
 
     static NifOgre::TextKeyMap::const_iterator findGroupStart(const NifOgre::TextKeyMap &keys, const std::string &groupname);
 
@@ -96,30 +123,26 @@ protected:
      * the marker is not found, or if the markers are the same, it returns
      * false.
      */
-    bool reset(size_t layeridx, const NifOgre::TextKeyMap &keys,
-               NifOgre::NodeTargetValue<Ogre::Real> *nonaccumctrl,
+    bool reset(AnimState &state, const NifOgre::TextKeyMap &keys,
                const std::string &groupname, const std::string &start, const std::string &stop,
                float startpoint);
 
-    bool doLoop(size_t layeridx);
+    bool doLoop(AnimState &state);
 
-    bool handleTextKey(size_t layeridx, const NifOgre::TextKeyMap::const_iterator &key);
+    bool handleTextKey(AnimState &state, const std::string &groupname, const NifOgre::TextKeyMap::const_iterator &key);
 
-    void addObjectList(Ogre::SceneNode *node, const std::string &model, bool baseonly);
+    void setObjectRoot(Ogre::SceneNode *node, const std::string &model, bool baseonly);
+    void addAnimSource(const std::string &model);
+
     static void destroyObjectList(Ogre::SceneManager *sceneMgr, NifOgre::ObjectList &objects);
 
     static void setRenderProperties(const NifOgre::ObjectList &objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue);
 
-    void updateActiveControllers();
+    void clearAnimSources();
 
 public:
     Animation(const MWWorld::Ptr &ptr);
     virtual ~Animation();
-
-    /** Clears all ObjectLists except the first one. As a consequence, any
-     * playing animations are stopped.
-     */
-    void clearExtraSources();
 
     void updatePtr(const MWWorld::Ptr &ptr);
 
@@ -134,6 +157,12 @@ public:
 
     /** Plays an animation.
      * \param groupname Name of the animation group to play.
+     * \param priority Priority of the animation. The animation will play on
+     *                 bone groups that don't have another animation set of a
+     *                 higher priority.
+     * \param groups Bone groups to play the animation on.
+     * \param autodisable Automatically disable the animation when it stops
+     *                    playing.
      * \param start Key marker from which to start.
      * \param stop Key marker to stop at.
      * \param startpoint How far in between the two markers to start. 0 starts
@@ -141,31 +170,31 @@ public:
      * \param loops How many times to loop the animation. This will use the
      *              "loop start" and "loop stop" markers if they exist,
      *              otherwise it will use "start" and "stop".
-     * \return Boolean specifying whether the animation will return movement
-     *         for the character at all.
      */
-    bool play(const std::string &groupname, const std::string &start, const std::string &stop, float startpoint, size_t loops);
+    void play(const std::string &groupname, int priority, int groups, bool autodisable,
+              const std::string &start, const std::string &stop,
+              float startpoint, size_t loops);
 
-    /** Stops and removes the animation from the given layer. */
-    void disable(size_t layeridx);
+    /** Returns true if the named animation group is playing. */
+    bool isPlaying(const std::string &groupname) const;
 
-    /** Gets info about the given animation layer.
-     * \param layeridx Layer index to get info about.
+    /** Gets info about the given animation group.
+     * \param groupname Animation group to check.
      * \param complete Stores completion amount (0 = at start key, 0.5 = half way between start and stop keys), etc.
-     * \param groupname Stores animation group being played.
      * \param start Stores the start key
      * \param stop Stores the stop key
-     * \return True if an animation is active on the layer, false otherwise.
+     * \return True if the animation is active, false otherwise.
      */
-    bool getInfo(size_t layeridx, float *complete=NULL, std::string *groupname=NULL, std::string *start=NULL, std::string *stop=NULL) const;
+    bool getInfo(const std::string &groupname, float *complete=NULL, std::string *start=NULL, std::string *stop=NULL) const;
+
+    /** Disables the specified animation group;
+     * \param groupname Animation group to disable.
+     */
+    void disable(const std::string &groupname);
 
     virtual Ogre::Vector3 runAnimation(float duration);
 
     virtual void showWeapons(bool showWeapon);
-
-    /* Returns if there's an animation playing on the given layer. */
-    bool isPlaying(size_t layeridx) const
-    { return mLayer[layeridx].mPlaying; }
 
     Ogre::Node *getNode(const std::string &name);
 };

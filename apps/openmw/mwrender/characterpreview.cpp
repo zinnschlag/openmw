@@ -172,8 +172,18 @@ namespace MWRender
         if(groupname != mCurrentAnimGroup)
         {
             mCurrentAnimGroup = groupname;
-            mAnimation->play(mCurrentAnimGroup, "start", "stop", 0.0f, 0);
+            mAnimation->play(mCurrentAnimGroup, 1, Animation::Group_All, false, "start", "stop", 0.0f, 0);
         }
+
+        MWWorld::ContainerStoreIterator torch = inv.getSlot(MWWorld::InventoryStore::Slot_CarriedLeft);
+        if(torch != inv.end() && torch->getTypeName() == typeid(ESM::Light).name())
+        {
+            if(!mAnimation->getInfo("torch"))
+                mAnimation->play("torch", 2, MWRender::Animation::Group_LeftArm, false,
+                                 "start", "stop", 0.0f, (~(size_t)0));
+        }
+        else if(mAnimation->getInfo("torch"))
+            mAnimation->disable("torch");
 
         mAnimation->forceUpdate();
         mAnimation->runAnimation(0.0f);
@@ -199,7 +209,7 @@ namespace MWRender
         mAnimation->showWeapons(true);
 
         mCurrentAnimGroup = "inventoryhandtohand";
-        mAnimation->play(mCurrentAnimGroup, "start", "stop", 0.0f, 0);
+        mAnimation->play(mCurrentAnimGroup, 1, Animation::Group_All, false, "start", "stop", 0.0f, 0);
     }
 
     // --------------------------------------------------------------------------------------------------
@@ -233,7 +243,7 @@ namespace MWRender
 
     void RaceSelectionPreview::onSetup ()
     {
-        mAnimation->play("idle", "start", "stop", 0.0f, 0);
+        mAnimation->play("idle", 1, Animation::Group_All, false, "start", "stop", 0.0f, 0);
 
         updateCamera();
     }

@@ -44,12 +44,6 @@ struct ObjectList {
     std::vector<Ogre::Entity*> mEntities;
     std::vector<Ogre::ParticleSystem*> mParticles;
 
-    // We could actually have Ogre::Camera objects, but that means more
-    // maintenance when switching cameras. The information in the NiCamera node
-    // is pretty much useless too anyway. So instead, this is just a list of
-    // bones in the mSkelBase which are NiCamera nodes.
-    std::vector<Ogre::Bone*> mCameras;
-
     std::map<int,TextKeyMap> mTextKeys;
 
     std::vector<Ogre::Controller<Ogre::Real> > mControllers;
@@ -74,6 +68,11 @@ public:
     static ObjectList createObjectBase(Ogre::SceneNode *parentNode,
                                        std::string name,
                                        const std::string &group="General");
+
+    static void createKfControllers(Ogre::Entity *skelBase,
+                                    const std::string &name,
+                                    TextKeyMap &textKeys,
+                                    std::vector<Ogre::Controller<Ogre::Real> > &ctrls);
 };
 
 // FIXME: Should be with other general Ogre extensions.
