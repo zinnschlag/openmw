@@ -35,6 +35,8 @@ namespace MWWorld
 
         Player(const ESM::NPC *player, const MWBase::World& world);
 
+        void set (const ESM::NPC *player);
+
         void setCell (MWWorld::CellStore *cellStore);
 
         MWWorld::Ptr getPlayer();
@@ -55,6 +57,9 @@ namespace MWWorld
 
         void setForwardBackward (int value);
         void setUpDown(int value);
+
+        void use ();
+        ///< Use item equipped on right hand, or fists
 
         void setRunState(bool run);
         void setSneak(bool sneak);

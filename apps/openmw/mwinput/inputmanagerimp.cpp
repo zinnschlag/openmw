@@ -29,7 +29,7 @@
 namespace MWInput
 {
     InputManager::InputManager(OEngine::Render::OgreRenderer &ogre,
-            MWWorld::Player &player,
+            MWWorld::Player& player,
             MWBase::WindowManager &windows,
             bool debug,
             OMW::Engine& engine,
@@ -240,6 +240,10 @@ namespace MWInput
                 break;
             case A_ToggleHUD:
                 mWindows.toggleHud();
+                break;
+            case A_Use:
+                if (!MWBase::Environment::get().getWindowManager()->isGuiMode())
+                    mPlayer.use();
                 break;
             }
         }
@@ -571,15 +575,9 @@ namespace MWInput
 
         MWMechanics::DrawState_ state = mPlayer.getDrawState();
         if (state == MWMechanics::DrawState_Weapon || state == MWMechanics::DrawState_Nothing)
-        {
             mPlayer.setDrawState(MWMechanics::DrawState_Spell);
-            std::cout << "Player has now readied his hands for spellcasting!\n" << std::endl;
-        }
         else
-        {
             mPlayer.setDrawState(MWMechanics::DrawState_Nothing);
-            std::cout << "Player does not have any kind of attack ready now.\n" << std::endl;
-        }
     }
 
     void InputManager::toggleWeapon()
@@ -588,15 +586,9 @@ namespace MWInput
 
         MWMechanics::DrawState_ state = mPlayer.getDrawState();
         if (state == MWMechanics::DrawState_Spell || state == MWMechanics::DrawState_Nothing)
-        {
             mPlayer.setDrawState(MWMechanics::DrawState_Weapon);
-            std::cout << "Player is now drawing his weapon.\n" << std::endl;
-        }
         else
-        {
             mPlayer.setDrawState(MWMechanics::DrawState_Nothing);
-            std::cout << "Player does not have any kind of attack ready now.\n" << std::endl;
-        }
     }
 
     void InputManager::rest()
@@ -679,7 +671,8 @@ namespace MWInput
 
     void InputManager::quickKey (int index)
     {
-        mWindows.activateQuickKey (index);
+        if (!mWindows.isGuiMode())
+            mWindows.activateQuickKey (index);
     }
 
     void InputManager::showQuickKeysMenu()
@@ -719,19 +712,17 @@ namespace MWInput
 
     void InputManager::resetIdleTime()
     {
-        if (mTimeIdle < 0) {
-            MWBase::Environment::get().getWorld()->toggleVanityMode(false, false);
-        }
+        if (mTimeIdle < 0)
+            MWBase::Environment::get().getWorld()->toggleVanityMode(false);
         mTimeIdle = 0.f;
     }
 
     void InputManager::updateIdleTime(float dt)
     {
-        if (mTimeIdle >= 0.f) {
+        if (mTimeIdle >= 0.f)
             mTimeIdle += dt;
-        }
         if (mTimeIdle > 30.f) {
-            MWBase::Environment::get().getWorld()->toggleVanityMode(true, false);
+            MWBase::Environment::get().getWorld()->toggleVanityMode(true);
             mTimeIdle = -1.f;
         }
     }
@@ -816,6 +807,7 @@ namespace MWInput
     {
         std::map<int, std::string> descriptions;
 
+        descriptions[A_Use] = "sUse";
         descriptions[A_Activate] = "sActivate";
         descriptions[A_MoveBackward] = "sBack";
         descriptions[A_MoveForward] = "sForward";
@@ -878,6 +870,7 @@ namespace MWInput
         ret.push_back(A_AlwaysRun);
         ret.push_back(A_Sneak);
         ret.push_back(A_Activate);
+        ret.push_back(A_Use);
         ret.push_back(A_ToggleWeapon);
         ret.push_back(A_ToggleSpell);
         ret.push_back(A_AutoMove);
@@ -918,6 +911,10 @@ namespace MWInput
     void InputManager::keyBindingDetected(ICS::InputControlSystem* ICS, ICS::Control* control
         , OIS::KeyCode key, ICS::Control::ControlChangingDirection direction)
     {
+        //Disallow binding escape key, and unassigned keys
+        if(key==OIS::KC_ESCAPE || key==OIS::KC_UNASSIGNED)
+            return
+
         clearAllBindings(control);
         ICS::DetectingBindingListener::keyBindingDetected (ICS, control, key, direction);
         MWBase::Environment::get().getWindowManager ()->notifyInputActionBound ();

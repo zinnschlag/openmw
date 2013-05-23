@@ -225,6 +225,22 @@ namespace MWClass
         return weight;
     }
 
+
+    int Creature::getServices(const MWWorld::Ptr &actor) const
+    {
+        MWWorld::LiveCellRef<ESM::Creature>* ref = actor.get<ESM::Creature>();
+        if (ref->mBase->mHasAI)
+            return ref->mBase->mAiData.mServices;
+        else
+            return 0;
+    }
+
+    bool Creature::isPersistent(const MWWorld::Ptr &actor) const
+    {
+        MWWorld::LiveCellRef<ESM::Creature>* ref = actor.get<ESM::Creature>();
+        return ref->mBase->mPersistent;
+    }
+
     MWWorld::Ptr
     Creature::copyToCellImpl(const MWWorld::Ptr &ptr, MWWorld::CellStore &cell) const
     {

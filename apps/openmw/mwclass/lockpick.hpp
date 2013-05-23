@@ -59,6 +59,11 @@ namespace MWClass
             virtual std::string getModel(const MWWorld::Ptr &ptr) const;
 
             virtual bool canSell (const MWWorld::Ptr& item, int npcServices) const;
+
+            virtual float getWeight (const MWWorld::Ptr& ptr) const;
+
+            virtual int getItemMaxHealth (const MWWorld::Ptr& ptr) const;
+            ///< Return item max health or throw an exception, if class does not have item health
     };
 }
 

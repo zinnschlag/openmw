@@ -2,13 +2,9 @@
 
 #include <boost/lexical_cast.hpp>
 
-#include "../mwbase/environment.hpp"
-#include "../mwbase/world.hpp"
 #include "../mwworld/player.hpp"
 #include "../mwworld/inventorystore.hpp"
 #include "../mwworld/actionequip.hpp"
-#include "../mwmechanics/spells.hpp"
-#include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/spellsuccess.hpp"
 #include "../mwgui/inventorywindow.hpp"
 #include "../mwgui/bookwindow.hpp"
@@ -124,13 +120,12 @@ namespace MWGui
     {
         if (!mItemSelectionDialog )
         {
-            mItemSelectionDialog = new ItemSelectionDialog("#{sQuickMenu6}", ContainerBase::Filter_All);
+            mItemSelectionDialog = new ItemSelectionDialog("#{sQuickMenu6}");
             mItemSelectionDialog->eventItemSelected += MyGUI::newDelegate(this, &QuickKeysMenu::onAssignItem);
             mItemSelectionDialog->eventDialogCanceled += MyGUI::newDelegate(this, &QuickKeysMenu::onAssignItemCancel);
         }
         mItemSelectionDialog->setVisible(true);
         mItemSelectionDialog->openContainer(MWBase::Environment::get().getWorld()->getPlayer().getPlayer());
-        mItemSelectionDialog->drawItems ();
 
         mAssignDialog->setVisible (false);
     }
@@ -307,7 +302,7 @@ namespace MWGui
             MWBase::Environment::get().getWindowManager()->getScrollWindow()->setTakeButtonShow(false);
 
             // since we changed equipping status, update the inventory window
-            MWBase::Environment::get().getWindowManager()->getInventoryWindow()->drawItems();
+            MWBase::Environment::get().getWindowManager()->getInventoryWindow()->updateItemView();
         }
         else if (type == Type_MagicItem)
         {
@@ -341,7 +336,7 @@ namespace MWGui
                 action.execute (MWBase::Environment::get().getWorld ()->getPlayer ().getPlayer ());
 
                 // since we changed equipping status, update the inventory window
-                MWBase::Environment::get().getWindowManager()->getInventoryWindow()->drawItems();
+                MWBase::Environment::get().getWindowManager()->getInventoryWindow()->updateItemView();
             }
 
             store.setSelectedEnchantItem(it);

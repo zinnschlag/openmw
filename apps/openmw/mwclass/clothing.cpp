@@ -238,7 +238,7 @@ namespace MWClass
         ref->mBase = record;
     }
 
-    int Clothing::canBeEquipped(const MWWorld::Ptr &ptr, const MWWorld::Ptr &npc) const
+    std::pair<int, std::string> Clothing::canBeEquipped(const MWWorld::Ptr &ptr, const MWWorld::Ptr &npc) const
     {
         // slots that this item can be equipped in
         std::pair<std::vector<int>, bool> slots = MWWorld::Class::get(ptr).getEquipmentSlots(ptr);
@@ -260,12 +260,7 @@ namespace MWClass
                     for(std::vector<ESM::PartReference>::iterator itr = parts.begin(); itr != parts.end(); ++itr)
                     {
                         if((*itr).mPart == ESM::PRT_Head)
-                        {
-                            if(npc == MWBase::Environment::get().getWorld()->getPlayer().getPlayer() )
-                                MWBase::Environment::get().getWindowManager()->messageBox ("#{sNotifyMessage13}");
-
-                            return 0;
-                        }
+                            return std::make_pair(0, "#{sNotifyMessage13}");
                     }
                 }
 
@@ -274,19 +269,12 @@ namespace MWClass
                     for(std::vector<ESM::PartReference>::iterator itr = parts.begin(); itr != parts.end(); ++itr)
                     {
                         if((*itr).mPart == ESM::PRT_LFoot || (*itr).mPart == ESM::PRT_RFoot)
-                        {
-                            if(npc == MWBase::Environment::get().getWorld()->getPlayer().getPlayer() )
-                            {
-                                MWBase::Environment::get().getWindowManager()->messageBox ("#{sNotifyMessage15}");
-                            }
-
-                            return 0;
-                        }
+                            return std::make_pair(0, "#{sNotifyMessage15}");
                     }
                 }
             }
         }
-        return 1;
+        return std::make_pair (1, "");
     }
 
     boost::shared_ptr<MWWorld::Action> Clothing::use (const MWWorld::Ptr& ptr) const
@@ -307,16 +295,23 @@ namespace MWClass
         return MWWorld::Ptr(&cell.mClothes.insert(*ref), &cell);
     }
 
-    short Clothing::getEnchantmentPoints (const MWWorld::Ptr& ptr) const
+    float Clothing::getEnchantmentPoints (const MWWorld::Ptr& ptr) const
     {
         MWWorld::LiveCellRef<ESM::Clothing> *ref =
                 ptr.get<ESM::Clothing>();
 
-        return ref->mBase->mData.mEnchant;
+        return ref->mBase->mData.mEnchant/10.f;
     }
 
     bool Clothing::canSell (const MWWorld::Ptr& item, int npcServices) const
     {
         return npcServices & ESM::NPC::Clothing;
+    }
+
+    float Clothing::getWeight(const MWWorld::Ptr &ptr) const
+    {
+        MWWorld::LiveCellRef<ESM::Clothing> *ref =
+            ptr.get<ESM::Clothing>();
+        return ref->mBase->mData.mWeight;
     }
 }

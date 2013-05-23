@@ -186,7 +186,7 @@ void MWWorld::InventoryStore::autoEquip (const MWWorld::Ptr& npc)
                 }
             }
 
-            switch(MWWorld::Class::get (test).canBeEquipped (test, npc))
+            switch(MWWorld::Class::get (test).canBeEquipped (test, npc).first)
             {
                 case 0:
                     continue;
@@ -275,6 +275,8 @@ bool MWWorld::InventoryStore::stacks(const Ptr& ptr1, const Ptr& ptr2)
         iter!=mSlots.end(); ++iter)
     {
         if (*iter != end() && ptr1 == **iter)
+            return false;
+        if (*iter != end() && ptr2 == **iter)
             return false;
     }
 

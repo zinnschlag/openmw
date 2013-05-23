@@ -81,11 +81,15 @@ namespace MWBase
              */
             virtual void update() = 0;
 
+            virtual void setNewGame(bool newgame) = 0;
+
             virtual void pushGuiMode (MWGui::GuiMode mode) = 0;
             virtual void popGuiMode() = 0;
 
             virtual void removeGuiMode (MWGui::GuiMode mode) = 0;
             ///< can be anywhere in the stack
+
+            virtual void updatePlayer() = 0;
 
             virtual MWGui::GuiMode getMode() const = 0;
 
@@ -200,7 +204,9 @@ namespace MWBase
             virtual void removeDialog(OEngine::GUI::Layout* dialog) = 0;
             ///< Hides dialog and schedules dialog to be deleted.
 
-            virtual void messageBox (const std::string& message, const std::vector<std::string>& buttons = std::vector<std::string>()) = 0;
+            virtual void messageBox (const std::string& message, const std::vector<std::string>& buttons = std::vector<std::string>(), bool showInDialogueModeOnly = false) = 0;
+            virtual void staticMessageBox(const std::string& message) = 0;
+            virtual void removeStaticMessageBox() = 0;
 
             virtual void enterPressed () = 0;
             virtual int readPressedButton() = 0;
@@ -232,6 +238,7 @@ namespace MWBase
 
             virtual void enableRest() = 0;
             virtual bool getRestEnabled() = 0;
+            virtual bool getJournalAllowed() = 0; 
 
             virtual bool getPlayerSleeping() = 0;
             virtual void wakeUpPlayer() = 0;

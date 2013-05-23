@@ -49,7 +49,12 @@ namespace
                     {
                         rendering.addObject(ptr);
                         class_.insertObject(ptr, physics);
-                        MWBase::Environment::get().getWorld()->rotateObject(ptr, 0, 0, 0, true);
+
+                        float ax = Ogre::Radian(ptr.getRefData().getLocalRotation().rot[0]).valueDegrees();
+                        float ay = Ogre::Radian(ptr.getRefData().getLocalRotation().rot[1]).valueDegrees();
+                        float az = Ogre::Radian(ptr.getRefData().getLocalRotation().rot[2]).valueDegrees();
+                        MWBase::Environment::get().getWorld()->localRotateObject(ptr, ax, ay, az);
+
                         MWBase::Environment::get().getWorld()->scaleObject(ptr, ptr.getCellRef().mScale);
                         class_.adjustPosition(ptr);
                     }
@@ -76,27 +81,28 @@ namespace MWWorld
     void Scene::unloadCell (CellStoreCollection::iterator iter)
     {
         std::cout << "Unloading cell\n";
-        ListHandles functor;
+        ListAndResetHandles functor;
 
-        (*iter)->forEach<ListHandles>(functor);
+        (*iter)->forEach<ListAndResetHandles>(functor);
         {
             // silence annoying g++ warning
             for (std::vector<Ogre::SceneNode*>::const_iterator iter2 (functor.mHandles.begin());
-                iter2!=functor.mHandles.end(); ++iter2){
-                 Ogre::SceneNode* node = *iter2;
+                iter2!=functor.mHandles.end(); ++iter2)
+            {
+                Ogre::SceneNode* node = *iter2;
                 mPhysics->removeObject (node->getName());
             }
+        }
 
-            if ((*iter)->mCell->isExterior())
-            {
-                ESM::Land* land =
-                    MWBase::Environment::get().getWorld()->getStore().get<ESM::Land>().search(
-                        (*iter)->mCell->getGridX(),
-                        (*iter)->mCell->getGridY()
-                    );
-                if (land)
-                    mPhysics->removeHeightField( (*iter)->mCell->getGridX(), (*iter)->mCell->getGridY() );
-            }
+        if ((*iter)->mCell->isExterior())
+        {
+            ESM::Land* land =
+                MWBase::Environment::get().getWorld()->getStore().get<ESM::Land>().search(
+                    (*iter)->mCell->getGridX(),
+                    (*iter)->mCell->getGridY()
+                );
+            if (land)
+                mPhysics->removeHeightField( (*iter)->mCell->getGridX(), (*iter)->mCell->getGridY() );
         }
 
         mRendering.removeCell(*iter);
@@ -178,6 +184,15 @@ namespace MWWorld
         mechMgr->watchActor(player);
 
         MWBase::Environment::get().getWindowManager()->changeCell(mCurrentCell);
+    }
+
+    void Scene::changeToVoid()
+    {
+        CellStoreCollection::iterator active = mActiveCells.begin();
+        while (active!=mActiveCells.end())
+            unloadCell (active++);
+        assert(mActiveCells.empty());
+        mCurrentCell = NULL;
     }
 
     void Scene::changeCell (int X, int Y, const ESM::Position& position, bool adjustPlayerPos)

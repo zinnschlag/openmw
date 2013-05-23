@@ -2,11 +2,19 @@
 #include "player.hpp"
 
 #include "../mwbase/environment.hpp"
+#include "../mwbase/world.hpp"
+#include "../mwbase/windowmanager.hpp"
+#include "../mwbase/soundmanager.hpp"
 
 #include "../mwworld/ptr.hpp"
+#include "../mwworld/inventorystore.hpp"
 
 #include "../mwmechanics/movement.hpp"
 #include "../mwmechanics/npcstats.hpp"
+#include "../mwmechanics/character.hpp"
+#include "../mwmechanics/security.hpp"
+
+#include "../mwrender/animation.hpp"
 
 #include "class.hpp"
 
@@ -19,6 +27,14 @@ namespace MWWorld
     {
         mPlayer.mBase = player;
         mPlayer.mRef.mRefID = "player";
+
+        float* playerPos = mPlayer.mData.getPosition().pos;
+        playerPos[0] = playerPos[1] = playerPos[2] = 0;
+    }
+
+    void Player::set(const ESM::NPC *player)
+    {
+        mPlayer.mBase = player;
 
         float* playerPos = mPlayer.mData.getPosition().pos;
         playerPos[0] = playerPos[1] = playerPos[2] = 0;
@@ -123,6 +139,51 @@ namespace MWWorld
     {
         MWWorld::Ptr ptr = getPlayer();
         MWWorld::Class::get(ptr).getMovementSettings(ptr).mRotation[1] = roll;
+    }
+
+    void Player::use()
+    {
+        MWWorld::InventoryStore& store = MWWorld::Class::get(getPlayer()).getInventoryStore(getPlayer());
+        MWWorld::ContainerStoreIterator equipped = store.getSlot(MWWorld::InventoryStore::Slot_CarriedRight);
+
+        if (getDrawState() == MWMechanics::DrawState_Weapon)
+        {
+            if (equipped != store.end())
+            {
+                MWWorld::Ptr item = *equipped;
+                MWRender::Animation* anim = MWBase::Environment::get().getWorld()->getAnimation(getPlayer());
+                MWWorld::Ptr target = MWBase::Environment::get().getWorld()->getFacedObject();
+
+                if (anim->isPriorityActive(MWMechanics::Priority_Weapon))
+                    return;
+
+                std::string resultMessage, resultSound;
+
+                if (item.getTypeName() == typeid(ESM::Lockpick).name())
+                {
+                    if (!target.isEmpty())
+                        MWMechanics::Security(getPlayer()).pickLock(target, item, resultMessage, resultSound);
+                    anim->play("pickprobe", MWMechanics::Priority_Weapon, MWRender::Animation::Group_UpperBody, true, "start", "stop", 0.0, 0);
+                }
+                else if (item.getTypeName() == typeid(ESM::Probe).name())
+                {
+                    if (!target.isEmpty())
+                        MWMechanics::Security(getPlayer()).probeTrap(target, item, resultMessage, resultSound);
+                    anim->play("pickprobe", MWMechanics::Priority_Weapon, MWRender::Animation::Group_UpperBody, true, "start", "stop", 0.0, 0);
+                }
+
+                if (!resultMessage.empty())
+                    MWBase::Environment::get().getWindowManager()->messageBox(resultMessage);
+                if (!resultSound.empty())
+                    MWBase::Environment::get().getSoundManager()->playSound(resultSound,1,1);
+
+                // tool used up?
+                if (!item.getRefData().getCount())
+                    MWBase::Environment::get().getWindowManager()->unsetSelectedWeapon();
+                else
+                    MWBase::Environment::get().getWindowManager()->setSelectedWeapon(item);
+            }
+        }
     }
 
     MWMechanics::DrawState_ Player::getDrawState()

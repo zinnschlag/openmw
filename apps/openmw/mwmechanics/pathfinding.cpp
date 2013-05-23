@@ -1,5 +1,9 @@
 #include "pathfinding.hpp"
-#include <boost/graph/astar_search.hpp>
+
+#include "../mwbase/world.hpp"
+#include "../mwbase/environment.hpp"
+
+#include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include "boost/tuple/tuple.hpp"
 #include "OgreMath.h"
@@ -55,7 +59,7 @@ namespace
 
     struct found_path {};
 
-    class goalVisited : public boost::default_astar_visitor
+    /*class goalVisited : public boost::default_astar_visitor
     {
     public:
         goalVisited(PointID goal) : mGoal(goal) {}
@@ -69,7 +73,7 @@ namespace
         PointID mGoal;
     };
 
-    class DistanceHeuristic : public boost::astar_heuristic <PathGridGraph, float>
+    class DistanceHeuristic : public boost::atasr_heuristic <PathGridGraph, float>
     {
     public:
         DistanceHeuristic(const PathGridGraph & l, PointID goal)
@@ -87,11 +91,23 @@ namespace
     private:
         const PathGridGraph & mGraph;
         PointID mGoal;
-    };
-}
+    };*/
 
-namespace MWMechanics
-{
+	class goalVisited : public boost::default_dijkstra_visitor
+	{
+	public:
+		goalVisited(PointID goal) : mGoal(goal) {}
+
+		void examine_vertex(PointID u, const PathGridGraph g)
+		{
+			if(u == mGoal)
+				throw found_path();
+		}
+	private:
+		PointID mGoal;
+	};
+
+
     PathGridGraph buildGraph(const ESM::Pathgrid* pathgrid,float xCell = 0,float yCell = 0)
     {
         PathGridGraph graph;
@@ -126,13 +142,12 @@ namespace MWMechanics
         std::list<ESM::Pathgrid::Point> shortest_path;
 
         try {
-            boost::astar_search
+            boost::dijkstra_shortest_paths
                 (
                 graph,
                 start,
-                DistanceHeuristic(graph,end),
                 boost::predecessor_map(&p[0]).distance_map(&d[0]).visitor(goalVisited(end))//.weight_map(boost::get(&Edge::distance, graph))
-                );
+				);
 
         } catch(found_path fg) {
             for(PointID v = end;; v = p[v]) {
@@ -146,6 +161,10 @@ namespace MWMechanics
 
     //end of helpers functions
 
+}
+
+namespace MWMechanics
+{
     PathFinder::PathFinder()
     {
         mIsPathConstructed = false;
@@ -154,15 +173,19 @@ namespace MWMechanics
     void PathFinder::buildPath(ESM::Pathgrid::Point startPoint,ESM::Pathgrid::Point endPoint,
         const ESM::Pathgrid* pathGrid,float xCell,float yCell)
     {
-        int start = getClosestPoint(pathGrid,startPoint.mX - xCell,startPoint.mY - yCell,startPoint.mZ);
-        int end = getClosestPoint(pathGrid,endPoint.mX - xCell,endPoint.mY - yCell,endPoint.mZ);
-
-        if(start != -1 && end != -1)
+        //first check if there is an obstacle
+        if(MWBase::Environment::get().getWorld()->castRay(startPoint.mX,startPoint.mY,startPoint.mZ,
+            endPoint.mX,endPoint.mY,endPoint.mZ) )
         {
-            PathGridGraph graph = buildGraph(pathGrid,xCell,yCell);
-            mPath = findPath(start,end,graph);
-        }
+            int start = getClosestPoint(pathGrid,startPoint.mX - xCell,startPoint.mY - yCell,startPoint.mZ);
+            int end = getClosestPoint(pathGrid,endPoint.mX - xCell,endPoint.mY - yCell,endPoint.mZ);
 
+            if(start != -1 && end != -1)
+            {
+                PathGridGraph graph = buildGraph(pathGrid,xCell,yCell);
+                mPath = findPath(start,end,graph);
+            }
+        }
         mPath.push_back(endPoint);
         mIsPathConstructed = true;
     }

@@ -6,10 +6,13 @@
 #include "../mwbase/world.hpp"
 #include "../mwworld/player.hpp"
 #include "../mwworld/manualref.hpp"
+#include "../mwworld/class.hpp"
 
 #include "itemselection.hpp"
 #include "container.hpp"
 #include "inventorywindow.hpp"
+
+#include "sortfilteritemmodel.hpp"
 
 namespace MWGui
 {
@@ -57,8 +60,9 @@ namespace MWGui
 
     void EnchantingDialog::updateLabels()
     {
-        mEnchantmentPoints->setCaption(boost::lexical_cast<std::string>(mEnchanting.getEnchantCost())
-                                       + " / " + boost::lexical_cast<std::string>(mEnchanting.getMaxEnchantValue()));
+        std::stringstream enchantCost;
+        enchantCost << std::setprecision(1) << std::fixed << mEnchanting.getEnchantCost();
+        mEnchantmentPoints->setCaption(enchantCost.str() + " / " + boost::lexical_cast<std::string>(mEnchanting.getMaxEnchantValue()));
 
         mCharge->setCaption(boost::lexical_cast<std::string>(mEnchanting.getGemCharge()));
 
@@ -138,13 +142,12 @@ namespace MWGui
     void EnchantingDialog::onSelectItem(MyGUI::Widget *sender)
     {
         delete mItemSelectionDialog;
-        mItemSelectionDialog = new ItemSelectionDialog("#{sEnchantItems}",
-            ContainerBase::Filter_Apparel|ContainerBase::Filter_Weapon|ContainerBase::Filter_NoMagic);
+        mItemSelectionDialog = new ItemSelectionDialog("#{sEnchantItems}");
         mItemSelectionDialog->eventItemSelected += MyGUI::newDelegate(this, &EnchantingDialog::onItemSelected);
         mItemSelectionDialog->eventDialogCanceled += MyGUI::newDelegate(this, &EnchantingDialog::onItemCancel);
         mItemSelectionDialog->setVisible(true);
         mItemSelectionDialog->openContainer(MWBase::Environment::get().getWorld()->getPlayer().getPlayer());
-        mItemSelectionDialog->drawItems ();
+        mItemSelectionDialog->setFilter(SortFilterItemModel::Filter_OnlyEnchantable);
     }
 
     void EnchantingDialog::onItemSelected(MWWorld::Ptr item)
@@ -226,13 +229,12 @@ namespace MWGui
     void EnchantingDialog::onSelectSoul(MyGUI::Widget *sender)
     {
         delete mItemSelectionDialog;
-        mItemSelectionDialog = new ItemSelectionDialog("#{sSoulGemsWithSouls}",
-            ContainerBase::Filter_Misc|ContainerBase::Filter_ChargedSoulstones);
+        mItemSelectionDialog = new ItemSelectionDialog("#{sSoulGemsWithSouls}");
         mItemSelectionDialog->eventItemSelected += MyGUI::newDelegate(this, &EnchantingDialog::onSoulSelected);
         mItemSelectionDialog->eventDialogCanceled += MyGUI::newDelegate(this, &EnchantingDialog::onSoulCancel);
         mItemSelectionDialog->setVisible(true);
         mItemSelectionDialog->openContainer(MWBase::Environment::get().getWorld()->getPlayer().getPlayer());
-        mItemSelectionDialog->drawItems ();
+        mItemSelectionDialog->setFilter(SortFilterItemModel::Filter_OnlyChargedSoulstones);
 
         //MWBase::Environment::get().getWindowManager()->messageBox("#{sInventorySelectNoSoul}");
     }

@@ -1,24 +1,15 @@
 #include "loadingscreen.hpp"
 
 #include <OgreRenderWindow.h>
-#include <OgreRoot.h>
 #include <OgreCompositorManager.h>
 #include <OgreCompositorChain.h>
-#include <OgreMaterial.h>
-
-
-#include <boost/algorithm/string.hpp>
 
 #include <openengine/ogre/fader.hpp>
 
 #include "../mwbase/environment.hpp"
-#include "../mwbase/inputmanager.hpp"
 #include "../mwbase/world.hpp"
 
 #include "../mwbase/windowmanager.hpp"
-
-#include <components/esm/records.hpp>
-
 
 namespace MWGui
 {
@@ -31,6 +22,7 @@ namespace MWGui
         , mLastRenderTime(0.f)
         , mLastWallpaperChangeTime(0.f)
         , mFirstLoad(true)
+        , mTotalRefsLoading(0)
     {
         getWidget(mLoadingText, "LoadingText");
         getWidget(mProgressBar, "ProgressBar");

@@ -131,6 +131,8 @@ namespace MWWorld
 
         void setHour(const float hour);
 
+        float getWindSpeed() const;
+
         void setDate(const int day, const int month);
 
         void advanceTime(double hours)
@@ -143,6 +145,7 @@ namespace MWWorld
     private:
         float mHour;
         int mDay, mMonth;
+        float mWindSpeed;
         MWWorld::Fallback* mFallback;
         void setFallbackWeather(Weather& weather,const std::string& name);
         MWRender::RenderingManager* mRendering;
@@ -171,6 +174,9 @@ namespace MWWorld
         WeatherResult transition(const float factor);
         WeatherResult getResult(const Ogre::String& weather);
 
+        float calculateHourFade (const std::string& moonName) const;
+        float calculateAngleFade (const std::string& moonName, float angle) const;
+
         void setWeather(const Ogre::String& weather, bool instant=false);
         float mSunriseTime;
         float mSunsetTime;
@@ -181,6 +187,10 @@ namespace MWWorld
         float mThunderFrequency;
         float mThunderThreshold;
         float mThunderSoundDelay;
+        float mNightStart;
+        float mNightEnd;
+        float mDayStart;
+        float mDayEnd;
         std::string mThunderSoundID0;
         std::string mThunderSoundID1;
         std::string mThunderSoundID2;

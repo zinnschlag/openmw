@@ -49,13 +49,15 @@ namespace MWRender
     TerrainMaterial::Profile::Profile(Ogre::TerrainMaterialGenerator* parent, const Ogre::String& name, const Ogre::String& desc)
         : Ogre::TerrainMaterialGenerator::Profile(parent, name, desc)
         , mGlobalColourMap(false)
+        , mMaterial(0)
     {
     }
 
     TerrainMaterial::Profile::~Profile()
     {
+        if (mMaterial)
+            sh::Factory::getInstance().destroyMaterialInstance(mMaterial->getName());
     }
-
 
     Ogre::MaterialPtr TerrainMaterial::Profile::generate(const Ogre::Terrain* terrain)
     {

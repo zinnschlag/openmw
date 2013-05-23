@@ -10,11 +10,9 @@
 #include <QtGui/QApplication>
 
 #include "../../model/doc/document.hpp"
-
 #include "../world/subviews.hpp"
-
 #include "../tools/subviews.hpp"
-
+#include "../settings/usersettingsdialog.hpp"
 #include "viewmanager.hpp"
 #include "operations.hpp"
 #include "subview.hpp"
@@ -67,6 +65,10 @@ void CSVDoc::View::setupEditMenu()
     mRedo= mDocument->getUndoStack().createRedoAction (this, tr("&Redo"));
     mRedo->setShortcuts (QKeySequence::Redo);
     edit->addAction (mRedo);
+
+    QAction *userSettings = new QAction (tr ("&Preferences"), this);
+    connect (userSettings, SIGNAL (triggered()), this, SLOT (showUserSettings()));
+    edit->addAction (userSettings);
 }
 
 void CSVDoc::View::setupViewMenu()
@@ -129,6 +131,11 @@ void CSVDoc::View::setupWorldMenu()
     QAction *cells = new QAction (tr ("Cells"), this);
     connect (cells, SIGNAL (triggered()), this, SLOT (addCellsSubView()));
     world->addAction (cells);
+
+    QAction *referenceables = new QAction (tr ("Referenceables"), this);
+    connect (referenceables, SIGNAL (triggered()), this, SLOT (addReferenceablesSubView()));
+    world->addAction (referenceables);
+
 }
 
 void CSVDoc::View::setupUi()
@@ -334,6 +341,11 @@ void CSVDoc::View::addCellsSubView()
     addSubView (CSMWorld::UniversalId::Type_Cells);
 }
 
+void CSVDoc::View::addReferenceablesSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Referenceables);
+}
+
 void CSVDoc::View::abortOperation (int type)
 {
     mDocument->abortOperation (type);
@@ -348,4 +360,26 @@ CSVDoc::Operations *CSVDoc::View::getOperations() const
 void CSVDoc::View::exit()
 {
     emit exitApplicationRequest (this);
+}
+
+void CSVDoc::View::showUserSettings()
+{
+    CSVSettings::UserSettingsDialog *settingsDialog = new CSVSettings::UserSettingsDialog(this);
+
+    connect (&(CSMSettings::UserSettings::instance()), SIGNAL (signalUpdateEditorSetting (const QString &, const QString &)),
+             this, SLOT (slotUpdateEditorSetting (const QString &, const QString &)) );
+
+    settingsDialog->show();
+}
+
+void CSVDoc::View::slotUpdateEditorSetting(const QString &settingName, const QString &settingValue)
+{
+    static QString lastValue = "";
+
+    if (lastValue != settingValue)
+    {
+        //evaluate settingName against tokens to determine which function to call to update Editor application.
+
+        lastValue = settingValue;
+    }
 }

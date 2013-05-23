@@ -44,11 +44,7 @@ struct ObjectList {
     std::vector<Ogre::Entity*> mEntities;
     std::vector<Ogre::ParticleSystem*> mParticles;
 
-    // We could actually have Ogre::Camera objects, but that means more
-    // maintenance when switching cameras. The information in the NiCamera node
-    // is pretty much useless too anyway. So instead, this is just a list of
-    // bones in the mSkelBase which are NiCamera nodes.
-    std::vector<Ogre::Bone*> mCameras;
+    std::map<int,TextKeyMap> mTextKeys;
 
     std::vector<Ogre::Controller<Ogre::Real> > mControllers;
 
@@ -69,9 +65,14 @@ public:
                                     std::string name,
                                     const std::string &group="General");
 
-    static ObjectList createObjectBase(Ogre::SceneManager *sceneMgr,
+    static ObjectList createObjectBase(Ogre::SceneNode *parentNode,
                                        std::string name,
                                        const std::string &group="General");
+
+    static void createKfControllers(Ogre::Entity *skelBase,
+                                    const std::string &name,
+                                    TextKeyMap &textKeys,
+                                    std::vector<Ogre::Controller<Ogre::Real> > &ctrls);
 };
 
 // FIXME: Should be with other general Ogre extensions.
@@ -85,22 +86,16 @@ public:
     NodeTargetValue(Ogre::Node *target) : mNode(target)
     { }
 
+    virtual Ogre::Quaternion getRotation(T value) const = 0;
+    virtual Ogre::Vector3 getTranslation(T value) const = 0;
+    virtual Ogre::Vector3 getScale(T value) const = 0;
+
     void setNode(Ogre::Node *target)
     { mNode = target; }
     Ogre::Node *getNode() const
     { return mNode; }
 };
 typedef Ogre::SharedPtr<NodeTargetValue<Ogre::Real> > NodeTargetValueRealPtr;
-
-}
-
-namespace std
-{
-
-// These operators allow extra data types to be stored in an Ogre::Any
-// object, which can then be stored in user object bindings on the nodes
-
-ostream& operator<<(ostream &o, const NifOgre::TextKeyMap&);
 
 }
 
