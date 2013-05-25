@@ -1,6 +1,5 @@
 #include "aiescort.hpp"
 
-#include "character.hpp"
 #include "movement.hpp"
 
 #include "../mwworld/class.hpp"
@@ -9,10 +8,6 @@
 #include "../mwbase/world.hpp"
 #include "../mwbase/environment.hpp"
 #include "../mwbase/mechanicsmanager.hpp"
-
-#include <boost/graph/astar_search.hpp>
-#include <boost/graph/adjacency_list.hpp>
-#include "boost/tuple/tuple.hpp"
 
 namespace
 {
@@ -77,11 +72,8 @@ bool MWMechanics::AiEscort::execute (const MWWorld::Ptr& actor)
     {
         MWWorld::TimeStamp current = MWBase::Environment::get().getWorld()->getTimeStamp();
         unsigned int currentSecond = ((current.getHour() - int(current.getHour())) * 100);
-        std::cout << "AiEscort: " << currentSecond << " time: " << currentSecond - mStartingSecond << std::endl;
         if(currentSecond - mStartingSecond >= mDuration)
-        {
             return true;
-        }
     }
 
     ESM::Position pos = actor.getRefData().getPosition();
