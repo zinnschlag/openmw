@@ -129,7 +129,7 @@ RenderingManager::RenderingManager(OEngine::Render::OgreRenderer& _rend, const b
     Ogre::TextureManager::getSingleton().setMemoryBudget(126*1024*1024);
     Ogre::MeshManager::getSingleton().setMemoryBudget(64*1024*1024);
 
-    ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
     // disable unsupported effects
     if (!Settings::Manager::getBool("shaders", "Objects"))
@@ -310,7 +310,7 @@ void RenderingManager::update (float duration, bool paused)
     MWWorld::Ptr player = world->getPlayer().getPlayer();
 
     int blind = MWWorld::Class::get(player).getCreatureStats(player).getMagicEffects().get(MWMechanics::EffectKey(ESM::MagicEffect::Blind)).mMagnitude;
-    mRendering.getFader()->setFactor(1.f-(blind / 100.f));
+    mRendering.getFader()->setFactor(std::max(0.f, 1.f-(blind / 100.f)));
     setAmbientMode();
 
     // player position
@@ -711,7 +711,7 @@ Compositors* RenderingManager::getCompositors()
 
 void RenderingManager::processChangedSettings(const Settings::CategorySettingVector& settings)
 {
-    bool changeRes = false;
+    //bool changeRes = false;
     bool rebuild = false; // rebuild static geometry (necessary after any material changes)
     for (Settings::CategorySettingVector::const_iterator it=settings.begin();
             it != settings.end(); ++it)
@@ -725,11 +725,11 @@ void RenderingManager::processChangedSettings(const Settings::CategorySettingVec
             if (!MWBase::Environment::get().getWorld()->isCellExterior() && !MWBase::Environment::get().getWorld()->isCellQuasiExterior())
                 configureFog(*MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell());
         }
-        else if (it->first == "Video" && (
+        /*else if (it->first == "Video" && (
                 it->second == "resolution x"
                 || it->second == "resolution y"
                 || it->second == "fullscreen"))
-            changeRes = true;
+            changeRes = true;*/
         else if (it->second == "field of view" && it->first == "General")
             mRendering.setFov(Settings::Manager::getFloat("field of view", "General"));
         else if ((it->second == "texture filtering" && it->first == "General")
@@ -783,17 +783,24 @@ void RenderingManager::processChangedSettings(const Settings::CategorySettingVec
         }
     }
 
+    /*
     if (changeRes)
     {
         unsigned int x = Settings::Manager::getInt("resolution x", "Video");
         unsigned int y = Settings::Manager::getInt("resolution y", "Video");
 
+        SDL_SetWindowFullscreen(mRendering.getSDLWindow(), 0);
+
         if (x != mRendering.getWindow()->getWidth() || y != mRendering.getWindow()->getHeight())
         {
+            SDL_SetWindowSize(mRendering.getSDLWindow(), x, y);
             mRendering.getWindow()->resize(x, y);
         }
-        mRendering.getWindow()->setFullscreen(Settings::Manager::getBool("fullscreen", "Video"), x, y);
+
+        SDL_SetWindowFullscreen(mRendering.getSDLWindow(), Settings::Manager::getBool("fullscreen", "Video") ? SDL_WINDOW_FULLSCREEN : 0);
+        //mRendering.getWindow()->setFullscreen(Settings::Manager::getBool("fullscreen", "Video"), x, y);
     }
+    */
 
     mWater->processChangedSettings(settings);
 
@@ -815,7 +822,6 @@ void RenderingManager::windowResized(Ogre::RenderWindow* rw)
 {
     Settings::Manager::setInt("resolution x", "Video", rw->getWidth());
     Settings::Manager::setInt("resolution y", "Video", rw->getHeight());
-
 
     mRendering.adjustViewport();
     mCompositors->recreate();

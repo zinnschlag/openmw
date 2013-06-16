@@ -106,16 +106,16 @@ target_link_libraries(openmw
     ${OGRE_LIBRARIES}
     ${OGRE_Terrain_LIBRARY}
     ${OGRE_STATIC_PLUGINS}
-    ${OIS_LIBRARIES}
     ${Boost_LIBRARIES}
     ${OPENAL_LIBRARY}
     ${SOUND_INPUT_LIBRARY}
     ${BULLET_LIBRARIES}
     ${MYGUI_LIBRARIES}
+    ${SDL2_LIBRARY}
     ${MYGUI_PLATFORM_LIBRARIES}
-    "shiny"
-    "shiny.OgrePlatform"
+    ${SHINY_LIBRARIES}
     "oics"
+    "sdl4ogre"
     components
 )
 
@@ -131,10 +131,9 @@ endif()
 
 
 if(APPLE)
-    find_library(CARBON_FRAMEWORK Carbon)
     find_library(COCOA_FRAMEWORK Cocoa)
     find_library(IOKIT_FRAMEWORK IOKit)
-    target_link_libraries(openmw ${CARBON_FRAMEWORK} ${COCOA_FRAMEWORK} ${IOKIT_FRAMEWORK})
+    target_link_libraries(openmw ${COCOA_FRAMEWORK} ${IOKIT_FRAMEWORK})
 
     if (FFMPEG_FOUND)
         find_library(COREVIDEO_FRAMEWORK CoreVideo)

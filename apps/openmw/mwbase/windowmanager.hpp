@@ -55,6 +55,11 @@ namespace MWGui
     class DialogueWindow;
 }
 
+namespace SFO
+{
+    class CursorManager;
+}
+
 namespace MWBase
 {
     /// \brief Interface for widnow manager (implemented in MWGui)
@@ -92,6 +97,7 @@ namespace MWBase
             virtual void updatePlayer() = 0;
 
             virtual MWGui::GuiMode getMode() const = 0;
+            virtual bool containsMode(MWGui::GuiMode) const = 0;
 
             virtual bool isGuiMode() const = 0;
 
@@ -159,7 +165,7 @@ namespace MWBase
             virtual void setFocusObject(const MWWorld::Ptr& focus) = 0;
             virtual void setFocusObjectScreenCoords(float min_x, float min_y, float max_x, float max_y) = 0;
 
-            virtual void setMouseVisible(bool visible) = 0;
+            virtual void setCursorVisible(bool visible) = 0;
             virtual void getMousePosition(int &x, int &y) = 0;
             virtual void getMousePosition(float &x, float &y) = 0;
             virtual void setDragDrop(bool dragDrop) = 0;

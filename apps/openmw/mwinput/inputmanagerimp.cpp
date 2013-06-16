@@ -1,15 +1,9 @@
 #include "inputmanagerimp.hpp"
 
-#if defined(__APPLE__) && !defined(__LP64__)
-#include <Carbon/Carbon.h>
-#endif
-
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
 
 #include <boost/lexical_cast.hpp>
-
-#include <OISInputManager.h>
 
 #include <MyGUI_InputManager.h>
 #include <MyGUI_RenderManager.h>
@@ -27,12 +21,13 @@
 #include "../mwbase/soundmanager.hpp"
 #include "../mwgui/bookwindow.hpp"
 
+using namespace ICS;
+
 namespace MWInput
 {
     InputManager::InputManager(OEngine::Render::OgreRenderer &ogre,
             MWWorld::Player& player,
             MWBase::WindowManager &windows,
-            bool debug,
             OMW::Engine& engine,
             const std::string& userFile, bool userFileExists)
         : mOgre(ogre)
@@ -45,89 +40,38 @@ namespace MWInput
         , mMouseWheel(0)
         , mDragDrop(false)
         , mGuiCursorEnabled(false)
-        , mDebug(debug)
+        , mDebug(Settings::Manager::getBool("debug", "Engine"))
         , mUserFile(userFile)
         , mUserFileExists(userFileExists)
         , mInvertY (Settings::Manager::getBool("invert y axis", "Input"))
         , mCameraSensitivity (Settings::Manager::getFloat("camera sensitivity", "Input"))
         , mUISensitivity (Settings::Manager::getFloat("ui sensitivity", "Input"))
         , mCameraYMultiplier (Settings::Manager::getFloat("camera y multiplier", "Input"))
-        , mUIYMultiplier (Settings::Manager::getFloat("ui y multiplier", "Input"))
         , mPreviewPOVDelay(0.f)
         , mTimeIdle(0.f)
         , mOverencumberedMessageDelay(0.f)
         , mAlwaysRunActive(false)
     {
-        Ogre::RenderWindow* window = mOgre.getWindow ();
-        size_t windowHnd;
 
-        resetIdleTime();
+        Ogre::RenderWindow* window = ogre.getWindow ();
 
-        window->getCustomAttribute("WINDOW", &windowHnd);
+        mInputManager = new SFO::InputWrapper(mOgre.getSDLWindow(), mOgre.getWindow());
+        mInputManager->setMouseEventCallback (this);
+        mInputManager->setKeyboardEventCallback (this);
+        mInputManager->setWindowEventCallback(this);
 
-        std::ostringstream windowHndStr;
-        OIS::ParamList pl;
-
-        windowHndStr << windowHnd;
-        pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-        // Set non-exclusive mouse and keyboard input if the user requested
-        // it.
-        if (mDebug)
-        {
-            #if defined OIS_WIN32_PLATFORM
-            pl.insert(std::make_pair(std::string("w32_mouse"),
-                std::string("DISCL_FOREGROUND" )));
-            pl.insert(std::make_pair(std::string("w32_mouse"),
-                std::string("DISCL_NONEXCLUSIVE")));
-            pl.insert(std::make_pair(std::string("w32_keyboard"),
-                std::string("DISCL_FOREGROUND")));
-            pl.insert(std::make_pair(std::string("w32_keyboard"),
-                std::string("DISCL_NONEXCLUSIVE")));
-            #elif defined OIS_LINUX_PLATFORM
-            pl.insert(std::make_pair(std::string("x11_mouse_grab"),
-                std::string("false")));
-            pl.insert(std::make_pair(std::string("x11_mouse_hide"),
-                std::string("false")));
-            pl.insert(std::make_pair(std::string("x11_keyboard_grab"),
-                std::string("false")));
-            #endif
-        }
-#if defined OIS_LINUX_PLATFORM
-        pl.insert(std::make_pair(std::string("XAutoRepeatOn"),
-            std::string("true")));
-#endif
-
-#if defined(__APPLE__) && !defined(__LP64__)
-        // Give the application window focus to receive input events
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        SetFrontProcess(&psn);
-#endif
-
-        mInputManager = OIS::InputManager::createInputSystem( pl );
-
-        // Create all devices
-        mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject
-            ( OIS::OISKeyboard, true ));
-        mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject
-            ( OIS::OISMouse, true ));
-
-        mKeyboard->setEventCallback (this);
-        mMouse->setEventCallback (this);
+        std::string file = userFileExists ? userFile : "";
+        mInputBinder = new ICS::InputControlSystem(file, true, this, NULL, A_Last);
 
         adjustMouseRegion (window->getWidth(), window->getHeight());
 
-        MyGUI::InputManager::getInstance().injectMouseMove(mMouseX, mMouseY, mMouse->getMouseState ().Z.abs);
-
-        std::string file = mUserFileExists ? mUserFile : "";
-        mInputCtrl = new ICS::InputControlSystem(file, true, this, NULL, A_Last);
+        MyGUI::InputManager::getInstance().injectMouseMove(mMouseX, mMouseY, 0);
 
         loadKeyDefaults();
 
         for (int i = 0; i < A_Last; ++i)
         {
-            mInputCtrl->getChannel (i)->addListener (this);
+            mInputBinder->getChannel (i)->addListener (this);
         }
 
         mControlSwitch["playercontrols"]      = true;
@@ -143,13 +87,11 @@ namespace MWInput
 
     InputManager::~InputManager()
     {
-        mInputCtrl->save (mUserFile);
+        mInputBinder->save (mUserFile);
 
-        delete mInputCtrl;
+        delete mInputBinder;
 
-        mInputManager->destroyInputObject(mKeyboard);
-        mInputManager->destroyInputObject(mMouse);
-        OIS::InputManager::destroyInputSystem(mInputManager);
+        delete mInputManager;
     }
 
     void InputManager::channelChanged(ICS::Channel* channel, float currentValue, float previousValue)
@@ -253,9 +195,7 @@ namespace MWInput
     void InputManager::update(float dt, bool loading)
     {
         // Tell OIS to handle all input events
-        mKeyboard->capture();
-        mMouse->capture();
-
+        mInputManager->capture();
         // inject some fake mouse movement to force updating MyGUI's widget states
         // this shouldn't do any harm since we're moving back to the original position afterwards
         MyGUI::InputManager::getInstance().injectMouseMove( int(mMouseX+1), int(mMouseY+1), mMouseWheel);
@@ -263,8 +203,8 @@ namespace MWInput
 
         // update values of channels (as a result of pressed keys)
         if (!loading)
-            mInputCtrl->update(dt);
-        
+            mInputBinder->update(dt);
+
         // Update windows/gui as a result of input events
         // For instance this could mean opening a new window/dialog,
         // by doing this after the input events are handled we
@@ -272,6 +212,28 @@ namespace MWInput
         // avoiding that window/gui changes does not happen in
         // event callbacks (which may crash)
         mWindows.update();
+
+        if(!mDebug)
+        {
+            bool main_menu = mWindows.containsMode(MWGui::GM_MainMenu);
+
+            bool was_relative = mInputManager->getMouseRelative();
+            bool is_relative = !mWindows.isGuiMode();
+
+            // don't keep the pointer away from the window edge in gui mode
+            // stop using raw mouse motions and switch to system cursor movements
+            mInputManager->setMouseRelative(is_relative);
+
+            //we let the mouse escape in the main menu
+            mInputManager->setGrabPointer(!main_menu);
+
+            //we switched to non-relative mode, move our cursor to where the in-game
+            //cursor is
+            if( !is_relative && was_relative != is_relative )
+            {
+                mInputManager->warpMouse(mMouseX, mMouseY);
+            }
+        }
 
         // Disable movement in Gui mode
         if (mWindows.isGuiMode()) return;
@@ -344,7 +306,7 @@ namespace MWInput
             if (mControlSwitch["playerviewswitch"]) {
 
                 // work around preview mode toggle when pressing Alt+Tab
-                if (actionIsActive(A_TogglePOV) && !mKeyboard->isModifierDown (OIS::Keyboard::Alt)) {
+                if (actionIsActive(A_TogglePOV) && !mInputManager->isModifierHeld(KMOD_ALT)) {
                     if (mPreviewPOVDelay <= 0.5 &&
                         (mPreviewPOVDelay += dt) > 0.5)
                     {
@@ -383,7 +345,6 @@ namespace MWInput
 
     void InputManager::changeInputMode(bool guiMode)
     {
-        MWBase::Environment::get().getWindowManager()->setMouseVisible(guiMode);
         mGuiCursorEnabled = guiMode;
         mMouseLookEnabled = !guiMode;
         if (guiMode)
@@ -444,48 +405,47 @@ namespace MWInput
 
     void InputManager::adjustMouseRegion(int width, int height)
     {
-        const OIS::MouseState &ms = mMouse->getMouseState();
-        ms.width  = width;
-        ms.height = height;
+        mInputBinder->adjustMouseRegion(width, height);
     }
 
-    bool InputManager::keyPressed( const OIS::KeyEvent &arg )
+    bool InputManager::keyPressed( const SDL_KeyboardEvent &arg )
     {
-        if(arg.key == OIS::KC_RETURN
+        mInputBinder->keyPressed (arg);
+        unsigned int text = arg.keysym.unicode;
+
+        if(arg.keysym.sym == SDLK_RETURN
             && MWBase::Environment::get().getWindowManager()->isGuiMode())
         {
             // Pressing enter when a messagebox is prompting for "ok" will activate the ok button
             MWBase::Environment::get().getWindowManager()->enterPressed();
         }
 
-        mInputCtrl->keyPressed (arg);
-        unsigned int text = arg.text;
-#ifdef __APPLE__ // filter \016 symbol for F-keys on OS X
-        if ((arg.key >= OIS::KC_F1 && arg.key <= OIS::KC_F10) ||
-            (arg.key >= OIS::KC_F11 && arg.key <= OIS::KC_F15)) {
-            text = 0;
-        }
-#endif
+        OIS::KeyCode kc = mInputManager->sdl2OISKeyCode(arg.keysym.sym);
 
-        MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(arg.key), text);
+        MyGUI::InputManager::getInstance().injectKeyPress(MyGUI::KeyCode::Enum(kc), text);
 
         return true;
     }
 
-    bool InputManager::keyReleased( const OIS::KeyEvent &arg )
+    bool InputManager::keyReleased(const SDL_KeyboardEvent &arg )
     {
-        mInputCtrl->keyReleased (arg);
+        mInputBinder->keyReleased (arg);
 
-        MyGUI::InputManager::getInstance().injectKeyRelease(MyGUI::KeyCode::Enum(arg.key));
+        OIS::KeyCode kc = mInputManager->sdl2OISKeyCode(arg.keysym.sym);
+
+        MyGUI::InputManager::getInstance().injectKeyRelease(MyGUI::KeyCode::Enum(kc));
 
         return true;
     }
 
-    bool InputManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+    bool InputManager::mousePressed( const SDL_MouseButtonEvent &arg, Uint8 id )
     {
-        mInputCtrl->mousePressed (arg, id);
+        mInputBinder->mousePressed (arg, id);
 
-        MyGUI::InputManager::getInstance().injectMousePress(mMouseX, mMouseY, MyGUI::MouseButton::Enum(id));
+        if (id != SDL_BUTTON_LEFT && id != SDL_BUTTON_RIGHT)
+            return true; // MyGUI has no use for these events
+
+        MyGUI::InputManager::getInstance().injectMousePress(mMouseX, mMouseY, sdlButtonToMyGUI(id));
 
         if (MyGUI::InputManager::getInstance ().getMouseFocusWidget () != 0)
         {
@@ -499,18 +459,18 @@ namespace MWInput
         return true;
     }
 
-    bool InputManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+    bool InputManager::mouseReleased( const SDL_MouseButtonEvent &arg, Uint8 id )
     {
-        mInputCtrl->mouseReleased (arg, id);
+        mInputBinder->mouseReleased (arg, id);
 
-        MyGUI::InputManager::getInstance().injectMouseRelease(mMouseX, mMouseY, MyGUI::MouseButton::Enum(id));
+        MyGUI::InputManager::getInstance().injectMouseRelease(mMouseX, mMouseY, sdlButtonToMyGUI(id));
 
         return true;
     }
 
-    bool InputManager::mouseMoved( const OIS::MouseEvent &arg )
+    bool InputManager::mouseMoved(const SFO::MouseMotionEvent &arg )
     {
-        mInputCtrl->mouseMoved (arg);
+        mInputBinder->mouseMoved (arg);
 
         resetIdleTime ();
 
@@ -520,21 +480,32 @@ namespace MWInput
 
             // We keep track of our own mouse position, so that moving the mouse while in
             // game mode does not move the position of the GUI cursor
-            mMouseX += float(arg.state.X.rel) * mUISensitivity;
-            mMouseY += float(arg.state.Y.rel) * mUISensitivity * mUIYMultiplier;
+            mMouseX = arg.x;
+            mMouseY = arg.y;
+
             mMouseX = std::max(0.f, std::min(mMouseX, float(viewSize.width)));
             mMouseY = std::max(0.f, std::min(mMouseY, float(viewSize.height)));
-            mMouseWheel = arg.state.Z.abs;
+
+            mMouseWheel = int(arg.z);
 
             MyGUI::InputManager::getInstance().injectMouseMove( int(mMouseX), int(mMouseY), mMouseWheel);
+
+            //if the player is reading a book and flicking the mouse wheel
+            if (MWBase::Environment::get().getWindowManager()->getMode() == MWGui::GM_Book && arg.zrel)
+            {
+                if (arg.zrel < 0)
+                    MWBase::Environment::get().getWindowManager()->getBookWindow()->nextPage();
+                else
+                    MWBase::Environment::get().getWindowManager()->getBookWindow()->prevPage();
+            }
         }
 
         if (mMouseLookEnabled)
         {
             resetIdleTime();
 
-            float x = arg.state.X.rel * (1.0f/256.0f) * mCameraSensitivity;
-            float y = arg.state.Y.rel * (1.0f/256.0f) * mCameraSensitivity * mCameraYMultiplier * (mInvertY ? -1 : 1);
+            double x = arg.xrel * mCameraSensitivity * (1.0f/256.f);
+            double y = arg.yrel * mCameraSensitivity * (1.0f/256.f) * (mInvertY ? -1 : 1) * mCameraYMultiplier;
             float scale = MWBase::Environment::get().getFrameDuration();
             if(scale <= 0.0f) scale = 1.0f;
 
@@ -546,23 +517,32 @@ namespace MWInput
             // Only actually turn player when we're not in vanity mode 
             if(!MWBase::Environment::get().getWorld()->vanityRotateCamera(rot))
             {
-                mPlayer.setYaw(x/scale);
-                mPlayer.setPitch(-y/scale);
+                mPlayer.yaw(x/scale);
+                mPlayer.pitch(-y/scale);
             }
 
-            if (arg.state.Z.rel)
-                MWBase::Environment::get().getWorld()->changeVanityModeScale(arg.state.Z.rel);
-        }
-        
-        //if the player is reading a book and flicking the mouse wheel
-        if (MWBase::Environment::get().getWindowManager()->getMode() == MWGui::GM_Book && arg.state.Z.rel)
-        {
-            if (arg.state.Z.rel < 0)
-                MWBase::Environment::get().getWindowManager()->getBookWindow()->nextPage();
-            else
-                MWBase::Environment::get().getWindowManager()->getBookWindow()->prevPage();
+            if (arg.zrel)
+                MWBase::Environment::get().getWorld()->changeVanityModeScale(arg.zrel);
         }
 
+        return true;
+    }
+
+    bool InputManager::windowFocusChange(bool have_focus)
+    {
+        if(!mDebug)
+        {
+
+        }
+        return true;
+    }
+
+    bool InputManager::windowVisibilityChange(bool visible)
+    {
+        if(!mDebug)
+        {
+            //TODO: Pause game?
+        }
         return true;
     }
 
@@ -571,10 +551,10 @@ namespace MWInput
         if (MyGUI::InputManager::getInstance ().isModalAny())
             return;
 
-        if (mWindows.isGuiMode () && (mWindows.getMode () == MWGui::GM_MainMenu || mWindows.getMode () == MWGui::GM_Settings))
-            mWindows.popGuiMode();
-        else if (mWindows.isGuiMode () && mWindows.getMode () == MWGui::GM_Video)
+        if (mWindows.isGuiMode () && mWindows.getMode () == MWGui::GM_Video)
             MWBase::Environment::get().getWorld ()->stopVideo ();
+        else if (mWindows.containsMode(MWGui::GM_MainMenu))
+            mWindows.popGuiMode();
         else
             mWindows.pushGuiMode (MWGui::GM_MainMenu);
     }
@@ -739,7 +719,7 @@ namespace MWInput
 
     bool InputManager::actionIsActive (int id)
     {
-        return mInputCtrl->getChannel (id)->getValue () == 1;
+        return mInputBinder->getChannel (id)->getValue () == 1;
     }
 
     void InputManager::loadKeyDefaults (bool force)
@@ -748,67 +728,67 @@ namespace MWInput
         // across different versions of OpenMW (in the case where another input action is added)
         std::map<int, int> defaultKeyBindings;
 
-        defaultKeyBindings[A_Activate] = OIS::KC_SPACE;
-        defaultKeyBindings[A_MoveBackward] = OIS::KC_S;
-        defaultKeyBindings[A_MoveForward] = OIS::KC_W;
-        defaultKeyBindings[A_MoveLeft] = OIS::KC_A;
-        defaultKeyBindings[A_MoveRight] = OIS::KC_D;
-        defaultKeyBindings[A_ToggleWeapon] = OIS::KC_F;
-        defaultKeyBindings[A_ToggleSpell] = OIS::KC_R;
-        defaultKeyBindings[A_QuickKeysMenu] = OIS::KC_F1;
-        defaultKeyBindings[A_Console] = OIS::KC_F2;
-        defaultKeyBindings[A_Run] = OIS::KC_LSHIFT;
-        defaultKeyBindings[A_Sneak] = OIS::KC_LCONTROL;
-        defaultKeyBindings[A_AutoMove] = OIS::KC_Q;
-        defaultKeyBindings[A_Jump] = OIS::KC_E;
-        defaultKeyBindings[A_Journal] = OIS::KC_J;
-        defaultKeyBindings[A_Rest] = OIS::KC_T;
-        defaultKeyBindings[A_GameMenu] = OIS::KC_ESCAPE;
-        defaultKeyBindings[A_TogglePOV] = OIS::KC_TAB;
-        defaultKeyBindings[A_QuickKey1] = OIS::KC_1;
-        defaultKeyBindings[A_QuickKey2] = OIS::KC_2;
-        defaultKeyBindings[A_QuickKey3] = OIS::KC_3;
-        defaultKeyBindings[A_QuickKey4] = OIS::KC_4;
-        defaultKeyBindings[A_QuickKey5] = OIS::KC_5;
-        defaultKeyBindings[A_QuickKey6] = OIS::KC_6;
-        defaultKeyBindings[A_QuickKey7] = OIS::KC_7;
-        defaultKeyBindings[A_QuickKey8] = OIS::KC_8;
-        defaultKeyBindings[A_QuickKey9] = OIS::KC_9;
-        defaultKeyBindings[A_QuickKey10] = OIS::KC_0;
-        defaultKeyBindings[A_Screenshot] = OIS::KC_SYSRQ;
-        defaultKeyBindings[A_ToggleHUD] = OIS::KC_F12;
-        defaultKeyBindings[A_AlwaysRun] = OIS::KC_Y;
+        defaultKeyBindings[A_Activate] = SDLK_SPACE;
+        defaultKeyBindings[A_MoveBackward] = SDLK_s;
+        defaultKeyBindings[A_MoveForward] = SDLK_w;
+        defaultKeyBindings[A_MoveLeft] = SDLK_a;
+        defaultKeyBindings[A_MoveRight] = SDLK_d;
+        defaultKeyBindings[A_ToggleWeapon] = SDLK_f;
+        defaultKeyBindings[A_ToggleSpell] = SDLK_r;
+        defaultKeyBindings[A_QuickKeysMenu] = SDLK_F1;
+        defaultKeyBindings[A_Console] = SDLK_F2;
+        defaultKeyBindings[A_Run] = SDLK_LSHIFT;
+        defaultKeyBindings[A_Sneak] = SDLK_LCTRL;
+        defaultKeyBindings[A_AutoMove] = SDLK_q;
+        defaultKeyBindings[A_Jump] = SDLK_e;
+        defaultKeyBindings[A_Journal] = SDLK_j;
+        defaultKeyBindings[A_Rest] = SDLK_t;
+        defaultKeyBindings[A_GameMenu] = SDLK_ESCAPE;
+        defaultKeyBindings[A_TogglePOV] = SDLK_TAB;
+        defaultKeyBindings[A_QuickKey1] = SDLK_1;
+        defaultKeyBindings[A_QuickKey2] = SDLK_2;
+        defaultKeyBindings[A_QuickKey3] = SDLK_3;
+        defaultKeyBindings[A_QuickKey4] = SDLK_4;
+        defaultKeyBindings[A_QuickKey5] = SDLK_5;
+        defaultKeyBindings[A_QuickKey6] = SDLK_6;
+        defaultKeyBindings[A_QuickKey7] = SDLK_7;
+        defaultKeyBindings[A_QuickKey8] = SDLK_8;
+        defaultKeyBindings[A_QuickKey9] = SDLK_9;
+        defaultKeyBindings[A_QuickKey10] = SDLK_0;
+        defaultKeyBindings[A_Screenshot] = SDLK_PRINTSCREEN;
+        defaultKeyBindings[A_ToggleHUD] = SDLK_F12;
+        defaultKeyBindings[A_AlwaysRun] = SDLK_y;
 
         std::map<int, int> defaultMouseButtonBindings;
-        defaultMouseButtonBindings[A_Inventory] = OIS::MB_Right;
-        defaultMouseButtonBindings[A_Use] = OIS::MB_Left;
+        defaultMouseButtonBindings[A_Inventory] = SDL_BUTTON_RIGHT;
+        defaultMouseButtonBindings[A_Use] = SDL_BUTTON_LEFT;
 
         for (int i = 0; i < A_Last; ++i)
         {
             ICS::Control* control;
-            bool controlExists = mInputCtrl->getChannel(i)->getControlsCount () != 0;
+            bool controlExists = mInputBinder->getChannel(i)->getControlsCount () != 0;
             if (!controlExists)
             {
                 control = new ICS::Control(boost::lexical_cast<std::string>(i), false, true, 0, ICS::ICS_MAX, ICS::ICS_MAX);
-                mInputCtrl->addControl(control);
-                control->attachChannel(mInputCtrl->getChannel(i), ICS::Channel::DIRECT);
+                mInputBinder->addControl(control);
+                control->attachChannel(mInputBinder->getChannel(i), ICS::Channel::DIRECT);
             }
             else
             {
-                control = mInputCtrl->getChannel(i)->getAttachedControls ().front().control;
+                control = mInputBinder->getChannel(i)->getAttachedControls ().front().control;
             }
 
             if (!controlExists || force ||
-                    ( mInputCtrl->getKeyBinding (control, ICS::Control::INCREASE) == OIS::KC_UNASSIGNED
-                      && mInputCtrl->getMouseButtonBinding (control, ICS::Control::INCREASE) == ICS_MAX_DEVICE_BUTTONS
+                    ( mInputBinder->getKeyBinding (control, ICS::Control::INCREASE) == SDLK_UNKNOWN
+                      && mInputBinder->getMouseButtonBinding (control, ICS::Control::INCREASE) == ICS_MAX_DEVICE_BUTTONS
                       ))
             {
                 clearAllBindings (control);
 
                 if (defaultKeyBindings.find(i) != defaultKeyBindings.end())
-                    mInputCtrl->addKeyBinding(control, static_cast<OIS::KeyCode>(defaultKeyBindings[i]), ICS::Control::INCREASE);
+                    mInputBinder->addKeyBinding(control, static_cast<SDL_Keycode>(defaultKeyBindings[i]), ICS::Control::INCREASE);
                 else if (defaultMouseButtonBindings.find(i) != defaultMouseButtonBindings.end())
-                    mInputCtrl->addMouseButtonBinding (control, defaultMouseButtonBindings[i], ICS::Control::INCREASE);
+                    mInputBinder->addMouseButtonBinding (control, defaultMouseButtonBindings[i], ICS::Control::INCREASE);
             }
         }
     }
@@ -855,15 +835,15 @@ namespace MWInput
 
     std::string InputManager::getActionBindingName (int action)
     {
-        if (mInputCtrl->getChannel (action)->getControlsCount () == 0)
+        if (mInputBinder->getChannel (action)->getControlsCount () == 0)
             return "#{sNone}";
 
-        ICS::Control* c = mInputCtrl->getChannel (action)->getAttachedControls ().front().control;
+        ICS::Control* c = mInputBinder->getChannel (action)->getAttachedControls ().front().control;
 
-        if (mInputCtrl->getKeyBinding (c, ICS::Control::INCREASE) != OIS::KC_UNASSIGNED)
-            return mInputCtrl->keyCodeToString (mInputCtrl->getKeyBinding (c, ICS::Control::INCREASE));
-        else if (mInputCtrl->getMouseButtonBinding (c, ICS::Control::INCREASE) != ICS_MAX_DEVICE_BUTTONS)
-            return "#{sMouse} " + boost::lexical_cast<std::string>(mInputCtrl->getMouseButtonBinding (c, ICS::Control::INCREASE));
+        if (mInputBinder->getKeyBinding (c, ICS::Control::INCREASE) != SDLK_UNKNOWN)
+            return mInputBinder->keyCodeToString (mInputBinder->getKeyBinding (c, ICS::Control::INCREASE));
+        else if (mInputBinder->getMouseButtonBinding (c, ICS::Control::INCREASE) != ICS_MAX_DEVICE_BUTTONS)
+            return "#{sMouse} " + boost::lexical_cast<std::string>(mInputBinder->getMouseButtonBinding (c, ICS::Control::INCREASE));
         else
             return "#{sNone}";
     }
@@ -906,9 +886,9 @@ namespace MWInput
 
     void InputManager::enableDetectingBindingMode (int action)
     {
-        ICS::Control* c = mInputCtrl->getChannel (action)->getAttachedControls ().front().control;
+        ICS::Control* c = mInputBinder->getChannel (action)->getAttachedControls ().front().control;
 
-        mInputCtrl->enableDetectingBindingState (c, ICS::Control::INCREASE);
+        mInputBinder->enableDetectingBindingState (c, ICS::Control::INCREASE);
     }
 
     void InputManager::mouseAxisBindingDetected(ICS::InputControlSystem* ICS, ICS::Control* control
@@ -919,11 +899,11 @@ namespace MWInput
     }
 
     void InputManager::keyBindingDetected(ICS::InputControlSystem* ICS, ICS::Control* control
-        , OIS::KeyCode key, ICS::Control::ControlChangingDirection direction)
+        , SDL_Keycode key, ICS::Control::ControlChangingDirection direction)
     {
-        //Disallow binding escape key, and unassigned keys
-        if(key==OIS::KC_ESCAPE || key==OIS::KC_UNASSIGNED)
-            return
+        //Disallow binding escape key
+        if(key==SDLK_ESCAPE)
+            return;
 
         clearAllBindings(control);
         ICS::DetectingBindingListener::keyBindingDetected (ICS, control, key, direction);
@@ -973,10 +953,10 @@ namespace MWInput
     void InputManager::clearAllBindings (ICS::Control* control)
     {
         // right now we don't really need multiple bindings for the same action, so remove all others first
-        if (mInputCtrl->getKeyBinding (control, ICS::Control::INCREASE) != OIS::KC_UNASSIGNED)
-            mInputCtrl->removeKeyBinding (mInputCtrl->getKeyBinding (control, ICS::Control::INCREASE));
-        if (mInputCtrl->getMouseButtonBinding (control, ICS::Control::INCREASE) != ICS_MAX_DEVICE_BUTTONS)
-            mInputCtrl->removeMouseButtonBinding (mInputCtrl->getMouseButtonBinding (control, ICS::Control::INCREASE));
+        if (mInputBinder->getKeyBinding (control, ICS::Control::INCREASE) != SDLK_UNKNOWN)
+            mInputBinder->removeKeyBinding (mInputBinder->getKeyBinding (control, ICS::Control::INCREASE));
+        if (mInputBinder->getMouseButtonBinding (control, ICS::Control::INCREASE) != ICS_MAX_DEVICE_BUTTONS)
+            mInputBinder->removeMouseButtonBinding (mInputBinder->getMouseButtonBinding (control, ICS::Control::INCREASE));
 
         /// \todo add joysticks here once they are added
     }
@@ -984,5 +964,17 @@ namespace MWInput
     void InputManager::resetToDefaultBindings()
     {
         loadKeyDefaults(true);
+    }
+
+    MyGUI::MouseButton InputManager::sdlButtonToMyGUI(Uint8 button)
+    {
+        //The right button is the second button, according to MyGUI
+        if(button == SDL_BUTTON_RIGHT)
+            button = SDL_BUTTON_MIDDLE;
+        else if(button == SDL_BUTTON_MIDDLE)
+            button = SDL_BUTTON_RIGHT;
+
+        //MyGUI's buttons are 0 indexed
+        return MyGUI::MouseButton::Enum(button - 1);
     }
 }
