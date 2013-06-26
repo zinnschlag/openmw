@@ -13,10 +13,18 @@ extern "C"
 
 // From libavcodec version 54.0.0 and onward the declaration of
 // AV_CH_LAYOUT_* is removed from libavcodec/avcodec.h and moved to
-// libavutil/channel_layout.h
+// libavutil/audioconvert.h
+//
+// In libavutil version 52.2.0 this file was renamed channel_layout.h
 #if AV_VERSION_INT(54, 0, 0) <= AV_VERSION_INT(LIBAVCODEC_VERSION_MAJOR, \
     LIBAVCODEC_VERSION_MINOR, LIBAVCODEC_VERSION_MICRO)
-    #include <libavutil/channel_layout.h>
+    #if AV_VERSION_INT(52, 2, 0) <= AV_VERSION_INT( \
+        LIBAVUTIL_VERSION_MAJOR, LIBAVUTIL_VERSION_MINOR, \
+        LIBAVUTIL_VERSION_MICRO)
+        #include <libavutil/channel_layout.h>
+    #else
+        #include <libavutil/audioconvert.h>
+    #endif
 #endif
 }
 
