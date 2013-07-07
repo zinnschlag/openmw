@@ -14,47 +14,51 @@ namespace CSVWorld
     /// \brief Integer value that represents an enum and is interacted with via a combobox
     class EnumDelegate : public CommandDelegate
     {
-            std::vector<std::pair<int, QString> > mValues;
+    protected:
 
-        private:
+        std::vector<std::pair<int, QString> > mValues;
 
-            virtual void setModelDataImp (QWidget *editor, QAbstractItemModel *model,
-                const QModelIndex& index) const;
+    private:
 
-            virtual void addCommands (QAbstractItemModel *model,
-                const QModelIndex& index, int type) const;
+        virtual void setModelDataImp (QWidget *editor, QAbstractItemModel *model,
+            const QModelIndex& index) const;
 
-        public:
+        virtual void addCommands (QAbstractItemModel *model,
+            const QModelIndex& index, int type) const;
 
-            EnumDelegate (const std::vector<std::pair<int, QString> >& values,
-                QUndoStack& undoStack, QObject *parent);
+    public:
 
-            virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem& option,
-                const QModelIndex& index) const;
+        EnumDelegate (const std::vector<std::pair<int, QString> >& values,
+            QUndoStack& undoStack, QObject *parent);
 
-            virtual void setEditorData (QWidget *editor, const QModelIndex& index) const;
+        virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem& option,
+            const QModelIndex& index) const;
 
-            virtual void paint (QPainter *painter, const QStyleOptionViewItem& option,
-                const QModelIndex& index) const;
+        virtual void setEditorData (QWidget *editor, const QModelIndex& index) const;
 
+        virtual void paint (QPainter *painter, const QStyleOptionViewItem& option,
+            const QModelIndex& index) const;
     };
 
     class EnumDelegateFactory : public CommandDelegateFactory
     {
-            std::vector<std::pair<int, QString> > mValues;
 
-        public:
+    protected:
 
-            EnumDelegateFactory();
+        std::vector<std::pair<int, QString> > mValues;
 
-            EnumDelegateFactory (const char **names, bool allowNone = false);
-            ///< \param names Array of char pointer with a 0-pointer as end mark
-            /// \param allowNone Use value of -1 for "none selected" (empty string)
+    public:
 
-            virtual CommandDelegate *makeDelegate (QUndoStack& undoStack, QObject *parent) const;
-            ///< The ownership of the returned CommandDelegate is transferred to the caller.
+        EnumDelegateFactory();
 
-            void add (int value, const QString& name);
+        EnumDelegateFactory (const char **names, bool allowNone = false);
+        ///< \param names Array of char pointer with a 0-pointer as end mark
+        /// \param allowNone Use value of -1 for "none selected" (empty string)
+
+        virtual CommandDelegate *makeDelegate (QUndoStack& undoStack, QObject *parent) const;
+        ///< The ownership of the returned CommandDelegate is transferred to the caller.
+
+        void add (int value, const QString& name);
     };
 
 

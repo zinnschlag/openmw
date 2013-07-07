@@ -9,7 +9,7 @@
 #include "../../model/settings/usersettings.hpp"
 #include "../../model/settings/support.hpp"
 
-#include "editorpage.hpp"
+#include "datadisplayformatpage.hpp"
 
 class QHBoxLayout;
 class AbstractWidget;

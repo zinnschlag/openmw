@@ -1,16 +1,16 @@
-#include "editorpage.hpp"
+#include "datadisplayformatpage.hpp"
 #include "groupblock.hpp"
 #include "../../model/settings/usersettings.hpp"
 
-CSVSettings::EditorPage::EditorPage(QWidget* parent) :
+CSVSettings::DataDisplayFormatPage::DataDisplayFormatPage(QWidget* parent) :
     AbstractPage("Display Format", parent)
 {
     setupUi();
 }
 
-CSVSettings::GroupBlockDef *CSVSettings::EditorPage::setupRecordStatusDisplay()
+CSVSettings::GroupBlockDef *CSVSettings::DataDisplayFormatPage::setupDataDisplay( const QString &title)
 {
-    GroupBlockDef *statusBlock = new GroupBlockDef(QString("Record Status Display"));
+    GroupBlockDef *statusBlock = new GroupBlockDef(QString(title));
 
     SettingsItemDef *statusItem = new SettingsItemDef (statusBlock->title, "Icon and Text");
     *(statusItem->valueList) << QString("Icon and Text") << QString("Icon Only") << QString("Text Only");
@@ -25,10 +25,12 @@ CSVSettings::GroupBlockDef *CSVSettings::EditorPage::setupRecordStatusDisplay()
     return statusBlock;
 }
 
-void CSVSettings::EditorPage::setupUi()
+
+void CSVSettings::DataDisplayFormatPage::setupUi()
 {
 
-    mAbstractBlocks << buildBlock<GroupBlock>(setupRecordStatusDisplay());
+    mAbstractBlocks << buildBlock<GroupBlock> (setupDataDisplay ("Record Status Display"));
+    mAbstractBlocks << buildBlock<GroupBlock> (setupDataDisplay ("Referenceable ID Type Display"));
 
      foreach (AbstractBlock *block, mAbstractBlocks)
      {
@@ -43,7 +45,7 @@ void CSVSettings::EditorPage::setupUi()
 
 }
 
-void CSVSettings::EditorPage::initializeWidgets (const CSMSettings::SettingMap &settings)
+void CSVSettings::DataDisplayFormatPage::initializeWidgets (const CSMSettings::SettingMap &settings)
 {
     //iterate each item in each blocks in this section
     //validate the corresponding setting against the defined valuelist if any.

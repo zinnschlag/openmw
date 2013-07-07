@@ -6,12 +6,12 @@
 
 namespace CSVSettings
 {
-    class EditorPage : public AbstractPage
+    class DataDisplayFormatPage : public AbstractPage
     {
         Q_OBJECT
 
     public:
-        explicit EditorPage(QWidget *parent = 0);
+        explicit DataDisplayFormatPage(QWidget *parent = 0);
 
         void initializeWidgets (const CSMSettings::SettingMap &settings);
         void setupUi();
@@ -19,7 +19,7 @@ namespace CSVSettings
     private:
 
         /// User preference view of the record status delegate's icon / text setting
-        GroupBlockDef *setupRecordStatusDisplay();
+        GroupBlockDef *setupDataDisplay(const QString &);
 
     signals:
 
