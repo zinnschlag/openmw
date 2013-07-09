@@ -395,6 +395,7 @@ void CSVDoc::View::updateEditorSetting (const QString &settingName, const QStrin
     {
         foreach (QObject *view, mSubViewWindow.children())
         {
+            // not all mSubviewWindow children are CSVDoc::Subview objects
             CSVDoc::SubView *subview = dynamic_cast<CSVDoc::SubView *>(view);
 
             if (subview)
