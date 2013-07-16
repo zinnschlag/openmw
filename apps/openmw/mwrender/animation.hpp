@@ -66,6 +66,7 @@ protected:
         NifOgre::TextKeyMap::const_iterator mNextKey;
 
         float mTime;
+        float mSpeedMult;
 
         bool mPlaying;
         size_t mLoopCount;
@@ -74,7 +75,7 @@ protected:
         int mGroups;
         bool mAutoDisable;
 
-        AnimState() : mTime(0.0f), mPlaying(false), mLoopCount(0),
+        AnimState() : mTime(0.0f), mSpeedMult(1.0f), mPlaying(false), mLoopCount(0),
                       mPriority(0), mGroups(0), mAutoDisable(true)
         { }
     };
@@ -99,9 +100,6 @@ protected:
     Ogre::SharedPtr<AnimationValue> mAnimationValuePtr[sNumGroups];
 
     ObjectAttachMap mAttachedObjects;
-
-    float mAnimVelocity;
-    float mAnimSpeedMult;
 
     /* Sets the appropriate animations on the bone groups based on priority.
      */
@@ -173,8 +171,6 @@ public:
     // should be on the scale of 0 to 1.
     void setAccumulation(const Ogre::Vector3 &accum);
 
-    void setSpeed(float speed);
-
     /** Plays an animation.
      * \param groupname Name of the animation group to play.
      * \param priority Priority of the animation. The animation will play on
@@ -183,6 +179,7 @@ public:
      * \param groups Bone groups to play the animation on.
      * \param autodisable Automatically disable the animation when it stops
      *                    playing.
+     * \param speedmult Speed multiplier for the animation.
      * \param start Key marker from which to start.
      * \param stop Key marker to stop at.
      * \param startpoint How far in between the two markers to start. 0 starts
@@ -192,7 +189,7 @@ public:
      *              otherwise it will use "start" and "stop".
      */
     void play(const std::string &groupname, int priority, int groups, bool autodisable,
-              const std::string &start, const std::string &stop,
+              float speedmult, const std::string &start, const std::string &stop,
               float startpoint, size_t loops);
 
     /** Returns true if the named animation group is playing. */
@@ -201,16 +198,20 @@ public:
     /** Gets info about the given animation group.
      * \param groupname Animation group to check.
      * \param complete Stores completion amount (0 = at start key, 0.5 = half way between start and stop keys), etc.
+     * \param speedmult Stores the animation speed multiplier
      * \param start Stores the start key
      * \param stop Stores the stop key
      * \return True if the animation is active, false otherwise.
      */
-    bool getInfo(const std::string &groupname, float *complete=NULL, std::string *start=NULL, std::string *stop=NULL) const;
+    bool getInfo(const std::string &groupname, float *complete=NULL, float *speedmult=NULL, std::string *start=NULL, std::string *stop=NULL) const;
 
     /** Disables the specified animation group;
      * \param groupname Animation group to disable.
      */
     void disable(const std::string &groupname);
+
+    /** Retrieves the velocity (in units per second) that the animation will move. */
+    float getVelocity(const std::string &groupname) const;
 
     virtual Ogre::Vector3 runAnimation(float duration);
 
