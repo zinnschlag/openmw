@@ -44,27 +44,15 @@ struct StateInfo {
     const char groupname[32];
 };
 
-static const StateInfo sStateList[] = {
-    { CharState_Idle, "idle" },
-    { CharState_Idle2, "idle2" },
-    { CharState_Idle3, "idle3" },
-    { CharState_Idle4, "idle4" },
-    { CharState_Idle5, "idle5" },
-    { CharState_Idle6, "idle6" },
-    { CharState_Idle7, "idle7" },
-    { CharState_Idle8, "idle8" },
-    { CharState_Idle9, "idle9" },
-    { CharState_IdleSwim, "idleswim" },
-    { CharState_IdleSneak, "idlesneak" },
-
+static const StateInfo sDeathList[] = {
     { CharState_Death1, "death1" },
     { CharState_Death2, "death2" },
     { CharState_Death3, "death3" },
     { CharState_Death4, "death4" },
     { CharState_Death5, "death5" },
+    { CharState_SwimDeath, "swimdeath" },
 };
-static const StateInfo *sStateListEnd = &sStateList[sizeof(sStateList)/sizeof(sStateList[0])];
-
+static const StateInfo *sDeathListEnd = &sDeathList[sizeof(sDeathList)/sizeof(sDeathList[0])];
 
 static const StateInfo sMovementList[] = {
     { CharState_WalkForward, "walkforward" },
@@ -152,7 +140,7 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
             idle = "idleswim";
         else if(mIdleState == CharState_IdleSneak && mAnimation->hasAnimation("idlesneak"))
             idle = "idlesneak";
-        else
+        else if(mIdleState != CharState_None)
         {
             idle = "idle";
             if(weap != sWeaponTypeListEnd)
@@ -165,8 +153,9 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
 
         mAnimation->disable(mCurrentIdle);
         mCurrentIdle = idle;
-        mAnimation->play(mCurrentIdle, Priority_Default, MWRender::Animation::Group_All, false,
-                         1.0f, "start", "stop", 0.0f, ~0ul);
+        if(!mCurrentIdle.empty())
+            mAnimation->play(mCurrentIdle, Priority_Default, MWRender::Animation::Group_All, false,
+                             1.0f, "start", "stop", 0.0f, ~0ul);
     }
 
     if(force || movement != mMovementState)
@@ -191,13 +180,13 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
 
             if(!mAnimation->hasAnimation(movement))
             {
-                std::string::size_type sneakpos = movement.find("sneak");
-                if(sneakpos == std::string::npos)
+                std::string::size_type swimpos = movement.find("swim");
+                if(swimpos == std::string::npos)
                     movement.clear();
                 else
                 {
                     movegroup = MWRender::Animation::Group_LowerBody;
-                    movement.erase(sneakpos, 5);
+                    movement.erase(swimpos, 4);
                     if(!mAnimation->hasAnimation(movement))
                         movement.clear();
                 }
@@ -229,7 +218,7 @@ void CharacterController::getWeaponGroup(WeaponType weaptype, std::string &group
 CharacterController::CharacterController(const MWWorld::Ptr &ptr, MWRender::Animation *anim)
     : mPtr(ptr)
     , mAnimation(anim)
-    , mIdleState(CharState_Idle)
+    , mIdleState(CharState_None)
     , mMovementState(CharState_None)
     , mMovementSpeed(0.0f)
     , mDeathState(CharState_None)
@@ -248,7 +237,9 @@ CharacterController::CharacterController(const MWWorld::Ptr &ptr, MWRender::Anim
          * handle knockout and death which moves the character down. */
         mAnimation->setAccumulation(Ogre::Vector3(1.0f, 1.0f, 0.0f));
 
-        if(MWWorld::Class::get(mPtr).getCreatureStats(mPtr).isDead())
+        if(!MWWorld::Class::get(mPtr).getCreatureStats(mPtr).isDead())
+            mIdleState = CharState_Idle;
+        else
         {
             /* FIXME: Get the actual death state used. */
             mDeathState = CharState_Death1;
@@ -258,13 +249,15 @@ CharacterController::CharacterController(const MWWorld::Ptr &ptr, MWRender::Anim
     {
         /* Don't accumulate with non-actors. */
         mAnimation->setAccumulation(Ogre::Vector3(0.0f));
+
+        mIdleState = CharState_Idle;
     }
 
     refreshCurrentAnims(mIdleState, mMovementState, true);
     if(mDeathState != CharState_None)
     {
-        const StateInfo *state = std::find_if(sStateList, sStateListEnd, FindCharState(mDeathState));
-        if(state == sStateListEnd)
+        const StateInfo *state = std::find_if(sDeathList, sDeathListEnd, FindCharState(mDeathState));
+        if(state == sDeathListEnd)
             throw std::runtime_error("Failed to find character state "+Ogre::StringConverter::toString(mDeathState));
 
         mCurrentDeath = state->groupname;
@@ -627,8 +620,8 @@ void CharacterController::forceStateUpdate()
     refreshCurrentAnims(mIdleState, mMovementState, true);
     if(mDeathState != CharState_None)
     {
-        const StateInfo *state = std::find_if(sStateList, sStateListEnd, FindCharState(mDeathState));
-        if(state == sStateListEnd)
+        const StateInfo *state = std::find_if(sDeathList, sDeathListEnd, FindCharState(mDeathState));
+        if(state == sDeathListEnd)
             throw std::runtime_error("Failed to find character state "+Ogre::StringConverter::toString(mDeathState));
 
         mCurrentDeath = state->groupname;
@@ -645,15 +638,30 @@ void CharacterController::kill()
 
     if(mPtr.getTypeName() == typeid(ESM::NPC).name())
     {
-        static const CharacterState deathstates[] = {
+        const StateInfo *state = NULL;
+        if(MWBase::Environment::get().getWorld()->isSwimming(mPtr))
+        {
+            mDeathState = CharState_SwimDeath;
+            state = std::find_if(sDeathList, sDeathListEnd, FindCharState(mDeathState));
+            if(state == sDeathListEnd)
+                throw std::runtime_error("Failed to find character state "+Ogre::StringConverter::toString(mDeathState));
+        }
+
+        static const CharacterState deathstates[5] = {
             CharState_Death1, CharState_Death2, CharState_Death3, CharState_Death4, CharState_Death5
         };
+        std::vector<CharacterState> states(&deathstates[0], &deathstates[5]);
 
-        mDeathState = deathstates[(int)(rand()/((double)RAND_MAX+1.0)*5.0)];
-        const StateInfo *state = std::find_if(sStateList, sStateListEnd, FindCharState(mDeathState));
-        if(state == sStateListEnd)
-            throw std::runtime_error("Failed to find character state "+Ogre::StringConverter::toString(mDeathState));
+        while(states.size() > 1 && (!state || !mAnimation->hasAnimation(state->groupname)))
+        {
+            int pos = (int)(rand()/((double)RAND_MAX+1.0)*states.size());
+            mDeathState = states[pos];
+            states.erase(states.begin()+pos);
 
+            state = std::find_if(sDeathList, sDeathListEnd, FindCharState(mDeathState));
+            if(state == sDeathListEnd)
+                throw std::runtime_error("Failed to find character state "+Ogre::StringConverter::toString(mDeathState));
+        }
         mCurrentDeath = state->groupname;
     }
     else
@@ -683,6 +691,5 @@ void CharacterController::resurrect()
     mCurrentDeath.empty();
     mDeathState = CharState_None;
 }
-
 
 }
