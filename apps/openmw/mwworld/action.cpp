@@ -11,7 +11,7 @@ const MWWorld::Ptr& MWWorld::Action::getTarget() const
     return mTarget;
 }
 
-MWWorld::Action::Action (bool keepSound, const Ptr& target) : mKeepSound (keepSound), mTarget (target)
+MWWorld::Action::Action (bool keepSound, const Ptr& target) : mKeepSound (keepSound), mTarget (target), mSoundOffset(0)
 {}
 
 MWWorld::Action::~Action() {}
@@ -23,15 +23,15 @@ void MWWorld::Action::execute (const Ptr& actor)
         if (mKeepSound && actor.getRefData().getHandle()=="player")
         {
             // sound moves with player when teleporting
-            MWBase::Environment::get().getSoundManager()->playSound(mSoundId, 1.0, 1.0,
+            MWBase::Environment::get().getSoundManager()->playSound(mSoundId, 1.0, 1.0, mSoundOffset,
                 MWBase::SoundManager::Play_NoTrack);
         }
         else
         {
             bool local = mTarget.isEmpty() || !mTarget.isInCell(); // no usable target
-        
+
             MWBase::Environment::get().getSoundManager()->playSound3D (local ? actor : mTarget,
-                mSoundId, 1.0, 1.0,
+                mSoundId, 1.0, 1.0, mSoundOffset,
                 mKeepSound ? MWBase::SoundManager::Play_NoTrack : MWBase::SoundManager::Play_Normal);
         }
     }
@@ -42,4 +42,9 @@ void MWWorld::Action::execute (const Ptr& actor)
 void MWWorld::Action::setSound (const std::string& id)
 {
     mSoundId = id;
+}
+
+void MWWorld::Action::setSoundOffset(float offset)
+{
+    mSoundOffset=offset;
 }

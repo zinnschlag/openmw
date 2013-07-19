@@ -105,9 +105,19 @@ namespace MWBase
                                        PlayMode mode=Play_Normal) = 0;
             ///< Play a sound, independently of 3D-position
 
+            virtual SoundPtr playSound(const std::string& soundId, float volume, float pitch,
+                                        float offset, PlayMode mode=Play_Normal) = 0;
+            ///< Play a sound, independently of 3D-position
+            ///< @param offset value from [0,1], when to start playback. 0 is beginning, 1 is end.
+
             virtual SoundPtr playSound3D(const MWWorld::Ptr &reference, const std::string& soundId,
                                          float volume, float pitch, PlayMode mode=Play_Normal) = 0;
             ///< Play a sound from an object
+
+            virtual SoundPtr playSound3D(const MWWorld::Ptr &reference, const std::string& soundId,
+                                          float volume, float pitch, float offset, PlayMode mode=Play_Normal) = 0;
+            ///< Play a sound from an object
+            ///< @param offset value from [0,1], when to start playback. 0 is beginning, 1 is end.
 
             virtual void stopSound3D(const MWWorld::Ptr &reference, const std::string& soundId) = 0;
             ///< Stop the given object from playing the given sound,

@@ -11,6 +11,7 @@ namespace MWWorld
     class Action
     {
             std::string mSoundId;
+            float mSoundOffset;
             bool mKeepSound;
             Ptr mTarget;
 
@@ -34,6 +35,7 @@ namespace MWWorld
             void execute (const Ptr& actor);
 
             void setSound (const std::string& id);
+            void setSoundOffset(float offset);
     };
 }
 
