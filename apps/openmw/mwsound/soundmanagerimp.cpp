@@ -313,12 +313,6 @@ namespace MWSound
         return track;
     }
 
-
-    MWBase::SoundPtr SoundManager::playSound(const std::string& soundId, float volume, float pitch, PlayMode mode)
-    {
-        return playSound(soundId, volume, pitch, 0, mode);
-    }
-
     MWBase::SoundPtr SoundManager::playSound(const std::string& soundId,
             float volume, float pitch, float offset, PlayMode mode)
     {
@@ -340,12 +334,6 @@ namespace MWSound
             //std::cout <<"Sound Error: "<<e.what()<< std::endl;
         }
         return sound;
-    }
-
-    MWBase::SoundPtr SoundManager::playSound3D(const MWWorld::Ptr &ptr, const std::string& soundId,
-                                               float volume, float pitch, PlayMode mode)
-    {
-        return playSound3D(ptr, soundId, volume, pitch, 0, mode);
     }
 
     MWBase::SoundPtr SoundManager::playSound3D(const MWWorld::Ptr &ptr, const std::string& soundId,
