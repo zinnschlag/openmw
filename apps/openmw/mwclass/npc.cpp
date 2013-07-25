@@ -13,6 +13,7 @@
 #include "../mwbase/world.hpp"
 #include "../mwbase/mechanicsmanager.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/dialoguemanager.hpp"
 
 #include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/npcstats.hpp"
@@ -299,6 +300,82 @@ namespace MWClass
 
         return dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData()).mNpcStats;
     }
+
+
+    void Npc::hit(const MWWorld::Ptr& ptr, int type) const
+    {
+        // FIXME: Detect what was hit
+        MWWorld::Ptr victim;
+        if(victim.isEmpty()) // Didn't hit anything
+            return;
+
+        const MWWorld::Class &othercls = MWWorld::Class::get(victim);
+        if(!othercls.isActor() || othercls.getCreatureStats(victim).isDead())
+        {
+            // Can't hit non-actors, or dead actors
+            return;
+        }
+
+        // Get the weapon used
+        MWWorld::LiveCellRef<ESM::Weapon> *weapon = NULL;
+        MWWorld::InventoryStore &inv = Npc::getInventoryStore(ptr);
+        MWWorld::ContainerStoreIterator iter = inv.getSlot(MWWorld::InventoryStore::Slot_CarriedRight);
+        if(iter != inv.end() && iter->getTypeName() == typeid(ESM::Weapon).name())
+            weapon = iter->get<ESM::Weapon>();
+
+        // TODO: Check weapon skill against victim's armor skill (if !weapon, attacker is using
+        // hand-to-hand, which damages fatique unless in werewolf form).
+        if(weapon)
+        {
+            const unsigned char *att = NULL;
+            if(type == MWMechanics::CreatureStats::AT_Chop)
+                att = weapon->mBase->mData.mChop;
+            else if(type == MWMechanics::CreatureStats::AT_Slash)
+                att = weapon->mBase->mData.mSlash;
+            else if(type == MWMechanics::CreatureStats::AT_Thrust)
+                att = weapon->mBase->mData.mThrust;
+
+            if(att)
+            {
+                float health = othercls.getCreatureStats(victim).getHealth().getCurrent();
+                // FIXME: Modify damage based on strength attribute?
+                health -= att[0] + ((att[1]-att[0])*Npc::getNpcStats(ptr).getAttackStrength());
+
+                othercls.setActorHealth(victim, std::max(health, 0.0f), ptr);
+            }
+        }
+    }
+
+    void Npc::setActorHealth(const MWWorld::Ptr& ptr, float health, const MWWorld::Ptr& attacker) const
+    {
+        MWMechanics::CreatureStats &crstats = getCreatureStats(ptr);
+        float diff = health - crstats.getHealth().getCurrent();
+
+        if(diff < 0.0f)
+        {
+            // 'ptr' is losing health. Play a 'hit' voiced dialog entry if not already saying
+            // something, alert the character controller, scripts, etc.
+            // NOTE: 'attacker' may be empty.
+
+            MWBase::Environment::get().getDialogueManager()->say(ptr, "hit");
+        }
+
+        bool wasDead = crstats.isDead();
+
+        MWMechanics::DynamicStat<float> stat(crstats.getHealth());
+        stat.setCurrent(health);
+        crstats.setHealth(stat);
+
+        if(!wasDead && crstats.isDead())
+        {
+            // actor was just killed
+        }
+        else if(wasDead && !crstats.isDead())
+        {
+            // actor was just resurrected
+        }
+    }
+
 
     boost::shared_ptr<MWWorld::Action> Npc::activate (const MWWorld::Ptr& ptr,
         const MWWorld::Ptr& actor) const
@@ -741,6 +818,8 @@ namespace MWClass
         if(name == "roar")
             return "";
         if(name == "scream")
+            return "";
+        if(name == "land")
             return "";
 
         throw std::runtime_error(std::string("Unexpected soundgen type: ")+name);
