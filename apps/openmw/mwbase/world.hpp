@@ -201,6 +201,8 @@ namespace MWBase
 
             virtual void setMoonColour (bool red) = 0;
 
+            virtual void modRegion(const std::string &regionid, const std::vector<char> &chances) = 0;
+
             virtual float getTimeScaleFactor() const = 0;
 
             virtual void changeToInteriorCell (const std::string& cellName,
@@ -376,6 +378,12 @@ namespace MWBase
             /// Find default position inside interior cell specified by name
             /// \return false if interior with given name not exists, true otherwise
             virtual bool findInteriorPosition(const std::string &name, ESM::Position &pos) = 0;
+
+            /// Enables or disables use of teleport spell effects (recall, intervention, etc).
+            virtual void enableTeleporting(bool enable) = 0;
+
+            /// Returns true if teleport spell effects are allowed.
+            virtual bool isTeleportingEnabled() const = 0;
     };
 }
 

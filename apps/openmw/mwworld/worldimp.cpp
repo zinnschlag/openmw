@@ -166,7 +166,7 @@ namespace MWWorld
     : mPlayer (0), mLocalScripts (mStore), mGlobalVariables (0),
       mSky (true), mCells (mStore, mEsm),
       mNumFacing(0), mActivationDistanceOverride (mActivationDistanceOverride),
-      mFallback(fallbackMap), mPlayIntro(0)
+      mFallback(fallbackMap), mPlayIntro(0), mTeleportEnabled(true)
     {
         mPhysics = new PhysicsSystem(renderer);
         mPhysEngine = mPhysics->getEngine();
@@ -1374,6 +1374,11 @@ namespace MWWorld
         mWeatherManager->changeWeather(region, id);
     }
 
+    void World::modRegion(const std::string &regionid, const std::vector<char> &chances)
+    {
+        mWeatherManager->modRegion(regionid, chances);
+    }
+
     OEngine::Render::Fader* World::getFader()
     {
         return mRendering->getFader();
@@ -1844,4 +1849,15 @@ namespace MWWorld
         }
         return false;
     }
+
+    void World::enableTeleporting(bool enable)
+    {
+        mTeleportEnabled = enable;
+    }
+
+    bool World::isTeleportingEnabled() const
+    {
+        return mTeleportEnabled;
+    }
+
 }
