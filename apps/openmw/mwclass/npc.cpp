@@ -346,13 +346,15 @@ namespace MWClass
 
         if((::rand()/(RAND_MAX+1.0)) > hitchance/100.0f)
         {
-            othercls.onHit(victim, 0.0f, weapon, ptr, false);
+            othercls.onHit(victim, 0.0f, false, weapon, ptr, false);
             return;
         }
 
+        bool healthdmg;
         float damage = 0.0f;
         if(!weapon.isEmpty())
         {
+            const bool weaphashealth = get(weapon).hasItemHealth(weapon);
             const unsigned char *attack = NULL;
             if(type == MWMechanics::CreatureStats::AT_Chop)
                 attack = weapon.get<ESM::Weapon>()->mBase->mData.mChop;
@@ -364,23 +366,56 @@ namespace MWClass
             {
                 damage  = attack[0] + ((attack[1]-attack[0])*npcstats.getAttackStrength());
                 damage *= 0.5f + (crstats.getAttribute(ESM::Attribute::Luck).getModified() / 100.0f);
-                //damage *= weapon_current_health / weapon_max_health;
+                if(weaphashealth)
+                {
+                    int weapmaxhealth = weapon.get<ESM::Weapon>()->mBase->mData.mHealth;
+                    if(weapon.getCellRef().mCharge == -1)
+                        weapon.getCellRef().mCharge = weapmaxhealth;
+                    damage *= float(weapon.getCellRef().mCharge) / weapmaxhealth;
+                }
                 if(!othercls.hasDetected(victim, ptr))
                 {
                     damage *= gmst.find("fCombatCriticalStrikeMult")->getFloat();
                     MWBase::Environment::get().getWindowManager()->messageBox("#{sTargetCriticalStrike}");
+                    MWBase::Environment::get().getSoundManager()->playSound3D(victim, "critical damage", 1.0f, 1.0f);
                 }
-                damage /= std::min(1.0f + othercls.getArmorRating(victim)/std::max(1.0f, damage), 4.0f);
+                weapon.getCellRef().mCharge -= std::min(std::max(1,
+                                                                 (int)(damage * gmst.find("fWeaponDamageMult")->getFloat())),
+                                                        weapon.getCellRef().mCharge);
             }
+            healthdmg = true;
+        }
+        else
+        {
+            // Note: MCP contains an option to include Strength in hand-to-hand damage
+            // calculations. Some mods recommend using it, so we may want to include am
+            // option for it.
+            float minstrike = gmst.find("fMinHandToHandMult")->getFloat();
+            float maxstrike = gmst.find("fMaxHandToHandMult")->getFloat();
+            damage  = npcstats.getSkill(weapskill).getModified();
+            damage *= minstrike + ((maxstrike-minstrike)*npcstats.getAttackStrength());
+            if(!othercls.hasDetected(victim, ptr))
+            {
+                damage *= gmst.find("fCombatCriticalStrikeMult")->getFloat();
+                MWBase::Environment::get().getWindowManager()->messageBox("#{sTargetCriticalStrike}");
+                MWBase::Environment::get().getSoundManager()->playSound3D(victim, "critical damage", 1.0f, 1.0f);
+            }
+
+            healthdmg = (othercls.getCreatureStats(victim).getFatigue().getCurrent() < 1.0f ||
+                         npcstats.isWerewolf());
+            if(healthdmg)
+                damage *= gmst.find("fHandtoHandHealthPer")->getFloat();
         }
         if(ptr.getRefData().getHandle() == "player")
             skillUsageSucceeded(ptr, weapskill, 0);
 
-        othercls.onHit(victim, damage, weapon, ptr, true);
+        othercls.onHit(victim, damage, healthdmg, weapon, ptr, true);
     }
 
-    void Npc::onHit(const MWWorld::Ptr &ptr, float damage, const MWWorld::Ptr &object, const MWWorld::Ptr &attacker, bool successful) const
+    void Npc::onHit(const MWWorld::Ptr &ptr, float damage, bool ishealth, const MWWorld::Ptr &object, const MWWorld::Ptr &attacker, bool successful) const
     {
+        MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
+
         // NOTE: 'object' and/or 'attacker' may be empty.
 
         if(!successful)
@@ -388,12 +423,12 @@ namespace MWClass
             // TODO: Handle HitAttemptOnMe script function
 
             // Missed
-            MWBase::Environment::get().getSoundManager()->playSound3D(ptr, "miss", 1.0f, 1.0f);
+            sndMgr->playSound3D(ptr, "miss", 1.0f, 1.0f);
             return;
         }
 
         if(!object.isEmpty())
-            getCreatureStats(ptr).setLastHitObject(MWWorld::Class::get(object).getId(object));
+            getCreatureStats(ptr).setLastHitObject(get(object).getId(object));
 
         if(!attacker.isEmpty() && attacker.getRefData().getHandle() == "player")
         {
@@ -409,10 +444,76 @@ namespace MWClass
             // something, alert the character controller, scripts, etc.
 
             MWBase::Environment::get().getDialogueManager()->say(ptr, "hit");
+
+            if(object.isEmpty())
+            {
+                if(ishealth)
+                    damage /= std::min(1.0f + getArmorRating(ptr)/std::max(1.0f, damage), 4.0f);
+                sndMgr->playSound3D(ptr, "Hand To Hand Hit", 1.0f, 1.0f);
+            }
+            else if(ishealth)
+            {
+                // Hit percentages:
+                // cuirass = 30%
+                // shield, helmet, greaves, boots, pauldrons = 10% each
+                // guantlets = 5% each
+                static const int hitslots[20] = {
+                    MWWorld::InventoryStore::Slot_Cuirass, MWWorld::InventoryStore::Slot_Cuirass,
+                    MWWorld::InventoryStore::Slot_Cuirass, MWWorld::InventoryStore::Slot_Cuirass,
+                    MWWorld::InventoryStore::Slot_Cuirass, MWWorld::InventoryStore::Slot_Cuirass,
+                    MWWorld::InventoryStore::Slot_CarriedLeft, MWWorld::InventoryStore::Slot_CarriedLeft,
+                    MWWorld::InventoryStore::Slot_Helmet, MWWorld::InventoryStore::Slot_Helmet,
+                    MWWorld::InventoryStore::Slot_Greaves, MWWorld::InventoryStore::Slot_Greaves,
+                    MWWorld::InventoryStore::Slot_Boots, MWWorld::InventoryStore::Slot_Boots,
+                    MWWorld::InventoryStore::Slot_LeftPauldron, MWWorld::InventoryStore::Slot_LeftPauldron,
+                    MWWorld::InventoryStore::Slot_RightPauldron, MWWorld::InventoryStore::Slot_RightPauldron,
+                    MWWorld::InventoryStore::Slot_LeftGauntlet, MWWorld::InventoryStore::Slot_RightGauntlet
+                };
+                int hitslot = hitslots[(int)(::rand()/(RAND_MAX+1.0)*20.0)];
+
+                float damagediff = damage;
+                damage /= std::min(1.0f + getArmorRating(ptr)/std::max(1.0f, damage), 4.0f);
+                damagediff -= damage;
+
+                MWWorld::InventoryStore &inv = getInventoryStore(ptr);
+                MWWorld::ContainerStoreIterator armorslot = inv.getSlot(hitslot);
+                MWWorld::Ptr armor = ((armorslot != inv.end()) ? *armorslot : MWWorld::Ptr());
+                if(!armor.isEmpty() && armor.getTypeName() == typeid(ESM::Armor).name())
+                {
+                    ESM::CellRef &armorref = armor.getCellRef();
+                    if(armorref.mCharge == -1)
+                        armorref.mCharge = armor.get<ESM::Armor>()->mBase->mData.mHealth;
+                    armorref.mCharge -= std::min(std::max(1, (int)damagediff),
+                                                 armorref.mCharge);
+                    switch(get(armor).getEquipmentSkill(armor))
+                    {
+                        case ESM::Skill::LightArmor:
+                            sndMgr->playSound3D(ptr, "Light Armor Hit", 1.0f, 1.0f);
+                            break;
+                        case ESM::Skill::MediumArmor:
+                            sndMgr->playSound3D(ptr, "Medium Armor Hit", 1.0f, 1.0f);
+                            break;
+                        case ESM::Skill::HeavyArmor:
+                            sndMgr->playSound3D(ptr, "Heavy Armor Hit", 1.0f, 1.0f);
+                            break;
+                    }
+                }
+            }
         }
 
-        float health = getCreatureStats(ptr).getHealth().getCurrent() - damage;
-        setActorHealth(ptr, health, attacker);
+        if(ishealth)
+        {
+            if(damage > 0.0f)
+                sndMgr->playSound3D(ptr, "Health Damage", 1.0f, 1.0f);
+            float health = getCreatureStats(ptr).getHealth().getCurrent() - damage;
+            setActorHealth(ptr, health, attacker);
+        }
+        else
+        {
+            MWMechanics::DynamicStat<float> fatigue(getCreatureStats(ptr).getFatigue());
+            fatigue.setCurrent(fatigue.getCurrent() - damage);
+            getCreatureStats(ptr).setFatigue(fatigue);
+        }
     }
 
     void Npc::setActorHealth(const MWWorld::Ptr& ptr, float health, const MWWorld::Ptr& attacker) const
@@ -739,18 +840,19 @@ namespace MWClass
 
     float Npc::getArmorRating (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::InventoryStore& invStore = MWWorld::Class::get(ptr).getInventoryStore(ptr);
-        const MWWorld::Store<ESM::GameSetting> &gmst =
-            MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+        const MWBase::World *world = MWBase::Environment::get().getWorld();
+        const MWWorld::Store<ESM::GameSetting> &gmst = world->getStore().get<ESM::GameSetting>();
 
-        int ratings[MWWorld::InventoryStore::Slots];
+        MWMechanics::NpcStats &stats = getNpcStats(ptr);
+        MWWorld::InventoryStore &invStore = getInventoryStore(ptr);
 
         int iBaseArmorSkill = gmst.find("iBaseArmorSkill")->getInt();
         float fUnarmoredBase1 = gmst.find("fUnarmoredBase1")->getFloat();
         float fUnarmoredBase2 = gmst.find("fUnarmoredBase2")->getFloat();
-        int unarmoredSkill = MWWorld::Class::get(ptr).getNpcStats(ptr).getSkill(ESM::Skill::Unarmored).getModified();
+        int unarmoredSkill = stats.getSkill(ESM::Skill::Unarmored).getModified();
 
-        for (int i = 0; i < MWWorld::InventoryStore::Slots; ++i)
+        int ratings[MWWorld::InventoryStore::Slots];
+        for(int i = 0;i < MWWorld::InventoryStore::Slots;i++)
         {
             MWWorld::ContainerStoreIterator it = invStore.getSlot(i);
             if (it == invStore.end() || it->getTypeName() != typeid(ESM::Armor).name())
@@ -760,28 +862,27 @@ namespace MWClass
             }
             else
             {
-                MWWorld::LiveCellRef<ESM::Armor> *ref =
-                    it->get<ESM::Armor>();
+                MWWorld::LiveCellRef<ESM::Armor> *ref = it->get<ESM::Armor>();
 
                 int armorSkillType = MWWorld::Class::get(*it).getEquipmentSkill(*it);
-                int armorSkill = MWWorld::Class::get(ptr).getNpcStats(ptr).getSkill(armorSkillType).getModified();
+                int armorSkill = stats.getSkill(armorSkillType).getModified();
 
-                if (ref->mBase->mData.mWeight == 0)
+                if(ref->mBase->mData.mWeight == 0)
                     ratings[i] = ref->mBase->mData.mArmor;
                 else
                     ratings[i] = ref->mBase->mData.mArmor * armorSkill / iBaseArmorSkill;
             }
         }
 
-        float shield = MWWorld::Class::get(ptr).getCreatureStats(ptr).getMagicEffects().get(ESM::MagicEffect::Shield).mMagnitude;
+        float shield = getCreatureStats(ptr).getMagicEffects().get(ESM::MagicEffect::Shield).mMagnitude;
 
-        return ratings[MWWorld::InventoryStore::Slot_Cuirass] * 0.3
+        return ratings[MWWorld::InventoryStore::Slot_Cuirass] * 0.3f
                 + (ratings[MWWorld::InventoryStore::Slot_CarriedLeft] + ratings[MWWorld::InventoryStore::Slot_Helmet]
                     + ratings[MWWorld::InventoryStore::Slot_Greaves] + ratings[MWWorld::InventoryStore::Slot_Boots]
                     + ratings[MWWorld::InventoryStore::Slot_LeftPauldron] + ratings[MWWorld::InventoryStore::Slot_RightPauldron]
-                    ) * 0.1
-                + (ratings[MWWorld::InventoryStore::Slot_LeftGauntlet] + MWWorld::InventoryStore::Slot_RightGauntlet)
-                    * 0.05
+                    ) * 0.1f
+                + (ratings[MWWorld::InventoryStore::Slot_LeftGauntlet] + ratings[MWWorld::InventoryStore::Slot_RightGauntlet])
+                    * 0.05f
                 + shield;
     }
 
@@ -836,7 +937,7 @@ namespace MWClass
                     case ESM::Skill::LightArmor:
                         return "FootLightLeft";
                     case ESM::Skill::MediumArmor:
-                        return "FootMediumLeft";
+                        return "FootMedLeft";
                     case ESM::Skill::HeavyArmor:
                         return "FootHeavyLeft";
                 }
@@ -861,7 +962,7 @@ namespace MWClass
                     case ESM::Skill::LightArmor:
                         return "FootLightRight";
                     case ESM::Skill::MediumArmor:
-                        return "FootMediumRight";
+                        return "FootMedRight";
                     case ESM::Skill::HeavyArmor:
                         return "FootHeavyRight";
                 }
