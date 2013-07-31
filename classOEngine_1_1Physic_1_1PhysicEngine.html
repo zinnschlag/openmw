@@ -93,7 +93,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#af4b45ab2daa95bec09c3ca292ce8d7e3">boxAdjustExternal</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *body, float scale, const Ogre::Vector3 &amp;position, const Ogre::Quaternion &amp;rotation)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a33ce47b7c63c0f2c5630ca72351b6bed">addHeightField</a> (float *heights, int x, int y, float yoffset, float triSize, float sqrtVerts)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8e403b58937606cc9927d78031e76190">removeHeightField</a> (int x, int y)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a6b95f440ecb01a533eb1d4d43f02c5da">addRigidBody</a> (<a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *body, bool addToMap=true, <a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *raycastingBody=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aac2dca0f92460596587de0cea9a14962">addRigidBody</a> (<a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *body, bool addToMap=true, <a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *raycastingBody=NULL, bool actor=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a03732227abff2f67838020eb0b768c70">removeRigidBody</a> (const std::string &amp;name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a09b4ba9a47a3ac32cd8cb243f055e4b4">deleteRigidBody</a> (const std::string &amp;name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a14e3ab187b5082e156190b71b711b32e">getRigidBody</a> (const std::string &amp;name, bool raycasting=false)</td></tr>
@@ -107,9 +107,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a34f7251cee62aa2c0ad5d53cdd4682d5">toggleDebugRendering</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5c9e0d74a13903213fc5c073e55997b7">getObjectAABB</a> (const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, float scale, btVector3 &amp;min, btVector3 &amp;max)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a69318161554cc4ad621c39cc89b8a900">setSceneManager</a> (Ogre::SceneManager *sceneMgr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a59bc8bb1b2ca30bec109c551c0b04862">rayTest</a> (btVector3 &amp;from, btVector3 &amp;to)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a635278032a171d6d8121a34c04b8ff72">isAnyActorStandingOn</a> (const std::string &amp;objectName)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8423b60a5b55ff2610f550d0bde9ea90">rayTest</a> (btVector3 &amp;from, btVector3 &amp;to, bool raycastingObjectOnly=true, bool ignoreHeightMap=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; float, <br class="typebreak"/>
 std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3b2bff1c3be21d940f68bf818491f415">rayTest2</a> (btVector3 &amp;from, btVector3 &amp;to)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad9ce281383d97a2b6e7613c9f93b9d21">sphereCast</a> (float radius, btVector3 &amp;from, btVector3 &amp;to)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a2076ecfb993003eb2a4a22df27c1812a">getCollisions</a> (const std::string &amp;name)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt; <a class="el" href="structOEngine_1_1Physic_1_1PhysicEvent.html">PhysicEvent</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aaec380c15a1e4e0eaa44f7faaf51cf49">NPEventList</a></td></tr>
@@ -124,7 +127,7 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a57c853f5d66875bc8f76b6d7d2df9107">HeightFieldContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab4ce996c7904800de92c5b74d0c77fd4">mHeightFieldMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">RigidBodyContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#afbef6ce89be33c4c694a6a103af7f30e">mCollisionObjectMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a3ed25e285c3d8074723410861eca83ab">RigidBodyContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a078f65008b63b43befaf0d4c586d6066">mRaycastingObjectMap</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a460c5189b48ea9e20ef7e6c0898f4a96">PhysicActorMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab589c20fb399d78ce211cdfab76d4615">mActorMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneManager *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a1052d14d1cfd50c461bb6b19a99711f4">mSceneMgr</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classBtOgre_1_1DebugDrawer.html">BtOgre::DebugDrawer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a5659f20285e0937e2d57f4b5c6dd7fb4">mDebugDrawer</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">isDebugCreated</a></td></tr>
@@ -307,12 +310,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6b95f440ecb01a533eb1d4d43f02c5da"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::addRigidBody" ref="a6b95f440ecb01a533eb1d4d43f02c5da" args="(RigidBody *body, bool addToMap=true, RigidBody *raycastingBody=NULL)" -->
+<a class="anchor" id="aac2dca0f92460596587de0cea9a14962"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::addRigidBody" ref="aac2dca0f92460596587de0cea9a14962" args="(RigidBody *body, bool addToMap=true, RigidBody *raycastingBody=NULL, bool actor=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a6b95f440ecb01a533eb1d4d43f02c5da">OEngine::Physic::PhysicEngine::addRigidBody</a> </td>
+          <td class="memname">void <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aac2dca0f92460596587de0cea9a14962">OEngine::Physic::PhysicEngine::addRigidBody</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *&#160;</td>
           <td class="paramname"><em>body</em>, </td>
@@ -327,7 +330,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1Physic_1_1RigidBody.html">RigidBody</a> *&#160;</td>
-          <td class="paramname"><em>raycastingBody</em> = <code>NULL</code>&#160;</td>
+          <td class="paramname"><em>raycastingBody</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>actor</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -574,6 +583,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2076ecfb993003eb2a4a22df27c1812a"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::getCollisions" ref="a2076ecfb993003eb2a4a22df27c1812a" args="(const std::string &amp;name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a2076ecfb993003eb2a4a22df27c1812a">OEngine::Physic::PhysicEngine::getCollisions</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a5c9e0d74a13903213fc5c073e55997b7"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::getObjectAABB" ref="a5c9e0d74a13903213fc5c073e55997b7" args="(const std::string &amp;mesh, float scale, btVector3 &amp;min, btVector3 &amp;max)" -->
 <div class="memitem">
 <div class="memproto">
@@ -641,12 +667,29 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a59bc8bb1b2ca30bec109c551c0b04862"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::rayTest" ref="a59bc8bb1b2ca30bec109c551c0b04862" args="(btVector3 &amp;from, btVector3 &amp;to)" -->
+<a class="anchor" id="a635278032a171d6d8121a34c04b8ff72"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::isAnyActorStandingOn" ref="a635278032a171d6d8121a34c04b8ff72" args="(const std::string &amp;objectName)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; std::string, float &gt; <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a59bc8bb1b2ca30bec109c551c0b04862">OEngine::Physic::PhysicEngine::rayTest</a> </td>
+          <td class="memname">bool <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a635278032a171d6d8121a34c04b8ff72">OEngine::Physic::PhysicEngine::isAnyActorStandingOn</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>objectName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8423b60a5b55ff2610f550d0bde9ea90"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::rayTest" ref="a8423b60a5b55ff2610f550d0bde9ea90" args="(btVector3 &amp;from, btVector3 &amp;to, bool raycastingObjectOnly=true, bool ignoreHeightMap=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; std::string, float &gt; <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a8423b60a5b55ff2610f550d0bde9ea90">OEngine::Physic::PhysicEngine::rayTest</a> </td>
           <td>(</td>
           <td class="paramtype">btVector3 &amp;&#160;</td>
           <td class="paramname"><em>from</em>, </td>
@@ -655,7 +698,19 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">btVector3 &amp;&#160;</td>
-          <td class="paramname"><em>to</em>&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>raycastingObjectOnly</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ignoreHeightMap</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -796,6 +851,40 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad9ce281383d97a2b6e7613c9f93b9d21"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::sphereCast" ref="ad9ce281383d97a2b6e7613c9f93b9d21" args="(float radius, btVector3 &amp;from, btVector3 &amp;to)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; bool, float &gt; <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ad9ce281383d97a2b6e7613c9f93b9d21">OEngine::Physic::PhysicEngine::sphereCast</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">btVector3 &amp;&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">btVector3 &amp;&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>(hit, relative distance) </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a1d3d8b1ded5a1408ea77e30253924e14"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::stepSimulation" ref="a1d3d8b1ded5a1408ea77e30253924e14" args="(double deltaT)" -->
 <div class="memitem">
 <div class="memproto">
@@ -889,6 +978,19 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">bool <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a91ed674ed15469dcfc650b7c7e9884fb">OEngine::Physic::PhysicEngine::isDebugCreated</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab589c20fb399d78ce211cdfab76d4615"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::mActorMap" ref="ab589c20fb399d78ce211cdfab76d4615" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a> <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#ab589c20fb399d78ce211cdfab76d4615">OEngine::Physic::PhysicEngine::mActorMap</a></td>
         </tr>
       </table>
 </div>
@@ -1026,19 +1128,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a460c5189b48ea9e20ef7e6c0898f4a96"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::PhysicActorMap" ref="a460c5189b48ea9e20ef7e6c0898f4a96" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#aa0ee5628972913c2b9ae047db5387f4d">PhysicActorContainer</a> <a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html#a460c5189b48ea9e20ef7e6c0898f4a96">OEngine::Physic::PhysicEngine::PhysicActorMap</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a55b4ca05c50869659546dcc5719f1309"></a><!-- doxytag: member="OEngine::Physic::PhysicEngine::solver" ref="a55b4ca05c50869659546dcc5719f1309" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1060,7 +1149,7 @@ Public Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:24 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

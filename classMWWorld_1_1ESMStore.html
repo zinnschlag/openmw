@@ -85,11 +85,15 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#aa12ad894c3a0ccb18807659bf66a1470">end</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a0f03e8dd68d415f684a95a0bfce90e7a">find</a> (const std::string &amp;id) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a42c07b33c74bb93f4d0015fc4fc8f6d9">ESMStore</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#aee7d541bb2c38aff0e877d0b28452b94">clearDynamic</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a4c6fa68fedf2d233b17b8a03c2233260">movePlayerRecord</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#aa030394b1553d7f73e5cc8aca406cdec">load</a> (<a class="el" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="classMWWorld_1_1Store.html">Store</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a> () const </td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#ab1cd84a1e53673631587072d76dc68cb">insert</a> (const T &amp;x)</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">const T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a754ff64f14396ec18c380f28f0ce07c8">insertStatic</a> (const T &amp;x)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a87a124e04508d33e5c11a8fec6d7c5cf">setUp</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -140,6 +144,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Store.html">Store</a>&lt; <a class="el" href="structESM_1_1Attribute.html">ESM::Attribute</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a283e43671447de7dd208d250539df333">mAttributes</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; int, <a class="el" href="structMWWorld_1_1StoreBase.html">StoreBase</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structESM_1_1NPC.html">ESM::NPC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a></td></tr>
 </table>
 <hr/><h2>Member Typedef Documentation</h2>
@@ -153,7 +158,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>replace with SharedIterator&lt;StoreBase&gt; </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000086">Todo:</a></b></dt><dd>replace with SharedIterator&lt;StoreBase&gt; </dd></dl>
 
 </div>
 </div>
@@ -184,6 +189,22 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aee7d541bb2c38aff0e877d0b28452b94"></a><!-- doxytag: member="MWWorld::ESMStore::clearDynamic" ref="aee7d541bb2c38aff0e877d0b28452b94" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1ESMStore.html#aee7d541bb2c38aff0e877d0b28452b94">MWWorld::ESMStore::clearDynamic</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -261,6 +282,25 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a754ff64f14396ec18c380f28f0ce07c8"></a><!-- doxytag: member="MWWorld::ESMStore::insertStatic" ref="a754ff64f14396ec18c380f28f0ce07c8" args="(const T &amp;x)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T* <a class="el" href="classMWWorld_1_1ESMStore.html#a754ff64f14396ec18c380f28f0ce07c8">MWWorld::ESMStore::insertStatic</a> </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa030394b1553d7f73e5cc8aca406cdec"></a><!-- doxytag: member="MWWorld::ESMStore::load" ref="aa030394b1553d7f73e5cc8aca406cdec" args="(ESM::ESMReader &amp;esm)" -->
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +315,23 @@ template&lt;class T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000080">Todo:</a></b></dt><dd>Move this to somewhere else. ESMReader? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000085">Todo:</a></b></dt><dd>Move this to somewhere else. ESMReader? </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4c6fa68fedf2d233b17b8a03c2233260"></a><!-- doxytag: member="MWWorld::ESMStore::movePlayerRecord" ref="a4c6fa68fedf2d233b17b8a03c2233260" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1ESMStore.html#a4c6fa68fedf2d233b17b8a03c2233260">MWWorld::ESMStore::movePlayerRecord</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -738,6 +794,19 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a59e50927ef316552910311d33820e536"></a><!-- doxytag: member="MWWorld::ESMStore::mPlayerTemplate" ref="a59e50927ef316552910311d33820e536" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> <a class="el" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">MWWorld::ESMStore::mPlayerTemplate</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae797f91790a695ae4c99b5109a558833"></a><!-- doxytag: member="MWWorld::ESMStore::mPotions" ref="ae797f91790a695ae4c99b5109a558833" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -928,7 +997,7 @@ template&lt;class T &gt; </div>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

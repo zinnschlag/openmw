@@ -364,13 +364,36 @@
 <a name="l00303"></a>00303     }
 <a name="l00304"></a>00304 };
 <a name="l00305"></a>00305 
-<a name="l00306"></a>00306 } <span class="comment">// Namespace</span>
-<a name="l00307"></a>00307 <span class="preprocessor">#endif</span>
+<a name="l00306"></a><a class="code" href="classNif_1_1NiFlipController.html">00306</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiFlipController.html">NiFlipController</a> : <span class="keyword">public</span> <a class="code" href="classNif_1_1Controller.html">Controller</a>
+<a name="l00307"></a>00307 {
+<a name="l00308"></a>00308 <span class="keyword">public</span>:
+<a name="l00309"></a><a class="code" href="classNif_1_1NiFlipController.html#a2cab4073ac5dcde7e7b2417c06bfe4c6">00309</a>     <span class="keywordtype">int</span> <a class="code" href="classNif_1_1NiFlipController.html#a2cab4073ac5dcde7e7b2417c06bfe4c6">mTexSlot</a>;
+<a name="l00310"></a><a class="code" href="classNif_1_1NiFlipController.html#a78ed9c68234ec54a4c41eb99cca53bec">00310</a>     <span class="keywordtype">float</span> <a class="code" href="classNif_1_1NiFlipController.html#a78ed9c68234ec54a4c41eb99cca53bec">mDelta</a>; <span class="comment">// Time between two flips. delta = (start_time - stop_time) / num_sources</span>
+<a name="l00311"></a><a class="code" href="classNif_1_1NiFlipController.html#aa8138332189d6d65c49f11b865181000">00311</a>     <a class="code" href="classNif_1_1RecordListT.html">NiSourceTextureList</a> <a class="code" href="classNif_1_1NiFlipController.html#aa8138332189d6d65c49f11b865181000">mSources</a>;
+<a name="l00312"></a>00312 
+<a name="l00313"></a><a class="code" href="classNif_1_1NiFlipController.html#af1cdd7d1aa416d36d2e06ba41142a163">00313</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiFlipController.html#af1cdd7d1aa416d36d2e06ba41142a163" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00314"></a>00314     {
+<a name="l00315"></a>00315         <a class="code" href="classNif_1_1NiFlipController.html#af1cdd7d1aa416d36d2e06ba41142a163" title="Parses the record from file.">Controller::read</a>(nif);
+<a name="l00316"></a>00316         <a class="code" href="classNif_1_1NiFlipController.html#a2cab4073ac5dcde7e7b2417c06bfe4c6">mTexSlot</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a5f44383bba7106430d163d4447a149b4">getUInt</a>();
+<a name="l00317"></a>00317         <span class="comment">/*unknown=*/</span>nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a5f44383bba7106430d163d4447a149b4">getUInt</a>();<span class="comment">/*0?*/</span>
+<a name="l00318"></a>00318         <a class="code" href="classNif_1_1NiFlipController.html#a78ed9c68234ec54a4c41eb99cca53bec">mDelta</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00319"></a>00319         <a class="code" href="classNif_1_1NiFlipController.html#aa8138332189d6d65c49f11b865181000">mSources</a>.<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
+<a name="l00320"></a>00320     }
+<a name="l00321"></a>00321 
+<a name="l00322"></a><a class="code" href="classNif_1_1NiFlipController.html#aa6e2a40c85411ce07834ab98251f6b68">00322</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1NiFlipController.html#aa6e2a40c85411ce07834ab98251f6b68" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00323"></a>00323     {
+<a name="l00324"></a>00324         <a class="code" href="classNif_1_1NiFlipController.html#aa6e2a40c85411ce07834ab98251f6b68" title="Does post-processing, after the entire tree is loaded.">Controller::post</a>(nif);
+<a name="l00325"></a>00325         <a class="code" href="classNif_1_1NiFlipController.html#aa8138332189d6d65c49f11b865181000">mSources</a>.<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
+<a name="l00326"></a>00326     }
+<a name="l00327"></a>00327 };
+<a name="l00328"></a>00328 
+<a name="l00329"></a>00329 } <span class="comment">// Namespace</span>
+<a name="l00330"></a>00330 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

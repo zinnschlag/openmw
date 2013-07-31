@@ -104,27 +104,28 @@
 <a name="l00043"></a><a class="code" href="classGameSettings.html#a9d452492a184085172cba018bb0e0eeb">00043</a>     <span class="keyword">inline</span> QStringList <a class="code" href="classGameSettings.html#a9d452492a184085172cba018bb0e0eeb">getDataDirs</a>() { <span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>; }
 <a name="l00044"></a><a class="code" href="classGameSettings.html#a34561504cd27d241ffefc8c4408eaf2b">00044</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#a34561504cd27d241ffefc8c4408eaf2b">addDataDir</a>(<span class="keyword">const</span> QString &amp;dir) { <span class="keywordflow">if</span>(!dir.isEmpty()) <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>.append(dir); }
 <a name="l00045"></a><a class="code" href="classGameSettings.html#af87d3e8bde0d731f42732a6889474853">00045</a>     <span class="keyword">inline</span> QString <a class="code" href="classGameSettings.html#af87d3e8bde0d731f42732a6889474853">getDataLocal</a>() {<span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">mDataLocal</a>; }
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047     QStringList <a class="code" href="classGameSettings.html#a19881f6f2b005f67f72f5bcf3ebc6b5d">values</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QStringList &amp;defaultValues = QStringList());
-<a name="l00048"></a>00048     <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#ab803b27e28649cf1b65cafb946bbef2c">readFile</a>(QTextStream &amp;stream);
-<a name="l00049"></a>00049     <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#af692cc94142baca5f48dd161547487ec">writeFile</a>(QTextStream &amp;stream);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="keyword">private</span>:
-<a name="l00052"></a><a class="code" href="classGameSettings.html#abca5f7bf394aa281583ac7de72ce9cb7">00052</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classGameSettings.html#abca5f7bf394aa281583ac7de72ce9cb7">mCfgMgr</a>;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#ad00aec4c9e45197da3289b0f1b9d6836">validatePaths</a>();
-<a name="l00055"></a><a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">00055</a>     QMap&lt;QString, QString&gt; <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>;
-<a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">00057</a>     QStringList <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>;
-<a name="l00058"></a><a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">00058</a>     QString <a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">mDataLocal</a>;
-<a name="l00059"></a>00059 };
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="preprocessor">#endif // GAMESETTINGS_HPP</span>
+<a name="l00046"></a><a class="code" href="classGameSettings.html#a4d526d252cc92eccbf8ceff6793c417d">00046</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#a4d526d252cc92eccbf8ceff6793c417d">hasMaster</a>() { <span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.count(QString(<span class="stringliteral">&quot;master&quot;</span>)) &gt; 0; }
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     QStringList <a class="code" href="classGameSettings.html#a19881f6f2b005f67f72f5bcf3ebc6b5d">values</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QStringList &amp;defaultValues = QStringList());
+<a name="l00049"></a>00049     <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#ab803b27e28649cf1b65cafb946bbef2c">readFile</a>(QTextStream &amp;stream);
+<a name="l00050"></a>00050     <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#af692cc94142baca5f48dd161547487ec">writeFile</a>(QTextStream &amp;stream);
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 <span class="keyword">private</span>:
+<a name="l00053"></a><a class="code" href="classGameSettings.html#abca5f7bf394aa281583ac7de72ce9cb7">00053</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classGameSettings.html#abca5f7bf394aa281583ac7de72ce9cb7">mCfgMgr</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#ad00aec4c9e45197da3289b0f1b9d6836">validatePaths</a>();
+<a name="l00056"></a><a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">00056</a>     QMap&lt;QString, QString&gt; <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">00058</a>     QStringList <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>;
+<a name="l00059"></a><a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">00059</a>     QString <a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">mDataLocal</a>;
+<a name="l00060"></a>00060 };
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif // GAMESETTINGS_HPP</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

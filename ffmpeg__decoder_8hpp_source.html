@@ -62,78 +62,86 @@
 <a href="ffmpeg__decoder_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef GAME_SOUND_FFMPEG_DECODER_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GAME_SOUND_FFMPEG_DECODER_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="comment">// FIXME: This can&#39;t be right? The headers refuse to build without UINT64_C,</span>
-<a name="l00007"></a>00007 <span class="comment">// which only gets defined in stdint.h in either C99 mode or with this macro</span>
-<a name="l00008"></a>00008 <span class="comment">// defined...</span>
-<a name="l00009"></a><a class="code" href="ffmpeg__decoder_8hpp.html#a786132414c30f947907be33a4c28125a">00009</a> <span class="preprocessor">#define __STDC_CONSTANT_MACROS</span>
-<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#include &lt;<a class="code" href="stdint_8h.html">stdint.h</a>&gt;</span>
-<a name="l00011"></a>00011 <span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span>
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;libavcodec/avcodec.h&gt;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;libavformat/avformat.h&gt;</span>
-<a name="l00015"></a>00015 }
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="sound__decoder_8hpp.html">sound_decoder.hpp</a>&quot;</span>
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">namespace </span>MWSound
-<a name="l00021"></a>00021 {
-<a name="l00022"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">00022</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a> : <span class="keyword">public</span> <a class="code" href="structMWSound_1_1Sound__Decoder.html">Sound_Decoder</a>
-<a name="l00023"></a>00023     {
-<a name="l00024"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a09a643b7e177594460300fa755dfb53d">00024</a>         AVFormatContext *<a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a09a643b7e177594460300fa755dfb53d">mFormatCtx</a>;
-<a name="l00025"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#abbb126da1ccf066c46f308a9fbf27591">00025</a>         AVStream **<a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#abbb126da1ccf066c46f308a9fbf27591">mStream</a>;
+<a name="l00004"></a>00004 <span class="comment">// FIXME: This can&#39;t be right? The headers refuse to build without UINT64_C,</span>
+<a name="l00005"></a>00005 <span class="comment">// which only gets defined in stdint.h in either C99 mode or with this macro</span>
+<a name="l00006"></a>00006 <span class="comment">// defined...</span>
+<a name="l00007"></a><a class="code" href="ffmpeg__decoder_8hpp.html#a786132414c30f947907be33a4c28125a">00007</a> <span class="preprocessor">#define __STDC_CONSTANT_MACROS</span>
+<a name="l00008"></a>00008 <span class="preprocessor"></span><span class="preprocessor">#include &lt;<a class="code" href="stdint_8h.html">stdint.h</a>&gt;</span>
+<a name="l00009"></a>00009 <span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span>
+<a name="l00010"></a>00010 {
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;libavcodec/avcodec.h&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;libavformat/avformat.h&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="comment">// From libavutil version 52.2.0 and onward the declaration of</span>
+<a name="l00015"></a>00015 <span class="comment">// AV_CH_LAYOUT_* is removed from libavcodec/avcodec.h and moved to</span>
+<a name="l00016"></a>00016 <span class="comment">// libavutil/channel_layout.h</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#if AV_VERSION_INT(52, 2, 0) &lt;= AV_VERSION_INT(LIBAVUTIL_VERSION_MAJOR, \</span>
+<a name="l00018"></a>00018 <span class="preprocessor">    LIBAVUTIL_VERSION_MINOR, LIBAVUTIL_VERSION_MICRO)</span>
+<a name="l00019"></a>00019 <span class="preprocessor"></span><span class="preprocessor">    #include &lt;libavutil/channel_layout.h&gt;</span>
+<a name="l00020"></a>00020 <span class="preprocessor">#endif</span>
+<a name="l00021"></a>00021 <span class="preprocessor"></span>}
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025 <span class="preprocessor">#include &quot;<a class="code" href="sound__decoder_8hpp.html">sound_decoder.hpp</a>&quot;</span>
 <a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a56449fe5a01e910035c77af10b938aea">00027</a>         AVPacket <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a56449fe5a01e910035c77af10b938aea">mPacket</a>;
-<a name="l00028"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a12d5e82774c018e699c9fa0ebdd86634">00028</a>         AVFrame *<a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a12d5e82774c018e699c9fa0ebdd86634">mFrame</a>;
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac1447b81aa4878ff22c80450683be3c3">00030</a>         <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac1447b81aa4878ff22c80450683be3c3">mFrameSize</a>;
-<a name="l00031"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ad097e3ea63e22f471f356633b006ad0a">00031</a>         <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ad097e3ea63e22f471f356633b006ad0a">mFramePos</a>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac05f8fb156ebcd0cd85fd6573bd27640">00033</a>         <span class="keywordtype">double</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac05f8fb156ebcd0cd85fd6573bd27640">mNextPts</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028 <span class="keyword">namespace </span>MWSound
+<a name="l00029"></a>00029 {
+<a name="l00030"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">00030</a>     <span class="keyword">class </span><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a> : <span class="keyword">public</span> <a class="code" href="structMWSound_1_1Sound__Decoder.html">Sound_Decoder</a>
+<a name="l00031"></a>00031     {
+<a name="l00032"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a09a643b7e177594460300fa755dfb53d">00032</a>         AVFormatContext *<a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a09a643b7e177594460300fa755dfb53d">mFormatCtx</a>;
+<a name="l00033"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#abbb126da1ccf066c46f308a9fbf27591">00033</a>         AVStream **<a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#abbb126da1ccf066c46f308a9fbf27591">mStream</a>;
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a41e35d8a7094b0b07e262675534e4d37">getNextPacket</a>();
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ae335102d4d45ca6eacd10c39c1bd13c0">00037</a>         Ogre::DataStreamPtr <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ae335102d4d45ca6eacd10c39c1bd13c0">mDataStream</a>;
-<a name="l00038"></a>00038         <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a2827dcca1636bdb67143d638296c22b7">readPacket</a>(<span class="keywordtype">void</span> *user_data, uint8_t *buf, <span class="keywordtype">int</span> buf_size);
-<a name="l00039"></a>00039         <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#abaa8034c6402fc329b48037f2b7eb6e3">writePacket</a>(<span class="keywordtype">void</span> *user_data, uint8_t *buf, <span class="keywordtype">int</span> buf_size);
-<a name="l00040"></a>00040         <span class="keyword">static</span> int64_t <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a02787a3cdc2581b0cb5f55a84f81def8">seek</a>(<span class="keywordtype">void</span> *user_data, int64_t offset, <span class="keywordtype">int</span> whence);
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#afd224501c0e6ab1de3cb472672fba5bd">getAVAudioData</a>();
-<a name="l00043"></a>00043         <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a374aebb4212b5fba5e83192634298c7a">readAVAudioData</a>(<span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);
+<a name="l00035"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a56449fe5a01e910035c77af10b938aea">00035</a>         AVPacket <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a56449fe5a01e910035c77af10b938aea">mPacket</a>;
+<a name="l00036"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a12d5e82774c018e699c9fa0ebdd86634">00036</a>         AVFrame *<a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a12d5e82774c018e699c9fa0ebdd86634">mFrame</a>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac1447b81aa4878ff22c80450683be3c3">00038</a>         <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac1447b81aa4878ff22c80450683be3c3">mFrameSize</a>;
+<a name="l00039"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ad097e3ea63e22f471f356633b006ad0a">00039</a>         <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ad097e3ea63e22f471f356633b006ad0a">mFramePos</a>;
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac05f8fb156ebcd0cd85fd6573bd27640">00041</a>         <span class="keywordtype">double</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ac05f8fb156ebcd0cd85fd6573bd27640">mNextPts</a>;
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a41e35d8a7094b0b07e262675534e4d37">getNextPacket</a>();
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#acfd11eaaaeeb8817ebc3d27d9521549e">open</a>(<span class="keyword">const</span> std::string &amp;fname);
-<a name="l00046"></a>00046         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a444df26fe8249073ce9e9601d78dc5ef">close</a>();
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048         <span class="keyword">virtual</span> std::string <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a4ff47bed5f35569d725af47039e0ec91">getName</a>();
-<a name="l00049"></a>00049         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a758575c687c99bcd689166e8f23bad75">getInfo</a>(<span class="keywordtype">int</span> *samplerate, <a class="code" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> *chans, <a class="code" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> *type);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#aef8f48d830811fcf0d6dbdf631198803">read</a>(<span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> bytes);
-<a name="l00052"></a>00052         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a9b658376e41c33127761ca37dbaec4f2">readAll</a>(std::vector&lt;char&gt; &amp;output);
-<a name="l00053"></a>00053         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a6cccc0e422070d0fd1be373afa815bf8">rewind</a>();
-<a name="l00054"></a>00054         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ad824e0bcb16d6228a50bad04ab67bb33">getSampleOffset</a>();
+<a name="l00045"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ae335102d4d45ca6eacd10c39c1bd13c0">00045</a>         Ogre::DataStreamPtr <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ae335102d4d45ca6eacd10c39c1bd13c0">mDataStream</a>;
+<a name="l00046"></a>00046         <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a2827dcca1636bdb67143d638296c22b7">readPacket</a>(<span class="keywordtype">void</span> *user_data, uint8_t *buf, <span class="keywordtype">int</span> buf_size);
+<a name="l00047"></a>00047         <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#abaa8034c6402fc329b48037f2b7eb6e3">writePacket</a>(<span class="keywordtype">void</span> *user_data, uint8_t *buf, <span class="keywordtype">int</span> buf_size);
+<a name="l00048"></a>00048         <span class="keyword">static</span> int64_t <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a02787a3cdc2581b0cb5f55a84f81def8">seek</a>(<span class="keywordtype">void</span> *user_data, int64_t offset, <span class="keywordtype">int</span> whence);
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050         <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#afd224501c0e6ab1de3cb472672fba5bd">getAVAudioData</a>();
+<a name="l00051"></a>00051         <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a374aebb4212b5fba5e83192634298c7a">readAVAudioData</a>(<span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#acfd11eaaaeeb8817ebc3d27d9521549e">open</a>(<span class="keyword">const</span> std::string &amp;fname);
+<a name="l00054"></a>00054         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a444df26fe8249073ce9e9601d78dc5ef">close</a>();
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056         <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a>&amp; <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ab13040cc3d1f56d24174e53d6910bda4">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a> &amp;rhs);
-<a name="l00057"></a>00057         <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a357ffc09f4a4eb5f22969b946a61122e">FFmpeg_Decoder</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a> &amp;rhs);
+<a name="l00056"></a>00056         <span class="keyword">virtual</span> std::string <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a4ff47bed5f35569d725af47039e0ec91">getName</a>();
+<a name="l00057"></a>00057         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a758575c687c99bcd689166e8f23bad75">getInfo</a>(<span class="keywordtype">int</span> *samplerate, <a class="code" href="namespaceMWSound.html#a25b219777ffb14c7f5f83ab788452c85">ChannelConfig</a> *chans, <a class="code" href="namespaceMWSound.html#a07d1864ac291f437982140a1c2dae4f5">SampleType</a> *type);
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059         <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a357ffc09f4a4eb5f22969b946a61122e">FFmpeg_Decoder</a>();
-<a name="l00060"></a>00060     <span class="keyword">public</span>:
-<a name="l00061"></a>00061         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#aee1102dec9669bff2973d1ccac3e1abb">~FFmpeg_Decoder</a>();
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#aee940642f2974e262db9284c0b1d9766">00063</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
-<a name="l00064"></a>00064     };
-<a name="l00065"></a>00065 <span class="preprocessor">#ifndef DEFAULT_DECODER</span>
-<a name="l00066"></a><a class="code" href="ffmpeg__decoder_8hpp.html#af0d7b03d4657a88205082c0bcdeebaf6">00066</a> <span class="preprocessor"></span><span class="preprocessor">#define DEFAULT_DECODER (::MWSound::FFmpeg_Decoder)</span>
-<a name="l00067"></a>00067 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00068"></a>00068 <span class="preprocessor"></span>}
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070 <span class="preprocessor">#endif</span>
+<a name="l00059"></a>00059         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#aef8f48d830811fcf0d6dbdf631198803">read</a>(<span class="keywordtype">char</span> *buffer, <span class="keywordtype">size_t</span> bytes);
+<a name="l00060"></a>00060         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a9b658376e41c33127761ca37dbaec4f2">readAll</a>(std::vector&lt;char&gt; &amp;output);
+<a name="l00061"></a>00061         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a6cccc0e422070d0fd1be373afa815bf8">rewind</a>();
+<a name="l00062"></a>00062         <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ad824e0bcb16d6228a50bad04ab67bb33">getSampleOffset</a>();
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064         <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a>&amp; <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#ab13040cc3d1f56d24174e53d6910bda4">operator=</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a> &amp;rhs);
+<a name="l00065"></a>00065         <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a357ffc09f4a4eb5f22969b946a61122e">FFmpeg_Decoder</a>(<span class="keyword">const</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html">FFmpeg_Decoder</a> &amp;rhs);
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067         <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#a357ffc09f4a4eb5f22969b946a61122e">FFmpeg_Decoder</a>();
+<a name="l00068"></a>00068     <span class="keyword">public</span>:
+<a name="l00069"></a>00069         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#aee1102dec9669bff2973d1ccac3e1abb">~FFmpeg_Decoder</a>();
+<a name="l00070"></a>00070 
+<a name="l00071"></a><a class="code" href="classMWSound_1_1FFmpeg__Decoder.html#aee940642f2974e262db9284c0b1d9766">00071</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
+<a name="l00072"></a>00072     };
+<a name="l00073"></a>00073 <span class="preprocessor">#ifndef DEFAULT_DECODER</span>
+<a name="l00074"></a><a class="code" href="ffmpeg__decoder_8hpp.html#af0d7b03d4657a88205082c0bcdeebaf6">00074</a> <span class="preprocessor"></span><span class="preprocessor">#define DEFAULT_DECODER (::MWSound::FFmpeg_Decoder)</span>
+<a name="l00075"></a>00075 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00076"></a>00076 <span class="preprocessor"></span>}
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

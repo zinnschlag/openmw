@@ -73,51 +73,52 @@
 <a name="l00012"></a>00012     {
 <a name="l00013"></a><a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa461d4af811c9a1d1d4db953c846a6576">00013</a>         <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa461d4af811c9a1d1d4db953c846a6576">WINDOWS_1250</a>,      <span class="comment">// Central ane Eastern European languages</span>
 <a name="l00014"></a><a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4faadc7130e303e7ff81148ec2364c083c9">00014</a>         <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4faadc7130e303e7ff81148ec2364c083c9">WINDOWS_1251</a>,      <span class="comment">// Cyrillic languages</span>
-<a name="l00015"></a><a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa38b57a4bd884ae5ba0907761ca7f3b03">00015</a>         <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa38b57a4bd884ae5ba0907761ca7f3b03">WINDOWS_1252</a>       <span class="comment">// Used by English version of Morrowind (and</span>
+<a name="l00015"></a><a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa38b57a4bd884ae5ba0907761ca7f3b03">00015</a>         <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa38b57a4bd884ae5ba0907761ca7f3b03">WINDOWS_1252</a>,       <span class="comment">// Used by English version of Morrowind (and</span>
 <a name="l00016"></a>00016             <span class="comment">// probably others)</span>
-<a name="l00017"></a>00017     };
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019     <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">FromType</a> <a class="code" href="namespaceToUTF8.html#a11f55638dc23c4881412f4147af08e56">calculateEncoding</a>(<span class="keyword">const</span> std::string&amp; encodingName);
-<a name="l00020"></a>00020     std::string <a class="code" href="namespaceToUTF8.html#a6dc0d4fad91adaf653bcbc719682bfdb">encodingUsingMessage</a>(<span class="keyword">const</span> std::string&amp; encodingName);
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022     <span class="comment">// class</span>
-<a name="l00023"></a>00023 
-<a name="l00024"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html">00024</a>     <span class="keyword">class </span><a class="code" href="classToUTF8_1_1Utf8Encoder.html">Utf8Encoder</a>
-<a name="l00025"></a>00025     {
-<a name="l00026"></a>00026         <span class="keyword">public</span>:
-<a name="l00027"></a>00027             <a class="code" href="classToUTF8_1_1Utf8Encoder.html#abae2c16392920bf6427989f5d3541b06">Utf8Encoder</a>(<a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">FromType</a> sourceEncoding);
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029             <span class="comment">// Convert to UTF8 from the previously given code page.</span>
-<a name="l00030"></a>00030             std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a69a05afd17b7270edf61c1e5edce79e9">getUtf8</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *input, <span class="keywordtype">size_t</span> size);
-<a name="l00031"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#ac37683eb726e1eb3b839804e57edb562">00031</a>             <span class="keyword">inline</span> std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a69a05afd17b7270edf61c1e5edce79e9">getUtf8</a>(<span class="keyword">const</span> std::string &amp;str)
-<a name="l00032"></a>00032             {
-<a name="l00033"></a>00033                 <span class="keywordflow">return</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a69a05afd17b7270edf61c1e5edce79e9">getUtf8</a>(str.c_str(), str.size());
-<a name="l00034"></a>00034             }
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036             std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a645d13bb7de23b466edb0f422605d0e4">getLegacyEnc</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *input, <span class="keywordtype">size_t</span> size);
-<a name="l00037"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#ae1859a30fb2e2f603463823d453271a2">00037</a>             <span class="keyword">inline</span> std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a645d13bb7de23b466edb0f422605d0e4">getLegacyEnc</a>(<span class="keyword">const</span> std::string &amp;str)
-<a name="l00038"></a>00038             {
-<a name="l00039"></a>00039                 <span class="keywordflow">return</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a645d13bb7de23b466edb0f422605d0e4">getLegacyEnc</a>(str.c_str(), str.size());
-<a name="l00040"></a>00040             }
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keyword">private</span>:
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a80b3e05967c1f28c1ce5325093bda679">resize</a>(<span class="keywordtype">size_t</span> size);
-<a name="l00044"></a>00044             <span class="keywordtype">size_t</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a1dd97261b538a0a33218d31c82c37f74">getLength</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* input, <span class="keywordtype">bool</span> &amp;ascii);
-<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a203f6c96dde89ec98b709f3e4f95c1f6">copyFromArray</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> chp, <span class="keywordtype">char</span>* &amp;out);
-<a name="l00046"></a>00046             <span class="keywordtype">size_t</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#ab8787c5838bad4f54018c2d0cd2d46d2">getLength2</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* input, <span class="keywordtype">bool</span> &amp;ascii);
-<a name="l00047"></a>00047             <span class="keywordtype">void</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#abdb4c1e6b38b7f88fb953a237c764057">copyFromArray2</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>*&amp; chp, <span class="keywordtype">char</span>* &amp;out);
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#a692d218a30a1b059a8d7ccf62f5891a6">00049</a>             std::vector&lt;char&gt; <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a692d218a30a1b059a8d7ccf62f5891a6">mOutput</a>;
-<a name="l00050"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#a243c13fb4b840abed0cf29280788124f">00050</a>             <span class="keywordtype">signed</span> <span class="keywordtype">char</span>* <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a243c13fb4b840abed0cf29280788124f">translationArray</a>;
-<a name="l00051"></a>00051     };
-<a name="l00052"></a>00052 }
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="preprocessor">#endif</span>
+<a name="l00017"></a><a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa82af7fc17cd50e24dd7b82e4f397352c">00017</a>         <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4fa82af7fc17cd50e24dd7b82e4f397352c">CP437</a>           <span class="comment">// Used for fonts (*.fnt) if data files encoding is 1252. Otherwise, uses the same encoding as the data files.</span>
+<a name="l00018"></a>00018     };
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020     <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">FromType</a> <a class="code" href="namespaceToUTF8.html#a11f55638dc23c4881412f4147af08e56">calculateEncoding</a>(<span class="keyword">const</span> std::string&amp; encodingName);
+<a name="l00021"></a>00021     std::string <a class="code" href="namespaceToUTF8.html#a6dc0d4fad91adaf653bcbc719682bfdb">encodingUsingMessage</a>(<span class="keyword">const</span> std::string&amp; encodingName);
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023     <span class="comment">// class</span>
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html">00025</a>     <span class="keyword">class </span><a class="code" href="classToUTF8_1_1Utf8Encoder.html">Utf8Encoder</a>
+<a name="l00026"></a>00026     {
+<a name="l00027"></a>00027         <span class="keyword">public</span>:
+<a name="l00028"></a>00028             <a class="code" href="classToUTF8_1_1Utf8Encoder.html#abae2c16392920bf6427989f5d3541b06">Utf8Encoder</a>(<a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">FromType</a> sourceEncoding);
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030             <span class="comment">// Convert to UTF8 from the previously given code page.</span>
+<a name="l00031"></a>00031             std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a69a05afd17b7270edf61c1e5edce79e9">getUtf8</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *input, <span class="keywordtype">size_t</span> size);
+<a name="l00032"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#ac37683eb726e1eb3b839804e57edb562">00032</a>             <span class="keyword">inline</span> std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a69a05afd17b7270edf61c1e5edce79e9">getUtf8</a>(<span class="keyword">const</span> std::string &amp;str)
+<a name="l00033"></a>00033             {
+<a name="l00034"></a>00034                 <span class="keywordflow">return</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a69a05afd17b7270edf61c1e5edce79e9">getUtf8</a>(str.c_str(), str.size());
+<a name="l00035"></a>00035             }
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037             std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a645d13bb7de23b466edb0f422605d0e4">getLegacyEnc</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *input, <span class="keywordtype">size_t</span> size);
+<a name="l00038"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#ae1859a30fb2e2f603463823d453271a2">00038</a>             <span class="keyword">inline</span> std::string <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a645d13bb7de23b466edb0f422605d0e4">getLegacyEnc</a>(<span class="keyword">const</span> std::string &amp;str)
+<a name="l00039"></a>00039             {
+<a name="l00040"></a>00040                 <span class="keywordflow">return</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a645d13bb7de23b466edb0f422605d0e4">getLegacyEnc</a>(str.c_str(), str.size());
+<a name="l00041"></a>00041             }
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043         <span class="keyword">private</span>:
+<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a80b3e05967c1f28c1ce5325093bda679">resize</a>(<span class="keywordtype">size_t</span> size);
+<a name="l00045"></a>00045             <span class="keywordtype">size_t</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a1dd97261b538a0a33218d31c82c37f74">getLength</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* input, <span class="keywordtype">bool</span> &amp;ascii);
+<a name="l00046"></a>00046             <span class="keywordtype">void</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a203f6c96dde89ec98b709f3e4f95c1f6">copyFromArray</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> chp, <span class="keywordtype">char</span>* &amp;out);
+<a name="l00047"></a>00047             <span class="keywordtype">size_t</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#ab8787c5838bad4f54018c2d0cd2d46d2">getLength2</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* input, <span class="keywordtype">bool</span> &amp;ascii);
+<a name="l00048"></a>00048             <span class="keywordtype">void</span> <a class="code" href="classToUTF8_1_1Utf8Encoder.html#abdb4c1e6b38b7f88fb953a237c764057">copyFromArray2</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>*&amp; chp, <span class="keywordtype">char</span>* &amp;out);
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#a692d218a30a1b059a8d7ccf62f5891a6">00050</a>             std::vector&lt;char&gt; <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a692d218a30a1b059a8d7ccf62f5891a6">mOutput</a>;
+<a name="l00051"></a><a class="code" href="classToUTF8_1_1Utf8Encoder.html#a243c13fb4b840abed0cf29280788124f">00051</a>             <span class="keywordtype">signed</span> <span class="keywordtype">char</span>* <a class="code" href="classToUTF8_1_1Utf8Encoder.html#a243c13fb4b840abed0cf29280788124f">translationArray</a>;
+<a name="l00052"></a>00052     };
+<a name="l00053"></a>00053 }
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

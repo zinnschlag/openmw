@@ -85,7 +85,8 @@ MyGUI::delegates::CMultiDelegate1<br class="typebreak"/>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a3054bafc3584039c3123d90287858779">MessageBoxManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#afb90d83fc2d6368f8fcc66333214c022">onFrame</a> (float frameDuration)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#af975ff55a26dcba724e01de254160b6a">createMessageBox</a> (const std::string &amp;message)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a685418a94ed3d00b75b5fa8aa5918a48">createMessageBox</a> (const std::string &amp;message, bool stat=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a016f01585f43045beb7010814ad1862a">removeStaticMessageBox</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#af056d06b15d9cfe6c9b1439d67ac6136">createInteractiveMessageBox</a> (const std::string &amp;message, const std::vector&lt; std::string &gt; &amp;buttons)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#aca28228daa86008b681508330f03ecc6">isInteractiveMessageBox</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#af9885b8afccf33365c4a9cd6ffd455ac">removeMessageBox</a> (float time, <a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a> *msgbox)</td></tr>
@@ -101,6 +102,7 @@ Public Attributes</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a52e76fb51ff7f9765d4ff8e7cba97047">mMessageBoxes</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">mInterMessageBoxe</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#a6c6672e6044fcb33717919e4622f0f5d">mStaticMessageBox</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector<br class="typebreak"/>
 &lt; <a class="el" href="structMWGui_1_1MessageBoxManagerTimer.html">MessageBoxManagerTimer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#abcdb6a5bb017b13760b7bd605f449a21">mTimers</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1MessageBoxManager.html#ad9c0f7d1b8e1c9879309e75ce5172080">mMessageBoxSpeed</a></td></tr>
@@ -164,16 +166,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af975ff55a26dcba724e01de254160b6a"></a><!-- doxytag: member="MWGui::MessageBoxManager::createMessageBox" ref="af975ff55a26dcba724e01de254160b6a" args="(const std::string &amp;message)" -->
+<a class="anchor" id="a685418a94ed3d00b75b5fa8aa5918a48"></a><!-- doxytag: member="MWGui::MessageBoxManager::createMessageBox" ref="a685418a94ed3d00b75b5fa8aa5918a48" args="(const std::string &amp;message, bool stat=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWGui_1_1MessageBoxManager.html#af975ff55a26dcba724e01de254160b6a">MWGui::MessageBoxManager::createMessageBox</a> </td>
+          <td class="memname">void <a class="el" href="classMWGui_1_1MessageBoxManager.html#a685418a94ed3d00b75b5fa8aa5918a48">MWGui::MessageBoxManager::createMessageBox</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>stat</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -307,6 +319,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a016f01585f43045beb7010814ad1862a"></a><!-- doxytag: member="MWGui::MessageBoxManager::removeStaticMessageBox" ref="a016f01585f43045beb7010814ad1862a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWGui_1_1MessageBoxManager.html#a016f01585f43045beb7010814ad1862a">MWGui::MessageBoxManager::removeStaticMessageBox</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a1fe56d926569121a8a924b1a3b115bef"></a><!-- doxytag: member="MWGui::MessageBoxManager::setMessageBoxSpeed" ref="a1fe56d926569121a8a924b1a3b115bef" args="(int speed)" -->
 <div class="memitem">
 <div class="memproto">
@@ -377,6 +405,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a6c6672e6044fcb33717919e4622f0f5d"></a><!-- doxytag: member="MWGui::MessageBoxManager::mStaticMessageBox" ref="a6c6672e6044fcb33717919e4622f0f5d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWGui_1_1MessageBox.html">MessageBox</a>* <a class="el" href="classMWGui_1_1MessageBoxManager.html#a6c6672e6044fcb33717919e4622f0f5d">MWGui::MessageBoxManager::mStaticMessageBox</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="abcdb6a5bb017b13760b7bd605f449a21"></a><!-- doxytag: member="MWGui::MessageBoxManager::mTimers" ref="abcdb6a5bb017b13760b7bd605f449a21" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -398,7 +439,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

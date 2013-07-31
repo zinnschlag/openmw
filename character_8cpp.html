@@ -56,8 +56,8 @@
 </div>
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">apps/openmw/mwmechanics/character.cpp File Reference</div>  </div>
@@ -66,32 +66,42 @@
 <div class="textblock"><code>#include &quot;<a class="el" href="character_8hpp_source.html">character.hpp</a>&quot;</code><br/>
 <code>#include &lt;OgreStringConverter.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="movement_8hpp_source.html">movement.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="npcstats_8hpp_source.html">npcstats.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="creaturestats_8hpp_source.html">creaturestats.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="animation_8hpp_source.html">../mwrender/animation.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="environment_8hpp_source.html">../mwbase/environment.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="world_8hpp_source.html">../mwbase/world.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="soundmanager_8hpp_source.html">../mwbase/soundmanager.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="player_8hpp_source.html">../mwworld/player.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mwworld_2class_8hpp_source.html">../mwworld/class.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="inventorystore_8hpp_source.html">../mwworld/inventorystore.hpp</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWMechanics_1_1StateInfo.html">MWMechanics::StateInfo</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1FindCharState.html">MWMechanics::FindCharState</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWMechanics_1_1WeaponInfo.html">MWMechanics::WeaponInfo</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1FindWeaponType.html">MWMechanics::FindWeaponType</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html">MWMechanics</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>Game mechanics and NPC-AI. </p>
 <br/></td></tr>
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a15e81092ce396f844a0b286c06893799">MWMechanics::getStateInfo</a> (CharacterState state, std::string *group)</td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr><td class="memItemLeft" >struct {</td></tr>
-<tr><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a>&#160;&#160;&#160;<a class="el" href="namespaceMWMechanics.html#ac60fc9fba81496d4e6f8c9ffb6c67b78">MWMechanics::state</a></td></tr>
-<tr><td class="memItemLeft" >&#160;&#160;&#160;const char&#160;&#160;&#160;<a class="el" href="namespaceMWMechanics.html#a41390d04b590ce73eb1240a628c97e8a">MWMechanics::groupname</a> [32]</td></tr>
-<tr><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a0c162476cf9ab01f1723cc02b734b061">MWMechanics::sStateList</a> []</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a6d6fcf6547d80b39d5d2677031d3fbd6">MWMechanics::sStateListSize</a> = sizeof(sStateList)/sizeof(sStateList[0])</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const StateInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a189dd828b72041319933801c3dc02900">MWMechanics::sDeathList</a> []</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const StateInfo *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#ac9667ab3d3e575ccd0c3c010e0fb881e">MWMechanics::sDeathListEnd</a> = &amp;sDeathList[sizeof(sDeathList)/sizeof(sDeathList[0])]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const StateInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a2358158df21af269dcd0361cf1b64320">MWMechanics::sMovementList</a> []</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const StateInfo *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a92a9156670873913d6e62f2f56a69990">MWMechanics::sMovementListEnd</a> = &amp;sMovementList[sizeof(sMovementList)/sizeof(sMovementList[0])]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static struct <br class="typebreak"/>
+<a class="el" href="structMWMechanics_1_1WeaponInfo.html">MWMechanics::WeaponInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a97676653cea37bec2aa7ef42a641ccd2">MWMechanics::sWeaponTypeList</a> []</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const WeaponInfo *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a448a733f18bc08735d623028e31335d1">MWMechanics::sWeaponTypeListEnd</a> = &amp;sWeaponTypeList[sizeof(sWeaponTypeList)/sizeof(sWeaponTypeList[0])]</td></tr>
 </table>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

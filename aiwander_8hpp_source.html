@@ -65,32 +65,67 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="apps_2openmw_2mwmechanics_2aipackage_8hpp.html">aipackage.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;vector&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWMechanics
-<a name="l00008"></a>00008 {
-<a name="l00009"></a>00009 
-<a name="l00010"></a><a class="code" href="classMWMechanics_1_1AiWander.html">00010</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1AiWander.html">AiWander</a> : <span class="keyword">public</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>
-<a name="l00011"></a>00011     {
-<a name="l00012"></a>00012     <span class="keyword">public</span>:
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014         <a class="code" href="classMWMechanics_1_1AiWander.html#a529f84f2f3c83274ea33d5150b6dc5b1">AiWander</a>(<span class="keywordtype">int</span> <a class="code" href="namespaceanonymous__namespace_02pathfinding_8cpp_03.html#aab964625ad53e3ca8ea4762ca16ba4a5">distance</a>, <span class="keywordtype">int</span> duration, <span class="keywordtype">int</span> timeOfDay, <span class="keyword">const</span> std::vector&lt;int&gt;&amp; idle);
-<a name="l00015"></a>00015         <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a> *<a class="code" href="classMWMechanics_1_1AiWander.html#a71ad37e57969d9552c15b241ab26a4ac">clone</a>() <span class="keyword">const</span>;
-<a name="l00016"></a>00016         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a675eeed9e1363f422418a30cffb33402">execute</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
-<a name="l00018"></a>00018         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ae1126736a751ff62a60e0ff5a968d3e5" title="0: Wander">getTypeId</a>() <span class="keyword">const</span>;
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021     <span class="keyword">private</span>:
-<a name="l00022"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a76b2aaea3a6147440588e62a18ae1a28">00022</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a76b2aaea3a6147440588e62a18ae1a28">mDistance</a>;
-<a name="l00023"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a5631018d97e10c61b73434cd821b6b54">00023</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a5631018d97e10c61b73434cd821b6b54">mDuration</a>;
-<a name="l00024"></a><a class="code" href="classMWMechanics_1_1AiWander.html#ae3f07ea05218f413d4e1e8621b502af0">00024</a>         <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ae3f07ea05218f413d4e1e8621b502af0">mTimeOfDay</a>;
-<a name="l00025"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a3a0e7404ac8b55aec6758fd0feab3646">00025</a>         std::vector&lt;int&gt; <a class="code" href="classMWMechanics_1_1AiWander.html#a3a0e7404ac8b55aec6758fd0feab3646">mIdle</a>;
-<a name="l00026"></a>00026     };
-<a name="l00027"></a>00027     }
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="pathfinding_8hpp.html">pathfinding.hpp</a>&quot;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;../mwworld/timestamp.hpp&quot;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">namespace </span>MWMechanics
+<a name="l00012"></a>00012 {
+<a name="l00013"></a><a class="code" href="classMWMechanics_1_1AiWander.html">00013</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1AiWander.html">AiWander</a> : <span class="keyword">public</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>
+<a name="l00014"></a>00014     {
+<a name="l00015"></a>00015         <span class="keyword">public</span>:
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017             <a class="code" href="classMWMechanics_1_1AiWander.html#a049861d382b35325eba802af59162275">AiWander</a>(<span class="keywordtype">int</span> <a class="code" href="namespaceanonymous__namespace_02pathfinding_8cpp_03.html#aab964625ad53e3ca8ea4762ca16ba4a5">distance</a>, <span class="keywordtype">int</span> duration, <span class="keywordtype">int</span> timeOfDay, <span class="keyword">const</span> std::vector&lt;int&gt;&amp; idle, <span class="keywordtype">bool</span> repeat);
+<a name="l00018"></a>00018             <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a> *<a class="code" href="classMWMechanics_1_1AiWander.html#a1612edcc14b35cc27056aa17dc2b2d3f">clone</a>() <span class="keyword">const</span>;
+<a name="l00019"></a>00019             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a675eeed9e1363f422418a30cffb33402">execute</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00021"></a>00021             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ae1126736a751ff62a60e0ff5a968d3e5" title="0: Wander">getTypeId</a>() <span class="keyword">const</span>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024         <span class="keyword">private</span>:
+<a name="l00025"></a>00025             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a1fe8dadd69effeab89301ec920cf894d">stopWalking</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00026"></a>00026             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a08de2ab726ae9a4230e5a93eab0fc054">playIdle</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> idleSelect);
+<a name="l00027"></a>00027             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#afa92266613c5e09d000df314d416f5c8">checkIdle</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> idleSelect);
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="preprocessor">#endif</span>
+<a name="l00029"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a76b2aaea3a6147440588e62a18ae1a28">00029</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a76b2aaea3a6147440588e62a18ae1a28">mDistance</a>;
+<a name="l00030"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a5631018d97e10c61b73434cd821b6b54">00030</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a5631018d97e10c61b73434cd821b6b54">mDuration</a>;
+<a name="l00031"></a><a class="code" href="classMWMechanics_1_1AiWander.html#ae3f07ea05218f413d4e1e8621b502af0">00031</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ae3f07ea05218f413d4e1e8621b502af0">mTimeOfDay</a>;
+<a name="l00032"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a3a0e7404ac8b55aec6758fd0feab3646">00032</a>             std::vector&lt;int&gt; <a class="code" href="classMWMechanics_1_1AiWander.html#a3a0e7404ac8b55aec6758fd0feab3646">mIdle</a>;
+<a name="l00033"></a><a class="code" href="classMWMechanics_1_1AiWander.html#ab0126cfe59cb354c929f743c9e4c3062">00033</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ab0126cfe59cb354c929f743c9e4c3062">mRepeat</a>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a4adf5f80ba195953c24f31623f070d6a">00035</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a4adf5f80ba195953c24f31623f070d6a">mX</a>;
+<a name="l00036"></a><a class="code" href="classMWMechanics_1_1AiWander.html#acd243523d0c1ecc7639cbbec2100fe1e">00036</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiWander.html#acd243523d0c1ecc7639cbbec2100fe1e">mY</a>;
+<a name="l00037"></a><a class="code" href="classMWMechanics_1_1AiWander.html#ac50dd84d50ce7d0cdc42075d6d290918">00037</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ac50dd84d50ce7d0cdc42075d6d290918">mZ</a>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a5bcedb262cac7e1f6edc88d065cc4666">00039</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a5bcedb262cac7e1f6edc88d065cc4666">mCellX</a>;
+<a name="l00040"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a60fca46d0fe6b979f530ce9d93272933">00040</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a60fca46d0fe6b979f530ce9d93272933">mCellY</a>;
+<a name="l00041"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a3ff3c336f3e148a13c5ffc8fba4e352b">00041</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a3ff3c336f3e148a13c5ffc8fba4e352b">mXCell</a>;
+<a name="l00042"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a752670f848dc8f49e39a482f52ac10dd">00042</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a752670f848dc8f49e39a482f52ac10dd">mYCell</a>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="classMWMechanics_1_1AiWander.html#ae0d965630073159981adf624736c2023">00044</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ae0d965630073159981adf624736c2023">mStoredAvailableNodes</a>;
+<a name="l00045"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a8530c4b1780beac2f12936e5e1259d57">00045</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a8530c4b1780beac2f12936e5e1259d57">mChooseAction</a>;
+<a name="l00046"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a34b61582ef1e186ed678be640b9c4639">00046</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a34b61582ef1e186ed678be640b9c4639">mIdleNow</a>;
+<a name="l00047"></a><a class="code" href="classMWMechanics_1_1AiWander.html#aa132c83cb20936ae43288aebaaabbfd0">00047</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#aa132c83cb20936ae43288aebaaabbfd0">mMoveNow</a>;
+<a name="l00048"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a4d2fe3fefe64417e9779c104b45befa7">00048</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a4d2fe3fefe64417e9779c104b45befa7">mWalking</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a45f1815f6ef773a63a33d5464f2abd7a">00050</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiWander.html#a45f1815f6ef773a63a33d5464f2abd7a">mIdleChanceMultiplier</a>;
+<a name="l00051"></a><a class="code" href="classMWMechanics_1_1AiWander.html#ab0458aa1ebddb06a2ba0f5993287fa1b">00051</a>             <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="classMWMechanics_1_1AiWander.html#ab0458aa1ebddb06a2ba0f5993287fa1b">mPlayedIdle</a>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a13612a41ae6b6fc6f0d4e720ce4d78d4">00053</a>             <a class="code" href="classMWWorld_1_1TimeStamp.html" title="In-game time stamp.">MWWorld::TimeStamp</a> <a class="code" href="classMWMechanics_1_1AiWander.html#a13612a41ae6b6fc6f0d4e720ce4d78d4">mStartTime</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classMWMechanics_1_1AiWander.html#aed2e5867d49e9d1b513b3cb91bc171b9">00055</a>             std::vector&lt;ESM::Pathgrid::Point&gt; <a class="code" href="classMWMechanics_1_1AiWander.html#aed2e5867d49e9d1b513b3cb91bc171b9">mAllowedNodes</a>;
+<a name="l00056"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a9aff9c9a7517d4e75628be0f4fbecde2">00056</a>             <a class="code" href="structESM_1_1Pathgrid_1_1Point.html">ESM::Pathgrid::Point</a> <a class="code" href="classMWMechanics_1_1AiWander.html#a9aff9c9a7517d4e75628be0f4fbecde2">mCurrentNode</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classMWMechanics_1_1AiWander.html#a5017717944a8657fe5ad6042aeadff92">00058</a>             <a class="code" href="classMWMechanics_1_1PathFinder.html">PathFinder</a> <a class="code" href="classMWMechanics_1_1AiWander.html#a5017717944a8657fe5ad6042aeadff92">mPathFinder</a>;
+<a name="l00059"></a><a class="code" href="classMWMechanics_1_1AiWander.html#adb48b01e760c79bc527ffbe0d0b1d264">00059</a>             <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWMechanics_1_1AiWander.html#adb48b01e760c79bc527ffbe0d0b1d264">mPathgrid</a>;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     };
+<a name="l00062"></a>00062 }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

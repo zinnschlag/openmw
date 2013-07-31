@@ -124,8 +124,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of deaths for actors with the given ID.  <a href="#a664cdaafc9bbde7b78b3cfd06e0f7ed5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a699d208441feb7a9c2da946d86af19f4">getPersuasionDispositionChange</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;npc, <a class="el" href="classMWBase_1_1MechanicsManager.html#a2ead14080e273bc6b5c6c4a339588f8c">PersuasionType</a> type, float currentTemporaryDispositionDelta, bool &amp;success, float &amp;tempChange, float &amp;permChange)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a persuasion action on NPC.  <a href="#a699d208441feb7a9c2da946d86af19f4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a3db0e12a32e05e190f26b4dc64535d04">forceStateUpdate</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces an object to refresh its animation state.  <a href="#a3db0e12a32e05e190f26b4dc64535d04"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a02409b3d17844c02b8de812b5378e3a1">playAnimationGroup</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;groupName, int mode, int number=1)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#afe783818658da2e06a8f4c4d3bb92c60">skipAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a545c145a99320ac0d4a903624cbb073f">checkAnimationPlaying</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;groupName)=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#ab7edc017d10857ab0a00455503831399">MechanicsManager</a> (const <a class="el" href="classMWBase_1_1MechanicsManager.html">MechanicsManager</a> &amp;)</td></tr>
@@ -241,6 +244,35 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a545c145a99320ac0d4a903624cbb073f"></a><!-- doxytag: member="MWBase::MechanicsManager::checkAnimationPlaying" ref="a545c145a99320ac0d4a903624cbb073f" args="(const MWWorld::Ptr &amp;ptr, const std::string &amp;groupName)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1MechanicsManager.html#a545c145a99320ac0d4a903624cbb073f">MWBase::MechanicsManager::checkAnimationPlaying</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a12af114560aafa2018b7ea4eebb34907">MWMechanics::MechanicsManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a664cdaafc9bbde7b78b3cfd06e0f7ed5"></a><!-- doxytag: member="MWBase::MechanicsManager::countDeaths" ref="a664cdaafc9bbde7b78b3cfd06e0f7ed5" args="(const std::string &amp;id) const =0" -->
 <div class="memitem">
 <div class="memproto">
@@ -280,6 +312,27 @@ Private Member Functions</h2></td></tr>
 <p>Deregister all objects in the given cell. </p>
 
 <p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a1d1e9bedf17b84d371f1d628f726d9c1">MWMechanics::MechanicsManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3db0e12a32e05e190f26b4dc64535d04"></a><!-- doxytag: member="MWBase::MechanicsManager::forceStateUpdate" ref="a3db0e12a32e05e190f26b4dc64535d04" args="(const MWWorld::Ptr &amp;ptr)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1MechanicsManager.html#a3db0e12a32e05e190f26b4dc64535d04">MWBase::MechanicsManager::forceStateUpdate</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Forces an object to refresh its animation state. </p>
+
+<p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a0f702fd285a8082b10a7ce8e0fe4005c">MWMechanics::MechanicsManager</a>.</p>
 
 </div>
 </div>
@@ -746,7 +799,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

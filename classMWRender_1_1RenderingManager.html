@@ -82,13 +82,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a4128f1a977b9b47752547312dc06a81c">~RenderingManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">togglePOV</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">togglePreviewMode</a> (bool enable)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aec853d601c68c16638435b5b646fc3d5">toggleVanityMode</a> (bool enable, bool force)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">toggleVanityMode</a> (bool enable)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">allowVanityMode</a> (bool allow)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">togglePlayerLooking</a> (bool enable)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">changeVanityModeScale</a> (float factor)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a96003b27f3c69b920649a2510b46fd97">vanityRotateCamera</a> (float *rot)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a949afc3088336d8d8450ed49fd851672">getPlayerData</a> (Ogre::Vector3 &amp;eyepos, float &amp;pitch, float &amp;yaw)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a5cbaefc729fa0102ef7578266cfedf77">attachCameraTo</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aba53f12cdc900af02b863f9f09519694">resetCamera</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#adf9f6aa7147cd5ad6fb26fca6f24b658">vanityRotateCamera</a> (const float *rot)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa2c22f6682ce7ab62e6bd7d8d9564285">setCameraDistance</a> (float dist, bool adjust=false, bool override=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a7fb0a8fac69f9e12cf0341d5ed861415">setupPlayer</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ade3fffd0bb602bb05d2d504e0f035168">renderPlayer</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1SkyManager.html">SkyManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af7cde8af6563b78a3f21e109d6a89578">getSkyManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Compositors.html">Compositors</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a72370172f10b23a9ec5dd3c036b639f6">getCompositors</a> ()</td></tr>
@@ -105,10 +106,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a5e4e7f6e2d75427ff131f808b2fc0555">removeObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af3d44ddd504488bef5401a0ce584535a">moveObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const Ogre::Vector3 &amp;position)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a785bb7c6808ae780be09e4f0db511fb8">scaleObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const Ogre::Vector3 &amp;scale)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a97292f5fd2f700c285f7fa4a21824e3f">rotateObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, Ogre::Vector3 &amp;rot, bool adjust=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ae14d0ea59b6d1361da04a98e4d6a1cfd">rotateObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates an object's rotation.  <a href="#ae14d0ea59b6d1361da04a98e4d6a1cfd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a8ba134d3a829c162611011d1b97e83df">setWaterHeight</a> (const float height)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a9b46689311f4111b61a854fcf372c051">toggleWater</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af2acd33268350c7c8c0b71061ec31247">updateObjectCell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;old, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;cur)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a069549cce98a702f4e948fb193a6c218">updatePlayerPtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies an updated Ptr object for the player (used on cell change).  <a href="#a069549cce98a702f4e948fb193a6c218"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a2e03fc527e4c8ef6c4e342d380f200d7">update</a> (float duration, bool paused)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a708e72ad138ea15f7dcd24862637a84d">setAmbientColour</a> (const Ogre::ColourValue &amp;colour)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ad3968aef01cc6070276434b745b830a6">setSunColour</a> (const Ogre::ColourValue &amp;colour)</td></tr>
@@ -181,6 +185,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Objects.html">MWRender::Objects</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">mObjects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Actors.html">MWRender::Actors</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">mActors</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1NpcAnimation.html">MWRender::NpcAnimation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a91cb4ca11b9dc8cabea35baacccac812">mPlayerAnimation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">mAmbientMode</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::ColourValue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">mAmbientColor</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Light *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">mSun</a></td></tr>
@@ -189,7 +194,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a56fc771c4d27ecf706a73a940c801cbb">mFogStart</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a37cc71a1a7b2e2fad61e9c72a0fdb9f2">mFogEnd</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">mPhysicsEngine</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a42fa0672fa10b644c2b085179fef9aa0">mPlayer</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Camera.html">MWRender::Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Debugging.html">MWRender::Debugging</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aefa0b964533233e4973f4081b4db7347">mDebugging</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1LocalMap.html">MWRender::LocalMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a8034312c8383cb92e3e651353abb45fb">mLocalMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Shadows.html">MWRender::Shadows</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a8219270fd9bf2b74b9f52b887eb0b7c9">mShadows</a></td></tr>
@@ -359,23 +364,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5cbaefc729fa0102ef7578266cfedf77"></a><!-- doxytag: member="MWRender::RenderingManager::attachCameraTo" ref="a5cbaefc729fa0102ef7578266cfedf77" args="(const MWWorld::Ptr &amp;ptr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a5cbaefc729fa0102ef7578266cfedf77">MWRender::RenderingManager::attachCameraTo</a> </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>ptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ad53c3402c39af20b28fc0552a1d43738"></a><!-- doxytag: member="MWRender::RenderingManager::boundingBoxToScreen" ref="ad53c3402c39af20b28fc0552a1d43738" args="(Ogre::AxisAlignedBox bounds)" -->
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +397,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000072">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
 
 </div>
 </div>
@@ -700,39 +688,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a949afc3088336d8d8450ed49fd851672"></a><!-- doxytag: member="MWRender::RenderingManager::getPlayerData" ref="a949afc3088336d8d8450ed49fd851672" args="(Ogre::Vector3 &amp;eyepos, float &amp;pitch, float &amp;yaw)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a949afc3088336d8d8450ed49fd851672">MWRender::RenderingManager::getPlayerData</a> </td>
-          <td>(</td>
-          <td class="paramtype">Ogre::Vector3 &amp;&#160;</td>
-          <td class="paramname"><em>eyepos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>pitch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>yaw</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a8989ceb8c98b3a151695f80066411a95"></a><!-- doxytag: member="MWRender::RenderingManager::getShadows" ref="a8989ceb8c98b3a151695f80066411a95" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -896,7 +851,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000071">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000077">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
 
 </div>
 </div>
@@ -1116,45 +1071,38 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a97292f5fd2f700c285f7fa4a21824e3f"></a><!-- doxytag: member="MWRender::RenderingManager::rotateObject" ref="a97292f5fd2f700c285f7fa4a21824e3f" args="(const MWWorld::Ptr &amp;ptr, Ogre::Vector3 &amp;rot, bool adjust=false)" -->
+<a class="anchor" id="aba53f12cdc900af02b863f9f09519694"></a><!-- doxytag: member="MWRender::RenderingManager::resetCamera" ref="aba53f12cdc900af02b863f9f09519694" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1RenderingManager.html#a97292f5fd2f700c285f7fa4a21824e3f">MWRender::RenderingManager::rotateObject</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#aba53f12cdc900af02b863f9f09519694">MWRender::RenderingManager::resetCamera</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">Ogre::Vector3 &amp;&#160;</td>
-          <td class="paramname"><em>rot</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>adjust</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Rotates object accordingly to its type </p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rot</td><td>euler angles in radians </td></tr>
-    <tr><td class="paramname">adjust</td><td>indicates should rotation be set or adjusted </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if object needs to be rotated physically </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae14d0ea59b6d1361da04a98e4d6a1cfd"></a><!-- doxytag: member="MWRender::RenderingManager::rotateObject" ref="ae14d0ea59b6d1361da04a98e4d6a1cfd" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#ae14d0ea59b6d1361da04a98e4d6a1cfd">MWRender::RenderingManager::rotateObject</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Updates an object's rotation. </p>
 
 </div>
 </div>
@@ -1211,6 +1159,39 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa2c22f6682ce7ab62e6bd7d8d9564285"></a><!-- doxytag: member="MWRender::RenderingManager::setCameraDistance" ref="aa2c22f6682ce7ab62e6bd7d8d9564285" args="(float dist, bool adjust=false, bool override=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#aa2c22f6682ce7ab62e6bd7d8d9564285">MWRender::RenderingManager::setCameraDistance</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>adjust</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>override</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -1295,6 +1276,23 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;&#160;</td>
           <td class="paramname"><em>rendering</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7fb0a8fac69f9e12cf0341d5ed861415"></a><!-- doxytag: member="MWRender::RenderingManager::setupPlayer" ref="a7fb0a8fac69f9e12cf0341d5ed861415" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a7fb0a8fac69f9e12cf0341d5ed861415">MWRender::RenderingManager::setupPlayer</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1616,26 +1614,16 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aec853d601c68c16638435b5b646fc3d5"></a><!-- doxytag: member="MWRender::RenderingManager::toggleVanityMode" ref="aec853d601c68c16638435b5b646fc3d5" args="(bool enable, bool force)" -->
+<a class="anchor" id="a3ba83316209d5a7a496196ab8b22eb8f"></a><!-- doxytag: member="MWRender::RenderingManager::toggleVanityMode" ref="a3ba83316209d5a7a496196ab8b22eb8f" args="(bool enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1RenderingManager.html#aec853d601c68c16638435b5b646fc3d5">MWRender::RenderingManager::toggleVanityMode</a> </td>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">MWRender::RenderingManager::toggleVanityMode</a> </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>force</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline]</code></td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -1721,6 +1709,25 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a069549cce98a702f4e948fb193a6c218"></a><!-- doxytag: member="MWRender::RenderingManager::updatePlayerPtr" ref="a069549cce98a702f4e948fb193a6c218" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a069549cce98a702f4e948fb193a6c218">MWRender::RenderingManager::updatePlayerPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Specifies an updated Ptr object for the player (used on cell change). </p>
+
+</div>
+</div>
 <a class="anchor" id="afa5da501523afa8ddb78abfd5e77c2c5"></a><!-- doxytag: member="MWRender::RenderingManager::updateWaterRippleEmitterPtr" ref="afa5da501523afa8ddb78abfd5e77c2c5" args="(const MWWorld::Ptr &amp;old, const MWWorld::Ptr &amp;ptr)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1748,14 +1755,14 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a96003b27f3c69b920649a2510b46fd97"></a><!-- doxytag: member="MWRender::RenderingManager::vanityRotateCamera" ref="a96003b27f3c69b920649a2510b46fd97" args="(float *rot)" -->
+<a class="anchor" id="adf9f6aa7147cd5ad6fb26fca6f24b658"></a><!-- doxytag: member="MWRender::RenderingManager::vanityRotateCamera" ref="adf9f6aa7147cd5ad6fb26fca6f24b658" args="(const float *rot)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1RenderingManager.html#a96003b27f3c69b920649a2510b46fd97">MWRender::RenderingManager::vanityRotateCamera</a> </td>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1RenderingManager.html#adf9f6aa7147cd5ad6fb26fca6f24b658">MWRender::RenderingManager::vanityRotateCamera</a> </td>
           <td>(</td>
-          <td class="paramtype">float *&#160;</td>
+          <td class="paramtype">const float *&#160;</td>
           <td class="paramname"><em>rot</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1849,6 +1856,19 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int <a class="el" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">MWRender::RenderingManager::mAmbientMode</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afb6af3ba212f18c82975f9d70100fc6c"></a><!-- doxytag: member="MWRender::RenderingManager::mCamera" ref="afb6af3ba212f18c82975f9d70100fc6c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWRender_1_1Camera.html">MWRender::Camera</a>* <a class="el" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">MWRender::RenderingManager::mCamera</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -2012,12 +2032,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a42fa0672fa10b644c2b085179fef9aa0"></a><!-- doxytag: member="MWRender::RenderingManager::mPlayer" ref="a42fa0672fa10b644c2b085179fef9aa0" args="" -->
+<a class="anchor" id="a91cb4ca11b9dc8cabea35baacccac812"></a><!-- doxytag: member="MWRender::RenderingManager::mPlayerAnimation" ref="a91cb4ca11b9dc8cabea35baacccac812" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1Player.html">MWRender::Player</a>* <a class="el" href="classMWRender_1_1RenderingManager.html#a42fa0672fa10b644c2b085179fef9aa0">MWRender::RenderingManager::mPlayer</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classMWRender_1_1NpcAnimation.html">MWRender::NpcAnimation</a>* <a class="el" href="classMWRender_1_1RenderingManager.html#a91cb4ca11b9dc8cabea35baacccac812">MWRender::RenderingManager::mPlayerAnimation</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -2150,7 +2170,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

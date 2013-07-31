@@ -105,6 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Probe.html#abb652c0cd45177b0a9205a8a80a659f2">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Probe.html#a61efabb256a0f2a337707c46e2a44ca8">canSell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int npcServices) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>.  <a href="#a61efabb256a0f2a337707c46e2a44ca8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Probe.html#a0af721e2a90912fe9f8ca1e2241f2934">getWeight</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Probe.html#adc5ed1f6b2caef74fa63082884ad471e">getItemMaxHealth</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return item max health or throw an exception, if class does not have item health.  <a href="#adc5ed1f6b2caef74fa63082884ad471e"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Probe.html#a5bebea477bb640d5b94fdb59c0a62dea">registerSelf</a> ()</td></tr>
@@ -266,6 +269,27 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="adc5ed1f6b2caef74fa63082884ad471e"></a><!-- doxytag: member="MWClass::Probe::getItemMaxHealth" ref="adc5ed1f6b2caef74fa63082884ad471e" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWClass_1_1Probe.html#adc5ed1f6b2caef74fa63082884ad471e">MWClass::Probe::getItemMaxHealth</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return item max health or throw an exception, if class does not have item health. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ac230262e8f77d5fb656404c3022f8418">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="abb652c0cd45177b0a9205a8a80a659f2"></a><!-- doxytag: member="MWClass::Probe::getModel" ref="abb652c0cd45177b0a9205a8a80a659f2" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -385,6 +409,25 @@ Private Member Functions</h2></td></tr>
 <p>Return trade value of the object. Throws an exception, if the object can't be traded. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#aac9905152f95beda5f9430429159b3d1">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0af721e2a90912fe9f8ca1e2241f2934"></a><!-- doxytag: member="MWClass::Probe::getWeight" ref="a0af721e2a90912fe9f8ca1e2241f2934" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWClass_1_1Probe.html#a0af721e2a90912fe9f8ca1e2241f2934">MWClass::Probe::getWeight</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a51e7c9d9cce411674aeaf864856a697a">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -515,7 +558,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -58,72 +58,66 @@
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">apps/openmw/mwgui/journalwindow.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="journalwindow_8hpp_source.html">journalwindow.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="environment_8hpp_source.html">../mwbase/environment.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="world_8hpp_source.html">../mwbase/world.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="journal_8hpp_source.html">../mwbase/journal.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="soundmanager_8hpp_source.html">../mwbase/soundmanager.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="windowmanager_8hpp_source.html">../mwbase/windowmanager.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="apps_2openmw_2mwgui_2list_8hpp_source.html">list.hpp</a>&quot;</code><br/>
+<code>#include &lt;sstream&gt;</code><br/>
+<code>#include &lt;set&gt;</code><br/>
+<code>#include &lt;stack&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
+<code>#include &lt;utility&gt;</code><br/>
+<code>#include &lt;boost/bind.hpp&gt;</code><br/>
+<code>#include &lt;boost/function.hpp&gt;</code><br/>
+<code>#include &quot;boost/lexical_cast.hpp&quot;</code><br/>
+<code>#include &quot;<a class="el" href="bookpage_8hpp_source.html">bookpage.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="windowbase_8hpp_source.html">windowbase.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="imagebutton_8hpp_source.html">imagebutton.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="journalviewmodel_8hpp_source.html">journalviewmodel.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="journalbooks_8hpp_source.html">journalbooks.hpp</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanonymous__namespace_02journalwindow_8cpp_03_1_1book.html">anonymous_namespace{journalwindow.cpp}::book</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanonymous__namespace_02journalwindow_8cpp_03_1_1JournalWindowImpl.html">anonymous_namespace{journalwindow.cpp}::JournalWindowImpl</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanonymous__namespace_02journalwindow_8cpp_03_1_1JournalWindowImpl_1_1DisplayState.html">anonymous_namespace{journalwindow.cpp}::JournalWindowImpl::DisplayState</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html">anonymous_namespace{journalwindow.cpp}</a></td></tr>
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">book&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="journalwindow_8cpp.html#a62e89386ea05d01eac988e9542fc83dc">formatText</a> (std::string text, book mBook, int maxLine, int lineSize)</td></tr>
+<tr><td colspan="2"><h2><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a18f09c5c3dab9dd5ad5d383e55e74dc2">anonymous_namespace{journalwindow.cpp}::OptionsOverlay</a> [] = &quot;OptionsOverlay&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#aafd6130eefc6f791a084d7b5f68b575b">anonymous_namespace{journalwindow.cpp}::OptionsBTN</a> [] = &quot;OptionsBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#aae53cabe9850db4936fdd3134989a300">anonymous_namespace{journalwindow.cpp}::PrevPageBTN</a> [] = &quot;PrevPageBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#af29612171f51015de23ad81a94b88551">anonymous_namespace{journalwindow.cpp}::NextPageBTN</a> [] = &quot;NextPageBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a963cea66e3999388127203fa43ae50cd">anonymous_namespace{journalwindow.cpp}::CloseBTN</a> [] = &quot;CloseBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#aea21ff80be5f4b563dbf4c6742e7f243">anonymous_namespace{journalwindow.cpp}::JournalBTN</a> [] = &quot;JournalBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a39a6452f23bdc248e128cb7d7b917caf">anonymous_namespace{journalwindow.cpp}::TopicsBTN</a> [] = &quot;TopicsBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a8b08f22563715d81692427469f986fae">anonymous_namespace{journalwindow.cpp}::QuestsBTN</a> [] = &quot;QuestsBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#afae1dd7d600e2f1815745721a0dc4402">anonymous_namespace{journalwindow.cpp}::CancelBTN</a> [] = &quot;CancelBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a98ac90a40c6231d533330fb5cdf071a5">anonymous_namespace{journalwindow.cpp}::ShowAllBTN</a> [] = &quot;ShowAllBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#aa05190829061e4fb96ea448619a46f13">anonymous_namespace{journalwindow.cpp}::ShowActiveBTN</a> [] = &quot;ShowActiveBTN&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#ab915624f71c19458cdeb7f4aeb50cc91">anonymous_namespace{journalwindow.cpp}::PageOneNum</a> [] = &quot;PageOneNum&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a1cb2f33caf96cd2d91817b5caf1bd095">anonymous_namespace{journalwindow.cpp}::PageTwoNum</a> [] = &quot;PageTwoNum&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a37a861545f66acffa93ebee13d78b98d">anonymous_namespace{journalwindow.cpp}::TopicsList</a> [] = &quot;TopicsList&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a0f2bee338c69ce74bd506a7a97cb1834">anonymous_namespace{journalwindow.cpp}::TopicsPage</a> [] = &quot;TopicsPage&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a52bbedfc06a286551124202433eae123">anonymous_namespace{journalwindow.cpp}::QuestsList</a> [] = &quot;QuestsList&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#ad76f32b03f3564d02705778a6d4c8aa8">anonymous_namespace{journalwindow.cpp}::QuestsPage</a> [] = &quot;QuestsPage&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#afd9b45e0fbc89bafbc4dec95dce60149">anonymous_namespace{journalwindow.cpp}::LeftBookPage</a> [] = &quot;LeftBookPage&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#a7029c6da3f4f5fdf6ab13071034e3eba">anonymous_namespace{journalwindow.cpp}::RightBookPage</a> [] = &quot;RightBookPage&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#af5f6c5e73a90df797e1f9a32cac6c59a">anonymous_namespace{journalwindow.cpp}::LeftTopicIndex</a> [] = &quot;LeftTopicIndex&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static char const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02journalwindow_8cpp_03.html#adc4a0f35a426b3b80c373f1fe493da45">anonymous_namespace{journalwindow.cpp}::RightTopicIndex</a> [] = &quot;RightTopicIndex&quot;</td></tr>
 </table>
-<hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a62e89386ea05d01eac988e9542fc83dc"></a><!-- doxytag: member="journalwindow.cpp::formatText" ref="a62e89386ea05d01eac988e9542fc83dc" args="(std::string text, book mBook, int maxLine, int lineSize)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">book <a class="el" href="journalwindow_8cpp.html#a62e89386ea05d01eac988e9542fc83dc">formatText</a> </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">book&#160;</td>
-          <td class="paramname"><em>mBook</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxLine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>lineSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

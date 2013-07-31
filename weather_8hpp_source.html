@@ -65,181 +65,201 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;OgreString.h&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;OgreColourValue.h&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWRender
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM
 <a name="l00008"></a>00008 {
-<a name="l00009"></a>00009     <span class="keyword">class </span>RenderingManager;
+<a name="l00009"></a>00009     <span class="keyword">struct </span>Region;
 <a name="l00010"></a>00010 }
 <a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>MWWorld
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>MWRender
 <a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">class </span>Fallback;
-<a name="l00015"></a>00015 
-<a name="l00017"></a><a class="code" href="structMWWorld_1_1WeatherResult.html">00017</a>     <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">WeatherResult</a>
-<a name="l00018"></a>00018     {
-<a name="l00019"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a99e93a7e517e56a7be0c430ac74621c6">00019</a>         Ogre::String <a class="code" href="structMWWorld_1_1WeatherResult.html#a99e93a7e517e56a7be0c430ac74621c6">mCloudTexture</a>;
-<a name="l00020"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a5141c71d1e6d97cb96928a4a7106ead6">00020</a>         Ogre::String <a class="code" href="structMWWorld_1_1WeatherResult.html#a5141c71d1e6d97cb96928a4a7106ead6">mNextCloudTexture</a>;
-<a name="l00021"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#aa9e9585ce9db9241f1b97db1ca5f68ff">00021</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#aa9e9585ce9db9241f1b97db1ca5f68ff">mCloudBlendFactor</a>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a5f915c1867660bdaf358258b87f1bc49">00023</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#a5f915c1867660bdaf358258b87f1bc49">mFogColor</a>;
-<a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a2a01ebef63638750d6c5a0c34b086f17">00025</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#a2a01ebef63638750d6c5a0c34b086f17">mAmbientColor</a>;
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#addf0a615ae788ccdb9ff29c97f2c5d8c">00027</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#addf0a615ae788ccdb9ff29c97f2c5d8c">mSkyColor</a>;
-<a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#aa1827cb83573a3646fe8ddc5eed84541">00029</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#aa1827cb83573a3646fe8ddc5eed84541">mSunColor</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a5518ca9a809b2784cd1f2918a7bced96">00031</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#a5518ca9a809b2784cd1f2918a7bced96">mSunDiscColor</a>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a88398e3145af9cc1160df0457ab540d7">00033</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a88398e3145af9cc1160df0457ab540d7">mFogDepth</a>;
-<a name="l00034"></a>00034 
-<a name="l00035"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#abadee3561c14938244515d4c98da7190">00035</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#abadee3561c14938244515d4c98da7190">mWindSpeed</a>;
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a1450c3959c325bd3fe96b34fdd85048c">00037</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a1450c3959c325bd3fe96b34fdd85048c">mCloudSpeed</a>;
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#ab4ed4fa9af79aed18c10f487a8bf9d89">00039</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#ab4ed4fa9af79aed18c10f487a8bf9d89">mCloudOpacity</a>;
-<a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a1ae070593667405be6a8e46d282f06ec">00041</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a1ae070593667405be6a8e46d282f06ec">mGlareView</a>;
-<a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a2a44d99ca0eaa3eddc120be736a6ffbd">00043</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a2a44d99ca0eaa3eddc120be736a6ffbd">mNight</a>; <span class="comment">// use night skybox</span>
-<a name="l00044"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a01ada13e2218570947ebfd089e82a787">00044</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a01ada13e2218570947ebfd089e82a787">mNightFade</a>; <span class="comment">// fading factor for night skybox</span>
+<a name="l00014"></a>00014     <span class="keyword">class </span>RenderingManager;
+<a name="l00015"></a>00015 }
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="keyword">namespace </span>MWWorld
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019     <span class="keyword">class </span>Fallback;
+<a name="l00020"></a>00020 
+<a name="l00022"></a><a class="code" href="structMWWorld_1_1WeatherResult.html">00022</a>     <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">WeatherResult</a>
+<a name="l00023"></a>00023     {
+<a name="l00024"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a99e93a7e517e56a7be0c430ac74621c6">00024</a>         Ogre::String <a class="code" href="structMWWorld_1_1WeatherResult.html#a99e93a7e517e56a7be0c430ac74621c6">mCloudTexture</a>;
+<a name="l00025"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a5141c71d1e6d97cb96928a4a7106ead6">00025</a>         Ogre::String <a class="code" href="structMWWorld_1_1WeatherResult.html#a5141c71d1e6d97cb96928a4a7106ead6">mNextCloudTexture</a>;
+<a name="l00026"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#aa9e9585ce9db9241f1b97db1ca5f68ff">00026</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#aa9e9585ce9db9241f1b97db1ca5f68ff">mCloudBlendFactor</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a5f915c1867660bdaf358258b87f1bc49">00028</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#a5f915c1867660bdaf358258b87f1bc49">mFogColor</a>;
+<a name="l00029"></a>00029 
+<a name="l00030"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a2a01ebef63638750d6c5a0c34b086f17">00030</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#a2a01ebef63638750d6c5a0c34b086f17">mAmbientColor</a>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#addf0a615ae788ccdb9ff29c97f2c5d8c">00032</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#addf0a615ae788ccdb9ff29c97f2c5d8c">mSkyColor</a>;
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#aa1827cb83573a3646fe8ddc5eed84541">00034</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#aa1827cb83573a3646fe8ddc5eed84541">mSunColor</a>;
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a5518ca9a809b2784cd1f2918a7bced96">00036</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1WeatherResult.html#a5518ca9a809b2784cd1f2918a7bced96">mSunDiscColor</a>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a88398e3145af9cc1160df0457ab540d7">00038</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a88398e3145af9cc1160df0457ab540d7">mFogDepth</a>;
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#abadee3561c14938244515d4c98da7190">00040</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#abadee3561c14938244515d4c98da7190">mWindSpeed</a>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a1450c3959c325bd3fe96b34fdd85048c">00042</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a1450c3959c325bd3fe96b34fdd85048c">mCloudSpeed</a>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#ab4ed4fa9af79aed18c10f487a8bf9d89">00044</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#ab4ed4fa9af79aed18c10f487a8bf9d89">mCloudOpacity</a>;
 <a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#ae055144fc03d960b23250af89aa22ffa">00046</a>         Ogre::String <a class="code" href="structMWWorld_1_1WeatherResult.html#ae055144fc03d960b23250af89aa22ffa">mAmbientLoopSoundID</a>;
-<a name="l00047"></a>00047     };
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049 
-<a name="l00051"></a><a class="code" href="structMWWorld_1_1Weather.html">00051</a>     <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1Weather.html" title="Defines a single weather setting (according to INI)">Weather</a>
-<a name="l00052"></a>00052     {
-<a name="l00053"></a><a class="code" href="structMWWorld_1_1Weather.html#a5697c713519561c32f03318afd858d22">00053</a>         Ogre::String <a class="code" href="structMWWorld_1_1Weather.html#a5697c713519561c32f03318afd858d22">mCloudTexture</a>;
+<a name="l00046"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a1ae070593667405be6a8e46d282f06ec">00046</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a1ae070593667405be6a8e46d282f06ec">mGlareView</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a2a44d99ca0eaa3eddc120be736a6ffbd">00048</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a2a44d99ca0eaa3eddc120be736a6ffbd">mNight</a>; <span class="comment">// use night skybox</span>
+<a name="l00049"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#a01ada13e2218570947ebfd089e82a787">00049</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1WeatherResult.html#a01ada13e2218570947ebfd089e82a787">mNightFade</a>; <span class="comment">// fading factor for night skybox</span>
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="structMWWorld_1_1WeatherResult.html#ae055144fc03d960b23250af89aa22ffa">00051</a>         Ogre::String <a class="code" href="structMWWorld_1_1WeatherResult.html#ae055144fc03d960b23250af89aa22ffa">mAmbientLoopSoundID</a>;
+<a name="l00052"></a>00052     };
+<a name="l00053"></a>00053 
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055         <span class="comment">// Sky (atmosphere) colors</span>
-<a name="l00056"></a><a class="code" href="structMWWorld_1_1Weather.html#a1ccd84f1eb8cb8b4abdae8d8ba1eeaad">00056</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#adf94a8a164f51594ea538855beda019d">mSkySunriseColor</a>,
-<a name="l00057"></a>00057                             <a class="code" href="structMWWorld_1_1Weather.html#af560c8a8e0cfef4940840fb98fa0d170">mSkyDayColor</a>,
-<a name="l00058"></a>00058                             <a class="code" href="structMWWorld_1_1Weather.html#a1ccd84f1eb8cb8b4abdae8d8ba1eeaad">mSkySunsetColor</a>,
-<a name="l00059"></a>00059                             <a class="code" href="structMWWorld_1_1Weather.html#a1682628552f9830c897160fe71be0458">mSkyNightColor</a>;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061         <span class="comment">// Fog colors</span>
-<a name="l00062"></a><a class="code" href="structMWWorld_1_1Weather.html#a2cf2220f2e1ad1e0380bd9410ea2c750">00062</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#a77db84162b5323a2a200f1eb6f5ff1b3">mFogSunriseColor</a>,
-<a name="l00063"></a>00063                             <a class="code" href="structMWWorld_1_1Weather.html#ad8bc7f241a99f6f02402b92ac2cfca3c">mFogDayColor</a>,
-<a name="l00064"></a>00064                             <a class="code" href="structMWWorld_1_1Weather.html#a2cf2220f2e1ad1e0380bd9410ea2c750">mFogSunsetColor</a>,
-<a name="l00065"></a>00065                             <a class="code" href="structMWWorld_1_1Weather.html#af24832da6eb7c7b3c9bce03dde615cb4">mFogNightColor</a>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067         <span class="comment">// Ambient lighting colors</span>
-<a name="l00068"></a><a class="code" href="structMWWorld_1_1Weather.html#a036ceb7993c3c5d21376e5429990ef49">00068</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#ad20080fb0b66e5e4f6bad67ffb6fe91f">mAmbientSunriseColor</a>,
-<a name="l00069"></a>00069                             <a class="code" href="structMWWorld_1_1Weather.html#a7667e417ff62b3bc274475574d2a35ea">mAmbientDayColor</a>,
-<a name="l00070"></a>00070                             <a class="code" href="structMWWorld_1_1Weather.html#a036ceb7993c3c5d21376e5429990ef49">mAmbientSunsetColor</a>,
-<a name="l00071"></a>00071                             <a class="code" href="structMWWorld_1_1Weather.html#a6c60797cfeff944d13151d6b3c74ad46">mAmbientNightColor</a>;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073         <span class="comment">// Sun (directional) lighting colors</span>
-<a name="l00074"></a><a class="code" href="structMWWorld_1_1Weather.html#a007129ffae2d4cbdffc60b277fbafb4a">00074</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#a1dd83a04b555c0dd0822d99da0fd588c">mSunSunriseColor</a>,
-<a name="l00075"></a>00075                             <a class="code" href="structMWWorld_1_1Weather.html#af36130cfd5aa59f1fa4b7a672f1ae614">mSunDayColor</a>,
-<a name="l00076"></a>00076                             <a class="code" href="structMWWorld_1_1Weather.html#a007129ffae2d4cbdffc60b277fbafb4a">mSunSunsetColor</a>,
-<a name="l00077"></a>00077                             <a class="code" href="structMWWorld_1_1Weather.html#ad08b5c4152aa3bad44fe009f2da070fc">mSunNightColor</a>;
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079         <span class="comment">// Fog depth/density</span>
-<a name="l00080"></a><a class="code" href="structMWWorld_1_1Weather.html#a1cbf782810c253ddde068809334237e0">00080</a>         <span class="keywordtype">float</span>   <a class="code" href="structMWWorld_1_1Weather.html#a00baa70024fd979cfb2b447557d24cfe">mLandFogDayDepth</a>,
-<a name="l00081"></a>00081                 <a class="code" href="structMWWorld_1_1Weather.html#a1cbf782810c253ddde068809334237e0">mLandFogNightDepth</a>;
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083         <span class="comment">// Color modulation for the sun itself during sunset (not completely sure)</span>
-<a name="l00084"></a><a class="code" href="structMWWorld_1_1Weather.html#a732d48f9ace8e1348c0c26e3aee268f5">00084</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1Weather.html#a732d48f9ace8e1348c0c26e3aee268f5">mSunDiscSunsetColor</a>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086         <span class="comment">// Duration of weather transition (in days)</span>
-<a name="l00087"></a><a class="code" href="structMWWorld_1_1Weather.html#a7fd847b7c3119a5b575bb3576f16dfde">00087</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#a7fd847b7c3119a5b575bb3576f16dfde">mTransitionDelta</a>;
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089         <span class="comment">// No idea what this one is used for?</span>
-<a name="l00090"></a><a class="code" href="structMWWorld_1_1Weather.html#a9e435bbcd451fac2056a50c0ccf54c78">00090</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#a9e435bbcd451fac2056a50c0ccf54c78">mWindSpeed</a>;
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092         <span class="comment">// Cloud animation speed multiplier</span>
-<a name="l00093"></a><a class="code" href="structMWWorld_1_1Weather.html#acbd83dbc0e2336a8d6c10f3c5392f8c7">00093</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#acbd83dbc0e2336a8d6c10f3c5392f8c7">mCloudSpeed</a>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095         <span class="comment">// Multiplier for clouds transparency</span>
-<a name="l00096"></a><a class="code" href="structMWWorld_1_1Weather.html#a27f46e9b6dc1b67313ee94f4ff365698">00096</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#a27f46e9b6dc1b67313ee94f4ff365698">mCloudsMaximumPercent</a>;
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098         <span class="comment">// Value between 0 and 1, defines the strength of the sun glare effect</span>
-<a name="l00099"></a><a class="code" href="structMWWorld_1_1Weather.html#abb6f1e8798d1fa0d835f3fa799c3d553">00099</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#abb6f1e8798d1fa0d835f3fa799c3d553">mGlareView</a>;
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101         <span class="comment">// Sound effect</span>
-<a name="l00102"></a>00102         <span class="comment">// This is used for Blight, Ashstorm and Blizzard (Bloodmoon)</span>
-<a name="l00103"></a><a class="code" href="structMWWorld_1_1Weather.html#a72de69c4cda0cf30be3a7f3bbe9e4fa3">00103</a>         Ogre::String <a class="code" href="structMWWorld_1_1Weather.html#a72de69c4cda0cf30be3a7f3bbe9e4fa3">mAmbientLoopSoundID</a>;
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105         <span class="comment">// Rain sound effect</span>
-<a name="l00106"></a><a class="code" href="structMWWorld_1_1Weather.html#a2411d171c574f1f77210d872115cc209">00106</a>         Ogre::String <a class="code" href="structMWWorld_1_1Weather.html#a2411d171c574f1f77210d872115cc209">mRainLoopSoundID</a>;
-<a name="l00107"></a>00107 
-<a name="l00109"></a>00109     };
-<a name="l00110"></a>00110 
-<a name="l00114"></a><a class="code" href="classMWWorld_1_1WeatherManager.html">00114</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1WeatherManager.html">WeatherManager</a>
-<a name="l00115"></a>00115     {
-<a name="l00116"></a>00116     <span class="keyword">public</span>:
-<a name="l00117"></a>00117         <a class="code" href="classMWWorld_1_1WeatherManager.html#a35f6d79b2e5411e762120847d19da32e">WeatherManager</a>(<a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>*,<a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* fallback);
-<a name="l00118"></a>00118 
-<a name="l00124"></a>00124         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a89c3cfe5f6c04b08608c955bb46a3c74">changeWeather</a>(<span class="keyword">const</span> std::string&amp; region, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);
-<a name="l00125"></a>00125 
-<a name="l00130"></a>00130         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#adf3a824f4a93bb7a23f8f5bc695bff0e">update</a>(<span class="keywordtype">float</span> duration);
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a8ca48f37acbbb5746b7f17cae2d9b2d4">setHour</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> hour);
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a7784840c3d588702e9829ad97b11e269">setDate</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> day, <span class="keyword">const</span> <span class="keywordtype">int</span> month);
-<a name="l00135"></a>00135 
-<a name="l00136"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a9e0c137e43c12585074c048eb209a814">00136</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a9e0c137e43c12585074c048eb209a814">advanceTime</a>(<span class="keywordtype">double</span> hours)
-<a name="l00137"></a>00137         {
-<a name="l00138"></a>00138             <a class="code" href="classMWWorld_1_1WeatherManager.html#a3e5d717b527e44b440ced37f66495ad6">mTimePassed</a> += hours*3600;
-<a name="l00139"></a>00139         }
+<a name="l00056"></a><a class="code" href="structMWWorld_1_1Weather.html">00056</a>     <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1Weather.html" title="Defines a single weather setting (according to INI)">Weather</a>
+<a name="l00057"></a>00057     {
+<a name="l00058"></a><a class="code" href="structMWWorld_1_1Weather.html#a5697c713519561c32f03318afd858d22">00058</a>         Ogre::String <a class="code" href="structMWWorld_1_1Weather.html#a5697c713519561c32f03318afd858d22">mCloudTexture</a>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         <span class="comment">// Sky (atmosphere) colors</span>
+<a name="l00061"></a><a class="code" href="structMWWorld_1_1Weather.html#a1ccd84f1eb8cb8b4abdae8d8ba1eeaad">00061</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#adf94a8a164f51594ea538855beda019d">mSkySunriseColor</a>,
+<a name="l00062"></a>00062                             <a class="code" href="structMWWorld_1_1Weather.html#af560c8a8e0cfef4940840fb98fa0d170">mSkyDayColor</a>,
+<a name="l00063"></a>00063                             <a class="code" href="structMWWorld_1_1Weather.html#a1ccd84f1eb8cb8b4abdae8d8ba1eeaad">mSkySunsetColor</a>,
+<a name="l00064"></a>00064                             <a class="code" href="structMWWorld_1_1Weather.html#a1682628552f9830c897160fe71be0458">mSkyNightColor</a>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         <span class="comment">// Fog colors</span>
+<a name="l00067"></a><a class="code" href="structMWWorld_1_1Weather.html#a2cf2220f2e1ad1e0380bd9410ea2c750">00067</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#a77db84162b5323a2a200f1eb6f5ff1b3">mFogSunriseColor</a>,
+<a name="l00068"></a>00068                             <a class="code" href="structMWWorld_1_1Weather.html#ad8bc7f241a99f6f02402b92ac2cfca3c">mFogDayColor</a>,
+<a name="l00069"></a>00069                             <a class="code" href="structMWWorld_1_1Weather.html#a2cf2220f2e1ad1e0380bd9410ea2c750">mFogSunsetColor</a>,
+<a name="l00070"></a>00070                             <a class="code" href="structMWWorld_1_1Weather.html#af24832da6eb7c7b3c9bce03dde615cb4">mFogNightColor</a>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072         <span class="comment">// Ambient lighting colors</span>
+<a name="l00073"></a><a class="code" href="structMWWorld_1_1Weather.html#a036ceb7993c3c5d21376e5429990ef49">00073</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#ad20080fb0b66e5e4f6bad67ffb6fe91f">mAmbientSunriseColor</a>,
+<a name="l00074"></a>00074                             <a class="code" href="structMWWorld_1_1Weather.html#a7667e417ff62b3bc274475574d2a35ea">mAmbientDayColor</a>,
+<a name="l00075"></a>00075                             <a class="code" href="structMWWorld_1_1Weather.html#a036ceb7993c3c5d21376e5429990ef49">mAmbientSunsetColor</a>,
+<a name="l00076"></a>00076                             <a class="code" href="structMWWorld_1_1Weather.html#a6c60797cfeff944d13151d6b3c74ad46">mAmbientNightColor</a>;
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078         <span class="comment">// Sun (directional) lighting colors</span>
+<a name="l00079"></a><a class="code" href="structMWWorld_1_1Weather.html#a007129ffae2d4cbdffc60b277fbafb4a">00079</a>         Ogre::ColourValue   <a class="code" href="structMWWorld_1_1Weather.html#a1dd83a04b555c0dd0822d99da0fd588c">mSunSunriseColor</a>,
+<a name="l00080"></a>00080                             <a class="code" href="structMWWorld_1_1Weather.html#af36130cfd5aa59f1fa4b7a672f1ae614">mSunDayColor</a>,
+<a name="l00081"></a>00081                             <a class="code" href="structMWWorld_1_1Weather.html#a007129ffae2d4cbdffc60b277fbafb4a">mSunSunsetColor</a>,
+<a name="l00082"></a>00082                             <a class="code" href="structMWWorld_1_1Weather.html#ad08b5c4152aa3bad44fe009f2da070fc">mSunNightColor</a>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084         <span class="comment">// Fog depth/density</span>
+<a name="l00085"></a><a class="code" href="structMWWorld_1_1Weather.html#a1cbf782810c253ddde068809334237e0">00085</a>         <span class="keywordtype">float</span>   <a class="code" href="structMWWorld_1_1Weather.html#a00baa70024fd979cfb2b447557d24cfe">mLandFogDayDepth</a>,
+<a name="l00086"></a>00086                 <a class="code" href="structMWWorld_1_1Weather.html#a1cbf782810c253ddde068809334237e0">mLandFogNightDepth</a>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088         <span class="comment">// Color modulation for the sun itself during sunset (not completely sure)</span>
+<a name="l00089"></a><a class="code" href="structMWWorld_1_1Weather.html#a732d48f9ace8e1348c0c26e3aee268f5">00089</a>         Ogre::ColourValue <a class="code" href="structMWWorld_1_1Weather.html#a732d48f9ace8e1348c0c26e3aee268f5">mSunDiscSunsetColor</a>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091         <span class="comment">// Duration of weather transition (in days)</span>
+<a name="l00092"></a><a class="code" href="structMWWorld_1_1Weather.html#a7fd847b7c3119a5b575bb3576f16dfde">00092</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#a7fd847b7c3119a5b575bb3576f16dfde">mTransitionDelta</a>;
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094         <span class="comment">// No idea what this one is used for?</span>
+<a name="l00095"></a><a class="code" href="structMWWorld_1_1Weather.html#a9e435bbcd451fac2056a50c0ccf54c78">00095</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#a9e435bbcd451fac2056a50c0ccf54c78">mWindSpeed</a>;
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097         <span class="comment">// Cloud animation speed multiplier</span>
+<a name="l00098"></a><a class="code" href="structMWWorld_1_1Weather.html#acbd83dbc0e2336a8d6c10f3c5392f8c7">00098</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#acbd83dbc0e2336a8d6c10f3c5392f8c7">mCloudSpeed</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100         <span class="comment">// Multiplier for clouds transparency</span>
+<a name="l00101"></a><a class="code" href="structMWWorld_1_1Weather.html#a27f46e9b6dc1b67313ee94f4ff365698">00101</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#a27f46e9b6dc1b67313ee94f4ff365698">mCloudsMaximumPercent</a>;
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103         <span class="comment">// Value between 0 and 1, defines the strength of the sun glare effect</span>
+<a name="l00104"></a><a class="code" href="structMWWorld_1_1Weather.html#abb6f1e8798d1fa0d835f3fa799c3d553">00104</a>         <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1Weather.html#abb6f1e8798d1fa0d835f3fa799c3d553">mGlareView</a>;
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106         <span class="comment">// Sound effect</span>
+<a name="l00107"></a>00107         <span class="comment">// This is used for Blight, Ashstorm and Blizzard (Bloodmoon)</span>
+<a name="l00108"></a><a class="code" href="structMWWorld_1_1Weather.html#a72de69c4cda0cf30be3a7f3bbe9e4fa3">00108</a>         Ogre::String <a class="code" href="structMWWorld_1_1Weather.html#a72de69c4cda0cf30be3a7f3bbe9e4fa3">mAmbientLoopSoundID</a>;
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110         <span class="comment">// Rain sound effect</span>
+<a name="l00111"></a><a class="code" href="structMWWorld_1_1Weather.html#a2411d171c574f1f77210d872115cc209">00111</a>         Ogre::String <a class="code" href="structMWWorld_1_1Weather.html#a2411d171c574f1f77210d872115cc209">mRainLoopSoundID</a>;
+<a name="l00112"></a>00112 
+<a name="l00114"></a>00114     };
+<a name="l00115"></a>00115 
+<a name="l00119"></a><a class="code" href="classMWWorld_1_1WeatherManager.html">00119</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1WeatherManager.html">WeatherManager</a>
+<a name="l00120"></a>00120     {
+<a name="l00121"></a>00121     <span class="keyword">public</span>:
+<a name="l00122"></a>00122         <a class="code" href="classMWWorld_1_1WeatherManager.html#a35f6d79b2e5411e762120847d19da32e">WeatherManager</a>(<a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>*,<a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* fallback);
+<a name="l00123"></a>00123 
+<a name="l00129"></a>00129         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a89c3cfe5f6c04b08608c955bb46a3c74">changeWeather</a>(<span class="keyword">const</span> std::string&amp; region, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);
+<a name="l00130"></a>00130 
+<a name="l00135"></a>00135         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#adf3a824f4a93bb7a23f8f5bc695bff0e">update</a>(<span class="keywordtype">float</span> duration);
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#afd4327b1dc7481ca4a7afaeba77c9fc4">stopSounds</a>(<span class="keywordtype">bool</span> stopAll);
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a8ca48f37acbbb5746b7f17cae2d9b2d4">setHour</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> hour);
 <a name="l00140"></a>00140 
-<a name="l00141"></a>00141         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a1e4b8acd39d0fc11950560c0be383cd3">getWeatherID</a>() <span class="keyword">const</span>;
+<a name="l00141"></a>00141         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ac482fd20f8f1b7884dda8575628ab1de">getWindSpeed</a>() <span class="keyword">const</span>;
 <a name="l00142"></a>00142 
-<a name="l00143"></a>00143     <span class="keyword">private</span>:
-<a name="l00144"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ae3d34b7631164953efbc91882de4b97b">00144</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ae3d34b7631164953efbc91882de4b97b">mHour</a>;
-<a name="l00145"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a5e8f9827fd0f7fe251a5584e5015afc8">00145</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a2e3190571cb7221c5e214fdcfbf1a53c">mDay</a>, <a class="code" href="classMWWorld_1_1WeatherManager.html#a5e8f9827fd0f7fe251a5584e5015afc8">mMonth</a>;
-<a name="l00146"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a7d1ca5d727ba75ae5ef4c56b91a051c1">00146</a>         <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* <a class="code" href="classMWWorld_1_1WeatherManager.html#a7d1ca5d727ba75ae5ef4c56b91a051c1">mFallback</a>;
-<a name="l00147"></a>00147         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a72d3f0a2f96ecbf80255b27292171186">setFallbackWeather</a>(<a class="code" href="structMWWorld_1_1Weather.html" title="Defines a single weather setting (according to INI)">Weather</a>&amp; weather,<span class="keyword">const</span> std::string&amp; name);
-<a name="l00148"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a4a037d147ee845a8d0a172321d780575">00148</a>         <a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>* <a class="code" href="classMWWorld_1_1WeatherManager.html#a4a037d147ee845a8d0a172321d780575">mRendering</a>;
+<a name="l00143"></a>00143         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a7784840c3d588702e9829ad97b11e269">setDate</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> day, <span class="keyword">const</span> <span class="keywordtype">int</span> month);
+<a name="l00144"></a>00144 
+<a name="l00145"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a9e0c137e43c12585074c048eb209a814">00145</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a9e0c137e43c12585074c048eb209a814">advanceTime</a>(<span class="keywordtype">double</span> hours)
+<a name="l00146"></a>00146         {
+<a name="l00147"></a>00147             <a class="code" href="classMWWorld_1_1WeatherManager.html#a3e5d717b527e44b440ced37f66495ad6">mTimePassed</a> += hours*3600;
+<a name="l00148"></a>00148         }
 <a name="l00149"></a>00149 
-<a name="l00150"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a6f72deee3490d068fd349738041c9d08">00150</a>         std::map&lt;Ogre::String, Weather&gt; <a class="code" href="classMWWorld_1_1WeatherManager.html#a6f72deee3490d068fd349738041c9d08">mWeatherSettings</a>;
+<a name="l00150"></a>00150         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a1e4b8acd39d0fc11950560c0be383cd3">getWeatherID</a>() <span class="keyword">const</span>;
 <a name="l00151"></a>00151 
-<a name="l00152"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a65d38b391c54d5a2bb2d89d45438cd13">00152</a>         std::map&lt;std::string, std::string&gt; <a class="code" href="classMWWorld_1_1WeatherManager.html#a65d38b391c54d5a2bb2d89d45438cd13">mRegionOverrides</a>;
-<a name="l00153"></a>00153 
-<a name="l00154"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a3fd273bf9ae7ed0a2cff653e65ca8705">00154</a>         std::vector&lt;std::string&gt; <a class="code" href="classMWWorld_1_1WeatherManager.html#a3fd273bf9ae7ed0a2cff653e65ca8705">mSoundsPlaying</a>;
-<a name="l00155"></a>00155 
-<a name="l00156"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aef1f0c7fedda7e90fc14ee43499e3d93">00156</a>         Ogre::String <a class="code" href="classMWWorld_1_1WeatherManager.html#aef1f0c7fedda7e90fc14ee43499e3d93">mCurrentWeather</a>;
-<a name="l00157"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a5fc3e3e28064b3d66b4b79cab2449dda">00157</a>         Ogre::String <a class="code" href="classMWWorld_1_1WeatherManager.html#a5fc3e3e28064b3d66b4b79cab2449dda">mNextWeather</a>;
-<a name="l00158"></a>00158 
-<a name="l00159"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aaa86c14c873d4c0806a19ea4ba89f532">00159</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#aaa86c14c873d4c0806a19ea4ba89f532">mCurrentRegion</a>;
-<a name="l00160"></a>00160 
-<a name="l00161"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a61dc88ec95a9dfe9b29d394735b96775">00161</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a61dc88ec95a9dfe9b29d394735b96775">mFirstUpdate</a>;
-<a name="l00162"></a>00162 
-<a name="l00163"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a743ac9e43c3c27928c3c23546598cb4c">00163</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a743ac9e43c3c27928c3c23546598cb4c">mRemainingTransitionTime</a>;
-<a name="l00164"></a>00164 
-<a name="l00165"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a1ca5efbb1c769cbde8a229f8ff6a01ff">00165</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a1ca5efbb1c769cbde8a229f8ff6a01ff">mThunderFlash</a>;
-<a name="l00166"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a8ba310905bb0005a38c5e2e767af8e25">00166</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a8ba310905bb0005a38c5e2e767af8e25">mThunderChance</a>;
-<a name="l00167"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ad5a24014e8543fadb6c7087c903243e2">00167</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ad5a24014e8543fadb6c7087c903243e2">mThunderChanceNeeded</a>;
+<a name="l00152"></a>00152     <span class="keyword">private</span>:
+<a name="l00153"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ae3d34b7631164953efbc91882de4b97b">00153</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ae3d34b7631164953efbc91882de4b97b">mHour</a>;
+<a name="l00154"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a5e8f9827fd0f7fe251a5584e5015afc8">00154</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a2e3190571cb7221c5e214fdcfbf1a53c">mDay</a>, <a class="code" href="classMWWorld_1_1WeatherManager.html#a5e8f9827fd0f7fe251a5584e5015afc8">mMonth</a>;
+<a name="l00155"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a245ac07d442e7eee8d636afb0aebc99d">00155</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a245ac07d442e7eee8d636afb0aebc99d">mWindSpeed</a>;
+<a name="l00156"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a7d1ca5d727ba75ae5ef4c56b91a051c1">00156</a>         <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* <a class="code" href="classMWWorld_1_1WeatherManager.html#a7d1ca5d727ba75ae5ef4c56b91a051c1">mFallback</a>;
+<a name="l00157"></a>00157         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a72d3f0a2f96ecbf80255b27292171186">setFallbackWeather</a>(<a class="code" href="structMWWorld_1_1Weather.html" title="Defines a single weather setting (according to INI)">Weather</a>&amp; weather,<span class="keyword">const</span> std::string&amp; name);
+<a name="l00158"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a4a037d147ee845a8d0a172321d780575">00158</a>         <a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>* <a class="code" href="classMWWorld_1_1WeatherManager.html#a4a037d147ee845a8d0a172321d780575">mRendering</a>;
+<a name="l00159"></a>00159 
+<a name="l00160"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a6f72deee3490d068fd349738041c9d08">00160</a>         std::map&lt;Ogre::String, Weather&gt; <a class="code" href="classMWWorld_1_1WeatherManager.html#a6f72deee3490d068fd349738041c9d08">mWeatherSettings</a>;
+<a name="l00161"></a>00161 
+<a name="l00162"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a65d38b391c54d5a2bb2d89d45438cd13">00162</a>         std::map&lt;std::string, std::string&gt; <a class="code" href="classMWWorld_1_1WeatherManager.html#a65d38b391c54d5a2bb2d89d45438cd13">mRegionOverrides</a>;
+<a name="l00163"></a>00163 
+<a name="l00164"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a3fd273bf9ae7ed0a2cff653e65ca8705">00164</a>         std::vector&lt;std::string&gt; <a class="code" href="classMWWorld_1_1WeatherManager.html#a3fd273bf9ae7ed0a2cff653e65ca8705">mSoundsPlaying</a>;
+<a name="l00165"></a>00165 
+<a name="l00166"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aef1f0c7fedda7e90fc14ee43499e3d93">00166</a>         Ogre::String <a class="code" href="classMWWorld_1_1WeatherManager.html#aef1f0c7fedda7e90fc14ee43499e3d93">mCurrentWeather</a>;
+<a name="l00167"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a5fc3e3e28064b3d66b4b79cab2449dda">00167</a>         Ogre::String <a class="code" href="classMWWorld_1_1WeatherManager.html#a5fc3e3e28064b3d66b4b79cab2449dda">mNextWeather</a>;
 <a name="l00168"></a>00168 
-<a name="l00169"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a3e5d717b527e44b440ced37f66495ad6">00169</a>         <span class="keywordtype">double</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a3e5d717b527e44b440ced37f66495ad6">mTimePassed</a>; <span class="comment">// time passed since last update</span>
+<a name="l00169"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aaa86c14c873d4c0806a19ea4ba89f532">00169</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#aaa86c14c873d4c0806a19ea4ba89f532">mCurrentRegion</a>;
 <a name="l00170"></a>00170 
-<a name="l00171"></a>00171         <a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">WeatherResult</a> <a class="code" href="classMWWorld_1_1WeatherManager.html#af3ae33b567dec83c8308a04c7bc37f6f">transition</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> factor);
-<a name="l00172"></a>00172         <a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">WeatherResult</a> <a class="code" href="classMWWorld_1_1WeatherManager.html#afedec944c615b0d07b7d4dd256096ea0">getResult</a>(<span class="keyword">const</span> Ogre::String&amp; weather);
-<a name="l00173"></a>00173 
-<a name="l00174"></a>00174         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ad998d58dd2617fe2f6e0a0a285f4ed9e">setWeather</a>(<span class="keyword">const</span> Ogre::String&amp; weather, <span class="keywordtype">bool</span> instant=<span class="keyword">false</span>);
-<a name="l00175"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a953b405bec167f6e903c8dc2308ab21b">00175</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a953b405bec167f6e903c8dc2308ab21b">mSunriseTime</a>;
-<a name="l00176"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a0413c018231224f42b9ffdbaa7ae25a0">00176</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a0413c018231224f42b9ffdbaa7ae25a0">mSunsetTime</a>;
-<a name="l00177"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aad779fd46f7ee4b7fa31ad7e8f9d5dc5">00177</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#aad779fd46f7ee4b7fa31ad7e8f9d5dc5">mSunriseDuration</a>;
-<a name="l00178"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#af79eee0f6310490c3df80c5feb7d8d47">00178</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#af79eee0f6310490c3df80c5feb7d8d47">mSunsetDuration</a>;
-<a name="l00179"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#acd6ac79b7e8e913664f40902b72f00f5">00179</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#acd6ac79b7e8e913664f40902b72f00f5">mWeatherUpdateTime</a>;
-<a name="l00180"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ae0bc652ba83d8154aad4a63a4209bdd9">00180</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ae0bc652ba83d8154aad4a63a4209bdd9">mHoursBetweenWeatherChanges</a>;
-<a name="l00181"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a77515955a5e4a480dcce778a33de69a8">00181</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a77515955a5e4a480dcce778a33de69a8">mThunderFrequency</a>;
-<a name="l00182"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a2bf7aaa5259dbaf115b57e5467cdcc0c">00182</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a2bf7aaa5259dbaf115b57e5467cdcc0c">mThunderThreshold</a>;
-<a name="l00183"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a0398b6834659fe918ec16e80e6d624a0">00183</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a0398b6834659fe918ec16e80e6d624a0">mThunderSoundDelay</a>;
-<a name="l00184"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a99014d101236a485183fa59f64ad60dd">00184</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#a99014d101236a485183fa59f64ad60dd">mThunderSoundID0</a>;
-<a name="l00185"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a0ff997547e147c78cc9a2fccfaddb0a1">00185</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#a0ff997547e147c78cc9a2fccfaddb0a1">mThunderSoundID1</a>;
-<a name="l00186"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a947c936b69c8db196d7a6df58d2a70b7">00186</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#a947c936b69c8db196d7a6df58d2a70b7">mThunderSoundID2</a>;
-<a name="l00187"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aee1f2e65272d53df3f735dc5e04be661">00187</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#aee1f2e65272d53df3f735dc5e04be661">mThunderSoundID3</a>;
-<a name="l00188"></a>00188     };
-<a name="l00189"></a>00189 }
+<a name="l00171"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a61dc88ec95a9dfe9b29d394735b96775">00171</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a61dc88ec95a9dfe9b29d394735b96775">mFirstUpdate</a>;
+<a name="l00172"></a>00172 
+<a name="l00173"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a743ac9e43c3c27928c3c23546598cb4c">00173</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a743ac9e43c3c27928c3c23546598cb4c">mRemainingTransitionTime</a>;
+<a name="l00174"></a>00174 
+<a name="l00175"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a1ca5efbb1c769cbde8a229f8ff6a01ff">00175</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a1ca5efbb1c769cbde8a229f8ff6a01ff">mThunderFlash</a>;
+<a name="l00176"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a8ba310905bb0005a38c5e2e767af8e25">00176</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a8ba310905bb0005a38c5e2e767af8e25">mThunderChance</a>;
+<a name="l00177"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ad5a24014e8543fadb6c7087c903243e2">00177</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ad5a24014e8543fadb6c7087c903243e2">mThunderChanceNeeded</a>;
+<a name="l00178"></a>00178 
+<a name="l00179"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a3e5d717b527e44b440ced37f66495ad6">00179</a>         <span class="keywordtype">double</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a3e5d717b527e44b440ced37f66495ad6">mTimePassed</a>; <span class="comment">// time passed since last update</span>
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ae0a094468bfaac29faaec1e9a0600778">transition</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> factor);
+<a name="l00182"></a>00182         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a1df3d0a1b06d8889ff4a3ed0969a9f18">setResult</a>(<span class="keyword">const</span> Ogre::String&amp; weatherType);
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a8742ed5d73ccefa67389715a248fa3f3">calculateHourFade</a> (<span class="keyword">const</span> std::string&amp; moonName) <span class="keyword">const</span>;
+<a name="l00185"></a>00185         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a9ed7ac47e28df9a5325fd5ad3d084e62">calculateAngleFade</a> (<span class="keyword">const</span> std::string&amp; moonName, <span class="keywordtype">float</span> angle) <span class="keyword">const</span>;
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#abaa2bc14b82a24f83c794959c0f3167c">setWeather</a>(<span class="keyword">const</span> Ogre::String&amp; weatherType, <span class="keywordtype">bool</span> instant=<span class="keyword">false</span>);
+<a name="l00188"></a>00188         Ogre::String <a class="code" href="classMWWorld_1_1WeatherManager.html#a576736e33c5120cae25f22c3244aa753">nextWeather</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Region.html">ESM::Region</a>* region) <span class="keyword">const</span>;
+<a name="l00189"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a17ac798ed901f592bdf889ef3c67266e">00189</a>         <a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">WeatherResult</a> <a class="code" href="classMWWorld_1_1WeatherManager.html#a17ac798ed901f592bdf889ef3c67266e">mResult</a>;
 <a name="l00190"></a>00190 
-<a name="l00191"></a>00191 <span class="preprocessor">#endif // GAME_MWWORLD_WEATHER_H</span>
+<a name="l00191"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a953b405bec167f6e903c8dc2308ab21b">00191</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a953b405bec167f6e903c8dc2308ab21b">mSunriseTime</a>;
+<a name="l00192"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a0413c018231224f42b9ffdbaa7ae25a0">00192</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a0413c018231224f42b9ffdbaa7ae25a0">mSunsetTime</a>;
+<a name="l00193"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aad779fd46f7ee4b7fa31ad7e8f9d5dc5">00193</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#aad779fd46f7ee4b7fa31ad7e8f9d5dc5">mSunriseDuration</a>;
+<a name="l00194"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#af79eee0f6310490c3df80c5feb7d8d47">00194</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#af79eee0f6310490c3df80c5feb7d8d47">mSunsetDuration</a>;
+<a name="l00195"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#acd6ac79b7e8e913664f40902b72f00f5">00195</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#acd6ac79b7e8e913664f40902b72f00f5">mWeatherUpdateTime</a>;
+<a name="l00196"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ae0bc652ba83d8154aad4a63a4209bdd9">00196</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ae0bc652ba83d8154aad4a63a4209bdd9">mHoursBetweenWeatherChanges</a>;
+<a name="l00197"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a77515955a5e4a480dcce778a33de69a8">00197</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a77515955a5e4a480dcce778a33de69a8">mThunderFrequency</a>;
+<a name="l00198"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a2bf7aaa5259dbaf115b57e5467cdcc0c">00198</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a2bf7aaa5259dbaf115b57e5467cdcc0c">mThunderThreshold</a>;
+<a name="l00199"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a0398b6834659fe918ec16e80e6d624a0">00199</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a0398b6834659fe918ec16e80e6d624a0">mThunderSoundDelay</a>;
+<a name="l00200"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#ae26dbde47c494b7279687fd33d6e73f4">00200</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#ae26dbde47c494b7279687fd33d6e73f4">mNightStart</a>;
+<a name="l00201"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a9ee779715543192c7baf8e4a087973ba">00201</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a9ee779715543192c7baf8e4a087973ba">mNightEnd</a>;
+<a name="l00202"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#af5e1d7ce828e9d68733a7e498fb03353">00202</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#af5e1d7ce828e9d68733a7e498fb03353">mDayStart</a>;
+<a name="l00203"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a150d06d947a09ac04b735c229d787e21">00203</a>         <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1WeatherManager.html#a150d06d947a09ac04b735c229d787e21">mDayEnd</a>;
+<a name="l00204"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a99014d101236a485183fa59f64ad60dd">00204</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#a99014d101236a485183fa59f64ad60dd">mThunderSoundID0</a>;
+<a name="l00205"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a0ff997547e147c78cc9a2fccfaddb0a1">00205</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#a0ff997547e147c78cc9a2fccfaddb0a1">mThunderSoundID1</a>;
+<a name="l00206"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#a947c936b69c8db196d7a6df58d2a70b7">00206</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#a947c936b69c8db196d7a6df58d2a70b7">mThunderSoundID2</a>;
+<a name="l00207"></a><a class="code" href="classMWWorld_1_1WeatherManager.html#aee1f2e65272d53df3f735dc5e04be661">00207</a>         std::string <a class="code" href="classMWWorld_1_1WeatherManager.html#aee1f2e65272d53df3f735dc5e04be661">mThunderSoundID3</a>;
+<a name="l00208"></a>00208     };
+<a name="l00209"></a>00209 }
+<a name="l00210"></a>00210 
+<a name="l00211"></a>00211 <span class="preprocessor">#endif // GAME_MWWORLD_WEATHER_H</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

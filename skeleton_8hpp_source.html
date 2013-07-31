@@ -93,36 +93,35 @@
 <a name="l00036"></a>00036         abort();
 <a name="l00037"></a>00037     }
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#aa35d8642ad3eaec1e71dd0439afde619">buildAnimation</a>(Ogre::Skeleton *skel, <span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> std::vector&lt;const Nif::NiKeyframeController*&gt; &amp;ctrls, <span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;targets, <span class="keywordtype">float</span> startTime, <span class="keywordtype">float</span> stopTime);
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#aa1519a9d54d20d9e1896f3b8d69a915d">buildBones</a>(Ogre::Skeleton *skel, <span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node, Ogre::Bone *parent=NULL);
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041     <span class="keyword">static</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a7dcda5e5c0a81f8cbb4a3259f4ebd21e">extractTextKeys</a>(<span class="keyword">const</span> <a class="code" href="classNif_1_1NiTextKeyExtraData.html">Nif::NiTextKeyExtraData</a> *tk);
-<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a12cdf15d127d3003030845edbecf83e7">buildBones</a>(Ogre::Skeleton *skel, <span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node, Ogre::Bone *&amp;animroot, <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> &amp;textkeys, std::vector&lt;Nif::NiKeyframeController const*&gt; &amp;ctrls, Ogre::Bone *parent=NULL);
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044     <span class="comment">// Lookup to retrieve an Ogre bone handle for a given Nif record index</span>
-<a name="l00045"></a><a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#accd05c85576bd244756bc81270fbdbc9">00045</a>     std::map&lt;int,int&gt; <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#accd05c85576bd244756bc81270fbdbc9">mNifToOgreHandleMap</a>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">00047</a>     <span class="keyword">typedef</span> std::map&lt;std::string,NIFSkeletonLoader&gt; <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">LoaderMap</a>;
-<a name="l00048"></a><a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#aa673c03737d0b891a2bb234c24308f12">00048</a>     <span class="keyword">static</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">LoaderMap</a> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#aa673c03737d0b891a2bb234c24308f12">sLoaders</a>;
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050 <span class="keyword">public</span>:
-<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a0b3b4ad8397b2d970f39578280f7c79e">loadResource</a>(Ogre::Resource *resource);
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     <span class="keyword">static</span> Ogre::SkeletonPtr <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a27bb43ff0c58f91cb95d38994abc4bf2">createSkeleton</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> std::string &amp;group, <span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node);
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055     <span class="comment">// Looks up an Ogre Bone handle ID from a NIF&#39;s record index. Should only</span>
-<a name="l00056"></a>00056     <span class="comment">// be used when the bone name is insufficient as this is a relatively slow</span>
-<a name="l00057"></a>00057     <span class="comment">// lookup</span>
-<a name="l00058"></a>00058     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a99f16d8220d22fcce314f70750432363">lookupOgreBoneHandle</a>(<span class="keyword">const</span> std::string &amp;nifname, <span class="keywordtype">int</span> idx);
-<a name="l00059"></a>00059 };
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 }
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="preprocessor">#endif</span>
+<a name="l00041"></a>00041     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a2ee1e1cef07b7a37a50e95ef27d95061">needSkeleton</a>(<span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node);
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     <span class="comment">// Lookup to retrieve an Ogre bone handle for a given Nif record index</span>
+<a name="l00044"></a><a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#accd05c85576bd244756bc81270fbdbc9">00044</a>     std::map&lt;int,int&gt; <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#accd05c85576bd244756bc81270fbdbc9">mNifToOgreHandleMap</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">00046</a>     <span class="keyword">typedef</span> std::map&lt;std::string,NIFSkeletonLoader&gt; <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">LoaderMap</a>;
+<a name="l00047"></a><a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#aa673c03737d0b891a2bb234c24308f12">00047</a>     <span class="keyword">static</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">LoaderMap</a> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#aa673c03737d0b891a2bb234c24308f12">sLoaders</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 <span class="keyword">public</span>:
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a0b3b4ad8397b2d970f39578280f7c79e">loadResource</a>(Ogre::Resource *resource);
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <span class="keyword">static</span> Ogre::SkeletonPtr <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a27bb43ff0c58f91cb95d38994abc4bf2">createSkeleton</a>(<span class="keyword">const</span> std::string &amp;name, <span class="keyword">const</span> std::string &amp;group, <span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node);
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054     <span class="comment">// Looks up an Ogre Bone handle ID from a NIF&#39;s record index. Should only</span>
+<a name="l00055"></a>00055     <span class="comment">// be used when the bone name is insufficient as this is a relatively slow</span>
+<a name="l00056"></a>00056     <span class="comment">// lookup</span>
+<a name="l00057"></a>00057     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classNifOgre_1_1NIFSkeletonLoader.html#a99f16d8220d22fcce314f70750432363">lookupOgreBoneHandle</a>(<span class="keyword">const</span> std::string &amp;nifname, <span class="keywordtype">int</span> idx);
+<a name="l00058"></a>00058 };
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

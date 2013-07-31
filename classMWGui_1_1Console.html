@@ -73,7 +73,7 @@
 <div class="title">MWGui::Console Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="MWGui::Console" --><!-- doxytag: inherits="OEngine::GUI::Layout,Compiler::ErrorHandler,MWGui::ReferenceInterface" -->
+<!-- doxytag: class="MWGui::Console" --><!-- doxytag: inherits="MWGui::WindowBase,Compiler::ErrorHandler,MWGui::ReferenceInterface" -->
 <p><code>#include &lt;<a class="el" href="console_8hpp_source.html">console.hpp</a>&gt;</code></p>
 
 <p><a href="classMWGui_1_1Console-members.html">List of all members.</a></p>
@@ -86,8 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#aea07f1c90a739b75bf3d6ec522991087">setSelectedObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;object)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the implicit object for script execution.  <a href="#aea07f1c90a739b75bf3d6ec522991087"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a6df0da8693b4b7a9482c29d9789662c9">Console</a> (int w, int h, bool consoleOnlyScripts)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#ae4425c24d7103861184f62118bb8f9af">enable</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a0a477c31fb83767c97630fb4bdc85edd">disable</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#ad3b6d4e2051769e1e10a0cc15e642a6a">open</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a49a68e0cb9917c1292b2036354cffe54">close</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a0cb54ba784b5204f14138293d7b333ee">setFont</a> (const std::string &amp;fntName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a1c5169f3a36ce33776718f03b1a5caa0">onResChange</a> (int width, int height)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a98d66062b12429910a5cabfce856784e">clearHistory</a> ()</td></tr>
@@ -96,15 +96,15 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Output from successful console command.  <a href="#abadc5ddc610194629b7f4d959dc17d03"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#ad26c0032aeb97f9d6a6587fef1501573">printError</a> (const std::string &amp;msg)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Error message.  <a href="#ad26c0032aeb97f9d6a6587fef1501573"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#ab033e843ca6fb2049c0cccddfa3d7c49">execute</a> (const std::string &amp;<a class="el" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">command</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a8d0e2e679513840fb244df2fec0dcd28">executeFile</a> (const std::string &amp;<a class="el" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">command</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#ab033e843ca6fb2049c0cccddfa3d7c49">execute</a> (const std::string &amp;command)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a9d05d488e4fbffa5469ef1ba1453ee18">executeFile</a> (const std::string &amp;path)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::EditBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">command</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MyGUI::EditBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a392d6eec0c4d0deabd632196a84c1f24">history</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Console.html#a650d87880ba0b4ac74be89986a4b5cae">StringList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a53ef86aef45095914b6ff1037da65860">command_history</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">StringList::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a0f50c3a02f76b885874383c879f26cca">current</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a041d29c20919a9e222547e8810a08ce6">editString</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::EditBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a323a60788690c340fb4165a2d09d7973">mCommandLine</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MyGUI::EditBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a847992daca3574e49aafb10b00b5cdea">mHistory</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWGui_1_1Console.html#a650d87880ba0b4ac74be89986a4b5cae">StringList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a365d9c75df1d52e03b31153acadfec43">mCommandHistory</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">StringList::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a8b10121b866015ce670dbd10a0f4505c">mCurrent</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a77aeafa98ad5631db022183609f0ed2c">mEditString</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWGui_1_1Console.html#a912e7cee0fc62a89f82c9146515e0615">onReferenceUnavailable</a> ()</td></tr>
@@ -209,6 +209,24 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a49a68e0cb9917c1292b2036354cffe54"></a><!-- doxytag: member="MWGui::Console::close" ref="a49a68e0cb9917c1292b2036354cffe54" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWGui_1_1Console.html#a49a68e0cb9917c1292b2036354cffe54">MWGui::Console::close</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWGui_1_1WindowBase.html#af986f66b831360eceacc01740a0a16fa">MWGui::WindowBase</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a7739da471e02953030e691d140957fff"></a><!-- doxytag: member="MWGui::Console::compile" ref="a7739da471e02953030e691d140957fff" args="(const std::string &amp;cmd, Compiler::Output &amp;output)" -->
 <div class="memitem">
 <div class="memproto">
@@ -263,38 +281,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0a477c31fb83767c97630fb4bdc85edd"></a><!-- doxytag: member="MWGui::Console::disable" ref="a0a477c31fb83767c97630fb4bdc85edd" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWGui_1_1Console.html#a0a477c31fb83767c97630fb4bdc85edd">MWGui::Console::disable</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ae4425c24d7103861184f62118bb8f9af"></a><!-- doxytag: member="MWGui::Console::enable" ref="ae4425c24d7103861184f62118bb8f9af" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWGui_1_1Console.html#ae4425c24d7103861184f62118bb8f9af">MWGui::Console::enable</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ab033e843ca6fb2049c0cccddfa3d7c49"></a><!-- doxytag: member="MWGui::Console::execute" ref="ab033e843ca6fb2049c0cccddfa3d7c49" args="(const std::string &amp;command)" -->
 <div class="memitem">
 <div class="memproto">
@@ -312,15 +298,15 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8d0e2e679513840fb244df2fec0dcd28"></a><!-- doxytag: member="MWGui::Console::executeFile" ref="a8d0e2e679513840fb244df2fec0dcd28" args="(const std::string &amp;command)" -->
+<a class="anchor" id="a9d05d488e4fbffa5469ef1ba1453ee18"></a><!-- doxytag: member="MWGui::Console::executeFile" ref="a9d05d488e4fbffa5469ef1ba1453ee18" args="(const std::string &amp;path)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWGui_1_1Console.html#a8d0e2e679513840fb244df2fec0dcd28">MWGui::Console::executeFile</a> </td>
+          <td class="memname">void <a class="el" href="classMWGui_1_1Console.html#a9d05d488e4fbffa5469ef1ba1453ee18">MWGui::Console::executeFile</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>command</em></td><td>)</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -426,6 +412,24 @@ The list may contain duplicates (if a name is a keyword and an identifier at the
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad3b6d4e2051769e1e10a0cc15e642a6a"></a><!-- doxytag: member="MWGui::Console::open" ref="ad3b6d4e2051769e1e10a0cc15e642a6a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWGui_1_1Console.html#ad3b6d4e2051769e1e10a0cc15e642a6a">MWGui::Console::open</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWGui_1_1WindowBase.html#ace3dc06d8e89a926cd05fb5f94ac757e">MWGui::WindowBase</a>.</p>
 
 </div>
 </div>
@@ -589,12 +593,12 @@ The list may contain duplicates (if a name is a keyword and an identifier at the
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a00bbb9948322913e89cc955ac9e7b358"></a><!-- doxytag: member="MWGui::Console::command" ref="a00bbb9948322913e89cc955ac9e7b358" args="" -->
+<a class="anchor" id="a365d9c75df1d52e03b31153acadfec43"></a><!-- doxytag: member="MWGui::Console::mCommandHistory" ref="a365d9c75df1d52e03b31153acadfec43" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">MyGUI::EditBox* <a class="el" href="classMWGui_1_1Console.html#a00bbb9948322913e89cc955ac9e7b358">MWGui::Console::command</a></td>
+          <td class="memname"><a class="el" href="classMWGui_1_1Console.html#a650d87880ba0b4ac74be89986a4b5cae">StringList</a> <a class="el" href="classMWGui_1_1Console.html#a365d9c75df1d52e03b31153acadfec43">MWGui::Console::mCommandHistory</a></td>
         </tr>
       </table>
 </div>
@@ -602,51 +606,12 @@ The list may contain duplicates (if a name is a keyword and an identifier at the
 
 </div>
 </div>
-<a class="anchor" id="a53ef86aef45095914b6ff1037da65860"></a><!-- doxytag: member="MWGui::Console::command_history" ref="a53ef86aef45095914b6ff1037da65860" args="" -->
+<a class="anchor" id="a323a60788690c340fb4165a2d09d7973"></a><!-- doxytag: member="MWGui::Console::mCommandLine" ref="a323a60788690c340fb4165a2d09d7973" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWGui_1_1Console.html#a650d87880ba0b4ac74be89986a4b5cae">StringList</a> <a class="el" href="classMWGui_1_1Console.html#a53ef86aef45095914b6ff1037da65860">MWGui::Console::command_history</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0f50c3a02f76b885874383c879f26cca"></a><!-- doxytag: member="MWGui::Console::current" ref="a0f50c3a02f76b885874383c879f26cca" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">StringList::iterator <a class="el" href="classMWGui_1_1Console.html#a0f50c3a02f76b885874383c879f26cca">MWGui::Console::current</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a041d29c20919a9e222547e8810a08ce6"></a><!-- doxytag: member="MWGui::Console::editString" ref="a041d29c20919a9e222547e8810a08ce6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string <a class="el" href="classMWGui_1_1Console.html#a041d29c20919a9e222547e8810a08ce6">MWGui::Console::editString</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a392d6eec0c4d0deabd632196a84c1f24"></a><!-- doxytag: member="MWGui::Console::history" ref="a392d6eec0c4d0deabd632196a84c1f24" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MyGUI::EditBox* <a class="el" href="classMWGui_1_1Console.html#a392d6eec0c4d0deabd632196a84c1f24">MWGui::Console::history</a></td>
+          <td class="memname">MyGUI::EditBox* <a class="el" href="classMWGui_1_1Console.html#a323a60788690c340fb4165a2d09d7973">MWGui::Console::mCommandLine</a></td>
         </tr>
       </table>
 </div>
@@ -680,12 +645,51 @@ The list may contain duplicates (if a name is a keyword and an identifier at the
 
 </div>
 </div>
+<a class="anchor" id="a8b10121b866015ce670dbd10a0f4505c"></a><!-- doxytag: member="MWGui::Console::mCurrent" ref="a8b10121b866015ce670dbd10a0f4505c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">StringList::iterator <a class="el" href="classMWGui_1_1Console.html#a8b10121b866015ce670dbd10a0f4505c">MWGui::Console::mCurrent</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a77aeafa98ad5631db022183609f0ed2c"></a><!-- doxytag: member="MWGui::Console::mEditString" ref="a77aeafa98ad5631db022183609f0ed2c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWGui_1_1Console.html#a77aeafa98ad5631db022183609f0ed2c">MWGui::Console::mEditString</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a8c2cf67620c493ade40c154c44b1ef66"></a><!-- doxytag: member="MWGui::Console::mExtensions" ref="a8c2cf67620c493ade40c154c44b1ef66" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classCompiler_1_1Extensions.html">Compiler::Extensions</a> <a class="el" href="classMWGui_1_1Console.html#a8c2cf67620c493ade40c154c44b1ef66">MWGui::Console::mExtensions</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a847992daca3574e49aafb10b00b5cdea"></a><!-- doxytag: member="MWGui::Console::mHistory" ref="a847992daca3574e49aafb10b00b5cdea" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MyGUI::EditBox* <a class="el" href="classMWGui_1_1Console.html#a847992daca3574e49aafb10b00b5cdea">MWGui::Console::mHistory</a></td>
         </tr>
       </table>
 </div>
@@ -714,7 +718,7 @@ The list may contain duplicates (if a name is a keyword and an identifier at the
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

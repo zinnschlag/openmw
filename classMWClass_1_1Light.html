@@ -103,8 +103,10 @@ Public Member Functions</h2></td></tr>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a657e7ab2a6dd6ce154b48211e19a655b">use</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate action for using via inventory menu.  <a href="#a657e7ab2a6dd6ce154b48211e19a655b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#ac2bb661a194576d4088f486d2590e6d5">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#aba011a79c81d44414b6824f82c8e97b4">getWeight</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a96f5c123d314e3e25cad24ffe25fcd41">canSell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int npcServices) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether or not <em>item</em> can be sold to an npc with the given <em>npcServices</em>.  <a href="#a96f5c123d314e3e25cad24ffe25fcd41"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a7f9026659fd7bf9b9dc057ed98193bd6">canBeEquipped</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;npc) const </td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a3149eb821a1f446ae9e37f7822f19ae8">registerSelf</a> ()</td></tr>
@@ -141,6 +143,37 @@ Private Member Functions</h2></td></tr>
 <p>Generate action for activation. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a83b938e2a49f3d97a5f1d000b9ea88ac">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7f9026659fd7bf9b9dc057ed98193bd6"></a><!-- doxytag: member="MWClass::Light::canBeEquipped" ref="a7f9026659fd7bf9b9dc057ed98193bd6" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Ptr &amp;npc) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; int, std::string &gt; <a class="el" href="classMWClass_1_1Light.html#a7f9026659fd7bf9b9dc057ed98193bd6">MWClass::Light::canBeEquipped</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>npc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return 0 if player cannot equip item. 1 if can equip. 2 if it's twohanded weapon. 3 if twohanded weapon conflicts with that. Second item in the pair specifies the error message </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd>the 2h check is repeated many times; put it in a function </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ace2757fcce58e7d9b7eee0d3a0d138bb">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -388,6 +421,25 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aba011a79c81d44414b6824f82c8e97b4"></a><!-- doxytag: member="MWClass::Light::getWeight" ref="aba011a79c81d44414b6824f82c8e97b4" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWClass_1_1Light.html#aba011a79c81d44414b6824f82c8e97b4">MWClass::Light::getWeight</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a51e7c9d9cce411674aeaf864856a697a">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a70cf54ced78e5684dc594053207698d9"></a><!-- doxytag: member="MWClass::Light::hasToolTip" ref="a70cf54ced78e5684dc594053207698d9" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -515,7 +567,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

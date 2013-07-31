@@ -63,33 +63,41 @@
 <a name="l00002"></a>00002 
 <a name="l00003"></a>00003 <span class="keyword">namespace </span>MWGui
 <a name="l00004"></a>00004 {
-<a name="l00005"></a>00005 
-<a name="l00006"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html">00006</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ItemSelectionDialog.html">ItemSelectionDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ContainerBase.html">ContainerBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
-<a name="l00007"></a>00007     {
-<a name="l00008"></a>00008     <span class="keyword">public</span>:
-<a name="l00009"></a>00009         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#aef2cf7f3bad3d519a604e913401078e0">ItemSelectionDialog</a>(<span class="keyword">const</span> std::string&amp; label, <span class="keywordtype">int</span> filter);
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a8e65a174e6f855f20ebfce90123bdf4a">00011</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a8e65a174e6f855f20ebfce90123bdf4a">EventHandle_Void</a>;
-<a name="l00012"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2bba7f4c3d42f9c891f66eff93108750">00012</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2bba7f4c3d42f9c891f66eff93108750">EventHandle_Item</a>;
+<a name="l00005"></a>00005     <span class="keyword">class </span>ItemView;
+<a name="l00006"></a>00006     <span class="keyword">class </span>SortFilterItemModel;
+<a name="l00007"></a>00007     <span class="keyword">class </span>InventoryItemModel;
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html">00009</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1ItemSelectionDialog.html">ItemSelectionDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
+<a name="l00010"></a>00010     {
+<a name="l00011"></a>00011     <span class="keyword">public</span>:
+<a name="l00012"></a>00012         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a5f0575e28d8305c7693198670f028a6d">ItemSelectionDialog</a>(<span class="keyword">const</span> std::string&amp; label);
 <a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a270fe440e7af1d913dc455e85ebfe0c7">00014</a>         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2bba7f4c3d42f9c891f66eff93108750">EventHandle_Item</a> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a270fe440e7af1d913dc455e85ebfe0c7">eventItemSelected</a>;
-<a name="l00015"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a3664ea14f7fd8e88aafac4705b263602">00015</a>         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a8e65a174e6f855f20ebfce90123bdf4a">EventHandle_Void</a> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a3664ea14f7fd8e88aafac4705b263602">eventDialogCanceled</a>;
+<a name="l00014"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a8e65a174e6f855f20ebfce90123bdf4a">00014</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate0 <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a8e65a174e6f855f20ebfce90123bdf4a">EventHandle_Void</a>;
+<a name="l00015"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2bba7f4c3d42f9c891f66eff93108750">00015</a>         <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;MWWorld::Ptr&gt; <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2bba7f4c3d42f9c891f66eff93108750">EventHandle_Item</a>;
 <a name="l00016"></a>00016 
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018     <span class="keyword">private</span>:
-<a name="l00019"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#aa3493889044284c11ab97f0f8f136036">00019</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#aa3493889044284c11ab97f0f8f136036" title="called when reference has become unavailable">onReferenceUnavailable</a>() { ; }
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#aaff8a62c42610782c1731d23bf17cd33">onSelectedItemImpl</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a7361f3a2e2daa3ff38662cc468205186">onCancelButtonClicked</a>(MyGUI::Widget* sender);
-<a name="l00024"></a>00024     };
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 }
+<a name="l00017"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a270fe440e7af1d913dc455e85ebfe0c7">00017</a>         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2bba7f4c3d42f9c891f66eff93108750">EventHandle_Item</a> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a270fe440e7af1d913dc455e85ebfe0c7">eventItemSelected</a>;
+<a name="l00018"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a3664ea14f7fd8e88aafac4705b263602">00018</a>         <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a8e65a174e6f855f20ebfce90123bdf4a">EventHandle_Void</a> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a3664ea14f7fd8e88aafac4705b263602">eventDialogCanceled</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#acb5ba5d63dfa2e98b12a4f8064fe3d8f">openContainer</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; container);
+<a name="l00021"></a>00021         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a012a38c62576425ac71bba44a17107c6">setCategory</a>(<span class="keywordtype">int</span> category);
+<a name="l00022"></a>00022         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a2455bd07bd5259931bbad4cfbebac79c">setFilter</a>(<span class="keywordtype">int</span> filter);
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024     <span class="keyword">private</span>:
+<a name="l00025"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a68aed3c9cd06688c2724f836dbf3396e">00025</a>         <a class="code" href="classMWGui_1_1ItemView.html">ItemView</a>* <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a68aed3c9cd06688c2724f836dbf3396e">mItemView</a>;
+<a name="l00026"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a725fd45dd856d91b7b4b429bb5aaf61c">00026</a>         <a class="code" href="classMWGui_1_1SortFilterItemModel.html">SortFilterItemModel</a>* <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a725fd45dd856d91b7b4b429bb5aaf61c">mSortModel</a>;
+<a name="l00027"></a><a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a21bbafdaed02aef10a009a9b037d5fcb">00027</a>         <a class="code" href="classMWGui_1_1InventoryItemModel.html">InventoryItemModel</a>* <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a21bbafdaed02aef10a009a9b037d5fcb">mModel</a>;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#af0d1fcc17466e30698158c7809e3acfc">onSelectedItem</a>(<span class="keywordtype">int</span> index);
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1ItemSelectionDialog.html#a7361f3a2e2daa3ff38662cc468205186">onCancelButtonClicked</a>(MyGUI::Widget* sender);
+<a name="l00032"></a>00032     };
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 }
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

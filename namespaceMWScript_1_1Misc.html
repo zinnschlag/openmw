@@ -102,6 +102,10 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetCurrentTime.html">OpGetCurrentTime</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpSetDelete.html">OpSetDelete</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetSquareRoot.html">OpGetSquareRoot</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpFall.html">OpFall</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetStandingPc.html">OpGetStandingPc</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetStandingActor.html">OpGetStandingActor</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetWindSpeed.html">OpGetWindSpeed</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#af4347d27b3f2ecaf461085281df47dd0">registerExtensions</a> (<a class="el" href="classCompiler_1_1Extensions.html">Compiler::Extensions</a> &amp;extensions)</td></tr>
@@ -149,6 +153,13 @@ Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#ac81833cd227ae919adca4750cc977bee">opcodeSetDelete</a> = 0x20001e5</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a787f19e04bf7e203b4ec7be87492ccf1">opcodeSetDeleteExplicit</a> = 0x20001e6</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a78ded59e375b66929a03df4b8ced3fff">opcodeGetSquareRoot</a> = 0x20001e7</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a56f4c860420becd4eb9c596213a03966">opcodeFall</a> = 0x200020a</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a695b5a2821faa698d0b198b3946082ae">opcodeFallExplicit</a> = 0x200020b</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#aa3a3ef1baaf506600864e08ca87439fc">opcodeGetStandingPc</a> = 0x200020c</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a5677812c32f0fd58f56ccaa7ca91ab1e">opcodeGetStandingPcExplicit</a> = 0x200020d</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a7320344e57952cb740420ec04c6eaeb7">opcodeGetStandingActor</a> = 0x200020e</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#acff6fcdba9f228175d15241299928561">opcodeGetStandingActorExplicit</a> = 0x200020f</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a477d14188eedcbfa8b129098884d7998">opcodeGetWindSpeed</a> = 0x2000212</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a027f67c5fb2818d218187f1ecfe371c7">opcodePlayBink</a> = 0x20001f7</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
@@ -330,6 +341,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a56f4c860420becd4eb9c596213a03966"></a><!-- doxytag: member="MWScript::Misc::opcodeFall" ref="a56f4c860420becd4eb9c596213a03966" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#a56f4c860420becd4eb9c596213a03966">MWScript::Misc::opcodeFall</a> = 0x200020a</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a695b5a2821faa698d0b198b3946082ae"></a><!-- doxytag: member="MWScript::Misc::opcodeFallExplicit" ref="a695b5a2821faa698d0b198b3946082ae" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#a695b5a2821faa698d0b198b3946082ae">MWScript::Misc::opcodeFallExplicit</a> = 0x200020b</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0f78267c6541611929d9253f5a60e277"></a><!-- doxytag: member="MWScript::Misc::opcodeGetAttacked" ref="a0f78267c6541611929d9253f5a60e277" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -473,6 +510,58 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7320344e57952cb740420ec04c6eaeb7"></a><!-- doxytag: member="MWScript::Misc::opcodeGetStandingActor" ref="a7320344e57952cb740420ec04c6eaeb7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#a7320344e57952cb740420ec04c6eaeb7">MWScript::Misc::opcodeGetStandingActor</a> = 0x200020e</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acff6fcdba9f228175d15241299928561"></a><!-- doxytag: member="MWScript::Misc::opcodeGetStandingActorExplicit" ref="acff6fcdba9f228175d15241299928561" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#acff6fcdba9f228175d15241299928561">MWScript::Misc::opcodeGetStandingActorExplicit</a> = 0x200020f</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa3a3ef1baaf506600864e08ca87439fc"></a><!-- doxytag: member="MWScript::Misc::opcodeGetStandingPc" ref="aa3a3ef1baaf506600864e08ca87439fc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#aa3a3ef1baaf506600864e08ca87439fc">MWScript::Misc::opcodeGetStandingPc</a> = 0x200020c</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5677812c32f0fd58f56ccaa7ca91ab1e"></a><!-- doxytag: member="MWScript::Misc::opcodeGetStandingPcExplicit" ref="a5677812c32f0fd58f56ccaa7ca91ab1e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#a5677812c32f0fd58f56ccaa7ca91ab1e">MWScript::Misc::opcodeGetStandingPcExplicit</a> = 0x200020d</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a4b6fc8d32f88f48c2fb76e50c342311d"></a><!-- doxytag: member="MWScript::Misc::opcodeGetWeaponDrawn" ref="a4b6fc8d32f88f48c2fb76e50c342311d" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -492,6 +581,19 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#a513a270ad5e5c2dbb1cd24cc2df6a614">MWScript::Misc::opcodeGetWeaponDrawnExplicit</a> = 0x20001d8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a477d14188eedcbfa8b129098884d7998"></a><!-- doxytag: member="MWScript::Misc::opcodeGetWindSpeed" ref="a477d14188eedcbfa8b129098884d7998" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="namespaceMWScript_1_1Misc.html#a477d14188eedcbfa8b129098884d7998">MWScript::Misc::opcodeGetWindSpeed</a> = 0x2000212</td>
         </tr>
       </table>
 </div>
@@ -737,7 +839,7 @@ Variables</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

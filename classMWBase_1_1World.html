@@ -97,6 +97,7 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a739022ed5eeda67c169519472ff90bbe">World</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a308d167bb9bc285f81d4d60907a93296">~World</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a95ac0d843e34b274b4da8e12735a91b6">startNewGame</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classOEngine_1_1Render_1_1Fader.html">OEngine::Render::Fader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a78dbeb9c5cddb9aad9804867f6a6f6f3">getFader</a> ()=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">\ŧodo remove this function. Rendering details should not be exposed.  <a href="#a78dbeb9c5cddb9aad9804867f6a6f6f3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a02d840fdbfad8d3f105afbb08b9cc3e1">getExterior</a> (int x, int y)=0</td></tr>
@@ -172,6 +173,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a2df999de8d3773d47747ff11ffc05e7a">moveObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> &amp;newCell, float x, float y, float z)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#af61c23e9078575653ca74fe45d04ac27">scaleObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float scale)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ae5f26df36016bae90ffebaae209feff6">rotateObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float x, float y, float z, bool adjust=false)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ac767d659f6549d0e389cf16c75c0d589">localRotateObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float x, float y, float z)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a012943b813941977b0c750a8e87bcc18">safePlaceObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> &amp;Cell, <a class="el" href="structESM_1_1Position.html">ESM::Position</a> pos)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">place an object in a "safe" location (ie not in the void, etc).  <a href="#a012943b813941977b0c750a8e87bcc18"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a8084db98709b102cd7731193b2cb0470">indexToPosition</a> (int cellX, int cellY, float &amp;x, float &amp;y, bool centre=false) const =0</td></tr>
@@ -180,6 +182,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert position to cell numbers.  <a href="#aad846fb897e65c9baa07ab6505e78ecc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a75e0f11f4b57f33cef6e202b97eeed2d">doPhysics</a> (const <a class="el" href="namespaceMWWorld.html#aba1b109b82b4abad2c8624408b5b9645">MWWorld::PtrMovementList</a> &amp;actors, float duration)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Run physics simulation and modify <em>world</em> accordingly.  <a href="#a75e0f11f4b57f33cef6e202b97eeed2d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#abff81b1c4406da7173e33f9a1ca838ed">castRay</a> (float x1, float y1, float z1, float x2, float y2, float z2)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">cast a Ray and return true if there is an object in the ray path.  <a href="#abff81b1c4406da7173e33f9a1ca838ed"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a27dffa3efeff914ee1955bf214b21031">toggleCollisionMode</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa457a483bba0347b3c289ff451d77363">toggleRenderMode</a> (<a class="el" href="classMWBase_1_1World.html#ae2dd70215dc18d3657f642f0b1f283e3">RenderMode</a> mode)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structESM_1_1Potion.html">ESM::Potion</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ae1e491bc2cff01e1f0c3aac65ab2a89c">createRecord</a> (const <a class="el" href="structESM_1_1Potion.html">ESM::Potion</a> &amp;record)=0</td></tr>
@@ -203,19 +207,34 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a451511f8e9d067283a18318cbefa5fd9">isOnGround</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const =0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a868553554b55c623a92ff0f18d7a6d9d">togglePOV</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a2f529ffb29ff9f0f533d370d99ff7ac7">togglePreviewMode</a> (bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#afff593f81f3e9524989e6c6aa7004990">toggleVanityMode</a> (bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>, bool force)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ab628dfb17572330209c5048d7a29659c">toggleVanityMode</a> (bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a424c9bbfe5e3c3d53e120e4f3f2e5b23">allowVanityMode</a> (bool allow)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa9ec2e75781a92c5244767d53f55df8f">togglePlayerLooking</a> (bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a9ca412f5ae7e76a891861ddd10e4a317">changeVanityModeScale</a> (float factor)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ac5469b0fc4e3f25b59f9c5a7bc51c441">vanityRotateCamera</a> (float *rot)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a82f3e7dcf583f0d977fab43874d3d59a">setupPlayer</a> (bool newGame)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a9fa01957d78f0ef27dd6c2ce8f4fdfad">setCameraDistance</a> (float dist, bool adjust=false, bool override=true)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#abdf7ac9e05be3242094bceef186c3e5b">setupPlayer</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa8ad404b63948d74f14ccda90acc0a10">renderPlayer</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a30cc19d5112a153d9b6eec0e72c69117">getOpenOrCloseDoor</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;door)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">if activated, should this door be opened or closed?  <a href="#a30cc19d5112a153d9b6eec0e72c69117"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#ac45ef9825f46a57b9015aa9bf2645787">activateDoor</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;door)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">activate (open or close) an non-teleport door  <a href="#ac45ef9825f46a57b9015aa9bf2645787"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#af6299afc7fc96c1baee0bd6d5c4dc248">getPlayerStandingOn</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;object)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a57e6dceff0911e0427091618817b7f91">getActorStandingOn</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;object)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a34aa41a01ad1204daf88ce2c3b23669f">getWindSpeed</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a286ba0ef9a67713c9822ddb8979dfd5d">getContainersOwnedBy</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;npc, std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt; &amp;out)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get all containers in active cells owned by this Npc  <a href="#a286ba0ef9a67713c9822ddb8979dfd5d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a10728a2531c90ae9244003c826e0feb2">getItemsOwnedBy</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;npc, std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt; &amp;out)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get all items in active cells owned by this Npc  <a href="#a10728a2531c90ae9244003c826e0feb2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a2ab4bf7598a161e7a132b8632d7c6483">enableActorCollision</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor, bool <a class="el" href="classMWBase_1_1World.html#a2c503b94fa434ba562656361044c4777">enable</a>)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aa2e13376fc3d3bd03e42b22d8cb10014">setupExternalRendering</a> (<a class="el" href="classMWRender_1_1ExternalRendering.html">MWRender::ExternalRendering</a> &amp;rendering)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a8a79fb5c35ed4794f2b424b8c2a02875">canRest</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aea171eaf012a7d6eaa24c8c474f579dd">getAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a06d1390916dbf9cc694c4478169e7c34">playVideo</a> (const std::string &amp;name, bool allowSkipping)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#aca4c08a40125fa959684967df0b5f082">stopVideo</a> ()=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a03c04f617fe6eb545948e441a8403c5f">frameStarted</a> (float dt)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a1dde3044be8e131865a1527117decb01">findExteriorPosition</a> (const std::string &amp;name, <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#acc224d436061a44e045cca090ef11aec">findInteriorPosition</a> (const std::string &amp;name, <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos)=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1World.html#a73d56fc44930b5d770879434acf332f3">World</a> (const <a class="el" href="classMWBase_1_1World.html">World</a> &amp;)</td></tr>
@@ -308,6 +327,27 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ac45ef9825f46a57b9015aa9bf2645787"></a><!-- doxytag: member="MWBase::World::activateDoor" ref="ac45ef9825f46a57b9015aa9bf2645787" args="(const MWWorld::Ptr &amp;door)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#ac45ef9825f46a57b9015aa9bf2645787">MWBase::World::activateDoor</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>door</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>activate (open or close) an non-teleport door </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a54843690a006655193a8226e37f4f60f">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a44ebd8ff3dc4e16a92a2e064967d7c3c"></a><!-- doxytag: member="MWBase::World::adjustPosition" ref="a44ebd8ff3dc4e16a92a2e064967d7c3c" args="(const MWWorld::Ptr &amp;ptr)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -437,6 +477,61 @@ Private Member Functions</h2></td></tr>
  3 - enemies are nearby (not implemented) </p>
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ae94f143d50da8afcff64de332572b1f5">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abff81b1c4406da7173e33f9a1ca838ed"></a><!-- doxytag: member="MWBase::World::castRay" ref="abff81b1c4406da7173e33f9a1ca838ed" args="(float x1, float y1, float z1, float x2, float y2, float z2)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#abff81b1c4406da7173e33f9a1ca838ed">MWBase::World::castRay</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>cast a Ray and return true if there is an object in the ray path. </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ab0ba3f1a3402526d4c8af207fd6618a6">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -783,7 +878,7 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000038">Todo:</a></b></dt><dd>disable reference in the OGRE scene </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>disable reference in the OGRE scene </dd></dl>
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a76a5bd0c97a7e5945d4f4622422bdba6">MWWorld::World</a>.</p>
 
@@ -863,9 +958,100 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd>enable reference in the OGRE scene </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo:</a></b></dt><dd>enable reference in the OGRE scene </dd></dl>
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2ab4bf7598a161e7a132b8632d7c6483"></a><!-- doxytag: member="MWBase::World::enableActorCollision" ref="a2ab4bf7598a161e7a132b8632d7c6483" args="(const MWWorld::Ptr &amp;actor, bool enable)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a2ab4bf7598a161e7a132b8632d7c6483">MWBase::World::enableActorCollision</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>actor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a033944889a7df6cf31002a62d13c8902">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1dde3044be8e131865a1527117decb01"></a><!-- doxytag: member="MWBase::World::findExteriorPosition" ref="a1dde3044be8e131865a1527117decb01" args="(const std::string &amp;name, ESM::Position &amp;pos)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#a1dde3044be8e131865a1527117decb01">MWBase::World::findExteriorPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Find default position inside exterior cell specified by name </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>false if exterior with given name not exists, true otherwise </dd></dl>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#aff6e0c9dfd2c2c7c342819929c4f36fb">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acc224d436061a44e045cca090ef11aec"></a><!-- doxytag: member="MWBase::World::findInteriorPosition" ref="acc224d436061a44e045cca090ef11aec" args="(const std::string &amp;name, ESM::Position &amp;pos)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#acc224d436061a44e045cca090ef11aec">MWBase::World::findInteriorPosition</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Find default position inside interior cell specified by name </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>false if interior with given name not exists, true otherwise </dd></dl>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ac1b97665855f0f2bbc712cbdbc65ab0f">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -888,6 +1074,26 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a57e6dceff0911e0427091618817b7f91"></a><!-- doxytag: member="MWBase::World::getActorStandingOn" ref="a57e6dceff0911e0427091618817b7f91" args="(const MWWorld::Ptr &amp;object)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#a57e6dceff0911e0427091618817b7f91">MWBase::World::getActorStandingOn</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if any actor is standing on <em>object</em> </dd></dl>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a2e5e714d95ae8fbb17b1f46c51e4f226">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aea171eaf012a7d6eaa24c8c474f579dd"></a><!-- doxytag: member="MWBase::World::getAnimation" ref="aea171eaf012a7d6eaa24c8c474f579dd" args="(const MWWorld::Ptr &amp;ptr)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -902,9 +1108,38 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000039">Todo:</a></b></dt><dd>Probably shouldn't be here </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000043">Todo:</a></b></dt><dd>Probably shouldn't be here </dd></dl>
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a2568fec19dc3aafa8c5d7f56fe03c4fe">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a286ba0ef9a67713c9822ddb8979dfd5d"></a><!-- doxytag: member="MWBase::World::getContainersOwnedBy" ref="a286ba0ef9a67713c9822ddb8979dfd5d" args="(const MWWorld::Ptr &amp;npc, std::vector&lt; MWWorld::Ptr &gt; &amp;out)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a286ba0ef9a67713c9822ddb8979dfd5d">MWBase::World::getContainersOwnedBy</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>npc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get all containers in active cells owned by this Npc </p>
 
 </div>
 </div>
@@ -1254,6 +1489,35 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a10728a2531c90ae9244003c826e0feb2"></a><!-- doxytag: member="MWBase::World::getItemsOwnedBy" ref="a10728a2531c90ae9244003c826e0feb2" args="(const MWWorld::Ptr &amp;npc, std::vector&lt; MWWorld::Ptr &gt; &amp;out)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a10728a2531c90ae9244003c826e0feb2">MWBase::World::getItemsOwnedBy</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>npc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>get all items in active cells owned by this Npc </p>
+
+</div>
+</div>
 <a class="anchor" id="a8e702b11083ac5a32e889808bc0aadc8"></a><!-- doxytag: member="MWBase::World::getLocalScripts" ref="a8e702b11083ac5a32e889808bc0aadc8" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -1329,6 +1593,27 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a30cc19d5112a153d9b6eec0e72c69117"></a><!-- doxytag: member="MWBase::World::getOpenOrCloseDoor" ref="a30cc19d5112a153d9b6eec0e72c69117" args="(const MWWorld::Ptr &amp;door)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#a30cc19d5112a153d9b6eec0e72c69117">MWBase::World::getOpenOrCloseDoor</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>door</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>if activated, should this door be opened or closed? </p>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ac51644747c6e555a8fa22ff736384d65">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a2ce315b257c7352fca67ee810180eb58"></a><!-- doxytag: member="MWBase::World::getPlayer" ref="a2ce315b257c7352fca67ee810180eb58" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -1344,6 +1629,26 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#affaceb7547f7e4cc462ae612b8c1f78b">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af6299afc7fc96c1baee0bd6d5c4dc248"></a><!-- doxytag: member="MWBase::World::getPlayerStandingOn" ref="af6299afc7fc96c1baee0bd6d5c4dc248" args="(const MWWorld::Ptr &amp;object)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#af6299afc7fc96c1baee0bd6d5c4dc248">MWBase::World::getPlayerStandingOn</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the player is standing on <em>object</em> </dd></dl>
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ac144ed522fe4e16e4c15045613c4b741">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -1504,6 +1809,24 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ad7adb319f692352ff4c14a553b627866">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a34aa41a01ad1204daf88ce2c3b23669f"></a><!-- doxytag: member="MWBase::World::getWindSpeed" ref="a34aa41a01ad1204daf88ce2c3b23669f" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float <a class="el" href="classMWBase_1_1World.html#a34aa41a01ad1204daf88ce2c3b23669f">MWBase::World::getWindSpeed</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a96f39112a71b9e3bee252ccad5949e56">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -1747,6 +2070,47 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac767d659f6549d0e389cf16c75c0d589"></a><!-- doxytag: member="MWBase::World::localRotateObject" ref="ac767d659f6549d0e389cf16c75c0d589" args="(const MWWorld::Ptr &amp;ptr, float x, float y, float z)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#ac767d659f6549d0e389cf16c75c0d589">MWBase::World::localRotateObject</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a0acb64bac2e236ebbb396d367a510c80">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a832b1d635a5da0296499156f64bc8230"></a><!-- doxytag: member="MWBase::World::markCellAsUnchanged" ref="a832b1d635a5da0296499156f64bc8230" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -1941,7 +2305,7 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd>this does not belong here </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>this does not belong here </dd></dl>
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a38eddafcc63e518175bd7682849c8cb3">MWWorld::World</a>.</p>
 
@@ -2180,6 +2544,41 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9fa01957d78f0ef27dd6c2ce8f4fdfad"></a><!-- doxytag: member="MWBase::World::setCameraDistance" ref="a9fa01957d78f0ef27dd6c2ce8f4fdfad" args="(float dist, bool adjust=false, bool override=true)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a9fa01957d78f0ef27dd6c2ce8f4fdfad">MWBase::World::setCameraDistance</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>adjust</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>override</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a09515bfe8ce44f827ef3e19a4dfa09a3">MWWorld::World</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ade9896158d5a59ce82fa48a8747c024f"></a><!-- doxytag: member="MWBase::World::setDay" ref="ade9896158d5a59ce82fa48a8747c024f" args="(int day)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -2281,22 +2680,21 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a82f3e7dcf583f0d977fab43874d3d59a"></a><!-- doxytag: member="MWBase::World::setupPlayer" ref="a82f3e7dcf583f0d977fab43874d3d59a" args="(bool newGame)=0" -->
+<a class="anchor" id="abdf7ac9e05be3242094bceef186c3e5b"></a><!-- doxytag: member="MWBase::World::setupPlayer" ref="abdf7ac9e05be3242094bceef186c3e5b" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a82f3e7dcf583f0d977fab43874d3d59a">MWBase::World::setupPlayer</a> </td>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#abdf7ac9e05be3242094bceef186c3e5b">MWBase::World::setupPlayer</a> </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>newGame</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td><code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a39c1a6295c42a5609527354d13bf65e0">MWWorld::World</a>.</p>
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ac02681fae70c96e65e9d2e4c2e067f6a">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -2316,6 +2714,24 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ae7b4975fe41269a7557c5fa34f39d283">MWWorld::World</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95ac0d843e34b274b4da8e12735a91b6"></a><!-- doxytag: member="MWBase::World::startNewGame" ref="a95ac0d843e34b274b4da8e12735a91b6" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1World.html#a95ac0d843e34b274b4da8e12735a91b6">MWBase::World::startNewGame</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a1566192fcd9304b8233ea373ee7a8fad">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -2453,32 +2869,22 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afff593f81f3e9524989e6c6aa7004990"></a><!-- doxytag: member="MWBase::World::toggleVanityMode" ref="afff593f81f3e9524989e6c6aa7004990" args="(bool enable, bool force)=0" -->
+<a class="anchor" id="ab628dfb17572330209c5048d7a29659c"></a><!-- doxytag: member="MWBase::World::toggleVanityMode" ref="ab628dfb17572330209c5048d7a29659c" args="(bool enable)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#afff593f81f3e9524989e6c6aa7004990">MWBase::World::toggleVanityMode</a> </td>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1World.html#ab628dfb17572330209c5048d7a29659c">MWBase::World::toggleVanityMode</a> </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>force</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [pure virtual]</code></td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#ae03bc9c2f8fbe344884fe6530747f972">MWWorld::World</a>.</p>
+<p>Implemented in <a class="el" href="classMWWorld_1_1World.html#a0d6995bd5b5b90d4ff4ea16b11d12b0b">MWWorld::World</a>.</p>
 
 </div>
 </div>
@@ -2555,7 +2961,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

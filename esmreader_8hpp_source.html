@@ -259,7 +259,7 @@
 <a name="l00216"></a>00216 <span class="comment">     follows the header, ie beyond the entire record. You should use</span>
 <a name="l00217"></a>00217 <span class="comment">     leftRec to orient yourself inside the record itself.</span>
 <a name="l00218"></a>00218 <span class="comment">  */</span>
-<a name="l00219"></a><a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">00219</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">getRecHeader</a>() { uint32_t u; <a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">getRecHeader</a>(u); }
+<a name="l00219"></a><a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">00219</a>   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">getRecHeader</a>() { <a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">getRecHeader</a>(<a class="code" href="classESM_1_1ESMReader.html#ac9808ac007c4d3c53857ad490855d6fa">mRecordFlags</a>); }
 <a name="l00220"></a>00220   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a64fb13c5a2e1e73a2bf5c89d67226721">getRecHeader</a>(uint32_t &amp;flags);
 <a name="l00221"></a>00221 
 <a name="l00222"></a><a class="code" href="classESM_1_1ESMReader.html#a2beb1e8a02dc264d71e38b296ee4bb71">00222</a>   <span class="keywordtype">bool</span> <a class="code" href="classESM_1_1ESMReader.html#a2beb1e8a02dc264d71e38b296ee4bb71">hasMoreRecs</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classESM_1_1ESMReader.html#a09858224f4170ca33a7c57e65b509942">mCtx</a>.<a class="code" href="structESM_1_1ESM__Context.html#a75910d7f5670ae5db64094a186ab5838">leftFile</a> &gt; 0; }
@@ -290,28 +290,32 @@
 <a name="l00248"></a>00248 
 <a name="l00250"></a>00250   <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMReader.html#a8532c34bbc42ae51eb7f63b1dd7b7ebc" title="Sets font encoder for ESM strings.">setEncoder</a>(<a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* encoder);
 <a name="l00251"></a>00251 
-<a name="l00252"></a>00252 <span class="keyword">private</span>:
-<a name="l00253"></a><a class="code" href="classESM_1_1ESMReader.html#a5985211cad95c496134ca8c56c26d401">00253</a>   Ogre::DataStreamPtr <a class="code" href="classESM_1_1ESMReader.html#a5985211cad95c496134ca8c56c26d401">mEsm</a>;
+<a name="l00253"></a><a class="code" href="classESM_1_1ESMReader.html#a80554ec801233d01c17688b923977bcf">00253</a>   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classESM_1_1ESMReader.html#a80554ec801233d01c17688b923977bcf" title="Get record flags of last record.">getRecordFlags</a>() { <span class="keywordflow">return</span> <a class="code" href="classESM_1_1ESMReader.html#ac9808ac007c4d3c53857ad490855d6fa">mRecordFlags</a>; }
 <a name="l00254"></a>00254 
-<a name="l00255"></a><a class="code" href="classESM_1_1ESMReader.html#a09858224f4170ca33a7c57e65b509942">00255</a>   <a class="code" href="structESM_1_1ESM__Context.html">ESM_Context</a> <a class="code" href="classESM_1_1ESMReader.html#a09858224f4170ca33a7c57e65b509942">mCtx</a>;
-<a name="l00256"></a>00256 
-<a name="l00257"></a>00257   <span class="comment">// Special file signifier (see SpecialFile enum above)</span>
-<a name="l00258"></a>00258 
-<a name="l00259"></a>00259   <span class="comment">// Buffer for ESM strings</span>
-<a name="l00260"></a><a class="code" href="classESM_1_1ESMReader.html#abd52776d5de8b21f5554d052bafe90e3">00260</a>   std::vector&lt;char&gt; <a class="code" href="classESM_1_1ESMReader.html#abd52776d5de8b21f5554d052bafe90e3">mBuffer</a>;
+<a name="l00255"></a>00255 <span class="keyword">private</span>:
+<a name="l00256"></a><a class="code" href="classESM_1_1ESMReader.html#a5985211cad95c496134ca8c56c26d401">00256</a>   Ogre::DataStreamPtr <a class="code" href="classESM_1_1ESMReader.html#a5985211cad95c496134ca8c56c26d401">mEsm</a>;
+<a name="l00257"></a>00257 
+<a name="l00258"></a><a class="code" href="classESM_1_1ESMReader.html#a09858224f4170ca33a7c57e65b509942">00258</a>   <a class="code" href="structESM_1_1ESM__Context.html">ESM_Context</a> <a class="code" href="classESM_1_1ESMReader.html#a09858224f4170ca33a7c57e65b509942">mCtx</a>;
+<a name="l00259"></a>00259 
+<a name="l00260"></a><a class="code" href="classESM_1_1ESMReader.html#ac9808ac007c4d3c53857ad490855d6fa">00260</a>   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classESM_1_1ESMReader.html#ac9808ac007c4d3c53857ad490855d6fa">mRecordFlags</a>;
 <a name="l00261"></a>00261 
-<a name="l00262"></a><a class="code" href="classESM_1_1ESMReader.html#a3c39146dd8f7d6f74b34815bbf8d3698">00262</a>   <a class="code" href="structESM_1_1Header.html" title="File header record.">Header</a> <a class="code" href="classESM_1_1ESMReader.html#a3c39146dd8f7d6f74b34815bbf8d3698">mHeader</a>;
+<a name="l00262"></a>00262   <span class="comment">// Special file signifier (see SpecialFile enum above)</span>
 <a name="l00263"></a>00263 
-<a name="l00264"></a><a class="code" href="classESM_1_1ESMReader.html#ac31284c67b3c017f2508a8f653279277">00264</a>   std::vector&lt;ESMReader&gt; *<a class="code" href="classESM_1_1ESMReader.html#ac31284c67b3c017f2508a8f653279277">mGlobalReaderList</a>;
-<a name="l00265"></a><a class="code" href="classESM_1_1ESMReader.html#a3a9af83b3856196919b8b16dbf8ff99a">00265</a>   <a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* <a class="code" href="classESM_1_1ESMReader.html#a3a9af83b3856196919b8b16dbf8ff99a">mEncoder</a>;
-<a name="l00266"></a>00266 };
-<a name="l00267"></a>00267 }
-<a name="l00268"></a>00268 <span class="preprocessor">#endif</span>
+<a name="l00264"></a>00264   <span class="comment">// Buffer for ESM strings</span>
+<a name="l00265"></a><a class="code" href="classESM_1_1ESMReader.html#abd52776d5de8b21f5554d052bafe90e3">00265</a>   std::vector&lt;char&gt; <a class="code" href="classESM_1_1ESMReader.html#abd52776d5de8b21f5554d052bafe90e3">mBuffer</a>;
+<a name="l00266"></a>00266 
+<a name="l00267"></a><a class="code" href="classESM_1_1ESMReader.html#a3c39146dd8f7d6f74b34815bbf8d3698">00267</a>   <a class="code" href="structESM_1_1Header.html" title="File header record.">Header</a> <a class="code" href="classESM_1_1ESMReader.html#a3c39146dd8f7d6f74b34815bbf8d3698">mHeader</a>;
+<a name="l00268"></a>00268 
+<a name="l00269"></a><a class="code" href="classESM_1_1ESMReader.html#ac31284c67b3c017f2508a8f653279277">00269</a>   std::vector&lt;ESMReader&gt; *<a class="code" href="classESM_1_1ESMReader.html#ac31284c67b3c017f2508a8f653279277">mGlobalReaderList</a>;
+<a name="l00270"></a><a class="code" href="classESM_1_1ESMReader.html#a3a9af83b3856196919b8b16dbf8ff99a">00270</a>   <a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* <a class="code" href="classESM_1_1ESMReader.html#a3a9af83b3856196919b8b16dbf8ff99a">mEncoder</a>;
+<a name="l00271"></a>00271 };
+<a name="l00272"></a>00272 }
+<a name="l00273"></a>00273 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

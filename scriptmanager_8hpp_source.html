@@ -93,28 +93,30 @@
 <a name="l00035"></a>00035 
 <a name="l00036"></a><a class="code" href="classMWBase_1_1ScriptManager.html#a83b1346fbbcc89a5e0f379b2f004fa44">00036</a>             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1ScriptManager.html#a83b1346fbbcc89a5e0f379b2f004fa44">~ScriptManager</a>() {}
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1ScriptManager.html#a0f9e2496fc25724f6efd4536c0f24930" title="Run the script with the given name (compile first, if not compiled yet)">run</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classInterpreter_1_1Context.html">Interpreter::Context</a>&amp; interpreterContext) = 0;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1ScriptManager.html#a001fa09d5348374697f1719413159eae">compile</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045             <span class="keyword">virtual</span> std::pair&lt;int, int&gt; <a class="code" href="classMWBase_1_1ScriptManager.html#a282c05a20f0e08f1226f6bd05d47fa0c">compileAll</a>() = 0;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keyword">virtual</span> <a class="code" href="classCompiler_1_1Locals.html" title="Local variable declarations.">Compiler::Locals</a>&amp; <a class="code" href="classMWBase_1_1ScriptManager.html#ab52bfcd7c310465f33e8b6ba89d45726" title="Return locals for script name.">getLocals</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <span class="keyword">virtual</span> <a class="code" href="classMWScript_1_1GlobalScripts.html">MWScript::GlobalScripts</a>&amp; <a class="code" href="classMWBase_1_1ScriptManager.html#a29cfd610ae320b7b37165a50a36de51b">getGlobalScripts</a>() = 0;
+<a name="l00038"></a>00038             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1ScriptManager.html#ab42d045ed3190e565276c3b26afe2994">resetGlobalScripts</a>() = 0;
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1ScriptManager.html#a0f9e2496fc25724f6efd4536c0f24930" title="Run the script with the given name (compile first, if not compiled yet)">run</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classInterpreter_1_1Context.html">Interpreter::Context</a>&amp; interpreterContext) = 0;
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWBase_1_1ScriptManager.html#a001fa09d5348374697f1719413159eae">compile</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047             <span class="keyword">virtual</span> std::pair&lt;int, int&gt; <a class="code" href="classMWBase_1_1ScriptManager.html#a282c05a20f0e08f1226f6bd05d47fa0c">compileAll</a>() = 0;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051             <span class="keyword">virtual</span> <a class="code" href="classCompiler_1_1Locals.html" title="Local variable declarations.">Compiler::Locals</a>&amp; <a class="code" href="classMWBase_1_1ScriptManager.html#ab52bfcd7c310465f33e8b6ba89d45726" title="Return locals for script name.">getLocals</a> (<span class="keyword">const</span> std::string&amp; name) = 0;
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1ScriptManager.html#ad91ef115ce6add63b674802c94aee33a">getLocalIndex</a> (<span class="keyword">const</span> std::string&amp; scriptId, <span class="keyword">const</span> std::string&amp; variable,
-<a name="l00055"></a>00055                 <span class="keywordtype">char</span> type) = 0;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059     };
-<a name="l00060"></a>00060 }
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
+<a name="l00054"></a>00054             <span class="keyword">virtual</span> <a class="code" href="classMWScript_1_1GlobalScripts.html">MWScript::GlobalScripts</a>&amp; <a class="code" href="classMWBase_1_1ScriptManager.html#a29cfd610ae320b7b37165a50a36de51b">getGlobalScripts</a>() = 0;
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1ScriptManager.html#ad91ef115ce6add63b674802c94aee33a">getLocalIndex</a> (<span class="keyword">const</span> std::string&amp; scriptId, <span class="keyword">const</span> std::string&amp; variable,
+<a name="l00057"></a>00057                 <span class="keywordtype">char</span> type) = 0;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     };
+<a name="l00062"></a>00062 }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

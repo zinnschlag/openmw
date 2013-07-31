@@ -64,10 +64,13 @@
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a>  </div>
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">MWRender::Animation Class Reference</div>  </div>
 </div><!--header-->
@@ -80,57 +83,158 @@
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation_1_1AnimationValue.html">AnimationValue</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1Animation_1_1AnimSource.html">AnimSource</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2">Group</a> { <br/>
+&#160;&#160;<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2a1c29aff25e1c05003798971c7374b697">Group_LowerBody</a> =  1&lt;&lt;0, 
+<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2ab8eb2e305ecd18ffa1cbafbd1bdfab18">Group_Torso</a> =  1&lt;&lt;1, 
+<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2a50ddb39d3a0dad9aaf9c4142625a65a8">Group_LeftArm</a> =  1&lt;&lt;2, 
+<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2a28d34987f9ec97b6dfd4e615124afc49">Group_RightArm</a> =  1&lt;&lt;3, 
+<br/>
+&#160;&#160;<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2a75ce6334d61466372c6efb98149f217f">Group_UpperBody</a> =  Group_Torso | Group_LeftArm | Group_RightArm, 
+<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2a605ac3cc8bc48dcf091a0a65af2e50ad">Group_All</a> =  Group_LowerBody | Group_UpperBody
+<br/>
+ }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a6c453296f6c4328e57798eadccf63ad1">Animation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a29ed29a359c49105b3c972651d4fec28">~Animation</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a83ef0962522458c8c90fee361bd9eace">setController</a> (<a class="el" href="classMWMechanics_1_1CharacterController.html">MWMechanics::CharacterController</a> *controller)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae4627a2cd19846ca585f42d0365c23fe">updatePtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a23e0c1169b04b1e785b3c01f4bcf437b">hasAnimation</a> (const std::string &amp;anim)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a83f3de0293e12be140235cea641240a8">isPriorityActive</a> (int priority) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Is there an animation playing with the given priority?  <a href="#a83f3de0293e12be140235cea641240a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a0a8fb6eb17a1f7061a955e835319f04b">setAccumulation</a> (const Ogre::Vector3 &amp;accum)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a40fe575a9493540376f35f1ce5c12cae">setSpeed</a> (float speed)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a5bb74a2e4618180b8ebe9b10d004022c">setLooping</a> (bool loop)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a5810e7db1aaaf34073e5bdf31c2a1846">play</a> (const std::string &amp;groupname, const std::string &amp;start, const std::string &amp;stop, bool loop)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#adea4f318d9334cab99ef59927a36e251">runAnimation</a> (float timepassed)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab3a69ee74baadbb9c692501235cfb729">play</a> (const std::string &amp;groupname, int priority, int groups, bool autodisable, float speedmult, const std::string &amp;start, const std::string &amp;stop, float startpoint, size_t loops)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">isPlaying</a> (const std::string &amp;groupname) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a3dc43d18b1141fdd421f3b66a31595ed">getInfo</a> (const std::string &amp;groupname, float *complete=NULL, float *speedmult=NULL, std::string *start=NULL, std::string *stop=NULL) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae52ecaea6bbf327d968e6d388f37bf44">disable</a> (const std::string &amp;groupname)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab9317b27de91d2abd4b5e8ce06ce5ec7">getVelocity</a> (const std::string &amp;groupname) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a2493ad01a65d407b54d2e3f56df4a236">runAnimation</a> (float duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a7a6b85ce09dceb0b8510ab0c428c8082">showWeapons</a> (bool showWeapon)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">setCamera</a> (<a class="el" href="classMWRender_1_1Camera.html">Camera</a> *cam)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae7c7f70acba9b8995a6c3875228b7362">getNode</a> (const std::string &amp;name)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::TagPoint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a8634b3a31d6c19eb9ab875d02d81c23d">attachObjectToBone</a> (const Ogre::String &amp;bonename, Ogre::MovableObject *obj)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab62e6d129273c8765fd30954097cf6c9">detachObjectFromBone</a> (Ogre::MovableObject *obj)</td></tr>
+<tr><td colspan="2"><h2><a name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector<br class="typebreak"/>
+&lt; Ogre::SharedPtr&lt; <a class="el" href="structMWRender_1_1Animation_1_1AnimSource.html">AnimSource</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
+<a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map<br class="typebreak"/>
+&lt; Ogre::MovableObject <br class="typebreak"/>
+*, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ac480acef78d00f5c19fbd4211bd55d98">calcAnimVelocity</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a94cc64915a580e0d9818d7aa50acc3d5">resetActiveGroups</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a663b0d04e72476c3633b850e70988a20">updateSkeletonInstance</a> (const Ogre::SkeletonInstance *skelsrc, Ogre::SkeletonInstance *skel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a33d5016bd3416f97c81eea524d8e5eed">updatePosition</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ace9921b67a5aa027a4b5f24bfe915535">reset</a> (const std::string &amp;start, const std::string &amp;stop)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a073ee320641b85ff4339e645df4eb39f">handleEvent</a> (float time, const std::string &amp;evt)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a48b567b99db96e48dadcde57873b6487">setAnimationSources</a> (const std::vector&lt; std::string &gt; &amp;names)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a21b3a8906b9aeab782ab8bf01929eabe">setAnimationSource</a> (const std::string &amp;name)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ac43b71b4f5fe231de218c6d03ffd0dfd">createObjectList</a> (Ogre::SceneNode *node, const std::string &amp;model)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab1d2752d5780a09ea57e1a7782817da5">updatePosition</a> (float oldtime, float newtime, Ogre::Vector3 &amp;position)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a9a8499e9c0df8aa7011743fadfc5a899">reset</a> (<a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, const std::string &amp;groupname, const std::string &amp;start, const std::string &amp;stop, float startpoint)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a84396554ad3196d8227f5bb8f67eb0fe">doLoop</a> (<a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a03af3caadfc387aa2087cd8950b9644f">handleTextKey</a> (<a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, const std::string &amp;groupname, const NifOgre::TextKeyMap::const_iterator &amp;key)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a1ca63d0374a705f265e814b2fe0c62ff">setObjectRoot</a> (Ogre::SceneNode *node, const std::string &amp;model, bool baseonly)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aff362c03830efca83a352ab456362110">addAnimSource</a> (const std::string &amp;model)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aa5739caddf776d68d560e24f912e9379">clearAnimSources</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a711b05b817d346b5bab1b02f435a4696">detectAnimGroup</a> (const Ogre::Node *node)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a5acf455b017a6fc48a2053da5ea80882">calcAnimVelocity</a> (const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, <a class="el" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue</a>&lt; Ogre::Real &gt; *nonaccumctrl, const Ogre::Vector3 &amp;accum, const std::string &amp;groupname)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <br class="typebreak"/>
+NifOgre::TextKeyMap::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab1f5d8535fbc4a41194c32784d11234e">findGroupStart</a> (const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, const std::string &amp;groupname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a443daf54b0ff528b7554d34839ea8c43">destroyObjectList</a> (Ogre::SceneManager *sceneMgr, <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objects)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a1a489253af0be56e75093b201ce2807c">setRenderProperties</a> (const <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aa92fa49c6f89faf08d10c0c957515925">mPtr</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWMechanics_1_1CharacterController.html">MWMechanics::CharacterController</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a3d2cd41a0be26f4065bfc2591b8365a6">mController</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">mCamera</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af5b6ebf3f3d5b9ec72663de02323ea0b">mInsert</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a8b36fd29bc45b5c345be536c68c10e2f">mObjectList</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <br class="typebreak"/>
-<a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a75f3b373174b4f285afc89a2b0ffa5c3">mTextKeys</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Entity *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">mSkelBase</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a81910a062367622bce103855b6c27723">mObjectRoot</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">mAnimSources</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae61fb34a2bb0d264552f0f9d2be8df65">mAccumRoot</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::Bone *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aafd0d17b459201f3ca9c7847eae6fff2">mNonAccumRoot</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">mNonAccumRoot</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue</a><br class="typebreak"/>
+&lt; Ogre::Real &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a117c7c2415273d81f4e8599fc0e2013e">mNonAccumCtrl</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aded3e71fb0b24eab2eed7db7abe87895">mAccumulate</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#adadd1b4dc50b88c6cf3255f9a967aba5">mLastPosition</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a6d8fbb0083df59f4789d55b10002dc60">mAnimationSources</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; Ogre::Controller<br class="typebreak"/>
-&lt; Ogre::Real &gt; &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a6e581f1aee711287f8b80ced77c028a6">mCurrentControllers</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae155dd33e7d2b8f77e57dc37096d95ea">mCurrentKeys</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">NifOgre::TextKeyMap::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aab9c3916d8292bffecd7a04fec4f237a">mNextKey</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::Animation *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a6de8b176f9415aa09f9a03fdb1da43db">mCurrentAnim</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ac8cbfae61cde80238c3e00184cddf8d5">mCurrentTime</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a7096ed5013ae21ade144720b57756a89">mStopTime</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aaa5725af28c099a81977a844c1b31f71">mPlaying</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae4387c550790065a334f59bc9783113c">mLooping</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a078b583f13a92cbddb59fd13580cd749">mAnimVelocity</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a89a018a0f57f0c32744e9a7fda852149">mAnimSpeedMult</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a6db71a8c8d5705eb4979ca22a5a7251d">mStates</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::SharedPtr&lt; <a class="el" href="classMWRender_1_1Animation_1_1AnimationValue.html">AnimationValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a36322b0c50449ef4a750343905c9db50">mAnimationValuePtr</a> [<a class="el" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a16979cdfc6007a5a99e75b1c79f3614c">mAttachedObjects</a></td></tr>
+<tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a> = 4</td></tr>
 </table>
+<hr/><h2>Member Typedef Documentation</h2>
+<a class="anchor" id="a90e94790179b4c439bdc43c3fe71fec0"></a><!-- doxytag: member="MWRender::Animation::AnimSourceList" ref="a90e94790179b4c439bdc43c3fe71fec0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt; Ogre::SharedPtr&lt;<a class="el" href="structMWRender_1_1Animation_1_1AnimSource.html">AnimSource</a>&gt; &gt; <a class="el" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">MWRender::Animation::AnimSourceList</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a10ae9d09ca5a96f0ce4332e8f8c6742b"></a><!-- doxytag: member="MWRender::Animation::AnimStateMap" ref="a10ae9d09ca5a96f0ce4332e8f8c6742b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;std::string,<a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a>&gt; <a class="el" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">MWRender::Animation::AnimStateMap</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a921eb403f7bfc1f77116edff82691b6d"></a><!-- doxytag: member="MWRender::Animation::ObjectAttachMap" ref="a921eb403f7bfc1f77116edff82691b6d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;Ogre::MovableObject*,std::string&gt; <a class="el" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">MWRender::Animation::ObjectAttachMap</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Enumeration Documentation</h2>
+<a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2"></a><!-- doxytag: member="MWRender::Animation::Group" ref="add85b22032553ce4a68fbe8c85e0a6d2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2">MWRender::Animation::Group</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2a1c29aff25e1c05003798971c7374b697"></a><!-- doxytag: member="Group_LowerBody" ref="add85b22032553ce4a68fbe8c85e0a6d2a1c29aff25e1c05003798971c7374b697" args="" -->Group_LowerBody</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2ab8eb2e305ecd18ffa1cbafbd1bdfab18"></a><!-- doxytag: member="Group_Torso" ref="add85b22032553ce4a68fbe8c85e0a6d2ab8eb2e305ecd18ffa1cbafbd1bdfab18" args="" -->Group_Torso</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2a50ddb39d3a0dad9aaf9c4142625a65a8"></a><!-- doxytag: member="Group_LeftArm" ref="add85b22032553ce4a68fbe8c85e0a6d2a50ddb39d3a0dad9aaf9c4142625a65a8" args="" -->Group_LeftArm</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2a28d34987f9ec97b6dfd4e615124afc49"></a><!-- doxytag: member="Group_RightArm" ref="add85b22032553ce4a68fbe8c85e0a6d2a28d34987f9ec97b6dfd4e615124afc49" args="" -->Group_RightArm</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2a75ce6334d61466372c6efb98149f217f"></a><!-- doxytag: member="Group_UpperBody" ref="add85b22032553ce4a68fbe8c85e0a6d2a75ce6334d61466372c6efb98149f217f" args="" -->Group_UpperBody</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="add85b22032553ce4a68fbe8c85e0a6d2a605ac3cc8bc48dcf091a0a65af2e50ad"></a><!-- doxytag: member="Group_All" ref="add85b22032553ce4a68fbe8c85e0a6d2a605ac3cc8bc48dcf091a0a65af2e50ad" args="" -->Group_All</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6c453296f6c4328e57798eadccf63ad1"></a><!-- doxytag: member="MWRender::Animation::Animation" ref="a6c453296f6c4328e57798eadccf63ad1" args="(const MWWorld::Ptr &amp;ptr)" -->
 <div class="memitem">
@@ -166,14 +270,15 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ac480acef78d00f5c19fbd4211bd55d98"></a><!-- doxytag: member="MWRender::Animation::calcAnimVelocity" ref="ac480acef78d00f5c19fbd4211bd55d98" args="()" -->
+<a class="anchor" id="aff362c03830efca83a352ab456362110"></a><!-- doxytag: member="MWRender::Animation::addAnimSource" ref="aff362c03830efca83a352ab456362110" args="(const std::string &amp;model)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ac480acef78d00f5c19fbd4211bd55d98">MWRender::Animation::calcAnimVelocity</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#aff362c03830efca83a352ab456362110">MWRender::Animation::addAnimSource</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>model</em></td><td>)</td>
           <td><code> [protected]</code></td>
         </tr>
       </table>
@@ -182,26 +287,81 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac43b71b4f5fe231de218c6d03ffd0dfd"></a><!-- doxytag: member="MWRender::Animation::createObjectList" ref="ac43b71b4f5fe231de218c6d03ffd0dfd" args="(Ogre::SceneNode *node, const std::string &amp;model)" -->
+<a class="anchor" id="a8634b3a31d6c19eb9ab875d02d81c23d"></a><!-- doxytag: member="MWRender::Animation::attachObjectToBone" ref="a8634b3a31d6c19eb9ab875d02d81c23d" args="(const Ogre::String &amp;bonename, Ogre::MovableObject *obj)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ac43b71b4f5fe231de218c6d03ffd0dfd">MWRender::Animation::createObjectList</a> </td>
+          <td class="memname">Ogre::TagPoint * <a class="el" href="classMWRender_1_1Animation.html#a8634b3a31d6c19eb9ab875d02d81c23d">MWRender::Animation::attachObjectToBone</a> </td>
           <td>(</td>
-          <td class="paramtype">Ogre::SceneNode *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
+          <td class="paramtype">const Ogre::String &amp;&#160;</td>
+          <td class="paramname"><em>bonename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::MovableObject *&#160;</td>
+          <td class="paramname"><em>obj</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5acf455b017a6fc48a2053da5ea80882"></a><!-- doxytag: member="MWRender::Animation::calcAnimVelocity" ref="a5acf455b017a6fc48a2053da5ea80882" args="(const NifOgre::TextKeyMap &amp;keys, NifOgre::NodeTargetValue&lt; Ogre::Real &gt; *nonaccumctrl, const Ogre::Vector3 &amp;accum, const std::string &amp;groupname)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWRender_1_1Animation.html#a5acf455b017a6fc48a2053da5ea80882">MWRender::Animation::calcAnimVelocity</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>keys</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue</a>&lt; Ogre::Real &gt; *&#160;</td>
+          <td class="paramname"><em>nonaccumctrl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ogre::Vector3 &amp;&#160;</td>
+          <td class="paramname"><em>accum</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>model</em>&#160;</td>
+          <td class="paramname"><em>groupname</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td><code> [protected]</code></td>
+          <td></td><td><code> [static, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa5739caddf776d68d560e24f912e9379"></a><!-- doxytag: member="MWRender::Animation::clearAnimSources" ref="aa5739caddf776d68d560e24f912e9379" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#aa5739caddf776d68d560e24f912e9379">MWRender::Animation::clearAnimSources</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -236,6 +396,165 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab62e6d129273c8765fd30954097cf6c9"></a><!-- doxytag: member="MWRender::Animation::detachObjectFromBone" ref="ab62e6d129273c8765fd30954097cf6c9" args="(Ogre::MovableObject *obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ab62e6d129273c8765fd30954097cf6c9">MWRender::Animation::detachObjectFromBone</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::MovableObject *&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a711b05b817d346b5bab1b02f435a4696"></a><!-- doxytag: member="MWRender::Animation::detectAnimGroup" ref="a711b05b817d346b5bab1b02f435a4696" args="(const Ogre::Node *node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="classMWRender_1_1Animation.html#a711b05b817d346b5bab1b02f435a4696">MWRender::Animation::detectAnimGroup</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Ogre::Node *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td><code> [static, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae52ecaea6bbf327d968e6d388f37bf44"></a><!-- doxytag: member="MWRender::Animation::disable" ref="ae52ecaea6bbf327d968e6d388f37bf44" args="(const std::string &amp;groupname)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ae52ecaea6bbf327d968e6d388f37bf44">MWRender::Animation::disable</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupname</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Disables the specified animation group; </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupname</td><td><a class="el" href="classMWRender_1_1Animation.html">Animation</a> group to disable. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a84396554ad3196d8227f5bb8f67eb0fe"></a><!-- doxytag: member="MWRender::Animation::doLoop" ref="a84396554ad3196d8227f5bb8f67eb0fe" args="(AnimState &amp;state)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a84396554ad3196d8227f5bb8f67eb0fe">MWRender::Animation::doLoop</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab1f5d8535fbc4a41194c32784d11234e"></a><!-- doxytag: member="MWRender::Animation::findGroupStart" ref="ab1f5d8535fbc4a41194c32784d11234e" args="(const NifOgre::TextKeyMap &amp;keys, const std::string &amp;groupname)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NifOgre::TextKeyMap::const_iterator <a class="el" href="classMWRender_1_1Animation.html#ab1f5d8535fbc4a41194c32784d11234e">MWRender::Animation::findGroupStart</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>keys</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupname</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3dc43d18b1141fdd421f3b66a31595ed"></a><!-- doxytag: member="MWRender::Animation::getInfo" ref="a3dc43d18b1141fdd421f3b66a31595ed" args="(const std::string &amp;groupname, float *complete=NULL, float *speedmult=NULL, std::string *start=NULL, std::string *stop=NULL) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a3dc43d18b1141fdd421f3b66a31595ed">MWRender::Animation::getInfo</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>complete</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>speedmult</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>start</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>stop</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Gets info about the given animation group. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupname</td><td><a class="el" href="classMWRender_1_1Animation.html">Animation</a> group to check. </td></tr>
+    <tr><td class="paramname">complete</td><td>Stores completion amount (0 = at start key, 0.5 = half way between start and stop keys), etc. </td></tr>
+    <tr><td class="paramname">speedmult</td><td>Stores the animation speed multiplier </td></tr>
+    <tr><td class="paramname">start</td><td>Stores the start key </td></tr>
+    <tr><td class="paramname">stop</td><td>Stores the stop key </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True if the animation is active, false otherwise. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ae7c7f70acba9b8995a6c3875228b7362"></a><!-- doxytag: member="MWRender::Animation::getNode" ref="ae7c7f70acba9b8995a6c3875228b7362" args="(const std::string &amp;name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -253,21 +572,45 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a073ee320641b85ff4339e645df4eb39f"></a><!-- doxytag: member="MWRender::Animation::handleEvent" ref="a073ee320641b85ff4339e645df4eb39f" args="(float time, const std::string &amp;evt)" -->
+<a class="anchor" id="ab9317b27de91d2abd4b5e8ce06ce5ec7"></a><!-- doxytag: member="MWRender::Animation::getVelocity" ref="ab9317b27de91d2abd4b5e8ce06ce5ec7" args="(const std::string &amp;groupname) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a073ee320641b85ff4339e645df4eb39f">MWRender::Animation::handleEvent</a> </td>
+          <td class="memname">float <a class="el" href="classMWRender_1_1Animation.html#ab9317b27de91d2abd4b5e8ce06ce5ec7">MWRender::Animation::getVelocity</a> </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupname</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Retrieves the velocity (in units per second) that the animation will move. </p>
+
+</div>
+</div>
+<a class="anchor" id="a03af3caadfc387aa2087cd8950b9644f"></a><!-- doxytag: member="MWRender::Animation::handleTextKey" ref="a03af3caadfc387aa2087cd8950b9644f" args="(AnimState &amp;state, const std::string &amp;groupname, const NifOgre::TextKeyMap::const_iterator &amp;key)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a03af3caadfc387aa2087cd8950b9644f">MWRender::Animation::handleTextKey</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>evt</em>&#160;</td>
+          <td class="paramname"><em>groupname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const NifOgre::TextKeyMap::const_iterator &amp;&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -297,13 +640,146 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5810e7db1aaaf34073e5bdf31c2a1846"></a><!-- doxytag: member="MWRender::Animation::play" ref="a5810e7db1aaaf34073e5bdf31c2a1846" args="(const std::string &amp;groupname, const std::string &amp;start, const std::string &amp;stop, bool loop)" -->
+<a class="anchor" id="a5b8f16b3c1ae5e7d515a5f9be97df6a4"></a><!-- doxytag: member="MWRender::Animation::isPlaying" ref="a5b8f16b3c1ae5e7d515a5f9be97df6a4" args="(const std::string &amp;groupname) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a5810e7db1aaaf34073e5bdf31c2a1846">MWRender::Animation::play</a> </td>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">MWRender::Animation::isPlaying</a> </td>
           <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupname</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if the named animation group is playing. </p>
+
+</div>
+</div>
+<a class="anchor" id="a83f3de0293e12be140235cea641240a8"></a><!-- doxytag: member="MWRender::Animation::isPriorityActive" ref="a83f3de0293e12be140235cea641240a8" args="(int priority) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a83f3de0293e12be140235cea641240a8">MWRender::Animation::isPriorityActive</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Is there an animation playing with the given priority? </p>
+
+</div>
+</div>
+<a class="anchor" id="ab3a69ee74baadbb9c692501235cfb729"></a><!-- doxytag: member="MWRender::Animation::play" ref="ab3a69ee74baadbb9c692501235cfb729" args="(const std::string &amp;groupname, int priority, int groups, bool autodisable, float speedmult, const std::string &amp;start, const std::string &amp;stop, float startpoint, size_t loops)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ab3a69ee74baadbb9c692501235cfb729">MWRender::Animation::play</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>groupname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>groups</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>autodisable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>speedmult</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>stop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>startpoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>loops</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Plays an animation. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupname</td><td>Name of the animation group to play. </td></tr>
+    <tr><td class="paramname">priority</td><td>Priority of the animation. The animation will play on bone groups that don't have another animation set of a higher priority. </td></tr>
+    <tr><td class="paramname">groups</td><td>Bone groups to play the animation on. </td></tr>
+    <tr><td class="paramname">autodisable</td><td>Automatically disable the animation when it stops playing. </td></tr>
+    <tr><td class="paramname">speedmult</td><td>Speed multiplier for the animation. </td></tr>
+    <tr><td class="paramname">start</td><td>Key marker from which to start. </td></tr>
+    <tr><td class="paramname">stop</td><td>Key marker to stop at. </td></tr>
+    <tr><td class="paramname">startpoint</td><td>How far in between the two markers to start. 0 starts at the start marker, 1 starts at the stop marker. </td></tr>
+    <tr><td class="paramname">loops</td><td>How many times to loop the animation. This will use the "loop start" and "loop stop" markers if they exist, otherwise it will use "start" and "stop". </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9a8499e9c0df8aa7011743fadfc5a899"></a><!-- doxytag: member="MWRender::Animation::reset" ref="a9a8499e9c0df8aa7011743fadfc5a899" args="(AnimState &amp;state, const NifOgre::TextKeyMap &amp;keys, const std::string &amp;groupname, const std::string &amp;start, const std::string &amp;stop, float startpoint)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a9a8499e9c0df8aa7011743fadfc5a899">MWRender::Animation::reset</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>keys</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>groupname</em>, </td>
         </tr>
@@ -322,35 +798,8 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>loop</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ace9921b67a5aa027a4b5f24bfe915535"></a><!-- doxytag: member="MWRender::Animation::reset" ref="ace9921b67a5aa027a4b5f24bfe915535" args="(const std::string &amp;start, const std::string &amp;stop)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ace9921b67a5aa027a4b5f24bfe915535">MWRender::Animation::reset</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>stop</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>startpoint</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -363,15 +812,31 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adea4f318d9334cab99ef59927a36e251"></a><!-- doxytag: member="MWRender::Animation::runAnimation" ref="adea4f318d9334cab99ef59927a36e251" args="(float timepassed)" -->
+<a class="anchor" id="a94cc64915a580e0d9818d7aa50acc3d5"></a><!-- doxytag: member="MWRender::Animation::resetActiveGroups" ref="a94cc64915a580e0d9818d7aa50acc3d5" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Ogre::Vector3 <a class="el" href="classMWRender_1_1Animation.html#adea4f318d9334cab99ef59927a36e251">MWRender::Animation::runAnimation</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a94cc64915a580e0d9818d7aa50acc3d5">MWRender::Animation::resetActiveGroups</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2493ad01a65d407b54d2e3f56df4a236"></a><!-- doxytag: member="MWRender::Animation::runAnimation" ref="a2493ad01a65d407b54d2e3f56df4a236" args="(float duration)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::Vector3 <a class="el" href="classMWRender_1_1Animation.html#a2493ad01a65d407b54d2e3f56df4a236">MWRender::Animation::runAnimation</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>timepassed</em></td><td>)</td>
+          <td class="paramname"><em>duration</em></td><td>)</td>
           <td><code> [virtual]</code></td>
         </tr>
       </table>
@@ -399,16 +864,16 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a21b3a8906b9aeab782ab8bf01929eabe"></a><!-- doxytag: member="MWRender::Animation::setAnimationSource" ref="a21b3a8906b9aeab782ab8bf01929eabe" args="(const std::string &amp;name)" -->
+<a class="anchor" id="af487533f0497cfb2abdb98e88ae4c05f"></a><!-- doxytag: member="MWRender::Animation::setCamera" ref="af487533f0497cfb2abdb98e88ae4c05f" args="(Camera *cam)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a21b3a8906b9aeab782ab8bf01929eabe">MWRender::Animation::setAnimationSource</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">MWRender::Animation::setCamera</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td><code> [inline, protected]</code></td>
+          <td class="paramtype"><a class="el" href="classMWRender_1_1Camera.html">Camera</a> *&#160;</td>
+          <td class="paramname"><em>cam</em></td><td>)</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -416,33 +881,32 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a48b567b99db96e48dadcde57873b6487"></a><!-- doxytag: member="MWRender::Animation::setAnimationSources" ref="a48b567b99db96e48dadcde57873b6487" args="(const std::vector&lt; std::string &gt; &amp;names)" -->
+<a class="anchor" id="a1ca63d0374a705f265e814b2fe0c62ff"></a><!-- doxytag: member="MWRender::Animation::setObjectRoot" ref="a1ca63d0374a705f265e814b2fe0c62ff" args="(Ogre::SceneNode *node, const std::string &amp;model, bool baseonly)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a48b567b99db96e48dadcde57873b6487">MWRender::Animation::setAnimationSources</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a1ca63d0374a705f265e814b2fe0c62ff">MWRender::Animation::setObjectRoot</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>names</em></td><td>)</td>
-          <td><code> [protected]</code></td>
+          <td class="paramtype">Ogre::SceneNode *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
         </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a83ef0962522458c8c90fee361bd9eace"></a><!-- doxytag: member="MWRender::Animation::setController" ref="a83ef0962522458c8c90fee361bd9eace" args="(MWMechanics::CharacterController *controller)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a83ef0962522458c8c90fee361bd9eace">MWRender::Animation::setController</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classMWMechanics_1_1CharacterController.html">MWMechanics::CharacterController</a> *&#160;</td>
-          <td class="paramname"><em>controller</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>baseonly</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -450,49 +914,90 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5bb74a2e4618180b8ebe9b10d004022c"></a><!-- doxytag: member="MWRender::Animation::setLooping" ref="a5bb74a2e4618180b8ebe9b10d004022c" args="(bool loop)" -->
+<a class="anchor" id="a1a489253af0be56e75093b201ce2807c"></a><!-- doxytag: member="MWRender::Animation::setRenderProperties" ref="a1a489253af0be56e75093b201ce2807c" args="(const NifOgre::ObjectList &amp;objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a5bb74a2e4618180b8ebe9b10d004022c">MWRender::Animation::setLooping</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a1a489253af0be56e75093b201ce2807c">MWRender::Animation::setRenderProperties</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;&#160;</td>
+          <td class="paramname"><em>objlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::uint32&#160;</td>
+          <td class="paramname"><em>visflags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::uint8&#160;</td>
+          <td class="paramname"><em>solidqueue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::uint8&#160;</td>
+          <td class="paramname"><em>transqueue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7a6b85ce09dceb0b8510ab0c428c8082"></a><!-- doxytag: member="MWRender::Animation::showWeapons" ref="a7a6b85ce09dceb0b8510ab0c428c8082" args="(bool showWeapon)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a7a6b85ce09dceb0b8510ab0c428c8082">MWRender::Animation::showWeapons</a> </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>loop</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>showWeapon</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classMWRender_1_1NpcAnimation.html#a0276bb5ac593134ce644726301e83e56">MWRender::NpcAnimation</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a40fe575a9493540376f35f1ce5c12cae"></a><!-- doxytag: member="MWRender::Animation::setSpeed" ref="a40fe575a9493540376f35f1ce5c12cae" args="(float speed)" -->
+<a class="anchor" id="ab1d2752d5780a09ea57e1a7782817da5"></a><!-- doxytag: member="MWRender::Animation::updatePosition" ref="ab1d2752d5780a09ea57e1a7782817da5" args="(float oldtime, float newtime, Ogre::Vector3 &amp;position)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a40fe575a9493540376f35f1ce5c12cae">MWRender::Animation::setSpeed</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ab1d2752d5780a09ea57e1a7782817da5">MWRender::Animation::updatePosition</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>speed</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>oldtime</em>, </td>
         </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a33d5016bd3416f97c81eea524d8e5eed"></a><!-- doxytag: member="MWRender::Animation::updatePosition" ref="a33d5016bd3416f97c81eea524d8e5eed" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">Ogre::Vector3 <a class="el" href="classMWRender_1_1Animation.html#a33d5016bd3416f97c81eea524d8e5eed">MWRender::Animation::updatePosition</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [protected]</code></td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>newtime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3 &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -571,12 +1076,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6d8fbb0083df59f4789d55b10002dc60"></a><!-- doxytag: member="MWRender::Animation::mAnimationSources" ref="a6d8fbb0083df59f4789d55b10002dc60" args="" -->
+<a class="anchor" id="a36322b0c50449ef4a750343905c9db50"></a><!-- doxytag: member="MWRender::Animation::mAnimationValuePtr" ref="a36322b0c50449ef4a750343905c9db50" args="[sNumGroups]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&gt; <a class="el" href="classMWRender_1_1Animation.html#a6d8fbb0083df59f4789d55b10002dc60">MWRender::Animation::mAnimationSources</a><code> [protected]</code></td>
+          <td class="memname">Ogre::SharedPtr&lt;<a class="el" href="classMWRender_1_1Animation_1_1AnimationValue.html">AnimationValue</a>&gt; <a class="el" href="classMWRender_1_1Animation.html#a36322b0c50449ef4a750343905c9db50">MWRender::Animation::mAnimationValuePtr</a>[<a class="el" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a>]<code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -584,12 +1089,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a89a018a0f57f0c32744e9a7fda852149"></a><!-- doxytag: member="MWRender::Animation::mAnimSpeedMult" ref="a89a018a0f57f0c32744e9a7fda852149" args="" -->
+<a class="anchor" id="a700b235b78d3d510cc315d29392209f7"></a><!-- doxytag: member="MWRender::Animation::mAnimSources" ref="a700b235b78d3d510cc315d29392209f7" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Animation.html#a89a018a0f57f0c32744e9a7fda852149">MWRender::Animation::mAnimSpeedMult</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a> <a class="el" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">MWRender::Animation::mAnimSources</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -597,12 +1102,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a078b583f13a92cbddb59fd13580cd749"></a><!-- doxytag: member="MWRender::Animation::mAnimVelocity" ref="a078b583f13a92cbddb59fd13580cd749" args="" -->
+<a class="anchor" id="a16979cdfc6007a5a99e75b1c79f3614c"></a><!-- doxytag: member="MWRender::Animation::mAttachedObjects" ref="a16979cdfc6007a5a99e75b1c79f3614c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Animation.html#a078b583f13a92cbddb59fd13580cd749">MWRender::Animation::mAnimVelocity</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a> <a class="el" href="classMWRender_1_1Animation.html#a16979cdfc6007a5a99e75b1c79f3614c">MWRender::Animation::mAttachedObjects</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -610,64 +1115,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3d2cd41a0be26f4065bfc2591b8365a6"></a><!-- doxytag: member="MWRender::Animation::mController" ref="a3d2cd41a0be26f4065bfc2591b8365a6" args="" -->
+<a class="anchor" id="a948e9324e6ae553146a9f163aa0ea06d"></a><!-- doxytag: member="MWRender::Animation::mCamera" ref="a948e9324e6ae553146a9f163aa0ea06d" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWMechanics_1_1CharacterController.html">MWMechanics::CharacterController</a>* <a class="el" href="classMWRender_1_1Animation.html#a3d2cd41a0be26f4065bfc2591b8365a6">MWRender::Animation::mController</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6de8b176f9415aa09f9a03fdb1da43db"></a><!-- doxytag: member="MWRender::Animation::mCurrentAnim" ref="a6de8b176f9415aa09f9a03fdb1da43db" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ogre::Animation* <a class="el" href="classMWRender_1_1Animation.html#a6de8b176f9415aa09f9a03fdb1da43db">MWRender::Animation::mCurrentAnim</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6e581f1aee711287f8b80ced77c028a6"></a><!-- doxytag: member="MWRender::Animation::mCurrentControllers" ref="a6e581f1aee711287f8b80ced77c028a6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;Ogre::Controller&lt;Ogre::Real&gt; &gt;* <a class="el" href="classMWRender_1_1Animation.html#a6e581f1aee711287f8b80ced77c028a6">MWRender::Animation::mCurrentControllers</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ae155dd33e7d2b8f77e57dc37096d95ea"></a><!-- doxytag: member="MWRender::Animation::mCurrentKeys" ref="ae155dd33e7d2b8f77e57dc37096d95ea" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a>* <a class="el" href="classMWRender_1_1Animation.html#ae155dd33e7d2b8f77e57dc37096d95ea">MWRender::Animation::mCurrentKeys</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ac8cbfae61cde80238c3e00184cddf8d5"></a><!-- doxytag: member="MWRender::Animation::mCurrentTime" ref="ac8cbfae61cde80238c3e00184cddf8d5" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Animation.html#ac8cbfae61cde80238c3e00184cddf8d5">MWRender::Animation::mCurrentTime</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classMWRender_1_1Camera.html">Camera</a>* <a class="el" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">MWRender::Animation::mCamera</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -688,12 +1141,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adadd1b4dc50b88c6cf3255f9a967aba5"></a><!-- doxytag: member="MWRender::Animation::mLastPosition" ref="adadd1b4dc50b88c6cf3255f9a967aba5" args="" -->
+<a class="anchor" id="a117c7c2415273d81f4e8599fc0e2013e"></a><!-- doxytag: member="MWRender::Animation::mNonAccumCtrl" ref="a117c7c2415273d81f4e8599fc0e2013e" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Ogre::Vector3 <a class="el" href="classMWRender_1_1Animation.html#adadd1b4dc50b88c6cf3255f9a967aba5">MWRender::Animation::mLastPosition</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue</a>&lt;Ogre::Real&gt;* <a class="el" href="classMWRender_1_1Animation.html#a117c7c2415273d81f4e8599fc0e2013e">MWRender::Animation::mNonAccumCtrl</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -701,12 +1154,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae4387c550790065a334f59bc9783113c"></a><!-- doxytag: member="MWRender::Animation::mLooping" ref="ae4387c550790065a334f59bc9783113c" args="" -->
+<a class="anchor" id="af3c4e1d03200ea10ed0c773caba8fb1a"></a><!-- doxytag: member="MWRender::Animation::mNonAccumRoot" ref="af3c4e1d03200ea10ed0c773caba8fb1a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#ae4387c550790065a334f59bc9783113c">MWRender::Animation::mLooping</a><code> [protected]</code></td>
+          <td class="memname">Ogre::Node* <a class="el" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">MWRender::Animation::mNonAccumRoot</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -714,51 +1167,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aab9c3916d8292bffecd7a04fec4f237a"></a><!-- doxytag: member="MWRender::Animation::mNextKey" ref="aab9c3916d8292bffecd7a04fec4f237a" args="" -->
+<a class="anchor" id="a81910a062367622bce103855b6c27723"></a><!-- doxytag: member="MWRender::Animation::mObjectRoot" ref="a81910a062367622bce103855b6c27723" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">NifOgre::TextKeyMap::const_iterator <a class="el" href="classMWRender_1_1Animation.html#aab9c3916d8292bffecd7a04fec4f237a">MWRender::Animation::mNextKey</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aafd0d17b459201f3ca9c7847eae6fff2"></a><!-- doxytag: member="MWRender::Animation::mNonAccumRoot" ref="aafd0d17b459201f3ca9c7847eae6fff2" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ogre::Bone* <a class="el" href="classMWRender_1_1Animation.html#aafd0d17b459201f3ca9c7847eae6fff2">MWRender::Animation::mNonAccumRoot</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8b36fd29bc45b5c345be536c68c10e2f"></a><!-- doxytag: member="MWRender::Animation::mObjectList" ref="a8b36fd29bc45b5c345be536c68c10e2f" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1Animation.html#a8b36fd29bc45b5c345be536c68c10e2f">MWRender::Animation::mObjectList</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aaa5725af28c099a81977a844c1b31f71"></a><!-- doxytag: member="MWRender::Animation::mPlaying" ref="aaa5725af28c099a81977a844c1b31f71" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#aaa5725af28c099a81977a844c1b31f71">MWRender::Animation::mPlaying</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1Animation.html#a81910a062367622bce103855b6c27723">MWRender::Animation::mObjectRoot</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -779,12 +1193,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7096ed5013ae21ade144720b57756a89"></a><!-- doxytag: member="MWRender::Animation::mStopTime" ref="a7096ed5013ae21ade144720b57756a89" args="" -->
+<a class="anchor" id="ad3b2c9663a70319563281140990d299b"></a><!-- doxytag: member="MWRender::Animation::mSkelBase" ref="ad3b2c9663a70319563281140990d299b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1Animation.html#a7096ed5013ae21ade144720b57756a89">MWRender::Animation::mStopTime</a><code> [protected]</code></td>
+          <td class="memname">Ogre::Entity* <a class="el" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">MWRender::Animation::mSkelBase</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -792,12 +1206,25 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a75f3b373174b4f285afc89a2b0ffa5c3"></a><!-- doxytag: member="MWRender::Animation::mTextKeys" ref="a75f3b373174b4f285afc89a2b0ffa5c3" args="" -->
+<a class="anchor" id="a6db71a8c8d5705eb4979ca22a5a7251d"></a><!-- doxytag: member="MWRender::Animation::mStates" ref="a6db71a8c8d5705eb4979ca22a5a7251d" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::map&lt;std::string,<a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a>&gt; <a class="el" href="classMWRender_1_1Animation.html#a75f3b373174b4f285afc89a2b0ffa5c3">MWRender::Animation::mTextKeys</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a> <a class="el" href="classMWRender_1_1Animation.html#a6db71a8c8d5705eb4979ca22a5a7251d">MWRender::Animation::mStates</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a04f594cd823cd9aad8c6d0816f56a99f"></a><!-- doxytag: member="MWRender::Animation::sNumGroups" ref="a04f594cd823cd9aad8c6d0816f56a99f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const size_t <a class="el" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">MWRender::Animation::sNumGroups</a> = 4<code> [static, protected]</code></td>
         </tr>
       </table>
 </div>
@@ -813,7 +1240,7 @@ Protected Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -88,10 +88,11 @@ Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">PlayType</a> { <br/>
 &#160;&#160;<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609">Play_TypeSfx</a> =  1&lt;&lt;3, 
 <a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860afbe8b8a63b9e1dcec9774cad108cb5b1">Play_TypeVoice</a> =  1&lt;&lt;4, 
-<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860ae7799fcbd3b42d09edcaeefa1e76ab0b">Play_TypeMusic</a> =  1&lt;&lt;5, 
-<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860af6e25139a017819fa3d9ff3a7c1e3a3a">Play_TypeMovie</a> =  1&lt;&lt;6, 
+<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860acd5a3d1264173c00788cc2c42632b6d1">Play_TypeFoot</a> =  1&lt;&lt;5, 
+<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860ae7799fcbd3b42d09edcaeefa1e76ab0b">Play_TypeMusic</a> =  1&lt;&lt;6, 
 <br/>
-&#160;&#160;<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a244c5de7f7b530ae254dec63f2e7bb3e">Play_TypeMask</a> =  Play_TypeSfx|Play_TypeVoice|Play_TypeMusic|Play_TypeMovie
+&#160;&#160;<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860af6e25139a017819fa3d9ff3a7c1e3a3a">Play_TypeMovie</a> =  1&lt;&lt;7, 
+<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a244c5de7f7b530ae254dec63f2e7bb3e">Play_TypeMask</a> =  Play_TypeSfx|Play_TypeVoice|Play_TypeFoot|Play_TypeMusic|Play_TypeMovie
 <br/>
  }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
@@ -115,10 +116,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop an actor speaking.  <a href="#a73db4fb531419f50890ce522178f9feb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#adb809e3cb94e98092ecfce8615e58e87">playTrack</a> (const <a class="el" href="namespaceMWSound.html#a9af7bd97094456943f0f38a13f773d6b">MWSound::DecoderPtr</a> &amp;decoder, <a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">PlayType</a> type)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a 2D audio track, using a custom decoder.  <a href="#adb809e3cb94e98092ecfce8615e58e87"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#afff7661bb44efa4f6dad29dbf0ab8d75">playSound</a> (const std::string &amp;soundId, float volume, float pitch, <a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874">PlayMode</a> mode=<a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874abe79c8e953b88d9094e4d7b2cdb7daaa">Play_Normal</a>)=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound, independently of 3D-position.  <a href="#afff7661bb44efa4f6dad29dbf0ab8d75"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#a64562ed74c50c5cc03046856c082f00b">playSound3D</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;reference, const std::string &amp;soundId, float volume, float pitch, <a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874">PlayMode</a> mode=<a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874abe79c8e953b88d9094e4d7b2cdb7daaa">Play_Normal</a>)=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound from an object.  <a href="#a64562ed74c50c5cc03046856c082f00b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#a3fc8c27552be2fef5e61a26e01095217">playSound</a> (const std::string &amp;soundId, float volume, float pitch, <a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">PlayType</a> type=<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609">Play_TypeSfx</a>, <a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874">PlayMode</a> mode=<a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874abe79c8e953b88d9094e4d7b2cdb7daaa">Play_Normal</a>)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound, independently of 3D-position.  <a href="#a3fc8c27552be2fef5e61a26e01095217"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#a979eeee95ec8fe158313daa4352f5fde">playSound3D</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;reference, const std::string &amp;soundId, float volume, float pitch, <a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">PlayType</a> type=<a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609">Play_TypeSfx</a>, <a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874">PlayMode</a> mode=<a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874abe79c8e953b88d9094e4d7b2cdb7daaa">Play_Normal</a>)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound from an object.  <a href="#a979eeee95ec8fe158313daa4352f5fde"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#adb1fd7dfc909b70e1008a9a1c10ae72a">stopSound3D</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;reference, const std::string &amp;soundId)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the given object from playing the given sound,.  <a href="#adb1fd7dfc909b70e1008a9a1c10ae72a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1SoundManager.html#ad11db4d85864c810a4a3d7616cf34c2e">stopSound3D</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;reference)=0</td></tr>
@@ -184,6 +185,8 @@ Private Member Functions</h2></td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609"></a><!-- doxytag: member="Play_TypeSfx" ref="a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609" args="" -->Play_TypeSfx</em>&nbsp;</td><td>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a23db84b9f5d10a8c6896d8b42e3f3860afbe8b8a63b9e1dcec9774cad108cb5b1"></a><!-- doxytag: member="Play_TypeVoice" ref="a23db84b9f5d10a8c6896d8b42e3f3860afbe8b8a63b9e1dcec9774cad108cb5b1" args="" -->Play_TypeVoice</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a23db84b9f5d10a8c6896d8b42e3f3860acd5a3d1264173c00788cc2c42632b6d1"></a><!-- doxytag: member="Play_TypeFoot" ref="a23db84b9f5d10a8c6896d8b42e3f3860acd5a3d1264173c00788cc2c42632b6d1" args="" -->Play_TypeFoot</em>&nbsp;</td><td>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a23db84b9f5d10a8c6896d8b42e3f3860ae7799fcbd3b42d09edcaeefa1e76ab0b"></a><!-- doxytag: member="Play_TypeMusic" ref="a23db84b9f5d10a8c6896d8b42e3f3860ae7799fcbd3b42d09edcaeefa1e76ab0b" args="" -->Play_TypeMusic</em>&nbsp;</td><td>
 </td></tr>
@@ -369,12 +372,12 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afff7661bb44efa4f6dad29dbf0ab8d75"></a><!-- doxytag: member="MWBase::SoundManager::playSound" ref="afff7661bb44efa4f6dad29dbf0ab8d75" args="(const std::string &amp;soundId, float volume, float pitch, PlayMode mode=Play_Normal)=0" -->
+<a class="anchor" id="a3fc8c27552be2fef5e61a26e01095217"></a><!-- doxytag: member="MWBase::SoundManager::playSound" ref="a3fc8c27552be2fef5e61a26e01095217" args="(const std::string &amp;soundId, float volume, float pitch, PlayType type=Play_TypeSfx, PlayMode mode=Play_Normal)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a> <a class="el" href="classMWBase_1_1SoundManager.html#afff7661bb44efa4f6dad29dbf0ab8d75">MWBase::SoundManager::playSound</a> </td>
+          <td class="memname">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a> <a class="el" href="classMWBase_1_1SoundManager.html#a3fc8c27552be2fef5e61a26e01095217">MWBase::SoundManager::playSound</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>soundId</em>, </td>
@@ -394,6 +397,12 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">PlayType</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609">Play_TypeSfx</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874">PlayMode</a>&#160;</td>
           <td class="paramname"><em>mode</em> = <code><a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874abe79c8e953b88d9094e4d7b2cdb7daaa">Play_Normal</a></code>&#160;</td>
         </tr>
@@ -408,16 +417,16 @@ Private Member Functions</h2></td></tr>
 
 <p>Play a sound, independently of 3D-position. </p>
 
-<p>Implemented in <a class="el" href="classMWSound_1_1SoundManager.html#a4bd7bcb485c11ae0ddf4245c14323e30">MWSound::SoundManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWSound_1_1SoundManager.html#ad746c758c8898fce56832887127c890f">MWSound::SoundManager</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a64562ed74c50c5cc03046856c082f00b"></a><!-- doxytag: member="MWBase::SoundManager::playSound3D" ref="a64562ed74c50c5cc03046856c082f00b" args="(const MWWorld::Ptr &amp;reference, const std::string &amp;soundId, float volume, float pitch, PlayMode mode=Play_Normal)=0" -->
+<a class="anchor" id="a979eeee95ec8fe158313daa4352f5fde"></a><!-- doxytag: member="MWBase::SoundManager::playSound3D" ref="a979eeee95ec8fe158313daa4352f5fde" args="(const MWWorld::Ptr &amp;reference, const std::string &amp;soundId, float volume, float pitch, PlayType type=Play_TypeSfx, PlayMode mode=Play_Normal)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a> <a class="el" href="classMWBase_1_1SoundManager.html#a64562ed74c50c5cc03046856c082f00b">MWBase::SoundManager::playSound3D</a> </td>
+          <td class="memname">virtual <a class="el" href="namespaceMWBase.html#a00ffaefcf6bfdfb58240498937f63bdc">SoundPtr</a> <a class="el" href="classMWBase_1_1SoundManager.html#a979eeee95ec8fe158313daa4352f5fde">MWBase::SoundManager::playSound3D</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>reference</em>, </td>
@@ -443,6 +452,12 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">PlayType</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a16658f6fc96ef4d6d1e3dd4a18d66609">Play_TypeSfx</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874">PlayMode</a>&#160;</td>
           <td class="paramname"><em>mode</em> = <code><a class="el" href="classMWBase_1_1SoundManager.html#a95500467e5be7ee6f4088b173e1fb874abe79c8e953b88d9094e4d7b2cdb7daaa">Play_Normal</a></code>&#160;</td>
         </tr>
@@ -457,7 +472,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Play a sound from an object. </p>
 
-<p>Implemented in <a class="el" href="classMWSound_1_1SoundManager.html#a27a8a0c39e2cd178dfd844447cf6132d">MWSound::SoundManager</a>.</p>
+<p>Implemented in <a class="el" href="classMWSound_1_1SoundManager.html#af8b95496a38ff35f61aabb777fd0b18f">MWSound::SoundManager</a>.</p>
 
 </div>
 </div>
@@ -857,7 +872,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

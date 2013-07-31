@@ -65,6 +65,7 @@
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
 <a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">CSVWorld::CommandDelegate Class Reference</div>  </div>
@@ -79,12 +80,17 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#aed24dfb3061189e9fb6a677ed38d1e7f">CommandDelegate</a> (QUndoStack &amp;undoStack, QObject *parent)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#a1ec347c7a8558a26d3403f1195052e5d">setModelData</a> (QWidget *editor, QAbstractItemModel *model, const QModelIndex &amp;index) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#a4ca3967bdd403361743f6b5845940050">createEditor</a> (QWidget *parent, const QStyleOptionViewItem &amp;option, const QModelIndex &amp;index) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#a398adcfa6965c12155ff1deb0a7a181e">setEditLock</a> (bool locked)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#aa437fdc007357222761a76738a427557">isEditLocked</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#adff469767faa196b35f0231d39eb59f9">updateEditorSetting</a> (const QString &amp;settingName, const QString &amp;settingValue)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QUndoStack &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#ad6bde478033611484fd13d9d4655610d">getUndoStack</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#a6968868b94007ac78a4d3ede4495f870">setModelDataImp</a> (QWidget *editor, QAbstractItemModel *model, const QModelIndex &amp;index) const </td></tr>
+<tr><td colspan="2"><h2><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#ac104a262860558cd04aeda9ce621494a">slotUpdateEditorSetting</a> (const QString &amp;settingName, const QString &amp;settingValue)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QUndoStack &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1CommandDelegate.html#affc667c9bc2dde2f886444d89e4bf088">mUndoStack</a></td></tr>
@@ -119,6 +125,41 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a4ca3967bdd403361743f6b5845940050"></a><!-- doxytag: member="CSVWorld::CommandDelegate::createEditor" ref="a4ca3967bdd403361743f6b5845940050" args="(QWidget *parent, const QStyleOptionViewItem &amp;option, const QModelIndex &amp;index) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QWidget * <a class="el" href="classCSVWorld_1_1CommandDelegate.html#a4ca3967bdd403361743f6b5845940050">CSVWorld::CommandDelegate::createEditor</a> </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QStyleOptionViewItem &amp;&#160;</td>
+          <td class="paramname"><em>option</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QModelIndex &amp;&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1EnumDelegate.html#a656dc8030d739920d6acda21d67a956f">CSVWorld::EnumDelegate</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ad6bde478033611484fd13d9d4655610d"></a><!-- doxytag: member="CSVWorld::CommandDelegate::getUndoStack" ref="ad6bde478033611484fd13d9d4655610d" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -236,6 +277,63 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac104a262860558cd04aeda9ce621494a"></a><!-- doxytag: member="CSVWorld::CommandDelegate::slotUpdateEditorSetting" ref="ac104a262860558cd04aeda9ce621494a" args="(const QString &amp;settingName, const QString &amp;settingValue)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classCSVWorld_1_1CommandDelegate.html#ac104a262860558cd04aeda9ce621494a">CSVWorld::CommandDelegate::slotUpdateEditorSetting</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>settingName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>settingValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline, private, virtual, slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adff469767faa196b35f0231d39eb59f9"></a><!-- doxytag: member="CSVWorld::CommandDelegate::updateEditorSetting" ref="adff469767faa196b35f0231d39eb59f9" args="(const QString &amp;settingName, const QString &amp;settingValue)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCSVWorld_1_1CommandDelegate.html#adff469767faa196b35f0231d39eb59f9">CSVWorld::CommandDelegate::updateEditorSetting</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>settingName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>settingValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>Does column require update? </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1RecordStatusDelegate.html#ab419f60716bf3b327b2530cae77a8e0b">CSVWorld::RecordStatusDelegate</a>, and <a class="el" href="classCSVWorld_1_1RefIdTypeDelegate.html#ae847bb33f54a6097d6cfa3f06451a219">CSVWorld::RefIdTypeDelegate</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="afe64dbbb5aa108aac5594bc6c6451165"></a><!-- doxytag: member="CSVWorld::CommandDelegate::mEditLock" ref="afe64dbbb5aa108aac5594bc6c6451165" args="" -->
 <div class="memitem">
@@ -271,7 +369,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

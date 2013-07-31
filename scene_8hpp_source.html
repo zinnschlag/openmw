@@ -108,7 +108,7 @@
 <a name="l00047"></a>00047         <span class="keyword">private</span>:
 <a name="l00048"></a>00048 
 <a name="l00049"></a>00049             <span class="comment">//OEngine::Render::OgreRenderer&amp; mRenderer;</span>
-<a name="l00050"></a><a class="code" href="classMWWorld_1_1Scene.html#af6cf40957624ab9e179839a3aee8582e">00050</a>             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>* <a class="code" href="classMWWorld_1_1Scene.html#af6cf40957624ab9e179839a3aee8582e">mCurrentCell</a>; <span class="comment">// the cell, the player is in</span>
+<a name="l00050"></a><a class="code" href="classMWWorld_1_1Scene.html#af6cf40957624ab9e179839a3aee8582e">00050</a>             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>* <a class="code" href="classMWWorld_1_1Scene.html#af6cf40957624ab9e179839a3aee8582e">mCurrentCell</a>; <span class="comment">// the cell the player is in</span>
 <a name="l00051"></a><a class="code" href="classMWWorld_1_1Scene.html#a7e1b8487a2df55d765b11eab2b98b52b">00051</a>             <a class="code" href="classMWWorld_1_1Scene.html#a0a647273b467b2882a5367cc77a08c17">CellStoreCollection</a> <a class="code" href="classMWWorld_1_1Scene.html#a7e1b8487a2df55d765b11eab2b98b52b">mActiveCells</a>;
 <a name="l00052"></a><a class="code" href="classMWWorld_1_1Scene.html#a0c7ae355be34785bd99e3b3c621132b8">00052</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Scene.html#a0c7ae355be34785bd99e3b3c621132b8">mCellChanged</a>;
 <a name="l00053"></a><a class="code" href="classMWWorld_1_1Scene.html#a6ff8b07e103cff27c8eb843e4df07b45">00053</a>             <a class="code" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a> *<a class="code" href="classMWWorld_1_1Scene.html#a6ff8b07e103cff27c8eb843e4df07b45">mPhysics</a>;
@@ -141,24 +141,26 @@
 <a name="l00084"></a>00084 
 <a name="l00085"></a>00085             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a6a534ffbaa5665a821922d68663c26ab" title="Move to exterior cell.">changeToExteriorCell</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
 <a name="l00087"></a>00087 
-<a name="l00088"></a>00088             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a3c7a12edb1452c6654756057da7b7001">markCellAsUnchanged</a>();
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#abcd28bc757b3ff53e90f1036bd6fbcab">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a53eb5bcf1b9ea13fad66f82968d3bbf3" title="Add an object that already exists in the world model to the scene.">addObjectToScene</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00088"></a>00088             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a84baa662c7d6f19a2096b0cf14f9a2ab" title="Change into a void.">changeToVoid</a>();
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a3c7a12edb1452c6654756057da7b7001">markCellAsUnchanged</a>();
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#abcd28bc757b3ff53e90f1036bd6fbcab">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a129a14f344a895a854b697fcdf49a591" title="Remove an object from the scene, but not from the world model.">removeObjectFromScene</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a53eb5bcf1b9ea13fad66f82968d3bbf3" title="Add an object that already exists in the world model to the scene.">addObjectToScene</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Scene.html#a0f4541dd07ea65824dabd191441393bd">isCellActive</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;cell);
-<a name="l00099"></a>00099     };
-<a name="l00100"></a>00100 }
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102 <span class="preprocessor">#endif</span>
+<a name="l00098"></a>00098             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Scene.html#a129a14f344a895a854b697fcdf49a591" title="Remove an object from the scene, but not from the world model.">removeObjectFromScene</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Scene.html#a0f4541dd07ea65824dabd191441393bd">isCellActive</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;cell);
+<a name="l00102"></a>00102     };
+<a name="l00103"></a>00103 }
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -92,13 +92,12 @@ Private Types</h2></td></tr>
 <a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html">NIFSkeletonLoader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a79223c60e506ded61008941888388543">LoaderMap</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a12cdf15d127d3003030845edbecf83e7">buildBones</a> (Ogre::Skeleton *skel, const <a class="el" href="classNif_1_1Node.html">Nif::Node</a> *node, Ogre::Bone *&amp;animroot, <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> &amp;textkeys, std::vector&lt; <a class="el" href="classNif_1_1NiKeyframeController.html">Nif::NiKeyframeController</a> const * &gt; &amp;ctrls, Ogre::Bone *parent=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#aa1519a9d54d20d9e1896f3b8d69a915d">buildBones</a> (Ogre::Skeleton *skel, const <a class="el" href="classNif_1_1Node.html">Nif::Node</a> *node, Ogre::Bone *parent=NULL)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#ae723f2c9af3d5136a638161b7b506a6e">warn</a> (const std::string &amp;msg)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a1d506f0fec3c2ea49a6c6b95bac36d69">fail</a> (const std::string &amp;msg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#aa35d8642ad3eaec1e71dd0439afde619">buildAnimation</a> (Ogre::Skeleton *skel, const std::string &amp;name, const std::vector&lt; const <a class="el" href="classNif_1_1NiKeyframeController.html">Nif::NiKeyframeController</a> * &gt; &amp;ctrls, const std::vector&lt; std::string &gt; &amp;targets, float startTime, float stopTime)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a7dcda5e5c0a81f8cbb4a3259f4ebd21e">extractTextKeys</a> (const <a class="el" href="classNif_1_1NiTextKeyExtraData.html">Nif::NiTextKeyExtraData</a> *tk)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a2ee1e1cef07b7a37a50e95ef27d95061">needSkeleton</a> (const <a class="el" href="classNif_1_1Node.html">Nif::Node</a> *node)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::map&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#accd05c85576bd244756bc81270fbdbc9">mNifToOgreHandleMap</a></td></tr>
@@ -123,63 +122,12 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aa35d8642ad3eaec1e71dd0439afde619"></a><!-- doxytag: member="NifOgre::NIFSkeletonLoader::buildAnimation" ref="aa35d8642ad3eaec1e71dd0439afde619" args="(Ogre::Skeleton *skel, const std::string &amp;name, const std::vector&lt; const Nif::NiKeyframeController * &gt; &amp;ctrls, const std::vector&lt; std::string &gt; &amp;targets, float startTime, float stopTime)" -->
+<a class="anchor" id="aa1519a9d54d20d9e1896f3b8d69a915d"></a><!-- doxytag: member="NifOgre::NIFSkeletonLoader::buildBones" ref="aa1519a9d54d20d9e1896f3b8d69a915d" args="(Ogre::Skeleton *skel, const Nif::Node *node, Ogre::Bone *parent=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#aa35d8642ad3eaec1e71dd0439afde619">NifOgre::NIFSkeletonLoader::buildAnimation</a> </td>
-          <td>(</td>
-          <td class="paramtype">Ogre::Skeleton *&#160;</td>
-          <td class="paramname"><em>skel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; const <a class="el" href="classNif_1_1NiKeyframeController.html">Nif::NiKeyframeController</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ctrls</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>targets</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>startTime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>stopTime</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a12cdf15d127d3003030845edbecf83e7"></a><!-- doxytag: member="NifOgre::NIFSkeletonLoader::buildBones" ref="a12cdf15d127d3003030845edbecf83e7" args="(Ogre::Skeleton *skel, const Nif::Node *node, Ogre::Bone *&amp;animroot, TextKeyMap &amp;textkeys, std::vector&lt; Nif::NiKeyframeController const * &gt; &amp;ctrls, Ogre::Bone *parent=NULL)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a12cdf15d127d3003030845edbecf83e7">NifOgre::NIFSkeletonLoader::buildBones</a> </td>
+          <td class="memname">void <a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#aa1519a9d54d20d9e1896f3b8d69a915d">NifOgre::NIFSkeletonLoader::buildBones</a> </td>
           <td>(</td>
           <td class="paramtype">Ogre::Skeleton *&#160;</td>
           <td class="paramname"><em>skel</em>, </td>
@@ -189,24 +137,6 @@ Static Private Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">const <a class="el" href="classNif_1_1Node.html">Nif::Node</a> *&#160;</td>
           <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Ogre::Bone *&amp;&#160;</td>
-          <td class="paramname"><em>animroot</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> &amp;&#160;</td>
-          <td class="paramname"><em>textkeys</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="classNif_1_1NiKeyframeController.html">Nif::NiKeyframeController</a> const * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ctrls</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -251,23 +181,6 @@ Static Private Attributes</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7dcda5e5c0a81f8cbb4a3259f4ebd21e"></a><!-- doxytag: member="NifOgre::NIFSkeletonLoader::extractTextKeys" ref="a7dcda5e5c0a81f8cbb4a3259f4ebd21e" args="(const Nif::NiTextKeyExtraData *tk)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">TextKeyMap</a> <a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a7dcda5e5c0a81f8cbb4a3259f4ebd21e">NifOgre::NIFSkeletonLoader::extractTextKeys</a> </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classNif_1_1NiTextKeyExtraData.html">Nif::NiTextKeyExtraData</a> *&#160;</td>
-          <td class="paramname"><em>tk</em></td><td>)</td>
-          <td><code> [static, private]</code></td>
         </tr>
       </table>
 </div>
@@ -336,6 +249,23 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2ee1e1cef07b7a37a50e95ef27d95061"></a><!-- doxytag: member="NifOgre::NIFSkeletonLoader::needSkeleton" ref="a2ee1e1cef07b7a37a50e95ef27d95061" args="(const Nif::Node *node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classNifOgre_1_1NIFSkeletonLoader.html#a2ee1e1cef07b7a37a50e95ef27d95061">NifOgre::NIFSkeletonLoader::needSkeleton</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classNif_1_1Node.html">Nif::Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae723f2c9af3d5136a638161b7b506a6e"></a><!-- doxytag: member="NifOgre::NIFSkeletonLoader::warn" ref="ae723f2c9af3d5136a638161b7b506a6e" args="(const std::string &amp;msg)" -->
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +318,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:24 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -63,41 +63,39 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GAME_MWMECHANICS_AITRAVEL_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="apps_2openmw_2mwmechanics_2aipackage_8hpp.html">aipackage.hpp</a>&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="pathfinding_8hpp.html">pathfinding.hpp</a>&quot;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWMechanics
-<a name="l00008"></a>00008 {
-<a name="l00009"></a><a class="code" href="classMWMechanics_1_1AiTravel.html">00009</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> : <span class="keyword">public</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>
-<a name="l00010"></a>00010     {
-<a name="l00011"></a>00011         <span class="keyword">public</span>:
-<a name="l00012"></a>00012             <a class="code" href="classMWMechanics_1_1AiTravel.html#a7b696ba85c7889416794d28c3b190505">AiTravel</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
-<a name="l00013"></a>00013             <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> *<a class="code" href="classMWMechanics_1_1AiTravel.html#a71cb161d615605fb3a44b72ea12af485">clone</a>() <span class="keyword">const</span>;
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#af848784eda17b28ce9f9954521b7f8c5">execute</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#aa7b531e7c3eecb0070ff6c5f1ce1baf3" title="0: Wanter, 1 Travel, 2 Escort, 3 Follow, 4 Activate">getTypeId</a>() <span class="keyword">const</span>;
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020         <span class="keyword">private</span>:
-<a name="l00021"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#a0bddcf9422fee7031b74c2e2819790fd">00021</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#a0bddcf9422fee7031b74c2e2819790fd">mX</a>;
-<a name="l00022"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#abdda81e9b4637ca2c65b500238d46d73">00022</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#abdda81e9b4637ca2c65b500238d46d73">mY</a>;
-<a name="l00023"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#a830036576512c1d4b88a0828a79d6710">00023</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#a830036576512c1d4b88a0828a79d6710">mZ</a>;
-<a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#a1695842a30278de3c45bebdbb1cc9937">00025</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#a1695842a30278de3c45bebdbb1cc9937">cellX</a>;
-<a name="l00026"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#ab1e829a0bc55022b65023b66a144188d">00026</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#ab1e829a0bc55022b65023b66a144188d">cellY</a>;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028             <span class="comment">//bool isPathConstructed;</span>
-<a name="l00029"></a>00029             <span class="comment">//std::list&lt;ESM::Pathgrid::Point&gt; mPath;</span>
-<a name="l00030"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#abe5448711af5b0955f61be9dc2861565">00030</a>             <a class="code" href="classMWMechanics_1_1PathFinder.html">PathFinder</a> <a class="code" href="classMWMechanics_1_1AiTravel.html#abe5448711af5b0955f61be9dc2861565">mPathFinder</a>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     };
-<a name="l00033"></a>00033 }
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="preprocessor">#endif</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="pathfinding_8hpp.html">pathfinding.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWMechanics
+<a name="l00009"></a>00009 {
+<a name="l00010"></a><a class="code" href="classMWMechanics_1_1AiTravel.html">00010</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> : <span class="keyword">public</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>
+<a name="l00011"></a>00011     {
+<a name="l00012"></a>00012         <span class="keyword">public</span>:
+<a name="l00013"></a>00013             <a class="code" href="classMWMechanics_1_1AiTravel.html#a7b696ba85c7889416794d28c3b190505">AiTravel</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
+<a name="l00014"></a>00014             <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1AiTravel.html">AiTravel</a> *<a class="code" href="classMWMechanics_1_1AiTravel.html#a71cb161d615605fb3a44b72ea12af485">clone</a>() <span class="keyword">const</span>;
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#af848784eda17b28ce9f9954521b7f8c5">execute</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#aa7b531e7c3eecb0070ff6c5f1ce1baf3" title="0: Wanter, 1 Travel, 2 Escort, 3 Follow, 4 Activate">getTypeId</a>() <span class="keyword">const</span>;
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021         <span class="keyword">private</span>:
+<a name="l00022"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#a0bddcf9422fee7031b74c2e2819790fd">00022</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#a0bddcf9422fee7031b74c2e2819790fd">mX</a>;
+<a name="l00023"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#abdda81e9b4637ca2c65b500238d46d73">00023</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#abdda81e9b4637ca2c65b500238d46d73">mY</a>;
+<a name="l00024"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#a830036576512c1d4b88a0828a79d6710">00024</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#a830036576512c1d4b88a0828a79d6710">mZ</a>;
+<a name="l00025"></a>00025 
+<a name="l00026"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#a1695842a30278de3c45bebdbb1cc9937">00026</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#a1695842a30278de3c45bebdbb1cc9937">cellX</a>;
+<a name="l00027"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#ab1e829a0bc55022b65023b66a144188d">00027</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiTravel.html#ab1e829a0bc55022b65023b66a144188d">cellY</a>;
+<a name="l00028"></a>00028 
+<a name="l00029"></a><a class="code" href="classMWMechanics_1_1AiTravel.html#abe5448711af5b0955f61be9dc2861565">00029</a>             <a class="code" href="classMWMechanics_1_1PathFinder.html">PathFinder</a> <a class="code" href="classMWMechanics_1_1AiTravel.html#abe5448711af5b0955f61be9dc2861565">mPathFinder</a>;
+<a name="l00030"></a>00030     };
+<a name="l00031"></a>00031 }
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

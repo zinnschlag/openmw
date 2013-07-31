@@ -79,6 +79,8 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1ActivatorAnimation.html">ActivatorAnimation</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html">Actors</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html">Animation</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Camera.html">Camera</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classMWRender_1_1Camera.html" title="Camera control.">Camera</a> control.  <a href="classMWRender_1_1Camera.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CellRender.html">CellRender</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1CharacterPreview.html">CharacterPreview</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1InventoryPreview.html">InventoryPreview</a></td></tr>
@@ -97,8 +99,6 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html">Objects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1OcclusionQuery.html">OcclusionQuery</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements hardware occlusion queries on the GPU.  <a href="classMWRender_1_1OcclusionQuery.html#details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Player.html">Player</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classMWRender_1_1Player.html" title="Player character rendering and camera control.">Player</a> character rendering and camera control.  <a href="classMWRender_1_1Player.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Refraction.html">Refraction</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingInterface.html">RenderingInterface</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html">RenderingManager</a></td></tr>
@@ -158,7 +158,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a0789a1ab98f1f1d225f6b800b46e11dc">RV_OcclusionQuery</a> =  256, 
 <a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a7d02a76c111c54294ed7a9ffc67b39b9">RV_Debug</a> =  512, 
 <a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a0afec1bfd0a5d5d7a17acc5510b398e1">RV_Overlay</a> =  1024, 
-<a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951">RV_Map</a> =  RV_Terrain + RV_Statics + RV_StaticsSmall + RV_Misc + RV_Water
+<a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72addab407ddf7c96a01b1963ed469e2c7d">RV_FirstPerson</a> =  2048, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceMWRender.html#a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951">RV_Map</a> =  RV_Terrain + RV_Statics + RV_StaticsSmall + RV_Misc + RV_Water
 <br/>
  }</td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
@@ -281,6 +283,8 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a13e12091687c352e08af35d3c0f43f72a0afec1bfd0a5d5d7a17acc5510b398e1"></a><!-- doxytag: member="RV_Overlay" ref="a13e12091687c352e08af35d3c0f43f72a0afec1bfd0a5d5d7a17acc5510b398e1" args="" -->RV_Overlay</em>&nbsp;</td><td>
 </td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a13e12091687c352e08af35d3c0f43f72addab407ddf7c96a01b1963ed469e2c7d"></a><!-- doxytag: member="RV_FirstPerson" ref="a13e12091687c352e08af35d3c0f43f72addab407ddf7c96a01b1963ed469e2c7d" args="" -->RV_FirstPerson</em>&nbsp;</td><td>
+</td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951"></a><!-- doxytag: member="RV_Map" ref="a13e12091687c352e08af35d3c0f43f72a87eeaf3422b66982629c79fe75ca2951" args="" -->RV_Map</em>&nbsp;</td><td>
 </td></tr>
 </table>
@@ -374,7 +378,7 @@ Variables</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

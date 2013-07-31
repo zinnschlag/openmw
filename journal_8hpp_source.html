@@ -91,36 +91,38 @@
 <a name="l00033"></a>00033 
 <a name="l00034"></a><a class="code" href="classMWBase_1_1Journal.html#a97c4726e2f688d704963a07ebe15ff5f">00034</a>             <a class="code" href="classMWBase_1_1Journal.html#a97c4726e2f688d704963a07ebe15ff5f">Journal</a>() {}
 <a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="classMWBase_1_1Journal.html#a284f84a45362b333487a2d44c66b1978">00036</a>             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a284f84a45362b333487a2d44c66b1978">~Journal</a>() {}
+<a name="l00036"></a>00036             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a4a5c52859a5b0d1e189df8029b4e08e0">clear</a>() = 0;
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a60b19d96cef5c240a392ab1cb32f6849" title="Add a journal entry.">addEntry</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> index) = 0;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a81d7de415cc994375c99c9d3e32f2f11" title="Set the journal index without adding an entry.">setJournalIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> index) = 0;
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1Journal.html#a28d482951158c2544dc4639146acb1b6" title="Get the journal index.">getJournalIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span> = 0;
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a451b49c07465c006a9680efa6597e4e3">addTopic</a> (<span class="keyword">const</span> std::string&amp; topicId, <span class="keyword">const</span> std::string&amp; infoId) = 0;
+<a name="l00038"></a><a class="code" href="classMWBase_1_1Journal.html#a284f84a45362b333487a2d44c66b1978">00038</a>             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a284f84a45362b333487a2d44c66b1978">~Journal</a>() {}
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a60b19d96cef5c240a392ab1cb32f6849" title="Add a journal entry.">addEntry</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> index) = 0;
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a81d7de415cc994375c99c9d3e32f2f11" title="Set the journal index without adding an entry.">setJournalIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> index) = 0;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWBase_1_1Journal.html#a28d482951158c2544dc4639146acb1b6" title="Get the journal index.">getJournalIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span> = 0;
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a1a0e3744fa82595822c876d84afcaf6a">TEntryIter</a> <a class="code" href="classMWBase_1_1Journal.html#a903ac2f5dcb653ac80518f45ebde01e0">begin</a>() <span class="keyword">const</span> = 0;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a1a0e3744fa82595822c876d84afcaf6a">TEntryIter</a> <a class="code" href="classMWBase_1_1Journal.html#af3eacda30f1dd604ba9b7939408dcac3" title="Iterator pointing past the end of the main journal.">end</a>() <span class="keyword">const</span> = 0;
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a7c3a4dc6e4b2d955c79e08322866df24">TQuestIter</a> <a class="code" href="classMWBase_1_1Journal.html#ab2fe8039c8790ad04288bd843c4f7d91" title="Iterator pointing to the first quest (sorted by topic ID)">questBegin</a>() <span class="keyword">const</span> = 0;
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a7c3a4dc6e4b2d955c79e08322866df24">TQuestIter</a> <a class="code" href="classMWBase_1_1Journal.html#a2fd5181df2670d2feacfd4710c4cbd54" title="Iterator pointing past the last quest.">questEnd</a>() <span class="keyword">const</span> = 0;
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a8f6afc77e334f747999e4e5d932fe7ac">TTopicIter</a> <a class="code" href="classMWBase_1_1Journal.html#a50115bbea256b19eb8b93409cf09e18b">topicBegin</a>() <span class="keyword">const</span> = 0;
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a8f6afc77e334f747999e4e5d932fe7ac">TTopicIter</a> <a class="code" href="classMWBase_1_1Journal.html#ae629c9a4239b3d95ff3151b3c03b0f2f" title="Iterator pointing past the last topic.">topicEnd</a>() <span class="keyword">const</span> = 0;
-<a name="l00070"></a>00070     };
-<a name="l00071"></a>00071 }
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073 <span class="preprocessor">#endif</span>
+<a name="l00049"></a>00049             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWBase_1_1Journal.html#a451b49c07465c006a9680efa6597e4e3">addTopic</a> (<span class="keyword">const</span> std::string&amp; topicId, <span class="keyword">const</span> std::string&amp; infoId) = 0;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a1a0e3744fa82595822c876d84afcaf6a">TEntryIter</a> <a class="code" href="classMWBase_1_1Journal.html#a903ac2f5dcb653ac80518f45ebde01e0">begin</a>() <span class="keyword">const</span> = 0;
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a1a0e3744fa82595822c876d84afcaf6a">TEntryIter</a> <a class="code" href="classMWBase_1_1Journal.html#af3eacda30f1dd604ba9b7939408dcac3" title="Iterator pointing past the end of the main journal.">end</a>() <span class="keyword">const</span> = 0;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a7c3a4dc6e4b2d955c79e08322866df24">TQuestIter</a> <a class="code" href="classMWBase_1_1Journal.html#ab2fe8039c8790ad04288bd843c4f7d91" title="Iterator pointing to the first quest (sorted by topic ID)">questBegin</a>() <span class="keyword">const</span> = 0;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a7c3a4dc6e4b2d955c79e08322866df24">TQuestIter</a> <a class="code" href="classMWBase_1_1Journal.html#a2fd5181df2670d2feacfd4710c4cbd54" title="Iterator pointing past the last quest.">questEnd</a>() <span class="keyword">const</span> = 0;
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a8f6afc77e334f747999e4e5d932fe7ac">TTopicIter</a> <a class="code" href="classMWBase_1_1Journal.html#a50115bbea256b19eb8b93409cf09e18b">topicBegin</a>() <span class="keyword">const</span> = 0;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070             <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1Journal.html#a8f6afc77e334f747999e4e5d932fe7ac">TTopicIter</a> <a class="code" href="classMWBase_1_1Journal.html#ae629c9a4239b3d95ff3151b3c03b0f2f" title="Iterator pointing past the last topic.">topicEnd</a>() <span class="keyword">const</span> = 0;
+<a name="l00072"></a>00072     };
+<a name="l00073"></a>00073 }
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:42 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

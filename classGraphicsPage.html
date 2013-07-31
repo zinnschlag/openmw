@@ -74,11 +74,12 @@
 <tr><td colspan="2"><h2><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a6604bc194d89af159104264c153d0692">rendererChanged</a> (const QString &amp;renderer)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#abaeb34a5161ec21093a460d0fc9cf12b">screenChanged</a> (int screen)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#aff7b11f2d4b560f713d25098db3281e8">GraphicsPage</a> (<a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg, <a class="el" href="classGraphicsSettings.html">GraphicsSettings</a> &amp;graphicsSettings, QWidget *parent=0)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#aa4a2b819070bdf9cb4c0639412855824">saveSettings</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a0e47c12aa9e473b27b032360b390ff4a">setupOgre</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a8230902b64db99ea9bfb1589912cb402">loadSettings</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a7c2d06a7a33d69e7ac0e33ee44ea6050">slotFullScreenChanged</a> (int state)</td></tr>
@@ -86,8 +87,10 @@ Private Slots</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a7433893a70742c001283dd1021e3b182">getAvailableOptions</a> (const QString &amp;key, Ogre::RenderSystem *renderer)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a3417db67d1a68a706e056f38e9602446">getAvailableResolutions</a> (Ogre::RenderSystem *renderer)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a7d3ea48fced6c2bb8b366b1328409283">loadSettings</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a09b072fd4300040f51362bf4504d5cf9">getAvailableResolutions</a> (int screen)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a3f0ec4fbb7b6b21b32cff9d45b70dbd1">getMaximumResolution</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#a0e47c12aa9e473b27b032360b390ff4a">setupOgre</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#ad085b4f0b829451d00b913c975fd0442">setupSDL</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Root *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphicsPage.html#afc0ad225c1815d926fab96bf9c7c1ee5">mOgre</a></td></tr>
@@ -159,15 +162,15 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3417db67d1a68a706e056f38e9602446"></a><!-- doxytag: member="GraphicsPage::getAvailableResolutions" ref="a3417db67d1a68a706e056f38e9602446" args="(Ogre::RenderSystem *renderer)" -->
+<a class="anchor" id="a09b072fd4300040f51362bf4504d5cf9"></a><!-- doxytag: member="GraphicsPage::getAvailableResolutions" ref="a09b072fd4300040f51362bf4504d5cf9" args="(int screen)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">QStringList <a class="el" href="classGraphicsPage.html#a3417db67d1a68a706e056f38e9602446">GraphicsPage::getAvailableResolutions</a> </td>
+          <td class="memname">QStringList <a class="el" href="classGraphicsPage.html#a09b072fd4300040f51362bf4504d5cf9">GraphicsPage::getAvailableResolutions</a> </td>
           <td>(</td>
-          <td class="paramtype">Ogre::RenderSystem *&#160;</td>
-          <td class="paramname"><em>renderer</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>screen</em></td><td>)</td>
           <td><code> [private]</code></td>
         </tr>
       </table>
@@ -176,15 +179,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7d3ea48fced6c2bb8b366b1328409283"></a><!-- doxytag: member="GraphicsPage::loadSettings" ref="a7d3ea48fced6c2bb8b366b1328409283" args="()" -->
+<a class="anchor" id="a3f0ec4fbb7b6b21b32cff9d45b70dbd1"></a><!-- doxytag: member="GraphicsPage::getMaximumResolution" ref="a3f0ec4fbb7b6b21b32cff9d45b70dbd1" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classGraphicsPage.html#a7d3ea48fced6c2bb8b366b1328409283">GraphicsPage::loadSettings</a> </td>
+          <td class="memname">QRect <a class="el" href="classGraphicsPage.html#a3f0ec4fbb7b6b21b32cff9d45b70dbd1">GraphicsPage::getMaximumResolution</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8230902b64db99ea9bfb1589912cb402"></a><!-- doxytag: member="GraphicsPage::loadSettings" ref="a8230902b64db99ea9bfb1589912cb402" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classGraphicsPage.html#a8230902b64db99ea9bfb1589912cb402">GraphicsPage::loadSettings</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -225,6 +244,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abaeb34a5161ec21093a460d0fc9cf12b"></a><!-- doxytag: member="GraphicsPage::screenChanged" ref="abaeb34a5161ec21093a460d0fc9cf12b" args="(int screen)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classGraphicsPage.html#abaeb34a5161ec21093a460d0fc9cf12b">GraphicsPage::screenChanged</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>screen</em></td><td>)</td>
+          <td><code> [slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0e47c12aa9e473b27b032360b390ff4a"></a><!-- doxytag: member="GraphicsPage::setupOgre" ref="a0e47c12aa9e473b27b032360b390ff4a" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -233,7 +269,23 @@ Private Attributes</h2></td></tr>
           <td class="memname">bool <a class="el" href="classGraphicsPage.html#a0e47c12aa9e473b27b032360b390ff4a">GraphicsPage::setupOgre</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad085b4f0b829451d00b913c975fd0442"></a><!-- doxytag: member="GraphicsPage::setupSDL" ref="ad085b4f0b829451d00b913c975fd0442" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classGraphicsPage.html#ad085b4f0b829451d00b913c975fd0442">GraphicsPage::setupSDL</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -362,7 +414,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:43 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

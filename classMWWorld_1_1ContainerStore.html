@@ -86,6 +86,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a71670323082addcc92d290120c409c6f">begin</a> (int mask=<a class="el" href="classMWWorld_1_1ContainerStore.html#a17042290d6394f4caf3115c519e8d9fc">Type_All</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ab7165a7ef4e2053f7c0b712d017a9f5d">end</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ab1a5e63be34ec718dd5bea436c8ada4c">add</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a5a8c2eb849105a62f59e7f33504eb079">stacks</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr1, const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ade6390a90abc2dfa30e439eb8c4a9f28">fill</a> (const <a class="el" href="structESM_1_1InventoryList.html">ESM::InventoryList</a> &amp;items, const std::string &amp;owner, const <a class="el" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert items into *this.  <a href="#ade6390a90abc2dfa30e439eb8c4a9f28"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#ac246b1e5933763a3e51a37a74dbf3b29">clear</a> ()</td></tr>
@@ -117,7 +118,6 @@ Static Public Attributes</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a4a6c29b64ed5885654793364127316c2">addImpl</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the item to this container (no stacking)  <a href="#a4a6c29b64ed5885654793364127316c2"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#a5a8c2eb849105a62f59e7f33504eb079">stacks</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr1, const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr2)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1ContainerStore.html#af4283222f8c3f98188c99738fc8be224">addImp</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">Ptr</a> &amp;ptr)</td></tr>
@@ -281,7 +281,7 @@ Friends</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>implement item restocking (indicated by negative count) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000084">Todo:</a></b></dt><dd>implement item restocking (indicated by negative count) </dd></dl>
 
 </div>
 </div>
@@ -463,14 +463,13 @@ Friends</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td><code> [protected, virtual]</code></td>
+          <td></td><td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the two specified objects can stack with each other </dd></dl>
-<dl class="note"><dt><b>Note:</b></dt><dd>ptr1 is the item that is already in this container </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>add current enchantment charge here when it is implemented </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>add current enchantment charge here when it is implemented </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classMWWorld_1_1InventoryStore.html#aecbe10a167acbbdd7ba85bca8672e9e8">MWWorld::InventoryStore</a>.</p>
 
@@ -876,7 +875,7 @@ Friends</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 25 2013 10:22:44 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
