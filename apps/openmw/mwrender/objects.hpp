@@ -28,18 +28,18 @@ class Objects{
     PtrAnimationMap mObjects;
 
     Ogre::SceneNode* mRootNode;
-    bool mIsStatic;
+
     static int uniqueID;
+
+    void insertBegin(const MWWorld::Ptr& ptr);
 
 public:
     Objects(OEngine::Render::OgreRenderer &renderer)
         : mRenderer(renderer)
-        , mIsStatic(false)
         , mRootNode(NULL)
     {}
     ~Objects(){}
-    void insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_);
-    void insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh);
+    void insertModel(const MWWorld::Ptr& ptr, const std::string &model);
 
     void enableLights();
     void disableLights();

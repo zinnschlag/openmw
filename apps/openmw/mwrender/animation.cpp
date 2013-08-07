@@ -74,8 +74,7 @@ Animation::Animation(const MWWorld::Ptr &ptr, Ogre::SceneNode *node)
 {
     for(size_t i = 0;i < sNumGroups;i++)
         mAnimationValuePtr[i].bind(OGRE_NEW AnimationValue(this));
-    mInsert = node ? node->createChildSceneNode() :
-                     mPtr.getRefData().getBaseNode()->createChildSceneNode();
+    mInsert = node->createChildSceneNode();
 }
 
 Animation::~Animation()
@@ -86,6 +85,8 @@ Animation::~Animation()
 
         Ogre::SceneManager *sceneMgr = mInsert->getCreator();
         destroyObjectList(sceneMgr, mObjectRoot);
+
+        sceneMgr->destroySceneNode(mInsert);
     }
 }
 
@@ -979,7 +980,7 @@ void Animation::detachObjectFromBone(Ogre::MovableObject *obj)
 }
 
 
-ObjectAnimation::ObjectAnimation(const MWWorld::Ptr& ptr, const std::string &model, bool isStatic)
+ObjectAnimation::ObjectAnimation(const MWWorld::Ptr& ptr, const std::string &model)
   : Animation(ptr, ptr.getRefData().getBaseNode())
 {
     setObjectRoot(model, false);
@@ -997,7 +998,8 @@ ObjectAnimation::ObjectAnimation(const MWWorld::Ptr& ptr, const std::string &mod
         small = false;
 
     float dist = small ? Settings::Manager::getInt("small object distance", "Viewing distance") : 0.0f;
-    setRenderProperties(mObjectRoot, isStatic ? (small ? RV_StaticsSmall : RV_Statics) : RV_Misc,
+    setRenderProperties(mObjectRoot, (mPtr.getTypeName() == typeid(ESM::Static).name()) ?
+                                     (small ? RV_StaticsSmall : RV_Statics) : RV_Misc,
                         RQG_Main, RQG_Alpha, dist);
 }
 

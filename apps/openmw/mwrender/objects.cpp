@@ -29,7 +29,7 @@ void Objects::setRootNode(Ogre::SceneNode* root)
     mRootNode = root;
 }
 
-void Objects::insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_)
+void Objects::insertBegin(const MWWorld::Ptr& ptr)
 {
     Ogre::SceneNode* root = mRootNode;
     Ogre::SceneNode* cellnode;
@@ -66,22 +66,18 @@ void Objects::insertBegin (const MWWorld::Ptr& ptr, bool enabled, bool static_)
     // Rotates first around z, then y, then x
     insert->setOrientation(xr*yr*zr);
 
-    if (!enabled)
-         insert->setVisible (false);
     ptr.getRefData().setBaseNode(insert);
-    mIsStatic = static_;
 }
 
-void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
+void Objects::insertModel(const MWWorld::Ptr &ptr, const std::string &mesh)
 {
-    Ogre::SceneNode* insert = ptr.getRefData().getBaseNode();
-    assert(insert);
+    insertBegin(ptr);
 
-    std::auto_ptr<ObjectAnimation> anim(new ObjectAnimation(ptr, mesh, mIsStatic));
+    std::auto_ptr<ObjectAnimation> anim(new ObjectAnimation(ptr, mesh));
 
     Ogre::AxisAlignedBox bounds = anim->getWorldBounds();
     Ogre::Vector3 extents = bounds.getSize();
-    extents *= insert->getScale();
+    extents *= ptr.getRefData().getBaseNode()->getScale();
     float size = std::max(std::max(extents.x, extents.y), extents.z);
 
     bool small = (size < Settings::Manager::getInt("small object size", "Viewing distance")) &&
@@ -97,7 +93,9 @@ void Objects::insertMesh (const MWWorld::Ptr& ptr, const std::string& mesh)
     if(ptr.getTypeName() == typeid(ESM::Light).name())
         anim->addLight(ptr.get<ESM::Light>()->mBase);
 
-    if(mIsStatic && Settings::Manager::getBool("use static geometry", "Objects") && anim->canBatch())
+    if(ptr.getTypeName() == typeid(ESM::Static).name() &&
+       Settings::Manager::getBool("use static geometry", "Objects") &&
+       anim->canBatch())
     {
         Ogre::StaticGeometry* sg = 0;
 
