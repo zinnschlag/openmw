@@ -212,6 +212,10 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
             }
         }
 
+        /* If we're playing the same animation, restart from the loop start instead of the
+         * beginning. */
+        int mode = ((movement != mCurrentMovement) ? 1 : 2);
+
         mAnimation->disable(mCurrentMovement);
         mCurrentMovement = movement;
         if(!mCurrentMovement.empty())
@@ -220,7 +224,7 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
             if(mMovementSpeed > 0.0f && (vel=mAnimation->getVelocity(mCurrentMovement)) > 1.0f)
                 speedmult = mMovementSpeed / vel;
             mAnimation->play(mCurrentMovement, Priority_Movement, movegroup, false,
-                             speedmult, "start", "stop", 0.0f, ~0ul);
+                             speedmult, ((mode==2)?"loop start":"start"), "stop", 0.0f, ~0ul);
         }
     }
 }
@@ -368,14 +372,14 @@ void CharacterController::updatePtr(const MWWorld::Ptr &ptr)
 }
 
 
-bool CharacterController::updateNpcState()
+bool CharacterController::updateNpcState(bool onground, bool inwater, bool isrunning, bool sneak)
 {
     const MWWorld::Class &cls = MWWorld::Class::get(mPtr);
-    CreatureStats &crstats = cls.getCreatureStats(mPtr);
     NpcStats &stats = cls.getNpcStats(mPtr);
     WeaponType weaptype = WeapType_None;
     MWWorld::InventoryStore &inv = cls.getInventoryStore(mPtr);
     MWWorld::ContainerStoreIterator weapon = getActiveWeapon(stats, inv, &weaptype);
+    const bool isWerewolf = stats.isWerewolf();
 
     bool forcestateupdate = false;
     if(weaptype != mWeaponType)
@@ -399,6 +403,16 @@ bool CharacterController::updateNpcState()
                              MWRender::Animation::Group_UpperBody, true,
                              1.0f, "equip start", "equip stop", 0.0f, 0);
             mUpperBodyState = UpperCharState_EquipingWeap;
+            if(isWerewolf)
+            {
+                const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+                const ESM::Sound *sound = store.get<ESM::Sound>().searchRandom("WolfEquip");
+                if(sound)
+                {
+                    MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
+                    sndMgr->playSound3D(mPtr, sound->mId, 1.0f, 1.0f);
+                }
+            }
         }
 
         if(weapon != inv.end() && !(weaptype == WeapType_None && mWeaponType == WeapType_Spell))
@@ -417,6 +431,18 @@ bool CharacterController::updateNpcState()
         getWeaponGroup(mWeaponType, mCurrentWeapon);
     }
 
+    if(isWerewolf)
+    {
+        MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
+        if(isrunning && !inwater && mWeaponType == WeapType_None)
+        {
+            if(!sndMgr->getSoundPlaying(mPtr, "WolfRun"))
+                sndMgr->playSound3D(mPtr, "WolfRun", 1.0f, 1.0f, MWBase::SoundManager::Play_TypeSfx,
+                                    MWBase::SoundManager::Play_Loop);
+        }
+        else
+            sndMgr->stopSound3D(mPtr, "WolfRun");
+    }
 
     bool isWeapon = (weapon != inv.end() && weapon->getTypeName() == typeid(ESM::Weapon).name());
     float weapSpeed = 1.0f;
@@ -425,7 +451,7 @@ bool CharacterController::updateNpcState()
 
     float complete;
     bool animPlaying;
-    if(crstats.getAttackingOrSpell())
+    if(stats.getAttackingOrSpell())
     {
         if(mUpperBodyState == UpperCharState_WeapEquiped)
         {
@@ -434,7 +460,7 @@ bool CharacterController::updateNpcState()
             {
                 const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
 
-                const std::string spellid = crstats.getSpells().getSelectedSpell();
+                const std::string spellid = stats.getSpells().getSelectedSpell();
                 if(!spellid.empty())
                 {
                     static const std::string schools[] = {
@@ -503,7 +529,7 @@ bool CharacterController::updateNpcState()
                     mAttackType = "shoot";
                 else
                 {
-                    int attackType = crstats.getAttackType();
+                    int attackType = stats.getAttackType();
                     if(isWeapon && Settings::Manager::getBool("best attack", "Game"))
                         attackType = getBestAttack(weapon->get<ESM::Weapon>()->mBase);
 
@@ -532,12 +558,24 @@ bool CharacterController::updateNpcState()
             if(mAttackType != "shoot")
             {
                 MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
-                if(complete < 0.5f)
-                    sndMgr->playSound3D(mPtr, "SwishM", 1.0f, 0.8f); //Weak attack
-                else if(complete < 1.0f)
-                    sndMgr->playSound3D(mPtr, "SwishM", 1.0f, 1.0f); //Medium attack
+
+                if(isWerewolf)
+                {
+                    const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+                    const ESM::Sound *sound = store.get<ESM::Sound>().searchRandom("WolfSwing");
+                    if(sound)
+                        sndMgr->playSound3D(mPtr, sound->mId, 1.0f, 1.0f);
+                }
                 else
-                    sndMgr->playSound3D(mPtr, "SwishM", 1.0f, 1.2f); //Strong attack
+                {
+                    std::string sound = "SwishM";
+                    if(complete < 0.5f)
+                        sndMgr->playSound3D(mPtr, sound, 1.0f, 0.8f); //Weak attack
+                    else if(complete < 1.0f)
+                        sndMgr->playSound3D(mPtr, sound, 1.0f, 1.0f); //Medium attack
+                    else
+                        sndMgr->playSound3D(mPtr, sound, 1.0f, 1.2f); //Strong attack
+                }
             }
             stats.setAttackStrength(complete);
 
@@ -656,28 +694,12 @@ void CharacterController::update(float duration, Movement &movement)
         Ogre::Vector3 rot = cls.getRotationVector(mPtr);
         mMovementSpeed = cls.getSpeed(mPtr);
 
-        // advance athletics
-        if(vec.squaredLength() > 0 && mPtr.getRefData().getHandle() == "player")
-        {
-            if(inwater)
-            {
-                mSecondsOfSwimming += duration;
-                while(mSecondsOfSwimming > 1)
-                {
-                    cls.skillUsageSucceeded(mPtr, ESM::Skill::Athletics, 1);
-                    mSecondsOfSwimming -= 1;
-                }
-            }
-            else if(isrunning)
-            {
-                mSecondsOfRunning += duration;
-                while(mSecondsOfRunning > 1)
-                {
-                    cls.skillUsageSucceeded(mPtr, ESM::Skill::Athletics, 0);
-                    mSecondsOfRunning -= 1;
-                }
-            }
-        }
+        CharacterState movestate = CharState_None;
+        CharacterState idlestate = CharState_SpecialIdle;
+        bool forcestateupdate = false;
+
+        vec.x *= mMovementSpeed;
+        vec.y *= mMovementSpeed;
 
         /* FIXME: The state should be set to Jump, and X/Y movement should be disallowed except
          * for the initial thrust (which would be carried by "physics" until landing). */
@@ -701,12 +723,30 @@ void CharacterController::update(float duration, Movement &movement)
             //decrease fatigue by fFatigueJumpBase + (1 - normalizedEncumbrance) * fFatigueJumpMult;
         }
 
-        vec.x *= mMovementSpeed;
-        vec.y *= mMovementSpeed;
+        isrunning = isrunning && std::abs(vec[0])+std::abs(vec[1]) > 0.0f;
 
-        CharacterState movestate = CharState_None;
-        CharacterState idlestate = CharState_SpecialIdle;
-        bool forcestateupdate = false;
+        // advance athletics
+        if(std::abs(vec[0])+std::abs(vec[1]) > 0.0f && mPtr.getRefData().getHandle() == "player")
+        {
+            if(inwater)
+            {
+                mSecondsOfSwimming += duration;
+                while(mSecondsOfSwimming > 1)
+                {
+                    cls.skillUsageSucceeded(mPtr, ESM::Skill::Athletics, 1);
+                    mSecondsOfSwimming -= 1;
+                }
+            }
+            else if(isrunning)
+            {
+                mSecondsOfRunning += duration;
+                while(mSecondsOfRunning > 1)
+                {
+                    cls.skillUsageSucceeded(mPtr, ESM::Skill::Athletics, 0);
+                    mSecondsOfRunning -= 1;
+                }
+            }
+        }
 
         if(std::abs(vec.x/2.0f) > std::abs(vec.y))
         {
@@ -765,8 +805,8 @@ void CharacterController::update(float duration, Movement &movement)
         movement.mRotation[1] += rot.y;
         movement.mRotation[2] += rot.z;
 
-        if(mPtr.getTypeName() == typeid(ESM::NPC).name())
-            forcestateupdate = updateNpcState();
+        if(cls.isNpc())
+            forcestateupdate = updateNpcState(onground, inwater, isrunning, sneak);
 
         refreshCurrentAnims(idlestate, movestate, forcestateupdate);
     }

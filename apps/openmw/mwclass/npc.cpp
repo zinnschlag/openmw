@@ -23,6 +23,7 @@
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/actiontalk.hpp"
 #include "../mwworld/actionopen.hpp"
+#include "../mwworld/failedaction.hpp"
 #include "../mwworld/inventorystore.hpp"
 #include "../mwworld/customdata.hpp"
 #include "../mwworld/physicssystem.hpp"
@@ -40,7 +41,6 @@ namespace
     struct CustomData : public MWWorld::CustomData
     {
         MWMechanics::NpcStats mNpcStats;
-        MWMechanics::CreatureStats mCreatureStats;
         MWMechanics::Movement mMovement;
         MWWorld::InventoryStore mInventoryStore;
 
@@ -187,45 +187,45 @@ namespace MWClass
                 for (int i=0; i<27; ++i)
                     data->mNpcStats.getSkill (i).setBase (ref->mBase->mNpdt52.mSkills[i]);
 
-                data->mCreatureStats.getAttribute(0).set (ref->mBase->mNpdt52.mStrength);
-                data->mCreatureStats.getAttribute(1).set (ref->mBase->mNpdt52.mIntelligence);
-                data->mCreatureStats.getAttribute(2).set (ref->mBase->mNpdt52.mWillpower);
-                data->mCreatureStats.getAttribute(3).set (ref->mBase->mNpdt52.mAgility);
-                data->mCreatureStats.getAttribute(4).set (ref->mBase->mNpdt52.mSpeed);
-                data->mCreatureStats.getAttribute(5).set (ref->mBase->mNpdt52.mEndurance);
-                data->mCreatureStats.getAttribute(6).set (ref->mBase->mNpdt52.mPersonality);
-                data->mCreatureStats.getAttribute(7).set (ref->mBase->mNpdt52.mLuck);
-                data->mCreatureStats.setHealth (ref->mBase->mNpdt52.mHealth);
-                data->mCreatureStats.setMagicka (ref->mBase->mNpdt52.mMana);
-                data->mCreatureStats.setFatigue (ref->mBase->mNpdt52.mFatigue);
+                data->mNpcStats.getAttribute(0).set (ref->mBase->mNpdt52.mStrength);
+                data->mNpcStats.getAttribute(1).set (ref->mBase->mNpdt52.mIntelligence);
+                data->mNpcStats.getAttribute(2).set (ref->mBase->mNpdt52.mWillpower);
+                data->mNpcStats.getAttribute(3).set (ref->mBase->mNpdt52.mAgility);
+                data->mNpcStats.getAttribute(4).set (ref->mBase->mNpdt52.mSpeed);
+                data->mNpcStats.getAttribute(5).set (ref->mBase->mNpdt52.mEndurance);
+                data->mNpcStats.getAttribute(6).set (ref->mBase->mNpdt52.mPersonality);
+                data->mNpcStats.getAttribute(7).set (ref->mBase->mNpdt52.mLuck);
+                data->mNpcStats.setHealth (ref->mBase->mNpdt52.mHealth);
+                data->mNpcStats.setMagicka (ref->mBase->mNpdt52.mMana);
+                data->mNpcStats.setFatigue (ref->mBase->mNpdt52.mFatigue);
 
-                data->mCreatureStats.setLevel(ref->mBase->mNpdt52.mLevel);
+                data->mNpcStats.setLevel(ref->mBase->mNpdt52.mLevel);
                 data->mNpcStats.setBaseDisposition(ref->mBase->mNpdt52.mDisposition);
                 data->mNpcStats.setReputation(ref->mBase->mNpdt52.mReputation);
             }
             else
             {
                 for (int i=0; i<3; ++i)
-                    data->mCreatureStats.setDynamic (i, 10);
+                    data->mNpcStats.setDynamic (i, 10);
 
-                data->mCreatureStats.setLevel(ref->mBase->mNpdt12.mLevel);
+                data->mNpcStats.setLevel(ref->mBase->mNpdt12.mLevel);
                 data->mNpcStats.setBaseDisposition(ref->mBase->mNpdt12.mDisposition);
                 data->mNpcStats.setReputation(ref->mBase->mNpdt12.mReputation);
 
-                autoCalculateAttributes(ref->mBase, data->mCreatureStats);
+                autoCalculateAttributes(ref->mBase, data->mNpcStats);
             }
 
-            data->mCreatureStats.getAiSequence().fill(ref->mBase->mAiPackage);
+            data->mNpcStats.getAiSequence().fill(ref->mBase->mAiPackage);
 
-            data->mCreatureStats.setAiSetting (0, ref->mBase->mAiData.mHello);
-            data->mCreatureStats.setAiSetting (1, ref->mBase->mAiData.mFight);
-            data->mCreatureStats.setAiSetting (2, ref->mBase->mAiData.mFlee);
-            data->mCreatureStats.setAiSetting (3, ref->mBase->mAiData.mAlarm);
+            data->mNpcStats.setAiSetting (0, ref->mBase->mAiData.mHello);
+            data->mNpcStats.setAiSetting (1, ref->mBase->mAiData.mFight);
+            data->mNpcStats.setAiSetting (2, ref->mBase->mAiData.mFlee);
+            data->mNpcStats.setAiSetting (3, ref->mBase->mAiData.mAlarm);
 
             // spells
             for (std::vector<std::string>::const_iterator iter (ref->mBase->mSpells.mList.begin());
                 iter!=ref->mBase->mSpells.mList.end(); ++iter)
-                data->mCreatureStats.getSpells().add (*iter);
+                data->mNpcStats.getSpells().add (*iter);
 
             // inventory
             data->mInventoryStore.fill(ref->mBase->mInventory, getId(ptr),
@@ -290,9 +290,15 @@ namespace MWClass
 
     std::string Npc::getName (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::NPC> *ref =
-            ptr.get<ESM::NPC>();
+        if(getNpcStats(ptr).isWerewolf())
+        {
+            const MWBase::World *world = MWBase::Environment::get().getWorld();
+            const MWWorld::Store<ESM::GameSetting> &gmst = world->getStore().get<ESM::GameSetting>();
 
+            return gmst.find("sWerewolfPopup")->getString();
+        }
+
+        MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
         return ref->mBase->mName;
     }
 
@@ -300,7 +306,7 @@ namespace MWClass
     {
         ensureCustomData (ptr);
 
-        return dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData()).mCreatureStats;
+        return dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData()).mNpcStats;
     }
 
     MWMechanics::NpcStats& Npc::getNpcStats (const MWWorld::Ptr& ptr) const
@@ -344,13 +350,12 @@ namespace MWClass
         if(!weapon.isEmpty())
             weapskill = get(weapon).getEquipmentSkill(weapon);
 
-        MWMechanics::CreatureStats &crstats = getCreatureStats(ptr);
-        MWMechanics::NpcStats &npcstats = getNpcStats(ptr);
-        const MWMechanics::MagicEffects &mageffects = crstats.getMagicEffects();
-        float hitchance = npcstats.getSkill(weapskill).getModified() +
-                          (crstats.getAttribute(ESM::Attribute::Agility).getModified() / 5.0f) +
-                          (crstats.getAttribute(ESM::Attribute::Luck).getModified() / 10.0f);
-        hitchance *= crstats.getFatigueTerm();
+        MWMechanics::NpcStats &stats = getNpcStats(ptr);
+        const MWMechanics::MagicEffects &mageffects = stats.getMagicEffects();
+        float hitchance = stats.getSkill(weapskill).getModified() +
+                          (stats.getAttribute(ESM::Attribute::Agility).getModified() / 5.0f) +
+                          (stats.getAttribute(ESM::Attribute::Luck).getModified() / 10.0f);
+        hitchance *= stats.getFatigueTerm();
         hitchance += mageffects.get(MWMechanics::EffectKey(ESM::MagicEffect::FortifyAttack)).mMagnitude -
                      mageffects.get(MWMechanics::EffectKey(ESM::MagicEffect::Blind)).mMagnitude;
         hitchance -= otherstats.getEvasion();
@@ -375,8 +380,8 @@ namespace MWClass
                 attack = weapon.get<ESM::Weapon>()->mBase->mData.mThrust;
             if(attack)
             {
-                damage  = attack[0] + ((attack[1]-attack[0])*npcstats.getAttackStrength());
-                damage *= 0.5f + (crstats.getAttribute(ESM::Attribute::Luck).getModified() / 100.0f);
+                damage  = attack[0] + ((attack[1]-attack[0])*stats.getAttackStrength());
+                damage *= 0.5f + (stats.getAttribute(ESM::Attribute::Luck).getModified() / 100.0f);
                 if(weaphashealth)
                 {
                     int weapmaxhealth = weapon.get<ESM::Weapon>()->mBase->mData.mHealth;
@@ -403,8 +408,8 @@ namespace MWClass
             // option for it.
             float minstrike = gmst.find("fMinHandToHandMult")->getFloat();
             float maxstrike = gmst.find("fMaxHandToHandMult")->getFloat();
-            damage  = npcstats.getSkill(weapskill).getModified();
-            damage *= minstrike + ((maxstrike-minstrike)*npcstats.getAttackStrength());
+            damage  = stats.getSkill(weapskill).getModified();
+            damage *= minstrike + ((maxstrike-minstrike)*stats.getAttackStrength());
             if(!othercls.hasDetected(victim, ptr))
             {
                 damage *= gmst.find("fCombatCriticalStrikeMult")->getFloat();
@@ -413,7 +418,7 @@ namespace MWClass
             }
 
             healthdmg = (otherstats.getFatigue().getCurrent() < 1.0f);
-            if(npcstats.isWerewolf())
+            if(stats.isWerewolf())
             {
                 healthdmg = true;
                 // GLOB instead of GMST because it gets updated during a quest
@@ -422,6 +427,16 @@ namespace MWClass
             }
             if(healthdmg)
                 damage *= gmst.find("fHandtoHandHealthPer")->getFloat();
+
+            MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
+            if(stats.isWerewolf())
+            {
+                const ESM::Sound *sound = world->getStore().get<ESM::Sound>().searchRandom("WolfHit");
+                if(sound)
+                    sndMgr->playSound3D(victim, sound->mId, 1.0f, 1.0f);
+            }
+            else
+                sndMgr->playSound3D(victim, "Hand To Hand Hit", 1.0f, 1.0f);
         }
         if(ptr.getRefData().getHandle() == "player")
             skillUsageSucceeded(ptr, weapskill, 0);
@@ -466,7 +481,6 @@ namespace MWClass
             {
                 if(ishealth)
                     damage /= std::min(1.0f + getArmorRating(ptr)/std::max(1.0f, damage), 4.0f);
-                sndMgr->playSound3D(ptr, "Hand To Hand Hit", 1.0f, 1.0f);
             }
             else if(ishealth)
             {
@@ -556,12 +570,21 @@ namespace MWClass
     boost::shared_ptr<MWWorld::Action> Npc::activate (const MWWorld::Ptr& ptr,
         const MWWorld::Ptr& actor) const
     {
-        if (MWWorld::Class::get (ptr).getCreatureStats (ptr).isDead())
-            return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionOpen(ptr, true));
-        else if (MWWorld::Class::get(actor).getStance(actor, MWWorld::Class::Sneak))
-            return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionOpen(ptr)); // stealing
-        else
-            return boost::shared_ptr<MWWorld::Action> (new MWWorld::ActionTalk (ptr));
+        if(get(actor).isNpc() && get(actor).getNpcStats(actor).isWerewolf())
+        {
+            const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
+            const ESM::Sound *sound = store.get<ESM::Sound>().searchRandom("WolfNPC");
+
+            boost::shared_ptr<MWWorld::Action> action(new MWWorld::FailedAction("#{sWerewolfRefusal}"));
+            if(sound) action->setSound(sound->mId);
+
+            return action;
+        }
+        if(getCreatureStats(ptr).isDead())
+            return boost::shared_ptr<MWWorld::Action>(new MWWorld::ActionOpen(ptr, true));
+        if(get(actor).getStance(actor, MWWorld::Class::Sneak))
+            return boost::shared_ptr<MWWorld::Action>(new MWWorld::ActionOpen(ptr)); // stealing
+        return boost::shared_ptr<MWWorld::Action>(new MWWorld::ActionTalk(ptr));
     }
 
     MWWorld::ContainerStore& Npc::getContainerStore (const MWWorld::Ptr& ptr)
@@ -666,11 +689,11 @@ namespace MWClass
     {
         const MWBase::World *world = MWBase::Environment::get().getWorld();
         const CustomData *npcdata = static_cast<const CustomData*>(ptr.getRefData().getCustomData());
-        const MWMechanics::MagicEffects &mageffects = npcdata->mCreatureStats.getMagicEffects();
+        const MWMechanics::MagicEffects &mageffects = npcdata->mNpcStats.getMagicEffects();
 
         const float normalizedEncumbrance = Npc::getEncumbrance(ptr) / Npc::getCapacity(ptr);
 
-        float walkSpeed = fMinWalkSpeed->getFloat() + 0.01f*npcdata->mCreatureStats.getAttribute(ESM::Attribute::Speed).getModified()*
+        float walkSpeed = fMinWalkSpeed->getFloat() + 0.01f*npcdata->mNpcStats.getAttribute(ESM::Attribute::Speed).getModified()*
                                                       (fMaxWalkSpeed->getFloat() - fMinWalkSpeed->getFloat());
         walkSpeed *= 1.0f - fEncumberedMoveEffect->getFloat()*normalizedEncumbrance;
         walkSpeed = std::max(0.0f, walkSpeed);
@@ -687,7 +710,7 @@ namespace MWClass
             moveSpeed = 0.0f;
         else if(mageffects.get(MWMechanics::EffectKey(10/*levitate*/)).mMagnitude > 0)
         {
-            float flySpeed = 0.01f*(npcdata->mCreatureStats.getAttribute(ESM::Attribute::Speed).getModified() +
+            float flySpeed = 0.01f*(npcdata->mNpcStats.getAttribute(ESM::Attribute::Speed).getModified() +
                                     mageffects.get(MWMechanics::EffectKey(10/*levitate*/)).mMagnitude);
             flySpeed = fMinFlySpeed->getFloat() + flySpeed*(fMaxFlySpeed->getFloat() - fMinFlySpeed->getFloat());
             flySpeed *= 1.0f - fEncumberedMoveEffect->getFloat() * normalizedEncumbrance;
@@ -717,7 +740,7 @@ namespace MWClass
     float Npc::getJump(const MWWorld::Ptr &ptr) const
     {
         const CustomData *npcdata = static_cast<const CustomData*>(ptr.getRefData().getCustomData());
-        const MWMechanics::MagicEffects &mageffects = npcdata->mCreatureStats.getMagicEffects();
+        const MWMechanics::MagicEffects &mageffects = npcdata->mNpcStats.getMagicEffects();
         const float encumbranceTerm = fJumpEncumbranceBase->getFloat() +
                                           fJumpEncumbranceMultiplier->getFloat() *
                                           (1.0f - Npc::getEncumbrance(ptr)/Npc::getCapacity(ptr));
@@ -738,7 +761,7 @@ namespace MWClass
 
         if(Npc::getStance(ptr, Run, false))
             x *= fJumpRunMultiplier->getFloat();
-        x *= npcdata->mCreatureStats.getFatigueTerm();
+        x *= npcdata->mNpcStats.getFatigueTerm();
         x -= -627.2f;/*gravity constant*/
         x /= 3.0f;
 
@@ -795,16 +818,21 @@ namespace MWClass
 
     MWGui::ToolTipInfo Npc::getToolTipInfo (const MWWorld::Ptr& ptr) const
     {
-        MWWorld::LiveCellRef<ESM::NPC> *ref =
-            ptr.get<ESM::NPC>();
+        MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
 
+        bool fullHelp = MWBase::Environment::get().getWindowManager()->getFullHelp();
         MWGui::ToolTipInfo info;
-        info.caption = ref->mBase->mName;
 
-        std::string text;
-        if (MWBase::Environment::get().getWindowManager()->getFullHelp())
-            text += MWGui::ToolTips::getMiscString(ref->mBase->mScript, "Script");
-        info.text = text;
+        info.caption = getName(ptr);
+        if(fullHelp && getNpcStats(ptr).isWerewolf())
+        {
+            info.caption += " (";
+            info.caption += ref->mBase->mName;
+            info.caption += ")";
+        }
+
+        if(fullHelp)
+            info.text = MWGui::ToolTips::getMiscString(ref->mBase->mScript, "Script");
 
         return info;
     }
@@ -817,16 +845,19 @@ namespace MWClass
 
     float Npc::getEncumbrance (const MWWorld::Ptr& ptr) const
     {
-        float weight = getContainerStore (ptr).getWeight();
+        const MWMechanics::NpcStats &stats = getNpcStats(ptr);
 
-        const MWMechanics::CreatureStats& stats = getCreatureStats (ptr);
-
-        weight -= stats.getMagicEffects().get (MWMechanics::EffectKey (ESM::MagicEffect::Feather)).mMagnitude;
-
-        weight += stats.getMagicEffects().get (MWMechanics::EffectKey (ESM::MagicEffect::Burden)).mMagnitude;
-
-        if (weight<0)
-            weight = 0;
+        // According to UESP, inventory weight is ignored in werewolf form. Does that include
+        // feather and burden effects?
+        float weight = 0.0f;
+        if(!stats.isWerewolf())
+        {
+            weight  = getContainerStore(ptr).getWeight();
+            weight -= stats.getMagicEffects().get(MWMechanics::EffectKey(ESM::MagicEffect::Feather)).mMagnitude;
+            weight += stats.getMagicEffects().get(MWMechanics::EffectKey(ESM::MagicEffect::Burden)).mMagnitude;
+            if(weight < 0.0f)
+                weight = 0.0f;
+        }
 
         return weight;
     }
@@ -891,7 +922,7 @@ namespace MWClass
             }
         }
 
-        float shield = getCreatureStats(ptr).getMagicEffects().get(ESM::MagicEffect::Shield).mMagnitude;
+        float shield = stats.getMagicEffects().get(ESM::MagicEffect::Shield).mMagnitude;
 
         return ratings[MWWorld::InventoryStore::Slot_Cuirass] * 0.3f
                 + (ratings[MWWorld::InventoryStore::Slot_CarriedLeft] + ratings[MWWorld::InventoryStore::Slot_Helmet]
@@ -940,6 +971,8 @@ namespace MWClass
         {
             MWBase::World *world = MWBase::Environment::get().getWorld();
             Ogre::Vector3 pos(ptr.getRefData().getPosition().pos);
+            if(world->isSwimming(ptr))
+                return "Swim Left";
             if(world->isUnderwater(ptr.getCell(), pos))
                 return "FootWaterLeft";
             if(world->isOnGround(ptr))
@@ -965,6 +998,8 @@ namespace MWClass
         {
             MWBase::World *world = MWBase::Environment::get().getWorld();
             Ogre::Vector3 pos(ptr.getRefData().getPosition().pos);
+            if(world->isSwimming(ptr))
+                return "Swim Right";
             if(world->isUnderwater(ptr.getCell(), pos))
                 return "FootWaterRight";
             if(world->isOnGround(ptr))
@@ -986,6 +1021,10 @@ namespace MWClass
             }
             return "";
         }
+        if(name == "swimleft")
+            return "Swim Left";
+        if(name == "swimright")
+            return "Swim Right";
         // TODO: I have no idea what these are supposed to do for NPCs since they use
         // voiced dialog for various conditions like health loss and combat taunts. Maybe
         // only for biped creatures?

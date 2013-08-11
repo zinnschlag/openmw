@@ -42,7 +42,7 @@ void InventoryItemModel::copyItem (const ItemStack& item, size_t count)
 {
     int origCount = item.mBase.getRefData().getCount();
     item.mBase.getRefData().setCount(count);
-    MWWorld::ContainerStoreIterator it = MWWorld::Class::get(mActor).getContainerStore(mActor).add(item.mBase);
+    MWWorld::ContainerStoreIterator it = MWWorld::Class::get(mActor).getContainerStore(mActor).add(item.mBase, mActor);
     if (*it != item.mBase)
         item.mBase.getRefData().setCount(origCount);
     else
@@ -75,7 +75,14 @@ void InventoryItemModel::update()
 
     for (MWWorld::ContainerStoreIterator it = store.begin(); it != store.end(); ++it)
     {
-        ItemStack newItem (*it, this, it->getRefData().getCount());
+        MWWorld::Ptr item = *it;
+        // NOTE: Don't show WerewolfRobe objects in the inventory, or allow them to be taken.
+        // Vanilla likely uses a hack like this since there's no other way to prevent it from
+        // being shown or taken.
+        if(item.getCellRef().mRefID == "WerewolfRobe")
+            continue;
+
+        ItemStack newItem (item, this, item.getRefData().getCount());
 
         if (mActor.getTypeName() == typeid(ESM::NPC).name())
         {

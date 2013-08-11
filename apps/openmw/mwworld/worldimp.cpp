@@ -16,6 +16,7 @@
 
 #include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/movement.hpp"
+#include "../mwmechanics/npcstats.hpp"
 
 #include "../mwrender/sky.hpp"
 #include "../mwrender/animation.hpp"
@@ -1644,13 +1645,15 @@ namespace MWWorld
     {
         Ptr::CellStore *currentCell = mWorldScene->getCurrentCell();
 
-        RefData &refdata = mPlayer->getPlayer().getRefData();
+        Ptr player = mPlayer->getPlayer();
+        RefData &refdata = player.getRefData();
         Ogre::Vector3 playerPos(refdata.getPosition().pos);
 
         const OEngine::Physic::PhysicActor *physactor = mPhysEngine->getCharacter(refdata.getHandle());
         if((!physactor->getOnGround()&&physactor->getCollisionMode()) || isUnderwater(currentCell, playerPos))
             return 2;
-        if((currentCell->mCell->mData.mFlags&ESM::Cell::NoSleep))
+        if((currentCell->mCell->mData.mFlags&ESM::Cell::NoSleep) ||
+           Class::get(player).getNpcStats(player).isWerewolf())
             return 1;
 
         return 0;
@@ -1857,6 +1860,69 @@ namespace MWWorld
     bool World::isTeleportingEnabled() const
     {
         return mTeleportEnabled;
+    }
+
+    void World::setWerewolf(const MWWorld::Ptr& actor, bool werewolf)
+    {
+        MWMechanics::NpcStats& npcStats = Class::get(actor).getNpcStats(actor);
+
+        // The actor does not have to change state
+        if (npcStats.isWerewolf() == werewolf)
+            return;
+
+        npcStats.setWerewolf(werewolf);
+
+        MWWorld::InventoryStore& invStore = MWWorld::Class::get(actor).getInventoryStore(actor);
+        invStore.unequipAll(actor);
+
+        if(werewolf)
+        {
+            ManualRef ref(getStore(), "WerewolfRobe");
+            ref.getPtr().getRefData().setCount(1);
+
+            // Configure item's script variables
+            std::string script = Class::get(ref.getPtr()).getScript(ref.getPtr());
+            if(script != "")
+            {
+                const ESM::Script *esmscript = getStore().get<ESM::Script>().find(script);
+                ref.getPtr().getRefData().setLocals(*esmscript);
+            }
+
+            // Not sure this is right
+            InventoryStore &inv = Class::get(actor).getInventoryStore(actor);
+            inv.equip(InventoryStore::Slot_Robe, inv.add(ref.getPtr(), actor));
+        }
+        else
+        {
+            ContainerStore &store = Class::get(actor).getContainerStore(actor);
+
+            const std::string item = "WerewolfRobe";
+            for(ContainerStoreIterator iter(store.begin());iter != store.end();++iter)
+            {
+                if(Misc::StringUtils::ciEqual(iter->getCellRef().mRefID, item))
+                    iter->getRefData().setCount(0);
+            }
+        }
+
+        if(actor.getRefData().getHandle() == "player")
+        {
+            // Update the GUI only when called on the player
+            MWBase::WindowManager* windowManager = MWBase::Environment::get().getWindowManager();
+            windowManager->unsetSelectedWeapon();
+
+            if (werewolf)
+            {
+                windowManager->forceHide(MWGui::GW_Inventory);
+                windowManager->forceHide(MWGui::GW_Magic);
+            }
+            else
+            {
+                windowManager->unsetForceHide(MWGui::GW_Inventory);
+                windowManager->unsetForceHide(MWGui::GW_Magic);
+            }
+        }
+
+        mRendering->rebuildPtr(actor);
     }
 
 }

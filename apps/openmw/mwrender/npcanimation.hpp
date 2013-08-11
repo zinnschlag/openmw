@@ -68,8 +68,6 @@ private:
 
     NifOgre::ObjectList insertBoundedPart(const std::string &model, int group, const std::string &bonename);
 
-    void updateParts(bool forceupdate = false);
-
     void removeIndividualPart(ESM::PartReferenceType type);
     void reserveIndividualPart(ESM::PartReferenceType type, int group, int priority);
 
@@ -89,8 +87,10 @@ public:
 
     void setViewMode(ViewMode viewMode);
 
-    void forceUpdate()
-    { updateParts(true); }
+    void updateParts(bool forceupdate = false);
+
+    /// Rebuilds the NPC, updating their root model, animation sources, and equipment.
+    void rebuild();
 };
 
 }
