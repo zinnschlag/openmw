@@ -31,64 +31,56 @@ namespace MWWorld
     static const float sMaxSlope = 60.0f;
     static const float sStepSize = 30.0f;
     // Arbitrary number. To prevent infinite loops. They shouldn't happen but it's good to be prepared.
-    static const int sMaxIterations = 50;
+    static const int sMaxIterations = 4;
 
     class MovementSolver
     {
     private:
-        static bool stepMove(Ogre::Vector3& position, const Ogre::Quaternion& orient, const Ogre::Vector3 &velocity, float remainingTime,
-                             const Ogre::Vector3 &halfExtents, bool isInterior,
+        static float getSlope(const Ogre::Vector3 &normal)
+        {
+            return normal.angleBetween(Ogre::Vector3(0.0f,0.0f,1.0f)).valueDegrees();
+        }
+
+        static bool stepMove(btCollisionObject *colobj, Ogre::Vector3 &position,
+                             const Ogre::Vector3 &velocity, float &remainingTime,
                              OEngine::Physic::PhysicEngine *engine)
         {
-            traceResults trace; // no initialization needed
-
-            newtrace(&trace, orient, position, position+Ogre::Vector3(0.0f,0.0f,sStepSize),
-                     halfExtents, isInterior, engine);
-            if(trace.fraction == 0.0f)
+            OEngine::Physic::ActorTracer tracer;
+            tracer.doTrace(colobj, position, position+Ogre::Vector3(0.0f,0.0f,sStepSize), engine);
+            if(tracer.mFraction == 0.0f)
                 return false;
 
-            newtrace(&trace, orient, trace.endpos, trace.endpos + velocity*remainingTime,
-                     halfExtents, isInterior, engine);
-            if(trace.fraction == 0.0f || (trace.fraction != 1.0f && getSlope(trace.planenormal) > sMaxSlope))
+            tracer.doTrace(colobj, tracer.mEndPos, tracer.mEndPos + velocity*remainingTime, engine);
+            if(tracer.mFraction < std::numeric_limits<float>::epsilon() ||
+               (tracer.mFraction < 1.0f && getSlope(tracer.mPlaneNormal) > sMaxSlope))
                 return false;
+            float movefrac = tracer.mFraction;
 
-            newtrace(&trace, orient, trace.endpos, trace.endpos-Ogre::Vector3(0.0f,0.0f,sStepSize), halfExtents, isInterior, engine);
-            if(getSlope(trace.planenormal) <= sMaxSlope)
+            tracer.doTrace(colobj, tracer.mEndPos, tracer.mEndPos-Ogre::Vector3(0.0f,0.0f,sStepSize), engine);
+            if(getSlope(tracer.mPlaneNormal) <= sMaxSlope)
             {
                 // only step down onto semi-horizontal surfaces. don't step down onto the side of a house or a wall.
-                position = trace.endpos;
+                position = tracer.mEndPos;
+                remainingTime *= (1.0f-movefrac);
                 return true;
             }
 
             return false;
         }
 
-        static void clipVelocity(Ogre::Vector3& inout, const Ogre::Vector3& normal, float overbounce=1.0f)
-        {
-            //Math stuff. Basically just project the velocity vector onto the plane represented by the normal.
-            //More specifically, it projects velocity onto the normal, takes that result, multiplies it by overbounce and then subtracts it from velocity.
-            float backoff = inout.dotProduct(normal);
-            if(backoff < 0.0f)
-                backoff *= overbounce;
-            else
-                backoff /= overbounce;
 
-            inout -= normal*backoff;
+        ///Project a vector u on another vector v
+        static inline Ogre::Vector3 project(const Ogre::Vector3 u, const Ogre::Vector3 &v)
+        {
+            return v * u.dotProduct(v);
         }
 
-        static void projectVelocity(Ogre::Vector3& velocity, const Ogre::Vector3& direction)
+        ///Helper for computing the character sliding
+        static inline Ogre::Vector3 slide(Ogre::Vector3 direction, const Ogre::Vector3 &planeNormal)
         {
-            Ogre::Vector3 normalizedDirection(direction);
-            normalizedDirection.normalise();
-
-            // no divide by normalizedDirection.length necessary because it's normalized
-            velocity = normalizedDirection * velocity.dotProduct(normalizedDirection);
+            return direction - project(direction, planeNormal);
         }
 
-        static float getSlope(const Ogre::Vector3 &normal)
-        {
-            return normal.angleBetween(Ogre::Vector3(0.0f,0.0f,1.0f)).valueDegrees();
-        }
 
     public:
         static Ogre::Vector3 traceDown(const MWWorld::Ptr &ptr, OEngine::Physic::PhysicEngine *engine)
@@ -96,38 +88,26 @@ namespace MWWorld
             const ESM::Position &refpos = ptr.getRefData().getPosition();
             Ogre::Vector3 position(refpos.pos);
 
-            bool hit=false;
-            bool isInterior = !ptr.getCell()->isExterior();
-
             OEngine::Physic::PhysicActor *physicActor = engine->getCharacter(ptr.getRefData().getHandle());
             if (!physicActor)
                 return position;
 
-            bool wasCollisionMode = physicActor->getCollisionMode();
+            const Ogre::Vector3 halfExtents = physicActor->getHalfExtents();
+            Ogre::Vector3 newPosition = position+Ogre::Vector3(0.0f, 0.0f, halfExtents.z);
 
-            physicActor->enableCollisions(false);
-
-            Ogre::Vector3 halfExtents = physicActor->getHalfExtents();// + Vector3(1,1,1);
-            halfExtents.z = 1; // we trace the feet only, so we use a very thin box
-
-            Ogre::Vector3 newPosition = position;
-
-            traceResults trace; //no initialization needed
-
-            int maxHeight = 200.f;
-            newtrace(&trace, Ogre::Quaternion::IDENTITY, newPosition, newPosition-Ogre::Vector3(0,0,maxHeight), halfExtents, isInterior, engine);
-            if(trace.fraction < 1.0f)
-                hit = true;
-            newPosition = trace.endpos;
-
-            physicActor->setOnGround(hit && getSlope(trace.planenormal) <= sMaxSlope);
-            if (wasCollisionMode)
-                physicActor->enableCollisions(true);
-
-            if (hit)
-                return newPosition+Ogre::Vector3(0,0,4);
-            else
+            const int maxHeight = 200.f;
+            OEngine::Physic::ActorTracer tracer;
+            tracer.doTrace(physicActor->getCollisionBody(), newPosition, newPosition-Ogre::Vector3(0,0,maxHeight), engine);
+            if(tracer.mFraction >= 1.0f)
                 return position;
+
+            physicActor->setOnGround(getSlope(tracer.mPlaneNormal) <= sMaxSlope);
+
+            newPosition = tracer.mEndPos;
+            newPosition.z -= halfExtents.z;
+            newPosition.z += 2.0f;
+
+            return newPosition;
         }
 
         static Ogre::Vector3 move(const MWWorld::Ptr &ptr, const Ogre::Vector3 &movement, float time,
@@ -141,20 +121,19 @@ namespace MWWorld
             if(!physicActor || !physicActor->getCollisionMode())
             {
                 // FIXME: This works, but it's inconcsistent with how the rotations are applied elsewhere. Why?
-                return position + (Ogre::Quaternion(Ogre::Radian( -refpos.rot[2]), Ogre::Vector3::UNIT_Z)*
-                                   Ogre::Quaternion(Ogre::Radian( -refpos.rot[1]), Ogre::Vector3::UNIT_Y)*
-                                   Ogre::Quaternion(Ogre::Radian(  refpos.rot[0]), Ogre::Vector3::UNIT_X)) *
+                return position + (Ogre::Quaternion(Ogre::Radian(-refpos.rot[2]), Ogre::Vector3::UNIT_Z)*
+                                   Ogre::Quaternion(Ogre::Radian(-refpos.rot[1]), Ogre::Vector3::UNIT_Y)*
+                                   Ogre::Quaternion(Ogre::Radian( refpos.rot[0]), Ogre::Vector3::UNIT_X)) *
                                   movement;
             }
 
-            traceResults trace; //no initialization needed
+            btCollisionObject *colobj = physicActor->getCollisionBody();
+            Ogre::Vector3 halfExtents = physicActor->getHalfExtents();
+            position.z += halfExtents.z;
+
+            OEngine::Physic::ActorTracer tracer;
             bool onground = false;
-            float remainingTime = time;
-            bool isInterior = !ptr.getCell()->isExterior();
-            Ogre::Vector3 halfExtents = physicActor->getHalfExtents();// + Vector3(1,1,1);
-            bool wasCollisionMode = physicActor->getCollisionMode();
-            physicActor->enableCollisions(false);
-            Ogre::Quaternion orient = Ogre::Quaternion(Ogre::Radian(ptr.getRefData().getPosition().rot[2]), Ogre::Vector3::UNIT_Z);
+            const Ogre::Quaternion orient; // Don't rotate actor collision boxes
             Ogre::Vector3 velocity;
             if(!gravity)
             {
@@ -167,74 +146,68 @@ namespace MWWorld
             {
                 if(!(movement.z > 0.0f))
                 {
-                    newtrace(&trace, orient, position, position-Ogre::Vector3(0,0,4), halfExtents, isInterior, engine);
-                    if(trace.fraction < 1.0f && getSlope(trace.planenormal) <= sMaxSlope)
+                    tracer.doTrace(colobj, position, position-Ogre::Vector3(0,0,4), engine);
+                    if(tracer.mFraction < 1.0f && getSlope(tracer.mPlaneNormal) <= sMaxSlope)
                         onground = true;
                 }
                 velocity = Ogre::Quaternion(Ogre::Radian(-refpos.rot[2]), Ogre::Vector3::UNIT_Z)*movement / time;
                 velocity.z += physicActor->getVerticalForce();
             }
 
-            Ogre::Vector3 clippedVelocity(velocity);
             if(onground)
             {
-                // if we're on the ground, force velocity to track it
-                clippedVelocity.z = velocity.z = std::max(0.0f, velocity.z);
-                clipVelocity(clippedVelocity, trace.planenormal);
+                // if we're on the ground, don't try to fall
+                velocity.z = std::max(0.0f, velocity.z);
             }
 
             const Ogre::Vector3 up(0.0f, 0.0f, 1.0f);
             Ogre::Vector3 newPosition = position;
-            int iterations = 0;
-            do {
+            float remainingTime = time;
+            for(int iterations = 0;iterations < sMaxIterations && remainingTime > 0.01f;++iterations)
+            {
                 // trace to where character would go if there were no obstructions
-                newtrace(&trace, orient, newPosition, newPosition+clippedVelocity*remainingTime, halfExtents, isInterior, engine);
-                newPosition = trace.endpos;
-                remainingTime = remainingTime * (1.0f-trace.fraction);
+                tracer.doTrace(colobj, newPosition, newPosition+velocity*remainingTime, engine);
 
                 // check for obstructions
-                if(trace.fraction < 1.0f)
+                if(tracer.mFraction >= 1.0f)
                 {
-                    //std::cout<<"angle: "<<getSlope(trace.planenormal)<<"\n";
-                    if(getSlope(trace.planenormal) <= sMaxSlope)
-                    {
-                        // We hit a slope we can walk on. Update velocity accordingly.
-                        clipVelocity(clippedVelocity, trace.planenormal);
-                        // We're only on the ground if gravity is affecting us
-                        onground = gravity;
-                    }
-                    else
-                    {
-                        // Can't walk on this. Try to step up onto it.
-                        if((gravity && !onground) ||
-                           !stepMove(newPosition, orient, velocity, remainingTime, halfExtents, isInterior, engine))
-                        {
-                            Ogre::Vector3 resultantDirection = trace.planenormal.crossProduct(up);
-                            resultantDirection.normalise();
-                            clippedVelocity = velocity;
-                            projectVelocity(clippedVelocity, resultantDirection);
-
-                            // just this isn't enough sometimes. It's the same problem that causes steps to be necessary on even uphill terrain.
-                            clippedVelocity += trace.planenormal*clippedVelocity.length()/50.0f;
-                        }
-                    }
+                    newPosition = tracer.mEndPos;
+                    remainingTime *= (1.0f-tracer.mFraction);
+                    break;
                 }
 
-                iterations++;
-            } while(iterations < sMaxIterations && remainingTime > 0.0f);
+                //std::cout<<"angle: "<<getSlope(trace.planenormal)<<"\n";
+                // We hit something. Try to step up onto it.
+                if(stepMove(colobj, newPosition, velocity, remainingTime, engine))
+                    onground = gravity;
+                else
+                {
+                    // Can't move this way, try to find another spot along the plane
+                    Ogre::Real movelen = velocity.normalise();
+                    Ogre::Vector3 reflectdir = velocity.reflect(tracer.mPlaneNormal);
+                    reflectdir.normalise();
+                    velocity = slide(reflectdir, tracer.mPlaneNormal)*movelen;
+
+                    // Do not allow sliding upward if there is gravity. Stepping will have taken
+                    // care of that.
+                    if(gravity)
+                        velocity.z = std::min(velocity.z, 0.0f);
+                }
+            }
 
             if(onground)
             {
-                newtrace(&trace, orient, newPosition, newPosition-Ogre::Vector3(0,0,sStepSize+4.0f), halfExtents, isInterior, engine);
-                if(trace.fraction < 1.0f && getSlope(trace.planenormal) <= sMaxSlope)
-                    newPosition.z = trace.endpos.z + 2.0f;
+                tracer.doTrace(colobj, newPosition, newPosition-Ogre::Vector3(0,0,sStepSize+4.0f), engine);
+                if(tracer.mFraction < 1.0f && getSlope(tracer.mPlaneNormal) <= sMaxSlope)
+                    newPosition.z = tracer.mEndPos.z + 2.0f;
                 else
                     onground = false;
             }
+
             physicActor->setOnGround(onground);
-            physicActor->setVerticalForce(!onground ? clippedVelocity.z - time*627.2f : 0.0f);
-            if (wasCollisionMode)
-                physicActor->enableCollisions(true);
+            physicActor->setVerticalForce(!onground ? velocity.z - time*627.2f : 0.0f);
+
+            newPosition.z -= halfExtents.z;
             return newPosition;
         }
     };
