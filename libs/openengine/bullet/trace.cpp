@@ -53,12 +53,15 @@ protected:
 };
 
 
-void ActorTracer::doTrace(btCollisionObject *actor, const Ogre::Vector3 &start, const Ogre::Vector3 &end, const PhysicEngine *enginePass)
+void ActorTracer::doTrace(btCollisionObject *actor, btCollisionShape* shapeOverride, const Ogre::Vector3 &start, const Ogre::Vector3 &end, const PhysicEngine *enginePass)
 {
     const btVector3 btstart(start.x, start.y, start.z);
     const btVector3 btend(end.x, end.y, end.z);
 
-    const btTransform &trans = actor->getWorldTransform();
+    btTransform trans;
+    trans.setIdentity();
+    if (actor)
+        trans = actor->getWorldTransform();
     btTransform from(trans);
     btTransform to(trans);
     from.setOrigin(btstart);
@@ -69,8 +72,12 @@ void ActorTracer::doTrace(btCollisionObject *actor, const Ogre::Vector3 &start, 
                                              OEngine::Physic::CollisionType_HeightMap |
                                              OEngine::Physic::CollisionType_Actor;
 
-    btCollisionShape *shape = actor->getCollisionShape();
-    assert(shape->isConvex());
+    btCollisionShape *shape;
+    if (actor)
+        shape = actor->getCollisionShape();
+    else if (shapeOverride)
+        shape = shapeOverride;
+    assert(shape && shape->isConvex());
     enginePass->dynamicsWorld->convexSweepTest(static_cast<btConvexShape*>(shape),
                                                from, to, newTraceCallback);
 
