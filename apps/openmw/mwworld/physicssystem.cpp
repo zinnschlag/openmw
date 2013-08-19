@@ -46,17 +46,17 @@ namespace MWWorld
                              OEngine::Physic::PhysicEngine *engine)
         {
             OEngine::Physic::ActorTracer tracer;
-            tracer.doTrace(colobj, position, position+Ogre::Vector3(0.0f,0.0f,sStepSize), engine);
+            tracer.doTrace(colobj, NULL, position, position+Ogre::Vector3(0.0f,0.0f,sStepSize), engine);
             if(tracer.mFraction == 0.0f)
                 return false;
 
-            tracer.doTrace(colobj, tracer.mEndPos, tracer.mEndPos + velocity*remainingTime, engine);
+            tracer.doTrace(colobj, NULL, tracer.mEndPos, tracer.mEndPos + velocity*remainingTime, engine);
             if(tracer.mFraction < std::numeric_limits<float>::epsilon() ||
                (tracer.mFraction < 1.0f && getSlope(tracer.mPlaneNormal) > sMaxSlope))
                 return false;
             float movefrac = tracer.mFraction;
 
-            tracer.doTrace(colobj, tracer.mEndPos, tracer.mEndPos-Ogre::Vector3(0.0f,0.0f,sStepSize), engine);
+            tracer.doTrace(colobj, NULL, tracer.mEndPos, tracer.mEndPos-Ogre::Vector3(0.0f,0.0f,sStepSize), engine);
             if(getSlope(tracer.mPlaneNormal) <= sMaxSlope)
             {
                 // only step down onto semi-horizontal surfaces. don't step down onto the side of a house or a wall.
@@ -92,12 +92,17 @@ namespace MWWorld
             if (!physicActor)
                 return position;
 
-            const Ogre::Vector3 halfExtents = physicActor->getHalfExtents();
+            // Basically tracing only the feet here, so use small z dimension
+            // (could be 0 too, though not sure if that's supported)
+            Ogre::Vector3 halfExtents = physicActor->getHalfExtents();
+            halfExtents.z = 0.5;
+
             Ogre::Vector3 newPosition = position+Ogre::Vector3(0.0f, 0.0f, halfExtents.z);
 
-            const int maxHeight = 200.f;
             OEngine::Physic::ActorTracer tracer;
-            tracer.doTrace(physicActor->getCollisionBody(), newPosition, newPosition-Ogre::Vector3(0,0,maxHeight), engine);
+            btBoxShape shape(btVector3(halfExtents.x,halfExtents.y,halfExtents.z));
+            const int maxHeight = 200;
+            tracer.doTrace(NULL, &shape, newPosition, newPosition-Ogre::Vector3(0,0,maxHeight), engine);
             if(tracer.mFraction >= 1.0f)
                 return position;
 
@@ -146,7 +151,7 @@ namespace MWWorld
             {
                 if(!(movement.z > 0.0f))
                 {
-                    tracer.doTrace(colobj, position, position-Ogre::Vector3(0,0,4), engine);
+                    tracer.doTrace(colobj, NULL, position, position-Ogre::Vector3(0,0,4), engine);
                     if(tracer.mFraction < 1.0f && getSlope(tracer.mPlaneNormal) <= sMaxSlope)
                         onground = true;
                 }
@@ -166,7 +171,7 @@ namespace MWWorld
             for(int iterations = 0;iterations < sMaxIterations && remainingTime > 0.01f;++iterations)
             {
                 // trace to where character would go if there were no obstructions
-                tracer.doTrace(colobj, newPosition, newPosition+velocity*remainingTime, engine);
+                tracer.doTrace(colobj, NULL, newPosition, newPosition+velocity*remainingTime, engine);
 
                 // check for obstructions
                 if(tracer.mFraction >= 1.0f)
@@ -197,7 +202,7 @@ namespace MWWorld
 
             if(onground)
             {
-                tracer.doTrace(colobj, newPosition, newPosition-Ogre::Vector3(0,0,sStepSize+4.0f), engine);
+                tracer.doTrace(colobj, NULL, newPosition, newPosition-Ogre::Vector3(0,0,sStepSize+4.0f), engine);
                 if(tracer.mFraction < 1.0f && getSlope(tracer.mPlaneNormal) <= sMaxSlope)
                     newPosition.z = tracer.mEndPos.z + 2.0f;
                 else
