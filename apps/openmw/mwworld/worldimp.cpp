@@ -1079,7 +1079,12 @@ namespace MWWorld
         cellY = std::floor(y/cellSize);
     }
 
-    void World::doPhysics(const PtrMovementList &actors, float duration)
+    void World::queueMovement(const Ptr &ptr, const Vector3 &velocity)
+    {
+        mPhysics->queueObjectMovement(ptr, velocity);
+    }
+
+    void World::doPhysics(float duration)
     {
         /* No duration? Shouldn't be any movement, then. */
         if(duration <= 0.0f)
@@ -1087,8 +1092,9 @@ namespace MWWorld
 
         processDoors(duration);
 
-        PtrMovementList::const_iterator player(actors.end());
-        for(PtrMovementList::const_iterator iter(actors.begin());iter != actors.end();iter++)
+        const PtrVelocityList &results = mPhysics->applyQueuedMovement(duration);
+        PtrVelocityList::const_iterator player(results.end());
+        for(PtrVelocityList::const_iterator iter(results.begin());iter != results.end();iter++)
         {
             if(iter->first.getRefData().getHandle() == "player")
             {
@@ -1096,23 +1102,12 @@ namespace MWWorld
                 player = iter;
                 continue;
             }
-
-            rotateObjectImp(iter->first, Ogre::Vector3(iter->second.mRotation), true);
-
-            Ogre::Vector3 vec = mPhysics->move(iter->first, Ogre::Vector3(iter->second.mPosition), duration,
-                                               !isSwimming(iter->first) && !isFlying(iter->first));
-            moveObjectImp(iter->first, vec.x, vec.y, vec.z);
+            moveObjectImp(iter->first, iter->second.x, iter->second.y, iter->second.z);
         }
-        if(player != actors.end())
-        {
-            rotateObjectImp(player->first, Ogre::Vector3(player->second.mRotation), true);
+        if(player != results.end())
+            moveObjectImp(player->first, player->second.x, player->second.y, player->second.z);
 
-            Ogre::Vector3 vec = mPhysics->move(player->first, Ogre::Vector3(player->second.mPosition), duration,
-                                               !isSwimming(player->first) && !isFlying(player->first));
-            moveObjectImp(player->first, vec.x, vec.y, vec.z);
-        }
-
-        mPhysEngine->stepSimulation (duration);
+        mPhysEngine->stepSimulation(duration);
     }
 
     bool World::castRay (float x1, float y1, float z1, float x2, float y2, float z2)
@@ -1256,6 +1251,8 @@ namespace MWWorld
         mWeatherManager->update (duration);
 
         mWorldScene->update (duration, paused);
+
+        doPhysics (duration);
 
         performUpdateSceneQueries ();
 

@@ -5,6 +5,8 @@
 
 #include <btBulletCollisionCommon.h>
 
+#include "ptr.hpp"
+
 
 namespace OEngine
 {
@@ -21,7 +23,8 @@ namespace OEngine
 namespace MWWorld
 {
     class World;
-    class Ptr;
+
+    typedef std::vector<std::pair<Ptr,Ogre::Vector3> > PtrVelocityList;
 
     class PhysicsSystem
     {
@@ -49,8 +52,7 @@ namespace MWWorld
             void scaleObject (const MWWorld::Ptr& ptr);
 
             bool toggleCollisionMode();
-            
-            Ogre::Vector3 move(const MWWorld::Ptr &ptr, const Ogre::Vector3 &movement, float time, bool gravity);
+
             std::vector<std::string> getCollisions(const MWWorld::Ptr &ptr); ///< get handles this object collides with
             Ogre::Vector3 traceDown(const MWWorld::Ptr &ptr);
 
@@ -80,11 +82,22 @@ namespace MWWorld
 
             bool getObjectAABB(const MWWorld::Ptr &ptr, Ogre::Vector3 &min, Ogre::Vector3 &max);
 
+            /// Queues velocity movement for a Ptr. If a Ptr is already queued, its velocity will
+            /// be overwritten. Valid until the next call to applyQueuedMovement.
+            void queueObjectMovement(const Ptr &ptr, const Ogre::Vector3 &velocity);
+
+            const PtrVelocityList& applyQueuedMovement(float dt);
+
         private:
 
             OEngine::Render::OgreRenderer &mRender;
             OEngine::Physic::PhysicEngine* mEngine;
             std::map<std::string, std::string> handleToMesh;
+
+            PtrVelocityList mMovementQueue;
+            PtrVelocityList mMovementResults;
+
+            float mTimeAccum;
 
             PhysicsSystem (const PhysicsSystem&);
             PhysicsSystem& operator= (const PhysicsSystem&);
