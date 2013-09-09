@@ -83,37 +83,29 @@
 <a name="l00022"></a>00022         <span class="keywordflow">return</span> <span class="keyword">new</span> SubViewT (<span class="keywordtype">id</span>, document);
 <a name="l00023"></a>00023     }
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025     <span class="keyword">template</span>&lt;<span class="keyword">class</span> SubViewT&gt;
-<a name="l00026"></a><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html">00026</a>     <span class="keyword">class </span><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html">SubViewFactoryWithCreateFlag</a> : <span class="keyword">public</span> <a class="code" href="classCSVDoc_1_1SubViewFactoryBase.html">SubViewFactoryBase</a>
-<a name="l00027"></a>00027     {
-<a name="l00028"></a><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#aa0b28d806bf2c0436efa15cdb45812cf">00028</a>         <span class="keywordtype">bool</span> <a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#aa0b28d806bf2c0436efa15cdb45812cf">mCreateAndDelete</a>;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030         <span class="keyword">public</span>:
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032             <a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#a7a4509d74f26befc3cd911fd968eb620">SubViewFactoryWithCreateFlag</a> (<span class="keywordtype">bool</span> createAndDelete);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026     <span class="keyword">template</span>&lt;<span class="keyword">class</span> SubViewT, <span class="keyword">class</span> CreatorFactoryT&gt;
+<a name="l00027"></a><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreator.html">00027</a>     <span class="keyword">class </span><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreator.html">SubViewFactoryWithCreator</a> : <span class="keyword">public</span> <a class="code" href="classCSVDoc_1_1SubViewFactoryBase.html">SubViewFactoryBase</a>
+<a name="l00028"></a>00028     {
+<a name="l00029"></a>00029         <span class="keyword">public</span>:
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031             <span class="keyword">virtual</span> <a class="code" href="classCSVDoc_1_1SubView.html">CSVDoc::SubView</a> *<a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreator.html#a2334d323804be1e064e0820194dce3af" title="The ownership of the returned sub view is not transferred.">makeSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document);
+<a name="l00032"></a>00032     };
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034             <span class="keyword">virtual</span> <a class="code" href="classCSVDoc_1_1SubView.html">CSVDoc::SubView</a> *<a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#a53553af55e5ab91f6539d33203763cc7" title="The ownership of the returned sub view is not transferred.">makeSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document);
-<a name="l00035"></a>00035     };
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <span class="keyword">template</span>&lt;<span class="keyword">class</span> SubViewT&gt;
-<a name="l00038"></a><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#a7a4509d74f26befc3cd911fd968eb620">00038</a>     <a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#a7a4509d74f26befc3cd911fd968eb620">SubViewFactoryWithCreateFlag&lt;SubViewT&gt;::SubViewFactoryWithCreateFlag</a> (<span class="keywordtype">bool</span> createAndDelete)
-<a name="l00039"></a>00039     : mCreateAndDelete (createAndDelete)
-<a name="l00040"></a>00040     {}
+<a name="l00034"></a>00034     <span class="keyword">template</span>&lt;<span class="keyword">class</span> SubViewT, <span class="keyword">class</span> CreatorFactoryT&gt;
+<a name="l00035"></a><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreator.html#a2334d323804be1e064e0820194dce3af">00035</a>     <a class="code" href="classCSVDoc_1_1SubView.html">CSVDoc::SubView</a> *<a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreator.html#a2334d323804be1e064e0820194dce3af" title="The ownership of the returned sub view is not transferred.">SubViewFactoryWithCreator&lt;SubViewT, CreatorFactoryT&gt;::makeSubView</a> (
+<a name="l00036"></a>00036         <span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document)
+<a name="l00037"></a>00037     {
+<a name="l00038"></a>00038         <span class="keywordflow">return</span> <span class="keyword">new</span> SubViewT (<span class="keywordtype">id</span>, document, CreatorFactoryT());
+<a name="l00039"></a>00039     }
+<a name="l00040"></a>00040 }
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="keyword">template</span>&lt;<span class="keyword">class</span> SubViewT&gt;
-<a name="l00043"></a><a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#a53553af55e5ab91f6539d33203763cc7">00043</a>     <a class="code" href="classCSVDoc_1_1SubView.html">CSVDoc::SubView</a> *<a class="code" href="classCSVDoc_1_1SubViewFactoryWithCreateFlag.html#a53553af55e5ab91f6539d33203763cc7" title="The ownership of the returned sub view is not transferred.">SubViewFactoryWithCreateFlag&lt;SubViewT&gt;::makeSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>,
-<a name="l00044"></a>00044         <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document)
-<a name="l00045"></a>00045     {
-<a name="l00046"></a>00046         <span class="keywordflow">return</span> <span class="keyword">new</span> SubViewT (<span class="keywordtype">id</span>, document, mCreateAndDelete);
-<a name="l00047"></a>00047     }
-<a name="l00048"></a>00048 }
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050 <span class="preprocessor">#endif</span>
+<a name="l00042"></a>00042 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

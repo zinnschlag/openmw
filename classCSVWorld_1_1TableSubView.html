@@ -77,23 +77,26 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#a8d6526e18a28ef7336dd92b23e1aa867">TableSubView</a> (const <a class="el" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a> &amp;id, <a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> &amp;document, bool createAndDelete)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#a7ea9f436fdafb78b7e17d0f8e377de8b">TableSubView</a> (const <a class="el" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a> &amp;id, <a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> &amp;document, const <a class="el" href="classCSVWorld_1_1CreatorFactoryBase.html">CreatorFactoryBase</a> &amp;creatorFactory)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#af401fc616fd9fc9b5a0e68bf752d798a">setEditLock</a> (bool locked)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#ae18bba2ad55cfbba7724cec5b905c298">updateEditorSetting</a> (const QString &amp;, const QString &amp;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#a0271e68497002fac43dbfee22820f473">updateEditorSetting</a> (const QString &amp;key, const QString &amp;value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#a913779a448d1cc0bc84da2bdf458b314">setStatusBar</a> (bool show)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Default implementation: ignored.  <a href="#a913779a448d1cc0bc84da2bdf458b314"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#a41fbdbdaa2ff005749970374a02a087d">rowActivated</a> (const QModelIndex &amp;index)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#ae8254ceca4ed0b5b44d2fa4846a78e16">editRequest</a> (int row)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSVWorld_1_1Table.html">Table</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#aee606ff94fac258826f0c31df8eee635">mTable</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSVWorld_1_1TableBottomBox.html">TableBottomBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1TableSubView.html#a665f991ba069ade90006e27f53062bec">mBottom</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a8d6526e18a28ef7336dd92b23e1aa867"></a><!-- doxytag: member="CSVWorld::TableSubView::TableSubView" ref="a8d6526e18a28ef7336dd92b23e1aa867" args="(const CSMWorld::UniversalId &amp;id, CSMDoc::Document &amp;document, bool createAndDelete)" -->
+<a class="anchor" id="a7ea9f436fdafb78b7e17d0f8e377de8b"></a><!-- doxytag: member="CSVWorld::TableSubView::TableSubView" ref="a7ea9f436fdafb78b7e17d0f8e377de8b" args="(const CSMWorld::UniversalId &amp;id, CSMDoc::Document &amp;document, const CreatorFactoryBase &amp;creatorFactory)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classCSVWorld_1_1TableSubView.html#a8d6526e18a28ef7336dd92b23e1aa867">CSVWorld::TableSubView::TableSubView</a> </td>
+          <td class="memname"><a class="el" href="classCSVWorld_1_1TableSubView.html#a7ea9f436fdafb78b7e17d0f8e377de8b">CSVWorld::TableSubView::TableSubView</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a> &amp;&#160;</td>
           <td class="paramname"><em>id</em>, </td>
@@ -107,8 +110,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>createAndDelete</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classCSVWorld_1_1CreatorFactoryBase.html">CreatorFactoryBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>creatorFactory</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -122,15 +125,15 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a41fbdbdaa2ff005749970374a02a087d"></a><!-- doxytag: member="CSVWorld::TableSubView::rowActivated" ref="a41fbdbdaa2ff005749970374a02a087d" args="(const QModelIndex &amp;index)" -->
+<a class="anchor" id="ae8254ceca4ed0b5b44d2fa4846a78e16"></a><!-- doxytag: member="CSVWorld::TableSubView::editRequest" ref="ae8254ceca4ed0b5b44d2fa4846a78e16" args="(int row)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classCSVWorld_1_1TableSubView.html#a41fbdbdaa2ff005749970374a02a087d">CSVWorld::TableSubView::rowActivated</a> </td>
+          <td class="memname">void <a class="el" href="classCSVWorld_1_1TableSubView.html#ae8254ceca4ed0b5b44d2fa4846a78e16">CSVWorld::TableSubView::editRequest</a> </td>
           <td>(</td>
-          <td class="paramtype">const QModelIndex &amp;&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em></td><td>)</td>
           <td><code> [private, slot]</code></td>
         </tr>
       </table>
@@ -158,21 +161,42 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae18bba2ad55cfbba7724cec5b905c298"></a><!-- doxytag: member="CSVWorld::TableSubView::updateEditorSetting" ref="ae18bba2ad55cfbba7724cec5b905c298" args="(const QString &amp;, const QString &amp;)" -->
+<a class="anchor" id="a913779a448d1cc0bc84da2bdf458b314"></a><!-- doxytag: member="CSVWorld::TableSubView::setStatusBar" ref="a913779a448d1cc0bc84da2bdf458b314" args="(bool show)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classCSVWorld_1_1TableSubView.html#ae18bba2ad55cfbba7724cec5b905c298">CSVWorld::TableSubView::updateEditorSetting</a> </td>
+          <td class="memname">void <a class="el" href="classCSVWorld_1_1TableSubView.html#a913779a448d1cc0bc84da2bdf458b314">CSVWorld::TableSubView::setStatusBar</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Default implementation: ignored. </p>
+
+<p>Reimplemented from <a class="el" href="classCSVDoc_1_1SubView.html#aab3a6bc6da93b5d07478f5a2afd3e625">CSVDoc::SubView</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0271e68497002fac43dbfee22820f473"></a><!-- doxytag: member="CSVWorld::TableSubView::updateEditorSetting" ref="a0271e68497002fac43dbfee22820f473" args="(const QString &amp;key, const QString &amp;value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSVWorld_1_1TableSubView.html#a0271e68497002fac43dbfee22820f473">CSVWorld::TableSubView::updateEditorSetting</a> </td>
           <td>(</td>
           <td class="paramtype">const QString &amp;&#160;</td>
-          <td class="paramname"><em>settingName</em>, </td>
+          <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const QString &amp;&#160;</td>
-          <td class="paramname"><em>settingValue</em>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -188,6 +212,19 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a665f991ba069ade90006e27f53062bec"></a><!-- doxytag: member="CSVWorld::TableSubView::mBottom" ref="a665f991ba069ade90006e27f53062bec" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCSVWorld_1_1TableBottomBox.html">TableBottomBox</a>* <a class="el" href="classCSVWorld_1_1TableSubView.html#a665f991ba069ade90006e27f53062bec">CSVWorld::TableSubView::mBottom</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aee606ff94fac258826f0c31df8eee635"></a><!-- doxytag: member="CSVWorld::TableSubView::mTable" ref="aee606ff94fac258826f0c31df8eee635" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +246,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

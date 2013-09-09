@@ -65,32 +65,56 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1ESMLandFactory.html">ESMLandFactory</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTerrain_1_1HeightMap.html">HeightMap</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1HeightMapBuffer.html">HeightMapBuffer</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTerrain_1_1LandInfo.html">LandInfo</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTerrain_1_1LandFactory.html">LandFactory</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Triangulator.html">Triangulator</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Chunk.html">Chunk</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a chunk of terrain, either using alpha splatting or a composite map.  <a href="classTerrain_1_1Chunk.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1MaterialGenerator.html">MaterialGenerator</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1QuadTreeNode.html">QuadTreeNode</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A node in the quad tree for our terrain. Depending on LOD, a node can either choose to render itself in one batch (merging its children), or delegate the render process to its children, rendering each child in at least one batch.  <a href="classTerrain_1_1QuadTreeNode.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTerrain_1_1VertexElement.html">VertexElement</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html">Storage</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">We keep storage of terrain data abstract here since we need different implementations for game and editor.  <a href="classTerrain_1_1Storage.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1World.html">World</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A quadtree-based terrain implementation suitable for large data sets. <br/>
+ Near cells are rendered with alpha splatting, distant cells are merged together in batches and have their layers pre-rendered onto a composite map. <br/>
+ Cracks at LOD transitions are avoided using stitching.  <a href="classTerrain_1_1World.html#details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceTerrain.html#ab0b12a81bb9055d38b068c131ab60331">LandInfoGridType</a> { <a class="el" href="namespaceTerrain.html#ab0b12a81bb9055d38b068c131ab60331a05f86f8bf1ea571e181fc76c728173f9">LGT_Quadratic</a>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceTerrain.html#a03a671d11e0a9266a93801de8ba78f75">Direction</a> { <a class="el" href="namespaceTerrain.html#a03a671d11e0a9266a93801de8ba78f75a22464dc5b71c0f42a8c53ca063271217">North</a> =  0, 
+<a class="el" href="namespaceTerrain.html#a03a671d11e0a9266a93801de8ba78f75abbe1e66a6e533e7e3b1f3cad7ffcbc54">East</a> =  1, 
+<a class="el" href="namespaceTerrain.html#a03a671d11e0a9266a93801de8ba78f75a7ab6d4c7d849890d66622b4a20fed345">South</a> =  2, 
+<a class="el" href="namespaceTerrain.html#a03a671d11e0a9266a93801de8ba78f75a20d890b003e2e1b1cfb973c0ee9b2b21">West</a> =  3
  }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceTerrain.html#a8b5a4d49c097d8fb67df7cc71d31277e">LandInfoDataType</a> { <a class="el" href="namespaceTerrain.html#a8b5a4d49c097d8fb67df7cc71d31277eae7ce8f32ddbb8bea45bd0bd58af8b335">LDT_Float</a>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7">ChildDirection</a> { <br/>
+&#160;&#160;<a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a0de97c609bb133a56c4f7eabe7954471">NW</a> =  0, 
+<a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a7364bde0a42cf90f45d3787c046d2dac">NE</a> =  1, 
+<a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a483acc19c4406bf77353aee95e3e02cc">SW</a> =  2, 
+<a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a58fde86b379ed4007d7715e76a2cc88a">SE</a> =  3, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Root</a>
+<br/>
  }</td></tr>
 </table>
 <hr/><h2>Enumeration Type Documentation</h2>
-<a class="anchor" id="a8b5a4d49c097d8fb67df7cc71d31277e"></a><!-- doxytag: member="Terrain::LandInfoDataType" ref="a8b5a4d49c097d8fb67df7cc71d31277e" args="" -->
+<a class="anchor" id="a608c2c69b105a32a832bdd99edd599a7"></a><!-- doxytag: member="Terrain::ChildDirection" ref="a608c2c69b105a32a832bdd99edd599a7" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespaceTerrain.html#a8b5a4d49c097d8fb67df7cc71d31277e">Terrain::LandInfoDataType</a></td>
+          <td class="memname">enum <a class="el" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7">Terrain::ChildDirection</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="a8b5a4d49c097d8fb67df7cc71d31277eae7ce8f32ddbb8bea45bd0bd58af8b335"></a><!-- doxytag: member="LDT_Float" ref="a8b5a4d49c097d8fb67df7cc71d31277eae7ce8f32ddbb8bea45bd0bd58af8b335" args="" -->LDT_Float</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a608c2c69b105a32a832bdd99edd599a7a0de97c609bb133a56c4f7eabe7954471"></a><!-- doxytag: member="NW" ref="a608c2c69b105a32a832bdd99edd599a7a0de97c609bb133a56c4f7eabe7954471" args="" -->NW</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a608c2c69b105a32a832bdd99edd599a7a7364bde0a42cf90f45d3787c046d2dac"></a><!-- doxytag: member="NE" ref="a608c2c69b105a32a832bdd99edd599a7a7364bde0a42cf90f45d3787c046d2dac" args="" -->NE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a608c2c69b105a32a832bdd99edd599a7a483acc19c4406bf77353aee95e3e02cc"></a><!-- doxytag: member="SW" ref="a608c2c69b105a32a832bdd99edd599a7a483acc19c4406bf77353aee95e3e02cc" args="" -->SW</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a608c2c69b105a32a832bdd99edd599a7a58fde86b379ed4007d7715e76a2cc88a"></a><!-- doxytag: member="SE" ref="a608c2c69b105a32a832bdd99edd599a7a58fde86b379ed4007d7715e76a2cc88a" args="" -->SE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb"></a><!-- doxytag: member="Root" ref="a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb" args="" -->Root</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dd>
@@ -98,18 +122,24 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab0b12a81bb9055d38b068c131ab60331"></a><!-- doxytag: member="Terrain::LandInfoGridType" ref="ab0b12a81bb9055d38b068c131ab60331" args="" -->
+<a class="anchor" id="a03a671d11e0a9266a93801de8ba78f75"></a><!-- doxytag: member="Terrain::Direction" ref="a03a671d11e0a9266a93801de8ba78f75" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespaceTerrain.html#ab0b12a81bb9055d38b068c131ab60331">Terrain::LandInfoGridType</a></td>
+          <td class="memname">enum <a class="el" href="namespaceTerrain.html#a03a671d11e0a9266a93801de8ba78f75">Terrain::Direction</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="ab0b12a81bb9055d38b068c131ab60331a05f86f8bf1ea571e181fc76c728173f9"></a><!-- doxytag: member="LGT_Quadratic" ref="ab0b12a81bb9055d38b068c131ab60331a05f86f8bf1ea571e181fc76c728173f9" args="" -->LGT_Quadratic</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a03a671d11e0a9266a93801de8ba78f75a22464dc5b71c0f42a8c53ca063271217"></a><!-- doxytag: member="North" ref="a03a671d11e0a9266a93801de8ba78f75a22464dc5b71c0f42a8c53ca063271217" args="" -->North</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a03a671d11e0a9266a93801de8ba78f75abbe1e66a6e533e7e3b1f3cad7ffcbc54"></a><!-- doxytag: member="East" ref="a03a671d11e0a9266a93801de8ba78f75abbe1e66a6e533e7e3b1f3cad7ffcbc54" args="" -->East</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a03a671d11e0a9266a93801de8ba78f75a7ab6d4c7d849890d66622b4a20fed345"></a><!-- doxytag: member="South" ref="a03a671d11e0a9266a93801de8ba78f75a7ab6d4c7d849890d66622b4a20fed345" args="" -->South</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a03a671d11e0a9266a93801de8ba78f75a20d890b003e2e1b1cfb973c0ee9b2b21"></a><!-- doxytag: member="West" ref="a03a671d11e0a9266a93801de8ba78f75a20d890b003e2e1b1cfb973c0ee9b2b21" args="" -->West</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dd>
@@ -121,7 +151,7 @@ Enumerations</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:24 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

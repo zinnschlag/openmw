@@ -74,31 +74,39 @@
 <a name="l00013"></a>00013 <span class="keyword">namespace </span>CSVWorld
 <a name="l00014"></a>00014 {
 <a name="l00015"></a>00015     <span class="keyword">class </span>Table;
-<a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="classCSVWorld_1_1TableSubView.html">00017</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1TableSubView.html">TableSubView</a> : <span class="keyword">public</span> CSVDoc::SubView
-<a name="l00018"></a>00018     {
-<a name="l00019"></a>00019             Q_OBJECT
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classCSVWorld_1_1TableSubView.html#aee606ff94fac258826f0c31df8eee635">00021</a>             <a class="code" href="classCSVWorld_1_1Table.html" title="Table widget.">Table</a> *<a class="code" href="classCSVWorld_1_1TableSubView.html#aee606ff94fac258826f0c31df8eee635">mTable</a>;
+<a name="l00016"></a>00016     <span class="keyword">class </span>TableBottomBox;
+<a name="l00017"></a>00017     <span class="keyword">class </span>CreatorFactoryBase;
+<a name="l00018"></a>00018 
+<a name="l00019"></a><a class="code" href="classCSVWorld_1_1TableSubView.html">00019</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1TableSubView.html">TableSubView</a> : <span class="keyword">public</span> CSVDoc::SubView
+<a name="l00020"></a>00020     {
+<a name="l00021"></a>00021             Q_OBJECT
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keyword">public</span>:
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025             <a class="code" href="classCSVWorld_1_1TableSubView.html#a8d6526e18a28ef7336dd92b23e1aa867">TableSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document, <span class="keywordtype">bool</span> createAndDelete);
-<a name="l00026"></a>00026             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#af401fc616fd9fc9b5a0e68bf752d798a">setEditLock</a> (<span class="keywordtype">bool</span> locked);
-<a name="l00027"></a>00027             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#ae18bba2ad55cfbba7724cec5b905c298">updateEditorSetting</a> (<span class="keyword">const</span> QString &amp;, <span class="keyword">const</span> QString &amp;);
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029         <span class="keyword">private</span> slots:
+<a name="l00023"></a><a class="code" href="classCSVWorld_1_1TableSubView.html#aee606ff94fac258826f0c31df8eee635">00023</a>             <a class="code" href="classCSVWorld_1_1Table.html" title="Table widget.">Table</a> *<a class="code" href="classCSVWorld_1_1TableSubView.html#aee606ff94fac258826f0c31df8eee635">mTable</a>;
+<a name="l00024"></a><a class="code" href="classCSVWorld_1_1TableSubView.html#a665f991ba069ade90006e27f53062bec">00024</a>             <a class="code" href="classCSVWorld_1_1TableBottomBox.html">TableBottomBox</a> *<a class="code" href="classCSVWorld_1_1TableSubView.html#a665f991ba069ade90006e27f53062bec">mBottom</a>;
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keyword">public</span>:
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028             <a class="code" href="classCSVWorld_1_1TableSubView.html#a7ea9f436fdafb78b7e17d0f8e377de8b">TableSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document,
+<a name="l00029"></a>00029                 <span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1CreatorFactoryBase.html" title="Base class for Creator factory.">CreatorFactoryBase</a>&amp; creatorFactory);
 <a name="l00030"></a>00030 
-<a name="l00031"></a>00031             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#a41fbdbdaa2ff005749970374a02a087d">rowActivated</a> (<span class="keyword">const</span> QModelIndex&amp; index);
-<a name="l00032"></a>00032     };
-<a name="l00033"></a>00033 }
+<a name="l00031"></a>00031             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#af401fc616fd9fc9b5a0e68bf752d798a">setEditLock</a> (<span class="keywordtype">bool</span> locked);
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#a0271e68497002fac43dbfee22820f473">updateEditorSetting</a> (<span class="keyword">const</span> QString&amp; key, <span class="keyword">const</span> QString&amp; value);
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="preprocessor">#endif</span>
+<a name="l00035"></a>00035             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#a913779a448d1cc0bc84da2bdf458b314" title="Default implementation: ignored.">setStatusBar</a> (<span class="keywordtype">bool</span> show);
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037         <span class="keyword">private</span> slots:
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1TableSubView.html#ae8254ceca4ed0b5b44d2fa4846a78e16">editRequest</a> (<span class="keywordtype">int</span> row);
+<a name="l00040"></a>00040     };
+<a name="l00041"></a>00041 }
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

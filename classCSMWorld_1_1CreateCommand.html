@@ -76,23 +76,27 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a22bd8b11f017e44344989637b34480f6">CreateCommand</a> (<a class="el" href="classCSMWorld_1_1IdTableProxyModel.html">IdTableProxyModel</a> &amp;model, const std::string &amp;id, QUndoCommand *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a941163a11e5289ba6753d46550efebaa">CreateCommand</a> (<a class="el" href="classCSMWorld_1_1IdTable.html">IdTable</a> &amp;model, const std::string &amp;id, QUndoCommand *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a996083cc2f7b318303e9e6d965db8743">setType</a> (<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a201866cb3ababba90b929303ef2c2b2c">addValue</a> (int column, const QVariant &amp;value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a2625a41bdb07f5b7ba5c4bff802db344">redo</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a5a436b274923289c0179e47480d8697e">undo</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html">IdTableProxyModel</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#aa7824df18cc993c46a8822f8c9d6dca9">mModel</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMWorld_1_1IdTable.html">IdTable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#abe98437e453910c52b2a2dbe9b4e7bce">mModel</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a39e077d6756b173446741fac6d2a7cf5">mId</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#aff8e0f233523aecc838f7121ef8b2c9c">mType</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; int, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1CreateCommand.html#abf0a98fc6861a2adfa888d79041e7037">mValues</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a22bd8b11f017e44344989637b34480f6"></a><!-- doxytag: member="CSMWorld::CreateCommand::CreateCommand" ref="a22bd8b11f017e44344989637b34480f6" args="(IdTableProxyModel &amp;model, const std::string &amp;id, QUndoCommand *parent=0)" -->
+<a class="anchor" id="a941163a11e5289ba6753d46550efebaa"></a><!-- doxytag: member="CSMWorld::CreateCommand::CreateCommand" ref="a941163a11e5289ba6753d46550efebaa" args="(IdTable &amp;model, const std::string &amp;id, QUndoCommand *parent=0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a22bd8b11f017e44344989637b34480f6">CSMWorld::CreateCommand::CreateCommand</a> </td>
+          <td class="memname"><a class="el" href="classCSMWorld_1_1CreateCommand.html#a941163a11e5289ba6753d46550efebaa">CSMWorld::CreateCommand::CreateCommand</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html">IdTableProxyModel</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classCSMWorld_1_1IdTable.html">IdTable</a> &amp;&#160;</td>
           <td class="paramname"><em>model</em>, </td>
         </tr>
         <tr>
@@ -119,6 +123,33 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a201866cb3ababba90b929303ef2c2b2c"></a><!-- doxytag: member="CSMWorld::CreateCommand::addValue" ref="a201866cb3ababba90b929303ef2c2b2c" args="(int column, const QVariant &amp;value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1CreateCommand.html#a201866cb3ababba90b929303ef2c2b2c">CSMWorld::CreateCommand::addValue</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QVariant &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a2625a41bdb07f5b7ba5c4bff802db344"></a><!-- doxytag: member="CSMWorld::CreateCommand::redo" ref="a2625a41bdb07f5b7ba5c4bff802db344" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -128,6 +159,23 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a996083cc2f7b318303e9e6d965db8743"></a><!-- doxytag: member="CSMWorld::CreateCommand::setType" ref="a996083cc2f7b318303e9e6d965db8743" args="(UniversalId::Type type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1CreateCommand.html#a996083cc2f7b318303e9e6d965db8743">CSMWorld::CreateCommand::setType</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -165,12 +213,38 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa7824df18cc993c46a8822f8c9d6dca9"></a><!-- doxytag: member="CSMWorld::CreateCommand::mModel" ref="aa7824df18cc993c46a8822f8c9d6dca9" args="" -->
+<a class="anchor" id="abe98437e453910c52b2a2dbe9b4e7bce"></a><!-- doxytag: member="CSMWorld::CreateCommand::mModel" ref="abe98437e453910c52b2a2dbe9b4e7bce" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html">IdTableProxyModel</a>&amp; <a class="el" href="classCSMWorld_1_1CreateCommand.html#aa7824df18cc993c46a8822f8c9d6dca9">CSMWorld::CreateCommand::mModel</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="el" href="classCSMWorld_1_1CreateCommand.html#abe98437e453910c52b2a2dbe9b4e7bce">CSMWorld::CreateCommand::mModel</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aff8e0f233523aecc838f7121ef8b2c9c"></a><!-- doxytag: member="CSMWorld::CreateCommand::mType" ref="aff8e0f233523aecc838f7121ef8b2c9c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> <a class="el" href="classCSMWorld_1_1CreateCommand.html#aff8e0f233523aecc838f7121ef8b2c9c">CSMWorld::CreateCommand::mType</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abf0a98fc6861a2adfa888d79041e7037"></a><!-- doxytag: member="CSMWorld::CreateCommand::mValues" ref="abf0a98fc6861a2adfa888d79041e7037" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;int, QVariant&gt; <a class="el" href="classCSMWorld_1_1CreateCommand.html#abf0a98fc6861a2adfa888d79041e7037">CSMWorld::CreateCommand::mValues</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -186,7 +260,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

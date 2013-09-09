@@ -70,15 +70,17 @@
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="stat_8hpp.html">stat.hpp</a>&quot;</span>
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="drawstate_8hpp.html">drawstate.hpp</a>&quot;</span>
 <a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>ESM
-<a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">struct </span>Class;
-<a name="l00015"></a>00015 }
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="keyword">namespace </span>MWMechanics
-<a name="l00018"></a>00018 {
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="creaturestats_8hpp.html">creaturestats.hpp</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>ESM
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016     <span class="keyword">struct </span>Class;
+<a name="l00017"></a>00017 }
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWMechanics
+<a name="l00020"></a>00020 {
 <a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="classMWMechanics_1_1NpcStats.html">00026</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a>
+<a name="l00026"></a><a class="code" href="classMWMechanics_1_1NpcStats.html">00026</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a> : <span class="keyword">public</span> <a class="code" href="classMWMechanics_1_1CreatureStats.html" title="Common creature stats.">CreatureStats</a>
 <a name="l00027"></a>00027     {
 <a name="l00028"></a>00028         <span class="keyword">public</span>:
 <a name="l00029"></a>00029 
@@ -98,101 +100,109 @@
 <a name="l00046"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#ad3dc2a6438b3588d41fe3dfa1c80f04b">00046</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ad3dc2a6438b3588d41fe3dfa1c80f04b">mDisposition</a>;
 <a name="l00047"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#abfde9b9d5257a1665c95f58e1ae6bb1d">00047</a>             <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#abfde9b9d5257a1665c95f58e1ae6bb1d">mMovementFlags</a>;
 <a name="l00048"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a41c9fb7b705b3b6e98340003f1182aa9">00048</a>             <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;float&gt;</a> <a class="code" href="classMWMechanics_1_1NpcStats.html#a41c9fb7b705b3b6e98340003f1182aa9">mSkill</a>[27];
-<a name="l00049"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#ab25a78acab467e54e6a9f7fd9e6d729b">00049</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ab25a78acab467e54e6a9f7fd9e6d729b">mBounty</a>;
-<a name="l00050"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a76b6b88ef2fcf943a00b54fa9109aa6f">00050</a>             std::set&lt;std::string&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#a76b6b88ef2fcf943a00b54fa9109aa6f">mExpelled</a>;
-<a name="l00051"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a7d8c71aa549e26284e2e7d12e4bf6d9b">00051</a>             std::map&lt;std::string, int&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#a7d8c71aa549e26284e2e7d12e4bf6d9b">mFactionReputation</a>;
-<a name="l00052"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a2131720694f747fe4ea2b3c0ef8588c8">00052</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a2131720694f747fe4ea2b3c0ef8588c8">mVampire</a>;
-<a name="l00053"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#acbacc532470258e7af879309df29e367">00053</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#acbacc532470258e7af879309df29e367">mReputation</a>;
-<a name="l00054"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a2cce1214cd222b607509a7aef287cc5b">00054</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a2cce1214cd222b607509a7aef287cc5b">mWerewolf</a>;
+<a name="l00049"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a37cb9ff6ff538c07b4ba17b48fd1615e">00049</a>             <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;float&gt;</a> <a class="code" href="classMWMechanics_1_1NpcStats.html#a37cb9ff6ff538c07b4ba17b48fd1615e">mWerewolfSkill</a>[27];
+<a name="l00050"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#ab25a78acab467e54e6a9f7fd9e6d729b">00050</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ab25a78acab467e54e6a9f7fd9e6d729b">mBounty</a>;
+<a name="l00051"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a76b6b88ef2fcf943a00b54fa9109aa6f">00051</a>             std::set&lt;std::string&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#a76b6b88ef2fcf943a00b54fa9109aa6f">mExpelled</a>;
+<a name="l00052"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a7d8c71aa549e26284e2e7d12e4bf6d9b">00052</a>             std::map&lt;std::string, int&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#a7d8c71aa549e26284e2e7d12e4bf6d9b">mFactionReputation</a>;
+<a name="l00053"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a2131720694f747fe4ea2b3c0ef8588c8">00053</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a2131720694f747fe4ea2b3c0ef8588c8">mVampire</a>;
+<a name="l00054"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#acbacc532470258e7af879309df29e367">00054</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#acbacc532470258e7af879309df29e367">mReputation</a>;
 <a name="l00055"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a4837961f693d490fffbd51d32151ea36">00055</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a4837961f693d490fffbd51d32151ea36">mWerewolfKills</a>;
 <a name="l00056"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#acff4422d16d106f6bb9cd36efd37033f">00056</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#acff4422d16d106f6bb9cd36efd37033f">mProfit</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a28a536aa86c3ea4552854f4ced0d6484">00058</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a28a536aa86c3ea4552854f4ced0d6484">mLevelProgress</a>; <span class="comment">// 0-10</span>
-<a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#aafbba68fde72d168911d2414402e76f5">00060</a>             std::vector&lt;int&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#aafbba68fde72d168911d2414402e76f5">mSkillIncreases</a>; <span class="comment">// number of skill increases for each attribute</span>
-<a name="l00061"></a>00061 
-<a name="l00062"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">00062</a>             std::set&lt;std::string&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">mUsedIds</a>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064         <span class="keyword">public</span>:
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066             <a class="code" href="classMWMechanics_1_1NpcStats.html#a58fc094a8b7b001d0ba35e132c4e9855">NpcStats</a>();
-<a name="l00067"></a>00067 
-<a name="l00069"></a>00069             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a40f207e7d669c2790dc03442909eed12" title="for mercenary companions. starts out as 0, and changes when items are added or removed through the UI...">getProfit</a>() <span class="keyword">const</span>;
-<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a98dd9fd130183f25e587f8ef73cd20cf">modifyProfit</a>(<span class="keywordtype">int</span> diff);
+<a name="l00057"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#ad363656b8f222b87ca74eac2a89e09e5">00057</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ad363656b8f222b87ca74eac2a89e09e5">mAttackStrength</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a28a536aa86c3ea4552854f4ced0d6484">00059</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a28a536aa86c3ea4552854f4ced0d6484">mLevelProgress</a>; <span class="comment">// 0-10</span>
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#aafbba68fde72d168911d2414402e76f5">00061</a>             std::vector&lt;int&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#aafbba68fde72d168911d2414402e76f5">mSkillIncreases</a>; <span class="comment">// number of skill increases for each attribute</span>
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">00063</a>             std::set&lt;std::string&gt; <a class="code" href="classMWMechanics_1_1NpcStats.html#ac59bb99c55401e8a588361dac8b09fc8">mUsedIds</a>;
+<a name="l00064"></a>00064 
+<a name="l00066"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a86f796e9b87093719c987cb7961df896">00066</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a86f796e9b87093719c987cb7961df896" title="Countdown to getting damage while underwater.">mTimeToStartDrowning</a>;
+<a name="l00068"></a><a class="code" href="classMWMechanics_1_1NpcStats.html#a2e57b3c101983e691a8067cca4e66291">00068</a>             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a2e57b3c101983e691a8067cca4e66291" title="time since last hit from drowning">mLastDrowningHit</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070         <span class="keyword">public</span>:
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072             <a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">DrawState_</a> <a class="code" href="classMWMechanics_1_1NpcStats.html#af589845a63b82ed26ffd63bc999d78d1">getDrawState</a>() <span class="keyword">const</span>;
+<a name="l00072"></a>00072             <a class="code" href="classMWMechanics_1_1NpcStats.html#a58fc094a8b7b001d0ba35e132c4e9855">NpcStats</a>();
 <a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a2a25bb162a4dcca29c6b93992c418275">setDrawState</a> (<a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">DrawState_</a> state);
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a6c7df19cbd554695c0b3c94272e75db4">getBaseDisposition</a>() <span class="keyword">const</span>;
+<a name="l00075"></a>00075             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a40f207e7d669c2790dc03442909eed12" title="for mercenary companions. starts out as 0, and changes when items are added or removed through the UI...">getProfit</a>() <span class="keyword">const</span>;
+<a name="l00076"></a>00076             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a98dd9fd130183f25e587f8ef73cd20cf">modifyProfit</a>(<span class="keywordtype">int</span> diff);
 <a name="l00077"></a>00077 
-<a name="l00078"></a>00078             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a82291c3b26aeff39a8857c9123228877">setBaseDisposition</a>(<span class="keywordtype">int</span> disposition);
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ac5db546ad9de885fed55b36b76fb8308">getReputation</a>() <span class="keyword">const</span>;
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ad6edb00e074083e9185e1fc19c702555">setReputation</a>(<span class="keywordtype">int</span> reputation);
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a389e23de045aeb3aca055dad36b66cff">getMovementFlag</a> (<a class="code" href="classMWMechanics_1_1NpcStats.html#a16792b5ec8099c1f08200cc2d48047ea">Flag</a> flag) <span class="keyword">const</span>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#afff81d264d2aa27a2d2b9718baf6a24a">setMovementFlag</a> (<a class="code" href="classMWMechanics_1_1NpcStats.html#a16792b5ec8099c1f08200cc2d48047ea">Flag</a> flag, <span class="keywordtype">bool</span> state);
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;float&gt;</a>&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090             <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;float&gt;</a>&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<span class="keywordtype">int</span> index);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092             std::map&lt;std::string, int&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a86172689176e3753b869cbc6ca1fe004">getFactionRanks</a>();
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094             std::set&lt;std::string&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a7c4896b31076d95396601e5dd3233129">getExpelled</a>();
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa97cc5917516030dfdfa5a15fe302198" title="Do *this and npcStats share a faction?">isSameFaction</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a>&amp; npcStats) <span class="keyword">const</span>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099             <span class="keyword">const</span> std::map&lt;std::string, int&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a86172689176e3753b869cbc6ca1fe004">getFactionRanks</a>() <span class="keyword">const</span>;
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a766548dadebc608b9e1bee6fbc19fced">getSkillGain</a> (<span class="keywordtype">int</span> skillIndex, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_, <span class="keywordtype">int</span> usageType = -1,
-<a name="l00102"></a>00102                 <span class="keywordtype">int</span> level = -1) <span class="keyword">const</span>;
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#afc5dca015e8d82ad6ad9003d7e31fc47" title="Increase skill by usage.">useSkill</a> (<span class="keywordtype">int</span> skillIndex, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_, <span class="keywordtype">int</span> usageType = -1);
-<a name="l00109"></a>00109 
-<a name="l00110"></a>00110             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa4b982d9c7187a867fbb63d34479081e">increaseSkill</a> (<span class="keywordtype">int</span> skillIndex, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_, <span class="keywordtype">bool</span> preserveProgress);
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a1abb2cc3cb5821d2abead63614fc41cf">getLevelProgress</a>() <span class="keyword">const</span>;
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ac45f77186b902086fa6bc374a6765df6">getLevelupAttributeMultiplier</a>(<span class="keywordtype">int</span> attribute) <span class="keyword">const</span>;
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa79d81f81a62e39b1328339c97800b4c">levelUp</a>();
+<a name="l00078"></a>00078             <a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">DrawState_</a> <a class="code" href="classMWMechanics_1_1NpcStats.html#af589845a63b82ed26ffd63bc999d78d1">getDrawState</a>() <span class="keyword">const</span>;
+<a name="l00079"></a>00079             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a2a25bb162a4dcca29c6b93992c418275">setDrawState</a> (<a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">DrawState_</a> state);
+<a name="l00080"></a>00080 
+<a name="l00082"></a>00082             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a771fe2553508ab80ccec5d4cac033e0a" title="When attacking, stores how strong the attack should be (0 = weakest, 1 = strongest)">getAttackStrength</a>() <span class="keyword">const</span>;
+<a name="l00083"></a>00083             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a1e245fedcefc5f02be5e2cbb3230f10a">setAttackStrength</a>(<span class="keywordtype">float</span> value);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a6c7df19cbd554695c0b3c94272e75db4">getBaseDisposition</a>() <span class="keyword">const</span>;
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a82291c3b26aeff39a8857c9123228877">setBaseDisposition</a>(<span class="keywordtype">int</span> disposition);
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ac5db546ad9de885fed55b36b76fb8308">getReputation</a>() <span class="keyword">const</span>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ad6edb00e074083e9185e1fc19c702555">setReputation</a>(<span class="keywordtype">int</span> reputation);
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a389e23de045aeb3aca055dad36b66cff">getMovementFlag</a> (<a class="code" href="classMWMechanics_1_1NpcStats.html#a16792b5ec8099c1f08200cc2d48047ea">Flag</a> flag) <span class="keyword">const</span>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#afff81d264d2aa27a2d2b9718baf6a24a">setMovementFlag</a> (<a class="code" href="classMWMechanics_1_1NpcStats.html#a16792b5ec8099c1f08200cc2d48047ea">Flag</a> flag, <span class="keywordtype">bool</span> state);
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;float&gt;</a>&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
+<a name="l00098"></a>00098             <a class="code" href="classMWMechanics_1_1Stat.html">Stat&lt;float&gt;</a>&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a9f7c4f186762cb2d2bd148714874b909">getSkill</a> (<span class="keywordtype">int</span> index);
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100             <span class="keyword">const</span> std::map&lt;std::string, int&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a089d8b6e99e1ae372713ac65fb777306">getFactionRanks</a>() <span class="keyword">const</span>;
+<a name="l00101"></a>00101             std::map&lt;std::string, int&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#a089d8b6e99e1ae372713ac65fb777306">getFactionRanks</a>();
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103             <span class="keyword">const</span> std::set&lt;std::string&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#aa8426bd66ebfecb7424853f164355400">getExpelled</a>() <span class="keyword">const</span>;
+<a name="l00104"></a>00104             std::set&lt;std::string&gt;&amp; <a class="code" href="classMWMechanics_1_1NpcStats.html#aa8426bd66ebfecb7424853f164355400">getExpelled</a>();
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa97cc5917516030dfdfa5a15fe302198" title="Do *this and npcStats share a faction?">isSameFaction</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a>&amp; npcStats) <span class="keyword">const</span>;
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a766548dadebc608b9e1bee6fbc19fced">getSkillGain</a> (<span class="keywordtype">int</span> skillIndex, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_, <span class="keywordtype">int</span> usageType = -1,
+<a name="l00110"></a>00110                 <span class="keywordtype">int</span> level = -1) <span class="keyword">const</span>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#afc5dca015e8d82ad6ad9003d7e31fc47" title="Increase skill by usage.">useSkill</a> (<span class="keywordtype">int</span> skillIndex, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_, <span class="keywordtype">int</span> usageType = -1);
 <a name="l00117"></a>00117 
-<a name="l00118"></a>00118             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a8c78494ae640a82e3a5cd9556e8d0784">flagAsUsed</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
+<a name="l00118"></a>00118             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa4b982d9c7187a867fbb63d34479081e">increaseSkill</a> (<span class="keywordtype">int</span> skillIndex, <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; class_, <span class="keywordtype">bool</span> preserveProgress);
 <a name="l00119"></a>00119 
-<a name="l00120"></a>00120             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ae48ec63346f34160ad58688f9474e9f4">hasBeenUsed</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00120"></a>00120             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a1abb2cc3cb5821d2abead63614fc41cf">getLevelProgress</a>() <span class="keyword">const</span>;
 <a name="l00121"></a>00121 
-<a name="l00122"></a>00122             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a704803c76df3605741dd76ad4f8ad416">getBounty</a>() <span class="keyword">const</span>;
+<a name="l00122"></a>00122             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ac45f77186b902086fa6bc374a6765df6">getLevelupAttributeMultiplier</a>(<span class="keywordtype">int</span> attribute) <span class="keyword">const</span>;
 <a name="l00123"></a>00123 
-<a name="l00124"></a>00124             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#abaa1150ed2b89b4bca2414a3abe1da4d">setBounty</a> (<span class="keywordtype">int</span> bounty);
+<a name="l00124"></a>00124             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa79d81f81a62e39b1328339c97800b4c">levelUp</a>();
 <a name="l00125"></a>00125 
-<a name="l00126"></a>00126             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a41a746c0f60ba5431f2564a8a3489f18">getFactionReputation</a> (<span class="keyword">const</span> std::string&amp; faction) <span class="keyword">const</span>;
+<a name="l00126"></a>00126             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a8c78494ae640a82e3a5cd9556e8d0784">flagAsUsed</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
 <a name="l00127"></a>00127 
-<a name="l00128"></a>00128             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a94f1aa47b457e4cbe3cbd502f26b70ca">setFactionReputation</a> (<span class="keyword">const</span> std::string&amp; faction, <span class="keywordtype">int</span> value);
+<a name="l00128"></a>00128             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ae48ec63346f34160ad58688f9474e9f4">hasBeenUsed</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
 <a name="l00129"></a>00129 
-<a name="l00130"></a>00130             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ac95fe4f95dc5af4b9ad908814430683f">isVampire</a>() <span class="keyword">const</span>;
+<a name="l00130"></a>00130             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a704803c76df3605741dd76ad4f8ad416">getBounty</a>() <span class="keyword">const</span>;
 <a name="l00131"></a>00131 
-<a name="l00132"></a>00132             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ae0aa70e70e6c6e0c1aac3df6b628d987">setVampire</a> (<span class="keywordtype">bool</span> <span class="keyword">set</span>);
+<a name="l00132"></a>00132             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#abaa1150ed2b89b4bca2414a3abe1da4d">setBounty</a> (<span class="keywordtype">int</span> bounty);
 <a name="l00133"></a>00133 
-<a name="l00134"></a>00134             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a9219baf4a9475596e2eaee06ba5cb1d3">hasSkillsForRank</a> (<span class="keyword">const</span> std::string&amp; factionId, <span class="keywordtype">int</span> rank) <span class="keyword">const</span>;
+<a name="l00134"></a>00134             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a41a746c0f60ba5431f2564a8a3489f18">getFactionReputation</a> (<span class="keyword">const</span> std::string&amp; faction) <span class="keyword">const</span>;
 <a name="l00135"></a>00135 
-<a name="l00136"></a>00136             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#af1693fef2b49c958fec69ec5a462b8c1">isWerewolf</a>() <span class="keyword">const</span>;
+<a name="l00136"></a>00136             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a94f1aa47b457e4cbe3cbd502f26b70ca">setFactionReputation</a> (<span class="keyword">const</span> std::string&amp; faction, <span class="keywordtype">int</span> value);
 <a name="l00137"></a>00137 
-<a name="l00138"></a>00138             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a4f707fc1ab258051ddc409cb54237b4c">setWerewolf</a> (<span class="keywordtype">bool</span> <span class="keyword">set</span>);
+<a name="l00138"></a>00138             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ac95fe4f95dc5af4b9ad908814430683f">isVampire</a>() <span class="keyword">const</span>;
 <a name="l00139"></a>00139 
-<a name="l00140"></a>00140             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa2fbbdf2a5e057b4628683f435f70d08">getWerewolfKills</a>() <span class="keyword">const</span>;
-<a name="l00141"></a>00141     };
-<a name="l00142"></a>00142 }
+<a name="l00140"></a>00140             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#ae0aa70e70e6c6e0c1aac3df6b628d987">setVampire</a> (<span class="keywordtype">bool</span> <span class="keyword">set</span>);
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a9219baf4a9475596e2eaee06ba5cb1d3">hasSkillsForRank</a> (<span class="keyword">const</span> std::string&amp; factionId, <span class="keywordtype">int</span> rank) <span class="keyword">const</span>;
 <a name="l00143"></a>00143 
-<a name="l00144"></a>00144 <span class="preprocessor">#endif</span>
+<a name="l00144"></a>00144             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#af1693fef2b49c958fec69ec5a462b8c1">isWerewolf</a>() <span class="keyword">const</span>;
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a4f707fc1ab258051ddc409cb54237b4c">setWerewolf</a>(<span class="keywordtype">bool</span> <span class="keyword">set</span>);
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa2fbbdf2a5e057b4628683f435f70d08">getWerewolfKills</a>() <span class="keyword">const</span>;
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#a9ca62ee3506f7d75b04cf51d4d241187">getTimeToStartDrowning</a>() <span class="keyword">const</span>;
+<a name="l00153"></a>00153             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1NpcStats.html#aa964e50fecdffb41f25694738ad762fc">setTimeToStartDrowning</a>(<span class="keywordtype">float</span> time);
+<a name="l00154"></a>00154     };
+<a name="l00155"></a>00155 }
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

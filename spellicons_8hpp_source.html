@@ -83,34 +83,38 @@
 <a name="l00022"></a>00022     <span class="comment">// information about a single magic effect source as required for display in the tooltip</span>
 <a name="l00023"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html">00023</a>     <span class="keyword">struct </span><a class="code" href="structMWGui_1_1MagicEffectInfo.html">MagicEffectInfo</a>
 <a name="l00024"></a>00024     {
-<a name="l00025"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#ae3ed6f855a323afce9ce9aa72e87a61d">00025</a>         <a class="code" href="structMWGui_1_1MagicEffectInfo.html#ae3ed6f855a323afce9ce9aa72e87a61d">MagicEffectInfo</a>() : <a class="code" href="structMWGui_1_1MagicEffectInfo.html#acb87a40cfb9e7ca5031f277c036e984b">mPermanent</a>(false) {}
-<a name="l00026"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#a882d291156ac49ee80faf474c501868a">00026</a>         std::string <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a882d291156ac49ee80faf474c501868a">mSource</a>; <span class="comment">// display name for effect source (e.g. potion name)</span>
-<a name="l00027"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#a7a36ff63886d06fbb1ac4a1745814506">00027</a>         <a class="code" href="structMWMechanics_1_1EffectKey.html">MWMechanics::EffectKey</a> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a7a36ff63886d06fbb1ac4a1745814506">mKey</a>;
-<a name="l00028"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#ad5ac298b47f3fecdd1ee2e971871d4be">00028</a>         <span class="keywordtype">int</span> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#ad5ac298b47f3fecdd1ee2e971871d4be">mMagnitude</a>;
-<a name="l00029"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#a0448b1de6277970f03f53434fa09b61a">00029</a>         <span class="keywordtype">float</span> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a0448b1de6277970f03f53434fa09b61a">mRemainingTime</a>;
-<a name="l00030"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#acb87a40cfb9e7ca5031f277c036e984b">00030</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#acb87a40cfb9e7ca5031f277c036e984b">mPermanent</a>; <span class="comment">// the effect is permanent</span>
-<a name="l00031"></a>00031     };
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classMWGui_1_1SpellIcons.html">00033</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SpellIcons.html">SpellIcons</a>
-<a name="l00034"></a>00034     {
-<a name="l00035"></a>00035     <span class="keyword">public</span>:
-<a name="l00036"></a>00036         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellIcons.html#ad1a1586837925af84958253a49d1bc13">updateWidgets</a>(MyGUI::Widget* parent, <span class="keywordtype">bool</span> adjustSize);
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038     <span class="keyword">private</span>:
-<a name="l00039"></a>00039         std::string <a class="code" href="classMWGui_1_1SpellIcons.html#a4d7a2959887a92148401c8848c092ce5">getSpellDisplayName</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
-<a name="l00040"></a>00040         <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a> <a class="code" href="classMWGui_1_1SpellIcons.html#ac78c93af0a09f6f8ee1bc2ff68278745">getSpellEffectList</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
+<a name="l00025"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#ae3ed6f855a323afce9ce9aa72e87a61d">00025</a>         <a class="code" href="structMWGui_1_1MagicEffectInfo.html#ae3ed6f855a323afce9ce9aa72e87a61d">MagicEffectInfo</a>()
+<a name="l00026"></a>00026             : <a class="code" href="structMWGui_1_1MagicEffectInfo.html#acb87a40cfb9e7ca5031f277c036e984b">mPermanent</a>(false)
+<a name="l00027"></a>00027             , <a class="code" href="structMWGui_1_1MagicEffectInfo.html#ad5ac298b47f3fecdd1ee2e971871d4be">mMagnitude</a>(0)
+<a name="l00028"></a>00028         , <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a0448b1de6277970f03f53434fa09b61a">mRemainingTime</a>(0)
+<a name="l00029"></a>00029         {}
+<a name="l00030"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#a882d291156ac49ee80faf474c501868a">00030</a>         std::string <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a882d291156ac49ee80faf474c501868a">mSource</a>; <span class="comment">// display name for effect source (e.g. potion name)</span>
+<a name="l00031"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#a7a36ff63886d06fbb1ac4a1745814506">00031</a>         <a class="code" href="structMWMechanics_1_1EffectKey.html">MWMechanics::EffectKey</a> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a7a36ff63886d06fbb1ac4a1745814506">mKey</a>;
+<a name="l00032"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#ad5ac298b47f3fecdd1ee2e971871d4be">00032</a>         <span class="keywordtype">int</span> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#ad5ac298b47f3fecdd1ee2e971871d4be">mMagnitude</a>;
+<a name="l00033"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#a0448b1de6277970f03f53434fa09b61a">00033</a>         <span class="keywordtype">float</span> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#a0448b1de6277970f03f53434fa09b61a">mRemainingTime</a>;
+<a name="l00034"></a><a class="code" href="structMWGui_1_1MagicEffectInfo.html#acb87a40cfb9e7ca5031f277c036e984b">00034</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWGui_1_1MagicEffectInfo.html#acb87a40cfb9e7ca5031f277c036e984b">mPermanent</a>; <span class="comment">// the effect is permanent</span>
+<a name="l00035"></a>00035     };
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classMWGui_1_1SpellIcons.html">00037</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SpellIcons.html">SpellIcons</a>
+<a name="l00038"></a>00038     {
+<a name="l00039"></a>00039     <span class="keyword">public</span>:
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellIcons.html#ad1a1586837925af84958253a49d1bc13">updateWidgets</a>(MyGUI::Widget* parent, <span class="keywordtype">bool</span> adjustSize);
 <a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="classMWGui_1_1SpellIcons.html#aff14445a55c110e308f48edb5d0a9fd9">00042</a>         std::map&lt;int, MyGUI::ImageBox*&gt; <a class="code" href="classMWGui_1_1SpellIcons.html#aff14445a55c110e308f48edb5d0a9fd9">mWidgetMap</a>;
-<a name="l00043"></a>00043     };
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045 }
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 <span class="preprocessor">#endif</span>
+<a name="l00042"></a>00042     <span class="keyword">private</span>:
+<a name="l00043"></a>00043         std::string <a class="code" href="classMWGui_1_1SpellIcons.html#a4d7a2959887a92148401c8848c092ce5">getSpellDisplayName</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
+<a name="l00044"></a>00044         <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a> <a class="code" href="classMWGui_1_1SpellIcons.html#ac78c93af0a09f6f8ee1bc2ff68278745">getSpellEffectList</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="classMWGui_1_1SpellIcons.html#aff14445a55c110e308f48edb5d0a9fd9">00046</a>         std::map&lt;int, MyGUI::ImageBox*&gt; <a class="code" href="classMWGui_1_1SpellIcons.html#aff14445a55c110e308f48edb5d0a9fd9">mWidgetMap</a>;
+<a name="l00047"></a>00047     };
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 }
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

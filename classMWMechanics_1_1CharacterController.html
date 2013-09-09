@@ -82,7 +82,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a47540403fbd9f18bbe047cff2c5a3c5f">CharacterController</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *anim)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#acc6c60fe20492ef8140e4ec5bbfb4352">~CharacterController</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a6b933f11409386f17c20a93a90329a1c">updatePtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a0d059f24cdfdacdaab2a56ac8e185274">update</a> (float duration, <a class="el" href="structMWMechanics_1_1Movement.html">Movement</a> &amp;movement)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a1aa04b41faf6c46eef9310e36e405be5">update</a> (float duration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a6b53ec163a6c7209bc7caad5313744ae">playGroup</a> (const std::string &amp;groupname, int mode, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#afb0d7242b8f1bd7ebd5185cd30855358">skipAnim</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a11a69e83f382cb057369e705f9c0782f">isAnimPlaying</a> (const std::string &amp;groupName)</td></tr>
@@ -98,9 +98,12 @@ Private Types</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a28038331bfd7c6c4ad2ff0de17ca08fa">refreshCurrentAnims</a> (<a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> idle, <a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> movement, bool force=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a91cf734388359775935c4f22fdbd05fc">clearAnimQueue</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a9d70c739fe29d69211838c900c3ea093">updateNpcState</a> (bool onground, bool inwater, bool isrunning, bool sneak)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a27712928efe32e13b1162bf45ffe9fb0">getWeaponGroup</a> (<a class="el" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> weaptype, std::string &amp;group)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <br class="typebreak"/>
+<a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a898844779d526a4a9505558c7b823771">getActiveWeapon</a> (<a class="el" href="classMWMechanics_1_1NpcStats.html">NpcStats</a> &amp;stats, <a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;inv, <a class="el" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> *weaptype)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a06f27205e1ec6e542c9992fd900fbaf2">mPtr</a></td></tr>
@@ -113,11 +116,15 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a5e5880ae5fab5f4021b4a3254bd7d304">mMovementSpeed</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">mDeathState</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#af5505ec96fbccbb8d2d855343dd37542">mCurrentDeath</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">UpperBodyCharacterState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a8a97551a137f984549a3063bd155cc87">mUpperBodyState</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">JumpingState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a57ccaa5730d4dc6c700758c8ca0f5014">mJumpState</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#aec061a168d25eaa882c70cf6c36438cf">mCurrentJump</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#ad0b684a57683541ccaae7f543be527aa">mWeaponType</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a265aa644145da9920e15e6c399b1faaf">mCurrentWeapon</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a28e6ec77f2c7b090511e0471fbdb3410">mSkipAnim</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a823c76f2982ec7647017f12d8e4d5bfc">mUpdateWeapon</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a29d99575d2545cccd6857bd0c2017e33">mSecondsOfSwimming</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a39feb875b9454a91284ab7a8ef9565fc">mSecondsOfRunning</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#aa7668c41c7863f574aba47fb0103828e">mAttackType</a></td></tr>
 </table>
 <hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="a61963bca18b83cfac7d4c974e08423c2"></a><!-- doxytag: member="MWMechanics::CharacterController::AnimationQueue" ref="a61963bca18b83cfac7d4c974e08423c2" args="" -->
@@ -203,6 +210,39 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a898844779d526a4a9505558c7b823771"></a><!-- doxytag: member="MWMechanics::CharacterController::getActiveWeapon" ref="a898844779d526a4a9505558c7b823771" args="(NpcStats &amp;stats, MWWorld::InventoryStore &amp;inv, WeaponType *weaptype)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWMechanics_1_1CharacterController.html#a898844779d526a4a9505558c7b823771">MWMechanics::CharacterController::getActiveWeapon</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWMechanics_1_1NpcStats.html">NpcStats</a> &amp;&#160;</td>
+          <td class="paramname"><em>stats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;&#160;</td>
+          <td class="paramname"><em>inv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> *&#160;</td>
+          <td class="paramname"><em>weaptype</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static, private]</code></td>
         </tr>
       </table>
 </div>
@@ -384,26 +424,55 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0d059f24cdfdacdaab2a56ac8e185274"></a><!-- doxytag: member="MWMechanics::CharacterController::update" ref="a0d059f24cdfdacdaab2a56ac8e185274" args="(float duration, Movement &amp;movement)" -->
+<a class="anchor" id="a1aa04b41faf6c46eef9310e36e405be5"></a><!-- doxytag: member="MWMechanics::CharacterController::update" ref="a1aa04b41faf6c46eef9310e36e405be5" args="(float duration)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWMechanics_1_1CharacterController.html#a0d059f24cdfdacdaab2a56ac8e185274">MWMechanics::CharacterController::update</a> </td>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1CharacterController.html#a1aa04b41faf6c46eef9310e36e405be5">MWMechanics::CharacterController::update</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>duration</em>, </td>
+          <td class="paramname"><em>duration</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9d70c739fe29d69211838c900c3ea093"></a><!-- doxytag: member="MWMechanics::CharacterController::updateNpcState" ref="a9d70c739fe29d69211838c900c3ea093" args="(bool onground, bool inwater, bool isrunning, bool sneak)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1CharacterController.html#a9d70c739fe29d69211838c900c3ea093">MWMechanics::CharacterController::updateNpcState</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>onground</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structMWMechanics_1_1Movement.html">Movement</a> &amp;&#160;</td>
-          <td class="paramname"><em>movement</em>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>inwater</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isrunning</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>sneak</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -455,6 +524,19 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa7668c41c7863f574aba47fb0103828e"></a><!-- doxytag: member="MWMechanics::CharacterController::mAttackType" ref="aa7668c41c7863f574aba47fb0103828e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWMechanics_1_1CharacterController.html#aa7668c41c7863f574aba47fb0103828e">MWMechanics::CharacterController::mAttackType</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af5505ec96fbccbb8d2d855343dd37542"></a><!-- doxytag: member="MWMechanics::CharacterController::mCurrentDeath" ref="af5505ec96fbccbb8d2d855343dd37542" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -481,12 +563,38 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aec061a168d25eaa882c70cf6c36438cf"></a><!-- doxytag: member="MWMechanics::CharacterController::mCurrentJump" ref="aec061a168d25eaa882c70cf6c36438cf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWMechanics_1_1CharacterController.html#aec061a168d25eaa882c70cf6c36438cf">MWMechanics::CharacterController::mCurrentJump</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a3508b04365f74b3f73c82d174fec7260"></a><!-- doxytag: member="MWMechanics::CharacterController::mCurrentMovement" ref="a3508b04365f74b3f73c82d174fec7260" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">std::string <a class="el" href="classMWMechanics_1_1CharacterController.html#a3508b04365f74b3f73c82d174fec7260">MWMechanics::CharacterController::mCurrentMovement</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a265aa644145da9920e15e6c399b1faaf"></a><!-- doxytag: member="MWMechanics::CharacterController::mCurrentWeapon" ref="a265aa644145da9920e15e6c399b1faaf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classMWMechanics_1_1CharacterController.html#a265aa644145da9920e15e6c399b1faaf">MWMechanics::CharacterController::mCurrentWeapon</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -513,6 +621,19 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="el" href="classMWMechanics_1_1CharacterController.html#ad217267c98049cd61abbcca0f015debc">MWMechanics::CharacterController::mIdleState</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a57ccaa5730d4dc6c700758c8ca0f5014"></a><!-- doxytag: member="MWMechanics::CharacterController::mJumpState" ref="a57ccaa5730d4dc6c700758c8ca0f5014" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">JumpingState</a> <a class="el" href="classMWMechanics_1_1CharacterController.html#a57ccaa5730d4dc6c700758c8ca0f5014">MWMechanics::CharacterController::mJumpState</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -598,12 +719,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a823c76f2982ec7647017f12d8e4d5bfc"></a><!-- doxytag: member="MWMechanics::CharacterController::mUpdateWeapon" ref="a823c76f2982ec7647017f12d8e4d5bfc" args="" -->
+<a class="anchor" id="a8a97551a137f984549a3063bd155cc87"></a><!-- doxytag: member="MWMechanics::CharacterController::mUpperBodyState" ref="a8a97551a137f984549a3063bd155cc87" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWMechanics_1_1CharacterController.html#a823c76f2982ec7647017f12d8e4d5bfc">MWMechanics::CharacterController::mUpdateWeapon</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">UpperBodyCharacterState</a> <a class="el" href="classMWMechanics_1_1CharacterController.html#a8a97551a137f984549a3063bd155cc87">MWMechanics::CharacterController::mUpperBodyState</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -632,7 +753,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

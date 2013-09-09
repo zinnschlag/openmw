@@ -67,7 +67,8 @@
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">ESM::MagicEffect Struct Reference</div>  </div>
 </div><!--header-->
@@ -291,7 +292,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#a0bcc9e2d8fa5ee41d0a2e81ff89ebdcd">save</a> (<a class="el" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#a45daf339cc28def8e3c62011ec9d3deb">effectIdToString</a> (short effectID)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#ad14b1f6afd175dda88c758348543c70d">effectIdToString</a> (short effectID)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#a908cf4eae85eaaac3a66e8742b73ccb5">effectStringToId</a> (const std::string &amp;effect)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structESM_1_1MagicEffect_1_1MEDTstruct.html">MEDTstruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#a77809644508acdf85b1713e4c9b3647b">mData</a></td></tr>
@@ -307,6 +309,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#ae4d75cc4911fe1d8fb6a0742fea96e58">mAreaSound</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#a9ddf5d1b7a59fd2b078ecb9d1d137044">mDescription</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#a8216135925bc681b752ef79f7454e88e">mIndex</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const std::map&lt; short, <br class="typebreak"/>
+std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structESM_1_1MagicEffect.html#afcab8b260c7742eacf974a6053c4554b">sNames</a> = <a class="el" href="namespaceESM.html#a9e9f7fe213d12b511c8872d86dc25e20">genNameMap</a>()</td></tr>
 </table>
 <hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="ad713b064a04784c527a6b87471d9b277"></a><!-- doxytag: member="ESM::MagicEffect::Effects" ref="ad713b064a04784c527a6b87471d9b277" args="" -->
@@ -662,15 +668,32 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a45daf339cc28def8e3c62011ec9d3deb"></a><!-- doxytag: member="ESM::MagicEffect::effectIdToString" ref="a45daf339cc28def8e3c62011ec9d3deb" args="(short effectID)" -->
+<a class="anchor" id="ad14b1f6afd175dda88c758348543c70d"></a><!-- doxytag: member="ESM::MagicEffect::effectIdToString" ref="ad14b1f6afd175dda88c758348543c70d" args="(short effectID)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string <a class="el" href="structESM_1_1MagicEffect.html#a45daf339cc28def8e3c62011ec9d3deb">ESM::MagicEffect::effectIdToString</a> </td>
+          <td class="memname">const std::string &amp; <a class="el" href="structESM_1_1MagicEffect.html#ad14b1f6afd175dda88c758348543c70d">ESM::MagicEffect::effectIdToString</a> </td>
           <td>(</td>
           <td class="paramtype">short&#160;</td>
           <td class="paramname"><em>effectID</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a908cf4eae85eaaac3a66e8742b73ccb5"></a><!-- doxytag: member="ESM::MagicEffect::effectStringToId" ref="a908cf4eae85eaaac3a66e8742b73ccb5" args="(const std::string &amp;effect)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">short <a class="el" href="structESM_1_1MagicEffect.html#a908cf4eae85eaaac3a66e8742b73ccb5">ESM::MagicEffect::effectStringToId</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>effect</em></td><td>)</td>
           <td><code> [static]</code></td>
         </tr>
       </table>
@@ -883,6 +906,19 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="afcab8b260c7742eacf974a6053c4554b"></a><!-- doxytag: member="ESM::MagicEffect::sNames" ref="afcab8b260c7742eacf974a6053c4554b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt; short, std::string &gt; <a class="el" href="structESM_1_1MagicEffect.html#afcab8b260c7742eacf974a6053c4554b">ESM::MagicEffect::sNames</a> = <a class="el" href="namespaceESM.html#a9e9f7fe213d12b511c8872d86dc25e20">genNameMap</a>()<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>components/esm/<a class="el" href="loadmgef_8hpp_source.html">loadmgef.hpp</a></li>
 <li>components/esm/<a class="el" href="loadmgef_8cpp.html">loadmgef.cpp</a></li>
@@ -891,7 +927,7 @@ Public Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

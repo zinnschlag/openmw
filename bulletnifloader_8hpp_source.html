@@ -108,50 +108,55 @@
 <a name="l00050"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html">00050</a> <span class="keyword">class </span><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html">ManualBulletShapeLoader</a> : <span class="keyword">public</span> OEngine::Physic::BulletShapeLoader
 <a name="l00051"></a>00051 {
 <a name="l00052"></a>00052 <span class="keyword">public</span>:
-<a name="l00053"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a2bcd7c10fa95e6cebd69108d1d947c37">00053</a>     <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a2bcd7c10fa95e6cebd69108d1d947c37">ManualBulletShapeLoader</a>():<a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a5d245e335596257e19af4e18127e8010">resourceGroup</a>(<span class="stringliteral">&quot;General&quot;</span>){}
-<a name="l00054"></a>00054     <span class="keyword">virtual</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a1b091cb5186c7ae0cc609d4c295a0a1f">~ManualBulletShapeLoader</a>();
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a0ab3643e952dc733513bfafe5a1496e3">00056</a>     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a0ab3643e952dc733513bfafe5a1496e3">warn</a>(<span class="keyword">const</span> std::string &amp;msg)
+<a name="l00053"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a2bcd7c10fa95e6cebd69108d1d947c37">00053</a>     <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a2bcd7c10fa95e6cebd69108d1d947c37">ManualBulletShapeLoader</a>()
+<a name="l00054"></a>00054       : <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a7a447555fe6e7d8786ff44fc7a4ea09e">mShape</a>(NULL)
+<a name="l00055"></a>00055       , <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#afb61506e26c73d2e05a94a14363ae4a2">mBoundingBox</a>(NULL)
+<a name="l00056"></a>00056       , <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae45560cbe631610c31e6ec4b664fd40c">mHasShape</a>(false)
 <a name="l00057"></a>00057     {
-<a name="l00058"></a>00058         std::cerr &lt;&lt; <span class="stringliteral">&quot;NIFLoader: Warn:&quot;</span> &lt;&lt; msg &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;
-<a name="l00059"></a>00059     }
-<a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#aa610f3e388cc9d5573c6525c6ed69120">00061</a>     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#aa610f3e388cc9d5573c6525c6ed69120">fail</a>(<span class="keyword">const</span> std::string &amp;msg)
-<a name="l00062"></a>00062     {
-<a name="l00063"></a>00063         std::cerr &lt;&lt; <span class="stringliteral">&quot;NIFLoader: Fail: &quot;</span>&lt;&lt; msg &lt;&lt; std::endl;
-<a name="l00064"></a>00064         abort();
+<a name="l00058"></a>00058     }
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060     <span class="keyword">virtual</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a1b091cb5186c7ae0cc609d4c295a0a1f">~ManualBulletShapeLoader</a>();
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a0ab3643e952dc733513bfafe5a1496e3">00062</a>     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a0ab3643e952dc733513bfafe5a1496e3">warn</a>(<span class="keyword">const</span> std::string &amp;msg)
+<a name="l00063"></a>00063     {
+<a name="l00064"></a>00064         std::cerr &lt;&lt; <span class="stringliteral">&quot;NIFLoader: Warn:&quot;</span> &lt;&lt; msg &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;
 <a name="l00065"></a>00065     }
 <a name="l00066"></a>00066 
-<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4a726cd2bf23126682c8c3a736f80832">loadResource</a>(Ogre::Resource *resource);
-<a name="l00071"></a>00071 
-<a name="l00077"></a>00077     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a78ad8a2c9a68899bfc76057518f6de80">load</a>(<span class="keyword">const</span> std::string &amp;name,<span class="keyword">const</span> std::string &amp;group);
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="keyword">private</span>:
-<a name="l00080"></a>00080     btVector3 <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ac2257d55393c7de84d9753312c6f94a4">getbtVector</a>(Ogre::Vector3 <span class="keyword">const</span> &amp;v);
-<a name="l00081"></a>00081 
-<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae5f67a4afb88b76c74ceef89ee6979a2">handleNode</a>(btTriangleMesh* <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <a class="code" href="classNif_1_1Node.html">Nif::Node</a> <span class="keyword">const</span> *node, <span class="keywordtype">int</span> flags, <span class="keywordtype">bool</span> isCollisionNode, <span class="keywordtype">bool</span> raycasting, <span class="keywordtype">bool</span> isMarker);
-<a name="l00086"></a>00086 
-<a name="l00090"></a>00090     <span class="keywordtype">bool</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#abeb4b263c4a4300bcd319798810b316d">hasRootCollisionNode</a>(<span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node);
-<a name="l00091"></a>00091 
-<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4ea5c5493a9cac1f930e5ea801d06c61">handleNiTriShape</a>(btTriangleMesh* <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <span class="keyword">const</span> <a class="code" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, <span class="keywordtype">int</span> flags, <span class="keyword">const</span> Ogre::Matrix4 &amp;transform, <span class="keywordtype">bool</span> raycasting);
-<a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4cae9fb871526a6b2280209bc854742e">00097</a>     std::string <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4cae9fb871526a6b2280209bc854742e">resourceName</a>;
-<a name="l00098"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a5d245e335596257e19af4e18127e8010">00098</a>     std::string <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a5d245e335596257e19af4e18127e8010">resourceGroup</a>;
-<a name="l00099"></a>00099 
-<a name="l00100"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a47345d8aaaf1c232e4f00d9fdd42a64e">00100</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">OEngine::Physic::BulletShape</a>* <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a47345d8aaaf1c232e4f00d9fdd42a64e">cShape</a>;<span class="comment">//current shape</span>
-<a name="l00101"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#afb61506e26c73d2e05a94a14363ae4a2">00101</a>     btBoxShape *<a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#afb61506e26c73d2e05a94a14363ae4a2">mBoundingBox</a>;
+<a name="l00067"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#aa610f3e388cc9d5573c6525c6ed69120">00067</a>     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#aa610f3e388cc9d5573c6525c6ed69120">fail</a>(<span class="keyword">const</span> std::string &amp;msg)
+<a name="l00068"></a>00068     {
+<a name="l00069"></a>00069         std::cerr &lt;&lt; <span class="stringliteral">&quot;NIFLoader: Fail: &quot;</span>&lt;&lt; msg &lt;&lt; std::endl;
+<a name="l00070"></a>00070         abort();
+<a name="l00071"></a>00071     }
+<a name="l00072"></a>00072 
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4a726cd2bf23126682c8c3a736f80832">loadResource</a>(Ogre::Resource *resource);
+<a name="l00077"></a>00077 
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a78ad8a2c9a68899bfc76057518f6de80">load</a>(<span class="keyword">const</span> std::string &amp;name,<span class="keyword">const</span> std::string &amp;group);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="keyword">private</span>:
+<a name="l00086"></a>00086     btVector3 <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ac2257d55393c7de84d9753312c6f94a4">getbtVector</a>(Ogre::Vector3 <span class="keyword">const</span> &amp;v);
+<a name="l00087"></a>00087 
+<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae5f67a4afb88b76c74ceef89ee6979a2">handleNode</a>(btTriangleMesh* <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <a class="code" href="classNif_1_1Node.html">Nif::Node</a> <span class="keyword">const</span> *node, <span class="keywordtype">int</span> flags, <span class="keywordtype">bool</span> isCollisionNode, <span class="keywordtype">bool</span> raycasting, <span class="keywordtype">bool</span> isMarker);
+<a name="l00092"></a>00092 
+<a name="l00096"></a>00096     <span class="keywordtype">bool</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#abeb4b263c4a4300bcd319798810b316d">hasRootCollisionNode</a>(<span class="keyword">const</span> <a class="code" href="classNif_1_1Node.html">Nif::Node</a> *node);
+<a name="l00097"></a>00097 
+<a name="l00101"></a>00101     <span class="keywordtype">void</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a4ea5c5493a9cac1f930e5ea801d06c61">handleNiTriShape</a>(btTriangleMesh* <a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, <span class="keyword">const</span> <a class="code" href="structNif_1_1NiTriShape.html">Nif::NiTriShape</a> *shape, <span class="keywordtype">int</span> flags, <span class="keyword">const</span> Ogre::Matrix4 &amp;transform, <span class="keywordtype">bool</span> raycasting);
 <a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae45560cbe631610c31e6ec4b664fd40c">00103</a>     <span class="keywordtype">bool</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae45560cbe631610c31e6ec4b664fd40c">mHasShape</a>;
-<a name="l00104"></a>00104 };
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 }
+<a name="l00103"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#af2b844c52f5584cfe91689cb9dd62424">00103</a>     std::string <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#af2b844c52f5584cfe91689cb9dd62424">mResourceName</a>;
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a7a447555fe6e7d8786ff44fc7a4ea09e">00105</a>     <a class="code" href="classOEngine_1_1Physic_1_1BulletShape.html">OEngine::Physic::BulletShape</a>* <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#a7a447555fe6e7d8786ff44fc7a4ea09e">mShape</a>;<span class="comment">//current shape</span>
+<a name="l00106"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#afb61506e26c73d2e05a94a14363ae4a2">00106</a>     btBoxShape *<a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#afb61506e26c73d2e05a94a14363ae4a2">mBoundingBox</a>;
 <a name="l00107"></a>00107 
-<a name="l00108"></a>00108 <span class="preprocessor">#endif</span>
+<a name="l00108"></a><a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae45560cbe631610c31e6ec4b664fd40c">00108</a>     <span class="keywordtype">bool</span> <a class="code" href="classNifBullet_1_1ManualBulletShapeLoader.html#ae45560cbe631610c31e6ec4b664fd40c">mHasShape</a>;
+<a name="l00109"></a>00109 };
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 }
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

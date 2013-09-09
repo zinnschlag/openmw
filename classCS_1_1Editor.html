@@ -79,6 +79,8 @@
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a701b91f2c0861ef47d14af08c16d33a7">Editor</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a709356dd109ac1703830b038879a1388">makeIPCServer</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#abe0f0afec280547f67353a924c8bbad9">connectToIPCServer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a531c543c5a8d6b17cfffe3cdffa09392">run</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -86,6 +88,7 @@ Private Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#afec79bc8ba7ac226e2a47d959cbf6576">loadDocument</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a87c4fa2f4491f663f93612299381b7ea">openFiles</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#aff98449b20f13cdac1f389ca570feedc">createNewFile</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#aa497af33eb130593a12cf4c2ff2ef439">showStartup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#adf5ce05111cf53ac232d2cd2657fa3aa">setupDataFiles</a> ()</td></tr>
@@ -99,6 +102,9 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSVDoc_1_1StartupDialogue.html">CSVDoc::StartupDialogue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a0007b9da66607f1f26a4b017a9de73f0">mStartup</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classFileDialog.html">FileDialog</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a5066a87bb74cd2fa88058c44e7394247">mFileDialog</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a53034ca94d6c37e3f40afb6a59788c9b">mCfgMgr</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#a6e51e6e0820e7426fb25f53c5ba27f43">mIpcServerName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QLocalServer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#ae9e0c40e24ec8624c9e389324bce6f71">mServer</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QLocalSocket *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCS_1_1Editor.html#ae878e732e0cb8a134f810cfbd862da5c">mClientSocket</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aeb3f96085fbbac32a86e539701b1fba9"></a><!-- doxytag: member="CS::Editor::Editor" ref="aeb3f96085fbbac32a86e539701b1fba9" args="(const Editor &amp;)" -->
@@ -135,6 +141,22 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="abe0f0afec280547f67353a924c8bbad9"></a><!-- doxytag: member="CS::Editor::connectToIPCServer" ref="abe0f0afec280547f67353a924c8bbad9" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCS_1_1Editor.html#abe0f0afec280547f67353a924c8bbad9">CS::Editor::connectToIPCServer</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aac99059bda34d7f61094e46094e085ae"></a><!-- doxytag: member="CS::Editor::createDocument" ref="aac99059bda34d7f61094e46094e085ae" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -176,6 +198,22 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [private, slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a709356dd109ac1703830b038879a1388"></a><!-- doxytag: member="CS::Editor::makeIPCServer" ref="a709356dd109ac1703830b038879a1388" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCS_1_1Editor.html#a709356dd109ac1703830b038879a1388">CS::Editor::makeIPCServer</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -249,6 +287,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa497af33eb130593a12cf4c2ff2ef439"></a><!-- doxytag: member="CS::Editor::showStartup" ref="aa497af33eb130593a12cf4c2ff2ef439" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCS_1_1Editor.html#aa497af33eb130593a12cf4c2ff2ef439">CS::Editor::showStartup</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private, slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a53034ca94d6c37e3f40afb6a59788c9b"></a><!-- doxytag: member="CS::Editor::mCfgMgr" ref="a53034ca94d6c37e3f40afb6a59788c9b" args="" -->
 <div class="memitem">
@@ -256,6 +310,19 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> <a class="el" href="classCS_1_1Editor.html#a53034ca94d6c37e3f40afb6a59788c9b">CS::Editor::mCfgMgr</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae878e732e0cb8a134f810cfbd862da5c"></a><!-- doxytag: member="CS::Editor::mClientSocket" ref="ae878e732e0cb8a134f810cfbd862da5c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLocalSocket* <a class="el" href="classCS_1_1Editor.html#ae878e732e0cb8a134f810cfbd862da5c">CS::Editor::mClientSocket</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -282,6 +349,32 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classFileDialog.html">FileDialog</a> <a class="el" href="classCS_1_1Editor.html#a5066a87bb74cd2fa88058c44e7394247">CS::Editor::mFileDialog</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6e51e6e0820e7426fb25f53c5ba27f43"></a><!-- doxytag: member="CS::Editor::mIpcServerName" ref="a6e51e6e0820e7426fb25f53c5ba27f43" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString <a class="el" href="classCS_1_1Editor.html#a6e51e6e0820e7426fb25f53c5ba27f43">CS::Editor::mIpcServerName</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae9e0c40e24ec8624c9e389324bce6f71"></a><!-- doxytag: member="CS::Editor::mServer" ref="ae9e0c40e24ec8624c9e389324bce6f71" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLocalServer* <a class="el" href="classCS_1_1Editor.html#ae9e0c40e24ec8624c9e389324bce6f71">CS::Editor::mServer</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -336,7 +429,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -187,31 +187,34 @@
 <a name="l00131"></a>00131         <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1CellStore.html#a878367853888dc8364fa3c850e283615">mCell</a>-&gt;<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>();
 <a name="l00132"></a>00132     }
 <a name="l00133"></a>00133 
-<a name="l00134"></a>00134   <span class="keyword">private</span>:
+<a name="l00134"></a>00134     <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1CellStore.html#a625fc8f213ca1360067d80f193ba64e9">searchInContainer</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
 <a name="l00135"></a>00135 
-<a name="l00136"></a>00136     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Functor, <span class="keyword">class</span> List&gt;
-<a name="l00137"></a><a class="code" href="classMWWorld_1_1CellStore.html#abae4ebde0093dfcaa74dec75470d628f">00137</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1CellStore.html#abae4ebde0093dfcaa74dec75470d628f">forEachImp</a> (Functor&amp; functor, List&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>)
-<a name="l00138"></a>00138     {
-<a name="l00139"></a>00139         <span class="keywordflow">for</span> (<span class="keyword">typename</span> List::List::iterator iter (list.mList.begin()); iter!=list.mList.end();
-<a name="l00140"></a>00140             ++iter)
-<a name="l00141"></a>00141             <span class="keywordflow">if</span> (!functor (iter-&gt;mRef, iter-&gt;mData))
-<a name="l00142"></a>00142                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00143"></a>00143 
-<a name="l00144"></a>00144         <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00145"></a>00145     }
-<a name="l00146"></a>00146 
-<a name="l00148"></a>00148     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a66021af212c731dca5269fa253a9ec47" title="Run through references and store IDs.">listRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
-<a name="l00149"></a>00149 
-<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a60e9322d478c2bb292dead6b1be07d32">loadRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
-<a name="l00151"></a>00151   };
-<a name="l00152"></a>00152 }
+<a name="l00136"></a>00136   <span class="keyword">private</span>:
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Functor, <span class="keyword">class</span> List&gt;
+<a name="l00139"></a><a class="code" href="classMWWorld_1_1CellStore.html#abae4ebde0093dfcaa74dec75470d628f">00139</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1CellStore.html#abae4ebde0093dfcaa74dec75470d628f">forEachImp</a> (Functor&amp; functor, List&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>)
+<a name="l00140"></a>00140     {
+<a name="l00141"></a>00141         <span class="keywordflow">for</span> (<span class="keyword">typename</span> List::List::iterator iter (list.mList.begin()); iter!=list.mList.end();
+<a name="l00142"></a>00142             ++iter)
+<a name="l00143"></a>00143             <span class="keywordflow">if</span> (!functor (iter-&gt;mRef, iter-&gt;mData))
+<a name="l00144"></a>00144                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00147"></a>00147     }
+<a name="l00148"></a>00148 
+<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a66021af212c731dca5269fa253a9ec47" title="Run through references and store IDs.">listRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a60e9322d478c2bb292dead6b1be07d32">loadRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
 <a name="l00153"></a>00153 
-<a name="l00154"></a>00154 <span class="preprocessor">#endif</span>
+<a name="l00154"></a>00154   };
+<a name="l00155"></a>00155 }
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

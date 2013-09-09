@@ -84,8 +84,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a2ad4c5f4f524a5212679fe020d4004b9">Scene</a> (<a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> &amp;rendering, <a class="el" href="classMWWorld_1_1PhysicsSystem.html">PhysicsSystem</a> *physics)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a12bba959a15becbcd7dc0ac0abff2d87">~Scene</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#aa4b71a9fcc611e96db8d1cbec1c60f71">unloadCell</a> (CellStoreCollection::iterator iter)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a17bc11fca2ebfb157825b328ee1b3feb">loadCell</a> (<a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *cell)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#adc64398dfa389e6ee619c3286208e8ff">changeCell</a> (int <a class="el" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>, int <a class="el" href="triangle__test_8cpp.html#a4245f3c5e8eb90ade09427f989b098ec">Y</a>, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a90a7e3443ef161c3cfa9926e89e7ad74">loadCell</a> (<a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *cell, <a class="el" href="classLoading_1_1Listener.html">Loading::Listener</a> *loadingListener)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#adc64398dfa389e6ee619c3286208e8ff">changeCell</a> (int X, int Y, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a087c1748734b64ea02b2ed6de4c26c80">getCurrentCell</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classMWWorld_1_1Scene.html#a0a647273b467b2882a5367cc77a08c17">CellStoreCollection</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a8e7fe9842580d381aeb00f1dd5dd78d1">getActiveCells</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#aca0ff6575862e9bf43e19ef91e888a71">hasCellChanged</a> () const </td></tr>
@@ -106,7 +106,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#accfd7908f7e0a71b16166d85057820f9">playerCellChange</a> (<a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *cell, const <a class="el" href="structESM_1_1Position.html">ESM::Position</a> &amp;position, bool adjustPlayerPos=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a119ae258497bc1e2ecff45c7fd63c5c3">insertCell</a> (<a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;cell, bool rescale)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#a4d083b38e180996b7f9a1a1eb3607af6">insertCell</a> (<a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;cell, bool rescale, <a class="el" href="classLoading_1_1Listener.html">Loading::Listener</a> *loadingListener)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#ae22541f2cf42c204267ee4ee7d7cf06d">countRefs</a> (const <a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;cell)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1CellStore.html">CellStore</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1Scene.html#af6cf40957624ab9e179839a3aee8582e">mCurrentCell</a></td></tr>
@@ -299,6 +300,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae22541f2cf42c204267ee4ee7d7cf06d"></a><!-- doxytag: member="MWWorld::Scene::countRefs" ref="ae22541f2cf42c204267ee4ee7d7cf06d" args="(const Ptr::CellStore &amp;cell)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWWorld_1_1Scene.html#ae22541f2cf42c204267ee4ee7d7cf06d">MWWorld::Scene::countRefs</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;&#160;</td>
+          <td class="paramname"><em>cell</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a8e7fe9842580d381aeb00f1dd5dd78d1"></a><!-- doxytag: member="MWWorld::Scene::getActiveCells" ref="a8e7fe9842580d381aeb00f1dd5dd78d1" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -349,12 +367,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a119ae258497bc1e2ecff45c7fd63c5c3"></a><!-- doxytag: member="MWWorld::Scene::insertCell" ref="a119ae258497bc1e2ecff45c7fd63c5c3" args="(Ptr::CellStore &amp;cell, bool rescale)" -->
+<a class="anchor" id="a4d083b38e180996b7f9a1a1eb3607af6"></a><!-- doxytag: member="MWWorld::Scene::insertCell" ref="a4d083b38e180996b7f9a1a1eb3607af6" args="(Ptr::CellStore &amp;cell, bool rescale, Loading::Listener *loadingListener)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWWorld_1_1Scene.html#a119ae258497bc1e2ecff45c7fd63c5c3">MWWorld::Scene::insertCell</a> </td>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1Scene.html#a4d083b38e180996b7f9a1a1eb3607af6">MWWorld::Scene::insertCell</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> &amp;&#160;</td>
           <td class="paramname"><em>cell</em>, </td>
@@ -363,7 +381,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>rescale</em>&#160;</td>
+          <td class="paramname"><em>rescale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classLoading_1_1Listener.html">Loading::Listener</a> *&#160;</td>
+          <td class="paramname"><em>loadingListener</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -393,21 +417,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a17bc11fca2ebfb157825b328ee1b3feb"></a><!-- doxytag: member="MWWorld::Scene::loadCell" ref="a17bc11fca2ebfb157825b328ee1b3feb" args="(CellStore *cell)" -->
+<a class="anchor" id="a90a7e3443ef161c3cfa9926e89e7ad74"></a><!-- doxytag: member="MWWorld::Scene::loadCell" ref="a90a7e3443ef161c3cfa9926e89e7ad74" args="(CellStore *cell, Loading::Listener *loadingListener)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWWorld_1_1Scene.html#a17bc11fca2ebfb157825b328ee1b3feb">MWWorld::Scene::loadCell</a> </td>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1Scene.html#a90a7e3443ef161c3cfa9926e89e7ad74">MWWorld::Scene::loadCell</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">Ptr::CellStore</a> *&#160;</td>
-          <td class="paramname"><em>cell</em></td><td>)</td>
+          <td class="paramname"><em>cell</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classLoading_1_1Listener.html">Loading::Listener</a> *&#160;</td>
+          <td class="paramname"><em>loadingListener</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000091">Todo:</a></b></dt><dd>rescale depending on the state of a new GMST </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000088">Todo:</a></b></dt><dd>rescale depending on the state of a new GMST </dd></dl>
 
 </div>
 </div>
@@ -597,7 +631,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

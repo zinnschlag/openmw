@@ -89,11 +89,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a807bb17f3d9801321fa115b5cd100718">removeRows</a> (int row, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>, const QModelIndex &amp;<a class="el" href="classCSMWorld_1_1IdTable.html#a2a43e1325d59cd93d0fe0bd78c4271b4">parent</a>=QModelIndex())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual QModelIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a07ca493761535992baa5617261cfa9a9">index</a> (int row, int column, const QModelIndex &amp;<a class="el" href="classCSMWorld_1_1IdTable.html#a2a43e1325d59cd93d0fe0bd78c4271b4">parent</a>=QModelIndex()) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual QModelIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a2a43e1325d59cd93d0fe0bd78c4271b4">parent</a> (const QModelIndex &amp;<a class="el" href="classCSMWorld_1_1IdTable.html#a07ca493761535992baa5617261cfa9a9">index</a>) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#ab69bc2867c341b2e81f4faabec6bb337">addRecord</a> (const std::string &amp;id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#af288071f97e3fe987cf73667478bb286">addRecord</a> (const std::string &amp;id, <a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type=<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QModelIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a91faddd532ddf8859a873abbf8cfb072">getModelIndex</a> (const std::string &amp;id, int column) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a918d9e2968da148c6aea8f1fba152ffc">setRecord</a> (const std::string &amp;id, const <a class="el" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> &amp;record)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add record or overwrite existing recrod.  <a href="#a918d9e2968da148c6aea8f1fba152ffc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a5f0818bca53ef95d696c2613f47659ba">getRecord</a> (const std::string &amp;id) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#ab5c755e2edbac60e123ad979fa7fdb4b">searchColumnIndex</a> (<a class="el" href="namespaceCSMWorld_1_1Columns.html#aa425a67eda4e539203e6f14bde658e8c">Columns::ColumnId</a> id) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return index of column with the given <em>id</em>. If no such column exists, -1 is returned.  <a href="#ab5c755e2edbac60e123ad979fa7fdb4b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#ab6abf0e89c0fe1c15a5c1248496bfb99">findColumnIndex</a> (<a class="el" href="namespaceCSMWorld_1_1Columns.html#aa425a67eda4e539203e6f14bde658e8c">Columns::ColumnId</a> id) const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTable.html#a7d5e1b66775650ace739474e0d980364">IdTable</a> (const <a class="el" href="classCSMWorld_1_1IdTable.html">IdTable</a> &amp;)</td></tr>
@@ -156,20 +159,36 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ab69bc2867c341b2e81f4faabec6bb337"></a><!-- doxytag: member="CSMWorld::IdTable::addRecord" ref="ab69bc2867c341b2e81f4faabec6bb337" args="(const std::string &amp;id)" -->
+<a class="anchor" id="af288071f97e3fe987cf73667478bb286"></a><!-- doxytag: member="CSMWorld::IdTable::addRecord" ref="af288071f97e3fe987cf73667478bb286" args="(const std::string &amp;id, UniversalId::Type type=UniversalId::Type_None)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdTable.html#ab69bc2867c341b2e81f4faabec6bb337">CSMWorld::IdTable::addRecord</a> </td>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdTable.html#af288071f97e3fe987cf73667478bb286">CSMWorld::IdTable::addRecord</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Will be ignored, unless the collection supports multiple record types </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -214,6 +233,24 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab6abf0e89c0fe1c15a5c1248496bfb99"></a><!-- doxytag: member="CSMWorld::IdTable::findColumnIndex" ref="ab6abf0e89c0fe1c15a5c1248496bfb99" args="(Columns::ColumnId id) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classCSMWorld_1_1IdTable.html#ab6abf0e89c0fe1c15a5c1248496bfb99">CSMWorld::IdTable::findColumnIndex</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceCSMWorld_1_1Columns.html#aa425a67eda4e539203e6f14bde658e8c">Columns::ColumnId</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return index of column with the given <em>id</em>. If no such column exists, an exception is thrown. </p>
 
 </div>
 </div>
@@ -428,6 +465,25 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab5c755e2edbac60e123ad979fa7fdb4b"></a><!-- doxytag: member="CSMWorld::IdTable::searchColumnIndex" ref="ab5c755e2edbac60e123ad979fa7fdb4b" args="(Columns::ColumnId id) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classCSMWorld_1_1IdTable.html#ab5c755e2edbac60e123ad979fa7fdb4b">CSMWorld::IdTable::searchColumnIndex</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceCSMWorld_1_1Columns.html#aa425a67eda4e539203e6f14bde658e8c">Columns::ColumnId</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return index of column with the given <em>id</em>. If no such column exists, -1 is returned. </p>
+
+</div>
+</div>
 <a class="anchor" id="a86c9ce51cab4663cc303df61bd6f0ac3"></a><!-- doxytag: member="CSMWorld::IdTable::setData" ref="a86c9ce51cab4663cc303df61bd6f0ac3" args="(const QModelIndex &amp;index, const QVariant &amp;value, int role=Qt::EditRole)" -->
 <div class="memitem">
 <div class="memproto">
@@ -512,7 +568,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -96,40 +96,60 @@
 <a name="l00035"></a>00035         <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00036"></a>00036     }
 <a name="l00037"></a>00037 
-<a name="l00039"></a><a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2">00039</a>     <span class="keyword">static</span> std::string &amp;<a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2" title="Transforms input string to lower case w/o copy.">toLower</a>(std::string &amp;inout) {
-<a name="l00040"></a>00040         std::transform(
-<a name="l00041"></a>00041             inout.begin(),
-<a name="l00042"></a>00042             inout.end(),
-<a name="l00043"></a>00043             inout.begin(),
-<a name="l00044"></a>00044             (int (*)(int)) std::tolower
-<a name="l00045"></a>00045         );
-<a name="l00046"></a>00046         <span class="keywordflow">return</span> inout;
-<a name="l00047"></a>00047     }
-<a name="l00048"></a>00048 
-<a name="l00050"></a><a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14">00050</a>     <span class="keyword">static</span> std::string <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">lowerCase</a>(<span class="keyword">const</span> std::string &amp;in)
-<a name="l00051"></a>00051     {
-<a name="l00052"></a>00052         std::string out = in;
-<a name="l00053"></a>00053         <span class="keywordflow">return</span> <a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2" title="Transforms input string to lower case w/o copy.">toLower</a>(out);
-<a name="l00054"></a>00054     }
-<a name="l00055"></a>00055 };
-<a name="l00056"></a>00056 
+<a name="l00038"></a><a class="code" href="classMisc_1_1StringUtils.html#a09a6483fa1e7a3a0fdf141a37edc2196">00038</a>     <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classMisc_1_1StringUtils.html#a09a6483fa1e7a3a0fdf141a37edc2196">ciCompareLen</a>(<span class="keyword">const</span> std::string &amp;x, <span class="keyword">const</span> std::string &amp;y, <span class="keywordtype">size_t</span> len)
+<a name="l00039"></a>00039     {
+<a name="l00040"></a>00040         std::string::const_iterator xit = x.begin();
+<a name="l00041"></a>00041         std::string::const_iterator yit = y.begin();
+<a name="l00042"></a>00042         <span class="keywordflow">for</span>(;xit != x.end() &amp;&amp; yit != y.end() &amp;&amp; len &gt; 0;++xit,++yit,--len)
+<a name="l00043"></a>00043         {
+<a name="l00044"></a>00044             <span class="keywordtype">int</span> res = *xit - *yit;
+<a name="l00045"></a>00045             <span class="keywordflow">if</span>(res != 0 &amp;&amp; std::tolower(*xit) != std::tolower(*yit))
+<a name="l00046"></a>00046                 <span class="keywordflow">return</span> (res &gt; 0) ? 1 : -1;
+<a name="l00047"></a>00047         }
+<a name="l00048"></a>00048         <span class="keywordflow">if</span>(len &gt; 0)
+<a name="l00049"></a>00049         {
+<a name="l00050"></a>00050             <span class="keywordflow">if</span>(xit != x.end())
+<a name="l00051"></a>00051                 <span class="keywordflow">return</span> 1;
+<a name="l00052"></a>00052             <span class="keywordflow">if</span>(yit != y.end())
+<a name="l00053"></a>00053                 <span class="keywordflow">return</span> -1;
+<a name="l00054"></a>00054         }
+<a name="l00055"></a>00055         <span class="keywordflow">return</span> 0;
+<a name="l00056"></a>00056     }
 <a name="l00057"></a>00057 
-<a name="l00059"></a>00059 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#a4bd608d72e359338a2d2b20ce9ec1293" title="Returns true if str1 begins with substring str2.">begins</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
-<a name="l00060"></a>00060 
-<a name="l00062"></a>00062 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#ae9d02a3c6b545ea52771f7a77da907d5" title="Returns true if str1 ends with substring str2.">ends</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
-<a name="l00063"></a>00063 
-<a name="l00065"></a>00065 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#a2bd9fc5e47e9beaccebd0fd3a48feb09" title="Case insensitive, returns true if str1 begins with substring str2.">ibegins</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
-<a name="l00066"></a>00066 
-<a name="l00068"></a>00068 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#adce0eb596022b86252554d529b20d0cd" title="Case insensitive, returns true if str1 ends with substring str2.">iends</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070 }
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072 <span class="preprocessor">#endif</span>
+<a name="l00059"></a><a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2">00059</a>     <span class="keyword">static</span> std::string &amp;<a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2" title="Transforms input string to lower case w/o copy.">toLower</a>(std::string &amp;inout) {
+<a name="l00060"></a>00060         std::transform(
+<a name="l00061"></a>00061             inout.begin(),
+<a name="l00062"></a>00062             inout.end(),
+<a name="l00063"></a>00063             inout.begin(),
+<a name="l00064"></a>00064             (int (*)(int)) std::tolower
+<a name="l00065"></a>00065         );
+<a name="l00066"></a>00066         <span class="keywordflow">return</span> inout;
+<a name="l00067"></a>00067     }
+<a name="l00068"></a>00068 
+<a name="l00070"></a><a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14">00070</a>     <span class="keyword">static</span> std::string <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">lowerCase</a>(<span class="keyword">const</span> std::string &amp;in)
+<a name="l00071"></a>00071     {
+<a name="l00072"></a>00072         std::string out = in;
+<a name="l00073"></a>00073         <span class="keywordflow">return</span> <a class="code" href="classMisc_1_1StringUtils.html#aa4d0bd593b4e8eebea933db0511616e2" title="Transforms input string to lower case w/o copy.">toLower</a>(out);
+<a name="l00074"></a>00074     }
+<a name="l00075"></a>00075 };
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 
+<a name="l00079"></a>00079 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#a4bd608d72e359338a2d2b20ce9ec1293" title="Returns true if str1 begins with substring str2.">begins</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
+<a name="l00080"></a>00080 
+<a name="l00082"></a>00082 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#ae9d02a3c6b545ea52771f7a77da907d5" title="Returns true if str1 ends with substring str2.">ends</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
+<a name="l00083"></a>00083 
+<a name="l00085"></a>00085 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#a2bd9fc5e47e9beaccebd0fd3a48feb09" title="Case insensitive, returns true if str1 begins with substring str2.">ibegins</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088 <span class="keywordtype">bool</span> <a class="code" href="namespaceMisc.html#adce0eb596022b86252554d529b20d0cd" title="Case insensitive, returns true if str1 ends with substring str2.">iends</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str1, <span class="keyword">const</span> <span class="keywordtype">char</span>* str2);
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090 }
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

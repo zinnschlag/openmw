@@ -107,11 +107,11 @@
 <a name="l00046"></a><a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560a28587e15718a641364d6632f3ba35d6c">00046</a>             <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560a28587e15718a641364d6632f3ba35d6c">Display_RefRecordType</a>
 <a name="l00047"></a>00047         };
 <a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="structCSMWorld_1_1ColumnBase.html#a43868d8bdb939463ba7d07be7e16c7c0">00049</a>         std::string <a class="code" href="structCSMWorld_1_1ColumnBase.html#a43868d8bdb939463ba7d07be7e16c7c0">mTitle</a>;
+<a name="l00049"></a><a class="code" href="structCSMWorld_1_1ColumnBase.html#aa53f260b1f32c580579e5cfbcd040b77">00049</a>         <span class="keywordtype">int</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html#aa53f260b1f32c580579e5cfbcd040b77">mColumnId</a>;
 <a name="l00050"></a><a class="code" href="structCSMWorld_1_1ColumnBase.html#aa638d44fdbc19eea15db9e59fc4965ae">00050</a>         <span class="keywordtype">int</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html#aa638d44fdbc19eea15db9e59fc4965ae">mFlags</a>;
 <a name="l00051"></a><a class="code" href="structCSMWorld_1_1ColumnBase.html#a9831edab1d149553b461b1c8c048737e">00051</a>         <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> <a class="code" href="structCSMWorld_1_1ColumnBase.html#a9831edab1d149553b461b1c8c048737e">mDisplayType</a>;
 <a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <a class="code" href="structCSMWorld_1_1ColumnBase.html#a1494aa4c754ee9999388336fbbde9377">ColumnBase</a> (<span class="keyword">const</span> std::string&amp; title, <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> displayType, <span class="keywordtype">int</span> flag);
+<a name="l00053"></a>00053         <a class="code" href="structCSMWorld_1_1ColumnBase.html#a1295b62e51f99e4fb22c2e78992a4392">ColumnBase</a> (<span class="keywordtype">int</span> columnId, <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> displayType, <span class="keywordtype">int</span> flag);
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055         <span class="keyword">virtual</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html#aab3f52dc82ac00890d58f3f1b04eb44c">~ColumnBase</a>();
 <a name="l00056"></a>00056 
@@ -119,22 +119,22 @@
 <a name="l00058"></a>00058 
 <a name="l00059"></a>00059         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3b828d0f9c3263c3c927667eb22c3a0a" title="Can this column be edited directly by the user?">isUserEditable</a>() <span class="keyword">const</span>;
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062     };
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT&gt;
-<a name="l00065"></a><a class="code" href="structCSMWorld_1_1Column.html">00065</a>     <span class="keyword">struct </span><a class="code" href="structCSMWorld_1_1Column.html">Column</a> : <span class="keyword">public</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>
-<a name="l00066"></a>00066     {
-<a name="l00067"></a><a class="code" href="structCSMWorld_1_1Column.html#a2ad63d03cc0cc54d0ceabb772b01392b">00067</a>         std::string <a class="code" href="structCSMWorld_1_1Column.html#a2ad63d03cc0cc54d0ceabb772b01392b">mTitle</a>;
+<a name="l00062"></a>00062         <span class="keyword">virtual</span> std::string <a class="code" href="structCSMWorld_1_1ColumnBase.html#aa6c01c240fe3201a423e2dfef27892cd">getTitle</a>() <span class="keyword">const</span>;
+<a name="l00063"></a>00063     };
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT&gt;
+<a name="l00066"></a><a class="code" href="structCSMWorld_1_1Column.html">00066</a>     <span class="keyword">struct </span><a class="code" href="structCSMWorld_1_1Column.html">Column</a> : <span class="keyword">public</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>
+<a name="l00067"></a>00067     {
 <a name="l00068"></a><a class="code" href="structCSMWorld_1_1Column.html#a49627d3c5d710edede1d30fe4334ac09">00068</a>         <span class="keywordtype">int</span> <a class="code" href="structCSMWorld_1_1Column.html#a49627d3c5d710edede1d30fe4334ac09">mFlags</a>;
 <a name="l00069"></a>00069 
-<a name="l00070"></a><a class="code" href="structCSMWorld_1_1Column.html#a3e580a0409937ce8209451c2d40f1132">00070</a>         <a class="code" href="structCSMWorld_1_1Column.html#a3e580a0409937ce8209451c2d40f1132">Column</a> (<span class="keyword">const</span> std::string&amp; title, <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> displayType, <span class="keywordtype">int</span> flags = <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788af99d69e6ac5c7ef367a582d6e2206380">Flag_Table</a> | <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788a537fc4ee45f76e41d3e6a73befc2c9d2">Flag_Dialogue</a>)
-<a name="l00071"></a>00071         : <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a> (title, displayType, flags) {}
+<a name="l00070"></a><a class="code" href="structCSMWorld_1_1Column.html#a9e1439391534dd3695b67dfb36850da9">00070</a>         <a class="code" href="structCSMWorld_1_1Column.html#a9e1439391534dd3695b67dfb36850da9">Column</a> (<span class="keywordtype">int</span> columnId, <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> displayType, <span class="keywordtype">int</span> flags = <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788af99d69e6ac5c7ef367a582d6e2206380">Flag_Table</a> | <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788a537fc4ee45f76e41d3e6a73befc2c9d2">Flag_Dialogue</a>)
+<a name="l00071"></a>00071         : <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a> (columnId, displayType, flags) {}
 <a name="l00072"></a>00072 
 <a name="l00073"></a>00073         <span class="keyword">virtual</span> QVariant <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record) <span class="keyword">const</span> = 0;
 <a name="l00074"></a>00074 
 <a name="l00075"></a><a class="code" href="structCSMWorld_1_1Column.html#a42d42c344d445ab546822f2dd7654e10">00075</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <span class="keyword">set</span> (<a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record, <span class="keyword">const</span> QVariant&amp; data)
 <a name="l00076"></a>00076         {
-<a name="l00077"></a>00077             <span class="keywordflow">throw</span> std::logic_error (<span class="stringliteral">&quot;Column &quot;</span> + <a class="code" href="structCSMWorld_1_1Column.html#a2ad63d03cc0cc54d0ceabb772b01392b">mTitle</a> + <span class="stringliteral">&quot; is not editable&quot;</span>);
+<a name="l00077"></a>00077             <span class="keywordflow">throw</span> std::logic_error (<span class="stringliteral">&quot;Column &quot;</span> + <a class="code" href="structCSMWorld_1_1ColumnBase.html#aa6c01c240fe3201a423e2dfef27892cd">getTitle</a>() + <span class="stringliteral">&quot; is not editable&quot;</span>);
 <a name="l00078"></a>00078         }
 <a name="l00079"></a>00079     };
 <a name="l00080"></a>00080 }
@@ -144,7 +144,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

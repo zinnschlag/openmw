@@ -73,6 +73,9 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html">MWMechanics::CharacterController</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWWorld.html">MWWorld</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p><a class="el" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a> data. </p>
+<br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWRender.html">MWRender</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>Rendering via <a class="el" href="namespaceOgre.html">Ogre</a>. </p>
 <br/></td></tr>
@@ -83,11 +86,12 @@ Namespaces</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1">MWMechanics::Priority</a> { <br/>
 &#160;&#160;<a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a528e6a36b9743d9dfebe8bdc73aec37e">MWMechanics::Priority_Default</a>, 
+<a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9c12499ae1a75c6ed51fce3c47418626">MWMechanics::Priority_Jump</a>, 
 <a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1ad9e90c40dda46e21347861ab567c6f9b">MWMechanics::Priority_Movement</a>, 
 <a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a82b02adb1c944ce086dde096ce278207">MWMechanics::Priority_Weapon</a>, 
-<a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9e2cf79f43c502f8fdbf8e08fa64850d">MWMechanics::Priority_Torch</a>, 
 <br/>
-&#160;&#160;<a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a0a1a0d1a53f37b093d6c524ab0f5a778">MWMechanics::Priority_Death</a>, 
+&#160;&#160;<a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9e2cf79f43c502f8fdbf8e08fa64850d">MWMechanics::Priority_Torch</a>, 
+<a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a0a1a0d1a53f37b093d6c524ab0f5a778">MWMechanics::Priority_Death</a>, 
 <a class="el" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a6dff10b2570328dba6a4cf5370b63973">MWMechanics::Num_Priorities</a>
 <br/>
  }</td></tr>
@@ -161,12 +165,31 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca47f5e6fa8c5e200602971b7a74f62add">MWMechanics::WeapType_Spell</a>
 <br/>
  }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">MWMechanics::UpperBodyCharacterState</a> { <br/>
+&#160;&#160;<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a5b39e03b17882f465c5e1dfc8e61a58e">MWMechanics::UpperCharState_Nothing</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836aa5ab50d8d85e25a05e73d60c0187c451">MWMechanics::UpperCharState_EquipingWeap</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a43f39cb629af633baf0351e8b6c0f2c2">MWMechanics::UpperCharState_UnEquipingWeap</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a81e855fe1bf3bf270f2c9300f7e017c6">MWMechanics::UpperCharState_WeapEquiped</a>, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836ad19682f026d4c3ddede107f3728b0e8d">MWMechanics::UpperCharState_StartToMinAttack</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836af6a0c23afcbd3ba1871d0da3635bf335">MWMechanics::UpperCharState_MinAttackToMaxAttack</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a40078f019138c99f1dbcb7c01bd85e87">MWMechanics::UpperCharState_MaxAttackToMinHit</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a2d2a858ef725dae59f182b9ced92b9ad">MWMechanics::UpperCharState_MinHitToHit</a>, 
+<br/>
+&#160;&#160;<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a0be98d910b47a6f1e29f9ad9572d3f82">MWMechanics::UpperCharState_FollowStartToFollowStop</a>, 
+<a class="el" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a063bcb2c4da60bcdf33719e585d4628c">MWMechanics::UpperCharState_CastingSpell</a>
+<br/>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">MWMechanics::JumpingState</a> { <a class="el" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aaa1c4fc65a6e6c03f3e2af715dec10e02">MWMechanics::JumpState_None</a>, 
+<a class="el" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa89c90c612d511f64c9cd08d3c44ee089">MWMechanics::JumpState_Falling</a>, 
+<a class="el" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa350e1d704fcab56fd08347e14101e92a">MWMechanics::JumpState_Landing</a>
+ }</td></tr>
 </table>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

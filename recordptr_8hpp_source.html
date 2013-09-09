@@ -96,7 +96,7 @@
 <a name="l00039"></a>00039 {
 <a name="l00040"></a>00040     <span class="keyword">union </span>{
 <a name="l00041"></a><a class="code" href="classNif_1_1RecordPtrT.html#af63e7ee560e88329286d1cd8311ed531">00041</a>         intptr_t <a class="code" href="classNif_1_1RecordPtrT.html#af63e7ee560e88329286d1cd8311ed531">index</a>;
-<a name="l00042"></a><a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">00042</a>         <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
+<a name="l00042"></a><a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">00042</a>         X* <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
 <a name="l00043"></a>00043     };
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 <span class="keyword">public</span>:
@@ -120,106 +120,118 @@
 <a name="l00065"></a>00065         {
 <a name="l00066"></a>00066             <a class="code" href="structNif_1_1Record.html" title="Base class for all records.">Record</a> *r = nif-&gt;<a class="code" href="classNif_1_1NIFFile.html#a6b124e8975b3ae4869a94e3717a656f4" title="Get a given record.">getRecord</a>(<a class="code" href="classNif_1_1RecordPtrT.html#af63e7ee560e88329286d1cd8311ed531">index</a>);
 <a name="l00067"></a>00067             <span class="comment">// And cast it</span>
-<a name="l00068"></a>00068             <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>*<span class="keyword">&gt;</span>(r);
+<a name="l00068"></a>00068             <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> = <span class="keyword">dynamic_cast&lt;</span>X*<span class="keyword">&gt;</span>(r);
 <a name="l00069"></a>00069             assert(<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> != NULL);
 <a name="l00070"></a>00070         }
 <a name="l00071"></a>00071     }
 <a name="l00072"></a>00072 
-<a name="l00074"></a><a class="code" href="classNif_1_1RecordPtrT.html#a843836fcd8e469fc116652587b50cea4">00074</a>     <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="classNif_1_1RecordPtrT.html#a843836fcd8e469fc116652587b50cea4" title="Look up the actual object from the index.">getPtr</a>()<span class="keyword"> const</span>
+<a name="l00074"></a><a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853">00074</a>     <span class="keyword">const</span> X* <a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853" title="Look up the actual object from the index.">getPtr</a>()<span class="keyword"> const</span>
 <a name="l00075"></a>00075 <span class="keyword">    </span>{
 <a name="l00076"></a>00076         assert(<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> != NULL);
 <a name="l00077"></a>00077         <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
 <a name="l00078"></a>00078     }
-<a name="l00079"></a><a class="code" href="classNif_1_1RecordPtrT.html#a03e09dd6bb4c0e22a94cf87cfd7da669">00079</a>     <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>&amp; <span class="keyword">get</span>() <span class="keyword">const</span>
-<a name="l00080"></a>00080     { <span class="keywordflow">return</span> *<a class="code" href="classNif_1_1RecordPtrT.html#a843836fcd8e469fc116652587b50cea4" title="Look up the actual object from the index.">getPtr</a>(); }
-<a name="l00081"></a>00081 
-<a name="l00083"></a><a class="code" href="classNif_1_1RecordPtrT.html#a289efe36749e40f55a38ee1fae1645d3">00083</a>     <a class="code" href="triangle__test_8cpp.html#a93188324f4ddec8d3bdac778e12231ba">X</a>* <a class="code" href="classNif_1_1RecordPtrT.html#a289efe36749e40f55a38ee1fae1645d3" title="Syntactic sugar.">operator-&gt;</a>()<span class="keyword"> const</span>
-<a name="l00084"></a>00084 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a843836fcd8e469fc116652587b50cea4" title="Look up the actual object from the index.">getPtr</a>(); }
-<a name="l00085"></a>00085 
-<a name="l00087"></a><a class="code" href="classNif_1_1RecordPtrT.html#a68d4256af5ae88e775427d7d150952c3">00087</a>     <span class="keywordtype">bool</span> <a class="code" href="classNif_1_1RecordPtrT.html#a68d4256af5ae88e775427d7d150952c3" title="Pointers are allowed to be empty.">empty</a>()<span class="keyword"> const</span>
-<a name="l00088"></a>00088 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> == NULL; }
-<a name="l00089"></a>00089 };
-<a name="l00090"></a>00090 
-<a name="l00095"></a>00095 <span class="keyword">template</span> &lt;<span class="keyword">class</span> X&gt;
-<a name="l00096"></a><a class="code" href="classNif_1_1RecordListT.html">00096</a> <span class="keyword">class </span><a class="code" href="classNif_1_1RecordListT.html">RecordListT</a>
-<a name="l00097"></a>00097 {
-<a name="l00098"></a><a class="code" href="classNif_1_1RecordListT.html#aff224fee3608f82bd5ee235b40406453">00098</a>     <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;X&gt;</a> <a class="code" href="classNif_1_1RecordListT.html#aff224fee3608f82bd5ee235b40406453">Ptr</a>;
-<a name="l00099"></a><a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">00099</a>     std::vector&lt;Ptr&gt; <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>;
+<a name="l00079"></a><a class="code" href="classNif_1_1RecordPtrT.html#af326f05d7fee20aab5cda2996aa0801d">00079</a>     X* <a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853" title="Look up the actual object from the index.">getPtr</a>()
+<a name="l00080"></a>00080     {
+<a name="l00081"></a>00081         assert(<a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> != NULL);
+<a name="l00082"></a>00082         <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a>;
+<a name="l00083"></a>00083     }
+<a name="l00084"></a>00084 
+<a name="l00085"></a><a class="code" href="classNif_1_1RecordPtrT.html#a3080e7745075726b97f00ddcceaea229">00085</a>     <span class="keyword">const</span> X&amp; <span class="keyword">get</span>() <span class="keyword">const</span>
+<a name="l00086"></a>00086     { <span class="keywordflow">return</span> *<a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853" title="Look up the actual object from the index.">getPtr</a>(); }
+<a name="l00087"></a><a class="code" href="classNif_1_1RecordPtrT.html#aaf3dbbb4aa65adf6397c3fa45103341b">00087</a>     X&amp; <span class="keyword">get</span>()
+<a name="l00088"></a>00088     { <span class="keywordflow">return</span> *<a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853" title="Look up the actual object from the index.">getPtr</a>(); }
+<a name="l00089"></a>00089 
+<a name="l00091"></a><a class="code" href="classNif_1_1RecordPtrT.html#a276ec83e382e83685c2159f59e81ab72">00091</a>     <span class="keyword">const</span> X* <a class="code" href="classNif_1_1RecordPtrT.html#a276ec83e382e83685c2159f59e81ab72" title="Syntactic sugar.">operator-&gt;</a>()<span class="keyword"> const</span>
+<a name="l00092"></a>00092 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853" title="Look up the actual object from the index.">getPtr</a>(); }
+<a name="l00093"></a><a class="code" href="classNif_1_1RecordPtrT.html#a3a263d47e09ee3c935ec21202f92ca62">00093</a>     X* <a class="code" href="classNif_1_1RecordPtrT.html#a276ec83e382e83685c2159f59e81ab72" title="Syntactic sugar.">operator-&gt;</a>()
+<a name="l00094"></a>00094     { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#aef01008d4fa996e8b0a5b3c7e92f0853" title="Look up the actual object from the index.">getPtr</a>(); }
+<a name="l00095"></a>00095 
+<a name="l00097"></a><a class="code" href="classNif_1_1RecordPtrT.html#a68d4256af5ae88e775427d7d150952c3">00097</a>     <span class="keywordtype">bool</span> <a class="code" href="classNif_1_1RecordPtrT.html#a68d4256af5ae88e775427d7d150952c3" title="Pointers are allowed to be empty.">empty</a>()<span class="keyword"> const</span>
+<a name="l00098"></a>00098 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordPtrT.html#a70bcfe1eabc5a352ef322279b93e9d75">ptr</a> == NULL; }
+<a name="l00099"></a>00099 };
 <a name="l00100"></a>00100 
-<a name="l00101"></a>00101 <span class="keyword">public</span>:
-<a name="l00102"></a><a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">00102</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00103"></a>00103     {
-<a name="l00104"></a>00104         <span class="keywordtype">int</span> len = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
-<a name="l00105"></a>00105         <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.resize(len);
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107         <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i=0;i &lt; <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size();i++)
-<a name="l00108"></a>00108             <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>[i].<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
-<a name="l00109"></a>00109     }
+<a name="l00105"></a>00105 <span class="keyword">template</span> &lt;<span class="keyword">class</span> X&gt;
+<a name="l00106"></a><a class="code" href="classNif_1_1RecordListT.html">00106</a> <span class="keyword">class </span><a class="code" href="classNif_1_1RecordListT.html">RecordListT</a>
+<a name="l00107"></a>00107 {
+<a name="l00108"></a><a class="code" href="classNif_1_1RecordListT.html#aff224fee3608f82bd5ee235b40406453">00108</a>     <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;X&gt;</a> <a class="code" href="classNif_1_1RecordListT.html#aff224fee3608f82bd5ee235b40406453">Ptr</a>;
+<a name="l00109"></a><a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">00109</a>     std::vector&lt;Ptr&gt; <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>;
 <a name="l00110"></a>00110 
-<a name="l00111"></a><a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">00111</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00112"></a>00112     {
-<a name="l00113"></a>00113         <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i=0;i &lt; <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size();i++)
-<a name="l00114"></a>00114             <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>[i].<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
-<a name="l00115"></a>00115     }
+<a name="l00111"></a>00111 <span class="keyword">public</span>:
+<a name="l00112"></a><a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">00112</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00113"></a>00113     {
+<a name="l00114"></a>00114         <span class="keywordtype">int</span> len = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>();
+<a name="l00115"></a>00115         <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.resize(len);
 <a name="l00116"></a>00116 
-<a name="l00117"></a><a class="code" href="classNif_1_1RecordListT.html#aea71cf215df98849a931ec4bceb815b0">00117</a>     <span class="keyword">const</span> <a class="code" href="classNif_1_1RecordPtrT.html">Ptr</a>&amp; <a class="code" href="classNif_1_1RecordListT.html#aea71cf215df98849a931ec4bceb815b0">operator[]</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const</span>
-<a name="l00118"></a>00118 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.at(index); }
-<a name="l00119"></a>00119 
-<a name="l00120"></a><a class="code" href="classNif_1_1RecordListT.html#a87b79faa1d7751a8d88e27fd6f80dabb">00120</a>     <span class="keywordtype">size_t</span> <a class="code" href="classNif_1_1RecordListT.html#a87b79faa1d7751a8d88e27fd6f80dabb">length</a>()<span class="keyword"> const</span>
-<a name="l00121"></a>00121 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size(); }
-<a name="l00122"></a>00122 };
-<a name="l00123"></a>00123 
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125 <span class="keyword">class </span>Node;
-<a name="l00126"></a>00126 <span class="keyword">class </span>Extra;
-<a name="l00127"></a>00127 <span class="keyword">class </span>Property;
-<a name="l00128"></a>00128 <span class="keyword">class </span>NiUVData;
-<a name="l00129"></a>00129 <span class="keyword">class </span>NiPosData;
-<a name="l00130"></a>00130 <span class="keyword">class </span>NiVisData;
-<a name="l00131"></a>00131 <span class="keyword">class </span>Controller;
-<a name="l00132"></a>00132 <span class="keyword">class </span>Controlled;
-<a name="l00133"></a>00133 <span class="keyword">class </span>NiSkinData;
-<a name="l00134"></a>00134 <span class="keyword">class </span>NiFloatData;
-<a name="l00135"></a>00135 <span class="keyword">class </span>NiMorphData;
-<a name="l00136"></a>00136 <span class="keyword">class </span>NiPixelData;
-<a name="l00137"></a>00137 <span class="keyword">class </span>NiColorData;
-<a name="l00138"></a>00138 <span class="keyword">class </span>NiKeyframeData;
-<a name="l00139"></a>00139 <span class="keyword">class </span>NiTriShapeData;
-<a name="l00140"></a>00140 <span class="keyword">class </span>NiSkinInstance;
-<a name="l00141"></a>00141 <span class="keyword">class </span>NiSourceTexture;
-<a name="l00142"></a>00142 <span class="keyword">class </span>NiRotatingParticlesData;
-<a name="l00143"></a><a class="code" href="namespaceNif.html#a426c183b1d9a49e6c306c886b7017b67">00143</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiAutoNormalParticlesData.html">NiAutoNormalParticlesData</a>;
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145 <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Node&gt;</a> <a class="code" href="namespaceNif.html#a426c183b1d9a49e6c306c886b7017b67">NodePtr</a>;
-<a name="l00146"></a><a class="code" href="namespaceNif.html#adc774c7efb1eee6783b4f3a324f8247a">00146</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Extra&gt;</a> <a class="code" href="namespaceNif.html#adc774c7efb1eee6783b4f3a324f8247a">ExtraPtr</a>;
-<a name="l00147"></a><a class="code" href="namespaceNif.html#a9847e541ead2a770a7b94a969c02aa0f">00147</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiUVData&gt;</a> <a class="code" href="namespaceNif.html#a9847e541ead2a770a7b94a969c02aa0f">NiUVDataPtr</a>;
-<a name="l00148"></a><a class="code" href="namespaceNif.html#a5836c4f6c02323f04abdee64412eb8d4">00148</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiPosData&gt;</a> <a class="code" href="namespaceNif.html#a5836c4f6c02323f04abdee64412eb8d4">NiPosDataPtr</a>;
-<a name="l00149"></a><a class="code" href="namespaceNif.html#a0dd1bf0e0baf53ec75599e632db6c2ed">00149</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiVisData&gt;</a> <a class="code" href="namespaceNif.html#a0dd1bf0e0baf53ec75599e632db6c2ed">NiVisDataPtr</a>;
-<a name="l00150"></a><a class="code" href="namespaceNif.html#ae62f3a48888e3fe5b40b31b48552d3aa">00150</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Controller&gt;</a> <a class="code" href="namespaceNif.html#ae62f3a48888e3fe5b40b31b48552d3aa">ControllerPtr</a>;
-<a name="l00151"></a><a class="code" href="namespaceNif.html#a6597a98b37997923ccb7c4ffac2fe602">00151</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Controlled&gt;</a> <a class="code" href="namespaceNif.html#a6597a98b37997923ccb7c4ffac2fe602">ControlledPtr</a>;
-<a name="l00152"></a><a class="code" href="namespaceNif.html#a74456b2eff7ef6c2b6d3d36c9d72f25c">00152</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiSkinData&gt;</a> <a class="code" href="namespaceNif.html#a74456b2eff7ef6c2b6d3d36c9d72f25c">NiSkinDataPtr</a>;
-<a name="l00153"></a><a class="code" href="namespaceNif.html#a60de28ed27c6ee7ae2d04ddc658bbc60">00153</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiMorphData&gt;</a> <a class="code" href="namespaceNif.html#a60de28ed27c6ee7ae2d04ddc658bbc60">NiMorphDataPtr</a>;
-<a name="l00154"></a><a class="code" href="namespaceNif.html#acd0a68a1e56943d35d3ab61328e8cb63">00154</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiPixelData&gt;</a> <a class="code" href="namespaceNif.html#acd0a68a1e56943d35d3ab61328e8cb63">NiPixelDataPtr</a>;
-<a name="l00155"></a><a class="code" href="namespaceNif.html#a0825b0cf373e4aa791a1ca93b67f0e12">00155</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiFloatData&gt;</a> <a class="code" href="namespaceNif.html#a0825b0cf373e4aa791a1ca93b67f0e12">NiFloatDataPtr</a>;
-<a name="l00156"></a><a class="code" href="namespaceNif.html#a4fbcff21627ac9ec8a6d5477b2739c94">00156</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiColorData&gt;</a> <a class="code" href="namespaceNif.html#a4fbcff21627ac9ec8a6d5477b2739c94">NiColorDataPtr</a>;
-<a name="l00157"></a><a class="code" href="namespaceNif.html#a2ec7d27c8fa7b1c70032fc1c6d572996">00157</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiKeyframeData&gt;</a> <a class="code" href="namespaceNif.html#a2ec7d27c8fa7b1c70032fc1c6d572996">NiKeyframeDataPtr</a>;
-<a name="l00158"></a><a class="code" href="namespaceNif.html#a4577e836931bf1b1346ae0e898d636f7">00158</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiTriShapeData&gt;</a> <a class="code" href="namespaceNif.html#a4577e836931bf1b1346ae0e898d636f7">NiTriShapeDataPtr</a>;
-<a name="l00159"></a><a class="code" href="namespaceNif.html#ad7801cc47f124256c82e71a6f5e4776b">00159</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiSkinInstance&gt;</a> <a class="code" href="namespaceNif.html#ad7801cc47f124256c82e71a6f5e4776b">NiSkinInstancePtr</a>;
-<a name="l00160"></a><a class="code" href="namespaceNif.html#ab51549e73877819f58121558d2ea23c6">00160</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiSourceTexture&gt;</a> <a class="code" href="namespaceNif.html#ab51549e73877819f58121558d2ea23c6">NiSourceTexturePtr</a>;
-<a name="l00161"></a><a class="code" href="namespaceNif.html#ae117a14f21f5da5e373076e8a1fa4545">00161</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiRotatingParticlesData&gt;</a> <a class="code" href="namespaceNif.html#ae117a14f21f5da5e373076e8a1fa4545">NiRotatingParticlesDataPtr</a>;
-<a name="l00162"></a><a class="code" href="namespaceNif.html#a45d8bf6b5df88a39964dd5bb31bb69a7">00162</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiAutoNormalParticlesData&gt;</a> <a class="code" href="namespaceNif.html#a45d8bf6b5df88a39964dd5bb31bb69a7">NiAutoNormalParticlesDataPtr</a>;
-<a name="l00163"></a>00163 
-<a name="l00164"></a><a class="code" href="namespaceNif.html#a6a2f4db2ae7e91cc2e378c41b9eb2e08">00164</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordListT.html">RecordListT&lt;Node&gt;</a> <a class="code" href="namespaceNif.html#a6a2f4db2ae7e91cc2e378c41b9eb2e08">NodeList</a>;
-<a name="l00165"></a><a class="code" href="namespaceNif.html#a33957e9ecffc92645011fc72b60c1d68">00165</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordListT.html">RecordListT&lt;Property&gt;</a> <a class="code" href="namespaceNif.html#a33957e9ecffc92645011fc72b60c1d68">PropertyList</a>;
-<a name="l00166"></a><a class="code" href="namespaceNif.html#a6ee737b707e8fca24b89d6962a2bd3ae">00166</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordListT.html">RecordListT&lt;NiSourceTexture&gt;</a> <a class="code" href="namespaceNif.html#a6ee737b707e8fca24b89d6962a2bd3ae">NiSourceTextureList</a>;
-<a name="l00167"></a>00167 
-<a name="l00168"></a>00168 } <span class="comment">// Namespace</span>
-<a name="l00169"></a>00169 <span class="preprocessor">#endif</span>
+<a name="l00117"></a>00117         <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i=0;i &lt; <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size();i++)
+<a name="l00118"></a>00118             <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>[i].<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
+<a name="l00119"></a>00119     }
+<a name="l00120"></a>00120 
+<a name="l00121"></a><a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">00121</a>     <span class="keywordtype">void</span> <a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00122"></a>00122     {
+<a name="l00123"></a>00123         <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i=0;i &lt; <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size();i++)
+<a name="l00124"></a>00124             <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>[i].<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
+<a name="l00125"></a>00125     }
+<a name="l00126"></a>00126 
+<a name="l00127"></a><a class="code" href="classNif_1_1RecordListT.html#aea71cf215df98849a931ec4bceb815b0">00127</a>     <span class="keyword">const</span> <a class="code" href="classNif_1_1RecordPtrT.html">Ptr</a>&amp; <a class="code" href="classNif_1_1RecordListT.html#aea71cf215df98849a931ec4bceb815b0">operator[]</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const</span>
+<a name="l00128"></a>00128 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.at(index); }
+<a name="l00129"></a><a class="code" href="classNif_1_1RecordListT.html#a24c278d2707201acd612d4739ee44874">00129</a>     <a class="code" href="classNif_1_1RecordPtrT.html">Ptr</a>&amp; <a class="code" href="classNif_1_1RecordListT.html#aea71cf215df98849a931ec4bceb815b0">operator[]</a>(<span class="keywordtype">size_t</span> index)
+<a name="l00130"></a>00130     { <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.at(index); }
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="classNif_1_1RecordListT.html#a87b79faa1d7751a8d88e27fd6f80dabb">00132</a>     <span class="keywordtype">size_t</span> <a class="code" href="classNif_1_1RecordListT.html#a87b79faa1d7751a8d88e27fd6f80dabb">length</a>()<span class="keyword"> const</span>
+<a name="l00133"></a>00133 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classNif_1_1RecordListT.html#a6b2d43710e8ddb419c4bd31250ac1292">list</a>.size(); }
+<a name="l00134"></a>00134 };
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137 <span class="keyword">class </span>Node;
+<a name="l00138"></a>00138 <span class="keyword">class </span>Extra;
+<a name="l00139"></a>00139 <span class="keyword">class </span>Property;
+<a name="l00140"></a>00140 <span class="keyword">class </span>NiUVData;
+<a name="l00141"></a>00141 <span class="keyword">class </span>NiPosData;
+<a name="l00142"></a>00142 <span class="keyword">class </span>NiVisData;
+<a name="l00143"></a>00143 <span class="keyword">class </span>Controller;
+<a name="l00144"></a>00144 <span class="keyword">class </span>Controlled;
+<a name="l00145"></a>00145 <span class="keyword">class </span>NiSkinData;
+<a name="l00146"></a>00146 <span class="keyword">class </span>NiFloatData;
+<a name="l00147"></a>00147 <span class="keyword">class </span>NiMorphData;
+<a name="l00148"></a>00148 <span class="keyword">class </span>NiPixelData;
+<a name="l00149"></a>00149 <span class="keyword">class </span>NiColorData;
+<a name="l00150"></a>00150 <span class="keyword">class </span>NiKeyframeData;
+<a name="l00151"></a>00151 <span class="keyword">class </span>NiTriShapeData;
+<a name="l00152"></a>00152 <span class="keyword">class </span>NiSkinInstance;
+<a name="l00153"></a>00153 <span class="keyword">class </span>NiSourceTexture;
+<a name="l00154"></a>00154 <span class="keyword">class </span>NiRotatingParticlesData;
+<a name="l00155"></a><a class="code" href="namespaceNif.html#a426c183b1d9a49e6c306c886b7017b67">00155</a> <span class="keyword">class </span><a class="code" href="classNif_1_1NiAutoNormalParticlesData.html">NiAutoNormalParticlesData</a>;
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157 <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Node&gt;</a> <a class="code" href="namespaceNif.html#a426c183b1d9a49e6c306c886b7017b67">NodePtr</a>;
+<a name="l00158"></a><a class="code" href="namespaceNif.html#adc774c7efb1eee6783b4f3a324f8247a">00158</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Extra&gt;</a> <a class="code" href="namespaceNif.html#adc774c7efb1eee6783b4f3a324f8247a">ExtraPtr</a>;
+<a name="l00159"></a><a class="code" href="namespaceNif.html#a9847e541ead2a770a7b94a969c02aa0f">00159</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiUVData&gt;</a> <a class="code" href="namespaceNif.html#a9847e541ead2a770a7b94a969c02aa0f">NiUVDataPtr</a>;
+<a name="l00160"></a><a class="code" href="namespaceNif.html#a5836c4f6c02323f04abdee64412eb8d4">00160</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiPosData&gt;</a> <a class="code" href="namespaceNif.html#a5836c4f6c02323f04abdee64412eb8d4">NiPosDataPtr</a>;
+<a name="l00161"></a><a class="code" href="namespaceNif.html#a0dd1bf0e0baf53ec75599e632db6c2ed">00161</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiVisData&gt;</a> <a class="code" href="namespaceNif.html#a0dd1bf0e0baf53ec75599e632db6c2ed">NiVisDataPtr</a>;
+<a name="l00162"></a><a class="code" href="namespaceNif.html#ae62f3a48888e3fe5b40b31b48552d3aa">00162</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Controller&gt;</a> <a class="code" href="namespaceNif.html#ae62f3a48888e3fe5b40b31b48552d3aa">ControllerPtr</a>;
+<a name="l00163"></a><a class="code" href="namespaceNif.html#a6597a98b37997923ccb7c4ffac2fe602">00163</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;Controlled&gt;</a> <a class="code" href="namespaceNif.html#a6597a98b37997923ccb7c4ffac2fe602">ControlledPtr</a>;
+<a name="l00164"></a><a class="code" href="namespaceNif.html#a74456b2eff7ef6c2b6d3d36c9d72f25c">00164</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiSkinData&gt;</a> <a class="code" href="namespaceNif.html#a74456b2eff7ef6c2b6d3d36c9d72f25c">NiSkinDataPtr</a>;
+<a name="l00165"></a><a class="code" href="namespaceNif.html#a60de28ed27c6ee7ae2d04ddc658bbc60">00165</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiMorphData&gt;</a> <a class="code" href="namespaceNif.html#a60de28ed27c6ee7ae2d04ddc658bbc60">NiMorphDataPtr</a>;
+<a name="l00166"></a><a class="code" href="namespaceNif.html#acd0a68a1e56943d35d3ab61328e8cb63">00166</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiPixelData&gt;</a> <a class="code" href="namespaceNif.html#acd0a68a1e56943d35d3ab61328e8cb63">NiPixelDataPtr</a>;
+<a name="l00167"></a><a class="code" href="namespaceNif.html#a0825b0cf373e4aa791a1ca93b67f0e12">00167</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiFloatData&gt;</a> <a class="code" href="namespaceNif.html#a0825b0cf373e4aa791a1ca93b67f0e12">NiFloatDataPtr</a>;
+<a name="l00168"></a><a class="code" href="namespaceNif.html#a4fbcff21627ac9ec8a6d5477b2739c94">00168</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiColorData&gt;</a> <a class="code" href="namespaceNif.html#a4fbcff21627ac9ec8a6d5477b2739c94">NiColorDataPtr</a>;
+<a name="l00169"></a><a class="code" href="namespaceNif.html#a2ec7d27c8fa7b1c70032fc1c6d572996">00169</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiKeyframeData&gt;</a> <a class="code" href="namespaceNif.html#a2ec7d27c8fa7b1c70032fc1c6d572996">NiKeyframeDataPtr</a>;
+<a name="l00170"></a><a class="code" href="namespaceNif.html#a4577e836931bf1b1346ae0e898d636f7">00170</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiTriShapeData&gt;</a> <a class="code" href="namespaceNif.html#a4577e836931bf1b1346ae0e898d636f7">NiTriShapeDataPtr</a>;
+<a name="l00171"></a><a class="code" href="namespaceNif.html#ad7801cc47f124256c82e71a6f5e4776b">00171</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiSkinInstance&gt;</a> <a class="code" href="namespaceNif.html#ad7801cc47f124256c82e71a6f5e4776b">NiSkinInstancePtr</a>;
+<a name="l00172"></a><a class="code" href="namespaceNif.html#ab51549e73877819f58121558d2ea23c6">00172</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiSourceTexture&gt;</a> <a class="code" href="namespaceNif.html#ab51549e73877819f58121558d2ea23c6">NiSourceTexturePtr</a>;
+<a name="l00173"></a><a class="code" href="namespaceNif.html#ae117a14f21f5da5e373076e8a1fa4545">00173</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiRotatingParticlesData&gt;</a> <a class="code" href="namespaceNif.html#ae117a14f21f5da5e373076e8a1fa4545">NiRotatingParticlesDataPtr</a>;
+<a name="l00174"></a><a class="code" href="namespaceNif.html#a45d8bf6b5df88a39964dd5bb31bb69a7">00174</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordPtrT.html">RecordPtrT&lt;NiAutoNormalParticlesData&gt;</a> <a class="code" href="namespaceNif.html#a45d8bf6b5df88a39964dd5bb31bb69a7">NiAutoNormalParticlesDataPtr</a>;
+<a name="l00175"></a>00175 
+<a name="l00176"></a><a class="code" href="namespaceNif.html#a6a2f4db2ae7e91cc2e378c41b9eb2e08">00176</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordListT.html">RecordListT&lt;Node&gt;</a> <a class="code" href="namespaceNif.html#a6a2f4db2ae7e91cc2e378c41b9eb2e08">NodeList</a>;
+<a name="l00177"></a><a class="code" href="namespaceNif.html#a33957e9ecffc92645011fc72b60c1d68">00177</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordListT.html">RecordListT&lt;Property&gt;</a> <a class="code" href="namespaceNif.html#a33957e9ecffc92645011fc72b60c1d68">PropertyList</a>;
+<a name="l00178"></a><a class="code" href="namespaceNif.html#a6ee737b707e8fca24b89d6962a2bd3ae">00178</a> <span class="keyword">typedef</span> <a class="code" href="classNif_1_1RecordListT.html">RecordListT&lt;NiSourceTexture&gt;</a> <a class="code" href="namespaceNif.html#a6ee737b707e8fca24b89d6962a2bd3ae">NiSourceTextureList</a>;
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180 } <span class="comment">// Namespace</span>
+<a name="l00181"></a>00181 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

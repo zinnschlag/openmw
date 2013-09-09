@@ -173,7 +173,7 @@
 <a name="l00127"></a>00127     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
 <a name="l00128"></a><a class="code" href="classCSMWorld_1_1Collection.html#a3992ee004b567b796ae84aa60f323e9b">00128</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#a3992ee004b567b796ae84aa60f323e9b" title="Add a new record (modified)">Collection&lt;ESXRecordT, IdAccessorT&gt;::add</a> (<span class="keyword">const</span> ESXRecordT&amp; record)
 <a name="l00129"></a>00129     {
-<a name="l00130"></a>00130         std::string <span class="keywordtype">id</span> = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a> (IdAccessorT().getId (record));
+<a name="l00130"></a>00130         std::string <span class="keywordtype">id</span> = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a> (IdAccessorT().<a class="code" href="namespaceCSMWorld_1_1Columns.html#a70cce739760cf0f6d43b4e49c8d45e42" title="Will return -1 for an invalid name.">getId</a> (record));
 <a name="l00131"></a>00131 
 <a name="l00132"></a>00132         std::map&lt;std::string, int&gt;::iterator iter = mIndex.find (<span class="keywordtype">id</span>);
 <a name="l00133"></a>00133 
@@ -207,7 +207,7 @@
 <a name="l00161"></a>00161     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
 <a name="l00162"></a><a class="code" href="classCSMWorld_1_1Collection.html#a9018dfef5f88e25b013c77be4e25228a">00162</a>     <span class="keywordtype">int</span>  <a class="code" href="classCSMWorld_1_1Collection.html#a9018dfef5f88e25b013c77be4e25228a">Collection&lt;ESXRecordT, IdAccessorT&gt;::getIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
 <a name="l00163"></a>00163 <span class="keyword">    </span>{
-<a name="l00164"></a>00164         <span class="keywordtype">int</span> index = searchId (<span class="keywordtype">id</span>);
+<a name="l00164"></a>00164         <span class="keywordtype">int</span> index = <a class="code" href="namespaceanonymous__namespace_02containerstore_8cpp_03.html#a48879aba894eb23709a04a3a700ad2f7">searchId</a> (<span class="keywordtype">id</span>);
 <a name="l00165"></a>00165 
 <a name="l00166"></a>00166         <span class="keywordflow">if</span> (index==-1)
 <a name="l00167"></a>00167             <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;invalid ID: &quot;</span> + <span class="keywordtype">id</span>);
@@ -282,91 +282,92 @@
 <a name="l00236"></a>00236                 <span class="keywordflow">if</span> (iter-&gt;second&gt;=index+count)
 <a name="l00237"></a>00237                 {
 <a name="l00238"></a>00238                     iter-&gt;second -= <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>;
-<a name="l00239"></a>00239                 }
-<a name="l00240"></a>00240                 <span class="keywordflow">else</span>
-<a name="l00241"></a>00241                 {
-<a name="l00242"></a>00242                     mIndex.erase (iter++);
-<a name="l00243"></a>00243                 }
-<a name="l00244"></a>00244             }
-<a name="l00245"></a>00245 
-<a name="l00246"></a>00246             ++iter;
-<a name="l00247"></a>00247         }
-<a name="l00248"></a>00248     }
-<a name="l00249"></a>00249 
-<a name="l00250"></a>00250     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00251"></a><a class="code" href="classCSMWorld_1_1Collection.html#aad8b6e183726870a785a3a41580e92a4">00251</a>     <span class="keywordtype">void</span>  <a class="code" href="classCSMWorld_1_1Collection.html#aad8b6e183726870a785a3a41580e92a4">Collection&lt;ESXRecordT, IdAccessorT&gt;::appendBlankRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,
-<a name="l00252"></a>00252         <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)
-<a name="l00253"></a>00253     {
-<a name="l00254"></a>00254         ESXRecordT record;
-<a name="l00255"></a>00255         IdAccessorT().getId (record) = id;
-<a name="l00256"></a>00256         record.blank();
-<a name="l00257"></a>00257         <a class="code" href="namespaceCompiler_1_1Generator.html#a634c38e92425ef8c475cce667f4b65dd">add</a> (record);
-<a name="l00258"></a>00258     }
-<a name="l00259"></a>00259 
-<a name="l00260"></a>00260     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00261"></a><a class="code" href="classCSMWorld_1_1Collection.html#a5e6b63cd8a4efea626383d5c8f212b4d">00261</a>     <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1Collection.html#a5e6b63cd8a4efea626383d5c8f212b4d">Collection&lt;ESXRecordT, IdAccessorT&gt;::searchId</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00262"></a>00262 <span class="keyword">    </span>{
-<a name="l00263"></a>00263         std::string id2 = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
-<a name="l00264"></a>00264 
-<a name="l00265"></a>00265         std::map&lt;std::string, int&gt;::const_iterator iter = mIndex.find (id2);
-<a name="l00266"></a>00266 
-<a name="l00267"></a>00267         <span class="keywordflow">if</span> (iter==mIndex.end())
-<a name="l00268"></a>00268             <span class="keywordflow">return</span> -1;
-<a name="l00269"></a>00269 
-<a name="l00270"></a>00270         <span class="keywordflow">return</span> iter-&gt;second;
-<a name="l00271"></a>00271     }
-<a name="l00272"></a>00272 
-<a name="l00273"></a>00273     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00274"></a><a class="code" href="classCSMWorld_1_1Collection.html#af330e6f997da698a41a98bba9517cfad">00274</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#af330e6f997da698a41a98bba9517cfad">Collection&lt;ESXRecordT, IdAccessorT&gt;::replace</a> (<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record)
-<a name="l00275"></a>00275     {
-<a name="l00276"></a>00276         mRecords.at (index) = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp;<span class="keyword">&gt;</span> (record);
-<a name="l00277"></a>00277     }
-<a name="l00278"></a>00278 
-<a name="l00279"></a>00279     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00280"></a><a class="code" href="classCSMWorld_1_1Collection.html#a38ec1e3749274da7dd793fda090e1f41">00280</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#a38ec1e3749274da7dd793fda090e1f41">Collection&lt;ESXRecordT, IdAccessorT&gt;::appendRecord</a> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record,
-<a name="l00281"></a>00281         <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)
-<a name="l00282"></a>00282     {
-<a name="l00283"></a>00283         mRecords.push_back (<span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp;<span class="keyword">&gt;</span> (record));
-<a name="l00284"></a>00284         mIndex.insert (std::make_pair (<a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a> (IdAccessorT().getId (
-<a name="l00285"></a>00285             <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp;<span class="keyword">&gt;</span> (record).<span class="keyword">get</span>())),
-<a name="l00286"></a>00286             mRecords.size()-1));
-<a name="l00287"></a>00287     }
-<a name="l00288"></a>00288 
-<a name="l00289"></a>00289     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00290"></a><a class="code" href="classCSMWorld_1_1Collection.html#ae2baad61455d947a6a84d9dac3eba32c">00290</a>     <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1Collection.html#ae2baad61455d947a6a84d9dac3eba32c">Collection&lt;ESXRecordT, IdAccessorT&gt;::getAppendIndex</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)<span class="keyword"> const</span>
-<a name="l00291"></a>00291 <span class="keyword">    </span>{
-<a name="l00292"></a>00292         <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span> (mRecords.size());
-<a name="l00293"></a>00293     }
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00296"></a><a class="code" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">00296</a>     <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; <a class="code" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">Collection&lt;ESXRecordT, IdAccessorT&gt;::getRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00297"></a>00297 <span class="keyword">    </span>{
-<a name="l00298"></a>00298         <span class="keywordtype">int</span> index = getIndex (<span class="keywordtype">id</span>);
-<a name="l00299"></a>00299         <span class="keywordflow">return</span> mRecords.at (index);
-<a name="l00300"></a>00300     }
-<a name="l00301"></a>00301 
-<a name="l00302"></a>00302     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00303"></a><a class="code" href="classCSMWorld_1_1Collection.html#a3795111fe603c6f438b872d87e44cd04">00303</a>     <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; <a class="code" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">Collection&lt;ESXRecordT, IdAccessorT&gt;::getRecord</a> (<span class="keywordtype">int</span> index)<span class="keyword"> const</span>
-<a name="l00304"></a>00304 <span class="keyword">    </span>{
-<a name="l00305"></a>00305         <span class="keywordflow">return</span> mRecords.at (index);
-<a name="l00306"></a>00306     }
-<a name="l00307"></a>00307 
-<a name="l00308"></a>00308     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
-<a name="l00309"></a><a class="code" href="classCSMWorld_1_1Collection.html#a7e83d904c6da9621f1f847f939ad6d89">00309</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#a7e83d904c6da9621f1f847f939ad6d89">Collection&lt;ESXRecordT, IdAccessorT&gt;::setRecord</a> (<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record)
-<a name="l00310"></a>00310     {
-<a name="l00311"></a>00311         <span class="keywordflow">if</span> (IdAccessorT().getId (mRecords.at (index).get())!=IdAccessorT().getId (record.<a class="code" href="structCSMWorld_1_1Record.html#a405cc96a8dfcbde494e58db281b827b3" title="Throws an exception, if the record is deleted.">get</a>()))
-<a name="l00312"></a>00312             <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;attempt to change the ID of a record&quot;</span>);
-<a name="l00313"></a>00313 
-<a name="l00314"></a>00314         mRecords.at (index) = record;
-<a name="l00315"></a>00315     }
-<a name="l00316"></a>00316 }
-<a name="l00317"></a>00317 
-<a name="l00318"></a>00318 <span class="preprocessor">#endif</span>
+<a name="l00239"></a>00239                     ++iter;
+<a name="l00240"></a>00240                 }
+<a name="l00241"></a>00241                 <span class="keywordflow">else</span>
+<a name="l00242"></a>00242                 {
+<a name="l00243"></a>00243                     mIndex.erase (iter++);
+<a name="l00244"></a>00244                 }
+<a name="l00245"></a>00245             }
+<a name="l00246"></a>00246             <span class="keywordflow">else</span>
+<a name="l00247"></a>00247                 ++iter;
+<a name="l00248"></a>00248         }
+<a name="l00249"></a>00249     }
+<a name="l00250"></a>00250 
+<a name="l00251"></a>00251     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00252"></a><a class="code" href="classCSMWorld_1_1Collection.html#aad8b6e183726870a785a3a41580e92a4">00252</a>     <span class="keywordtype">void</span>  <a class="code" href="classCSMWorld_1_1Collection.html#aad8b6e183726870a785a3a41580e92a4">Collection&lt;ESXRecordT, IdAccessorT&gt;::appendBlankRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,
+<a name="l00253"></a>00253         <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)
+<a name="l00254"></a>00254     {
+<a name="l00255"></a>00255         ESXRecordT record;
+<a name="l00256"></a>00256         IdAccessorT().getId (record) = id;
+<a name="l00257"></a>00257         record.blank();
+<a name="l00258"></a>00258         <a class="code" href="namespaceCompiler_1_1Generator.html#a634c38e92425ef8c475cce667f4b65dd">add</a> (record);
+<a name="l00259"></a>00259     }
+<a name="l00260"></a>00260 
+<a name="l00261"></a>00261     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00262"></a><a class="code" href="classCSMWorld_1_1Collection.html#a5e6b63cd8a4efea626383d5c8f212b4d">00262</a>     <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1Collection.html#a5e6b63cd8a4efea626383d5c8f212b4d">Collection&lt;ESXRecordT, IdAccessorT&gt;::searchId</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00263"></a>00263 <span class="keyword">    </span>{
+<a name="l00264"></a>00264         std::string id2 = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
+<a name="l00265"></a>00265 
+<a name="l00266"></a>00266         std::map&lt;std::string, int&gt;::const_iterator iter = mIndex.find (id2);
+<a name="l00267"></a>00267 
+<a name="l00268"></a>00268         <span class="keywordflow">if</span> (iter==mIndex.end())
+<a name="l00269"></a>00269             <span class="keywordflow">return</span> -1;
+<a name="l00270"></a>00270 
+<a name="l00271"></a>00271         <span class="keywordflow">return</span> iter-&gt;second;
+<a name="l00272"></a>00272     }
+<a name="l00273"></a>00273 
+<a name="l00274"></a>00274     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00275"></a><a class="code" href="classCSMWorld_1_1Collection.html#af330e6f997da698a41a98bba9517cfad">00275</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#af330e6f997da698a41a98bba9517cfad">Collection&lt;ESXRecordT, IdAccessorT&gt;::replace</a> (<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record)
+<a name="l00276"></a>00276     {
+<a name="l00277"></a>00277         mRecords.at (index) = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp;<span class="keyword">&gt;</span> (record);
+<a name="l00278"></a>00278     }
+<a name="l00279"></a>00279 
+<a name="l00280"></a>00280     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00281"></a><a class="code" href="classCSMWorld_1_1Collection.html#a38ec1e3749274da7dd793fda090e1f41">00281</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#a38ec1e3749274da7dd793fda090e1f41">Collection&lt;ESXRecordT, IdAccessorT&gt;::appendRecord</a> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record,
+<a name="l00282"></a>00282         <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)
+<a name="l00283"></a>00283     {
+<a name="l00284"></a>00284         mRecords.push_back (<span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp;<span class="keyword">&gt;</span> (record));
+<a name="l00285"></a>00285         mIndex.insert (std::make_pair (<a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a> (IdAccessorT().<a class="code" href="namespaceCSMWorld_1_1Columns.html#a70cce739760cf0f6d43b4e49c8d45e42" title="Will return -1 for an invalid name.">getId</a> (
+<a name="l00286"></a>00286             <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp;<span class="keyword">&gt;</span> (record).<span class="keyword">get</span>())),
+<a name="l00287"></a>00287             mRecords.size()-1));
+<a name="l00288"></a>00288     }
+<a name="l00289"></a>00289 
+<a name="l00290"></a>00290     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00291"></a><a class="code" href="classCSMWorld_1_1Collection.html#ae2baad61455d947a6a84d9dac3eba32c">00291</a>     <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1Collection.html#ae2baad61455d947a6a84d9dac3eba32c">Collection&lt;ESXRecordT, IdAccessorT&gt;::getAppendIndex</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type)<span class="keyword"> const</span>
+<a name="l00292"></a>00292 <span class="keyword">    </span>{
+<a name="l00293"></a>00293         <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span> (mRecords.size());
+<a name="l00294"></a>00294     }
+<a name="l00295"></a>00295 
+<a name="l00296"></a>00296     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00297"></a><a class="code" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">00297</a>     <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; <a class="code" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">Collection&lt;ESXRecordT, IdAccessorT&gt;::getRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00298"></a>00298 <span class="keyword">    </span>{
+<a name="l00299"></a>00299         <span class="keywordtype">int</span> index = getIndex (<span class="keywordtype">id</span>);
+<a name="l00300"></a>00300         <span class="keywordflow">return</span> mRecords.at (index);
+<a name="l00301"></a>00301     }
+<a name="l00302"></a>00302 
+<a name="l00303"></a>00303     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00304"></a><a class="code" href="classCSMWorld_1_1Collection.html#a3795111fe603c6f438b872d87e44cd04">00304</a>     <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; <a class="code" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">Collection&lt;ESXRecordT, IdAccessorT&gt;::getRecord</a> (<span class="keywordtype">int</span> index)<span class="keyword"> const</span>
+<a name="l00305"></a>00305 <span class="keyword">    </span>{
+<a name="l00306"></a>00306         <span class="keywordflow">return</span> mRecords.at (index);
+<a name="l00307"></a>00307     }
+<a name="l00308"></a>00308 
+<a name="l00309"></a>00309     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ESXRecordT, <span class="keyword">typename</span> IdAccessorT&gt;
+<a name="l00310"></a><a class="code" href="classCSMWorld_1_1Collection.html#a7e83d904c6da9621f1f847f939ad6d89">00310</a>     <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1Collection.html#a7e83d904c6da9621f1f847f939ad6d89">Collection&lt;ESXRecordT, IdAccessorT&gt;::setRecord</a> (<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1Record.html">Record&lt;ESXRecordT&gt;</a>&amp; record)
+<a name="l00311"></a>00311     {
+<a name="l00312"></a>00312         <span class="keywordflow">if</span> (IdAccessorT().<a class="code" href="namespaceCSMWorld_1_1Columns.html#a70cce739760cf0f6d43b4e49c8d45e42" title="Will return -1 for an invalid name.">getId</a> (mRecords.at (index).get())!=IdAccessorT().getId (record.<a class="code" href="structCSMWorld_1_1Record.html#a405cc96a8dfcbde494e58db281b827b3" title="Throws an exception, if the record is deleted.">get</a>()))
+<a name="l00313"></a>00313             <span class="keywordflow">throw</span> std::runtime_error (<span class="stringliteral">&quot;attempt to change the ID of a record&quot;</span>);
+<a name="l00314"></a>00314 
+<a name="l00315"></a>00315         mRecords.at (index) = record;
+<a name="l00316"></a>00316     }
+<a name="l00317"></a>00317 }
+<a name="l00318"></a>00318 
+<a name="l00319"></a>00319 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

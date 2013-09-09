@@ -63,7 +63,6 @@
 </div>
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
@@ -78,15 +77,15 @@
 
 <p><a href="classMWRender_1_1NpcAnimation-members.html">List of all members.</a></p>
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1NpcAnimation_1_1PartInfo.html">PartInfo</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> { <a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>, 
 <a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feaf0b3d9ca301c38c528eee8e632a5d5de">VM_FirstPerson</a>, 
 <a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feab5c576d60b8b1381512ea383ac426259">VM_HeadOnly</a>
  }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map<br class="typebreak"/>
+&lt; <a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a>, <br class="typebreak"/>
+std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ad9d661cfec15df1e205eb834b9c1ac51">NpcAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node, <a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;inv, int visibilityFlags, <a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode=<a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>)</td></tr>
@@ -94,24 +93,25 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7e9a93865cafb8f8e64c3b85e4fc39c7">runAnimation</a> (float timepassed)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a0276bb5ac593134ce644726301e83e56">showWeapons</a> (bool showWeapon)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aed4db842528e550579621b23034ece08">setViewMode</a> (<a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a117d2658f74f6bc2812313f97f9cc2ab">forceUpdate</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9582b561a63e258017a3f1899d614e50">updateParts</a> (bool forceupdate=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a8b37aef38ba00e4f82ffd785141c1321">rebuild</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rebuilds the NPC, updating their root model, animation sources, and equipment.  <a href="#a8b37aef38ba00e4f82ffd785141c1321"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#acf50b96cffb19c225200c4bff36fbce7">updateNpcBase</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a22da4f057dfac3ec185e6059899d8e39">insertBoundedPart</a> (const std::string &amp;model, int group, const std::string &amp;bonename)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9582b561a63e258017a3f1899d614e50">updateParts</a> (bool forceupdate=false)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a0852a46aa47f1419cbeae54c6c773556">removeIndividualPart</a> (int type)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9ec333682aac12e54f6e87926b05c913">reserveIndividualPart</a> (int type, int group, int priority)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a45e62d96371fadb2afa598c8fdc54580">addOrReplaceIndividualPart</a> (int type, int group, int priority, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a19745474066d5289f23025bad740d07d">removeIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aa9e5c5ca4e238081ffefc27a351602ea">reserveIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, int group, int priority)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a1c52c8c1ac1b8490f7a35a4c505a0aae">addOrReplaceIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, int group, int priority, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a> (int group)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ab893491b9ecd786e988c83355a7448e0">addPartGroup</a> (int group, int priority, const std::vector&lt; <a class="el" href="structESM_1_1PartReference.html">ESM::PartReference</a> &gt; &amp;parts)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a03c8ee7686fad6e382b3a81c786d491d">mStateID</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae0dcd0f41e3b2df3704aba7e967a1784">mObjectParts</a> [<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a8530ff06d509b41b9a6ac512d34e4c93">mObjectParts</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a18a74ca4eaee9c08a00173d54190dfa0">mNpc</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a2a6e7c820277263a00930c6e70c38bfa">mHeadModel</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a72ed46c1e138be66d31c2f0301b282df">mHairModel</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae38aa1eab47aa5573dd0c5011a17bfd8">mBodyPrefix</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7a5a114d0fb0a8b594e1cb746fb73b61">mViewMode</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">mShowWeapons</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a14636aff6eff26d4e72c6f1b0236db76">mTimeToChange</a></td></tr>
@@ -130,13 +130,26 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aef462ff694cf6ab035a53aaec79e43c7">mWeapon</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9070ca3d735e0a4cac924984f87b5dbb">mShield</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">mVisibilityFlags</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a63bb5bf22552552478a9799a2d48ed66">mPartslots</a> [<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#afde4de58311ba2be14cada80c06ac5e2">mPartPriorities</a> [<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">mPartslots</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">mPartPriorities</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a> = 27</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structMWRender_1_1NpcAnimation_1_1PartInfo.html">PartInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#acdfdc51a22f39b2ae9d6194f509c9c15">sPartList</a> [<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">sPartList</a> = <a class="el" href="namespaceMWRender.html#af171044f3ca5dd7d4ca290be6b29546c">createPartListMap</a>()</td></tr>
 </table>
+<hr/><h2>Member Typedef Documentation</h2>
+<a class="anchor" id="aec0b2638cfb476b114f05f22307f232d"></a><!-- doxytag: member="MWRender::NpcAnimation::PartBoneMap" ref="aec0b2638cfb476b114f05f22307f232d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a>,std::string&gt; <a class="el" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">MWRender::NpcAnimation::PartBoneMap</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="acc36454cb5664bffd09e93179eefd7fe"></a><!-- doxytag: member="MWRender::NpcAnimation::ViewMode" ref="acc36454cb5664bffd09e93179eefd7fe" args="" -->
 <div class="memitem">
@@ -224,14 +237,14 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a45e62d96371fadb2afa598c8fdc54580"></a><!-- doxytag: member="MWRender::NpcAnimation::addOrReplaceIndividualPart" ref="a45e62d96371fadb2afa598c8fdc54580" args="(int type, int group, int priority, const std::string &amp;mesh)" -->
+<a class="anchor" id="a1c52c8c1ac1b8490f7a35a4c505a0aae"></a><!-- doxytag: member="MWRender::NpcAnimation::addOrReplaceIndividualPart" ref="a1c52c8c1ac1b8490f7a35a4c505a0aae" args="(ESM::PartReferenceType type, int group, int priority, const std::string &amp;mesh)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#a45e62d96371fadb2afa598c8fdc54580">MWRender::NpcAnimation::addOrReplaceIndividualPart</a> </td>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#a1c52c8c1ac1b8490f7a35a4c505a0aae">MWRender::NpcAnimation::addOrReplaceIndividualPart</a> </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -296,22 +309,6 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a117d2658f74f6bc2812313f97f9cc2ab"></a><!-- doxytag: member="MWRender::NpcAnimation::forceUpdate" ref="a117d2658f74f6bc2812313f97f9cc2ab" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a117d2658f74f6bc2812313f97f9cc2ab">MWRender::NpcAnimation::forceUpdate</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a22da4f057dfac3ec185e6059899d8e39"></a><!-- doxytag: member="MWRender::NpcAnimation::insertBoundedPart" ref="a22da4f057dfac3ec185e6059899d8e39" args="(const std::string &amp;model, int group, const std::string &amp;bonename)" -->
 <div class="memitem">
 <div class="memproto">
@@ -345,14 +342,32 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0852a46aa47f1419cbeae54c6c773556"></a><!-- doxytag: member="MWRender::NpcAnimation::removeIndividualPart" ref="a0852a46aa47f1419cbeae54c6c773556" args="(int type)" -->
+<a class="anchor" id="a8b37aef38ba00e4f82ffd785141c1321"></a><!-- doxytag: member="MWRender::NpcAnimation::rebuild" ref="a8b37aef38ba00e4f82ffd785141c1321" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a0852a46aa47f1419cbeae54c6c773556">MWRender::NpcAnimation::removeIndividualPart</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a8b37aef38ba00e4f82ffd785141c1321">MWRender::NpcAnimation::rebuild</a> </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Rebuilds the NPC, updating their root model, animation sources, and equipment. </p>
+
+</div>
+</div>
+<a class="anchor" id="a19745474066d5289f23025bad740d07d"></a><!-- doxytag: member="MWRender::NpcAnimation::removeIndividualPart" ref="a19745474066d5289f23025bad740d07d" args="(ESM::PartReferenceType type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a19745474066d5289f23025bad740d07d">MWRender::NpcAnimation::removeIndividualPart</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a>&#160;</td>
           <td class="paramname"><em>type</em></td><td>)</td>
           <td><code> [private]</code></td>
         </tr>
@@ -379,14 +394,14 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9ec333682aac12e54f6e87926b05c913"></a><!-- doxytag: member="MWRender::NpcAnimation::reserveIndividualPart" ref="a9ec333682aac12e54f6e87926b05c913" args="(int type, int group, int priority)" -->
+<a class="anchor" id="aa9e5c5ca4e238081ffefc27a351602ea"></a><!-- doxytag: member="MWRender::NpcAnimation::reserveIndividualPart" ref="aa9e5c5ca4e238081ffefc27a351602ea" args="(ESM::PartReferenceType type, int group, int priority)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a9ec333682aac12e54f6e87926b05c913">MWRender::NpcAnimation::reserveIndividualPart</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#aa9e5c5ca4e238081ffefc27a351602ea">MWRender::NpcAnimation::reserveIndividualPart</a> </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
@@ -467,6 +482,22 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acf50b96cffb19c225200c4bff36fbce7"></a><!-- doxytag: member="MWRender::NpcAnimation::updateNpcBase" ref="acf50b96cffb19c225200c4bff36fbce7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#acf50b96cffb19c225200c4bff36fbce7">MWRender::NpcAnimation::updateNpcBase</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a9582b561a63e258017a3f1899d614e50"></a><!-- doxytag: member="MWRender::NpcAnimation::updateParts" ref="a9582b561a63e258017a3f1899d614e50" args="(bool forceupdate=false)" -->
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +507,7 @@ Static Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>forceupdate</em> = <code>false</code></td><td>)</td>
-          <td><code> [private]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
@@ -485,19 +516,6 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="ae38aa1eab47aa5573dd0c5011a17bfd8"></a><!-- doxytag: member="MWRender::NpcAnimation::mBodyPrefix" ref="ae38aa1eab47aa5573dd0c5011a17bfd8" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string <a class="el" href="classMWRender_1_1NpcAnimation.html#ae38aa1eab47aa5573dd0c5011a17bfd8">MWRender::NpcAnimation::mBodyPrefix</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a55499981afa0d41beb2a6c2ace693052"></a><!-- doxytag: member="MWRender::NpcAnimation::mBoots" ref="a55499981afa0d41beb2a6c2ace693052" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -615,12 +633,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae0dcd0f41e3b2df3704aba7e967a1784"></a><!-- doxytag: member="MWRender::NpcAnimation::mObjectParts" ref="ae0dcd0f41e3b2df3704aba7e967a1784" args="[sPartListSize]" -->
+<a class="anchor" id="a8530ff06d509b41b9a6ac512d34e4c93"></a><!-- doxytag: member="MWRender::NpcAnimation::mObjectParts" ref="a8530ff06d509b41b9a6ac512d34e4c93" args="[ESM::PRT_Count]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#ae0dcd0f41e3b2df3704aba7e967a1784">MWRender::NpcAnimation::mObjectParts</a>[<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]<code> [private]</code></td>
+          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a8530ff06d509b41b9a6ac512d34e4c93">MWRender::NpcAnimation::mObjectParts</a>[<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]<code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -641,12 +659,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afde4de58311ba2be14cada80c06ac5e2"></a><!-- doxytag: member="MWRender::NpcAnimation::mPartPriorities" ref="afde4de58311ba2be14cada80c06ac5e2" args="[sPartListSize]" -->
+<a class="anchor" id="a6dc6621e5e48c58b4cfabc6764c9d86f"></a><!-- doxytag: member="MWRender::NpcAnimation::mPartPriorities" ref="a6dc6621e5e48c58b4cfabc6764c9d86f" args="[ESM::PRT_Count]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classMWRender_1_1NpcAnimation.html#afde4de58311ba2be14cada80c06ac5e2">MWRender::NpcAnimation::mPartPriorities</a>[<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]<code> [private]</code></td>
+          <td class="memname">int <a class="el" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">MWRender::NpcAnimation::mPartPriorities</a>[<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]<code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -654,12 +672,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a63bb5bf22552552478a9799a2d48ed66"></a><!-- doxytag: member="MWRender::NpcAnimation::mPartslots" ref="a63bb5bf22552552478a9799a2d48ed66" args="[sPartListSize]" -->
+<a class="anchor" id="af693df42e0c77dd0983dcff95854bec4"></a><!-- doxytag: member="MWRender::NpcAnimation::mPartslots" ref="af693df42e0c77dd0983dcff95854bec4" args="[ESM::PRT_Count]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classMWRender_1_1NpcAnimation.html#a63bb5bf22552552478a9799a2d48ed66">MWRender::NpcAnimation::mPartslots</a>[<a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">sPartListSize</a>]<code> [private]</code></td>
+          <td class="memname">int <a class="el" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">MWRender::NpcAnimation::mPartslots</a>[<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]<code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -823,54 +841,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acdfdc51a22f39b2ae9d6194f509c9c15"></a><!-- doxytag: member="MWRender::NpcAnimation::sPartList" ref="acdfdc51a22f39b2ae9d6194f509c9c15" args="[sPartListSize]" -->
+<a class="anchor" id="a845ed78baadbf3e7b510c208fbc5cc37"></a><!-- doxytag: member="MWRender::NpcAnimation::sPartList" ref="a845ed78baadbf3e7b510c208fbc5cc37" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structMWRender_1_1NpcAnimation_1_1PartInfo.html">NpcAnimation::PartInfo</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#acdfdc51a22f39b2ae9d6194f509c9c15">MWRender::NpcAnimation::sPartList</a><code> [static, private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<b>Initial value:</b><div class="fragment"><pre class="fragment"> {
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa4c89635f97348fcea42f357c58f2e826">ESM::PRT_Head</a>, <span class="stringliteral">&quot;Head&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aae78d7010c91a52ae1457b8154d74af93">ESM::PRT_Hair</a>, <span class="stringliteral">&quot;Head&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa53ae21b2865264cbe07baec41b605f43">ESM::PRT_Neck</a>, <span class="stringliteral">&quot;Neck&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2a4f6ed736ac8713ac84c8133f967fad">ESM::PRT_Cuirass</a>, <span class="stringliteral">&quot;Chest&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa671d505c527ef1b4f729803b4be25d2f">ESM::PRT_Groin</a>, <span class="stringliteral">&quot;Groin&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac36b1e6470124b9d211d01fe81e2ef3a">ESM::PRT_Skirt</a>, <span class="stringliteral">&quot;Groin&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa934c9d63fdfa1ba89d101a123203ccfa">ESM::PRT_RHand</a>, <span class="stringliteral">&quot;Right Hand&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa6efd2e4c1bd6a08508920ad1f9f3c997">ESM::PRT_LHand</a>, <span class="stringliteral">&quot;Left Hand&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa97566bdc0d2a01c596df64acca3994f7">ESM::PRT_RWrist</a>, <span class="stringliteral">&quot;Right Wrist&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3e481518000109b6187ba05c89e968e3">ESM::PRT_LWrist</a>, <span class="stringliteral">&quot;Left Wrist&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaa471e49a653834131156652ad767727b">ESM::PRT_Shield</a>, <span class="stringliteral">&quot;Shield Bone&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa89e76b54d6547ba474878320c9b7c176">ESM::PRT_RForearm</a>, <span class="stringliteral">&quot;Right Forearm&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa99abb194b78b35bf1c0e7a1394d478a0">ESM::PRT_LForearm</a>, <span class="stringliteral">&quot;Left Forearm&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa8f3102eccd596fed4033187f5dfe425c">ESM::PRT_RUpperarm</a>, <span class="stringliteral">&quot;Right Upper Arm&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad62252ddab85d31c92897117dc5ff2e4">ESM::PRT_LUpperarm</a>, <span class="stringliteral">&quot;Left Upper Arm&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac7ae4aacd861bb14cf4f2af9d09c9e5d">ESM::PRT_RFoot</a>, <span class="stringliteral">&quot;Right Foot&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa88c2819ceb21f7af8b642d39171574cb">ESM::PRT_LFoot</a>, <span class="stringliteral">&quot;Left Foot&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aaf118160560155f6d2c7d198843579ae8">ESM::PRT_RAnkle</a>, <span class="stringliteral">&quot;Right Ankle&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aab9bbe3345570ac343f4a47ac397aa662">ESM::PRT_LAnkle</a>, <span class="stringliteral">&quot;Left Ankle&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa2af4c813a245324bb0235481630860a2">ESM::PRT_RKnee</a>, <span class="stringliteral">&quot;Right Knee&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa510ff687fd2c8c441ae8b2239abc6298">ESM::PRT_LKnee</a>, <span class="stringliteral">&quot;Left Knee&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa23ef8e77a1c55448df01028e5bd204e8">ESM::PRT_RLeg</a>, <span class="stringliteral">&quot;Right Upper Leg&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa5d27d06ec13696073041acb4711062da">ESM::PRT_LLeg</a>, <span class="stringliteral">&quot;Left Upper Leg&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aac510f807452d5a3cd754882b92f7dfa7">ESM::PRT_RPauldron</a>, <span class="stringliteral">&quot;Right Clavicle&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad72e90ce375b1ab510d477fcaa1727e8">ESM::PRT_LPauldron</a>, <span class="stringliteral">&quot;Left Clavicle&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aad6167a0ac3bbc5c07b7583a70041c6f5">ESM::PRT_Weapon</a>, <span class="stringliteral">&quot;Weapon Bone&quot;</span> },
-    { <a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa3d6687fc7d494f4db9817679499d3d78">ESM::PRT_Tail</a>, <span class="stringliteral">&quot;Tail&quot;</span> }
-}
-</pre></div>
-</div>
-</div>
-<a class="anchor" id="a7f88cde6d0fa9e58f53065d80df34c48"></a><!-- doxytag: member="MWRender::NpcAnimation::sPartListSize" ref="a7f88cde6d0fa9e58f53065d80df34c48" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const size_t <a class="el" href="classMWRender_1_1NpcAnimation.html#a7f88cde6d0fa9e58f53065d80df34c48">MWRender::NpcAnimation::sPartListSize</a> = 27<code> [static, private]</code></td>
+          <td class="memname">const <a class="el" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">NpcAnimation::PartBoneMap</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">MWRender::NpcAnimation::sPartList</a> = <a class="el" href="namespaceMWRender.html#af171044f3ca5dd7d4ca290be6b29546c">createPartListMap</a>()<code> [static, private]</code></td>
         </tr>
       </table>
 </div>
@@ -886,7 +862,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

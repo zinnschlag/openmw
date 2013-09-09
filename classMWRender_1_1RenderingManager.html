@@ -71,7 +71,7 @@
 <div class="title">MWRender::RenderingManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="MWRender::RenderingManager" --><!-- doxytag: inherits="MWRender::RenderingInterface" -->
+<!-- doxytag: class="MWRender::RenderingManager" --><!-- doxytag: inherits="MWRender::RenderingInterface,OEngine::Render::WindowSizeListener" -->
 <p><code>#include &lt;<a class="el" href="renderingmanager_8hpp_source.html">renderingmanager.hpp</a>&gt;</code></p>
 
 <p><a href="classMWRender_1_1RenderingManager-members.html">List of all members.</a></p>
@@ -99,6 +99,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a5a99302c50b22de9b2aef58d3f31440a">removeCell</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *store)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a446a27e1fdd96c690b6b1a94a4e81a0c">cellAdded</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *store)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a684dd08c9255e5dfee2d15e51ac6451e">waterAdded</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *store)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af65c6fa0f785ee77b944f93e105ddcf5">enableTerrain</a> (bool enable)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af116c641994779d8fb035a45f9a6aeea">removeWater</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a89e1423760b44e031d070022cc3c9ef8">preCellChange</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *store)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">this event is fired immediately before changing cell  <a href="#a89e1423760b44e031d070022cc3c9ef8"></a><br/></td></tr>
@@ -113,6 +114,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af2acd33268350c7c8c0b71061ec31247">updateObjectCell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;old, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;cur)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a069549cce98a702f4e948fb193a6c218">updatePlayerPtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies an updated Ptr object for the player (used on cell change).  <a href="#a069549cce98a702f4e948fb193a6c218"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a9e4ed5892fefee1137616dee112148ed">rebuildPtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a2e03fc527e4c8ef6c4e342d380f200d7">update</a> (float duration, bool paused)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a708e72ad138ea15f7dcd24862637a84d">setAmbientColour</a> (const Ogre::ColourValue &amp;colour)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#ad3968aef01cc6070276434b745b830a6">setSunColour</a> (const Ogre::ColourValue &amp;colour)</td></tr>
@@ -125,11 +127,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a66868deb8517b46a182f20cb57b94cc2">postRenderTargetUpdate</a> (const Ogre::RenderTargetEvent &amp;evt)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a05a162f27ac9bb59e4ff82b905d3c482">occlusionQuerySupported</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1OcclusionQuery.html">OcclusionQuery</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a88fada0c4e75f7d628c90766a59251f1">getOcclusionQuery</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa03092fe6594c4a23fea7159c3deca9d">getTerrainHeightAt</a> (Ogre::Vector3 worldPos)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Shadows.html">Shadows</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a8989ceb8c98b3a151695f80066411a95">getShadows</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af7f112da7cdf245be969e91a052bf776">switchToInterior</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a4b0f0a4c13219b5a813c3ff11ab29a84">switchToExterior</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a6b1438199f69f1802d737bf38cae7f54">getTriangleBatchCount</a> (unsigned int &amp;triangles, unsigned int &amp;batches)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa03092fe6594c4a23fea7159c3deca9d">getTerrainHeightAt</a> (Ogre::Vector3 worldPos)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aed44fc56f3fb0e9dda497ee6d311f673">setGlare</a> (bool glare)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a00d319d142d9956220db54788319c0a2">skyEnable</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a46528aa3bcae6a6a8b09e6f88c98745b">skyDisable</a> ()</td></tr>
@@ -159,11 +161,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Animation.html">Animation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a62b4db00d910a84836adb97df3c29c69">getAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a81fe27ffe6c74059e7bdf92cbc97c617">playVideo</a> (const std::string &amp;name, bool allowSkipping)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a2219e506df2fd9f12ec21876f82e2bef">stopVideo</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#acf983efda8c13b617bc483d949c5e861">frameStarted</a> (float dt)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af7d17a33f729260cb6466845f0e04e76">frameStarted</a> (float dt, bool paused)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a77b9b8572b005597c11ea7dae8a2553c">windowResized</a> (Ogre::RenderWindow *rw)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa6639a0a5c1a0dfa5cea4c563f349c67">windowClosed</a> (Ogre::RenderWindow *rw)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a9fd98547be8ffe7869a0224d58689842">windowResized</a> (int x, int y)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWRender_1_1Objects.html">MWRender::Objects</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#aa6223af866d8bb3c60261d2fc40c6dcd">getObjects</a> ()</td></tr>
@@ -179,7 +180,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#af45e2dab2f75ffe8e7ff23ba95a40370">mFallback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1SkyManager.html">SkyManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">mSkyManager</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1OcclusionQuery.html">OcclusionQuery</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1TerrainManager.html">TerrainManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a9668a04730225198ebff887d3e46efb5">mTerrainManager</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTerrain_1_1World.html">Terrain::World</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a5758ec73af33349ce16157dfc24f5033">mTerrain</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Water.html">MWRender::Water</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a0e6513aa391670dba6625b924a9279b6">mWater</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1GlobalMap.html">GlobalMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a57b5a0a1ea97ad7f36d532d74d2e4d86">mGlobalMap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a></td></tr>
@@ -397,7 +398,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000075">Todo:</a></b></dt><dd>this function should be removed later. Instead the rendering subsystems should track when rebatching is needed and update automatically at the end of each frame. </dd></dl>
 
 </div>
 </div>
@@ -523,16 +524,43 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acf983efda8c13b617bc483d949c5e861"></a><!-- doxytag: member="MWRender::RenderingManager::frameStarted" ref="acf983efda8c13b617bc483d949c5e861" args="(float dt)" -->
+<a class="anchor" id="af65c6fa0f785ee77b944f93e105ddcf5"></a><!-- doxytag: member="MWRender::RenderingManager::enableTerrain" ref="af65c6fa0f785ee77b944f93e105ddcf5" args="(bool enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#acf983efda8c13b617bc483d949c5e861">MWRender::RenderingManager::frameStarted</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#af65c6fa0f785ee77b944f93e105ddcf5">MWRender::RenderingManager::enableTerrain</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af7d17a33f729260cb6466845f0e04e76"></a><!-- doxytag: member="MWRender::RenderingManager::frameStarted" ref="af7d17a33f729260cb6466845f0e04e76" args="(float dt, bool paused)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#af7d17a33f729260cb6466845f0e04e76">MWRender::RenderingManager::frameStarted</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>paused</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -851,7 +879,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000077">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000074">Todo:</a></b></dt><dd>move this to the rendering-subsystems </dd></dl>
 
 </div>
 </div>
@@ -965,6 +993,24 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9e4ed5892fefee1137616dee112148ed"></a><!-- doxytag: member="MWRender::RenderingManager::rebuildPtr" ref="a9e4ed5892fefee1137616dee112148ed" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a9e4ed5892fefee1137616dee112148ed">MWRender::RenderingManager::rebuildPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Currently for NPCs only. Rebuilds the NPC, updating their root model, animation sources, and equipment. </p>
 
 </div>
 </div>
@@ -1789,37 +1835,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa6639a0a5c1a0dfa5cea4c563f349c67"></a><!-- doxytag: member="MWRender::RenderingManager::windowClosed" ref="aa6639a0a5c1a0dfa5cea4c563f349c67" args="(Ogre::RenderWindow *rw)" -->
+<a class="anchor" id="a9fd98547be8ffe7869a0224d58689842"></a><!-- doxytag: member="MWRender::RenderingManager::windowResized" ref="a9fd98547be8ffe7869a0224d58689842" args="(int x, int y)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#aa6639a0a5c1a0dfa5cea4c563f349c67">MWRender::RenderingManager::windowClosed</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a9fd98547be8ffe7869a0224d58689842">MWRender::RenderingManager::windowResized</a> </td>
           <td>(</td>
-          <td class="paramtype">Ogre::RenderWindow *&#160;</td>
-          <td class="paramname"><em>rw</em></td><td>)</td>
-          <td><code> [protected, virtual]</code></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="a77b9b8572b005597c11ea7dae8a2553c"></a><!-- doxytag: member="MWRender::RenderingManager::windowResized" ref="a77b9b8572b005597c11ea7dae8a2553c" args="(Ogre::RenderWindow *rw)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1RenderingManager.html#a77b9b8572b005597c11ea7dae8a2553c">MWRender::RenderingManager::windowResized</a> </td>
-          <td>(</td>
-          <td class="paramtype">Ogre::RenderWindow *&#160;</td>
-          <td class="paramname"><em>rw</em></td><td>)</td>
-          <td><code> [protected, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<p>Implements <a class="el" href="classOEngine_1_1Render_1_1WindowSizeListener.html#aeeb411f4a01d90d0290b5e5f251b9c5e">OEngine::Render::WindowSizeListener</a>.</p>
 
 </div>
 </div>
@@ -2123,12 +2164,12 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9668a04730225198ebff887d3e46efb5"></a><!-- doxytag: member="MWRender::RenderingManager::mTerrainManager" ref="a9668a04730225198ebff887d3e46efb5" args="" -->
+<a class="anchor" id="a5758ec73af33349ce16157dfc24f5033"></a><!-- doxytag: member="MWRender::RenderingManager::mTerrain" ref="a5758ec73af33349ce16157dfc24f5033" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1TerrainManager.html">TerrainManager</a>* <a class="el" href="classMWRender_1_1RenderingManager.html#a9668a04730225198ebff887d3e46efb5">MWRender::RenderingManager::mTerrainManager</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="classTerrain_1_1World.html">Terrain::World</a>* <a class="el" href="classMWRender_1_1RenderingManager.html#a5758ec73af33349ce16157dfc24f5033">MWRender::RenderingManager::mTerrain</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -2170,7 +2211,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

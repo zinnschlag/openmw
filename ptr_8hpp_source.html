@@ -62,122 +62,115 @@
 <a href="ptr_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef GAME_MWWORLD_PTR_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GAME_MWWORLD_PTR_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;boost/any.hpp&gt;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="cellstore_8hpp.html">cellstore.hpp</a>&quot;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWWorld
-<a name="l00009"></a>00009 {
-<a name="l00010"></a>00010     <span class="keyword">class </span>ContainerStore;
-<a name="l00011"></a>00011 
-<a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="classMWWorld_1_1Ptr.html">00014</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>
-<a name="l00015"></a>00015     {
-<a name="l00016"></a>00016         <span class="keyword">public</span>:
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018             <span class="keyword">typedef</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> <a class="code" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">CellStore</a>;
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">00021</a>             boost::any <a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">mPtr</a>;
-<a name="l00022"></a><a class="code" href="classMWWorld_1_1Ptr.html#aa940bb82c1749c2720af6ddc6930bf4d">00022</a>             <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> *<a class="code" href="classMWWorld_1_1Ptr.html#aa940bb82c1749c2720af6ddc6930bf4d">mCellRef</a>;
-<a name="l00023"></a><a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">00023</a>             <a class="code" href="classMWWorld_1_1RefData.html">RefData</a> *<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
-<a name="l00024"></a><a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">00024</a>             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>;
-<a name="l00025"></a><a class="code" href="classMWWorld_1_1Ptr.html#a66f6f0c311d1e007b9eb9f7ff974e66a">00025</a>             std::string <a class="code" href="classMWWorld_1_1Ptr.html#a66f6f0c311d1e007b9eb9f7ff974e66a">mTypeName</a>;
-<a name="l00026"></a><a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">00026</a>             <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a>;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028         <span class="keyword">public</span>:
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="cellstore_8hpp.html">cellstore.hpp</a>&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="livecellref_8hpp.html">livecellref.hpp</a>&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>MWWorld
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009     <span class="keyword">class </span>ContainerStore;
+<a name="l00010"></a>00010 
+<a name="l00012"></a>00012 
+<a name="l00013"></a><a class="code" href="classMWWorld_1_1Ptr.html">00013</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>
+<a name="l00014"></a>00014     {
+<a name="l00015"></a>00015         <span class="keyword">public</span>:
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017             <span class="keyword">typedef</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> <a class="code" href="classMWWorld_1_1Ptr.html#a9d269992729f409576c3a9bc3ac350c4">CellStore</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">00020</a>             <a class="code" href="structMWWorld_1_1LiveCellRefBase.html" title="Used to create pointers to hold any type of LiveCellRef&lt;&gt; object.">MWWorld::LiveCellRefBase</a> *<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>;
+<a name="l00021"></a><a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">00021</a>             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>;
+<a name="l00022"></a><a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">00022</a>             <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024         <span class="keyword">public</span>:
+<a name="l00025"></a><a class="code" href="classMWWorld_1_1Ptr.html#aaab3416da5d1b055438cb6253b161409">00025</a>             <a class="code" href="classMWWorld_1_1Ptr.html#aaab3416da5d1b055438cb6253b161409">Ptr</a>(<a class="code" href="structMWWorld_1_1LiveCellRefBase.html" title="Used to create pointers to hold any type of LiveCellRef&lt;&gt; object.">MWWorld::LiveCellRefBase</a> *liveCellRef=0, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *cell=0)
+<a name="l00026"></a>00026               : <a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>(liveCellRef), <a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>(cell), <a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a>(0)
+<a name="l00027"></a>00027             {
+<a name="l00028"></a>00028             }
 <a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="classMWWorld_1_1Ptr.html#a47670647ef44c5a1d9d372a289c1b626">00030</a>             <a class="code" href="classMWWorld_1_1Ptr.html#a47670647ef44c5a1d9d372a289c1b626">Ptr</a>() : <a class="code" href="classMWWorld_1_1Ptr.html#aa940bb82c1749c2720af6ddc6930bf4d">mCellRef</a> (0), <a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a> (0), <a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a> (0), <a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a> (0) {}
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classMWWorld_1_1Ptr.html#a0662c1165166221fd0f874e37ac24613">00032</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Ptr.html#a0662c1165166221fd0f874e37ac24613">isEmpty</a>()<span class="keyword"> const</span>
-<a name="l00033"></a>00033 <span class="keyword">            </span>{
-<a name="l00034"></a>00034                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">mPtr</a>.empty();
-<a name="l00035"></a>00035             }
+<a name="l00030"></a><a class="code" href="classMWWorld_1_1Ptr.html#a0662c1165166221fd0f874e37ac24613">00030</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Ptr.html#a0662c1165166221fd0f874e37ac24613">isEmpty</a>()<span class="keyword"> const</span>
+<a name="l00031"></a>00031 <span class="keyword">            </span>{
+<a name="l00032"></a>00032                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a> == 0;
+<a name="l00033"></a>00033             }
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035             <span class="keyword">const</span> std::string&amp; <a class="code" href="classMWWorld_1_1Ptr.html#a6c33fb25a2ac50b8360397272070d298">getTypeName</a>() <span class="keyword">const</span>;
 <a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classMWWorld_1_1Ptr.html#addbea9ccfeca632aa1853e624dbbeb4d">00037</a>             <span class="keyword">const</span> std::type_info&amp; <a class="code" href="classMWWorld_1_1Ptr.html#addbea9ccfeca632aa1853e624dbbeb4d">getType</a>()<span class="keyword"> const</span>
+<a name="l00037"></a><a class="code" href="classMWWorld_1_1Ptr.html#aa2ac4a5579cd19eaa780596f4543ea46">00037</a>             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Class.html" title="Base class for referenceable esm records.">Class</a>&amp; <a class="code" href="classMWWorld_1_1Ptr.html#aa2ac4a5579cd19eaa780596f4543ea46">getClass</a>()<span class="keyword"> const</span>
 <a name="l00038"></a>00038 <span class="keyword">            </span>{
-<a name="l00039"></a>00039                 assert (!<a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">mPtr</a>.empty());
-<a name="l00040"></a>00040                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">mPtr</a>.type();
-<a name="l00041"></a>00041             }
-<a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classMWWorld_1_1Ptr.html#a9423876d608ecb6775087b76826beae0">00043</a>             <span class="keyword">const</span> std::string&amp; <a class="code" href="classMWWorld_1_1Ptr.html#a9423876d608ecb6775087b76826beae0">getTypeName</a>()<span class="keyword"> const</span>
-<a name="l00044"></a>00044 <span class="keyword">            </span>{
-<a name="l00045"></a>00045                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#a66f6f0c311d1e007b9eb9f7ff974e66a">mTypeName</a>;
-<a name="l00046"></a>00046             }
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00049"></a><a class="code" href="classMWWorld_1_1Ptr.html#ae944d9b7376acae15504f066b19c4a0e">00049</a>             <a class="code" href="classMWWorld_1_1Ptr.html#a47670647ef44c5a1d9d372a289c1b626">Ptr</a> (<a class="code" href="structMWWorld_1_1LiveCellRef.html">MWWorld::LiveCellRef&lt;T&gt;</a> *liveCellRef, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *cell)
-<a name="l00050"></a>00050             : <a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a> (0)
-<a name="l00051"></a>00051             {
-<a name="l00052"></a>00052                 <a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">mPtr</a> = liveCellRef;
-<a name="l00053"></a>00053                 <a class="code" href="classMWWorld_1_1Ptr.html#aa940bb82c1749c2720af6ddc6930bf4d">mCellRef</a> = &amp;liveCellRef-&gt;<a class="code" href="structMWWorld_1_1LiveCellRef.html#ae4489f146820b9c9d7dc52f73cf25b7f">mRef</a>;
-<a name="l00054"></a>00054                 <a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a> = &amp;liveCellRef-&gt;<a class="code" href="structMWWorld_1_1LiveCellRef.html#ac9fc6e528385e7f1779f53d7e6662877" title="runtime-data">mData</a>;
-<a name="l00055"></a>00055                 <a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a> = cell;
-<a name="l00056"></a>00056                 <a class="code" href="classMWWorld_1_1Ptr.html#a66f6f0c311d1e007b9eb9f7ff974e66a">mTypeName</a> = <span class="keyword">typeid</span> (T).name();
-<a name="l00057"></a>00057             }
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00060"></a><a class="code" href="classMWWorld_1_1Ptr.html#a46a6588d17f16b3047b3d87d1b20eae7">00060</a>             <a class="code" href="structMWWorld_1_1LiveCellRef.html">MWWorld::LiveCellRef&lt;T&gt;</a> *<span class="keyword">get</span>() <span class="keyword">const</span>
-<a name="l00061"></a>00061             {
-<a name="l00062"></a>00062                 <span class="keywordflow">return</span> boost::any_cast&lt;<a class="code" href="structMWWorld_1_1LiveCellRef.html">MWWorld::LiveCellRef&lt;T&gt;</a>*&gt; (<a class="code" href="classMWWorld_1_1Ptr.html#a94508c549da275061c281dafaa5fa55c">mPtr</a>);
-<a name="l00063"></a>00063             }
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065             <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; <a class="code" href="classMWWorld_1_1Ptr.html#ac7dc2521d5840cd2b197f22b81a6624e">getCellRef</a>() <span class="keyword">const</span>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <a class="code" href="classMWWorld_1_1RefData.html">RefData</a>&amp; <a class="code" href="classMWWorld_1_1Ptr.html#aa35780406bea82e5dcff038800bd10e0">getRefData</a>() <span class="keyword">const</span>;
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classMWWorld_1_1Ptr.html#ad27a9f1098f522f0b018d113581ee1a2">00069</a>             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#ad27a9f1098f522f0b018d113581ee1a2">getCell</a>()<span class="keyword"> const</span>
-<a name="l00070"></a>00070 <span class="keyword">            </span>{
-<a name="l00071"></a>00071                 assert(<a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>);
-<a name="l00072"></a>00072                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>;
-<a name="l00073"></a>00073             }
-<a name="l00074"></a>00074 
-<a name="l00075"></a><a class="code" href="classMWWorld_1_1Ptr.html#a9a321d959c8bf56a29ad35f0bbdefe75">00075</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Ptr.html#a9a321d959c8bf56a29ad35f0bbdefe75">isInCell</a>()<span class="keyword"> const</span>
-<a name="l00076"></a>00076 <span class="keyword">            </span>{
-<a name="l00077"></a>00077                 <span class="keywordflow">return</span> (<a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a> == 0);
-<a name="l00078"></a>00078             }
+<a name="l00039"></a>00039                 <span class="keywordflow">if</span>(<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a> != 0)
+<a name="l00040"></a>00040                     <span class="keywordflow">return</span> *(<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>-&gt;<a class="code" href="structMWWorld_1_1LiveCellRefBase.html#a4ddd7ede91ed2d02d65668d43402bb03">mClass</a>);
+<a name="l00041"></a>00041                 <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cannot get class of an empty object&quot;</span>);
+<a name="l00042"></a>00042             }
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00045"></a><a class="code" href="classMWWorld_1_1Ptr.html#a46a6588d17f16b3047b3d87d1b20eae7">00045</a>             <a class="code" href="structMWWorld_1_1LiveCellRef.html">MWWorld::LiveCellRef&lt;T&gt;</a> *<span class="keyword">get</span>() <span class="keyword">const</span>
+<a name="l00046"></a>00046             {
+<a name="l00047"></a>00047                 <a class="code" href="structMWWorld_1_1LiveCellRef.html">MWWorld::LiveCellRef&lt;T&gt;</a> *ref = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="structMWWorld_1_1LiveCellRef.html">MWWorld::LiveCellRef&lt;T&gt;</a>*<span class="keyword">&gt;</span>(<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>);
+<a name="l00048"></a>00048                 <span class="keywordflow">if</span>(ref) <span class="keywordflow">return</span> ref;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050                 std::stringstream str;
+<a name="l00051"></a>00051                 str&lt;&lt; <span class="stringliteral">&quot;Bad LiveCellRef cast to &quot;</span>&lt;&lt;<span class="keyword">typeid</span>(T).name()&lt;&lt;<span class="stringliteral">&quot; from &quot;</span>;
+<a name="l00052"></a>00052                 <span class="keywordflow">if</span>(<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a> != 0) str&lt;&lt; <a class="code" href="classMWWorld_1_1Ptr.html#a6c33fb25a2ac50b8360397272070d298">getTypeName</a>();
+<a name="l00053"></a>00053                 <span class="keywordflow">else</span> str&lt;&lt; <span class="stringliteral">&quot;an empty object&quot;</span>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055                 <span class="keywordflow">throw</span> std::runtime_error(str.str());
+<a name="l00056"></a>00056             }
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058             <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; <a class="code" href="classMWWorld_1_1Ptr.html#ac7dc2521d5840cd2b197f22b81a6624e">getCellRef</a>() <span class="keyword">const</span>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             <a class="code" href="classMWWorld_1_1RefData.html">RefData</a>&amp; <a class="code" href="classMWWorld_1_1Ptr.html#aa35780406bea82e5dcff038800bd10e0">getRefData</a>() <span class="keyword">const</span>;
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classMWWorld_1_1Ptr.html#ad27a9f1098f522f0b018d113581ee1a2">00062</a>             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#ad27a9f1098f522f0b018d113581ee1a2">getCell</a>()<span class="keyword"> const</span>
+<a name="l00063"></a>00063 <span class="keyword">            </span>{
+<a name="l00064"></a>00064                 assert(<a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>);
+<a name="l00065"></a>00065                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a>;
+<a name="l00066"></a>00066             }
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="classMWWorld_1_1Ptr.html#a9a321d959c8bf56a29ad35f0bbdefe75">00068</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Ptr.html#a9a321d959c8bf56a29ad35f0bbdefe75">isInCell</a>()<span class="keyword"> const</span>
+<a name="l00069"></a>00069 <span class="keyword">            </span>{
+<a name="l00070"></a>00070                 <span class="keywordflow">return</span> (<a class="code" href="classMWWorld_1_1Ptr.html#a389220febfcd3b2151e5da98abad3147">mContainerStore</a> == 0) &amp;&amp; (<a class="code" href="classMWWorld_1_1Ptr.html#a2be64b2f258e2b2be16e84d2397abb32">mCell</a> != 0);
+<a name="l00071"></a>00071             }
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Ptr.html#ae8df77fb3963b5e8f0ec5979230a1d7d" title="Must not be called on references that are in a cell.">setContainerStore</a> (<a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *store);
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076             <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a7e0b302dd59b86df5730fe6d90e575b0" title="May return a 0-pointer, if reference is not in a container.">getContainerStore</a>() <span class="keyword">const</span>;
+<a name="l00078"></a>00078     };
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Ptr.html#ae8df77fb3963b5e8f0ec5979230a1d7d" title="Must not be called on references that are in a cell.">setContainerStore</a> (<a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *store);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083             <a class="code" href="classMWWorld_1_1ContainerStore.html">ContainerStore</a> *<a class="code" href="classMWWorld_1_1Ptr.html#a7e0b302dd59b86df5730fe6d90e575b0" title="May return a 0-pointer, if reference is not in a container.">getContainerStore</a>() <span class="keyword">const</span>;
-<a name="l00085"></a>00085     };
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="namespaceMWWorld.html#a4bee8725b095450155baaf6fe60e190b">00087</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a89611e0d478b0d06e1ac157991935353">operator== </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00088"></a>00088     {
-<a name="l00089"></a>00089         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>==right.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
-<a name="l00090"></a>00090     }
-<a name="l00091"></a>00091 
-<a name="l00092"></a><a class="code" href="namespaceMWWorld.html#ac24e0e2346f22d755b1fde34704f3ddf">00092</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a6ceba835fba79cbef4a277517a5db0b6">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00093"></a>00093     {
-<a name="l00094"></a>00094         <span class="keywordflow">return</span> !(left==right);
-<a name="l00095"></a>00095     }
-<a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">00097</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">operator&lt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00098"></a>00098     {
-<a name="l00099"></a>00099         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>&lt;right.<a class="code" href="classMWWorld_1_1Ptr.html#aaab20e25030d3c3f251fcb40505a102f">mRefData</a>;
-<a name="l00100"></a>00100     }
-<a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">00102</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">operator&gt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00103"></a>00103     {
-<a name="l00104"></a>00104         <span class="keywordflow">return</span> !(left&lt;right);
-<a name="l00105"></a>00105     }
-<a name="l00106"></a>00106 
-<a name="l00107"></a><a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">00107</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">operator&gt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00108"></a>00108     {
-<a name="l00109"></a>00109         <span class="keywordflow">return</span> right&lt;left;
-<a name="l00110"></a>00110     }
-<a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">00112</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">operator&lt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
-<a name="l00113"></a>00113     {
-<a name="l00114"></a>00114         <span class="keywordflow">return</span> !(left&gt;right);
-<a name="l00115"></a>00115     }
-<a name="l00116"></a>00116 }
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118 <span class="preprocessor">#endif</span>
+<a name="l00080"></a><a class="code" href="namespaceMWWorld.html#a4bee8725b095450155baaf6fe60e190b">00080</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a89611e0d478b0d06e1ac157991935353">operator== </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00081"></a>00081     {
+<a name="l00082"></a>00082         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>==right.<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>;
+<a name="l00083"></a>00083     }
+<a name="l00084"></a>00084 
+<a name="l00085"></a><a class="code" href="namespaceMWWorld.html#ac24e0e2346f22d755b1fde34704f3ddf">00085</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a6ceba835fba79cbef4a277517a5db0b6">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00086"></a>00086     {
+<a name="l00087"></a>00087         <span class="keywordflow">return</span> !(left==right);
+<a name="l00088"></a>00088     }
+<a name="l00089"></a>00089 
+<a name="l00090"></a><a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">00090</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a3bcf104c1656d8ca49c3b3503e12559f">operator&lt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00091"></a>00091     {
+<a name="l00092"></a>00092         <span class="keywordflow">return</span> left.<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>&lt;right.<a class="code" href="classMWWorld_1_1Ptr.html#ae144bc015a88d31eb50f74c997d6c2bf">mRef</a>;
+<a name="l00093"></a>00093     }
+<a name="l00094"></a>00094 
+<a name="l00095"></a><a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">00095</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#ad5295facdb02f691b26e060b0539d629">operator&gt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00096"></a>00096     {
+<a name="l00097"></a>00097         <span class="keywordflow">return</span> !(left&lt;right);
+<a name="l00098"></a>00098     }
+<a name="l00099"></a>00099 
+<a name="l00100"></a><a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">00100</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a50131f373f27d2a4b07f8cbd1bbe0c3d">operator&gt; </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00101"></a>00101     {
+<a name="l00102"></a>00102         <span class="keywordflow">return</span> right&lt;left;
+<a name="l00103"></a>00103     }
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">00105</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWWorld.html#a80c9e8967911dcc8b34d95452f07630c">operator&lt;= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; right)
+<a name="l00106"></a>00106     {
+<a name="l00107"></a>00107         <span class="keywordflow">return</span> !(left&gt;right);
+<a name="l00108"></a>00108     }
+<a name="l00109"></a>00109 }
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

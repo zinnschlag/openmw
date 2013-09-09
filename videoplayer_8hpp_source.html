@@ -69,53 +69,55 @@
 <a name="l00008"></a>00008     <span class="keyword">class </span>SceneManager;
 <a name="l00009"></a>00009     <span class="keyword">class </span>SceneNode;
 <a name="l00010"></a>00010     <span class="keyword">class </span>Rectangle2D;
-<a name="l00011"></a>00011 }
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWRender
-<a name="l00014"></a>00014 {
-<a name="l00015"></a>00015     <span class="keyword">struct </span>VideoState;
-<a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="classMWRender_1_1VideoPlayer.html">00017</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1VideoPlayer.html">VideoPlayer</a>
-<a name="l00018"></a>00018     {
-<a name="l00019"></a>00019     <span class="keyword">public</span>:
-<a name="l00020"></a>00020         <a class="code" href="classMWRender_1_1VideoPlayer.html#a76d8850d503b926262af867951cbdcba">VideoPlayer</a>(Ogre::SceneManager* sceneMgr);
-<a name="l00021"></a>00021         <a class="code" href="classMWRender_1_1VideoPlayer.html#ac0a953f49e5c3743b0c0390afc0c61d9">~VideoPlayer</a>();
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a83e869c8fa2b2e85ba0ef75d6c810bf2">playVideo</a> (<span class="keyword">const</span> std::string&amp; resourceName, <span class="keywordtype">bool</span> allowSkipping);
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a911883a3018d03bf426e5b753b05d3a7">update</a>();
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a37e882e222f42ec00ea23561423d092a">close</a>();
-<a name="l00028"></a>00028         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a08e76e9b6a7074c84bcd2ba47239ed28">stopVideo</a>();
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#aa506abe98bc05cfbe937d148b6e42810">isPlaying</a>();
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a0c0442286b998747dcd49877c8778c13">00032</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a0c0442286b998747dcd49877c8778c13">setResolution</a> (<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h) { <a class="code" href="classMWRender_1_1VideoPlayer.html#af5d218458dc9ce274c0fdccfc18fb196">mWidth</a> = w; <a class="code" href="classMWRender_1_1VideoPlayer.html#a3ab37f6e4dbcf2d6a951ae1201cd88b9">mHeight</a> = h; }
-<a name="l00033"></a>00033 
+<a name="l00011"></a>00011     <span class="keyword">class </span>RenderWindow;
+<a name="l00012"></a>00012 }
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWRender
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016     <span class="keyword">struct </span>VideoState;
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="classMWRender_1_1VideoPlayer.html">00018</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1VideoPlayer.html">VideoPlayer</a>
+<a name="l00019"></a>00019     {
+<a name="l00020"></a>00020     <span class="keyword">public</span>:
+<a name="l00021"></a>00021         <a class="code" href="classMWRender_1_1VideoPlayer.html#a95e056d1c20d3f471fa8200f17516ef1">VideoPlayer</a>(Ogre::SceneManager* sceneMgr, Ogre::RenderWindow* <a class="code" href="ogre__common_8cpp.html#ae1f8b65b3ad5afe5312d8963e3cc7f60">window</a>);
+<a name="l00022"></a>00022         <a class="code" href="classMWRender_1_1VideoPlayer.html#ac0a953f49e5c3743b0c0390afc0c61d9">~VideoPlayer</a>();
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a83e869c8fa2b2e85ba0ef75d6c810bf2">playVideo</a> (<span class="keyword">const</span> std::string&amp; resourceName, <span class="keywordtype">bool</span> allowSkipping);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a911883a3018d03bf426e5b753b05d3a7">update</a>();
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a37e882e222f42ec00ea23561423d092a">close</a>();
+<a name="l00029"></a>00029         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a08e76e9b6a7074c84bcd2ba47239ed28">stopVideo</a>();
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#aa506abe98bc05cfbe937d148b6e42810">isPlaying</a>();
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a0c0442286b998747dcd49877c8778c13">00033</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a0c0442286b998747dcd49877c8778c13">setResolution</a> (<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h) { <a class="code" href="classMWRender_1_1VideoPlayer.html#af5d218458dc9ce274c0fdccfc18fb196">mWidth</a> = w; <a class="code" href="classMWRender_1_1VideoPlayer.html#a3ab37f6e4dbcf2d6a951ae1201cd88b9">mHeight</a> = h; }
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035     <span class="keyword">private</span>:
-<a name="l00036"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a454b8248a9c7959a448433fe9014d59a">00036</a>         <a class="code" href="classMWRender_1_1VideoState.html">VideoState</a>* <a class="code" href="classMWRender_1_1VideoPlayer.html#a454b8248a9c7959a448433fe9014d59a">mState</a>;
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a59da773509297021aea5bea8118e55d7">00038</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a59da773509297021aea5bea8118e55d7">mAllowSkipping</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a97abad7bded9fdc7cbdf7a9f53b48cb8">00040</a>         Ogre::SceneManager* <a class="code" href="classMWRender_1_1VideoPlayer.html#a97abad7bded9fdc7cbdf7a9f53b48cb8">mSceneMgr</a>;
-<a name="l00041"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a46e742f9d6a6cbc8e4b91c46c19b7bf1">00041</a>         Ogre::MaterialPtr <a class="code" href="classMWRender_1_1VideoPlayer.html#a46e742f9d6a6cbc8e4b91c46c19b7bf1">mVideoMaterial</a>;
-<a name="l00042"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a04b653df4f410b0cf0d4f6d8b5ad8c47">00042</a>         Ogre::Rectangle2D* <a class="code" href="classMWRender_1_1VideoPlayer.html#a04b653df4f410b0cf0d4f6d8b5ad8c47">mRectangle</a>;
-<a name="l00043"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a7e3c57dcd69db7989e8c6c4e92709f82">00043</a>         Ogre::Rectangle2D* <a class="code" href="classMWRender_1_1VideoPlayer.html#a7e3c57dcd69db7989e8c6c4e92709f82">mBackgroundRectangle</a>;
-<a name="l00044"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a205f5a4e7cc9dd90914e891f701d415b">00044</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1VideoPlayer.html#a205f5a4e7cc9dd90914e891f701d415b">mNode</a>;
-<a name="l00045"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a171154f2be96ed7bbf8609465b43c171">00045</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1VideoPlayer.html#a171154f2be96ed7bbf8609465b43c171">mBackgroundNode</a>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#af5d218458dc9ce274c0fdccfc18fb196">00047</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#af5d218458dc9ce274c0fdccfc18fb196">mWidth</a>;
-<a name="l00048"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a3ab37f6e4dbcf2d6a951ae1201cd88b9">00048</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a3ab37f6e4dbcf2d6a951ae1201cd88b9">mHeight</a>;
-<a name="l00049"></a>00049     };
-<a name="l00050"></a>00050 }
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036     <span class="keyword">private</span>:
+<a name="l00037"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a454b8248a9c7959a448433fe9014d59a">00037</a>         <a class="code" href="classMWRender_1_1VideoState.html">VideoState</a>* <a class="code" href="classMWRender_1_1VideoPlayer.html#a454b8248a9c7959a448433fe9014d59a">mState</a>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a59da773509297021aea5bea8118e55d7">00039</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a59da773509297021aea5bea8118e55d7">mAllowSkipping</a>;
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a97abad7bded9fdc7cbdf7a9f53b48cb8">00041</a>         Ogre::SceneManager* <a class="code" href="classMWRender_1_1VideoPlayer.html#a97abad7bded9fdc7cbdf7a9f53b48cb8">mSceneMgr</a>;
+<a name="l00042"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a46e742f9d6a6cbc8e4b91c46c19b7bf1">00042</a>         Ogre::MaterialPtr <a class="code" href="classMWRender_1_1VideoPlayer.html#a46e742f9d6a6cbc8e4b91c46c19b7bf1">mVideoMaterial</a>;
+<a name="l00043"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a04b653df4f410b0cf0d4f6d8b5ad8c47">00043</a>         Ogre::Rectangle2D* <a class="code" href="classMWRender_1_1VideoPlayer.html#a04b653df4f410b0cf0d4f6d8b5ad8c47">mRectangle</a>;
+<a name="l00044"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a7e3c57dcd69db7989e8c6c4e92709f82">00044</a>         Ogre::Rectangle2D* <a class="code" href="classMWRender_1_1VideoPlayer.html#a7e3c57dcd69db7989e8c6c4e92709f82">mBackgroundRectangle</a>;
+<a name="l00045"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a205f5a4e7cc9dd90914e891f701d415b">00045</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1VideoPlayer.html#a205f5a4e7cc9dd90914e891f701d415b">mNode</a>;
+<a name="l00046"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a171154f2be96ed7bbf8609465b43c171">00046</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1VideoPlayer.html#a171154f2be96ed7bbf8609465b43c171">mBackgroundNode</a>;
+<a name="l00047"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#ae4f8a032909af6960be852108195d644">00047</a>         Ogre::RenderWindow* <a class="code" href="classMWRender_1_1VideoPlayer.html#ae4f8a032909af6960be852108195d644">mWindow</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#af5d218458dc9ce274c0fdccfc18fb196">00049</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#af5d218458dc9ce274c0fdccfc18fb196">mWidth</a>;
+<a name="l00050"></a><a class="code" href="classMWRender_1_1VideoPlayer.html#a3ab37f6e4dbcf2d6a951ae1201cd88b9">00050</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1VideoPlayer.html#a3ab37f6e4dbcf2d6a951ae1201cd88b9">mHeight</a>;
+<a name="l00051"></a>00051     };
+<a name="l00052"></a>00052 }
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -83,40 +83,42 @@
 <a name="l00022"></a><a class="code" href="classMWSound_1_1Sound.html#a9f0b527624c6805a8d85c0e69158ea52">00022</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1Sound.html#a9f0b527624c6805a8d85c0e69158ea52">mMinDistance</a>;
 <a name="l00023"></a><a class="code" href="classMWSound_1_1Sound.html#a87c2f83fa5a77cc656fb1490e4bb87d3">00023</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1Sound.html#a87c2f83fa5a77cc656fb1490e4bb87d3">mMaxDistance</a>;
 <a name="l00024"></a><a class="code" href="classMWSound_1_1Sound.html#a610e0bb92d52376f94f153bf44169604">00024</a>         <span class="keywordtype">int</span> <a class="code" href="classMWSound_1_1Sound.html#a610e0bb92d52376f94f153bf44169604">mFlags</a>;
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026     <span class="keyword">public</span>:
-<a name="l00027"></a>00027         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#aa06762af74f9d3581939ddeafdea2018">stop</a>() = 0;
-<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1Sound.html#a9d6befc9be8e90111226ca531b147f1f">isPlaying</a>() = 0;
-<a name="l00029"></a>00029         <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code" href="classMWSound_1_1Sound.html#af0c65308feea169d7744a8321ac41edb">getTimeOffset</a>() = 0;
-<a name="l00030"></a><a class="code" href="classMWSound_1_1Sound.html#a46b13d10404d616296cbd031441c3fe6">00030</a>         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#a46b13d10404d616296cbd031441c3fe6">setPosition</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;pos) { <a class="code" href="classMWSound_1_1Sound.html#a3e61d24312727f28058654ddb7f7f9b5">mPos</a> = pos; }
-<a name="l00031"></a><a class="code" href="classMWSound_1_1Sound.html#a6390712c8ff10421706d98dfa5010d79">00031</a>         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#a6390712c8ff10421706d98dfa5010d79">setVolume</a>(<span class="keywordtype">float</span> volume) { <a class="code" href="classMWSound_1_1Sound.html#abdeb91f0b77dccd9ce9a3b638e09055d">mVolume</a> = volume; }
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classMWSound_1_1Sound.html#a41d4aac3447210f5283172e767a27fbd">00033</a>         <a class="code" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">MWBase::SoundManager::PlayType</a> <a class="code" href="classMWSound_1_1Sound.html#a41d4aac3447210f5283172e767a27fbd">getPlayType</a>()<span class="keyword"> const</span>
-<a name="l00034"></a>00034 <span class="keyword">        </span>{ <span class="keywordflow">return</span> (<a class="code" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">MWBase::SoundManager::PlayType</a>)(<a class="code" href="classMWSound_1_1Sound.html#a610e0bb92d52376f94f153bf44169604">mFlags</a>&amp;<a class="code" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a244c5de7f7b530ae254dec63f2e7bb3e">MWBase::SoundManager::Play_TypeMask</a>); }
-<a name="l00035"></a>00035 
+<a name="l00025"></a><a class="code" href="classMWSound_1_1Sound.html#a94e0716b79c5c756ff77ec67b683936f">00025</a>         <span class="keywordtype">float</span> <a class="code" href="classMWSound_1_1Sound.html#a94e0716b79c5c756ff77ec67b683936f">mFadeOutTime</a>;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027     <span class="keyword">public</span>:
+<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#aa06762af74f9d3581939ddeafdea2018">stop</a>() = 0;
+<a name="l00029"></a>00029         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWSound_1_1Sound.html#a9d6befc9be8e90111226ca531b147f1f">isPlaying</a>() = 0;
+<a name="l00030"></a>00030         <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code" href="classMWSound_1_1Sound.html#af0c65308feea169d7744a8321ac41edb">getTimeOffset</a>() = 0;
+<a name="l00031"></a><a class="code" href="classMWSound_1_1Sound.html#a46b13d10404d616296cbd031441c3fe6">00031</a>         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#a46b13d10404d616296cbd031441c3fe6">setPosition</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;pos) { <a class="code" href="classMWSound_1_1Sound.html#a3e61d24312727f28058654ddb7f7f9b5">mPos</a> = pos; }
+<a name="l00032"></a><a class="code" href="classMWSound_1_1Sound.html#a6390712c8ff10421706d98dfa5010d79">00032</a>         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#a6390712c8ff10421706d98dfa5010d79">setVolume</a>(<span class="keywordtype">float</span> volume) { <a class="code" href="classMWSound_1_1Sound.html#abdeb91f0b77dccd9ce9a3b638e09055d">mVolume</a> = volume; }
+<a name="l00033"></a><a class="code" href="classMWSound_1_1Sound.html#af68ee57f9770308ffac4e167e94f2dd7">00033</a>         <span class="keywordtype">void</span> <a class="code" href="classMWSound_1_1Sound.html#af68ee57f9770308ffac4e167e94f2dd7">setFadeout</a>(<span class="keywordtype">float</span> duration) { <a class="code" href="classMWSound_1_1Sound.html#a94e0716b79c5c756ff77ec67b683936f">mFadeOutTime</a>=duration; }
+<a name="l00034"></a><a class="code" href="classMWSound_1_1Sound.html#a41d4aac3447210f5283172e767a27fbd">00034</a>         <a class="code" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">MWBase::SoundManager::PlayType</a> <a class="code" href="classMWSound_1_1Sound.html#a41d4aac3447210f5283172e767a27fbd">getPlayType</a>()<span class="keyword"> const</span>
+<a name="l00035"></a>00035 <span class="keyword">        </span>{ <span class="keywordflow">return</span> (<a class="code" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860">MWBase::SoundManager::PlayType</a>)(<a class="code" href="classMWSound_1_1Sound.html#a610e0bb92d52376f94f153bf44169604">mFlags</a>&amp;<a class="code" href="classMWBase_1_1SoundManager.html#a23db84b9f5d10a8c6896d8b42e3f3860a244c5de7f7b530ae254dec63f2e7bb3e">MWBase::SoundManager::Play_TypeMask</a>); }
 <a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classMWSound_1_1Sound.html#af92b9c006c2958dcdc78761acacbc45e">00037</a>         <a class="code" href="classMWSound_1_1Sound.html#aa0c56554fc1439d65192c1ee799f9820">Sound</a>(<span class="keyword">const</span> Ogre::Vector3&amp; pos, <span class="keywordtype">float</span> vol, <span class="keywordtype">float</span> basevol, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> mindist, <span class="keywordtype">float</span> maxdist, <span class="keywordtype">int</span> flags)
-<a name="l00038"></a>00038           : <a class="code" href="classMWSound_1_1Sound.html#a3e61d24312727f28058654ddb7f7f9b5">mPos</a>(pos)
-<a name="l00039"></a>00039           , <a class="code" href="classMWSound_1_1Sound.html#abdeb91f0b77dccd9ce9a3b638e09055d">mVolume</a>(vol)
-<a name="l00040"></a>00040           , <a class="code" href="classMWSound_1_1Sound.html#a057045d6f2312749fa93316c8ac716a1">mBaseVolume</a>(basevol)
-<a name="l00041"></a>00041           , <a class="code" href="classMWSound_1_1Sound.html#a11f535d93cf13fe0e6ad93557c18146a">mPitch</a>(pitch)
-<a name="l00042"></a>00042           , <a class="code" href="classMWSound_1_1Sound.html#a9f0b527624c6805a8d85c0e69158ea52">mMinDistance</a>(mindist)
-<a name="l00043"></a>00043           , <a class="code" href="classMWSound_1_1Sound.html#a87c2f83fa5a77cc656fb1490e4bb87d3">mMaxDistance</a>(maxdist)
-<a name="l00044"></a>00044           , <a class="code" href="classMWSound_1_1Sound.html#a610e0bb92d52376f94f153bf44169604">mFlags</a>(flags)
-<a name="l00045"></a>00045         { }
-<a name="l00046"></a><a class="code" href="classMWSound_1_1Sound.html#a9f145161b5a283e0fe2426791a24cc14">00046</a>         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1Sound.html#a9f145161b5a283e0fe2426791a24cc14">~Sound</a>() { }
-<a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classMWSound_1_1Sound.html#a6b4229294eca41f1ffb09c11f02ed116">00048</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a>;
-<a name="l00049"></a><a class="code" href="classMWSound_1_1Sound.html#aee940642f2974e262db9284c0b1d9766">00049</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
-<a name="l00050"></a>00050     };
-<a name="l00051"></a>00051 }
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
+<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="classMWSound_1_1Sound.html#af92b9c006c2958dcdc78761acacbc45e">00038</a>         <a class="code" href="classMWSound_1_1Sound.html#aa0c56554fc1439d65192c1ee799f9820">Sound</a>(<span class="keyword">const</span> Ogre::Vector3&amp; pos, <span class="keywordtype">float</span> vol, <span class="keywordtype">float</span> basevol, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> mindist, <span class="keywordtype">float</span> maxdist, <span class="keywordtype">int</span> flags)
+<a name="l00039"></a>00039           : <a class="code" href="classMWSound_1_1Sound.html#a3e61d24312727f28058654ddb7f7f9b5">mPos</a>(pos)
+<a name="l00040"></a>00040           , <a class="code" href="classMWSound_1_1Sound.html#abdeb91f0b77dccd9ce9a3b638e09055d">mVolume</a>(vol)
+<a name="l00041"></a>00041           , <a class="code" href="classMWSound_1_1Sound.html#a057045d6f2312749fa93316c8ac716a1">mBaseVolume</a>(basevol)
+<a name="l00042"></a>00042           , <a class="code" href="classMWSound_1_1Sound.html#a11f535d93cf13fe0e6ad93557c18146a">mPitch</a>(pitch)
+<a name="l00043"></a>00043           , <a class="code" href="classMWSound_1_1Sound.html#a9f0b527624c6805a8d85c0e69158ea52">mMinDistance</a>(mindist)
+<a name="l00044"></a>00044           , <a class="code" href="classMWSound_1_1Sound.html#a87c2f83fa5a77cc656fb1490e4bb87d3">mMaxDistance</a>(maxdist)
+<a name="l00045"></a>00045           , <a class="code" href="classMWSound_1_1Sound.html#a610e0bb92d52376f94f153bf44169604">mFlags</a>(flags)
+<a name="l00046"></a>00046           , <a class="code" href="classMWSound_1_1Sound.html#a94e0716b79c5c756ff77ec67b683936f">mFadeOutTime</a>(0)
+<a name="l00047"></a>00047         { }
+<a name="l00048"></a><a class="code" href="classMWSound_1_1Sound.html#a9f145161b5a283e0fe2426791a24cc14">00048</a>         <span class="keyword">virtual</span> <a class="code" href="classMWSound_1_1Sound.html#a9f145161b5a283e0fe2426791a24cc14">~Sound</a>() { }
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classMWSound_1_1Sound.html#a6b4229294eca41f1ffb09c11f02ed116">00050</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1OpenAL__Output.html">OpenAL_Output</a>;
+<a name="l00051"></a><a class="code" href="classMWSound_1_1Sound.html#aee940642f2974e262db9284c0b1d9766">00051</a>         <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classMWSound_1_1SoundManager.html">SoundManager</a>;
+<a name="l00052"></a>00052     };
+<a name="l00053"></a>00053 }
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

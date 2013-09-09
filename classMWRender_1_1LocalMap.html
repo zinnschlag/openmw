@@ -83,7 +83,7 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#aeabb5be5ec8b8c76a09238bf295d7e77">LocalMap</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> *, <a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *rendering)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a6d6b35d27b1e1bdf6997a6f7c26b9455">~LocalMap</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#ae3bf4a71414822ed068ecb49bdc95889">requestMap</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a75b62b87a079e46f7aa1c67b8b73b90c">requestMap</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell, float zMin, float zMax)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a9204c1e8739ebf2cc42bf262dbfbaf47">requestMap</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell, Ogre::AxisAlignedBox bounds)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#ae76ef2ffa53b658f74bbca6970b194ed">updatePlayer</a> (const Ogre::Vector3 &amp;position, const Ogre::Quaternion &amp;orientation)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1LocalMap.html#a5743e87ef1cf3acd45df4e17acd84dbf">saveFogOfWar</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *cell)</td></tr>
@@ -356,20 +356,36 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000076">Todo:</a></b></dt><dd></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000073">Todo:</a></b></dt><dd></dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ae3bf4a71414822ed068ecb49bdc95889"></a><!-- doxytag: member="MWRender::LocalMap::requestMap" ref="ae3bf4a71414822ed068ecb49bdc95889" args="(MWWorld::CellStore *cell)" -->
+<a class="anchor" id="a75b62b87a079e46f7aa1c67b8b73b90c"></a><!-- doxytag: member="MWRender::LocalMap::requestMap" ref="a75b62b87a079e46f7aa1c67b8b73b90c" args="(MWWorld::CellStore *cell, float zMin, float zMax)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1LocalMap.html#ae3bf4a71414822ed068ecb49bdc95889">LocalMap::requestMap</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1LocalMap.html#a75b62b87a079e46f7aa1c67b8b73b90c">LocalMap::requestMap</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *&#160;</td>
-          <td class="paramname"><em>cell</em></td><td>)</td>
+          <td class="paramname"><em>cell</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>zMin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>zMax</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -378,7 +394,9 @@ Static Private Attributes</h2></td></tr>
 <dl class="remark"><dt><b>Remarks:</b></dt><dd>It will either be loaded from a disk cache, or rendered if it is not already cached. </dd></dl>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">exterior</td><td>cell </td></tr>
+    <tr><td class="paramname">cell</td><td>exterior cell </td></tr>
+    <tr><td class="paramname">zMin</td><td>min height of objects or terrain in cell </td></tr>
+    <tr><td class="paramname">zMax</td><td>max height of objects or terrain in cell </td></tr>
   </table>
   </dd>
 </dl>
@@ -390,7 +408,7 @@ Static Private Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1LocalMap.html#ae3bf4a71414822ed068ecb49bdc95889">MWRender::LocalMap::requestMap</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1LocalMap.html#a75b62b87a079e46f7aa1c67b8b73b90c">MWRender::LocalMap::requestMap</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *&#160;</td>
           <td class="paramname"><em>cell</em>, </td>
@@ -413,8 +431,8 @@ Static Private Attributes</h2></td></tr>
 <dl class="remark"><dt><b>Remarks:</b></dt><dd>It will either be loaded from a disk cache, or rendered if it is not already cached. </dd></dl>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">interior</td><td>cell </td></tr>
-    <tr><td class="paramname">bounding</td><td>box of the cell </td></tr>
+    <tr><td class="paramname">cell</td><td>interior cell </td></tr>
+    <tr><td class="paramname">bounds</td><td>bounding box of the cell </td></tr>
   </table>
   </dd>
 </dl>
@@ -785,7 +803,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

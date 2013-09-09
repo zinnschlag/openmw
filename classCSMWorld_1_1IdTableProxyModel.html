@@ -63,7 +63,9 @@
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">CSMWorld::IdTableProxyModel Class Reference</div>  </div>
 </div><!--header-->
@@ -76,8 +78,17 @@
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a2dba8077ef2da10e2f6716af905898b4">IdTableProxyModel</a> (QObject *parent=0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#aa4a7d8a1052e8578ec85896c1b0b89ca">addRecord</a> (const std::string &amp;id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual QModelIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a961b1202e0198ed08b2abccda988db64">getModelIndex</a> (const std::string &amp;id, int column) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a66cd6edc24360f79b89073af342bcfc7">setFilter</a> (const boost::shared_ptr&lt; <a class="el" href="classCSMFilter_1_1Node.html">CSMFilter::Node</a> &gt; &amp;filter)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a8b9d4df7e62c0f58441830847bf2201e">updateColumnMap</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a525100d688e151915b03b9e468f8bc27">filterAcceptsRow</a> (int sourceRow, const QModelIndex &amp;sourceParent) const </td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="classCSMFilter_1_1Node.html">CSMFilter::Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a8b6c78f9f5e025068668e5766ac01a50">mFilter</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a0ee56e6c0d311ee1013a99083e499c10">mColumnMap</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a2dba8077ef2da10e2f6716af905898b4"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::IdTableProxyModel" ref="a2dba8077ef2da10e2f6716af905898b4" args="(QObject *parent=0)" -->
@@ -98,16 +109,26 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aa4a7d8a1052e8578ec85896c1b0b89ca"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::addRecord" ref="aa4a7d8a1052e8578ec85896c1b0b89ca" args="(const std::string &amp;id)" -->
+<a class="anchor" id="a525100d688e151915b03b9e468f8bc27"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::filterAcceptsRow" ref="a525100d688e151915b03b9e468f8bc27" args="(int sourceRow, const QModelIndex &amp;sourceParent) const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#aa4a7d8a1052e8578ec85896c1b0b89ca">CSMWorld::IdTableProxyModel::addRecord</a> </td>
+          <td class="memname">bool <a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a525100d688e151915b03b9e468f8bc27">CSMWorld::IdTableProxyModel::filterAcceptsRow</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sourceRow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QModelIndex &amp;&#160;</td>
+          <td class="paramname"><em>sourceParent</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -142,6 +163,66 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a66cd6edc24360f79b89073af342bcfc7"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::setFilter" ref="a66cd6edc24360f79b89073af342bcfc7" args="(const boost::shared_ptr&lt; CSMFilter::Node &gt; &amp;filter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a66cd6edc24360f79b89073af342bcfc7">CSMWorld::IdTableProxyModel::setFilter</a> </td>
+          <td>(</td>
+          <td class="paramtype">const boost::shared_ptr&lt; <a class="el" href="classCSMFilter_1_1Node.html">CSMFilter::Node</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8b9d4df7e62c0f58441830847bf2201e"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::updateColumnMap" ref="a8b9d4df7e62c0f58441830847bf2201e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a8b9d4df7e62c0f58441830847bf2201e">CSMWorld::IdTableProxyModel::updateColumnMap</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a0ee56e6c0d311ee1013a99083e499c10"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::mColumnMap" ref="a0ee56e6c0d311ee1013a99083e499c10" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;int, int&gt; <a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a0ee56e6c0d311ee1013a99083e499c10">CSMWorld::IdTableProxyModel::mColumnMap</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8b6c78f9f5e025068668e5766ac01a50"></a><!-- doxytag: member="CSMWorld::IdTableProxyModel::mFilter" ref="a8b6c78f9f5e025068668e5766ac01a50" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::shared_ptr&lt;<a class="el" href="classCSMFilter_1_1Node.html">CSMFilter::Node</a>&gt; <a class="el" href="classCSMWorld_1_1IdTableProxyModel.html#a8b6c78f9f5e025068668e5766ac01a50">CSMWorld::IdTableProxyModel::mFilter</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>apps/opencs/model/world/<a class="el" href="idtableproxymodel_8hpp_source.html">idtableproxymodel.hpp</a></li>
 <li>apps/opencs/model/world/<a class="el" href="idtableproxymodel_8cpp.html">idtableproxymodel.cpp</a></li>
@@ -150,7 +231,7 @@ Public Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -93,6 +93,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <br class="typebreak"/>
 <a class="el" href="classMWMechanics_1_1CreatureStats.html">MWMechanics::CreatureStats</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a1e74fd5b7b7f698077da10276381f341">getCreatureStats</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return creature stats.  <a href="#a1e74fd5b7b7f698077da10276381f341"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#ab07d236db98e683099e9acd219f387da">hit</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, int type) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a3f3fa5231239c68d387e8cbfea0fa818">onHit</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float damage, bool ishealth, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;object, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;attacker, bool successful) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a72f75b88efb7a21bf3d3a644769664bf">setActorHealth</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float health, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;attacker) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Creature.html#a17e5c2167f56292aacc395f7f4018ad6">activate</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate action for activation.  <a href="#a17e5c2167f56292aacc395f7f4018ad6"></a><br/></td></tr>
@@ -247,7 +250,7 @@ Static Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>combined armor rating of this actor </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000047">Todo:</a></b></dt><dd>add Shield magic effect magnitude here, controlled by a GMST (Vanilla vs MCP behaviour) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>add Shield magic effect magnitude here, controlled by a GMST (Vanilla vs MCP behaviour) </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ada0af1a43244d374f539cb33992c65fc">MWWorld::Class</a>.</p>
 
@@ -571,7 +574,7 @@ Static Private Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>Return movement speed. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000046">Todo:</a></b></dt><dd>what about the rest? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000043">Todo:</a></b></dt><dd>what about the rest? </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a3088ab933971be70239a2e09ade4e9ef">MWWorld::Class</a>.</p>
 
@@ -612,9 +615,45 @@ Static Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if this object has a tooltip when focused (default implementation: false) </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo:</a></b></dt><dd>We don't want tooltips for Creatures in combat mode. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>We don't want tooltips for Creatures in combat mode. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5963827820fe8384a4962a9e9734d3df">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab07d236db98e683099e9acd219f387da"></a><!-- doxytag: member="MWClass::Creature::hit" ref="ab07d236db98e683099e9acd219f387da" args="(const MWWorld::Ptr &amp;ptr, int type) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Creature.html#ab07d236db98e683099e9acd219f387da">MWClass::Creature::hit</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Execute a melee hit, using the current weapon. This will check the relevant skills of the given attacker, and whoever is hit. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- type of attack, one of the <a class="el" href="classMWMechanics_1_1CreatureStats.html#ac164d9a1f4e2b6fbf3a762f04687e28e">MWMechanics::CreatureStats::AttackType</a> enums. ignored for creature attacks. (default implementation: throw an exceoption) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a6dee6ef6ae3e271b739181fdd0c02d65">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -738,6 +777,60 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a3f3fa5231239c68d387e8cbfea0fa818"></a><!-- doxytag: member="MWClass::Creature::onHit" ref="a3f3fa5231239c68d387e8cbfea0fa818" args="(const MWWorld::Ptr &amp;ptr, float damage, bool ishealth, const MWWorld::Ptr &amp;object, const MWWorld::Ptr &amp;attacker, bool successful) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Creature.html#a3f3fa5231239c68d387e8cbfea0fa818">MWClass::Creature::onHit</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>damage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ishealth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>object</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>attacker</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>successful</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Alerts <em>ptr</em> that it's being hit for <em>damage</em> points to health if <em>ishealth</em> is true (else fatigue) by <em>object</em> (sword, arrow, etc). <em>attacker</em> specifies the actor responsible for the attack, and <em>successful</em> specifies if the hit is successful or not. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a227e1eb2bf0bbcfdcc94f7dde2abbfea">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ae0d8ebed441cf3e9b8198b13354eb953"></a><!-- doxytag: member="MWClass::Creature::registerSelf" ref="ae0d8ebed441cf3e9b8198b13354eb953" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -751,6 +844,42 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a72f75b88efb7a21bf3d3a644769664bf"></a><!-- doxytag: member="MWClass::Creature::setActorHealth" ref="a72f75b88efb7a21bf3d3a644769664bf" args="(const MWWorld::Ptr &amp;ptr, float health, const MWWorld::Ptr &amp;attacker) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Creature.html#a72f75b88efb7a21bf3d3a644769664bf">MWClass::Creature::setActorHealth</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>health</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>attacker</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Sets a new current health value for the actor, optionally specifying the object causing the change. Use this instead of using CreatureStats directly as this will make sure the correct dialog and actor states are properly handled when being hurt or healed. (default implementation: throw an exceoption) </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a6b201533a3dda5fcb325a555df2f4575">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -789,7 +918,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:23 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

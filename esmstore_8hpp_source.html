@@ -67,468 +67,473 @@
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="records_8hpp.html">components/esm/records.hpp</a>&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="store_8hpp.html">store.hpp</a>&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>MWWorld
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>Loading
 <a name="l00010"></a>00010 {
-<a name="l00011"></a><a class="code" href="classMWWorld_1_1ESMStore.html">00011</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1ESMStore.html">ESMStore</a>
-<a name="l00012"></a>00012     {
-<a name="l00013"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a7fd19b224dbf1e8c50164478cb64a457">00013</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Activator&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a7fd19b224dbf1e8c50164478cb64a457">mActivators</a>;
-<a name="l00014"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ae797f91790a695ae4c99b5109a558833">00014</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Potion&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ae797f91790a695ae4c99b5109a558833">mPotions</a>;
-<a name="l00015"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa89123dd992e1c324f0136f0185b102a">00015</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Apparatus&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#aa89123dd992e1c324f0136f0185b102a">mAppas</a>;
-<a name="l00016"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a73eebfc729e56edb75dad96c03e59ee9">00016</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Armor&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a73eebfc729e56edb75dad96c03e59ee9">mArmors</a>;
-<a name="l00017"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a50353b0c31279ac2652e4c8456ae4d38">00017</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BodyPart&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a50353b0c31279ac2652e4c8456ae4d38">mBodyParts</a>;
-<a name="l00018"></a><a class="code" href="classMWWorld_1_1ESMStore.html#abbbfde07fe47e9a9321e7fd67b542a6c">00018</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Book&gt;</a>            <a class="code" href="classMWWorld_1_1ESMStore.html#abbbfde07fe47e9a9321e7fd67b542a6c">mBooks</a>;
-<a name="l00019"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a9b1227fd108518f2a7f5cb3b89adb53a">00019</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BirthSign&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a9b1227fd108518f2a7f5cb3b89adb53a">mBirthSigns</a>;
-<a name="l00020"></a><a class="code" href="classMWWorld_1_1ESMStore.html#af37dfcf3799077966d01af46762e9d78">00020</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Class&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#af37dfcf3799077966d01af46762e9d78">mClasses</a>;
-<a name="l00021"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa9966793627f5021effb8741a2668480">00021</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Clothing&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#aa9966793627f5021effb8741a2668480">mClothes</a>;
-<a name="l00022"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a52a65c08ed3b2b0f9148159ced11bb16">00022</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCNTC&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a52a65c08ed3b2b0f9148159ced11bb16">mContChange</a>;
-<a name="l00023"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0d874a241cf6078ce13ccaa2e3126fb8">00023</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Container&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a0d874a241cf6078ce13ccaa2e3126fb8">mContainers</a>;
-<a name="l00024"></a><a class="code" href="classMWWorld_1_1ESMStore.html#add69772fee3e7f5948a74d9bf9153f2e">00024</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Creature&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#add69772fee3e7f5948a74d9bf9153f2e">mCreatures</a>;
-<a name="l00025"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a7c06e8a525d98236848e52772841b3fa">00025</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCREC&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a7c06e8a525d98236848e52772841b3fa">mCreaChange</a>;
-<a name="l00026"></a><a class="code" href="classMWWorld_1_1ESMStore.html#abe5ac38b9bd0f3f78b14d7c3fca51836">00026</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Dialogue&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#abe5ac38b9bd0f3f78b14d7c3fca51836">mDialogs</a>;
-<a name="l00027"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a1f9a4e6fe4b26ccaf418b501453857b6">00027</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Door&gt;</a>            <a class="code" href="classMWWorld_1_1ESMStore.html#a1f9a4e6fe4b26ccaf418b501453857b6">mDoors</a>;
-<a name="l00028"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ada257591bc5af1774078548ba9f5ba92">00028</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Enchantment&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#ada257591bc5af1774078548ba9f5ba92">mEnchants</a>;
-<a name="l00029"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ab95092e7e48a9454a787f82b519c4944">00029</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Faction&gt;</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#ab95092e7e48a9454a787f82b519c4944">mFactions</a>;
-<a name="l00030"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a676b2cca0a1ec11020b7d8a90821a307">00030</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Global&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#a676b2cca0a1ec11020b7d8a90821a307">mGlobals</a>;
-<a name="l00031"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8eed5d1729febdfda8bdab1c1d9230f9">00031</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Ingredient&gt;</a>      <a class="code" href="classMWWorld_1_1ESMStore.html#a8eed5d1729febdfda8bdab1c1d9230f9">mIngreds</a>;
-<a name="l00032"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8e4162ff13fb34f5bbf661e662af5924">00032</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::CreatureLevList&gt;</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a8e4162ff13fb34f5bbf661e662af5924">mCreatureLists</a>;
-<a name="l00033"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a60c16d1142f1e7ca85b24e23f5c75a46">00033</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::ItemLevList&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#a60c16d1142f1e7ca85b24e23f5c75a46">mItemLists</a>;
-<a name="l00034"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ac480b62bd1177d38ac9e2cb220fb6917">00034</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Light&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#ac480b62bd1177d38ac9e2cb220fb6917">mLights</a>;
-<a name="l00035"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a52485ac49731b7856bf811979647ba7c">00035</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Lockpick&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a52485ac49731b7856bf811979647ba7c">mLockpicks</a>;
-<a name="l00036"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a45be594bd4f57963f757aab7b632d8f5">00036</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Miscellaneous&gt;</a>   <a class="code" href="classMWWorld_1_1ESMStore.html#a45be594bd4f57963f757aab7b632d8f5">mMiscItems</a>;
-<a name="l00037"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">00037</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::NPC&gt;</a>             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>;
-<a name="l00038"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a37af1ec744e3b3097ca1fa7f7350121a">00038</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadNPCC&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a37af1ec744e3b3097ca1fa7f7350121a">mNpcChange</a>;
-<a name="l00039"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8bf5dcd11a9564263c430645f5f3979f">00039</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Probe&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a8bf5dcd11a9564263c430645f5f3979f">mProbes</a>;
-<a name="l00040"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a03f25ec2633ad38ca2acdaa794e75fa5">00040</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Race&gt;</a>            <a class="code" href="classMWWorld_1_1ESMStore.html#a03f25ec2633ad38ca2acdaa794e75fa5">mRaces</a>;
-<a name="l00041"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ae961e59724b68b0c0ebf86a4930a8cfe">00041</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Region&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ae961e59724b68b0c0ebf86a4930a8cfe">mRegions</a>;
-<a name="l00042"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a09e36696449e07994b4720259ee5b552">00042</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Repair&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#a09e36696449e07994b4720259ee5b552">mRepairs</a>;
-<a name="l00043"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a3bebf9eb594446361a6fbac807a38080">00043</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::SoundGenerator&gt;</a>  <a class="code" href="classMWWorld_1_1ESMStore.html#a3bebf9eb594446361a6fbac807a38080">mSoundGens</a>;
-<a name="l00044"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0fdce8dc9c04e8027fd2a6e7de2d8a92">00044</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Sound&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a0fdce8dc9c04e8027fd2a6e7de2d8a92">mSounds</a>;
-<a name="l00045"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a1fec90f84ee77fc4ac02aefdbb6dc312">00045</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Spell&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a1fec90f84ee77fc4ac02aefdbb6dc312">mSpells</a>;
-<a name="l00046"></a><a class="code" href="classMWWorld_1_1ESMStore.html#af2472a2fcfe358a5db83c2b1aac474ea">00046</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::StartScript&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#af2472a2fcfe358a5db83c2b1aac474ea">mStartScripts</a>;
-<a name="l00047"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a5e2a8b5bdde0b0f355c5eb08fb23afa1">00047</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Static&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#a5e2a8b5bdde0b0f355c5eb08fb23afa1">mStatics</a>;
-<a name="l00048"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ab372a4cfaecf12731e09d0ac8b4e7a09">00048</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Weapon&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ab372a4cfaecf12731e09d0ac8b4e7a09">mWeapons</a>;
-<a name="l00049"></a>00049 
-<a name="l00050"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8f320349bb11685e80b941ce5095d127">00050</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::GameSetting&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#a8f320349bb11685e80b941ce5095d127">mGameSettings</a>;
-<a name="l00051"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ae7a2644ff29ba586ce64d30115fe67a5">00051</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Script&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ae7a2644ff29ba586ce64d30115fe67a5">mScripts</a>;
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <span class="comment">// Lists that need special rules</span>
-<a name="l00054"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">00054</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html">Store&lt;ESM::Cell&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">mCells</a>;
-<a name="l00055"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a6cbeca443bf8cf441ffc40d6f2c2be16">00055</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Land_01_4.html">Store&lt;ESM::Land&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a6cbeca443bf8cf441ffc40d6f2c2be16">mLands</a>;
-<a name="l00056"></a><a class="code" href="classMWWorld_1_1ESMStore.html#af69b9e5e89e8a7e90c4131fca2aa7c5d">00056</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1LandTexture_01_4.html">Store&lt;ESM::LandTexture&gt;</a> <a class="code" href="classMWWorld_1_1ESMStore.html#af69b9e5e89e8a7e90c4131fca2aa7c5d">mLandTextures</a>;
-<a name="l00057"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa0daefa3e5188b0ac2739298ca1e7caa">00057</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">Store&lt;ESM::Pathgrid&gt;</a>    <a class="code" href="classMWWorld_1_1ESMStore.html#aa0daefa3e5188b0ac2739298ca1e7caa">mPathgrids</a>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a64486355e1db31e37346051c251af20d">00059</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">Store&lt;ESM::MagicEffect&gt;</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a64486355e1db31e37346051c251af20d">mMagicEffects</a>;
-<a name="l00060"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a907ab95b59a1b50fa9bf5b394d31086a">00060</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">Store&lt;ESM::Skill&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a907ab95b59a1b50fa9bf5b394d31086a">mSkills</a>;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062         <span class="comment">// Special entry which is hardcoded and not loaded from an ESM</span>
-<a name="l00063"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a283e43671447de7dd208d250539df333">00063</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">Store&lt;ESM::Attribute&gt;</a>   <a class="code" href="classMWWorld_1_1ESMStore.html#a283e43671447de7dd208d250539df333">mAttributes</a>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065         <span class="comment">// Lookup of all IDs. Makes looking up references faster. Just</span>
-<a name="l00066"></a>00066         <span class="comment">// maps the id name to the record type.</span>
-<a name="l00067"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">00067</a>         std::map&lt;std::string, int&gt; <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>;
-<a name="l00068"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">00068</a>         std::map&lt;int, StoreBase *&gt; <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>;
+<a name="l00011"></a>00011     <span class="keyword">class </span>Listener;
+<a name="l00012"></a>00012 }
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWWorld
+<a name="l00015"></a>00015 {
+<a name="l00016"></a><a class="code" href="classMWWorld_1_1ESMStore.html">00016</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1ESMStore.html">ESMStore</a>
+<a name="l00017"></a>00017     {
+<a name="l00018"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a7fd19b224dbf1e8c50164478cb64a457">00018</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Activator&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a7fd19b224dbf1e8c50164478cb64a457">mActivators</a>;
+<a name="l00019"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ae797f91790a695ae4c99b5109a558833">00019</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Potion&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ae797f91790a695ae4c99b5109a558833">mPotions</a>;
+<a name="l00020"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa89123dd992e1c324f0136f0185b102a">00020</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Apparatus&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#aa89123dd992e1c324f0136f0185b102a">mAppas</a>;
+<a name="l00021"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a73eebfc729e56edb75dad96c03e59ee9">00021</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Armor&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a73eebfc729e56edb75dad96c03e59ee9">mArmors</a>;
+<a name="l00022"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a50353b0c31279ac2652e4c8456ae4d38">00022</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BodyPart&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a50353b0c31279ac2652e4c8456ae4d38">mBodyParts</a>;
+<a name="l00023"></a><a class="code" href="classMWWorld_1_1ESMStore.html#abbbfde07fe47e9a9321e7fd67b542a6c">00023</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Book&gt;</a>            <a class="code" href="classMWWorld_1_1ESMStore.html#abbbfde07fe47e9a9321e7fd67b542a6c">mBooks</a>;
+<a name="l00024"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a9b1227fd108518f2a7f5cb3b89adb53a">00024</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BirthSign&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a9b1227fd108518f2a7f5cb3b89adb53a">mBirthSigns</a>;
+<a name="l00025"></a><a class="code" href="classMWWorld_1_1ESMStore.html#af37dfcf3799077966d01af46762e9d78">00025</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Class&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#af37dfcf3799077966d01af46762e9d78">mClasses</a>;
+<a name="l00026"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa9966793627f5021effb8741a2668480">00026</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Clothing&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#aa9966793627f5021effb8741a2668480">mClothes</a>;
+<a name="l00027"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a52a65c08ed3b2b0f9148159ced11bb16">00027</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCNTC&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a52a65c08ed3b2b0f9148159ced11bb16">mContChange</a>;
+<a name="l00028"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0d874a241cf6078ce13ccaa2e3126fb8">00028</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Container&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a0d874a241cf6078ce13ccaa2e3126fb8">mContainers</a>;
+<a name="l00029"></a><a class="code" href="classMWWorld_1_1ESMStore.html#add69772fee3e7f5948a74d9bf9153f2e">00029</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Creature&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#add69772fee3e7f5948a74d9bf9153f2e">mCreatures</a>;
+<a name="l00030"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a7c06e8a525d98236848e52772841b3fa">00030</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCREC&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a7c06e8a525d98236848e52772841b3fa">mCreaChange</a>;
+<a name="l00031"></a><a class="code" href="classMWWorld_1_1ESMStore.html#abe5ac38b9bd0f3f78b14d7c3fca51836">00031</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Dialogue&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#abe5ac38b9bd0f3f78b14d7c3fca51836">mDialogs</a>;
+<a name="l00032"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a1f9a4e6fe4b26ccaf418b501453857b6">00032</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Door&gt;</a>            <a class="code" href="classMWWorld_1_1ESMStore.html#a1f9a4e6fe4b26ccaf418b501453857b6">mDoors</a>;
+<a name="l00033"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ada257591bc5af1774078548ba9f5ba92">00033</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Enchantment&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#ada257591bc5af1774078548ba9f5ba92">mEnchants</a>;
+<a name="l00034"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ab95092e7e48a9454a787f82b519c4944">00034</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Faction&gt;</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#ab95092e7e48a9454a787f82b519c4944">mFactions</a>;
+<a name="l00035"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a676b2cca0a1ec11020b7d8a90821a307">00035</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Global&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#a676b2cca0a1ec11020b7d8a90821a307">mGlobals</a>;
+<a name="l00036"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8eed5d1729febdfda8bdab1c1d9230f9">00036</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Ingredient&gt;</a>      <a class="code" href="classMWWorld_1_1ESMStore.html#a8eed5d1729febdfda8bdab1c1d9230f9">mIngreds</a>;
+<a name="l00037"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8e4162ff13fb34f5bbf661e662af5924">00037</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::CreatureLevList&gt;</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a8e4162ff13fb34f5bbf661e662af5924">mCreatureLists</a>;
+<a name="l00038"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a60c16d1142f1e7ca85b24e23f5c75a46">00038</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::ItemLevList&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#a60c16d1142f1e7ca85b24e23f5c75a46">mItemLists</a>;
+<a name="l00039"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ac480b62bd1177d38ac9e2cb220fb6917">00039</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Light&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#ac480b62bd1177d38ac9e2cb220fb6917">mLights</a>;
+<a name="l00040"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a52485ac49731b7856bf811979647ba7c">00040</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Lockpick&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a52485ac49731b7856bf811979647ba7c">mLockpicks</a>;
+<a name="l00041"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a45be594bd4f57963f757aab7b632d8f5">00041</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Miscellaneous&gt;</a>   <a class="code" href="classMWWorld_1_1ESMStore.html#a45be594bd4f57963f757aab7b632d8f5">mMiscItems</a>;
+<a name="l00042"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">00042</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::NPC&gt;</a>             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>;
+<a name="l00043"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a37af1ec744e3b3097ca1fa7f7350121a">00043</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadNPCC&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a37af1ec744e3b3097ca1fa7f7350121a">mNpcChange</a>;
+<a name="l00044"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8bf5dcd11a9564263c430645f5f3979f">00044</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Probe&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a8bf5dcd11a9564263c430645f5f3979f">mProbes</a>;
+<a name="l00045"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a03f25ec2633ad38ca2acdaa794e75fa5">00045</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Race&gt;</a>            <a class="code" href="classMWWorld_1_1ESMStore.html#a03f25ec2633ad38ca2acdaa794e75fa5">mRaces</a>;
+<a name="l00046"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ae961e59724b68b0c0ebf86a4930a8cfe">00046</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Region&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ae961e59724b68b0c0ebf86a4930a8cfe">mRegions</a>;
+<a name="l00047"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a09e36696449e07994b4720259ee5b552">00047</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Repair&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#a09e36696449e07994b4720259ee5b552">mRepairs</a>;
+<a name="l00048"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a3bebf9eb594446361a6fbac807a38080">00048</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::SoundGenerator&gt;</a>  <a class="code" href="classMWWorld_1_1ESMStore.html#a3bebf9eb594446361a6fbac807a38080">mSoundGens</a>;
+<a name="l00049"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0fdce8dc9c04e8027fd2a6e7de2d8a92">00049</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Sound&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a0fdce8dc9c04e8027fd2a6e7de2d8a92">mSounds</a>;
+<a name="l00050"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a1fec90f84ee77fc4ac02aefdbb6dc312">00050</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Spell&gt;</a>           <a class="code" href="classMWWorld_1_1ESMStore.html#a1fec90f84ee77fc4ac02aefdbb6dc312">mSpells</a>;
+<a name="l00051"></a><a class="code" href="classMWWorld_1_1ESMStore.html#af2472a2fcfe358a5db83c2b1aac474ea">00051</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::StartScript&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#af2472a2fcfe358a5db83c2b1aac474ea">mStartScripts</a>;
+<a name="l00052"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a5e2a8b5bdde0b0f355c5eb08fb23afa1">00052</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Static&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#a5e2a8b5bdde0b0f355c5eb08fb23afa1">mStatics</a>;
+<a name="l00053"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ab372a4cfaecf12731e09d0ac8b4e7a09">00053</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Weapon&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ab372a4cfaecf12731e09d0ac8b4e7a09">mWeapons</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8f320349bb11685e80b941ce5095d127">00055</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::GameSetting&gt;</a>     <a class="code" href="classMWWorld_1_1ESMStore.html#a8f320349bb11685e80b941ce5095d127">mGameSettings</a>;
+<a name="l00056"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ae7a2644ff29ba586ce64d30115fe67a5">00056</a>         <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Script&gt;</a>          <a class="code" href="classMWWorld_1_1ESMStore.html#ae7a2644ff29ba586ce64d30115fe67a5">mScripts</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058         <span class="comment">// Lists that need special rules</span>
+<a name="l00059"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">00059</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html">Store&lt;ESM::Cell&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">mCells</a>;
+<a name="l00060"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a6cbeca443bf8cf441ffc40d6f2c2be16">00060</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Land_01_4.html">Store&lt;ESM::Land&gt;</a>        <a class="code" href="classMWWorld_1_1ESMStore.html#a6cbeca443bf8cf441ffc40d6f2c2be16">mLands</a>;
+<a name="l00061"></a><a class="code" href="classMWWorld_1_1ESMStore.html#af69b9e5e89e8a7e90c4131fca2aa7c5d">00061</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1LandTexture_01_4.html">Store&lt;ESM::LandTexture&gt;</a> <a class="code" href="classMWWorld_1_1ESMStore.html#af69b9e5e89e8a7e90c4131fca2aa7c5d">mLandTextures</a>;
+<a name="l00062"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa0daefa3e5188b0ac2739298ca1e7caa">00062</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">Store&lt;ESM::Pathgrid&gt;</a>    <a class="code" href="classMWWorld_1_1ESMStore.html#aa0daefa3e5188b0ac2739298ca1e7caa">mPathgrids</a>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a64486355e1db31e37346051c251af20d">00064</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">Store&lt;ESM::MagicEffect&gt;</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a64486355e1db31e37346051c251af20d">mMagicEffects</a>;
+<a name="l00065"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a907ab95b59a1b50fa9bf5b394d31086a">00065</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">Store&lt;ESM::Skill&gt;</a>       <a class="code" href="classMWWorld_1_1ESMStore.html#a907ab95b59a1b50fa9bf5b394d31086a">mSkills</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067         <span class="comment">// Special entry which is hardcoded and not loaded from an ESM</span>
+<a name="l00068"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a283e43671447de7dd208d250539df333">00068</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">Store&lt;ESM::Attribute&gt;</a>   <a class="code" href="classMWWorld_1_1ESMStore.html#a283e43671447de7dd208d250539df333">mAttributes</a>;
 <a name="l00069"></a>00069 
-<a name="l00070"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">00070</a>         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">00072</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074     <span class="keyword">public</span>:
-<a name="l00076"></a><a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">00076</a>         <span class="keyword">typedef</span> std::map&lt;int, StoreBase *&gt;::const_iterator <a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a>;
-<a name="l00077"></a>00077 
-<a name="l00078"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a80f721554984d664cd82e6af1318b2a4">00078</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a80f721554984d664cd82e6af1318b2a4">begin</a>()<span class="keyword"> const </span>{
-<a name="l00079"></a>00079             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin();
-<a name="l00080"></a>00080         }
-<a name="l00081"></a>00081 
-<a name="l00082"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa12ad894c3a0ccb18807659bf66a1470">00082</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> <a class="code" href="classMWWorld_1_1ESMStore.html#aa12ad894c3a0ccb18807659bf66a1470">end</a>()<span class="keyword"> const </span>{
-<a name="l00083"></a>00083             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end();
-<a name="l00084"></a>00084         }
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086         <span class="comment">// Look up the given ID in &#39;all&#39;. Returns 0 if not found.</span>
-<a name="l00087"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0f03e8dd68d415f684a95a0bfce90e7a">00087</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a0f03e8dd68d415f684a95a0bfce90e7a">find</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
-<a name="l00088"></a>00088 <span class="keyword">        </span>{
-<a name="l00089"></a>00089             std::map&lt;std::string, int&gt;::const_iterator it = <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>.find(<span class="keywordtype">id</span>);
-<a name="l00090"></a>00090             <span class="keywordflow">if</span> (it == <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>.end()) {
-<a name="l00091"></a>00091                 <span class="keywordflow">return</span> 0;
-<a name="l00092"></a>00092             }
-<a name="l00093"></a>00093             <span class="keywordflow">return</span> it-&gt;second;
-<a name="l00094"></a>00094         }
-<a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a42c07b33c74bb93f4d0015fc4fc8f6d9">00096</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#a42c07b33c74bb93f4d0015fc4fc8f6d9">ESMStore</a>()
-<a name="l00097"></a>00097           : <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>(0)
-<a name="l00098"></a>00098         {
-<a name="l00099"></a>00099             <span class="comment">// Cell store needs access to this for tracking moved references</span>
-<a name="l00100"></a>00100             <a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">mCells</a>.<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a1342234505d6a556b6593212ac04a342">mEsmStore</a> = <span class="keyword">this</span>;
-<a name="l00101"></a>00101             
-<a name="l00102"></a>00102             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">ESM::REC_ACTI</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a7fd19b224dbf1e8c50164478cb64a457">mActivators</a>;
-<a name="l00103"></a>00103             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8fd0427003a6e3cb9858405f6f4b648c">ESM::REC_ALCH</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ae797f91790a695ae4c99b5109a558833">mPotions</a>;
-<a name="l00104"></a>00104             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a96a8004725cc04e11f4ef4d52ae2793b">ESM::REC_APPA</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#aa89123dd992e1c324f0136f0185b102a">mAppas</a>;
-<a name="l00105"></a>00105             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afbe071c34a2771eb347c7451843442a8">ESM::REC_ARMO</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a73eebfc729e56edb75dad96c03e59ee9">mArmors</a>;
-<a name="l00106"></a>00106             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a67a1af6fa9df97cd5ee24b9c927ade3f">ESM::REC_BODY</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a50353b0c31279ac2652e4c8456ae4d38">mBodyParts</a>;
-<a name="l00107"></a>00107             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ad2fb03dc49e49c229663fca8bc9fa95e">ESM::REC_BOOK</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#abbbfde07fe47e9a9321e7fd67b542a6c">mBooks</a>;
-<a name="l00108"></a>00108             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aae9853ad3b30cd77a0c9653ac851cd8e">ESM::REC_BSGN</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a9b1227fd108518f2a7f5cb3b89adb53a">mBirthSigns</a>;
-<a name="l00109"></a>00109             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac33d59276a417d13f3dd70d8f1c3fab0">ESM::REC_CELL</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">mCells</a>;
-<a name="l00110"></a>00110             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4408fbaf290b05c62d6e9c7a4e722a5d">ESM::REC_CLAS</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#af37dfcf3799077966d01af46762e9d78">mClasses</a>;
-<a name="l00111"></a>00111             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a1bd73e3df7317ebb2c33d4c5c0964680">ESM::REC_CLOT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#aa9966793627f5021effb8741a2668480">mClothes</a>;
-<a name="l00112"></a>00112             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9bfd3e3b833e6527c67289a7a150d49c">ESM::REC_CNTC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a52a65c08ed3b2b0f9148159ced11bb16">mContChange</a>;
-<a name="l00113"></a>00113             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af518bf6b90a438ee36de184b403ca252">ESM::REC_CONT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a0d874a241cf6078ce13ccaa2e3126fb8">mContainers</a>;
-<a name="l00114"></a>00114             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac2c265c0a95d5c938979e390a49e75b5">ESM::REC_CREA</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#add69772fee3e7f5948a74d9bf9153f2e">mCreatures</a>;
-<a name="l00115"></a>00115             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae44c85e0852275e615d80366311138c6">ESM::REC_CREC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a7c06e8a525d98236848e52772841b3fa">mCreaChange</a>;
-<a name="l00116"></a>00116             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4604c46e6781f72e2318bf8ee3f50576">ESM::REC_DIAL</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#abe5ac38b9bd0f3f78b14d7c3fca51836">mDialogs</a>;
-<a name="l00117"></a>00117             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8ae6843f612237bf11e955a336a11c6f">ESM::REC_DOOR</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a1f9a4e6fe4b26ccaf418b501453857b6">mDoors</a>;
-<a name="l00118"></a>00118             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af20fefed62eb4819be8b88c9cb84f9f3">ESM::REC_ENCH</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ada257591bc5af1774078548ba9f5ba92">mEnchants</a>;
-<a name="l00119"></a>00119             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a15e81ca42b57af59de372b9fd90940ee">ESM::REC_FACT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ab95092e7e48a9454a787f82b519c4944">mFactions</a>;
-<a name="l00120"></a>00120             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9ccbcc6ff05ab84971cad35fd7eda052">ESM::REC_GLOB</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a676b2cca0a1ec11020b7d8a90821a307">mGlobals</a>;
-<a name="l00121"></a>00121             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7e3bae6d37b9181c06bbf5f929228e2a">ESM::REC_GMST</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8f320349bb11685e80b941ce5095d127">mGameSettings</a>;
-<a name="l00122"></a>00122             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9aba2344fc64fa7cd701b59d14d241fe">ESM::REC_INGR</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8eed5d1729febdfda8bdab1c1d9230f9">mIngreds</a>;
-<a name="l00123"></a>00123             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a891d8c55228ac64636f054449e388f09">ESM::REC_LAND</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a6cbeca443bf8cf441ffc40d6f2c2be16">mLands</a>;
-<a name="l00124"></a>00124             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae4c5dbb3b9c5ceb3b0480de749084b22">ESM::REC_LEVC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8e4162ff13fb34f5bbf661e662af5924">mCreatureLists</a>;
-<a name="l00125"></a>00125             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d855e2fb119fd85f6cda0e8b88b4017">ESM::REC_LEVI</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a60c16d1142f1e7ca85b24e23f5c75a46">mItemLists</a>;
-<a name="l00126"></a>00126             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa3dc65b732272a23303ea53d617719ff">ESM::REC_LIGH</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ac480b62bd1177d38ac9e2cb220fb6917">mLights</a>;
-<a name="l00127"></a>00127             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac1527acf9780db28fef92ba6c7227bec">ESM::REC_LOCK</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a52485ac49731b7856bf811979647ba7c">mLockpicks</a>;
-<a name="l00128"></a>00128             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac3e454b01c86c5c3bb13c1900cbf914e">ESM::REC_LTEX</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#af69b9e5e89e8a7e90c4131fca2aa7c5d">mLandTextures</a>;
-<a name="l00129"></a>00129             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a83e212eeded4404d765164492207118a">ESM::REC_MISC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a45be594bd4f57963f757aab7b632d8f5">mMiscItems</a>;
-<a name="l00130"></a>00130             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">ESM::REC_NPC_</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>;
-<a name="l00131"></a>00131             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9e20012ba60cbe9935c3b885ecdb26cd">ESM::REC_NPCC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a37af1ec744e3b3097ca1fa7f7350121a">mNpcChange</a>;
-<a name="l00132"></a>00132             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a77182b5b45d7ae92f23a2e7173eb8f57">ESM::REC_PGRD</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#aa0daefa3e5188b0ac2739298ca1e7caa">mPathgrids</a>;
-<a name="l00133"></a>00133             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4e6b7c59294ef919246988da47c7aaff">ESM::REC_PROB</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8bf5dcd11a9564263c430645f5f3979f">mProbes</a>;
-<a name="l00134"></a>00134             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a03ee8ac80aceedb635e940f3d89d51d2">ESM::REC_RACE</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a03f25ec2633ad38ca2acdaa794e75fa5">mRaces</a>;
-<a name="l00135"></a>00135             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a327bc58b7879caf12b870c5a56de85e3">ESM::REC_REGN</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ae961e59724b68b0c0ebf86a4930a8cfe">mRegions</a>;
-<a name="l00136"></a>00136             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af84813a4e6aa5159ba895062d920bdac">ESM::REC_REPA</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a09e36696449e07994b4720259ee5b552">mRepairs</a>;
-<a name="l00137"></a>00137             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa768cf386940fd135a5844872e30a0a3">ESM::REC_SCPT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ae7a2644ff29ba586ce64d30115fe67a5">mScripts</a>;
-<a name="l00138"></a>00138             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aff7d4e0da6d8007231b3410b9b83ac1d">ESM::REC_SNDG</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a3bebf9eb594446361a6fbac807a38080">mSoundGens</a>;
-<a name="l00139"></a>00139             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a41b6b8cf8460f12e8e9eb137b2760b6f">ESM::REC_SOUN</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a0fdce8dc9c04e8027fd2a6e7de2d8a92">mSounds</a>;
-<a name="l00140"></a>00140             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d813eb97e4ac755ec87c457e5795528">ESM::REC_SPEL</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a1fec90f84ee77fc4ac02aefdbb6dc312">mSpells</a>;
-<a name="l00141"></a>00141             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a06590c2551054797d7e67282ed5f1653">ESM::REC_SSCR</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#af2472a2fcfe358a5db83c2b1aac474ea">mStartScripts</a>;
-<a name="l00142"></a>00142             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">ESM::REC_STAT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a5e2a8b5bdde0b0f355c5eb08fb23afa1">mStatics</a>;
-<a name="l00143"></a>00143             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">ESM::REC_WEAP</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ab372a4cfaecf12731e09d0ac8b4e7a09">mWeapons</a>;
-<a name="l00144"></a>00144         }
-<a name="l00145"></a>00145 
-<a name="l00146"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aee7d541bb2c38aff0e877d0b28452b94">00146</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#aee7d541bb2c38aff0e877d0b28452b94">clearDynamic</a> ()
-<a name="l00147"></a>00147         {
-<a name="l00148"></a>00148             <span class="keywordflow">for</span> (std::map&lt;int, StoreBase *&gt;::iterator it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it)
-<a name="l00149"></a>00149                 it-&gt;second-&gt;clearDynamic();
+<a name="l00070"></a>00070         <span class="comment">// Lookup of all IDs. Makes looking up references faster. Just</span>
+<a name="l00071"></a>00071         <span class="comment">// maps the id name to the record type.</span>
+<a name="l00072"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">00072</a>         std::map&lt;std::string, int&gt; <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>;
+<a name="l00073"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">00073</a>         std::map&lt;int, StoreBase *&gt; <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>;
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">00075</a>         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>;
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">00077</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>;
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079     <span class="keyword">public</span>:
+<a name="l00081"></a><a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">00081</a>         <span class="keyword">typedef</span> std::map&lt;int, StoreBase *&gt;::const_iterator <a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a80f721554984d664cd82e6af1318b2a4">00083</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> <a class="code" href="classMWWorld_1_1ESMStore.html#a80f721554984d664cd82e6af1318b2a4">begin</a>()<span class="keyword"> const </span>{
+<a name="l00084"></a>00084             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin();
+<a name="l00085"></a>00085         }
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aa12ad894c3a0ccb18807659bf66a1470">00087</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> <a class="code" href="classMWWorld_1_1ESMStore.html#aa12ad894c3a0ccb18807659bf66a1470">end</a>()<span class="keyword"> const </span>{
+<a name="l00088"></a>00088             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end();
+<a name="l00089"></a>00089         }
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091         <span class="comment">// Look up the given ID in &#39;all&#39;. Returns 0 if not found.</span>
+<a name="l00092"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a0f03e8dd68d415f684a95a0bfce90e7a">00092</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a0f03e8dd68d415f684a95a0bfce90e7a">find</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>
+<a name="l00093"></a>00093 <span class="keyword">        </span>{
+<a name="l00094"></a>00094             std::map&lt;std::string, int&gt;::const_iterator it = <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>.find(<span class="keywordtype">id</span>);
+<a name="l00095"></a>00095             <span class="keywordflow">if</span> (it == <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>.end()) {
+<a name="l00096"></a>00096                 <span class="keywordflow">return</span> 0;
+<a name="l00097"></a>00097             }
+<a name="l00098"></a>00098             <span class="keywordflow">return</span> it-&gt;second;
+<a name="l00099"></a>00099         }
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a42c07b33c74bb93f4d0015fc4fc8f6d9">00101</a>         <a class="code" href="classMWWorld_1_1ESMStore.html#a42c07b33c74bb93f4d0015fc4fc8f6d9">ESMStore</a>()
+<a name="l00102"></a>00102           : <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>(0)
+<a name="l00103"></a>00103         {
+<a name="l00104"></a>00104             <span class="comment">// Cell store needs access to this for tracking moved references</span>
+<a name="l00105"></a>00105             <a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">mCells</a>.<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a1342234505d6a556b6593212ac04a342">mEsmStore</a> = <span class="keyword">this</span>;
+<a name="l00106"></a>00106             
+<a name="l00107"></a>00107             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2e3bd0c52e56c543ff7730c542dc1215">ESM::REC_ACTI</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a7fd19b224dbf1e8c50164478cb64a457">mActivators</a>;
+<a name="l00108"></a>00108             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8fd0427003a6e3cb9858405f6f4b648c">ESM::REC_ALCH</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ae797f91790a695ae4c99b5109a558833">mPotions</a>;
+<a name="l00109"></a>00109             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a96a8004725cc04e11f4ef4d52ae2793b">ESM::REC_APPA</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#aa89123dd992e1c324f0136f0185b102a">mAppas</a>;
+<a name="l00110"></a>00110             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6afbe071c34a2771eb347c7451843442a8">ESM::REC_ARMO</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a73eebfc729e56edb75dad96c03e59ee9">mArmors</a>;
+<a name="l00111"></a>00111             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a67a1af6fa9df97cd5ee24b9c927ade3f">ESM::REC_BODY</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a50353b0c31279ac2652e4c8456ae4d38">mBodyParts</a>;
+<a name="l00112"></a>00112             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ad2fb03dc49e49c229663fca8bc9fa95e">ESM::REC_BOOK</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#abbbfde07fe47e9a9321e7fd67b542a6c">mBooks</a>;
+<a name="l00113"></a>00113             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aae9853ad3b30cd77a0c9653ac851cd8e">ESM::REC_BSGN</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a9b1227fd108518f2a7f5cb3b89adb53a">mBirthSigns</a>;
+<a name="l00114"></a>00114             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac33d59276a417d13f3dd70d8f1c3fab0">ESM::REC_CELL</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a0a747cbf93d5bc07ab7b369d7aab7196">mCells</a>;
+<a name="l00115"></a>00115             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4408fbaf290b05c62d6e9c7a4e722a5d">ESM::REC_CLAS</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#af37dfcf3799077966d01af46762e9d78">mClasses</a>;
+<a name="l00116"></a>00116             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a1bd73e3df7317ebb2c33d4c5c0964680">ESM::REC_CLOT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#aa9966793627f5021effb8741a2668480">mClothes</a>;
+<a name="l00117"></a>00117             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9bfd3e3b833e6527c67289a7a150d49c">ESM::REC_CNTC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a52a65c08ed3b2b0f9148159ced11bb16">mContChange</a>;
+<a name="l00118"></a>00118             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af518bf6b90a438ee36de184b403ca252">ESM::REC_CONT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a0d874a241cf6078ce13ccaa2e3126fb8">mContainers</a>;
+<a name="l00119"></a>00119             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac2c265c0a95d5c938979e390a49e75b5">ESM::REC_CREA</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#add69772fee3e7f5948a74d9bf9153f2e">mCreatures</a>;
+<a name="l00120"></a>00120             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae44c85e0852275e615d80366311138c6">ESM::REC_CREC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a7c06e8a525d98236848e52772841b3fa">mCreaChange</a>;
+<a name="l00121"></a>00121             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4604c46e6781f72e2318bf8ee3f50576">ESM::REC_DIAL</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#abe5ac38b9bd0f3f78b14d7c3fca51836">mDialogs</a>;
+<a name="l00122"></a>00122             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a8ae6843f612237bf11e955a336a11c6f">ESM::REC_DOOR</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a1f9a4e6fe4b26ccaf418b501453857b6">mDoors</a>;
+<a name="l00123"></a>00123             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af20fefed62eb4819be8b88c9cb84f9f3">ESM::REC_ENCH</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ada257591bc5af1774078548ba9f5ba92">mEnchants</a>;
+<a name="l00124"></a>00124             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a15e81ca42b57af59de372b9fd90940ee">ESM::REC_FACT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ab95092e7e48a9454a787f82b519c4944">mFactions</a>;
+<a name="l00125"></a>00125             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9ccbcc6ff05ab84971cad35fd7eda052">ESM::REC_GLOB</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a676b2cca0a1ec11020b7d8a90821a307">mGlobals</a>;
+<a name="l00126"></a>00126             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7e3bae6d37b9181c06bbf5f929228e2a">ESM::REC_GMST</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8f320349bb11685e80b941ce5095d127">mGameSettings</a>;
+<a name="l00127"></a>00127             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9aba2344fc64fa7cd701b59d14d241fe">ESM::REC_INGR</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8eed5d1729febdfda8bdab1c1d9230f9">mIngreds</a>;
+<a name="l00128"></a>00128             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a891d8c55228ac64636f054449e388f09">ESM::REC_LAND</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a6cbeca443bf8cf441ffc40d6f2c2be16">mLands</a>;
+<a name="l00129"></a>00129             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ae4c5dbb3b9c5ceb3b0480de749084b22">ESM::REC_LEVC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8e4162ff13fb34f5bbf661e662af5924">mCreatureLists</a>;
+<a name="l00130"></a>00130             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d855e2fb119fd85f6cda0e8b88b4017">ESM::REC_LEVI</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a60c16d1142f1e7ca85b24e23f5c75a46">mItemLists</a>;
+<a name="l00131"></a>00131             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa3dc65b732272a23303ea53d617719ff">ESM::REC_LIGH</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ac480b62bd1177d38ac9e2cb220fb6917">mLights</a>;
+<a name="l00132"></a>00132             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac1527acf9780db28fef92ba6c7227bec">ESM::REC_LOCK</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a52485ac49731b7856bf811979647ba7c">mLockpicks</a>;
+<a name="l00133"></a>00133             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6ac3e454b01c86c5c3bb13c1900cbf914e">ESM::REC_LTEX</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#af69b9e5e89e8a7e90c4131fca2aa7c5d">mLandTextures</a>;
+<a name="l00134"></a>00134             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a83e212eeded4404d765164492207118a">ESM::REC_MISC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a45be594bd4f57963f757aab7b632d8f5">mMiscItems</a>;
+<a name="l00135"></a>00135             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">ESM::REC_NPC_</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>;
+<a name="l00136"></a>00136             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a9e20012ba60cbe9935c3b885ecdb26cd">ESM::REC_NPCC</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a37af1ec744e3b3097ca1fa7f7350121a">mNpcChange</a>;
+<a name="l00137"></a>00137             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a77182b5b45d7ae92f23a2e7173eb8f57">ESM::REC_PGRD</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#aa0daefa3e5188b0ac2739298ca1e7caa">mPathgrids</a>;
+<a name="l00138"></a>00138             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a4e6b7c59294ef919246988da47c7aaff">ESM::REC_PROB</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a8bf5dcd11a9564263c430645f5f3979f">mProbes</a>;
+<a name="l00139"></a>00139             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a03ee8ac80aceedb635e940f3d89d51d2">ESM::REC_RACE</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a03f25ec2633ad38ca2acdaa794e75fa5">mRaces</a>;
+<a name="l00140"></a>00140             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a327bc58b7879caf12b870c5a56de85e3">ESM::REC_REGN</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ae961e59724b68b0c0ebf86a4930a8cfe">mRegions</a>;
+<a name="l00141"></a>00141             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6af84813a4e6aa5159ba895062d920bdac">ESM::REC_REPA</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a09e36696449e07994b4720259ee5b552">mRepairs</a>;
+<a name="l00142"></a>00142             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aa768cf386940fd135a5844872e30a0a3">ESM::REC_SCPT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ae7a2644ff29ba586ce64d30115fe67a5">mScripts</a>;
+<a name="l00143"></a>00143             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6aff7d4e0da6d8007231b3410b9b83ac1d">ESM::REC_SNDG</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a3bebf9eb594446361a6fbac807a38080">mSoundGens</a>;
+<a name="l00144"></a>00144             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a41b6b8cf8460f12e8e9eb137b2760b6f">ESM::REC_SOUN</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a0fdce8dc9c04e8027fd2a6e7de2d8a92">mSounds</a>;
+<a name="l00145"></a>00145             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a2d813eb97e4ac755ec87c457e5795528">ESM::REC_SPEL</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a1fec90f84ee77fc4ac02aefdbb6dc312">mSpells</a>;
+<a name="l00146"></a>00146             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a06590c2551054797d7e67282ed5f1653">ESM::REC_SSCR</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#af2472a2fcfe358a5db83c2b1aac474ea">mStartScripts</a>;
+<a name="l00147"></a>00147             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a491696a63e01c0dcd8881bfbca428aa8">ESM::REC_STAT</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#a5e2a8b5bdde0b0f355c5eb08fb23afa1">mStatics</a>;
+<a name="l00148"></a>00148             <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>[<a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a0deaee7fc95334f6e728ffb4eabd8a06">ESM::REC_WEAP</a>] = &amp;<a class="code" href="classMWWorld_1_1ESMStore.html#ab372a4cfaecf12731e09d0ac8b4e7a09">mWeapons</a>;
+<a name="l00149"></a>00149         }
 <a name="l00150"></a>00150 
-<a name="l00151"></a>00151             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(<a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>);
-<a name="l00152"></a>00152         }
-<a name="l00153"></a>00153 
-<a name="l00154"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a4c6fa68fedf2d233b17b8a03c2233260">00154</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a4c6fa68fedf2d233b17b8a03c2233260">movePlayerRecord</a> ()
-<a name="l00155"></a>00155         {
-<a name="l00156"></a>00156             <a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a> = *<a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#ae9f2eb571e7c734e644d9367518ff40b">find</a>(<span class="stringliteral">&quot;player&quot;</span>);
-<a name="l00157"></a>00157             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#abbf1d7ed43d30bc09c93a5dac4635519">eraseStatic</a>(<a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a>);
-<a name="l00158"></a>00158             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(<a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>);
-<a name="l00159"></a>00159         }
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#aa030394b1553d7f73e5cc8aca406cdec">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm);
-<a name="l00162"></a>00162 
-<a name="l00163"></a>00163         <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
-<a name="l00164"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">00164</a>         <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;<span class="keyword">get</span>() <span class="keyword">const</span> {
-<a name="l00165"></a>00165             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Storage for this type not exist&quot;</span>);
-<a name="l00166"></a>00166         }
+<a name="l00151"></a><a class="code" href="classMWWorld_1_1ESMStore.html#aee7d541bb2c38aff0e877d0b28452b94">00151</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#aee7d541bb2c38aff0e877d0b28452b94">clearDynamic</a> ()
+<a name="l00152"></a>00152         {
+<a name="l00153"></a>00153             <span class="keywordflow">for</span> (std::map&lt;int, StoreBase *&gt;::iterator it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it)
+<a name="l00154"></a>00154                 it-&gt;second-&gt;clearDynamic();
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(<a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>);
+<a name="l00157"></a>00157         }
+<a name="l00158"></a>00158 
+<a name="l00159"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a4c6fa68fedf2d233b17b8a03c2233260">00159</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a4c6fa68fedf2d233b17b8a03c2233260">movePlayerRecord</a> ()
+<a name="l00160"></a>00160         {
+<a name="l00161"></a>00161             <a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a> = *<a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#ae9f2eb571e7c734e644d9367518ff40b">find</a>(<span class="stringliteral">&quot;player&quot;</span>);
+<a name="l00162"></a>00162             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#abbf1d7ed43d30bc09c93a5dac4635519">eraseStatic</a>(<a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a>);
+<a name="l00163"></a>00163             <a class="code" href="classMWWorld_1_1ESMStore.html#a436b66a768e593d81a3962f63e22dcfe">mNpcs</a>.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(<a class="code" href="classMWWorld_1_1ESMStore.html#a59e50927ef316552910311d33820e536">mPlayerTemplate</a>);
+<a name="l00164"></a>00164         }
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a74dd25b4b1f21facc5dd7b9174cf2e74">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm, <a class="code" href="classLoading_1_1Listener.html">Loading::Listener</a>* listener);
 <a name="l00167"></a>00167 
 <a name="l00168"></a>00168         <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
-<a name="l00169"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ab1cd84a1e53673631587072d76dc68cb">00169</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1ESMStore.html#ab1cd84a1e53673631587072d76dc68cb">insert</a>(<span class="keyword">const</span> T &amp;x) {
-<a name="l00170"></a>00170             <a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;store = <span class="keyword">const_cast&lt;</span><a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;<span class="keyword">&gt;</span>(get&lt;T&gt;());
-<a name="l00171"></a>00171             <span class="keywordflow">if</span> (store.<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a>(x.mId) != 0) {
-<a name="l00172"></a>00172                 std::ostringstream msg;
-<a name="l00173"></a>00173                 msg &lt;&lt; <span class="stringliteral">&quot;Try to override existing record &#39;&quot;</span> &lt;&lt; x.mId &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;
-<a name="l00174"></a>00174                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l00175"></a>00175             }
-<a name="l00176"></a>00176             T record = x;
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178             std::ostringstream id;
-<a name="l00179"></a>00179             <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;$dynamic&quot;</span> &lt;&lt; <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>++;
-<a name="l00180"></a>00180             record.mId = <span class="keywordtype">id</span>.str();
-<a name="l00181"></a>00181 
-<a name="l00182"></a>00182             T *ptr = store.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(record);
-<a name="l00183"></a>00183             <span class="keywordflow">for</span> (<a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it) {
-<a name="l00184"></a>00184                 <span class="keywordflow">if</span> (it-&gt;second == &amp;store) {
-<a name="l00185"></a>00185                     <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>[ptr-&gt;mId] = it-&gt;first;
-<a name="l00186"></a>00186                 }
-<a name="l00187"></a>00187             }
-<a name="l00188"></a>00188             <span class="keywordflow">return</span> ptr;
-<a name="l00189"></a>00189         }
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191         <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
-<a name="l00192"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a754ff64f14396ec18c380f28f0ce07c8">00192</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1ESMStore.html#a754ff64f14396ec18c380f28f0ce07c8">insertStatic</a>(<span class="keyword">const</span> T &amp;x) {
-<a name="l00193"></a>00193             <a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;store = <span class="keyword">const_cast&lt;</span><a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;<span class="keyword">&gt;</span>(get&lt;T&gt;());
-<a name="l00194"></a>00194             <span class="keywordflow">if</span> (store.<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a>(x.mId) != 0) {
-<a name="l00195"></a>00195                 std::ostringstream msg;
-<a name="l00196"></a>00196                 msg &lt;&lt; <span class="stringliteral">&quot;Try to override existing record &#39;&quot;</span> &lt;&lt; x.mId &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;
-<a name="l00197"></a>00197                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l00198"></a>00198             }
-<a name="l00199"></a>00199             T record = x;
-<a name="l00200"></a>00200 
-<a name="l00201"></a>00201             T *ptr = store.<a class="code" href="classMWWorld_1_1Store.html#ab7fb16cc41ba6680aa907a10aadc394f">insertStatic</a>(record);
-<a name="l00202"></a>00202             <span class="keywordflow">for</span> (<a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it) {
-<a name="l00203"></a>00203                 <span class="keywordflow">if</span> (it-&gt;second == &amp;store) {
-<a name="l00204"></a>00204                     <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>[ptr-&gt;mId] = it-&gt;first;
-<a name="l00205"></a>00205                 }
-<a name="l00206"></a>00206             }
-<a name="l00207"></a>00207             <span class="keywordflow">return</span> ptr;
-<a name="l00208"></a>00208         }
-<a name="l00209"></a>00209 
-<a name="l00210"></a>00210         <span class="comment">// This method must be called once, after loading all master/plugin files. This can only be done</span>
-<a name="l00211"></a>00211         <span class="comment">//  from the outside, so it must be public.</span>
-<a name="l00212"></a>00212         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a87a124e04508d33e5c11a8fec6d7c5cf">setUp</a>();
-<a name="l00213"></a>00213     };
+<a name="l00169"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">00169</a>         <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;<span class="keyword">get</span>() <span class="keyword">const</span> {
+<a name="l00170"></a>00170             <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Storage for this type not exist&quot;</span>);
+<a name="l00171"></a>00171         }
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173         <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
+<a name="l00174"></a><a class="code" href="classMWWorld_1_1ESMStore.html#ab1cd84a1e53673631587072d76dc68cb">00174</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1ESMStore.html#ab1cd84a1e53673631587072d76dc68cb">insert</a>(<span class="keyword">const</span> T &amp;x) {
+<a name="l00175"></a>00175             <a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;store = <span class="keyword">const_cast&lt;</span><a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;<span class="keyword">&gt;</span>(get&lt;T&gt;());
+<a name="l00176"></a>00176             <span class="keywordflow">if</span> (store.<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a>(x.mId) != 0) {
+<a name="l00177"></a>00177                 std::ostringstream msg;
+<a name="l00178"></a>00178                 msg &lt;&lt; <span class="stringliteral">&quot;Try to override existing record &#39;&quot;</span> &lt;&lt; x.mId &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;
+<a name="l00179"></a>00179                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l00180"></a>00180             }
+<a name="l00181"></a>00181             T record = x;
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183             std::ostringstream id;
+<a name="l00184"></a>00184             <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;$dynamic&quot;</span> &lt;&lt; <a class="code" href="classMWWorld_1_1ESMStore.html#a8c03bfb113056f34aba14d88a74ce38a">mDynamicCount</a>++;
+<a name="l00185"></a>00185             record.mId = <span class="keywordtype">id</span>.str();
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187             T *ptr = store.<a class="code" href="classMWWorld_1_1Store.html#a71370601fb00f024c98e6a8bab784d7b">insert</a>(record);
+<a name="l00188"></a>00188             <span class="keywordflow">for</span> (<a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it) {
+<a name="l00189"></a>00189                 <span class="keywordflow">if</span> (it-&gt;second == &amp;store) {
+<a name="l00190"></a>00190                     <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>[ptr-&gt;mId] = it-&gt;first;
+<a name="l00191"></a>00191                 }
+<a name="l00192"></a>00192             }
+<a name="l00193"></a>00193             <span class="keywordflow">return</span> ptr;
+<a name="l00194"></a>00194         }
+<a name="l00195"></a>00195 
+<a name="l00196"></a>00196         <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
+<a name="l00197"></a><a class="code" href="classMWWorld_1_1ESMStore.html#a754ff64f14396ec18c380f28f0ce07c8">00197</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1ESMStore.html#a754ff64f14396ec18c380f28f0ce07c8">insertStatic</a>(<span class="keyword">const</span> T &amp;x) {
+<a name="l00198"></a>00198             <a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;store = <span class="keyword">const_cast&lt;</span><a class="code" href="classMWWorld_1_1Store.html">Store&lt;T&gt;</a> &amp;<span class="keyword">&gt;</span>(get&lt;T&gt;());
+<a name="l00199"></a>00199             <span class="keywordflow">if</span> (store.<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a>(x.mId) != 0) {
+<a name="l00200"></a>00200                 std::ostringstream msg;
+<a name="l00201"></a>00201                 msg &lt;&lt; <span class="stringliteral">&quot;Try to override existing record &#39;&quot;</span> &lt;&lt; x.mId &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;
+<a name="l00202"></a>00202                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l00203"></a>00203             }
+<a name="l00204"></a>00204             T record = x;
+<a name="l00205"></a>00205 
+<a name="l00206"></a>00206             T *ptr = store.<a class="code" href="classMWWorld_1_1Store.html#ab7fb16cc41ba6680aa907a10aadc394f">insertStatic</a>(record);
+<a name="l00207"></a>00207             <span class="keywordflow">for</span> (<a class="code" href="classMWWorld_1_1ESMStore.html#adb69dc7e0a99c248afdee7ea93281184">iterator</a> it = <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.begin(); it != <a class="code" href="classMWWorld_1_1ESMStore.html#a1e0be9dd44c494b1b906cbbe48db4a53">mStores</a>.end(); ++it) {
+<a name="l00208"></a>00208                 <span class="keywordflow">if</span> (it-&gt;second == &amp;store) {
+<a name="l00209"></a>00209                     <a class="code" href="classMWWorld_1_1ESMStore.html#a2189b4846690a2a124f7910f7d2a1bda">mIds</a>[ptr-&gt;mId] = it-&gt;first;
+<a name="l00210"></a>00210                 }
+<a name="l00211"></a>00211             }
+<a name="l00212"></a>00212             <span class="keywordflow">return</span> ptr;
+<a name="l00213"></a>00213         }
 <a name="l00214"></a>00214 
-<a name="l00215"></a>00215     <span class="keyword">template</span> &lt;&gt;
-<a name="l00216"></a><a class="code" href="namespaceMWWorld.html#a25f89117e6987a05de5b2adf96017191">00216</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *ESMStore::insert&lt;ESM::Cell&gt;(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell) {
-<a name="l00217"></a>00217         <span class="keywordflow">return</span> mCells.insert(cell);
-<a name="l00218"></a>00218     }
+<a name="l00215"></a>00215         <span class="comment">// This method must be called once, after loading all master/plugin files. This can only be done</span>
+<a name="l00216"></a>00216         <span class="comment">//  from the outside, so it must be public.</span>
+<a name="l00217"></a>00217         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1ESMStore.html#a87a124e04508d33e5c11a8fec6d7c5cf">setUp</a>();
+<a name="l00218"></a>00218     };
 <a name="l00219"></a>00219 
 <a name="l00220"></a>00220     <span class="keyword">template</span> &lt;&gt;
-<a name="l00221"></a><a class="code" href="namespaceMWWorld.html#ac21fe147b1ac60b4d6809f7fdb89da07">00221</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *ESMStore::insert&lt;ESM::NPC&gt;(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> &amp;npc) {
-<a name="l00222"></a>00222         <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(npc.mId, <span class="stringliteral">&quot;player&quot;</span>)) {
-<a name="l00223"></a>00223             <span class="keywordflow">return</span> mNpcs.insert(npc);
-<a name="l00224"></a>00224         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mNpcs.search(npc.mId) != 0) {
-<a name="l00225"></a>00225             std::ostringstream msg;
-<a name="l00226"></a>00226             msg &lt;&lt; <span class="stringliteral">&quot;Try to override existing record &#39;&quot;</span> &lt;&lt; npc.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a> &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;
-<a name="l00227"></a>00227             <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l00228"></a>00228         }
-<a name="l00229"></a>00229         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> record = npc;
-<a name="l00230"></a>00230 
-<a name="l00231"></a>00231         std::ostringstream id;
-<a name="l00232"></a>00232         <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;$dynamic&quot;</span> &lt;&lt; mDynamicCount++;
-<a name="l00233"></a>00233         record.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a> = <span class="keywordtype">id</span>.str();
-<a name="l00234"></a>00234 
-<a name="l00235"></a>00235         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *ptr = mNpcs.insert(record);
-<a name="l00236"></a>00236         mIds[ptr-&gt;<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a>] = <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">ESM::REC_NPC_</a>;
-<a name="l00237"></a>00237         <span class="keywordflow">return</span> ptr;
-<a name="l00238"></a>00238     }
+<a name="l00221"></a><a class="code" href="namespaceMWWorld.html#a25f89117e6987a05de5b2adf96017191">00221</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *ESMStore::insert&lt;ESM::Cell&gt;(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell) {
+<a name="l00222"></a>00222         <span class="keywordflow">return</span> mCells.insert(cell);
+<a name="l00223"></a>00223     }
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225     <span class="keyword">template</span> &lt;&gt;
+<a name="l00226"></a><a class="code" href="namespaceMWWorld.html#ac21fe147b1ac60b4d6809f7fdb89da07">00226</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *ESMStore::insert&lt;ESM::NPC&gt;(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> &amp;npc) {
+<a name="l00227"></a>00227         <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(npc.mId, <span class="stringliteral">&quot;player&quot;</span>)) {
+<a name="l00228"></a>00228             <span class="keywordflow">return</span> mNpcs.insert(npc);
+<a name="l00229"></a>00229         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mNpcs.search(npc.mId) != 0) {
+<a name="l00230"></a>00230             std::ostringstream msg;
+<a name="l00231"></a>00231             msg &lt;&lt; <span class="stringliteral">&quot;Try to override existing record &#39;&quot;</span> &lt;&lt; npc.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a> &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span>;
+<a name="l00232"></a>00232             <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l00233"></a>00233         }
+<a name="l00234"></a>00234         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> record = npc;
+<a name="l00235"></a>00235 
+<a name="l00236"></a>00236         std::ostringstream id;
+<a name="l00237"></a>00237         <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;$dynamic&quot;</span> &lt;&lt; mDynamicCount++;
+<a name="l00238"></a>00238         record.<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a> = <span class="keywordtype">id</span>.str();
 <a name="l00239"></a>00239 
-<a name="l00240"></a>00240     <span class="keyword">template</span> &lt;&gt;
-<a name="l00241"></a><a class="code" href="namespaceMWWorld.html#a63f5ec6ab1a99c47f7671d018fff8bbc">00241</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Activator&gt;</a> &amp;ESMStore::get&lt;ESM::Activator&gt;() <span class="keyword">const</span> {
-<a name="l00242"></a>00242         <span class="keywordflow">return</span> mActivators;
+<a name="l00240"></a>00240         <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *ptr = mNpcs.insert(record);
+<a name="l00241"></a>00241         mIds[ptr-&gt;<a class="code" href="structESM_1_1NPC.html#a62442a169ffc9f97c18f5ee041d6d31b">mId</a>] = <a class="code" href="namespaceESM.html#a2e1e3ad80d71f7811c3a0489078ffab6a7b80da742588a91b390786af27d9fd60">ESM::REC_NPC_</a>;
+<a name="l00242"></a>00242         <span class="keywordflow">return</span> ptr;
 <a name="l00243"></a>00243     }
 <a name="l00244"></a>00244 
 <a name="l00245"></a>00245     <span class="keyword">template</span> &lt;&gt;
-<a name="l00246"></a><a class="code" href="namespaceMWWorld.html#abeeeb571dd3fc4880a2486f2ed15b7e3">00246</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Potion&gt;</a> &amp;ESMStore::get&lt;ESM::Potion&gt;() <span class="keyword">const</span> {
-<a name="l00247"></a>00247         <span class="keywordflow">return</span> mPotions;
+<a name="l00246"></a><a class="code" href="namespaceMWWorld.html#a63f5ec6ab1a99c47f7671d018fff8bbc">00246</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Activator&gt;</a> &amp;ESMStore::get&lt;ESM::Activator&gt;() <span class="keyword">const</span> {
+<a name="l00247"></a>00247         <span class="keywordflow">return</span> mActivators;
 <a name="l00248"></a>00248     }
 <a name="l00249"></a>00249 
 <a name="l00250"></a>00250     <span class="keyword">template</span> &lt;&gt;
-<a name="l00251"></a><a class="code" href="namespaceMWWorld.html#aa0309ae2a429da1e76b35ef971babe1e">00251</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Apparatus&gt;</a> &amp;ESMStore::get&lt;ESM::Apparatus&gt;() <span class="keyword">const</span> {
-<a name="l00252"></a>00252         <span class="keywordflow">return</span> mAppas;
+<a name="l00251"></a><a class="code" href="namespaceMWWorld.html#abeeeb571dd3fc4880a2486f2ed15b7e3">00251</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Potion&gt;</a> &amp;ESMStore::get&lt;ESM::Potion&gt;() <span class="keyword">const</span> {
+<a name="l00252"></a>00252         <span class="keywordflow">return</span> mPotions;
 <a name="l00253"></a>00253     }
 <a name="l00254"></a>00254 
 <a name="l00255"></a>00255     <span class="keyword">template</span> &lt;&gt;
-<a name="l00256"></a><a class="code" href="namespaceMWWorld.html#a578d17badcdc3b7c17486b48b9c85bd3">00256</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Armor&gt;</a> &amp;ESMStore::get&lt;ESM::Armor&gt;() <span class="keyword">const</span> {
-<a name="l00257"></a>00257         <span class="keywordflow">return</span> mArmors;
+<a name="l00256"></a><a class="code" href="namespaceMWWorld.html#aa0309ae2a429da1e76b35ef971babe1e">00256</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Apparatus&gt;</a> &amp;ESMStore::get&lt;ESM::Apparatus&gt;() <span class="keyword">const</span> {
+<a name="l00257"></a>00257         <span class="keywordflow">return</span> mAppas;
 <a name="l00258"></a>00258     }
 <a name="l00259"></a>00259 
 <a name="l00260"></a>00260     <span class="keyword">template</span> &lt;&gt;
-<a name="l00261"></a><a class="code" href="namespaceMWWorld.html#a3ba8e85a23097c36102fc67353952edd">00261</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BodyPart&gt;</a> &amp;ESMStore::get&lt;ESM::BodyPart&gt;() <span class="keyword">const</span> {
-<a name="l00262"></a>00262         <span class="keywordflow">return</span> mBodyParts;
+<a name="l00261"></a><a class="code" href="namespaceMWWorld.html#a578d17badcdc3b7c17486b48b9c85bd3">00261</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Armor&gt;</a> &amp;ESMStore::get&lt;ESM::Armor&gt;() <span class="keyword">const</span> {
+<a name="l00262"></a>00262         <span class="keywordflow">return</span> mArmors;
 <a name="l00263"></a>00263     }
 <a name="l00264"></a>00264 
 <a name="l00265"></a>00265     <span class="keyword">template</span> &lt;&gt;
-<a name="l00266"></a><a class="code" href="namespaceMWWorld.html#a43668d49bb820a89676bba2e1be4bdb9">00266</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Book&gt;</a> &amp;ESMStore::get&lt;ESM::Book&gt;() <span class="keyword">const</span> {
-<a name="l00267"></a>00267         <span class="keywordflow">return</span> mBooks;
+<a name="l00266"></a><a class="code" href="namespaceMWWorld.html#a3ba8e85a23097c36102fc67353952edd">00266</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BodyPart&gt;</a> &amp;ESMStore::get&lt;ESM::BodyPart&gt;() <span class="keyword">const</span> {
+<a name="l00267"></a>00267         <span class="keywordflow">return</span> mBodyParts;
 <a name="l00268"></a>00268     }
 <a name="l00269"></a>00269 
 <a name="l00270"></a>00270     <span class="keyword">template</span> &lt;&gt;
-<a name="l00271"></a><a class="code" href="namespaceMWWorld.html#a4c674f0b9a5fda784d31f6cb4e0d2ff4">00271</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BirthSign&gt;</a> &amp;ESMStore::get&lt;ESM::BirthSign&gt;() <span class="keyword">const</span> {
-<a name="l00272"></a>00272         <span class="keywordflow">return</span> mBirthSigns;
+<a name="l00271"></a><a class="code" href="namespaceMWWorld.html#a43668d49bb820a89676bba2e1be4bdb9">00271</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Book&gt;</a> &amp;ESMStore::get&lt;ESM::Book&gt;() <span class="keyword">const</span> {
+<a name="l00272"></a>00272         <span class="keywordflow">return</span> mBooks;
 <a name="l00273"></a>00273     }
 <a name="l00274"></a>00274 
 <a name="l00275"></a>00275     <span class="keyword">template</span> &lt;&gt;
-<a name="l00276"></a><a class="code" href="namespaceMWWorld.html#a6952d1a9bb871002eea05302bb6f6029">00276</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Class&gt;</a> &amp;ESMStore::get&lt;ESM::Class&gt;() <span class="keyword">const</span> {
-<a name="l00277"></a>00277         <span class="keywordflow">return</span> mClasses;
+<a name="l00276"></a><a class="code" href="namespaceMWWorld.html#a4c674f0b9a5fda784d31f6cb4e0d2ff4">00276</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::BirthSign&gt;</a> &amp;ESMStore::get&lt;ESM::BirthSign&gt;() <span class="keyword">const</span> {
+<a name="l00277"></a>00277         <span class="keywordflow">return</span> mBirthSigns;
 <a name="l00278"></a>00278     }
 <a name="l00279"></a>00279 
 <a name="l00280"></a>00280     <span class="keyword">template</span> &lt;&gt;
-<a name="l00281"></a><a class="code" href="namespaceMWWorld.html#a06512c2c2e18227813f271966d790073">00281</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Clothing&gt;</a> &amp;ESMStore::get&lt;ESM::Clothing&gt;() <span class="keyword">const</span> {
-<a name="l00282"></a>00282         <span class="keywordflow">return</span> mClothes;
+<a name="l00281"></a><a class="code" href="namespaceMWWorld.html#a6952d1a9bb871002eea05302bb6f6029">00281</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Class&gt;</a> &amp;ESMStore::get&lt;ESM::Class&gt;() <span class="keyword">const</span> {
+<a name="l00282"></a>00282         <span class="keywordflow">return</span> mClasses;
 <a name="l00283"></a>00283     }
 <a name="l00284"></a>00284 
 <a name="l00285"></a>00285     <span class="keyword">template</span> &lt;&gt;
-<a name="l00286"></a><a class="code" href="namespaceMWWorld.html#a5a69c802081df2dcadd37a5083f5004d">00286</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCNTC&gt;</a> &amp;ESMStore::get&lt;ESM::LoadCNTC&gt;() <span class="keyword">const</span> {
-<a name="l00287"></a>00287         <span class="keywordflow">return</span> mContChange;
+<a name="l00286"></a><a class="code" href="namespaceMWWorld.html#a06512c2c2e18227813f271966d790073">00286</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Clothing&gt;</a> &amp;ESMStore::get&lt;ESM::Clothing&gt;() <span class="keyword">const</span> {
+<a name="l00287"></a>00287         <span class="keywordflow">return</span> mClothes;
 <a name="l00288"></a>00288     }
 <a name="l00289"></a>00289 
 <a name="l00290"></a>00290     <span class="keyword">template</span> &lt;&gt;
-<a name="l00291"></a><a class="code" href="namespaceMWWorld.html#a1453febe24b256f733a33fbffed97218">00291</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Container&gt;</a> &amp;ESMStore::get&lt;ESM::Container&gt;() <span class="keyword">const</span> {
-<a name="l00292"></a>00292         <span class="keywordflow">return</span> mContainers;
+<a name="l00291"></a><a class="code" href="namespaceMWWorld.html#a5a69c802081df2dcadd37a5083f5004d">00291</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCNTC&gt;</a> &amp;ESMStore::get&lt;ESM::LoadCNTC&gt;() <span class="keyword">const</span> {
+<a name="l00292"></a>00292         <span class="keywordflow">return</span> mContChange;
 <a name="l00293"></a>00293     }
 <a name="l00294"></a>00294 
 <a name="l00295"></a>00295     <span class="keyword">template</span> &lt;&gt;
-<a name="l00296"></a><a class="code" href="namespaceMWWorld.html#a451d89029b13d9a6dd8b552d346473f2">00296</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Creature&gt;</a> &amp;ESMStore::get&lt;ESM::Creature&gt;() <span class="keyword">const</span> {
-<a name="l00297"></a>00297         <span class="keywordflow">return</span> mCreatures;
+<a name="l00296"></a><a class="code" href="namespaceMWWorld.html#a1453febe24b256f733a33fbffed97218">00296</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Container&gt;</a> &amp;ESMStore::get&lt;ESM::Container&gt;() <span class="keyword">const</span> {
+<a name="l00297"></a>00297         <span class="keywordflow">return</span> mContainers;
 <a name="l00298"></a>00298     }
 <a name="l00299"></a>00299 
 <a name="l00300"></a>00300     <span class="keyword">template</span> &lt;&gt;
-<a name="l00301"></a><a class="code" href="namespaceMWWorld.html#a42e5c95d195015c383244d29d674b3c9">00301</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCREC&gt;</a> &amp;ESMStore::get&lt;ESM::LoadCREC&gt;() <span class="keyword">const</span> {
-<a name="l00302"></a>00302         <span class="keywordflow">return</span> mCreaChange;
+<a name="l00301"></a><a class="code" href="namespaceMWWorld.html#a451d89029b13d9a6dd8b552d346473f2">00301</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Creature&gt;</a> &amp;ESMStore::get&lt;ESM::Creature&gt;() <span class="keyword">const</span> {
+<a name="l00302"></a>00302         <span class="keywordflow">return</span> mCreatures;
 <a name="l00303"></a>00303     }
 <a name="l00304"></a>00304 
 <a name="l00305"></a>00305     <span class="keyword">template</span> &lt;&gt;
-<a name="l00306"></a><a class="code" href="namespaceMWWorld.html#a281413b797f93c9cf93a28e0633608cb">00306</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Dialogue&gt;</a> &amp;ESMStore::get&lt;ESM::Dialogue&gt;() <span class="keyword">const</span> {
-<a name="l00307"></a>00307         <span class="keywordflow">return</span> mDialogs;
+<a name="l00306"></a><a class="code" href="namespaceMWWorld.html#a42e5c95d195015c383244d29d674b3c9">00306</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadCREC&gt;</a> &amp;ESMStore::get&lt;ESM::LoadCREC&gt;() <span class="keyword">const</span> {
+<a name="l00307"></a>00307         <span class="keywordflow">return</span> mCreaChange;
 <a name="l00308"></a>00308     }
 <a name="l00309"></a>00309 
 <a name="l00310"></a>00310     <span class="keyword">template</span> &lt;&gt;
-<a name="l00311"></a><a class="code" href="namespaceMWWorld.html#a38caaf6731e7e6730ba239e4ec4ddd3a">00311</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Door&gt;</a> &amp;ESMStore::get&lt;ESM::Door&gt;() <span class="keyword">const</span> {
-<a name="l00312"></a>00312         <span class="keywordflow">return</span> mDoors;
+<a name="l00311"></a><a class="code" href="namespaceMWWorld.html#a281413b797f93c9cf93a28e0633608cb">00311</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Dialogue&gt;</a> &amp;ESMStore::get&lt;ESM::Dialogue&gt;() <span class="keyword">const</span> {
+<a name="l00312"></a>00312         <span class="keywordflow">return</span> mDialogs;
 <a name="l00313"></a>00313     }
 <a name="l00314"></a>00314 
 <a name="l00315"></a>00315     <span class="keyword">template</span> &lt;&gt;
-<a name="l00316"></a><a class="code" href="namespaceMWWorld.html#a32f3e3131c81587f7a8dc13933a354f0">00316</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Enchantment&gt;</a> &amp;ESMStore::get&lt;ESM::Enchantment&gt;() <span class="keyword">const</span> {
-<a name="l00317"></a>00317         <span class="keywordflow">return</span> mEnchants;
+<a name="l00316"></a><a class="code" href="namespaceMWWorld.html#a38caaf6731e7e6730ba239e4ec4ddd3a">00316</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Door&gt;</a> &amp;ESMStore::get&lt;ESM::Door&gt;() <span class="keyword">const</span> {
+<a name="l00317"></a>00317         <span class="keywordflow">return</span> mDoors;
 <a name="l00318"></a>00318     }
 <a name="l00319"></a>00319 
 <a name="l00320"></a>00320     <span class="keyword">template</span> &lt;&gt;
-<a name="l00321"></a><a class="code" href="namespaceMWWorld.html#ae45f55d24840996fd9bcaf3031f7ed3d">00321</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Faction&gt;</a> &amp;ESMStore::get&lt;ESM::Faction&gt;() <span class="keyword">const</span> {
-<a name="l00322"></a>00322         <span class="keywordflow">return</span> mFactions;
+<a name="l00321"></a><a class="code" href="namespaceMWWorld.html#a32f3e3131c81587f7a8dc13933a354f0">00321</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Enchantment&gt;</a> &amp;ESMStore::get&lt;ESM::Enchantment&gt;() <span class="keyword">const</span> {
+<a name="l00322"></a>00322         <span class="keywordflow">return</span> mEnchants;
 <a name="l00323"></a>00323     }
 <a name="l00324"></a>00324 
 <a name="l00325"></a>00325     <span class="keyword">template</span> &lt;&gt;
-<a name="l00326"></a><a class="code" href="namespaceMWWorld.html#a9bf5ba4e9960a8d859d170b2a9604e9a">00326</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Global&gt;</a> &amp;ESMStore::get&lt;ESM::Global&gt;() <span class="keyword">const</span> {
-<a name="l00327"></a>00327         <span class="keywordflow">return</span> mGlobals;
+<a name="l00326"></a><a class="code" href="namespaceMWWorld.html#ae45f55d24840996fd9bcaf3031f7ed3d">00326</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Faction&gt;</a> &amp;ESMStore::get&lt;ESM::Faction&gt;() <span class="keyword">const</span> {
+<a name="l00327"></a>00327         <span class="keywordflow">return</span> mFactions;
 <a name="l00328"></a>00328     }
 <a name="l00329"></a>00329 
 <a name="l00330"></a>00330     <span class="keyword">template</span> &lt;&gt;
-<a name="l00331"></a><a class="code" href="namespaceMWWorld.html#a1d95e41c3d51e75b7389d889001980d8">00331</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Ingredient&gt;</a> &amp;ESMStore::get&lt;ESM::Ingredient&gt;() <span class="keyword">const</span> {
-<a name="l00332"></a>00332         <span class="keywordflow">return</span> mIngreds;
+<a name="l00331"></a><a class="code" href="namespaceMWWorld.html#a9bf5ba4e9960a8d859d170b2a9604e9a">00331</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Global&gt;</a> &amp;ESMStore::get&lt;ESM::Global&gt;() <span class="keyword">const</span> {
+<a name="l00332"></a>00332         <span class="keywordflow">return</span> mGlobals;
 <a name="l00333"></a>00333     }
 <a name="l00334"></a>00334 
 <a name="l00335"></a>00335     <span class="keyword">template</span> &lt;&gt;
-<a name="l00336"></a><a class="code" href="namespaceMWWorld.html#a24846ad2d2184d0e149dd61b04079a23">00336</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::CreatureLevList&gt;</a> &amp;ESMStore::get&lt;ESM::CreatureLevList&gt;() <span class="keyword">const</span> {
-<a name="l00337"></a>00337         <span class="keywordflow">return</span> mCreatureLists;
+<a name="l00336"></a><a class="code" href="namespaceMWWorld.html#a1d95e41c3d51e75b7389d889001980d8">00336</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Ingredient&gt;</a> &amp;ESMStore::get&lt;ESM::Ingredient&gt;() <span class="keyword">const</span> {
+<a name="l00337"></a>00337         <span class="keywordflow">return</span> mIngreds;
 <a name="l00338"></a>00338     }
 <a name="l00339"></a>00339 
 <a name="l00340"></a>00340     <span class="keyword">template</span> &lt;&gt;
-<a name="l00341"></a><a class="code" href="namespaceMWWorld.html#aa46f022c65d2e86eaf7569da602b2e5e">00341</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::ItemLevList&gt;</a> &amp;ESMStore::get&lt;ESM::ItemLevList&gt;() <span class="keyword">const</span> {
-<a name="l00342"></a>00342         <span class="keywordflow">return</span> mItemLists;
+<a name="l00341"></a><a class="code" href="namespaceMWWorld.html#a24846ad2d2184d0e149dd61b04079a23">00341</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::CreatureLevList&gt;</a> &amp;ESMStore::get&lt;ESM::CreatureLevList&gt;() <span class="keyword">const</span> {
+<a name="l00342"></a>00342         <span class="keywordflow">return</span> mCreatureLists;
 <a name="l00343"></a>00343     }
 <a name="l00344"></a>00344 
 <a name="l00345"></a>00345     <span class="keyword">template</span> &lt;&gt;
-<a name="l00346"></a><a class="code" href="namespaceMWWorld.html#ae7ec3419b36d41af448e5c778ab6c58f">00346</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Light&gt;</a> &amp;ESMStore::get&lt;ESM::Light&gt;() <span class="keyword">const</span> {
-<a name="l00347"></a>00347         <span class="keywordflow">return</span> mLights;
+<a name="l00346"></a><a class="code" href="namespaceMWWorld.html#aa46f022c65d2e86eaf7569da602b2e5e">00346</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::ItemLevList&gt;</a> &amp;ESMStore::get&lt;ESM::ItemLevList&gt;() <span class="keyword">const</span> {
+<a name="l00347"></a>00347         <span class="keywordflow">return</span> mItemLists;
 <a name="l00348"></a>00348     }
 <a name="l00349"></a>00349 
 <a name="l00350"></a>00350     <span class="keyword">template</span> &lt;&gt;
-<a name="l00351"></a><a class="code" href="namespaceMWWorld.html#a61147c9de0c982ab1c2994a1e83d5649">00351</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Lockpick&gt;</a> &amp;ESMStore::get&lt;ESM::Lockpick&gt;() <span class="keyword">const</span> {
-<a name="l00352"></a>00352         <span class="keywordflow">return</span> mLockpicks;
+<a name="l00351"></a><a class="code" href="namespaceMWWorld.html#ae7ec3419b36d41af448e5c778ab6c58f">00351</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Light&gt;</a> &amp;ESMStore::get&lt;ESM::Light&gt;() <span class="keyword">const</span> {
+<a name="l00352"></a>00352         <span class="keywordflow">return</span> mLights;
 <a name="l00353"></a>00353     }
 <a name="l00354"></a>00354 
 <a name="l00355"></a>00355     <span class="keyword">template</span> &lt;&gt;
-<a name="l00356"></a><a class="code" href="namespaceMWWorld.html#ac2aa1e0eb23906d82868bf0d3a84d7d8">00356</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Miscellaneous&gt;</a> &amp;ESMStore::get&lt;ESM::Miscellaneous&gt;() <span class="keyword">const</span> {
-<a name="l00357"></a>00357         <span class="keywordflow">return</span> mMiscItems;
+<a name="l00356"></a><a class="code" href="namespaceMWWorld.html#a61147c9de0c982ab1c2994a1e83d5649">00356</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Lockpick&gt;</a> &amp;ESMStore::get&lt;ESM::Lockpick&gt;() <span class="keyword">const</span> {
+<a name="l00357"></a>00357         <span class="keywordflow">return</span> mLockpicks;
 <a name="l00358"></a>00358     }
 <a name="l00359"></a>00359 
 <a name="l00360"></a>00360     <span class="keyword">template</span> &lt;&gt;
-<a name="l00361"></a><a class="code" href="namespaceMWWorld.html#ab866f03a3e7b7fd1b41e8e7153c0cc09">00361</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::NPC&gt;</a> &amp;ESMStore::get&lt;ESM::NPC&gt;() <span class="keyword">const</span> {
-<a name="l00362"></a>00362         <span class="keywordflow">return</span> mNpcs;
+<a name="l00361"></a><a class="code" href="namespaceMWWorld.html#ac2aa1e0eb23906d82868bf0d3a84d7d8">00361</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Miscellaneous&gt;</a> &amp;ESMStore::get&lt;ESM::Miscellaneous&gt;() <span class="keyword">const</span> {
+<a name="l00362"></a>00362         <span class="keywordflow">return</span> mMiscItems;
 <a name="l00363"></a>00363     }
 <a name="l00364"></a>00364 
 <a name="l00365"></a>00365     <span class="keyword">template</span> &lt;&gt;
-<a name="l00366"></a><a class="code" href="namespaceMWWorld.html#ac8b49550019c373360170fc2dedddaa8">00366</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadNPCC&gt;</a> &amp;ESMStore::get&lt;ESM::LoadNPCC&gt;() <span class="keyword">const</span> {
-<a name="l00367"></a>00367         <span class="keywordflow">return</span> mNpcChange;
+<a name="l00366"></a><a class="code" href="namespaceMWWorld.html#ab866f03a3e7b7fd1b41e8e7153c0cc09">00366</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::NPC&gt;</a> &amp;ESMStore::get&lt;ESM::NPC&gt;() <span class="keyword">const</span> {
+<a name="l00367"></a>00367         <span class="keywordflow">return</span> mNpcs;
 <a name="l00368"></a>00368     }
 <a name="l00369"></a>00369 
 <a name="l00370"></a>00370     <span class="keyword">template</span> &lt;&gt;
-<a name="l00371"></a><a class="code" href="namespaceMWWorld.html#a42722e8021c217d52ce8a3ecf9f65d45">00371</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Probe&gt;</a> &amp;ESMStore::get&lt;ESM::Probe&gt;() <span class="keyword">const</span> {
-<a name="l00372"></a>00372         <span class="keywordflow">return</span> mProbes;
+<a name="l00371"></a><a class="code" href="namespaceMWWorld.html#ac8b49550019c373360170fc2dedddaa8">00371</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::LoadNPCC&gt;</a> &amp;ESMStore::get&lt;ESM::LoadNPCC&gt;() <span class="keyword">const</span> {
+<a name="l00372"></a>00372         <span class="keywordflow">return</span> mNpcChange;
 <a name="l00373"></a>00373     }
 <a name="l00374"></a>00374 
 <a name="l00375"></a>00375     <span class="keyword">template</span> &lt;&gt;
-<a name="l00376"></a><a class="code" href="namespaceMWWorld.html#ad57b052d6e68d4642309c071c9de9913">00376</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Race&gt;</a> &amp;ESMStore::get&lt;ESM::Race&gt;() <span class="keyword">const</span> {
-<a name="l00377"></a>00377         <span class="keywordflow">return</span> mRaces;
+<a name="l00376"></a><a class="code" href="namespaceMWWorld.html#a42722e8021c217d52ce8a3ecf9f65d45">00376</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Probe&gt;</a> &amp;ESMStore::get&lt;ESM::Probe&gt;() <span class="keyword">const</span> {
+<a name="l00377"></a>00377         <span class="keywordflow">return</span> mProbes;
 <a name="l00378"></a>00378     }
 <a name="l00379"></a>00379 
 <a name="l00380"></a>00380     <span class="keyword">template</span> &lt;&gt;
-<a name="l00381"></a><a class="code" href="namespaceMWWorld.html#a371344eee33ba43056ba0e5c13a109a2">00381</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Region&gt;</a> &amp;ESMStore::get&lt;ESM::Region&gt;() <span class="keyword">const</span> {
-<a name="l00382"></a>00382         <span class="keywordflow">return</span> mRegions;
+<a name="l00381"></a><a class="code" href="namespaceMWWorld.html#ad57b052d6e68d4642309c071c9de9913">00381</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Race&gt;</a> &amp;ESMStore::get&lt;ESM::Race&gt;() <span class="keyword">const</span> {
+<a name="l00382"></a>00382         <span class="keywordflow">return</span> mRaces;
 <a name="l00383"></a>00383     }
 <a name="l00384"></a>00384 
 <a name="l00385"></a>00385     <span class="keyword">template</span> &lt;&gt;
-<a name="l00386"></a><a class="code" href="namespaceMWWorld.html#a852048106faa7446ebb908146d384795">00386</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Repair&gt;</a> &amp;ESMStore::get&lt;ESM::Repair&gt;() <span class="keyword">const</span> {
-<a name="l00387"></a>00387         <span class="keywordflow">return</span> mRepairs;
+<a name="l00386"></a><a class="code" href="namespaceMWWorld.html#a371344eee33ba43056ba0e5c13a109a2">00386</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Region&gt;</a> &amp;ESMStore::get&lt;ESM::Region&gt;() <span class="keyword">const</span> {
+<a name="l00387"></a>00387         <span class="keywordflow">return</span> mRegions;
 <a name="l00388"></a>00388     }
 <a name="l00389"></a>00389 
 <a name="l00390"></a>00390     <span class="keyword">template</span> &lt;&gt;
-<a name="l00391"></a><a class="code" href="namespaceMWWorld.html#a1d7e33b5336a1ad026e9a2d742253cc6">00391</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::SoundGenerator&gt;</a> &amp;ESMStore::get&lt;ESM::SoundGenerator&gt;() <span class="keyword">const</span> {
-<a name="l00392"></a>00392         <span class="keywordflow">return</span> mSoundGens;
+<a name="l00391"></a><a class="code" href="namespaceMWWorld.html#a852048106faa7446ebb908146d384795">00391</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Repair&gt;</a> &amp;ESMStore::get&lt;ESM::Repair&gt;() <span class="keyword">const</span> {
+<a name="l00392"></a>00392         <span class="keywordflow">return</span> mRepairs;
 <a name="l00393"></a>00393     }
 <a name="l00394"></a>00394 
 <a name="l00395"></a>00395     <span class="keyword">template</span> &lt;&gt;
-<a name="l00396"></a><a class="code" href="namespaceMWWorld.html#a094a458a8320c28f13199dbbd75f01d5">00396</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Sound&gt;</a> &amp;ESMStore::get&lt;ESM::Sound&gt;() <span class="keyword">const</span> {
-<a name="l00397"></a>00397         <span class="keywordflow">return</span> mSounds;
+<a name="l00396"></a><a class="code" href="namespaceMWWorld.html#a1d7e33b5336a1ad026e9a2d742253cc6">00396</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::SoundGenerator&gt;</a> &amp;ESMStore::get&lt;ESM::SoundGenerator&gt;() <span class="keyword">const</span> {
+<a name="l00397"></a>00397         <span class="keywordflow">return</span> mSoundGens;
 <a name="l00398"></a>00398     }
 <a name="l00399"></a>00399 
 <a name="l00400"></a>00400     <span class="keyword">template</span> &lt;&gt;
-<a name="l00401"></a><a class="code" href="namespaceMWWorld.html#a6eed9a96373a7b2d899e96babf134365">00401</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Spell&gt;</a> &amp;ESMStore::get&lt;ESM::Spell&gt;() <span class="keyword">const</span> {
-<a name="l00402"></a>00402         <span class="keywordflow">return</span> mSpells;
+<a name="l00401"></a><a class="code" href="namespaceMWWorld.html#a094a458a8320c28f13199dbbd75f01d5">00401</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Sound&gt;</a> &amp;ESMStore::get&lt;ESM::Sound&gt;() <span class="keyword">const</span> {
+<a name="l00402"></a>00402         <span class="keywordflow">return</span> mSounds;
 <a name="l00403"></a>00403     }
 <a name="l00404"></a>00404 
 <a name="l00405"></a>00405     <span class="keyword">template</span> &lt;&gt;
-<a name="l00406"></a><a class="code" href="namespaceMWWorld.html#a9c2cc84a55c27d75df5e98a737370007">00406</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::StartScript&gt;</a> &amp;ESMStore::get&lt;ESM::StartScript&gt;() <span class="keyword">const</span> {
-<a name="l00407"></a>00407         <span class="keywordflow">return</span> mStartScripts;
+<a name="l00406"></a><a class="code" href="namespaceMWWorld.html#a6eed9a96373a7b2d899e96babf134365">00406</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Spell&gt;</a> &amp;ESMStore::get&lt;ESM::Spell&gt;() <span class="keyword">const</span> {
+<a name="l00407"></a>00407         <span class="keywordflow">return</span> mSpells;
 <a name="l00408"></a>00408     }
 <a name="l00409"></a>00409 
 <a name="l00410"></a>00410     <span class="keyword">template</span> &lt;&gt;
-<a name="l00411"></a><a class="code" href="namespaceMWWorld.html#a2b954ffc8fec47a07bd45017bb5cea65">00411</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Static&gt;</a> &amp;ESMStore::get&lt;ESM::Static&gt;() <span class="keyword">const</span> {
-<a name="l00412"></a>00412         <span class="keywordflow">return</span> mStatics;
+<a name="l00411"></a><a class="code" href="namespaceMWWorld.html#a9c2cc84a55c27d75df5e98a737370007">00411</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::StartScript&gt;</a> &amp;ESMStore::get&lt;ESM::StartScript&gt;() <span class="keyword">const</span> {
+<a name="l00412"></a>00412         <span class="keywordflow">return</span> mStartScripts;
 <a name="l00413"></a>00413     }
 <a name="l00414"></a>00414 
 <a name="l00415"></a>00415     <span class="keyword">template</span> &lt;&gt;
-<a name="l00416"></a><a class="code" href="namespaceMWWorld.html#a58d38c6b5a4b74153e7bc5b8c25ae000">00416</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Weapon&gt;</a> &amp;ESMStore::get&lt;ESM::Weapon&gt;() <span class="keyword">const</span> {
-<a name="l00417"></a>00417         <span class="keywordflow">return</span> mWeapons;
+<a name="l00416"></a><a class="code" href="namespaceMWWorld.html#a2b954ffc8fec47a07bd45017bb5cea65">00416</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Static&gt;</a> &amp;ESMStore::get&lt;ESM::Static&gt;() <span class="keyword">const</span> {
+<a name="l00417"></a>00417         <span class="keywordflow">return</span> mStatics;
 <a name="l00418"></a>00418     }
 <a name="l00419"></a>00419 
 <a name="l00420"></a>00420     <span class="keyword">template</span> &lt;&gt;
-<a name="l00421"></a><a class="code" href="namespaceMWWorld.html#a6c0b868ff6746bad8529a136ad33734a">00421</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::GameSetting&gt;</a> &amp;ESMStore::get&lt;ESM::GameSetting&gt;() <span class="keyword">const</span> {
-<a name="l00422"></a>00422         <span class="keywordflow">return</span> mGameSettings;
+<a name="l00421"></a><a class="code" href="namespaceMWWorld.html#a58d38c6b5a4b74153e7bc5b8c25ae000">00421</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Weapon&gt;</a> &amp;ESMStore::get&lt;ESM::Weapon&gt;() <span class="keyword">const</span> {
+<a name="l00422"></a>00422         <span class="keywordflow">return</span> mWeapons;
 <a name="l00423"></a>00423     }
 <a name="l00424"></a>00424 
 <a name="l00425"></a>00425     <span class="keyword">template</span> &lt;&gt;
-<a name="l00426"></a><a class="code" href="namespaceMWWorld.html#a8e696bf3b32b66411114d5bee4c6502c">00426</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Script&gt;</a> &amp;ESMStore::get&lt;ESM::Script&gt;() <span class="keyword">const</span> {
-<a name="l00427"></a>00427         <span class="keywordflow">return</span> mScripts;
+<a name="l00426"></a><a class="code" href="namespaceMWWorld.html#a6c0b868ff6746bad8529a136ad33734a">00426</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::GameSetting&gt;</a> &amp;ESMStore::get&lt;ESM::GameSetting&gt;() <span class="keyword">const</span> {
+<a name="l00427"></a>00427         <span class="keywordflow">return</span> mGameSettings;
 <a name="l00428"></a>00428     }
 <a name="l00429"></a>00429 
 <a name="l00430"></a>00430     <span class="keyword">template</span> &lt;&gt;
-<a name="l00431"></a><a class="code" href="namespaceMWWorld.html#a819827b15a93bf6d2c03272fda5592d1">00431</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html">Store&lt;ESM::Cell&gt;</a> &amp;ESMStore::get&lt;ESM::Cell&gt;() <span class="keyword">const</span> {
-<a name="l00432"></a>00432         <span class="keywordflow">return</span> mCells;
+<a name="l00431"></a><a class="code" href="namespaceMWWorld.html#a8e696bf3b32b66411114d5bee4c6502c">00431</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">Store&lt;ESM::Script&gt;</a> &amp;ESMStore::get&lt;ESM::Script&gt;() <span class="keyword">const</span> {
+<a name="l00432"></a>00432         <span class="keywordflow">return</span> mScripts;
 <a name="l00433"></a>00433     }
 <a name="l00434"></a>00434 
 <a name="l00435"></a>00435     <span class="keyword">template</span> &lt;&gt;
-<a name="l00436"></a><a class="code" href="namespaceMWWorld.html#a532c2cff0672ee023c4501c627386545">00436</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Land_01_4.html">Store&lt;ESM::Land&gt;</a> &amp;ESMStore::get&lt;ESM::Land&gt;() <span class="keyword">const</span> {
-<a name="l00437"></a>00437         <span class="keywordflow">return</span> mLands;
+<a name="l00436"></a><a class="code" href="namespaceMWWorld.html#a819827b15a93bf6d2c03272fda5592d1">00436</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html">Store&lt;ESM::Cell&gt;</a> &amp;ESMStore::get&lt;ESM::Cell&gt;() <span class="keyword">const</span> {
+<a name="l00437"></a>00437         <span class="keywordflow">return</span> mCells;
 <a name="l00438"></a>00438     }
 <a name="l00439"></a>00439 
 <a name="l00440"></a>00440     <span class="keyword">template</span> &lt;&gt;
-<a name="l00441"></a><a class="code" href="namespaceMWWorld.html#acd894dd43b4ec1bd12a1bbc6e749045a">00441</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1LandTexture_01_4.html">Store&lt;ESM::LandTexture&gt;</a> &amp;ESMStore::get&lt;ESM::LandTexture&gt;() <span class="keyword">const</span> {
-<a name="l00442"></a>00442         <span class="keywordflow">return</span> mLandTextures;
+<a name="l00441"></a><a class="code" href="namespaceMWWorld.html#a532c2cff0672ee023c4501c627386545">00441</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Land_01_4.html">Store&lt;ESM::Land&gt;</a> &amp;ESMStore::get&lt;ESM::Land&gt;() <span class="keyword">const</span> {
+<a name="l00442"></a>00442         <span class="keywordflow">return</span> mLands;
 <a name="l00443"></a>00443     }
 <a name="l00444"></a>00444 
 <a name="l00445"></a>00445     <span class="keyword">template</span> &lt;&gt;
-<a name="l00446"></a><a class="code" href="namespaceMWWorld.html#a0aaa56f10c68e97637305b20fe23f55a">00446</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">Store&lt;ESM::Pathgrid&gt;</a> &amp;ESMStore::get&lt;ESM::Pathgrid&gt;() <span class="keyword">const</span> {
-<a name="l00447"></a>00447         <span class="keywordflow">return</span> mPathgrids;
+<a name="l00446"></a><a class="code" href="namespaceMWWorld.html#acd894dd43b4ec1bd12a1bbc6e749045a">00446</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1LandTexture_01_4.html">Store&lt;ESM::LandTexture&gt;</a> &amp;ESMStore::get&lt;ESM::LandTexture&gt;() <span class="keyword">const</span> {
+<a name="l00447"></a>00447         <span class="keywordflow">return</span> mLandTextures;
 <a name="l00448"></a>00448     }
 <a name="l00449"></a>00449 
 <a name="l00450"></a>00450     <span class="keyword">template</span> &lt;&gt;
-<a name="l00451"></a><a class="code" href="namespaceMWWorld.html#af7f5024ce58f742e61b2e378dc89e5f6">00451</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">Store&lt;ESM::MagicEffect&gt;</a> &amp;ESMStore::get&lt;ESM::MagicEffect&gt;() <span class="keyword">const</span> {
-<a name="l00452"></a>00452         <span class="keywordflow">return</span> mMagicEffects;
+<a name="l00451"></a><a class="code" href="namespaceMWWorld.html#a0aaa56f10c68e97637305b20fe23f55a">00451</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">Store&lt;ESM::Pathgrid&gt;</a> &amp;ESMStore::get&lt;ESM::Pathgrid&gt;() <span class="keyword">const</span> {
+<a name="l00452"></a>00452         <span class="keywordflow">return</span> mPathgrids;
 <a name="l00453"></a>00453     }
 <a name="l00454"></a>00454 
 <a name="l00455"></a>00455     <span class="keyword">template</span> &lt;&gt;
-<a name="l00456"></a><a class="code" href="namespaceMWWorld.html#afd6992beb1c7d661afb778426e0aca88">00456</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">Store&lt;ESM::Skill&gt;</a> &amp;ESMStore::get&lt;ESM::Skill&gt;() <span class="keyword">const</span> {
-<a name="l00457"></a>00457         <span class="keywordflow">return</span> mSkills;
+<a name="l00456"></a><a class="code" href="namespaceMWWorld.html#af7f5024ce58f742e61b2e378dc89e5f6">00456</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">Store&lt;ESM::MagicEffect&gt;</a> &amp;ESMStore::get&lt;ESM::MagicEffect&gt;() <span class="keyword">const</span> {
+<a name="l00457"></a>00457         <span class="keywordflow">return</span> mMagicEffects;
 <a name="l00458"></a>00458     }
 <a name="l00459"></a>00459 
 <a name="l00460"></a>00460     <span class="keyword">template</span> &lt;&gt;
-<a name="l00461"></a><a class="code" href="namespaceMWWorld.html#a294d5e9a16568f417f304b2cdd39cd0d">00461</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">Store&lt;ESM::Attribute&gt;</a> &amp;ESMStore::get&lt;ESM::Attribute&gt;() <span class="keyword">const</span> {
-<a name="l00462"></a>00462         <span class="keywordflow">return</span> mAttributes;
+<a name="l00461"></a><a class="code" href="namespaceMWWorld.html#afd6992beb1c7d661afb778426e0aca88">00461</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">Store&lt;ESM::Skill&gt;</a> &amp;ESMStore::get&lt;ESM::Skill&gt;() <span class="keyword">const</span> {
+<a name="l00462"></a>00462         <span class="keywordflow">return</span> mSkills;
 <a name="l00463"></a>00463     }
-<a name="l00464"></a>00464 }
-<a name="l00465"></a>00465 
-<a name="l00466"></a>00466 <span class="preprocessor">#endif</span>
+<a name="l00464"></a>00464 
+<a name="l00465"></a>00465     <span class="keyword">template</span> &lt;&gt;
+<a name="l00466"></a><a class="code" href="namespaceMWWorld.html#a294d5e9a16568f417f304b2cdd39cd0d">00466</a>     <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">Store&lt;ESM::Attribute&gt;</a> &amp;ESMStore::get&lt;ESM::Attribute&gt;() <span class="keyword">const</span> {
+<a name="l00467"></a>00467         <span class="keywordflow">return</span> mAttributes;
+<a name="l00468"></a>00468     }
+<a name="l00469"></a>00469 }
+<a name="l00470"></a>00470 
+<a name="l00471"></a>00471 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

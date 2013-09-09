@@ -58,20 +58,23 @@
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">apps/openmw/mwscript/miscextensions.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="miscextensions_8hpp_source.html">miscextensions.hpp</a>&quot;</code><br/>
+<code>#include &lt;cstdlib&gt;</code><br/>
 <code>#include &lt;<a class="el" href="fader_8hpp_source.html">libs/openengine/ogre/fader.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="components_2compiler_2extensions_8hpp_source.html">components/compiler/extensions.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="compiler_2opcodes_8hpp_source.html">components/compiler/opcodes.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="components_2compiler_2locals_8hpp_source.html">components/compiler/locals.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="interpreter_8hpp_source.html">components/interpreter/interpreter.hpp</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="runtime_8hpp_source.html">components/interpreter/runtime.hpp</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="opcodes_8hpp_source.html">components/interpreter/opcodes.hpp</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="interpreter_2opcodes_8hpp_source.html">components/interpreter/opcodes.hpp</a>&gt;</code><br/>
 <code>#include &quot;<a class="el" href="environment_8hpp_source.html">../mwbase/environment.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="windowmanager_8hpp_source.html">../mwbase/windowmanager.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="scriptmanager_8hpp_source.html">../mwbase/scriptmanager.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mwworld_2class_8hpp_source.html">../mwworld/class.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="player_8hpp_source.html">../mwworld/player.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="manualref_8hpp_source.html">../mwworld/manualref.hpp</a>&quot;</code><br/>
@@ -117,6 +120,9 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetStandingPc.html">MWScript::Misc::OpGetStandingPc&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetStandingActor.html">MWScript::Misc::OpGetStandingActor&lt; R &gt;</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpGetWindSpeed.html">MWScript::Misc::OpGetWindSpeed</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpHitOnMe.html">MWScript::Misc::OpHitOnMe&lt; R &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpEnableTeleporting.html">MWScript::Misc::OpEnableTeleporting&lt; Enable &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWScript_1_1Misc_1_1OpShowVars.html">MWScript::Misc::OpShowVars&lt; R &gt;</a></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript.html">MWScript</a></td></tr>
@@ -125,65 +131,13 @@ Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html">MWScript::Misc</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#af4347d27b3f2ecaf461085281df47dd0">MWScript::Misc::registerExtensions</a> (<a class="el" href="classCompiler_1_1Extensions.html">Compiler::Extensions</a> &amp;extensions)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a0b6b1932af34ee43b3bbfe79be4d82dc">MWScript::Misc::installOpcodes</a> (<a class="el" href="classInterpreter_1_1Interpreter.html">Interpreter::Interpreter</a> &amp;interpreter)</td></tr>
-<tr><td colspan="2"><h2><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a22132ab6b06f82db61f6a27169a4a015">MWScript::Misc::opcodeXBox</a> = 0x200000c</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a6559de7eae8924f0f80e4927db5b86f5">MWScript::Misc::opcodeOnActivate</a> = 0x200000d</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a4244f49e3ad4c682cf988ed34e90a67e">MWScript::Misc::opcodeActivate</a> = 0x2000075</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#ac3bdbc74bf94a8ffbd29a9e3823a806c">MWScript::Misc::opcodeLock</a> = 0x20004</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a6dd1be982cd16b15d73af5c3c95b2f66">MWScript::Misc::opcodeLockExplicit</a> = 0x20005</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a0f6f1abada800f507d0155f966877373">MWScript::Misc::opcodeUnlock</a> = 0x200008c</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a66955dd675377b289687788f1af9a037">MWScript::Misc::opcodeUnlockExplicit</a> = 0x200008d</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#abb3c0d2033326423842e1ba91271be94">MWScript::Misc::opcodeToggleCollisionDebug</a> = 0x2000132</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#aabb55c6230df40d76ce6355f412ac417">MWScript::Misc::opcodeToggleCollisionBoxes</a> = 0x20001ac</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a52e0ab34757b25cfe997520f0e3d8dda">MWScript::Misc::opcodeToggleWireframe</a> = 0x200013b</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#ad47b27ce4218769c96e4fd8bb8409bcd">MWScript::Misc::opcodeFadeIn</a> = 0x200013c</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a995e544a27db527642415aa92adcdba6">MWScript::Misc::opcodeFadeOut</a> = 0x200013d</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a1ccbc44018cf101eeac95ba4cf481ef6">MWScript::Misc::opcodeFadeTo</a> = 0x200013e</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a831d5ea5cd515b3ea69117583f36a0b4">MWScript::Misc::opcodeToggleWater</a> = 0x2000144</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a5006ee0c96a90d27f6d7114d08dc063f">MWScript::Misc::opcodeTogglePathgrid</a> = 0x2000146</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a68b203de7eaf8f86295f118a16a77dfd">MWScript::Misc::opcodeDontSaveObject</a> = 0x2000153</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a03e15c40bc1c96db46c1ba30c70a7a5e">MWScript::Misc::opcodeToggleVanityMode</a> = 0x2000174</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a7ea1bfe3639e28f5faafa87d1d1b9275">MWScript::Misc::opcodeGetPcSleep</a> = 0x200019f</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a430cc2062fa5faffa939e8a35c6f22b1">MWScript::Misc::opcodeWakeUpPc</a> = 0x20001a2</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#ad2407d7aa51c08c49da7422721414952">MWScript::Misc::opcodeGetLocked</a> = 0x20001c7</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#abc9d0764287582435b36e396ead28bbb">MWScript::Misc::opcodeGetLockedExplicit</a> = 0x20001c8</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a25cf1d205cc7dca276d0cf76bec594e8">MWScript::Misc::opcodeGetEffect</a> = 0x20001cf</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a60c8e3229e7ba7d3d1344840ecd00358">MWScript::Misc::opcodeGetEffectExplicit</a> = 0x20001d0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a7b29606645c77b64a6f6efd938edce2b">MWScript::Misc::opcodeAddSoulGem</a> = 0x20001f3</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a772c1de742f17584946c987f08cd4603">MWScript::Misc::opcodeAddSoulGemExplicit</a> = 0x20001f4</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a1db25a28b38d8d80888cd54b8030a4f5">MWScript::Misc::opcodeRemoveSoulGem</a> = 0x20001f5</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#aff4c93d83ab7c26317a1d1f7306cf1dc">MWScript::Misc::opcodeRemoveSoulGemExplicit</a> = 0x20001f6</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a3ad063924fc58e3e22b3a43a8d5f0cb7">MWScript::Misc::opcodeDrop</a> = 0x20001f8</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a291cb9d559e94133de7cf02eab2f7ca4">MWScript::Misc::opcodeDropExplicit</a> = 0x20001f9</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a224d6cfb93fd901424ba320bc05eaeaa">MWScript::Misc::opcodeDropSoulGem</a> = 0x20001fa</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a7c1bfa6f219a960299180768834dd08d">MWScript::Misc::opcodeDropSoulGemExplicit</a> = 0x20001fb</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a0f78267c6541611929d9253f5a60e277">MWScript::Misc::opcodeGetAttacked</a> = 0x20001d3</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a270c81d02a34c3fda4420d971651d484">MWScript::Misc::opcodeGetAttackedExplicit</a> = 0x20001d4</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a4b6fc8d32f88f48c2fb76e50c342311d">MWScript::Misc::opcodeGetWeaponDrawn</a> = 0x20001d7</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a513a270ad5e5c2dbb1cd24cc2df6a614">MWScript::Misc::opcodeGetWeaponDrawnExplicit</a> = 0x20001d8</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a9cb8a7ba481b735d2af6e93e9478ba19">MWScript::Misc::opcodeGetSpellEffects</a> = 0x20001db</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a072ed64780a784aedce9adc57007aa2a">MWScript::Misc::opcodeGetSpellEffectsExplicit</a> = 0x20001dc</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#aebb7cadbf40ca780f4705d3c5e8d2178">MWScript::Misc::opcodeGetCurrentTime</a> = 0x20001dd</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#ac81833cd227ae919adca4750cc977bee">MWScript::Misc::opcodeSetDelete</a> = 0x20001e5</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a787f19e04bf7e203b4ec7be87492ccf1">MWScript::Misc::opcodeSetDeleteExplicit</a> = 0x20001e6</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a78ded59e375b66929a03df4b8ced3fff">MWScript::Misc::opcodeGetSquareRoot</a> = 0x20001e7</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a56f4c860420becd4eb9c596213a03966">MWScript::Misc::opcodeFall</a> = 0x200020a</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a695b5a2821faa698d0b198b3946082ae">MWScript::Misc::opcodeFallExplicit</a> = 0x200020b</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#aa3a3ef1baaf506600864e08ca87439fc">MWScript::Misc::opcodeGetStandingPc</a> = 0x200020c</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a5677812c32f0fd58f56ccaa7ca91ab1e">MWScript::Misc::opcodeGetStandingPcExplicit</a> = 0x200020d</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a7320344e57952cb740420ec04c6eaeb7">MWScript::Misc::opcodeGetStandingActor</a> = 0x200020e</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#acff6fcdba9f228175d15241299928561">MWScript::Misc::opcodeGetStandingActorExplicit</a> = 0x200020f</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a477d14188eedcbfa8b129098884d7998">MWScript::Misc::opcodeGetWindSpeed</a> = 0x2000212</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMWScript_1_1Misc.html#a027f67c5fb2818d218187f1ecfe371c7">MWScript::Misc::opcodePlayBink</a> = 0x20001f7</td></tr>
 </table>
 </div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:22 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

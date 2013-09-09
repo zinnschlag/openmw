@@ -136,89 +136,90 @@
 <a name="l00075"></a>00075 
 <a name="l00076"></a>00076     <span class="keyword">protected</span>:
 <a name="l00077"></a><a class="code" href="classMWGui_1_1EditEffectDialog.html#a73f81113ce0e738e952ffaaa170a9b1a">00077</a>         <a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> <a class="code" href="classMWGui_1_1EditEffectDialog.html#a73f81113ce0e738e952ffaaa170a9b1a">mEffect</a>;
-<a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="classMWGui_1_1EditEffectDialog.html#ad1910e9e72c16072755162c6ad1ee75d">00079</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a>* <a class="code" href="classMWGui_1_1EditEffectDialog.html#ad1910e9e72c16072755162c6ad1ee75d">mMagicEffect</a>;
-<a name="l00080"></a>00080     };
-<a name="l00081"></a>00081 
+<a name="l00078"></a><a class="code" href="classMWGui_1_1EditEffectDialog.html#a447ac123fd37a2aef764d0819d01c129">00078</a>         <a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> <a class="code" href="classMWGui_1_1EditEffectDialog.html#a447ac123fd37a2aef764d0819d01c129">mOldEffect</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="classMWGui_1_1EditEffectDialog.html#ad1910e9e72c16072755162c6ad1ee75d">00080</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a>* <a class="code" href="classMWGui_1_1EditEffectDialog.html#ad1910e9e72c16072755162c6ad1ee75d">mMagicEffect</a>;
+<a name="l00081"></a>00081     };
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html">00083</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1EffectEditorBase.html">EffectEditorBase</a>
-<a name="l00084"></a>00084     {
-<a name="l00085"></a>00085     <span class="keyword">public</span>:
-<a name="l00086"></a>00086         <a class="code" href="classMWGui_1_1EffectEditorBase.html#acb2046ae8d523dbe82c8639386099135">EffectEditorBase</a>();
-<a name="l00087"></a>00087         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ad58fbc133ef286bfbd0dab7d9592581f">~EffectEditorBase</a>();
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089     <span class="keyword">protected</span>:
-<a name="l00090"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#ad212d030589813f3f1aa82ad6942a4b1">00090</a>         std::map&lt;int, short&gt; <a class="code" href="classMWGui_1_1EffectEditorBase.html#ad212d030589813f3f1aa82ad6942a4b1">mButtonMapping</a>; <span class="comment">// maps button ID to effect ID</span>
-<a name="l00091"></a>00091 
-<a name="l00092"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a9d336cbd86a174faecd2c07982f103d7">00092</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>* <a class="code" href="classMWGui_1_1EffectEditorBase.html#a9d336cbd86a174faecd2c07982f103d7">mAvailableEffectsList</a>;
-<a name="l00093"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a387c3516f50e893f86b2405993321caf">00093</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1EffectEditorBase.html#a387c3516f50e893f86b2405993321caf">mUsedEffectsView</a>;
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a83b244e209537ee6354903442629e059">00095</a>         <a class="code" href="classMWGui_1_1EditEffectDialog.html">EditEffectDialog</a> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a83b244e209537ee6354903442629e059">mAddEffectDialog</a>;
-<a name="l00096"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#afc8f7d281b0f6932e8d80d159b7fac58">00096</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a>* <a class="code" href="classMWGui_1_1EffectEditorBase.html#afc8f7d281b0f6932e8d80d159b7fac58">mSelectAttributeDialog</a>;
-<a name="l00097"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a4bf8175c8ea0f5737de96bdbd602c7c2">00097</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a>* <a class="code" href="classMWGui_1_1EffectEditorBase.html#a4bf8175c8ea0f5737de96bdbd602c7c2">mSelectSkillDialog</a>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a8a73be25e31086582b2e875079011b50">00099</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a8a73be25e31086582b2e875079011b50">mSelectedEffect</a>;
-<a name="l00100"></a>00100 
-<a name="l00101"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a7ac95e9f38682956ffcbf68e8a45f639">00101</a>         std::vector&lt;ESM::ENAMstruct&gt; <a class="code" href="classMWGui_1_1EffectEditorBase.html#a7ac95e9f38682956ffcbf68e8a45f639">mEffects</a>;
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a78a85a0650f2988739a769101edc5469">onEffectAdded</a>(<a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> effect);
-<a name="l00104"></a>00104         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a23672e9a7319c8f31b4fc6ab23928c0c">onEffectModified</a>(<a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> effect);
-<a name="l00105"></a>00105         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ab9345432eea550658d4ab38341812da8">onEffectRemoved</a>(<a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> effect);
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a9e577de9cf1a05c8a0cf154679cbf53a">onAvailableEffectClicked</a> (MyGUI::Widget* sender);
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ac39bae26e1ea081c7ecab6ca8e79e0aa">onAttributeOrSkillCancel</a>();
-<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#aa41736ef89786e85714b09f91b3de066">onSelectAttribute</a>();
-<a name="l00111"></a>00111         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ab3e8e1363aa224e435d5d21babc5dce5">onSelectSkill</a>();
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#acc9cd9fe3e7afbafe4afe4fc4366cd59">onEditEffect</a>(MyGUI::Widget* sender);
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a87ee3a759e0901cf9d39c3c72341d411">updateEffectsView</a>();
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a98044e622e771024ee1854f26e6831d7">startEditing</a>();
-<a name="l00118"></a>00118         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a245c0a4d74e12db5f7f48008fc1be5f7">setWidgets</a> (<a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>* availableEffectsList, MyGUI::ScrollView* usedEffectsView);
-<a name="l00119"></a>00119 
-<a name="l00120"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#aaf34d1cfab2fa8335b2165b0b1299e9b">00120</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#aaf34d1cfab2fa8335b2165b0b1299e9b">notifyEffectsChanged</a> () {}
-<a name="l00121"></a>00121     };
-<a name="l00122"></a>00122 
-<a name="l00123"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html">00123</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SpellCreationDialog.html">SpellCreationDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html">EffectEditorBase</a>
-<a name="l00124"></a>00124     {
-<a name="l00125"></a>00125     <span class="keyword">public</span>:
-<a name="l00126"></a>00126         <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6cfc2eb5e51c4dac3281341dbf738d5a">SpellCreationDialog</a>();
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a270d73a46b97631a771411f8995f46a0">open</a>();
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#ae36cbe9e9c27510b5fc10471d70fdfdb">startSpellMaking</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132     <span class="keyword">protected</span>:
-<a name="l00133"></a>00133         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#ad601329b3b4aa75f8bf5933223d22ad1" title="called when reference has become unavailable">onReferenceUnavailable</a> ();
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a96fcc90e5bd91925301d7ef7bcd07e4a">onCancelButtonClicked</a> (MyGUI::Widget* sender);
-<a name="l00136"></a>00136         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#addf21d8221232811f27ed252cd130820">onBuyButtonClicked</a> (MyGUI::Widget* sender);
-<a name="l00137"></a>00137 
-<a name="l00138"></a>00138         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#ae434902e41a9288d7f678ec5d4641c0e">notifyEffectsChanged</a> ();
-<a name="l00139"></a>00139 
-<a name="l00140"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0e532925ae01bfe530326cd39a496a86">00140</a>         MyGUI::EditBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0e532925ae01bfe530326cd39a496a86">mNameEdit</a>;
-<a name="l00141"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a3ba0dfb1d575e1ff296ba2ae08bf7104">00141</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a3ba0dfb1d575e1ff296ba2ae08bf7104">mMagickaCost</a>;
-<a name="l00142"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6cb1c5abf4422ad0944413197c0cbf3a">00142</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6cb1c5abf4422ad0944413197c0cbf3a">mSuccessChance</a>;
-<a name="l00143"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a08fddd40c759448520d798f97eb8cb62">00143</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a08fddd40c759448520d798f97eb8cb62">mBuyButton</a>;
-<a name="l00144"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6d559bee0140744b11988ba04df855a3">00144</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6d559bee0140744b11988ba04df855a3">mCancelButton</a>;
-<a name="l00145"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0a18657c99cd6658e656afad786c8326">00145</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0a18657c99cd6658e656afad786c8326">mPriceLabel</a>;
-<a name="l00146"></a>00146 
-<a name="l00147"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a019750030dbc03b87abfa10f94de066b">00147</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">Widgets::MWEffectList</a>* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a019750030dbc03b87abfa10f94de066b">mUsedEffectsList</a>;
-<a name="l00148"></a>00148 
-<a name="l00149"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6f0d72074482a142a2fb209c5daf91b3">00149</a>         <a class="code" href="structESM_1_1Spell.html">ESM::Spell</a> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6f0d72074482a142a2fb209c5daf91b3">mSpell</a>;
-<a name="l00150"></a>00150 
-<a name="l00151"></a>00151     };
-<a name="l00152"></a>00152 
-<a name="l00153"></a>00153 }
-<a name="l00154"></a>00154 
-<a name="l00155"></a>00155 <span class="preprocessor">#endif</span>
+<a name="l00083"></a>00083 
+<a name="l00084"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html">00084</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1EffectEditorBase.html">EffectEditorBase</a>
+<a name="l00085"></a>00085     {
+<a name="l00086"></a>00086     <span class="keyword">public</span>:
+<a name="l00087"></a>00087         <a class="code" href="classMWGui_1_1EffectEditorBase.html#acb2046ae8d523dbe82c8639386099135">EffectEditorBase</a>();
+<a name="l00088"></a>00088         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ad58fbc133ef286bfbd0dab7d9592581f">~EffectEditorBase</a>();
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090     <span class="keyword">protected</span>:
+<a name="l00091"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#ad212d030589813f3f1aa82ad6942a4b1">00091</a>         std::map&lt;int, short&gt; <a class="code" href="classMWGui_1_1EffectEditorBase.html#ad212d030589813f3f1aa82ad6942a4b1">mButtonMapping</a>; <span class="comment">// maps button ID to effect ID</span>
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a9d336cbd86a174faecd2c07982f103d7">00093</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>* <a class="code" href="classMWGui_1_1EffectEditorBase.html#a9d336cbd86a174faecd2c07982f103d7">mAvailableEffectsList</a>;
+<a name="l00094"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a387c3516f50e893f86b2405993321caf">00094</a>         MyGUI::ScrollView* <a class="code" href="classMWGui_1_1EffectEditorBase.html#a387c3516f50e893f86b2405993321caf">mUsedEffectsView</a>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a83b244e209537ee6354903442629e059">00096</a>         <a class="code" href="classMWGui_1_1EditEffectDialog.html">EditEffectDialog</a> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a83b244e209537ee6354903442629e059">mAddEffectDialog</a>;
+<a name="l00097"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#afc8f7d281b0f6932e8d80d159b7fac58">00097</a>         <a class="code" href="classMWGui_1_1SelectAttributeDialog.html">SelectAttributeDialog</a>* <a class="code" href="classMWGui_1_1EffectEditorBase.html#afc8f7d281b0f6932e8d80d159b7fac58">mSelectAttributeDialog</a>;
+<a name="l00098"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a4bf8175c8ea0f5737de96bdbd602c7c2">00098</a>         <a class="code" href="classMWGui_1_1SelectSkillDialog.html">SelectSkillDialog</a>* <a class="code" href="classMWGui_1_1EffectEditorBase.html#a4bf8175c8ea0f5737de96bdbd602c7c2">mSelectSkillDialog</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a8a73be25e31086582b2e875079011b50">00100</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a8a73be25e31086582b2e875079011b50">mSelectedEffect</a>;
+<a name="l00101"></a>00101 
+<a name="l00102"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#a7ac95e9f38682956ffcbf68e8a45f639">00102</a>         std::vector&lt;ESM::ENAMstruct&gt; <a class="code" href="classMWGui_1_1EffectEditorBase.html#a7ac95e9f38682956ffcbf68e8a45f639">mEffects</a>;
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a78a85a0650f2988739a769101edc5469">onEffectAdded</a>(<a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> effect);
+<a name="l00105"></a>00105         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a23672e9a7319c8f31b4fc6ab23928c0c">onEffectModified</a>(<a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> effect);
+<a name="l00106"></a>00106         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ab9345432eea550658d4ab38341812da8">onEffectRemoved</a>(<a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a> effect);
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a9e577de9cf1a05c8a0cf154679cbf53a">onAvailableEffectClicked</a> (MyGUI::Widget* sender);
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ac39bae26e1ea081c7ecab6ca8e79e0aa">onAttributeOrSkillCancel</a>();
+<a name="l00111"></a>00111         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#aa41736ef89786e85714b09f91b3de066">onSelectAttribute</a>();
+<a name="l00112"></a>00112         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#ab3e8e1363aa224e435d5d21babc5dce5">onSelectSkill</a>();
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#acc9cd9fe3e7afbafe4afe4fc4366cd59">onEditEffect</a>(MyGUI::Widget* sender);
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a87ee3a759e0901cf9d39c3c72341d411">updateEffectsView</a>();
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a98044e622e771024ee1854f26e6831d7">startEditing</a>();
+<a name="l00119"></a>00119         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#a245c0a4d74e12db5f7f48008fc1be5f7">setWidgets</a> (<a class="code" href="classMWGui_1_1Widgets_1_1MWList.html" title="a very simple list widget that supports word-wrapping entries">Widgets::MWList</a>* availableEffectsList, MyGUI::ScrollView* usedEffectsView);
+<a name="l00120"></a>00120 
+<a name="l00121"></a><a class="code" href="classMWGui_1_1EffectEditorBase.html#aaf34d1cfab2fa8335b2165b0b1299e9b">00121</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html#aaf34d1cfab2fa8335b2165b0b1299e9b">notifyEffectsChanged</a> () {}
+<a name="l00122"></a>00122     };
+<a name="l00123"></a>00123 
+<a name="l00124"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html">00124</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1SpellCreationDialog.html">SpellCreationDialog</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1ReferenceInterface.html" title="this class is intended for GUI interfaces that access an MW-Reference for example dialogue window acc...">ReferenceInterface</a>, <span class="keyword">public</span> <a class="code" href="classMWGui_1_1EffectEditorBase.html">EffectEditorBase</a>
+<a name="l00125"></a>00125     {
+<a name="l00126"></a>00126     <span class="keyword">public</span>:
+<a name="l00127"></a>00127         <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6cfc2eb5e51c4dac3281341dbf738d5a">SpellCreationDialog</a>();
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a270d73a46b97631a771411f8995f46a0">open</a>();
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#ae36cbe9e9c27510b5fc10471d70fdfdb">startSpellMaking</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133     <span class="keyword">protected</span>:
+<a name="l00134"></a>00134         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#ad601329b3b4aa75f8bf5933223d22ad1" title="called when reference has become unavailable">onReferenceUnavailable</a> ();
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a96fcc90e5bd91925301d7ef7bcd07e4a">onCancelButtonClicked</a> (MyGUI::Widget* sender);
+<a name="l00137"></a>00137         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#addf21d8221232811f27ed252cd130820">onBuyButtonClicked</a> (MyGUI::Widget* sender);
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#ae434902e41a9288d7f678ec5d4641c0e">notifyEffectsChanged</a> ();
+<a name="l00140"></a>00140 
+<a name="l00141"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0e532925ae01bfe530326cd39a496a86">00141</a>         MyGUI::EditBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0e532925ae01bfe530326cd39a496a86">mNameEdit</a>;
+<a name="l00142"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a3ba0dfb1d575e1ff296ba2ae08bf7104">00142</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a3ba0dfb1d575e1ff296ba2ae08bf7104">mMagickaCost</a>;
+<a name="l00143"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6cb1c5abf4422ad0944413197c0cbf3a">00143</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6cb1c5abf4422ad0944413197c0cbf3a">mSuccessChance</a>;
+<a name="l00144"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a08fddd40c759448520d798f97eb8cb62">00144</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a08fddd40c759448520d798f97eb8cb62">mBuyButton</a>;
+<a name="l00145"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6d559bee0140744b11988ba04df855a3">00145</a>         MyGUI::Button* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6d559bee0140744b11988ba04df855a3">mCancelButton</a>;
+<a name="l00146"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0a18657c99cd6658e656afad786c8326">00146</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a0a18657c99cd6658e656afad786c8326">mPriceLabel</a>;
+<a name="l00147"></a>00147 
+<a name="l00148"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a019750030dbc03b87abfa10f94de066b">00148</a>         <a class="code" href="classMWGui_1_1Widgets_1_1MWEffectList.html">Widgets::MWEffectList</a>* <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a019750030dbc03b87abfa10f94de066b">mUsedEffectsList</a>;
+<a name="l00149"></a>00149 
+<a name="l00150"></a><a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6f0d72074482a142a2fb209c5daf91b3">00150</a>         <a class="code" href="structESM_1_1Spell.html">ESM::Spell</a> <a class="code" href="classMWGui_1_1SpellCreationDialog.html#a6f0d72074482a142a2fb209c5daf91b3">mSpell</a>;
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152     };
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154 }
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

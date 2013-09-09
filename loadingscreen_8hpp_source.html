@@ -66,63 +66,71 @@
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="windowbase_8hpp.html">windowbase.hpp</a>&quot;</span>
 <a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWGui
-<a name="l00009"></a>00009 {
-<a name="l00010"></a><a class="code" href="classMWGui_1_1LoadingScreen.html">00010</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1LoadingScreen.html">LoadingScreen</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>
-<a name="l00011"></a>00011     {
-<a name="l00012"></a>00012     <span class="keyword">public</span>:
-<a name="l00013"></a>00013         <a class="code" href="classMWGui_1_1LoadingScreen.html#aa9291da5dbcc31db0f0963871aebdf4a">LoadingScreen</a>(Ogre::SceneManager* sceneMgr, Ogre::RenderWindow* rw);
-<a name="l00014"></a>00014         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a918daaf6771a8650719715696d97f408">~LoadingScreen</a>();
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ab72af46052099845b7281222f7a20ca2">setLoadingProgress</a> (<span class="keyword">const</span> std::string&amp; stage, <span class="keywordtype">int</span> depth, <span class="keywordtype">int</span> current, <span class="keywordtype">int</span> total);
-<a name="l00017"></a>00017         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aec56b5117c7cb705a25432babafa8cfd">loadingDone</a>();
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ad72c033d9beb768b32498f3924f5c7ac">onResChange</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a792f90c04743bac2b56f2d602d3e9bbb">00021</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a792f90c04743bac2b56f2d602d3e9bbb">updateWindow</a>(Ogre::RenderWindow* rw) { <a class="code" href="classMWGui_1_1LoadingScreen.html#a316940cf7b948ae4a3aded3fd98bac11">mWindow</a> = rw; }
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;<a class="code" href="loadinglistener_8hpp.html">components/loadinglistener/loadinglistener.hpp</a>&gt;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWGui
+<a name="l00011"></a>00011 {
+<a name="l00012"></a><a class="code" href="classMWGui_1_1LoadingScreen.html">00012</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1LoadingScreen.html">LoadingScreen</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowBase.html">WindowBase</a>, <span class="keyword">public</span> Loading::Listener
+<a name="l00013"></a>00013     {
+<a name="l00014"></a>00014     <span class="keyword">public</span>:
+<a name="l00015"></a>00015         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aa1e1578f8d283d37f53d12d8d5131751">setLabel</a> (<span class="keyword">const</span> std::string&amp; label);
+<a name="l00016"></a>00016 
+<a name="l00018"></a>00018         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a34a222415bb1a63c6aaba369b4b95349" title="Indicate that some progress has been made, without specifying how much.">indicateProgress</a> ();
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a608b318f966a2fcc06428e0518de95e8">loadingOn</a>();
+<a name="l00021"></a>00021         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a5201c40386430746146adcd1aece6ec3">loadingOff</a>();
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023     <span class="keyword">private</span>:
-<a name="l00024"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a69b31d2d5311411088366b12fb65c2da">00024</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a69b31d2d5311411088366b12fb65c2da">mFirstLoad</a>;
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a23b93a20eda3d80e1195299cee7b5208">00026</a>         Ogre::SceneManager* <a class="code" href="classMWGui_1_1LoadingScreen.html#a23b93a20eda3d80e1195299cee7b5208">mSceneMgr</a>;
-<a name="l00027"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a316940cf7b948ae4a3aded3fd98bac11">00027</a>         Ogre::RenderWindow* <a class="code" href="classMWGui_1_1LoadingScreen.html#a316940cf7b948ae4a3aded3fd98bac11">mWindow</a>;
+<a name="l00023"></a>00023         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ac5399938a22821f08ff52c257264fcf4">setProgressRange</a> (<span class="keywordtype">size_t</span> range);
+<a name="l00024"></a>00024         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ac5d8f2a22257e77de55f8fffe6027678">setProgress</a> (<span class="keywordtype">size_t</span> value);
+<a name="l00025"></a>00025         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a67cee97a171142878172d1405709d0c1">increaseProgress</a> (<span class="keywordtype">size_t</span> increase);
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aa9af5ccfa16ced80950cc798b10bb7ae" title="Indicate the scene is now ready to be shown.">removeWallpaper</a>();
 <a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#ae24f2df22af39f1a53474a860bdc40e2">00029</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ae24f2df22af39f1a53474a860bdc40e2">mLastWallpaperChangeTime</a>;
-<a name="l00030"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a0c1806a11bb6c0de763168faf2db4b9a">00030</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a0c1806a11bb6c0de763168faf2db4b9a">mLastRenderTime</a>;
-<a name="l00031"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a22db66c40159b42941f4a4a63a39a902">00031</a>         Ogre::Timer <a class="code" href="classMWGui_1_1LoadingScreen.html#a22db66c40159b42941f4a4a63a39a902">mTimer</a>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a5d1bbd65de2a91bf7e7c545111dec1a0">00033</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1LoadingScreen.html#a5d1bbd65de2a91bf7e7c545111dec1a0">mLoadingText</a>;
-<a name="l00034"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a1bb1ec42097e36dcdecb4644527f200a">00034</a>         MyGUI::ProgressBar* <a class="code" href="classMWGui_1_1LoadingScreen.html#a1bb1ec42097e36dcdecb4644527f200a">mProgressBar</a>;
-<a name="l00035"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a823eb20be9f9df10fb1db88e5b8dca87">00035</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1LoadingScreen.html#a823eb20be9f9df10fb1db88e5b8dca87">mBackgroundImage</a>;
+<a name="l00029"></a>00029         <a class="code" href="classMWGui_1_1LoadingScreen.html#aa9291da5dbcc31db0f0963871aebdf4a">LoadingScreen</a>(Ogre::SceneManager* sceneMgr, Ogre::RenderWindow* rw);
+<a name="l00030"></a>00030         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a918daaf6771a8650719715696d97f408">~LoadingScreen</a>();
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ab72af46052099845b7281222f7a20ca2">setLoadingProgress</a> (<span class="keyword">const</span> std::string&amp; stage, <span class="keywordtype">int</span> depth, <span class="keywordtype">int</span> current, <span class="keywordtype">int</span> total);
+<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aec56b5117c7cb705a25432babafa8cfd">loadingDone</a>();
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ad72c033d9beb768b32498f3924f5c7ac">onResChange</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);
 <a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a4dfab604c0b94ad3304a9e4b90bf9e88">00037</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a4dfab604c0b94ad3304a9e4b90bf9e88">mCurrentCellLoading</a>;
-<a name="l00038"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a518a891b5d4eb2b602ecf0546edbc259">00038</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a518a891b5d4eb2b602ecf0546edbc259">mTotalCellsLoading</a>;
-<a name="l00039"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a8911227b42979effb12cba624fa29c79">00039</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a8911227b42979effb12cba624fa29c79">mCurrentRefLoading</a>;
-<a name="l00040"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#acf26ecc0466d0b77c5ac756aa1fb52f0">00040</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#acf26ecc0466d0b77c5ac756aa1fb52f0">mTotalRefsLoading</a>;
-<a name="l00041"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a1306430c13ae074a3c8e3674b0d9c58a">00041</a>         <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a1306430c13ae074a3c8e3674b0d9c58a">mCurrentRefList</a>;
-<a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a598ef14436f91efabebb5f0edd2d2e20">00043</a>         Ogre::Rectangle2D* <a class="code" href="classMWGui_1_1LoadingScreen.html#a598ef14436f91efabebb5f0edd2d2e20">mRectangle</a>;
-<a name="l00044"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a22c0291ea96b0290c9ef2f4a48efeb4b">00044</a>         Ogre::MaterialPtr <a class="code" href="classMWGui_1_1LoadingScreen.html#a22c0291ea96b0290c9ef2f4a48efeb4b">mBackgroundMaterial</a>;
-<a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a8ad959302625b2b45e8fff76b8fd60e2">00046</a>         <a class="code" href="namespaceFiles.html#aaf0a3e77ea0e13cee1cc76ec5678a375">Ogre::StringVector</a> <a class="code" href="classMWGui_1_1LoadingScreen.html#a8ad959302625b2b45e8fff76b8fd60e2">mResources</a>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a355482481b5354a183cc8b5cd03e7dec">00048</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a355482481b5354a183cc8b5cd03e7dec">mLoadingOn</a>;
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a608b318f966a2fcc06428e0518de95e8">loadingOn</a>();
-<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a5201c40386430746146adcd1aece6ec3">loadingOff</a>();
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aceabeb054ee5f9026176e4a9ac003732">changeWallpaper</a>();
-<a name="l00054"></a>00054     };
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 }
+<a name="l00037"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a792f90c04743bac2b56f2d602d3e9bbb">00037</a>         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a792f90c04743bac2b56f2d602d3e9bbb">updateWindow</a>(Ogre::RenderWindow* rw) { <a class="code" href="classMWGui_1_1LoadingScreen.html#a316940cf7b948ae4a3aded3fd98bac11">mWindow</a> = rw; }
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039     <span class="keyword">private</span>:
+<a name="l00040"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a69b31d2d5311411088366b12fb65c2da">00040</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a69b31d2d5311411088366b12fb65c2da">mFirstLoad</a>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a23b93a20eda3d80e1195299cee7b5208">00042</a>         Ogre::SceneManager* <a class="code" href="classMWGui_1_1LoadingScreen.html#a23b93a20eda3d80e1195299cee7b5208">mSceneMgr</a>;
+<a name="l00043"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a316940cf7b948ae4a3aded3fd98bac11">00043</a>         Ogre::RenderWindow* <a class="code" href="classMWGui_1_1LoadingScreen.html#a316940cf7b948ae4a3aded3fd98bac11">mWindow</a>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#ae24f2df22af39f1a53474a860bdc40e2">00045</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#ae24f2df22af39f1a53474a860bdc40e2">mLastWallpaperChangeTime</a>;
+<a name="l00046"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a0c1806a11bb6c0de763168faf2db4b9a">00046</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#a0c1806a11bb6c0de763168faf2db4b9a">mLastRenderTime</a>;
+<a name="l00047"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a22db66c40159b42941f4a4a63a39a902">00047</a>         Ogre::Timer <a class="code" href="classMWGui_1_1LoadingScreen.html#a22db66c40159b42941f4a4a63a39a902">mTimer</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#aab8c811de22152291b1bd1e6d99d27e8">00049</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aab8c811de22152291b1bd1e6d99d27e8">mProgress</a>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a5d1bbd65de2a91bf7e7c545111dec1a0">00051</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1LoadingScreen.html#a5d1bbd65de2a91bf7e7c545111dec1a0">mLoadingText</a>;
+<a name="l00052"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#ac0d2145f7ba5cddfc8b30dd5234d9235">00052</a>         MyGUI::ScrollBar* <a class="code" href="classMWGui_1_1LoadingScreen.html#ac0d2145f7ba5cddfc8b30dd5234d9235">mProgressBar</a>;
+<a name="l00053"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a823eb20be9f9df10fb1db88e5b8dca87">00053</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1LoadingScreen.html#a823eb20be9f9df10fb1db88e5b8dca87">mBackgroundImage</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a598ef14436f91efabebb5f0edd2d2e20">00055</a>         Ogre::Rectangle2D* <a class="code" href="classMWGui_1_1LoadingScreen.html#a598ef14436f91efabebb5f0edd2d2e20">mRectangle</a>;
+<a name="l00056"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a22c0291ea96b0290c9ef2f4a48efeb4b">00056</a>         Ogre::MaterialPtr <a class="code" href="classMWGui_1_1LoadingScreen.html#a22c0291ea96b0290c9ef2f4a48efeb4b">mBackgroundMaterial</a>;
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="preprocessor">#endif</span>
+<a name="l00058"></a><a class="code" href="classMWGui_1_1LoadingScreen.html#a8ad959302625b2b45e8fff76b8fd60e2">00058</a>         <a class="code" href="namespaceFiles.html#aaf0a3e77ea0e13cee1cc76ec5678a375">Ogre::StringVector</a> <a class="code" href="classMWGui_1_1LoadingScreen.html#a8ad959302625b2b45e8fff76b8fd60e2">mResources</a>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#aceabeb054ee5f9026176e4a9ac003732">changeWallpaper</a>();
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1LoadingScreen.html#adae694b1eb024ac706cb76f01f7fcab8">draw</a>();
+<a name="l00063"></a>00063     };
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 }
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 31 2013 09:26:21 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
