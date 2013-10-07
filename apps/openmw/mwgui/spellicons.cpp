@@ -2,6 +2,9 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include <sstream>
+#include <iomanip>
+
 #include "../mwbase/world.hpp"
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
@@ -171,11 +174,28 @@ namespace MWGui
 
                 if (!(effect->mData.mFlags & ESM::MagicEffect::NoMagnitude))
                 {
-                    std::string pt =  MWBase::Environment::get().getWindowManager()->getGameSettingString("spoint", "");
-                    std::string pts =  MWBase::Environment::get().getWindowManager()->getGameSettingString("spoints", "");
+                    if (it->first == 84) // special handling for fortify maximum magicka
+                    {
+                        std::string timesInt =  MWBase::Environment::get().getWindowManager()->getGameSettingString("sXTimesINT", "");
+                        std::stringstream formatter;
+                        formatter << std::fixed << std::setprecision(1) << " " << (effectIt->mMagnitude / 10.0f) << timesInt;
+                        sourcesDescription += formatter.str();
+                    }
+                    else
+                    {
+                        std::string pt =  MWBase::Environment::get().getWindowManager()->getGameSettingString("spoint", "");
+                        std::string pts =  MWBase::Environment::get().getWindowManager()->getGameSettingString("spoints", "");
+                        std::string pct =  MWBase::Environment::get().getWindowManager()->getGameSettingString("spercent", "");
+                        const bool usePct = (
+                            (it->first >= 28 && it->first <= 36) || // Weakness effects
+                            (it->first >= 90 && it->first <= 99) ); // Resistance effects
 
-                    sourcesDescription += ": " + boost::lexical_cast<std::string>(effectIt->mMagnitude);
-                    sourcesDescription += " " + ((effectIt->mMagnitude > 1) ? pts : pt);
+                        sourcesDescription += ": " + boost::lexical_cast<std::string>(effectIt->mMagnitude);
+                        if ( usePct )
+                            sourcesDescription += pct;
+                        else
+                            sourcesDescription += " " + ((effectIt->mMagnitude > 1) ? pts : pt);
+                    }
                 }
             }
 
