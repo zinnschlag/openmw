@@ -15,13 +15,15 @@ It's useful to create env var for lib install prefix:
 
 Most of libs can be installed from [Homebrew][homebrew]. Only mpg123 needs to be installed from source (due to lack of universal compilation support). I think that some of libs can be installed from MacPorts or Fink too.
 
-As OpenMW currently only supports x86_64 architecture on OS X, denendencies also should support it. As of Snow Leopard,
+As OpenMW currently only supports `x86_64` architecture on OS X, denendencies also should support it. As of Snow Leopard, gcc and Clang build for 64-bit automatically. However, older versions of config.guess don't account for 64-bit OS X, and you have to set the `HOST` variable to `x86_64-apple-darwin12.5.0` or equevalent.
 
-        $ export CFLAGS="-arch i386"
-        $ export CXXFLAGS="-arch i386"
-        $ export LDFLAGS="-arch i386"
+You might also need to set some flags:
 
-If you close your terminal, you should set env vars again before pcoceeding to next steps!
+        $ export CFLAGS="-arch x86_64"
+        $ export CXXFLAGS="-arch x86_64"
+        $ export LDFLAGS="-arch x86_64"
+
+If you close your terminal, you should set env vars again before proceeding to the next steps!
 
 ## Boost
 Download [boost][boost] and install it with the following command:
@@ -37,9 +39,9 @@ Alternatively you can install boost with homebrew:
 
         $ brew install boost
         
-Installation via MacPorts is also possible
+Installation via MacPorts is also possible:
 
-        $ port install boost --no_static
+        $ sudo port install boost -no_static
 
 ## Ogre
 Download [Ogre][] SDK (tested with 1.7.3), unpack it somewhere and move
@@ -60,6 +62,10 @@ Download [MPG 123][mpg123] and build it:
         --with-cpu=sse_alone \
         $ make install
 
+Installation via MacPorts is also possible:
+
+        $ sudo port install mpg123
+
 ## libsndfile
 Download [libsndfile][] and build it:
 
@@ -74,7 +80,7 @@ or install with homebrew:
 
 or install with MacPorts:
 
-        $ port install libsndfile
+        $ port install libsndfile +universal
 
 ## Bullet
 Download [Bullet][] and build it:
@@ -92,10 +98,14 @@ Download [Bullet][] and build it:
         $ make install
 
 or install with homebrew:
-    
+
         $ brew install bullet --HEAD --universal
     
 I prefer head because 2.79 has some issue which causes OpenMW to lag. Also you can edit formula and install 2.77, which is stable and haven't mentioned issue.
+
+Bullet is also available on MacPorts:
+
+        $ sudo port install bullet
 
 ## Qt
 Install [Qt][qt].
@@ -106,7 +116,7 @@ Generate the Makefile for OpenMW as follows and build OpenMW:
         $ mkdir /path/to/openmw/build/dir
         $ cd /path/to/open/build/dir
         $ cmake \
-        -D CMAKE_OSX_ARCHITECTURES=i386 \
+        -D CMAKE_OSX_ARCHITECTURES=x86_64 \
         -D OGRE_SDK=/path/to/ogre/sdk \
         -D BOOST_INCLUDEDIR=$OMW_LIB_PREFIX/include/boost-1_45 \
         -D BOOST_LIBRARYDIR=$OMW_LIB_PREFIX/lib \
@@ -129,7 +139,7 @@ build. As for CMake 2.8.7 and Xcode 4.3, Xcode generator is broken. Sadly Eclips
 If all libs installed via homebrew or MacPorts (excluding mpg123), then command would be even simplier:
 
         $ cmake \
-        -D CMAKE_OSX_ARCHITECTURES="i386" \
+        -D CMAKE_OSX_ARCHITECTURES="x86_64" \
         -D OGRE_SDK=/path/to/ogre/sdk \
         -D MPG123_LIBRARY=$OMW_LIB_PREFIX/lib/libmpg123.a \
         -D MPG123_INCLUDE_DIR=$OMW_LIB_PREFIX/include \
