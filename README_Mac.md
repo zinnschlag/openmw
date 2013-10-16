@@ -15,7 +15,7 @@ It's useful to create env var for lib install prefix:
 
 Most of libs can be installed from [Homebrew][homebrew]. Only mpg123 needs to be installed from source (due to lack of universal compilation support). I think that some of libs can be installed from MacPorts or Fink too.
 
-As OpenMW currently only supports i386 architecture on OS X, denendencies also should support it. Set some env vars in current terminal:
+As OpenMW currently only supports x86_64 architecture on OS X, denendencies also should support it. As of Snow Leopard,
 
         $ export CFLAGS="-arch i386"
         $ export CXXFLAGS="-arch i386"
@@ -29,23 +29,24 @@ Download [boost][boost] and install it with the following command:
         $ cd /path/to/boost/source
         $ ./bootstrap.sh --prefix=$OMW_LIB_PREFIX
         $ ./bjam --build-dir=build --layout=versioned \
-        --toolset=darwin architecture=x86 address-model=32 \
+        --toolset=darwin architecture=x86_64 address-model=64 \
         --link-shared,static --prefix=$OMW_LIB_PREFIX install
     
         
 Alternatively you can install boost with homebrew:
 
-        $ brew install boost --universal
+        $ brew install boost
+        
+Installation via MacPorts is also possible
 
-I think MacPorts also should support universal build for boost.
+        $ port install boost --no_static
 
 ## Ogre
 Download [Ogre][] SDK (tested with 1.7.3), unpack it somewhere and move
 `lib/Release/Ogre.framework` into `/Library/Frameworks`.
 
 ## OIS
-Download patched [OIS][] and use the XCode project provided. Be sure to set your build architecture to
-   `i386`. Once it built, locate built OIS.framework with Xcode and move it to `/Library/Frameworks`.
+Download patched [OIS][] and use the XCode project provided. Once it built, locate built OIS.framework with Xcode and move it to `/Library/Frameworks`.
 
 ## mpg123
 Download [MPG 123][mpg123] and build it:
@@ -68,8 +69,12 @@ Download [libsndfile][] and build it:
         $ make install
 
 or install with homebrew:
-    
+
         $ brew install libsndfile --universal
+
+or install with MacPorts:
+
+        $ port install libsndfile
 
 ## Bullet
 Download [Bullet][] and build it:
@@ -93,9 +98,7 @@ or install with homebrew:
 I prefer head because 2.79 has some issue which causes OpenMW to lag. Also you can edit formula and install 2.77, which is stable and haven't mentioned issue.
 
 ## Qt
-Install [Qt][qt]. Qt SDK distributed by Nokia is not an option because it's 64 bit only, and OpenMW currently doesn't build for 64 bit on OS X. I'm installing it from Homebrew:
-
-        $ brew install qt --universal
+Install [Qt][qt].
 
 ## Run CMake
 Generate the Makefile for OpenMW as follows and build OpenMW:
@@ -123,7 +126,7 @@ You can use `-G"Xcode"` if you prefer Xcode, or -G"Eclipse CDT4 - Unix Makefiles
 if you prefer Eclipse. You also can specify `-D CMAKE_BUILD_TYPE=Debug` for debug
 build. As for CMake 2.8.7 and Xcode 4.3, Xcode generator is broken. Sadly Eclipse CDT also cannot import generated project at least on my machine.
 
-If all libs installed via homebrew (excluding mpg123), then command would be even simplier:
+If all libs installed via homebrew or MacPorts (excluding mpg123), then command would be even simplier:
 
         $ cmake \
         -D CMAKE_OSX_ARCHITECTURES="i386" \
@@ -135,7 +138,7 @@ If all libs installed via homebrew (excluding mpg123), then command would be eve
     
 Note for users with recent Xcode versions: you must explicitly specify what set of compilers do you use! If not, gcc will be used for C and Clang for C++. Just add this two -D's to command: `-D CMAKE_C_COMPILER=/usr/bin/clang` and `-D CMAKE_CXX_COMPILER=/usr/bin/clang`
     
-Note for Xcode 4.3 users: you should specify full path to used SDK, because current CMake (2.8.7) couldn't find SDKs inside Xcode app bundle:
+Note for Xcode 4.3 and later users: you should specify full path to used SDK, because current CMake (2.8.7) couldn't find SDKs inside Xcode app bundle:
     
         -D CMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
 
