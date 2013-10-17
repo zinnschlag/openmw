@@ -15,7 +15,7 @@ It's useful to create env var for lib install prefix:
 
 Most of libs can be installed from [Homebrew][homebrew]. Only mpg123 needs to be installed from source (due to lack of universal compilation support). I think that some of libs can be installed from MacPorts or Fink too.
 
-As OpenMW currently only supports `x86_64` architecture on OS X, denendencies also should support it. As of Snow Leopard, gcc and Clang build for 64-bit automatically. However, older versions of config.guess don't account for 64-bit OS X, and you have to set the `HOST` variable to `x86_64-apple-darwin12.5.0` or equevalent.
+As OpenMW currently only supports `x86_64` architecture on OS X, dependencies also should support it. As of Snow Leopard, gcc and Clang build for 64-bit automatically. However, older versions of config.guess don't account for 64-bit OS X, and you have to set the `HOST` variable to `x86_64-apple-darwin12.5.0` or equivalent.
 
 You might also need to set some flags:
 
@@ -136,7 +136,7 @@ You can use `-G"Xcode"` if you prefer Xcode, or -G"Eclipse CDT4 - Unix Makefiles
 if you prefer Eclipse. You also can specify `-D CMAKE_BUILD_TYPE=Debug` for debug
 build. As for CMake 2.8.7 and Xcode 4.3, Xcode generator is broken. Sadly Eclipse CDT also cannot import generated project at least on my machine.
 
-If all libs installed via homebrew or MacPorts (excluding mpg123), then command would be even simplier:
+If all libs installed via homebrew or MacPorts (excluding mpg123), then command would be even simpler:
 
         $ cmake \
         -D CMAKE_OSX_ARCHITECTURES="x86_64" \
