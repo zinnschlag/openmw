@@ -47,9 +47,6 @@ Installation via MacPorts is also possible:
 Download [Ogre][] SDK (tested with 1.7.3), unpack it somewhere and move
 `lib/Release/Ogre.framework` into `/Library/Frameworks`.
 
-## OIS
-Download patched [OIS][] and use the XCode project provided. Once it built, locate built OIS.framework with Xcode and move it to `/Library/Frameworks`.
-
 ## mpg123
 Download [MPG 123][mpg123] and build it:
 
@@ -165,7 +162,6 @@ Enjoy!
 [boost]: http://www.boost.org
 [Ogre]: http://www.ogre3d.org
 [Bullet]: http://bulletphysics.org
-[OIS]: https://github.com/corristo/ois-fork
 [mpg123]: http://www.mpg123.de
 [libsndfile]: http://www.mega-nerd.com/libsndfile
 [official website]: http://openmw.com
