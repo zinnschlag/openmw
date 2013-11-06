@@ -35,7 +35,7 @@ namespace MWMechanics
         {
             // AI
             CreatureStats& creatureStats =  MWWorld::Class::get (ptr).getCreatureStats (ptr);
-            creatureStats.getAiSequence().execute (ptr);
+            creatureStats.getAiSequence().execute (ptr,duration);
 
             // fatigue restoration
             calculateRestoration(ptr, duration);

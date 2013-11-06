@@ -49,6 +49,8 @@ namespace Compiler
         const int opcodeGetFleeExplicit = 0x20001c4;
         const int opcodeGetAlarm = 0x20001c5;
         const int opcodeGetAlarmExplicit = 0x20001c6;
+        const int opcodeGetLineOfSight = 0x2000222;
+        const int opcodeGetLineOfSightExplicit = 0x2000223;
     }
 
     namespace Animation
