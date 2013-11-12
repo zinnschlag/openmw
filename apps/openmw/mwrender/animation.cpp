@@ -39,6 +39,15 @@ void Animation::AnimationValue::setValue(Ogre::Real)
 {
 }
 
+Ogre::Real Animation::EffectAnimationValue::getValue() const
+{
+    return mTime;
+}
+
+void Animation::EffectAnimationValue::setValue(Ogre::Real)
+{
+}
+
 
 void Animation::destroyObjectList(Ogre::SceneManager *sceneMgr, NifOgre::ObjectList &objects)
 {
@@ -78,6 +87,9 @@ Animation::Animation(const MWWorld::Ptr &ptr, Ogre::SceneNode *node)
 
 Animation::~Animation()
 {
+    for (std::vector<NifOgre::ObjectList>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+        destroyObjectList(mInsert->getCreator(), *it);
+
     mAnimSources.clear();
 
     Ogre::SceneManager *sceneMgr = mInsert->getCreator();
@@ -916,6 +928,25 @@ Ogre::Vector3 Animation::runAnimation(float duration)
         mSkelBase->getAllAnimationStates()->_notifyDirty();
     }
 
+
+    for (std::vector<NifOgre::ObjectList>::iterator it = mEffects.begin(); it != mEffects.end(); )
+    {
+        for(size_t i = 0; i < it->mControllers.size() ;i++)
+        {
+            static_cast<EffectAnimationValue*> (it->mControllers[i].getSource().get())->addTime(duration);
+
+            it->mControllers[i].update();
+        }
+
+        if (it->mControllers[0].getSource()->getValue() >= it->mMaxControllerLength)
+        {
+            destroyObjectList(mInsert->getCreator(), *it);
+            it = mEffects.erase(it);
+        }
+        else
+            ++it;
+    }
+
     return movement;
 }
 
@@ -978,6 +1009,17 @@ void Animation::detachObjectFromBone(Ogre::MovableObject *obj)
     if(iter != mAttachedObjects.end())
         mAttachedObjects.erase(iter);
     mSkelBase->detachObjectFromBone(obj);
+}
+
+void Animation::addEffect(const std::string &model, const std::string &bonename)
+{
+    NifOgre::ObjectList list = NifOgre::Loader::createObjects(mInsert, model);
+    for(size_t i = 0;i < list.mControllers.size();i++)
+    {
+        if(list.mControllers[i].getSource().isNull())
+            list.mControllers[i].setSource(Ogre::SharedPtr<EffectAnimationValue> (new EffectAnimationValue()));
+    }
+    mEffects.push_back(list);
 }
 
 

@@ -2029,6 +2029,8 @@ namespace MWWorld
         MWMechanics::CreatureStats& stats = actor.getClass().getCreatureStats(actor);
         stats.setAttackingOrSpell(false);
 
+        ESM::EffectList effects;
+
         std::string selectedSpell = stats.getSpells().getSelectedSpell();
         std::string sourceName;
         if (!selectedSpell.empty())
@@ -2092,8 +2094,11 @@ namespace MWWorld
                 return;
             }
 
-            actor.getClass().skillUsageSucceeded(actor, MWMechanics::spellSchoolToSkill(MWMechanics::getSpellSchool(selectedSpell, actor)), 0);
+            if (actor == getPlayer().getPlayer())
+                actor.getClass().skillUsageSucceeded(actor,
+                    MWMechanics::spellSchoolToSkill(MWMechanics::getSpellSchool(selectedSpell, actor)), 0);
 
+            effects = spell->mEffects;
         }
         InventoryStore& inv = actor.getClass().getInventoryStore(actor);
         if (selectedSpell.empty() && inv.getSelectedEnchantItem() != inv.end())
@@ -2124,19 +2129,19 @@ namespace MWWorld
             }
             if (enchantment->mData.mType == ESM::Enchantment::CastOnce)
             {
-                item.getRefData().setCount(item.getRefData().getCount()-1);
-            }
-
-            sourceName = item.getClass().getName(item);
-
-            if (!item.getRefData().getCount())
-            {
-                // Item was used up
-                MWBase::Environment::get().getWindowManager()->unsetSelectedSpell();
-                inv.setSelectedEnchantItem(inv.end());
+                if (!item.getContainerStore()->remove(item, 1, actor))
+                {
+                    // Item was used up
+                    MWBase::Environment::get().getWindowManager()->unsetSelectedSpell();
+                    inv.setSelectedEnchantItem(inv.end());
+                }
             }
             else
                 MWBase::Environment::get().getWindowManager()->setSelectedEnchantItem(item); // Set again to show the modified charge
+
+            sourceName = item.getClass().getName(item);
+
+            effects = enchantment->mEffects;
         }
 
         // Now apply the spell!
@@ -2158,7 +2163,6 @@ namespace MWWorld
             }
         }
 
-        // TODO: Launch projectile if there's a Target portion
     }
 
     void World::updateAnimParts(const Ptr& actor)
