@@ -16,6 +16,8 @@ namespace MWMechanics
         int mId;
         int mArg; // skill or ability
 
+        // TODO: Add caster here for Absorb effects?
+
         EffectKey();
 
         EffectKey (int id, int arg = -1) : mId (id), mArg (arg) {}
@@ -30,6 +32,8 @@ namespace MWMechanics
         int mMagnitude;
 
         EffectParam();
+
+        EffectParam(int magnitude) : mMagnitude(magnitude) {}
 
         EffectParam& operator+= (const EffectParam& param);
 
@@ -66,9 +70,6 @@ namespace MWMechanics
             Collection::const_iterator end() const { return mCollection.end(); }
 
             void add (const EffectKey& key, const EffectParam& param);
-
-            void add (const ESM::EffectList& list, float magnitude = -1);
-            ///< \param magnitude normalised magnitude (-1: random)
 
             MagicEffects& operator+= (const MagicEffects& effects);
 

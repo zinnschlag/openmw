@@ -43,22 +43,33 @@ namespace MWWorld
 
         private:
 
-            mutable MWMechanics::MagicEffects mMagicEffects;
-            mutable bool mMagicEffectsUpToDate;
-            bool mActorModelUpdateEnabled;
+            MWMechanics::MagicEffects mMagicEffects;
+
+            // Enables updates of magic effects and actor model whenever items are equipped or unequipped.
+            // This is disabled during autoequip to avoid excessive updates
+            bool mUpdatesEnabled;
+
+            bool mFirstAutoEquip;
+
+            // Vanilla allows permanent effects with a random magnitude, so it needs to be stored here.
+            // We also need this to only play sounds and particle effects when the item is equipped, rather than on every update.
+            typedef std::map<std::string, std::vector<float> > TEffectMagnitudes;
+            TEffectMagnitudes mPermanentMagicEffectMagnitudes;
 
             typedef std::vector<ContainerStoreIterator> TSlots;
 
-            mutable TSlots mSlots;
+            TSlots mSlots;
 
             // selected magic item (for using enchantments of type "Cast once" or "Cast when used")
             ContainerStoreIterator mSelectedEnchantItem;
 
             void copySlots (const InventoryStore& store);
 
-            void initSlots (TSlots& slots);
+            void initSlots (TSlots& slots_);
 
             void updateActorModel (const Ptr& actor);
+
+            void updateMagicEffects(const Ptr& actor);
 
         public:
 
@@ -98,18 +109,15 @@ namespace MWWorld
             void autoEquip (const MWWorld::Ptr& npc);
             ///< Auto equip items according to stats and item value.
 
-            const MWMechanics::MagicEffects& getMagicEffects();
+            const MWMechanics::MagicEffects& getMagicEffects() const;
             ///< Return magic effects from worn items.
-            ///
-            /// \todo make this const again, after the constness of Ptrs and iterators has been addressed.
 
             virtual void flagAsModified();
             ///< \attention This function is internal to the world model and should not be called from
             /// outside.
 
-            virtual bool stacks (const Ptr& stack, const Ptr& item);
+            virtual bool stacks (const Ptr& ptr1, const Ptr& ptr2);
             ///< @return true if the two specified objects can stack with each other
-            /// @note stack is the item that is already in this container (it may be equipped)
 
             virtual int remove(const Ptr& item, int count, const Ptr& actor);
             ///< Remove \a count item(s) designated by \a item from this inventory.

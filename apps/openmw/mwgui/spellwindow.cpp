@@ -51,8 +51,6 @@ namespace MWGui
 
         setCoord(498, 300, 302, 300);
 
-        updateSpells();
-
         mMainWidget->castType<MyGUI::Window>()->eventWindowChangeCoord += MyGUI::newDelegate(this, &SpellWindow::onWindowResize);
     }
 
@@ -110,9 +108,9 @@ namespace MWGui
                 allowSelectedItem = false;
 
             // if the selected item can be equipped, make sure that it actually is equipped
-            std::pair<std::vector<int>, bool> slots;
-            slots = MWWorld::Class::get(selectedItem).getEquipmentSlots(selectedItem);
-            if (!slots.first.empty())
+            std::pair<std::vector<int>, bool> slots_;
+            slots_ = MWWorld::Class::get(selectedItem).getEquipmentSlots(selectedItem);
+            if (!slots_.first.empty())
             {
                 bool equipped = false;
                 for (int i=0; i < MWWorld::InventoryStore::Slots; ++i)

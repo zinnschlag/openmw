@@ -91,9 +91,8 @@ namespace MWWorld
 
         public:
 
-            virtual bool stacks (const Ptr& stack, const Ptr& item);
+            virtual bool stacks (const Ptr& ptr1, const Ptr& ptr2);
             ///< @return true if the two specified objects can stack with each other
-            /// @note stack is the item that is already in this container
 
             void fill (const ESM::InventoryList& items, const std::string& owner, const MWWorld::ESMStore& store);
             ///< Insert items into *this.
@@ -104,11 +103,6 @@ namespace MWWorld
             virtual void flagAsModified();
             ///< \attention This function is internal to the world model and should not be called from
             /// outside.
-
-            int getStateId() const;
-            ///< This ID is changed every time the container is modified or items in the container
-            /// are accessed in a way that may be used to modify the item.
-            /// \note This method of change-tracking will ocasionally yield false positives.
 
             float getWeight() const;
             ///< Return total weight of the items contained in *this.

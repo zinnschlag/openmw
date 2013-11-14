@@ -9,6 +9,9 @@
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/soundmanager.hpp"
+
+#include "../mwrender/animation.hpp"
 
 #include "../mwmechanics/npcstats.hpp"
 
@@ -33,15 +36,16 @@ void MWWorld::InventoryStore::copySlots (const InventoryStore& store)
     }
 }
 
-void MWWorld::InventoryStore::initSlots (TSlots& slots)
+void MWWorld::InventoryStore::initSlots (TSlots& slots_)
 {
     for (int i=0; i<Slots; ++i)
-        slots.push_back (end());
+        slots_.push_back (end());
 }
 
-MWWorld::InventoryStore::InventoryStore() : mMagicEffectsUpToDate (false)
- , mSelectedEnchantItem(end())
- , mActorModelUpdateEnabled (true)
+MWWorld::InventoryStore::InventoryStore()
+ : mSelectedEnchantItem(end())
+ , mUpdatesEnabled (true)
+ , mFirstAutoEquip(true)
 {
     initSlots (mSlots);
 }
@@ -51,15 +55,17 @@ MWWorld::InventoryStore::InventoryStore (const InventoryStore& store)
  , mSelectedEnchantItem(end())
 {
     mMagicEffects = store.mMagicEffects;
-    mMagicEffectsUpToDate = store.mMagicEffectsUpToDate;
+    mFirstAutoEquip = store.mFirstAutoEquip;
     mSelectedEnchantItem = store.mSelectedEnchantItem;
+    mPermanentMagicEffectMagnitudes = store.mPermanentMagicEffectMagnitudes;
     copySlots (store);
 }
 
 MWWorld::InventoryStore& MWWorld::InventoryStore::operator= (const InventoryStore& store)
 {
     mMagicEffects = store.mMagicEffects;
-    mMagicEffectsUpToDate = store.mMagicEffectsUpToDate;
+    mFirstAutoEquip = store.mFirstAutoEquip;
+    mPermanentMagicEffectMagnitudes = store.mPermanentMagicEffectMagnitudes;
     ContainerStore::operator= (store);
     mSlots.clear();
     copySlots (store);
@@ -90,12 +96,12 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
     if (iterator.getContainerStore()!=this)
         throw std::runtime_error ("attempt to equip an item that is not in the inventory");
 
-    std::pair<std::vector<int>, bool> slots;
+    std::pair<std::vector<int>, bool> slots_;
     if (iterator!=end())
     {
-        slots = Class::get (*iterator).getEquipmentSlots (*iterator);
+        slots_ = Class::get (*iterator).getEquipmentSlots (*iterator);
 
-        if (std::find (slots.first.begin(), slots.first.end(), slot)==slots.first.end())
+        if (std::find (slots_.first.begin(), slots_.first.end(), slot)==slots_.first.end())
             throw std::runtime_error ("invalid slot");
     }
 
@@ -103,7 +109,7 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
         unequipSlot(slot, actor);
 
     // unstack item pointed to by iterator if required
-    if (iterator!=end() && !slots.second && iterator->getRefData().getCount() > 1) // if slots.second is true, item can stay stacked when equipped
+    if (iterator!=end() && !slots_.second && iterator->getRefData().getCount() > 1) // if slots.second is true, item can stay stacked when equipped
     {
         // add the item again with a count of count-1, then set the count of the original (that will be equipped) to 1
         int count = iterator->getRefData().getCount();
@@ -117,6 +123,8 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
     flagAsModified();
 
     updateActorModel(actor);
+
+    updateMagicEffects(actor);
 }
 
 void MWWorld::InventoryStore::unequipAll(const MWWorld::Ptr& actor)
@@ -135,9 +143,9 @@ MWWorld::ContainerStoreIterator MWWorld::InventoryStore::getSlot (int slot)
 
     if (mSlots[slot]->getRefData().getCount()<1)
     {
-        // object has been deleted
-        mSlots[slot] = end();
-        return end();
+        // Object has been deleted
+        // This should no longer happen, since the new remove function will unequip first
+        throw std::runtime_error("Invalid slot, make sure you are not calling RefData::setCount for a container object");
     }
 
     return mSlots[slot];
@@ -148,11 +156,11 @@ void MWWorld::InventoryStore::autoEquip (const MWWorld::Ptr& npc)
     const MWMechanics::NpcStats& stats = MWWorld::Class::get(npc).getNpcStats(npc);
     MWWorld::InventoryStore& invStore = MWWorld::Class::get(npc).getInventoryStore(npc);
 
-    TSlots slots;
-    initSlots (slots);
+    TSlots slots_;
+    initSlots (slots_);
 
     // Disable model update during auto-equip
-    mActorModelUpdateEnabled = false;
+    mUpdatesEnabled = false;
 
     for (ContainerStoreIterator iter (begin()); iter!=end(); ++iter)
     {
@@ -167,11 +175,11 @@ void MWWorld::InventoryStore::autoEquip (const MWWorld::Ptr& npc)
         {
             bool use = false;
 
-            if (slots.at (*iter2)==end())
+            if (slots_.at (*iter2)==end())
                 use = true; // slot was empty before -> skip all further checks
             else
             {
-                Ptr old = *slots.at (*iter2);
+                Ptr old = *slots_.at (*iter2);
 
                 if (!use)
                 {
@@ -229,65 +237,146 @@ void MWWorld::InventoryStore::autoEquip (const MWWorld::Ptr& npc)
                 }
             }
 
-            slots[*iter2] = iter;
+            slots_[*iter2] = iter;
             break;
         }
     }
 
     bool changed = false;
 
-    for (std::size_t i=0; i<slots.size(); ++i)
-        if (slots[i]!=mSlots[i])
+    for (std::size_t i=0; i<slots_.size(); ++i)
+        if (slots_[i]!=mSlots[i])
         {
             changed = true;
         }
 
-    mActorModelUpdateEnabled = true;
+    mUpdatesEnabled = true;
 
     if (changed)
     {
-        mSlots.swap (slots);
+        mSlots.swap (slots_);
         updateActorModel(npc);
+        updateMagicEffects(npc);
         flagAsModified();
     }
+    mFirstAutoEquip = false;
 }
 
-const MWMechanics::MagicEffects& MWWorld::InventoryStore::getMagicEffects()
+const MWMechanics::MagicEffects& MWWorld::InventoryStore::getMagicEffects() const
 {
-    if (!mMagicEffectsUpToDate)
+    return mMagicEffects;
+}
+
+void MWWorld::InventoryStore::updateMagicEffects(const Ptr& actor)
+{
+    // To avoid excessive updates during auto-equip
+    if (!mUpdatesEnabled)
+        return;
+
+    mMagicEffects = MWMechanics::MagicEffects();
+
+    for (TSlots::const_iterator iter (mSlots.begin()); iter!=mSlots.end(); ++iter)
     {
-        mMagicEffects = MWMechanics::MagicEffects();
+        if (*iter==end())
+            continue;
 
-        for (TSlots::const_iterator iter (mSlots.begin()); iter!=mSlots.end(); ++iter)
-            if (*iter!=end())
+        std::string enchantmentId = MWWorld::Class::get (**iter).getEnchantment (**iter);
+
+        if (!enchantmentId.empty())
+        {
+            const ESM::Enchantment& enchantment =
+                *MWBase::Environment::get().getWorld()->getStore().get<ESM::Enchantment>().find (enchantmentId);
+
+            if (enchantment.mData.mType != ESM::Enchantment::ConstantEffect)
+                continue;
+
+            // Roll some dice, one for each effect
+            std::vector<float> random;
+            random.resize(enchantment.mEffects.mList.size());
+            for (unsigned int i=0; i<random.size();++i)
+                random[i] = static_cast<float> (std::rand()) / RAND_MAX;
+
+            int i=0;
+            for (std::vector<ESM::ENAMstruct>::const_iterator effectIt (enchantment.mEffects.mList.begin());
+                effectIt!=enchantment.mEffects.mList.end(); ++effectIt)
             {
-                std::string enchantmentId = MWWorld::Class::get (**iter).getEnchantment (**iter);
+                const ESM::MagicEffect *magicEffect =
+                    MWBase::Environment::get().getWorld()->getStore().get<ESM::MagicEffect>().find (
+                    effectIt->mEffectID);
 
-                if (!enchantmentId.empty())
+                if (mPermanentMagicEffectMagnitudes.find((**iter).getCellRef().mRefID) == mPermanentMagicEffectMagnitudes.end())
                 {
-                    const ESM::Enchantment& enchantment =
-                        *MWBase::Environment::get().getWorld()->getStore().get<ESM::Enchantment>().find (enchantmentId);
+                    // Note that using the RefID as a key here is not entirely correct.
+                    // Consider equipping the same item twice (e.g. a ring)
+                    // However, permanent enchantments with a random magnitude are kind of an exploit anyway,
+                    // so it doesn't really matter if both items will get the same magnitude. *Extreme* edge case.
+                    mPermanentMagicEffectMagnitudes[(**iter).getCellRef().mRefID] = random;
 
-                    if (enchantment.mData.mType==ESM::Enchantment::ConstantEffect)
-                        mMagicEffects.add (enchantment.mEffects);
+                    // During first auto equip, we don't play any sounds.
+                    // Basically we don't want sounds when the actor is first loaded,
+                    // the items should appear as if they'd always been equipped.
+                    if (!mFirstAutoEquip)
+                    {
+                        // Only the sound of the first effect plays
+                        if (effectIt == enchantment.mEffects.mList.begin())
+                        {
+                            static const std::string schools[] = {
+                                "alteration", "conjuration", "destruction", "illusion", "mysticism", "restoration"
+                            };
+
+                            MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
+                            if(!magicEffect->mHitSound.empty())
+                                sndMgr->playSound3D(actor, magicEffect->mHitSound, 1.0f, 1.0f);
+                            else
+                                sndMgr->playSound3D(actor, schools[magicEffect->mData.mSchool]+" hit", 1.0f, 1.0f);
+                        }
+                    }
+
+                    if (!magicEffect->mHit.empty())
+                    {
+                        const ESM::Static* castStatic = MWBase::Environment::get().getWorld()->getStore().get<ESM::Static>().find (magicEffect->mHit);
+                        bool loop = magicEffect->mData.mFlags & ESM::MagicEffect::ContinuousVfx;
+                        // Similar as above, we don't want particles during first autoequip either, unless they're continuous.
+                        if (!mFirstAutoEquip || loop)
+                            MWBase::Environment::get().getWorld()->getAnimation(actor)->addEffect("meshes\\" + castStatic->mModel, magicEffect->mIndex, loop, "");
+                    }
                 }
-            }
 
-        mMagicEffectsUpToDate = true;
+                mMagicEffects.add (*effectIt, random[i]);
+                ++i;
+            }
+        }
     }
 
-    return mMagicEffects;
+    // Now drop expired effects
+    for (TEffectMagnitudes::iterator it = mPermanentMagicEffectMagnitudes.begin();
+         it != mPermanentMagicEffectMagnitudes.end();)
+    {
+        bool found = false;
+        for (TSlots::const_iterator iter (mSlots.begin()); iter!=mSlots.end(); ++iter)
+        {
+            if (*iter == end())
+                continue;
+            if ((**iter).getCellRef().mRefID == it->first)
+            {
+                found = true;
+            }
+        }
+        if (!found)
+            mPermanentMagicEffectMagnitudes.erase(it++);
+        else
+            ++it;
+    }
 }
 
 void MWWorld::InventoryStore::flagAsModified()
 {
     ContainerStore::flagAsModified();
-    mMagicEffectsUpToDate = false;
 }
 
-bool MWWorld::InventoryStore::stacks(const Ptr& stack, const Ptr& item)
+bool MWWorld::InventoryStore::stacks(const Ptr& ptr1, const Ptr& ptr2)
 {
-    bool canStack = MWWorld::ContainerStore::stacks(stack, item);
+    bool canStack = MWWorld::ContainerStore::stacks(ptr1, ptr2);
     if (!canStack)
         return false;
 
@@ -295,7 +384,7 @@ bool MWWorld::InventoryStore::stacks(const Ptr& stack, const Ptr& item)
     for (TSlots::const_iterator iter (mSlots.begin());
         iter!=mSlots.end(); ++iter)
     {
-        if (*iter != end() && stack == **iter)
+        if (*iter != end() && (ptr1 == **iter || ptr2 == **iter))
         {
             bool stackWhenEquipped = MWWorld::Class::get(**iter).getEquipmentSlots(**iter).second;
             if (!stackWhenEquipped)
@@ -393,6 +482,7 @@ MWWorld::ContainerStoreIterator MWWorld::InventoryStore::unequipSlot(int slot, c
         }
 
         updateActorModel(actor);
+        updateMagicEffects(actor);
 
         return retval;
     }
@@ -414,6 +504,6 @@ MWWorld::ContainerStoreIterator MWWorld::InventoryStore::unequipItem(const MWWor
 
 void MWWorld::InventoryStore::updateActorModel(const MWWorld::Ptr& actor)
 {
-    if (mActorModelUpdateEnabled)
+    if (mUpdatesEnabled)
         MWBase::Environment::get().getWorld()->updateAnimParts(actor);
 }

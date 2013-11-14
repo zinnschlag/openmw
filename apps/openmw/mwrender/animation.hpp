@@ -59,6 +59,7 @@ protected:
     public:
         EffectAnimationValue() : mTime(0) {  }
         void addTime(float time) { mTime += time; }
+        void resetTime(float value) { mTime = value; }
 
         virtual Ogre::Real getValue() const;
         virtual void setValue(Ogre::Real value);
@@ -108,7 +109,16 @@ protected:
 
     typedef std::map<Ogre::MovableObject*,std::string> ObjectAttachMap;
 
-    std::vector<NifOgre::ObjectList> mEffects;
+    struct EffectParams
+    {
+        std::string mModelName; // Just here so we don't add the same effect twice
+        NifOgre::ObjectList mObjects;
+        int mEffectId;
+        bool mLoop;
+        std::string mBoneName;
+    };
+
+    std::vector<EffectParams> mEffects;
 
     MWWorld::Ptr mPtr;
     Camera *mCamera;
@@ -189,8 +199,23 @@ public:
     Animation(const MWWorld::Ptr &ptr, Ogre::SceneNode *node);
     virtual ~Animation();
 
-    void addEffect (const std::string& model, const std::string& bonename = "");
+    /**
+     * @brief Add an effect mesh attached to a bone or the insert scene node
+     * @param model
+     * @param effectId An ID for this effect. Note that adding the same ID again won't add another effect.
+     * @param loop Loop the effect. If false, it is removed automatically after it finishes playing. If true,
+     *              you need to remove it manually using removeEffect when the effect should end.
+     * @param bonename Bone to attach to, or empty string to use the scene node instead
+     * @note Will not add an effect twice.
+     */
+    void addEffect (const std::string& model, int effectId, bool loop = false, const std::string& bonename = "");
+    void removeEffect (int effectId);
+    void getLoopingEffects (std::vector<int>& out);
+private:
+    void updateEffects(float duration);
 
+
+public:
     void updatePtr(const MWWorld::Ptr &ptr);
 
     bool hasAnimation(const std::string &anim);
