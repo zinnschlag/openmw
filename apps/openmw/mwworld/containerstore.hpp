@@ -49,7 +49,6 @@ namespace MWWorld
             MWWorld::CellRefList<ESM::Probe>             probes;
             MWWorld::CellRefList<ESM::Repair>            repairs;
             MWWorld::CellRefList<ESM::Weapon>            weapons;
-            int mStateId;
             mutable float mCachedWeight;
             mutable bool mWeightUpToDate;
             ContainerStoreIterator addImp (const Ptr& ptr);
@@ -84,6 +83,9 @@ namespace MWWorld
             ///< Remove \a count item(s) designated by \a item from this inventory.
             ///
             /// @return the number of items actually removed
+
+            void unstack (const Ptr& ptr, const Ptr& container);
+            ///< Unstack an item in this container. The item's count will be set to 1, then a new stack will be added with (origCount-1).
 
         protected:
             ContainerStoreIterator addNewStack (const Ptr& ptr);
