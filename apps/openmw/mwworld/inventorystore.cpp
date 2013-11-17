@@ -9,6 +9,7 @@
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/mechanicsmanager.hpp"
 
 #include "../mwmechanics/npcstats.hpp"
 #include "../mwmechanics/spellcasting.hpp"
@@ -92,6 +93,9 @@ MWWorld::ContainerStoreIterator MWWorld::InventoryStore::add(const Ptr& itemPtr,
 
 void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& iterator, const Ptr& actor)
 {
+    if (iterator == end())
+        throw std::runtime_error ("can't equip end() iterator, use unequip function instead");
+
     if (slot<0 || slot>=static_cast<int> (mSlots.size()))
         throw std::runtime_error ("slot number out of range");
 
@@ -99,13 +103,11 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
         throw std::runtime_error ("attempt to equip an item that is not in the inventory");
 
     std::pair<std::vector<int>, bool> slots_;
-    if (iterator!=end())
-    {
-        slots_ = Class::get (*iterator).getEquipmentSlots (*iterator);
 
-        if (std::find (slots_.first.begin(), slots_.first.end(), slot)==slots_.first.end())
-            throw std::runtime_error ("invalid slot");
-    }
+    slots_ = Class::get (*iterator).getEquipmentSlots (*iterator);
+
+    if (std::find (slots_.first.begin(), slots_.first.end(), slot)==slots_.first.end())
+        throw std::runtime_error ("invalid slot");
 
     if (mSlots[slot] != end())
         unequipSlot(slot, actor);
@@ -126,6 +128,10 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
 
     fireEquipmentChangedEvent();
     updateMagicEffects(actor);
+
+    // Update HUD icon for player weapon
+    if (slot == MWWorld::InventoryStore::Slot_CarriedRight)
+        MWBase::Environment::get().getWindowManager()->setSelectedWeapon(*getSlot(slot));
 }
 
 void MWWorld::InventoryStore::unequipAll(const MWWorld::Ptr& actor)
@@ -334,6 +340,9 @@ void MWWorld::InventoryStore::updateMagicEffects(const Ptr& actor)
                 if (params[i].mMultiplier == 0)
                     continue;
 
+                float magnitude = effectIt->mMagnMin + (effectIt->mMagnMax - effectIt->mMagnMin) * params[i].mRandom;
+                magnitude *= params[i].mMultiplier;
+
                 if (!existed)
                 {
                     // During first auto equip, we don't play any sounds.
@@ -341,10 +350,13 @@ void MWWorld::InventoryStore::updateMagicEffects(const Ptr& actor)
                     // the items should appear as if they'd always been equipped.
                     mListener->permanentEffectAdded(magicEffect, !mFirstAutoEquip,
                                                         !mFirstAutoEquip && effectIt == enchantment.mEffects.mList.begin());
+
+                    // Apply instant effects
+                    MWMechanics::CastSpell cast(actor, actor);
+                    if (magnitude)
+                        cast.applyInstantEffect(actor, effectIt->mEffectID, magnitude);
                 }
 
-                float magnitude = effectIt->mMagnMin + (effectIt->mMagnMax - effectIt->mMagnMin) * params[i].mRandom;
-                magnitude *= params[i].mMultiplier;
                 if (magnitude)
                     mMagicEffects.add (*effectIt, magnitude);
             }
@@ -370,6 +382,9 @@ void MWWorld::InventoryStore::updateMagicEffects(const Ptr& actor)
         else
             ++it;
     }
+
+    // Magic effects are normally not updated when paused, but we need this to make resistances work immediately after equipping
+    MWBase::Environment::get().getMechanicsManager()->updateMagicEffects(actor);
 
     mFirstAutoEquip = false;
 }
@@ -437,6 +452,13 @@ int MWWorld::InventoryStore::remove(const Ptr& item, int count, const Ptr& actor
             autoEquip(actor);
     }
 
+    if (item.getRefData().getCount() == 0 && mSelectedEnchantItem != end()
+            && *mSelectedEnchantItem == item && actor.getRefData().getHandle() == "player")
+    {
+        mSelectedEnchantItem = end();
+        MWBase::Environment::get().getWindowManager()->unsetSelectedSpell();
+    }
+
     return retCount;
 }
 
@@ -482,6 +504,7 @@ MWWorld::ContainerStoreIterator MWWorld::InventoryStore::unequipSlot(int slot, c
             if ((mSelectedEnchantItem != end()) && (mSelectedEnchantItem == it))
             {
                 // enchanted item
+                mSelectedEnchantItem = end();
                 MWBase::Environment::get().getWindowManager()->unsetSelectedSpell();
             }
         }
@@ -548,7 +571,7 @@ void MWWorld::InventoryStore::visitEffectSources(MWMechanics::EffectSourceVisito
             const EffectParams& params = mPermanentMagicEffectMagnitudes[(**iter).getCellRef().mRefID][i];
             float magnitude = effectIt->mMagnMin + (effectIt->mMagnMax - effectIt->mMagnMin) * params.mRandom;
             magnitude *= params.mMultiplier;
-            visitor.visit(*effectIt, (**iter).getClass().getName(**iter), magnitude);
+            visitor.visit(MWMechanics::EffectKey(*effectIt), (**iter).getClass().getName(**iter), magnitude);
 
             ++i;
         }

@@ -350,6 +350,7 @@ CharacterController::CharacterController(const MWWorld::Ptr &ptr, MWRender::Anim
     , mSkipAnim(false)
     , mSecondsOfRunning(0)
     , mSecondsOfSwimming(0)
+    , mFallHeight(0)
 {
     if(!mAnimation)
         return;
@@ -515,6 +516,12 @@ bool CharacterController::updateNpcState(bool onground, bool inwater, bool isrun
                     const ESM::Static* castStatic = store.get<ESM::Static>().find (effect->mCasting);
                     mAnimation->addEffect("meshes\\" + castStatic->mModel, effect->mIndex);
 
+                    castStatic = MWBase::Environment::get().getWorld()->getStore().get<ESM::Static>().find ("VFX_Hands");
+                    //mAnimation->addEffect("meshes\\" + castStatic->mModel, -1, false, "Bip01 L Hand", effect->mParticle);
+                    //mAnimation->addEffect("meshes\\" + castStatic->mModel, -1, false, "Bip01 R Hand", effect->mParticle);
+                    mAnimation->addEffect("meshes\\" + castStatic->mModel, -1, false, "Left Hand", effect->mParticle);
+                    mAnimation->addEffect("meshes\\" + castStatic->mModel, -1, false, "Right Hand", effect->mParticle);
+
                     switch(effectentry.mRange)
                     {
                         case 0: mAttackType = "self"; break;
@@ -563,10 +570,8 @@ bool CharacterController::updateNpcState(bool onground, bool inwater, bool isrun
                 if(!resultSound.empty())
                     MWBase::Environment::get().getSoundManager()->playSound(resultSound, 1.0f, 1.0f);
 
-                // tool used up?
-                if(!item.getRefData().getCount())
-                    MWBase::Environment::get().getWindowManager()->unsetSelectedWeapon();
-                else
+                // Set again, just to update the charge bar
+                if(item.getRefData().getCount())
                     MWBase::Environment::get().getWindowManager()->setSelectedWeapon(item);
             }
             else
