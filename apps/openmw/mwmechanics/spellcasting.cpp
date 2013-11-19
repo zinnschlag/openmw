@@ -35,6 +35,23 @@ namespace MWMechanics
         if (!found)
             return;
 
+        const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().search (mId);
+        if (spell && (spell->mData.mType == ESM::Spell::ST_Disease || spell->mData.mType == ESM::Spell::ST_Blight))
+        {
+            float x = (spell->mData.mType == ESM::Spell::ST_Disease) ?
+                        target.getClass().getCreatureStats(target).getMagicEffects().get(ESM::MagicEffect::ResistCommonDisease).mMagnitude
+                      : target.getClass().getCreatureStats(target).getMagicEffects().get(ESM::MagicEffect::ResistBlightDisease).mMagnitude;
+
+            int roll = std::rand()/ (static_cast<double> (RAND_MAX) + 1) * 100; // [0, 99]
+            if (roll <= x)
+            {
+                // Fully resisted, show message
+                if (target.getRefData().getHandle() == "player")
+                    MWBase::Environment::get().getWindowManager()->messageBox("#{sMagicPCResisted}");
+                return;
+            }
+        }
+
         ESM::EffectList reflectedEffects;
         std::vector<ActiveSpells::Effect> appliedLastingEffects;
         bool firstAppliedEffect = true;
@@ -59,7 +76,6 @@ namespace MWMechanics
                 // Try absorbing if it's a spell
                 // NOTE: Vanilla does this once per effect source instead of adding the % from all sources together, not sure
                 // if that is worth replicating.
-                const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().search (mId);
                 if (spell && caster != target)
                 {
                     int absorb = target.getClass().getCreatureStats(target).getMagicEffects().get(ESM::MagicEffect::SpellAbsorption).mMagnitude;
@@ -95,10 +111,8 @@ namespace MWMechanics
                 }
 
                 // Try resisting
-                if (magnitudeMult > 0 && caster.getClass().isActor())
+                if (magnitudeMult > 0 && target.getClass().isActor())
                 {
-                    const ESM::Spell *spell =
-                            MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().search (mId);
                     magnitudeMult = MWMechanics::getEffectMultiplier(effectIt->mEffectID, target, caster, spell);
                     if (magnitudeMult == 0)
                     {
@@ -116,7 +130,7 @@ namespace MWMechanics
             {
                 float random = std::rand() / static_cast<float>(RAND_MAX);
                 float magnitude = effectIt->mMagnMin + (effectIt->mMagnMax - effectIt->mMagnMin) * random;
-                magnitude *= magnitudeMult;
+                magnitude *= magnitudeMult;                    
 
                 if (target.getClass().isActor() && !(magicEffect->mData.mFlags & ESM::MagicEffect::NoDuration))
                 {
@@ -126,6 +140,20 @@ namespace MWMechanics
                     effect.mMagnitude = magnitude;
 
                     appliedLastingEffects.push_back(effect);
+
+                    // For absorb effects, also apply the effect to the caster - but with a negative
+                    // magnitude, since we're transfering stats from the target to the caster
+                    for (int i=0; i<5; ++i)
+                    {
+                        if (effectIt->mEffectID == ESM::MagicEffect::AbsorbAttribute+i)
+                        {
+                            std::vector<ActiveSpells::Effect> effects;
+                            ActiveSpells::Effect effect_ = effect;
+                            effect_.mMagnitude *= -1;
+                            effects.push_back(effect_);
+                            caster.getClass().getCreatureStats(caster).getActiveSpells().addSpell("", true, effects, mSourceName);
+                        }
+                    }
                 }
                 else
                     applyInstantEffect(mTarget, effectIt->mEffectID, magnitude);
@@ -288,6 +316,9 @@ namespace MWMechanics
             if (mCaster.getRefData().getHandle() == "player")
                 MWBase::Environment::get().getWindowManager()->setSelectedEnchantItem(item); // Set again to show the modified charge
         }
+
+        if (mCaster.getRefData().getHandle() == "player")
+            mCaster.getClass().skillUsageSucceeded (mCaster, ESM::Skill::Enchant, 1);
 
         inflict(mCaster, mCaster, enchantment->mEffects, ESM::RT_Self);
 
