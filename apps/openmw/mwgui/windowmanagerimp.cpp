@@ -853,6 +853,11 @@ namespace MWGui
         mHud->setSneakVisible(visible);
     }
 
+    void WindowManager::setMainMenuNoReturn(bool noreturn)
+    {
+        mMenu->setNoReturn(noreturn);
+    }
+
     void WindowManager::setDragDrop(bool dragDrop)
     {
         mToolTips->setEnabled(!dragDrop);
