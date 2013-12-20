@@ -36,6 +36,8 @@
 #include "../mwworld/player.hpp"
 #include "../mwworld/class.hpp"
 #include "../mwworld/inventorystore.hpp"
+#include "../mwworld/actionequip.hpp"
+#include "../mwworld/actiontake.hpp"
 
 namespace
 {
@@ -707,17 +709,16 @@ bool CharacterController::updateNpcState(bool onground, bool inwater, bool isrun
         }
     }
 
-
-    MWWorld::ContainerStoreIterator torch = inv.getSlot(MWWorld::InventoryStore::Slot_CarriedLeft);
-    if(torch != inv.end() && torch->getTypeName() == typeid(ESM::Light).name())
+    MWWorld::ContainerStoreIterator item = inv.getSlot(MWWorld::InventoryStore::Slot_CarriedLeft);
+    if (item != inv.end() && item->getTypeName() == typeid(ESM::Light).name())
     {
-        if(!mAnimation->isPlaying("torch"))
-            mAnimation->play("torch", Priority_Torch,
-                             MWRender::Animation::Group_LeftArm, false,
-                             1.0f, "start", "stop", 0.0f, (~(size_t)0));
+      mAnimation->play("torch", Priority_Torch, MWRender::Animation::Group_LeftArm,
+        false, 1.0f, "start", "stop", 0.0f, (~(size_t)0));
     }
-    else if(mAnimation->isPlaying("torch"))
-        mAnimation->disable("torch");
+    else if (mAnimation->isPlaying("torch"))
+    {
+      mAnimation->disable("torch");
+    }
 
     return forcestateupdate;
 }
