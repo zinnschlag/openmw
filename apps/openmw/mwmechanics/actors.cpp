@@ -138,24 +138,33 @@ namespace MWMechanics
     {
         CreatureStats& creatureStats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
 
-        int strength     = creatureStats.getAttribute(ESM::Attribute::Strength).getBase();
-        int intelligence = creatureStats.getAttribute(ESM::Attribute::Intelligence).getBase();
-        int willpower    = creatureStats.getAttribute(ESM::Attribute::Willpower).getBase();
-        int agility      = creatureStats.getAttribute(ESM::Attribute::Agility).getBase();
-        int endurance    = creatureStats.getAttribute(ESM::Attribute::Endurance).getBase();
+        if (creatureStats.getAttribute(ESM::Attribute::Intelligence).getModifier() != 0)
+        {
+          int intelligence = creatureStats.getAttribute(ESM::Attribute::Intelligence).getBase();
+          double magickaFactor =
+              creatureStats.getMagicEffects().get (EffectKey (ESM::MagicEffect::FortifyMaximumMagicka)).mMagnitude * 0.1 + 0.5;
 
-        double magickaFactor =
-            creatureStats.getMagicEffects().get (EffectKey (ESM::MagicEffect::FortifyMaximumMagicka)).mMagnitude * 0.1 + 0.5;
+          DynamicStat<float> magicka = creatureStats.getMagicka();
+          float diff = (static_cast<int>(intelligence + magickaFactor*intelligence)) - magicka.getBase();
+          magicka.modify(diff);
+          creatureStats.setMagicka(magicka);
+        }
 
-        DynamicStat<float> magicka = creatureStats.getMagicka();
-        float diff = (static_cast<int>(intelligence + magickaFactor*intelligence)) - magicka.getBase();
-        magicka.modify(diff);
-        creatureStats.setMagicka(magicka);
+        if (creatureStats.getAttribute(ESM::Attribute::Strength).getModifier() != 0
+            || creatureStats.getAttribute(ESM::Attribute::Willpower).getModifier() != 0
+            || creatureStats.getAttribute(ESM::Attribute::Agility).getModifier() != 0
+            || creatureStats.getAttribute(ESM::Attribute::Endurance).getModifier() != 0)
+        {
+          int strength     = creatureStats.getAttribute(ESM::Attribute::Strength).getBase();
+          int willpower    = creatureStats.getAttribute(ESM::Attribute::Willpower).getBase();
+          int agility      = creatureStats.getAttribute(ESM::Attribute::Agility).getBase();
+          int endurance    = creatureStats.getAttribute(ESM::Attribute::Endurance).getBase();
 
-        DynamicStat<float> fatigue = creatureStats.getFatigue();
-        diff = (strength+willpower+agility+endurance) - fatigue.getBase();
-        fatigue.modify(diff);
-        creatureStats.setFatigue(fatigue);
+          DynamicStat<float> fatigue = creatureStats.getFatigue();
+          float diff = (strength+willpower+agility+endurance) - fatigue.getBase();
+          fatigue.modify(diff);
+          creatureStats.setFatigue(fatigue);
+        }
     }
 
     void Actors::calculateRestoration (const MWWorld::Ptr& ptr, float duration)
