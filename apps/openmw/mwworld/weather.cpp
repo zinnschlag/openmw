@@ -195,7 +195,7 @@ void WeatherManager::setWeather(const String& weather, bool instant)
         }
 
         mNextWeather = weather;
-        mRemainingTransitionTime = mWeatherSettings[mCurrentWeather].mTransitionDelta * 24.f * 3600;
+        mRemainingTransitionTime = mWeatherSettings[mCurrentWeather].mTransitionDelta * 24.f * 3600.f;
     }
     mFirstUpdate = false;
 }
@@ -706,4 +706,46 @@ void WeatherManager::modRegion(const std::string &regionid, const std::vector<ch
 float WeatherManager::getWindSpeed() const
 {
     return mWindSpeed;
+}
+
+void WeatherManager::switchToNextWeather(bool instantly)
+{
+  const bool exterior = (MWBase::Environment::get().getWorld()->isCellExterior() || MWBase::Environment::get().getWorld()->isCellQuasiExterior());
+  if (!exterior)
+  {
+      mRendering->sunDisable(false);
+      mRendering->skyDisable();
+      mRendering->getSkyManager()->setLightningStrength(0.f);
+      stopSounds(true);
+      return;
+  }
+
+  // Exterior
+  std::string regionstr = Misc::StringUtils::lowerCase(MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell()->mCell->mRegion);
+
+  if (mWeatherUpdateTime <= 0 || regionstr != mCurrentRegion)
+  {
+      mCurrentRegion = regionstr;
+      mWeatherUpdateTime = mHoursBetweenWeatherChanges * 3600;
+
+      std::string weatherType = "clear";
+
+      if (mRegionOverrides.find(regionstr) != mRegionOverrides.end())
+      {
+          weatherType = mRegionOverrides[regionstr];
+      }
+      else
+      {
+          // get weather probabilities for the current region
+          const ESM::Region *region =
+                  MWBase::Environment::get().getWorld()->getStore().get<ESM::Region>().search (regionstr);
+
+          if (region != 0)
+          {
+              weatherType = nextWeather(region);
+          }
+      }
+
+      setWeather(weatherType, instantly);
+  }
 }
