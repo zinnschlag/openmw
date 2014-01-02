@@ -154,7 +154,8 @@ namespace MWMechanics
                             ActiveSpells::Effect effect_ = effect;
                             effect_.mMagnitude *= -1;
                             effects.push_back(effect_);
-                            caster.getClass().getCreatureStats(caster).getActiveSpells().addSpell("", true, effects, mSourceName);
+                            caster.getClass().getCreatureStats(caster).getActiveSpells().addSpell("", true,
+                                        effects, mSourceName, caster.getRefData().getHandle());
                         }
                     }
                 }
@@ -198,7 +199,8 @@ namespace MWMechanics
             inflict(caster, target, reflectedEffects, range, true);
 
         if (appliedLastingEffects.size())
-            target.getClass().getCreatureStats(target).getActiveSpells().addSpell(mId, mStack, appliedLastingEffects, mSourceName);
+            target.getClass().getCreatureStats(target).getActiveSpells().addSpell(mId, mStack, appliedLastingEffects,
+                                                                                  mSourceName, caster.getRefData().getHandle());
     }
 
     void CastSpell::applyInstantEffect(const MWWorld::Ptr &target, short effectId, float magnitude)
@@ -236,7 +238,7 @@ namespace MWMechanics
             else if (effectId == ESM::MagicEffect::CureCorprusDisease)
                 target.getClass().getCreatureStats(target).getSpells().purgeCorprusDisease();
             else if (effectId == ESM::MagicEffect::Dispel)
-                target.getClass().getCreatureStats(target).getActiveSpells().purgeAll();
+                target.getClass().getCreatureStats(target).getActiveSpells().purgeAll(magnitude);
             else if (effectId == ESM::MagicEffect::RemoveCurse)
                 target.getClass().getCreatureStats(target).getSpells().purgeCurses();
 
