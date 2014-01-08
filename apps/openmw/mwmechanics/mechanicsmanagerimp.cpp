@@ -424,7 +424,7 @@ namespace MWMechanics
 
     int MechanicsManager::getDerivedDisposition(const MWWorld::Ptr& ptr)
     {
-        MWMechanics::NpcStats npcSkill = MWWorld::Class::get(ptr).getNpcStats(ptr);
+        const MWMechanics::NpcStats& npcSkill = MWWorld::Class::get(ptr).getNpcStats(ptr);
         float x = npcSkill.getBaseDisposition();
 
         MWWorld::LiveCellRef<ESM::NPC>* npc = ptr.get<ESM::NPC>();
@@ -539,7 +539,7 @@ namespace MWMechanics
         const MWWorld::Store<ESM::GameSetting> &gmst =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
 
-        MWMechanics::NpcStats npcStats = MWWorld::Class::get(npc).getNpcStats(npc);
+        MWMechanics::NpcStats& npcStats = MWWorld::Class::get(npc).getNpcStats(npc);
 
         MWWorld::Ptr playerPtr = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
         const MWMechanics::NpcStats &playerStats = MWWorld::Class::get(playerPtr).getNpcStats(playerPtr);
@@ -613,6 +613,8 @@ namespace MWMechanics
                 int fight = npcStats.getAiSetting(MWMechanics::CreatureStats::AI_Fight).getBase();
                 npcStats.setAiSetting (MWMechanics::CreatureStats::AI_Flee,
                                        std::max(0, std::min(100, flee + int(std::max(iPerMinChange, s)))));
+                // TODO: initiate combat and quit dialogue if fight rating is too high
+                // or should setAiSetting handle this?
                 npcStats.setAiSetting (MWMechanics::CreatureStats::AI_Fight,
                                        std::max(0, std::min(100, fight + int(std::min(-iPerMinChange, -s)))));
             }
@@ -644,10 +646,9 @@ namespace MWMechanics
 
             float c = std::abs(int(target1 - roll));
 
-            if (roll <= target1)
+            if (success)
             {
                 float s = c * fPerDieRollMult * fPerTempMult;
-
                 int flee = npcStats.getAiSetting (CreatureStats::AI_Flee).getBase();
                 int fight = npcStats.getAiSetting (CreatureStats::AI_Fight).getBase();
                 npcStats.setAiSetting (CreatureStats::AI_Flee,
@@ -726,6 +727,83 @@ namespace MWMechanics
     bool MechanicsManager::isAIActive()
     {
         return mAI;
+    }
+
+    void MechanicsManager::itemTaken(const MWWorld::Ptr &ptr, const MWWorld::Ptr &item, int count)
+    {
+        const std::string& owner = item.getCellRef().mOwner;
+        bool isOwned = !owner.empty();
+
+        const std::string& faction = item.getCellRef().mFaction;
+        bool isFactionOwned = false;
+        if (!faction.empty())
+        {
+            const std::map<std::string, int>& factions = ptr.getClass().getNpcStats(ptr).getFactionRanks();
+            if (factions.find(Misc::StringUtils::lowerCase(faction)) == factions.end())
+                isFactionOwned = true;
+        }
+
+        if (!isOwned && !isFactionOwned)
+            return;
+
+        MWWorld::Ptr victim;
+        if (!owner.empty())
+            victim = MWBase::Environment::get().getWorld()->getPtr(owner, true);
+
+        // TODO: expell from faction
+
+        commitCrime(ptr, victim, OT_Theft, item.getClass().getValue(item) * count);
+    }
+
+    void MechanicsManager::commitCrime(const MWWorld::Ptr &ptr, const MWWorld::Ptr &victim, OffenseType type, int arg)
+    {
+        // TODO: expell from faction
+
+        bool reported=false;
+        for (Actors::PtrControllerMap::const_iterator it = mActors.begin(); it != mActors.end(); ++it)
+        {
+            if (it->first != ptr && awarenessCheck(ptr, it->first))
+            {
+                // NPCs will always curse you when they notice you steal their items, even if they don't report the crime
+                if (it->first == victim && type == OT_Theft)
+                {
+                    MWBase::Environment::get().getDialogueManager()->say(victim, "Thief");
+                }
+
+                // Actor has witnessed a crime. Will he report it?
+                // (not sure, is > 0 correct?)
+                if (it->first.getClass().getCreatureStats(it->first).getAiSetting(CreatureStats::AI_Alarm).getModified() > 0
+                        // This is a bit inconsistent, but AFAIK assaulted NPCs can not report if they are alone
+                        && (type != OT_Assault || it->first != victim)
+                )
+                {
+                    reported=true;
+                    break;
+                }
+            }
+        }
+
+        if (reported)
+            reportCrime(ptr, victim, type, arg);
+    }
+
+    void MechanicsManager::reportCrime(const MWWorld::Ptr &ptr, const MWWorld::Ptr &victim, OffenseType type, int arg)
+    {
+        // Bounty for each type of crime
+        if (type == OT_Trespassing || type == OT_SleepingInOwnedBed)
+            arg = 5;
+        else if (type == OT_Pickpocket)
+            arg = 25;
+        else if (type == OT_Assault)
+            arg = 40;
+        else if (type == OT_Murder)
+            arg = 1000;
+
+        MWBase::Environment::get().getWindowManager()->messageBox("#{sCrimeMessage}");
+        ptr.getClass().getNpcStats(ptr).setBounty(ptr.getClass().getNpcStats(ptr).getBounty()
+                                                  + arg);
+
+        // TODO: make any guards in the area try to arrest the player
     }
 
     bool MechanicsManager::awarenessCheck(const MWWorld::Ptr &ptr, const MWWorld::Ptr &observer)

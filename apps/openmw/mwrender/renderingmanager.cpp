@@ -19,7 +19,6 @@
 
 #include <openengine/bullet/physic.hpp>
 
-#include <components/esm/loadstat.hpp>
 #include <components/settings/settings.hpp>
 #include <components/terrain/world.hpp>
 
@@ -40,7 +39,6 @@
 #include "localmap.hpp"
 #include "water.hpp"
 #include "npcanimation.hpp"
-#include "externalrendering.hpp"
 #include "globalmap.hpp"
 #include "videoplayer.hpp"
 #include "terrainstorage.hpp"
@@ -407,12 +405,7 @@ void RenderingManager::postRenderTargetUpdate(const RenderTargetEvent &evt)
 
 void RenderingManager::waterAdded (MWWorld::Ptr::CellStore *store)
 {
-    const MWWorld::Store<ESM::Land> &lands =
-        MWBase::Environment::get().getWorld()->getStore().get<ESM::Land>();
-
-    if(store->mCell->mData.mFlags & ESM::Cell::HasWater
-        || ((store->mCell->isExterior())
-            && !lands.search(store->mCell->getGridX(),store->mCell->getGridY()) )) // always use water, if the cell does not have land.
+    if(store->mCell->mData.mFlags & ESM::Cell::HasWater)
     {
         mWater->changeCell(store->mCell);
         mWater->setActive(true);
@@ -936,11 +929,6 @@ void RenderingManager::getInteriorMapPosition (Ogre::Vector2 position, float& nX
 bool RenderingManager::isPositionExplored (float nX, float nY, int x, int y, bool interior)
 {
     return mLocalMap->isPositionExplored(nX, nY, x, y, interior);
-}
-
-void RenderingManager::setupExternalRendering (MWRender::ExternalRendering& rendering)
-{
-    rendering.setup (mRendering.getScene());
 }
 
 Animation* RenderingManager::getAnimation(const MWWorld::Ptr &ptr)
