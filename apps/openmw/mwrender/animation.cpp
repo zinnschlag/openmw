@@ -563,6 +563,7 @@ void Animation::updatePosition(float oldtime, float newtime, Ogre::Vector3 &posi
 
     /* Translate the accumulation root back to compensate for the move. */
     mAccumRoot->setPosition(-off);
+    mAccumRootPosUpd=true;
 }
 
 bool Animation::reset(AnimState &state, const NifOgre::TextKeyMap &keys, const std::string &groupname, const std::string &start, const std::string &stop, float startpoint)
@@ -673,7 +674,20 @@ void Animation::handleTextKey(AnimState &state, const std::string &groupname, co
         MWBase::Environment::get().getWorld()->castSpell(mPtr);
 }
 
-
+void Animation::changeGroups(const std::string &groupname, int groups)
+{
+    AnimStateMap::iterator stateiter = mStates.begin();
+    stateiter = mStates.find(groupname);
+    if(stateiter != mStates.end())
+    {
+        if(stateiter->second.mGroups != groups)
+        {
+            stateiter->second.mGroups = groups;
+            resetActiveGroups();
+        }
+        return;
+    }
+}
 void Animation::play(const std::string &groupname, int priority, int groups, bool autodisable, float speedmult, const std::string &start, const std::string &stop, float startpoint, size_t loops)
 {
     if(!mSkelBase || mAnimSources.empty())
@@ -839,7 +853,7 @@ void Animation::disable(const std::string &groupname)
 Ogre::Vector3 Animation::runAnimation(float duration)
 {
     Ogre::Vector3 movement(0.0f);
-
+    mAccumRootPosUpd = false;
     AnimStateMap::iterator stateiter = mStates.begin();
     while(stateiter != mStates.end())
     {
@@ -932,6 +946,18 @@ Ogre::Vector3 Animation::runAnimation(float duration)
     }
 
     updateEffects(duration);
+
+    if (!mAccumRootPosUpd)
+    {
+        for(stateiter = mStates.begin();stateiter != mStates.end(); stateiter++)
+        {
+            if(mNonAccumCtrl && stateiter->first == mAnimationValuePtr[0]->getAnimName())
+            {
+                updatePosition(stateiter->second.mTime, stateiter->second.mTime, movement);
+                break;
+            }
+        }
+    }
 
     return movement;
 }
