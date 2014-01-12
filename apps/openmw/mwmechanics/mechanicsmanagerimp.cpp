@@ -947,4 +947,9 @@ namespace MWMechanics
 
         return (roll >= target);
     }
+
+    std::list<MWWorld::Ptr> MechanicsManager::getActorsFollowing(const MWWorld::Ptr& actor)
+    {
+        return mActors.getActorsFollowing(actor);
+    }
 }
