@@ -82,6 +82,23 @@ bool disintegrateSlot (MWWorld::Ptr ptr, int slot, float disintegrate)
     return false;
 }
 
+void getRestorationPerHourOfSleep (const MWWorld::Ptr& ptr, float& health, float& magicka)
+{
+    MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats (ptr);
+    const MWWorld::Store<ESM::GameSetting>& settings = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+
+    bool stunted = stats.getMagicEffects ().get(ESM::MagicEffect::StuntedMagicka).mMagnitude > 0;
+    int endurance = stats.getAttribute (ESM::Attribute::Endurance).getModified ();
+
+    health = 0.1 * endurance;
+
+    magicka = 0;
+    if (!stunted)
+    {
+        float fRestMagicMult = settings.find("fRestMagicMult")->getFloat ();
+        magicka = fRestMagicMult * stats.getAttribute(ESM::Attribute::Intelligence).getModified();
+    }
+}
 
 }
 
@@ -199,7 +216,7 @@ namespace MWMechanics
         }
 
         // fatigue restoration
-        calculateRestoration(ptr, duration);
+        calculateRestoration(ptr, duration, false);
     }
 
     void Actors::updateNpc (const MWWorld::Ptr& ptr, float duration, bool paused)
@@ -257,44 +274,37 @@ namespace MWMechanics
         creatureStats.setFatigue(fatigue);
     }
 
-    void Actors::calculateRestoration (const MWWorld::Ptr& ptr, float duration)
+    void Actors::calculateRestoration (const MWWorld::Ptr& ptr, float duration, bool sleep)
     {
         if (ptr.getClass().getCreatureStats(ptr).isDead())
             return;
-        CreatureStats& stats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
+
+        MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats (ptr);
         const MWWorld::Store<ESM::GameSetting>& settings = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+
+        if (sleep)
+        {
+            float health, magicka;
+            getRestorationPerHourOfSleep(ptr, health, magicka);
+
+            DynamicStat<float> stat = stats.getHealth();
+            stat.setCurrent(stat.getCurrent() + health);
+            stats.setHealth(stat);
+
+            stat = stats.getMagicka();
+            stat.setCurrent(stat.getCurrent() + magicka);
+            stats.setMagicka(stat);
+        }
 
         int endurance = stats.getAttribute (ESM::Attribute::Endurance).getModified ();
 
-        float capacity = MWWorld::Class::get(ptr).getCapacity(ptr);
-        float encumbrance = MWWorld::Class::get(ptr).getEncumbrance(ptr);
+        float capacity = ptr.getClass().getCapacity(ptr);
+        float encumbrance = ptr.getClass().getEncumbrance(ptr);
         float normalizedEncumbrance = (capacity == 0 ? 1 : encumbrance/capacity);
         if (normalizedEncumbrance > 1)
             normalizedEncumbrance = 1;
 
-        if (duration == 3600)
-        {
-            // the actor is sleeping, restore health and magicka
-
-            bool stunted = stats.getMagicEffects ().get(ESM::MagicEffect::StuntedMagicka).mMagnitude > 0;
-
-            DynamicStat<float> health = stats.getHealth();
-            health.setCurrent (health.getCurrent() + 0.1 * endurance);
-            stats.setHealth (health);
-
-            if (!stunted)
-            {
-                float fRestMagicMult = settings.find("fRestMagicMult")->getFloat ();
-
-                DynamicStat<float> magicka = stats.getMagicka();
-                magicka.setCurrent (magicka.getCurrent()
-                    + fRestMagicMult * stats.getAttribute(ESM::Attribute::Intelligence).getModified());
-                stats.setMagicka (magicka);
-            }
-        }
-
         // restore fatigue
-
         float fFatigueReturnBase = settings.find("fFatigueReturnBase")->getFloat ();
         float fFatigueReturnMult = settings.find("fFatigueReturnMult")->getFloat ();
         float fEndFatigueMult = settings.find("fEndFatigueMult")->getFloat ();
@@ -305,6 +315,7 @@ namespace MWMechanics
         DynamicStat<float> fatigue = stats.getFatigue();
         fatigue.setCurrent (fatigue.getCurrent() + duration * x);
         stats.setFatigue (fatigue);
+
     }
 
     void Actors::calculateCreatureStatModifiers (const MWWorld::Ptr& ptr, float duration)
@@ -334,7 +345,7 @@ namespace MWMechanics
             float currentDiff = creatureStats.getMagicEffects().get(ESM::MagicEffect::RestoreHealth+i).mMagnitude
                     - creatureStats.getMagicEffects().get(ESM::MagicEffect::DamageHealth+i).mMagnitude
                     - creatureStats.getMagicEffects().get(ESM::MagicEffect::AbsorbHealth+i).mMagnitude;
-            stat.setCurrent(stat.getCurrent() + currentDiff * duration);
+            stat.setCurrent(stat.getCurrent() + currentDiff * duration, i == 2);
 
             creatureStats.setDynamic(i, stat);
         }
@@ -504,7 +515,7 @@ namespace MWMechanics
                 if (magnitude > 0)
                 {
                     ESM::Position ipos = ptr.getRefData().getPosition();
-                    Ogre::Vector3 pos(ipos.pos[0],ipos.pos[1],ipos.pos[2]);
+                    Ogre::Vector3 pos(ipos.pos);
                     Ogre::Quaternion rot(Ogre::Radian(-ipos.rot[2]), Ogre::Vector3::UNIT_Z);
                     const float distance = 50;
                     pos = pos + distance*rot.yAxis();
@@ -847,10 +858,28 @@ namespace MWMechanics
             }
         }
     }
-    void Actors::restoreDynamicStats()
+    void Actors::restoreDynamicStats(bool sleep)
     {
         for(PtrControllerMap::iterator iter(mActors.begin());iter != mActors.end();++iter)
-            calculateRestoration(iter->first, 3600);
+            calculateRestoration(iter->first, 3600, sleep);
+    }
+
+    int Actors::getHoursToRest(const MWWorld::Ptr &ptr) const
+    {
+        float healthPerHour, magickaPerHour;
+        getRestorationPerHourOfSleep(ptr, healthPerHour, magickaPerHour);
+
+        CreatureStats& stats = ptr.getClass().getCreatureStats(ptr);
+
+        float healthHours  = healthPerHour >= 0
+                             ? (stats.getHealth().getModified() - stats.getHealth().getCurrent()) / healthPerHour
+                             : 1.0f;
+        float magickaHours = magickaPerHour >= 0
+                              ? (stats.getMagicka().getModified() - stats.getMagicka().getCurrent()) / magickaPerHour
+                              : 1.0f;
+
+        int autoHours = std::ceil(std::max(1.f, std::max(healthHours, magickaHours)));
+        return autoHours;
     }
 
     int Actors::countDeaths (const std::string& id) const

@@ -242,6 +242,9 @@ namespace MWClass
             fJumpAcroMultiplier = gmst.find("fJumpAcroMultiplier");
             fJumpRunMultiplier = gmst.find("fJumpRunMultiplier");
             fWereWolfRunMult = gmst.find("fWereWolfRunMult");
+            fKnockDownMult = gmst.find("fKnockDownMult");
+            iKnockDownOddsMult = gmst.find("iKnockDownOddsMult");
+            iKnockDownOddsBase = gmst.find("iKnockDownOddsBase");
 
             inited = true;
         }
@@ -515,12 +518,6 @@ namespace MWClass
                         weapon.getCellRef().mCharge = weapmaxhealth;
                     damage *= float(weapon.getCellRef().mCharge) / weapmaxhealth;
                 }
-                if(!othercls.hasDetected(victim, ptr))
-                {
-                    damage *= gmst.find("fCombatCriticalStrikeMult")->getFloat();
-                    MWBase::Environment::get().getWindowManager()->messageBox("#{sTargetCriticalStrike}");
-                    MWBase::Environment::get().getSoundManager()->playSound3D(victim, "critical damage", 1.0f, 1.0f);
-                }
                 
                 if (!MWBase::Environment::get().getWorld()->getGodModeState())
                     weapon.getCellRef().mCharge -= std::min(std::max(1,
@@ -542,12 +539,6 @@ namespace MWClass
             float maxstrike = gmst.find("fMaxHandToHandMult")->getFloat();
             damage  = stats.getSkill(weapskill).getModified();
             damage *= minstrike + ((maxstrike-minstrike)*stats.getAttackStrength());
-            if(!othercls.hasDetected(victim, ptr))
-            {
-                damage *= gmst.find("fCombatCriticalStrikeMult")->getFloat();
-                MWBase::Environment::get().getWindowManager()->messageBox("#{sTargetCriticalStrike}");
-                MWBase::Environment::get().getSoundManager()->playSound3D(victim, "critical damage", 1.0f, 1.0f);
-            }
 
             healthdmg = (otherstats.getFatigue().getCurrent() < 1.0f)
                     || (otherstats.getMagicEffects().get(ESM::MagicEffect::Paralyze).mMagnitude > 0);
@@ -573,6 +564,16 @@ namespace MWClass
         }
         if(ptr.getRefData().getHandle() == "player")
             skillUsageSucceeded(ptr, weapskill, 0);
+
+        bool detected = MWBase::Environment::get().getMechanicsManager()->awarenessCheck(ptr, victim);
+        if(!detected)
+        {
+            damage *= gmst.find("fCombatCriticalStrikeMult")->getFloat();
+            MWBase::Environment::get().getWindowManager()->messageBox("#{sTargetCriticalStrike}");
+            MWBase::Environment::get().getSoundManager()->playSound3D(victim, "critical damage", 1.0f, 1.0f);
+        }
+        if (othercls.getCreatureStats(victim).getKnockedDown())
+            damage *= gmst.find("fCombatKODamageMult")->getFloat();
 
         // Apply "On hit" enchanted weapons
         std::string enchantmentName = !weapon.isEmpty() ? weapon.getClass().getEnchantment(weapon) : "";
@@ -651,7 +652,20 @@ namespace MWClass
             {
                 MWBase::Environment::get().getDialogueManager()->say(ptr, "hit");
             }
-            getCreatureStats(ptr).setAttacked(true);//used in CharacterController
+            getCreatureStats(ptr).setAttacked(true);
+
+            // Check for knockdown
+            float agilityTerm = getCreatureStats(ptr).getAttribute(ESM::Attribute::Agility).getModified() * fKnockDownMult->getFloat();
+            float knockdownTerm = getCreatureStats(ptr).getAttribute(ESM::Attribute::Agility).getModified()
+                    * iKnockDownOddsMult->getInt() * 0.01 + iKnockDownOddsBase->getInt();
+            roll = std::rand()/ (static_cast<double> (RAND_MAX) + 1) * 100; // [0, 99]
+            if (ishealth && agilityTerm <= damage && knockdownTerm <= roll)
+            {
+                getCreatureStats(ptr).setKnockedDown(true);
+
+            }
+            else
+                getCreatureStats(ptr).setHitRecovery(true); // Is this supposed to always occur?
 
             if(object.isEmpty())
             {
@@ -1286,4 +1300,7 @@ namespace MWClass
     const ESM::GameSetting *Npc::fJumpAcroMultiplier;
     const ESM::GameSetting *Npc::fJumpRunMultiplier;
     const ESM::GameSetting *Npc::fWereWolfRunMult;
+    const ESM::GameSetting *Npc::fKnockDownMult;
+    const ESM::GameSetting *Npc::iKnockDownOddsMult;
+    const ESM::GameSetting *Npc::iKnockDownOddsBase;
 }

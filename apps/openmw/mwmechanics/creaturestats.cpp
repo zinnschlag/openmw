@@ -15,7 +15,7 @@ namespace MWMechanics
           mAttacked (false), mHostile (false),
           mAttackingOrSpell(false), mAttackType(AT_Chop),
           mIsWerewolf(false),
-          mFallHeight(0), mRecalcDynamicStats(false)
+          mFallHeight(0), mRecalcDynamicStats(false), mKnockdown(false), mHitRecovery(false)
     {
         for (int i=0; i<4; ++i)
             mAiSettings[i] = 0;
@@ -206,6 +206,9 @@ namespace MWMechanics
             throw std::runtime_error("dynamic stat index is out of range");
 
         mDynamic[index] = value;
+
+        if (index == 2 && value.getCurrent() < 0)
+            setKnockedDown(true);
 
         if (index==0 && mDynamic[index].getCurrent()<1)
         {
@@ -401,5 +404,25 @@ namespace MWMechanics
              return true;
          }
          return false;
+    }
+
+    void CreatureStats::setKnockedDown(bool value)
+    {
+        mKnockdown = value;
+    }
+
+    bool CreatureStats::getKnockedDown() const
+    {
+        return mKnockdown;
+    }
+
+    void CreatureStats::setHitRecovery(bool value)
+    {
+        mHitRecovery = value;
+    }
+
+    bool CreatureStats::getHitRecovery() const
+    {
+        return mHitRecovery;
     }
 }
