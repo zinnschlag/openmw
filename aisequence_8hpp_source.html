@@ -78,42 +78,43 @@
 <a name="l00018"></a><a class="code" href="classMWMechanics_1_1AiSequence.html">00018</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>
 <a name="l00019"></a>00019     {
 <a name="l00020"></a><a class="code" href="classMWMechanics_1_1AiSequence.html#ad942dc1b9c02655068a54aee2c817516">00020</a>             std::list&lt;AiPackage *&gt; <a class="code" href="classMWMechanics_1_1AiSequence.html#ad942dc1b9c02655068a54aee2c817516">mPackages</a>;
-<a name="l00021"></a><a class="code" href="classMWMechanics_1_1AiSequence.html#ac20f27c6fe666a2424c27ef1e2796dc1">00021</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#ac20f27c6fe666a2424c27ef1e2796dc1">mDone</a>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#ac04b53ebe35debd3ca99e10b6b507dfc">copy</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; sequence);
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025         <span class="keyword">public</span>:
-<a name="l00026"></a>00026         
-<a name="l00027"></a>00027             <a class="code" href="classMWMechanics_1_1AiSequence.html#a155e33c96cdde0ffe7d1231c56e5837a">AiSequence</a>();
-<a name="l00028"></a>00028             
-<a name="l00029"></a>00029             <a class="code" href="classMWMechanics_1_1AiSequence.html#a155e33c96cdde0ffe7d1231c56e5837a">AiSequence</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; sequence);
-<a name="l00030"></a>00030             
-<a name="l00031"></a>00031             <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; <a class="code" href="classMWMechanics_1_1AiSequence.html#a04d23954a0e3ebbb6da4e338dc930112">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; sequence);
-<a name="l00032"></a>00032             
-<a name="l00033"></a>00033             <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a60c15f2641e065f42450d2d7a55b7053">~AiSequence</a>();
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a37cd79acd4ac66c554dec862b8fe3074">getTypeId</a>() <span class="keyword">const</span>;
-<a name="l00037"></a>00037             
-<a name="l00038"></a>00038             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a37bee94e189b9c3abd86b32b3244887e" title="Has a package been completed during the last update?">isPackageDone</a>() <span class="keyword">const</span>;
-<a name="l00040"></a>00040             
-<a name="l00041"></a>00041             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a0e7e0e7d6b76a5927f8fcead5404d467" title="Execute package.">execute</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
-<a name="l00043"></a>00043             
-<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#ae9ac906e92832ee95e1e4c11ac071516" title="Remove all packages.">clear</a>();
-<a name="l00046"></a>00046             
-<a name="l00047"></a>00047             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#aabeb477aa69f9ddc2a5e0973250af878" title="Add package to the front of the sequence (suspends current package)">stack</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>&amp; package);
-<a name="l00049"></a>00049             
-<a name="l00050"></a>00050             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a07dc1ae08fa9080a1cc85e23a9214202">queue</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>&amp; package);
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a3d8ce6b7960a372d3c50fc225fb51763">fill</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1AIPackageList.html">ESM::AIPackageList</a>&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>);
-<a name="l00055"></a>00055     };
-<a name="l00056"></a>00056 }
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058 <span class="preprocessor">#endif</span>
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="classMWMechanics_1_1AiSequence.html#ac20f27c6fe666a2424c27ef1e2796dc1">00022</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#ac20f27c6fe666a2424c27ef1e2796dc1">mDone</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#ac04b53ebe35debd3ca99e10b6b507dfc">copy</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; sequence);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keyword">public</span>:
+<a name="l00027"></a>00027         
+<a name="l00028"></a>00028             <a class="code" href="classMWMechanics_1_1AiSequence.html#a155e33c96cdde0ffe7d1231c56e5837a">AiSequence</a>();
+<a name="l00029"></a>00029             
+<a name="l00030"></a>00030             <a class="code" href="classMWMechanics_1_1AiSequence.html#a155e33c96cdde0ffe7d1231c56e5837a">AiSequence</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; sequence);
+<a name="l00031"></a>00031             
+<a name="l00032"></a>00032             <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; <a class="code" href="classMWMechanics_1_1AiSequence.html#a04d23954a0e3ebbb6da4e338dc930112">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiSequence.html" title="Sequence of AI-packages for a single actor.">AiSequence</a>&amp; sequence);
+<a name="l00033"></a>00033             
+<a name="l00034"></a>00034             <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a60c15f2641e065f42450d2d7a55b7053">~AiSequence</a>();
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a37cd79acd4ac66c554dec862b8fe3074">getTypeId</a>() <span class="keyword">const</span>;
+<a name="l00038"></a>00038             
+<a name="l00039"></a>00039             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a37bee94e189b9c3abd86b32b3244887e" title="Has a package been completed during the last update?">isPackageDone</a>() <span class="keyword">const</span>;
+<a name="l00041"></a>00041             
+<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a9f2ccc0ec67181de1069678cff7a849f" title="Execute package.">execute</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor,<span class="keywordtype">float</span> duration);
+<a name="l00044"></a>00044             
+<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#ae9ac906e92832ee95e1e4c11ac071516" title="Remove all packages.">clear</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#aabeb477aa69f9ddc2a5e0973250af878" title="Add package to the front of the sequence (suspends current package)">stack</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>&amp; package);
+<a name="l00050"></a>00050             
+<a name="l00051"></a>00051             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a07dc1ae08fa9080a1cc85e23a9214202">queue</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1AiPackage.html" title="Base class for AI packages.">AiPackage</a>&amp; package);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1AiSequence.html#a3d8ce6b7960a372d3c50fc225fb51763">fill</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1AIPackageList.html">ESM::AIPackageList</a>&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>);
+<a name="l00056"></a>00056     };
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

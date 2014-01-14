@@ -74,46 +74,48 @@
 <a name="l00013"></a>00013 
 <a name="l00014"></a><a class="code" href="structESM_1_1Spell.html">00014</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Spell.html">Spell</a>
 <a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0">00016</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0">SpellType</a>
-<a name="l00017"></a>00017     {
-<a name="l00018"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a59f3113a3d6814f58f41d6c58bacb166">00018</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a59f3113a3d6814f58f41d6c58bacb166">ST_Spell</a> = 0,   <span class="comment">// Normal spell, must be cast and costs mana</span>
-<a name="l00019"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a02a0ee2e1713188ef11d91aea5941069">00019</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a02a0ee2e1713188ef11d91aea5941069">ST_Ability</a> = 1, <span class="comment">// Inert ability, always in effect</span>
-<a name="l00020"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0ad73202507975e588f8b9ff0d326d97fc">00020</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0ad73202507975e588f8b9ff0d326d97fc">ST_Blight</a> = 2,  <span class="comment">// Blight disease</span>
-<a name="l00021"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a7c0ca2de9ca8ebebf7c79a79ac511b1a">00021</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a7c0ca2de9ca8ebebf7c79a79ac511b1a">ST_Disease</a> = 3, <span class="comment">// Common disease</span>
-<a name="l00022"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a9447780f7f3cde1622f29597ea177747">00022</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a9447780f7f3cde1622f29597ea177747">ST_Curse</a> = 4,   <span class="comment">// Curse (?)</span>
-<a name="l00023"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0aba994aeb350b9362f0d0576f40423b24">00023</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0aba994aeb350b9362f0d0576f40423b24">ST_Power</a> = 5    <span class="comment">// Power, can use once a day</span>
-<a name="l00024"></a>00024     };
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422">00026</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422">Flags</a>
-<a name="l00027"></a>00027     {
-<a name="l00028"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0fe9ebd5f2d4ed4535225c93e5b1ebbc">00028</a>         <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0fe9ebd5f2d4ed4535225c93e5b1ebbc">F_Autocalc</a> = 1,
-<a name="l00029"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0ecd2281dd8ec9e2b2dc55f89b529568">00029</a>         <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0ecd2281dd8ec9e2b2dc55f89b529568">F_PCStart</a> = 2,
-<a name="l00030"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422ac29891289a7ffb36e5ca0f638c29dffd">00030</a>         <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422ac29891289a7ffb36e5ca0f638c29dffd">F_Always</a> = 4 <span class="comment">// Casting always succeeds</span>
-<a name="l00031"></a>00031     };
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html">00033</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html">SPDTstruct</a>
-<a name="l00034"></a>00034     {
-<a name="l00035"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#af7dbc0a2b51600f9e0a6c1a7e9acb291">00035</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#af7dbc0a2b51600f9e0a6c1a7e9acb291">mType</a>; <span class="comment">// SpellType</span>
-<a name="l00036"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#a3e1391d11f3f59c07b504bc3d02e5fcf">00036</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#a3e1391d11f3f59c07b504bc3d02e5fcf">mCost</a>; <span class="comment">// Mana cost</span>
-<a name="l00037"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#aeed9cb3a70c17077ddbf68a827127049">00037</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#aeed9cb3a70c17077ddbf68a827127049">mFlags</a>; <span class="comment">// Flags</span>
-<a name="l00038"></a>00038     };
-<a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="structESM_1_1Spell.html#ada0950e3b6d386037c12e1422a5ff9ae">00040</a>     <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html">SPDTstruct</a> <a class="code" href="structESM_1_1Spell.html#ada0950e3b6d386037c12e1422a5ff9ae">mData</a>;
-<a name="l00041"></a><a class="code" href="structESM_1_1Spell.html#a609f1565b07bcf3c8514257f938fefb6">00041</a>     std::string <a class="code" href="structESM_1_1Spell.html#a770afad043c6ebdd92e17d558db22860">mId</a>, <a class="code" href="structESM_1_1Spell.html#a609f1565b07bcf3c8514257f938fefb6">mName</a>;
-<a name="l00042"></a><a class="code" href="structESM_1_1Spell.html#ab38f3b0e5bab47c237d5edc5ebbf12c8">00042</a>     <a class="code" href="structESM_1_1EffectList.html">EffectList</a> <a class="code" href="structESM_1_1Spell.html#ab38f3b0e5bab47c237d5edc5ebbf12c8">mEffects</a>;
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Spell.html#a6d11767b8de145fd3a7fe001a04b9e09">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Spell.html#a2469d4ebf3472642e5566493c60eed20">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Spell.html#ae68c9f482479fcf642c3609e7d5ed79f" title="Set record to default state (does not touch the ID/index).">blank</a>();
-<a name="l00049"></a>00049 };
-<a name="l00050"></a>00050 }
-<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
+<a name="l00016"></a><a class="code" href="structESM_1_1Spell.html#aac68035c72e934d4f1c0c5345ed9b513">00016</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell.html#aac68035c72e934d4f1c0c5345ed9b513">sRecordId</a>;
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0">00018</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0">SpellType</a>
+<a name="l00019"></a>00019     {
+<a name="l00020"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a59f3113a3d6814f58f41d6c58bacb166">00020</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a59f3113a3d6814f58f41d6c58bacb166">ST_Spell</a> = 0,   <span class="comment">// Normal spell, must be cast and costs mana</span>
+<a name="l00021"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a02a0ee2e1713188ef11d91aea5941069">00021</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a02a0ee2e1713188ef11d91aea5941069">ST_Ability</a> = 1, <span class="comment">// Inert ability, always in effect</span>
+<a name="l00022"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0ad73202507975e588f8b9ff0d326d97fc">00022</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0ad73202507975e588f8b9ff0d326d97fc">ST_Blight</a> = 2,  <span class="comment">// Blight disease</span>
+<a name="l00023"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a7c0ca2de9ca8ebebf7c79a79ac511b1a">00023</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a7c0ca2de9ca8ebebf7c79a79ac511b1a">ST_Disease</a> = 3, <span class="comment">// Common disease</span>
+<a name="l00024"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a9447780f7f3cde1622f29597ea177747">00024</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0a9447780f7f3cde1622f29597ea177747">ST_Curse</a> = 4,   <span class="comment">// Curse (?)</span>
+<a name="l00025"></a><a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0aba994aeb350b9362f0d0576f40423b24">00025</a>         <a class="code" href="structESM_1_1Spell.html#a3947396086484c314888ba6c2f9f1de0aba994aeb350b9362f0d0576f40423b24">ST_Power</a> = 5    <span class="comment">// Power, can use once a day</span>
+<a name="l00026"></a>00026     };
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422">00028</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422">Flags</a>
+<a name="l00029"></a>00029     {
+<a name="l00030"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0fe9ebd5f2d4ed4535225c93e5b1ebbc">00030</a>         <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0fe9ebd5f2d4ed4535225c93e5b1ebbc">F_Autocalc</a> = 1,
+<a name="l00031"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0ecd2281dd8ec9e2b2dc55f89b529568">00031</a>         <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422a0ecd2281dd8ec9e2b2dc55f89b529568">F_PCStart</a> = 2,
+<a name="l00032"></a><a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422ac29891289a7ffb36e5ca0f638c29dffd">00032</a>         <a class="code" href="structESM_1_1Spell.html#a7580de0750017dcdfba937e490867422ac29891289a7ffb36e5ca0f638c29dffd">F_Always</a> = 4 <span class="comment">// Casting always succeeds</span>
+<a name="l00033"></a>00033     };
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html">00035</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html">SPDTstruct</a>
+<a name="l00036"></a>00036     {
+<a name="l00037"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#af7dbc0a2b51600f9e0a6c1a7e9acb291">00037</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#af7dbc0a2b51600f9e0a6c1a7e9acb291">mType</a>; <span class="comment">// SpellType</span>
+<a name="l00038"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#a3e1391d11f3f59c07b504bc3d02e5fcf">00038</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#a3e1391d11f3f59c07b504bc3d02e5fcf">mCost</a>; <span class="comment">// Mana cost</span>
+<a name="l00039"></a><a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#aeed9cb3a70c17077ddbf68a827127049">00039</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html#aeed9cb3a70c17077ddbf68a827127049">mFlags</a>; <span class="comment">// Flags</span>
+<a name="l00040"></a>00040     };
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structESM_1_1Spell.html#ada0950e3b6d386037c12e1422a5ff9ae">00042</a>     <a class="code" href="structESM_1_1Spell_1_1SPDTstruct.html">SPDTstruct</a> <a class="code" href="structESM_1_1Spell.html#ada0950e3b6d386037c12e1422a5ff9ae">mData</a>;
+<a name="l00043"></a><a class="code" href="structESM_1_1Spell.html#a609f1565b07bcf3c8514257f938fefb6">00043</a>     std::string <a class="code" href="structESM_1_1Spell.html#a770afad043c6ebdd92e17d558db22860">mId</a>, <a class="code" href="structESM_1_1Spell.html#a609f1565b07bcf3c8514257f938fefb6">mName</a>;
+<a name="l00044"></a><a class="code" href="structESM_1_1Spell.html#ab38f3b0e5bab47c237d5edc5ebbf12c8">00044</a>     <a class="code" href="structESM_1_1EffectList.html">EffectList</a> <a class="code" href="structESM_1_1Spell.html#ab38f3b0e5bab47c237d5edc5ebbf12c8">mEffects</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Spell.html#a6d11767b8de145fd3a7fe001a04b9e09">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Spell.html#a70cac411fe609875130ddb03403863d8">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Spell.html#ae68c9f482479fcf642c3609e7d5ed79f" title="Set record to default state (does not touch the ID/index).">blank</a>();
+<a name="l00051"></a>00051 };
+<a name="l00052"></a>00052 }
+<a name="l00053"></a>00053 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

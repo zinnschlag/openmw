@@ -102,6 +102,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual boost::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="classMWWorld_1_1Action.html">MWWorld::Action</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a657e7ab2a6dd6ce154b48211e19a655b">use</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate action for using via inventory menu.  <a href="#a657e7ab2a6dd6ce154b48211e19a655b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a719f6925684c5aef26bf6eb9fb432b7c">setRemainingUsageTime</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float duration) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the remaining duration of the object.  <a href="#a719f6925684c5aef26bf6eb9fb432b7c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#ac0cd107bc36c2dd942a327fe0126adfe">getRemainingUsageTime</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the remaining duration of the object.  <a href="#ac0cd107bc36c2dd942a327fe0126adfe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#ac2bb661a194576d4088f486d2590e6d5">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#aba011a79c81d44414b6824f82c8e97b4">getWeight</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a96f5c123d314e3e25cad24ffe25fcd41">canSell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;item, int npcServices) const </td></tr>
@@ -113,6 +117,7 @@ Static Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a41f8eaf57e74235374fe7d15c268c034">copyToCellImpl</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> &amp;cell) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Light.html#a9ea1aeff04f1a0c86ae35b29a3bf07b3">ensureCustomData</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a1da22a8b7316a3e5243e27e1b53f3ccd"></a><!-- doxytag: member="MWClass::Light::activate" ref="a1da22a8b7316a3e5243e27e1b53f3ccd" args="(const MWWorld::Ptr &amp;ptr, const MWWorld::Ptr &amp;actor) const " -->
@@ -171,7 +176,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Return 0 if player cannot equip item. 1 if can equip. 2 if it's twohanded weapon. 3 if twohanded weapon conflicts with that. Second item in the pair specifies the error message </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000046">Todo:</a></b></dt><dd>the 2h check is repeated many times; put it in a function </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000067">Todo:</a></b></dt><dd>the 2h check is repeated many times; put it in a function </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ace2757fcce58e7d9b7eee0d3a0d138bb">MWWorld::Class</a>.</p>
 
@@ -234,6 +239,23 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5cb8c5401d0a378b738f4b7f50e022aa">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9ea1aeff04f1a0c86ae35b29a3bf07b3"></a><!-- doxytag: member="MWClass::Light::ensureCustomData" ref="a9ea1aeff04f1a0c86ae35b29a3bf07b3" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Light.html#a9ea1aeff04f1a0c86ae35b29a3bf07b3">MWClass::Light::ensureCustomData</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -335,6 +357,27 @@ Private Member Functions</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>name (the one that is to be presented to the user; not the internal one); can return an empty string. </dd></dl>
 
 <p>Implements <a class="el" href="classMWWorld_1_1Class.html#a9bb333ba7a376100bf2a6be12e4b11ad">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac0cd107bc36c2dd942a327fe0126adfe"></a><!-- doxytag: member="MWClass::Light::getRemainingUsageTime" ref="ac0cd107bc36c2dd942a327fe0126adfe" args="(const MWWorld::Ptr &amp;ptr) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWClass_1_1Light.html#ac0cd107bc36c2dd942a327fe0126adfe">MWClass::Light::getRemainingUsageTime</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Returns the remaining duration of the object. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#abb52e323b8a1e29ac29e1a5f5af344f1">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -538,6 +581,37 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a719f6925684c5aef26bf6eb9fb432b7c"></a><!-- doxytag: member="MWClass::Light::setRemainingUsageTime" ref="a719f6925684c5aef26bf6eb9fb432b7c" args="(const MWWorld::Ptr &amp;ptr, float duration) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWClass_1_1Light.html#a719f6925684c5aef26bf6eb9fb432b7c">MWClass::Light::setRemainingUsageTime</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>duration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Sets the remaining duration of the object. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a24d30740a1dcacdaae89807c5ee41fa3">MWWorld::Class</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a657e7ab2a6dd6ce154b48211e19a655b"></a><!-- doxytag: member="MWClass::Light::use" ref="a657e7ab2a6dd6ce154b48211e19a655b" args="(const MWWorld::Ptr &amp;ptr) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -567,7 +641,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

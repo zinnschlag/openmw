@@ -105,19 +105,19 @@
 <a name="l00045"></a>00045         <span class="keyword">public</span>:
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047             <a class="code" href="classCompiler_1_1LineParser.html#a9d42994d3259d1043d47943d77fdf3c3">LineParser</a> (<a class="code" href="classCompiler_1_1ErrorHandler.html" title="Error handling.">ErrorHandler</a>&amp; errorHandler, <a class="code" href="classCompiler_1_1Context.html">Context</a>&amp; context, <a class="code" href="classCompiler_1_1Locals.html" title="Local variable declarations.">Locals</a>&amp; locals,
-<a name="l00048"></a>00048                 <a class="code" href="classCompiler_1_1Literals.html" title="Literal values.">Literals</a>&amp; literals, std::vector&lt;Interpreter::Type_Code&gt;&amp; code,
+<a name="l00048"></a>00048                 <a class="code" href="classCompiler_1_1Literals.html" title="Literal values.">Literals</a>&amp; literals, std::vector&lt;Interpreter::Type_Code&gt;&amp; <a class="code" href="crashcatcher_8cpp.html#a45a5b7c00a796a23f01673cef1dbe0a9">code</a>,
 <a name="l00049"></a>00049                 <span class="keywordtype">bool</span> allowExpression = <span class="keyword">false</span>);
 <a name="l00052"></a>00052 
 <a name="l00053"></a>00053             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#aa97e57e3ba77d4d6f0f630790cdc4aa5">parseInt</a> (<span class="keywordtype">int</span> value, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Scanner</a>&amp; scanner);
 <a name="l00056"></a>00056 
 <a name="l00057"></a>00057             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#ad1974b2a07b5eda0740c4dc5e56443e4">parseFloat</a> (<span class="keywordtype">float</span> value, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Scanner</a>&amp; scanner);
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#afe095ea12d87c371f0e3fb47a1c346bf">parseName</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc,
+<a name="l00061"></a>00061             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#afe095ea12d87c371f0e3fb47a1c346bf">parseName</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc,
 <a name="l00062"></a>00062                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Scanner</a>&amp; scanner);
 <a name="l00065"></a>00065 
 <a name="l00066"></a>00066             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#afd5aea253297d8554842ab61db598f43">parseKeyword</a> (<span class="keywordtype">int</span> keyword, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Scanner</a>&amp; scanner);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#aa337250c016fb634b7df66eecdd7bf1d">parseSpecial</a> (<span class="keywordtype">int</span> code, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Scanner</a>&amp; scanner);
+<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCompiler_1_1LineParser.html#aa337250c016fb634b7df66eecdd7bf1d">parseSpecial</a> (<span class="keywordtype">int</span> <a class="code" href="crashcatcher_8cpp.html#a45a5b7c00a796a23f01673cef1dbe0a9">code</a>, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Scanner</a>&amp; scanner);
 <a name="l00073"></a>00073 
 <a name="l00074"></a>00074             <span class="keywordtype">void</span> <a class="code" href="classCompiler_1_1LineParser.html#a72cba9b6168287df8e2fe90a5ace7898" title="Reset parser to clean state.">reset</a>();
 <a name="l00076"></a>00076     };
@@ -128,7 +128,7 @@
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

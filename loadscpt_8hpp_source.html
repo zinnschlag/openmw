@@ -80,54 +80,56 @@
 <a name="l00019"></a><a class="code" href="classESM_1_1Script.html">00019</a> <span class="keyword">class </span><a class="code" href="classESM_1_1Script.html">Script</a>
 <a name="l00020"></a>00020 {
 <a name="l00021"></a>00021 <span class="keyword">public</span>:
-<a name="l00022"></a><a class="code" href="structESM_1_1Script_1_1SCHDstruct.html">00022</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Script_1_1SCHDstruct.html">SCHDstruct</a>
-<a name="l00023"></a>00023     {
-<a name="l00024"></a>00024         <span class="comment">/* Script name.</span>
-<a name="l00025"></a>00025 <span class="comment"></span>
-<a name="l00026"></a>00026 <span class="comment">         NOTE: You should handle the name &quot;Main&quot; (case insensitive) with</span>
-<a name="l00027"></a>00027 <span class="comment">         care. With tribunal, modders got the ability to add &#39;start</span>
-<a name="l00028"></a>00028 <span class="comment">         scripts&#39; to their mods, which is a script that is run at</span>
-<a name="l00029"></a>00029 <span class="comment">         startup and which runs throughout the game (I think.)</span>
-<a name="l00030"></a>00030 <span class="comment"></span>
-<a name="l00031"></a>00031 <span class="comment">         However, before Tribunal, there was only one startup script,</span>
-<a name="l00032"></a>00032 <span class="comment">         called &quot;Main&quot;. If mods wanted to make their own start scripts,</span>
-<a name="l00033"></a>00033 <span class="comment">         they had to overwrite Main. This is obviously problem if</span>
-<a name="l00034"></a>00034 <span class="comment">         multiple mods to this at the same time.</span>
-<a name="l00035"></a>00035 <span class="comment"></span>
-<a name="l00036"></a>00036 <span class="comment">         Although most mods have switched to using Trib-style startup</span>
-<a name="l00037"></a>00037 <span class="comment">         scripts, some legacy mods might still overwrite Main, and this</span>
-<a name="l00038"></a>00038 <span class="comment">         can cause problems if several mods do it. I think the best</span>
-<a name="l00039"></a>00039 <span class="comment">         course of action is to NEVER overwrite main, but instead add</span>
-<a name="l00040"></a>00040 <span class="comment">         each with a separate unique name and add them to the start</span>
-<a name="l00041"></a>00041 <span class="comment">         script list. But there might be other problems with this</span>
-<a name="l00042"></a>00042 <span class="comment">         approach though.</span>
-<a name="l00043"></a>00043 <span class="comment">         */</span>
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="comment">// These describe the sizes we need to allocate for the script</span>
-<a name="l00046"></a>00046         <span class="comment">// data.</span>
-<a name="l00047"></a><a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#ab2de4a92be5c472ae75f6f0e9f9cc2dd">00047</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#a153b29bf8a306efcdd3d7de1c6427a65">mNumShorts</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#a4710b77a8ab43c375c6cfb7850cd678d">mNumLongs</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#ad9d5ceaac8a5af88adb51f86539b2de5">mNumFloats</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#a90c33d578a442e3a97ec05c8bec261d1">mScriptDataSize</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#ab2de4a92be5c472ae75f6f0e9f9cc2dd">mStringTableSize</a>;
-<a name="l00048"></a>00048     }; <span class="comment">// 52 bytes</span>
-<a name="l00049"></a>00049 
-<a name="l00050"></a><a class="code" href="classESM_1_1Script.html#a5fc81938fe3c59b2d294468186c77062">00050</a>     std::string <a class="code" href="classESM_1_1Script.html#a5fc81938fe3c59b2d294468186c77062">mId</a>;
+<a name="l00022"></a><a class="code" href="classESM_1_1Script.html#a18ed7a61832e2164cbc2cd1573f9472c">00022</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classESM_1_1Script.html#a18ed7a61832e2164cbc2cd1573f9472c">sRecordId</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a><a class="code" href="structESM_1_1Script_1_1SCHDstruct.html">00024</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Script_1_1SCHDstruct.html">SCHDstruct</a>
+<a name="l00025"></a>00025     {
+<a name="l00026"></a>00026         <span class="comment">/* Script name.</span>
+<a name="l00027"></a>00027 <span class="comment"></span>
+<a name="l00028"></a>00028 <span class="comment">         NOTE: You should handle the name &quot;Main&quot; (case insensitive) with</span>
+<a name="l00029"></a>00029 <span class="comment">         care. With tribunal, modders got the ability to add &#39;start</span>
+<a name="l00030"></a>00030 <span class="comment">         scripts&#39; to their mods, which is a script that is run at</span>
+<a name="l00031"></a>00031 <span class="comment">         startup and which runs throughout the game (I think.)</span>
+<a name="l00032"></a>00032 <span class="comment"></span>
+<a name="l00033"></a>00033 <span class="comment">         However, before Tribunal, there was only one startup script,</span>
+<a name="l00034"></a>00034 <span class="comment">         called &quot;Main&quot;. If mods wanted to make their own start scripts,</span>
+<a name="l00035"></a>00035 <span class="comment">         they had to overwrite Main. This is obviously problem if</span>
+<a name="l00036"></a>00036 <span class="comment">         multiple mods to this at the same time.</span>
+<a name="l00037"></a>00037 <span class="comment"></span>
+<a name="l00038"></a>00038 <span class="comment">         Although most mods have switched to using Trib-style startup</span>
+<a name="l00039"></a>00039 <span class="comment">         scripts, some legacy mods might still overwrite Main, and this</span>
+<a name="l00040"></a>00040 <span class="comment">         can cause problems if several mods do it. I think the best</span>
+<a name="l00041"></a>00041 <span class="comment">         course of action is to NEVER overwrite main, but instead add</span>
+<a name="l00042"></a>00042 <span class="comment">         each with a separate unique name and add them to the start</span>
+<a name="l00043"></a>00043 <span class="comment">         script list. But there might be other problems with this</span>
+<a name="l00044"></a>00044 <span class="comment">         approach though.</span>
+<a name="l00045"></a>00045 <span class="comment">         */</span>
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047         <span class="comment">// These describe the sizes we need to allocate for the script</span>
+<a name="l00048"></a>00048         <span class="comment">// data.</span>
+<a name="l00049"></a><a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#ab2de4a92be5c472ae75f6f0e9f9cc2dd">00049</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#a153b29bf8a306efcdd3d7de1c6427a65">mNumShorts</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#a4710b77a8ab43c375c6cfb7850cd678d">mNumLongs</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#ad9d5ceaac8a5af88adb51f86539b2de5">mNumFloats</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#a90c33d578a442e3a97ec05c8bec261d1">mScriptDataSize</a>, <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html#ab2de4a92be5c472ae75f6f0e9f9cc2dd">mStringTableSize</a>;
+<a name="l00050"></a>00050     }; <span class="comment">// 52 bytes</span>
 <a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classESM_1_1Script.html#a8c3a0b012592e10d97c6c70a5a4594b2">00052</a>     <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html">SCHDstruct</a> <a class="code" href="classESM_1_1Script.html#a8c3a0b012592e10d97c6c70a5a4594b2">mData</a>;
+<a name="l00052"></a><a class="code" href="classESM_1_1Script.html#a5fc81938fe3c59b2d294468186c77062">00052</a>     std::string <a class="code" href="classESM_1_1Script.html#a5fc81938fe3c59b2d294468186c77062">mId</a>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a><a class="code" href="classESM_1_1Script.html#aae7bf198facf3cfc2925c592bb0e97fa">00054</a>     std::vector&lt;std::string&gt; <a class="code" href="classESM_1_1Script.html#aae7bf198facf3cfc2925c592bb0e97fa">mVarNames</a>; <span class="comment">// Variable names</span>
-<a name="l00055"></a><a class="code" href="classESM_1_1Script.html#af84b746e4cd1d31166080c8399115cda">00055</a>     std::vector&lt;unsigned char&gt; <a class="code" href="classESM_1_1Script.html#af84b746e4cd1d31166080c8399115cda">mScriptData</a>; <span class="comment">// Compiled bytecode</span>
-<a name="l00056"></a><a class="code" href="classESM_1_1Script.html#ae690dca8fc0987fde4a021388315df39">00056</a>     std::string <a class="code" href="classESM_1_1Script.html#ae690dca8fc0987fde4a021388315df39">mScriptText</a>; <span class="comment">// Uncompiled script</span>
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1Script.html#a38b79f47d7591a795a0a90bdef2d6def">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1Script.html#a6a778d536ee372d10a954329f49c8f4d">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1Script.html#aad31b99558adb55a59db015ef152ea5c" title="Set record to default state (does not touch the ID/index).">blank</a>();
-<a name="l00063"></a>00063 };
-<a name="l00064"></a>00064 }
-<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
+<a name="l00054"></a><a class="code" href="classESM_1_1Script.html#a8c3a0b012592e10d97c6c70a5a4594b2">00054</a>     <a class="code" href="structESM_1_1Script_1_1SCHDstruct.html">SCHDstruct</a> <a class="code" href="classESM_1_1Script.html#a8c3a0b012592e10d97c6c70a5a4594b2">mData</a>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="classESM_1_1Script.html#aae7bf198facf3cfc2925c592bb0e97fa">00056</a>     std::vector&lt;std::string&gt; <a class="code" href="classESM_1_1Script.html#aae7bf198facf3cfc2925c592bb0e97fa">mVarNames</a>; <span class="comment">// Variable names</span>
+<a name="l00057"></a><a class="code" href="classESM_1_1Script.html#af84b746e4cd1d31166080c8399115cda">00057</a>     std::vector&lt;unsigned char&gt; <a class="code" href="classESM_1_1Script.html#af84b746e4cd1d31166080c8399115cda">mScriptData</a>; <span class="comment">// Compiled bytecode</span>
+<a name="l00058"></a><a class="code" href="classESM_1_1Script.html#ae690dca8fc0987fde4a021388315df39">00058</a>     std::string <a class="code" href="classESM_1_1Script.html#ae690dca8fc0987fde4a021388315df39">mScriptText</a>; <span class="comment">// Uncompiled script</span>
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1Script.html#a38b79f47d7591a795a0a90bdef2d6def">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1Script.html#aa021e3445811a0d041c45cc91c6162f4">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1Script.html#aad31b99558adb55a59db015ef152ea5c" title="Set record to default state (does not touch the ID/index).">blank</a>();
+<a name="l00065"></a>00065 };
+<a name="l00066"></a>00066 }
+<a name="l00067"></a>00067 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

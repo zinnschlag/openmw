@@ -64,68 +64,80 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;../doc/subview.hpp&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">class </span>QTextEdit;
-<a name="l00007"></a>00007 <span class="keyword">class </span>QModelIndex;
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>CSMDoc
-<a name="l00010"></a>00010 {
-<a name="l00011"></a>00011     <span class="keyword">class </span>Document;
-<a name="l00012"></a>00012 }
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">namespace </span>CSMWorld
-<a name="l00015"></a>00015 {
-<a name="l00016"></a>00016     <span class="keyword">class </span>IdTable;
-<a name="l00017"></a>00017 }
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">namespace </span>CSVWorld
-<a name="l00020"></a>00020 {
-<a name="l00021"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html">00021</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptSubView.html">ScriptSubView</a> : <span class="keyword">public</span> CSVDoc::SubView
-<a name="l00022"></a>00022     {
-<a name="l00023"></a>00023             Q_OBJECT
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;QTimer&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">class </span>QTextEdit;
+<a name="l00009"></a>00009 <span class="keyword">class </span>QModelIndex;
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">namespace </span>CSMDoc
+<a name="l00012"></a>00012 {
+<a name="l00013"></a>00013     <span class="keyword">class </span>Document;
+<a name="l00014"></a>00014 }
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>CSMWorld
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018     <span class="keyword">class </span>IdTable;
+<a name="l00019"></a>00019 }
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">namespace </span>CSVWorld
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023     <span class="keyword">class </span>ScriptHighlighter;
 <a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a00e00f47a97b742c889ca9a9c76b42ce">00025</a>             QTextEdit *<a class="code" href="classCSVWorld_1_1ScriptSubView.html#a00e00f47a97b742c889ca9a9c76b42ce">mEditor</a>;
-<a name="l00026"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a62bd3bae45f7dfe43dec49470f412c99">00026</a>             <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a62bd3bae45f7dfe43dec49470f412c99">mDocument</a>;
-<a name="l00027"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#ad92a048a88fc129593c2df5e425a24f3">00027</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">CSMWorld::IdTable</a> *<a class="code" href="classCSVWorld_1_1ScriptSubView.html#ad92a048a88fc129593c2df5e425a24f3">mModel</a>;
-<a name="l00028"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a24678880648a98d7942614e94890b21d">00028</a>             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a24678880648a98d7942614e94890b21d">mColumn</a>;
-<a name="l00029"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#aa308dd8801dc3f02b4232c44b4e99c34">00029</a>             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#aa308dd8801dc3f02b4232c44b4e99c34">mChangeLocked</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">00031</a>             <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>
-<a name="l00032"></a>00032             {
-<a name="l00033"></a><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a4e7ca23297a6611c5fa73d28a7b4502c">00033</a>                     <a class="code" href="classCSVWorld_1_1ScriptSubView.html">ScriptSubView</a>&amp; <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a4e7ca23297a6611c5fa73d28a7b4502c">mView</a>;
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a9e063633cf90d8bdfe724417506037bb">ChangeLock</a> (<span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>&amp;);
-<a name="l00036"></a>00036                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>&amp; <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#add436a881708c34a4f735c31714ee5b0">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>&amp;);
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038                 <span class="keyword">public</span>:
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a9e063633cf90d8bdfe724417506037bb">ChangeLock</a> (<a class="code" href="classCSVWorld_1_1ScriptSubView.html">ScriptSubView</a>&amp; view);
-<a name="l00041"></a>00041                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a89a29efeb2ea6920fff2790165502925">~ChangeLock</a>();
-<a name="l00042"></a>00042             };
+<a name="l00025"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html">00025</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptSubView.html">ScriptSubView</a> : <span class="keyword">public</span> CSVDoc::SubView
+<a name="l00026"></a>00026     {
+<a name="l00027"></a>00027             Q_OBJECT
+<a name="l00028"></a>00028 
+<a name="l00029"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a00e00f47a97b742c889ca9a9c76b42ce">00029</a>             QTextEdit *<a class="code" href="classCSVWorld_1_1ScriptSubView.html#a00e00f47a97b742c889ca9a9c76b42ce">mEditor</a>;
+<a name="l00030"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a62bd3bae45f7dfe43dec49470f412c99">00030</a>             <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a62bd3bae45f7dfe43dec49470f412c99">mDocument</a>;
+<a name="l00031"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#ad92a048a88fc129593c2df5e425a24f3">00031</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">CSMWorld::IdTable</a> *<a class="code" href="classCSVWorld_1_1ScriptSubView.html#ad92a048a88fc129593c2df5e425a24f3">mModel</a>;
+<a name="l00032"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a24678880648a98d7942614e94890b21d">00032</a>             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a24678880648a98d7942614e94890b21d">mColumn</a>;
+<a name="l00033"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#aa308dd8801dc3f02b4232c44b4e99c34">00033</a>             <span class="keywordtype">int</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#aa308dd8801dc3f02b4232c44b4e99c34">mChangeLocked</a>;
+<a name="l00034"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#ad08c69709adb2f4ec811da895c53083c">00034</a>             <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html">ScriptHighlighter</a> *<a class="code" href="classCSVWorld_1_1ScriptSubView.html#ad08c69709adb2f4ec811da895c53083c">mHighlighter</a>;
+<a name="l00035"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#a653e8cdfc680a52c684ebc9fc8146c2e">00035</a>             QTimer <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a653e8cdfc680a52c684ebc9fc8146c2e">mUpdateTimer</a>;
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">00037</a>             <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>
+<a name="l00038"></a>00038             {
+<a name="l00039"></a><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a4e7ca23297a6611c5fa73d28a7b4502c">00039</a>                     <a class="code" href="classCSVWorld_1_1ScriptSubView.html">ScriptSubView</a>&amp; <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a4e7ca23297a6611c5fa73d28a7b4502c">mView</a>;
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a9e063633cf90d8bdfe724417506037bb">ChangeLock</a> (<span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>&amp;);
+<a name="l00042"></a>00042                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>&amp; <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#add436a881708c34a4f735c31714ee5b0">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>&amp;);
 <a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#abb59784703c92ce27bf4b45ae47626d4">00044</a>             <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>;
+<a name="l00044"></a>00044                 <span class="keyword">public</span>:
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046         <span class="keyword">public</span>:
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048             <a class="code" href="classCSVWorld_1_1ScriptSubView.html#afc84a861049a4ee593bbbe566cbff64e">ScriptSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document);
+<a name="l00046"></a>00046                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a9e063633cf90d8bdfe724417506037bb">ChangeLock</a> (<a class="code" href="classCSVWorld_1_1ScriptSubView.html">ScriptSubView</a>&amp; view);
+<a name="l00047"></a>00047                     <a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html#a89a29efeb2ea6920fff2790165502925">~ChangeLock</a>();
+<a name="l00048"></a>00048             };
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a31b8fb4abd6c24b55660a8325273a15d">setEditLock</a> (<span class="keywordtype">bool</span> locked);
+<a name="l00050"></a><a class="code" href="classCSVWorld_1_1ScriptSubView.html#abb59784703c92ce27bf4b45ae47626d4">00050</a>             <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptSubView_1_1ChangeLock.html">ChangeLock</a>;
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052         <span class="keyword">private</span> slots:
+<a name="l00052"></a>00052         <span class="keyword">public</span>:
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a91b30da223d0c1b559bcbfc487a5b26c">textChanged</a>();
+<a name="l00054"></a>00054             <a class="code" href="classCSVWorld_1_1ScriptSubView.html#afc84a861049a4ee593bbbe566cbff64e">ScriptSubView</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a>&amp; document);
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#ac1c4c59a4cf55263e65ea5128e4622e9">dataChanged</a> (<span class="keyword">const</span> QModelIndex&amp; topLeft, <span class="keyword">const</span> QModelIndex&amp; bottomRight);
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a31b8fb4abd6c24b55660a8325273a15d">setEditLock</a> (<span class="keywordtype">bool</span> locked);
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a1206ad12fe48298a601137b70ca8e4d1">rowsAboutToBeRemoved</a> (<span class="keyword">const</span> QModelIndex&amp; parent, <span class="keywordtype">int</span> start, <span class="keywordtype">int</span> end);
-<a name="l00059"></a>00059     };
-<a name="l00060"></a>00060 }
+<a name="l00058"></a>00058         <span class="keyword">public</span> slots:
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a8e35a89824ca7f39c139d4cd306eb2c5">idListChanged</a>();
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
+<a name="l00062"></a>00062             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a91b30da223d0c1b559bcbfc487a5b26c">textChanged</a>();
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#ac1c4c59a4cf55263e65ea5128e4622e9">dataChanged</a> (<span class="keyword">const</span> QModelIndex&amp; topLeft, <span class="keyword">const</span> QModelIndex&amp; bottomRight);
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a1206ad12fe48298a601137b70ca8e4d1">rowsAboutToBeRemoved</a> (<span class="keyword">const</span> QModelIndex&amp; parent, <span class="keywordtype">int</span> start, <span class="keywordtype">int</span> end);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keyword">private</span> slots:
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptSubView.html#a0b9f94b7c6c5b5086aed0822c0e0a7cc">updateHighlighting</a>();
+<a name="l00071"></a>00071     };
+<a name="l00072"></a>00072 }
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

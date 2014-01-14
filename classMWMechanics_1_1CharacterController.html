@@ -81,9 +81,10 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a47540403fbd9f18bbe047cff2c5a3c5f">CharacterController</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *anim)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#acc6c60fe20492ef8140e4ec5bbfb4352">~CharacterController</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#adba483bc487443fdd94ba53bad66b4c1">updateContinuousVfx</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a6b933f11409386f17c20a93a90329a1c">updatePtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a1aa04b41faf6c46eef9310e36e405be5">update</a> (float duration)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a6b53ec163a6c7209bc7caad5313744ae">playGroup</a> (const std::string &amp;groupname, int mode, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a6b53ec163a6c7209bc7caad5313744ae">playGroup</a> (const std::string &amp;groupname, int mode, int count)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#afb0d7242b8f1bd7ebd5185cd30855358">skipAnim</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a11a69e83f382cb057369e705f9c0782f">isAnimPlaying</a> (const std::string &amp;groupName)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a3794eeec7639fcfbab90ebc12d0503d9">kill</a> ()</td></tr>
@@ -99,6 +100,7 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a28038331bfd7c6c4ad2ff0de17ca08fa">refreshCurrentAnims</a> (<a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> idle, <a class="el" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> movement, bool force=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a91cf734388359775935c4f22fdbd05fc">clearAnimQueue</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a9d70c739fe29d69211838c900c3ea093">updateNpcState</a> (bool onground, bool inwater, bool isrunning, bool sneak)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#abbefe2ba2ed948e58f201d176250ec10">updateVisibility</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1CharacterController.html#a27712928efe32e13b1162bf45ffe9fb0">getWeaponGroup</a> (<a class="el" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> weaptype, std::string &amp;group)</td></tr>
@@ -441,6 +443,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="adba483bc487443fdd94ba53bad66b4c1"></a><!-- doxytag: member="MWMechanics::CharacterController::updateContinuousVfx" ref="adba483bc487443fdd94ba53bad66b4c1" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1CharacterController.html#adba483bc487443fdd94ba53bad66b4c1">MWMechanics::CharacterController::updateContinuousVfx</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a9d70c739fe29d69211838c900c3ea093"></a><!-- doxytag: member="MWMechanics::CharacterController::updateNpcState" ref="a9d70c739fe29d69211838c900c3ea093" args="(bool onground, bool inwater, bool isrunning, bool sneak)" -->
 <div class="memitem">
 <div class="memproto">
@@ -490,6 +508,22 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>ptr</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abbefe2ba2ed948e58f201d176250ec10"></a><!-- doxytag: member="MWMechanics::CharacterController::updateVisibility" ref="abbefe2ba2ed948e58f201d176250ec10" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWMechanics_1_1CharacterController.html#abbefe2ba2ed948e58f201d176250ec10">MWMechanics::CharacterController::updateVisibility</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -753,7 +787,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

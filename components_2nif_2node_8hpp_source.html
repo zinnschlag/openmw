@@ -194,144 +194,145 @@
 <a name="l00137"></a><a class="code" href="structNif_1_1NiNode.html#a73e2a379e36596f032176cc900322616af2ea272146bd1b41dd93f82b418fab90">00137</a>         <a class="code" href="structNif_1_1NiNode.html#a73e2a379e36596f032176cc900322616af2ea272146bd1b41dd93f82b418fab90">AnimFlag_AutoPlay</a> = 0x0020
 <a name="l00138"></a>00138     };
 <a name="l00139"></a><a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101">00139</a>     <span class="keyword">enum</span> <a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101">BSParticleFlags</a> {
-<a name="l00140"></a><a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101ae9a57ef40e7600d806bbb9c6cd2334b2">00140</a>         <a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101ae9a57ef40e7600d806bbb9c6cd2334b2">ParticleFlag_AutoPlay</a> = 0x0020
-<a name="l00141"></a>00141     };
-<a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="structNif_1_1NiNode.html#ac9a93c9d2ce93464d6316932d37bdf14">00143</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiNode.html#ac9a93c9d2ce93464d6316932d37bdf14" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00144"></a>00144     {
-<a name="l00145"></a>00145         <a class="code" href="structNif_1_1NiNode.html#ac9a93c9d2ce93464d6316932d37bdf14" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00146"></a>00146         <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
-<a name="l00147"></a>00147         <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>.<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
-<a name="l00148"></a>00148     }
-<a name="l00149"></a>00149 
-<a name="l00150"></a><a class="code" href="structNif_1_1NiNode.html#ad980489f5c7244f174b061c56b040817">00150</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiNode.html#ad980489f5c7244f174b061c56b040817" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00151"></a>00151     {
-<a name="l00152"></a>00152         <a class="code" href="structNif_1_1NiNode.html#ad980489f5c7244f174b061c56b040817" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
-<a name="l00153"></a>00153         <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
-<a name="l00154"></a>00154         <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>.<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
-<a name="l00155"></a>00155 
-<a name="l00156"></a>00156         <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#a87b79faa1d7751a8d88e27fd6f80dabb">length</a>();i++)
-<a name="l00157"></a>00157         {
-<a name="l00158"></a>00158             <span class="comment">// Why would a unique list of children contain empty refs?</span>
-<a name="l00159"></a>00159             <span class="keywordflow">if</span>(!<a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>[i].empty())
-<a name="l00160"></a>00160                 <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>[i]-&gt;<a class="code" href="classNif_1_1Node.html#a99ece2db72db102d66b7bc80b6a65670">parent</a> = <span class="keyword">this</span>;
-<a name="l00161"></a>00161         }
-<a name="l00162"></a>00162     }
-<a name="l00163"></a>00163 };
-<a name="l00164"></a>00164 
-<a name="l00165"></a><a class="code" href="structNif_1_1NiTriShape.html">00165</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiTriShape.html">NiTriShape</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00166"></a>00166 {
-<a name="l00167"></a>00167     <span class="comment">/* Possible flags:</span>
-<a name="l00168"></a>00168 <span class="comment">        0x40 - mesh has no vertex normals ?</span>
-<a name="l00169"></a>00169 <span class="comment"></span>
-<a name="l00170"></a>00170 <span class="comment">        Only flags included in 0x47 (ie. 0x01, 0x02, 0x04 and 0x40) have</span>
-<a name="l00171"></a>00171 <span class="comment">        been observed so far.</span>
-<a name="l00172"></a>00172 <span class="comment">    */</span>
-<a name="l00173"></a>00173 
-<a name="l00174"></a><a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">00174</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiTriShapeDataPtr</a> <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>;
-<a name="l00175"></a><a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">00175</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiSkinInstancePtr</a> <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>;
-<a name="l00176"></a>00176 
-<a name="l00177"></a><a class="code" href="structNif_1_1NiTriShape.html#a12f6fb6c25764c34818beb9f01e4a42b">00177</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTriShape.html#a12f6fb6c25764c34818beb9f01e4a42b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00178"></a>00178     {
-<a name="l00179"></a>00179         <a class="code" href="structNif_1_1NiTriShape.html#a12f6fb6c25764c34818beb9f01e4a42b" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00180"></a>00180         <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
-<a name="l00181"></a>00181         <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
-<a name="l00182"></a>00182     }
-<a name="l00183"></a>00183 
-<a name="l00184"></a><a class="code" href="structNif_1_1NiTriShape.html#ae9d1ee91b2b3b201eb038d5914db7ba7">00184</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTriShape.html#ae9d1ee91b2b3b201eb038d5914db7ba7" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00185"></a>00185     {
-<a name="l00186"></a>00186         <a class="code" href="structNif_1_1NiTriShape.html#ae9d1ee91b2b3b201eb038d5914db7ba7" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
-<a name="l00187"></a>00187         <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
-<a name="l00188"></a>00188         <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
-<a name="l00189"></a>00189     }
-<a name="l00190"></a>00190 };
-<a name="l00191"></a>00191 
-<a name="l00192"></a><a class="code" href="structNif_1_1NiCamera.html">00192</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera.html">NiCamera</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00193"></a>00193 {
-<a name="l00194"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">00194</a>     <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a>
-<a name="l00195"></a>00195     {
-<a name="l00196"></a>00196         <span class="comment">// Camera frustrum</span>
-<a name="l00197"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">00197</a>         <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6690b417a290f94163149ff8e0c6535c">left</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#aa61b8a06c8ddf6fa6ad979fdc509da3b">right</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">top</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a8219b41f6564058767763711a6ed2aaf">bottom</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a62181c13f3855f7d3a9481ea38c176cf">nearDist</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a51a664ca6efb2444605fb7e28b0102f0">farDist</a>;
-<a name="l00198"></a>00198 
-<a name="l00199"></a>00199         <span class="comment">// Viewport</span>
-<a name="l00200"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">00200</a>         <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5b2c3166910913d0d5e890c0d5257bf9">vleft</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a695773fb28e86ca2ba96457d1b661e8b">vright</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">vtop</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6784ca20551e43eea49188bd4c94e536">vbottom</a>;
-<a name="l00201"></a>00201 
-<a name="l00202"></a>00202         <span class="comment">// Level of detail modifier</span>
-<a name="l00203"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">00203</a>         <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">LOD</a>;
-<a name="l00204"></a>00204 
-<a name="l00205"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a87574538e309d038e29bac6544eecdba">00205</a>         <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a87574538e309d038e29bac6544eecdba">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00206"></a>00206         {
-<a name="l00207"></a>00207             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6690b417a290f94163149ff8e0c6535c">left</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00208"></a>00208             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#aa61b8a06c8ddf6fa6ad979fdc509da3b">right</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00209"></a>00209             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">top</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00210"></a>00210             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a8219b41f6564058767763711a6ed2aaf">bottom</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00211"></a>00211             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a62181c13f3855f7d3a9481ea38c176cf">nearDist</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00212"></a>00212             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a51a664ca6efb2444605fb7e28b0102f0">farDist</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00213"></a>00213 
-<a name="l00214"></a>00214             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5b2c3166910913d0d5e890c0d5257bf9">vleft</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00215"></a>00215             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a695773fb28e86ca2ba96457d1b661e8b">vright</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00216"></a>00216             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">vtop</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00217"></a>00217             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6784ca20551e43eea49188bd4c94e536">vbottom</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00218"></a>00218 
-<a name="l00219"></a>00219             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">LOD</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
-<a name="l00220"></a>00220         }
-<a name="l00221"></a>00221     };
-<a name="l00222"></a><a class="code" href="structNif_1_1NiCamera.html#ae1c2d30b8c1ad840f8c2a9aee83b9960">00222</a>     <a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a> <a class="code" href="structNif_1_1NiCamera.html#ae1c2d30b8c1ad840f8c2a9aee83b9960">cam</a>;
-<a name="l00223"></a>00223 
-<a name="l00224"></a><a class="code" href="structNif_1_1NiCamera.html#a5b43bb57a3e110ae58d44c961e89606e">00224</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiCamera.html#a5b43bb57a3e110ae58d44c961e89606e" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00225"></a>00225     {
-<a name="l00226"></a>00226         <a class="code" href="structNif_1_1NiCamera.html#a5b43bb57a3e110ae58d44c961e89606e" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00227"></a>00227 
-<a name="l00228"></a>00228         <a class="code" href="structNif_1_1NiCamera.html#ae1c2d30b8c1ad840f8c2a9aee83b9960">cam</a>.<a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a87574538e309d038e29bac6544eecdba">read</a>(nif);
-<a name="l00229"></a>00229 
-<a name="l00230"></a>00230         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// -1</span>
-<a name="l00231"></a>00231         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// 0</span>
-<a name="l00232"></a>00232     }
-<a name="l00233"></a>00233 };
-<a name="l00234"></a>00234 
-<a name="l00235"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html">00235</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiAutoNormalParticles.html">NiAutoNormalParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00236"></a>00236 {
-<a name="l00237"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">00237</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiAutoNormalParticlesDataPtr</a> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>;
-<a name="l00238"></a>00238 
-<a name="l00239"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a8a476ecadcf4c98ddd5177b451973579">00239</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a8a476ecadcf4c98ddd5177b451973579" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00240"></a>00240     {
-<a name="l00241"></a>00241         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a8a476ecadcf4c98ddd5177b451973579" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00242"></a>00242         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
-<a name="l00243"></a>00243         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// -1</span>
-<a name="l00244"></a>00244     }
-<a name="l00245"></a>00245 
-<a name="l00246"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a697b9eb33aa04467526c216de865a24e">00246</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a697b9eb33aa04467526c216de865a24e" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00247"></a>00247     {
-<a name="l00248"></a>00248         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a697b9eb33aa04467526c216de865a24e" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
-<a name="l00249"></a>00249         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
-<a name="l00250"></a>00250     }
-<a name="l00251"></a>00251 };
-<a name="l00252"></a>00252 
-<a name="l00253"></a><a class="code" href="structNif_1_1NiRotatingParticles.html">00253</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiRotatingParticles.html">NiRotatingParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
-<a name="l00254"></a>00254 {
-<a name="l00255"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">00255</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiRotatingParticlesDataPtr</a> <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>;
-<a name="l00256"></a>00256 
-<a name="l00257"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a52322ae38d309b2e8e8defc7e924a05f">00257</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiRotatingParticles.html#a52322ae38d309b2e8e8defc7e924a05f" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
-<a name="l00258"></a>00258     {
-<a name="l00259"></a>00259         <a class="code" href="structNif_1_1NiRotatingParticles.html#a52322ae38d309b2e8e8defc7e924a05f" title="Parses the record from file.">Node::read</a>(nif);
-<a name="l00260"></a>00260         <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
-<a name="l00261"></a>00261         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// -1</span>
-<a name="l00262"></a>00262     }
-<a name="l00263"></a>00263 
-<a name="l00264"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a5a1209bc5006d177dcfaf3a3fddff6ce">00264</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiRotatingParticles.html#a5a1209bc5006d177dcfaf3a3fddff6ce" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
-<a name="l00265"></a>00265     {
-<a name="l00266"></a>00266         <a class="code" href="structNif_1_1NiRotatingParticles.html#a5a1209bc5006d177dcfaf3a3fddff6ce" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
-<a name="l00267"></a>00267         <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
-<a name="l00268"></a>00268     }
-<a name="l00269"></a>00269 };
-<a name="l00270"></a>00270 
-<a name="l00271"></a>00271 } <span class="comment">// Namespace</span>
-<a name="l00272"></a>00272 <span class="preprocessor">#endif</span>
+<a name="l00140"></a><a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101ae9a57ef40e7600d806bbb9c6cd2334b2">00140</a>         <a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101ae9a57ef40e7600d806bbb9c6cd2334b2">ParticleFlag_AutoPlay</a> = 0x0020,
+<a name="l00141"></a><a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101ae8bea0c147fd5ff178ff1ffb514f68e3">00141</a>         <a class="code" href="structNif_1_1NiNode.html#a4990366a7bb1c09a8e32b68f002e6101ae8bea0c147fd5ff178ff1ffb514f68e3">ParticleFlag_LocalSpace</a> = 0x0080
+<a name="l00142"></a>00142     };
+<a name="l00143"></a>00143 
+<a name="l00144"></a><a class="code" href="structNif_1_1NiNode.html#ac9a93c9d2ce93464d6316932d37bdf14">00144</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiNode.html#ac9a93c9d2ce93464d6316932d37bdf14" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00145"></a>00145     {
+<a name="l00146"></a>00146         <a class="code" href="structNif_1_1NiNode.html#ac9a93c9d2ce93464d6316932d37bdf14" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00147"></a>00147         <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
+<a name="l00148"></a>00148         <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>.<a class="code" href="classNif_1_1RecordListT.html#aee5fb46679cd666711fc8a5183d65aff">read</a>(nif);
+<a name="l00149"></a>00149     }
+<a name="l00150"></a>00150 
+<a name="l00151"></a><a class="code" href="structNif_1_1NiNode.html#ad980489f5c7244f174b061c56b040817">00151</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiNode.html#ad980489f5c7244f174b061c56b040817" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00152"></a>00152     {
+<a name="l00153"></a>00153         <a class="code" href="structNif_1_1NiNode.html#ad980489f5c7244f174b061c56b040817" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
+<a name="l00154"></a>00154         <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
+<a name="l00155"></a>00155         <a class="code" href="structNif_1_1NiNode.html#ada9583727a5b052c14ed3e2807fdfe78">effects</a>.<a class="code" href="classNif_1_1RecordListT.html#a3cf8d9f9f3fd804f03af74baa8489df3">post</a>(nif);
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157         <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0;i &lt; <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>.<a class="code" href="classNif_1_1RecordListT.html#a87b79faa1d7751a8d88e27fd6f80dabb">length</a>();i++)
+<a name="l00158"></a>00158         {
+<a name="l00159"></a>00159             <span class="comment">// Why would a unique list of children contain empty refs?</span>
+<a name="l00160"></a>00160             <span class="keywordflow">if</span>(!<a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>[i].empty())
+<a name="l00161"></a>00161                 <a class="code" href="structNif_1_1NiNode.html#a90a44037985016fa8959eb2b419f91b7">children</a>[i]-&gt;<a class="code" href="classNif_1_1Node.html#a99ece2db72db102d66b7bc80b6a65670">parent</a> = <span class="keyword">this</span>;
+<a name="l00162"></a>00162         }
+<a name="l00163"></a>00163     }
+<a name="l00164"></a>00164 };
+<a name="l00165"></a>00165 
+<a name="l00166"></a><a class="code" href="structNif_1_1NiTriShape.html">00166</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiTriShape.html">NiTriShape</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00167"></a>00167 {
+<a name="l00168"></a>00168     <span class="comment">/* Possible flags:</span>
+<a name="l00169"></a>00169 <span class="comment">        0x40 - mesh has no vertex normals ?</span>
+<a name="l00170"></a>00170 <span class="comment"></span>
+<a name="l00171"></a>00171 <span class="comment">        Only flags included in 0x47 (ie. 0x01, 0x02, 0x04 and 0x40) have</span>
+<a name="l00172"></a>00172 <span class="comment">        been observed so far.</span>
+<a name="l00173"></a>00173 <span class="comment">    */</span>
+<a name="l00174"></a>00174 
+<a name="l00175"></a><a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">00175</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiTriShapeDataPtr</a> <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>;
+<a name="l00176"></a><a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">00176</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiSkinInstancePtr</a> <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>;
+<a name="l00177"></a>00177 
+<a name="l00178"></a><a class="code" href="structNif_1_1NiTriShape.html#a12f6fb6c25764c34818beb9f01e4a42b">00178</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTriShape.html#a12f6fb6c25764c34818beb9f01e4a42b" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00179"></a>00179     {
+<a name="l00180"></a>00180         <a class="code" href="structNif_1_1NiTriShape.html#a12f6fb6c25764c34818beb9f01e4a42b" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00181"></a>00181         <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00182"></a>00182         <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00183"></a>00183     }
+<a name="l00184"></a>00184 
+<a name="l00185"></a><a class="code" href="structNif_1_1NiTriShape.html#ae9d1ee91b2b3b201eb038d5914db7ba7">00185</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiTriShape.html#ae9d1ee91b2b3b201eb038d5914db7ba7" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00186"></a>00186     {
+<a name="l00187"></a>00187         <a class="code" href="structNif_1_1NiTriShape.html#ae9d1ee91b2b3b201eb038d5914db7ba7" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
+<a name="l00188"></a>00188         <a class="code" href="structNif_1_1NiTriShape.html#afa789cef1e80fd4da4a7a88189a8f6f2">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
+<a name="l00189"></a>00189         <a class="code" href="structNif_1_1NiTriShape.html#a09f9b3addc514b2528e17fb90dfbf413">skin</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
+<a name="l00190"></a>00190     }
+<a name="l00191"></a>00191 };
+<a name="l00192"></a>00192 
+<a name="l00193"></a><a class="code" href="structNif_1_1NiCamera.html">00193</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera.html">NiCamera</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00194"></a>00194 {
+<a name="l00195"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">00195</a>     <span class="keyword">struct </span><a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a>
+<a name="l00196"></a>00196     {
+<a name="l00197"></a>00197         <span class="comment">// Camera frustrum</span>
+<a name="l00198"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">00198</a>         <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6690b417a290f94163149ff8e0c6535c">left</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#aa61b8a06c8ddf6fa6ad979fdc509da3b">right</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">top</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a8219b41f6564058767763711a6ed2aaf">bottom</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a62181c13f3855f7d3a9481ea38c176cf">nearDist</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a51a664ca6efb2444605fb7e28b0102f0">farDist</a>;
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200         <span class="comment">// Viewport</span>
+<a name="l00201"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">00201</a>         <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5b2c3166910913d0d5e890c0d5257bf9">vleft</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a695773fb28e86ca2ba96457d1b661e8b">vright</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">vtop</a>, <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6784ca20551e43eea49188bd4c94e536">vbottom</a>;
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203         <span class="comment">// Level of detail modifier</span>
+<a name="l00204"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">00204</a>         <span class="keywordtype">float</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">LOD</a>;
+<a name="l00205"></a>00205 
+<a name="l00206"></a><a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a87574538e309d038e29bac6544eecdba">00206</a>         <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a87574538e309d038e29bac6544eecdba">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00207"></a>00207         {
+<a name="l00208"></a>00208             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6690b417a290f94163149ff8e0c6535c">left</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00209"></a>00209             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#aa61b8a06c8ddf6fa6ad979fdc509da3b">right</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00210"></a>00210             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a728a27652a621b46616a871ca6ddc238">top</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00211"></a>00211             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a8219b41f6564058767763711a6ed2aaf">bottom</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00212"></a>00212             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a62181c13f3855f7d3a9481ea38c176cf">nearDist</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00213"></a>00213             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a51a664ca6efb2444605fb7e28b0102f0">farDist</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00214"></a>00214 
+<a name="l00215"></a>00215             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5b2c3166910913d0d5e890c0d5257bf9">vleft</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00216"></a>00216             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a695773fb28e86ca2ba96457d1b661e8b">vright</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00217"></a>00217             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a5eda5884dbeae13b832c0686ffd6cc97">vtop</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00218"></a>00218             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a6784ca20551e43eea49188bd4c94e536">vbottom</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00219"></a>00219 
+<a name="l00220"></a>00220             <a class="code" href="structNif_1_1NiCamera_1_1Camera.html#acb49c94f5fad52deda3696df5bd83e7b">LOD</a> = nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#a2ab9619cfc563d721b267748e6805800">getFloat</a>();
+<a name="l00221"></a>00221         }
+<a name="l00222"></a>00222     };
+<a name="l00223"></a><a class="code" href="structNif_1_1NiCamera.html#ae1c2d30b8c1ad840f8c2a9aee83b9960">00223</a>     <a class="code" href="structNif_1_1NiCamera_1_1Camera.html">Camera</a> <a class="code" href="structNif_1_1NiCamera.html#ae1c2d30b8c1ad840f8c2a9aee83b9960">cam</a>;
+<a name="l00224"></a>00224 
+<a name="l00225"></a><a class="code" href="structNif_1_1NiCamera.html#a5b43bb57a3e110ae58d44c961e89606e">00225</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiCamera.html#a5b43bb57a3e110ae58d44c961e89606e" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00226"></a>00226     {
+<a name="l00227"></a>00227         <a class="code" href="structNif_1_1NiCamera.html#a5b43bb57a3e110ae58d44c961e89606e" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229         <a class="code" href="structNif_1_1NiCamera.html#ae1c2d30b8c1ad840f8c2a9aee83b9960">cam</a>.<a class="code" href="structNif_1_1NiCamera_1_1Camera.html#a87574538e309d038e29bac6544eecdba">read</a>(nif);
+<a name="l00230"></a>00230 
+<a name="l00231"></a>00231         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// -1</span>
+<a name="l00232"></a>00232         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// 0</span>
+<a name="l00233"></a>00233     }
+<a name="l00234"></a>00234 };
+<a name="l00235"></a>00235 
+<a name="l00236"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html">00236</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiAutoNormalParticles.html">NiAutoNormalParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00237"></a>00237 {
+<a name="l00238"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">00238</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiAutoNormalParticlesDataPtr</a> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>;
+<a name="l00239"></a>00239 
+<a name="l00240"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a8a476ecadcf4c98ddd5177b451973579">00240</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a8a476ecadcf4c98ddd5177b451973579" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00241"></a>00241     {
+<a name="l00242"></a>00242         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a8a476ecadcf4c98ddd5177b451973579" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00243"></a>00243         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00244"></a>00244         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// -1</span>
+<a name="l00245"></a>00245     }
+<a name="l00246"></a>00246 
+<a name="l00247"></a><a class="code" href="structNif_1_1NiAutoNormalParticles.html#a697b9eb33aa04467526c216de865a24e">00247</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a697b9eb33aa04467526c216de865a24e" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00248"></a>00248     {
+<a name="l00249"></a>00249         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a697b9eb33aa04467526c216de865a24e" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
+<a name="l00250"></a>00250         <a class="code" href="structNif_1_1NiAutoNormalParticles.html#a771ad7e1774440a7637ca0d0d16f54a9">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
+<a name="l00251"></a>00251     }
+<a name="l00252"></a>00252 };
+<a name="l00253"></a>00253 
+<a name="l00254"></a><a class="code" href="structNif_1_1NiRotatingParticles.html">00254</a> <span class="keyword">struct </span><a class="code" href="structNif_1_1NiRotatingParticles.html">NiRotatingParticles</a> : <a class="code" href="classNif_1_1Node.html">Node</a>
+<a name="l00255"></a>00255 {
+<a name="l00256"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">00256</a>     <a class="code" href="classNif_1_1RecordPtrT.html">NiRotatingParticlesDataPtr</a> <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>;
+<a name="l00257"></a>00257 
+<a name="l00258"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a52322ae38d309b2e8e8defc7e924a05f">00258</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiRotatingParticles.html#a52322ae38d309b2e8e8defc7e924a05f" title="Parses the record from file.">read</a>(<a class="code" href="classNif_1_1NIFStream.html">NIFStream</a> *nif)
+<a name="l00259"></a>00259     {
+<a name="l00260"></a>00260         <a class="code" href="structNif_1_1NiRotatingParticles.html#a52322ae38d309b2e8e8defc7e924a05f" title="Parses the record from file.">Node::read</a>(nif);
+<a name="l00261"></a>00261         <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a29b8d20a390329c7d5786939cc69273b" title="Read the index from the nif.">read</a>(nif);
+<a name="l00262"></a>00262         nif-&gt;<a class="code" href="classNif_1_1NIFStream.html#ac2ff4f85241ed39c84a9997c87ad8192">getInt</a>(); <span class="comment">// -1</span>
+<a name="l00263"></a>00263     }
+<a name="l00264"></a>00264 
+<a name="l00265"></a><a class="code" href="structNif_1_1NiRotatingParticles.html#a5a1209bc5006d177dcfaf3a3fddff6ce">00265</a>     <span class="keywordtype">void</span> <a class="code" href="structNif_1_1NiRotatingParticles.html#a5a1209bc5006d177dcfaf3a3fddff6ce" title="Does post-processing, after the entire tree is loaded.">post</a>(<a class="code" href="classNif_1_1NIFFile.html">NIFFile</a> *nif)
+<a name="l00266"></a>00266     {
+<a name="l00267"></a>00267         <a class="code" href="structNif_1_1NiRotatingParticles.html#a5a1209bc5006d177dcfaf3a3fddff6ce" title="Does post-processing, after the entire tree is loaded.">Node::post</a>(nif);
+<a name="l00268"></a>00268         <a class="code" href="structNif_1_1NiRotatingParticles.html#a26df58a3db5fa54400a36324ed95963c">data</a>.<a class="code" href="classNif_1_1RecordPtrT.html#a2cf8867b8ac10506b4005d28f6dc997b" title="Resolve index to pointer.">post</a>(nif);
+<a name="l00269"></a>00269     }
+<a name="l00270"></a>00270 };
+<a name="l00271"></a>00271 
+<a name="l00272"></a>00272 } <span class="comment">// Namespace</span>
+<a name="l00273"></a>00273 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

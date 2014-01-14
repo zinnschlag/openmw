@@ -87,11 +87,11 @@
 <a name="l00027"></a>00027     <span class="comment">// all methods are known.</span>
 <a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="structMWWorld_1_1CellRefList.html#aa679202603c8ac5941a160edfc4d3232">load</a>(<a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a> &amp;ref, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;esmStore);
 <a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="structMWWorld_1_1CellRefList.html#a20cd9ab4c89a6d47db4668e109235b32">00030</a>     <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveRef</a> *<a class="code" href="structMWWorld_1_1CellRefList.html#a20cd9ab4c89a6d47db4668e109235b32">find</a> (<span class="keyword">const</span> std::string&amp; name)
+<a name="l00030"></a><a class="code" href="structMWWorld_1_1CellRefList.html#a20cd9ab4c89a6d47db4668e109235b32">00030</a>     <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveRef</a> *<a class="code" href="structMWWorld_1_1CellRefList.html#a20cd9ab4c89a6d47db4668e109235b32">find</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)
 <a name="l00031"></a>00031     {
 <a name="l00032"></a>00032         <span class="keywordflow">for</span> (<span class="keyword">typename</span> std::list&lt;LiveRef&gt;::iterator iter (<a class="code" href="structMWWorld_1_1CellRefList.html#ab06c6309d0ecb76b444861cc48d26ea1">mList</a>.begin()); iter!=<a class="code" href="structMWWorld_1_1CellRefList.html#ab06c6309d0ecb76b444861cc48d26ea1">mList</a>.end(); ++iter)
 <a name="l00033"></a>00033         {
-<a name="l00034"></a>00034             <span class="keywordflow">if</span> (iter-&gt;mData.getCount() &gt; 0 &amp;&amp; iter-&gt;mRef.mRefID == name)
+<a name="l00034"></a>00034             <span class="keywordflow">if</span> (iter-&gt;mData.getCount() &gt; 0 &amp;&amp; iter-&gt;mRef.mRefID == <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)
 <a name="l00035"></a>00035                 <span class="keywordflow">return</span> &amp;*iter;
 <a name="l00036"></a>00036         }
 <a name="l00037"></a>00037 
@@ -196,25 +196,28 @@
 <a name="l00140"></a>00140     {
 <a name="l00141"></a>00141         <span class="keywordflow">for</span> (<span class="keyword">typename</span> List::List::iterator iter (list.mList.begin()); iter!=list.mList.end();
 <a name="l00142"></a>00142             ++iter)
-<a name="l00143"></a>00143             <span class="keywordflow">if</span> (!functor (iter-&gt;mRef, iter-&gt;mData))
-<a name="l00144"></a>00144                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00145"></a>00145 
-<a name="l00146"></a>00146         <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00147"></a>00147     }
-<a name="l00148"></a>00148 
-<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a66021af212c731dca5269fa253a9ec47" title="Run through references and store IDs.">listRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
+<a name="l00143"></a>00143         {
+<a name="l00144"></a>00144             <span class="keywordflow">if</span> (!iter-&gt;mData.getCount())
+<a name="l00145"></a>00145                 <span class="keywordflow">continue</span>;
+<a name="l00146"></a>00146             <span class="keywordflow">if</span> (!functor (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>(&amp;*iter, <span class="keyword">this</span>)))
+<a name="l00147"></a>00147                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00148"></a>00148         }
+<a name="l00149"></a>00149         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00150"></a>00150     }
 <a name="l00151"></a>00151 
-<a name="l00152"></a>00152     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a60e9322d478c2bb292dead6b1be07d32">loadRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
-<a name="l00153"></a>00153 
-<a name="l00154"></a>00154   };
-<a name="l00155"></a>00155 }
+<a name="l00153"></a>00153     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a66021af212c731dca5269fa253a9ec47" title="Run through references and store IDs.">listRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155     <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1CellStore.html#a60e9322d478c2bb292dead6b1be07d32">loadRefs</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> &amp;store, std::vector&lt;ESM::ESMReader&gt; &amp;esm);
 <a name="l00156"></a>00156 
-<a name="l00157"></a>00157 <span class="preprocessor">#endif</span>
+<a name="l00157"></a>00157   };
+<a name="l00158"></a>00158 }
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

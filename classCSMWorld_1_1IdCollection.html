@@ -78,7 +78,9 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdCollection.html#a321a5f8212c6e53f8388fe2ea62d79ef">load</a> (<a class="el" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;reader, bool base, <a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type=<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdCollection.html#a6d85a62d8a1962acfe1770c78185b254">load</a> (<a class="el" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;reader, bool base)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdCollection.html#ab76edacdc35686218ea7f7b37092d5a3">load</a> (const ESXRecordT &amp;record, bool base)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1IdCollection.html#ad6fc1057bba4eea768354914aee51a6b">tryDelete</a> (const std::string &amp;id)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename ESXRecordT, typename IdAccessorT = IdAccessor&lt;ESXRecordT&gt;&gt;<br/>
@@ -86,14 +88,14 @@ class CSMWorld::IdCollection&lt; ESXRecordT, IdAccessorT &gt;</h3>
 
 <p>Single type collection of top level records. </p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a321a5f8212c6e53f8388fe2ea62d79ef"></a><!-- doxytag: member="CSMWorld::IdCollection::load" ref="a321a5f8212c6e53f8388fe2ea62d79ef" args="(ESM::ESMReader &amp;reader, bool base, UniversalId::Type type=UniversalId::Type_None)" -->
+<a class="anchor" id="a6d85a62d8a1962acfe1770c78185b254"></a><!-- doxytag: member="CSMWorld::IdCollection::load" ref="a6d85a62d8a1962acfe1770c78185b254" args="(ESM::ESMReader &amp;reader, bool base)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdCollection.html">CSMWorld::IdCollection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1IdCollection.html#a321a5f8212c6e53f8388fe2ea62d79ef">load</a> </td>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdCollection.html">CSMWorld::IdCollection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1IdCollection.html#a6d85a62d8a1962acfe1770c78185b254">load</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;&#160;</td>
           <td class="paramname"><em>reader</em>, </td>
@@ -102,13 +104,7 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em> = <code><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a></code>&#160;</td>
+          <td class="paramname"><em>base</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -118,13 +114,57 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>Will be ignored, unless the collection supports multiple record types </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>report the problem to the user </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000027">Todo:</a></b></dt><dd>report the problem to the user </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab76edacdc35686218ea7f7b37092d5a3"></a><!-- doxytag: member="CSMWorld::IdCollection::load" ref="ab76edacdc35686218ea7f7b37092d5a3" args="(const ESXRecordT &amp;record, bool base)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT, typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1IdCollection.html">CSMWorld::IdCollection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1IdCollection.html#a6d85a62d8a1962acfe1770c78185b254">load</a> </td>
+          <td>(</td>
+          <td class="paramtype">const ESXRecordT &amp;&#160;</td>
+          <td class="paramname"><em>record</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>base</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad6fc1057bba4eea768354914aee51a6b"></a><!-- doxytag: member="CSMWorld::IdCollection::tryDelete" ref="ad6fc1057bba4eea768354914aee51a6b" args="(const std::string &amp;id)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCSMWorld_1_1IdCollection.html">CSMWorld::IdCollection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1IdCollection.html#ad6fc1057bba4eea768354914aee51a6b">tryDelete</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Try deleting <em>id</em>. If the id does not exist or can't be deleted the call is ignored.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Has the ID been deleted? </dd></dl>
 
 </div>
 </div>
@@ -135,7 +175,7 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

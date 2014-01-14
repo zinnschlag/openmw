@@ -76,30 +76,32 @@
 <a name="l00015"></a>00015 
 <a name="l00016"></a><a class="code" href="structESM_1_1Ingredient.html">00016</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Ingredient.html">Ingredient</a>
 <a name="l00017"></a>00017 {
-<a name="l00018"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html">00018</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html">IRDTstruct</a>
-<a name="l00019"></a>00019     {
-<a name="l00020"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ab1525bb3eb22324fbf87a8ddf26a5f75">00020</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ab1525bb3eb22324fbf87a8ddf26a5f75">mWeight</a>;
-<a name="l00021"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ad119019a607d7c88301b1c1cfc89689c">00021</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ad119019a607d7c88301b1c1cfc89689c">mValue</a>;
-<a name="l00022"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a9ba1bdc1edcc02fdf5ae67eebf7c6d13">00022</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a9ba1bdc1edcc02fdf5ae67eebf7c6d13">mEffectID</a>[4]; <span class="comment">// Effect, 0 or -1 means none</span>
-<a name="l00023"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a59e96daaff3b78aed89a6e607a929d39">00023</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a59e96daaff3b78aed89a6e607a929d39">mSkills</a>[4]; <span class="comment">// SkillEnum related to effect</span>
-<a name="l00024"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a904729a1c578449ceb8d5703eaeca65b">00024</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a904729a1c578449ceb8d5703eaeca65b">mAttributes</a>[4]; <span class="comment">// Attribute related to effect</span>
-<a name="l00025"></a>00025     };
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="structESM_1_1Ingredient.html#ae784bdc178e54e95ab531541572c534f">00027</a>     <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html">IRDTstruct</a> <a class="code" href="structESM_1_1Ingredient.html#ae784bdc178e54e95ab531541572c534f">mData</a>;
-<a name="l00028"></a><a class="code" href="structESM_1_1Ingredient.html#aa6d15021d8f3061694211ce527043000">00028</a>     std::string <a class="code" href="structESM_1_1Ingredient.html#ae5b223224f3c5087d87abca692d7058b">mId</a>, <a class="code" href="structESM_1_1Ingredient.html#a87d00a272759f84d24bfb2ea09941fb1">mName</a>, <a class="code" href="structESM_1_1Ingredient.html#a3377a4bab65ab4765b16a89f41c85708">mModel</a>, <a class="code" href="structESM_1_1Ingredient.html#ab98e2df595c0150cdf90a9cf28791d88">mIcon</a>, <a class="code" href="structESM_1_1Ingredient.html#aa6d15021d8f3061694211ce527043000">mScript</a>;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Ingredient.html#aae209853818e49022ff86e4a3c0e1b0a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00031"></a>00031     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Ingredient.html#a738808df53483ed7b249f14acac1a608">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Ingredient.html#ad67b2c840ef202c81ef34c6d6dc3e8c6" title="Set record to default state (does not touch the ID).">blank</a>();
-<a name="l00035"></a>00035 };
-<a name="l00036"></a>00036 }
-<a name="l00037"></a>00037 <span class="preprocessor">#endif</span>
+<a name="l00018"></a><a class="code" href="structESM_1_1Ingredient.html#a0384e22f8d35b254786a49efd5b32fab">00018</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient.html#a0384e22f8d35b254786a49efd5b32fab">sRecordId</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html">00020</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html">IRDTstruct</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ab1525bb3eb22324fbf87a8ddf26a5f75">00022</a>         <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ab1525bb3eb22324fbf87a8ddf26a5f75">mWeight</a>;
+<a name="l00023"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ad119019a607d7c88301b1c1cfc89689c">00023</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#ad119019a607d7c88301b1c1cfc89689c">mValue</a>;
+<a name="l00024"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a9ba1bdc1edcc02fdf5ae67eebf7c6d13">00024</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a9ba1bdc1edcc02fdf5ae67eebf7c6d13">mEffectID</a>[4]; <span class="comment">// Effect, 0 or -1 means none</span>
+<a name="l00025"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a59e96daaff3b78aed89a6e607a929d39">00025</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a59e96daaff3b78aed89a6e607a929d39">mSkills</a>[4]; <span class="comment">// SkillEnum related to effect</span>
+<a name="l00026"></a><a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a904729a1c578449ceb8d5703eaeca65b">00026</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html#a904729a1c578449ceb8d5703eaeca65b">mAttributes</a>[4]; <span class="comment">// Attribute related to effect</span>
+<a name="l00027"></a>00027     };
+<a name="l00028"></a>00028 
+<a name="l00029"></a><a class="code" href="structESM_1_1Ingredient.html#ae784bdc178e54e95ab531541572c534f">00029</a>     <a class="code" href="structESM_1_1Ingredient_1_1IRDTstruct.html">IRDTstruct</a> <a class="code" href="structESM_1_1Ingredient.html#ae784bdc178e54e95ab531541572c534f">mData</a>;
+<a name="l00030"></a><a class="code" href="structESM_1_1Ingredient.html#aa6d15021d8f3061694211ce527043000">00030</a>     std::string <a class="code" href="structESM_1_1Ingredient.html#ae5b223224f3c5087d87abca692d7058b">mId</a>, <a class="code" href="structESM_1_1Ingredient.html#a87d00a272759f84d24bfb2ea09941fb1">mName</a>, <a class="code" href="structESM_1_1Ingredient.html#a3377a4bab65ab4765b16a89f41c85708">mModel</a>, <a class="code" href="structESM_1_1Ingredient.html#ab98e2df595c0150cdf90a9cf28791d88">mIcon</a>, <a class="code" href="structESM_1_1Ingredient.html#aa6d15021d8f3061694211ce527043000">mScript</a>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Ingredient.html#aae209853818e49022ff86e4a3c0e1b0a">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Ingredient.html#a2c9d0fe96bd3f4b3bf55fe4c4b0a78e0">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Ingredient.html#ad67b2c840ef202c81ef34c6d6dc3e8c6" title="Set record to default state (does not touch the ID).">blank</a>();
+<a name="l00037"></a>00037 };
+<a name="l00038"></a>00038 }
+<a name="l00039"></a>00039 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

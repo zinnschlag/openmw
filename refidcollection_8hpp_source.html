@@ -70,84 +70,95 @@
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="collectionbase_8hpp.html">collectionbase.hpp</a>&quot;</span>
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="refiddata_8hpp.html">refiddata.hpp</a>&quot;</span>
 <a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>CSMWorld
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>ESM
 <a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">class </span>RefIdAdapter;
-<a name="l00015"></a>00015 
-<a name="l00016"></a><a class="code" href="classCSMWorld_1_1RefIdColumn.html">00016</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1RefIdColumn.html">RefIdColumn</a> : <span class="keyword">public</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>
-<a name="l00017"></a>00017     {
-<a name="l00018"></a><a class="code" href="classCSMWorld_1_1RefIdColumn.html#a518ce96424580ef573595c8a059caf8e">00018</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a518ce96424580ef573595c8a059caf8e">mEditable</a>;
-<a name="l00019"></a><a class="code" href="classCSMWorld_1_1RefIdColumn.html#a0ae55ab68cccaedcbc43e9859f6ac168">00019</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a0ae55ab68cccaedcbc43e9859f6ac168">mUserEditable</a>;
+<a name="l00014"></a>00014     <span class="keyword">class </span>ESMWriter;
+<a name="l00015"></a>00015 }
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="keyword">namespace </span>CSMWorld
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019     <span class="keyword">class </span>RefIdAdapter;
 <a name="l00020"></a>00020 
-<a name="l00021"></a>00021         <span class="keyword">public</span>:
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023             <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a6b0e617ac8d949a8c8cc8f1bd79306f3">RefIdColumn</a> (<span class="keywordtype">int</span> columnId, <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> displayType,
-<a name="l00024"></a>00024                 <span class="keywordtype">int</span> flag = <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788af99d69e6ac5c7ef367a582d6e2206380">Flag_Table</a> | <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788a537fc4ee45f76e41d3e6a73befc2c9d2">Flag_Dialogue</a>, <span class="keywordtype">bool</span> editable = <span class="keyword">true</span>,
-<a name="l00025"></a>00025                 <span class="keywordtype">bool</span> userEditable = <span class="keyword">true</span>);
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a6abda7eb584da8c8ffd94972d7134478">isEditable</a>() <span class="keyword">const</span>;
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a07a2f0a5acbec3418e0ae94142dac730" title="Can this column be edited directly by the user?">isUserEditable</a>() <span class="keyword">const</span>;
-<a name="l00030"></a>00030     };
+<a name="l00021"></a><a class="code" href="classCSMWorld_1_1RefIdColumn.html">00021</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1RefIdColumn.html">RefIdColumn</a> : <span class="keyword">public</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>
+<a name="l00022"></a>00022     {
+<a name="l00023"></a><a class="code" href="classCSMWorld_1_1RefIdColumn.html#a518ce96424580ef573595c8a059caf8e">00023</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a518ce96424580ef573595c8a059caf8e">mEditable</a>;
+<a name="l00024"></a><a class="code" href="classCSMWorld_1_1RefIdColumn.html#a0ae55ab68cccaedcbc43e9859f6ac168">00024</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a0ae55ab68cccaedcbc43e9859f6ac168">mUserEditable</a>;
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keyword">public</span>:
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028             <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a6b0e617ac8d949a8c8cc8f1bd79306f3">RefIdColumn</a> (<span class="keywordtype">int</span> columnId, <a class="code" href="structCSMWorld_1_1ColumnBase.html#abf371752910fa5a73a99774a50a5b560">Display</a> displayType,
+<a name="l00029"></a>00029                 <span class="keywordtype">int</span> flag = <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788af99d69e6ac5c7ef367a582d6e2206380">Flag_Table</a> | <a class="code" href="structCSMWorld_1_1ColumnBase.html#a3f68edca35e2fd2a9c2bf21006519788a537fc4ee45f76e41d3e6a73befc2c9d2">Flag_Dialogue</a>, <span class="keywordtype">bool</span> editable = <span class="keyword">true</span>,
+<a name="l00030"></a>00030                 <span class="keywordtype">bool</span> userEditable = <span class="keyword">true</span>);
 <a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html">00032</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1RefIdCollection.html">RefIdCollection</a> : <span class="keyword">public</span> <a class="code" href="classCSMWorld_1_1CollectionBase.html" title="Base class for record collections.">CollectionBase</a>
-<a name="l00033"></a>00033     {
-<a name="l00034"></a>00034         <span class="keyword">private</span>:
-<a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html#a8213853ec93874b5273243faf06911f7">00036</a>             <a class="code" href="classCSMWorld_1_1RefIdData.html">RefIdData</a> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a8213853ec93874b5273243faf06911f7">mData</a>;
-<a name="l00037"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html#ada19e5f4e746c3e103d0bee83f172787">00037</a>             std::deque&lt;RefIdColumn&gt; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ada19e5f4e746c3e103d0bee83f172787">mColumns</a>;
-<a name="l00038"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html#ac132c7f7aab63699684ce1d57db8f626">00038</a>             std::map&lt;UniversalId::Type, RefIdAdapter *&gt; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ac132c7f7aab63699684ce1d57db8f626">mAdapters</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040         <span class="keyword">private</span>:
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042             <span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1RefIdAdapter.html">RefIdAdapter</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a0da60585df1ce3df949f6f0692894295" title="Throws an exception if no adaptor for Type can be found.">findAdaptor</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>) <span class="keyword">const</span>;
+<a name="l00032"></a>00032             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a6abda7eb584da8c8ffd94972d7134478">isEditable</a>() <span class="keyword">const</span>;
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdColumn.html#a07a2f0a5acbec3418e0ae94142dac730" title="Can this column be edited directly by the user?">isUserEditable</a>() <span class="keyword">const</span>;
+<a name="l00035"></a>00035     };
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html">00037</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1RefIdCollection.html">RefIdCollection</a> : <span class="keyword">public</span> <a class="code" href="classCSMWorld_1_1CollectionBase.html" title="Base class for record collections.">CollectionBase</a>
+<a name="l00038"></a>00038     {
+<a name="l00039"></a>00039         <span class="keyword">private</span>:
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html#a8213853ec93874b5273243faf06911f7">00041</a>             <a class="code" href="classCSMWorld_1_1RefIdData.html">RefIdData</a> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a8213853ec93874b5273243faf06911f7">mData</a>;
+<a name="l00042"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html#ada19e5f4e746c3e103d0bee83f172787">00042</a>             std::deque&lt;RefIdColumn&gt; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ada19e5f4e746c3e103d0bee83f172787">mColumns</a>;
+<a name="l00043"></a><a class="code" href="classCSMWorld_1_1RefIdCollection.html#ac132c7f7aab63699684ce1d57db8f626">00043</a>             std::map&lt;UniversalId::Type, RefIdAdapter *&gt; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ac132c7f7aab63699684ce1d57db8f626">mAdapters</a>;
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keyword">public</span>:
+<a name="l00045"></a>00045         <span class="keyword">private</span>:
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <a class="code" href="classCSMWorld_1_1RefIdCollection.html#aed41d0498994a24b3e333fa3e031472c">RefIdCollection</a>();
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <span class="keyword">virtual</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#aaab6f2b74482b5b7e726116074e2ae8a">~RefIdCollection</a>();
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a454efa6791d87afcda3023a5033be26c">getSize</a>() <span class="keyword">const</span>;
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053             <span class="keyword">virtual</span> std::string <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a14a27d299af3848ca88ead395310767d">getId</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a52ac5349807060c86e8d4066c8085f62">getIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ae6d81177a6302f83a3e855a5d353f058">getColumns</a>() <span class="keyword">const</span>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a26279509215a870dcb56b2d5c1fc38bf">getColumn</a> (<span class="keywordtype">int</span> column) <span class="keyword">const</span>;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <span class="keyword">virtual</span> QVariant <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ad989bc59d0f5a33824508a4670722e96">getData</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> column) <span class="keyword">const</span>;
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ab4f7188d1705830b6734c23f6eada64c">setData</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> column, <span class="keyword">const</span> QVariant&amp; data);
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a0484b33f9dc8d98aee2ac9f78f0a26ef" title="&lt; Merge modified into base.">removeRows</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a60c9063f37649bba168acf5d2889a8de">appendBlankRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
+<a name="l00047"></a>00047             <span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1RefIdAdapter.html">RefIdAdapter</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a0da60585df1ce3df949f6f0692894295" title="Throws an exception if no adaptor for Type can be found.">findAdaptor</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>) <span class="keyword">const</span>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050         <span class="keyword">public</span>:
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052             <a class="code" href="classCSMWorld_1_1RefIdCollection.html#aed41d0498994a24b3e333fa3e031472c">RefIdCollection</a>();
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054             <span class="keyword">virtual</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#aaab6f2b74482b5b7e726116074e2ae8a">~RefIdCollection</a>();
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a454efa6791d87afcda3023a5033be26c">getSize</a>() <span class="keyword">const</span>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058             <span class="keyword">virtual</span> std::string <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a14a27d299af3848ca88ead395310767d">getId</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a52ac5349807060c86e8d4066c8085f62">getIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ae6d81177a6302f83a3e855a5d353f058">getColumns</a>() <span class="keyword">const</span>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1ColumnBase.html">ColumnBase</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a26279509215a870dcb56b2d5c1fc38bf">getColumn</a> (<span class="keywordtype">int</span> column) <span class="keyword">const</span>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066             <span class="keyword">virtual</span> QVariant <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ad989bc59d0f5a33824508a4670722e96">getData</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> column) <span class="keyword">const</span>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#ab4f7188d1705830b6734c23f6eada64c">setData</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> column, <span class="keyword">const</span> QVariant&amp; data);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a579cb4bb8bb3bc5f164d0a693bf454a0">searchId</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a78a1239e6f7af4d04b2d6c1f88f0666a">replace</a> (<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record);
+<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a0484b33f9dc8d98aee2ac9f78f0a26ef" title="&lt; Merge modified into base.">removeRows</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">int</span> count);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a60c9063f37649bba168acf5d2889a8de">appendBlankRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a579cb4bb8bb3bc5f164d0a693bf454a0">searchId</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
 <a name="l00078"></a>00078 
-<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a9d484fadc65e73b7baf14db1fbcce03e">appendRecord</a> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
+<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a78a1239e6f7af4d04b2d6c1f88f0666a">replace</a> (<span class="keywordtype">int</span> index, <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record);
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a22eb835285503adf89b261ddeef2af53">getRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a22eb835285503adf89b261ddeef2af53">getRecord</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a554d6f74abdbccaa894a399d8c836a54">load</a> (<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a>&amp; reader, <span class="keywordtype">bool</span> base, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a6d28a46a186be150b5614934252c5f35">getAppendIndex</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type) <span class="keyword">const</span>;
-<a name="l00092"></a>00092     };
-<a name="l00093"></a>00093 }
+<a name="l00084"></a>00084             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a9d484fadc65e73b7baf14db1fbcce03e">appendRecord</a> (<span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; record, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a22eb835285503adf89b261ddeef2af53">getRecord</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a>&amp; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a22eb835285503adf89b261ddeef2af53">getRecord</a> (<span class="keywordtype">int</span> index) <span class="keyword">const</span>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a554d6f74abdbccaa894a399d8c836a54">load</a> (<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a>&amp; reader, <span class="keywordtype">bool</span> base, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095 <span class="preprocessor">#endif</span>
+<a name="l00095"></a>00095             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a9f9dbeddf79617c55dd50758cbfefe88">getAppendIndex</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type) <span class="keyword">const</span>;
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098             <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a7204f5784cbce31dd23d6da212d90bc0">getIds</a> (<span class="keywordtype">bool</span> listDeleted) <span class="keyword">const</span>;
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#a8d726abd2b213cf730f0ffa1a675385e">reorderRows</a> (<span class="keywordtype">int</span> baseIndex, <span class="keyword">const</span> std::vector&lt;int&gt;&amp; newOrder);
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RefIdCollection.html#abdc15e5678587f8933fef4219509d80e">save</a> (<span class="keywordtype">int</span> index, <a class="code" href="classESM_1_1ESMWriter.html">ESM::ESMWriter</a>&amp; writer) <span class="keyword">const</span>;
+<a name="l00110"></a>00110     };
+<a name="l00111"></a>00111 }
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

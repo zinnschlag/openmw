@@ -77,144 +77,145 @@
 <a name="l00016"></a>00016 
 <a name="l00017"></a>00017 <span class="keyword">namespace </span>ESM
 <a name="l00018"></a>00018 {
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">class </span>ESMReader;
-<a name="l00021"></a>00021 <span class="keyword">class </span>ESMWriter;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="comment">/* Moved cell reference tracking object. This mainly stores the target cell</span>
-<a name="l00024"></a>00024 <span class="comment">        of the reference, so we can easily know where it has been moved when another</span>
-<a name="l00025"></a>00025 <span class="comment">        plugin tries to move it independently.</span>
-<a name="l00026"></a>00026 <span class="comment">    Unfortunately, we need to implement this here.</span>
-<a name="l00027"></a>00027 <span class="comment">    */</span>
-<a name="l00028"></a><a class="code" href="classESM_1_1MovedCellRef.html">00028</a> <span class="keyword">class </span><a class="code" href="classESM_1_1MovedCellRef.html">MovedCellRef</a>
-<a name="l00029"></a>00029 {
-<a name="l00030"></a>00030 <span class="keyword">public</span>:
-<a name="l00031"></a><a class="code" href="classESM_1_1MovedCellRef.html#af383d0fc55e99eca74635c7a14737f32">00031</a>     <span class="keywordtype">int</span> <a class="code" href="classESM_1_1MovedCellRef.html#af383d0fc55e99eca74635c7a14737f32">mRefnum</a>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033     <span class="comment">// Target cell (if exterior)</span>
-<a name="l00034"></a><a class="code" href="classESM_1_1MovedCellRef.html#a547567f35228bb1ec6ab082f566bcfc3">00034</a>     <span class="keywordtype">int</span> <a class="code" href="classESM_1_1MovedCellRef.html#a547567f35228bb1ec6ab082f566bcfc3">mTarget</a>[2];
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036     <span class="comment">// TODO: Support moving references between exterior and interior cells!</span>
-<a name="l00037"></a>00037     <span class="comment">//  This may happen in saves, when an NPC follows the player. Tribunal</span>
-<a name="l00038"></a>00038     <span class="comment">//  introduces a henchman (which no one uses), so we may need this as well.</span>
-<a name="l00039"></a>00039 };
-<a name="l00040"></a>00040 
-<a name="l00042"></a>00042 <span class="keywordtype">bool</span> <a class="code" href="namespaceESM.html#afd7c0db437d580c274e5ad45c966497d" title="Some overloaded compare operators.">operator==</a>(<span class="keyword">const</span> <a class="code" href="classESM_1_1MovedCellRef.html">MovedCellRef</a>&amp; ref, <span class="keywordtype">int</span> pRefnum);
-<a name="l00043"></a>00043 <span class="keywordtype">bool</span> <a class="code" href="namespaceESM.html#afd7c0db437d580c274e5ad45c966497d" title="Some overloaded compare operators.">operator==</a>(<span class="keyword">const</span> <a class="code" href="classESM_1_1CellRef.html">CellRef</a>&amp; ref, <span class="keywordtype">int</span> pRefnum);
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="namespaceESM.html#a81602f42f85a0a90f74967bff8ced998">00045</a> <span class="keyword">typedef</span> std::list&lt;MovedCellRef&gt; <a class="code" href="namespaceESM.html#a81602f42f85a0a90f74967bff8ced998">MovedCellRefTracker</a>;
-<a name="l00046"></a><a class="code" href="namespaceESM.html#a9f1af94f9a433cd121fceac10083c6de">00046</a> <span class="keyword">typedef</span> std::list&lt;CellRef&gt; <a class="code" href="namespaceESM.html#a9f1af94f9a433cd121fceac10083c6de">CellRefTracker</a>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048 <span class="comment">/* Cells hold data about objects, creatures, statics (rocks, walls,</span>
-<a name="l00049"></a>00049 <span class="comment">   buildings) and landscape (for exterior cells). Cells frequently</span>
-<a name="l00050"></a>00050 <span class="comment">   also has other associated LAND and PGRD records. Combined, all this</span>
-<a name="l00051"></a>00051 <span class="comment">   data can be huge, and we cannot load it all at startup. Instead,</span>
-<a name="l00052"></a>00052 <span class="comment">   the strategy we use is to remember the file position of each cell</span>
-<a name="l00053"></a>00053 <span class="comment">   (using ESMReader::getContext()) and jumping back into place</span>
-<a name="l00054"></a>00054 <span class="comment">   whenever we need to load a given cell.</span>
-<a name="l00055"></a>00055 <span class="comment"> */</span>
-<a name="l00056"></a><a class="code" href="structESM_1_1Cell.html">00056</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Cell.html">Cell</a>
-<a name="l00057"></a>00057 {
-<a name="l00058"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660">00058</a>   <span class="keyword">enum</span> <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660">Flags</a>
-<a name="l00059"></a>00059     {
-<a name="l00060"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">00060</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">Interior</a>  = 0x01, <span class="comment">// Interior cell</span>
-<a name="l00061"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a2375a2f7a29e28c8f43209d6f6995736">00061</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a2375a2f7a29e28c8f43209d6f6995736">HasWater</a>  = 0x02, <span class="comment">// Does this cell have a water surface</span>
-<a name="l00062"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660aed3c5829801fd48ce0a3e14bd812727f">00062</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660aed3c5829801fd48ce0a3e14bd812727f">NoSleep</a>   = 0x04, <span class="comment">// Is it allowed to sleep here (without a bed)</span>
-<a name="l00063"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a62470299cef5f75465b1acf39b00d97c">00063</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a62470299cef5f75465b1acf39b00d97c">QuasiEx</a>   = 0x80  <span class="comment">// Behave like exterior (Tribunal+), with</span>
-<a name="l00064"></a>00064                         <span class="comment">// skybox and weather</span>
-<a name="l00065"></a>00065     };
-<a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">00067</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">DATAstruct</a>
-<a name="l00068"></a>00068   {
-<a name="l00069"></a><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">00069</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a>;
-<a name="l00070"></a><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">00070</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>, <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>;
-<a name="l00071"></a>00071   };
-<a name="l00072"></a>00072 
-<a name="l00073"></a><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">00073</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">AMBIstruct</a>
-<a name="l00074"></a>00074   {
-<a name="l00075"></a><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a90319420e94d7526d0b47d3bc835d190">00075</a>     <a class="code" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">Color</a> <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a9a1b3ff605c01c010f346e3af8725fe5">mAmbient</a>, <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a90319420e94d7526d0b47d3bc835d190">mSunlight</a>, <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a38c88ebc7bba62e1b40abeb04fbfacf1">mFog</a>;
-<a name="l00076"></a><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#af3936bc46a65640f1948e5b6f0a22667">00076</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#af3936bc46a65640f1948e5b6f0a22667">mFogDensity</a>;
-<a name="l00077"></a>00077   };
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079   <span class="comment">// Interior cells are indexed by this (it&#39;s the &#39;id&#39;), for exterior</span>
-<a name="l00080"></a>00080   <span class="comment">// cells it is optional.</span>
-<a name="l00081"></a><a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">00081</a>   std::string <a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>;
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083   <span class="comment">// Optional region name for exterior and quasi-exterior cells.</span>
-<a name="l00084"></a><a class="code" href="structESM_1_1Cell.html#a5bbe622a536fdf952d3fee6f225b5736">00084</a>   std::string <a class="code" href="structESM_1_1Cell.html#a5bbe622a536fdf952d3fee6f225b5736">mRegion</a>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a><a class="code" href="structESM_1_1Cell.html#a94c72a5b1a4b149980297caf92d950f6">00086</a>   std::vector&lt;ESM_Context&gt; <a class="code" href="structESM_1_1Cell.html#a94c72a5b1a4b149980297caf92d950f6">mContextList</a>; <span class="comment">// File position; multiple positions for multiple plugin support</span>
-<a name="l00087"></a><a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">00087</a>   <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">DATAstruct</a> <a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>;
-<a name="l00088"></a><a class="code" href="structESM_1_1Cell.html#a5affd69dbdf2f92b4957b6fd44ccafce">00088</a>   <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">AMBIstruct</a> <a class="code" href="structESM_1_1Cell.html#a5affd69dbdf2f92b4957b6fd44ccafce">mAmbi</a>;
-<a name="l00089"></a><a class="code" href="structESM_1_1Cell.html#afdd2bb155f17d6173887fa0cebd47f5d">00089</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Cell.html#afdd2bb155f17d6173887fa0cebd47f5d">mWater</a>; <span class="comment">// Water level</span>
-<a name="l00090"></a><a class="code" href="structESM_1_1Cell.html#a34aaf22887ac32f51d0e276bf9639117">00090</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a34aaf22887ac32f51d0e276bf9639117">mWaterInt</a>;
-<a name="l00091"></a><a class="code" href="structESM_1_1Cell.html#a7ae539985d042c3811f48389c90e1412">00091</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a7ae539985d042c3811f48389c90e1412">mMapColor</a>;
-<a name="l00092"></a><a class="code" href="structESM_1_1Cell.html#a9733c01bcf778863b2a472351bfcb4c4">00092</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a9733c01bcf778863b2a472351bfcb4c4">mNAM0</a>;
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094   <span class="comment">// References &quot;leased&quot; from another cell (i.e. a different cell</span>
-<a name="l00095"></a>00095   <span class="comment">//  introduced this ref, and it has been moved here by a plugin)</span>
-<a name="l00096"></a><a class="code" href="structESM_1_1Cell.html#a98cab4b22c7a80a063b3b324ea139901">00096</a>   <a class="code" href="namespaceESM.html#a9f1af94f9a433cd121fceac10083c6de">CellRefTracker</a> <a class="code" href="structESM_1_1Cell.html#a98cab4b22c7a80a063b3b324ea139901">mLeasedRefs</a>;
-<a name="l00097"></a><a class="code" href="structESM_1_1Cell.html#a9ee446db6863fc0a59a883f95c0bf618">00097</a>   <a class="code" href="namespaceESM.html#a81602f42f85a0a90f74967bff8ced998">MovedCellRefTracker</a> <a class="code" href="structESM_1_1Cell.html#a9ee446db6863fc0a59a883f95c0bf618">mMovedRefs</a>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a83a29d9d0f74a403a3a54336d7ceaa53">preLoad</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00100"></a>00100   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a1b8a87512338b1216ea5aeb9bf0848cc">postLoad</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102   <span class="comment">// This method is left in for compatibility with esmtool. Parsing moved references currently requires</span>
-<a name="l00103"></a>00103   <span class="comment">//  passing ESMStore, bit it does not know about this parameter, so we do it this way.</span>
-<a name="l00104"></a>00104   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a0e9a5f147b321197df9e5ea9ec68c498">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keywordtype">bool</span> saveContext = <span class="keyword">true</span>);
-<a name="l00105"></a>00105   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a03da7589c2761e2fe027b51f69c29c24">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00106"></a>00106 
-<a name="l00107"></a><a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">00107</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()<span class="keyword"> const</span>
-<a name="l00108"></a>00108 <span class="keyword">  </span>{
-<a name="l00109"></a>00109       <span class="keywordflow">return</span> !(<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">Interior</a>);
-<a name="l00110"></a>00110   }
-<a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">00112</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>()<span class="keyword"> const</span>
-<a name="l00113"></a>00113 <span class="keyword">  </span>{
-<a name="l00114"></a>00114       <span class="keywordflow">return</span> <a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>;
-<a name="l00115"></a>00115   }
-<a name="l00116"></a>00116 
-<a name="l00117"></a><a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">00117</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>()<span class="keyword"> const</span>
-<a name="l00118"></a>00118 <span class="keyword">  </span>{
-<a name="l00119"></a>00119       <span class="keywordflow">return</span> <a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>;
-<a name="l00120"></a>00120   }
-<a name="l00121"></a>00121 
-<a name="l00122"></a><a class="code" href="structESM_1_1Cell.html#a397bd56f4fd345353910ef363811a97e">00122</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a397bd56f4fd345353910ef363811a97e">hasWater</a>()<span class="keyword"> const</span>
-<a name="l00123"></a>00123 <span class="keyword">  </span>{
-<a name="l00124"></a>00124       <span class="keywordflow">return</span> (<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a>&amp;<a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a2375a2f7a29e28c8f43209d6f6995736">HasWater</a>);
-<a name="l00125"></a>00125   }
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127   <span class="comment">// Restore the given reader to the stored position. Will try to open</span>
-<a name="l00128"></a>00128   <span class="comment">// the file matching the stored file name. If you want to read from</span>
-<a name="l00129"></a>00129   <span class="comment">// somewhere other than the file system, you need to pre-open the</span>
-<a name="l00130"></a>00130   <span class="comment">// ESMReader, and the filename must match the stored filename</span>
-<a name="l00131"></a>00131   <span class="comment">// exactly.</span>
-<a name="l00132"></a>00132   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#af812968bd998cb0b96f7940171b77609">restore</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keywordtype">int</span> iCtx) <span class="keyword">const</span>;
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134   std::string <a class="code" href="structESM_1_1Cell.html#a12ba0ed5b1a64c3bb26b19c4ce16b28a" title="Return a short string describing the cell (mostly used for debugging/logging purpose)">getDescription</a>() <span class="keyword">const</span>;
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137   <span class="comment">/* Get the next reference in this cell, if any. Returns false when</span>
-<a name="l00138"></a>00138 <span class="comment">     there are no more references in the cell.</span>
-<a name="l00139"></a>00139 <span class="comment"></span>
-<a name="l00140"></a>00140 <span class="comment">     All fields of the CellRef struct are overwritten. You can safely</span>
-<a name="l00141"></a>00141 <span class="comment">     reuse one memory location without blanking it between calls.</span>
-<a name="l00142"></a>00142 <span class="comment">  */</span>
-<a name="l00143"></a>00143   <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#ac5c1acf3ab162a2db21f3a03e9f95b38">getNextRef</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref);
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145   <span class="comment">/* This fetches an MVRF record, which is used to track moved references.</span>
-<a name="l00146"></a>00146 <span class="comment">   * Since they are comparably rare, we use a separate method for this.</span>
-<a name="l00147"></a>00147 <span class="comment">   */</span>
-<a name="l00148"></a>00148   <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a4d51fc8ba734799f60f558e8db5f9026">getNextMVRF</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <a class="code" href="classESM_1_1MovedCellRef.html">MovedCellRef</a> &amp;mref);
-<a name="l00149"></a>00149 
-<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#afc8def245a89fe37257f2c0f608826ce" title="Set record to default state (does not touch the ID/index).">blank</a>();
-<a name="l00152"></a>00152 };
-<a name="l00153"></a>00153 }
-<a name="l00154"></a>00154 <span class="preprocessor">#endif</span>
+<a name="l00019"></a>00019 <span class="keyword">class </span>ESMReader;
+<a name="l00020"></a>00020 <span class="keyword">class </span>ESMWriter;
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="comment">/* Moved cell reference tracking object. This mainly stores the target cell</span>
+<a name="l00023"></a>00023 <span class="comment">        of the reference, so we can easily know where it has been moved when another</span>
+<a name="l00024"></a>00024 <span class="comment">        plugin tries to move it independently.</span>
+<a name="l00025"></a>00025 <span class="comment">    Unfortunately, we need to implement this here.</span>
+<a name="l00026"></a>00026 <span class="comment">    */</span>
+<a name="l00027"></a><a class="code" href="classESM_1_1MovedCellRef.html">00027</a> <span class="keyword">class </span><a class="code" href="classESM_1_1MovedCellRef.html">MovedCellRef</a>
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029 <span class="keyword">public</span>:
+<a name="l00030"></a><a class="code" href="classESM_1_1MovedCellRef.html#af383d0fc55e99eca74635c7a14737f32">00030</a>     <span class="keywordtype">int</span> <a class="code" href="classESM_1_1MovedCellRef.html#af383d0fc55e99eca74635c7a14737f32">mRefnum</a>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     <span class="comment">// Target cell (if exterior)</span>
+<a name="l00033"></a><a class="code" href="classESM_1_1MovedCellRef.html#a547567f35228bb1ec6ab082f566bcfc3">00033</a>     <span class="keywordtype">int</span> <a class="code" href="classESM_1_1MovedCellRef.html#a547567f35228bb1ec6ab082f566bcfc3">mTarget</a>[2];
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035     <span class="comment">// TODO: Support moving references between exterior and interior cells!</span>
+<a name="l00036"></a>00036     <span class="comment">//  This may happen in saves, when an NPC follows the player. Tribunal</span>
+<a name="l00037"></a>00037     <span class="comment">//  introduces a henchman (which no one uses), so we may need this as well.</span>
+<a name="l00038"></a>00038 };
+<a name="l00039"></a>00039 
+<a name="l00041"></a>00041 <span class="keywordtype">bool</span> <a class="code" href="namespaceESM.html#afd7c0db437d580c274e5ad45c966497d" title="Some overloaded compare operators.">operator==</a>(<span class="keyword">const</span> <a class="code" href="classESM_1_1MovedCellRef.html">MovedCellRef</a>&amp; ref, <span class="keywordtype">int</span> pRefnum);
+<a name="l00042"></a>00042 <span class="keywordtype">bool</span> <a class="code" href="namespaceESM.html#afd7c0db437d580c274e5ad45c966497d" title="Some overloaded compare operators.">operator==</a>(<span class="keyword">const</span> <a class="code" href="classESM_1_1CellRef.html">CellRef</a>&amp; ref, <span class="keywordtype">int</span> pRefnum);
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="namespaceESM.html#a81602f42f85a0a90f74967bff8ced998">00044</a> <span class="keyword">typedef</span> std::list&lt;MovedCellRef&gt; <a class="code" href="namespaceESM.html#a81602f42f85a0a90f74967bff8ced998">MovedCellRefTracker</a>;
+<a name="l00045"></a><a class="code" href="namespaceESM.html#a9f1af94f9a433cd121fceac10083c6de">00045</a> <span class="keyword">typedef</span> std::list&lt;CellRef&gt; <a class="code" href="namespaceESM.html#a9f1af94f9a433cd121fceac10083c6de">CellRefTracker</a>;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 <span class="comment">/* Cells hold data about objects, creatures, statics (rocks, walls,</span>
+<a name="l00048"></a>00048 <span class="comment">   buildings) and landscape (for exterior cells). Cells frequently</span>
+<a name="l00049"></a>00049 <span class="comment">   also has other associated LAND and PGRD records. Combined, all this</span>
+<a name="l00050"></a>00050 <span class="comment">   data can be huge, and we cannot load it all at startup. Instead,</span>
+<a name="l00051"></a>00051 <span class="comment">   the strategy we use is to remember the file position of each cell</span>
+<a name="l00052"></a>00052 <span class="comment">   (using ESMReader::getContext()) and jumping back into place</span>
+<a name="l00053"></a>00053 <span class="comment">   whenever we need to load a given cell.</span>
+<a name="l00054"></a>00054 <span class="comment"> */</span>
+<a name="l00055"></a><a class="code" href="structESM_1_1Cell.html">00055</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Cell.html">Cell</a>
+<a name="l00056"></a>00056 {
+<a name="l00057"></a><a class="code" href="structESM_1_1Cell.html#ad50e226889d1546daeae4b25a087edd7">00057</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#ad50e226889d1546daeae4b25a087edd7">sRecordId</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660">00059</a>   <span class="keyword">enum</span> <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660">Flags</a>
+<a name="l00060"></a>00060     {
+<a name="l00061"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">00061</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">Interior</a>  = 0x01, <span class="comment">// Interior cell</span>
+<a name="l00062"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a2375a2f7a29e28c8f43209d6f6995736">00062</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a2375a2f7a29e28c8f43209d6f6995736">HasWater</a>  = 0x02, <span class="comment">// Does this cell have a water surface</span>
+<a name="l00063"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660aed3c5829801fd48ce0a3e14bd812727f">00063</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660aed3c5829801fd48ce0a3e14bd812727f">NoSleep</a>   = 0x04, <span class="comment">// Is it allowed to sleep here (without a bed)</span>
+<a name="l00064"></a><a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a62470299cef5f75465b1acf39b00d97c">00064</a>       <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a62470299cef5f75465b1acf39b00d97c">QuasiEx</a>   = 0x80  <span class="comment">// Behave like exterior (Tribunal+), with</span>
+<a name="l00065"></a>00065                         <span class="comment">// skybox and weather</span>
+<a name="l00066"></a>00066     };
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">00068</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">DATAstruct</a>
+<a name="l00069"></a>00069   {
+<a name="l00070"></a><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">00070</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a>;
+<a name="l00071"></a><a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">00071</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>, <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>;
+<a name="l00072"></a>00072   };
+<a name="l00073"></a>00073 
+<a name="l00074"></a><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">00074</a>   <span class="keyword">struct </span><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">AMBIstruct</a>
+<a name="l00075"></a>00075   {
+<a name="l00076"></a><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a90319420e94d7526d0b47d3bc835d190">00076</a>     <a class="code" href="namespaceESM.html#a266c397ab24baace8fd8ebda94098cc9">Color</a> <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a9a1b3ff605c01c010f346e3af8725fe5">mAmbient</a>, <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a90319420e94d7526d0b47d3bc835d190">mSunlight</a>, <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#a38c88ebc7bba62e1b40abeb04fbfacf1">mFog</a>;
+<a name="l00077"></a><a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#af3936bc46a65640f1948e5b6f0a22667">00077</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html#af3936bc46a65640f1948e5b6f0a22667">mFogDensity</a>;
+<a name="l00078"></a>00078   };
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080   <span class="comment">// Interior cells are indexed by this (it&#39;s the &#39;id&#39;), for exterior</span>
+<a name="l00081"></a>00081   <span class="comment">// cells it is optional.</span>
+<a name="l00082"></a><a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">00082</a>   std::string <a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084   <span class="comment">// Optional region name for exterior and quasi-exterior cells.</span>
+<a name="l00085"></a><a class="code" href="structESM_1_1Cell.html#a5bbe622a536fdf952d3fee6f225b5736">00085</a>   std::string <a class="code" href="structESM_1_1Cell.html#a5bbe622a536fdf952d3fee6f225b5736">mRegion</a>;
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="structESM_1_1Cell.html#a94c72a5b1a4b149980297caf92d950f6">00087</a>   std::vector&lt;ESM_Context&gt; <a class="code" href="structESM_1_1Cell.html#a94c72a5b1a4b149980297caf92d950f6">mContextList</a>; <span class="comment">// File position; multiple positions for multiple plugin support</span>
+<a name="l00088"></a><a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">00088</a>   <a class="code" href="structESM_1_1Cell_1_1DATAstruct.html">DATAstruct</a> <a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>;
+<a name="l00089"></a><a class="code" href="structESM_1_1Cell.html#a5affd69dbdf2f92b4957b6fd44ccafce">00089</a>   <a class="code" href="structESM_1_1Cell_1_1AMBIstruct.html">AMBIstruct</a> <a class="code" href="structESM_1_1Cell.html#a5affd69dbdf2f92b4957b6fd44ccafce">mAmbi</a>;
+<a name="l00090"></a><a class="code" href="structESM_1_1Cell.html#afdd2bb155f17d6173887fa0cebd47f5d">00090</a>   <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Cell.html#afdd2bb155f17d6173887fa0cebd47f5d">mWater</a>; <span class="comment">// Water level</span>
+<a name="l00091"></a><a class="code" href="structESM_1_1Cell.html#a34aaf22887ac32f51d0e276bf9639117">00091</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a34aaf22887ac32f51d0e276bf9639117">mWaterInt</a>;
+<a name="l00092"></a><a class="code" href="structESM_1_1Cell.html#a7ae539985d042c3811f48389c90e1412">00092</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a7ae539985d042c3811f48389c90e1412">mMapColor</a>;
+<a name="l00093"></a><a class="code" href="structESM_1_1Cell.html#a9733c01bcf778863b2a472351bfcb4c4">00093</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a9733c01bcf778863b2a472351bfcb4c4">mNAM0</a>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095   <span class="comment">// References &quot;leased&quot; from another cell (i.e. a different cell</span>
+<a name="l00096"></a>00096   <span class="comment">//  introduced this ref, and it has been moved here by a plugin)</span>
+<a name="l00097"></a><a class="code" href="structESM_1_1Cell.html#a98cab4b22c7a80a063b3b324ea139901">00097</a>   <a class="code" href="namespaceESM.html#a9f1af94f9a433cd121fceac10083c6de">CellRefTracker</a> <a class="code" href="structESM_1_1Cell.html#a98cab4b22c7a80a063b3b324ea139901">mLeasedRefs</a>;
+<a name="l00098"></a><a class="code" href="structESM_1_1Cell.html#a9ee446db6863fc0a59a883f95c0bf618">00098</a>   <a class="code" href="namespaceESM.html#a81602f42f85a0a90f74967bff8ced998">MovedCellRefTracker</a> <a class="code" href="structESM_1_1Cell.html#a9ee446db6863fc0a59a883f95c0bf618">mMovedRefs</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a83a29d9d0f74a403a3a54336d7ceaa53">preLoad</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00101"></a>00101   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a1b8a87512338b1216ea5aeb9bf0848cc">postLoad</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103   <span class="comment">// This method is left in for compatibility with esmtool. Parsing moved references currently requires</span>
+<a name="l00104"></a>00104   <span class="comment">//  passing ESMStore, bit it does not know about this parameter, so we do it this way.</span>
+<a name="l00105"></a>00105   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#a0e9a5f147b321197df9e5ea9ec68c498">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keywordtype">bool</span> saveContext = <span class="keyword">true</span>);
+<a name="l00106"></a>00106   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#af1c1062e5afdc0cabaeda2c381b967fc">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">00108</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()<span class="keyword"> const</span>
+<a name="l00109"></a>00109 <span class="keyword">  </span>{
+<a name="l00110"></a>00110       <span class="keywordflow">return</span> !(<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">Interior</a>);
+<a name="l00111"></a>00111   }
+<a name="l00112"></a>00112 
+<a name="l00113"></a><a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">00113</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>()<span class="keyword"> const</span>
+<a name="l00114"></a>00114 <span class="keyword">  </span>{
+<a name="l00115"></a>00115       <span class="keywordflow">return</span> <a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>;
+<a name="l00116"></a>00116   }
+<a name="l00117"></a>00117 
+<a name="l00118"></a><a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">00118</a>   <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>()<span class="keyword"> const</span>
+<a name="l00119"></a>00119 <span class="keyword">  </span>{
+<a name="l00120"></a>00120       <span class="keywordflow">return</span> <a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>;
+<a name="l00121"></a>00121   }
+<a name="l00122"></a>00122 
+<a name="l00123"></a><a class="code" href="structESM_1_1Cell.html#a397bd56f4fd345353910ef363811a97e">00123</a>   <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a397bd56f4fd345353910ef363811a97e">hasWater</a>()<span class="keyword"> const</span>
+<a name="l00124"></a>00124 <span class="keyword">  </span>{
+<a name="l00125"></a>00125       <span class="keywordflow">return</span> (<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a>&amp;<a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660a2375a2f7a29e28c8f43209d6f6995736">HasWater</a>);
+<a name="l00126"></a>00126   }
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128   <span class="comment">// Restore the given reader to the stored position. Will try to open</span>
+<a name="l00129"></a>00129   <span class="comment">// the file matching the stored file name. If you want to read from</span>
+<a name="l00130"></a>00130   <span class="comment">// somewhere other than the file system, you need to pre-open the</span>
+<a name="l00131"></a>00131   <span class="comment">// ESMReader, and the filename must match the stored filename</span>
+<a name="l00132"></a>00132   <span class="comment">// exactly.</span>
+<a name="l00133"></a>00133   <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#af812968bd998cb0b96f7940171b77609">restore</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <span class="keywordtype">int</span> iCtx) <span class="keyword">const</span>;
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135   std::string <a class="code" href="structESM_1_1Cell.html#a12ba0ed5b1a64c3bb26b19c4ce16b28a" title="Return a short string describing the cell (mostly used for debugging/logging purpose)">getDescription</a>() <span class="keyword">const</span>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138   <span class="comment">/* Get the next reference in this cell, if any. Returns false when</span>
+<a name="l00139"></a>00139 <span class="comment">     there are no more references in the cell.</span>
+<a name="l00140"></a>00140 <span class="comment"></span>
+<a name="l00141"></a>00141 <span class="comment">     All fields of the CellRef struct are overwritten. You can safely</span>
+<a name="l00142"></a>00142 <span class="comment">     reuse one memory location without blanking it between calls.</span>
+<a name="l00143"></a>00143 <span class="comment">  */</span>
+<a name="l00144"></a>00144   <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#ac5c1acf3ab162a2db21f3a03e9f95b38">getNextRef</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <a class="code" href="classESM_1_1CellRef.html">CellRef</a> &amp;ref);
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146   <span class="comment">/* This fetches an MVRF record, which is used to track moved references.</span>
+<a name="l00147"></a>00147 <span class="comment">   * Since they are comparably rare, we use a separate method for this.</span>
+<a name="l00148"></a>00148 <span class="comment">   */</span>
+<a name="l00149"></a>00149   <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structESM_1_1Cell.html#a4d51fc8ba734799f60f558e8db5f9026">getNextMVRF</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm, <a class="code" href="classESM_1_1MovedCellRef.html">MovedCellRef</a> &amp;mref);
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Cell.html#afc8def245a89fe37257f2c0f608826ce" title="Set record to default state (does not touch the ID/index).">blank</a>();
+<a name="l00153"></a>00153 };
+<a name="l00154"></a>00154 }
+<a name="l00155"></a>00155 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

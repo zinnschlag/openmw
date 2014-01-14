@@ -62,96 +62,144 @@
 <a href="datafilespage_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef DATAFILESPAGE_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define DATAFILESPAGE_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QWidget&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QModelIndex&gt;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;ui_datafilespage.h&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QWidget&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;ui_datafilespage.h&quot;</span>
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">class </span>QSortFilterProxyModel;
-<a name="l00010"></a>00010 <span class="keyword">class </span>QAbstractItemModel;
-<a name="l00011"></a>00011 <span class="keyword">class </span>QAction;
-<a name="l00012"></a>00012 <span class="keyword">class </span>QMenu;
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">class </span><a class="code" href="classDataFilesModel.html">DataFilesModel</a>;
-<a name="l00015"></a>00015 <span class="keyword">class </span><a class="code" href="classTextInputDialog.html">TextInputDialog</a>;
-<a name="l00016"></a>00016 <span class="keyword">class </span><a class="code" href="classGameSettings.html">GameSettings</a>;
-<a name="l00017"></a>00017 <span class="keyword">class </span><a class="code" href="classLauncherSettings.html">LauncherSettings</a>;
-<a name="l00018"></a>00018 <span class="keyword">class </span><a class="code" href="classPluginsProxyModel.html">PluginsProxyModel</a>;
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="namespaceFiles.html">00020</a> <span class="keyword">namespace </span>Files { <span class="keyword">struct </span><a class="code" href="structFiles_1_1ConfigurationManager.html">ConfigurationManager</a>; }
-<a name="l00021"></a>00021 
-<a name="l00022"></a><a class="code" href="classDataFilesPage.html">00022</a> <span class="keyword">class </span><a class="code" href="classDataFilesPage.html">DataFilesPage</a> : <span class="keyword">public</span> QWidget, <span class="keyword">private</span> Ui::<a class="code" href="classDataFilesPage.html">DataFilesPage</a>
-<a name="l00023"></a>00023 {
-<a name="l00024"></a>00024     Q_OBJECT
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">public</span>:
-<a name="l00027"></a>00027     <a class="code" href="classDataFilesPage.html#a3b58bd4ef8d247c430ec28ba9dc80c03">DataFilesPage</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg, <a class="code" href="classGameSettings.html">GameSettings</a> &amp;gameSettings, <a class="code" href="classLauncherSettings.html">LauncherSettings</a> &amp;launcherSettings, QWidget *parent = 0);
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;QDir&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;QFile&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">class </span>QSortFilterProxyModel;
+<a name="l00012"></a>00012 <span class="keyword">class </span>QAbstractItemModel;
+<a name="l00013"></a>00013 <span class="keyword">class </span>QMenu;
+<a name="l00014"></a>00014 
+<a name="l00015"></a><a class="code" href="namespaceFiles.html">00015</a> <span class="keyword">namespace </span>Files { <span class="keyword">struct </span><a class="code" href="structFiles_1_1ConfigurationManager.html">ConfigurationManager</a>; }
+<a name="l00016"></a><a class="code" href="namespaceContentSelectorView.html">00016</a> <span class="keyword">namespace </span>ContentSelectorView { <span class="keyword">class </span><a class="code" href="classContentSelectorView_1_1ContentSelector.html">ContentSelector</a>; }
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="namespaceLauncher.html">00018</a> <span class="keyword">namespace </span>Launcher
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020     <span class="keyword">class </span><a class="code" href="classLauncher_1_1TextInputDialog.html">TextInputDialog</a>;
+<a name="l00021"></a>00021     <span class="keyword">class </span><a class="code" href="classLauncher_1_1GameSettings.html">GameSettings</a>;
+<a name="l00022"></a>00022     <span class="keyword">class </span><a class="code" href="classLauncher_1_1LauncherSettings.html">LauncherSettings</a>;
+<a name="l00023"></a>00023     <span class="keyword">class </span><a class="code" href="classProfilesComboBox.html">ProfilesComboBox</a>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classLauncher_1_1DataFilesPage.html">00025</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1DataFilesPage.html">DataFilesPage</a> : <span class="keyword">public</span> QWidget
+<a name="l00026"></a>00026     {
+<a name="l00027"></a>00027         Q_OBJECT
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029     QAbstractItemModel* <a class="code" href="classDataFilesPage.html#aca912f4a9078ef94755869d8d6d23bb4">profilesComboBoxModel</a>();
-<a name="l00030"></a>00030     <span class="keywordtype">int</span> <a class="code" href="classDataFilesPage.html#aa4fae4814e61b36d6f682d74fd5ff91b">profilesComboBoxIndex</a>();
+<a name="l00029"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#a477d3b2367e7d48ae17aa9124df076fc">00029</a>         <a class="code" href="classContentSelectorView_1_1ContentSelector.html">ContentSelectorView::ContentSelector</a> *<a class="code" href="classLauncher_1_1DataFilesPage.html#a477d3b2367e7d48ae17aa9124df076fc">mSelector</a>;
+<a name="l00030"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#a7ae76b81c401c8dadb9e3f37de41125a">00030</a>         Ui::DataFilesPage <a class="code" href="classLauncher_1_1DataFilesPage.html#a7ae76b81c401c8dadb9e3f37de41125a">ui</a>;
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#abf28a7fb245fdad0bf9c6db9ea8875d5">writeConfig</a>(QString profile = QString());
-<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#ab50bad07e311548e936a34ae098231a4">saveSettings</a>();
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 signals:
-<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#ad6e755f7fca55e1e2c5a52af6a640837">profileChanged</a>(<span class="keywordtype">int</span> index);
+<a name="l00032"></a>00032     <span class="keyword">public</span>:
+<a name="l00033"></a>00033         <span class="keyword">explicit</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#acb50027372ead1ad75e6dddd05ef2353">DataFilesPage</a> (<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg, <a class="code" href="classLauncher_1_1GameSettings.html">GameSettings</a> &amp;gameSettings,
+<a name="l00034"></a>00034                                 <a class="code" href="classLauncher_1_1LauncherSettings.html">LauncherSettings</a> &amp;launcherSettings, QWidget *parent = 0);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036         QAbstractItemModel* <a class="code" href="classLauncher_1_1DataFilesPage.html#a8cc088e2946f2f4b934842d75b994664">profilesModel</a>() <span class="keyword">const</span>;
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">public</span> slots:
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#afc5dbaad0d3e27d46720d7d326e4ed99">setCheckState</a>(QModelIndex index);
-<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#acfd35a1c2649ab51ce5f0e2595f3790e">setProfilesComboBoxIndex</a>(<span class="keywordtype">int</span> index);
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a0fee86bb33f4c2fa62582379eeadff81">filterChanged</a>(<span class="keyword">const</span> QString filter);
-<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a79fa1fb33b3e0c56961256e0302cbb5d">showContextMenu</a>(<span class="keyword">const</span> QPoint &amp;point);
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#ad6e755f7fca55e1e2c5a52af6a640837">profileChanged</a>(<span class="keyword">const</span> QString &amp;previous, <span class="keyword">const</span> QString &amp;current);
-<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a4a7e9345c53fb0e4936cd58834092abd">profileRenamed</a>(<span class="keyword">const</span> QString &amp;previous, <span class="keyword">const</span> QString &amp;current);
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a8fca519705c4cff46688b18f3a3a11f3">updateOkButton</a>(<span class="keyword">const</span> QString &amp;text);
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#adfb8cdbd5851742d8570072d334700b7">updateSplitter</a>();
-<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a1d244c3fba675289eedfd26b04dc6a96">updateViews</a>();
+<a name="l00038"></a>00038         <span class="keywordtype">int</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a783b27cd6f2d3366ab2c4eef3af1fd40">profilesIndex</a>() <span class="keyword">const</span>;
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <span class="comment">//void writeConfig(QString profile = QString());</span>
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a6843ba8d0e79c7da2135504b86ec5c2a">saveSettings</a>(<span class="keyword">const</span> QString &amp;profile = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#abf0bf058c39caeebe3d5f056a8625093">loadSettings</a>();
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044     <a class="code" href="crashcatcher_8cpp.html#a8a4382419c8082232049525fbf312154">signals</a>:
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a487c77fa780cb44610b297fe70069555">signalProfileChanged</a> (<span class="keywordtype">int</span> index);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="keyword">public</span> slots:
+<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a8eff58f7f8a86d3cbb0db22834dcebd4">slotProfileChanged</a> (<span class="keywordtype">int</span> index);
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="comment">// Action slots</span>
-<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#ae1182af2c4e07cabaff42961841167d6">on_newProfileAction_triggered</a>();
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a7007af3794d21fa87e4fb1764ec62dc7">on_deleteProfileAction_triggered</a>();
-<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#af42f774a511b0fcbaefbc6e8950afb81">on_checkAction_triggered</a>();
-<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a0382aaeb9c4f3bc7732281244e0d66f3">on_uncheckAction_triggered</a>();
+<a name="l00050"></a>00050     <span class="keyword">private</span> slots:
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a51e2cee58c7af6ba6fb170b2c69d03a0">slotProfileChangedByUser</a>(<span class="keyword">const</span> QString &amp;previous, <span class="keyword">const</span> QString &amp;current);
+<a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a42638706e315968d2f6f7a54e5682fb9">slotProfileRenamed</a>(<span class="keyword">const</span> QString &amp;previous, <span class="keyword">const</span> QString &amp;current);
+<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#ad38efd12adb6d30da63116880803763b">slotProfileDeleted</a>(<span class="keyword">const</span> QString &amp;item);
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="keyword">private</span> slots:
-<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a2200db73250c4c49efaac995964855c4">slotCurrentIndexChanged</a>(<span class="keywordtype">int</span> index);
+<a name="l00056"></a>00056         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a7ffc4bb96ba7f4d329072c8fbb9990ca">on_newProfileAction_triggered</a>();
+<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a1b35f2164c8245f61aeadef49d86b9a6">on_deleteProfileAction_triggered</a>();
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="keyword">private</span>:
-<a name="l00060"></a><a class="code" href="classDataFilesPage.html#ab6349d73548a3cb53d7929a7ec6f9a76">00060</a>     <a class="code" href="classDataFilesModel.html">DataFilesModel</a> *<a class="code" href="classDataFilesPage.html#ab6349d73548a3cb53d7929a7ec6f9a76">mDataFilesModel</a>;
-<a name="l00061"></a>00061 
-<a name="l00062"></a><a class="code" href="classDataFilesPage.html#a65a77a530730d2c80a72c19790b60a53">00062</a>     <a class="code" href="classPluginsProxyModel.html">PluginsProxyModel</a> *<a class="code" href="classDataFilesPage.html#a65a77a530730d2c80a72c19790b60a53">mPluginsProxyModel</a>;
-<a name="l00063"></a><a class="code" href="classDataFilesPage.html#aea4a281d31303fe80b3da364189f838d">00063</a>     QSortFilterProxyModel *<a class="code" href="classDataFilesPage.html#aea4a281d31303fe80b3da364189f838d">mMastersProxyModel</a>;
+<a name="l00059"></a>00059     <span class="keyword">private</span>:
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#afbf2522d317336094d9a0c1bcb155737">00061</a>         QMenu *<a class="code" href="classLauncher_1_1DataFilesPage.html#afbf2522d317336094d9a0c1bcb155737">mContextMenu</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#abde7e7caf7e7d6e858b402df8f775ae8">00063</a>         <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classLauncher_1_1DataFilesPage.html#abde7e7caf7e7d6e858b402df8f775ae8">mCfgMgr</a>;
 <a name="l00064"></a>00064 
-<a name="l00065"></a><a class="code" href="classDataFilesPage.html#a290cb59ec0c56b924df1f4c89809967e">00065</a>     QSortFilterProxyModel *<a class="code" href="classDataFilesPage.html#a290cb59ec0c56b924df1f4c89809967e">mFilterProxyModel</a>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="classDataFilesPage.html#a42ca8ba7335d1f93d1996a89b98dda4c">00067</a>     QMenu *<a class="code" href="classDataFilesPage.html#a42ca8ba7335d1f93d1996a89b98dda4c">mContextMenu</a>;
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classDataFilesPage.html#a259a02412cb8d2572a88b6353065af19">00069</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classDataFilesPage.html#a259a02412cb8d2572a88b6353065af19">mCfgMgr</a>;
-<a name="l00070"></a>00070 
-<a name="l00071"></a><a class="code" href="classDataFilesPage.html#aff9deaeb3c0e03ec131fb7218c7c5bc3">00071</a>     <a class="code" href="classGameSettings.html">GameSettings</a> &amp;<a class="code" href="classDataFilesPage.html#aff9deaeb3c0e03ec131fb7218c7c5bc3">mGameSettings</a>;
-<a name="l00072"></a><a class="code" href="classDataFilesPage.html#a43bb6a5dd34d162a63d8ef698dbba386">00072</a>     <a class="code" href="classLauncherSettings.html">LauncherSettings</a> &amp;<a class="code" href="classDataFilesPage.html#a43bb6a5dd34d162a63d8ef698dbba386">mLauncherSettings</a>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="classDataFilesPage.html#a9c7185461be2b1317ffd76b4639c9550">00074</a>     <a class="code" href="classTextInputDialog.html">TextInputDialog</a> *<a class="code" href="classDataFilesPage.html#a9c7185461be2b1317ffd76b4639c9550">mNewProfileDialog</a>;
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a8fe1e2b8ab4c9004b9c13d2e5bdacd8d">setMastersCheckstates</a>(Qt::CheckState state);
-<a name="l00077"></a>00077     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a914d4822c8e82e819653bdd83620f479">setPluginsCheckstates</a>(Qt::CheckState state);
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a45eb67e2caef5dda810b068230f6eb14">createActions</a>();
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a403f2870a4dd138b30436bd91702685a">setupDataFiles</a>();
-<a name="l00081"></a>00081     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a6fa3d618838e8a7a68f4d4d1199f3d17">setupConfig</a>();
-<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#a17ac2a1759cd2510922eefa8c8b0330a">readConfig</a>();
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classDataFilesPage.html#abb8b133b9be4e06857a1e13fa03fbc61">loadSettings</a>();
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086 };
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088 <span class="preprocessor">#endif</span>
+<a name="l00065"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#a06cf05251f422f74d648ee71491b3a9a">00065</a>         <a class="code" href="classLauncher_1_1GameSettings.html">GameSettings</a> &amp;<a class="code" href="classLauncher_1_1DataFilesPage.html#a06cf05251f422f74d648ee71491b3a9a">mGameSettings</a>;
+<a name="l00066"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#a6e33c74ce0ddbc135bf80fcf27ff2232">00066</a>         <a class="code" href="classLauncher_1_1LauncherSettings.html">LauncherSettings</a> &amp;<a class="code" href="classLauncher_1_1DataFilesPage.html#a6e33c74ce0ddbc135bf80fcf27ff2232">mLauncherSettings</a>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="classLauncher_1_1DataFilesPage.html#a05d2b98bd841ec2130957beb88fff870">00068</a>         QString <a class="code" href="classLauncher_1_1DataFilesPage.html#a05d2b98bd841ec2130957beb88fff870">mDataLocal</a>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a567e0767e0e8439f0ecad8b1f7e5935f">setPluginsCheckstates</a>(Qt::CheckState state);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#adb8e695ffcf8a464d199a6b3320507a3">buildView</a>();
+<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a01dc4b1682e2ac7f0e111f22f9cbf469">setupDataFiles</a>();
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#af951a468dcf2d98dabc5186ca7a5f140">setupConfig</a>();
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#aa96a66be7022bc1a9bf133b00be4d4c8">readConfig</a>();
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#ad3e31250bb1fef7fb5a142a984030e58">setProfile</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> savePrevious);
+<a name="l00077"></a>00077         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#ad3e31250bb1fef7fb5a142a984030e58">setProfile</a> (<span class="keyword">const</span> QString &amp;previous, <span class="keyword">const</span> QString &amp;current, <span class="keywordtype">bool</span> savePrevious);
+<a name="l00078"></a>00078         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a9ef9b2e253a7d45069c304dbba2b5670">removeProfile</a> (<span class="keyword">const</span> QString &amp;profile);
+<a name="l00079"></a>00079         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a90d0cd7abfc980f762a28ea723d6cf2a">showDeleteMessageBox</a> (<span class="keyword">const</span> QString &amp;text);
+<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a01404b58b4e7d59b9c9d2db5f9632a41">addProfile</a> (<span class="keyword">const</span> QString &amp;profile, <span class="keywordtype">bool</span> setAsCurrent);
+<a name="l00081"></a>00081         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1DataFilesPage.html#a61e52656890b50fdb25207de3acdf473">checkForDefaultProfile</a>();
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html">00083</a>         <span class="keyword">class </span><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html">PathIterator</a>
+<a name="l00084"></a>00084         {
+<a name="l00085"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a71babbc06400fe4499d5aa8dd8aa2638">00085</a>             QStringList::ConstIterator <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a71babbc06400fe4499d5aa8dd8aa2638">mCitEnd</a>;
+<a name="l00086"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a217931fe35b6781e37e41252b53bc506">00086</a>             QStringList::ConstIterator <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a217931fe35b6781e37e41252b53bc506">mCitCurrent</a>;
+<a name="l00087"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a02acd7752545d9ccc15708f12df6c6dd">00087</a>             QStringList::ConstIterator <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a02acd7752545d9ccc15708f12df6c6dd">mCitBegin</a>;
+<a name="l00088"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a1c85a7b22ccfcde11a2fdb786b8c61d0">00088</a>             QString <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a1c85a7b22ccfcde11a2fdb786b8c61d0">mFile</a>;
+<a name="l00089"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a5ef9aa2694763d222a03f244b361625f">00089</a>             QString <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a5ef9aa2694763d222a03f244b361625f">mFilePath</a>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091         <span class="keyword">public</span>:
+<a name="l00092"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a7f2906dda859b0f551bcb1a04a2a56f8">00092</a>             <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a7f2906dda859b0f551bcb1a04a2a56f8">PathIterator</a> (<span class="keyword">const</span> QStringList &amp;<a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>)
+<a name="l00093"></a>00093             {
+<a name="l00094"></a>00094                 <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a02acd7752545d9ccc15708f12df6c6dd">mCitBegin</a> = list.constBegin();
+<a name="l00095"></a>00095                 <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a217931fe35b6781e37e41252b53bc506">mCitCurrent</a> = <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a02acd7752545d9ccc15708f12df6c6dd">mCitBegin</a>;
+<a name="l00096"></a>00096                 <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a71babbc06400fe4499d5aa8dd8aa2638">mCitEnd</a> = list.constEnd();
+<a name="l00097"></a>00097             }
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#af7e6affc65684f0ec9f7677f8085406e">00099</a>             QString <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#af7e6affc65684f0ec9f7677f8085406e">findFirstPath</a> (<span class="keyword">const</span> QString &amp;file)
+<a name="l00100"></a>00100             {
+<a name="l00101"></a>00101                 <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a217931fe35b6781e37e41252b53bc506">mCitCurrent</a> = <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a02acd7752545d9ccc15708f12df6c6dd">mCitBegin</a>;
+<a name="l00102"></a>00102                 <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a1c85a7b22ccfcde11a2fdb786b8c61d0">mFile</a> = file;
+<a name="l00103"></a>00103                 <span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a61f82f0764bd7a16bf2533f62dc4cb2d">path</a>();
+<a name="l00104"></a>00104             }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a5b5d85ba87986443311561eca2dc72b3">00106</a>             QString <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a5b5d85ba87986443311561eca2dc72b3">findNextPath</a> () { <span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a61f82f0764bd7a16bf2533f62dc4cb2d">path</a>(); }
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108         <span class="keyword">private</span>:
+<a name="l00109"></a>00109 
+<a name="l00110"></a><a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a61f82f0764bd7a16bf2533f62dc4cb2d">00110</a>             QString <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a61f82f0764bd7a16bf2533f62dc4cb2d">path</a> ()
+<a name="l00111"></a>00111             {
+<a name="l00112"></a>00112                 <span class="keywordtype">bool</span> success = <span class="keyword">false</span>;
+<a name="l00113"></a>00113                 QDir dir;
+<a name="l00114"></a>00114                 QFileInfo file;
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116                 <span class="keywordflow">while</span> (!success)
+<a name="l00117"></a>00117                 {
+<a name="l00118"></a>00118                     <span class="keywordflow">if</span> (<a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a217931fe35b6781e37e41252b53bc506">mCitCurrent</a> == <a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a71babbc06400fe4499d5aa8dd8aa2638">mCitEnd</a>)
+<a name="l00119"></a>00119                         <span class="keywordflow">break</span>;
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121                     dir.setPath (*(<a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a217931fe35b6781e37e41252b53bc506">mCitCurrent</a>++));
+<a name="l00122"></a>00122                     file.setFile (dir.absoluteFilePath (<a class="code" href="classLauncher_1_1DataFilesPage_1_1PathIterator.html#a1c85a7b22ccfcde11a2fdb786b8c61d0">mFile</a>));
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124                     success = file.exists();
+<a name="l00125"></a>00125                 }
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127                 <span class="keywordflow">if</span> (success)
+<a name="l00128"></a>00128                     <span class="keywordflow">return</span> file.absoluteFilePath();
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130                 <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;
+<a name="l00131"></a>00131             }
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133         };
+<a name="l00134"></a>00134     };
+<a name="l00135"></a>00135 }
+<a name="l00136"></a>00136 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

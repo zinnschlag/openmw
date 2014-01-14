@@ -68,69 +68,74 @@
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="preprocessor">#include &lt;<a class="code" href="nullerrorhandler_8hpp.html">components/compiler/nullerrorhandler.hpp</a>&gt;</span>
 <a name="l00009"></a>00009 <span class="preprocessor">#include &lt;<a class="code" href="components_2compiler_2parser_8hpp.html">components/compiler/parser.hpp</a>&gt;</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;../../model/world/scriptcontext.hpp&quot;</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>CSVWorld
-<a name="l00014"></a>00014 {
-<a name="l00015"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html">00015</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html">ScriptHighlighter</a> : <span class="keyword">public</span> QSyntaxHighlighter, <span class="keyword">private</span> Compiler::Parser
-<a name="l00016"></a>00016     {
-<a name="l00017"></a>00017         <span class="keyword">public</span>:
-<a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81">00019</a>             <span class="keyword">enum</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81">Type</a>
-<a name="l00020"></a>00020             {
-<a name="l00021"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a302741ee2fb1cf01d1b372c2f50b3e12">00021</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a302741ee2fb1cf01d1b372c2f50b3e12">Type_Int</a>,
-<a name="l00022"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a5e62bd7e0f9b5f1a1a1610503158a1e8">00022</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a5e62bd7e0f9b5f1a1a1610503158a1e8">Type_Float</a>,
-<a name="l00023"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a0de182285a4762bb828120ee8f1cb721">00023</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a0de182285a4762bb828120ee8f1cb721">Type_Name</a>,
-<a name="l00024"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81ac5eccc68ded32fb780ddd152c4584cc7">00024</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81ac5eccc68ded32fb780ddd152c4584cc7">Type_Keyword</a>,
-<a name="l00025"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a493f12459e439f6fc3fc9ae96c472725">00025</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a493f12459e439f6fc3fc9ae96c472725">Type_Special</a>,
-<a name="l00026"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a4c30e19471159e90b8f93b65075d5fed">00026</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a4c30e19471159e90b8f93b65075d5fed">Type_Comment</a>
-<a name="l00027"></a>00027             };
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029         <span class="keyword">private</span>:
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;<a class="code" href="components_2compiler_2extensions_8hpp.html">components/compiler/extensions.hpp</a>&gt;</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;../../model/world/scriptcontext.hpp&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>CSVWorld
+<a name="l00015"></a>00015 {
+<a name="l00016"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html">00016</a>     <span class="keyword">class </span><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html">ScriptHighlighter</a> : <span class="keyword">public</span> QSyntaxHighlighter, <span class="keyword">private</span> Compiler::Parser
+<a name="l00017"></a>00017     {
+<a name="l00018"></a>00018         <span class="keyword">public</span>:
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81">00020</a>             <span class="keyword">enum</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81">Type</a>
+<a name="l00021"></a>00021             {
+<a name="l00022"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a302741ee2fb1cf01d1b372c2f50b3e12">00022</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a302741ee2fb1cf01d1b372c2f50b3e12">Type_Int</a>,
+<a name="l00023"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a5e62bd7e0f9b5f1a1a1610503158a1e8">00023</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a5e62bd7e0f9b5f1a1a1610503158a1e8">Type_Float</a>,
+<a name="l00024"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a0de182285a4762bb828120ee8f1cb721">00024</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a0de182285a4762bb828120ee8f1cb721">Type_Name</a>,
+<a name="l00025"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81ac5eccc68ded32fb780ddd152c4584cc7">00025</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81ac5eccc68ded32fb780ddd152c4584cc7">Type_Keyword</a>,
+<a name="l00026"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a493f12459e439f6fc3fc9ae96c472725">00026</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a493f12459e439f6fc3fc9ae96c472725">Type_Special</a>,
+<a name="l00027"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a4c30e19471159e90b8f93b65075d5fed">00027</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81a4c30e19471159e90b8f93b65075d5fed">Type_Comment</a>,
+<a name="l00028"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81ac92c030bd251cae3921a268556de087c">00028</a>                 <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81ac92c030bd251cae3921a268556de087c">Type_Id</a>
+<a name="l00029"></a>00029             };
 <a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#acb7cb8e32eaf647acb5744a3f4822ce3">00031</a>             <a class="code" href="classCompiler_1_1NullErrorHandler.html" title="Error handler implementation: Ignore all error messages.">Compiler::NullErrorHandler</a> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#acb7cb8e32eaf647acb5744a3f4822ce3">mErrorHandler</a>;
-<a name="l00032"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aee82694c6c2ecb890eb2e456066cb5ee">00032</a>             <a class="code" href="classCSMWorld_1_1ScriptContext.html">CSMWorld::ScriptContext</a> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aee82694c6c2ecb890eb2e456066cb5ee">mContext</a>;
-<a name="l00033"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae421b9d94d54dda0d2f559bd5d4b6436">00033</a>             std::map&lt;Type, QTextCharFormat&gt; <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae421b9d94d54dda0d2f559bd5d4b6436">mScheme</a>;
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035         <span class="keyword">private</span>:
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae836a2f9f981e840be3d9cc77152cf8a">parseInt</a> (<span class="keywordtype">int</span> value, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
-<a name="l00038"></a>00038                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a290e0e2fe589ba56f7785339eb34a350">parseFloat</a> (<span class="keywordtype">float</span> value, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
-<a name="l00043"></a>00043                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#af880a3ff88079b46184e2d50d717d2e2">parseName</a> (<span class="keyword">const</span> std::string&amp; name,
-<a name="l00048"></a>00048                 <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a2f8ccc6a05b48a2b579084152c155c6f">parseKeyword</a> (<span class="keywordtype">int</span> keyword, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
-<a name="l00053"></a>00053                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a4012e11dc0c7468317e15ab6468fe005">parseSpecial</a> (<span class="keywordtype">int</span> code, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
-<a name="l00058"></a>00058                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae6aa4b3ca058011d7a9e6b77569660f1">parseComment</a> (<span class="keyword">const</span> std::string&amp; comment, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
-<a name="l00063"></a>00063                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aa4a6eee47c90cb1ec8f7fcb469443cde" title="Handle EOF token.">parseEOF</a> (<a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00031"></a>00031         <span class="keyword">private</span>:
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#acb7cb8e32eaf647acb5744a3f4822ce3">00033</a>             <a class="code" href="classCompiler_1_1NullErrorHandler.html" title="Error handler implementation: Ignore all error messages.">Compiler::NullErrorHandler</a> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#acb7cb8e32eaf647acb5744a3f4822ce3">mErrorHandler</a>;
+<a name="l00034"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a9cdd1bf8914518f01a6200de5486d754">00034</a>             <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a9cdd1bf8914518f01a6200de5486d754">mExtensions</a>;
+<a name="l00035"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aee82694c6c2ecb890eb2e456066cb5ee">00035</a>             <a class="code" href="classCSMWorld_1_1ScriptContext.html">CSMWorld::ScriptContext</a> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aee82694c6c2ecb890eb2e456066cb5ee">mContext</a>;
+<a name="l00036"></a><a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae421b9d94d54dda0d2f559bd5d4b6436">00036</a>             std::map&lt;Type, QTextCharFormat&gt; <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae421b9d94d54dda0d2f559bd5d4b6436">mScheme</a>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038         <span class="keyword">private</span>:
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae836a2f9f981e840be3d9cc77152cf8a">parseInt</a> (<span class="keywordtype">int</span> value, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
+<a name="l00041"></a>00041                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a290e0e2fe589ba56f7785339eb34a350">parseFloat</a> (<span class="keywordtype">float</span> value, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
+<a name="l00046"></a>00046                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#af880a3ff88079b46184e2d50d717d2e2">parseName</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>,
+<a name="l00051"></a>00051                 <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc, <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a2f8ccc6a05b48a2b579084152c155c6f">parseKeyword</a> (<span class="keywordtype">int</span> keyword, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
+<a name="l00056"></a>00056                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a4012e11dc0c7468317e15ab6468fe005">parseSpecial</a> (<span class="keywordtype">int</span> <a class="code" href="crashcatcher_8cpp.html#a45a5b7c00a796a23f01673cef1dbe0a9">code</a>, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
+<a name="l00061"></a>00061                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ae6aa4b3ca058011d7a9e6b77569660f1">parseComment</a> (<span class="keyword">const</span> std::string&amp; comment, <span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc,
+<a name="l00066"></a>00066                 <a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a15f8125d9f01f6e0bf65f156f00ea66a">highlight</a> (<span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc, <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81">Type</a> type);
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072         <span class="keyword">public</span>:
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a46a037d9c4d9c796c4f945bf0c32cc2e">ScriptHighlighter</a> (QTextDocument *parent);
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#adddf28c09ee37cf68e00a88f4cb60986">highlightBlock</a> (<span class="keyword">const</span> QString&amp; text);
-<a name="l00077"></a>00077     };
-<a name="l00078"></a>00078 }
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
+<a name="l00070"></a>00070             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aa4a6eee47c90cb1ec8f7fcb469443cde" title="Handle EOF token.">parseEOF</a> (<a class="code" href="classCompiler_1_1Scanner.html" title="Scanner.">Compiler::Scanner</a>&amp; scanner);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#a15f8125d9f01f6e0bf65f156f00ea66a">highlight</a> (<span class="keyword">const</span> <a class="code" href="structCompiler_1_1TokenLoc.html" title="Location of a token in a source file.">Compiler::TokenLoc</a>&amp; loc, <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#afc0b1bf3242b17685e00ad7616b06a81">Type</a> type);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075         <span class="keyword">public</span>:
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077             <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#aaa6faebee4c4995d85c2571c930b4340">ScriptHighlighter</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1Data.html">CSMWorld::Data</a>&amp; data, QTextDocument *parent);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#adddf28c09ee37cf68e00a88f4cb60986">highlightBlock</a> (<span class="keyword">const</span> QString&amp; text);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081             <span class="keywordtype">void</span> <a class="code" href="classCSVWorld_1_1ScriptHighlighter.html#ad5f53ae0f76bd85384b28916d365222f">invalidateIds</a>();
+<a name="l00082"></a>00082     };
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

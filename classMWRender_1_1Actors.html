@@ -81,12 +81,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a6d310c2feb2505d8133ff8f5ccc67b70">Actors</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_rend, <a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *rendering)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a9c2a0b16675e76f3b436e483e2ad63cb">~Actors</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a798c2b14d356b9d4abefac84d02d48b8">setRootNode</a> (Ogre::SceneNode *<a class="el" href="ogre__common_8cpp.html#acee200c3caa45e111e61483dcd269689">root</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a8188870fd5eabd1f2009b7eb86c9d445">insertNPC</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, <a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;inv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a12a3a1c4ad23e25558abea536249acc1">insertNPC</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a9b0219e0afee9bd06d20dc781fc8345e">insertCreature</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#aa26cc2f721cbc0fd1aed322b5a5d33a9">insertActivator</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a514832df1d9e9e425fd37f129bb124c4">deleteObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#ac61b37f2a1c592bcf1bfdde66b831fd5">removeCell</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *store)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#af218748d1add37c88f249ec9f1dc7d33">update</a> (float duration)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a63a2f9c8000258ddbe93a74c3a282978">update</a> (Ogre::Camera *camera)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#aae29b9bd43fc6c3ac9b4784398a24776">updateObjectCell</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;old, const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;cur)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates containing cell for object rendering data.  <a href="#aae29b9bd43fc6c3ac9b4784398a24776"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Animation.html">Animation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Actors.html#a93640188b619420bffc845ebb5279c42">getAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
@@ -266,26 +266,16 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8188870fd5eabd1f2009b7eb86c9d445"></a><!-- doxytag: member="MWRender::Actors::insertNPC" ref="a8188870fd5eabd1f2009b7eb86c9d445" args="(const MWWorld::Ptr &amp;ptr, MWWorld::InventoryStore &amp;inv)" -->
+<a class="anchor" id="a12a3a1c4ad23e25558abea536249acc1"></a><!-- doxytag: member="MWRender::Actors::insertNPC" ref="a12a3a1c4ad23e25558abea536249acc1" args="(const MWWorld::Ptr &amp;ptr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Actors.html#a8188870fd5eabd1f2009b7eb86c9d445">MWRender::Actors::insertNPC</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Actors.html#a12a3a1c4ad23e25558abea536249acc1">MWRender::Actors::insertNPC</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>ptr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;&#160;</td>
-          <td class="paramname"><em>inv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -327,15 +317,15 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af218748d1add37c88f249ec9f1dc7d33"></a><!-- doxytag: member="MWRender::Actors::update" ref="af218748d1add37c88f249ec9f1dc7d33" args="(float duration)" -->
+<a class="anchor" id="a63a2f9c8000258ddbe93a74c3a282978"></a><!-- doxytag: member="MWRender::Actors::update" ref="a63a2f9c8000258ddbe93a74c3a282978" args="(Ogre::Camera *camera)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Actors.html#af218748d1add37c88f249ec9f1dc7d33">MWRender::Actors::update</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Actors.html#a63a2f9c8000258ddbe93a74c3a282978">MWRender::Actors::update</a> </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>duration</em></td><td>)</td>
+          <td class="paramtype">Ogre::Camera *&#160;</td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -447,7 +437,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

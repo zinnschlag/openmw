@@ -88,36 +88,38 @@
 <a name="l00027"></a><a class="code" href="structESM_1_1InventoryList.html#aba9047dd7d9950d95f6d983ea31fc4c9">00027</a>     std::vector&lt;ContItem&gt; <a class="code" href="structESM_1_1InventoryList.html#aba9047dd7d9950d95f6d983ea31fc4c9">mList</a>;
 <a name="l00028"></a>00028 
 <a name="l00029"></a>00029     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1InventoryList.html#abfc3bfc14650f8d820d6ab05a66f78b7">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1InventoryList.html#a812ef775f673f6057af735d92bde40c2">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
+<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1InventoryList.html#a088ef1dc9f3d8ff66ca751bfdb4e2bc5">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
 <a name="l00031"></a>00031 };
 <a name="l00032"></a>00032 
 <a name="l00033"></a><a class="code" href="structESM_1_1Container.html">00033</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Container.html">Container</a>
 <a name="l00034"></a>00034 {
-<a name="l00035"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">00035</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">Flags</a>
-<a name="l00036"></a>00036     {
-<a name="l00037"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">00037</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">Organic</a> = 1, <span class="comment">// Objects cannot be placed in this container</span>
-<a name="l00038"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">00038</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">Respawn</a> = 2, <span class="comment">// Respawns after 4 months</span>
-<a name="l00039"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">00039</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">Unknown</a> = 8
-<a name="l00040"></a>00040     };
-<a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="structESM_1_1Container.html#a67da446b80a9df99132d866ad97e9a34">00042</a>     std::string <a class="code" href="structESM_1_1Container.html#a5eadf54ff968fc4b2edb85cbfea8349b">mId</a>, <a class="code" href="structESM_1_1Container.html#afab444b861161ea4d5c4ab383c055ed0">mName</a>, <a class="code" href="structESM_1_1Container.html#a0c2e23b96c0b166133830d9f48fd9e46">mModel</a>, <a class="code" href="structESM_1_1Container.html#a67da446b80a9df99132d866ad97e9a34">mScript</a>;
+<a name="l00035"></a><a class="code" href="structESM_1_1Container.html#a3b3426cbb4e64af747337382a09eec1e">00035</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Container.html#a3b3426cbb4e64af747337382a09eec1e">sRecordId</a>;
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">00037</a>     <span class="keyword">enum</span> <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83e">Flags</a>
+<a name="l00038"></a>00038     {
+<a name="l00039"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">00039</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea69f9aaf212421cd11967b3ce6ff5b879">Organic</a> = 1, <span class="comment">// Objects cannot be placed in this container</span>
+<a name="l00040"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">00040</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea56aa36b5662c50d677be61c3fed1dc0c">Respawn</a> = 2, <span class="comment">// Respawns after 4 months</span>
+<a name="l00041"></a><a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">00041</a>         <a class="code" href="structESM_1_1Container.html#a088e3eebd03eec96ee7766c134dda83ea798cf1f888e32798a22906bb10efcd64">Unknown</a> = 8
+<a name="l00042"></a>00042     };
 <a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="structESM_1_1Container.html#aefe8892bc286f5956ae17281327d4978">00044</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Container.html#aefe8892bc286f5956ae17281327d4978">mWeight</a>; <span class="comment">// Not sure, might be max total weight allowed?</span>
-<a name="l00045"></a><a class="code" href="structESM_1_1Container.html#a0e821b3688a228b7dc6e050d7ae535cb">00045</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Container.html#a0e821b3688a228b7dc6e050d7ae535cb">mFlags</a>;
-<a name="l00046"></a><a class="code" href="structESM_1_1Container.html#aaac5bb04edcde55a09188a63e4588bbf">00046</a>     <a class="code" href="structESM_1_1InventoryList.html">InventoryList</a> <a class="code" href="structESM_1_1Container.html#aaac5bb04edcde55a09188a63e4588bbf">mInventory</a>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#a36b683b8d17bbd2a95d3a3e9058bff76">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#ad363cfd43b003769bafce7aa8c7c3a0c">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#a8d3743985d9b9968c9f116fd165c6841" title="Set record to default state (does not touch the ID).">blank</a>();
-<a name="l00053"></a>00053 };
-<a name="l00054"></a>00054 }
-<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
+<a name="l00044"></a><a class="code" href="structESM_1_1Container.html#a67da446b80a9df99132d866ad97e9a34">00044</a>     std::string <a class="code" href="structESM_1_1Container.html#a5eadf54ff968fc4b2edb85cbfea8349b">mId</a>, <a class="code" href="structESM_1_1Container.html#afab444b861161ea4d5c4ab383c055ed0">mName</a>, <a class="code" href="structESM_1_1Container.html#a0c2e23b96c0b166133830d9f48fd9e46">mModel</a>, <a class="code" href="structESM_1_1Container.html#a67da446b80a9df99132d866ad97e9a34">mScript</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="structESM_1_1Container.html#aefe8892bc286f5956ae17281327d4978">00046</a>     <span class="keywordtype">float</span> <a class="code" href="structESM_1_1Container.html#aefe8892bc286f5956ae17281327d4978">mWeight</a>; <span class="comment">// Not sure, might be max total weight allowed?</span>
+<a name="l00047"></a><a class="code" href="structESM_1_1Container.html#a0e821b3688a228b7dc6e050d7ae535cb">00047</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Container.html#a0e821b3688a228b7dc6e050d7ae535cb">mFlags</a>;
+<a name="l00048"></a><a class="code" href="structESM_1_1Container.html#aaac5bb04edcde55a09188a63e4588bbf">00048</a>     <a class="code" href="structESM_1_1InventoryList.html">InventoryList</a> <a class="code" href="structESM_1_1Container.html#aaac5bb04edcde55a09188a63e4588bbf">mInventory</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#a36b683b8d17bbd2a95d3a3e9058bff76">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#aad1e40de77bd71dcb9db52462965be47">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Container.html#a8d3743985d9b9968c9f116fd165c6841" title="Set record to default state (does not touch the ID).">blank</a>();
+<a name="l00055"></a>00055 };
+<a name="l00056"></a>00056 }
+<a name="l00057"></a>00057 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

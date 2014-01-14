@@ -67,71 +67,89 @@
 <a name="l00006"></a>00006 
 <a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../mwmechanics/drawstate.hpp&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">namespace </span>ESM
-<a name="l00010"></a>00010 {
-<a name="l00011"></a>00011     <span class="keyword">struct </span>NPC;
-<a name="l00012"></a>00012 }
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWBase
-<a name="l00015"></a>00015 {
-<a name="l00016"></a>00016     <span class="keyword">class </span>World;
-<a name="l00017"></a>00017     <span class="keyword">class </span>Ptr;
-<a name="l00018"></a>00018 }
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">namespace </span>MWWorld
-<a name="l00021"></a>00021 {
-<a name="l00022"></a>00022     <span class="keyword">class </span>CellStore;
-<a name="l00023"></a>00023 
-<a name="l00025"></a><a class="code" href="classMWWorld_1_1Player.html">00025</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">Player</a>
-<a name="l00026"></a>00026     {
-<a name="l00027"></a><a class="code" href="classMWWorld_1_1Player.html#aced46a64af7839fa5735baa199c72987">00027</a>         <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;ESM::NPC&gt;</a>   <a class="code" href="classMWWorld_1_1Player.html#aced46a64af7839fa5735baa199c72987">mPlayer</a>;
-<a name="l00028"></a><a class="code" href="classMWWorld_1_1Player.html#a07e8941ec78f860b91c93753332203f8">00028</a>         <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>      *<a class="code" href="classMWWorld_1_1Player.html#a07e8941ec78f860b91c93753332203f8">mCellStore</a>;
-<a name="l00029"></a><a class="code" href="classMWWorld_1_1Player.html#a6ff581b5d19cc0906fdd913ecee2fef6">00029</a>         std::string             <a class="code" href="classMWWorld_1_1Player.html#a6ff581b5d19cc0906fdd913ecee2fef6">mSign</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">00031</a>         <span class="keywordtype">bool</span>                    <a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">mAutoMove</a>;
-<a name="l00032"></a><a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">00032</a>         <span class="keywordtype">int</span>                     <a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">mForwardBackward</a>;
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034     <span class="keyword">public</span>:
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036         <a class="code" href="classMWWorld_1_1Player.html#a398ce9efa5a4df1a1acaa5c33548daee">Player</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player, <span class="keyword">const</span> <a class="code" href="classMWBase_1_1World.html" title="Interface for the World (implemented in MWWorld)">MWBase::World</a>&amp; world);
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038         <span class="keywordtype">void</span> <span class="keyword">set</span> (<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player);
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#ad1cd4c79050833ab6717df6d0d6b6989">setCell</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore);
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">getPlayer</a>();
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;OgreVector3.h&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">namespace </span>ESM
+<a name="l00012"></a>00012 {
+<a name="l00013"></a>00013     <span class="keyword">struct </span>NPC;
+<a name="l00014"></a>00014 }
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>MWBase
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018     <span class="keyword">class </span>World;
+<a name="l00019"></a>00019     <span class="keyword">class </span>Ptr;
+<a name="l00020"></a>00020 }
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keyword">namespace </span>MWWorld
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024     <span class="keyword">class </span>CellStore;
+<a name="l00025"></a>00025 
+<a name="l00027"></a><a class="code" href="classMWWorld_1_1Player.html">00027</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">Player</a>
+<a name="l00028"></a>00028     {
+<a name="l00029"></a><a class="code" href="classMWWorld_1_1Player.html#aced46a64af7839fa5735baa199c72987">00029</a>         <a class="code" href="structMWWorld_1_1LiveCellRef.html">LiveCellRef&lt;ESM::NPC&gt;</a>   <a class="code" href="classMWWorld_1_1Player.html#aced46a64af7839fa5735baa199c72987">mPlayer</a>;
+<a name="l00030"></a><a class="code" href="classMWWorld_1_1Player.html#a07e8941ec78f860b91c93753332203f8">00030</a>         <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>      *<a class="code" href="classMWWorld_1_1Player.html#a07e8941ec78f860b91c93753332203f8">mCellStore</a>;
+<a name="l00031"></a><a class="code" href="classMWWorld_1_1Player.html#a6ff581b5d19cc0906fdd913ecee2fef6">00031</a>         std::string             <a class="code" href="classMWWorld_1_1Player.html#a6ff581b5d19cc0906fdd913ecee2fef6">mSign</a>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classMWWorld_1_1Player.html#aebcb84f0c73b7fea5f1a96c61f7afd02">00033</a>         Ogre::Vector3 <a class="code" href="classMWWorld_1_1Player.html#aebcb84f0c73b7fea5f1a96c61f7afd02">mLastKnownExteriorPosition</a>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classMWWorld_1_1Player.html#a9a807c208635835d0fbb6d94715761cd">00035</a>         <a class="code" href="structESM_1_1Position.html">ESM::Position</a>           <a class="code" href="classMWWorld_1_1Player.html#a9a807c208635835d0fbb6d94715761cd">mMarkedPosition</a>;
+<a name="l00036"></a>00036         <span class="comment">// If no position was marked, this is NULL</span>
+<a name="l00037"></a><a class="code" href="classMWWorld_1_1Player.html#ab4f90fd77e6f5cb451dbe47ea2096f1f">00037</a>         <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>*              <a class="code" href="classMWWorld_1_1Player.html#ab4f90fd77e6f5cb451dbe47ea2096f1f">mMarkedCell</a>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">00039</a>         <span class="keywordtype">bool</span>                    <a class="code" href="classMWWorld_1_1Player.html#acb68e57dd71925745dfa201e4d1e1aaf">mAutoMove</a>;
+<a name="l00040"></a><a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">00040</a>         <span class="keywordtype">int</span>                     <a class="code" href="classMWWorld_1_1Player.html#a52f06ca27ee7d443bcaeaa494f456d89">mForwardBackward</a>;
+<a name="l00041"></a><a class="code" href="classMWWorld_1_1Player.html#a5daa2669063c99ed6279897cd14361e0">00041</a>         <span class="keywordtype">bool</span>                    <a class="code" href="classMWWorld_1_1Player.html#a5daa2669063c99ed6279897cd14361e0">mTeleported</a>;
+<a name="l00042"></a>00042     <span class="keyword">public</span>:
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a0def649086fb9fa19fce0bd410a7beba">setBirthSign</a>(<span class="keyword">const</span> std::string &amp;sign);
+<a name="l00044"></a>00044         <a class="code" href="classMWWorld_1_1Player.html#a398ce9efa5a4df1a1acaa5c33548daee">Player</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player, <span class="keyword">const</span> <a class="code" href="classMWBase_1_1World.html" title="Interface for the World (implemented in MWWorld)">MWBase::World</a>&amp; world);
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWWorld_1_1Player.html#a43d1a5007ab5075a2e430a15dd92ecf3">getBirthSign</a>() <span class="keyword">const</span>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a42ba0a40d31a1e992a5bdce5f526dffd">setDrawState</a> (<a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">MWMechanics::DrawState_</a> state);
+<a name="l00046"></a>00046         <span class="comment">// For mark/recall magic effects</span>
+<a name="l00047"></a>00047         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a8cb9e17d2d65df8168c38f92d54ca3ee">markPosition</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>* markedCell, <a class="code" href="structESM_1_1Position.html">ESM::Position</a> markedPosition);
+<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a0c51b7bf12cadd164cdaf50d06b9d7b1">getMarkedPosition</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>*&amp; markedCell, <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; markedPosition) <span class="keyword">const</span>;
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#acf63b1a7e78291b40835704700cd4e66">getAutoMove</a>() <span class="keyword">const</span>;
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052         <a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">MWMechanics::DrawState_</a> <a class="code" href="classMWWorld_1_1Player.html#a7f382319a752eb2191b55509598e4c1c">getDrawState</a>(); 
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a3262bd32795d197c2636c7bc83b345fc">setAutoMove</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#abc2902276e73d53b235e667549374a04">setLeftRight</a> (<span class="keywordtype">int</span> value);
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a93be5a536bcd06e585e7751e02ad8d1c">setForwardBackward</a> (<span class="keywordtype">int</span> value);
-<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a18a9ef5c49a23533609f7dfef61f5b86">setUpDown</a>(<span class="keywordtype">int</span> value);
+<a name="l00054"></a><a class="code" href="classMWWorld_1_1Player.html#af9a26b0437715d4f35a6ab522667df60">00054</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#af9a26b0437715d4f35a6ab522667df60">setLastKnownExteriorPosition</a> (<span class="keyword">const</span> Ogre::Vector3&amp; position) { <a class="code" href="classMWWorld_1_1Player.html#aebcb84f0c73b7fea5f1a96c61f7afd02">mLastKnownExteriorPosition</a> = position; }
+<a name="l00055"></a><a class="code" href="classMWWorld_1_1Player.html#a9f92992ed7f25523c59ad82fe55707df">00055</a>         Ogre::Vector3 <a class="code" href="classMWWorld_1_1Player.html#a9f92992ed7f25523c59ad82fe55707df">getLastKnownExteriorPosition</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1Player.html#aebcb84f0c73b7fea5f1a96c61f7afd02">mLastKnownExteriorPosition</a>; }
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057         <span class="keywordtype">void</span> <span class="keyword">set</span> (<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *player);
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#ad1cd4c79050833ab6717df6d0d6b6989">setCell</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore);
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#ab50e23961647f93f2cdab41dcb100353">setRunState</a>(<span class="keywordtype">bool</span> run);
-<a name="l00062"></a>00062         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a96d566d2a3a2e3b60ba64bf8e476efa0">setSneak</a>(<span class="keywordtype">bool</span> sneak);
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#ab95a91cc17683d7b5277c43594aea6fe">yaw</a>(<span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Player.html#ab95a91cc17683d7b5277c43594aea6fe">yaw</a>);
-<a name="l00065"></a>00065         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#af506aec0d641028a29219b1e8cb2d999">pitch</a>(<span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Player.html#af506aec0d641028a29219b1e8cb2d999">pitch</a>);
-<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#aa48584dfdcf9643ed00ca2452dcef623">roll</a>(<span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Player.html#aa48584dfdcf9643ed00ca2452dcef623">roll</a>);
-<a name="l00067"></a>00067     };
-<a name="l00068"></a>00068 }
-<a name="l00069"></a>00069 <span class="preprocessor">#endif</span>
+<a name="l00061"></a>00061         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1Player.html#af44444776d68e15a21c03bb321aaaf88">getPlayer</a>();
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a0def649086fb9fa19fce0bd410a7beba">setBirthSign</a>(<span class="keyword">const</span> std::string &amp;sign);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWWorld_1_1Player.html#a43d1a5007ab5075a2e430a15dd92ecf3">getBirthSign</a>() <span class="keyword">const</span>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a42ba0a40d31a1e992a5bdce5f526dffd">setDrawState</a> (<a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">MWMechanics::DrawState_</a> state);
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#acf63b1a7e78291b40835704700cd4e66">getAutoMove</a>() <span class="keyword">const</span>;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071         <a class="code" href="namespaceMWMechanics.html#a73bab853c58c2313e8ad67c9105b3dc9">MWMechanics::DrawState_</a> <a class="code" href="classMWWorld_1_1Player.html#a7f382319a752eb2191b55509598e4c1c">getDrawState</a>(); 
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a3262bd32795d197c2636c7bc83b345fc">setAutoMove</a> (<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#abc2902276e73d53b235e667549374a04">setLeftRight</a> (<span class="keywordtype">int</span> value);
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a93be5a536bcd06e585e7751e02ad8d1c">setForwardBackward</a> (<span class="keywordtype">int</span> value);
+<a name="l00078"></a>00078         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a18a9ef5c49a23533609f7dfef61f5b86">setUpDown</a>(<span class="keywordtype">int</span> value);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#ab50e23961647f93f2cdab41dcb100353">setRunState</a>(<span class="keywordtype">bool</span> run);
+<a name="l00081"></a>00081         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#a96d566d2a3a2e3b60ba64bf8e476efa0">setSneak</a>(<span class="keywordtype">bool</span> sneak);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#ab95a91cc17683d7b5277c43594aea6fe">yaw</a>(<span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Player.html#ab95a91cc17683d7b5277c43594aea6fe">yaw</a>);
+<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#af506aec0d641028a29219b1e8cb2d999">pitch</a>(<span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Player.html#af506aec0d641028a29219b1e8cb2d999">pitch</a>);
+<a name="l00085"></a>00085         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#aa48584dfdcf9643ed00ca2452dcef623">roll</a>(<span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1Player.html#aa48584dfdcf9643ed00ca2452dcef623">roll</a>);
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Player.html#a851359fc1cb8448b6960c0596eb122f2">wasTeleported</a>() <span class="keyword">const</span>;
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Player.html#adfdc7702c2fc6b8a542598cd1821ab6e">setTeleported</a>(<span class="keywordtype">bool</span> teleported);
+<a name="l00089"></a>00089     };
+<a name="l00090"></a>00090 }
+<a name="l00091"></a>00091 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

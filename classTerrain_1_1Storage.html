@@ -65,7 +65,8 @@
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-types">Private Types</a> &#124;
-<a href="#pri-methods">Private Member Functions</a>  </div>
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Terrain::Storage Class Reference</div>  </div>
 </div><!--header-->
@@ -85,7 +86,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bounds of the whole terrain in cell units.  <a href="#abe5cd3bb5840bcf5624bae98ddf40d71"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#a0d080ebb5192d4be8953bc74bb99578e">getMinMaxHeights</a> (float size, const Ogre::Vector2 &amp;center, float &amp;min, float &amp;max)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#a35de50593d4fedd350edf6297605beb3">fillVertexBuffers</a> (int lodLevel, float size, const Ogre::Vector2 &amp;center, Ogre::HardwareVertexBufferSharedPtr vertexBuffer, Ogre::HardwareVertexBufferSharedPtr normalBuffer, Ogre::HardwareVertexBufferSharedPtr colourBuffer)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#a65ecdc732eb4ae20c431226b5002d7ba">getBlendmaps</a> (float chunkSize, const Ogre::Vector2 &amp;chunkCenter, bool pack, std::vector&lt; Ogre::TexturePtr &gt; &amp;blendmaps, std::vector&lt; std::string &gt; &amp;layerList)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#a0b1869ebb23c780a09b445c29abc5dad">getBlendmaps</a> (float chunkSize, const Ogre::Vector2 &amp;chunkCenter, bool pack, std::vector&lt; Ogre::TexturePtr &gt; &amp;blendmaps, std::vector&lt; <a class="el" href="structTerrain_1_1LayerInfo.html">LayerInfo</a> &gt; &amp;layerList)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#ad02b339cc8782f8b51f732f8f87fa07c">getHeightAt</a> (const Ogre::Vector3 &amp;worldPos)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -100,6 +101,10 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#ae56b0cb9261a10738f6d55594cc9b934">getVertexHeight</a> (const <a class="el" href="structESM_1_1Land.html">ESM::Land</a> *land, int x, int y)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#ad21644734ac213f72857e02998f009a9">getVtexIndexAt</a> (int cellX, int cellY, int x, int y)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#ae8bc0df8ce04106f8050e6738d09aec4">getTextureName</a> (<a class="el" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a> id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structTerrain_1_1LayerInfo.html">LayerInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#a7ff7fc9ab36b41243f07e0974404c0f3">getLayerInfo</a> (const std::string &amp;texture)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <a class="el" href="structTerrain_1_1LayerInfo.html">LayerInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTerrain_1_1Storage.html#afa75d9bcbf7868b392da674acf87a5d6">mLayerInfoMap</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>We keep storage of terrain data abstract here since we need different implementations for game and editor. </p>
@@ -333,12 +338,12 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a65ecdc732eb4ae20c431226b5002d7ba"></a><!-- doxytag: member="Terrain::Storage::getBlendmaps" ref="a65ecdc732eb4ae20c431226b5002d7ba" args="(float chunkSize, const Ogre::Vector2 &amp;chunkCenter, bool pack, std::vector&lt; Ogre::TexturePtr &gt; &amp;blendmaps, std::vector&lt; std::string &gt; &amp;layerList)" -->
+<a class="anchor" id="a0b1869ebb23c780a09b445c29abc5dad"></a><!-- doxytag: member="Terrain::Storage::getBlendmaps" ref="a0b1869ebb23c780a09b445c29abc5dad" args="(float chunkSize, const Ogre::Vector2 &amp;chunkCenter, bool pack, std::vector&lt; Ogre::TexturePtr &gt; &amp;blendmaps, std::vector&lt; LayerInfo &gt; &amp;layerList)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classTerrain_1_1Storage.html#a65ecdc732eb4ae20c431226b5002d7ba">Terrain::Storage::getBlendmaps</a> </td>
+          <td class="memname">void <a class="el" href="classTerrain_1_1Storage.html#a0b1869ebb23c780a09b445c29abc5dad">Terrain::Storage::getBlendmaps</a> </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>chunkSize</em>, </td>
@@ -364,7 +369,7 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structTerrain_1_1LayerInfo.html">LayerInfo</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>layerList</em>&#160;</td>
         </tr>
         <tr>
@@ -485,6 +490,23 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7ff7fc9ab36b41243f07e0974404c0f3"></a><!-- doxytag: member="Terrain::Storage::getLayerInfo" ref="a7ff7fc9ab36b41243f07e0974404c0f3" args="(const std::string &amp;texture)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTerrain_1_1LayerInfo.html">LayerInfo</a> <a class="el" href="classTerrain_1_1Storage.html#a7ff7fc9ab36b41243f07e0974404c0f3">Terrain::Storage::getLayerInfo</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>texture</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a0d080ebb5192d4be8953bc74bb99578e"></a><!-- doxytag: member="Terrain::Storage::getMinMaxHeights" ref="a0d080ebb5192d4be8953bc74bb99578e" args="(float size, const Ogre::Vector2 &amp;center, float &amp;min, float &amp;max)" -->
 <div class="memitem">
 <div class="memproto">
@@ -533,7 +555,7 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if there was data available for this terrain chunk </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000111">Todo:</a></b></dt><dd>investigate if min/max heights should be stored at load time in <a class="el" href="structESM_1_1Land.html">ESM::Land</a> instead </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000121">Todo:</a></b></dt><dd>investigate if min/max heights should be stored at load time in <a class="el" href="structESM_1_1Land.html">ESM::Land</a> instead </dd></dl>
 
 </div>
 </div>
@@ -626,6 +648,20 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="afa75d9bcbf7868b392da674acf87a5d6"></a><!-- doxytag: member="Terrain::Storage::mLayerInfoMap" ref="afa75d9bcbf7868b392da674acf87a5d6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="structTerrain_1_1LayerInfo.html">LayerInfo</a>&gt; <a class="el" href="classTerrain_1_1Storage.html#afa75d9bcbf7868b392da674acf87a5d6">Terrain::Storage::mLayerInfoMap</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>components/terrain/<a class="el" href="storage_8hpp_source.html">storage.hpp</a></li>
 <li>components/terrain/<a class="el" href="storage_8cpp.html">storage.cpp</a></li>
@@ -634,7 +670,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

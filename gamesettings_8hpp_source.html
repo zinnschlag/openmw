@@ -69,63 +69,80 @@
 <a name="l00008"></a>00008 
 <a name="l00009"></a>00009 <span class="preprocessor">#include &lt;boost/filesystem/path.hpp&gt;</span>
 <a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">00011</a> <span class="keyword">namespace </span>Files { <span class="keyword">typedef</span> std::vector&lt;boost::filesystem::path&gt; <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233" title="A vector of Boost Paths, very handy.">PathContainer</a>;
-<a name="l00012"></a>00012                   <span class="keyword">struct </span><a class="code" href="structFiles_1_1ConfigurationManager.html">ConfigurationManager</a>;}
-<a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="classGameSettings.html">00014</a> <span class="keyword">class </span><a class="code" href="classGameSettings.html">GameSettings</a>
-<a name="l00015"></a>00015 {
-<a name="l00016"></a>00016 <span class="keyword">public</span>:
-<a name="l00017"></a>00017     <a class="code" href="classGameSettings.html#a5d7fedc95d2894c63b8af6af3efefc7c">GameSettings</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg);
-<a name="l00018"></a>00018     <a class="code" href="classGameSettings.html#a426279346deb9b8fbcd95e35874027a0">~GameSettings</a>();
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="classGameSettings.html#a7836c67476e7ec5d27b18b5ef5be12d0">00020</a>     <span class="keyword">inline</span> QString <a class="code" href="classGameSettings.html#a7836c67476e7ec5d27b18b5ef5be12d0">value</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;defaultValue = QString())
-<a name="l00021"></a>00021     {
-<a name="l00022"></a>00022         <span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.value(key).isEmpty() ? defaultValue : <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.value(key);
-<a name="l00023"></a>00023     }
+<a name="l00011"></a>00011 <span class="keyword">namespace </span>Files
+<a name="l00012"></a>00012 {
+<a name="l00013"></a><a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">00013</a>   <span class="keyword">typedef</span> std::vector&lt;boost::filesystem::path&gt; <a class="code" href="namespaceFiles.html#ad89bb52784ce0cc7541cf8a254646233">PathContainer</a>;
+<a name="l00014"></a>00014   <span class="keyword">struct </span><a class="code" href="structFiles_1_1ConfigurationManager.html">ConfigurationManager</a>;
+<a name="l00015"></a>00015 }
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="keyword">namespace </span>Launcher
+<a name="l00018"></a>00018 {
+<a name="l00019"></a><a class="code" href="classLauncher_1_1GameSettings.html">00019</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1GameSettings.html">GameSettings</a>
+<a name="l00020"></a>00020     {
+<a name="l00021"></a>00021     <span class="keyword">public</span>:
+<a name="l00022"></a>00022         <a class="code" href="classLauncher_1_1GameSettings.html#af811d7dc0e2343570bb42d6245e7f7df">GameSettings</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg);
+<a name="l00023"></a>00023         <a class="code" href="classLauncher_1_1GameSettings.html#ad67c406fd5d4188a0d505c28ff52c4aa">~GameSettings</a>();
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="classGameSettings.html#aa820444058658376faaea543562aad8d">00026</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#aa820444058658376faaea543562aad8d">setValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classGameSettings.html#a7836c67476e7ec5d27b18b5ef5be12d0">value</a>)
-<a name="l00027"></a>00027     {
-<a name="l00028"></a>00028         <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.insert(key, value);
-<a name="l00029"></a>00029     }
+<a name="l00025"></a><a class="code" href="classLauncher_1_1GameSettings.html#acd9090c7441e77c842f8c7fe3661f7e6">00025</a>         <span class="keyword">inline</span> QString <a class="code" href="classLauncher_1_1GameSettings.html#acd9090c7441e77c842f8c7fe3661f7e6">value</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;defaultValue = QString())
+<a name="l00026"></a>00026         {
+<a name="l00027"></a>00027             <span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>.value(key).isEmpty() ? defaultValue : <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>.value(key);
+<a name="l00028"></a>00028         }
+<a name="l00029"></a>00029 
 <a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classGameSettings.html#ad76e87be034d76f373c352819b61a1b4">00031</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#ad76e87be034d76f373c352819b61a1b4">setMultiValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classGameSettings.html#a7836c67476e7ec5d27b18b5ef5be12d0">value</a>)
-<a name="l00032"></a>00032     {
-<a name="l00033"></a>00033         QStringList <a class="code" href="classGameSettings.html#a19881f6f2b005f67f72f5bcf3ebc6b5d">values</a> = <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.values(key);
-<a name="l00034"></a>00034         <span class="keywordflow">if</span> (!values.contains(value))
-<a name="l00035"></a>00035             <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.insertMulti(key, value);
-<a name="l00036"></a>00036     }
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="classGameSettings.html#ac5b817ae3ad45c0c6e4751cd4e666f09">00038</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <span class="keyword">remove</span>(<span class="keyword">const</span> QString &amp;key)
-<a name="l00039"></a>00039     {
-<a name="l00040"></a>00040         <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.remove(key);
-<a name="l00041"></a>00041     }
+<a name="l00031"></a><a class="code" href="classLauncher_1_1GameSettings.html#ab850cb020f42e0c1a642cd5b31dd1996">00031</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GameSettings.html#ab850cb020f42e0c1a642cd5b31dd1996">setValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classLauncher_1_1GameSettings.html#acd9090c7441e77c842f8c7fe3661f7e6">value</a>)
+<a name="l00032"></a>00032         {
+<a name="l00033"></a>00033             <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>.insert(key, value);
+<a name="l00034"></a>00034             <a class="code" href="classLauncher_1_1GameSettings.html#a4194cbad282910894a4f22aa2b31b7eb">mUserSettings</a>.insert(key, value);
+<a name="l00035"></a>00035         }
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classLauncher_1_1GameSettings.html#a9c688a692b8287c698891d729061a754">00037</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GameSettings.html#a9c688a692b8287c698891d729061a754">setMultiValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classLauncher_1_1GameSettings.html#acd9090c7441e77c842f8c7fe3661f7e6">value</a>)
+<a name="l00038"></a>00038         {
+<a name="l00039"></a>00039             QStringList <a class="code" href="classLauncher_1_1GameSettings.html#ae8a53f14f22a2531406ccb54fbd81cc7">values</a> = <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>.values(key);
+<a name="l00040"></a>00040             <span class="keywordflow">if</span> (!values.contains(value))
+<a name="l00041"></a>00041                 <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>.insertMulti(key, value);
 <a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classGameSettings.html#a9d452492a184085172cba018bb0e0eeb">00043</a>     <span class="keyword">inline</span> QStringList <a class="code" href="classGameSettings.html#a9d452492a184085172cba018bb0e0eeb">getDataDirs</a>() { <span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>; }
-<a name="l00044"></a><a class="code" href="classGameSettings.html#a34561504cd27d241ffefc8c4408eaf2b">00044</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#a34561504cd27d241ffefc8c4408eaf2b">addDataDir</a>(<span class="keyword">const</span> QString &amp;dir) { <span class="keywordflow">if</span>(!dir.isEmpty()) <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>.append(dir); }
-<a name="l00045"></a><a class="code" href="classGameSettings.html#af87d3e8bde0d731f42732a6889474853">00045</a>     <span class="keyword">inline</span> QString <a class="code" href="classGameSettings.html#af87d3e8bde0d731f42732a6889474853">getDataLocal</a>() {<span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">mDataLocal</a>; }
-<a name="l00046"></a><a class="code" href="classGameSettings.html#a4d526d252cc92eccbf8ceff6793c417d">00046</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#a4d526d252cc92eccbf8ceff6793c417d">hasMaster</a>() { <span class="keywordflow">return</span> <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>.count(QString(<span class="stringliteral">&quot;master&quot;</span>)) &gt; 0; }
+<a name="l00043"></a>00043             values = <a class="code" href="classLauncher_1_1GameSettings.html#a4194cbad282910894a4f22aa2b31b7eb">mUserSettings</a>.values(key);
+<a name="l00044"></a>00044             <span class="keywordflow">if</span> (!values.contains(value))
+<a name="l00045"></a>00045                 <a class="code" href="classLauncher_1_1GameSettings.html#a4194cbad282910894a4f22aa2b31b7eb">mUserSettings</a>.insertMulti(key, value);
+<a name="l00046"></a>00046         }
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048     QStringList <a class="code" href="classGameSettings.html#a19881f6f2b005f67f72f5bcf3ebc6b5d">values</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QStringList &amp;defaultValues = QStringList());
-<a name="l00049"></a>00049     <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#ab803b27e28649cf1b65cafb946bbef2c">readFile</a>(QTextStream &amp;stream);
-<a name="l00050"></a>00050     <span class="keywordtype">bool</span> <a class="code" href="classGameSettings.html#af692cc94142baca5f48dd161547487ec">writeFile</a>(QTextStream &amp;stream);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="keyword">private</span>:
-<a name="l00053"></a><a class="code" href="classGameSettings.html#abca5f7bf394aa281583ac7de72ce9cb7">00053</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classGameSettings.html#abca5f7bf394aa281583ac7de72ce9cb7">mCfgMgr</a>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classGameSettings.html#ad00aec4c9e45197da3289b0f1b9d6836">validatePaths</a>();
-<a name="l00056"></a><a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">00056</a>     QMap&lt;QString, QString&gt; <a class="code" href="classGameSettings.html#a29d114f8cbd0d5de11fa1bde52655b18">mSettings</a>;
+<a name="l00048"></a><a class="code" href="classLauncher_1_1GameSettings.html#a52adf8bfc37e4565c62e1330f2d59762">00048</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <span class="keyword">remove</span>(<span class="keyword">const</span> QString &amp;key)
+<a name="l00049"></a>00049         {
+<a name="l00050"></a>00050             <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>.remove(key);
+<a name="l00051"></a>00051             <a class="code" href="classLauncher_1_1GameSettings.html#a4194cbad282910894a4f22aa2b31b7eb">mUserSettings</a>.remove(key);
+<a name="l00052"></a>00052         }
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classLauncher_1_1GameSettings.html#ad06d04f4795e335879c9130b268c2f64">00054</a>         <span class="keyword">inline</span> QStringList <a class="code" href="classLauncher_1_1GameSettings.html#ad06d04f4795e335879c9130b268c2f64">getDataDirs</a>() { <span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1GameSettings.html#aa8b81ba08fe2d8247d588ca22cbf2953">mDataDirs</a>; }
+<a name="l00055"></a><a class="code" href="classLauncher_1_1GameSettings.html#a12884e2c2d33e4de5928d6f78931a6fa">00055</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GameSettings.html#a12884e2c2d33e4de5928d6f78931a6fa">addDataDir</a>(<span class="keyword">const</span> QString &amp;dir) { <span class="keywordflow">if</span>(!dir.isEmpty()) <a class="code" href="classLauncher_1_1GameSettings.html#aa8b81ba08fe2d8247d588ca22cbf2953">mDataDirs</a>.append(dir); }
+<a name="l00056"></a><a class="code" href="classLauncher_1_1GameSettings.html#acd5648a1bf6383b801a275e6578af65b">00056</a>         <span class="keyword">inline</span> QString <a class="code" href="classLauncher_1_1GameSettings.html#acd5648a1bf6383b801a275e6578af65b">getDataLocal</a>() {<span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1GameSettings.html#a431ccf229778d8f75ebebda8a2f2ae57">mDataLocal</a>; }
 <a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">00058</a>     QStringList <a class="code" href="classGameSettings.html#a93344c20798379ec57052f1b491c7c9a">mDataDirs</a>;
-<a name="l00059"></a><a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">00059</a>     QString <a class="code" href="classGameSettings.html#a789548a5e646d5f21e1e5262b4bbdf8d">mDataLocal</a>;
-<a name="l00060"></a>00060 };
+<a name="l00058"></a>00058         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GameSettings.html#a49786e272a4c623b9f7dde1185b9d963">hasMaster</a>();
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060         QStringList <a class="code" href="classLauncher_1_1GameSettings.html#ae8a53f14f22a2531406ccb54fbd81cc7">values</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QStringList &amp;defaultValues = QStringList());
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062 <span class="preprocessor">#endif // GAMESETTINGS_HPP</span>
+<a name="l00062"></a>00062         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GameSettings.html#a3e5de8248dcf0b1674332d8bafc8c511">readFile</a>(QTextStream &amp;stream);
+<a name="l00063"></a>00063         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GameSettings.html#a3e5de8248dcf0b1674332d8bafc8c511">readFile</a>(QTextStream &amp;stream, QMap&lt;QString, QString&gt; &amp;settings);
+<a name="l00064"></a>00064         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GameSettings.html#a86ef22604a8e4f3bc8756e30145fc5a7">readUserFile</a>(QTextStream &amp;stream);
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GameSettings.html#a24aec3acce7ff4f014480622444827a1">writeFile</a>(QTextStream &amp;stream);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068     <span class="keyword">private</span>:
+<a name="l00069"></a><a class="code" href="classLauncher_1_1GameSettings.html#ab102b4e11ff3d27fa0205890cbdac853">00069</a>         <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classLauncher_1_1GameSettings.html#ab102b4e11ff3d27fa0205890cbdac853">mCfgMgr</a>;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GameSettings.html#ab89148a48ce17146133f2b189ed739ac">validatePaths</a>();
+<a name="l00072"></a><a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">00072</a>         QMap&lt;QString, QString&gt; <a class="code" href="classLauncher_1_1GameSettings.html#acaeb6b578a3124a70ac0c8af2c649bb4">mSettings</a>;
+<a name="l00073"></a><a class="code" href="classLauncher_1_1GameSettings.html#a4194cbad282910894a4f22aa2b31b7eb">00073</a>         QMap&lt;QString, QString&gt; <a class="code" href="classLauncher_1_1GameSettings.html#a4194cbad282910894a4f22aa2b31b7eb">mUserSettings</a>;
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="classLauncher_1_1GameSettings.html#aa8b81ba08fe2d8247d588ca22cbf2953">00075</a>         QStringList <a class="code" href="classLauncher_1_1GameSettings.html#aa8b81ba08fe2d8247d588ca22cbf2953">mDataDirs</a>;
+<a name="l00076"></a><a class="code" href="classLauncher_1_1GameSettings.html#a431ccf229778d8f75ebebda8a2f2ae57">00076</a>         QString <a class="code" href="classLauncher_1_1GameSettings.html#a431ccf229778d8f75ebebda8a2f2ae57">mDataLocal</a>;
+<a name="l00077"></a>00077     };
+<a name="l00078"></a>00078 }
+<a name="l00079"></a>00079 <span class="preprocessor">#endif // GAMESETTINGS_HPP</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

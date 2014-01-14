@@ -104,8 +104,8 @@
 <a name="l00043"></a>00043           : <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a891a427e4e00d3472056254ce0d27c16">mAnimation</a>(anim)
 <a name="l00044"></a>00044         { }
 <a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a4e32efe4317a2bcfed3c9ede494c113d">00046</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a4e32efe4317a2bcfed3c9ede494c113d">setAnimName</a>(<span class="keyword">const</span> std::string &amp;name)
-<a name="l00047"></a>00047         { <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a0fec2488b9cc2cff40ea9287f89db41d">mAnimationName</a> = name; }
+<a name="l00046"></a><a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a4e32efe4317a2bcfed3c9ede494c113d">00046</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a4e32efe4317a2bcfed3c9ede494c113d">setAnimName</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)
+<a name="l00047"></a>00047         { <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a0fec2488b9cc2cff40ea9287f89db41d">mAnimationName</a> = <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>; }
 <a name="l00048"></a><a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#afa44fe5022d6c01d834686b2f6969676">00048</a>         <span class="keyword">const</span> std::string &amp;<a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#afa44fe5022d6c01d834686b2f6969676">getAnimName</a>()<span class="keyword"> const</span>
 <a name="l00049"></a>00049 <span class="keyword">        </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a0fec2488b9cc2cff40ea9287f89db41d">mAnimationName</a>; }
 <a name="l00050"></a>00050 
@@ -113,184 +113,228 @@
 <a name="l00052"></a>00052         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1AnimationValue.html#a885366db5417ff959a2c707fd5a67bc2">setValue</a>(Ogre::Real value);
 <a name="l00053"></a>00053     };
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html">00056</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html">NullAnimationValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;Ogre::Real&gt;
-<a name="l00057"></a>00057     {
-<a name="l00058"></a>00058     <span class="keyword">public</span>:
-<a name="l00059"></a><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a5aff997712fce91f58e4282838812644">00059</a>         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a5aff997712fce91f58e4282838812644">getValue</a>()<span class="keyword"> const</span>
-<a name="l00060"></a>00060 <span class="keyword">        </span>{ <span class="keywordflow">return</span> 0.0f; }
-<a name="l00061"></a><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a53ca33903148214db51e4c8f279d3b33">00061</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a53ca33903148214db51e4c8f279d3b33">setValue</a>(Ogre::Real value)
-<a name="l00062"></a>00062         { }
-<a name="l00063"></a>00063     };
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html">00066</a>     <span class="keyword">struct </span><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html">AnimSource</a> : <span class="keyword">public</span> Ogre::AnimationAlloc {
-<a name="l00067"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a9a6475a1199f3411a16f1dd962bdfe07">00067</a>         <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> <a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a9a6475a1199f3411a16f1dd962bdfe07">mTextKeys</a>;
-<a name="l00068"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a06dbe43d4b422fe8eb7321814196e8a5">00068</a>         std::vector&lt;Ogre::Controller&lt;Ogre::Real&gt; &gt; <a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a06dbe43d4b422fe8eb7321814196e8a5">mControllers</a>[<a class="code" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a>];
-<a name="l00069"></a>00069     };
-<a name="l00070"></a><a class="code" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">00070</a>     <span class="keyword">typedef</span> std::vector&lt; Ogre::SharedPtr&lt;AnimSource&gt; &gt; <a class="code" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">00072</a>     <span class="keyword">struct </span><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> {
-<a name="l00073"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#ad5eae176b646fd4f35e1f182ce10e085">00073</a>         Ogre::SharedPtr&lt;AnimSource&gt; <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#ad5eae176b646fd4f35e1f182ce10e085">mSource</a>;
-<a name="l00074"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a7cdc9ce97e5f1c6a29ca918bf2b5aa29">00074</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a7cdc9ce97e5f1c6a29ca918bf2b5aa29">mStartTime</a>;
-<a name="l00075"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a465f300fcc1853c013e3c2a43d68f2d3">00075</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a465f300fcc1853c013e3c2a43d68f2d3">mLoopStartTime</a>;
-<a name="l00076"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3aaa27a6572aa9ab75193d28ec5722d0">00076</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3aaa27a6572aa9ab75193d28ec5722d0">mLoopStopTime</a>;
-<a name="l00077"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a4fca76b1a0d3ed0a175c575bafe4a62f">00077</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a4fca76b1a0d3ed0a175c575bafe4a62f">mStopTime</a>;
+<a name="l00055"></a><a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html">00055</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html">EffectAnimationValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;Ogre::Real&gt;
+<a name="l00056"></a>00056     {
+<a name="l00057"></a>00057     <span class="keyword">private</span>:
+<a name="l00058"></a><a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a17e895d7850e4d73c69e459f4ab1c59b">00058</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a17e895d7850e4d73c69e459f4ab1c59b">mTime</a>;
+<a name="l00059"></a>00059     <span class="keyword">public</span>:
+<a name="l00060"></a><a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a034d29dd18ce1bb1e515ac8fa8bf016e">00060</a>         <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a034d29dd18ce1bb1e515ac8fa8bf016e">EffectAnimationValue</a>() : <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a17e895d7850e4d73c69e459f4ab1c59b">mTime</a>(0) {  }
+<a name="l00061"></a><a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#aba563a286a8a28f7f236c18154e9aada">00061</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#aba563a286a8a28f7f236c18154e9aada">addTime</a>(<span class="keywordtype">float</span> time) { <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a17e895d7850e4d73c69e459f4ab1c59b">mTime</a> += time; }
+<a name="l00062"></a><a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#ad98ce19b20ebbe5bc702825bbb7b5415">00062</a>         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#ad98ce19b20ebbe5bc702825bbb7b5415">resetTime</a>(<span class="keywordtype">float</span> value) { <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a17e895d7850e4d73c69e459f4ab1c59b">mTime</a> = value; }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a368d1018c03adc7ea971b8270315dbc0">getValue</a>() <span class="keyword">const</span>;
+<a name="l00065"></a>00065         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html#a3107b0600896d0bee303cf0d84d1620b">setValue</a>(Ogre::Real value);
+<a name="l00066"></a>00066     };
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html">00070</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html">NullAnimationValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;Ogre::Real&gt;
+<a name="l00071"></a>00071     {
+<a name="l00072"></a>00072     <span class="keyword">public</span>:
+<a name="l00073"></a><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a5aff997712fce91f58e4282838812644">00073</a>         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a5aff997712fce91f58e4282838812644">getValue</a>()<span class="keyword"> const</span>
+<a name="l00074"></a>00074 <span class="keyword">        </span>{ <span class="keywordflow">return</span> 0.0f; }
+<a name="l00075"></a><a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a53ca33903148214db51e4c8f279d3b33">00075</a>         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation_1_1NullAnimationValue.html#a53ca33903148214db51e4c8f279d3b33">setValue</a>(Ogre::Real value)
+<a name="l00076"></a>00076         { }
+<a name="l00077"></a>00077     };
 <a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#af1e97ee1a893af2557936f7628e8f752">00079</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#af1e97ee1a893af2557936f7628e8f752">mTime</a>;
-<a name="l00080"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a39f6f16a2a91640bbff2885f171eaab9">00080</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a39f6f16a2a91640bbff2885f171eaab9">mSpeedMult</a>;
-<a name="l00081"></a>00081 
-<a name="l00082"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#afd1787ff4fa2405b90a527548a27f265">00082</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#afd1787ff4fa2405b90a527548a27f265">mPlaying</a>;
-<a name="l00083"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3b239d28cfb3d79d6e1ca01c60a4ae0b">00083</a>         <span class="keywordtype">size_t</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3b239d28cfb3d79d6e1ca01c60a4ae0b">mLoopCount</a>;
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a86cfbf97aedad0cea4cd4d74872a16cb">00085</a>         <span class="keywordtype">int</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a86cfbf97aedad0cea4cd4d74872a16cb">mPriority</a>;
-<a name="l00086"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a247371ad3bdb94262e4f9d4ce7b8b335">00086</a>         <span class="keywordtype">int</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a247371ad3bdb94262e4f9d4ce7b8b335">mGroups</a>;
-<a name="l00087"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a88fe79eedfcbfaffabc2414b2d7a67be">00087</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a88fe79eedfcbfaffabc2414b2d7a67be">mAutoDisable</a>;
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a43ecf2df44db5ae255cd1720c82d84c8">00089</a>         <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a43ecf2df44db5ae255cd1720c82d84c8">AnimState</a>() : <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a7cdc9ce97e5f1c6a29ca918bf2b5aa29">mStartTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a465f300fcc1853c013e3c2a43d68f2d3">mLoopStartTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3aaa27a6572aa9ab75193d28ec5722d0">mLoopStopTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a4fca76b1a0d3ed0a175c575bafe4a62f">mStopTime</a>(0.0f),
-<a name="l00090"></a>00090                       <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#af1e97ee1a893af2557936f7628e8f752">mTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a39f6f16a2a91640bbff2885f171eaab9">mSpeedMult</a>(1.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#afd1787ff4fa2405b90a527548a27f265">mPlaying</a>(false), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3b239d28cfb3d79d6e1ca01c60a4ae0b">mLoopCount</a>(0),
-<a name="l00091"></a>00091                       <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a86cfbf97aedad0cea4cd4d74872a16cb">mPriority</a>(0), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a247371ad3bdb94262e4f9d4ce7b8b335">mGroups</a>(0), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a88fe79eedfcbfaffabc2414b2d7a67be">mAutoDisable</a>(true)
-<a name="l00092"></a>00092         { }
-<a name="l00093"></a>00093     };
-<a name="l00094"></a><a class="code" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">00094</a>     <span class="keyword">typedef</span> std::map&lt;std::string,AnimState&gt; <a class="code" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html">00080</a>     <span class="keyword">struct </span><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html">AnimSource</a> : <span class="keyword">public</span> Ogre::AnimationAlloc {
+<a name="l00081"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a9a6475a1199f3411a16f1dd962bdfe07">00081</a>         <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> <a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a9a6475a1199f3411a16f1dd962bdfe07">mTextKeys</a>;
+<a name="l00082"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a06dbe43d4b422fe8eb7321814196e8a5">00082</a>         std::vector&lt;Ogre::Controller&lt;Ogre::Real&gt; &gt; <a class="code" href="structMWRender_1_1Animation_1_1AnimSource.html#a06dbe43d4b422fe8eb7321814196e8a5">mControllers</a>[<a class="code" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a>];
+<a name="l00083"></a>00083     };
+<a name="l00084"></a><a class="code" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">00084</a>     <span class="keyword">typedef</span> std::vector&lt; Ogre::SharedPtr&lt;AnimSource&gt; &gt; <a class="code" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">00086</a>     <span class="keyword">struct </span><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> {
+<a name="l00087"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#ad5eae176b646fd4f35e1f182ce10e085">00087</a>         Ogre::SharedPtr&lt;AnimSource&gt; <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#ad5eae176b646fd4f35e1f182ce10e085">mSource</a>;
+<a name="l00088"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a7cdc9ce97e5f1c6a29ca918bf2b5aa29">00088</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a7cdc9ce97e5f1c6a29ca918bf2b5aa29">mStartTime</a>;
+<a name="l00089"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a465f300fcc1853c013e3c2a43d68f2d3">00089</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a465f300fcc1853c013e3c2a43d68f2d3">mLoopStartTime</a>;
+<a name="l00090"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3aaa27a6572aa9ab75193d28ec5722d0">00090</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3aaa27a6572aa9ab75193d28ec5722d0">mLoopStopTime</a>;
+<a name="l00091"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a4fca76b1a0d3ed0a175c575bafe4a62f">00091</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a4fca76b1a0d3ed0a175c575bafe4a62f">mStopTime</a>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#af1e97ee1a893af2557936f7628e8f752">00093</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#af1e97ee1a893af2557936f7628e8f752">mTime</a>;
+<a name="l00094"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a39f6f16a2a91640bbff2885f171eaab9">00094</a>         <span class="keywordtype">float</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a39f6f16a2a91640bbff2885f171eaab9">mSpeedMult</a>;
 <a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">00096</a>     <span class="keyword">typedef</span> std::map&lt;Ogre::MovableObject*,std::string&gt; <a class="code" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a>;
-<a name="l00097"></a>00097 
-<a name="l00098"></a><a class="code" href="classMWRender_1_1Animation.html#aa92fa49c6f89faf08d10c0c957515925">00098</a>     <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWRender_1_1Animation.html#aa92fa49c6f89faf08d10c0c957515925">mPtr</a>;
-<a name="l00099"></a><a class="code" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">00099</a>     <a class="code" href="classMWRender_1_1Camera.html" title="Camera control.">Camera</a> *<a class="code" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">mCamera</a>;
-<a name="l00100"></a>00100 
-<a name="l00101"></a><a class="code" href="classMWRender_1_1Animation.html#af5b6ebf3f3d5b9ec72663de02323ea0b">00101</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1Animation.html#af5b6ebf3f3d5b9ec72663de02323ea0b">mInsert</a>;
-<a name="l00102"></a><a class="code" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">00102</a>     Ogre::Entity *<a class="code" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">mSkelBase</a>;
-<a name="l00103"></a><a class="code" href="classMWRender_1_1Animation.html#a81910a062367622bce103855b6c27723">00103</a>     <a class="code" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="code" href="classMWRender_1_1Animation.html#a81910a062367622bce103855b6c27723">mObjectRoot</a>;
-<a name="l00104"></a><a class="code" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">00104</a>     <a class="code" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a> <a class="code" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">mAnimSources</a>;
-<a name="l00105"></a><a class="code" href="classMWRender_1_1Animation.html#ae61fb34a2bb0d264552f0f9d2be8df65">00105</a>     Ogre::Node *<a class="code" href="classMWRender_1_1Animation.html#ae61fb34a2bb0d264552f0f9d2be8df65">mAccumRoot</a>;
-<a name="l00106"></a><a class="code" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">00106</a>     Ogre::Node *<a class="code" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">mNonAccumRoot</a>;
-<a name="l00107"></a><a class="code" href="classMWRender_1_1Animation.html#a117c7c2415273d81f4e8599fc0e2013e">00107</a>     <a class="code" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue&lt;Ogre::Real&gt;</a> *<a class="code" href="classMWRender_1_1Animation.html#a117c7c2415273d81f4e8599fc0e2013e">mNonAccumCtrl</a>;
-<a name="l00108"></a><a class="code" href="classMWRender_1_1Animation.html#aded3e71fb0b24eab2eed7db7abe87895">00108</a>     Ogre::Vector3 <a class="code" href="classMWRender_1_1Animation.html#aded3e71fb0b24eab2eed7db7abe87895">mAccumulate</a>;
+<a name="l00096"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#afd1787ff4fa2405b90a527548a27f265">00096</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#afd1787ff4fa2405b90a527548a27f265">mPlaying</a>;
+<a name="l00097"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3b239d28cfb3d79d6e1ca01c60a4ae0b">00097</a>         <span class="keywordtype">size_t</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3b239d28cfb3d79d6e1ca01c60a4ae0b">mLoopCount</a>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a86cfbf97aedad0cea4cd4d74872a16cb">00099</a>         <span class="keywordtype">int</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a86cfbf97aedad0cea4cd4d74872a16cb">mPriority</a>;
+<a name="l00100"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a247371ad3bdb94262e4f9d4ce7b8b335">00100</a>         <span class="keywordtype">int</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a247371ad3bdb94262e4f9d4ce7b8b335">mGroups</a>;
+<a name="l00101"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a88fe79eedfcbfaffabc2414b2d7a67be">00101</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a88fe79eedfcbfaffabc2414b2d7a67be">mAutoDisable</a>;
+<a name="l00102"></a>00102 
+<a name="l00103"></a><a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a43ecf2df44db5ae255cd1720c82d84c8">00103</a>         <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a43ecf2df44db5ae255cd1720c82d84c8">AnimState</a>() : <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a7cdc9ce97e5f1c6a29ca918bf2b5aa29">mStartTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a465f300fcc1853c013e3c2a43d68f2d3">mLoopStartTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3aaa27a6572aa9ab75193d28ec5722d0">mLoopStopTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a4fca76b1a0d3ed0a175c575bafe4a62f">mStopTime</a>(0.0f),
+<a name="l00104"></a>00104                       <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#af1e97ee1a893af2557936f7628e8f752">mTime</a>(0.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a39f6f16a2a91640bbff2885f171eaab9">mSpeedMult</a>(1.0f), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#afd1787ff4fa2405b90a527548a27f265">mPlaying</a>(false), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a3b239d28cfb3d79d6e1ca01c60a4ae0b">mLoopCount</a>(0),
+<a name="l00105"></a>00105                       <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a86cfbf97aedad0cea4cd4d74872a16cb">mPriority</a>(0), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a247371ad3bdb94262e4f9d4ce7b8b335">mGroups</a>(0), <a class="code" href="structMWRender_1_1Animation_1_1AnimState.html#a88fe79eedfcbfaffabc2414b2d7a67be">mAutoDisable</a>(true)
+<a name="l00106"></a>00106         { }
+<a name="l00107"></a>00107     };
+<a name="l00108"></a><a class="code" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">00108</a>     <span class="keyword">typedef</span> std::map&lt;std::string,AnimState&gt; <a class="code" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a>;
 <a name="l00109"></a>00109 
-<a name="l00110"></a><a class="code" href="classMWRender_1_1Animation.html#a6db71a8c8d5705eb4979ca22a5a7251d">00110</a>     <a class="code" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a> <a class="code" href="classMWRender_1_1Animation.html#a6db71a8c8d5705eb4979ca22a5a7251d">mStates</a>;
+<a name="l00110"></a><a class="code" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">00110</a>     <span class="keyword">typedef</span> std::map&lt;Ogre::MovableObject*,std::string&gt; <a class="code" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a>;
 <a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="classMWRender_1_1Animation.html#a36322b0c50449ef4a750343905c9db50">00112</a>     Ogre::SharedPtr&lt;AnimationValue&gt; <a class="code" href="classMWRender_1_1Animation.html#a36322b0c50449ef4a750343905c9db50">mAnimationValuePtr</a>[<a class="code" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a>];
-<a name="l00113"></a><a class="code" href="classMWRender_1_1Animation.html#af5802ca2b847404aaffc1275430551bd">00113</a>     Ogre::SharedPtr&lt;NullAnimationValue&gt; <a class="code" href="classMWRender_1_1Animation.html#af5802ca2b847404aaffc1275430551bd">mNullAnimationValuePtr</a>;
-<a name="l00114"></a>00114 
-<a name="l00115"></a><a class="code" href="classMWRender_1_1Animation.html#a16979cdfc6007a5a99e75b1c79f3614c">00115</a>     <a class="code" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a> <a class="code" href="classMWRender_1_1Animation.html#a16979cdfc6007a5a99e75b1c79f3614c">mAttachedObjects</a>;
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="comment">/* Sets the appropriate animations on the bone groups based on priority.</span>
-<a name="l00118"></a>00118 <span class="comment">     */</span>
-<a name="l00119"></a>00119     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a94cc64915a580e0d9818d7aa50acc3d5">resetActiveGroups</a>();
+<a name="l00112"></a><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html">00112</a>     <span class="keyword">struct </span><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html">EffectParams</a>
+<a name="l00113"></a>00113     {
+<a name="l00114"></a><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#a427bad071a5bdf3d2ed08a4eb916d32a">00114</a>         std::string <a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#a427bad071a5bdf3d2ed08a4eb916d32a">mModelName</a>; <span class="comment">// Just here so we don&#39;t add the same effect twice</span>
+<a name="l00115"></a><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#a896e2a480ef8cfec10a97991356854a4">00115</a>         <a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#a896e2a480ef8cfec10a97991356854a4">mObjects</a>;
+<a name="l00116"></a><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#aedfad6978bef0904835a2aecb2ec5a37">00116</a>         <span class="keywordtype">int</span> <a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#aedfad6978bef0904835a2aecb2ec5a37">mEffectId</a>;
+<a name="l00117"></a><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#ad299927a4d827b9ebbe6cae6f704e94d">00117</a>         <span class="keywordtype">bool</span> <a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#ad299927a4d827b9ebbe6cae6f704e94d">mLoop</a>;
+<a name="l00118"></a><a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#a785f0431b104b9903e900db598f55480">00118</a>         std::string <a class="code" href="structMWRender_1_1Animation_1_1EffectParams.html#a785f0431b104b9903e900db598f55480">mBoneName</a>;
+<a name="l00119"></a>00119     };
 <a name="l00120"></a>00120 
-<a name="l00121"></a>00121     <span class="keyword">static</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWRender_1_1Animation.html#a711b05b817d346b5bab1b02f435a4696">detectAnimGroup</a>(<span class="keyword">const</span> Ogre::Node *node);
+<a name="l00121"></a><a class="code" href="classMWRender_1_1Animation.html#a9629e5a9f6d3dd99cd93fceabf3ef24d">00121</a>     std::vector&lt;EffectParams&gt; <a class="code" href="classMWRender_1_1Animation.html#a9629e5a9f6d3dd99cd93fceabf3ef24d">mEffects</a>;
 <a name="l00122"></a>00122 
-<a name="l00123"></a>00123     <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Animation.html#a5acf455b017a6fc48a2053da5ea80882">calcAnimVelocity</a>(<span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys,
-<a name="l00124"></a>00124                                   <a class="code" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue&lt;Ogre::Real&gt;</a> *nonaccumctrl,
-<a name="l00125"></a>00125                                   <span class="keyword">const</span> Ogre::Vector3 &amp;accum,
-<a name="l00126"></a>00126                                   <span class="keyword">const</span> std::string &amp;groupname);
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128     <span class="comment">/* Updates a skeleton instance so that all bones matching the source skeleton (based on</span>
-<a name="l00129"></a>00129 <span class="comment">     * bone names) are positioned identically. */</span>
-<a name="l00130"></a>00130     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a663b0d04e72476c3633b850e70988a20">updateSkeletonInstance</a>(<span class="keyword">const</span> Ogre::SkeletonInstance *skelsrc, Ogre::SkeletonInstance *skel);
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132     <span class="comment">/* Updates the position of the accum root node for the given time, and</span>
-<a name="l00133"></a>00133 <span class="comment">     * returns the wanted movement vector from the previous time. */</span>
-<a name="l00134"></a>00134     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ab1d2752d5780a09ea57e1a7782817da5">updatePosition</a>(<span class="keywordtype">float</span> oldtime, <span class="keywordtype">float</span> newtime, Ogre::Vector3 &amp;position);
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136     <span class="keyword">static</span> NifOgre::TextKeyMap::const_iterator <a class="code" href="classMWRender_1_1Animation.html#ab1f5d8535fbc4a41194c32784d11234e">findGroupStart</a>(<span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, <span class="keyword">const</span> std::string &amp;groupname);
-<a name="l00137"></a>00137 
-<a name="l00138"></a>00138     <span class="comment">/* Resets the animation to the time of the specified start marker, without</span>
-<a name="l00139"></a>00139 <span class="comment">     * moving anything, and set the end time to the specified stop marker. If</span>
-<a name="l00140"></a>00140 <span class="comment">     * the marker is not found, or if the markers are the same, it returns</span>
-<a name="l00141"></a>00141 <span class="comment">     * false.</span>
-<a name="l00142"></a>00142 <span class="comment">     */</span>
-<a name="l00143"></a>00143     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a9a8499e9c0df8aa7011743fadfc5a899">reset</a>(<a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, <span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys,
-<a name="l00144"></a>00144                <span class="keyword">const</span> std::string &amp;groupname, <span class="keyword">const</span> std::string &amp;start, <span class="keyword">const</span> std::string &amp;stop,
-<a name="l00145"></a>00145                <span class="keywordtype">float</span> startpoint);
+<a name="l00123"></a><a class="code" href="classMWRender_1_1Animation.html#aa92fa49c6f89faf08d10c0c957515925">00123</a>     <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWRender_1_1Animation.html#aa92fa49c6f89faf08d10c0c957515925">mPtr</a>;
+<a name="l00124"></a><a class="code" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">00124</a>     <a class="code" href="classMWRender_1_1Camera.html" title="Camera control.">Camera</a> *<a class="code" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">mCamera</a>;
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="classMWRender_1_1Animation.html#af5b6ebf3f3d5b9ec72663de02323ea0b">00126</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1Animation.html#af5b6ebf3f3d5b9ec72663de02323ea0b">mInsert</a>;
+<a name="l00127"></a><a class="code" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">00127</a>     Ogre::Entity *<a class="code" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">mSkelBase</a>;
+<a name="l00128"></a><a class="code" href="classMWRender_1_1Animation.html#aa4a2411671fc252da544e3c2024f1b4a">00128</a>     <a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="code" href="classMWRender_1_1Animation.html#aa4a2411671fc252da544e3c2024f1b4a">mObjectRoot</a>;
+<a name="l00129"></a><a class="code" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">00129</a>     <a class="code" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a> <a class="code" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">mAnimSources</a>;
+<a name="l00130"></a><a class="code" href="classMWRender_1_1Animation.html#ae61fb34a2bb0d264552f0f9d2be8df65">00130</a>     Ogre::Node *<a class="code" href="classMWRender_1_1Animation.html#ae61fb34a2bb0d264552f0f9d2be8df65">mAccumRoot</a>;
+<a name="l00131"></a><a class="code" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">00131</a>     Ogre::Node *<a class="code" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">mNonAccumRoot</a>;
+<a name="l00132"></a><a class="code" href="classMWRender_1_1Animation.html#a117c7c2415273d81f4e8599fc0e2013e">00132</a>     <a class="code" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue&lt;Ogre::Real&gt;</a> *<a class="code" href="classMWRender_1_1Animation.html#a117c7c2415273d81f4e8599fc0e2013e">mNonAccumCtrl</a>;
+<a name="l00133"></a><a class="code" href="classMWRender_1_1Animation.html#aded3e71fb0b24eab2eed7db7abe87895">00133</a>     Ogre::Vector3 <a class="code" href="classMWRender_1_1Animation.html#aded3e71fb0b24eab2eed7db7abe87895">mAccumulate</a>;
+<a name="l00134"></a>00134 
+<a name="l00135"></a><a class="code" href="classMWRender_1_1Animation.html#a6db71a8c8d5705eb4979ca22a5a7251d">00135</a>     <a class="code" href="classMWRender_1_1Animation.html#a10ae9d09ca5a96f0ce4332e8f8c6742b">AnimStateMap</a> <a class="code" href="classMWRender_1_1Animation.html#a6db71a8c8d5705eb4979ca22a5a7251d">mStates</a>;
+<a name="l00136"></a>00136 
+<a name="l00137"></a><a class="code" href="classMWRender_1_1Animation.html#a36322b0c50449ef4a750343905c9db50">00137</a>     Ogre::SharedPtr&lt;AnimationValue&gt; <a class="code" href="classMWRender_1_1Animation.html#a36322b0c50449ef4a750343905c9db50">mAnimationValuePtr</a>[<a class="code" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a>];
+<a name="l00138"></a><a class="code" href="classMWRender_1_1Animation.html#af5802ca2b847404aaffc1275430551bd">00138</a>     Ogre::SharedPtr&lt;NullAnimationValue&gt; <a class="code" href="classMWRender_1_1Animation.html#af5802ca2b847404aaffc1275430551bd">mNullAnimationValuePtr</a>;
+<a name="l00139"></a>00139 
+<a name="l00140"></a><a class="code" href="classMWRender_1_1Animation.html#a16979cdfc6007a5a99e75b1c79f3614c">00140</a>     <a class="code" href="classMWRender_1_1Animation.html#a921eb403f7bfc1f77116edff82691b6d">ObjectAttachMap</a> <a class="code" href="classMWRender_1_1Animation.html#a16979cdfc6007a5a99e75b1c79f3614c">mAttachedObjects</a>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143     <span class="comment">/* Sets the appropriate animations on the bone groups based on priority.</span>
+<a name="l00144"></a>00144 <span class="comment">     */</span>
+<a name="l00145"></a>00145     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a94cc64915a580e0d9818d7aa50acc3d5">resetActiveGroups</a>();
 <a name="l00146"></a>00146 
-<a name="l00147"></a>00147     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#aaa7cd16b86f6bc033adddf4b2728fe55">handleTextKey</a>(<a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, <span class="keyword">const</span> std::string &amp;groupname, <span class="keyword">const</span> NifOgre::TextKeyMap::const_iterator &amp;key);
+<a name="l00147"></a>00147     <span class="keyword">static</span> <span class="keywordtype">size_t</span> <a class="code" href="classMWRender_1_1Animation.html#a711b05b817d346b5bab1b02f435a4696">detectAnimGroup</a>(<span class="keyword">const</span> Ogre::Node *node);
 <a name="l00148"></a>00148 
-<a name="l00149"></a>00149     <span class="comment">/* Sets the root model of the object. If &#39;baseonly&#39; is true, then any meshes or particle</span>
-<a name="l00150"></a>00150 <span class="comment">     * systems in the model are ignored (useful for NPCs, where only the skeleton is needed for</span>
-<a name="l00151"></a>00151 <span class="comment">     * the root).</span>
-<a name="l00152"></a>00152 <span class="comment">     *</span>
-<a name="l00153"></a>00153 <span class="comment">     * Note that you must make sure all animation sources are cleared before reseting the object</span>
-<a name="l00154"></a>00154 <span class="comment">     * root. All nodes previously retrieved with getNode will also become invalidated.</span>
-<a name="l00155"></a>00155 <span class="comment">     */</span>
-<a name="l00156"></a>00156     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a122a08439fd79685257580eb05887dfa">setObjectRoot</a>(<span class="keyword">const</span> std::string &amp;model, <span class="keywordtype">bool</span> baseonly);
+<a name="l00149"></a>00149     <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Animation.html#a5acf455b017a6fc48a2053da5ea80882">calcAnimVelocity</a>(<span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys,
+<a name="l00150"></a>00150                                   <a class="code" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue&lt;Ogre::Real&gt;</a> *nonaccumctrl,
+<a name="l00151"></a>00151                                   <span class="keyword">const</span> Ogre::Vector3 &amp;accum,
+<a name="l00152"></a>00152                                   <span class="keyword">const</span> std::string &amp;groupname);
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154     <span class="comment">/* Updates a skeleton instance so that all bones matching the source skeleton (based on</span>
+<a name="l00155"></a>00155 <span class="comment">     * bone names) are positioned identically. */</span>
+<a name="l00156"></a>00156     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a663b0d04e72476c3633b850e70988a20">updateSkeletonInstance</a>(<span class="keyword">const</span> Ogre::SkeletonInstance *skelsrc, Ogre::SkeletonInstance *skel);
 <a name="l00157"></a>00157 
-<a name="l00158"></a>00158     <span class="comment">/* Adds the keyframe controllers in the specified model as a new animation source. Note that</span>
-<a name="l00159"></a>00159 <span class="comment">     * the filename portion of the provided model name will be prepended with &#39;x&#39;, and the .nif</span>
-<a name="l00160"></a>00160 <span class="comment">     * extension will be replaced with .kf. */</span>
-<a name="l00161"></a>00161     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#aff362c03830efca83a352ab456362110">addAnimSource</a>(<span class="keyword">const</span> std::string &amp;model);
-<a name="l00162"></a>00162 
-<a name="l00164"></a>00164     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a829df50d8a6351da628c3b0ab7b9773b">addExtraLight</a>(Ogre::SceneManager *sceneMgr, <a class="code" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objlist, <span class="keyword">const</span> <a class="code" href="structESM_1_1Light.html">ESM::Light</a> *light);
-<a name="l00165"></a>00165 
-<a name="l00166"></a>00166     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a443daf54b0ff528b7554d34839ea8c43">destroyObjectList</a>(Ogre::SceneManager *sceneMgr, <a class="code" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objects);
-<a name="l00167"></a>00167 
-<a name="l00168"></a>00168     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a98886533a1a0c97a67959095a13a59ae">setRenderProperties</a>(<span class="keyword">const</span> <a class="code" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist=0.0f);
-<a name="l00169"></a>00169 
-<a name="l00170"></a>00170     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#aa5739caddf776d68d560e24f912e9379">clearAnimSources</a>();
-<a name="l00171"></a>00171 
-<a name="l00172"></a>00172 <span class="keyword">public</span>:
-<a name="l00173"></a>00173     <a class="code" href="classMWRender_1_1Animation.html#a7721040bfef3a29a30068ce5c8878ce8">Animation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node);
-<a name="l00174"></a>00174     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Animation.html#a29ed29a359c49105b3c972651d4fec28">~Animation</a>();
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ae4627a2cd19846ca585f42d0365c23fe">updatePtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a23e0c1169b04b1e785b3c01f4bcf437b">hasAnimation</a>(<span class="keyword">const</span> std::string &amp;anim);
-<a name="l00179"></a>00179 
-<a name="l00180"></a>00180     <span class="comment">// Specifies the axis&#39; to accumulate on. Non-accumulated axis will just</span>
-<a name="l00181"></a>00181     <span class="comment">// move visually, but not affect the actual movement. Each x/y/z value</span>
-<a name="l00182"></a>00182     <span class="comment">// should be on the scale of 0 to 1.</span>
-<a name="l00183"></a>00183     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a0a8fb6eb17a1f7061a955e835319f04b">setAccumulation</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;accum);
-<a name="l00184"></a>00184 
-<a name="l00202"></a>00202     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ab3a69ee74baadbb9c692501235cfb729">play</a>(<span class="keyword">const</span> std::string &amp;groupname, <span class="keywordtype">int</span> priority, <span class="keywordtype">int</span> groups, <span class="keywordtype">bool</span> autodisable,
-<a name="l00203"></a>00203               <span class="keywordtype">float</span> speedmult, <span class="keyword">const</span> std::string &amp;start, <span class="keyword">const</span> std::string &amp;stop,
-<a name="l00204"></a>00204               <span class="keywordtype">float</span> startpoint, <span class="keywordtype">size_t</span> loops);
-<a name="l00205"></a>00205 
-<a name="l00207"></a>00207     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">isPlaying</a>(<span class="keyword">const</span> std::string &amp;groupname) <span class="keyword">const</span>;
-<a name="l00208"></a>00208 
-<a name="l00215"></a>00215     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#acf25405ac8a19025bd2ab392ff5eea7f">getInfo</a>(<span class="keyword">const</span> std::string &amp;groupname, <span class="keywordtype">float</span> *complete=NULL, <span class="keywordtype">float</span> *speedmult=NULL) <span class="keyword">const</span>;
-<a name="l00216"></a>00216 
-<a name="l00220"></a>00220     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ae52ecaea6bbf327d968e6d388f37bf44">disable</a>(<span class="keyword">const</span> std::string &amp;groupname);
+<a name="l00158"></a>00158     <span class="comment">/* Updates the position of the accum root node for the given time, and</span>
+<a name="l00159"></a>00159 <span class="comment">     * returns the wanted movement vector from the previous time. */</span>
+<a name="l00160"></a>00160     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ab1d2752d5780a09ea57e1a7782817da5">updatePosition</a>(<span class="keywordtype">float</span> oldtime, <span class="keywordtype">float</span> newtime, Ogre::Vector3 &amp;position);
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162     <span class="keyword">static</span> NifOgre::TextKeyMap::const_iterator <a class="code" href="classMWRender_1_1Animation.html#ab1f5d8535fbc4a41194c32784d11234e">findGroupStart</a>(<span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, <span class="keyword">const</span> std::string &amp;groupname);
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164     <span class="comment">/* Resets the animation to the time of the specified start marker, without</span>
+<a name="l00165"></a>00165 <span class="comment">     * moving anything, and set the end time to the specified stop marker. If</span>
+<a name="l00166"></a>00166 <span class="comment">     * the marker is not found, or if the markers are the same, it returns</span>
+<a name="l00167"></a>00167 <span class="comment">     * false.</span>
+<a name="l00168"></a>00168 <span class="comment">     */</span>
+<a name="l00169"></a>00169     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a9a8499e9c0df8aa7011743fadfc5a899">reset</a>(<a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, <span class="keyword">const</span> <a class="code" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys,
+<a name="l00170"></a>00170                <span class="keyword">const</span> std::string &amp;groupname, <span class="keyword">const</span> std::string &amp;start, <span class="keyword">const</span> std::string &amp;stop,
+<a name="l00171"></a>00171                <span class="keywordtype">float</span> startpoint);
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#aaa7cd16b86f6bc033adddf4b2728fe55">handleTextKey</a>(<a class="code" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, <span class="keyword">const</span> std::string &amp;groupname, <span class="keyword">const</span> NifOgre::TextKeyMap::const_iterator &amp;key);
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175     <span class="comment">/* Sets the root model of the object. If &#39;baseonly&#39; is true, then any meshes or particle</span>
+<a name="l00176"></a>00176 <span class="comment">     * systems in the model are ignored (useful for NPCs, where only the skeleton is needed for</span>
+<a name="l00177"></a>00177 <span class="comment">     * the root).</span>
+<a name="l00178"></a>00178 <span class="comment">     *</span>
+<a name="l00179"></a>00179 <span class="comment">     * Note that you must make sure all animation sources are cleared before reseting the object</span>
+<a name="l00180"></a>00180 <span class="comment">     * root. All nodes previously retrieved with getNode will also become invalidated.</span>
+<a name="l00181"></a>00181 <span class="comment">     */</span>
+<a name="l00182"></a>00182     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a122a08439fd79685257580eb05887dfa">setObjectRoot</a>(<span class="keyword">const</span> std::string &amp;model, <span class="keywordtype">bool</span> baseonly);
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184     <span class="comment">/* Adds the keyframe controllers in the specified model as a new animation source. Note that</span>
+<a name="l00185"></a>00185 <span class="comment">     * the filename portion of the provided model name will be prepended with &#39;x&#39;, and the .nif</span>
+<a name="l00186"></a>00186 <span class="comment">     * extension will be replaced with .kf. */</span>
+<a name="l00187"></a>00187     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#aff362c03830efca83a352ab456362110">addAnimSource</a>(<span class="keyword">const</span> std::string &amp;model);
+<a name="l00188"></a>00188 
+<a name="l00190"></a>00190     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a54df2101c9ec770223f9b8726e12d56e">addExtraLight</a>(Ogre::SceneManager *sceneMgr, <a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> objlist, <span class="keyword">const</span> <a class="code" href="structESM_1_1Light.html">ESM::Light</a> *light);
+<a name="l00191"></a>00191 
+<a name="l00192"></a>00192     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ac3a1971b2fcbad4ef199592ca659534c">setRenderProperties</a>(<a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue,
+<a name="l00193"></a>00193                                     Ogre::uint8 transqueue, Ogre::Real dist=0.0f,
+<a name="l00194"></a>00194                                     <span class="keywordtype">bool</span> enchantedGlow=<span class="keyword">false</span>, Ogre::Vector3* glowColor=NULL);
+<a name="l00195"></a>00195 
+<a name="l00196"></a>00196     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#aa5739caddf776d68d560e24f912e9379">clearAnimSources</a>();
+<a name="l00197"></a>00197 
+<a name="l00198"></a>00198     <span class="comment">// TODO: Should not be here</span>
+<a name="l00199"></a>00199     Ogre::Vector3 <a class="code" href="classMWRender_1_1Animation.html#ab2eb083779dce338e55c4892402d1a44">getEnchantmentColor</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00200"></a>00200 
+<a name="l00201"></a>00201 <span class="keyword">public</span>:
+<a name="l00202"></a>00202     <a class="code" href="classMWRender_1_1Animation.html#a7721040bfef3a29a30068ce5c8878ce8">Animation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node);
+<a name="l00203"></a>00203     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Animation.html#a29ed29a359c49105b3c972651d4fec28">~Animation</a>();
+<a name="l00204"></a>00204 
+<a name="l00215"></a>00215     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a1ad2390344ae9c1560289082c500be9e" title="Add an effect mesh attached to a bone or the insert scene node.">addEffect</a> (<span class="keyword">const</span> std::string&amp; model, <span class="keywordtype">int</span> effectId, <span class="keywordtype">bool</span> loop = <span class="keyword">false</span>, <span class="keyword">const</span> std::string&amp; bonename = <span class="stringliteral">&quot;&quot;</span>, std::string texture = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00216"></a>00216     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a7e3cf398c2863d9d03128461eb06d13b">removeEffect</a> (<span class="keywordtype">int</span> effectId);
+<a name="l00217"></a>00217     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a836f25740892ae073fa3a025857b2de8">getLoopingEffects</a> (std::vector&lt;int&gt;&amp; out);
+<a name="l00218"></a>00218 
+<a name="l00220"></a>00220     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#af57e944412345b055c146b410bfdbeb7" title="Prepare this animation for being rendered with camera (rotates billboard nodes)">preRender</a> (Ogre::Camera* camera);
 <a name="l00221"></a>00221 
-<a name="l00223"></a>00223     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Animation.html#ab9317b27de91d2abd4b5e8ce06ce5ec7">getVelocity</a>(<span class="keyword">const</span> std::string &amp;groupname) <span class="keyword">const</span>;
-<a name="l00224"></a>00224 
-<a name="l00225"></a>00225     <span class="keyword">virtual</span> Ogre::Vector3 <a class="code" href="classMWRender_1_1Animation.html#a2493ad01a65d407b54d2e3f56df4a236">runAnimation</a>(<span class="keywordtype">float</span> duration);
+<a name="l00222"></a><a class="code" href="classMWRender_1_1Animation.html#ad15d015ec9f2f9f6d6585a65cf02151e">00222</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ad15d015ec9f2f9f6d6585a65cf02151e">setAlpha</a>(<span class="keywordtype">float</span> alpha) {}
+<a name="l00223"></a>00223 <span class="keyword">private</span>:
+<a name="l00224"></a>00224     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#abe9eebb1a1cd7d4fdae6d82f3b2c2b6b">updateEffects</a>(<span class="keywordtype">float</span> duration);
+<a name="l00225"></a>00225 
 <a name="l00226"></a>00226 
-<a name="l00227"></a>00227     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a7a6b85ce09dceb0b8510ab0c428c8082">showWeapons</a>(<span class="keywordtype">bool</span> showWeapon);
-<a name="l00228"></a>00228 
-<a name="l00229"></a>00229     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ac86126ae72bcd529271969a5c37c74e2">enableLights</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
-<a name="l00230"></a>00230 
-<a name="l00231"></a>00231     Ogre::AxisAlignedBox <a class="code" href="classMWRender_1_1Animation.html#aee94070f9567fef76ce12ea982da50fc">getWorldBounds</a>();
-<a name="l00232"></a>00232 
-<a name="l00233"></a><a class="code" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">00233</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">setCamera</a>(<a class="code" href="classMWRender_1_1Camera.html" title="Camera control.">Camera</a> *cam)
-<a name="l00234"></a>00234     { <a class="code" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">mCamera</a> = cam; }
-<a name="l00235"></a>00235 
-<a name="l00236"></a>00236     Ogre::Node *<a class="code" href="classMWRender_1_1Animation.html#ae7c7f70acba9b8995a6c3875228b7362">getNode</a>(<span class="keyword">const</span> std::string &amp;name);
-<a name="l00237"></a>00237 
-<a name="l00238"></a>00238     <span class="comment">// Attaches the given object to a bone on this object&#39;s base skeleton. If the bone doesn&#39;t</span>
-<a name="l00239"></a>00239     <span class="comment">// exist, the object isn&#39;t attached and NULL is returned. The returned TagPoint is only</span>
-<a name="l00240"></a>00240     <span class="comment">// valid until the next setObjectRoot call.</span>
-<a name="l00241"></a>00241     Ogre::TagPoint *<a class="code" href="classMWRender_1_1Animation.html#a8634b3a31d6c19eb9ab875d02d81c23d">attachObjectToBone</a>(<span class="keyword">const</span> Ogre::String &amp;bonename, Ogre::MovableObject *obj);
-<a name="l00242"></a>00242     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ab62e6d129273c8765fd30954097cf6c9">detachObjectFromBone</a>(Ogre::MovableObject *obj);
-<a name="l00243"></a>00243 };
-<a name="l00244"></a>00244 
-<a name="l00245"></a><a class="code" href="classMWRender_1_1ObjectAnimation.html">00245</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1ObjectAnimation.html">ObjectAnimation</a> : <span class="keyword">public</span> <a class="code" href="classMWRender_1_1Animation.html">Animation</a> {
-<a name="l00246"></a>00246 <span class="keyword">public</span>:
-<a name="l00247"></a>00247     <a class="code" href="classMWRender_1_1ObjectAnimation.html#a23e1aca7bfc1971a9e85511b2a98e53f">ObjectAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string &amp;model);
-<a name="l00248"></a>00248 
-<a name="l00249"></a>00249     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ObjectAnimation.html#aadca6aa68b850f71044fc83d6fdbbe91">addLight</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Light.html">ESM::Light</a> *light);
-<a name="l00250"></a>00250 
-<a name="l00251"></a>00251     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1ObjectAnimation.html#a9f66b50c3409762fdcead8eceb30a3b9">canBatch</a>() <span class="keyword">const</span>;
-<a name="l00252"></a>00252     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ObjectAnimation.html#ab5288b0276375f7c600280ddc21d60ac">fillBatch</a>(Ogre::StaticGeometry *sg);
-<a name="l00253"></a>00253 };
-<a name="l00254"></a>00254 
-<a name="l00255"></a>00255 }
-<a name="l00256"></a>00256 <span class="preprocessor">#endif</span>
+<a name="l00227"></a>00227 <span class="keyword">public</span>:
+<a name="l00228"></a>00228     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ae4627a2cd19846ca585f42d0365c23fe">updatePtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a23e0c1169b04b1e785b3c01f4bcf437b">hasAnimation</a>(<span class="keyword">const</span> std::string &amp;anim);
+<a name="l00231"></a>00231 
+<a name="l00232"></a>00232     <span class="comment">// Specifies the axis&#39; to accumulate on. Non-accumulated axis will just</span>
+<a name="l00233"></a>00233     <span class="comment">// move visually, but not affect the actual movement. Each x/y/z value</span>
+<a name="l00234"></a>00234     <span class="comment">// should be on the scale of 0 to 1.</span>
+<a name="l00235"></a>00235     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a0a8fb6eb17a1f7061a955e835319f04b">setAccumulation</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;accum);
+<a name="l00236"></a>00236 
+<a name="l00254"></a>00254     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ab3a69ee74baadbb9c692501235cfb729">play</a>(<span class="keyword">const</span> std::string &amp;groupname, <span class="keywordtype">int</span> priority, <span class="keywordtype">int</span> groups, <span class="keywordtype">bool</span> autodisable,
+<a name="l00255"></a>00255               <span class="keywordtype">float</span> speedmult, <span class="keyword">const</span> std::string &amp;start, <span class="keyword">const</span> std::string &amp;stop,
+<a name="l00256"></a>00256               <span class="keywordtype">float</span> startpoint, <span class="keywordtype">size_t</span> loops);
+<a name="l00257"></a>00257 
+<a name="l00259"></a>00259     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">isPlaying</a>(<span class="keyword">const</span> std::string &amp;groupname) <span class="keyword">const</span>;
+<a name="l00260"></a>00260 
+<a name="l00261"></a>00261     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">isPlaying</a>(<a class="code" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2">Group</a> group) <span class="keyword">const</span>;
+<a name="l00262"></a>00262 
+<a name="l00269"></a>00269     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1Animation.html#acf25405ac8a19025bd2ab392ff5eea7f">getInfo</a>(<span class="keyword">const</span> std::string &amp;groupname, <span class="keywordtype">float</span> *complete=NULL, <span class="keywordtype">float</span> *speedmult=NULL) <span class="keyword">const</span>;
+<a name="l00270"></a>00270 
+<a name="l00274"></a>00274     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ae52ecaea6bbf327d968e6d388f37bf44">disable</a>(<span class="keyword">const</span> std::string &amp;groupname);
+<a name="l00275"></a>00275 
+<a name="l00277"></a>00277     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1Animation.html#ab9317b27de91d2abd4b5e8ce06ce5ec7">getVelocity</a>(<span class="keyword">const</span> std::string &amp;groupname) <span class="keyword">const</span>;
+<a name="l00278"></a>00278 
+<a name="l00279"></a>00279     <span class="keyword">virtual</span> Ogre::Vector3 <a class="code" href="classMWRender_1_1Animation.html#a2493ad01a65d407b54d2e3f56df4a236">runAnimation</a>(<span class="keywordtype">float</span> duration);
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a7a6b85ce09dceb0b8510ab0c428c8082">showWeapons</a>(<span class="keywordtype">bool</span> showWeapon);
+<a name="l00282"></a><a class="code" href="classMWRender_1_1Animation.html#a4a247dfafe9c1efeeeaa8a609bca4758">00282</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#a4a247dfafe9c1efeeeaa8a609bca4758">showCarriedLeft</a>(<span class="keywordtype">bool</span> show) {}
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ac86126ae72bcd529271969a5c37c74e2">enableLights</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
+<a name="l00285"></a>00285 
+<a name="l00286"></a>00286     Ogre::AxisAlignedBox <a class="code" href="classMWRender_1_1Animation.html#aee94070f9567fef76ce12ea982da50fc">getWorldBounds</a>();
+<a name="l00287"></a>00287 
+<a name="l00288"></a><a class="code" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">00288</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">setCamera</a>(<a class="code" href="classMWRender_1_1Camera.html" title="Camera control.">Camera</a> *cam)
+<a name="l00289"></a>00289     { <a class="code" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">mCamera</a> = cam; }
+<a name="l00290"></a>00290 
+<a name="l00291"></a>00291     Ogre::Node *<a class="code" href="classMWRender_1_1Animation.html#ae7c7f70acba9b8995a6c3875228b7362">getNode</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00292"></a>00292 
+<a name="l00293"></a>00293     <span class="comment">// Attaches the given object to a bone on this object&#39;s base skeleton. If the bone doesn&#39;t</span>
+<a name="l00294"></a>00294     <span class="comment">// exist, the object isn&#39;t attached and NULL is returned. The returned TagPoint is only</span>
+<a name="l00295"></a>00295     <span class="comment">// valid until the next setObjectRoot call.</span>
+<a name="l00296"></a>00296     Ogre::TagPoint *<a class="code" href="classMWRender_1_1Animation.html#a8634b3a31d6c19eb9ab875d02d81c23d">attachObjectToBone</a>(<span class="keyword">const</span> Ogre::String &amp;bonename, Ogre::MovableObject *obj);
+<a name="l00297"></a>00297     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Animation.html#ab62e6d129273c8765fd30954097cf6c9">detachObjectFromBone</a>(Ogre::MovableObject *obj);
+<a name="l00298"></a>00298 };
+<a name="l00299"></a>00299 
+<a name="l00300"></a><a class="code" href="classMWRender_1_1ObjectAnimation.html">00300</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1ObjectAnimation.html">ObjectAnimation</a> : <span class="keyword">public</span> <a class="code" href="classMWRender_1_1Animation.html">Animation</a> {
+<a name="l00301"></a>00301 <span class="keyword">public</span>:
+<a name="l00302"></a>00302     <a class="code" href="classMWRender_1_1ObjectAnimation.html#a23e1aca7bfc1971a9e85511b2a98e53f">ObjectAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string &amp;model);
+<a name="l00303"></a>00303 
+<a name="l00304"></a>00304     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ObjectAnimation.html#aadca6aa68b850f71044fc83d6fdbbe91">addLight</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Light.html">ESM::Light</a> *light);
+<a name="l00305"></a>00305 
+<a name="l00306"></a>00306     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1ObjectAnimation.html#a9f66b50c3409762fdcead8eceb30a3b9">canBatch</a>() <span class="keyword">const</span>;
+<a name="l00307"></a>00307     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1ObjectAnimation.html#ab5288b0276375f7c600280ddc21d60ac">fillBatch</a>(Ogre::StaticGeometry *sg);
+<a name="l00308"></a>00308 };
+<a name="l00309"></a>00309 
+<a name="l00310"></a>00310 }
+<a name="l00311"></a>00311 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -316,7 +316,7 @@
 <a name="l00258"></a>00258                 <span class="keyword">typename</span> std::vector&lt;T *&gt;::iterator sharedIter = <a class="code" href="classMWWorld_1_1Store.html#a390d81d2902dc73582f80fd495cc9fcf">mShared</a>.begin();
 <a name="l00259"></a>00259                 <span class="keyword">typename</span> std::vector&lt;T *&gt;::iterator <a class="code" href="classMWWorld_1_1Store.html#a6d338a67279d73b168514e80b5b508e4">end</a> = sharedIter + <a class="code" href="classMWWorld_1_1Store.html#a12d7a25d8d272e88a725bad3078e199d">mStatic</a>.size();
 <a name="l00260"></a>00260 
-<a name="l00261"></a>00261                 <span class="keywordflow">while</span> (sharedIter != <a class="code" href="classMWWorld_1_1Store.html#a390d81d2902dc73582f80fd495cc9fcf">mShared</a>.end() &amp;&amp; sharedIter != <a class="code" href="classMWWorld_1_1Store.html#a6d338a67279d73b168514e80b5b508e4">end</a>) { 
+<a name="l00261"></a>00261                 <span class="keywordflow">while</span> (sharedIter != <a class="code" href="classMWWorld_1_1Store.html#a390d81d2902dc73582f80fd495cc9fcf">mShared</a>.end() &amp;&amp; sharedIter != <a class="code" href="classMWWorld_1_1Store.html#a6d338a67279d73b168514e80b5b508e4">end</a>) {
 <a name="l00262"></a>00262                     <span class="keywordflow">if</span>((*sharedIter)-&gt;mId == item.mId) {
 <a name="l00263"></a>00263                         <a class="code" href="classMWWorld_1_1Store.html#a390d81d2902dc73582f80fd495cc9fcf">mShared</a>.erase(sharedIter);
 <a name="l00264"></a>00264                         <span class="keywordflow">break</span>;
@@ -714,425 +714,439 @@
 <a name="l00656"></a>00656             <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1SharedIterator.html">iterator</a>(mSharedExt.end());
 <a name="l00657"></a>00657         }
 <a name="l00658"></a>00658 
+<a name="l00659"></a>00659         <span class="comment">// Return the northernmost cell in the easternmost column.</span>
 <a name="l00660"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a6b0e61d781b6b38261e024d56ba1fc52">00660</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a6b0e61d781b6b38261e024d56ba1fc52">searchExtByName</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
-<a name="l00661"></a>00661             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedExt.begin();
-<a name="l00662"></a>00662             <span class="keywordflow">for</span> (; it != mSharedExt.end(); ++it) {
-<a name="l00663"></a>00663                 <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>((*it)-&gt;mName, <span class="keywordtype">id</span>)) {
-<a name="l00664"></a>00664                     <span class="keywordflow">return</span> *it;
-<a name="l00665"></a>00665                 }
-<a name="l00666"></a>00666             }
-<a name="l00667"></a>00667             <span class="keywordflow">return</span> 0;
-<a name="l00668"></a>00668         }
-<a name="l00669"></a>00669 
-<a name="l00671"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a158d78c3a1067ae469cf2e6fe0e640d7">00671</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a158d78c3a1067ae469cf2e6fe0e640d7">searchExtByRegion</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
-<a name="l00672"></a>00672             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedExt.begin();
-<a name="l00673"></a>00673             <span class="keywordflow">for</span> (; it != mSharedExt.end(); ++it) {
-<a name="l00674"></a>00674                 <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>((*it)-&gt;mRegion, <span class="keywordtype">id</span>)) {
-<a name="l00675"></a>00675                     <span class="keywordflow">return</span> *it;
-<a name="l00676"></a>00676                 }
-<a name="l00677"></a>00677             }
-<a name="l00678"></a>00678             <span class="keywordflow">return</span> 0;
-<a name="l00679"></a>00679         }
-<a name="l00680"></a>00680 
-<a name="l00681"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acb3a7afcba78cf4c3aa11d49a7cad3e4">00681</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acb3a7afcba78cf4c3aa11d49a7cad3e4">getSize</a>()<span class="keyword"> const </span>{
-<a name="l00682"></a>00682             <span class="keywordflow">return</span> mSharedInt.size() + mSharedExt.size();
-<a name="l00683"></a>00683         }
-<a name="l00684"></a>00684 
-<a name="l00685"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a1e04b43c68f0513d4c026332d6f48a42">00685</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a1e04b43c68f0513d4c026332d6f48a42">listIdentifier</a>(std::vector&lt;std::string&gt; &amp;<a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>)<span class="keyword"> const </span>{
-<a name="l00686"></a>00686             list.reserve(list.size() + mSharedInt.size());
-<a name="l00687"></a>00687 
-<a name="l00688"></a>00688             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedInt.begin();
-<a name="l00689"></a>00689             <span class="keywordflow">for</span> (; it != mSharedInt.end(); ++it) {
-<a name="l00690"></a>00690                 list.push_back((*it)-&gt;mName);
-<a name="l00691"></a>00691             }
-<a name="l00692"></a>00692         }
-<a name="l00693"></a>00693 
-<a name="l00694"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acc73796ee4af573654a3c693e545f513">00694</a>         <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acc73796ee4af573654a3c693e545f513">insert</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell) {
-<a name="l00695"></a>00695             <span class="keywordflow">if</span> (search(cell) != 0) {
-<a name="l00696"></a>00696                 std::ostringstream msg;
-<a name="l00697"></a>00697                 msg &lt;&lt; <span class="stringliteral">&quot;Failed to create &quot;</span>;
-<a name="l00698"></a>00698                 msg &lt;&lt; ((cell.<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()) ? <span class="stringliteral">&quot;exterior&quot;</span> : <span class="stringliteral">&quot;interior&quot;</span>);
-<a name="l00699"></a>00699                 msg &lt;&lt; <span class="stringliteral">&quot; cell&quot;</span>;
-<a name="l00700"></a>00700 
-<a name="l00701"></a>00701                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l00702"></a>00702             }
-<a name="l00703"></a>00703             <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *ptr;
-<a name="l00704"></a>00704             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()) {
-<a name="l00705"></a>00705                 std::pair&lt;int, int&gt; key(cell.<a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>(), cell.<a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>());
-<a name="l00706"></a>00706 
-<a name="l00707"></a>00707                 <span class="comment">// duplicate insertions are avoided by search(ESM::Cell &amp;)</span>
-<a name="l00708"></a>00708                 std::pair&lt;DynamicExt::iterator, bool&gt; result =
-<a name="l00709"></a>00709                     mDynamicExt.insert(std::make_pair(key, cell));
-<a name="l00710"></a>00710 
-<a name="l00711"></a>00711                 ptr = &amp;result.first-&gt;second;
-<a name="l00712"></a>00712                 mSharedExt.push_back(ptr);
-<a name="l00713"></a>00713             } <span class="keywordflow">else</span> {
-<a name="l00714"></a>00714                 std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
-<a name="l00715"></a>00715 
-<a name="l00716"></a>00716                 <span class="comment">// duplicate insertions are avoided by search(ESM::Cell &amp;)</span>
-<a name="l00717"></a>00717                 std::pair&lt;DynamicInt::iterator, bool&gt; result =
-<a name="l00718"></a>00718                     mDynamicInt.insert(std::make_pair(key, cell));
-<a name="l00719"></a>00719 
-<a name="l00720"></a>00720                 ptr = &amp;result.first-&gt;second;
-<a name="l00721"></a>00721                 mSharedInt.push_back(ptr);
-<a name="l00722"></a>00722             }
-<a name="l00723"></a>00723             <span class="keywordflow">return</span> ptr;
-<a name="l00724"></a>00724         }
-<a name="l00725"></a>00725 
-<a name="l00726"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a64ffef15cbcdca9784f4b0aab9bd6282">00726</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a64ffef15cbcdca9784f4b0aab9bd6282">erase</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell) {
-<a name="l00727"></a>00727             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()) {
-<a name="l00728"></a>00728                 <span class="keywordflow">return</span> erase(cell.<a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>(), cell.<a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>());
-<a name="l00729"></a>00729             }
-<a name="l00730"></a>00730             <span class="keywordflow">return</span> erase(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
-<a name="l00731"></a>00731         }
-<a name="l00732"></a>00732 
-<a name="l00733"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#affe56ecedbfb26bbc3206cd3c7040e9f">00733</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#affe56ecedbfb26bbc3206cd3c7040e9f">erase</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
-<a name="l00734"></a>00734             std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
-<a name="l00735"></a>00735             DynamicInt::iterator it = mDynamicInt.find(key);
-<a name="l00736"></a>00736 
-<a name="l00737"></a>00737             <span class="keywordflow">if</span> (it == mDynamicInt.end()) {
-<a name="l00738"></a>00738                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00739"></a>00739             }
-<a name="l00740"></a>00740             mDynamicInt.erase(it);
-<a name="l00741"></a>00741             mSharedInt.erase(
-<a name="l00742"></a>00742                 mSharedInt.begin() + mSharedInt.size(),
-<a name="l00743"></a>00743                 mSharedInt.end()
-<a name="l00744"></a>00744             );
-<a name="l00745"></a>00745 
-<a name="l00746"></a>00746             <span class="keywordflow">for</span> (it = mDynamicInt.begin(); it != mDynamicInt.end(); ++it) {
-<a name="l00747"></a>00747                 mSharedInt.push_back(&amp;it-&gt;second);
-<a name="l00748"></a>00748             }
-<a name="l00749"></a>00749 
-<a name="l00750"></a>00750             <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00751"></a>00751         }
-<a name="l00752"></a>00752 
-<a name="l00753"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#ab2179ccc925581d68c4e45ae42efb208">00753</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#ab2179ccc925581d68c4e45ae42efb208">erase</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {
-<a name="l00754"></a>00754             std::pair&lt;int, int&gt; key(x, y);
-<a name="l00755"></a>00755             DynamicExt::iterator it = mDynamicExt.find(key);
-<a name="l00756"></a>00756 
-<a name="l00757"></a>00757             <span class="keywordflow">if</span> (it == mDynamicExt.end()) {
-<a name="l00758"></a>00758                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00759"></a>00759             }
-<a name="l00760"></a>00760             mDynamicExt.erase(it);
-<a name="l00761"></a>00761             mSharedExt.erase(
-<a name="l00762"></a>00762                 mSharedExt.begin() + mSharedExt.size(),
-<a name="l00763"></a>00763                 mSharedExt.end()
-<a name="l00764"></a>00764             );
-<a name="l00765"></a>00765 
-<a name="l00766"></a>00766             <span class="keywordflow">for</span> (it = mDynamicExt.begin(); it != mDynamicExt.end(); ++it) {
-<a name="l00767"></a>00767                 mSharedExt.push_back(&amp;it-&gt;second);
-<a name="l00768"></a>00768             }
-<a name="l00769"></a>00769 
-<a name="l00770"></a>00770             <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00771"></a>00771         }
-<a name="l00772"></a>00772     };
-<a name="l00773"></a>00773 
-<a name="l00774"></a>00774     <span class="keyword">template</span> &lt;&gt;
-<a name="l00775"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">00775</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Pathgrid&gt; : <span class="keyword">public</span> <a class="code" href="structMWWorld_1_1StoreBase.html">StoreBase</a>
-<a name="l00776"></a>00776     {
-<a name="l00777"></a>00777     <span class="keyword">public</span>:
-<a name="l00778"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">00778</a>         <span class="keyword">typedef</span> std::vector&lt;ESM::Pathgrid&gt;::const_iterator <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a>;
-<a name="l00779"></a>00779 
-<a name="l00780"></a>00780     <span class="keyword">private</span>:
-<a name="l00781"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a958f15bf9d642f946112e308811f0509">00781</a>         std::vector&lt;ESM::Pathgrid&gt;  <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a958f15bf9d642f946112e308811f0509">mStatic</a>;
-<a name="l00782"></a>00782 
-<a name="l00783"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a62415f87500ffda25f38dcec7482bfa0">00783</a>         std::vector&lt;ESM::Pathgrid&gt;::iterator mIntBegin, <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a62415f87500ffda25f38dcec7482bfa0">mIntEnd</a>, mExtBegin, mExtEnd;
-<a name="l00784"></a>00784 
-<a name="l00785"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html">00785</a>         <span class="keyword">struct </span>IntExtOrdering
-<a name="l00786"></a>00786         {
-<a name="l00787"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html#add6e4bad58d699e35740b3ebdfe7ef5a">00787</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html#add6e4bad58d699e35740b3ebdfe7ef5a">operator()</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;x, <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;y)<span class="keyword"> const </span>{
-<a name="l00788"></a>00788                 <span class="comment">// interior pathgrids precedes exterior ones (x &lt; y)</span>
-<a name="l00789"></a>00789                 <span class="keywordflow">if</span> ((x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> == 0 &amp;&amp; x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> == 0) &amp;&amp;
-<a name="l00790"></a>00790                     (y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> != 0 || y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> != 0))
-<a name="l00791"></a>00791                 {
-<a name="l00792"></a>00792                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00793"></a>00793                 }
-<a name="l00794"></a>00794                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00795"></a>00795             }
-<a name="l00796"></a>00796         };
-<a name="l00797"></a>00797 
-<a name="l00798"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html">00798</a>         <span class="keyword">struct </span>ExtCompare
-<a name="l00799"></a>00799         {
-<a name="l00800"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html#a98c7115b5381c911d340045b5a3fccdd">00800</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html#a98c7115b5381c911d340045b5a3fccdd">operator()</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;x, <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;y)<span class="keyword"> const </span>{
-<a name="l00801"></a>00801                 <span class="keywordflow">if</span> (x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> == y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a>) {
-<a name="l00802"></a>00802                     <span class="keywordflow">return</span> x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> &lt; y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a>;
-<a name="l00803"></a>00803                 }
-<a name="l00804"></a>00804                 <span class="keywordflow">return</span> x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> &lt; y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a>;
-<a name="l00805"></a>00805             }
-<a name="l00806"></a>00806         };
-<a name="l00807"></a>00807 
-<a name="l00808"></a>00808     <span class="keyword">public</span>:
+<a name="l00661"></a>00661             <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell = 0;
+<a name="l00662"></a>00662             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedExt.begin();
+<a name="l00663"></a>00663             <span class="keywordflow">for</span> (; it != mSharedExt.end(); ++it) {
+<a name="l00664"></a>00664                 <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>((*it)-&gt;mName, <span class="keywordtype">id</span>)) {
+<a name="l00665"></a>00665                     <span class="keywordflow">if</span> ( cell == 0 ||
+<a name="l00666"></a>00666                         ( (*it)-&gt;mData.mX &gt; cell-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a> ) ||
+<a name="l00667"></a>00667                         ( (*it)-&gt;mData.mX == cell-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a> &amp;&amp; (*it)-&gt;mData.mY &gt; cell-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a> ) )
+<a name="l00668"></a>00668                     {
+<a name="l00669"></a>00669                         cell = *it;
+<a name="l00670"></a>00670                     }
+<a name="l00671"></a>00671                 }
+<a name="l00672"></a>00672             }
+<a name="l00673"></a>00673             <span class="keywordflow">return</span> cell;
+<a name="l00674"></a>00674         }
+<a name="l00675"></a>00675 
+<a name="l00676"></a>00676         <span class="comment">// Return the northernmost cell in the easternmost column.</span>
+<a name="l00677"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a158d78c3a1067ae469cf2e6fe0e640d7">00677</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a158d78c3a1067ae469cf2e6fe0e640d7">searchExtByRegion</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>)<span class="keyword"> const </span>{
+<a name="l00678"></a>00678             <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell = 0;
+<a name="l00679"></a>00679             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedExt.begin();
+<a name="l00680"></a>00680             <span class="keywordflow">for</span> (; it != mSharedExt.end(); ++it) {
+<a name="l00681"></a>00681                 <span class="keywordflow">if</span> (<a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>((*it)-&gt;mRegion, <span class="keywordtype">id</span>)) {
+<a name="l00682"></a>00682                     <span class="keywordflow">if</span> ( cell == 0 ||
+<a name="l00683"></a>00683                         ( (*it)-&gt;mData.mX &gt; cell-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a> ) ||
+<a name="l00684"></a>00684                         ( (*it)-&gt;mData.mX == cell-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a> &amp;&amp; (*it)-&gt;mData.mY &gt; cell-&gt;<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a> ) )
+<a name="l00685"></a>00685                     {
+<a name="l00686"></a>00686                         cell = *it;
+<a name="l00687"></a>00687                     }
+<a name="l00688"></a>00688                 }
+<a name="l00689"></a>00689             }
+<a name="l00690"></a>00690             <span class="keywordflow">return</span> cell;
+<a name="l00691"></a>00691         }
+<a name="l00692"></a>00692 
+<a name="l00693"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acb3a7afcba78cf4c3aa11d49a7cad3e4">00693</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acb3a7afcba78cf4c3aa11d49a7cad3e4">getSize</a>()<span class="keyword"> const </span>{
+<a name="l00694"></a>00694             <span class="keywordflow">return</span> mSharedInt.size() + mSharedExt.size();
+<a name="l00695"></a>00695         }
+<a name="l00696"></a>00696 
+<a name="l00697"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a1e04b43c68f0513d4c026332d6f48a42">00697</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a1e04b43c68f0513d4c026332d6f48a42">listIdentifier</a>(std::vector&lt;std::string&gt; &amp;<a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>)<span class="keyword"> const </span>{
+<a name="l00698"></a>00698             list.reserve(list.size() + mSharedInt.size());
+<a name="l00699"></a>00699 
+<a name="l00700"></a>00700             std::vector&lt;ESM::Cell *&gt;::const_iterator it = mSharedInt.begin();
+<a name="l00701"></a>00701             <span class="keywordflow">for</span> (; it != mSharedInt.end(); ++it) {
+<a name="l00702"></a>00702                 list.push_back((*it)-&gt;mName);
+<a name="l00703"></a>00703             }
+<a name="l00704"></a>00704         }
+<a name="l00705"></a>00705 
+<a name="l00706"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acc73796ee4af573654a3c693e545f513">00706</a>         <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#acc73796ee4af573654a3c693e545f513">insert</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell) {
+<a name="l00707"></a>00707             <span class="keywordflow">if</span> (search(cell) != 0) {
+<a name="l00708"></a>00708                 std::ostringstream msg;
+<a name="l00709"></a>00709                 msg &lt;&lt; <span class="stringliteral">&quot;Failed to create &quot;</span>;
+<a name="l00710"></a>00710                 msg &lt;&lt; ((cell.<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()) ? <span class="stringliteral">&quot;exterior&quot;</span> : <span class="stringliteral">&quot;interior&quot;</span>);
+<a name="l00711"></a>00711                 msg &lt;&lt; <span class="stringliteral">&quot; cell&quot;</span>;
+<a name="l00712"></a>00712 
+<a name="l00713"></a>00713                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l00714"></a>00714             }
+<a name="l00715"></a>00715             <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *ptr;
+<a name="l00716"></a>00716             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()) {
+<a name="l00717"></a>00717                 std::pair&lt;int, int&gt; key(cell.<a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>(), cell.<a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>());
+<a name="l00718"></a>00718 
+<a name="l00719"></a>00719                 <span class="comment">// duplicate insertions are avoided by search(ESM::Cell &amp;)</span>
+<a name="l00720"></a>00720                 std::pair&lt;DynamicExt::iterator, bool&gt; result =
+<a name="l00721"></a>00721                     mDynamicExt.insert(std::make_pair(key, cell));
+<a name="l00722"></a>00722 
+<a name="l00723"></a>00723                 ptr = &amp;result.first-&gt;second;
+<a name="l00724"></a>00724                 mSharedExt.push_back(ptr);
+<a name="l00725"></a>00725             } <span class="keywordflow">else</span> {
+<a name="l00726"></a>00726                 std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
+<a name="l00727"></a>00727 
+<a name="l00728"></a>00728                 <span class="comment">// duplicate insertions are avoided by search(ESM::Cell &amp;)</span>
+<a name="l00729"></a>00729                 std::pair&lt;DynamicInt::iterator, bool&gt; result =
+<a name="l00730"></a>00730                     mDynamicInt.insert(std::make_pair(key, cell));
+<a name="l00731"></a>00731 
+<a name="l00732"></a>00732                 ptr = &amp;result.first-&gt;second;
+<a name="l00733"></a>00733                 mSharedInt.push_back(ptr);
+<a name="l00734"></a>00734             }
+<a name="l00735"></a>00735             <span class="keywordflow">return</span> ptr;
+<a name="l00736"></a>00736         }
+<a name="l00737"></a>00737 
+<a name="l00738"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a64ffef15cbcdca9784f4b0aab9bd6282">00738</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#a64ffef15cbcdca9784f4b0aab9bd6282">erase</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell) {
+<a name="l00739"></a>00739             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#a81fbb05c7c9f739f7d81504aabf7bb6b">isExterior</a>()) {
+<a name="l00740"></a>00740                 <span class="keywordflow">return</span> erase(cell.<a class="code" href="structESM_1_1Cell.html#a88979089a417025271e74645ca70b0a6">getGridX</a>(), cell.<a class="code" href="structESM_1_1Cell.html#a749c20ed60697b5a521c14eaf66164ec">getGridY</a>());
+<a name="l00741"></a>00741             }
+<a name="l00742"></a>00742             <span class="keywordflow">return</span> erase(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
+<a name="l00743"></a>00743         }
+<a name="l00744"></a>00744 
+<a name="l00745"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#affe56ecedbfb26bbc3206cd3c7040e9f">00745</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#affe56ecedbfb26bbc3206cd3c7040e9f">erase</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
+<a name="l00746"></a>00746             std::string key = <a class="code" href="classMisc_1_1StringUtils.html#a2982264998fde90a8e01ebab4bd69e14" title="Returns lower case copy of input string.">Misc::StringUtils::lowerCase</a>(<span class="keywordtype">id</span>);
+<a name="l00747"></a>00747             DynamicInt::iterator it = mDynamicInt.find(key);
+<a name="l00748"></a>00748 
+<a name="l00749"></a>00749             <span class="keywordflow">if</span> (it == mDynamicInt.end()) {
+<a name="l00750"></a>00750                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00751"></a>00751             }
+<a name="l00752"></a>00752             mDynamicInt.erase(it);
+<a name="l00753"></a>00753             mSharedInt.erase(
+<a name="l00754"></a>00754                 mSharedInt.begin() + mSharedInt.size(),
+<a name="l00755"></a>00755                 mSharedInt.end()
+<a name="l00756"></a>00756             );
+<a name="l00757"></a>00757 
+<a name="l00758"></a>00758             <span class="keywordflow">for</span> (it = mDynamicInt.begin(); it != mDynamicInt.end(); ++it) {
+<a name="l00759"></a>00759                 mSharedInt.push_back(&amp;it-&gt;second);
+<a name="l00760"></a>00760             }
+<a name="l00761"></a>00761 
+<a name="l00762"></a>00762             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00763"></a>00763         }
+<a name="l00764"></a>00764 
+<a name="l00765"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#ab2179ccc925581d68c4e45ae42efb208">00765</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Cell_01_4.html#ab2179ccc925581d68c4e45ae42efb208">erase</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {
+<a name="l00766"></a>00766             std::pair&lt;int, int&gt; key(x, y);
+<a name="l00767"></a>00767             DynamicExt::iterator it = mDynamicExt.find(key);
+<a name="l00768"></a>00768 
+<a name="l00769"></a>00769             <span class="keywordflow">if</span> (it == mDynamicExt.end()) {
+<a name="l00770"></a>00770                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00771"></a>00771             }
+<a name="l00772"></a>00772             mDynamicExt.erase(it);
+<a name="l00773"></a>00773             mSharedExt.erase(
+<a name="l00774"></a>00774                 mSharedExt.begin() + mSharedExt.size(),
+<a name="l00775"></a>00775                 mSharedExt.end()
+<a name="l00776"></a>00776             );
+<a name="l00777"></a>00777 
+<a name="l00778"></a>00778             <span class="keywordflow">for</span> (it = mDynamicExt.begin(); it != mDynamicExt.end(); ++it) {
+<a name="l00779"></a>00779                 mSharedExt.push_back(&amp;it-&gt;second);
+<a name="l00780"></a>00780             }
+<a name="l00781"></a>00781 
+<a name="l00782"></a>00782             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00783"></a>00783         }
+<a name="l00784"></a>00784     };
+<a name="l00785"></a>00785 
+<a name="l00786"></a>00786     <span class="keyword">template</span> &lt;&gt;
+<a name="l00787"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html">00787</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Pathgrid&gt; : <span class="keyword">public</span> <a class="code" href="structMWWorld_1_1StoreBase.html">StoreBase</a>
+<a name="l00788"></a>00788     {
+<a name="l00789"></a>00789     <span class="keyword">public</span>:
+<a name="l00790"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">00790</a>         <span class="keyword">typedef</span> std::vector&lt;ESM::Pathgrid&gt;::const_iterator <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a>;
+<a name="l00791"></a>00791 
+<a name="l00792"></a>00792     <span class="keyword">private</span>:
+<a name="l00793"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a958f15bf9d642f946112e308811f0509">00793</a>         std::vector&lt;ESM::Pathgrid&gt;  <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a958f15bf9d642f946112e308811f0509">mStatic</a>;
+<a name="l00794"></a>00794 
+<a name="l00795"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a62415f87500ffda25f38dcec7482bfa0">00795</a>         std::vector&lt;ESM::Pathgrid&gt;::iterator mIntBegin, <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a62415f87500ffda25f38dcec7482bfa0">mIntEnd</a>, mExtBegin, mExtEnd;
+<a name="l00796"></a>00796 
+<a name="l00797"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html">00797</a>         <span class="keyword">struct </span>IntExtOrdering
+<a name="l00798"></a>00798         {
+<a name="l00799"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html#add6e4bad58d699e35740b3ebdfe7ef5a">00799</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1IntExtOrdering.html#add6e4bad58d699e35740b3ebdfe7ef5a">operator()</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;x, <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;y)<span class="keyword"> const </span>{
+<a name="l00800"></a>00800                 <span class="comment">// interior pathgrids precedes exterior ones (x &lt; y)</span>
+<a name="l00801"></a>00801                 <span class="keywordflow">if</span> ((x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> == 0 &amp;&amp; x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> == 0) &amp;&amp;
+<a name="l00802"></a>00802                     (y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> != 0 || y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> != 0))
+<a name="l00803"></a>00803                 {
+<a name="l00804"></a>00804                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00805"></a>00805                 }
+<a name="l00806"></a>00806                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00807"></a>00807             }
+<a name="l00808"></a>00808         };
 <a name="l00809"></a>00809 
-<a name="l00810"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a58977b42d018ec2ffea2fe2851383ac9">00810</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a58977b42d018ec2ffea2fe2851383ac9">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
-<a name="l00811"></a>00811             mStatic.push_back(<a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a>());
-<a name="l00812"></a>00812             mStatic.back().load(esm);
-<a name="l00813"></a>00813         }
-<a name="l00814"></a>00814 
-<a name="l00815"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a204c6c0107b7ab6c340f927c322e8816">00815</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a204c6c0107b7ab6c340f927c322e8816">getSize</a>()<span class="keyword"> const </span>{
-<a name="l00816"></a>00816             <span class="keywordflow">return</span> mStatic.size();
-<a name="l00817"></a>00817         }
-<a name="l00818"></a>00818 
-<a name="l00819"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a8fdf5340dbf3afce198bb63a1da8d03b">00819</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a8fdf5340dbf3afce198bb63a1da8d03b">setUp</a>() {
-<a name="l00820"></a>00820             IntExtOrdering cmp;
-<a name="l00821"></a>00821             std::sort(mStatic.begin(), mStatic.end(), cmp);
-<a name="l00822"></a>00822 
-<a name="l00823"></a>00823             <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> pg;
-<a name="l00824"></a>00824             pg.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> = pg.mData.mY = 1;
-<a name="l00825"></a>00825             mExtBegin =
-<a name="l00826"></a>00826                 std::lower_bound(mStatic.begin(), mStatic.end(), pg, cmp);
-<a name="l00827"></a>00827             mExtEnd = mStatic.end();
-<a name="l00828"></a>00828 
-<a name="l00829"></a>00829             mIntBegin = mStatic.begin();
-<a name="l00830"></a>00830             mIntEnd = mExtBegin;
-<a name="l00831"></a>00831 
-<a name="l00832"></a>00832             std::sort(mIntBegin, mIntEnd, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
-<a name="l00833"></a>00833             std::sort(mExtBegin, mExtEnd, ExtCompare());
-<a name="l00834"></a>00834         }
-<a name="l00835"></a>00835 
-<a name="l00836"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aaceed2df8d6030370b98f92280879fb0">00836</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aaceed2df8d6030370b98f92280879fb0">search</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{
-<a name="l00837"></a>00837             <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> pg;
-<a name="l00838"></a>00838             pg.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> = x;
-<a name="l00839"></a>00839             pg.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> = y;
+<a name="l00810"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html">00810</a>         <span class="keyword">struct </span>ExtCompare
+<a name="l00811"></a>00811         {
+<a name="l00812"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html#a98c7115b5381c911d340045b5a3fccdd">00812</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4_1_1ExtCompare.html#a98c7115b5381c911d340045b5a3fccdd">operator()</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;x, <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> &amp;y)<span class="keyword"> const </span>{
+<a name="l00813"></a>00813                 <span class="keywordflow">if</span> (x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> == y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a>) {
+<a name="l00814"></a>00814                     <span class="keywordflow">return</span> x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> &lt; y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a>;
+<a name="l00815"></a>00815                 }
+<a name="l00816"></a>00816                 <span class="keywordflow">return</span> x.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> &lt; y.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a>;
+<a name="l00817"></a>00817             }
+<a name="l00818"></a>00818         };
+<a name="l00819"></a>00819 
+<a name="l00820"></a>00820     <span class="keyword">public</span>:
+<a name="l00821"></a>00821 
+<a name="l00822"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a58977b42d018ec2ffea2fe2851383ac9">00822</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a58977b42d018ec2ffea2fe2851383ac9">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm, <span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>) {
+<a name="l00823"></a>00823             mStatic.push_back(<a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a>());
+<a name="l00824"></a>00824             mStatic.back().load(esm);
+<a name="l00825"></a>00825         }
+<a name="l00826"></a>00826 
+<a name="l00827"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a204c6c0107b7ab6c340f927c322e8816">00827</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a204c6c0107b7ab6c340f927c322e8816">getSize</a>()<span class="keyword"> const </span>{
+<a name="l00828"></a>00828             <span class="keywordflow">return</span> mStatic.size();
+<a name="l00829"></a>00829         }
+<a name="l00830"></a>00830 
+<a name="l00831"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a8fdf5340dbf3afce198bb63a1da8d03b">00831</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a8fdf5340dbf3afce198bb63a1da8d03b">setUp</a>() {
+<a name="l00832"></a>00832             IntExtOrdering cmp;
+<a name="l00833"></a>00833             std::sort(mStatic.begin(), mStatic.end(), cmp);
+<a name="l00834"></a>00834 
+<a name="l00835"></a>00835             <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> pg;
+<a name="l00836"></a>00836             pg.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> = pg.mData.mY = 1;
+<a name="l00837"></a>00837             mExtBegin =
+<a name="l00838"></a>00838                 std::lower_bound(mStatic.begin(), mStatic.end(), pg, cmp);
+<a name="l00839"></a>00839             mExtEnd = mStatic.end();
 <a name="l00840"></a>00840 
-<a name="l00841"></a>00841             <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> it =
-<a name="l00842"></a>00842                 std::lower_bound(mExtBegin, mExtEnd, pg, ExtCompare());
-<a name="l00843"></a>00843             <span class="keywordflow">if</span> (it != mExtEnd &amp;&amp; it-&gt;mData.mX == x &amp;&amp; it-&gt;mData.mY == y) {
-<a name="l00844"></a>00844                 <span class="keywordflow">return</span> &amp;(*it);
-<a name="l00845"></a>00845             }
-<a name="l00846"></a>00846             <span class="keywordflow">return</span> 0;
-<a name="l00847"></a>00847         }
-<a name="l00848"></a>00848 
-<a name="l00849"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5af74364b95b2daf8dee47e5c1443010">00849</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5af74364b95b2daf8dee47e5c1443010">find</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{
-<a name="l00850"></a>00850             <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *ptr = search(x, y);
-<a name="l00851"></a>00851             <span class="keywordflow">if</span> (ptr == 0) {
-<a name="l00852"></a>00852                 std::ostringstream msg;
-<a name="l00853"></a>00853                 msg &lt;&lt; <span class="stringliteral">&quot;Pathgrid at (&quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; y &lt;&lt; <span class="stringliteral">&quot;) not found&quot;</span>;
-<a name="l00854"></a>00854                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l00855"></a>00855             }
-<a name="l00856"></a>00856             <span class="keywordflow">return</span> ptr;
-<a name="l00857"></a>00857         }
-<a name="l00858"></a>00858 
-<a name="l00859"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a98dc7d7c01692c1c946788ad920ace2a">00859</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a98dc7d7c01692c1c946788ad920ace2a">search</a>(<span class="keyword">const</span> std::string &amp;name)<span class="keyword"> const </span>{
-<a name="l00860"></a>00860             <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> pg;
-<a name="l00861"></a>00861             pg.<a class="code" href="structESM_1_1Pathgrid.html#afb5d4bb0796240396597758d146f63fb">mCell</a> = name;
-<a name="l00862"></a>00862 
-<a name="l00863"></a>00863             <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> it = std::lower_bound(mIntBegin, mIntEnd, pg, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
-<a name="l00864"></a>00864             <span class="keywordflow">if</span> (it != mIntEnd &amp;&amp; <a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(it-&gt;mCell, name)) {
-<a name="l00865"></a>00865                 <span class="keywordflow">return</span> &amp;(*it);
-<a name="l00866"></a>00866             }
-<a name="l00867"></a>00867             <span class="keywordflow">return</span> 0;
-<a name="l00868"></a>00868         }
-<a name="l00869"></a>00869 
-<a name="l00870"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5d8ca7e25b9b5f33588a8b8611453e81">00870</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5d8ca7e25b9b5f33588a8b8611453e81">find</a>(<span class="keyword">const</span> std::string &amp;name)<span class="keyword"> const </span>{
-<a name="l00871"></a>00871             <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *ptr = search(name);
-<a name="l00872"></a>00872             <span class="keywordflow">if</span> (ptr == 0) {
-<a name="l00873"></a>00873                 std::ostringstream msg;
-<a name="l00874"></a>00874                 msg &lt;&lt; <span class="stringliteral">&quot;Pathgrid in cell &#39;&quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;&#39; not found&quot;</span>;
-<a name="l00875"></a>00875                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l00876"></a>00876             }
-<a name="l00877"></a>00877             <span class="keywordflow">return</span> ptr;
-<a name="l00878"></a>00878         }
-<a name="l00879"></a>00879 
-<a name="l00880"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a393f3d7265aa0e171a57adadb38a0298">00880</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a393f3d7265aa0e171a57adadb38a0298">search</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell)<span class="keyword"> const </span>{
-<a name="l00881"></a>00881             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">ESM::Cell::Interior</a>) {
-<a name="l00882"></a>00882                 <span class="keywordflow">return</span> search(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
-<a name="l00883"></a>00883             }
-<a name="l00884"></a>00884             <span class="keywordflow">return</span> search(cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>, cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>);
-<a name="l00885"></a>00885         }
-<a name="l00886"></a>00886 
-<a name="l00887"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a88f5386025ddf473dc6ccbd5c1f3b4bd">00887</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a88f5386025ddf473dc6ccbd5c1f3b4bd">find</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell)<span class="keyword"> const </span>{
-<a name="l00888"></a>00888             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">ESM::Cell::Interior</a>) {
-<a name="l00889"></a>00889                 <span class="keywordflow">return</span> <a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a>(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
-<a name="l00890"></a>00890             }
-<a name="l00891"></a>00891             <span class="keywordflow">return</span> <a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a>(cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>, cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>);
-<a name="l00892"></a>00892         }
-<a name="l00893"></a>00893 
-<a name="l00894"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#acf8ab579480817812cee331d265aa8b7">00894</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#acf8ab579480817812cee331d265aa8b7">begin</a>()<span class="keyword"> const </span>{
-<a name="l00895"></a>00895             <span class="keywordflow">return</span> mStatic.begin();
-<a name="l00896"></a>00896         }
-<a name="l00897"></a>00897 
-<a name="l00898"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#afa4fbb4dcc002d1d73bf6e2d2b8a4ea3">00898</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#afa4fbb4dcc002d1d73bf6e2d2b8a4ea3">end</a>()<span class="keyword"> const </span>{
-<a name="l00899"></a>00899             <span class="keywordflow">return</span> mStatic.end();
-<a name="l00900"></a>00900         }
-<a name="l00901"></a>00901 
-<a name="l00902"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aa2240d491bec0d011bfbdd0ca87faa5f">00902</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aa2240d491bec0d011bfbdd0ca87faa5f">interiorPathsBegin</a>()<span class="keyword"> const </span>{
-<a name="l00903"></a>00903             <span class="keywordflow">return</span> mIntBegin;
+<a name="l00841"></a>00841             mIntBegin = mStatic.begin();
+<a name="l00842"></a>00842             mIntEnd = mExtBegin;
+<a name="l00843"></a>00843 
+<a name="l00844"></a>00844             std::sort(mIntBegin, mIntEnd, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
+<a name="l00845"></a>00845             std::sort(mExtBegin, mExtEnd, ExtCompare());
+<a name="l00846"></a>00846         }
+<a name="l00847"></a>00847 
+<a name="l00848"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aaceed2df8d6030370b98f92280879fb0">00848</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aaceed2df8d6030370b98f92280879fb0">search</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{
+<a name="l00849"></a>00849             <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> pg;
+<a name="l00850"></a>00850             pg.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#aaabd2c98ff81c9a40acefb7689e33855">mX</a> = x;
+<a name="l00851"></a>00851             pg.<a class="code" href="structESM_1_1Pathgrid.html#a02e6e9e1ad6f7fd8683758e0bc5b1ebc">mData</a>.<a class="code" href="structESM_1_1Pathgrid_1_1DATAstruct.html#a0ea677d0e89b7d558d1ec166cc3742e6">mY</a> = y;
+<a name="l00852"></a>00852 
+<a name="l00853"></a>00853             <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> it =
+<a name="l00854"></a>00854                 std::lower_bound(mExtBegin, mExtEnd, pg, ExtCompare());
+<a name="l00855"></a>00855             <span class="keywordflow">if</span> (it != mExtEnd &amp;&amp; it-&gt;mData.mX == x &amp;&amp; it-&gt;mData.mY == y) {
+<a name="l00856"></a>00856                 <span class="keywordflow">return</span> &amp;(*it);
+<a name="l00857"></a>00857             }
+<a name="l00858"></a>00858             <span class="keywordflow">return</span> 0;
+<a name="l00859"></a>00859         }
+<a name="l00860"></a>00860 
+<a name="l00861"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5af74364b95b2daf8dee47e5c1443010">00861</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5af74364b95b2daf8dee47e5c1443010">find</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{
+<a name="l00862"></a>00862             <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *ptr = search(x, y);
+<a name="l00863"></a>00863             <span class="keywordflow">if</span> (ptr == 0) {
+<a name="l00864"></a>00864                 std::ostringstream msg;
+<a name="l00865"></a>00865                 msg &lt;&lt; <span class="stringliteral">&quot;Pathgrid at (&quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; y &lt;&lt; <span class="stringliteral">&quot;) not found&quot;</span>;
+<a name="l00866"></a>00866                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l00867"></a>00867             }
+<a name="l00868"></a>00868             <span class="keywordflow">return</span> ptr;
+<a name="l00869"></a>00869         }
+<a name="l00870"></a>00870 
+<a name="l00871"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a98dc7d7c01692c1c946788ad920ace2a">00871</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a98dc7d7c01692c1c946788ad920ace2a">search</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)<span class="keyword"> const </span>{
+<a name="l00872"></a>00872             <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> pg;
+<a name="l00873"></a>00873             pg.<a class="code" href="structESM_1_1Pathgrid.html#afb5d4bb0796240396597758d146f63fb">mCell</a> = <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>;
+<a name="l00874"></a>00874 
+<a name="l00875"></a>00875             <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> it = std::lower_bound(mIntBegin, mIntEnd, pg, <a class="code" href="structMWWorld_1_1RecordCmp.html">RecordCmp</a>());
+<a name="l00876"></a>00876             <span class="keywordflow">if</span> (it != mIntEnd &amp;&amp; <a class="code" href="classMisc_1_1StringUtils.html#a0f8cb0ac134191ba8417f74ab7dc4de6">Misc::StringUtils::ciEqual</a>(it-&gt;mCell, name)) {
+<a name="l00877"></a>00877                 <span class="keywordflow">return</span> &amp;(*it);
+<a name="l00878"></a>00878             }
+<a name="l00879"></a>00879             <span class="keywordflow">return</span> 0;
+<a name="l00880"></a>00880         }
+<a name="l00881"></a>00881 
+<a name="l00882"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5d8ca7e25b9b5f33588a8b8611453e81">00882</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a5d8ca7e25b9b5f33588a8b8611453e81">find</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)<span class="keyword"> const </span>{
+<a name="l00883"></a>00883             <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *ptr = search(name);
+<a name="l00884"></a>00884             <span class="keywordflow">if</span> (ptr == 0) {
+<a name="l00885"></a>00885                 std::ostringstream msg;
+<a name="l00886"></a>00886                 msg &lt;&lt; <span class="stringliteral">&quot;Pathgrid in cell &#39;&quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot;&#39; not found&quot;</span>;
+<a name="l00887"></a>00887                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l00888"></a>00888             }
+<a name="l00889"></a>00889             <span class="keywordflow">return</span> ptr;
+<a name="l00890"></a>00890         }
+<a name="l00891"></a>00891 
+<a name="l00892"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a393f3d7265aa0e171a57adadb38a0298">00892</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a393f3d7265aa0e171a57adadb38a0298">search</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell)<span class="keyword"> const </span>{
+<a name="l00893"></a>00893             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">ESM::Cell::Interior</a>) {
+<a name="l00894"></a>00894                 <span class="keywordflow">return</span> search(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
+<a name="l00895"></a>00895             }
+<a name="l00896"></a>00896             <span class="keywordflow">return</span> search(cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>, cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>);
+<a name="l00897"></a>00897         }
+<a name="l00898"></a>00898 
+<a name="l00899"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a88f5386025ddf473dc6ccbd5c1f3b4bd">00899</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a88f5386025ddf473dc6ccbd5c1f3b4bd">find</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> &amp;cell)<span class="keyword"> const </span>{
+<a name="l00900"></a>00900             <span class="keywordflow">if</span> (cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a020653136cccd65eb12ba9039a232c48">mFlags</a> &amp; <a class="code" href="structESM_1_1Cell.html#a5cf891797b319a324a58604cc6d1f660acb02eb5e9ce28d3fb0b65ad3c5693142">ESM::Cell::Interior</a>) {
+<a name="l00901"></a>00901                 <span class="keywordflow">return</span> <a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a>(cell.<a class="code" href="structESM_1_1Cell.html#aa0e534a280267b2b162a385290d7a046">mName</a>);
+<a name="l00902"></a>00902             }
+<a name="l00903"></a>00903             <span class="keywordflow">return</span> <a class="code" href="bsa__file__test_8cpp.html#a52d70db5e4c97e87659ea120c2bcb699">find</a>(cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#ac4742c1e888352c5623e7934dcf47dce">mX</a>, cell.<a class="code" href="structESM_1_1Cell.html#ae0d398ce40a6dd8ec503246d42ff286b">mData</a>.<a class="code" href="structESM_1_1Cell_1_1DATAstruct.html#a1203765a6bc44085d66480c3d7a47b71">mY</a>);
 <a name="l00904"></a>00904         }
 <a name="l00905"></a>00905 
-<a name="l00906"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#ad6cf47d4c4aaeb3ecdd421ee46321f65">00906</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#ad6cf47d4c4aaeb3ecdd421ee46321f65">interiorPathsEnd</a>()<span class="keyword"> const </span>{
-<a name="l00907"></a>00907             <span class="keywordflow">return</span> mIntEnd;
+<a name="l00906"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#acf8ab579480817812cee331d265aa8b7">00906</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#acf8ab579480817812cee331d265aa8b7">begin</a>()<span class="keyword"> const </span>{
+<a name="l00907"></a>00907             <span class="keywordflow">return</span> mStatic.begin();
 <a name="l00908"></a>00908         }
 <a name="l00909"></a>00909 
-<a name="l00910"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a9688db5481809cebc95fb15cc9cc9a95">00910</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a9688db5481809cebc95fb15cc9cc9a95">exteriorPathsBegin</a>()<span class="keyword"> const </span>{
-<a name="l00911"></a>00911             <span class="keywordflow">return</span> mExtBegin;
+<a name="l00910"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#afa4fbb4dcc002d1d73bf6e2d2b8a4ea3">00910</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#afa4fbb4dcc002d1d73bf6e2d2b8a4ea3">end</a>()<span class="keyword"> const </span>{
+<a name="l00911"></a>00911             <span class="keywordflow">return</span> mStatic.end();
 <a name="l00912"></a>00912         }
 <a name="l00913"></a>00913 
-<a name="l00914"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a6ce65dd3dd86069b1b00a78b90b7c4af">00914</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a6ce65dd3dd86069b1b00a78b90b7c4af">exteriorPathsEnd</a>()<span class="keyword"> const </span>{
-<a name="l00915"></a>00915             <span class="keywordflow">return</span> mExtEnd;
+<a name="l00914"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aa2240d491bec0d011bfbdd0ca87faa5f">00914</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#aa2240d491bec0d011bfbdd0ca87faa5f">interiorPathsBegin</a>()<span class="keyword"> const </span>{
+<a name="l00915"></a>00915             <span class="keywordflow">return</span> mIntBegin;
 <a name="l00916"></a>00916         }
-<a name="l00917"></a>00917     };
-<a name="l00918"></a>00918 
-<a name="l00919"></a>00919     <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
-<a name="l00920"></a><a class="code" href="classMWWorld_1_1IndexedStore.html">00920</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>
-<a name="l00921"></a>00921     {
-<a name="l00922"></a><a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html">00922</a>         <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html">Compare</a>
-<a name="l00923"></a>00923         {
-<a name="l00924"></a><a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html#ab5ac6b77b02c14b848899dd563554170">00924</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html#ab5ac6b77b02c14b848899dd563554170">operator()</a>(<span class="keyword">const</span> T &amp;x, <span class="keyword">const</span> T &amp;y)<span class="keyword"> const </span>{
-<a name="l00925"></a>00925                 <span class="keywordflow">return</span> x.mIndex &lt; y.mIndex;
-<a name="l00926"></a>00926             }
-<a name="l00927"></a>00927         };
-<a name="l00928"></a>00928     <span class="keyword">protected</span>:
-<a name="l00929"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a1c0298b0361b2bc8135357057ed0bd7a">00929</a>         std::vector&lt;T&gt; <a class="code" href="classMWWorld_1_1IndexedStore.html#a1c0298b0361b2bc8135357057ed0bd7a">mStatic</a>;
+<a name="l00917"></a>00917 
+<a name="l00918"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#ad6cf47d4c4aaeb3ecdd421ee46321f65">00918</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#ad6cf47d4c4aaeb3ecdd421ee46321f65">interiorPathsEnd</a>()<span class="keyword"> const </span>{
+<a name="l00919"></a>00919             <span class="keywordflow">return</span> mIntEnd;
+<a name="l00920"></a>00920         }
+<a name="l00921"></a>00921 
+<a name="l00922"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a9688db5481809cebc95fb15cc9cc9a95">00922</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a9688db5481809cebc95fb15cc9cc9a95">exteriorPathsBegin</a>()<span class="keyword"> const </span>{
+<a name="l00923"></a>00923             <span class="keywordflow">return</span> mExtBegin;
+<a name="l00924"></a>00924         }
+<a name="l00925"></a>00925 
+<a name="l00926"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a6ce65dd3dd86069b1b00a78b90b7c4af">00926</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a960a6db4d13ce6e6ba9d03be3eb26af7">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Pathgrid_01_4.html#a6ce65dd3dd86069b1b00a78b90b7c4af">exteriorPathsEnd</a>()<span class="keyword"> const </span>{
+<a name="l00927"></a>00927             <span class="keywordflow">return</span> mExtEnd;
+<a name="l00928"></a>00928         }
+<a name="l00929"></a>00929     };
 <a name="l00930"></a>00930 
-<a name="l00931"></a>00931     <span class="keyword">public</span>:
-<a name="l00932"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">00932</a>         <span class="keyword">typedef</span> <span class="keyword">typename</span> std::vector&lt;T&gt;::const_iterator <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a>;
-<a name="l00933"></a>00933 
-<a name="l00934"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#ab3bda90f686748184abb83da38a9ccf3">00934</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#ab3bda90f686748184abb83da38a9ccf3">IndexedStore</a>() {}
-<a name="l00935"></a>00935 
-<a name="l00936"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">00936</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">IndexedStore</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size) {
-<a name="l00937"></a>00937             mStatic.reserve(size);
-<a name="l00938"></a>00938         }
-<a name="l00939"></a>00939 
-<a name="l00940"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a0c2795096c7f673e0f84fcc9917316e8">00940</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a> <a class="code" href="classMWWorld_1_1IndexedStore.html#a0c2795096c7f673e0f84fcc9917316e8">begin</a>()<span class="keyword"> const </span>{
-<a name="l00941"></a>00941             <span class="keywordflow">return</span> mStatic.begin();
-<a name="l00942"></a>00942         }
-<a name="l00943"></a>00943 
-<a name="l00944"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a249169e25d9734187aca16934dc3e548">00944</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a> <a class="code" href="classMWWorld_1_1IndexedStore.html#a249169e25d9734187aca16934dc3e548">end</a>()<span class="keyword"> const </span>{
-<a name="l00945"></a>00945             <span class="keywordflow">return</span> mStatic.end();
-<a name="l00946"></a>00946         }
+<a name="l00931"></a>00931     <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
+<a name="l00932"></a><a class="code" href="classMWWorld_1_1IndexedStore.html">00932</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>
+<a name="l00933"></a>00933     {
+<a name="l00934"></a><a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html">00934</a>         <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html">Compare</a>
+<a name="l00935"></a>00935         {
+<a name="l00936"></a><a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html#ab5ac6b77b02c14b848899dd563554170">00936</a>             <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1IndexedStore_1_1Compare.html#ab5ac6b77b02c14b848899dd563554170">operator()</a>(<span class="keyword">const</span> T &amp;x, <span class="keyword">const</span> T &amp;y)<span class="keyword"> const </span>{
+<a name="l00937"></a>00937                 <span class="keywordflow">return</span> x.mIndex &lt; y.mIndex;
+<a name="l00938"></a>00938             }
+<a name="l00939"></a>00939         };
+<a name="l00940"></a>00940     <span class="keyword">protected</span>:
+<a name="l00941"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a1c0298b0361b2bc8135357057ed0bd7a">00941</a>         std::vector&lt;T&gt; <a class="code" href="classMWWorld_1_1IndexedStore.html#a1c0298b0361b2bc8135357057ed0bd7a">mStatic</a>;
+<a name="l00942"></a>00942 
+<a name="l00943"></a>00943     <span class="keyword">public</span>:
+<a name="l00944"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">00944</a>         <span class="keyword">typedef</span> <span class="keyword">typename</span> std::vector&lt;T&gt;::const_iterator <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a>;
+<a name="l00945"></a>00945 
+<a name="l00946"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#ab3bda90f686748184abb83da38a9ccf3">00946</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#ab3bda90f686748184abb83da38a9ccf3">IndexedStore</a>() {}
 <a name="l00947"></a>00947 
-<a name="l00949"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a7bdce3e9843a202527dc10d9adf063c5">00949</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1IndexedStore.html#a7bdce3e9843a202527dc10d9adf063c5">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm) {
-<a name="l00950"></a>00950             mStatic.push_back(T());
-<a name="l00951"></a>00951             mStatic.back().load(esm);
-<a name="l00952"></a>00952         }
-<a name="l00953"></a>00953 
-<a name="l00954"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#afab6fa3f0bbdf3461803822043736dca">00954</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1IndexedStore.html#afab6fa3f0bbdf3461803822043736dca">getSize</a>()<span class="keyword"> const </span>{
-<a name="l00955"></a>00955             <span class="keywordflow">return</span> mStatic.size();
-<a name="l00956"></a>00956         }
-<a name="l00957"></a>00957 
-<a name="l00958"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#ad600daec7a9b01447aa9f2ede8f2f74d">00958</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1IndexedStore.html#ad600daec7a9b01447aa9f2ede8f2f74d">setUp</a>() {
-<a name="l00964"></a>00964 
-<a name="l00965"></a>00965             Compare cmp;
-<a name="l00966"></a>00966 
-<a name="l00967"></a>00967             std::stable_sort(mStatic.begin(), mStatic.end(), cmp);
-<a name="l00968"></a>00968 
-<a name="l00969"></a>00969             <span class="keyword">typename</span> std::vector&lt;T&gt;::iterator first, next;
-<a name="l00970"></a>00970             next = first = mStatic.begin();
-<a name="l00971"></a>00971 
-<a name="l00972"></a>00972             <span class="keywordflow">while</span> (first != mStatic.end() &amp;&amp; ++next != mStatic.end()) {
-<a name="l00973"></a>00973                 <span class="keywordflow">while</span> (next != mStatic.end() &amp;&amp; !cmp(*first, *next)) {
-<a name="l00974"></a>00974                     ++next;
-<a name="l00975"></a>00975                 }
-<a name="l00976"></a>00976                 <span class="keywordflow">if</span> (first != --next) {
-<a name="l00977"></a>00977                     std::swap(*first, *next);
-<a name="l00978"></a>00978                 }
-<a name="l00979"></a>00979                 first = ++next;
-<a name="l00980"></a>00980             }
-<a name="l00981"></a>00981         }
-<a name="l00982"></a>00982 
-<a name="l00983"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf59470676bd92958682982312fe8e4e">00983</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1IndexedStore.html#acf59470676bd92958682982312fe8e4e">search</a>(<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{
-<a name="l00984"></a>00984             T item;
-<a name="l00985"></a>00985             item.mIndex = index;
-<a name="l00986"></a>00986 
-<a name="l00987"></a>00987             <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a> it =
-<a name="l00988"></a>00988                 std::lower_bound(mStatic.begin(), mStatic.end(), item, Compare());
-<a name="l00989"></a>00989             <span class="keywordflow">if</span> (it != mStatic.end() &amp;&amp; it-&gt;mIndex == index) {
-<a name="l00990"></a>00990                 <span class="keywordflow">return</span> &amp;(*it);
-<a name="l00991"></a>00991             }
-<a name="l00992"></a>00992             <span class="keywordflow">return</span> 0;
+<a name="l00948"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">00948</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf4d1f6bdf4b0971ac1a881201a2f87b">IndexedStore</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size) {
+<a name="l00949"></a>00949             mStatic.reserve(size);
+<a name="l00950"></a>00950         }
+<a name="l00951"></a>00951 
+<a name="l00952"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a0c2795096c7f673e0f84fcc9917316e8">00952</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a> <a class="code" href="classMWWorld_1_1IndexedStore.html#a0c2795096c7f673e0f84fcc9917316e8">begin</a>()<span class="keyword"> const </span>{
+<a name="l00953"></a>00953             <span class="keywordflow">return</span> mStatic.begin();
+<a name="l00954"></a>00954         }
+<a name="l00955"></a>00955 
+<a name="l00956"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a249169e25d9734187aca16934dc3e548">00956</a>         <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a> <a class="code" href="classMWWorld_1_1IndexedStore.html#a249169e25d9734187aca16934dc3e548">end</a>()<span class="keyword"> const </span>{
+<a name="l00957"></a>00957             <span class="keywordflow">return</span> mStatic.end();
+<a name="l00958"></a>00958         }
+<a name="l00959"></a>00959 
+<a name="l00961"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a7bdce3e9843a202527dc10d9adf063c5">00961</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1IndexedStore.html#a7bdce3e9843a202527dc10d9adf063c5">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;esm) {
+<a name="l00962"></a>00962             mStatic.push_back(T());
+<a name="l00963"></a>00963             mStatic.back().load(esm);
+<a name="l00964"></a>00964         }
+<a name="l00965"></a>00965 
+<a name="l00966"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#afab6fa3f0bbdf3461803822043736dca">00966</a>         <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1IndexedStore.html#afab6fa3f0bbdf3461803822043736dca">getSize</a>()<span class="keyword"> const </span>{
+<a name="l00967"></a>00967             <span class="keywordflow">return</span> mStatic.size();
+<a name="l00968"></a>00968         }
+<a name="l00969"></a>00969 
+<a name="l00970"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#ad600daec7a9b01447aa9f2ede8f2f74d">00970</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1IndexedStore.html#ad600daec7a9b01447aa9f2ede8f2f74d">setUp</a>() {
+<a name="l00976"></a>00976 
+<a name="l00977"></a>00977             Compare cmp;
+<a name="l00978"></a>00978 
+<a name="l00979"></a>00979             std::stable_sort(mStatic.begin(), mStatic.end(), cmp);
+<a name="l00980"></a>00980 
+<a name="l00981"></a>00981             <span class="keyword">typename</span> std::vector&lt;T&gt;::iterator first, next;
+<a name="l00982"></a>00982             next = first = mStatic.begin();
+<a name="l00983"></a>00983 
+<a name="l00984"></a>00984             <span class="keywordflow">while</span> (first != mStatic.end() &amp;&amp; ++next != mStatic.end()) {
+<a name="l00985"></a>00985                 <span class="keywordflow">while</span> (next != mStatic.end() &amp;&amp; !cmp(*first, *next)) {
+<a name="l00986"></a>00986                     ++next;
+<a name="l00987"></a>00987                 }
+<a name="l00988"></a>00988                 <span class="keywordflow">if</span> (first != --next) {
+<a name="l00989"></a>00989                     std::swap(*first, *next);
+<a name="l00990"></a>00990                 }
+<a name="l00991"></a>00991                 first = ++next;
+<a name="l00992"></a>00992             }
 <a name="l00993"></a>00993         }
 <a name="l00994"></a>00994 
-<a name="l00995"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a38aef458bb01f37788fbe0f311a5e706">00995</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1IndexedStore.html#a38aef458bb01f37788fbe0f311a5e706">find</a>(<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{
-<a name="l00996"></a>00996             <span class="keyword">const</span> T *ptr = search(index);
-<a name="l00997"></a>00997             <span class="keywordflow">if</span> (ptr == 0) {
-<a name="l00998"></a>00998                 std::ostringstream msg;
-<a name="l00999"></a>00999                 msg &lt;&lt; <span class="stringliteral">&quot;Object with index &quot;</span> &lt;&lt; index &lt;&lt; <span class="stringliteral">&quot; not found&quot;</span>;
-<a name="l01000"></a>01000                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l01001"></a>01001             }
-<a name="l01002"></a>01002             <span class="keywordflow">return</span> ptr;
-<a name="l01003"></a>01003         }
-<a name="l01004"></a>01004     };
-<a name="l01005"></a>01005 
-<a name="l01006"></a>01006     <span class="keyword">template</span> &lt;&gt;
-<a name="l01007"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">01007</a>     <span class="keyword">struct </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Skill&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Skill&gt;
-<a name="l01008"></a>01008     {
-<a name="l01009"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#a09d72893aca5f8974b451e36a95319bb">01009</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#a09d72893aca5f8974b451e36a95319bb">Store</a>() {}
-<a name="l01010"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#aa46f921e17c628dd6c6790b6d40780ad">01010</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size)
-<a name="l01011"></a>01011           : <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Skill&gt;(size)
-<a name="l01012"></a>01012         {}
-<a name="l01013"></a>01013     };
-<a name="l01014"></a>01014 
-<a name="l01015"></a>01015     <span class="keyword">template</span> &lt;&gt;
-<a name="l01016"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">01016</a>     <span class="keyword">struct </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::MagicEffect&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::MagicEffect&gt;
-<a name="l01017"></a>01017     {
-<a name="l01018"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a2fee5455000ac89c80b2c2ec82b3be26">01018</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a2fee5455000ac89c80b2c2ec82b3be26">Store</a>() {}
-<a name="l01019"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a3eb832d6a85b7f8d6cfa81efa3e40bd6">01019</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size)
-<a name="l01020"></a>01020           : <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::MagicEffect&gt;(size)
-<a name="l01021"></a>01021         {}
-<a name="l01022"></a>01022     };
-<a name="l01023"></a>01023 
-<a name="l01024"></a>01024     <span class="keyword">template</span> &lt;&gt;
-<a name="l01025"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">01025</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Attribute&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Attribute&gt;
-<a name="l01026"></a>01026     {
-<a name="l01027"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#ae1797172509f6a2c2fba8fee27644d37">01027</a>         std::vector&lt;ESM::Attribute&gt; <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#ae1797172509f6a2c2fba8fee27644d37">mStatic</a>;
-<a name="l01028"></a>01028 
-<a name="l01029"></a>01029     <span class="keyword">public</span>:
-<a name="l01030"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">01030</a>         <span class="keyword">typedef</span> std::vector&lt;ESM::Attribute&gt;::const_iterator <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">iterator</a>;
-<a name="l01031"></a>01031 
-<a name="l01032"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a79cd4324db3aaf61c74bcda764cc02ca">01032</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a79cd4324db3aaf61c74bcda764cc02ca">Store</a>() {
-<a name="l01033"></a>01033             mStatic.reserve(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5cacd49795598665657bd5fd76cc22198d2">ESM::Attribute::Length</a>);
-<a name="l01034"></a>01034         }
+<a name="l00995"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#acf59470676bd92958682982312fe8e4e">00995</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1IndexedStore.html#acf59470676bd92958682982312fe8e4e">search</a>(<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{
+<a name="l00996"></a>00996             T item;
+<a name="l00997"></a>00997             item.mIndex = index;
+<a name="l00998"></a>00998 
+<a name="l00999"></a>00999             <a class="code" href="classMWWorld_1_1IndexedStore.html#acf98aee4c8023b7b461f037b0772fd56">iterator</a> it =
+<a name="l01000"></a>01000                 std::lower_bound(mStatic.begin(), mStatic.end(), item, Compare());
+<a name="l01001"></a>01001             <span class="keywordflow">if</span> (it != mStatic.end() &amp;&amp; it-&gt;mIndex == index) {
+<a name="l01002"></a>01002                 <span class="keywordflow">return</span> &amp;(*it);
+<a name="l01003"></a>01003             }
+<a name="l01004"></a>01004             <span class="keywordflow">return</span> 0;
+<a name="l01005"></a>01005         }
+<a name="l01006"></a>01006 
+<a name="l01007"></a><a class="code" href="classMWWorld_1_1IndexedStore.html#a38aef458bb01f37788fbe0f311a5e706">01007</a>         <span class="keyword">const</span> T *<a class="code" href="classMWWorld_1_1IndexedStore.html#a38aef458bb01f37788fbe0f311a5e706">find</a>(<span class="keywordtype">int</span> index)<span class="keyword"> const </span>{
+<a name="l01008"></a>01008             <span class="keyword">const</span> T *ptr = search(index);
+<a name="l01009"></a>01009             <span class="keywordflow">if</span> (ptr == 0) {
+<a name="l01010"></a>01010                 std::ostringstream msg;
+<a name="l01011"></a>01011                 msg &lt;&lt; <span class="stringliteral">&quot;Object with index &quot;</span> &lt;&lt; index &lt;&lt; <span class="stringliteral">&quot; not found&quot;</span>;
+<a name="l01012"></a>01012                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l01013"></a>01013             }
+<a name="l01014"></a>01014             <span class="keywordflow">return</span> ptr;
+<a name="l01015"></a>01015         }
+<a name="l01016"></a>01016     };
+<a name="l01017"></a>01017 
+<a name="l01018"></a>01018     <span class="keyword">template</span> &lt;&gt;
+<a name="l01019"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html">01019</a>     <span class="keyword">struct </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Skill&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Skill&gt;
+<a name="l01020"></a>01020     {
+<a name="l01021"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#a09d72893aca5f8974b451e36a95319bb">01021</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#a09d72893aca5f8974b451e36a95319bb">Store</a>() {}
+<a name="l01022"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1Skill_01_4.html#aa46f921e17c628dd6c6790b6d40780ad">01022</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size)
+<a name="l01023"></a>01023           : <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Skill&gt;(size)
+<a name="l01024"></a>01024         {}
+<a name="l01025"></a>01025     };
+<a name="l01026"></a>01026 
+<a name="l01027"></a>01027     <span class="keyword">template</span> &lt;&gt;
+<a name="l01028"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html">01028</a>     <span class="keyword">struct </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::MagicEffect&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::MagicEffect&gt;
+<a name="l01029"></a>01029     {
+<a name="l01030"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a2fee5455000ac89c80b2c2ec82b3be26">01030</a>         <a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a2fee5455000ac89c80b2c2ec82b3be26">Store</a>() {}
+<a name="l01031"></a><a class="code" href="structMWWorld_1_1Store_3_01ESM_1_1MagicEffect_01_4.html#a3eb832d6a85b7f8d6cfa81efa3e40bd6">01031</a>         <a class="code" href="classMWWorld_1_1Store.html">Store</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size)
+<a name="l01032"></a>01032           : <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::MagicEffect&gt;(size)
+<a name="l01033"></a>01033         {}
+<a name="l01034"></a>01034     };
 <a name="l01035"></a>01035 
-<a name="l01036"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aaa3ccf795b77f02edd73160c3c797aba">01036</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aaa3ccf795b77f02edd73160c3c797aba">search</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const </span>{
-<a name="l01037"></a>01037             <span class="keywordflow">if</span> (index &gt;= mStatic.size()) {
-<a name="l01038"></a>01038                 <span class="keywordflow">return</span> 0;
-<a name="l01039"></a>01039             }
-<a name="l01040"></a>01040             <span class="keywordflow">return</span> &amp;mStatic.at(index);
-<a name="l01041"></a>01041         }
-<a name="l01042"></a>01042 
-<a name="l01043"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a7dac1e2d42a16579be1bee79a07ff7a3">01043</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a7dac1e2d42a16579be1bee79a07ff7a3">find</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const </span>{
-<a name="l01044"></a>01044             <span class="keyword">const</span> <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a> *ptr = search(index);
-<a name="l01045"></a>01045             <span class="keywordflow">if</span> (ptr == 0) {
-<a name="l01046"></a>01046                 std::ostringstream msg;
-<a name="l01047"></a>01047                 msg &lt;&lt; <span class="stringliteral">&quot;Attribute with index &quot;</span> &lt;&lt; index &lt;&lt; <span class="stringliteral">&quot; not found&quot;</span>;
-<a name="l01048"></a>01048                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
-<a name="l01049"></a>01049             }
-<a name="l01050"></a>01050             <span class="keywordflow">return</span> ptr;
-<a name="l01051"></a>01051         }
-<a name="l01052"></a>01052 
-<a name="l01053"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a33f468fa26a54c134d9e1e3265a2d4b9">01053</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a33f468fa26a54c134d9e1e3265a2d4b9">setUp</a>() {
-<a name="l01054"></a>01054             <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5cacd49795598665657bd5fd76cc22198d2">ESM::Attribute::Length</a>; ++i) {
-<a name="l01055"></a>01055                 mStatic.push_back(
-<a name="l01056"></a>01056                     <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a>(
-<a name="l01057"></a>01057                         <a class="code" href="structESM_1_1Attribute.html#a6d9dab5ae8eb58f27b83bcfea832a2d3">ESM::Attribute::sAttributeIds</a>[i],
-<a name="l01058"></a>01058                         <a class="code" href="structESM_1_1Attribute.html#a68e7977903c8ad6e5c0068aa8442acec">ESM::Attribute::sGmstAttributeIds</a>[i],
-<a name="l01059"></a>01059                         <a class="code" href="structESM_1_1Attribute.html#a9d6d351842f1fc783c3b9f82418052dc">ESM::Attribute::sGmstAttributeDescIds</a>[i]
-<a name="l01060"></a>01060                     )
-<a name="l01061"></a>01061                 );
-<a name="l01062"></a>01062             }
+<a name="l01036"></a>01036     <span class="keyword">template</span> &lt;&gt;
+<a name="l01037"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html">01037</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1Store.html">Store</a>&lt;ESM::Attribute&gt; : <span class="keyword">public</span> <a class="code" href="classMWWorld_1_1IndexedStore.html">IndexedStore</a>&lt;ESM::Attribute&gt;
+<a name="l01038"></a>01038     {
+<a name="l01039"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#ae1797172509f6a2c2fba8fee27644d37">01039</a>         std::vector&lt;ESM::Attribute&gt; <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#ae1797172509f6a2c2fba8fee27644d37">mStatic</a>;
+<a name="l01040"></a>01040 
+<a name="l01041"></a>01041     <span class="keyword">public</span>:
+<a name="l01042"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">01042</a>         <span class="keyword">typedef</span> std::vector&lt;ESM::Attribute&gt;::const_iterator <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">iterator</a>;
+<a name="l01043"></a>01043 
+<a name="l01044"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a79cd4324db3aaf61c74bcda764cc02ca">01044</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a79cd4324db3aaf61c74bcda764cc02ca">Store</a>() {
+<a name="l01045"></a>01045             mStatic.reserve(<a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5cacd49795598665657bd5fd76cc22198d2">ESM::Attribute::Length</a>);
+<a name="l01046"></a>01046         }
+<a name="l01047"></a>01047 
+<a name="l01048"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aaa3ccf795b77f02edd73160c3c797aba">01048</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aaa3ccf795b77f02edd73160c3c797aba">search</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const </span>{
+<a name="l01049"></a>01049             <span class="keywordflow">if</span> (index &gt;= mStatic.size()) {
+<a name="l01050"></a>01050                 <span class="keywordflow">return</span> 0;
+<a name="l01051"></a>01051             }
+<a name="l01052"></a>01052             <span class="keywordflow">return</span> &amp;mStatic.at(index);
+<a name="l01053"></a>01053         }
+<a name="l01054"></a>01054 
+<a name="l01055"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a7dac1e2d42a16579be1bee79a07ff7a3">01055</a>         <span class="keyword">const</span> <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a> *<a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a7dac1e2d42a16579be1bee79a07ff7a3">find</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const </span>{
+<a name="l01056"></a>01056             <span class="keyword">const</span> <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a> *ptr = search(index);
+<a name="l01057"></a>01057             <span class="keywordflow">if</span> (ptr == 0) {
+<a name="l01058"></a>01058                 std::ostringstream msg;
+<a name="l01059"></a>01059                 msg &lt;&lt; <span class="stringliteral">&quot;Attribute with index &quot;</span> &lt;&lt; index &lt;&lt; <span class="stringliteral">&quot; not found&quot;</span>;
+<a name="l01060"></a>01060                 <span class="keywordflow">throw</span> std::runtime_error(msg.str());
+<a name="l01061"></a>01061             }
+<a name="l01062"></a>01062             <span class="keywordflow">return</span> ptr;
 <a name="l01063"></a>01063         }
 <a name="l01064"></a>01064 
-<a name="l01065"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a06ef80986c4dc1f34c6a2e4d89d295cc">01065</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a06ef80986c4dc1f34c6a2e4d89d295cc">getSize</a>()<span class="keyword"> const </span>{
-<a name="l01066"></a>01066             <span class="keywordflow">return</span> mStatic.size();
-<a name="l01067"></a>01067         }
-<a name="l01068"></a>01068 
-<a name="l01069"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a77b792546b8c580f2dae119274974ee5">01069</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a77b792546b8c580f2dae119274974ee5">begin</a>()<span class="keyword"> const </span>{
-<a name="l01070"></a>01070             <span class="keywordflow">return</span> mStatic.begin();
-<a name="l01071"></a>01071         }
-<a name="l01072"></a>01072 
-<a name="l01073"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aea7dfdea59eea2c18785165d138a6caa">01073</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aea7dfdea59eea2c18785165d138a6caa">end</a>()<span class="keyword"> const </span>{
-<a name="l01074"></a>01074             <span class="keywordflow">return</span> mStatic.end();
+<a name="l01065"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a33f468fa26a54c134d9e1e3265a2d4b9">01065</a>         <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a33f468fa26a54c134d9e1e3265a2d4b9">setUp</a>() {
+<a name="l01066"></a>01066             <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="structESM_1_1Attribute.html#a3060ff60a07f9909a967395e69f9ee5cacd49795598665657bd5fd76cc22198d2">ESM::Attribute::Length</a>; ++i) {
+<a name="l01067"></a>01067                 mStatic.push_back(
+<a name="l01068"></a>01068                     <a class="code" href="structESM_1_1Attribute.html">ESM::Attribute</a>(
+<a name="l01069"></a>01069                         <a class="code" href="structESM_1_1Attribute.html#a6d9dab5ae8eb58f27b83bcfea832a2d3">ESM::Attribute::sAttributeIds</a>[i],
+<a name="l01070"></a>01070                         <a class="code" href="structESM_1_1Attribute.html#a68e7977903c8ad6e5c0068aa8442acec">ESM::Attribute::sGmstAttributeIds</a>[i],
+<a name="l01071"></a>01071                         <a class="code" href="structESM_1_1Attribute.html#a9d6d351842f1fc783c3b9f82418052dc">ESM::Attribute::sGmstAttributeDescIds</a>[i]
+<a name="l01072"></a>01072                     )
+<a name="l01073"></a>01073                 );
+<a name="l01074"></a>01074             }
 <a name="l01075"></a>01075         }
-<a name="l01076"></a>01076     };
-<a name="l01077"></a>01077 
-<a name="l01078"></a>01078 } <span class="comment">//end namespace</span>
-<a name="l01079"></a>01079 
-<a name="l01080"></a>01080 <span class="preprocessor">#endif</span>
+<a name="l01076"></a>01076 
+<a name="l01077"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a06ef80986c4dc1f34c6a2e4d89d295cc">01077</a>         <span class="keywordtype">size_t</span> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a06ef80986c4dc1f34c6a2e4d89d295cc">getSize</a>()<span class="keyword"> const </span>{
+<a name="l01078"></a>01078             <span class="keywordflow">return</span> mStatic.size();
+<a name="l01079"></a>01079         }
+<a name="l01080"></a>01080 
+<a name="l01081"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a77b792546b8c580f2dae119274974ee5">01081</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a77b792546b8c580f2dae119274974ee5">begin</a>()<span class="keyword"> const </span>{
+<a name="l01082"></a>01082             <span class="keywordflow">return</span> mStatic.begin();
+<a name="l01083"></a>01083         }
+<a name="l01084"></a>01084 
+<a name="l01085"></a><a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aea7dfdea59eea2c18785165d138a6caa">01085</a>         <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#a16a2ea002aefb742e007e4faac82515f">iterator</a> <a class="code" href="classMWWorld_1_1Store_3_01ESM_1_1Attribute_01_4.html#aea7dfdea59eea2c18785165d138a6caa">end</a>()<span class="keyword"> const </span>{
+<a name="l01086"></a>01086             <span class="keywordflow">return</span> mStatic.end();
+<a name="l01087"></a>01087         }
+<a name="l01088"></a>01088     };
+<a name="l01089"></a>01089 
+<a name="l01090"></a>01090 } <span class="comment">//end namespace</span>
+<a name="l01091"></a>01091 
+<a name="l01092"></a>01092 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

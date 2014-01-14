@@ -81,8 +81,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#ab299d5518546590002127fcd5db1b6d7">getRecord</a> (int index)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#ac237421c4b3f4c4053820ce2a936d7a5">appendRecord</a> (const std::string &amp;id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#a39ce21c70379db6db73cd8cdd7d0fa77">load</a> (int index, <a class="el" href="classESM_1_1ESMReader.html">ESM::ESMReader</a> &amp;reader, bool base)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#af6a2eea292c1ea16cd7785abaed8aaf9">erase</a> (int index, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#af6a2eea292c1ea16cd7785abaed8aaf9">erase</a> (int index, int count)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#accf1acb9d28017978fe62284bbc835bb">getId</a> (int index) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#acd021f871bf787137b6f005a340e8a37">save</a> (int index, <a class="el" href="classESM_1_1ESMWriter.html">ESM::ESMWriter</a> &amp;writer) const </td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structCSMWorld_1_1Record.html">Record</a>&lt; RecordT &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#a7af6b284f317c27057b0ff82ad9dc7e4">mContainer</a></td></tr>
@@ -263,6 +264,39 @@ template&lt;typename RecordT &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="acd021f871bf787137b6f005a340e8a37"></a><!-- doxytag: member="CSMWorld::RefIdDataContainer::save" ref="acd021f871bf787137b6f005a340e8a37" args="(int index, ESM::ESMWriter &amp;writer) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename RecordT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structCSMWorld_1_1RefIdDataContainer.html">CSMWorld::RefIdDataContainer</a>&lt; RecordT &gt;::<a class="el" href="structCSMWorld_1_1RefIdDataContainer.html#acd021f871bf787137b6f005a340e8a37">save</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classESM_1_1ESMWriter.html">ESM::ESMWriter</a> &amp;&#160;</td>
+          <td class="paramname"><em>writer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000031">Todo:</a></b></dt><dd>make endianess agnostic (change ESMWriter interface?) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000032">Todo:</a></b></dt><dd>write record with delete flag </dd></dl>
+
+<p>Implements <a class="el" href="structCSMWorld_1_1RefIdDataContainerBase.html#a3e3d4134450d26fb5f79c3e30c7e02a5">CSMWorld::RefIdDataContainerBase</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
 <a class="anchor" id="a7af6b284f317c27057b0ff82ad9dc7e4"></a><!-- doxytag: member="CSMWorld::RefIdDataContainer::mContainer" ref="a7af6b284f317c27057b0ff82ad9dc7e4" args="" -->
 <div class="memitem">
@@ -286,7 +320,7 @@ template&lt;typename RecordT&gt; </div>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

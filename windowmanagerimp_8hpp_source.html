@@ -68,352 +68,360 @@
 <a name="l00016"></a>00016 {
 <a name="l00017"></a>00017     <span class="keyword">class </span>Gui;
 <a name="l00018"></a>00018     <span class="keyword">class </span>Widget;
-<a name="l00019"></a>00019     <span class="keyword">class </span>UString;
-<a name="l00020"></a>00020 }
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">namespace </span>Compiler
-<a name="l00023"></a>00023 {
-<a name="l00024"></a>00024     <span class="keyword">class </span>Extensions;
-<a name="l00025"></a>00025 }
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="namespaceTranslation.html">00027</a> <span class="keyword">namespace </span>Translation
-<a name="l00028"></a>00028 {
-<a name="l00029"></a>00029     <span class="keyword">class </span><a class="code" href="classTranslation_1_1Storage.html">Storage</a>;
-<a name="l00030"></a>00030 }
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">namespace </span>OEngine
-<a name="l00033"></a>00033 {
-<a name="l00034"></a>00034     <span class="keyword">namespace </span>GUI
-<a name="l00035"></a>00035     {
-<a name="l00036"></a>00036         <span class="keyword">class </span>Layout;
-<a name="l00037"></a>00037         <span class="keyword">class </span>MyGUIManager;
-<a name="l00038"></a>00038     }
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040     <span class="keyword">namespace </span>Render
-<a name="l00041"></a>00041     {
-<a name="l00042"></a>00042         <span class="keyword">class </span>OgreRenderer;
-<a name="l00043"></a>00043     }
-<a name="l00044"></a>00044 }
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046 <span class="keyword">namespace </span>SFO
-<a name="l00047"></a>00047 {
-<a name="l00048"></a>00048     <span class="keyword">class </span>CursorManager;
-<a name="l00049"></a>00049 }
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="keyword">namespace </span>MWGui
-<a name="l00052"></a>00052 {
-<a name="l00053"></a>00053   <span class="keyword">class </span>WindowBase;
-<a name="l00054"></a>00054   <span class="keyword">class </span>HUD;
-<a name="l00055"></a>00055   <span class="keyword">class </span>MapWindow;
-<a name="l00056"></a>00056   <span class="keyword">class </span>MainMenu;
-<a name="l00057"></a>00057   <span class="keyword">class </span>StatsWindow;
-<a name="l00058"></a>00058   <span class="keyword">class </span>InventoryWindow;
-<a name="l00059"></a>00059   <span class="keyword">class </span>JournalWindow;
-<a name="l00060"></a>00060   <span class="keyword">class </span>CharacterCreation;
-<a name="l00061"></a>00061   <span class="keyword">class </span>DragAndDrop;
-<a name="l00062"></a>00062   <span class="keyword">class </span>ToolTips;
-<a name="l00063"></a>00063   <span class="keyword">class </span><a class="code" href="classTextInputDialog.html">TextInputDialog</a>;
-<a name="l00064"></a>00064   <span class="keyword">class </span>InfoBoxDialog;
-<a name="l00065"></a>00065   <span class="keyword">class </span>MessageBoxManager;
-<a name="l00066"></a>00066   <span class="keyword">class </span>SettingsWindow;
-<a name="l00067"></a>00067   <span class="keyword">class </span>AlchemyWindow;
-<a name="l00068"></a>00068   <span class="keyword">class </span>QuickKeysMenu;
-<a name="l00069"></a>00069   <span class="keyword">class </span>LoadingScreen;
-<a name="l00070"></a>00070   <span class="keyword">class </span>LevelupDialog;
-<a name="l00071"></a>00071   <span class="keyword">class </span>WaitDialog;
-<a name="l00072"></a>00072   <span class="keyword">class </span>SpellCreationDialog;
-<a name="l00073"></a>00073   <span class="keyword">class </span>EnchantingDialog;
-<a name="l00074"></a>00074   <span class="keyword">class </span>TrainingWindow;
-<a name="l00075"></a>00075   <span class="keyword">class </span>Cursor;
-<a name="l00076"></a>00076   <span class="keyword">class </span>SpellIcons;
-<a name="l00077"></a>00077   <span class="keyword">class </span>MerchantRepair;
-<a name="l00078"></a>00078   <span class="keyword">class </span>Repair;
-<a name="l00079"></a>00079   <span class="keyword">class </span>SoulgemDialog;
-<a name="l00080"></a>00080   <span class="keyword">class </span>CompanionWindow;
-<a name="l00081"></a>00081 
-<a name="l00082"></a><a class="code" href="classMWGui_1_1WindowManager.html">00082</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a> : <span class="keyword">public</span> MWBase::<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>
-<a name="l00083"></a>00083   {
-<a name="l00084"></a>00084   <span class="keyword">public</span>:
-<a name="l00085"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">00085</a>     <span class="keyword">typedef</span> std::pair&lt;std::string, int&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">Faction</a>;
-<a name="l00086"></a><a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">00086</a>     <span class="keyword">typedef</span> std::vector&lt;Faction&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">FactionList</a>;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088     <a class="code" href="classMWBase_1_1WindowManager.html#a5d156b1534f07b227173ee8387f508e9">WindowManager</a>(<span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions, <span class="keywordtype">int</span> fpsLevel,
-<a name="l00089"></a>00089                   <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> *mOgre, <span class="keyword">const</span> std::string&amp; logpath,
-<a name="l00090"></a>00090                   <span class="keyword">const</span> std::string&amp; cacheDir, <span class="keywordtype">bool</span> consoleOnlyScripts,
-<a name="l00091"></a>00091                   <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; translationDataStorage, <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">ToUTF8::FromType</a> encoding);
-<a name="l00092"></a>00092     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0ef70f5f7815d8a2d59356fdaa2086ff">~WindowManager</a>();
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2066d296aa345dcb4008cbd07d3c52c2">initUI</a>();
-<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4bc558dc42abac703a7d7d32746ea61a">renderWorldMap</a>();
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097     <span class="keyword">virtual</span> <a class="code" href="classLoading_1_1Listener.html">Loading::Listener</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a7684b347d8a469a9b6a1697de4e07237">getLoadingScreen</a>();
+<a name="l00019"></a>00019     <span class="keyword">class </span>Window;
+<a name="l00020"></a>00020     <span class="keyword">class </span>UString;
+<a name="l00021"></a>00021 }
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="keyword">namespace </span>Compiler
+<a name="l00024"></a>00024 {
+<a name="l00025"></a>00025     <span class="keyword">class </span>Extensions;
+<a name="l00026"></a>00026 }
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="namespaceTranslation.html">00028</a> <span class="keyword">namespace </span>Translation
+<a name="l00029"></a>00029 {
+<a name="l00030"></a>00030     <span class="keyword">class </span><a class="code" href="classTranslation_1_1Storage.html">Storage</a>;
+<a name="l00031"></a>00031 }
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="keyword">namespace </span>OEngine
+<a name="l00034"></a>00034 {
+<a name="l00035"></a>00035     <span class="keyword">namespace </span>GUI
+<a name="l00036"></a>00036     {
+<a name="l00037"></a>00037         <span class="keyword">class </span>Layout;
+<a name="l00038"></a>00038         <span class="keyword">class </span>MyGUIManager;
+<a name="l00039"></a>00039     }
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041     <span class="keyword">namespace </span>Render
+<a name="l00042"></a>00042     {
+<a name="l00043"></a>00043         <span class="keyword">class </span>OgreRenderer;
+<a name="l00044"></a>00044     }
+<a name="l00045"></a>00045 }
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 <span class="keyword">namespace </span>SFO
+<a name="l00048"></a>00048 {
+<a name="l00049"></a>00049     <span class="keyword">class </span>CursorManager;
+<a name="l00050"></a>00050 }
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 <span class="keyword">namespace </span>MWGui
+<a name="l00053"></a>00053 {
+<a name="l00054"></a>00054   <span class="keyword">class </span>WindowBase;
+<a name="l00055"></a>00055   <span class="keyword">class </span>HUD;
+<a name="l00056"></a>00056   <span class="keyword">class </span>MapWindow;
+<a name="l00057"></a>00057   <span class="keyword">class </span>MainMenu;
+<a name="l00058"></a>00058   <span class="keyword">class </span>StatsWindow;
+<a name="l00059"></a>00059   <span class="keyword">class </span>InventoryWindow;
+<a name="l00060"></a>00060   <span class="keyword">class </span>JournalWindow;
+<a name="l00061"></a>00061   <span class="keyword">class </span>CharacterCreation;
+<a name="l00062"></a>00062   <span class="keyword">class </span>DragAndDrop;
+<a name="l00063"></a>00063   <span class="keyword">class </span>ToolTips;
+<a name="l00064"></a>00064   <span class="keyword">class </span>TextInputDialog;
+<a name="l00065"></a>00065   <span class="keyword">class </span>InfoBoxDialog;
+<a name="l00066"></a>00066   <span class="keyword">class </span>MessageBoxManager;
+<a name="l00067"></a>00067   <span class="keyword">class </span>SettingsWindow;
+<a name="l00068"></a>00068   <span class="keyword">class </span>AlchemyWindow;
+<a name="l00069"></a>00069   <span class="keyword">class </span>QuickKeysMenu;
+<a name="l00070"></a>00070   <span class="keyword">class </span>LoadingScreen;
+<a name="l00071"></a>00071   <span class="keyword">class </span>LevelupDialog;
+<a name="l00072"></a>00072   <span class="keyword">class </span>WaitDialog;
+<a name="l00073"></a>00073   <span class="keyword">class </span>SpellCreationDialog;
+<a name="l00074"></a>00074   <span class="keyword">class </span>EnchantingDialog;
+<a name="l00075"></a>00075   <span class="keyword">class </span>TrainingWindow;
+<a name="l00076"></a>00076   <span class="keyword">class </span>Cursor;
+<a name="l00077"></a>00077   <span class="keyword">class </span>SpellIcons;
+<a name="l00078"></a>00078   <span class="keyword">class </span>MerchantRepair;
+<a name="l00079"></a>00079   <span class="keyword">class </span>Repair;
+<a name="l00080"></a>00080   <span class="keyword">class </span>SoulgemDialog;
+<a name="l00081"></a>00081   <span class="keyword">class </span>Recharge;
+<a name="l00082"></a>00082   <span class="keyword">class </span>CompanionWindow;
+<a name="l00083"></a>00083 
+<a name="l00084"></a><a class="code" href="classMWGui_1_1WindowManager.html">00084</a>   <span class="keyword">class </span><a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a> : <span class="keyword">public</span> MWBase::<a class="code" href="classMWGui_1_1WindowManager.html">WindowManager</a>
+<a name="l00085"></a>00085   {
+<a name="l00086"></a>00086   <span class="keyword">public</span>:
+<a name="l00087"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">00087</a>     <span class="keyword">typedef</span> std::pair&lt;std::string, int&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ae2328879fe64398c5c20cbe21976e0c0">Faction</a>;
+<a name="l00088"></a><a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">00088</a>     <span class="keyword">typedef</span> std::vector&lt;Faction&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a09843c02bbcfe48d29f8214561470cd6">FactionList</a>;
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090     <a class="code" href="classMWBase_1_1WindowManager.html#a5d156b1534f07b227173ee8387f508e9">WindowManager</a>(<span class="keyword">const</span> <a class="code" href="classCompiler_1_1Extensions.html" title="Collection of compiler extensions.">Compiler::Extensions</a>&amp; extensions, <span class="keywordtype">int</span> fpsLevel,
+<a name="l00091"></a>00091                   <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> *mOgre, <span class="keyword">const</span> std::string&amp; logpath,
+<a name="l00092"></a>00092                   <span class="keyword">const</span> std::string&amp; cacheDir, <span class="keywordtype">bool</span> consoleOnlyScripts,
+<a name="l00093"></a>00093                   <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; translationDataStorage, <a class="code" href="namespaceToUTF8.html#af49c9c5fac0f53ebef744a9f42caec4f">ToUTF8::FromType</a> encoding);
+<a name="l00094"></a>00094     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0ef70f5f7815d8a2d59356fdaa2086ff">~WindowManager</a>();
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2066d296aa345dcb4008cbd07d3c52c2">initUI</a>();
+<a name="l00097"></a>00097     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4bc558dc42abac703a7d7d32746ea61a">renderWorldMap</a>();
 <a name="l00098"></a>00098 
-<a name="l00104"></a>00104     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad5ec44de27deec8fd33e4e2160360f94">update</a>();
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a510ebc9a491bd1ebfc0a588e281b439c">setKeyFocusWidget</a> (MyGUI::Widget* widget);
+<a name="l00099"></a>00099     <span class="keyword">virtual</span> <a class="code" href="classLoading_1_1Listener.html">Loading::Listener</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a7684b347d8a469a9b6a1697de4e07237">getLoadingScreen</a>();
+<a name="l00100"></a>00100 
+<a name="l00106"></a>00106     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad5ec44de27deec8fd33e4e2160360f94">update</a>();
 <a name="l00107"></a>00107 
-<a name="l00108"></a>00108     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a924de31f311b3a886d4b9fb8ba9806c6">setNewGame</a>(<span class="keywordtype">bool</span> newgame);
+<a name="l00108"></a>00108     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a510ebc9a491bd1ebfc0a588e281b439c">setKeyFocusWidget</a> (MyGUI::Widget* widget);
 <a name="l00109"></a>00109 
-<a name="l00110"></a>00110     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0767a1ab9cb727c7bd0243c35226b428">pushGuiMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> mode);
-<a name="l00111"></a>00111     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0b79ceda0174bec3ff9efc8ee03ea336">popGuiMode</a>();
-<a name="l00112"></a>00112     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6162cf9ad2be7221c1b83ce122af4851" title="can be anywhere in the stack">removeGuiMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> mode); 
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114     <span class="keyword">virtual</span> <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#ab7acb6e578b42b86eb360dea73c9c383">getMode</a>() <span class="keyword">const</span>;
-<a name="l00115"></a>00115     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a40a22c6ee320d30d136b7b6e04189886">containsMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> mode) <span class="keyword">const</span>;
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">isGuiMode</a>() <span class="keyword">const</span>;
+<a name="l00110"></a>00110     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a924de31f311b3a886d4b9fb8ba9806c6">setNewGame</a>(<span class="keywordtype">bool</span> newgame);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0767a1ab9cb727c7bd0243c35226b428">pushGuiMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> mode);
+<a name="l00113"></a>00113     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0b79ceda0174bec3ff9efc8ee03ea336">popGuiMode</a>();
+<a name="l00114"></a>00114     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6162cf9ad2be7221c1b83ce122af4851" title="can be anywhere in the stack">removeGuiMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> mode); 
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116     <span class="keyword">virtual</span> <a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> <a class="code" href="classMWGui_1_1WindowManager.html#ab7acb6e578b42b86eb360dea73c9c383">getMode</a>() <span class="keyword">const</span>;
+<a name="l00117"></a>00117     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a40a22c6ee320d30d136b7b6e04189886">containsMode</a>(<a class="code" href="namespaceMWGui.html#a64f29beb7a849dec3c7b7365d4d8249a">GuiMode</a> mode) <span class="keyword">const</span>;
 <a name="l00118"></a>00118 
-<a name="l00119"></a>00119     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ac90e8b239ced28aa337c8cc8d06eb508">isConsoleMode</a>() <span class="keyword">const</span>;
+<a name="l00119"></a>00119     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0066087eb0e584bbb7c95d4c03f0d286">isGuiMode</a>() <span class="keyword">const</span>;
 <a name="l00120"></a>00120 
-<a name="l00121"></a>00121     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a19dfd4c859d0d058631664bdb3317d58">toggleVisible</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd);
+<a name="l00121"></a>00121     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ac90e8b239ced28aa337c8cc8d06eb508">isConsoleMode</a>() <span class="keyword">const</span>;
 <a name="l00122"></a>00122 
-<a name="l00123"></a>00123     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8c06ac694968e2167fd0180621c5fde1">forceHide</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">MWGui::GuiWindow</a> wnd);
-<a name="l00124"></a>00124     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae9b8cc0be0202b8db35cde4268a5980f">unsetForceHide</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">MWGui::GuiWindow</a> wnd);
-<a name="l00125"></a>00125 
-<a name="l00126"></a>00126     <span class="comment">// Disallow all inventory mode windows</span>
-<a name="l00127"></a>00127     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d" title="Disallow all inventory mode windows.">disallowAll</a>();
-<a name="l00128"></a>00128 
-<a name="l00129"></a>00129     <span class="comment">// Allow one or more windows</span>
-<a name="l00130"></a>00130     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5" title="Allow one or more windows.">allow</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd);
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5f5607e9fef1ca109f3fb6489cdc3d4c">isAllowed</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd) <span class="keyword">const</span>;
+<a name="l00123"></a>00123     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a19dfd4c859d0d058631664bdb3317d58">toggleVisible</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd);
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8c06ac694968e2167fd0180621c5fde1">forceHide</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">MWGui::GuiWindow</a> wnd);
+<a name="l00126"></a>00126     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae9b8cc0be0202b8db35cde4268a5980f">unsetForceHide</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">MWGui::GuiWindow</a> wnd);
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128     <span class="comment">// Disallow all inventory mode windows</span>
+<a name="l00129"></a>00129     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9f2fb85060c4d0ff97fc8e8be332192d" title="Disallow all inventory mode windows.">disallowAll</a>();
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131     <span class="comment">// Allow one or more windows</span>
+<a name="l00132"></a>00132     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aeb2d42ff40077e3b3513c5ed67732fc5" title="Allow one or more windows.">allow</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd);
 <a name="l00133"></a>00133 
-<a name="l00135"></a>00135     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1DialogueWindow.html">MWGui::DialogueWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a177c26a5b16491f3f953d5c6ebd741b1">getDialogueWindow</a>();
-<a name="l00136"></a>00136     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ContainerWindow.html">MWGui::ContainerWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a7ff6e4491f1d3c24d95905db80112e3e">getContainerWindow</a>();
-<a name="l00137"></a>00137     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1InventoryWindow.html">MWGui::InventoryWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a4425ce523692205ff47c61f39d4bfc28">getInventoryWindow</a>();
-<a name="l00138"></a>00138     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1BookWindow.html">MWGui::BookWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a9bab3646b3f9d42ec02713bcdcaa93ea">getBookWindow</a>();
-<a name="l00139"></a>00139     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ScrollWindow.html">MWGui::ScrollWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a756cb90f6af17bb1f52415ed39f346b1">getScrollWindow</a>();
-<a name="l00140"></a>00140     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1CountDialog.html">MWGui::CountDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a11782afa49f4ab8a2b634b353eacb04d">getCountDialog</a>();
-<a name="l00141"></a>00141     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ConfirmationDialog.html">MWGui::ConfirmationDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#accaa26ca861f8d643e2a3cca5c735f80">getConfirmationDialog</a>();
-<a name="l00142"></a>00142     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1TradeWindow.html">MWGui::TradeWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a0ac7a7b8c26a4fe169e206ca26d7df3c">getTradeWindow</a>();
-<a name="l00143"></a>00143     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1SpellBuyingWindow.html">MWGui::SpellBuyingWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#abb48635dc11977f6b6c8a52b89297ab7">getSpellBuyingWindow</a>();
-<a name="l00144"></a>00144     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1TravelWindow.html">MWGui::TravelWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a500f94a5daf23cb440a379f15a59bf16">getTravelWindow</a>();
-<a name="l00145"></a>00145     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1SpellWindow.html">MWGui::SpellWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#afb61095afbbb2a42defc230819e1d44d">getSpellWindow</a>();
-<a name="l00146"></a>00146     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Console.html">MWGui::Console</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a79408310345720ae38ee568cb850c6ec">getConsole</a>();
-<a name="l00147"></a>00147 
-<a name="l00148"></a>00148     <span class="keyword">virtual</span> MyGUI::Gui* <a class="code" href="classMWGui_1_1WindowManager.html#a1c3d1a70361be326e25991a0634151a5">getGui</a>() <span class="keyword">const</span>;
+<a name="l00134"></a>00134     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5f5607e9fef1ca109f3fb6489cdc3d4c">isAllowed</a>(<a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> wnd) <span class="keyword">const</span>;
+<a name="l00135"></a>00135 
+<a name="l00137"></a>00137     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1DialogueWindow.html">MWGui::DialogueWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a177c26a5b16491f3f953d5c6ebd741b1">getDialogueWindow</a>();
+<a name="l00138"></a>00138     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ContainerWindow.html">MWGui::ContainerWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a7ff6e4491f1d3c24d95905db80112e3e">getContainerWindow</a>();
+<a name="l00139"></a>00139     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1InventoryWindow.html">MWGui::InventoryWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a4425ce523692205ff47c61f39d4bfc28">getInventoryWindow</a>();
+<a name="l00140"></a>00140     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1BookWindow.html">MWGui::BookWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a9bab3646b3f9d42ec02713bcdcaa93ea">getBookWindow</a>();
+<a name="l00141"></a>00141     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ScrollWindow.html">MWGui::ScrollWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a756cb90f6af17bb1f52415ed39f346b1">getScrollWindow</a>();
+<a name="l00142"></a>00142     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1CountDialog.html">MWGui::CountDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a11782afa49f4ab8a2b634b353eacb04d">getCountDialog</a>();
+<a name="l00143"></a>00143     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1ConfirmationDialog.html">MWGui::ConfirmationDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#accaa26ca861f8d643e2a3cca5c735f80">getConfirmationDialog</a>();
+<a name="l00144"></a>00144     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1TradeWindow.html">MWGui::TradeWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a0ac7a7b8c26a4fe169e206ca26d7df3c">getTradeWindow</a>();
+<a name="l00145"></a>00145     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1SpellBuyingWindow.html">MWGui::SpellBuyingWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#abb48635dc11977f6b6c8a52b89297ab7">getSpellBuyingWindow</a>();
+<a name="l00146"></a>00146     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1TravelWindow.html">MWGui::TravelWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a500f94a5daf23cb440a379f15a59bf16">getTravelWindow</a>();
+<a name="l00147"></a>00147     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1SpellWindow.html">MWGui::SpellWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#afb61095afbbb2a42defc230819e1d44d">getSpellWindow</a>();
+<a name="l00148"></a>00148     <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1Console.html">MWGui::Console</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a79408310345720ae38ee568cb850c6ec">getConsole</a>();
 <a name="l00149"></a>00149 
-<a name="l00150"></a>00150     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a01e61087245fba8bf4ae33b2d15bc0a5" title="Set value for the given ID.">wmUpdateFps</a>(<span class="keywordtype">float</span> fps, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> triangleCount, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> batchCount);
+<a name="l00150"></a>00150     <span class="keyword">virtual</span> MyGUI::Gui* <a class="code" href="classMWGui_1_1WindowManager.html#a1c3d1a70361be326e25991a0634151a5">getGui</a>() <span class="keyword">const</span>;
 <a name="l00151"></a>00151 
-<a name="l00153"></a>00153     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
-<a name="l00154"></a>00154     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keywordtype">int</span> parSkill, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
-<a name="l00155"></a>00155     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a>&amp; value);
-<a name="l00156"></a>00156     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; value);
-<a name="l00157"></a>00157     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> value);
-<a name="l00158"></a>00158 
-<a name="l00161"></a>00161     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6dc9055aa922d8b6171a697328fe86c7">setDrowningTimeLeft</a> (<span class="keywordtype">float</span> time);
-<a name="l00162"></a>00162 
-<a name="l00163"></a>00163     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a10ffe98205678fcf7161873307a81f88" title="set current class of player">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a> &amp;class_);                        
-<a name="l00164"></a>00164     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#afce1d618e0f7d04e6fda5c563fc5dfd2" title="configure skill groups, each set contains the skill ID for that group.">configureSkills</a> (<span class="keyword">const</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a>&amp; minor); 
-<a name="l00165"></a>00165     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a48130c0f78b9ca887ca4e1ccebd7403e" title="set the current reputation value">setReputation</a> (<span class="keywordtype">int</span> reputation);                                   
-<a name="l00166"></a>00166     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6cd033ff1abf1a7a198da6bab8337e3c" title="set the current bounty value">setBounty</a> (<span class="keywordtype">int</span> bounty);                                           
-<a name="l00167"></a>00167     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2c9dfccf5786a150f23fed6b8d8a6175" title="update display of skills, factions, birth sign, reputation and bounty">updateSkillArea</a>();                                                
-<a name="l00168"></a>00168 
-<a name="l00169"></a>00169     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa475532129fe1b363fde18bb608fc461" title="change the active cell">changeCell</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell); 
-<a name="l00170"></a>00170     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a09a01b668e760cf029c884cc71549b46" title="set player position in map space">setPlayerPos</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> x, <span class="keyword">const</span> <span class="keywordtype">float</span> y); 
-<a name="l00171"></a>00171     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a793d9739453fa7210323056af63bb69b" title="set player view direction in map space">setPlayerDir</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> x, <span class="keyword">const</span> <span class="keywordtype">float</span> y); 
-<a name="l00172"></a>00172 
-<a name="l00173"></a>00173     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a73279617752364728aaa6eeef7dd3850">setFocusObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; focus);
-<a name="l00174"></a>00174     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a29a43e1db2e129232449f1f41901dcba">setFocusObjectScreenCoords</a>(<span class="keywordtype">float</span> min_x, <span class="keywordtype">float</span> min_y, <span class="keywordtype">float</span> max_x, <span class="keywordtype">float</span> max_y);
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1523fba5f4a6ad2d579793db3bf519db">getMousePosition</a>(<span class="keywordtype">int</span> &amp;x, <span class="keywordtype">int</span> &amp;y);
-<a name="l00177"></a>00177     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1523fba5f4a6ad2d579793db3bf519db">getMousePosition</a>(<span class="keywordtype">float</span> &amp;x, <span class="keywordtype">float</span> &amp;y);
-<a name="l00178"></a>00178     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae534f943448b97c05c598a6082448e68">setDragDrop</a>(<span class="keywordtype">bool</span> dragDrop);
-<a name="l00179"></a>00179     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a43ff8b413986261db420e14f8677bbc6">getWorldMouseOver</a>();
-<a name="l00180"></a>00180 
-<a name="l00181"></a>00181     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6ca67161928268123c8e3c3d50e19682">toggleFogOfWar</a>();
-<a name="l00182"></a>00182     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a64ef297c13887a3847c3a9800019368c" title="show extra info in item tooltips (owner, script)">toggleFullHelp</a>(); 
-<a name="l00183"></a>00183     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a81ba0c3cf296481ba2dd4a12944259ad">getFullHelp</a>() <span class="keyword">const</span>;
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad769488f19047c7b3b22915b10a7193a" title="set the index of the map texture that should be used (for interiors)">setInteriorMapTexture</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y);
-<a name="l00187"></a>00187 
-<a name="l00189"></a>00189     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aec5feed66d19c7585596e9f5fbb1e071" title="sets the visibility of the drowning bar">setDrowningBarVisibility</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191     <span class="comment">// sets the visibility of the hud health/magicka/stamina bars</span>
-<a name="l00192"></a>00192     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a076ab02a94672652c82e6c93124d428f" title="sets the visibility of the hud health/magicka/stamina bars">setHMSVisibility</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00193"></a>00193     <span class="comment">// sets the visibility of the hud minimap</span>
-<a name="l00194"></a>00194     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a15ed320381bc03f73e80de9985c22d21" title="sets the visibility of the hud minimap">setMinimapVisibility</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00195"></a>00195     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a70f524e2e4acccdc6d839e3405a70b80">setWeaponVisibility</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00196"></a>00196     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4122224010f5ffcae4e354a31d682e72">setSpellVisibility</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00197"></a>00197     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aca0e258c8ec2916e00d62be66289e7a2">setSneakVisibility</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00198"></a>00198 
-<a name="l00199"></a>00199     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a94e1ffc2b2ee425889ffe260d7f05fdc">activateQuickKey</a>  (<span class="keywordtype">int</span> index);
+<a name="l00152"></a>00152     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a01e61087245fba8bf4ae33b2d15bc0a5" title="Set value for the given ID.">wmUpdateFps</a>(<span class="keywordtype">float</span> fps, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> triangleCount, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> batchCount);
+<a name="l00153"></a>00153 
+<a name="l00155"></a>00155     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;int&gt;</a>&amp; value);
+<a name="l00156"></a>00156     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keywordtype">int</span> parSkill, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1Stat.html">MWMechanics::Stat&lt;float&gt;</a>&amp; value);
+<a name="l00157"></a>00157     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a>&amp; value);
+<a name="l00158"></a>00158     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> std::string&amp; value);
+<a name="l00159"></a>00159     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7cfe6bed9395771c81cbeea009ace95d" title="Set value for the given ID.">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">int</span> value);
+<a name="l00160"></a>00160 
+<a name="l00163"></a>00163     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6dc9055aa922d8b6171a697328fe86c7">setDrowningTimeLeft</a> (<span class="keywordtype">float</span> time);
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a10ffe98205678fcf7161873307a81f88" title="set current class of player">setPlayerClass</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a> &amp;class_);                        
+<a name="l00166"></a>00166     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#afce1d618e0f7d04e6fda5c563fc5dfd2" title="configure skill groups, each set contains the skill ID for that group.">configureSkills</a> (<span class="keyword">const</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a>&amp; major, <span class="keyword">const</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a>&amp; minor); 
+<a name="l00167"></a>00167     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a48130c0f78b9ca887ca4e1ccebd7403e" title="set the current reputation value">setReputation</a> (<span class="keywordtype">int</span> reputation);                                   
+<a name="l00168"></a>00168     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6cd033ff1abf1a7a198da6bab8337e3c" title="set the current bounty value">setBounty</a> (<span class="keywordtype">int</span> bounty);                                           
+<a name="l00169"></a>00169     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2c9dfccf5786a150f23fed6b8d8a6175" title="update display of skills, factions, birth sign, reputation and bounty">updateSkillArea</a>();                                                
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa475532129fe1b363fde18bb608fc461" title="change the active cell">changeCell</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell); 
+<a name="l00172"></a>00172     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a09a01b668e760cf029c884cc71549b46" title="set player position in map space">setPlayerPos</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> x, <span class="keyword">const</span> <span class="keywordtype">float</span> y); 
+<a name="l00173"></a>00173     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a793d9739453fa7210323056af63bb69b" title="set player view direction in map space">setPlayerDir</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> x, <span class="keyword">const</span> <span class="keywordtype">float</span> y); 
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a73279617752364728aaa6eeef7dd3850">setFocusObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; focus);
+<a name="l00176"></a>00176     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a29a43e1db2e129232449f1f41901dcba">setFocusObjectScreenCoords</a>(<span class="keywordtype">float</span> min_x, <span class="keywordtype">float</span> min_y, <span class="keywordtype">float</span> max_x, <span class="keywordtype">float</span> max_y);
+<a name="l00177"></a>00177 
+<a name="l00178"></a>00178     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1523fba5f4a6ad2d579793db3bf519db">getMousePosition</a>(<span class="keywordtype">int</span> &amp;x, <span class="keywordtype">int</span> &amp;y);
+<a name="l00179"></a>00179     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1523fba5f4a6ad2d579793db3bf519db">getMousePosition</a>(<span class="keywordtype">float</span> &amp;x, <span class="keywordtype">float</span> &amp;y);
+<a name="l00180"></a>00180     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ae534f943448b97c05c598a6082448e68">setDragDrop</a>(<span class="keywordtype">bool</span> dragDrop);
+<a name="l00181"></a>00181     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a43ff8b413986261db420e14f8677bbc6">getWorldMouseOver</a>();
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6ca67161928268123c8e3c3d50e19682">toggleFogOfWar</a>();
+<a name="l00184"></a>00184     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a64ef297c13887a3847c3a9800019368c" title="show extra info in item tooltips (owner, script)">toggleFullHelp</a>(); 
+<a name="l00185"></a>00185     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a81ba0c3cf296481ba2dd4a12944259ad">getFullHelp</a>() <span class="keyword">const</span>;
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad769488f19047c7b3b22915b10a7193a" title="set the index of the map texture that should be used (for interiors)">setInteriorMapTexture</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y);
+<a name="l00189"></a>00189 
+<a name="l00191"></a>00191     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aec5feed66d19c7585596e9f5fbb1e071" title="sets the visibility of the drowning bar">setDrowningBarVisibility</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193     <span class="comment">// sets the visibility of the hud health/magicka/stamina bars</span>
+<a name="l00194"></a>00194     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a076ab02a94672652c82e6c93124d428f" title="sets the visibility of the hud health/magicka/stamina bars">setHMSVisibility</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00195"></a>00195     <span class="comment">// sets the visibility of the hud minimap</span>
+<a name="l00196"></a>00196     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a15ed320381bc03f73e80de9985c22d21" title="sets the visibility of the hud minimap">setMinimapVisibility</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00197"></a>00197     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a70f524e2e4acccdc6d839e3405a70b80">setWeaponVisibility</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00198"></a>00198     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4122224010f5ffcae4e354a31d682e72">setSpellVisibility</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00199"></a>00199     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aca0e258c8ec2916e00d62be66289e7a2">setSneakVisibility</a>(<span class="keywordtype">bool</span> visible);
 <a name="l00200"></a>00200 
-<a name="l00201"></a>00201     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a186adc98c6e5a97cbff0e49324397557">setSelectedSpell</a>(<span class="keyword">const</span> std::string&amp; spellId, <span class="keywordtype">int</span> successChancePercent);
-<a name="l00202"></a>00202     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8ff93541d0131cfa6ab7ad43ee2ca473">setSelectedEnchantItem</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; item);
-<a name="l00203"></a>00203     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#af69c8aa279be26327445e9134c38e7af">setSelectedWeapon</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; item);
-<a name="l00204"></a>00204     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#af418821a5bab33a8f7009f8dffc88ae4">unsetSelectedSpell</a>();
-<a name="l00205"></a>00205     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9be074db15b54834115ea9a40944b46f">unsetSelectedWeapon</a>();
-<a name="l00206"></a>00206 
-<a name="l00207"></a>00207     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a902d1e3f8dbeb128a87c68bb7256f273">showCrosshair</a>(<span class="keywordtype">bool</span> show);
-<a name="l00208"></a>00208     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad8ea0425c70fb94252d5069a1775c37c">getSubtitlesEnabled</a>();
-<a name="l00209"></a>00209     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#afc822ae8f62d1317fc828aad1de6be7f">toggleHud</a>();
-<a name="l00210"></a>00210 
-<a name="l00211"></a>00211     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa18a3c43a6dd0f3680c58d43a0786320">disallowMouse</a>();
-<a name="l00212"></a>00212     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a3e66e99dc9abc113b9e7e7da67c0bcd6">allowMouse</a>();
-<a name="l00213"></a>00213     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5e1990b1c9b031f529bc8cdbd584c105">notifyInputActionBound</a>();
-<a name="l00214"></a>00214 
-<a name="l00215"></a>00215     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6bc11a4ceeb9469a7c1c316f03467945">addVisitedLocation</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00216"></a>00216 
-<a name="l00217"></a>00217     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#acf618f8bad0da3bc79196c8aba7405ba" title="Hides dialog and schedules dialog to be deleted.">removeDialog</a>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* dialog); 
-<a name="l00218"></a>00218 
-<a name="l00219"></a>00219     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad564b3d3207946dd38140888240c4736">messageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons = std::vector&lt;std::string&gt;(), <span class="keywordtype">bool</span> showInDialogueModeOnly = <span class="keyword">false</span>);
-<a name="l00220"></a>00220     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4e7413978a801a4be442e2be5dd90d42">staticMessageBox</a>(<span class="keyword">const</span> std::string&amp; message);
-<a name="l00221"></a>00221     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a93be2a1459359359d152c4868af336e3">removeStaticMessageBox</a>();
-<a name="l00222"></a>00222     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a980230e2122706ad52d07e0ffa4a61a5">enterPressed</a> ();
-<a name="l00223"></a>00223     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad41b7018a265aab7c08e816a549194d2">activateKeyPressed</a> ();
-<a name="l00224"></a>00224     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa876c9181fcc3a03dc3d8cb6edce3643" title="returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;Interact...">readPressedButton</a> (); 
-<a name="l00225"></a>00225 
-<a name="l00226"></a>00226     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2f52c12d86d6bb31adc62b06cef3de19">onFrame</a> (<span class="keywordtype">float</span> frameDuration);
-<a name="l00227"></a>00227 
-<a name="l00229"></a>00229     <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a3a10e7da1a5892157ad8c1bdad6c75c9">getPlayerSkillValues</a>();
-<a name="l00230"></a>00230     <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a2567f38e4a62678475bd6f4563093673">getPlayerAttributeValues</a>();
-<a name="l00231"></a>00231     <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#a87988517017a6cdf71a58502a0556114">getPlayerMinorSkills</a>();
-<a name="l00232"></a>00232     <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#a0fc9e017a373c57cac21854e717eccd3">getPlayerMajorSkills</a>();
-<a name="l00233"></a>00233 
-<a name="l00241"></a>00241     <span class="keyword">virtual</span> std::string <a class="code" href="classMWGui_1_1WindowManager.html#afa5897c0bf08c19884afdedd4a6e88fa">getGameSettingString</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>, <span class="keyword">const</span> std::string &amp;default_);
-<a name="l00242"></a>00242 
-<a name="l00243"></a>00243     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a23592b3fd52e7ffbd0eb0a16800bd578">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; changed);
-<a name="l00244"></a>00244 
-<a name="l00245"></a>00245     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a435d77e16e340a1da43bbac015005167">windowResized</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00246"></a>00246 
-<a name="l00247"></a>00247     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#abf4eb9f6cf95a90d73a75f8c5ca704c0">executeInConsole</a> (<span class="keyword">const</span> std::string&amp; path);
-<a name="l00248"></a>00248 
-<a name="l00249"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa66e50630ae61bbe3cfff3445e34a4d2">00249</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa66e50630ae61bbe3cfff3445e34a4d2">enableRest</a>() { <a class="code" href="classMWGui_1_1WindowManager.html#aa5cdc20f128cbb28353db1eaf41a2db1">mRestAllowed</a> = <span class="keyword">true</span>; }
-<a name="l00250"></a>00250     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9c10e81b30f0c58a8cf9536c5480b566">getRestEnabled</a>();
+<a name="l00201"></a>00201     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a94e1ffc2b2ee425889ffe260d7f05fdc">activateQuickKey</a>  (<span class="keywordtype">int</span> index);
+<a name="l00202"></a>00202 
+<a name="l00203"></a><a class="code" href="classMWGui_1_1WindowManager.html#a8880f93870a689325acdd24393cf5d54">00203</a>     <span class="keyword">virtual</span> std::string <a class="code" href="classMWGui_1_1WindowManager.html#a8880f93870a689325acdd24393cf5d54">getSelectedSpell</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6665425d4902000f18bfa731fca989a7">mSelectedSpell</a>; }
+<a name="l00204"></a>00204     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a186adc98c6e5a97cbff0e49324397557">setSelectedSpell</a>(<span class="keyword">const</span> std::string&amp; spellId, <span class="keywordtype">int</span> successChancePercent);
+<a name="l00205"></a>00205     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a8ff93541d0131cfa6ab7ad43ee2ca473">setSelectedEnchantItem</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; item);
+<a name="l00206"></a>00206     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#af69c8aa279be26327445e9134c38e7af">setSelectedWeapon</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; item);
+<a name="l00207"></a>00207     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#af418821a5bab33a8f7009f8dffc88ae4">unsetSelectedSpell</a>();
+<a name="l00208"></a>00208     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9be074db15b54834115ea9a40944b46f">unsetSelectedWeapon</a>();
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a902d1e3f8dbeb128a87c68bb7256f273">showCrosshair</a>(<span class="keywordtype">bool</span> show);
+<a name="l00211"></a>00211     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad8ea0425c70fb94252d5069a1775c37c">getSubtitlesEnabled</a>();
+<a name="l00212"></a>00212     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#afc822ae8f62d1317fc828aad1de6be7f">toggleHud</a>();
+<a name="l00213"></a>00213 
+<a name="l00214"></a>00214     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa18a3c43a6dd0f3680c58d43a0786320">disallowMouse</a>();
+<a name="l00215"></a>00215     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a3e66e99dc9abc113b9e7e7da67c0bcd6">allowMouse</a>();
+<a name="l00216"></a>00216     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5e1990b1c9b031f529bc8cdbd584c105">notifyInputActionBound</a>();
+<a name="l00217"></a>00217 
+<a name="l00218"></a>00218     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6bc11a4ceeb9469a7c1c316f03467945">addVisitedLocation</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00219"></a>00219 
+<a name="l00220"></a>00220     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#acf618f8bad0da3bc79196c8aba7405ba" title="Hides dialog and schedules dialog to be deleted.">removeDialog</a>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* dialog); 
+<a name="l00221"></a>00221 
+<a name="l00222"></a>00222     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad564b3d3207946dd38140888240c4736">messageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons = std::vector&lt;std::string&gt;(), <span class="keywordtype">bool</span> showInDialogueModeOnly = <span class="keyword">false</span>);
+<a name="l00223"></a>00223     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a4e7413978a801a4be442e2be5dd90d42">staticMessageBox</a>(<span class="keyword">const</span> std::string&amp; message);
+<a name="l00224"></a>00224     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a93be2a1459359359d152c4868af336e3">removeStaticMessageBox</a>();
+<a name="l00225"></a>00225     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a980230e2122706ad52d07e0ffa4a61a5">enterPressed</a> ();
+<a name="l00226"></a>00226     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad41b7018a265aab7c08e816a549194d2">activateKeyPressed</a> ();
+<a name="l00227"></a>00227     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa876c9181fcc3a03dc3d8cb6edce3643" title="returns the index of the pressed button or -1 if no button was pressed (-&gt;MessageBoxmanager-&gt;Interact...">readPressedButton</a> (); 
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2f52c12d86d6bb31adc62b06cef3de19">onFrame</a> (<span class="keywordtype">float</span> frameDuration);
+<a name="l00230"></a>00230 
+<a name="l00232"></a>00232     <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a3a10e7da1a5892157ad8c1bdad6c75c9">getPlayerSkillValues</a>();
+<a name="l00233"></a>00233     <span class="keyword">virtual</span> std::map&lt;int, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a2567f38e4a62678475bd6f4563093673">getPlayerAttributeValues</a>();
+<a name="l00234"></a>00234     <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#a87988517017a6cdf71a58502a0556114">getPlayerMinorSkills</a>();
+<a name="l00235"></a>00235     <span class="keyword">virtual</span> <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#a0fc9e017a373c57cac21854e717eccd3">getPlayerMajorSkills</a>();
+<a name="l00236"></a>00236 
+<a name="l00244"></a>00244     <span class="keyword">virtual</span> std::string <a class="code" href="classMWGui_1_1WindowManager.html#afa5897c0bf08c19884afdedd4a6e88fa">getGameSettingString</a>(<span class="keyword">const</span> std::string &amp;<span class="keywordtype">id</span>, <span class="keyword">const</span> std::string &amp;default_);
+<a name="l00245"></a>00245 
+<a name="l00246"></a>00246     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a23592b3fd52e7ffbd0eb0a16800bd578">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; changed);
+<a name="l00247"></a>00247 
+<a name="l00248"></a>00248     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a435d77e16e340a1da43bbac015005167">windowResized</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00249"></a>00249 
+<a name="l00250"></a>00250     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#abf4eb9f6cf95a90d73a75f8c5ca704c0">executeInConsole</a> (<span class="keyword">const</span> std::string&amp; path);
 <a name="l00251"></a>00251 
-<a name="l00252"></a><a class="code" href="classMWGui_1_1WindowManager.html#a85ee36c820b8ed1bd57a933b86a33a8d">00252</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a85ee36c820b8ed1bd57a933b86a33a8d">getJournalAllowed</a>() { <span class="keywordflow">return</span> (<a class="code" href="classMWGui_1_1WindowManager.html#ae33779250b784941b13e9693391a376a">mAllowed</a> &amp; <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dda090c1db923a221a06a81606d8c89d7ab">GW_Magic</a>); }
-<a name="l00253"></a>00253 
-<a name="l00254"></a>00254     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab985e151ab59efc1746f11e29aceefa2">getPlayerSleeping</a>();
-<a name="l00255"></a>00255     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0dc65836bb25708df6cdd30e32d2d5c1">wakeUpPlayer</a>();
+<a name="l00252"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa66e50630ae61bbe3cfff3445e34a4d2">00252</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa66e50630ae61bbe3cfff3445e34a4d2">enableRest</a>() { <a class="code" href="classMWGui_1_1WindowManager.html#aa5cdc20f128cbb28353db1eaf41a2db1">mRestAllowed</a> = <span class="keyword">true</span>; }
+<a name="l00253"></a>00253     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a9c10e81b30f0c58a8cf9536c5480b566">getRestEnabled</a>();
+<a name="l00254"></a>00254 
+<a name="l00255"></a><a class="code" href="classMWGui_1_1WindowManager.html#a85ee36c820b8ed1bd57a933b86a33a8d">00255</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a85ee36c820b8ed1bd57a933b86a33a8d">getJournalAllowed</a>() { <span class="keywordflow">return</span> (<a class="code" href="classMWGui_1_1WindowManager.html#ae33779250b784941b13e9693391a376a">mAllowed</a> &amp; <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dda090c1db923a221a06a81606d8c89d7ab">GW_Magic</a>); }
 <a name="l00256"></a>00256 
-<a name="l00257"></a>00257     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0473842e2a7a08cf0b0e0e9d7e70be8e">updatePlayer</a>();
-<a name="l00258"></a>00258 
-<a name="l00259"></a>00259     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a678823d516ff55e041cc33a93f3add8c">showCompanionWindow</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
-<a name="l00260"></a>00260     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab27b3a1d079d81ff649d0a301d781b95">startSpellMaking</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
-<a name="l00261"></a>00261     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a169ee28e16d96b8e085726ad4c095880">startEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
-<a name="l00262"></a>00262     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a17b5431e3c568e25bdde8f29a132b387">startSelfEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> soulgem);
-<a name="l00263"></a>00263     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#acb3621cc1a80db64e1ac0b9352233a73">startTraining</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
-<a name="l00264"></a>00264     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aade231b3374027ad04211629868f83bf">startRepair</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
-<a name="l00265"></a>00265     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2c4b9b3d62012f7a1e4bf23a7205f734">startRepairItem</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
-<a name="l00266"></a>00266 
-<a name="l00267"></a>00267     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a28b85d0f75f4db90d193936fb7e7e801">frameStarted</a>(<span class="keywordtype">float</span> dt);
-<a name="l00268"></a>00268 
-<a name="l00269"></a>00269     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#afb89d5bc0e8f5c530bc1e40e151877c1">showSoulgemDialog</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00257"></a>00257     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab985e151ab59efc1746f11e29aceefa2">getPlayerSleeping</a>();
+<a name="l00258"></a>00258     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0dc65836bb25708df6cdd30e32d2d5c1">wakeUpPlayer</a>();
+<a name="l00259"></a>00259 
+<a name="l00260"></a>00260     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0473842e2a7a08cf0b0e0e9d7e70be8e">updatePlayer</a>();
+<a name="l00261"></a>00261 
+<a name="l00262"></a>00262     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a678823d516ff55e041cc33a93f3add8c">showCompanionWindow</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00263"></a>00263     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab27b3a1d079d81ff649d0a301d781b95">startSpellMaking</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00264"></a>00264     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a169ee28e16d96b8e085726ad4c095880">startEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00265"></a>00265     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a17b5431e3c568e25bdde8f29a132b387">startSelfEnchanting</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> soulgem);
+<a name="l00266"></a>00266     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#acb3621cc1a80db64e1ac0b9352233a73">startTraining</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00267"></a>00267     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aade231b3374027ad04211629868f83bf">startRepair</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> actor);
+<a name="l00268"></a>00268     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2c4b9b3d62012f7a1e4bf23a7205f734">startRepairItem</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
+<a name="l00269"></a>00269     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a593760790e90a329e1f3703b9f6eca84">startRecharge</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> soulgem);
 <a name="l00270"></a>00270 
-<a name="l00271"></a>00271     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#adf51f18e19415dd50e5e68a2c3135396">changePointer</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00271"></a>00271     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a28b85d0f75f4db90d193936fb7e7e801">frameStarted</a>(<span class="keywordtype">float</span> dt);
 <a name="l00272"></a>00272 
-<a name="l00273"></a>00273     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a452c45592542e0619e33a314bc940853">setEnemy</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; enemy);
+<a name="l00273"></a>00273     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#afb89d5bc0e8f5c530bc1e40e151877c1">showSoulgemDialog</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> item);
 <a name="l00274"></a>00274 
-<a name="l00275"></a>00275     <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#ac5095e0751393fdda0721ceb9e11b2fb">getTranslationDataStorage</a>() <span class="keyword">const</span>;
+<a name="l00275"></a>00275     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#adf51f18e19415dd50e5e68a2c3135396">changePointer</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
 <a name="l00276"></a>00276 
-<a name="l00277"></a>00277     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7d78439298aafeec41904dba71cc530d">onSoulgemDialogButtonPressed</a> (<span class="keywordtype">int</span> button);
+<a name="l00277"></a>00277     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a452c45592542e0619e33a314bc940853">setEnemy</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; enemy);
 <a name="l00278"></a>00278 
-<a name="l00279"></a>00279   <span class="keyword">private</span>:
-<a name="l00280"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2e27bd6752d6feaa96f5a88515179b53">00280</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2e27bd6752d6feaa96f5a88515179b53">mConsoleOnlyScripts</a>;
-<a name="l00281"></a>00281 
-<a name="l00282"></a><a class="code" href="classMWGui_1_1WindowManager.html#ade8e82ef6af4fd6d25a3694baa1645c8">00282</a>     <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html">OEngine::GUI::MyGUIManager</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ade8e82ef6af4fd6d25a3694baa1645c8">mGuiManager</a>;
-<a name="l00283"></a><a class="code" href="classMWGui_1_1WindowManager.html#a20a1193fe5be42c60212da300d0f7780">00283</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a20a1193fe5be42c60212da300d0f7780">mRendering</a>;
-<a name="l00284"></a><a class="code" href="classMWGui_1_1WindowManager.html#af356abab001840e2eba6afe9b7506d68">00284</a>     <a class="code" href="classMWGui_1_1HUD.html">HUD</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af356abab001840e2eba6afe9b7506d68">mHud</a>;
-<a name="l00285"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9d81739965ffc53adb17ae843c7d6011">00285</a>     <a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a9d81739965ffc53adb17ae843c7d6011">mMap</a>;
-<a name="l00286"></a><a class="code" href="classMWGui_1_1WindowManager.html#af141e44343d55f0d43c93c692897a4dc">00286</a>     <a class="code" href="classMWGui_1_1MainMenu.html">MainMenu</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af141e44343d55f0d43c93c692897a4dc">mMenu</a>;
-<a name="l00287"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac0941710c9230b75263c9df8ac3bdd4c">00287</a>     <a class="code" href="classMWGui_1_1ToolTips.html">ToolTips</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ac0941710c9230b75263c9df8ac3bdd4c">mToolTips</a>;
-<a name="l00288"></a><a class="code" href="classMWGui_1_1WindowManager.html#af8880a465a9ba70905e70ef1c0d0fd3c">00288</a>     <a class="code" href="classMWGui_1_1StatsWindow.html">StatsWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af8880a465a9ba70905e70ef1c0d0fd3c">mStatsWindow</a>;
-<a name="l00289"></a><a class="code" href="classMWGui_1_1WindowManager.html#a02ea5a6aa6512ae1428c529bda056871">00289</a>     <a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a02ea5a6aa6512ae1428c529bda056871">mMessageBoxManager</a>;
-<a name="l00290"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2478605c5c53cf6b99bc0b789ee84230">00290</a>     <a class="code" href="classMWGui_1_1Console.html">Console</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a2478605c5c53cf6b99bc0b789ee84230">mConsole</a>;
-<a name="l00291"></a><a class="code" href="classMWGui_1_1WindowManager.html#a41ae94b9b6ecd8e2e7a4f2698c51a559">00291</a>     <a class="code" href="structMWGui_1_1JournalWindow.html">JournalWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a41ae94b9b6ecd8e2e7a4f2698c51a559">mJournal</a>;
-<a name="l00292"></a><a class="code" href="classMWGui_1_1WindowManager.html#a926362e01de841f70d7ec5f736c08b4f">00292</a>     <a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a926362e01de841f70d7ec5f736c08b4f">mDialogueWindow</a>;
-<a name="l00293"></a><a class="code" href="classMWGui_1_1WindowManager.html#a298fbef46135e030c24b3710a9cb5a30">00293</a>     <a class="code" href="classMWGui_1_1ContainerWindow.html">ContainerWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a298fbef46135e030c24b3710a9cb5a30">mContainerWindow</a>;
-<a name="l00294"></a><a class="code" href="classMWGui_1_1WindowManager.html#a588826d9063f6204c8b651ff977737c8">00294</a>     <a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a588826d9063f6204c8b651ff977737c8">mDragAndDrop</a>;
-<a name="l00295"></a><a class="code" href="classMWGui_1_1WindowManager.html#acf1c3972519b16430d7b02ec9edaeb89">00295</a>     <a class="code" href="classMWGui_1_1InventoryWindow.html">InventoryWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#acf1c3972519b16430d7b02ec9edaeb89">mInventoryWindow</a>;
-<a name="l00296"></a><a class="code" href="classMWGui_1_1WindowManager.html#a26987eeeaa8500ee9f75824ac48b6d0d">00296</a>     <a class="code" href="classMWGui_1_1ScrollWindow.html">ScrollWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a26987eeeaa8500ee9f75824ac48b6d0d">mScrollWindow</a>;
-<a name="l00297"></a><a class="code" href="classMWGui_1_1WindowManager.html#aec7fcab52ebf9c17ff42ce0e415306b3">00297</a>     <a class="code" href="classMWGui_1_1BookWindow.html">BookWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#aec7fcab52ebf9c17ff42ce0e415306b3">mBookWindow</a>;
-<a name="l00298"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae00fecab1644e8a2bbc24d45a92368ee">00298</a>     <a class="code" href="classMWGui_1_1CountDialog.html">CountDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ae00fecab1644e8a2bbc24d45a92368ee">mCountDialog</a>;
-<a name="l00299"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab4923810b7fa6c36e298d10ad390abb5">00299</a>     <a class="code" href="classMWGui_1_1TradeWindow.html">TradeWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ab4923810b7fa6c36e298d10ad390abb5">mTradeWindow</a>;
-<a name="l00300"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0cc5ad921813145d32f5c531b0482f12">00300</a>     <a class="code" href="classMWGui_1_1SpellBuyingWindow.html">SpellBuyingWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a0cc5ad921813145d32f5c531b0482f12">mSpellBuyingWindow</a>;
-<a name="l00301"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2f7ff02d9e34295fd2f800b7a989ae4f">00301</a>     <a class="code" href="classMWGui_1_1TravelWindow.html">TravelWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a2f7ff02d9e34295fd2f800b7a989ae4f">mTravelWindow</a>;
-<a name="l00302"></a><a class="code" href="classMWGui_1_1WindowManager.html#aed6b38b6470f8f4f2bcafd2d8c88191b">00302</a>     <a class="code" href="classMWGui_1_1SettingsWindow.html">SettingsWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#aed6b38b6470f8f4f2bcafd2d8c88191b">mSettingsWindow</a>;
-<a name="l00303"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab0cdbb51f5836dfd75a8ccc944a5ff49">00303</a>     <a class="code" href="classMWGui_1_1ConfirmationDialog.html">ConfirmationDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ab0cdbb51f5836dfd75a8ccc944a5ff49">mConfirmationDialog</a>;
-<a name="l00304"></a><a class="code" href="classMWGui_1_1WindowManager.html#a989292b5f53e97f5dc8a67de5d0f8126">00304</a>     <a class="code" href="classMWGui_1_1AlchemyWindow.html">AlchemyWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a989292b5f53e97f5dc8a67de5d0f8126">mAlchemyWindow</a>;
-<a name="l00305"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab64af351c25cd4bc864248ec3f9520fa">00305</a>     <a class="code" href="classMWGui_1_1SpellWindow.html">SpellWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ab64af351c25cd4bc864248ec3f9520fa">mSpellWindow</a>;
-<a name="l00306"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4cf468a105ea9469e99615de90b73516">00306</a>     <a class="code" href="classMWGui_1_1QuickKeysMenu.html">QuickKeysMenu</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a4cf468a105ea9469e99615de90b73516">mQuickKeysMenu</a>;
-<a name="l00307"></a><a class="code" href="classMWGui_1_1WindowManager.html#a040f3fc9e492867b22ed3ea1b2da3a39">00307</a>     <a class="code" href="classMWGui_1_1LoadingScreen.html">LoadingScreen</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a040f3fc9e492867b22ed3ea1b2da3a39">mLoadingScreen</a>;
-<a name="l00308"></a><a class="code" href="classMWGui_1_1WindowManager.html#aded6122d7a0fdd747e2ee27ca7e0623d">00308</a>     <a class="code" href="classMWGui_1_1LevelupDialog.html">LevelupDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#aded6122d7a0fdd747e2ee27ca7e0623d">mLevelupDialog</a>;
-<a name="l00309"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad1080ea0384e84e3d36013502ecc453f">00309</a>     <a class="code" href="classMWGui_1_1WaitDialog.html">WaitDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ad1080ea0384e84e3d36013502ecc453f">mWaitDialog</a>;
-<a name="l00310"></a><a class="code" href="classMWGui_1_1WindowManager.html#ada7a491aef9840a9b37b305fab7bb088">00310</a>     <a class="code" href="classMWGui_1_1SpellCreationDialog.html">SpellCreationDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ada7a491aef9840a9b37b305fab7bb088">mSpellCreationDialog</a>;
-<a name="l00311"></a><a class="code" href="classMWGui_1_1WindowManager.html#a534ad9a3ec93490791c3e4a3b82fc644">00311</a>     <a class="code" href="classMWGui_1_1EnchantingDialog.html">EnchantingDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a534ad9a3ec93490791c3e4a3b82fc644">mEnchantingDialog</a>;
-<a name="l00312"></a><a class="code" href="classMWGui_1_1WindowManager.html#a209a380ac9448db2868a6d6f45378fb2">00312</a>     <a class="code" href="classMWGui_1_1TrainingWindow.html">TrainingWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a209a380ac9448db2868a6d6f45378fb2">mTrainingWindow</a>;
-<a name="l00313"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1d8dece1428d4eabd23c3694c9e7391c">00313</a>     <a class="code" href="classMWGui_1_1MerchantRepair.html">MerchantRepair</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a1d8dece1428d4eabd23c3694c9e7391c">mMerchantRepair</a>;
-<a name="l00314"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae4683ea3ac318d0e2f5041856a0d5606">00314</a>     <a class="code" href="classMWGui_1_1SoulgemDialog.html">SoulgemDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ae4683ea3ac318d0e2f5041856a0d5606">mSoulgemDialog</a>;
-<a name="l00315"></a><a class="code" href="classMWGui_1_1WindowManager.html#a19b371f1956c023c5635e1c41d1ae9bf">00315</a>     <a class="code" href="classMWGui_1_1Repair.html">Repair</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a19b371f1956c023c5635e1c41d1ae9bf">mRepair</a>;
-<a name="l00316"></a><a class="code" href="classMWGui_1_1WindowManager.html#a13683e8d84f81b961463722098e06dfb">00316</a>     <a class="code" href="classMWGui_1_1CompanionWindow.html">CompanionWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a13683e8d84f81b961463722098e06dfb">mCompanionWindow</a>;
-<a name="l00317"></a>00317 
-<a name="l00318"></a><a class="code" href="classMWGui_1_1WindowManager.html#a572f2f7c083849eb021fca11a18f6e09">00318</a>     <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#a572f2f7c083849eb021fca11a18f6e09">mTranslationDataStorage</a>;
-<a name="l00319"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad6e060416df80b4e8a23a54f126124d8">00319</a>     <a class="code" href="classMWGui_1_1Cursor.html">Cursor</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ad6e060416df80b4e8a23a54f126124d8">mSoftwareCursor</a>;
-<a name="l00320"></a>00320 
-<a name="l00321"></a><a class="code" href="classMWGui_1_1WindowManager.html#a08fa0048f6576128bc17a53f067e17ba">00321</a>     <a class="code" href="classMWGui_1_1CharacterCreation.html">CharacterCreation</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a08fa0048f6576128bc17a53f067e17ba">mCharGen</a>;
-<a name="l00322"></a>00322 
-<a name="l00323"></a><a class="code" href="classMWGui_1_1WindowManager.html#af46d1f39610ad314e9743206bd9ae118">00323</a>     MyGUI::Widget* <a class="code" href="classMWGui_1_1WindowManager.html#af46d1f39610ad314e9743206bd9ae118">mInputBlocker</a>;
-<a name="l00324"></a>00324 
-<a name="l00325"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1054443b2b6828f18f45ba040a1b757d">00325</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1054443b2b6828f18f45ba040a1b757d">mCrosshairEnabled</a>;
-<a name="l00326"></a><a class="code" href="classMWGui_1_1WindowManager.html#a7880e0e549f5a75884c885383776a881">00326</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7880e0e549f5a75884c885383776a881">mSubtitlesEnabled</a>;
-<a name="l00327"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab6fe48582b84ddbc87b0a3f66b849f97">00327</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab6fe48582b84ddbc87b0a3f66b849f97">mHudEnabled</a>;
-<a name="l00328"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa02b9ca2c068656ca14e992391ba611a">00328</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa02b9ca2c068656ca14e992391ba611a">mCursorVisible</a>;
-<a name="l00329"></a>00329 
-<a name="l00330"></a>00330     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a018895a3472f2c82cf181d45c38d38d3">setCursorVisible</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00331"></a>00331 
-<a name="l00333"></a>00333     <span class="comment">// Various stats about player as needed by window manager</span>
-<a name="l00334"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9182de6231e2e466190577e836819978">00334</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a9182de6231e2e466190577e836819978">mPlayerName</a>;
-<a name="l00335"></a><a class="code" href="classMWGui_1_1WindowManager.html#a3843e939713677853e46e8879973c24c">00335</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a3843e939713677853e46e8879973c24c">mPlayerRaceId</a>;
-<a name="l00336"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9ec473a6b89b5646724d53ed5d1f7a50">00336</a>     std::map&lt;int, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a9ec473a6b89b5646724d53ed5d1f7a50">mPlayerAttributes</a>;
-<a name="l00337"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0af5f766d957f3e5764e5e6ad3e1cb75">00337</a>     <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#aa19b81864e2ecf59febebf15a4a1cf9d">mPlayerMajorSkills</a>, <a class="code" href="classMWGui_1_1WindowManager.html#a0af5f766d957f3e5764e5e6ad3e1cb75">mPlayerMinorSkills</a>;
-<a name="l00338"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa3cc7253295748850860c24b84c1d8c1">00338</a>     std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#aa3cc7253295748850860c24b84c1d8c1">mPlayerSkillValues</a>;
-<a name="l00339"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa2e032590acae9fdc45e42eafd2c1ab4">00339</a>     <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a> <a class="code" href="classMWGui_1_1WindowManager.html#a93681e3c19342c1b5de9e69cd0a24226">mPlayerHealth</a>, <a class="code" href="classMWGui_1_1WindowManager.html#aa2e032590acae9fdc45e42eafd2c1ab4">mPlayerMagicka</a>, <a class="code" href="classMWGui_1_1WindowManager.html#ad1a10c56abd7b3ed853ccbbfde62f6f8">mPlayerFatigue</a>;
-<a name="l00340"></a>00340 
-<a name="l00341"></a>00341 
-<a name="l00342"></a><a class="code" href="classMWGui_1_1WindowManager.html#a11a51d363834e1219cde3eac835c9a41">00342</a>     MyGUI::Gui *<a class="code" href="classMWGui_1_1WindowManager.html#a11a51d363834e1219cde3eac835c9a41">mGui</a>; <span class="comment">// Gui</span>
-<a name="l00343"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac9e5c7b9bd2dc19ddc61193a1a339f0c">00343</a>     std::vector&lt;GuiMode&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ac9e5c7b9bd2dc19ddc61193a1a339f0c">mGuiModes</a>;
+<a name="l00279"></a>00279     <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#ac5095e0751393fdda0721ceb9e11b2fb">getTranslationDataStorage</a>() <span class="keyword">const</span>;
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7d78439298aafeec41904dba71cc530d">onSoulgemDialogButtonPressed</a> (<span class="keywordtype">int</span> button);
+<a name="l00282"></a>00282 
+<a name="l00283"></a>00283     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a0485a3cfef38ee07be64a7fef320d247" title="Should the cursor be visible?">getCursorVisible</a>();
+<a name="l00284"></a>00284 
+<a name="l00285"></a>00285   <span class="keyword">private</span>:
+<a name="l00286"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2e27bd6752d6feaa96f5a88515179b53">00286</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a2e27bd6752d6feaa96f5a88515179b53">mConsoleOnlyScripts</a>;
+<a name="l00287"></a>00287 
+<a name="l00288"></a><a class="code" href="classMWGui_1_1WindowManager.html#a6acf81601a98f440dae5e52159b951d5">00288</a>     std::map&lt;MyGUI::Window*, std::string&gt; <a class="code" href="classMWGui_1_1WindowManager.html#a6acf81601a98f440dae5e52159b951d5">mTrackedWindows</a>;
+<a name="l00289"></a>00289     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab0509693631809fa8fe806960288a69d">trackWindow</a>(<a class="code" href="classOEngine_1_1GUI_1_1Layout.html">OEngine::GUI::Layout</a>* layout, <span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00290"></a>00290     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5e2a819e3434bab38a62d3eae30c3862">onWindowChangeCoord</a>(MyGUI::Window* _sender);
+<a name="l00291"></a>00291 
+<a name="l00292"></a><a class="code" href="classMWGui_1_1WindowManager.html#a6665425d4902000f18bfa731fca989a7">00292</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a6665425d4902000f18bfa731fca989a7">mSelectedSpell</a>;
+<a name="l00293"></a>00293 
+<a name="l00294"></a><a class="code" href="classMWGui_1_1WindowManager.html#ade8e82ef6af4fd6d25a3694baa1645c8">00294</a>     <a class="code" href="classOEngine_1_1GUI_1_1MyGUIManager.html">OEngine::GUI::MyGUIManager</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ade8e82ef6af4fd6d25a3694baa1645c8">mGuiManager</a>;
+<a name="l00295"></a><a class="code" href="classMWGui_1_1WindowManager.html#a20a1193fe5be42c60212da300d0f7780">00295</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a20a1193fe5be42c60212da300d0f7780">mRendering</a>;
+<a name="l00296"></a><a class="code" href="classMWGui_1_1WindowManager.html#af356abab001840e2eba6afe9b7506d68">00296</a>     <a class="code" href="classMWGui_1_1HUD.html">HUD</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af356abab001840e2eba6afe9b7506d68">mHud</a>;
+<a name="l00297"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9d81739965ffc53adb17ae843c7d6011">00297</a>     <a class="code" href="classMWGui_1_1MapWindow.html">MapWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a9d81739965ffc53adb17ae843c7d6011">mMap</a>;
+<a name="l00298"></a><a class="code" href="classMWGui_1_1WindowManager.html#af141e44343d55f0d43c93c692897a4dc">00298</a>     <a class="code" href="classMWGui_1_1MainMenu.html">MainMenu</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af141e44343d55f0d43c93c692897a4dc">mMenu</a>;
+<a name="l00299"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac0941710c9230b75263c9df8ac3bdd4c">00299</a>     <a class="code" href="classMWGui_1_1ToolTips.html">ToolTips</a> *<a class="code" href="classMWGui_1_1WindowManager.html#ac0941710c9230b75263c9df8ac3bdd4c">mToolTips</a>;
+<a name="l00300"></a><a class="code" href="classMWGui_1_1WindowManager.html#af8880a465a9ba70905e70ef1c0d0fd3c">00300</a>     <a class="code" href="classMWGui_1_1StatsWindow.html">StatsWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#af8880a465a9ba70905e70ef1c0d0fd3c">mStatsWindow</a>;
+<a name="l00301"></a><a class="code" href="classMWGui_1_1WindowManager.html#a02ea5a6aa6512ae1428c529bda056871">00301</a>     <a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a02ea5a6aa6512ae1428c529bda056871">mMessageBoxManager</a>;
+<a name="l00302"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2478605c5c53cf6b99bc0b789ee84230">00302</a>     <a class="code" href="classMWGui_1_1Console.html">Console</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a2478605c5c53cf6b99bc0b789ee84230">mConsole</a>;
+<a name="l00303"></a><a class="code" href="classMWGui_1_1WindowManager.html#a41ae94b9b6ecd8e2e7a4f2698c51a559">00303</a>     <a class="code" href="structMWGui_1_1JournalWindow.html">JournalWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a41ae94b9b6ecd8e2e7a4f2698c51a559">mJournal</a>;
+<a name="l00304"></a><a class="code" href="classMWGui_1_1WindowManager.html#a926362e01de841f70d7ec5f736c08b4f">00304</a>     <a class="code" href="classMWGui_1_1DialogueWindow.html">DialogueWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a926362e01de841f70d7ec5f736c08b4f">mDialogueWindow</a>;
+<a name="l00305"></a><a class="code" href="classMWGui_1_1WindowManager.html#a298fbef46135e030c24b3710a9cb5a30">00305</a>     <a class="code" href="classMWGui_1_1ContainerWindow.html">ContainerWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#a298fbef46135e030c24b3710a9cb5a30">mContainerWindow</a>;
+<a name="l00306"></a><a class="code" href="classMWGui_1_1WindowManager.html#a588826d9063f6204c8b651ff977737c8">00306</a>     <a class="code" href="classMWGui_1_1DragAndDrop.html">DragAndDrop</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a588826d9063f6204c8b651ff977737c8">mDragAndDrop</a>;
+<a name="l00307"></a><a class="code" href="classMWGui_1_1WindowManager.html#acf1c3972519b16430d7b02ec9edaeb89">00307</a>     <a class="code" href="classMWGui_1_1InventoryWindow.html">InventoryWindow</a> *<a class="code" href="classMWGui_1_1WindowManager.html#acf1c3972519b16430d7b02ec9edaeb89">mInventoryWindow</a>;
+<a name="l00308"></a><a class="code" href="classMWGui_1_1WindowManager.html#a26987eeeaa8500ee9f75824ac48b6d0d">00308</a>     <a class="code" href="classMWGui_1_1ScrollWindow.html">ScrollWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a26987eeeaa8500ee9f75824ac48b6d0d">mScrollWindow</a>;
+<a name="l00309"></a><a class="code" href="classMWGui_1_1WindowManager.html#aec7fcab52ebf9c17ff42ce0e415306b3">00309</a>     <a class="code" href="classMWGui_1_1BookWindow.html">BookWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#aec7fcab52ebf9c17ff42ce0e415306b3">mBookWindow</a>;
+<a name="l00310"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae00fecab1644e8a2bbc24d45a92368ee">00310</a>     <a class="code" href="classMWGui_1_1CountDialog.html">CountDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ae00fecab1644e8a2bbc24d45a92368ee">mCountDialog</a>;
+<a name="l00311"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab4923810b7fa6c36e298d10ad390abb5">00311</a>     <a class="code" href="classMWGui_1_1TradeWindow.html">TradeWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ab4923810b7fa6c36e298d10ad390abb5">mTradeWindow</a>;
+<a name="l00312"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0cc5ad921813145d32f5c531b0482f12">00312</a>     <a class="code" href="classMWGui_1_1SpellBuyingWindow.html">SpellBuyingWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a0cc5ad921813145d32f5c531b0482f12">mSpellBuyingWindow</a>;
+<a name="l00313"></a><a class="code" href="classMWGui_1_1WindowManager.html#a2f7ff02d9e34295fd2f800b7a989ae4f">00313</a>     <a class="code" href="classMWGui_1_1TravelWindow.html">TravelWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a2f7ff02d9e34295fd2f800b7a989ae4f">mTravelWindow</a>;
+<a name="l00314"></a><a class="code" href="classMWGui_1_1WindowManager.html#aed6b38b6470f8f4f2bcafd2d8c88191b">00314</a>     <a class="code" href="classMWGui_1_1SettingsWindow.html">SettingsWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#aed6b38b6470f8f4f2bcafd2d8c88191b">mSettingsWindow</a>;
+<a name="l00315"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab0cdbb51f5836dfd75a8ccc944a5ff49">00315</a>     <a class="code" href="classMWGui_1_1ConfirmationDialog.html">ConfirmationDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ab0cdbb51f5836dfd75a8ccc944a5ff49">mConfirmationDialog</a>;
+<a name="l00316"></a><a class="code" href="classMWGui_1_1WindowManager.html#a989292b5f53e97f5dc8a67de5d0f8126">00316</a>     <a class="code" href="classMWGui_1_1AlchemyWindow.html">AlchemyWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a989292b5f53e97f5dc8a67de5d0f8126">mAlchemyWindow</a>;
+<a name="l00317"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab64af351c25cd4bc864248ec3f9520fa">00317</a>     <a class="code" href="classMWGui_1_1SpellWindow.html">SpellWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ab64af351c25cd4bc864248ec3f9520fa">mSpellWindow</a>;
+<a name="l00318"></a><a class="code" href="classMWGui_1_1WindowManager.html#a4cf468a105ea9469e99615de90b73516">00318</a>     <a class="code" href="classMWGui_1_1QuickKeysMenu.html">QuickKeysMenu</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a4cf468a105ea9469e99615de90b73516">mQuickKeysMenu</a>;
+<a name="l00319"></a><a class="code" href="classMWGui_1_1WindowManager.html#a040f3fc9e492867b22ed3ea1b2da3a39">00319</a>     <a class="code" href="classMWGui_1_1LoadingScreen.html">LoadingScreen</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a040f3fc9e492867b22ed3ea1b2da3a39">mLoadingScreen</a>;
+<a name="l00320"></a><a class="code" href="classMWGui_1_1WindowManager.html#aded6122d7a0fdd747e2ee27ca7e0623d">00320</a>     <a class="code" href="classMWGui_1_1LevelupDialog.html">LevelupDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#aded6122d7a0fdd747e2ee27ca7e0623d">mLevelupDialog</a>;
+<a name="l00321"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad1080ea0384e84e3d36013502ecc453f">00321</a>     <a class="code" href="classMWGui_1_1WaitDialog.html">WaitDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ad1080ea0384e84e3d36013502ecc453f">mWaitDialog</a>;
+<a name="l00322"></a><a class="code" href="classMWGui_1_1WindowManager.html#ada7a491aef9840a9b37b305fab7bb088">00322</a>     <a class="code" href="classMWGui_1_1SpellCreationDialog.html">SpellCreationDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ada7a491aef9840a9b37b305fab7bb088">mSpellCreationDialog</a>;
+<a name="l00323"></a><a class="code" href="classMWGui_1_1WindowManager.html#a534ad9a3ec93490791c3e4a3b82fc644">00323</a>     <a class="code" href="classMWGui_1_1EnchantingDialog.html">EnchantingDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a534ad9a3ec93490791c3e4a3b82fc644">mEnchantingDialog</a>;
+<a name="l00324"></a><a class="code" href="classMWGui_1_1WindowManager.html#a209a380ac9448db2868a6d6f45378fb2">00324</a>     <a class="code" href="classMWGui_1_1TrainingWindow.html">TrainingWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a209a380ac9448db2868a6d6f45378fb2">mTrainingWindow</a>;
+<a name="l00325"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1d8dece1428d4eabd23c3694c9e7391c">00325</a>     <a class="code" href="classMWGui_1_1MerchantRepair.html">MerchantRepair</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a1d8dece1428d4eabd23c3694c9e7391c">mMerchantRepair</a>;
+<a name="l00326"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae4683ea3ac318d0e2f5041856a0d5606">00326</a>     <a class="code" href="classMWGui_1_1SoulgemDialog.html">SoulgemDialog</a>* <a class="code" href="classMWGui_1_1WindowManager.html#ae4683ea3ac318d0e2f5041856a0d5606">mSoulgemDialog</a>;
+<a name="l00327"></a><a class="code" href="classMWGui_1_1WindowManager.html#a19b371f1956c023c5635e1c41d1ae9bf">00327</a>     <a class="code" href="classMWGui_1_1Repair.html">Repair</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a19b371f1956c023c5635e1c41d1ae9bf">mRepair</a>;
+<a name="l00328"></a><a class="code" href="classMWGui_1_1WindowManager.html#a53dbbad7a5bcd5c7b8190bed3bf3d3a3">00328</a>     <a class="code" href="classMWGui_1_1Recharge.html">Recharge</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a53dbbad7a5bcd5c7b8190bed3bf3d3a3">mRecharge</a>;
+<a name="l00329"></a><a class="code" href="classMWGui_1_1WindowManager.html#a13683e8d84f81b961463722098e06dfb">00329</a>     <a class="code" href="classMWGui_1_1CompanionWindow.html">CompanionWindow</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a13683e8d84f81b961463722098e06dfb">mCompanionWindow</a>;
+<a name="l00330"></a>00330 
+<a name="l00331"></a><a class="code" href="classMWGui_1_1WindowManager.html#a572f2f7c083849eb021fca11a18f6e09">00331</a>     <a class="code" href="classTranslation_1_1Storage.html">Translation::Storage</a>&amp; <a class="code" href="classMWGui_1_1WindowManager.html#a572f2f7c083849eb021fca11a18f6e09">mTranslationDataStorage</a>;
+<a name="l00332"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad6e060416df80b4e8a23a54f126124d8">00332</a>     Cursor* <a class="code" href="classMWGui_1_1WindowManager.html#ad6e060416df80b4e8a23a54f126124d8">mSoftwareCursor</a>;
+<a name="l00333"></a>00333 
+<a name="l00334"></a><a class="code" href="classMWGui_1_1WindowManager.html#a08fa0048f6576128bc17a53f067e17ba">00334</a>     <a class="code" href="classMWGui_1_1CharacterCreation.html">CharacterCreation</a>* <a class="code" href="classMWGui_1_1WindowManager.html#a08fa0048f6576128bc17a53f067e17ba">mCharGen</a>;
+<a name="l00335"></a>00335 
+<a name="l00336"></a><a class="code" href="classMWGui_1_1WindowManager.html#af46d1f39610ad314e9743206bd9ae118">00336</a>     MyGUI::Widget* <a class="code" href="classMWGui_1_1WindowManager.html#af46d1f39610ad314e9743206bd9ae118">mInputBlocker</a>;
+<a name="l00337"></a>00337 
+<a name="l00338"></a><a class="code" href="classMWGui_1_1WindowManager.html#a1054443b2b6828f18f45ba040a1b757d">00338</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1054443b2b6828f18f45ba040a1b757d">mCrosshairEnabled</a>;
+<a name="l00339"></a><a class="code" href="classMWGui_1_1WindowManager.html#a7880e0e549f5a75884c885383776a881">00339</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#a7880e0e549f5a75884c885383776a881">mSubtitlesEnabled</a>;
+<a name="l00340"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab6fe48582b84ddbc87b0a3f66b849f97">00340</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab6fe48582b84ddbc87b0a3f66b849f97">mHudEnabled</a>;
+<a name="l00341"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa02b9ca2c068656ca14e992391ba611a">00341</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa02b9ca2c068656ca14e992391ba611a">mCursorVisible</a>;
+<a name="l00342"></a>00342 
+<a name="l00343"></a>00343     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a018895a3472f2c82cf181d45c38d38d3">setCursorVisible</a>(<span class="keywordtype">bool</span> visible);
 <a name="l00344"></a>00344 
-<a name="l00345"></a><a class="code" href="classMWGui_1_1WindowManager.html#a88f17a5dc0116a61bad2edbd3148bcff">00345</a>     SFO::CursorManager* <a class="code" href="classMWGui_1_1WindowManager.html#a88f17a5dc0116a61bad2edbd3148bcff">mCursorManager</a>;
-<a name="l00346"></a>00346 
-<a name="l00347"></a><a class="code" href="classMWGui_1_1WindowManager.html#aec09ecf3c8431dc5c7301ac4f6570b9c">00347</a>     std::vector&lt;OEngine::GUI::Layout*&gt; <a class="code" href="classMWGui_1_1WindowManager.html#aec09ecf3c8431dc5c7301ac4f6570b9c">mGarbageDialogs</a>;
-<a name="l00348"></a>00348     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a3e4dabc6daa8e4ae24ff33fe0234de54">cleanupGarbage</a>();
-<a name="l00349"></a>00349 
-<a name="l00350"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0c0400680fae799c9d60e85494a5632b">00350</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#a0c0400680fae799c9d60e85494a5632b">mShown</a>; <span class="comment">// Currently shown windows in inventory mode</span>
-<a name="l00351"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa4a5b0317f015468d1cfd3890acd3fcf">00351</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#aa4a5b0317f015468d1cfd3890acd3fcf">mForceHidden</a>; <span class="comment">// Hidden windows (overrides mShown)</span>
+<a name="l00346"></a>00346     <span class="comment">// Various stats about player as needed by window manager</span>
+<a name="l00347"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9182de6231e2e466190577e836819978">00347</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a9182de6231e2e466190577e836819978">mPlayerName</a>;
+<a name="l00348"></a><a class="code" href="classMWGui_1_1WindowManager.html#a3843e939713677853e46e8879973c24c">00348</a>     std::string <a class="code" href="classMWGui_1_1WindowManager.html#a3843e939713677853e46e8879973c24c">mPlayerRaceId</a>;
+<a name="l00349"></a><a class="code" href="classMWGui_1_1WindowManager.html#a9ec473a6b89b5646724d53ed5d1f7a50">00349</a>     std::map&lt;int, MWMechanics::Stat&lt;int&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#a9ec473a6b89b5646724d53ed5d1f7a50">mPlayerAttributes</a>;
+<a name="l00350"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0af5f766d957f3e5764e5e6ad3e1cb75">00350</a>     <a class="code" href="classMWBase_1_1WindowManager.html#af3332dc9a62f063b2cf6cf7dade9ff66">SkillList</a> <a class="code" href="classMWGui_1_1WindowManager.html#aa19b81864e2ecf59febebf15a4a1cf9d">mPlayerMajorSkills</a>, <a class="code" href="classMWGui_1_1WindowManager.html#a0af5f766d957f3e5764e5e6ad3e1cb75">mPlayerMinorSkills</a>;
+<a name="l00351"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa3cc7253295748850860c24b84c1d8c1">00351</a>     std::map&lt;int, MWMechanics::Stat&lt;float&gt; &gt; <a class="code" href="classMWGui_1_1WindowManager.html#aa3cc7253295748850860c24b84c1d8c1">mPlayerSkillValues</a>;
 <a name="l00352"></a>00352 
-<a name="l00353"></a>00353     <span class="comment">/* Currently ALLOWED windows in inventory mode. This is used at</span>
-<a name="l00354"></a>00354 <span class="comment">       the start of the game, when windows are enabled one by one</span>
-<a name="l00355"></a>00355 <span class="comment">       through script commands. You can manipulate this through using</span>
-<a name="l00356"></a>00356 <span class="comment">       allow() and disableAll().</span>
-<a name="l00357"></a>00357 <span class="comment">     */</span>
-<a name="l00358"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae33779250b784941b13e9693391a376a">00358</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#ae33779250b784941b13e9693391a376a">mAllowed</a>;
-<a name="l00359"></a>00359     <span class="comment">// is the rest window allowed?</span>
-<a name="l00360"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa5cdc20f128cbb28353db1eaf41a2db1">00360</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa5cdc20f128cbb28353db1eaf41a2db1">mRestAllowed</a>;
-<a name="l00361"></a>00361 
-<a name="l00362"></a>00362     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab9fdbfdc3d3b76fe9813cbb743d334da">updateVisible</a>(); <span class="comment">// Update visibility of all windows based on mode, shown and allowed settings</span>
+<a name="l00353"></a><a class="code" href="classMWGui_1_1WindowManager.html#a11a51d363834e1219cde3eac835c9a41">00353</a>     MyGUI::Gui *<a class="code" href="classMWGui_1_1WindowManager.html#a11a51d363834e1219cde3eac835c9a41">mGui</a>; <span class="comment">// Gui</span>
+<a name="l00354"></a><a class="code" href="classMWGui_1_1WindowManager.html#ac9e5c7b9bd2dc19ddc61193a1a339f0c">00354</a>     std::vector&lt;GuiMode&gt; <a class="code" href="classMWGui_1_1WindowManager.html#ac9e5c7b9bd2dc19ddc61193a1a339f0c">mGuiModes</a>;
+<a name="l00355"></a>00355 
+<a name="l00356"></a><a class="code" href="classMWGui_1_1WindowManager.html#a88f17a5dc0116a61bad2edbd3148bcff">00356</a>     SFO::CursorManager* <a class="code" href="classMWGui_1_1WindowManager.html#a88f17a5dc0116a61bad2edbd3148bcff">mCursorManager</a>;
+<a name="l00357"></a>00357 
+<a name="l00358"></a><a class="code" href="classMWGui_1_1WindowManager.html#aec09ecf3c8431dc5c7301ac4f6570b9c">00358</a>     std::vector&lt;OEngine::GUI::Layout*&gt; <a class="code" href="classMWGui_1_1WindowManager.html#aec09ecf3c8431dc5c7301ac4f6570b9c">mGarbageDialogs</a>;
+<a name="l00359"></a>00359     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a3e4dabc6daa8e4ae24ff33fe0234de54">cleanupGarbage</a>();
+<a name="l00360"></a>00360 
+<a name="l00361"></a><a class="code" href="classMWGui_1_1WindowManager.html#a0c0400680fae799c9d60e85494a5632b">00361</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#a0c0400680fae799c9d60e85494a5632b">mShown</a>; <span class="comment">// Currently shown windows in inventory mode</span>
+<a name="l00362"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa4a5b0317f015468d1cfd3890acd3fcf">00362</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#aa4a5b0317f015468d1cfd3890acd3fcf">mForceHidden</a>; <span class="comment">// Hidden windows (overrides mShown)</span>
 <a name="l00363"></a>00363 
-<a name="l00364"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad11a46fffbad66a4131b3c31291a58e8">00364</a>     <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad11a46fffbad66a4131b3c31291a58e8">mShowFPSLevel</a>;
-<a name="l00365"></a><a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">00365</a>     <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">mFPS</a>;
-<a name="l00366"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab0c0df379439ccb861add3c7057bc48f">00366</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab0c0df379439ccb861add3c7057bc48f">mTriangleCount</a>;
-<a name="l00367"></a><a class="code" href="classMWGui_1_1WindowManager.html#a899a430166acdd8aada275086a13aca5">00367</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#a899a430166acdd8aada275086a13aca5">mBatchCount</a>;
-<a name="l00368"></a>00368 
-<a name="l00369"></a><a class="code" href="classMWGui_1_1WindowManager.html#aeef6efb801575da64e80601138bc123b">00369</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aeef6efb801575da64e80601138bc123b">mUseHardwareCursors</a>;
-<a name="l00370"></a>00370     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa09186d1452068b944c3c9b44044f88a">setUseHardwareCursors</a>(<span class="keywordtype">bool</span> use);
-<a name="l00371"></a>00371 
-<a name="l00376"></a>00376     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6f14784213bbafb21888c200d314c08c">onRetrieveTag</a>(<span class="keyword">const</span> MyGUI::UString&amp; _tag, MyGUI::UString&amp; _result);
-<a name="l00377"></a>00377 
-<a name="l00378"></a>00378     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1f20789a76289cfd79d8f33abace8349">onCursorChange</a>(<span class="keyword">const</span> std::string&amp; name);
-<a name="l00379"></a>00379     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5d4d3a022b89c22370e7bb3137531f4d">onKeyFocusChanged</a>(MyGUI::Widget* widget);
-<a name="l00380"></a>00380   };
-<a name="l00381"></a>00381 }
-<a name="l00382"></a>00382 
-<a name="l00383"></a>00383 <span class="preprocessor">#endif</span>
+<a name="l00364"></a>00364     <span class="comment">/* Currently ALLOWED windows in inventory mode. This is used at</span>
+<a name="l00365"></a>00365 <span class="comment">       the start of the game, when windows are enabled one by one</span>
+<a name="l00366"></a>00366 <span class="comment">       through script commands. You can manipulate this through using</span>
+<a name="l00367"></a>00367 <span class="comment">       allow() and disableAll().</span>
+<a name="l00368"></a>00368 <span class="comment">     */</span>
+<a name="l00369"></a><a class="code" href="classMWGui_1_1WindowManager.html#ae33779250b784941b13e9693391a376a">00369</a>     <a class="code" href="namespaceMWGui.html#abb87c57c69cd6ef10b6943002e3c35dd">GuiWindow</a> <a class="code" href="classMWGui_1_1WindowManager.html#ae33779250b784941b13e9693391a376a">mAllowed</a>;
+<a name="l00370"></a>00370     <span class="comment">// is the rest window allowed?</span>
+<a name="l00371"></a><a class="code" href="classMWGui_1_1WindowManager.html#aa5cdc20f128cbb28353db1eaf41a2db1">00371</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1WindowManager.html#aa5cdc20f128cbb28353db1eaf41a2db1">mRestAllowed</a>;
+<a name="l00372"></a>00372 
+<a name="l00373"></a>00373     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab9fdbfdc3d3b76fe9813cbb743d334da">updateVisible</a>(); <span class="comment">// Update visibility of all windows based on mode, shown and allowed settings</span>
+<a name="l00374"></a>00374 
+<a name="l00375"></a><a class="code" href="classMWGui_1_1WindowManager.html#ad11a46fffbad66a4131b3c31291a58e8">00375</a>     <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#ad11a46fffbad66a4131b3c31291a58e8">mShowFPSLevel</a>;
+<a name="l00376"></a><a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">00376</a>     <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5544da9be071a54cf33dd405388ca0a6">mFPS</a>;
+<a name="l00377"></a><a class="code" href="classMWGui_1_1WindowManager.html#ab0c0df379439ccb861add3c7057bc48f">00377</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#ab0c0df379439ccb861add3c7057bc48f">mTriangleCount</a>;
+<a name="l00378"></a><a class="code" href="classMWGui_1_1WindowManager.html#a899a430166acdd8aada275086a13aca5">00378</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1WindowManager.html#a899a430166acdd8aada275086a13aca5">mBatchCount</a>;
+<a name="l00379"></a>00379 
+<a name="l00384"></a>00384     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a6f14784213bbafb21888c200d314c08c">onRetrieveTag</a>(<span class="keyword">const</span> MyGUI::UString&amp; _tag, MyGUI::UString&amp; _result);
+<a name="l00385"></a>00385 
+<a name="l00386"></a>00386     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a1f20789a76289cfd79d8f33abace8349">onCursorChange</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00387"></a>00387     <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1WindowManager.html#a5d4d3a022b89c22370e7bb3137531f4d">onKeyFocusChanged</a>(MyGUI::Widget* widget);
+<a name="l00388"></a>00388   };
+<a name="l00389"></a>00389 }
+<a name="l00390"></a>00390 
+<a name="l00391"></a>00391 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

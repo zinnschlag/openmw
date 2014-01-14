@@ -76,7 +76,7 @@
 <a name="l00017"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#af4dd74ab87a8c2d6f95fbe9344d97bc7">00017</a>         QString <a class="code" href="classCSMSettings_1_1SettingsItem.html#af4dd74ab87a8c2d6f95fbe9344d97bc7">mDefaultValue</a>;
 <a name="l00018"></a>00018 
 <a name="l00019"></a>00019     <span class="keyword">public</span>:
-<a name="l00020"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#a56229dc837d240739c6b36361cecf549">00020</a>         <span class="keyword">explicit</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a56229dc837d240739c6b36361cecf549">SettingsItem</a>(QString name, <span class="keywordtype">bool</span> <a class="code" href="classCSMSettings_1_1SettingContainer.html#aaf04a4b2376cc6171d025ae6f0dc7bc3">isMultiValue</a>,
+<a name="l00020"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#a56229dc837d240739c6b36361cecf549">00020</a>         <span class="keyword">explicit</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a56229dc837d240739c6b36361cecf549">SettingsItem</a>(QString <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keywordtype">bool</span> <a class="code" href="classCSMSettings_1_1SettingContainer.html#aaf04a4b2376cc6171d025ae6f0dc7bc3">isMultiValue</a>,
 <a name="l00021"></a>00021                               <span class="keyword">const</span> QString&amp; defaultValue, QObject *parent = 0)
 <a name="l00022"></a>00022             : <a class="code" href="classCSMSettings_1_1SettingContainer.html">SettingContainer</a>(defaultValue, parent),
 <a name="l00023"></a>00023               <a class="code" href="classCSMSettings_1_1SettingsItem.html#a1466bf44b3919b8e0b98930e42fb57f1">mIsMultiValue</a> (isMultiValue), <a class="code" href="classCSMSettings_1_1SettingsItem.html#a0adcfa69a4edbbbef669beb9d3e466f8">mValueList</a> (0),
@@ -95,25 +95,29 @@
 <a name="l00042"></a>00042 
 <a name="l00044"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#aa531cae77725676410679a4c70d9d99c">00044</a>         <span class="keyword">inline</span> <a class="code" href="structCSMSettings_1_1QStringPair.html">QStringPair</a> *<a class="code" href="classCSMSettings_1_1SettingsItem.html#aa531cae77725676410679a4c70d9d99c" title="valuePair used for spin boxes (max / min)">getValuePair</a>()                  { <span class="keywordflow">return</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a42e89e1d5ed6a90285f9ed27f7f305c1">mValuePair</a>; }
 <a name="l00045"></a>00045 
-<a name="l00047"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#aace9553179fac6a66c8ba8c66f77103f">00047</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#aace9553179fac6a66c8ba8c66f77103f" title="set value range (spinbox / integer use)">setValuePair</a> (<a class="code" href="structCSMSettings_1_1QStringPair.html">QStringPair</a> valuePair)    { <a class="code" href="classCSMSettings_1_1SettingsItem.html#a42e89e1d5ed6a90285f9ed27f7f305c1">mValuePair</a> = <span class="keyword">new</span> <a class="code" href="structCSMSettings_1_1QStringPair.html">QStringPair</a>(valuePair); }
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#a78fb0425f11643be38a4a3dd6cf6cc83">00049</a>         <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a78fb0425f11643be38a4a3dd6cf6cc83">isMultivalue</a> ()                         { <span class="keywordflow">return</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a1466bf44b3919b8e0b98930e42fb57f1">mIsMultiValue</a>; }
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a9677c82998e37e098eab32784d7726d6">setDefaultValue</a> (<span class="keyword">const</span> QString &amp;value);
-<a name="l00052"></a>00052         QString <a class="code" href="classCSMSettings_1_1SettingsItem.html#a052f0c77d54b3b75d6547edc050fbec9">getDefaultValue</a> () <span class="keyword">const</span>;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054     <span class="keyword">private</span>:
-<a name="l00055"></a>00055 
-<a name="l00059"></a>00059         <span class="keywordtype">bool</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a6144e7ac0bd756874d9a25410e67f63e">validate</a> (<span class="keyword">const</span> QString &amp;value);
-<a name="l00060"></a>00060     };
-<a name="l00061"></a>00061 }
-<a name="l00062"></a>00062 <span class="preprocessor">#endif // SETTINGSITEM_HPP</span>
-<a name="l00063"></a>00063 <span class="preprocessor"></span>
+<a name="l00047"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#aace9553179fac6a66c8ba8c66f77103f">00047</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#aace9553179fac6a66c8ba8c66f77103f" title="set value range (spinbox / integer use)">setValuePair</a> (<a class="code" href="structCSMSettings_1_1QStringPair.html">QStringPair</a> valuePair)
+<a name="l00048"></a>00048         {
+<a name="l00049"></a>00049           <span class="keyword">delete</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a42e89e1d5ed6a90285f9ed27f7f305c1">mValuePair</a>;
+<a name="l00050"></a>00050           <a class="code" href="classCSMSettings_1_1SettingsItem.html#a42e89e1d5ed6a90285f9ed27f7f305c1">mValuePair</a> = <span class="keyword">new</span> <a class="code" href="structCSMSettings_1_1QStringPair.html">QStringPair</a>(valuePair);
+<a name="l00051"></a>00051         }
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classCSMSettings_1_1SettingsItem.html#a78fb0425f11643be38a4a3dd6cf6cc83">00053</a>         <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a78fb0425f11643be38a4a3dd6cf6cc83">isMultivalue</a> ()                         { <span class="keywordflow">return</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a1466bf44b3919b8e0b98930e42fb57f1">mIsMultiValue</a>; }
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a9677c82998e37e098eab32784d7726d6">setDefaultValue</a> (<span class="keyword">const</span> QString &amp;value);
+<a name="l00056"></a>00056         QString <a class="code" href="classCSMSettings_1_1SettingsItem.html#a052f0c77d54b3b75d6547edc050fbec9">getDefaultValue</a> () <span class="keyword">const</span>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058     <span class="keyword">private</span>:
+<a name="l00059"></a>00059 
+<a name="l00063"></a>00063         <span class="keywordtype">bool</span> <a class="code" href="classCSMSettings_1_1SettingsItem.html#a6144e7ac0bd756874d9a25410e67f63e">validate</a> (<span class="keyword">const</span> QString &amp;value);
+<a name="l00064"></a>00064     };
+<a name="l00065"></a>00065 }
+<a name="l00066"></a>00066 <span class="preprocessor">#endif // SETTINGSITEM_HPP</span>
+<a name="l00067"></a>00067 <span class="preprocessor"></span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

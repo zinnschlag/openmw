@@ -79,46 +79,48 @@
 <a name="l00018"></a>00018 
 <a name="l00019"></a><a class="code" href="structESM_1_1Region.html">00019</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Region.html">Region</a>
 <a name="l00020"></a>00020 {
-<a name="l00021"></a>00021 <span class="preprocessor">#pragma pack(push)</span>
-<a name="l00022"></a>00022 <span class="preprocessor"></span><span class="preprocessor">#pragma pack(1)</span>
-<a name="l00023"></a><a class="code" href="structESM_1_1Region_1_1WEATstruct.html">00023</a> <span class="preprocessor"></span>    <span class="keyword">struct </span><a class="code" href="structESM_1_1Region_1_1WEATstruct.html">WEATstruct</a>
-<a name="l00024"></a>00024     {
-<a name="l00025"></a>00025         <span class="comment">// I guess these are probabilities</span>
-<a name="l00026"></a><a class="code" href="structESM_1_1Region_1_1WEATstruct.html#aaae846e2c6d55db3d866806be88da58a">00026</a>         <span class="keywordtype">char</span> <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a3478996a223f8afb5495f976b1d5aab2">mClear</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a5f8fa45c8b5856481b31d7c67c0ccf3e">mCloudy</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#aeec779db5f814d22ef8fc7e2f379e011">mFoggy</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a61c921e5beb02c374490743f1066169a">mOvercast</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a54a91e883a3f92a082b96208dd53c999">mRain</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#aaae846e2c6d55db3d866806be88da58a">mThunder</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#ab357983d6f59c281d0d5b272025ae923">mAsh</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a1f6080d16cb3762fd8593f2dafbe6112">mBlight</a>,
-<a name="l00027"></a>00027         <span class="comment">// Unknown weather, probably snow and something. Only</span>
-<a name="l00028"></a>00028         <span class="comment">// present in file version 1.3.</span>
-<a name="l00029"></a>00029                 <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a7457fd2ff0c427a6d52e4edb9903b33b">mA</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a96970236b53ce96f8874cf3f18c42e6a">mB</a>;
-<a name="l00030"></a>00030     }; <span class="comment">// 10 bytes</span>
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="comment">// Reference to a sound that is played randomly in this region</span>
-<a name="l00033"></a><a class="code" href="structESM_1_1Region_1_1SoundRef.html">00033</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Region_1_1SoundRef.html">SoundRef</a>
-<a name="l00034"></a>00034     {
-<a name="l00035"></a><a class="code" href="structESM_1_1Region_1_1SoundRef.html#aa7a9dea76851eb28992aa2891c06cda3">00035</a>         <a class="code" href="unionESM_1_1NAME__T.html">NAME32</a> <a class="code" href="structESM_1_1Region_1_1SoundRef.html#aa7a9dea76851eb28992aa2891c06cda3">mSound</a>;
-<a name="l00036"></a><a class="code" href="structESM_1_1Region_1_1SoundRef.html#af27649dd73610772f149e8e9aaf88fad">00036</a>         <span class="keywordtype">char</span> <a class="code" href="structESM_1_1Region_1_1SoundRef.html#af27649dd73610772f149e8e9aaf88fad">mChance</a>;
-<a name="l00037"></a>00037     }; <span class="comment">// 33 bytes</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#pragma pack(pop)</span>
-<a name="l00039"></a>00039 <span class="preprocessor"></span>
-<a name="l00040"></a><a class="code" href="structESM_1_1Region.html#ade5009f459cbefac2d1c300614a6ad76">00040</a>     <a class="code" href="structESM_1_1Region_1_1WEATstruct.html">WEATstruct</a> <a class="code" href="structESM_1_1Region.html#ade5009f459cbefac2d1c300614a6ad76">mData</a>;
-<a name="l00041"></a><a class="code" href="structESM_1_1Region.html#ab7216d25b1b8a59faecf26081cf617e5">00041</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Region.html#ab7216d25b1b8a59faecf26081cf617e5">mMapColor</a>; <span class="comment">// RGBA</span>
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043     <span class="comment">// sleepList refers to a eveled list of creatures you can meet if</span>
-<a name="l00044"></a>00044     <span class="comment">// you sleep outside in this region.</span>
-<a name="l00045"></a><a class="code" href="structESM_1_1Region.html#a7de81ce42d7c96e46cbc668aded944b1">00045</a>     std::string <a class="code" href="structESM_1_1Region.html#ada140c71c0dcf85f742cc658232ac7c7">mId</a>, <a class="code" href="structESM_1_1Region.html#a7434b24da91c06a4dea40ad42639296c">mName</a>, <a class="code" href="structESM_1_1Region.html#a7de81ce42d7c96e46cbc668aded944b1">mSleepList</a>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="structESM_1_1Region.html#ad1d1199c489c318d3913fc0c5b6826ab">00047</a>     std::vector&lt;SoundRef&gt; <a class="code" href="structESM_1_1Region.html#ad1d1199c489c318d3913fc0c5b6826ab">mSoundList</a>;
+<a name="l00021"></a><a class="code" href="structESM_1_1Region.html#a16fcdfc60ae5f655609f6cae8900450a">00021</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Region.html#a16fcdfc60ae5f655609f6cae8900450a">sRecordId</a>;
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="preprocessor">#pragma pack(push)</span>
+<a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor">#pragma pack(1)</span>
+<a name="l00025"></a><a class="code" href="structESM_1_1Region_1_1WEATstruct.html">00025</a> <span class="preprocessor"></span>    <span class="keyword">struct </span><a class="code" href="structESM_1_1Region_1_1WEATstruct.html">WEATstruct</a>
+<a name="l00026"></a>00026     {
+<a name="l00027"></a>00027         <span class="comment">// I guess these are probabilities</span>
+<a name="l00028"></a><a class="code" href="structESM_1_1Region_1_1WEATstruct.html#aaae846e2c6d55db3d866806be88da58a">00028</a>         <span class="keywordtype">char</span> <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a3478996a223f8afb5495f976b1d5aab2">mClear</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a5f8fa45c8b5856481b31d7c67c0ccf3e">mCloudy</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#aeec779db5f814d22ef8fc7e2f379e011">mFoggy</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a61c921e5beb02c374490743f1066169a">mOvercast</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a54a91e883a3f92a082b96208dd53c999">mRain</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#aaae846e2c6d55db3d866806be88da58a">mThunder</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#ab357983d6f59c281d0d5b272025ae923">mAsh</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a1f6080d16cb3762fd8593f2dafbe6112">mBlight</a>,
+<a name="l00029"></a>00029         <span class="comment">// Unknown weather, probably snow and something. Only</span>
+<a name="l00030"></a>00030         <span class="comment">// present in file version 1.3.</span>
+<a name="l00031"></a>00031                 <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a7457fd2ff0c427a6d52e4edb9903b33b">mA</a>, <a class="code" href="structESM_1_1Region_1_1WEATstruct.html#a96970236b53ce96f8874cf3f18c42e6a">mB</a>;
+<a name="l00032"></a>00032     }; <span class="comment">// 10 bytes</span>
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034     <span class="comment">// Reference to a sound that is played randomly in this region</span>
+<a name="l00035"></a><a class="code" href="structESM_1_1Region_1_1SoundRef.html">00035</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Region_1_1SoundRef.html">SoundRef</a>
+<a name="l00036"></a>00036     {
+<a name="l00037"></a><a class="code" href="structESM_1_1Region_1_1SoundRef.html#aa7a9dea76851eb28992aa2891c06cda3">00037</a>         <a class="code" href="unionESM_1_1NAME__T.html">NAME32</a> <a class="code" href="structESM_1_1Region_1_1SoundRef.html#aa7a9dea76851eb28992aa2891c06cda3">mSound</a>;
+<a name="l00038"></a><a class="code" href="structESM_1_1Region_1_1SoundRef.html#af27649dd73610772f149e8e9aaf88fad">00038</a>         <span class="keywordtype">char</span> <a class="code" href="structESM_1_1Region_1_1SoundRef.html#af27649dd73610772f149e8e9aaf88fad">mChance</a>;
+<a name="l00039"></a>00039     }; <span class="comment">// 33 bytes</span>
+<a name="l00040"></a>00040 <span class="preprocessor">#pragma pack(pop)</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span>
+<a name="l00042"></a><a class="code" href="structESM_1_1Region.html#ade5009f459cbefac2d1c300614a6ad76">00042</a>     <a class="code" href="structESM_1_1Region_1_1WEATstruct.html">WEATstruct</a> <a class="code" href="structESM_1_1Region.html#ade5009f459cbefac2d1c300614a6ad76">mData</a>;
+<a name="l00043"></a><a class="code" href="structESM_1_1Region.html#ab7216d25b1b8a59faecf26081cf617e5">00043</a>     <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Region.html#ab7216d25b1b8a59faecf26081cf617e5">mMapColor</a>; <span class="comment">// RGBA</span>
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045     <span class="comment">// sleepList refers to a eveled list of creatures you can meet if</span>
+<a name="l00046"></a>00046     <span class="comment">// you sleep outside in this region.</span>
+<a name="l00047"></a><a class="code" href="structESM_1_1Region.html#a7de81ce42d7c96e46cbc668aded944b1">00047</a>     std::string <a class="code" href="structESM_1_1Region.html#ada140c71c0dcf85f742cc658232ac7c7">mId</a>, <a class="code" href="structESM_1_1Region.html#a7434b24da91c06a4dea40ad42639296c">mName</a>, <a class="code" href="structESM_1_1Region.html#a7de81ce42d7c96e46cbc668aded944b1">mSleepList</a>;
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Region.html#aa4428497f427b8b157a212acf673ef11">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Region.html#ae522c68de1930c808eb74ae3a1348240">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Region.html#af7e990fe812014122b5229204f20ca0f" title="Set record to default state (does not touch the ID/index).">blank</a>();
-<a name="l00054"></a>00054 };
-<a name="l00055"></a>00055 }
-<a name="l00056"></a>00056 <span class="preprocessor">#endif</span>
+<a name="l00049"></a><a class="code" href="structESM_1_1Region.html#ad1d1199c489c318d3913fc0c5b6826ab">00049</a>     std::vector&lt;SoundRef&gt; <a class="code" href="structESM_1_1Region.html#ad1d1199c489c318d3913fc0c5b6826ab">mSoundList</a>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Region.html#aa4428497f427b8b157a212acf673ef11">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Region.html#a0a40e86c9a4174fe5c118df44b60f2a8">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Region.html#af7e990fe812014122b5229204f20ca0f" title="Set record to default state (does not touch the ID/index).">blank</a>();
+<a name="l00056"></a>00056 };
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

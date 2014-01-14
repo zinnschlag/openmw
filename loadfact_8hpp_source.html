@@ -90,49 +90,51 @@
 <a name="l00029"></a>00029 
 <a name="l00030"></a><a class="code" href="structESM_1_1Faction.html">00030</a> <span class="keyword">struct </span><a class="code" href="structESM_1_1Faction.html">Faction</a>
 <a name="l00031"></a>00031 {
-<a name="l00032"></a><a class="code" href="structESM_1_1Faction.html#ad6b940e57fc86d0f6ba60311a3ba5e77">00032</a>     std::string <a class="code" href="structESM_1_1Faction.html#a801d6275242aac7965d503acd424a54d">mId</a>, <a class="code" href="structESM_1_1Faction.html#ad6b940e57fc86d0f6ba60311a3ba5e77">mName</a>;
+<a name="l00032"></a><a class="code" href="structESM_1_1Faction.html#a5416e01024ad34a09e3dfc293618da40">00032</a>     <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction.html#a5416e01024ad34a09e3dfc293618da40">sRecordId</a>;
 <a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html">00034</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html">FADTstruct</a>
-<a name="l00035"></a>00035     {
-<a name="l00036"></a>00036         <span class="comment">// Which attributes we like</span>
-<a name="l00037"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a7c1ee44802fe0a401a8c15817089c98c">00037</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a7c1ee44802fe0a401a8c15817089c98c">mAttribute</a>[2];
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a775e8971977667ea9d456522200a12cf">00039</a>         <a class="code" href="structESM_1_1RankData.html">RankData</a> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a775e8971977667ea9d456522200a12cf">mRankData</a>[10];
+<a name="l00034"></a><a class="code" href="structESM_1_1Faction.html#ad6b940e57fc86d0f6ba60311a3ba5e77">00034</a>     std::string <a class="code" href="structESM_1_1Faction.html#a801d6275242aac7965d503acd424a54d">mId</a>, <a class="code" href="structESM_1_1Faction.html#ad6b940e57fc86d0f6ba60311a3ba5e77">mName</a>;
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html">00036</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html">FADTstruct</a>
+<a name="l00037"></a>00037     {
+<a name="l00038"></a>00038         <span class="comment">// Which attributes we like</span>
+<a name="l00039"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a7c1ee44802fe0a401a8c15817089c98c">00039</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a7c1ee44802fe0a401a8c15817089c98c">mAttribute</a>[2];
 <a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#aa84910120a22409972700d5fda761c07">00041</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#aa84910120a22409972700d5fda761c07">mSkills</a>[6]; <span class="comment">// IDs of skills this faction require</span>
-<a name="l00042"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#afa916bc0b21fb052f24ab44b78c74d1a">00042</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#afa916bc0b21fb052f24ab44b78c74d1a">mUnknown</a>; <span class="comment">// Always -1?</span>
-<a name="l00043"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#ad2e1e833d6360e00f6390c7ce1b752f2">00043</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#ad2e1e833d6360e00f6390c7ce1b752f2">mIsHidden</a>; <span class="comment">// 1 - hidden from player</span>
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keywordtype">int</span>&amp; <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a099b39036078e3c1eeb78b00bced85b5" title="Throws an exception for invalid values of index.">getSkill</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> ignored = <span class="keyword">false</span>);
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a099b39036078e3c1eeb78b00bced85b5" title="Throws an exception for invalid values of index.">getSkill</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> ignored = <span class="keyword">false</span>) <span class="keyword">const</span>;
-<a name="l00050"></a>00050     }; <span class="comment">// 240 bytes</span>
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="structESM_1_1Faction.html#a9a833a8b402941e44c934759ceb8f64d">00052</a>     <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html">FADTstruct</a> <a class="code" href="structESM_1_1Faction.html#a9a833a8b402941e44c934759ceb8f64d">mData</a>;
+<a name="l00041"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a775e8971977667ea9d456522200a12cf">00041</a>         <a class="code" href="structESM_1_1RankData.html">RankData</a> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a775e8971977667ea9d456522200a12cf">mRankData</a>[10];
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#aa84910120a22409972700d5fda761c07">00043</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#aa84910120a22409972700d5fda761c07">mSkills</a>[6]; <span class="comment">// IDs of skills this faction require</span>
+<a name="l00044"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#afa916bc0b21fb052f24ab44b78c74d1a">00044</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#afa916bc0b21fb052f24ab44b78c74d1a">mUnknown</a>; <span class="comment">// Always -1?</span>
+<a name="l00045"></a><a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#ad2e1e833d6360e00f6390c7ce1b752f2">00045</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#ad2e1e833d6360e00f6390c7ce1b752f2">mIsHidden</a>; <span class="comment">// 1 - hidden from player</span>
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047         <span class="keywordtype">int</span>&amp; <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a099b39036078e3c1eeb78b00bced85b5" title="Throws an exception for invalid values of index.">getSkill</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> ignored = <span class="keyword">false</span>);
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html#a099b39036078e3c1eeb78b00bced85b5" title="Throws an exception for invalid values of index.">getSkill</a> (<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> ignored = <span class="keyword">false</span>) <span class="keyword">const</span>;
+<a name="l00052"></a>00052     }; <span class="comment">// 240 bytes</span>
 <a name="l00053"></a>00053 
-<a name="l00054"></a><a class="code" href="structESM_1_1Faction_1_1Reaction.html">00054</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Faction_1_1Reaction.html">Reaction</a>
-<a name="l00055"></a>00055     {
-<a name="l00056"></a><a class="code" href="structESM_1_1Faction_1_1Reaction.html#aa8b2fc1e59572575ac1565f4fc53c5f0">00056</a>         std::string <a class="code" href="structESM_1_1Faction_1_1Reaction.html#aa8b2fc1e59572575ac1565f4fc53c5f0">mFaction</a>;
-<a name="l00057"></a><a class="code" href="structESM_1_1Faction_1_1Reaction.html#a3a1081a48c9b0cb36aec95506a501a2a">00057</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1Reaction.html#a3a1081a48c9b0cb36aec95506a501a2a">mReaction</a>;
-<a name="l00058"></a>00058     };
-<a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="structESM_1_1Faction.html#a343d194419c5bca33a6e3ca9b3aa8a2a">00060</a>     std::vector&lt;Reaction&gt; <a class="code" href="structESM_1_1Faction.html#a343d194419c5bca33a6e3ca9b3aa8a2a">mReactions</a>;
+<a name="l00054"></a><a class="code" href="structESM_1_1Faction.html#a9a833a8b402941e44c934759ceb8f64d">00054</a>     <a class="code" href="structESM_1_1Faction_1_1FADTstruct.html">FADTstruct</a> <a class="code" href="structESM_1_1Faction.html#a9a833a8b402941e44c934759ceb8f64d">mData</a>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="structESM_1_1Faction_1_1Reaction.html">00056</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1Faction_1_1Reaction.html">Reaction</a>
+<a name="l00057"></a>00057     {
+<a name="l00058"></a><a class="code" href="structESM_1_1Faction_1_1Reaction.html#aa8b2fc1e59572575ac1565f4fc53c5f0">00058</a>         std::string <a class="code" href="structESM_1_1Faction_1_1Reaction.html#aa8b2fc1e59572575ac1565f4fc53c5f0">mFaction</a>;
+<a name="l00059"></a><a class="code" href="structESM_1_1Faction_1_1Reaction.html#a3a1081a48c9b0cb36aec95506a501a2a">00059</a>         <span class="keywordtype">int</span> <a class="code" href="structESM_1_1Faction_1_1Reaction.html#a3a1081a48c9b0cb36aec95506a501a2a">mReaction</a>;
+<a name="l00060"></a>00060     };
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <span class="comment">// Name of faction ranks (may be empty for NPC factions)</span>
-<a name="l00063"></a><a class="code" href="structESM_1_1Faction.html#aaafd417e18ece9a1f58a3a5fc174eb00">00063</a>     std::string <a class="code" href="structESM_1_1Faction.html#aaafd417e18ece9a1f58a3a5fc174eb00">mRanks</a>[10];
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Faction.html#ad6cf65950d6a66458a4104b8b774dcb3">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
-<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Faction.html#a65b46b087bb152a260a16753107e1d85">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm);
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Faction.html#a9389317bcbdf8d9d6553f0ffbb4cb935" title="Set record to default state (does not touch the ID/index).">blank</a>();
-<a name="l00070"></a>00070 };
-<a name="l00071"></a>00071 }
-<a name="l00072"></a>00072 <span class="preprocessor">#endif</span>
+<a name="l00062"></a><a class="code" href="structESM_1_1Faction.html#a343d194419c5bca33a6e3ca9b3aa8a2a">00062</a>     std::vector&lt;Reaction&gt; <a class="code" href="structESM_1_1Faction.html#a343d194419c5bca33a6e3ca9b3aa8a2a">mReactions</a>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="comment">// Name of faction ranks (may be empty for NPC factions)</span>
+<a name="l00065"></a><a class="code" href="structESM_1_1Faction.html#aaafd417e18ece9a1f58a3a5fc174eb00">00065</a>     std::string <a class="code" href="structESM_1_1Faction.html#aaafd417e18ece9a1f58a3a5fc174eb00">mRanks</a>[10];
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Faction.html#ad6cf65950d6a66458a4104b8b774dcb3">load</a>(<a class="code" href="classESM_1_1ESMReader.html">ESMReader</a> &amp;esm);
+<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Faction.html#a8c0a7225ce9e111c035213f1f0f6b792">save</a>(<a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a> &amp;esm) <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="structESM_1_1Faction.html#a9389317bcbdf8d9d6553f0ffbb4cb935" title="Set record to default state (does not touch the ID/index).">blank</a>();
+<a name="l00072"></a>00072 };
+<a name="l00073"></a>00073 }
+<a name="l00074"></a>00074 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

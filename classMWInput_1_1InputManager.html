@@ -81,7 +81,7 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a04c325bb3d5e516205539591357c29e3">InputManager</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_ogre, <a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;engine, const std::string &amp;userFile, bool userFileExists)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a618936bcaddb951ffc3d48871c8e8f5d">InputManager</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;_ogre, <a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a> &amp;engine, const std::string &amp;userFile, bool userFileExists, bool grab)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#abcf1bbba370928bef90579459d4b0d7b">~InputManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#ac17f452844128fb14155253401bf69ad">update</a> (float dt, bool loading)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#adf154669da68f4d584b28ed2b5f2faef">setPlayer</a> (<a class="el" href="classMWWorld_1_1Player.html">MWWorld::Player</a> *player)</td></tr>
@@ -105,6 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a0ff9306969a5fc2bf8da4fae0188d386">windowVisibilityChange</a> (bool visible)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a07385202578f701131660aa7dc1e38b0">windowFocusChange</a> (bool have_focus)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a92504ea10ec20a2d57d19e89b5099d70">windowResized</a> (int x, int y)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a16567ef5ea78ee85c4e36a336f70a749">windowClosed</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a36df0af06e2c3c1d192cc7f9fccfde5d">channelChanged</a> (ICS::Channel *channel, float currentValue, float previousValue)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a6e17c4d21e34af6b9a72387201152e91">mouseAxisBindingDetected</a> (ICS::InputControlSystem *ICS, ICS::Control *control, ICS::InputControlSystem::NamedAxis axis, ICS::Control::ControlChangingDirection direction)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#ad741d302b701fa167f6ad20478c072cf">keyBindingDetected</a> (ICS::InputControlSystem *ICS, ICS::Control *control, SDL_Keycode key, ICS::Control::ControlChangingDirection direction)</td></tr>
@@ -118,7 +119,7 @@ Public Member Functions</h2></td></tr>
 Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a135da7005f617be738cfbcacc6d4ac3b">Actions</a> { <br/>
 &#160;&#160;<a class="el" href="classMWInput_1_1InputManager.html#a135da7005f617be738cfbcacc6d4ac3ba2216f391eed294c18b6fe1a87c337313">A_GameMenu</a>, 
-<a class="el" href="classMWInput_1_1InputManager.html#a135da7005f617be738cfbcacc6d4ac3ba49cd38d6c7d6c65dd6533529446c2a3d">A_Quit</a>, 
+<a class="el" href="classMWInput_1_1InputManager.html#a135da7005f617be738cfbcacc6d4ac3ba690f3d6d09abc67b0b7e9b1c910da894">A_Unused</a>, 
 <a class="el" href="classMWInput_1_1InputManager.html#a135da7005f617be738cfbcacc6d4ac3bae64ed4d1fa2f7e95d35da7b67706268c">A_Screenshot</a>, 
 <a class="el" href="classMWInput_1_1InputManager.html#a135da7005f617be738cfbcacc6d4ac3ba92c27fd779b31cd1d46e1d11d9d18f7c">A_Inventory</a>, 
 <br/>
@@ -190,7 +191,6 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a77f10ab96aa77c020244d30679e42a3d">activate</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#aa7c43bc9a9c5e1fae3ddd83df826310b">toggleWalking</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a853b810a1faf9e3b05b6a3060b865f15">toggleAutoMove</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a269f3ade3e5f7ae528b4f5e3b34a78ca">exitNow</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#ac4354ac1f0eceba6e49948fb4a7f98ed">rest</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a61913b8244d772d523d67b9bcc015ca3">quickKey</a> (int index)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a531c385fa3df88ffb00589b58bb19e98">showQuickKeysMenu</a> ()</td></tr>
@@ -205,6 +205,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">SFO::InputWrapper *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a6b9f05ca456214f1babfb9cb8c859fa3">mInputManager</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a867b54566f167146c554787c6cc0514b">mUserFile</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a5b9f11da19762791f4eb0e33c0ecd381">mDragDrop</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a8da0ecf16340231de6627d9abc2d0f07">mGrabCursor</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a227b5e5fb239797f4f591f0c1e33799a">mInvertY</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a2e13cc9640065ae402d9601638e38d7f">mCameraSensitivity</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWInput_1_1InputManager.html#a5196b6c5616d89b5b3ad309d04173f23">mUISensitivity</a></td></tr>
@@ -237,7 +238,7 @@ Private Attributes</h2></td></tr>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a135da7005f617be738cfbcacc6d4ac3ba2216f391eed294c18b6fe1a87c337313"></a><!-- doxytag: member="A_GameMenu" ref="a135da7005f617be738cfbcacc6d4ac3ba2216f391eed294c18b6fe1a87c337313" args="" -->A_GameMenu</em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="a135da7005f617be738cfbcacc6d4ac3ba49cd38d6c7d6c65dd6533529446c2a3d"></a><!-- doxytag: member="A_Quit" ref="a135da7005f617be738cfbcacc6d4ac3ba49cd38d6c7d6c65dd6533529446c2a3d" args="" -->A_Quit</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="a135da7005f617be738cfbcacc6d4ac3ba690f3d6d09abc67b0b7e9b1c910da894"></a><!-- doxytag: member="A_Unused" ref="a135da7005f617be738cfbcacc6d4ac3ba690f3d6d09abc67b0b7e9b1c910da894" args="" -->A_Unused</em>&nbsp;</td><td>
 </td></tr>
 <tr><td valign="top"><em><a class="anchor" id="a135da7005f617be738cfbcacc6d4ac3bae64ed4d1fa2f7e95d35da7b67706268c"></a><!-- doxytag: member="A_Screenshot" ref="a135da7005f617be738cfbcacc6d4ac3bae64ed4d1fa2f7e95d35da7b67706268c" args="" -->A_Screenshot</em>&nbsp;</td><td>
 </td></tr>
@@ -330,12 +331,12 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a04c325bb3d5e516205539591357c29e3"></a><!-- doxytag: member="MWInput::InputManager::InputManager" ref="a04c325bb3d5e516205539591357c29e3" args="(OEngine::Render::OgreRenderer &amp;_ogre, OMW::Engine &amp;engine, const std::string &amp;userFile, bool userFileExists)" -->
+<a class="anchor" id="a618936bcaddb951ffc3d48871c8e8f5d"></a><!-- doxytag: member="MWInput::InputManager::InputManager" ref="a618936bcaddb951ffc3d48871c8e8f5d" args="(OEngine::Render::OgreRenderer &amp;_ogre, OMW::Engine &amp;engine, const std::string &amp;userFile, bool userFileExists, bool grab)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWInput_1_1InputManager.html#a04c325bb3d5e516205539591357c29e3">MWInput::InputManager::InputManager</a> </td>
+          <td class="memname"><a class="el" href="classMWInput_1_1InputManager.html#a618936bcaddb951ffc3d48871c8e8f5d">MWInput::InputManager::InputManager</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;&#160;</td>
           <td class="paramname"><em>_ogre</em>, </td>
@@ -356,7 +357,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>userFileExists</em>&#160;</td>
+          <td class="paramname"><em>userFileExists</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>grab</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -514,7 +521,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000070">Todo:</a></b></dt><dd>add joysticks here once they are added </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000085">Todo:</a></b></dt><dd>add joysticks here once they are added </dd></dl>
 
 </div>
 </div>
@@ -534,22 +541,6 @@ Private Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>Implements <a class="el" href="classMWBase_1_1InputManager.html#a8cfc32672ac01ede03583dfb4398d1c9">MWBase::InputManager</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a269f3ade3e5f7ae528b4f5e3b34a78ca"></a><!-- doxytag: member="MWInput::InputManager::exitNow" ref="a269f3ade3e5f7ae528b4f5e3b34a78ca" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWInput_1_1InputManager.html#a269f3ade3e5f7ae528b4f5e3b34a78ca">MWInput::InputManager::exitNow</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 </div>
 </div>
@@ -1154,7 +1145,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000069">Todo:</a></b></dt><dd>check if resting is currently allowed (enemies nearby?) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000084">Todo:</a></b></dt><dd>check if resting is currently allowed (enemies nearby?) </dd></dl>
 
 </div>
 </div>
@@ -1481,6 +1472,22 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a16567ef5ea78ee85c4e36a336f70a749"></a><!-- doxytag: member="MWInput::InputManager::windowClosed" ref="a16567ef5ea78ee85c4e36a336f70a749" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWInput_1_1InputManager.html#a16567ef5ea78ee85c4e36a336f70a749">MWInput::InputManager::windowClosed</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a07385202578f701131660aa7dc1e38b0"></a><!-- doxytag: member="MWInput::InputManager::windowFocusChange" ref="a07385202578f701131660aa7dc1e38b0" args="(bool have_focus)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1614,6 +1621,19 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classOMW_1_1Engine.html">OMW::Engine</a>&amp; <a class="el" href="classMWInput_1_1InputManager.html#a7fec2c325863578843fc97add2cc6862">MWInput::InputManager::mEngine</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8da0ecf16340231de6627d9abc2d0f07"></a><!-- doxytag: member="MWInput::InputManager::mGrabCursor" ref="a8da0ecf16340231de6627d9abc2d0f07" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWInput_1_1InputManager.html#a8da0ecf16340231de6627d9abc2d0f07">MWInput::InputManager::mGrabCursor</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -1837,7 +1857,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

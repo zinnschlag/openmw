@@ -64,7 +64,9 @@
 <div class="header">
   <div class="summary">
 <a href="#signals">Signals</a> &#124;
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">CSVDoc::StartupDialogue Class Reference</div>  </div>
 </div><!--header-->
@@ -76,11 +78,23 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="signals"></a>
 Signals</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a30fee03ad98989afbef596742a662383">createDocument</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#adbc81b016567d4750c72a58ef0b994d0">createGame</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a73c3fe7321bec51684c337ceda1a1d08">createAddon</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a68f89a43667520df7a4950f06efac67b">loadDocument</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#adabf32162a0441f4e78cbabba83bf058">editConfig</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a14c7a8c68a753d8ed00d7df2170a3876">StartupDialogue</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QPushButton *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a322e31c36344b54c10ab21eef969dd84">addButton</a> (const QString &amp;label, const QIcon &amp;icon)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#add43a054d80efa5e1d2210e735b05125">createButtons</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#aee825f98174eb7be7fb73341bb017f1d">createTools</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a5cbccd6dc3c1c4638833d133689c4385">mWidth</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#aca3d927cab1855d0526f6b7cbf2c5da5">mColumn</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QGridLayout *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVDoc_1_1StartupDialogue.html#a3a217e57d318c9b5336783dff08d188c">mLayout</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a14c7a8c68a753d8ed00d7df2170a3876"></a><!-- doxytag: member="CSVDoc::StartupDialogue::StartupDialogue" ref="a14c7a8c68a753d8ed00d7df2170a3876" args="()" -->
@@ -96,16 +110,109 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd>remove this label once loading and saving are fully implemented </dd></dl>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a30fee03ad98989afbef596742a662383"></a><!-- doxytag: member="CSVDoc::StartupDialogue::createDocument" ref="a30fee03ad98989afbef596742a662383" args="()" -->
+<a class="anchor" id="a322e31c36344b54c10ab21eef969dd84"></a><!-- doxytag: member="CSVDoc::StartupDialogue::addButton" ref="a322e31c36344b54c10ab21eef969dd84" args="(const QString &amp;label, const QIcon &amp;icon)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classCSVDoc_1_1StartupDialogue.html#a30fee03ad98989afbef596742a662383">CSVDoc::StartupDialogue::createDocument</a> </td>
+          <td class="memname">QPushButton * <a class="el" href="classCSVDoc_1_1StartupDialogue.html#a322e31c36344b54c10ab21eef969dd84">CSVDoc::StartupDialogue::addButton</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>label</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QIcon &amp;&#160;</td>
+          <td class="paramname"><em>icon</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a73c3fe7321bec51684c337ceda1a1d08"></a><!-- doxytag: member="CSVDoc::StartupDialogue::createAddon" ref="a73c3fe7321bec51684c337ceda1a1d08" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSVDoc_1_1StartupDialogue.html#a73c3fe7321bec51684c337ceda1a1d08">CSVDoc::StartupDialogue::createAddon</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [signal]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="add43a054d80efa5e1d2210e735b05125"></a><!-- doxytag: member="CSVDoc::StartupDialogue::createButtons" ref="add43a054d80efa5e1d2210e735b05125" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QWidget * <a class="el" href="classCSVDoc_1_1StartupDialogue.html#add43a054d80efa5e1d2210e735b05125">CSVDoc::StartupDialogue::createButtons</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000039">Todo:</a></b></dt><dd>add icons </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adbc81b016567d4750c72a58ef0b994d0"></a><!-- doxytag: member="CSVDoc::StartupDialogue::createGame" ref="adbc81b016567d4750c72a58ef0b994d0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSVDoc_1_1StartupDialogue.html#adbc81b016567d4750c72a58ef0b994d0">CSVDoc::StartupDialogue::createGame</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [signal]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aee825f98174eb7be7fb73341bb017f1d"></a><!-- doxytag: member="CSVDoc::StartupDialogue::createTools" ref="aee825f98174eb7be7fb73341bb017f1d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QWidget * <a class="el" href="classCSVDoc_1_1StartupDialogue.html#aee825f98174eb7be7fb73341bb017f1d">CSVDoc::StartupDialogue::createTools</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adabf32162a0441f4e78cbabba83bf058"></a><!-- doxytag: member="CSVDoc::StartupDialogue::editConfig" ref="adabf32162a0441f4e78cbabba83bf058" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSVDoc_1_1StartupDialogue.html#adabf32162a0441f4e78cbabba83bf058">CSVDoc::StartupDialogue::editConfig</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [signal]</code></td>
@@ -132,6 +239,46 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="aca3d927cab1855d0526f6b7cbf2c5da5"></a><!-- doxytag: member="CSVDoc::StartupDialogue::mColumn" ref="aca3d927cab1855d0526f6b7cbf2c5da5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classCSVDoc_1_1StartupDialogue.html#aca3d927cab1855d0526f6b7cbf2c5da5">CSVDoc::StartupDialogue::mColumn</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3a217e57d318c9b5336783dff08d188c"></a><!-- doxytag: member="CSVDoc::StartupDialogue::mLayout" ref="a3a217e57d318c9b5336783dff08d188c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QGridLayout* <a class="el" href="classCSVDoc_1_1StartupDialogue.html#a3a217e57d318c9b5336783dff08d188c">CSVDoc::StartupDialogue::mLayout</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5cbccd6dc3c1c4638833d133689c4385"></a><!-- doxytag: member="CSVDoc::StartupDialogue::mWidth" ref="a5cbccd6dc3c1c4638833d133689c4385" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classCSVDoc_1_1StartupDialogue.html#a5cbccd6dc3c1c4638833d133689c4385">CSVDoc::StartupDialogue::mWidth</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>apps/opencs/view/doc/<a class="el" href="startup_8hpp_source.html">startup.hpp</a></li>
 <li>apps/opencs/view/doc/<a class="el" href="startup_8cpp.html">startup.cpp</a></li>
@@ -140,7 +287,7 @@ Public Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -70,7 +70,8 @@
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pro-static-attribs">Static Protected Attributes</a>  </div>
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">MWRender::Animation Class Reference</div>  </div>
 </div><!--header-->
@@ -85,6 +86,8 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation_1_1AnimationValue.html">AnimationValue</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1Animation_1_1AnimSource.html">AnimSource</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation_1_1EffectAnimationValue.html">EffectAnimationValue</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMWRender_1_1Animation_1_1EffectParams.html">EffectParams</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation_1_1NullAnimationValue.html">NullAnimationValue</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -102,20 +105,29 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a7721040bfef3a29a30068ce5c8878ce8">Animation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a29ed29a359c49105b3c972651d4fec28">~Animation</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a1ad2390344ae9c1560289082c500be9e">addEffect</a> (const std::string &amp;model, int effectId, bool loop=false, const std::string &amp;bonename=&quot;&quot;, std::string texture=&quot;&quot;)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an effect mesh attached to a bone or the insert scene node.  <a href="#a1ad2390344ae9c1560289082c500be9e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a7e3cf398c2863d9d03128461eb06d13b">removeEffect</a> (int effectId)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a836f25740892ae073fa3a025857b2de8">getLoopingEffects</a> (std::vector&lt; int &gt; &amp;out)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af57e944412345b055c146b410bfdbeb7">preRender</a> (Ogre::Camera *camera)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare this animation for being rendered with <em>camera</em> (rotates billboard nodes)  <a href="#af57e944412345b055c146b410bfdbeb7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ad15d015ec9f2f9f6d6585a65cf02151e">setAlpha</a> (float alpha)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae4627a2cd19846ca585f42d0365c23fe">updatePtr</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a23e0c1169b04b1e785b3c01f4bcf437b">hasAnimation</a> (const std::string &amp;anim)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a0a8fb6eb17a1f7061a955e835319f04b">setAccumulation</a> (const Ogre::Vector3 &amp;accum)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab3a69ee74baadbb9c692501235cfb729">play</a> (const std::string &amp;groupname, int priority, int groups, bool autodisable, float speedmult, const std::string &amp;start, const std::string &amp;stop, float startpoint, size_t loops)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">isPlaying</a> (const std::string &amp;groupname) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a54a6d4d307309c74561bd240ed711fc2">isPlaying</a> (<a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2">Group</a> group) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#acf25405ac8a19025bd2ab392ff5eea7f">getInfo</a> (const std::string &amp;groupname, float *complete=NULL, float *speedmult=NULL) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae52ecaea6bbf327d968e6d388f37bf44">disable</a> (const std::string &amp;groupname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab9317b27de91d2abd4b5e8ce06ce5ec7">getVelocity</a> (const std::string &amp;groupname) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a2493ad01a65d407b54d2e3f56df4a236">runAnimation</a> (float duration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a7a6b85ce09dceb0b8510ab0c428c8082">showWeapons</a> (bool showWeapon)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a4a247dfafe9c1efeeeaa8a609bca4758">showCarriedLeft</a> (bool show)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ac86126ae72bcd529271969a5c37c74e2">enableLights</a> (bool enable)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::AxisAlignedBox&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aee94070f9567fef76ce12ea982da50fc">getWorldBounds</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af487533f0497cfb2abdb98e88ae4c05f">setCamera</a> (<a class="el" href="classMWRender_1_1Camera.html">Camera</a> *cam)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae7c7f70acba9b8995a6c3875228b7362">getNode</a> (const std::string &amp;name)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae7c7f70acba9b8995a6c3875228b7362">getNode</a> (const std::string &amp;<a class="el" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::TagPoint *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a8634b3a31d6c19eb9ab875d02d81c23d">attachObjectToBone</a> (const Ogre::String &amp;bonename, Ogre::MovableObject *obj)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab62e6d129273c8765fd30954097cf6c9">detachObjectFromBone</a> (Ogre::MovableObject *obj)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-types"></a>
@@ -136,23 +148,24 @@ Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aaa7cd16b86f6bc033adddf4b2728fe55">handleTextKey</a> (<a class="el" href="structMWRender_1_1Animation_1_1AnimState.html">AnimState</a> &amp;state, const std::string &amp;groupname, const NifOgre::TextKeyMap::const_iterator &amp;key)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a122a08439fd79685257580eb05887dfa">setObjectRoot</a> (const std::string &amp;model, bool baseonly)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aff362c03830efca83a352ab456362110">addAnimSource</a> (const std::string &amp;model)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a829df50d8a6351da628c3b0ab7b9773b">addExtraLight</a> (Ogre::SceneManager *sceneMgr, <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objlist, const <a class="el" href="structESM_1_1Light.html">ESM::Light</a> *light)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a54df2101c9ec770223f9b8726e12d56e">addExtraLight</a> (Ogre::SceneManager *sceneMgr, <a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> objlist, const <a class="el" href="structESM_1_1Light.html">ESM::Light</a> *light)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aa5739caddf776d68d560e24f912e9379">clearAnimSources</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab2eb083779dce338e55c4892402d1a44">getEnchantmentColor</a> (<a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> item)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a711b05b817d346b5bab1b02f435a4696">detectAnimGroup</a> (const Ogre::Node *node)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a5acf455b017a6fc48a2053da5ea80882">calcAnimVelocity</a> (const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, <a class="el" href="classNifOgre_1_1NodeTargetValue.html">NifOgre::NodeTargetValue</a>&lt; Ogre::Real &gt; *nonaccumctrl, const Ogre::Vector3 &amp;accum, const std::string &amp;groupname)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <br class="typebreak"/>
 NifOgre::TextKeyMap::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ab1f5d8535fbc4a41194c32784d11234e">findGroupStart</a> (const <a class="el" href="namespaceNifOgre.html#a8214203495dc5d4170ddd0a6d4b486af">NifOgre::TextKeyMap</a> &amp;keys, const std::string &amp;groupname)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a443daf54b0ff528b7554d34839ea8c43">destroyObjectList</a> (Ogre::SceneManager *sceneMgr, <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objects)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a98886533a1a0c97a67959095a13a59ae">setRenderProperties</a> (const <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist=0.0f)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ac3a1971b2fcbad4ef199592ca659534c">setRenderProperties</a> (<a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist=0.0f, bool enchantedGlow=false, Ogre::Vector3 *glowColor=NULL)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structMWRender_1_1Animation_1_1EffectParams.html">EffectParams</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a9629e5a9f6d3dd99cd93fceabf3ef24d">mEffects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aa92fa49c6f89faf08d10c0c957515925">mPtr</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a948e9324e6ae553146a9f163aa0ea06d">mCamera</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::SceneNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af5b6ebf3f3d5b9ec72663de02323ea0b">mInsert</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Entity *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ad3b2c9663a70319563281140990d299b">mSkelBase</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a81910a062367622bce103855b6c27723">mObjectRoot</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#aa4a2411671fc252da544e3c2024f1b4a">mObjectRoot</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1Animation.html#a90e94790179b4c439bdc43c3fe71fec0">AnimSourceList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a700b235b78d3d510cc315d29392209f7">mAnimSources</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#ae61fb34a2bb0d264552f0f9d2be8df65">mAccumRoot</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::Node *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#af3c4e1d03200ea10ed0c773caba8fb1a">mNonAccumRoot</a></td></tr>
@@ -167,6 +180,9 @@ Protected Attributes</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#a04f594cd823cd9aad8c6d0816f56a99f">sNumGroups</a> = 4</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Animation.html#abe9eebb1a1cd7d4fdae6d82f3b2c2b6b">updateEffects</a> (float duration)</td></tr>
 </table>
 <hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="a90e94790179b4c439bdc43c3fe71fec0"></a><!-- doxytag: member="MWRender::Animation::AnimSourceList" ref="a90e94790179b4c439bdc43c3fe71fec0" args="" -->
@@ -300,12 +316,70 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a829df50d8a6351da628c3b0ab7b9773b"></a><!-- doxytag: member="MWRender::Animation::addExtraLight" ref="a829df50d8a6351da628c3b0ab7b9773b" args="(Ogre::SceneManager *sceneMgr, NifOgre::ObjectList &amp;objlist, const ESM::Light *light)" -->
+<a class="anchor" id="a1ad2390344ae9c1560289082c500be9e"></a><!-- doxytag: member="MWRender::Animation::addEffect" ref="a1ad2390344ae9c1560289082c500be9e" args="(const std::string &amp;model, int effectId, bool loop=false, const std::string &amp;bonename=&quot;&quot;, std::string texture=&quot;&quot;)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a829df50d8a6351da628c3b0ab7b9773b">MWRender::Animation::addExtraLight</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a1ad2390344ae9c1560289082c500be9e">MWRender::Animation::addEffect</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>effectId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>bonename</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>texture</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Add an effect mesh attached to a bone or the insert scene node. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td></td></tr>
+    <tr><td class="paramname">effectId</td><td>An ID for this effect. Note that adding the same ID again won't add another effect. </td></tr>
+    <tr><td class="paramname">loop</td><td>Loop the effect. If false, it is removed automatically after it finishes playing. If true, you need to remove it manually using removeEffect when the effect should end. </td></tr>
+    <tr><td class="paramname">bonename</td><td>Bone to attach to, or empty string to use the scene node instead </td></tr>
+    <tr><td class="paramname">texture</td><td>override the texture specified in the model's materials </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>Will not add an effect twice. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a54df2101c9ec770223f9b8726e12d56e"></a><!-- doxytag: member="MWRender::Animation::addExtraLight" ref="a54df2101c9ec770223f9b8726e12d56e" args="(Ogre::SceneManager *sceneMgr, NifOgre::ObjectScenePtr objlist, const ESM::Light *light)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a54df2101c9ec770223f9b8726e12d56e">MWRender::Animation::addExtraLight</a> </td>
           <td>(</td>
           <td class="paramtype">Ogre::SceneManager *&#160;</td>
           <td class="paramname"><em>sceneMgr</em>, </td>
@@ -313,7 +387,7 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a>&#160;</td>
           <td class="paramname"><em>objlist</em>, </td>
         </tr>
         <tr>
@@ -409,33 +483,6 @@ Static Protected Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a443daf54b0ff528b7554d34839ea8c43"></a><!-- doxytag: member="MWRender::Animation::destroyObjectList" ref="a443daf54b0ff528b7554d34839ea8c43" args="(Ogre::SceneManager *sceneMgr, NifOgre::ObjectList &amp;objects)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a443daf54b0ff528b7554d34839ea8c43">MWRender::Animation::destroyObjectList</a> </td>
-          <td>(</td>
-          <td class="paramtype">Ogre::SceneManager *&#160;</td>
-          <td class="paramname"><em>sceneMgr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;&#160;</td>
-          <td class="paramname"><em>objects</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static, protected]</code></td>
         </tr>
       </table>
 </div>
@@ -545,6 +592,23 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab2eb083779dce338e55c4892402d1a44"></a><!-- doxytag: member="MWRender::Animation::getEnchantmentColor" ref="ab2eb083779dce338e55c4892402d1a44" args="(MWWorld::Ptr item)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ogre::Vector3 <a class="el" href="classMWRender_1_1Animation.html#ab2eb083779dce338e55c4892402d1a44">MWRender::Animation::getEnchantmentColor</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="acf25405ac8a19025bd2ab392ff5eea7f"></a><!-- doxytag: member="MWRender::Animation::getInfo" ref="acf25405ac8a19025bd2ab392ff5eea7f" args="(const std::string &amp;groupname, float *complete=NULL, float *speedmult=NULL) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -585,6 +649,23 @@ Static Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>True if the animation is active, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a836f25740892ae073fa3a025857b2de8"></a><!-- doxytag: member="MWRender::Animation::getLoopingEffects" ref="a836f25740892ae073fa3a025857b2de8" args="(std::vector&lt; int &gt; &amp;out)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a836f25740892ae073fa3a025857b2de8">MWRender::Animation::getLoopingEffects</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -707,6 +788,23 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a54a6d4d307309c74561bd240ed711fc2"></a><!-- doxytag: member="MWRender::Animation::isPlaying" ref="a54a6d4d307309c74561bd240ed711fc2" args="(Group group) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1Animation.html#a5b8f16b3c1ae5e7d515a5f9be97df6a4">MWRender::Animation::isPlaying</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMWRender_1_1Animation.html#add85b22032553ce4a68fbe8c85e0a6d2">Group</a>&#160;</td>
+          <td class="paramname"><em>group</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ab3a69ee74baadbb9c692501235cfb729"></a><!-- doxytag: member="MWRender::Animation::play" ref="ab3a69ee74baadbb9c692501235cfb729" args="(const std::string &amp;groupname, int priority, int groups, bool autodisable, float speedmult, const std::string &amp;start, const std::string &amp;stop, float startpoint, size_t loops)" -->
 <div class="memitem">
 <div class="memproto">
@@ -788,6 +886,44 @@ Static Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="af57e944412345b055c146b410bfdbeb7"></a><!-- doxytag: member="MWRender::Animation::preRender" ref="af57e944412345b055c146b410bfdbeb7" args="(Ogre::Camera *camera)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#af57e944412345b055c146b410bfdbeb7">MWRender::Animation::preRender</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Camera *&#160;</td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Prepare this animation for being rendered with <em>camera</em> (rotates billboard nodes) </p>
+
+<p>Reimplemented in <a class="el" href="classMWRender_1_1NpcAnimation.html#a19cbf5ba79b6e1beaba9394c9f7128a8">MWRender::NpcAnimation</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7e3cf398c2863d9d03128461eb06d13b"></a><!-- doxytag: member="MWRender::Animation::removeEffect" ref="a7e3cf398c2863d9d03128461eb06d13b" args="(int effectId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a7e3cf398c2863d9d03128461eb06d13b">MWRender::Animation::removeEffect</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>effectId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -894,6 +1030,25 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad15d015ec9f2f9f6d6585a65cf02151e"></a><!-- doxytag: member="MWRender::Animation::setAlpha" ref="ad15d015ec9f2f9f6d6585a65cf02151e" args="(float alpha)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWRender_1_1Animation.html#ad15d015ec9f2f9f6d6585a65cf02151e">MWRender::Animation::setAlpha</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em></td><td>)</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classMWRender_1_1NpcAnimation.html#a1d422eb5a7a4548ef1a795a36f75384d">MWRender::NpcAnimation</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="af487533f0497cfb2abdb98e88ae4c05f"></a><!-- doxytag: member="MWRender::Animation::setCamera" ref="af487533f0497cfb2abdb98e88ae4c05f" args="(Camera *cam)" -->
 <div class="memitem">
 <div class="memproto">
@@ -938,14 +1093,14 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a98886533a1a0c97a67959095a13a59ae"></a><!-- doxytag: member="MWRender::Animation::setRenderProperties" ref="a98886533a1a0c97a67959095a13a59ae" args="(const NifOgre::ObjectList &amp;objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist=0.0f)" -->
+<a class="anchor" id="ac3a1971b2fcbad4ef199592ca659534c"></a><!-- doxytag: member="MWRender::Animation::setRenderProperties" ref="ac3a1971b2fcbad4ef199592ca659534c" args="(NifOgre::ObjectScenePtr objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist=0.0f, bool enchantedGlow=false, Ogre::Vector3 *glowColor=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#a98886533a1a0c97a67959095a13a59ae">MWRender::Animation::setRenderProperties</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#ac3a1971b2fcbad4ef199592ca659534c">MWRender::Animation::setRenderProperties</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a>&#160;</td>
           <td class="paramname"><em>objlist</em>, </td>
         </tr>
         <tr>
@@ -970,7 +1125,19 @@ Static Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Ogre::Real&#160;</td>
-          <td class="paramname"><em>dist</em> = <code>0.0f</code>&#160;</td>
+          <td class="paramname"><em>dist</em> = <code>0.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enchantedGlow</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3 *&#160;</td>
+          <td class="paramname"><em>glowColor</em> = <code>NULL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -980,6 +1147,25 @@ Static Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4a247dfafe9c1efeeeaa8a609bca4758"></a><!-- doxytag: member="MWRender::Animation::showCarriedLeft" ref="a4a247dfafe9c1efeeeaa8a609bca4758" args="(bool show)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWRender_1_1Animation.html#a4a247dfafe9c1efeeeaa8a609bca4758">MWRender::Animation::showCarriedLeft</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em></td><td>)</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classMWRender_1_1NpcAnimation.html#ae393536322e88da8ae74a2110be468ec">MWRender::NpcAnimation</a>.</p>
 
 </div>
 </div>
@@ -999,6 +1185,23 @@ Static Protected Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>Reimplemented in <a class="el" href="classMWRender_1_1NpcAnimation.html#a0276bb5ac593134ce644726301e83e56">MWRender::NpcAnimation</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abe9eebb1a1cd7d4fdae6d82f3b2c2b6b"></a><!-- doxytag: member="MWRender::Animation::updateEffects" ref="abe9eebb1a1cd7d4fdae6d82f3b2c2b6b" args="(float duration)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Animation.html#abe9eebb1a1cd7d4fdae6d82f3b2c2b6b">MWRender::Animation::updateEffects</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>duration</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -1158,6 +1361,19 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9629e5a9f6d3dd99cd93fceabf3ef24d"></a><!-- doxytag: member="MWRender::Animation::mEffects" ref="a9629e5a9f6d3dd99cd93fceabf3ef24d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structMWRender_1_1Animation_1_1EffectParams.html">EffectParams</a>&gt; <a class="el" href="classMWRender_1_1Animation.html#a9629e5a9f6d3dd99cd93fceabf3ef24d">MWRender::Animation::mEffects</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af5b6ebf3f3d5b9ec72663de02323ea0b"></a><!-- doxytag: member="MWRender::Animation::mInsert" ref="af5b6ebf3f3d5b9ec72663de02323ea0b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1210,12 +1426,12 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a81910a062367622bce103855b6c27723"></a><!-- doxytag: member="MWRender::Animation::mObjectRoot" ref="a81910a062367622bce103855b6c27723" args="" -->
+<a class="anchor" id="aa4a2411671fc252da544e3c2024f1b4a"></a><!-- doxytag: member="MWRender::Animation::mObjectRoot" ref="aa4a2411671fc252da544e3c2024f1b4a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1Animation.html#a81910a062367622bce103855b6c27723">MWRender::Animation::mObjectRoot</a><code> [protected]</code></td>
+          <td class="memname"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="el" href="classMWRender_1_1Animation.html#aa4a2411671fc252da544e3c2024f1b4a">MWRender::Animation::mObjectRoot</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -1283,7 +1499,7 @@ Static Protected Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -66,70 +66,61 @@
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;OgreRoot.h&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;OgreRenderSystem.h&gt;</span>
-<a name="l00008"></a>00008 <span class="comment">//#include &lt;OgreConfigFile.h&gt;</span>
-<a name="l00009"></a>00009 <span class="comment">//#include &lt;OgreConfigDialog.h&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;<a class="code" href="ogreinit_8hpp.html">components/ogreinit/ogreinit.hpp</a>&gt;</span>
 <a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="comment">// Static plugin headers</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#ifdef ENABLE_PLUGIN_GL</span>
-<a name="l00013"></a>00013 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreGLPlugin.h&quot;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#endif</span>
-<a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor">#ifdef ENABLE_PLUGIN_Direct3D9</span>
-<a name="l00016"></a>00016 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreD3D9Plugin.h&quot;</span>
-<a name="l00017"></a>00017 <span class="preprocessor">#endif</span>
-<a name="l00018"></a>00018 <span class="preprocessor"></span>
-<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;ui_graphicspage.h&quot;</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;ui_graphicspage.h&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">namespace </span>Files { <span class="keyword">struct </span>ConfigurationManager; }
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="keyword">namespace </span>Launcher
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019     <span class="keyword">class </span>GraphicsSettings;
 <a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="keyword">class </span><a class="code" href="classGraphicsSettings.html">GraphicsSettings</a>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">namespace </span>Files { <span class="keyword">struct </span>ConfigurationManager; }
+<a name="l00021"></a><a class="code" href="classLauncher_1_1GraphicsPage.html">00021</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1GraphicsPage.html">GraphicsPage</a> : <span class="keyword">public</span> QWidget, <span class="keyword">private</span> Ui::<a class="code" href="classLauncher_1_1GraphicsPage.html">GraphicsPage</a>
+<a name="l00022"></a>00022     {
+<a name="l00023"></a>00023         Q_OBJECT
 <a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="classGraphicsPage.html">00025</a> <span class="keyword">class </span><a class="code" href="classGraphicsPage.html">GraphicsPage</a> : <span class="keyword">public</span> QWidget, <span class="keyword">private</span> Ui::<a class="code" href="classGraphicsPage.html">GraphicsPage</a>
-<a name="l00026"></a>00026 {
-<a name="l00027"></a>00027     Q_OBJECT
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">public</span>:
-<a name="l00030"></a>00030     <a class="code" href="classGraphicsPage.html#aff7b11f2d4b560f713d25098db3281e8">GraphicsPage</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg, <a class="code" href="classGraphicsSettings.html">GraphicsSettings</a> &amp;graphicsSettings, QWidget *parent = 0);
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classGraphicsPage.html#aa4a2b819070bdf9cb4c0639412855824">saveSettings</a>();
-<a name="l00033"></a>00033     <span class="keywordtype">bool</span> <a class="code" href="classGraphicsPage.html#a8230902b64db99ea9bfb1589912cb402">loadSettings</a>();
+<a name="l00025"></a>00025     <span class="keyword">public</span>:
+<a name="l00026"></a>00026         <a class="code" href="classLauncher_1_1GraphicsPage.html#ab4f74e1d7caa9ed7e3b54ab928821963">GraphicsPage</a>(<a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;cfg, <a class="code" href="classLauncher_1_1GraphicsSettings.html">GraphicsSettings</a> &amp;graphicsSettings, QWidget *parent = 0);
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#a0068741f1e83f371d1318e891783b8a9">saveSettings</a>();
+<a name="l00029"></a>00029         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#aa62a2007856d917a18d90b2f20de93cb">loadSettings</a>();
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031     <span class="keyword">public</span> slots:
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#aafd1687e0f510f3fe0c4a61042138ef3">rendererChanged</a>(<span class="keyword">const</span> QString &amp;renderer);
+<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#a15d01883096264e29af0242a4d68b297">screenChanged</a>(<span class="keywordtype">int</span> screen);
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="keyword">public</span> slots:
-<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classGraphicsPage.html#a6604bc194d89af159104264c153d0692">rendererChanged</a>(<span class="keyword">const</span> QString &amp;renderer);
-<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classGraphicsPage.html#abaeb34a5161ec21093a460d0fc9cf12b">screenChanged</a>(<span class="keywordtype">int</span> screen);
+<a name="l00035"></a>00035     <span class="keyword">private</span> slots:
+<a name="l00036"></a>00036         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#a071162d2d89e1ab381788edd93272040">slotFullScreenChanged</a>(<span class="keywordtype">int</span> state);
+<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#afd245cb02932132c6c8b5b092e06de9b">slotStandardToggled</a>(<span class="keywordtype">bool</span> checked);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">private</span> slots:
-<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classGraphicsPage.html#a7c2d06a7a33d69e7ac0e33ee44ea6050">slotFullScreenChanged</a>(<span class="keywordtype">int</span> state);
-<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classGraphicsPage.html#a297a84768cf2ca6c64cfcf27a5713d80">slotStandardToggled</a>(<span class="keywordtype">bool</span> checked);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="keyword">private</span>:
-<a name="l00044"></a><a class="code" href="classGraphicsPage.html#afc0ad225c1815d926fab96bf9c7c1ee5">00044</a>     <a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Ogre::Root</a> *<a class="code" href="classGraphicsPage.html#afc0ad225c1815d926fab96bf9c7c1ee5">mOgre</a>;
-<a name="l00045"></a><a class="code" href="classGraphicsPage.html#a904949766ad902560ff363d5b7b32be0">00045</a>     Ogre::RenderSystem *<a class="code" href="classGraphicsPage.html#a904949766ad902560ff363d5b7b32be0">mSelectedRenderSystem</a>;
-<a name="l00046"></a><a class="code" href="classGraphicsPage.html#ae7b33bef7572ada8e552590b79cb870f">00046</a>     Ogre::RenderSystem *<a class="code" href="classGraphicsPage.html#ae7b33bef7572ada8e552590b79cb870f">mOpenGLRenderSystem</a>;
-<a name="l00047"></a><a class="code" href="classGraphicsPage.html#a61b01826092b74271af39d8de1c2c0c1">00047</a>     Ogre::RenderSystem *<a class="code" href="classGraphicsPage.html#a61b01826092b74271af39d8de1c2c0c1">mDirect3DRenderSystem</a>;
-<a name="l00048"></a>00048 <span class="preprocessor">        #ifdef ENABLE_PLUGIN_GL</span>
-<a name="l00049"></a>00049 <span class="preprocessor"></span>        Ogre::GLPlugin* mGLPlugin;
-<a name="l00050"></a>00050 <span class="preprocessor">        #endif</span>
-<a name="l00051"></a>00051 <span class="preprocessor"></span><span class="preprocessor">        #ifdef ENABLE_PLUGIN_Direct3D9</span>
-<a name="l00052"></a>00052 <span class="preprocessor"></span>        Ogre::D3D9Plugin* mD3D9Plugin;
-<a name="l00053"></a>00053 <span class="preprocessor">        #endif</span>
-<a name="l00054"></a>00054 <span class="preprocessor"></span>
-<a name="l00055"></a><a class="code" href="classGraphicsPage.html#a75d5b5484b065d816e484b6d4539fd38">00055</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classGraphicsPage.html#a75d5b5484b065d816e484b6d4539fd38">mCfgMgr</a>;
-<a name="l00056"></a><a class="code" href="classGraphicsPage.html#a31876dd48e7378f76913748cb58a50d5">00056</a>     <a class="code" href="classGraphicsSettings.html">GraphicsSettings</a> &amp;<a class="code" href="classGraphicsPage.html#a31876dd48e7378f76913748cb58a50d5">mGraphicsSettings</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058     QStringList <a class="code" href="classGraphicsPage.html#a7433893a70742c001283dd1021e3b182">getAvailableOptions</a>(<span class="keyword">const</span> QString &amp;key, Ogre::RenderSystem *renderer);
-<a name="l00059"></a>00059     QStringList <a class="code" href="classGraphicsPage.html#a09b072fd4300040f51362bf4504d5cf9">getAvailableResolutions</a>(<span class="keywordtype">int</span> screen);
-<a name="l00060"></a>00060     QRect <a class="code" href="classGraphicsPage.html#a3f0ec4fbb7b6b21b32cff9d45b70dbd1">getMaximumResolution</a>();
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <span class="keywordtype">bool</span> <a class="code" href="classGraphicsPage.html#a0e47c12aa9e473b27b032360b390ff4a">setupOgre</a>();
-<a name="l00063"></a>00063     <span class="keywordtype">bool</span> <a class="code" href="classGraphicsPage.html#ad085b4f0b829451d00b913c975fd0442">setupSDL</a>();
-<a name="l00064"></a>00064 };
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066 <span class="preprocessor">#endif</span>
+<a name="l00039"></a>00039     <span class="keyword">private</span>:
+<a name="l00040"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#a00032eb2630b51d0c3de9f222f8ec757">00040</a>         <a class="code" href="classOgreInit_1_1OgreInit.html" title="Starts Ogre::Root and loads required plugins and NIF particle factories.">OgreInit::OgreInit</a> <a class="code" href="classLauncher_1_1GraphicsPage.html#a00032eb2630b51d0c3de9f222f8ec757">mOgreInit</a>;
+<a name="l00041"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#a58394240908dd1284ae33be72d47c368">00041</a>         <a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Ogre::Root</a> *<a class="code" href="classLauncher_1_1GraphicsPage.html#a58394240908dd1284ae33be72d47c368">mOgre</a>;
+<a name="l00042"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#a9bbb77184569a94c67a76c4ee8a2a0eb">00042</a>         Ogre::RenderSystem *<a class="code" href="classLauncher_1_1GraphicsPage.html#a9bbb77184569a94c67a76c4ee8a2a0eb">mSelectedRenderSystem</a>;
+<a name="l00043"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#a2d598a73f3bc8985eb7dd5d2fbf5ab1a">00043</a>         Ogre::RenderSystem *<a class="code" href="classLauncher_1_1GraphicsPage.html#a2d598a73f3bc8985eb7dd5d2fbf5ab1a">mOpenGLRenderSystem</a>;
+<a name="l00044"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#a8fcba273ef384cb87b80cf227bebfc78">00044</a>         Ogre::RenderSystem *<a class="code" href="classLauncher_1_1GraphicsPage.html#a8fcba273ef384cb87b80cf227bebfc78">mDirect3DRenderSystem</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#aa7a3026f73e7e2788176d2b00aa1dc7b">00046</a>         <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;<a class="code" href="classLauncher_1_1GraphicsPage.html#aa7a3026f73e7e2788176d2b00aa1dc7b">mCfgMgr</a>;
+<a name="l00047"></a><a class="code" href="classLauncher_1_1GraphicsPage.html#a0a2f782cf75765db6df050fa9a4c3be6">00047</a>         <a class="code" href="classLauncher_1_1GraphicsSettings.html">GraphicsSettings</a> &amp;<a class="code" href="classLauncher_1_1GraphicsPage.html#a0a2f782cf75765db6df050fa9a4c3be6">mGraphicsSettings</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         QStringList <a class="code" href="classLauncher_1_1GraphicsPage.html#af1bbdd9262a5e9891e1c727b9703a25b">getAvailableOptions</a>(<span class="keyword">const</span> QString &amp;key, Ogre::RenderSystem *renderer);
+<a name="l00050"></a>00050         QStringList <a class="code" href="classLauncher_1_1GraphicsPage.html#a714a96b630f87b1be38025be2ea28aa8">getAvailableResolutions</a>(<span class="keywordtype">int</span> screen);
+<a name="l00051"></a>00051         QRect <a class="code" href="classLauncher_1_1GraphicsPage.html#ac3be0893f37a0581ce6445d1e19566c2">getMaximumResolution</a>();
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#a342e9af748c8b0342136d6225d21dcb7">setupOgre</a>();
+<a name="l00054"></a>00054         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1GraphicsPage.html#a17dba07a7108c63800cbc162c9f0df21">setupSDL</a>();
+<a name="l00055"></a>00055     };
+<a name="l00056"></a>00056 }
+<a name="l00057"></a>00057 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

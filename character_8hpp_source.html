@@ -64,199 +64,206 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;OgreVector3.h&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;<a class="code" href="loadmgef_8hpp.html">components/esm/loadmgef.hpp</a>&gt;</span>
 <a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">namespace </span>MWWorld
-<a name="l00009"></a>00009 {
-<a name="l00010"></a>00010     <span class="keyword">class </span>ContainerStoreIterator;
-<a name="l00011"></a>00011     <span class="keyword">class </span>InventoryStore;
-<a name="l00012"></a>00012 }
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWRender
-<a name="l00015"></a>00015 {
-<a name="l00016"></a>00016     <span class="keyword">class </span>Animation;
-<a name="l00017"></a>00017 }
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">namespace </span>MWMechanics
-<a name="l00020"></a>00020 {
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">class </span>Movement;
-<a name="l00023"></a>00023 <span class="keyword">class </span>NpcStats;
-<a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1">00025</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1">Priority</a> {
-<a name="l00026"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a528e6a36b9743d9dfebe8bdc73aec37e">00026</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a528e6a36b9743d9dfebe8bdc73aec37e">Priority_Default</a>,
-<a name="l00027"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9c12499ae1a75c6ed51fce3c47418626">00027</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9c12499ae1a75c6ed51fce3c47418626">Priority_Jump</a>,
-<a name="l00028"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1ad9e90c40dda46e21347861ab567c6f9b">00028</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1ad9e90c40dda46e21347861ab567c6f9b">Priority_Movement</a>,
-<a name="l00029"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a82b02adb1c944ce086dde096ce278207">00029</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a82b02adb1c944ce086dde096ce278207">Priority_Weapon</a>,
-<a name="l00030"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9e2cf79f43c502f8fdbf8e08fa64850d">00030</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9e2cf79f43c502f8fdbf8e08fa64850d">Priority_Torch</a>,
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a0a1a0d1a53f37b093d6c524ab0f5a778">00032</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a0a1a0d1a53f37b093d6c524ab0f5a778">Priority_Death</a>,
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;../mwworld/ptr.hpp&quot;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>MWWorld
+<a name="l00011"></a>00011 {
+<a name="l00012"></a>00012     <span class="keyword">class </span>ContainerStoreIterator;
+<a name="l00013"></a>00013     <span class="keyword">class </span>InventoryStore;
+<a name="l00014"></a>00014 }
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>MWRender
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018     <span class="keyword">class </span>Animation;
+<a name="l00019"></a>00019 }
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">namespace </span>MWMechanics
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">class </span>Movement;
+<a name="l00025"></a>00025 <span class="keyword">class </span>NpcStats;
+<a name="l00026"></a>00026 
+<a name="l00027"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1">00027</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1">Priority</a> {
+<a name="l00028"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a528e6a36b9743d9dfebe8bdc73aec37e">00028</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a528e6a36b9743d9dfebe8bdc73aec37e">Priority_Default</a>,
+<a name="l00029"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9c12499ae1a75c6ed51fce3c47418626">00029</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9c12499ae1a75c6ed51fce3c47418626">Priority_Jump</a>,
+<a name="l00030"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1ad9e90c40dda46e21347861ab567c6f9b">00030</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1ad9e90c40dda46e21347861ab567c6f9b">Priority_Movement</a>,
+<a name="l00031"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a82b02adb1c944ce086dde096ce278207">00031</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a82b02adb1c944ce086dde096ce278207">Priority_Weapon</a>,
+<a name="l00032"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9e2cf79f43c502f8fdbf8e08fa64850d">00032</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a9e2cf79f43c502f8fdbf8e08fa64850d">Priority_Torch</a>,
 <a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a6dff10b2570328dba6a4cf5370b63973">00034</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a6dff10b2570328dba6a4cf5370b63973">Num_Priorities</a>
-<a name="l00035"></a>00035 };
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">00037</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> {
-<a name="l00038"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaacc15271c8330051c269c658c84dee33">00038</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaacc15271c8330051c269c658c84dee33">CharState_None</a>,
-<a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5582d1e58f3437743267501fe68723ec">00040</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5582d1e58f3437743267501fe68723ec">CharState_SpecialIdle</a>,
-<a name="l00041"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7db294ab19f3e3ac2141809183308624">00041</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7db294ab19f3e3ac2141809183308624">CharState_Idle</a>,
-<a name="l00042"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfab2a1015881f06c02377177bb91b94449">00042</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfab2a1015881f06c02377177bb91b94449">CharState_Idle2</a>,
-<a name="l00043"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa606af7d677a6f8a5eb5ee97977f80cf7">00043</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa606af7d677a6f8a5eb5ee97977f80cf7">CharState_Idle3</a>,
-<a name="l00044"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad37ccd2b2b34ada2b0c93d24901e775c">00044</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad37ccd2b2b34ada2b0c93d24901e775c">CharState_Idle4</a>,
-<a name="l00045"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff8e377773bf756b34b55b66d2082e">00045</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff8e377773bf756b34b55b66d2082e">CharState_Idle5</a>,
-<a name="l00046"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3cabc3f48a77c6c6e58b568f052cdd90">00046</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3cabc3f48a77c6c6e58b568f052cdd90">CharState_Idle6</a>,
-<a name="l00047"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8c232faeca69a559acbca0fde63933fd">00047</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8c232faeca69a559acbca0fde63933fd">CharState_Idle7</a>,
-<a name="l00048"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7f5066abdcead27ffafa05be3e34970b">00048</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7f5066abdcead27ffafa05be3e34970b">CharState_Idle8</a>,
-<a name="l00049"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad91521f89fc10085a057962f585ee1f9">00049</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad91521f89fc10085a057962f585ee1f9">CharState_Idle9</a>,
-<a name="l00050"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3597f0c8f7b7b3ba113dd39f2d0330d8">00050</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3597f0c8f7b7b3ba113dd39f2d0330d8">CharState_IdleSwim</a>,
-<a name="l00051"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3ab5193e5d8cff80eef605e678e1dc38">00051</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3ab5193e5d8cff80eef605e678e1dc38">CharState_IdleSneak</a>,
-<a name="l00052"></a>00052 
-<a name="l00053"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa09b7b91ad02a7fb17f9dcb9376af407d">00053</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa09b7b91ad02a7fb17f9dcb9376af407d">CharState_WalkForward</a>,
-<a name="l00054"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadbf6b157fb2bcc7ad49d0c9cb7787bc6">00054</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadbf6b157fb2bcc7ad49d0c9cb7787bc6">CharState_WalkBack</a>,
-<a name="l00055"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa24039aff759bf702505f6b5ff5935f1f">00055</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa24039aff759bf702505f6b5ff5935f1f">CharState_WalkLeft</a>,
-<a name="l00056"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa4aa729563d6240a738a19b10ed307d83">00056</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa4aa729563d6240a738a19b10ed307d83">CharState_WalkRight</a>,
-<a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa806354b5ce1207e25f2825646505793c">00058</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa806354b5ce1207e25f2825646505793c">CharState_SwimWalkForward</a>,
-<a name="l00059"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa2bcf591a3d699c1079ded7f4a2041f1b">00059</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa2bcf591a3d699c1079ded7f4a2041f1b">CharState_SwimWalkBack</a>,
-<a name="l00060"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa56e41e753987e7709433daca7583afd5">00060</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa56e41e753987e7709433daca7583afd5">CharState_SwimWalkLeft</a>,
-<a name="l00061"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa534dd16fb96278dadbd7c679699ff5e1">00061</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa534dd16fb96278dadbd7c679699ff5e1">CharState_SwimWalkRight</a>,
-<a name="l00062"></a>00062 
-<a name="l00063"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8e8155ca7828d77bc0492d1e2ee10c5e">00063</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8e8155ca7828d77bc0492d1e2ee10c5e">CharState_RunForward</a>,
-<a name="l00064"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa68eed6a1ec00e40dcefb7b8cd0799542">00064</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa68eed6a1ec00e40dcefb7b8cd0799542">CharState_RunBack</a>,
-<a name="l00065"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa96d432b09e9a19ca6010825c45e63728">00065</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa96d432b09e9a19ca6010825c45e63728">CharState_RunLeft</a>,
-<a name="l00066"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff3d2c37fe6cc299192870c3dfc788">00066</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff3d2c37fe6cc299192870c3dfc788">CharState_RunRight</a>,
-<a name="l00067"></a>00067 
-<a name="l00068"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfae5a93a6b99dd5810c2e5e795269a10ac">00068</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfae5a93a6b99dd5810c2e5e795269a10ac">CharState_SwimRunForward</a>,
-<a name="l00069"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8280c89311edc89bd674b15b6d27b7c0">00069</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8280c89311edc89bd674b15b6d27b7c0">CharState_SwimRunBack</a>,
-<a name="l00070"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa660baf6ebfc63909737a244be6936927">00070</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa660baf6ebfc63909737a244be6936927">CharState_SwimRunLeft</a>,
-<a name="l00071"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadae4982399c1d79981c57e0134b40611">00071</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadae4982399c1d79981c57e0134b40611">CharState_SwimRunRight</a>,
-<a name="l00072"></a>00072 
-<a name="l00073"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa00f9af92733be31c0c605dda06d735e7">00073</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa00f9af92733be31c0c605dda06d735e7">CharState_SneakForward</a>,
-<a name="l00074"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaaa8a1aeb891ba186d5380577a3541588">00074</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaaa8a1aeb891ba186d5380577a3541588">CharState_SneakBack</a>,
-<a name="l00075"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa9eb35883724c3385175cfcfe314c6e0a">00075</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa9eb35883724c3385175cfcfe314c6e0a">CharState_SneakLeft</a>,
-<a name="l00076"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad549dc9d6ed748d34d837cc3aeb2bb77">00076</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad549dc9d6ed748d34d837cc3aeb2bb77">CharState_SneakRight</a>,
-<a name="l00077"></a>00077 
-<a name="l00078"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7986e28e47b4a5a7031a2bef39645b41">00078</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7986e28e47b4a5a7031a2bef39645b41">CharState_TurnLeft</a>,
-<a name="l00079"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa11b438477566354696421b1b24527652">00079</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa11b438477566354696421b1b24527652">CharState_TurnRight</a>,
-<a name="l00080"></a>00080 
-<a name="l00081"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa25826e39ff6799da1e0aad7d3091d3bc">00081</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa25826e39ff6799da1e0aad7d3091d3bc">CharState_Jump</a>,
+<a name="l00034"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a0a1a0d1a53f37b093d6c524ab0f5a778">00034</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a0a1a0d1a53f37b093d6c524ab0f5a778">Priority_Death</a>,
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a6dff10b2570328dba6a4cf5370b63973">00036</a>     <a class="code" href="namespaceMWMechanics.html#aa16e6fcd56aed1002789283fc826eae1a6dff10b2570328dba6a4cf5370b63973">Num_Priorities</a>
+<a name="l00037"></a>00037 };
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">00039</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> {
+<a name="l00040"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaacc15271c8330051c269c658c84dee33">00040</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaacc15271c8330051c269c658c84dee33">CharState_None</a>,
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5582d1e58f3437743267501fe68723ec">00042</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5582d1e58f3437743267501fe68723ec">CharState_SpecialIdle</a>,
+<a name="l00043"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7db294ab19f3e3ac2141809183308624">00043</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7db294ab19f3e3ac2141809183308624">CharState_Idle</a>,
+<a name="l00044"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfab2a1015881f06c02377177bb91b94449">00044</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfab2a1015881f06c02377177bb91b94449">CharState_Idle2</a>,
+<a name="l00045"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa606af7d677a6f8a5eb5ee97977f80cf7">00045</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa606af7d677a6f8a5eb5ee97977f80cf7">CharState_Idle3</a>,
+<a name="l00046"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad37ccd2b2b34ada2b0c93d24901e775c">00046</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad37ccd2b2b34ada2b0c93d24901e775c">CharState_Idle4</a>,
+<a name="l00047"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff8e377773bf756b34b55b66d2082e">00047</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff8e377773bf756b34b55b66d2082e">CharState_Idle5</a>,
+<a name="l00048"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3cabc3f48a77c6c6e58b568f052cdd90">00048</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3cabc3f48a77c6c6e58b568f052cdd90">CharState_Idle6</a>,
+<a name="l00049"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8c232faeca69a559acbca0fde63933fd">00049</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8c232faeca69a559acbca0fde63933fd">CharState_Idle7</a>,
+<a name="l00050"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7f5066abdcead27ffafa05be3e34970b">00050</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7f5066abdcead27ffafa05be3e34970b">CharState_Idle8</a>,
+<a name="l00051"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad91521f89fc10085a057962f585ee1f9">00051</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad91521f89fc10085a057962f585ee1f9">CharState_Idle9</a>,
+<a name="l00052"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3597f0c8f7b7b3ba113dd39f2d0330d8">00052</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3597f0c8f7b7b3ba113dd39f2d0330d8">CharState_IdleSwim</a>,
+<a name="l00053"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3ab5193e5d8cff80eef605e678e1dc38">00053</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3ab5193e5d8cff80eef605e678e1dc38">CharState_IdleSneak</a>,
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa09b7b91ad02a7fb17f9dcb9376af407d">00055</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa09b7b91ad02a7fb17f9dcb9376af407d">CharState_WalkForward</a>,
+<a name="l00056"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadbf6b157fb2bcc7ad49d0c9cb7787bc6">00056</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadbf6b157fb2bcc7ad49d0c9cb7787bc6">CharState_WalkBack</a>,
+<a name="l00057"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa24039aff759bf702505f6b5ff5935f1f">00057</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa24039aff759bf702505f6b5ff5935f1f">CharState_WalkLeft</a>,
+<a name="l00058"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa4aa729563d6240a738a19b10ed307d83">00058</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa4aa729563d6240a738a19b10ed307d83">CharState_WalkRight</a>,
+<a name="l00059"></a>00059 
+<a name="l00060"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa806354b5ce1207e25f2825646505793c">00060</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa806354b5ce1207e25f2825646505793c">CharState_SwimWalkForward</a>,
+<a name="l00061"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa2bcf591a3d699c1079ded7f4a2041f1b">00061</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa2bcf591a3d699c1079ded7f4a2041f1b">CharState_SwimWalkBack</a>,
+<a name="l00062"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa56e41e753987e7709433daca7583afd5">00062</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa56e41e753987e7709433daca7583afd5">CharState_SwimWalkLeft</a>,
+<a name="l00063"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa534dd16fb96278dadbd7c679699ff5e1">00063</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa534dd16fb96278dadbd7c679699ff5e1">CharState_SwimWalkRight</a>,
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8e8155ca7828d77bc0492d1e2ee10c5e">00065</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8e8155ca7828d77bc0492d1e2ee10c5e">CharState_RunForward</a>,
+<a name="l00066"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa68eed6a1ec00e40dcefb7b8cd0799542">00066</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa68eed6a1ec00e40dcefb7b8cd0799542">CharState_RunBack</a>,
+<a name="l00067"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa96d432b09e9a19ca6010825c45e63728">00067</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa96d432b09e9a19ca6010825c45e63728">CharState_RunLeft</a>,
+<a name="l00068"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff3d2c37fe6cc299192870c3dfc788">00068</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa78ff3d2c37fe6cc299192870c3dfc788">CharState_RunRight</a>,
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfae5a93a6b99dd5810c2e5e795269a10ac">00070</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfae5a93a6b99dd5810c2e5e795269a10ac">CharState_SwimRunForward</a>,
+<a name="l00071"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8280c89311edc89bd674b15b6d27b7c0">00071</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa8280c89311edc89bd674b15b6d27b7c0">CharState_SwimRunBack</a>,
+<a name="l00072"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa660baf6ebfc63909737a244be6936927">00072</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa660baf6ebfc63909737a244be6936927">CharState_SwimRunLeft</a>,
+<a name="l00073"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadae4982399c1d79981c57e0134b40611">00073</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfadae4982399c1d79981c57e0134b40611">CharState_SwimRunRight</a>,
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa00f9af92733be31c0c605dda06d735e7">00075</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa00f9af92733be31c0c605dda06d735e7">CharState_SneakForward</a>,
+<a name="l00076"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaaa8a1aeb891ba186d5380577a3541588">00076</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaaa8a1aeb891ba186d5380577a3541588">CharState_SneakBack</a>,
+<a name="l00077"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa9eb35883724c3385175cfcfe314c6e0a">00077</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa9eb35883724c3385175cfcfe314c6e0a">CharState_SneakLeft</a>,
+<a name="l00078"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad549dc9d6ed748d34d837cc3aeb2bb77">00078</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfad549dc9d6ed748d34d837cc3aeb2bb77">CharState_SneakRight</a>,
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7986e28e47b4a5a7031a2bef39645b41">00080</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa7986e28e47b4a5a7031a2bef39645b41">CharState_TurnLeft</a>,
+<a name="l00081"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa11b438477566354696421b1b24527652">00081</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa11b438477566354696421b1b24527652">CharState_TurnRight</a>,
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaf6fb75edfa2f7c6dbf26ede9826a450d">00083</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaf6fb75edfa2f7c6dbf26ede9826a450d">CharState_Death1</a>,
-<a name="l00084"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa64535499374142cb33e535cd7b8b971d">00084</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa64535499374142cb33e535cd7b8b971d">CharState_Death2</a>,
-<a name="l00085"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfacf9e8209c030243768a3eea57eb1aeda">00085</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfacf9e8209c030243768a3eea57eb1aeda">CharState_Death3</a>,
-<a name="l00086"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5f3b573ebf864126222c90b86773a260">00086</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5f3b573ebf864126222c90b86773a260">CharState_Death4</a>,
-<a name="l00087"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3fab4aec7684259cf76f2533a14c97f4">00087</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3fab4aec7684259cf76f2533a14c97f4">CharState_Death5</a>,
-<a name="l00088"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaa0d5813b4031f77a64786b5519a28db0">00088</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaa0d5813b4031f77a64786b5519a28db0">CharState_SwimDeath</a>
-<a name="l00089"></a>00089 };
-<a name="l00090"></a>00090 
-<a name="l00091"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">00091</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> {
-<a name="l00092"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cab8d7f14662e398df398192dcb08fdafc">00092</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cab8d7f14662e398df398192dcb08fdafc">WeapType_None</a>,
-<a name="l00093"></a>00093 
-<a name="l00094"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8bb1fff5fc465d59e9bae143908ea154">00094</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8bb1fff5fc465d59e9bae143908ea154">WeapType_HandToHand</a>,
-<a name="l00095"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8311f78f8de0b5d24edd2ffc1d748571">00095</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8311f78f8de0b5d24edd2ffc1d748571">WeapType_OneHand</a>,
-<a name="l00096"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caa82013c648843ad36bcfa84c27ea6038">00096</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caa82013c648843ad36bcfa84c27ea6038">WeapType_TwoHand</a>,
-<a name="l00097"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cafe4b5f8b5b31f938997efad02ce402a9">00097</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cafe4b5f8b5b31f938997efad02ce402a9">WeapType_TwoWide</a>,
-<a name="l00098"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca4b2330321d44fa76d9c9efa34b2e4480">00098</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca4b2330321d44fa76d9c9efa34b2e4480">WeapType_BowAndArrow</a>,
-<a name="l00099"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caf6298aa51579bd815f40d6115db599f0">00099</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caf6298aa51579bd815f40d6115db599f0">WeapType_Crossbow</a>,
-<a name="l00100"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca99114ffecab589a0bbb3587ec04bb21a">00100</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca99114ffecab589a0bbb3587ec04bb21a">WeapType_ThowWeapon</a>,
-<a name="l00101"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca77b74124420633c747bca4dff1462712">00101</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca77b74124420633c747bca4dff1462712">WeapType_PickProbe</a>,
-<a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca47f5e6fa8c5e200602971b7a74f62add">00103</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca47f5e6fa8c5e200602971b7a74f62add">WeapType_Spell</a>
-<a name="l00104"></a>00104 };
-<a name="l00105"></a>00105 
-<a name="l00106"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">00106</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">UpperBodyCharacterState</a> {
-<a name="l00107"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a5b39e03b17882f465c5e1dfc8e61a58e">00107</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a5b39e03b17882f465c5e1dfc8e61a58e">UpperCharState_Nothing</a>,
-<a name="l00108"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836aa5ab50d8d85e25a05e73d60c0187c451">00108</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836aa5ab50d8d85e25a05e73d60c0187c451">UpperCharState_EquipingWeap</a>,
-<a name="l00109"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a43f39cb629af633baf0351e8b6c0f2c2">00109</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a43f39cb629af633baf0351e8b6c0f2c2">UpperCharState_UnEquipingWeap</a>,
-<a name="l00110"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a81e855fe1bf3bf270f2c9300f7e017c6">00110</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a81e855fe1bf3bf270f2c9300f7e017c6">UpperCharState_WeapEquiped</a>,
-<a name="l00111"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836ad19682f026d4c3ddede107f3728b0e8d">00111</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836ad19682f026d4c3ddede107f3728b0e8d">UpperCharState_StartToMinAttack</a>,
-<a name="l00112"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836af6a0c23afcbd3ba1871d0da3635bf335">00112</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836af6a0c23afcbd3ba1871d0da3635bf335">UpperCharState_MinAttackToMaxAttack</a>,
-<a name="l00113"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a40078f019138c99f1dbcb7c01bd85e87">00113</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a40078f019138c99f1dbcb7c01bd85e87">UpperCharState_MaxAttackToMinHit</a>,
-<a name="l00114"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a2d2a858ef725dae59f182b9ced92b9ad">00114</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a2d2a858ef725dae59f182b9ced92b9ad">UpperCharState_MinHitToHit</a>,
-<a name="l00115"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a0be98d910b47a6f1e29f9ad9572d3f82">00115</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a0be98d910b47a6f1e29f9ad9572d3f82">UpperCharState_FollowStartToFollowStop</a>,
-<a name="l00116"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a063bcb2c4da60bcdf33719e585d4628c">00116</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a063bcb2c4da60bcdf33719e585d4628c">UpperCharState_CastingSpell</a>
-<a name="l00117"></a>00117 };
-<a name="l00118"></a>00118 
-<a name="l00119"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">00119</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">JumpingState</a> {
-<a name="l00120"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aaa1c4fc65a6e6c03f3e2af715dec10e02">00120</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aaa1c4fc65a6e6c03f3e2af715dec10e02">JumpState_None</a>,
-<a name="l00121"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa89c90c612d511f64c9cd08d3c44ee089">00121</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa89c90c612d511f64c9cd08d3c44ee089">JumpState_Falling</a>,
-<a name="l00122"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa350e1d704fcab56fd08347e14101e92a">00122</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa350e1d704fcab56fd08347e14101e92a">JumpState_Landing</a>
-<a name="l00123"></a>00123 };
-<a name="l00124"></a>00124 
-<a name="l00125"></a><a class="code" href="classMWMechanics_1_1CharacterController.html">00125</a> <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1CharacterController.html">CharacterController</a>
-<a name="l00126"></a>00126 {
-<a name="l00127"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a06f27205e1ec6e542c9992fd900fbaf2">00127</a>     <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a06f27205e1ec6e542c9992fd900fbaf2">mPtr</a>;
-<a name="l00128"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ac95b54133aa08aac08145db7954774c2">00128</a>     <a class="code" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *<a class="code" href="classMWMechanics_1_1CharacterController.html#ac95b54133aa08aac08145db7954774c2">mAnimation</a>;
-<a name="l00129"></a>00129 
-<a name="l00130"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a61963bca18b83cfac7d4c974e08423c2">00130</a>     <span class="keyword">typedef</span> std::deque&lt;std::pair&lt;std::string,size_t&gt; &gt; <a class="code" href="classMWMechanics_1_1CharacterController.html#a61963bca18b83cfac7d4c974e08423c2">AnimationQueue</a>;
-<a name="l00131"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a11e1ba21f0c7b1ec9996a4fc61d9ccb2">00131</a>     <a class="code" href="classMWMechanics_1_1CharacterController.html#a61963bca18b83cfac7d4c974e08423c2">AnimationQueue</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a11e1ba21f0c7b1ec9996a4fc61d9ccb2">mAnimQueue</a>;
-<a name="l00132"></a>00132 
-<a name="l00133"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ad217267c98049cd61abbcca0f015debc">00133</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#ad217267c98049cd61abbcca0f015debc">mIdleState</a>;
-<a name="l00134"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ac55dc8dfdc74c58e69a99c342ee853c4">00134</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#ac55dc8dfdc74c58e69a99c342ee853c4">mCurrentIdle</a>;
-<a name="l00135"></a>00135 
-<a name="l00136"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a10c1ead1e2e70c9779aa4505a29dd5f5">00136</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a10c1ead1e2e70c9779aa4505a29dd5f5">mMovementState</a>;
-<a name="l00137"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a3508b04365f74b3f73c82d174fec7260">00137</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#a3508b04365f74b3f73c82d174fec7260">mCurrentMovement</a>;
-<a name="l00138"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a5e5880ae5fab5f4021b4a3254bd7d304">00138</a>     <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a5e5880ae5fab5f4021b4a3254bd7d304">mMovementSpeed</a>;
-<a name="l00139"></a>00139 
-<a name="l00140"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">00140</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">mDeathState</a>;
-<a name="l00141"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#af5505ec96fbccbb8d2d855343dd37542">00141</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#af5505ec96fbccbb8d2d855343dd37542">mCurrentDeath</a>;
-<a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a8a97551a137f984549a3063bd155cc87">00143</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">UpperBodyCharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a8a97551a137f984549a3063bd155cc87">mUpperBodyState</a>;
+<a name="l00083"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa25826e39ff6799da1e0aad7d3091d3bc">00083</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa25826e39ff6799da1e0aad7d3091d3bc">CharState_Jump</a>,
+<a name="l00084"></a>00084 
+<a name="l00085"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaf6fb75edfa2f7c6dbf26ede9826a450d">00085</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaf6fb75edfa2f7c6dbf26ede9826a450d">CharState_Death1</a>,
+<a name="l00086"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa64535499374142cb33e535cd7b8b971d">00086</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa64535499374142cb33e535cd7b8b971d">CharState_Death2</a>,
+<a name="l00087"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfacf9e8209c030243768a3eea57eb1aeda">00087</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfacf9e8209c030243768a3eea57eb1aeda">CharState_Death3</a>,
+<a name="l00088"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5f3b573ebf864126222c90b86773a260">00088</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa5f3b573ebf864126222c90b86773a260">CharState_Death4</a>,
+<a name="l00089"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3fab4aec7684259cf76f2533a14c97f4">00089</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfa3fab4aec7684259cf76f2533a14c97f4">CharState_Death5</a>,
+<a name="l00090"></a><a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaa0d5813b4031f77a64786b5519a28db0">00090</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaa0d5813b4031f77a64786b5519a28db0">CharState_SwimDeath</a>
+<a name="l00091"></a>00091 };
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">00093</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> {
+<a name="l00094"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cab8d7f14662e398df398192dcb08fdafc">00094</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cab8d7f14662e398df398192dcb08fdafc">WeapType_None</a>,
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8bb1fff5fc465d59e9bae143908ea154">00096</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8bb1fff5fc465d59e9bae143908ea154">WeapType_HandToHand</a>,
+<a name="l00097"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8311f78f8de0b5d24edd2ffc1d748571">00097</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca8311f78f8de0b5d24edd2ffc1d748571">WeapType_OneHand</a>,
+<a name="l00098"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caa82013c648843ad36bcfa84c27ea6038">00098</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caa82013c648843ad36bcfa84c27ea6038">WeapType_TwoHand</a>,
+<a name="l00099"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cafe4b5f8b5b31f938997efad02ce402a9">00099</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8cafe4b5f8b5b31f938997efad02ce402a9">WeapType_TwoWide</a>,
+<a name="l00100"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca4b2330321d44fa76d9c9efa34b2e4480">00100</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca4b2330321d44fa76d9c9efa34b2e4480">WeapType_BowAndArrow</a>,
+<a name="l00101"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caf6298aa51579bd815f40d6115db599f0">00101</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8caf6298aa51579bd815f40d6115db599f0">WeapType_Crossbow</a>,
+<a name="l00102"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca99114ffecab589a0bbb3587ec04bb21a">00102</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca99114ffecab589a0bbb3587ec04bb21a">WeapType_ThowWeapon</a>,
+<a name="l00103"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca77b74124420633c747bca4dff1462712">00103</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca77b74124420633c747bca4dff1462712">WeapType_PickProbe</a>,
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca47f5e6fa8c5e200602971b7a74f62add">00105</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8ca47f5e6fa8c5e200602971b7a74f62add">WeapType_Spell</a>
+<a name="l00106"></a>00106 };
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">00108</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">UpperBodyCharacterState</a> {
+<a name="l00109"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a5b39e03b17882f465c5e1dfc8e61a58e">00109</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a5b39e03b17882f465c5e1dfc8e61a58e">UpperCharState_Nothing</a>,
+<a name="l00110"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836aa5ab50d8d85e25a05e73d60c0187c451">00110</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836aa5ab50d8d85e25a05e73d60c0187c451">UpperCharState_EquipingWeap</a>,
+<a name="l00111"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a43f39cb629af633baf0351e8b6c0f2c2">00111</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a43f39cb629af633baf0351e8b6c0f2c2">UpperCharState_UnEquipingWeap</a>,
+<a name="l00112"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a81e855fe1bf3bf270f2c9300f7e017c6">00112</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a81e855fe1bf3bf270f2c9300f7e017c6">UpperCharState_WeapEquiped</a>,
+<a name="l00113"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836ad19682f026d4c3ddede107f3728b0e8d">00113</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836ad19682f026d4c3ddede107f3728b0e8d">UpperCharState_StartToMinAttack</a>,
+<a name="l00114"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836af6a0c23afcbd3ba1871d0da3635bf335">00114</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836af6a0c23afcbd3ba1871d0da3635bf335">UpperCharState_MinAttackToMaxAttack</a>,
+<a name="l00115"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a40078f019138c99f1dbcb7c01bd85e87">00115</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a40078f019138c99f1dbcb7c01bd85e87">UpperCharState_MaxAttackToMinHit</a>,
+<a name="l00116"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a2d2a858ef725dae59f182b9ced92b9ad">00116</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a2d2a858ef725dae59f182b9ced92b9ad">UpperCharState_MinHitToHit</a>,
+<a name="l00117"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a0be98d910b47a6f1e29f9ad9572d3f82">00117</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a0be98d910b47a6f1e29f9ad9572d3f82">UpperCharState_FollowStartToFollowStop</a>,
+<a name="l00118"></a><a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a063bcb2c4da60bcdf33719e585d4628c">00118</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836a063bcb2c4da60bcdf33719e585d4628c">UpperCharState_CastingSpell</a>
+<a name="l00119"></a>00119 };
+<a name="l00120"></a>00120 
+<a name="l00121"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">00121</a> <span class="keyword">enum</span> <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">JumpingState</a> {
+<a name="l00122"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aaa1c4fc65a6e6c03f3e2af715dec10e02">00122</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aaa1c4fc65a6e6c03f3e2af715dec10e02">JumpState_None</a>,
+<a name="l00123"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa89c90c612d511f64c9cd08d3c44ee089">00123</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa89c90c612d511f64c9cd08d3c44ee089">JumpState_Falling</a>,
+<a name="l00124"></a><a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa350e1d704fcab56fd08347e14101e92a">00124</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03aa350e1d704fcab56fd08347e14101e92a">JumpState_Landing</a>
+<a name="l00125"></a>00125 };
+<a name="l00126"></a>00126 
+<a name="l00127"></a><a class="code" href="classMWMechanics_1_1CharacterController.html">00127</a> <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1CharacterController.html">CharacterController</a>
+<a name="l00128"></a>00128 {
+<a name="l00129"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a06f27205e1ec6e542c9992fd900fbaf2">00129</a>     <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a06f27205e1ec6e542c9992fd900fbaf2">mPtr</a>;
+<a name="l00130"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ac95b54133aa08aac08145db7954774c2">00130</a>     <a class="code" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *<a class="code" href="classMWMechanics_1_1CharacterController.html#ac95b54133aa08aac08145db7954774c2">mAnimation</a>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a61963bca18b83cfac7d4c974e08423c2">00132</a>     <span class="keyword">typedef</span> std::deque&lt;std::pair&lt;std::string,size_t&gt; &gt; <a class="code" href="classMWMechanics_1_1CharacterController.html#a61963bca18b83cfac7d4c974e08423c2">AnimationQueue</a>;
+<a name="l00133"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a11e1ba21f0c7b1ec9996a4fc61d9ccb2">00133</a>     <a class="code" href="classMWMechanics_1_1CharacterController.html#a61963bca18b83cfac7d4c974e08423c2">AnimationQueue</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a11e1ba21f0c7b1ec9996a4fc61d9ccb2">mAnimQueue</a>;
+<a name="l00134"></a>00134 
+<a name="l00135"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ad217267c98049cd61abbcca0f015debc">00135</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#ad217267c98049cd61abbcca0f015debc">mIdleState</a>;
+<a name="l00136"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ac55dc8dfdc74c58e69a99c342ee853c4">00136</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#ac55dc8dfdc74c58e69a99c342ee853c4">mCurrentIdle</a>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a10c1ead1e2e70c9779aa4505a29dd5f5">00138</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a10c1ead1e2e70c9779aa4505a29dd5f5">mMovementState</a>;
+<a name="l00139"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a3508b04365f74b3f73c82d174fec7260">00139</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#a3508b04365f74b3f73c82d174fec7260">mCurrentMovement</a>;
+<a name="l00140"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a5e5880ae5fab5f4021b4a3254bd7d304">00140</a>     <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a5e5880ae5fab5f4021b4a3254bd7d304">mMovementSpeed</a>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">00142</a>     <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">mDeathState</a>;
+<a name="l00143"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#af5505ec96fbccbb8d2d855343dd37542">00143</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#af5505ec96fbccbb8d2d855343dd37542">mCurrentDeath</a>;
 <a name="l00144"></a>00144 
-<a name="l00145"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a57ccaa5730d4dc6c700758c8ca0f5014">00145</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">JumpingState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a57ccaa5730d4dc6c700758c8ca0f5014">mJumpState</a>;
-<a name="l00146"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#aec061a168d25eaa882c70cf6c36438cf">00146</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#aec061a168d25eaa882c70cf6c36438cf">mCurrentJump</a>;
-<a name="l00147"></a>00147 
-<a name="l00148"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ad0b684a57683541ccaae7f543be527aa">00148</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#ad0b684a57683541ccaae7f543be527aa">mWeaponType</a>;
-<a name="l00149"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a265aa644145da9920e15e6c399b1faaf">00149</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#a265aa644145da9920e15e6c399b1faaf">mCurrentWeapon</a>;
-<a name="l00150"></a>00150 
-<a name="l00151"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a28e6ec77f2c7b090511e0471fbdb3410">00151</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a28e6ec77f2c7b090511e0471fbdb3410">mSkipAnim</a>;
+<a name="l00145"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a8a97551a137f984549a3063bd155cc87">00145</a>     <a class="code" href="namespaceMWMechanics.html#a761583c6581467a6d955ef16cdc53836">UpperBodyCharacterState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a8a97551a137f984549a3063bd155cc87">mUpperBodyState</a>;
+<a name="l00146"></a>00146 
+<a name="l00147"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a57ccaa5730d4dc6c700758c8ca0f5014">00147</a>     <a class="code" href="namespaceMWMechanics.html#a06a35c35906f652df1a627f72867e03a">JumpingState</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a57ccaa5730d4dc6c700758c8ca0f5014">mJumpState</a>;
+<a name="l00148"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#aec061a168d25eaa882c70cf6c36438cf">00148</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#aec061a168d25eaa882c70cf6c36438cf">mCurrentJump</a>;
+<a name="l00149"></a>00149 
+<a name="l00150"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#ad0b684a57683541ccaae7f543be527aa">00150</a>     <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#ad0b684a57683541ccaae7f543be527aa">mWeaponType</a>;
+<a name="l00151"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a265aa644145da9920e15e6c399b1faaf">00151</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#a265aa644145da9920e15e6c399b1faaf">mCurrentWeapon</a>;
 <a name="l00152"></a>00152 
-<a name="l00153"></a>00153     <span class="comment">// counted for skill increase</span>
-<a name="l00154"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a29d99575d2545cccd6857bd0c2017e33">00154</a>     <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a29d99575d2545cccd6857bd0c2017e33">mSecondsOfSwimming</a>;
-<a name="l00155"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a39feb875b9454a91284ab7a8ef9565fc">00155</a>     <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a39feb875b9454a91284ab7a8ef9565fc">mSecondsOfRunning</a>;
-<a name="l00156"></a>00156 
-<a name="l00157"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#aa7668c41c7863f574aba47fb0103828e">00157</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#aa7668c41c7863f574aba47fb0103828e">mAttackType</a>; <span class="comment">// slash, chop or thrust</span>
+<a name="l00153"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a28e6ec77f2c7b090511e0471fbdb3410">00153</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a28e6ec77f2c7b090511e0471fbdb3410">mSkipAnim</a>;
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155     <span class="comment">// counted for skill increase</span>
+<a name="l00156"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a29d99575d2545cccd6857bd0c2017e33">00156</a>     <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a29d99575d2545cccd6857bd0c2017e33">mSecondsOfSwimming</a>;
+<a name="l00157"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a39feb875b9454a91284ab7a8ef9565fc">00157</a>     <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a39feb875b9454a91284ab7a8ef9565fc">mSecondsOfRunning</a>;
 <a name="l00158"></a>00158 
-<a name="l00159"></a>00159     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a28038331bfd7c6c4ad2ff0de17ca08fa">refreshCurrentAnims</a>(<a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> idle, <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> movement, <span class="keywordtype">bool</span> force=<span class="keyword">false</span>);
+<a name="l00159"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#aa7668c41c7863f574aba47fb0103828e">00159</a>     std::string <a class="code" href="classMWMechanics_1_1CharacterController.html#aa7668c41c7863f574aba47fb0103828e">mAttackType</a>; <span class="comment">// slash, chop or thrust</span>
 <a name="l00160"></a>00160 
-<a name="l00161"></a>00161     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a27712928efe32e13b1162bf45ffe9fb0">getWeaponGroup</a>(<a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> weaptype, std::string &amp;group);
+<a name="l00161"></a>00161     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a28038331bfd7c6c4ad2ff0de17ca08fa">refreshCurrentAnims</a>(<a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> idle, <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdf">CharacterState</a> movement, <span class="keywordtype">bool</span> force=<span class="keyword">false</span>);
 <a name="l00162"></a>00162 
-<a name="l00163"></a>00163     <span class="keyword">static</span> <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a898844779d526a4a9505558c7b823771">getActiveWeapon</a>(<a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a> &amp;stats,
-<a name="l00164"></a>00164                                                            <a class="code" href="classMWWorld_1_1InventoryStore.html" title="&lt;">MWWorld::InventoryStore</a> &amp;inv,
-<a name="l00165"></a>00165                                                            <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> *weaptype);
-<a name="l00166"></a>00166 
-<a name="l00167"></a>00167     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a91cf734388359775935c4f22fdbd05fc">clearAnimQueue</a>();
+<a name="l00163"></a>00163     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a27712928efe32e13b1162bf45ffe9fb0">getWeaponGroup</a>(<a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> weaptype, std::string &amp;group);
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165     <span class="keyword">static</span> <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWMechanics_1_1CharacterController.html#a898844779d526a4a9505558c7b823771">getActiveWeapon</a>(<a class="code" href="classMWMechanics_1_1NpcStats.html" title="Additional stats for NPCs.">NpcStats</a> &amp;stats,
+<a name="l00166"></a>00166                                                            <a class="code" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;inv,
+<a name="l00167"></a>00167                                                            <a class="code" href="namespaceMWMechanics.html#a3d4a6ff637e01395b1ef553477c10e8c">WeaponType</a> *weaptype);
 <a name="l00168"></a>00168 
-<a name="l00169"></a>00169     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a9d70c739fe29d69211838c900c3ea093">updateNpcState</a>(<span class="keywordtype">bool</span> onground, <span class="keywordtype">bool</span> inwater, <span class="keywordtype">bool</span> isrunning, <span class="keywordtype">bool</span> sneak);
+<a name="l00169"></a>00169     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a91cf734388359775935c4f22fdbd05fc">clearAnimQueue</a>();
 <a name="l00170"></a>00170 
-<a name="l00171"></a>00171 <span class="keyword">public</span>:
-<a name="l00172"></a>00172     <a class="code" href="classMWMechanics_1_1CharacterController.html#a47540403fbd9f18bbe047cff2c5a3c5f">CharacterController</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, <a class="code" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *anim);
-<a name="l00173"></a>00173     <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#acc6c60fe20492ef8140e4ec5bbfb4352">~CharacterController</a>();
+<a name="l00171"></a>00171     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a9d70c739fe29d69211838c900c3ea093">updateNpcState</a>(<span class="keywordtype">bool</span> onground, <span class="keywordtype">bool</span> inwater, <span class="keywordtype">bool</span> isrunning, <span class="keywordtype">bool</span> sneak);
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#abbefe2ba2ed948e58f201d176250ec10">updateVisibility</a>();
 <a name="l00174"></a>00174 
-<a name="l00175"></a>00175     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a6b933f11409386f17c20a93a90329a1c">updatePtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00176"></a>00176 
-<a name="l00177"></a>00177     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a1aa04b41faf6c46eef9310e36e405be5">update</a>(<span class="keywordtype">float</span> duration);
+<a name="l00175"></a>00175 <span class="keyword">public</span>:
+<a name="l00176"></a>00176     <a class="code" href="classMWMechanics_1_1CharacterController.html#a47540403fbd9f18bbe047cff2c5a3c5f">CharacterController</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, <a class="code" href="classMWRender_1_1Animation.html">MWRender::Animation</a> *anim);
+<a name="l00177"></a>00177     <span class="keyword">virtual</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#acc6c60fe20492ef8140e4ec5bbfb4352">~CharacterController</a>();
 <a name="l00178"></a>00178 
-<a name="l00179"></a>00179     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a6b53ec163a6c7209bc7caad5313744ae">playGroup</a>(<span class="keyword">const</span> std::string &amp;groupname, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
-<a name="l00180"></a>00180     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#afb0d7242b8f1bd7ebd5185cd30855358">skipAnim</a>();
-<a name="l00181"></a>00181     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a11a69e83f382cb057369e705f9c0782f">isAnimPlaying</a>(<span class="keyword">const</span> std::string &amp;groupName);
-<a name="l00182"></a>00182 
-<a name="l00183"></a>00183     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a3794eeec7639fcfbab90ebc12d0503d9">kill</a>();
-<a name="l00184"></a>00184     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#aaa99d12ebe213f98bab349428e383f9a">resurrect</a>();
-<a name="l00185"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a4a74419dd23fe5c8cf3575468a357a4b">00185</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a4a74419dd23fe5c8cf3575468a357a4b">isDead</a>()<span class="keyword"> const</span>
-<a name="l00186"></a>00186 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">mDeathState</a> != <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaacc15271c8330051c269c658c84dee33">CharState_None</a>; }
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a81f372cb6cf17fe5b2e49a1d00a99114">forceStateUpdate</a>();
-<a name="l00189"></a>00189 };
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191 }
-<a name="l00192"></a>00192 
-<a name="l00193"></a>00193 <span class="preprocessor">#endif </span><span class="comment">/* GAME_MWMECHANICS_CHARACTER_HPP */</span>
+<a name="l00179"></a>00179     <span class="comment">// Be careful when to call this, see comment in Actors</span>
+<a name="l00180"></a>00180     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#adba483bc487443fdd94ba53bad66b4c1">updateContinuousVfx</a>();
+<a name="l00181"></a>00181 
+<a name="l00182"></a>00182     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a6b933f11409386f17c20a93a90329a1c">updatePtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a1aa04b41faf6c46eef9310e36e405be5">update</a>(<span class="keywordtype">float</span> duration);
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a6b53ec163a6c7209bc7caad5313744ae">playGroup</a>(<span class="keyword">const</span> std::string &amp;groupname, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> count);
+<a name="l00187"></a>00187     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#afb0d7242b8f1bd7ebd5185cd30855358">skipAnim</a>();
+<a name="l00188"></a>00188     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a11a69e83f382cb057369e705f9c0782f">isAnimPlaying</a>(<span class="keyword">const</span> std::string &amp;groupName);
+<a name="l00189"></a>00189 
+<a name="l00190"></a>00190     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a3794eeec7639fcfbab90ebc12d0503d9">kill</a>();
+<a name="l00191"></a>00191     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#aaa99d12ebe213f98bab349428e383f9a">resurrect</a>();
+<a name="l00192"></a><a class="code" href="classMWMechanics_1_1CharacterController.html#a4a74419dd23fe5c8cf3575468a357a4b">00192</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a4a74419dd23fe5c8cf3575468a357a4b">isDead</a>()<span class="keyword"> const</span>
+<a name="l00193"></a>00193 <span class="keyword">    </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a76c93ae2899020a8c24422c5bb295bb6">mDeathState</a> != <a class="code" href="namespaceMWMechanics.html#a54e1ad33c1470a6e30130e34c09e8fdfaacc15271c8330051c269c658c84dee33">CharState_None</a>; }
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195     <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1CharacterController.html#a81f372cb6cf17fe5b2e49a1d00a99114">forceStateUpdate</a>();
+<a name="l00196"></a>00196 };
+<a name="l00197"></a>00197 
+<a name="l00198"></a>00198 }
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200 <span class="preprocessor">#endif </span><span class="comment">/* GAME_MWMECHANICS_CHARACTER_HPP */</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

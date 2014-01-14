@@ -74,100 +74,108 @@
 <a name="l00013"></a>00013 
 <a name="l00014"></a><a class="code" href="classESM_1_1ESMWriter.html">00014</a> <span class="keyword">class </span><a class="code" href="classESM_1_1ESMWriter.html">ESMWriter</a>
 <a name="l00015"></a>00015 {
-<a name="l00016"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html">00016</a>     <span class="keyword">struct </span><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html">RecordData</a>
-<a name="l00017"></a>00017     {
-<a name="l00018"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a1daf99a2663182b2eee410f433a26d9a">00018</a>         std::string <a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a1daf99a2663182b2eee410f433a26d9a">name</a>;
-<a name="l00019"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#adee4f463be19c1fae7cdf67fa57de34b">00019</a>         std::streampos <a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#adee4f463be19c1fae7cdf67fa57de34b">position</a>;
-<a name="l00020"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a60d5b5caa99bfc40735c9d63d5bf180a">00020</a>         <span class="keywordtype">size_t</span> <a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a60d5b5caa99bfc40735c9d63d5bf180a">size</a>;
-<a name="l00021"></a>00021     };
+<a name="l00016"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html">00016</a>         <span class="keyword">struct </span><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html">RecordData</a>
+<a name="l00017"></a>00017         {
+<a name="l00018"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a1daf99a2663182b2eee410f433a26d9a">00018</a>             std::string <a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a1daf99a2663182b2eee410f433a26d9a">name</a>;
+<a name="l00019"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#adee4f463be19c1fae7cdf67fa57de34b">00019</a>             std::streampos <a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#adee4f463be19c1fae7cdf67fa57de34b">position</a>;
+<a name="l00020"></a><a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a60d5b5caa99bfc40735c9d63d5bf180a">00020</a>             <span class="keywordtype">size_t</span> <a class="code" href="structESM_1_1ESMWriter_1_1RecordData.html#a60d5b5caa99bfc40735c9d63d5bf180a">size</a>;
+<a name="l00021"></a>00021         };
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">public</span>:
-<a name="l00024"></a>00024     <span class="keywordtype">int</span> <a class="code" href="classESM_1_1ESMWriter.html#aed042152ff733665863e6b59e867566a">getVersion</a>();
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae586079632bd6b93f1cbd44e94527336">setVersion</a>(<span class="keywordtype">int</span> ver);
-<a name="l00026"></a>00026     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ac324dac2b05a35cdf94aec3083739dbe">setEncoder</a>(<a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a> *encoding); <span class="comment">// Write strings as UTF-8?</span>
-<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a6cbe8b27a8bfe80c0bb52e1249bbd59b">setAuthor</a>(<span class="keyword">const</span> std::string&amp; author);
-<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a08b58c06c190a50c8d39d61d5e4c36ec">setDescription</a>(<span class="keyword">const</span> std::string&amp; desc);
-<a name="l00029"></a>00029     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a08d612ba9876b0e32aa871994533f05c">setRecordCount</a> (<span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a5061957aadd7bca9b9bf23271667536b">setFormat</a> (<span class="keywordtype">int</span> format);
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ac99686de1c9e1d4ff1c093b6c5bb476d">addMaster</a>(<span class="keyword">const</span> std::string&amp; name, uint64_t size);
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae07d6292650ebb0f7e7e87d5d723037d">save</a>(<span class="keyword">const</span> std::string&amp; file);
-<a name="l00035"></a>00035     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae07d6292650ebb0f7e7e87d5d723037d">save</a>(std::ostream&amp; file);
-<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a173ea890cf4aa194979390d0b5c09670">close</a>();
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a22f1e180882cca15b613dba10a298def">writeHNString</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; data);
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a22f1e180882cca15b613dba10a298def">writeHNString</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; data, <span class="keywordtype">size_t</span> size);
-<a name="l00040"></a><a class="code" href="classESM_1_1ESMWriter.html#a66bf14cbe79c86eff2e2877a19d845bb">00040</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a66bf14cbe79c86eff2e2877a19d845bb">writeHNCString</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; data)
-<a name="l00041"></a>00041     {
-<a name="l00042"></a>00042         <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(name);
-<a name="l00043"></a>00043         <a class="code" href="classESM_1_1ESMWriter.html#a75bea151d1597b7633d0e90da7f166e3">writeHCString</a>(data);
-<a name="l00044"></a>00044         <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(name);
-<a name="l00045"></a>00045     }
-<a name="l00046"></a><a class="code" href="classESM_1_1ESMWriter.html#a7dadaf873ec2858817e5969a3d9532a9">00046</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a7dadaf873ec2858817e5969a3d9532a9">writeHNOString</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; data)
-<a name="l00047"></a>00047     {
-<a name="l00048"></a>00048         <span class="keywordflow">if</span> (!data.empty())
-<a name="l00049"></a>00049             <a class="code" href="classESM_1_1ESMWriter.html#a22f1e180882cca15b613dba10a298def">writeHNString</a>(name, data);
-<a name="l00050"></a>00050     }
-<a name="l00051"></a><a class="code" href="classESM_1_1ESMWriter.html#ae47aed19b89326bd14940b230bd509e3">00051</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae47aed19b89326bd14940b230bd509e3">writeHNOCString</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; data)
-<a name="l00052"></a>00052     {
-<a name="l00053"></a>00053         <span class="keywordflow">if</span> (!data.empty())
-<a name="l00054"></a>00054             <a class="code" href="classESM_1_1ESMWriter.html#a66bf14cbe79c86eff2e2877a19d845bb">writeHNCString</a>(name, data);
-<a name="l00055"></a>00055     }
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00058"></a><a class="code" href="classESM_1_1ESMWriter.html#a110e5e311eb1fdd91f944cb760ce0888">00058</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a110e5e311eb1fdd91f944cb760ce0888">writeHNT</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> T&amp; data)
-<a name="l00059"></a>00059     {
-<a name="l00060"></a>00060         <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(name);
-<a name="l00061"></a>00061         <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(data);
-<a name="l00062"></a>00062         <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(name);
-<a name="l00063"></a>00063     }
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00066"></a><a class="code" href="classESM_1_1ESMWriter.html#a407fccde92cc6d30281559927bc7681a">00066</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a110e5e311eb1fdd91f944cb760ce0888">writeHNT</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> T&amp; data, <span class="keywordtype">int</span> size)
-<a name="l00067"></a>00067     {
-<a name="l00068"></a>00068         <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(name);
-<a name="l00069"></a>00069         <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(data, size);
-<a name="l00070"></a>00070         <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(name);
-<a name="l00071"></a>00071     }
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00074"></a><a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">00074</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(<span class="keyword">const</span> T&amp; data)
-<a name="l00075"></a>00075     {
-<a name="l00076"></a>00076         <a class="code" href="classESM_1_1ESMWriter.html#a9b250b093c6c699f88224fcecc9a8a29">write</a>((<span class="keywordtype">char</span>*)&amp;data, <span class="keyword">sizeof</span>(T));
-<a name="l00077"></a>00077     }
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00080"></a><a class="code" href="classESM_1_1ESMWriter.html#a6a43004cf54052c1ede89a4ca4854a87">00080</a>     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(<span class="keyword">const</span> T&amp; data, <span class="keywordtype">size_t</span> size)
-<a name="l00081"></a>00081     {
-<a name="l00082"></a>00082         <a class="code" href="classESM_1_1ESMWriter.html#a9b250b093c6c699f88224fcecc9a8a29">write</a>((<span class="keywordtype">char</span>*)&amp;data, size);
-<a name="l00083"></a>00083     }
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a2747ec9b9a9d6885f4eb143a6c1cf3dc">startRecord</a>(<span class="keyword">const</span> std::string&amp; name, uint32_t flags);
-<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(<span class="keyword">const</span> std::string&amp; name);
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(<span class="keyword">const</span> std::string&amp; name);
-<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#af73c2fc8a11d37bce2c6545e0b643513">writeHString</a>(<span class="keyword">const</span> std::string&amp; data);
-<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a75bea151d1597b7633d0e90da7f166e3">writeHCString</a>(<span class="keyword">const</span> std::string&amp; data);
-<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a41f07f28edc21069fd8c1a836233b18f">writeName</a>(<span class="keyword">const</span> std::string&amp; data);
-<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a9b250b093c6c699f88224fcecc9a8a29">write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* data, <span class="keywordtype">size_t</span> size);
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093 <span class="keyword">private</span>:
-<a name="l00094"></a><a class="code" href="classESM_1_1ESMWriter.html#ae080dc5d517b17b12d14edaf6049cab4">00094</a>     std::list&lt;RecordData&gt; <a class="code" href="classESM_1_1ESMWriter.html#ae080dc5d517b17b12d14edaf6049cab4">m_records</a>;
-<a name="l00095"></a><a class="code" href="classESM_1_1ESMWriter.html#a838321d9b8212c0fccd953a394e64dc6">00095</a>     std::ostream* <a class="code" href="classESM_1_1ESMWriter.html#a838321d9b8212c0fccd953a394e64dc6">m_stream</a>;
-<a name="l00096"></a><a class="code" href="classESM_1_1ESMWriter.html#a1a4e55a399a19c4d472b5ae250cb0b40">00096</a>     std::streampos <a class="code" href="classESM_1_1ESMWriter.html#a1a4e55a399a19c4d472b5ae250cb0b40">m_headerPos</a>;
-<a name="l00097"></a><a class="code" href="classESM_1_1ESMWriter.html#a91dcef1d79e37f0b3a7af543a2d706e9">00097</a>     <a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* <a class="code" href="classESM_1_1ESMWriter.html#a91dcef1d79e37f0b3a7af543a2d706e9">m_encoder</a>;
-<a name="l00098"></a><a class="code" href="classESM_1_1ESMWriter.html#ac29fac53e6d5fcbf56bbf797a30e1408">00098</a>     <span class="keywordtype">int</span> <a class="code" href="classESM_1_1ESMWriter.html#ac29fac53e6d5fcbf56bbf797a30e1408">m_recordCount</a>;
-<a name="l00099"></a>00099 
-<a name="l00100"></a><a class="code" href="classESM_1_1ESMWriter.html#ae83a294b528a399cb74a4c7abc708cb5">00100</a>     <a class="code" href="structESM_1_1Header.html" title="File header record.">Header</a> <a class="code" href="classESM_1_1ESMWriter.html#ae83a294b528a399cb74a4c7abc708cb5">mHeader</a>;
-<a name="l00101"></a>00101 };
+<a name="l00023"></a>00023     <span class="keyword">public</span>:
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025         <a class="code" href="classESM_1_1ESMWriter.html#addc897ffb3cdddac3869f1b6190549e1">ESMWriter</a>();
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classESM_1_1ESMWriter.html#a26cab74be3768fe19c9ec2de13191032">getVersion</a>() <span class="keyword">const</span>;
+<a name="l00028"></a>00028         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a03a08273e92e865a4b1c946f8cd80e00">setVersion</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ver = 0x3fa66666);
+<a name="l00029"></a>00029         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ac324dac2b05a35cdf94aec3083739dbe">setEncoder</a>(<a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a> *encoding);
+<a name="l00030"></a>00030         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a6cbe8b27a8bfe80c0bb52e1249bbd59b">setAuthor</a>(<span class="keyword">const</span> std::string&amp; author);
+<a name="l00031"></a>00031         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a08b58c06c190a50c8d39d61d5e4c36ec">setDescription</a>(<span class="keyword">const</span> std::string&amp; desc);
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a08d612ba9876b0e32aa871994533f05c">setRecordCount</a> (<span class="keywordtype">int</span> count);
+<a name="l00033"></a>00033         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a5061957aadd7bca9b9bf23271667536b">setFormat</a> (<span class="keywordtype">int</span> format);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#adec45ff1f764fc307a104f7ebb8e25eb">clearMaster</a>();
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ac99686de1c9e1d4ff1c093b6c5bb476d">addMaster</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, uint64_t size);
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae07d6292650ebb0f7e7e87d5d723037d" title="Start saving a file by writing the TES3 header.">save</a>(<span class="keyword">const</span> std::string&amp; file);
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae07d6292650ebb0f7e7e87d5d723037d" title="Start saving a file by writing the TES3 header.">save</a>(std::ostream&amp; file);
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a173ea890cf4aa194979390d0b5c09670">close</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a22f1e180882cca15b613dba10a298def">writeHNString</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> std::string&amp; data);
+<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a22f1e180882cca15b613dba10a298def">writeHNString</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> std::string&amp; data, <span class="keywordtype">size_t</span> size);
+<a name="l00050"></a><a class="code" href="classESM_1_1ESMWriter.html#a66bf14cbe79c86eff2e2877a19d845bb">00050</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a66bf14cbe79c86eff2e2877a19d845bb">writeHNCString</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> std::string&amp; data)
+<a name="l00051"></a>00051         {
+<a name="l00052"></a>00052             <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(name);
+<a name="l00053"></a>00053             <a class="code" href="classESM_1_1ESMWriter.html#a75bea151d1597b7633d0e90da7f166e3">writeHCString</a>(data);
+<a name="l00054"></a>00054             <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(name);
+<a name="l00055"></a>00055         }
+<a name="l00056"></a><a class="code" href="classESM_1_1ESMWriter.html#a7dadaf873ec2858817e5969a3d9532a9">00056</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a7dadaf873ec2858817e5969a3d9532a9">writeHNOString</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> std::string&amp; data)
+<a name="l00057"></a>00057         {
+<a name="l00058"></a>00058             <span class="keywordflow">if</span> (!data.empty())
+<a name="l00059"></a>00059                 <a class="code" href="classESM_1_1ESMWriter.html#a22f1e180882cca15b613dba10a298def">writeHNString</a>(name, data);
+<a name="l00060"></a>00060         }
+<a name="l00061"></a><a class="code" href="classESM_1_1ESMWriter.html#ae47aed19b89326bd14940b230bd509e3">00061</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ae47aed19b89326bd14940b230bd509e3">writeHNOCString</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> std::string&amp; data)
+<a name="l00062"></a>00062         {
+<a name="l00063"></a>00063             <span class="keywordflow">if</span> (!data.empty())
+<a name="l00064"></a>00064                 <a class="code" href="classESM_1_1ESMWriter.html#a66bf14cbe79c86eff2e2877a19d845bb">writeHNCString</a>(name, data);
+<a name="l00065"></a>00065         }
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00068"></a><a class="code" href="classESM_1_1ESMWriter.html#a110e5e311eb1fdd91f944cb760ce0888">00068</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a110e5e311eb1fdd91f944cb760ce0888">writeHNT</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> T&amp; data)
+<a name="l00069"></a>00069         {
+<a name="l00070"></a>00070             <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(name);
+<a name="l00071"></a>00071             <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(data);
+<a name="l00072"></a>00072             <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(name);
+<a name="l00073"></a>00073         }
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00076"></a><a class="code" href="classESM_1_1ESMWriter.html#a407fccde92cc6d30281559927bc7681a">00076</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a110e5e311eb1fdd91f944cb760ce0888">writeHNT</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> T&amp; data, <span class="keywordtype">int</span> size)
+<a name="l00077"></a>00077         {
+<a name="l00078"></a>00078             <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(name);
+<a name="l00079"></a>00079             <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(data, size);
+<a name="l00080"></a>00080             <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(name);
+<a name="l00081"></a>00081         }
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00084"></a><a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">00084</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(<span class="keyword">const</span> T&amp; data)
+<a name="l00085"></a>00085         {
+<a name="l00086"></a>00086             <a class="code" href="classESM_1_1ESMWriter.html#a9b250b093c6c699f88224fcecc9a8a29">write</a>((<span class="keywordtype">char</span>*)&amp;data, <span class="keyword">sizeof</span>(T));
+<a name="l00087"></a>00087         }
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00090"></a><a class="code" href="classESM_1_1ESMWriter.html#a6a43004cf54052c1ede89a4ca4854a87">00090</a>         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#aed227acebd51e343c7afd73df1574260">writeT</a>(<span class="keyword">const</span> T&amp; data, <span class="keywordtype">size_t</span> size)
+<a name="l00091"></a>00091         {
+<a name="l00092"></a>00092             <a class="code" href="classESM_1_1ESMWriter.html#a9b250b093c6c699f88224fcecc9a8a29">write</a>((<span class="keywordtype">char</span>*)&amp;data, size);
+<a name="l00093"></a>00093         }
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#ac94a9a420e00a23f8ac21ced4337bfe7">startRecord</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, uint32_t flags = 0);
+<a name="l00096"></a>00096         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a8e375456001f0c1390e688bc11b318f9">startSubRecord</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00097"></a>00097         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#aa9773ad75705c3078f4c4d7be8d90acb">endRecord</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00098"></a>00098         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#af73c2fc8a11d37bce2c6545e0b643513">writeHString</a>(<span class="keyword">const</span> std::string&amp; data);
+<a name="l00099"></a>00099         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a75bea151d1597b7633d0e90da7f166e3">writeHCString</a>(<span class="keyword">const</span> std::string&amp; data);
+<a name="l00100"></a>00100         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a41f07f28edc21069fd8c1a836233b18f">writeName</a>(<span class="keyword">const</span> std::string&amp; data);
+<a name="l00101"></a>00101         <span class="keywordtype">void</span> <a class="code" href="classESM_1_1ESMWriter.html#a9b250b093c6c699f88224fcecc9a8a29">write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* data, <span class="keywordtype">size_t</span> size);
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103 }
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00103"></a>00103     <span class="keyword">private</span>:
+<a name="l00104"></a><a class="code" href="classESM_1_1ESMWriter.html#ac3f266ae0572a08a7083c010d405d785">00104</a>         std::list&lt;RecordData&gt; <a class="code" href="classESM_1_1ESMWriter.html#ac3f266ae0572a08a7083c010d405d785">mRecords</a>;
+<a name="l00105"></a><a class="code" href="classESM_1_1ESMWriter.html#ab242c4d44e0b8af9a1d3bfd9e190125c">00105</a>         std::ostream* <a class="code" href="classESM_1_1ESMWriter.html#ab242c4d44e0b8af9a1d3bfd9e190125c">mStream</a>;
+<a name="l00106"></a><a class="code" href="classESM_1_1ESMWriter.html#ac49436e9554a3dc8c78c7f008da55110">00106</a>         std::streampos <a class="code" href="classESM_1_1ESMWriter.html#ac49436e9554a3dc8c78c7f008da55110">mHeaderPos</a>;
+<a name="l00107"></a><a class="code" href="classESM_1_1ESMWriter.html#a8693b2bb269f0b6e1f1387e43b1a99e0">00107</a>         <a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* <a class="code" href="classESM_1_1ESMWriter.html#a8693b2bb269f0b6e1f1387e43b1a99e0">mEncoder</a>;
+<a name="l00108"></a><a class="code" href="classESM_1_1ESMWriter.html#a2ecbd33559747143284ea341e812b256">00108</a>         <span class="keywordtype">int</span> <a class="code" href="classESM_1_1ESMWriter.html#a2ecbd33559747143284ea341e812b256">mRecordCount</a>;
+<a name="l00109"></a><a class="code" href="classESM_1_1ESMWriter.html#a445ca324fb40b7ecedb4a0890f720105">00109</a>         <span class="keywordtype">bool</span> <a class="code" href="classESM_1_1ESMWriter.html#a445ca324fb40b7ecedb4a0890f720105">mCounting</a>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a><a class="code" href="classESM_1_1ESMWriter.html#ae83a294b528a399cb74a4c7abc708cb5">00111</a>         <a class="code" href="structESM_1_1Header.html" title="File header record.">Header</a> <a class="code" href="classESM_1_1ESMWriter.html#ae83a294b528a399cb74a4c7abc708cb5">mHeader</a>;
+<a name="l00112"></a>00112     };
+<a name="l00113"></a>00113 }
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

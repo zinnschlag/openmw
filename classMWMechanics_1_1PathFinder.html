@@ -81,8 +81,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#acac985b3762e229bb137c1fa3b8730ff">buildPath</a> (const <a class="el" href="structESM_1_1Pathgrid_1_1Point.html">ESM::Pathgrid::Point</a> &amp;startPoint, const <a class="el" href="structESM_1_1Pathgrid_1_1Point.html">ESM::Pathgrid::Point</a> &amp;endPoint, const <a class="el" href="structESM_1_1Pathgrid.html">ESM::Pathgrid</a> *pathGrid, float xCell=0, float yCell=0, bool allowShortcuts=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#aaedaeb86d2fade5d688c1edfedd3a0f4">checkPathCompleted</a> (float x, float y, float z)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">true if the last point of the path has been reached.  <a href="#aaedaeb86d2fade5d688c1edfedd3a0f4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#acf2896317a6972d62ad81d6f539796ff">checkWaypoint</a> (float x, float y, float z)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">true if a way point was reached  <a href="#acf2896317a6972d62ad81d6f539796ff"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#a844771951277628217e82b1229bbcff2">getZAngleToNext</a> (float x, float y) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#ac7a8e1e52719974f331b9196c84b9f07">isPathConstructed</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#ae3f96a25693f1d06e9bbb0a567a10cf1">getPathSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt; <a class="el" href="structESM_1_1Pathgrid_1_1Point.html">ESM::Pathgrid::Point</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#ad13709217e5051cb6328e11181892f0a">getPath</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt; <a class="el" href="structESM_1_1Pathgrid_1_1Point.html">ESM::Pathgrid::Point</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">mPath</a></td></tr>
@@ -192,6 +196,41 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acf2896317a6972d62ad81d6f539796ff"></a><!-- doxytag: member="MWMechanics::PathFinder::checkWaypoint" ref="acf2896317a6972d62ad81d6f539796ff" args="(float x, float y, float z)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWMechanics_1_1PathFinder.html#acf2896317a6972d62ad81d6f539796ff">MWMechanics::PathFinder::checkWaypoint</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>true if a way point was reached </p>
+
+</div>
+</div>
 <a class="anchor" id="aa58e3b6e5b964d71a53adcc46493db45"></a><!-- doxytag: member="MWMechanics::PathFinder::clearPath" ref="aa58e3b6e5b964d71a53adcc46493db45" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -201,6 +240,38 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad13709217e5051cb6328e11181892f0a"></a><!-- doxytag: member="MWMechanics::PathFinder::getPath" ref="ad13709217e5051cb6328e11181892f0a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">std::list</a>&lt;<a class="el" href="structESM_1_1Pathgrid_1_1Point.html">ESM::Pathgrid::Point</a>&gt; <a class="el" href="classMWMechanics_1_1PathFinder.html#ad13709217e5051cb6328e11181892f0a">MWMechanics::PathFinder::getPath</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae3f96a25693f1d06e9bbb0a567a10cf1"></a><!-- doxytag: member="MWMechanics::PathFinder::getPathSize" ref="ae3f96a25693f1d06e9bbb0a567a10cf1" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classMWMechanics_1_1PathFinder.html#ae3f96a25693f1d06e9bbb0a567a10cf1">MWMechanics::PathFinder::getPathSize</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -286,7 +357,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

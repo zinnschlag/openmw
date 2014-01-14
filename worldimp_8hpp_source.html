@@ -75,353 +75,418 @@
 <a name="l00014"></a>00014 
 <a name="l00015"></a>00015 <span class="preprocessor">#include &quot;../mwbase/world.hpp&quot;</span>
 <a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="keyword">namespace </span>Ogre
-<a name="l00018"></a>00018 {
-<a name="l00019"></a>00019     <span class="keyword">class </span>Vector3;
-<a name="l00020"></a>00020 }
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">namespace </span>ESM
-<a name="l00023"></a>00023 {
-<a name="l00024"></a>00024     <span class="keyword">struct </span>Position;
-<a name="l00025"></a>00025 }
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="keyword">namespace </span>Files
-<a name="l00028"></a>00028 {
-<a name="l00029"></a>00029     <span class="keyword">class </span>Collections;
-<a name="l00030"></a>00030 }
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">namespace </span>Render
-<a name="l00033"></a>00033 {
-<a name="l00034"></a>00034     <span class="keyword">class </span>OgreRenderer;
-<a name="l00035"></a>00035 }
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">namespace </span>MWRender
-<a name="l00038"></a>00038 {
-<a name="l00039"></a>00039     <span class="keyword">class </span>SkyManager;
-<a name="l00040"></a>00040     <span class="keyword">class </span>CellRender;
-<a name="l00041"></a>00041     <span class="keyword">class </span>Animation;
-<a name="l00042"></a>00042 }
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044 <span class="keyword">namespace </span>MWWorld
-<a name="l00045"></a>00045 {
-<a name="l00046"></a>00046     <span class="keyword">class </span>WeatherManager;
-<a name="l00047"></a>00047     <span class="keyword">class </span>Player;
-<a name="l00048"></a>00048 
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="classMWWorld_1_1World.html">00051</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a> : <span class="keyword">public</span> MWBase::<a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>
-<a name="l00052"></a>00052     {
-<a name="l00053"></a><a class="code" href="classMWWorld_1_1World.html#a81c7e68d5d2d1d60e7efe5786effd791">00053</a>             <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> <a class="code" href="classMWWorld_1_1World.html#a81c7e68d5d2d1d60e7efe5786effd791">mFallback</a>;
-<a name="l00054"></a><a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">00054</a>             <a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>* <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>;
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="classMWWorld_1_1World.html#a964881318658f169c9f85800820e82e3">00056</a>             <a class="code" href="classMWWorld_1_1WeatherManager.html">MWWorld::WeatherManager</a>* <a class="code" href="classMWWorld_1_1World.html#a964881318658f169c9f85800820e82e3">mWeatherManager</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="classMWWorld_1_1World.html#afc848e561b6971281113ee0f43a9f459">00058</a>             <a class="code" href="classMWWorld_1_1Scene.html">MWWorld::Scene</a> *<a class="code" href="classMWWorld_1_1World.html#afc848e561b6971281113ee0f43a9f459">mWorldScene</a>;
-<a name="l00059"></a><a class="code" href="classMWWorld_1_1World.html#afac933655ef9ffcf51b6304ada7ba61e">00059</a>             <a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">MWWorld::Player</a> *<a class="code" href="classMWWorld_1_1World.html#afac933655ef9ffcf51b6304ada7ba61e">mPlayer</a>;
-<a name="l00060"></a><a class="code" href="classMWWorld_1_1World.html#af335a8080ef289c3e5185aaf034e91fb">00060</a>             std::vector&lt;ESM::ESMReader&gt; <a class="code" href="classMWWorld_1_1World.html#af335a8080ef289c3e5185aaf034e91fb">mEsm</a>;
-<a name="l00061"></a><a class="code" href="classMWWorld_1_1World.html#a029c4a1de3d52e828a271220e6a417bc">00061</a>             <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> <a class="code" href="classMWWorld_1_1World.html#a029c4a1de3d52e828a271220e6a417bc">mStore</a>;
-<a name="l00062"></a><a class="code" href="classMWWorld_1_1World.html#a77593cac1cfa276ad24a01e1e5f48a58">00062</a>             <a class="code" href="classMWWorld_1_1LocalScripts.html" title="List of active local scripts.">LocalScripts</a> <a class="code" href="classMWWorld_1_1World.html#a77593cac1cfa276ad24a01e1e5f48a58">mLocalScripts</a>;
-<a name="l00063"></a><a class="code" href="classMWWorld_1_1World.html#af2470eb47a9a46b59ac9b4593204bb9c">00063</a>             <a class="code" href="classMWWorld_1_1Globals.html">MWWorld::Globals</a> *<a class="code" href="classMWWorld_1_1World.html#af2470eb47a9a46b59ac9b4593204bb9c">mGlobalVariables</a>;
-<a name="l00064"></a><a class="code" href="classMWWorld_1_1World.html#acf65497cf7bd7414da3df2d6176fb5c7">00064</a>             <a class="code" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> *<a class="code" href="classMWWorld_1_1World.html#acf65497cf7bd7414da3df2d6176fb5c7">mPhysics</a>;
-<a name="l00065"></a><a class="code" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">00065</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">mSky</a>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="classMWWorld_1_1World.html#a31afbdbceb9bf9110924f144c540efff">00067</a>             <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a> <a class="code" href="classMWWorld_1_1World.html#a31afbdbceb9bf9110924f144c540efff">mCells</a>;
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classMWWorld_1_1World.html#ab6324bbf9d4ed2ee93919f9157eaf73a">00069</a>             <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWWorld_1_1World.html#ab6324bbf9d4ed2ee93919f9157eaf73a">mPhysEngine</a>;
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="contentloader_8hpp.html">contentloader.hpp</a>&quot;</span>
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>Ogre
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021     <span class="keyword">class </span>Vector3;
+<a name="l00022"></a>00022 }
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">namespace </span>ESM
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026     <span class="keyword">struct </span>Position;
+<a name="l00027"></a>00027 }
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="keyword">namespace </span>Files
+<a name="l00030"></a>00030 {
+<a name="l00031"></a>00031     <span class="keyword">class </span>Collections;
+<a name="l00032"></a>00032 }
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="keyword">namespace </span>Render
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036     <span class="keyword">class </span>OgreRenderer;
+<a name="l00037"></a>00037 }
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="keyword">namespace </span>MWRender
+<a name="l00040"></a>00040 {
+<a name="l00041"></a>00041     <span class="keyword">class </span>SkyManager;
+<a name="l00042"></a>00042     <span class="keyword">class </span>CellRender;
+<a name="l00043"></a>00043     <span class="keyword">class </span>Animation;
+<a name="l00044"></a>00044 }
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="keyword">struct </span>ContentLoader;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 <span class="keyword">namespace </span>MWWorld
+<a name="l00049"></a>00049 {
+<a name="l00050"></a>00050     <span class="keyword">class </span>WeatherManager;
+<a name="l00051"></a>00051     <span class="keyword">class </span>Player;
+<a name="l00052"></a>00052 
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classMWWorld_1_1World.html">00055</a>     <span class="keyword">class </span><a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a> : <span class="keyword">public</span> MWBase::<a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>
+<a name="l00056"></a>00056     {
+<a name="l00057"></a><a class="code" href="classMWWorld_1_1World.html#a81c7e68d5d2d1d60e7efe5786effd791">00057</a>             <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> <a class="code" href="classMWWorld_1_1World.html#a81c7e68d5d2d1d60e7efe5786effd791">mFallback</a>;
+<a name="l00058"></a><a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">00058</a>             <a class="code" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a>* <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a><a class="code" href="classMWWorld_1_1World.html#a964881318658f169c9f85800820e82e3">00060</a>             <a class="code" href="classMWWorld_1_1WeatherManager.html">MWWorld::WeatherManager</a>* <a class="code" href="classMWWorld_1_1World.html#a964881318658f169c9f85800820e82e3">mWeatherManager</a>;
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classMWWorld_1_1World.html#afc848e561b6971281113ee0f43a9f459">00062</a>             <a class="code" href="classMWWorld_1_1Scene.html">MWWorld::Scene</a> *<a class="code" href="classMWWorld_1_1World.html#afc848e561b6971281113ee0f43a9f459">mWorldScene</a>;
+<a name="l00063"></a><a class="code" href="classMWWorld_1_1World.html#afac933655ef9ffcf51b6304ada7ba61e">00063</a>             <a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">MWWorld::Player</a> *<a class="code" href="classMWWorld_1_1World.html#afac933655ef9ffcf51b6304ada7ba61e">mPlayer</a>;
+<a name="l00064"></a><a class="code" href="classMWWorld_1_1World.html#af335a8080ef289c3e5185aaf034e91fb">00064</a>             std::vector&lt;ESM::ESMReader&gt; <a class="code" href="classMWWorld_1_1World.html#af335a8080ef289c3e5185aaf034e91fb">mEsm</a>;
+<a name="l00065"></a><a class="code" href="classMWWorld_1_1World.html#a029c4a1de3d52e828a271220e6a417bc">00065</a>             <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a> <a class="code" href="classMWWorld_1_1World.html#a029c4a1de3d52e828a271220e6a417bc">mStore</a>;
+<a name="l00066"></a><a class="code" href="classMWWorld_1_1World.html#a77593cac1cfa276ad24a01e1e5f48a58">00066</a>             <a class="code" href="classMWWorld_1_1LocalScripts.html" title="List of active local scripts.">LocalScripts</a> <a class="code" href="classMWWorld_1_1World.html#a77593cac1cfa276ad24a01e1e5f48a58">mLocalScripts</a>;
+<a name="l00067"></a><a class="code" href="classMWWorld_1_1World.html#af2470eb47a9a46b59ac9b4593204bb9c">00067</a>             <a class="code" href="classMWWorld_1_1Globals.html">MWWorld::Globals</a> *<a class="code" href="classMWWorld_1_1World.html#af2470eb47a9a46b59ac9b4593204bb9c">mGlobalVariables</a>;
+<a name="l00068"></a><a class="code" href="classMWWorld_1_1World.html#acf65497cf7bd7414da3df2d6176fb5c7">00068</a>             <a class="code" href="classMWWorld_1_1PhysicsSystem.html">MWWorld::PhysicsSystem</a> *<a class="code" href="classMWWorld_1_1World.html#acf65497cf7bd7414da3df2d6176fb5c7">mPhysics</a>;
+<a name="l00069"></a><a class="code" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">00069</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ad9b3aa102abb8946b092f824fc4e5040">mSky</a>;
 <a name="l00070"></a>00070 
-<a name="l00071"></a>00071             <span class="comment">// not implemented</span>
-<a name="l00072"></a>00072             <a class="code" href="classMWBase_1_1World.html#a739022ed5eeda67c169519472ff90bbe">World</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp;);
-<a name="l00073"></a>00073             <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a05ea2bca3c7a83ebadf2a36c84c6d999">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp;);
+<a name="l00071"></a><a class="code" href="classMWWorld_1_1World.html#a31afbdbceb9bf9110924f144c540efff">00071</a>             <a class="code" href="classMWWorld_1_1Cells.html" title="Cell container.">Cells</a> <a class="code" href="classMWWorld_1_1World.html#a31afbdbceb9bf9110924f144c540efff">mCells</a>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classMWWorld_1_1World.html#ab6324bbf9d4ed2ee93919f9157eaf73a">00073</a>             <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWWorld_1_1World.html#ab6324bbf9d4ed2ee93919f9157eaf73a">mPhysEngine</a>;
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aedb559d06222cd81ee211e58478342f1">getPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00075"></a><a class="code" href="classMWWorld_1_1World.html#a39e0c72f2675ae62d337cb0e9bed2357">00075</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a39e0c72f2675ae62d337cb0e9bed2357">mGodMode</a>;
 <a name="l00076"></a>00076 
-<a name="l00077"></a><a class="code" href="classMWWorld_1_1World.html#a5676457dc626cfa895f6f2da8d81dc16">00077</a>             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a5676457dc626cfa895f6f2da8d81dc16">mActivationDistanceOverride</a>;
-<a name="l00078"></a><a class="code" href="classMWWorld_1_1World.html#a4f801c3ab6661ad8ce2ce5859d0f9284">00078</a>             std::string <a class="code" href="classMWWorld_1_1World.html#a4f801c3ab6661ad8ce2ce5859d0f9284">mFacedHandle</a>;
-<a name="l00079"></a><a class="code" href="classMWWorld_1_1World.html#aa5a04d95672437fb099a9d7dc674c842">00079</a>             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#aa5a04d95672437fb099a9d7dc674c842">mFacedDistance</a>;
+<a name="l00077"></a>00077             <span class="comment">// not implemented</span>
+<a name="l00078"></a>00078             <a class="code" href="classMWBase_1_1World.html#a739022ed5eeda67c169519472ff90bbe">World</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp;);
+<a name="l00079"></a>00079             <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a05ea2bca3c7a83ebadf2a36c84c6d999">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1World.html" title="The game world and its visual representation.">World</a>&amp;);
 <a name="l00080"></a>00080 
-<a name="l00081"></a>00081             std::map&lt;MWWorld::Ptr, int&gt; <a class="code" href="classMWWorld_1_1World.html#ab3acc859adf383ebcdb39763c89d914d" title="only holds doors that are currently moving. 0 means closing, 1 opening">mDoorStates</a>;
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a1192c73fc885c896ecbf923f1004a664">getDaysPerMonth</a> (<span class="keywordtype">int</span> month) <span class="keyword">const</span>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a94fd49c1fdd26b2dccc9772587beab6a">rotateObjectImp</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, Ogre::Vector3 rot, <span class="keywordtype">bool</span> adjust);
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a473fd1436b0a85131497883c95b35a76">moveObjectImp</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#ac5c13800bc1fbc43e2bd8815c88bd239">copyObjectToCell</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> &amp;ptr, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;cell, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos);
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7b7dae87846092087a832265e4366e18">updateWindowManager</a> ();
-<a name="l00095"></a>00095             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aec2f51462dc1ab57dc978a0e58e273e2">performUpdateSceneQueries</a> ();
-<a name="l00096"></a>00096             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9d2b48208908d528ed6af3d9205715be">updateFacedHandle</a> ();
+<a name="l00081"></a>00081             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aedb559d06222cd81ee211e58478342f1">getPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>&amp; cellStore);
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classMWWorld_1_1World.html#a5676457dc626cfa895f6f2da8d81dc16">00083</a>             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a5676457dc626cfa895f6f2da8d81dc16">mActivationDistanceOverride</a>;
+<a name="l00084"></a><a class="code" href="classMWWorld_1_1World.html#a4f801c3ab6661ad8ce2ce5859d0f9284">00084</a>             std::string <a class="code" href="classMWWorld_1_1World.html#a4f801c3ab6661ad8ce2ce5859d0f9284">mFacedHandle</a>;
+<a name="l00085"></a><a class="code" href="classMWWorld_1_1World.html#aa5a04d95672437fb099a9d7dc674c842">00085</a>             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#aa5a04d95672437fb099a9d7dc674c842">mFacedDistance</a>;
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087             std::map&lt;MWWorld::Ptr, int&gt; <a class="code" href="classMWWorld_1_1World.html#ab3acc859adf383ebcdb39763c89d914d" title="only holds doors that are currently moving. 0 means closing, 1 opening">mDoorStates</a>;
+<a name="l00089"></a>00089 
+<a name="l00090"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html">00090</a>             <span class="keyword">struct </span><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html">ProjectileState</a>
+<a name="l00091"></a>00091             {
+<a name="l00092"></a>00092                 <span class="comment">// Id of spell or enchantment to apply when it hits</span>
+<a name="l00093"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#a76bd0c9cf4b72dec86a85d8e0e4d4dab">00093</a>                 std::string <a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#a76bd0c9cf4b72dec86a85d8e0e4d4dab">mId</a>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095                 <span class="comment">// Actor who casted this projectile</span>
+<a name="l00096"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#ad3f22f59f29153fb755e4b442a2dc1c9">00096</a>                 std::string <a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#ad3f22f59f29153fb755e4b442a2dc1c9">mActorHandle</a>;
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#af5a41066f71d236e4194ad04ee39a360">getMaxActivationDistance</a> ();
-<a name="l00099"></a>00099             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a85251f740bf1cafb12efd36ec1a61ec0">getNpcActivationDistance</a> ();
-<a name="l00100"></a>00100             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a9bda2395990efd6ab84df41e73e9f550">getObjectActivationDistance</a> ();
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a025fcf0b51a346ab8cff3e26d952332c">removeContainerScripts</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; reference);
-<a name="l00103"></a>00103             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a659c3aed347f2a90c71b2218a169a317">addContainerScripts</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; reference, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>* cell);
-<a name="l00104"></a>00104             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0080f9c4e7c88ad7a02dec4e27807967">PCDropped</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; item);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a932557cd72783eebb5eb04376225c4dc" title="Run physics simulation and modify world accordingly.">processDoors</a>(<span class="keywordtype">float</span> duration);
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2f5d290bb1dd1000c604b0bd488567c7" title="Run physics simulation and modify world accordingly.">doPhysics</a>(<span class="keywordtype">float</span> duration);
+<a name="l00098"></a>00098                 <span class="comment">// Name of item to display as effect source in magic menu (in case we casted an enchantment)</span>
+<a name="l00099"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#afb3d43479c00016b55793895bc47bb0f">00099</a>                 std::string <a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#afb3d43479c00016b55793895bc47bb0f">mSourceName</a>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#a79aec86fd5a6baab326018ee34b1b39e">00101</a>                 <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a> <a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#a79aec86fd5a6baab326018ee34b1b39e">mEffects</a>;
+<a name="l00102"></a>00102 
+<a name="l00103"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#afbf960b979085242daf239c53315ae04">00103</a>                 <span class="keywordtype">float</span> <a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#afbf960b979085242daf239c53315ae04">mSpeed</a>;
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#a1cf44896d1c069a2443c1e45e7ed4739">00105</a>                 <span class="keywordtype">bool</span> <a class="code" href="structMWWorld_1_1World_1_1ProjectileState.html#a1cf44896d1c069a2443c1e45e7ed4739">mStack</a>;
+<a name="l00106"></a>00106             };
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="classMWWorld_1_1World.html#a1b2a4f71e9e812166f5a022b60001064">00108</a>             std::map&lt;MWWorld::Ptr, ProjectileState&gt; <a class="code" href="classMWWorld_1_1World.html#a1b2a4f71e9e812166f5a022b60001064">mProjectiles</a>;
+<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7dd060aebb5046d149a8973df0218745">updateWeather</a>(<span class="keywordtype">float</span> duration);
+<a name="l00110"></a>00110             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a1192c73fc885c896ecbf923f1004a664">getDaysPerMonth</a> (<span class="keywordtype">int</span> month) <span class="keyword">const</span>;
 <a name="l00111"></a>00111 
-<a name="l00112"></a>00112             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab353c93f782be3459bfc260512803369">ensureNeededRecords</a>();
+<a name="l00112"></a>00112             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a94fd49c1fdd26b2dccc9772587beab6a">rotateObjectImp</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, Ogre::Vector3 rot, <span class="keywordtype">bool</span> adjust);
 <a name="l00113"></a>00113 
-<a name="l00114"></a><a class="code" href="classMWWorld_1_1World.html#a29abec8725318fdc061be7ab9b51059c">00114</a>             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a29abec8725318fdc061be7ab9b51059c">mPlayIntro</a>;
-<a name="l00115"></a>00115 
-<a name="l00116"></a><a class="code" href="classMWWorld_1_1World.html#a563acf3c2f3f5b4ac21a14d12372f1d6">00116</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a563acf3c2f3f5b4ac21a14d12372f1d6">mTeleportEnabled</a>;
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118         <span class="keyword">public</span>:
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120             <a class="code" href="classMWBase_1_1World.html#a739022ed5eeda67c169519472ff90bbe">World</a> (<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; renderer,
-<a name="l00121"></a>00121                 <span class="keyword">const</span> <a class="code" href="classFiles_1_1Collections.html">Files::Collections</a>&amp; fileCollections,
-<a name="l00122"></a>00122                 <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; master, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; plugins,
-<a name="l00123"></a>00123                 <span class="keyword">const</span> boost::filesystem::path&amp; resDir, <span class="keyword">const</span> boost::filesystem::path&amp; cacheDir,
-<a name="l00124"></a>00124                 <a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* encoder, <span class="keyword">const</span> std::map&lt;std::string,std::string&gt;&amp; fallbackMap, <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a5676457dc626cfa895f6f2da8d81dc16">mActivationDistanceOverride</a>);
-<a name="l00125"></a>00125 
-<a name="l00126"></a>00126             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1World.html#ad637ebfccb400fd51839e8d2955a2b92">~World</a>();
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a1566192fcd9304b8233ea373ee7a8fad">startNewGame</a>();
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130             <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Render_1_1Fader.html">OEngine::Render::Fader</a>* <a class="code" href="classMWWorld_1_1World.html#a691aa7ae70d00a53806a2c491c944092" title="\ŧodo remove this function. Rendering details should not be exposed.">getFader</a>();
-<a name="l00132"></a>00132 
-<a name="l00133"></a>00133             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#ae8d05a877114498eda21325dc295ae5a">getExterior</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#acde0c16fcc854b765bfff5f0d8916cd5">getInterior</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae7b4975fe41269a7557c5fa34f39d283">setWaterHeight</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> height);
+<a name="l00114"></a>00114             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a473fd1436b0a85131497883c95b35a76">moveObjectImp</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#a38b60942c102b623aa015ccc16530fe7">copyObjectToCell</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> &amp;ptr, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;cell, <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos, <span class="keywordtype">bool</span> adjustPos=<span class="keyword">true</span>);
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7b7dae87846092087a832265e4366e18">updateWindowManager</a> ();
+<a name="l00120"></a>00120             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aec2f51462dc1ab57dc978a0e58e273e2">performUpdateSceneQueries</a> ();
+<a name="l00121"></a>00121             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9d2b48208908d528ed6af3d9205715be">updateFacedHandle</a> ();
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#af5a41066f71d236e4194ad04ee39a360">getMaxActivationDistance</a> ();
+<a name="l00124"></a>00124             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a85251f740bf1cafb12efd36ec1a61ec0">getNpcActivationDistance</a> ();
+<a name="l00125"></a>00125             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a9bda2395990efd6ab84df41e73e9f550">getObjectActivationDistance</a> ();
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a025fcf0b51a346ab8cff3e26d952332c">removeContainerScripts</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; reference);
+<a name="l00128"></a>00128             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a659c3aed347f2a90c71b2218a169a317">addContainerScripts</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; reference, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">Ptr::CellStore</a>* cell);
+<a name="l00129"></a>00129             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0080f9c4e7c88ad7a02dec4e27807967">PCDropped</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; item);
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a932557cd72783eebb5eb04376225c4dc" title="Run physics simulation and modify world accordingly.">processDoors</a>(<span class="keywordtype">float</span> duration);
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#abb55cc50975dba4303a7b7005fa50851">moveProjectiles</a>(<span class="keywordtype">float</span> duration);
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2f5d290bb1dd1000c604b0bd488567c7" title="Run physics simulation and modify world accordingly.">doPhysics</a>(<span class="keywordtype">float</span> duration);
 <a name="l00138"></a>00138 
-<a name="l00139"></a>00139             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9492a9da27e43e900aa0db4dd86bac53">toggleWater</a>();
+<a name="l00139"></a>00139             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ab353c93f782be3459bfc260512803369">ensureNeededRecords</a>();
 <a name="l00140"></a>00140 
-<a name="l00141"></a>00141             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#adaf454f5097e4527eae9cb4d36bb66e6">adjustSky</a>();
-<a name="l00142"></a>00142 
-<a name="l00143"></a>00143             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ad7adb319f692352ff4c14a553b627866">getTriangleBatchCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;triangles, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;batches);
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Fallback.html">Fallback</a> *<a class="code" href="classMWWorld_1_1World.html#a58c6878d7eb7e96fc82b9f92ce3076d3">getFallback</a>() <span class="keyword">const</span>;
-<a name="l00146"></a>00146 
-<a name="l00147"></a>00147             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">Player</a>&amp; <a class="code" href="classMWWorld_1_1World.html#affaceb7547f7e4cc462ae612b8c1f78b">getPlayer</a>();
-<a name="l00148"></a>00148 
-<a name="l00149"></a>00149             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a87aedd49e821a983ab17125a34666cb5">getStore</a>() <span class="keyword">const</span>;
-<a name="l00150"></a>00150 
-<a name="l00151"></a>00151             <span class="keyword">virtual</span> std::vector&lt;ESM::ESMReader&gt;&amp; <a class="code" href="classMWWorld_1_1World.html#a0a0685cf1640fe69ab920c42ad6fb5aa">getEsmReader</a>();
-<a name="l00152"></a>00152 
-<a name="l00153"></a>00153             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1LocalScripts.html" title="List of active local scripts.">LocalScripts</a>&amp; <a class="code" href="classMWWorld_1_1World.html#af1839330c6cf58d1f69dc3a6ad14f546">getLocalScripts</a>();
+<a name="l00147"></a>00147             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a279dbcd121ba11608a23c0fe97df195c" title="loadContentFiles - Loads content files (esm,esp,omwgame,omwaddon)">loadContentFiles</a>(<span class="keyword">const</span> <a class="code" href="classFiles_1_1Collections.html">Files::Collections</a>&amp; fileCollections,
+<a name="l00148"></a>00148                 <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; content, <a class="code" href="structMWWorld_1_1ContentLoader.html">ContentLoader</a>&amp; contentLoader);
+<a name="l00149"></a>00149 
+<a name="l00150"></a><a class="code" href="classMWWorld_1_1World.html#a29abec8725318fdc061be7ab9b51059c">00150</a>             <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a29abec8725318fdc061be7ab9b51059c">mPlayIntro</a>;
+<a name="l00151"></a>00151 
+<a name="l00152"></a><a class="code" href="classMWWorld_1_1World.html#a563acf3c2f3f5b4ac21a14d12372f1d6">00152</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a563acf3c2f3f5b4ac21a14d12372f1d6">mTeleportEnabled</a>;
+<a name="l00153"></a><a class="code" href="classMWWorld_1_1World.html#acaf2f686f5d590a0d695fe0a9cadb0b5">00153</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#acaf2f686f5d590a0d695fe0a9cadb0b5">mLevitationEnabled</a>;
 <a name="l00154"></a>00154 
-<a name="l00155"></a>00155             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a664299554b550460dd9097c12d395f82" title="Has the player moved to a different cell, since the last frame?">hasCellChanged</a>() <span class="keyword">const</span>;
+<a name="l00156"></a>00156             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#afbaf91dab86ad231a321715c0fe6e170" title="Called when object is moved to an inactive cell.">objectLeftActiveCell</a> (<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <span class="keywordtype">object</span>, <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> movedPtr);
 <a name="l00157"></a>00157 
-<a name="l00158"></a>00158             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a46f8d03a111453ccfb35f972b595659e">isCellExterior</a>() <span class="keyword">const</span>;
+<a name="l00158"></a>00158             <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#aa8b5060a10b21ef9f19a37ebb0596bf9">feetToGameUnits</a>(<span class="keywordtype">float</span> feet);
 <a name="l00159"></a>00159 
-<a name="l00160"></a>00160             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#aa8c4b2743b935a2b49f3a8a75b09b6ef">isCellQuasiExterior</a>() <span class="keyword">const</span>;
+<a name="l00160"></a>00160         <span class="keyword">public</span>:
 <a name="l00161"></a>00161 
-<a name="l00162"></a>00162             <span class="keyword">virtual</span> Ogre::Vector2 <a class="code" href="classMWWorld_1_1World.html#a49c68d99a6e869e20acb92a57c5b92d1" title="get north vector (OGRE coordinates) for given interior cell">getNorthVector</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>* cell);
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165             <span class="keyword">virtual</span> std::vector&lt;DoorMarker&gt; <a class="code" href="classMWWorld_1_1World.html#a5e63693c92e0976c8430e25ec6dcde27" title="get a list of teleport door markers for a given cell, to be displayed on the local map...">getDoorMarkers</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell);
+<a name="l00162"></a>00162             <a class="code" href="classMWBase_1_1World.html#a739022ed5eeda67c169519472ff90bbe">World</a> (<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; renderer,
+<a name="l00163"></a>00163                 <span class="keyword">const</span> <a class="code" href="classFiles_1_1Collections.html">Files::Collections</a>&amp; fileCollections,
+<a name="l00164"></a>00164                 <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; contentFiles,
+<a name="l00165"></a>00165                 <span class="keyword">const</span> boost::filesystem::path&amp; resDir, <span class="keyword">const</span> boost::filesystem::path&amp; cacheDir,
+<a name="l00166"></a>00166                 <a class="code" href="classToUTF8_1_1Utf8Encoder.html">ToUTF8::Utf8Encoder</a>* encoder, <span class="keyword">const</span> std::map&lt;std::string,std::string&gt;&amp; fallbackMap, <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a5676457dc626cfa895f6f2da8d81dc16">mActivationDistanceOverride</a>);
 <a name="l00167"></a>00167 
-<a name="l00168"></a>00168             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a04616d5855954f7d0a6e26fc7d128b92" title="see MWRender::LocalMap::getInteriorMapPosition">getInteriorMapPosition</a> (Ogre::Vector2 position, <span class="keywordtype">float</span>&amp; nX, <span class="keywordtype">float</span>&amp; nY, <span class="keywordtype">int</span> &amp;x, <span class="keywordtype">int</span>&amp; y);
-<a name="l00170"></a>00170 
-<a name="l00171"></a>00171             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a36c2fd4a4b6f5b256f697250dfa1603c" title="see MWRender::LocalMap::isPositionExplored">isPositionExplored</a> (<span class="keywordtype">float</span> nX, <span class="keywordtype">float</span> nY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">bool</span> interior);
-<a name="l00173"></a>00173 
-<a name="l00174"></a>00174             <span class="keyword">virtual</span> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">Globals::Data</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a093226ce9c032af7950f9cac14eca69e">getGlobalVariable</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176             <span class="keyword">virtual</span> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">Globals::Data</a> <a class="code" href="classMWWorld_1_1World.html#a093226ce9c032af7950f9cac14eca69e">getGlobalVariable</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178             <span class="keyword">virtual</span> <span class="keywordtype">char</span> <a class="code" href="classMWWorld_1_1World.html#a6ec0da8afaf4ce850e2228fb44dbe2ce" title="Return &#39; &#39;, if there is no global variable with this name.">getGlobalVariableType</a> (<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;
+<a name="l00168"></a>00168             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1World.html#ad637ebfccb400fd51839e8d2955a2b92">~World</a>();
+<a name="l00169"></a>00169 
+<a name="l00170"></a>00170             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a1566192fcd9304b8233ea373ee7a8fad">startNewGame</a>();
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172             <span class="keyword">virtual</span> <a class="code" href="classOEngine_1_1Render_1_1Fader.html">OEngine::Render::Fader</a>* <a class="code" href="classMWWorld_1_1World.html#a691aa7ae70d00a53806a2c491c944092" title="\ŧodo remove this function. Rendering details should not be exposed.">getFader</a>();
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#ae8d05a877114498eda21325dc295ae5a">getExterior</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00176"></a>00176 
+<a name="l00177"></a>00177             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1World.html#acde0c16fcc854b765bfff5f0d8916cd5">getInterior</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae7b4975fe41269a7557c5fa34f39d283">setWaterHeight</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> height);
 <a name="l00180"></a>00180 
-<a name="l00181"></a>00181             <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classMWWorld_1_1World.html#ab95610f8281f2487bef8e09adaacde8b">getGlobals</a> () <span class="keyword">const</span>;
+<a name="l00181"></a>00181             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9492a9da27e43e900aa0db4dd86bac53">toggleWater</a>();
 <a name="l00182"></a>00182 
-<a name="l00183"></a>00183             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1World.html#a1db18a996cd69e2c93f6e089a4505017">getCurrentCellName</a> () <span class="keyword">const</span>;
+<a name="l00183"></a>00183             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#adaf454f5097e4527eae9cb4d36bb66e6">adjustSky</a>();
 <a name="l00184"></a>00184 
-<a name="l00185"></a>00185             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#af58d742df8417dfeac5b2767e489dcd3">removeRefScript</a> (<a class="code" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> *ref);
-<a name="l00186"></a>00186             <span class="comment">//&lt; Remove the script attached to ref from mLocalScripts</span>
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#a7d90ef24f7ad0455cde5cbb90c4bd5f3">getPtr</a> (<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">bool</span> activeOnly);
-<a name="l00191"></a>00191 
-<a name="l00192"></a>00192             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aedb559d06222cd81ee211e58478342f1">getPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle);
+<a name="l00185"></a>00185             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ad7adb319f692352ff4c14a553b627866">getTriangleBatchCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;triangles, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;batches);
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Fallback.html">Fallback</a> *<a class="code" href="classMWWorld_1_1World.html#a58c6878d7eb7e96fc82b9f92ce3076d3">getFallback</a>() <span class="keyword">const</span>;
+<a name="l00188"></a>00188 
+<a name="l00189"></a>00189             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Player.html" title="NPC object representing the player and additional player data.">Player</a>&amp; <a class="code" href="classMWWorld_1_1World.html#affaceb7547f7e4cc462ae612b8c1f78b">getPlayer</a>();
+<a name="l00190"></a>00190 
+<a name="l00191"></a>00191             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a87aedd49e821a983ab17125a34666cb5">getStore</a>() <span class="keyword">const</span>;
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193             <span class="keyword">virtual</span> std::vector&lt;ESM::ESMReader&gt;&amp; <a class="code" href="classMWWorld_1_1World.html#a0a0685cf1640fe69ab920c42ad6fb5aa">getEsmReader</a>();
 <a name="l00194"></a>00194 
-<a name="l00195"></a>00195             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#a3a755d323af8edb1248593090d60171e" title="Return a pointer to a liveCellRef with the given Ogre handle or Ptr() if not found.">searchPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle);
-<a name="l00197"></a>00197 
-<a name="l00198"></a>00198             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aaf63b8f1889384854cd2ccb8021ca179" title="Adjust position after load to be on ground. Must be called after model load.">adjustPosition</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
-<a name="l00200"></a>00200 
-<a name="l00201"></a>00201             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
-<a name="l00202"></a>00202 
-<a name="l00203"></a>00203             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a76a5bd0c97a7e5945d4f4622422bdba6">disable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
-<a name="l00204"></a>00204 
-<a name="l00205"></a>00205             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a3dfdc8081d74485be31fcfd5c3389ffe" title="Advance in-game time.">advanceTime</a> (<span class="keywordtype">double</span> hours);
-<a name="l00207"></a>00207 
-<a name="l00208"></a>00208             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a732471fd7539f095ee5578216db774ba" title="Set in-game time hour.">setHour</a> (<span class="keywordtype">double</span> hour);
-<a name="l00210"></a>00210 
-<a name="l00211"></a>00211             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2ba6d292ea6f114df49e58bb45258b0a" title="Set in-game time month.">setMonth</a> (<span class="keywordtype">int</span> month);
-<a name="l00213"></a>00213 
-<a name="l00214"></a>00214             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a73f4b35117d0e27f88968e53d258a2c7" title="Set in-game time day.">setDay</a> (<span class="keywordtype">int</span> day);
-<a name="l00216"></a>00216 
-<a name="l00217"></a>00217             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a3f1061f78a679518dfca21656f500f06">getDay</a>();
-<a name="l00218"></a>00218             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a2e88b684845a8dcad56a79810f5a8050">getMonth</a>();
+<a name="l00195"></a>00195             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1LocalScripts.html" title="List of active local scripts.">LocalScripts</a>&amp; <a class="code" href="classMWWorld_1_1World.html#af1839330c6cf58d1f69dc3a6ad14f546">getLocalScripts</a>();
+<a name="l00196"></a>00196 
+<a name="l00197"></a>00197             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a664299554b550460dd9097c12d395f82" title="Has the player moved to a different cell, since the last frame?">hasCellChanged</a>() <span class="keyword">const</span>;
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a46f8d03a111453ccfb35f972b595659e">isCellExterior</a>() <span class="keyword">const</span>;
+<a name="l00201"></a>00201 
+<a name="l00202"></a>00202             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#aa8c4b2743b935a2b49f3a8a75b09b6ef">isCellQuasiExterior</a>() <span class="keyword">const</span>;
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204             <span class="keyword">virtual</span> Ogre::Vector2 <a class="code" href="classMWWorld_1_1World.html#a49c68d99a6e869e20acb92a57c5b92d1" title="get north vector (OGRE coordinates) for given interior cell">getNorthVector</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>* cell);
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2ef5ac35ccc75bd9bb53fab3220991bc" title="get a list of teleport door markers for a given cell, to be displayed on the local map...">getDoorMarkers</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell, std::vector&lt;DoorMarker&gt;&amp; out);
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a04616d5855954f7d0a6e26fc7d128b92" title="see MWRender::LocalMap::getInteriorMapPosition">getInteriorMapPosition</a> (Ogre::Vector2 position, <span class="keywordtype">float</span>&amp; nX, <span class="keywordtype">float</span>&amp; nY, <span class="keywordtype">int</span> &amp;x, <span class="keywordtype">int</span>&amp; y);
+<a name="l00212"></a>00212 
+<a name="l00213"></a>00213             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a36c2fd4a4b6f5b256f697250dfa1603c" title="see MWRender::LocalMap::isPositionExplored">isPositionExplored</a> (<span class="keywordtype">float</span> nX, <span class="keywordtype">float</span> nY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">bool</span> interior);
+<a name="l00215"></a>00215 
+<a name="l00216"></a>00216             <span class="keyword">virtual</span> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">Globals::Data</a>&amp; <a class="code" href="classMWWorld_1_1World.html#a093226ce9c032af7950f9cac14eca69e">getGlobalVariable</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
+<a name="l00217"></a>00217 
+<a name="l00218"></a>00218             <span class="keyword">virtual</span> <a class="code" href="unionMWWorld_1_1Globals_1_1Data.html">Globals::Data</a> <a class="code" href="classMWWorld_1_1World.html#a093226ce9c032af7950f9cac14eca69e">getGlobalVariable</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>) <span class="keyword">const</span>;
 <a name="l00219"></a>00219 
-<a name="l00220"></a>00220             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1TimeStamp.html" title="In-game time stamp.">TimeStamp</a> <a class="code" href="classMWWorld_1_1World.html#a1966431ecbc9fe3e46c0d27af7fec66e" title="Return current in-game time stamp.">getTimeStamp</a>() <span class="keyword">const</span>;
+<a name="l00220"></a>00220             <span class="keyword">virtual</span> <span class="keywordtype">char</span> <a class="code" href="classMWWorld_1_1World.html#a6ec0da8afaf4ce850e2228fb44dbe2ce" title="Return &#39; &#39;, if there is no global variable with this name.">getGlobalVariableType</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>) <span class="keyword">const</span>;
 <a name="l00222"></a>00222 
-<a name="l00223"></a>00223             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a4b848840cf6f7e7f60715815d57e2dd5">toggleSky</a>();
-<a name="l00225"></a>00225 
-<a name="l00226"></a>00226             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae0bdbfe2ab9e069dcc4ce065de09f868">changeWeather</a> (<span class="keyword">const</span> std::string&amp; region, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);
-<a name="l00227"></a>00227 
-<a name="l00228"></a>00228             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a5cc13c3c7133318fb4ca6e4ed63d1e99">getCurrentWeather</a>() <span class="keyword">const</span>;
+<a name="l00223"></a>00223             <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classMWWorld_1_1World.html#ab95610f8281f2487bef8e09adaacde8b">getGlobals</a> () <span class="keyword">const</span>;
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225             <span class="keyword">virtual</span> std::string <a class="code" href="classMWWorld_1_1World.html#a1db18a996cd69e2c93f6e089a4505017">getCurrentCellName</a> () <span class="keyword">const</span>;
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#af58d742df8417dfeac5b2767e489dcd3">removeRefScript</a> (<a class="code" href="classMWWorld_1_1RefData.html">MWWorld::RefData</a> *ref);
+<a name="l00228"></a>00228             <span class="comment">//&lt; Remove the script attached to ref from mLocalScripts</span>
 <a name="l00229"></a>00229 
-<a name="l00230"></a>00230             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#ab954aabea910a54630f9147994e4efbf">getMasserPhase</a>() <span class="keyword">const</span>;
-<a name="l00231"></a>00231 
-<a name="l00232"></a>00232             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#aa8693bbbb2b5e7cafb48515a9ec18ad2">getSecundaPhase</a>() <span class="keyword">const</span>;
+<a name="l00230"></a>00230             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#a7d90ef24f7ad0455cde5cbb90c4bd5f3">getPtr</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keywordtype">bool</span> activeOnly);
 <a name="l00233"></a>00233 
-<a name="l00234"></a>00234             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#acb1c65c5538c1ac7fe610c9c396e5799">setMoonColour</a> (<span class="keywordtype">bool</span> red);
-<a name="l00235"></a>00235 
-<a name="l00236"></a>00236             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7c18294afe6db38c160490a1895f9b1c">modRegion</a>(<span class="keyword">const</span> std::string &amp;regionid, <span class="keyword">const</span> std::vector&lt;char&gt; &amp;chances);
-<a name="l00237"></a>00237 
-<a name="l00238"></a>00238             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a4826b6f8c185cd5207e7912ab89ac4a5">getTimeScaleFactor</a>() <span class="keyword">const</span>;
+<a name="l00234"></a>00234             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aedb559d06222cd81ee211e58478342f1">getPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle);
+<a name="l00236"></a>00236 
+<a name="l00237"></a>00237             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1World.html#a3a755d323af8edb1248593090d60171e" title="Return a pointer to a liveCellRef with the given Ogre handle or Ptr() if not found.">searchPtrViaHandle</a> (<span class="keyword">const</span> std::string&amp; handle);
 <a name="l00239"></a>00239 
-<a name="l00240"></a>00240             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0c0965b4f3f2e2548eaee58be76fd879" title="Move to interior cell.">changeToInteriorCell</a> (<span class="keyword">const</span> std::string&amp; cellName,
-<a name="l00241"></a>00241                 <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
-<a name="l00243"></a>00243 
-<a name="l00244"></a>00244             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2b2e20b1f8308f25a7b748300757081c" title="Move to exterior cell.">changeToExteriorCell</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
+<a name="l00240"></a>00240             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aaf63b8f1889384854cd2ccb8021ca179" title="Adjust position after load to be on ground. Must be called after model load.">adjustPosition</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00242"></a>00242 
+<a name="l00243"></a>00243             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00244"></a>00244 
+<a name="l00245"></a>00245             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a76a5bd0c97a7e5945d4f4622422bdba6">disable</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
 <a name="l00246"></a>00246 
-<a name="l00247"></a>00247             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1World.html#ae8d05a877114498eda21325dc295ae5a">getExterior</a> (<span class="keyword">const</span> std::string&amp; cellName) <span class="keyword">const</span>;
+<a name="l00247"></a>00247             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a3dfdc8081d74485be31fcfd5c3389ffe" title="Advance in-game time.">advanceTime</a> (<span class="keywordtype">double</span> hours);
 <a name="l00249"></a>00249 
-<a name="l00250"></a>00250             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9c84bcb7db8f2217da9f41e2a85e9a69">markCellAsUnchanged</a>();
-<a name="l00251"></a>00251 
-<a name="l00252"></a>00252             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aee7761605a55deee55a0b38045f77869" title="Return pointer to the object the player is looking at, if it is within activation range...">getFacedObject</a>();
-<a name="l00254"></a>00254 
-<a name="l00258"></a>00258             <span class="keyword">virtual</span> std::pair&lt;MWWorld::Ptr,Ogre::Vector3&gt; <a class="code" href="classMWWorld_1_1World.html#a3f8e642d8833b46da2d8edd0a3547e7f">getHitContact</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, <span class="keywordtype">float</span> <a class="code" href="namespaceanonymous__namespace_02pathfinding_8cpp_03.html#aab964625ad53e3ca8ea4762ca16ba4a5">distance</a>);
-<a name="l00259"></a>00259 
-<a name="l00260"></a>00260             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9d79a21d8b821de69c1cc702196f6318">deleteObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00250"></a>00250             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a732471fd7539f095ee5578216db774ba" title="Set in-game time hour.">setHour</a> (<span class="keywordtype">double</span> hour);
+<a name="l00252"></a>00252 
+<a name="l00253"></a>00253             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2ba6d292ea6f114df49e58bb45258b0a" title="Set in-game time month.">setMonth</a> (<span class="keywordtype">int</span> month);
+<a name="l00255"></a>00255 
+<a name="l00256"></a>00256             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a73f4b35117d0e27f88968e53d258a2c7" title="Set in-game time day.">setDay</a> (<span class="keywordtype">int</span> day);
+<a name="l00258"></a>00258 
+<a name="l00259"></a>00259             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a3f1061f78a679518dfca21656f500f06">getDay</a>();
+<a name="l00260"></a>00260             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a2e88b684845a8dcad56a79810f5a8050">getMonth</a>();
 <a name="l00261"></a>00261 
-<a name="l00262"></a>00262             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a20af143e12f1631a13bcb1978aa6e404">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
-<a name="l00263"></a>00263             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a20af143e12f1631a13bcb1978aa6e404">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;newCell, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
+<a name="l00262"></a>00262             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1TimeStamp.html" title="In-game time stamp.">TimeStamp</a> <a class="code" href="classMWWorld_1_1World.html#a1966431ecbc9fe3e46c0d27af7fec66e" title="Return current in-game time stamp.">getTimeStamp</a>() <span class="keyword">const</span>;
 <a name="l00264"></a>00264 
-<a name="l00265"></a>00265             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae234f7a6da9154bcfb7adec13762caa0">scaleObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> scale);
-<a name="l00266"></a>00266 
-<a name="l00269"></a>00269             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a6aadf5625f8666816b42a4eecd8c316f">rotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr,<span class="keywordtype">float</span> x,<span class="keywordtype">float</span> y,<span class="keywordtype">float</span> z, <span class="keywordtype">bool</span> adjust = <span class="keyword">false</span>);
-<a name="l00270"></a>00270 
-<a name="l00271"></a>00271             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0acb64bac2e236ebbb396d367a510c80">localRotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
-<a name="l00272"></a>00272 
-<a name="l00273"></a>00273             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ac7eeb82052aa5354c6c92451d22cdf7d" title="place an object in a &quot;safe&quot; location (ie not in the void, etc). Makes a copy of the Ptr...">safePlaceObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr,<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> &amp;Cell,<a class="code" href="structESM_1_1Position.html">ESM::Position</a> pos);
+<a name="l00265"></a>00265             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a4b848840cf6f7e7f60715815d57e2dd5">toggleSky</a>();
+<a name="l00267"></a>00267 
+<a name="l00268"></a>00268             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae0bdbfe2ab9e069dcc4ce065de09f868">changeWeather</a> (<span class="keyword">const</span> std::string&amp; region, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);
+<a name="l00269"></a>00269 
+<a name="l00270"></a>00270             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#a5cc13c3c7133318fb4ca6e4ed63d1e99">getCurrentWeather</a>() <span class="keyword">const</span>;
+<a name="l00271"></a>00271 
+<a name="l00272"></a>00272             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#ab954aabea910a54630f9147994e4efbf">getMasserPhase</a>() <span class="keyword">const</span>;
+<a name="l00273"></a>00273 
+<a name="l00274"></a>00274             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#aa8693bbbb2b5e7cafb48515a9ec18ad2">getSecundaPhase</a>() <span class="keyword">const</span>;
 <a name="l00275"></a>00275 
-<a name="l00276"></a>00276             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7cca3cbc0855627d830d33dc4f68e23b" title="Convert cell numbers to position.">indexToPosition</a> (<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">float</span> &amp;x, <span class="keywordtype">float</span> &amp;y, <span class="keywordtype">bool</span> centre = <span class="keyword">false</span>)
-<a name="l00277"></a>00277                 <span class="keyword">const</span>;
+<a name="l00276"></a>00276             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#acb1c65c5538c1ac7fe610c9c396e5799">setMoonColour</a> (<span class="keywordtype">bool</span> red);
+<a name="l00277"></a>00277 
+<a name="l00278"></a>00278             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7c18294afe6db38c160490a1895f9b1c">modRegion</a>(<span class="keyword">const</span> std::string &amp;regionid, <span class="keyword">const</span> std::vector&lt;char&gt; &amp;chances);
 <a name="l00279"></a>00279 
-<a name="l00280"></a>00280             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a465203a7a0a534083b490b9ea4a887de" title="Convert position to cell numbers.">positionToIndex</a> (<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">int</span> &amp;cellX, <span class="keywordtype">int</span> &amp;cellY) <span class="keyword">const</span>;
-<a name="l00282"></a>00282 
-<a name="l00283"></a>00283             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a49c3b31f72023d6b122ad3f88a37e8d7">queueMovement</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> &amp;ptr, <span class="keyword">const</span> Ogre::Vector3 &amp;velocity);
-<a name="l00286"></a>00286 
-<a name="l00287"></a>00287             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ab0ba3f1a3402526d4c8af207fd6618a6" title="cast a Ray and return true if there is an object in the ray path.">castRay</a> (<span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1, <span class="keywordtype">float</span> z1, <span class="keywordtype">float</span> x2, <span class="keywordtype">float</span> y2, <span class="keywordtype">float</span> z2);
-<a name="l00289"></a>00289 
-<a name="l00290"></a>00290             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a1341edfef141cff48df96922d05077d1">toggleCollisionMode</a>();
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#af19692c5cdf741f1ed713194cbfe3664">toggleRenderMode</a> (<a class="code" href="classMWBase_1_1World.html#ae2dd70215dc18d3657f642f0b1f283e3">RenderMode</a> mode);
-<a name="l00298"></a>00298 
-<a name="l00299"></a>00299             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Potion.html">ESM::Potion</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Potion.html">ESM::Potion</a>&amp; record);
-<a name="l00302"></a>00302 
-<a name="l00303"></a>00303             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Spell.html">ESM::Spell</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Spell.html">ESM::Spell</a>&amp; record);
+<a name="l00280"></a>00280             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a4826b6f8c185cd5207e7912ab89ac4a5">getTimeScaleFactor</a>() <span class="keyword">const</span>;
+<a name="l00281"></a>00281 
+<a name="l00282"></a>00282             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0c0965b4f3f2e2548eaee58be76fd879" title="Move to interior cell.">changeToInteriorCell</a> (<span class="keyword">const</span> std::string&amp; cellName,
+<a name="l00283"></a>00283                 <span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
+<a name="l00285"></a>00285 
+<a name="l00286"></a>00286             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2b2e20b1f8308f25a7b748300757081c" title="Move to exterior cell.">changeToExteriorCell</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Position.html">ESM::Position</a>&amp; position);
+<a name="l00288"></a>00288 
+<a name="l00289"></a>00289             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1World.html#ae8d05a877114498eda21325dc295ae5a">getExterior</a> (<span class="keyword">const</span> std::string&amp; cellName) <span class="keyword">const</span>;
+<a name="l00291"></a>00291 
+<a name="l00292"></a>00292             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9c84bcb7db8f2217da9f41e2a85e9a69">markCellAsUnchanged</a>();
+<a name="l00293"></a>00293 
+<a name="l00294"></a>00294             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1World.html#aee7761605a55deee55a0b38045f77869" title="Return pointer to the object the player is looking at, if it is within activation range...">getFacedObject</a>();
+<a name="l00296"></a>00296 
+<a name="l00300"></a>00300             <span class="keyword">virtual</span> std::pair&lt;MWWorld::Ptr,Ogre::Vector3&gt; <a class="code" href="classMWWorld_1_1World.html#a3f8e642d8833b46da2d8edd0a3547e7f">getHitContact</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, <span class="keywordtype">float</span> <a class="code" href="namespaceanonymous__namespace_02pathfinding_8cpp_03.html#aab964625ad53e3ca8ea4762ca16ba4a5">distance</a>);
+<a name="l00301"></a>00301 
+<a name="l00302"></a>00302             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9d79a21d8b821de69c1cc702196f6318">deleteObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr);
+<a name="l00303"></a>00303 
+<a name="l00304"></a>00304             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a20af143e12f1631a13bcb1978aa6e404">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
+<a name="l00305"></a>00305             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a20af143e12f1631a13bcb1978aa6e404">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> &amp;newCell, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
 <a name="l00306"></a>00306 
-<a name="l00307"></a>00307             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; record);
-<a name="l00310"></a>00310 
-<a name="l00311"></a>00311             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>&amp; record);
+<a name="l00307"></a>00307             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae234f7a6da9154bcfb7adec13762caa0">scaleObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> scale);
+<a name="l00308"></a>00308 
+<a name="l00311"></a>00311             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a6aadf5625f8666816b42a4eecd8c316f">rotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr,<span class="keywordtype">float</span> x,<span class="keywordtype">float</span> y,<span class="keywordtype">float</span> z, <span class="keywordtype">bool</span> adjust = <span class="keyword">false</span>);
+<a name="l00312"></a>00312 
+<a name="l00313"></a>00313             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a0acb64bac2e236ebbb396d367a510c80">localRotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; ptr, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
 <a name="l00314"></a>00314 
-<a name="l00315"></a>00315             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> &amp;record);
-<a name="l00318"></a>00318 
-<a name="l00319"></a>00319             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Armor.html">ESM::Armor</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Armor.html">ESM::Armor</a>&amp; record);
-<a name="l00322"></a>00322 
-<a name="l00323"></a>00323             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Weapon.html">ESM::Weapon</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Weapon.html">ESM::Weapon</a>&amp; record);
-<a name="l00326"></a>00326 
-<a name="l00327"></a>00327             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Clothing.html">ESM::Clothing</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Clothing.html">ESM::Clothing</a>&amp; record);
-<a name="l00330"></a>00330 
-<a name="l00331"></a>00331             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Enchantment.html">ESM::Enchantment</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Enchantment.html">ESM::Enchantment</a>&amp; record);
-<a name="l00334"></a>00334 
-<a name="l00335"></a>00335             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Book.html">ESM::Book</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Book.html">ESM::Book</a>&amp; record);
-<a name="l00338"></a>00338 
-<a name="l00339"></a>00339             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#abf77486e8f0325210afe56bbe2021960">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00315"></a>00315             <span class="keyword">virtual</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWWorld_1_1World.html#ae3112f34a9257b2d7d356e0395573102" title="place an object in a &quot;safe&quot; location (ie not in the void, etc). Makes a copy of the Ptr...">safePlaceObject</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr,<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> &amp;Cell,<a class="code" href="structESM_1_1Position.html">ESM::Position</a> pos);
+<a name="l00317"></a>00317 
+<a name="l00318"></a>00318             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7cca3cbc0855627d830d33dc4f68e23b" title="Convert cell numbers to position.">indexToPosition</a> (<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">float</span> &amp;x, <span class="keywordtype">float</span> &amp;y, <span class="keywordtype">bool</span> centre = <span class="keyword">false</span>)
+<a name="l00319"></a>00319                 <span class="keyword">const</span>;
+<a name="l00321"></a>00321 
+<a name="l00322"></a>00322             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a465203a7a0a534083b490b9ea4a887de" title="Convert position to cell numbers.">positionToIndex</a> (<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">int</span> &amp;cellX, <span class="keywordtype">int</span> &amp;cellY) <span class="keyword">const</span>;
+<a name="l00324"></a>00324 
+<a name="l00325"></a>00325             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a49c3b31f72023d6b122ad3f88a37e8d7">queueMovement</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> &amp;ptr, <span class="keyword">const</span> Ogre::Vector3 &amp;velocity);
+<a name="l00328"></a>00328 
+<a name="l00329"></a>00329             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ab0ba3f1a3402526d4c8af207fd6618a6" title="cast a Ray and return true if there is an object in the ray path.">castRay</a> (<span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1, <span class="keywordtype">float</span> z1, <span class="keywordtype">float</span> x2, <span class="keywordtype">float</span> y2, <span class="keywordtype">float</span> z2);
+<a name="l00331"></a>00331 
+<a name="l00332"></a>00332             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a1341edfef141cff48df96922d05077d1">toggleCollisionMode</a>();
+<a name="l00336"></a>00336 
+<a name="l00337"></a>00337             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#af19692c5cdf741f1ed713194cbfe3664">toggleRenderMode</a> (<a class="code" href="classMWBase_1_1World.html#ae2dd70215dc18d3657f642f0b1f283e3">RenderMode</a> mode);
 <a name="l00340"></a>00340 
-<a name="l00341"></a>00341             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a159b4a85813745d4ec91675bd3c80e8b">placeObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <span class="keywordtype">object</span>, <span class="keywordtype">float</span> cursorX, <span class="keywordtype">float</span> cursorY);
-<a name="l00347"></a>00347 
-<a name="l00348"></a>00348             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ad70b3aeeeebd08855c7a949053587973">dropObjectOnGround</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <span class="keywordtype">object</span>);
-<a name="l00349"></a>00349 
-<a name="l00350"></a>00350             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a41767973ca725be3bb29090e232fb22b">canPlaceObject</a>(<span class="keywordtype">float</span> cursorX, <span class="keywordtype">float</span> cursorY);
+<a name="l00341"></a>00341             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Potion.html">ESM::Potion</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Potion.html">ESM::Potion</a>&amp; record);
+<a name="l00344"></a>00344 
+<a name="l00345"></a>00345             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Spell.html">ESM::Spell</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Spell.html">ESM::Spell</a>&amp; record);
+<a name="l00348"></a>00348 
+<a name="l00349"></a>00349             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Class.html">ESM::Class</a>&amp; record);
 <a name="l00352"></a>00352 
-<a name="l00353"></a>00353             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#adb55ea7878a7531069791e7fcc867558">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; settings);
-<a name="l00354"></a>00354 
-<a name="l00355"></a>00355             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ad980114d5c4b24e19564f387d93568d3">isFlying</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr) <span class="keyword">const</span>;
-<a name="l00357"></a>00357             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac5152f76c14a845ec7d3715a01b031f7" title="Is the head of the creature underwater?">isSubmerged</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;<span class="keywordtype">object</span>) <span class="keyword">const</span>;
-<a name="l00358"></a>00358             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a939692b4f9415f314d1ae61075a6f5dd">isSwimming</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;<span class="keywordtype">object</span>) <span class="keyword">const</span>;
-<a name="l00359"></a>00359             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a3e681d03717e59dbf1c07af0e173141d">isUnderwater</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a>* cell, <span class="keyword">const</span> Ogre::Vector3 &amp;pos) <span class="keyword">const</span>;
-<a name="l00360"></a>00360             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a16a90e32aafbe7833dbc925e87d8e835">isOnGround</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr) <span class="keyword">const</span>;
-<a name="l00361"></a>00361 
-<a name="l00362"></a><a class="code" href="classMWWorld_1_1World.html#a22d7d6d7744815ad9d1f66c0731abb4c">00362</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a22d7d6d7744815ad9d1f66c0731abb4c">togglePOV</a>() {
-<a name="l00363"></a>00363                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">togglePOV</a>();
-<a name="l00364"></a>00364             }
-<a name="l00365"></a>00365 
-<a name="l00366"></a><a class="code" href="classMWWorld_1_1World.html#aed3f39f8c218d3d7b748d074ed09d5e9">00366</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aed3f39f8c218d3d7b748d074ed09d5e9">togglePreviewMode</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>) {
-<a name="l00367"></a>00367                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">togglePreviewMode</a>(enable);
-<a name="l00368"></a>00368             }
-<a name="l00369"></a>00369 
-<a name="l00370"></a><a class="code" href="classMWWorld_1_1World.html#a0d6995bd5b5b90d4ff4ea16b11d12b0b">00370</a>             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0d6995bd5b5b90d4ff4ea16b11d12b0b">toggleVanityMode</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>) {
-<a name="l00371"></a>00371                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">toggleVanityMode</a>(enable);
-<a name="l00372"></a>00372             }
-<a name="l00373"></a>00373 
-<a name="l00374"></a><a class="code" href="classMWWorld_1_1World.html#a3ef1b1805db891c46f632d819ab16acf">00374</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a3ef1b1805db891c46f632d819ab16acf">allowVanityMode</a>(<span class="keywordtype">bool</span> allow) {
-<a name="l00375"></a>00375                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">allowVanityMode</a>(allow);
-<a name="l00376"></a>00376             }
-<a name="l00377"></a>00377 
-<a name="l00378"></a><a class="code" href="classMWWorld_1_1World.html#a13feda242960bbaba1e43f14250e5700">00378</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a13feda242960bbaba1e43f14250e5700">togglePlayerLooking</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>) {
-<a name="l00379"></a>00379                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">togglePlayerLooking</a>(enable);
-<a name="l00380"></a>00380             }
-<a name="l00381"></a>00381 
-<a name="l00382"></a><a class="code" href="classMWWorld_1_1World.html#a5730a81b10271f2b58ce934639878bdb">00382</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a5730a81b10271f2b58ce934639878bdb">changeVanityModeScale</a>(<span class="keywordtype">float</span> factor) {
-<a name="l00383"></a>00383                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">changeVanityModeScale</a>(factor);
-<a name="l00384"></a>00384             }
-<a name="l00385"></a>00385 
-<a name="l00386"></a>00386             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#aa2a335c79f5ba22e3c5f4e0d6da9903d">vanityRotateCamera</a>(<span class="keywordtype">float</span> * rot);
-<a name="l00387"></a>00387             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a09515bfe8ce44f827ef3e19a4dfa09a3">setCameraDistance</a>(<span class="keywordtype">float</span> dist, <span class="keywordtype">bool</span> adjust = <span class="keyword">false</span>, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">true</span>);
-<a name="l00388"></a>00388 
-<a name="l00389"></a>00389             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ac02681fae70c96e65e9d2e4c2e067f6a">setupPlayer</a>();
-<a name="l00390"></a>00390             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#acd09247a58246c25f2e0416d978f003c">renderPlayer</a>();
-<a name="l00391"></a>00391 
-<a name="l00392"></a>00392             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac51644747c6e555a8fa22ff736384d65" title="if activated, should this door be opened or closed?">getOpenOrCloseDoor</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; door);
-<a name="l00394"></a>00394             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a54843690a006655193a8226e37f4f60f" title="activate (open or close) an non-teleport door">activateDoor</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; door);
+<a name="l00353"></a>00353             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a>&amp; record);
+<a name="l00356"></a>00356 
+<a name="l00357"></a>00357             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> &amp;record);
+<a name="l00360"></a>00360 
+<a name="l00361"></a>00361             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Armor.html">ESM::Armor</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Armor.html">ESM::Armor</a>&amp; record);
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Weapon.html">ESM::Weapon</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Weapon.html">ESM::Weapon</a>&amp; record);
+<a name="l00368"></a>00368 
+<a name="l00369"></a>00369             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Clothing.html">ESM::Clothing</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Clothing.html">ESM::Clothing</a>&amp; record);
+<a name="l00372"></a>00372 
+<a name="l00373"></a>00373             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Enchantment.html">ESM::Enchantment</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Enchantment.html">ESM::Enchantment</a>&amp; record);
+<a name="l00376"></a>00376 
+<a name="l00377"></a>00377             <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1Book.html">ESM::Book</a> *<a class="code" href="classMWWorld_1_1World.html#a9d4504ed1121d38d32d52ba7b1b5e944">createRecord</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Book.html">ESM::Book</a>&amp; record);
+<a name="l00380"></a>00380 
+<a name="l00381"></a>00381             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#abf77486e8f0325210afe56bbe2021960">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00382"></a>00382 
+<a name="l00383"></a>00383             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a07ce55faa85eec064a054c023564e958">placeObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; <span class="keywordtype">object</span>, <span class="keywordtype">float</span> cursorX, <span class="keywordtype">float</span> cursorY, <span class="keywordtype">int</span> amount);
+<a name="l00390"></a>00390 
+<a name="l00391"></a>00391             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a48dea4c299a8d151394f67ef06d6c147">dropObjectOnGround</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; <span class="keywordtype">object</span>, <span class="keywordtype">int</span> amount);
 <a name="l00396"></a>00396 
-<a name="l00397"></a>00397             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac144ed522fe4e16e4c15045613c4b741">getPlayerStandingOn</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; <span class="keywordtype">object</span>); 
-<a name="l00398"></a>00398             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a2e5e714d95ae8fbb17b1f46c51e4f226">getActorStandingOn</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; <span class="keywordtype">object</span>); 
-<a name="l00399"></a>00399             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a96f39112a71b9e3bee252ccad5949e56">getWindSpeed</a>();
-<a name="l00400"></a>00400 
-<a name="l00401"></a>00401             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aafe1d9e0658832db13d1e98cc2494b5d" title="get all containers in active cells owned by this Npc">getContainersOwnedBy</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc, std::vector&lt;MWWorld::Ptr&gt;&amp; out);
-<a name="l00403"></a>00403             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a831f8d5fbb36c838ea0f8ac5938f6158" title="get all items in active cells owned by this Npc">getItemsOwnedBy</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc, std::vector&lt;MWWorld::Ptr&gt;&amp; out);
-<a name="l00405"></a>00405 
-<a name="l00406"></a>00406             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a033944889a7df6cf31002a62d13c8902">enableActorCollision</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>);
-<a name="l00407"></a>00407 
-<a name="l00408"></a>00408             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae3899ec20a6073d258a42ec13d11b633">setupExternalRendering</a> (<a class="code" href="classMWRender_1_1ExternalRendering.html" title="Base class for out of world rendering.">MWRender::ExternalRendering</a>&amp; rendering);
+<a name="l00397"></a>00397             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a41767973ca725be3bb29090e232fb22b">canPlaceObject</a>(<span class="keywordtype">float</span> cursorX, <span class="keywordtype">float</span> cursorY);
+<a name="l00399"></a>00399 
+<a name="l00400"></a>00400             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#adb55ea7878a7531069791e7fcc867558">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; settings);
+<a name="l00401"></a>00401 
+<a name="l00402"></a>00402             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ad980114d5c4b24e19564f387d93568d3">isFlying</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr) <span class="keyword">const</span>;
+<a name="l00403"></a>00403             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#acf2df0522e81f92f10bf6b353c5e4b1c">isSlowFalling</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr) <span class="keyword">const</span>;
+<a name="l00405"></a>00405             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac5152f76c14a845ec7d3715a01b031f7" title="Is the head of the creature underwater?">isSubmerged</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;<span class="keywordtype">object</span>) <span class="keyword">const</span>;
+<a name="l00406"></a>00406             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a939692b4f9415f314d1ae61075a6f5dd">isSwimming</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;<span class="keywordtype">object</span>) <span class="keyword">const</span>;
+<a name="l00407"></a>00407             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a3e681d03717e59dbf1c07af0e173141d">isUnderwater</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::Ptr::CellStore</a>* cell, <span class="keyword">const</span> Ogre::Vector3 &amp;pos) <span class="keyword">const</span>;
+<a name="l00408"></a>00408             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a16a90e32aafbe7833dbc925e87d8e835">isOnGround</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr) <span class="keyword">const</span>;
 <a name="l00409"></a>00409 
-<a name="l00410"></a>00410             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#ae94f143d50da8afcff64de332572b1f5">canRest</a>();
-<a name="l00416"></a>00416 
-<a name="l00418"></a>00418             <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Animation.html">MWRender::Animation</a>* <a class="code" href="classMWWorld_1_1World.html#a2568fec19dc3aafa8c5d7f56fe03c4fe">getAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00419"></a>00419 
-<a name="l00421"></a>00421             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a38eddafcc63e518175bd7682849c8cb3">playVideo</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">bool</span> allowSkipping);
-<a name="l00422"></a>00422             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a27f8932d9fde836d9e4d6c40245406ad">stopVideo</a>();
-<a name="l00423"></a>00423             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a002e0c62228549886e0b056ed235df0a">frameStarted</a> (<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> paused);
-<a name="l00424"></a>00424 
-<a name="l00427"></a>00427             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#aff6e0c9dfd2c2c7c342819929c4f36fb">findExteriorPosition</a>(<span class="keyword">const</span> std::string &amp;name, <a class="code" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos);
-<a name="l00428"></a>00428 
-<a name="l00431"></a>00431             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac1b97665855f0f2bbc712cbdbc65ab0f">findInteriorPosition</a>(<span class="keyword">const</span> std::string &amp;name, <a class="code" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos);
-<a name="l00432"></a>00432 
-<a name="l00434"></a>00434             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a00a2fb93a2a82538de5fc12cb5c10def" title="Enables or disables use of teleport spell effects (recall, intervention, etc).">enableTeleporting</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>);
-<a name="l00435"></a>00435 
-<a name="l00437"></a>00437             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac0f280461f80ccf1ea7e7abbca6ee396" title="Returns true if teleport spell effects are allowed.">isTeleportingEnabled</a>() <span class="keyword">const</span>;
-<a name="l00438"></a>00438 
-<a name="l00439"></a>00439             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#abe9062ef19da6cec3c81464dd6382f0f" title="Turn actor into werewolf or normal form.">setWerewolf</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keywordtype">bool</span> werewolf);
-<a name="l00440"></a>00440 
-<a name="l00441"></a>00441             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a623d89f5c202c99377a5638bc6d5a345">applyWerewolfAcrobatics</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
-<a name="l00442"></a>00442     };
-<a name="l00443"></a>00443 }
+<a name="l00410"></a><a class="code" href="classMWWorld_1_1World.html#a22d7d6d7744815ad9d1f66c0731abb4c">00410</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a22d7d6d7744815ad9d1f66c0731abb4c">togglePOV</a>() {
+<a name="l00411"></a>00411                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">togglePOV</a>();
+<a name="l00412"></a>00412             }
+<a name="l00413"></a>00413 
+<a name="l00414"></a><a class="code" href="classMWWorld_1_1World.html#aed3f39f8c218d3d7b748d074ed09d5e9">00414</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aed3f39f8c218d3d7b748d074ed09d5e9">togglePreviewMode</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>) {
+<a name="l00415"></a>00415                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">togglePreviewMode</a>(enable);
+<a name="l00416"></a>00416             }
+<a name="l00417"></a>00417 
+<a name="l00418"></a><a class="code" href="classMWWorld_1_1World.html#a0d6995bd5b5b90d4ff4ea16b11d12b0b">00418</a>             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0d6995bd5b5b90d4ff4ea16b11d12b0b">toggleVanityMode</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>) {
+<a name="l00419"></a>00419                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">toggleVanityMode</a>(enable);
+<a name="l00420"></a>00420             }
+<a name="l00421"></a>00421 
+<a name="l00422"></a><a class="code" href="classMWWorld_1_1World.html#a3ef1b1805db891c46f632d819ab16acf">00422</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a3ef1b1805db891c46f632d819ab16acf">allowVanityMode</a>(<span class="keywordtype">bool</span> allow) {
+<a name="l00423"></a>00423                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">allowVanityMode</a>(allow);
+<a name="l00424"></a>00424             }
+<a name="l00425"></a>00425 
+<a name="l00426"></a><a class="code" href="classMWWorld_1_1World.html#a13feda242960bbaba1e43f14250e5700">00426</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a13feda242960bbaba1e43f14250e5700">togglePlayerLooking</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>) {
+<a name="l00427"></a>00427                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">togglePlayerLooking</a>(enable);
+<a name="l00428"></a>00428             }
+<a name="l00429"></a>00429 
+<a name="l00430"></a><a class="code" href="classMWWorld_1_1World.html#a5730a81b10271f2b58ce934639878bdb">00430</a>             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a5730a81b10271f2b58ce934639878bdb">changeVanityModeScale</a>(<span class="keywordtype">float</span> factor) {
+<a name="l00431"></a>00431                 <a class="code" href="classMWWorld_1_1World.html#ae7591da99039969000c2e3a7043160e0">mRendering</a>-&gt;<a class="code" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">changeVanityModeScale</a>(factor);
+<a name="l00432"></a>00432             }
+<a name="l00433"></a>00433 
+<a name="l00434"></a>00434             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#aa2a335c79f5ba22e3c5f4e0d6da9903d">vanityRotateCamera</a>(<span class="keywordtype">float</span> * rot);
+<a name="l00435"></a>00435             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a09515bfe8ce44f827ef3e19a4dfa09a3">setCameraDistance</a>(<span class="keywordtype">float</span> dist, <span class="keywordtype">bool</span> adjust = <span class="keyword">false</span>, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">true</span>);
+<a name="l00436"></a>00436 
+<a name="l00437"></a>00437             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ac02681fae70c96e65e9d2e4c2e067f6a">setupPlayer</a>();
+<a name="l00438"></a>00438             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#acd09247a58246c25f2e0416d978f003c">renderPlayer</a>();
+<a name="l00439"></a>00439 
+<a name="l00440"></a>00440             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac51644747c6e555a8fa22ff736384d65" title="if activated, should this door be opened or closed?">getOpenOrCloseDoor</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; door);
+<a name="l00442"></a>00442             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a54843690a006655193a8226e37f4f60f" title="activate (open or close) an non-teleport door">activateDoor</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; door);
 <a name="l00444"></a>00444 
-<a name="l00445"></a>00445 <span class="preprocessor">#endif</span>
+<a name="l00445"></a>00445             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac144ed522fe4e16e4c15045613c4b741">getPlayerStandingOn</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; <span class="keywordtype">object</span>); 
+<a name="l00446"></a>00446             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a2e5e714d95ae8fbb17b1f46c51e4f226">getActorStandingOn</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; <span class="keywordtype">object</span>); 
+<a name="l00447"></a>00447             <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classMWWorld_1_1World.html#a96f39112a71b9e3bee252ccad5949e56">getWindSpeed</a>();
+<a name="l00448"></a>00448 
+<a name="l00449"></a>00449             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aafe1d9e0658832db13d1e98cc2494b5d" title="get all containers in active cells owned by this Npc">getContainersOwnedBy</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc, std::vector&lt;MWWorld::Ptr&gt;&amp; out);
+<a name="l00451"></a>00451             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a831f8d5fbb36c838ea0f8ac5938f6158" title="get all items in active cells owned by this Npc">getItemsOwnedBy</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc, std::vector&lt;MWWorld::Ptr&gt;&amp; out);
+<a name="l00453"></a>00453 
+<a name="l00454"></a>00454             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac47664c2a06292399b3a2d11a820d27a" title="get Line of Sight (morrowind stupid implementation)">getLOS</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; npc,<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; targetNpc);
+<a name="l00456"></a>00456 
+<a name="l00457"></a>00457             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a033944889a7df6cf31002a62d13c8902">enableActorCollision</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>);
+<a name="l00458"></a>00458 
+<a name="l00459"></a>00459             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#ae3899ec20a6073d258a42ec13d11b633">setupExternalRendering</a> (<a class="code" href="classMWRender_1_1ExternalRendering.html" title="Base class for out of world rendering.">MWRender::ExternalRendering</a>&amp; rendering);
+<a name="l00460"></a>00460 
+<a name="l00461"></a>00461             <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classMWWorld_1_1World.html#ae94f143d50da8afcff64de332572b1f5">canRest</a>();
+<a name="l00467"></a>00467 
+<a name="l00469"></a>00469             <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Animation.html">MWRender::Animation</a>* <a class="code" href="classMWWorld_1_1World.html#a2568fec19dc3aafa8c5d7f56fe03c4fe">getAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
+<a name="l00470"></a>00470 
+<a name="l00472"></a>00472             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a38eddafcc63e518175bd7682849c8cb3">playVideo</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keywordtype">bool</span> allowSkipping);
+<a name="l00473"></a>00473             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a27f8932d9fde836d9e4d6c40245406ad">stopVideo</a>();
+<a name="l00474"></a>00474             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a002e0c62228549886e0b056ed235df0a">frameStarted</a> (<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> paused);
+<a name="l00475"></a>00475 
+<a name="l00478"></a>00478             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#aff6e0c9dfd2c2c7c342819929c4f36fb">findExteriorPosition</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <a class="code" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos);
+<a name="l00479"></a>00479 
+<a name="l00482"></a>00482             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac1b97665855f0f2bbc712cbdbc65ab0f">findInteriorPosition</a>(<span class="keyword">const</span> std::string &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <a class="code" href="structESM_1_1Position.html">ESM::Position</a> &amp;pos);
+<a name="l00483"></a>00483 
+<a name="l00485"></a>00485             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a00a2fb93a2a82538de5fc12cb5c10def" title="Enables or disables use of teleport spell effects (recall, intervention, etc).">enableTeleporting</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>);
+<a name="l00486"></a>00486 
+<a name="l00488"></a>00488             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac0f280461f80ccf1ea7e7abbca6ee396" title="Returns true if teleport spell effects are allowed.">isTeleportingEnabled</a>() <span class="keyword">const</span>;
+<a name="l00489"></a>00489 
+<a name="l00491"></a>00491             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a4d3dd728ebb6da3cc1d7ebe652c53163" title="Enables or disables use of levitation spell effect.">enableLevitation</a>(<span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a0f25bb67c7df01019296ca872b650bd7">enable</a>);
+<a name="l00492"></a>00492 
+<a name="l00494"></a>00494             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#ac2db4e433b04da1d595113988d8d5519" title="Returns true if levitation spell effect is allowed.">isLevitationEnabled</a>() <span class="keyword">const</span>;
+<a name="l00495"></a>00495 
+<a name="l00496"></a>00496             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#abe9062ef19da6cec3c81464dd6382f0f" title="Turn actor into werewolf or normal form.">setWerewolf</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keywordtype">bool</span> werewolf);
+<a name="l00497"></a>00497 
+<a name="l00498"></a>00498             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a623d89f5c202c99377a5638bc6d5a345">applyWerewolfAcrobatics</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00499"></a>00499 
+<a name="l00500"></a>00500             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a4dfbe49a08edc6e405893ebb950c68b1">getGodModeState</a>();
+<a name="l00501"></a>00501 
+<a name="l00502"></a>00502             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a443ab51f3fd559ba0f3ed69d9a7dd4ba">toggleGodMode</a>();
+<a name="l00503"></a>00503 
+<a name="l00509"></a>00509             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a7b2b3dc797f09f109c0aabf731f709c3" title="startSpellCast attempt to start casting a spell. Might fail immediately if conditions are not met...">startSpellCast</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00510"></a>00510 
+<a name="l00515"></a>00515             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aedee04f37a89b213121357938db6b167" title="Cast the actual spell, should be called mid-animation.">castSpell</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00516"></a>00516 
+<a name="l00517"></a>00517             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a2eb738f994191cc9c72a97abf3141ece">launchProjectile</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> stack, <span class="keyword">const</span> <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a>&amp; effects,
+<a name="l00518"></a>00518                                            <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor, <span class="keyword">const</span> std::string&amp; sourceName);
+<a name="l00519"></a>00519 
+<a name="l00520"></a>00520             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a7c6b9125fbec517f93469508a7ed6c28">breakInvisibility</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
+<a name="l00521"></a>00521             <span class="comment">// Are we in an exterior or pseudo-exterior cell and it&#39;s night?</span>
+<a name="l00522"></a>00522             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a5f7f3b7cebd51528002a1318e682c046">isDark</a>() <span class="keyword">const</span>;
+<a name="l00523"></a>00523 
+<a name="l00524"></a>00524             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1World.html#a6c568c69bbf3f5c28a6a2570dda831b1">findInteriorPositionInWorldSpace</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell, Ogre::Vector3&amp; result);
+<a name="l00525"></a>00525 
+<a name="l00529"></a>00529             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#a9e03efce1d9d4bcde68f6a8002476e21">teleportToClosestMarker</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr,
+<a name="l00530"></a>00530                                                   <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, Ogre::Vector3 worldPos);
+<a name="l00531"></a>00531 
+<a name="l00535"></a>00535             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1World.html#aee729dac6ead16bf730ba70864692330">listDetectedReferences</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, std::vector&lt;MWWorld::Ptr&gt;&amp; out,
+<a name="l00536"></a>00536                                                   <a class="code" href="classMWBase_1_1World.html#a6811498fd389ff3193ab6292ed955498">DetectionType</a> type);
+<a name="l00537"></a>00537     };
+<a name="l00538"></a>00538 }
+<a name="l00539"></a>00539 
+<a name="l00540"></a>00540 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

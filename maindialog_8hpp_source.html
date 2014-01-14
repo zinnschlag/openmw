@@ -72,65 +72,67 @@
 <a name="l00011"></a>00011 
 <a name="l00012"></a>00012 <span class="preprocessor">#include &quot;ui_mainwindow.h&quot;</span>
 <a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">class </span>QListWidget;
-<a name="l00015"></a>00015 <span class="keyword">class </span>QListWidgetItem;
-<a name="l00016"></a>00016 <span class="keyword">class </span>QStackedWidget;
-<a name="l00017"></a>00017 <span class="keyword">class </span>QStringList;
-<a name="l00018"></a>00018 <span class="keyword">class </span>QStringListModel;
-<a name="l00019"></a>00019 <span class="keyword">class </span>QString;
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="keyword">class </span><a class="code" href="classPlayPage.html">PlayPage</a>;
-<a name="l00022"></a>00022 <span class="keyword">class </span><a class="code" href="classGraphicsPage.html">GraphicsPage</a>;
-<a name="l00023"></a>00023 <span class="keyword">class </span><a class="code" href="classDataFilesPage.html">DataFilesPage</a>;
-<a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="classMainDialog.html">00025</a> <span class="keyword">class </span><a class="code" href="classMainDialog.html">MainDialog</a> : <span class="keyword">public</span> QMainWindow, <span class="keyword">private</span> Ui::MainWindow
-<a name="l00026"></a>00026 {
-<a name="l00027"></a>00027     Q_OBJECT
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">public</span>:
-<a name="l00030"></a>00030     <a class="code" href="classMainDialog.html#a7341348667296a5cee4f9c8817dc38e4">MainDialog</a>();
-<a name="l00031"></a>00031     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#aea304f0e24f7b81bcada054cbff90bd0">setup</a>();
-<a name="l00032"></a>00032     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#ae74cfdecd6b1a77556fe563d64a1b350">showFirstRunDialog</a>();
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034 <span class="keyword">public</span> slots:
-<a name="l00035"></a>00035     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a3e4a306362939cc542bab411158da685">changePage</a>(QListWidgetItem *current, QListWidgetItem *previous);
-<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#aba5881a3616853389d98ee92168a82fe">play</a>();
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">private</span>:
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a8a16ea1d5365fbe22226c6c611b6ab83">createIcons</a>();
-<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#aa1873c3c94722673bb92ebb20ecb31e1">createPages</a>();
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#a03ee3d28446d2e4e1d60de871c9e8d4f">setupLauncherSettings</a>();
-<a name="l00043"></a>00043     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#aba4eeb20d1c2d950bb27ff8ccde8a197">setupGameSettings</a>();
-<a name="l00044"></a>00044     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#ac7801d7ef64e087dccef5fae3aa901b3">setupGraphicsSettings</a>();
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#ad9a9f2a5e22606a2566d4f762d7af65b">loadSettings</a>();
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a31b25f27a1e6a3bc17487c76b85b650c">saveSettings</a>();
-<a name="l00048"></a>00048     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#a48a6a248493f409f768db4c78bb2fbf3">writeSettings</a>();
-<a name="l00049"></a>00049 
-<a name="l00050"></a><a class="code" href="classMainDialog.html#ad33280efc187661d7d2be12bb49d1e03">00050</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#ad33280efc187661d7d2be12bb49d1e03">startProgram</a>(<span class="keyword">const</span> QString &amp;name, <span class="keywordtype">bool</span> detached = <span class="keyword">false</span>) { <span class="keywordflow">return</span> <a class="code" href="classMainDialog.html#ad33280efc187661d7d2be12bb49d1e03">startProgram</a>(name, QStringList(), detached); }
-<a name="l00051"></a>00051     <span class="keywordtype">bool</span> <a class="code" href="classMainDialog.html#ad33280efc187661d7d2be12bb49d1e03">startProgram</a>(<span class="keyword">const</span> QString &amp;name, <span class="keyword">const</span> QStringList &amp;arguments, <span class="keywordtype">bool</span> detached = <span class="keyword">false</span>);
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classMainDialog.html#a22527f253d8e15bfb91cf9566e3a7030">closeEvent</a>(QCloseEvent *event);
+<a name="l00014"></a>00014 <span class="keyword">class </span>QListWidgetItem;
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>Launcher
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018     <span class="keyword">class </span>PlayPage;
+<a name="l00019"></a>00019     <span class="keyword">class </span>GraphicsPage;
+<a name="l00020"></a>00020     <span class="keyword">class </span>DataFilesPage;
+<a name="l00021"></a>00021     <span class="keyword">class </span>UnshieldThread;
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023 <span class="preprocessor">#ifndef WIN32</span>
+<a name="l00024"></a>00024 <span class="preprocessor"></span>    <span class="keywordtype">bool</span> <a class="code" href="namespaceLauncher.html#a55a3331859c873d691eb478ad9ec7cdd">expansions</a>(<a class="code" href="classLauncher_1_1UnshieldThread.html">Launcher::UnshieldThread</a>&amp; cd);
+<a name="l00025"></a>00025 <span class="preprocessor">#endif</span>
+<a name="l00026"></a>00026 <span class="preprocessor"></span>
+<a name="l00027"></a><a class="code" href="classLauncher_1_1MainDialog.html">00027</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1MainDialog.html">MainDialog</a> : <span class="keyword">public</span> QMainWindow, <span class="keyword">private</span> Ui::MainWindow
+<a name="l00028"></a>00028     {
+<a name="l00029"></a>00029         Q_OBJECT
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031     <span class="keyword">public</span>:
+<a name="l00032"></a>00032         <span class="keyword">explicit</span> <a class="code" href="classLauncher_1_1MainDialog.html#ac1f4d23f97e55015fff37bb35e802bee">MainDialog</a>(QWidget *parent = 0);
+<a name="l00033"></a>00033         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#a0ff243a617f11e3e59be8d8d1f0eea77">setup</a>();
+<a name="l00034"></a>00034         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#a51836ef1c60647209144940e6d3e19d1">showFirstRunDialog</a>();
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036     <span class="keyword">public</span> slots:
+<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#aeeeafb6bac74a0303f93549623c7d08d">changePage</a>(QListWidgetItem *current, QListWidgetItem *previous);
+<a name="l00038"></a>00038         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#a455c241c26df0427f4659b29b76e83cb">play</a>();
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="keyword">private</span>:
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#af1f4cd4f99e42ef74ca3b119e603b0d7">createIcons</a>();
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#aa383c31811c85dbb174049c211432fae">createPages</a>();
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#ac5077e5e10f3b083cbec026a1bc88d04">setupLauncherSettings</a>();
+<a name="l00045"></a>00045         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#af7d195bab9e931b3de86f2b259a25c5f">setupGameSettings</a>();
+<a name="l00046"></a>00046         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#a3a7b28c147f6795bc7df8b1214f52163">setupGraphicsSettings</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#a9c3cefd7f58c9dfedf707b122a7308c2">loadSettings</a>();
+<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#ae6a0a68d90adb42aa07a6bd0dfbd3fdc">saveSettings</a>();
+<a name="l00050"></a>00050         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#a7b3817fca52afd91852abfcef547d310">writeSettings</a>();
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="classLauncher_1_1MainDialog.html#a036edc1fbe00a9c21b0089c8ea3da385">00052</a>         <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#a036edc1fbe00a9c21b0089c8ea3da385">startProgram</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keywordtype">bool</span> detached = <span class="keyword">false</span>) { <span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1MainDialog.html#a036edc1fbe00a9c21b0089c8ea3da385">startProgram</a>(name, QStringList(), detached); }
+<a name="l00053"></a>00053         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1MainDialog.html#a036edc1fbe00a9c21b0089c8ea3da385">startProgram</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> QStringList &amp;arguments, <span class="keywordtype">bool</span> detached = <span class="keyword">false</span>);
 <a name="l00054"></a>00054 
-<a name="l00055"></a><a class="code" href="classMainDialog.html#a40a79f0fb1ee25408cfd5eccba07d9cc">00055</a>     <a class="code" href="classPlayPage.html">PlayPage</a> *<a class="code" href="classMainDialog.html#a40a79f0fb1ee25408cfd5eccba07d9cc">mPlayPage</a>;
-<a name="l00056"></a><a class="code" href="classMainDialog.html#a20b48896c827a3e1ec12739c4723ca92">00056</a>     <a class="code" href="classGraphicsPage.html">GraphicsPage</a> *<a class="code" href="classMainDialog.html#a20b48896c827a3e1ec12739c4723ca92">mGraphicsPage</a>;
-<a name="l00057"></a><a class="code" href="classMainDialog.html#aac0aac8db84e67c3c943702d67390c86">00057</a>     <a class="code" href="classDataFilesPage.html">DataFilesPage</a> *<a class="code" href="classMainDialog.html#aac0aac8db84e67c3c943702d67390c86">mDataFilesPage</a>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="classMainDialog.html#a694b6e70c2da8965c8aa436934717573">00059</a>     <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> <a class="code" href="classMainDialog.html#a694b6e70c2da8965c8aa436934717573">mCfgMgr</a>;
+<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1MainDialog.html#a8f0b25abf7d821e369f469339ab7977e">closeEvent</a>(QCloseEvent *event);
+<a name="l00056"></a>00056 
+<a name="l00057"></a><a class="code" href="classLauncher_1_1MainDialog.html#a29925a7d7eb36fdb20df31a394ad284c">00057</a>         <a class="code" href="classLauncher_1_1PlayPage.html">PlayPage</a> *<a class="code" href="classLauncher_1_1MainDialog.html#a29925a7d7eb36fdb20df31a394ad284c">mPlayPage</a>;
+<a name="l00058"></a><a class="code" href="classLauncher_1_1MainDialog.html#a0cc8a7b7500840b34f09c43fb48fc0d9">00058</a>         <a class="code" href="classLauncher_1_1GraphicsPage.html">GraphicsPage</a> *<a class="code" href="classLauncher_1_1MainDialog.html#a0cc8a7b7500840b34f09c43fb48fc0d9">mGraphicsPage</a>;
+<a name="l00059"></a><a class="code" href="classLauncher_1_1MainDialog.html#a3810d307897c52be75e4ab498d099e42">00059</a>         <a class="code" href="classLauncher_1_1DataFilesPage.html">DataFilesPage</a> *<a class="code" href="classLauncher_1_1MainDialog.html#a3810d307897c52be75e4ab498d099e42">mDataFilesPage</a>;
 <a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classMainDialog.html#a724d03cb2dc235074d5aa43cf9193a63">00061</a>     <a class="code" href="classGameSettings.html">GameSettings</a> <a class="code" href="classMainDialog.html#a724d03cb2dc235074d5aa43cf9193a63">mGameSettings</a>;
-<a name="l00062"></a><a class="code" href="classMainDialog.html#a4bb8d554ff0e5dfc44de358efcb91089">00062</a>     <a class="code" href="classGraphicsSettings.html">GraphicsSettings</a> <a class="code" href="classMainDialog.html#a4bb8d554ff0e5dfc44de358efcb91089">mGraphicsSettings</a>;
-<a name="l00063"></a><a class="code" href="classMainDialog.html#a5f2b3cfdf2834921c14dc553b8c896e1">00063</a>     <a class="code" href="classLauncherSettings.html">LauncherSettings</a> <a class="code" href="classMainDialog.html#a5f2b3cfdf2834921c14dc553b8c896e1">mLauncherSettings</a>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065 };
+<a name="l00061"></a><a class="code" href="classLauncher_1_1MainDialog.html#a53ccd590e1598170b02bd65a7ab02c68">00061</a>         <a class="code" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> <a class="code" href="classLauncher_1_1MainDialog.html#a53ccd590e1598170b02bd65a7ab02c68">mCfgMgr</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classLauncher_1_1MainDialog.html#acf237f922d396e8bf3f90b38a3ab7907">00063</a>         <a class="code" href="classLauncher_1_1GameSettings.html">GameSettings</a> <a class="code" href="classLauncher_1_1MainDialog.html#acf237f922d396e8bf3f90b38a3ab7907">mGameSettings</a>;
+<a name="l00064"></a><a class="code" href="classLauncher_1_1MainDialog.html#a67556bafa1c776f3af5c1eae76b5cacd">00064</a>         <a class="code" href="classLauncher_1_1GraphicsSettings.html">GraphicsSettings</a> <a class="code" href="classLauncher_1_1MainDialog.html#a67556bafa1c776f3af5c1eae76b5cacd">mGraphicsSettings</a>;
+<a name="l00065"></a><a class="code" href="classLauncher_1_1MainDialog.html#af636e5fbbd22834e9fb4dbd310565b7e">00065</a>         <a class="code" href="classLauncher_1_1LauncherSettings.html">LauncherSettings</a> <a class="code" href="classLauncher_1_1MainDialog.html#af636e5fbbd22834e9fb4dbd310565b7e">mLauncherSettings</a>;
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067 <span class="preprocessor">#endif</span>
+<a name="l00067"></a>00067     };
+<a name="l00068"></a>00068 }
+<a name="l00069"></a>00069 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

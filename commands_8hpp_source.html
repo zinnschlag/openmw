@@ -66,108 +66,124 @@
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;map&gt;</span>
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;QVariant&gt;</span>
-<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;QUndoCommand&gt;</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;QModelIndex&gt;</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="universalid_8hpp.html">universalid.hpp</a>&quot;</span>
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="keyword">class </span>QModelIndex;
-<a name="l00016"></a>00016 <span class="keyword">class </span>QAbstractItemModel;
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">namespace </span>CSMWorld
-<a name="l00019"></a>00019 {
-<a name="l00020"></a>00020     <span class="keyword">class </span>IdTable;
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;QVariant&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;QUndoCommand&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;QModelIndex&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="universalid_8hpp.html">universalid.hpp</a>&quot;</span>
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">class </span>QModelIndex;
+<a name="l00017"></a>00017 <span class="keyword">class </span>QAbstractItemModel;
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>CSMWorld
+<a name="l00020"></a>00020 {
 <a name="l00021"></a>00021     <span class="keyword">class </span>IdTable;
-<a name="l00022"></a>00022     <span class="keyword">class </span>RecordBase;
-<a name="l00023"></a>00023 
-<a name="l00024"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html">00024</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1ModifyCommand.html">ModifyCommand</a> : <span class="keyword">public</span> QUndoCommand
-<a name="l00025"></a>00025     {
-<a name="l00026"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#a9a0ad14610d652c6b6d950281185923d">00026</a>             QAbstractItemModel&amp; <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a9a0ad14610d652c6b6d950281185923d">mModel</a>;
-<a name="l00027"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#a3364723bc94f347c698c995929c850d9">00027</a>             QModelIndex <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a3364723bc94f347c698c995929c850d9">mIndex</a>;
-<a name="l00028"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#adcd9c5ce9bfac7a3432f417f58ef321c">00028</a>             QVariant <a class="code" href="classCSMWorld_1_1ModifyCommand.html#adcd9c5ce9bfac7a3432f417f58ef321c">mNew</a>;
-<a name="l00029"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#a958a1dc4e2789f4bad76ee9faeb2f496">00029</a>             QVariant <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a958a1dc4e2789f4bad76ee9faeb2f496">mOld</a>;
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031         <span class="keyword">public</span>:
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033             <a class="code" href="classCSMWorld_1_1ModifyCommand.html#ad77d544891188b693906451e011da510">ModifyCommand</a> (QAbstractItemModel&amp; model, <span class="keyword">const</span> QModelIndex&amp; index, <span class="keyword">const</span> QVariant&amp; new_,
-<a name="l00034"></a>00034                 QUndoCommand *parent = 0);
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a4c9306f1b08ec1db68233032c64fb031">redo</a>();
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a0aa36cc7b01ed745162ddea677cad345">undo</a>();
-<a name="l00039"></a>00039     };
-<a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html">00041</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1CreateCommand.html">CreateCommand</a> : <span class="keyword">public</span> QUndoCommand
-<a name="l00042"></a>00042     {
-<a name="l00043"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#abe98437e453910c52b2a2dbe9b4e7bce">00043</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1CreateCommand.html#abe98437e453910c52b2a2dbe9b4e7bce">mModel</a>;
-<a name="l00044"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#a39e077d6756b173446741fac6d2a7cf5">00044</a>             std::string <a class="code" href="classCSMWorld_1_1CreateCommand.html#a39e077d6756b173446741fac6d2a7cf5">mId</a>;
-<a name="l00045"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#aff8e0f233523aecc838f7121ef8b2c9c">00045</a>             <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> <a class="code" href="classCSMWorld_1_1CreateCommand.html#aff8e0f233523aecc838f7121ef8b2c9c">mType</a>;
-<a name="l00046"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#abf0a98fc6861a2adfa888d79041e7037">00046</a>             std::map&lt;int, QVariant&gt; <a class="code" href="classCSMWorld_1_1CreateCommand.html#abf0a98fc6861a2adfa888d79041e7037">mValues</a>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048         <span class="keyword">public</span>:
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050             <a class="code" href="classCSMWorld_1_1CreateCommand.html#a941163a11e5289ba6753d46550efebaa">CreateCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, QUndoCommand *parent = 0);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a996083cc2f7b318303e9e6d965db8743">setType</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a201866cb3ababba90b929303ef2c2b2c">addValue</a> (<span class="keywordtype">int</span> column, <span class="keyword">const</span> QVariant&amp; value);
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a2625a41bdb07f5b7ba5c4bff802db344">redo</a>();
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a5a436b274923289c0179e47480d8697e">undo</a>();
-<a name="l00059"></a>00059     };
-<a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html">00061</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a> : <span class="keyword">public</span> QUndoCommand
-<a name="l00062"></a>00062     {
-<a name="l00063"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html#a9882fec4bc5c0082943000023604e658">00063</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1RevertCommand.html#a9882fec4bc5c0082943000023604e658">mModel</a>;
-<a name="l00064"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html#acabe72cd935f2792636ac348e0d86a78">00064</a>             std::string <a class="code" href="classCSMWorld_1_1RevertCommand.html#acabe72cd935f2792636ac348e0d86a78">mId</a>;
-<a name="l00065"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html#a0efbaf1ed7cd26c3d2eafb452c0a2195">00065</a>             <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> *<a class="code" href="classCSMWorld_1_1RevertCommand.html#a0efbaf1ed7cd26c3d2eafb452c0a2195">mOld</a>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="comment">// not implemented</span>
-<a name="l00068"></a>00068             <a class="code" href="classCSMWorld_1_1RevertCommand.html#aad754b9dd3ecfc4b84295827f1c25e92">RevertCommand</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a>&amp;);
-<a name="l00069"></a>00069             <a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a>&amp; <a class="code" href="classCSMWorld_1_1RevertCommand.html#a526652e54287fc8699cf2c09fd491b8e">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a>&amp;);
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keyword">public</span>:
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073             <a class="code" href="classCSMWorld_1_1RevertCommand.html#aad754b9dd3ecfc4b84295827f1c25e92">RevertCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, QUndoCommand *parent = 0);
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <span class="keyword">virtual</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html#a4ab28eb06a39bffb05dd3d21e72e87df">~RevertCommand</a>();
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html#a08210cf730bcf5d491b76e576f1cde6f">redo</a>();
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html#a137fa9872806dc10025aa00bfdf005d3">undo</a>();
-<a name="l00080"></a>00080     };
-<a name="l00081"></a>00081 
-<a name="l00082"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html">00082</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a> : <span class="keyword">public</span> QUndoCommand
-<a name="l00083"></a>00083     {
-<a name="l00084"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html#a4d59879b69fa1105c931d81f692279b4">00084</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a4d59879b69fa1105c931d81f692279b4">mModel</a>;
-<a name="l00085"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html#ae5441660902b73f6ff99c611a324c7c6">00085</a>             std::string <a class="code" href="classCSMWorld_1_1DeleteCommand.html#ae5441660902b73f6ff99c611a324c7c6">mId</a>;
-<a name="l00086"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html#a571d5a81d02a6ea2717b07b8dc42e360">00086</a>             <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> *<a class="code" href="classCSMWorld_1_1DeleteCommand.html#a571d5a81d02a6ea2717b07b8dc42e360">mOld</a>;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088             <span class="comment">// not implemented</span>
-<a name="l00089"></a>00089             <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a3c6598c54a46e48488361f65868af584">DeleteCommand</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a>&amp;);
-<a name="l00090"></a>00090             <a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a>&amp; <a class="code" href="classCSMWorld_1_1DeleteCommand.html#aac57c3fa47ca7bf5f140a616fcc43d52">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a>&amp;);
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092         <span class="keyword">public</span>:
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094             <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a3c6598c54a46e48488361f65868af584">DeleteCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, QUndoCommand *parent = 0);
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096             <span class="keyword">virtual</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html#abd57e920c611c66f1087d494caa2dbec">~DeleteCommand</a>();
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a7b64c5ba8e69aebd734d22e314ea8065">redo</a>();
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a8e72e0c40b712d66361a7b0687ef01da">undo</a>();
-<a name="l00101"></a>00101     };
-<a name="l00102"></a>00102 }
+<a name="l00022"></a>00022     <span class="keyword">class </span>IdTable;
+<a name="l00023"></a>00023     <span class="keyword">class </span>RecordBase;
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html">00025</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1ModifyCommand.html">ModifyCommand</a> : <span class="keyword">public</span> QUndoCommand
+<a name="l00026"></a>00026     {
+<a name="l00027"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#a9a0ad14610d652c6b6d950281185923d">00027</a>             QAbstractItemModel&amp; <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a9a0ad14610d652c6b6d950281185923d">mModel</a>;
+<a name="l00028"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#a3364723bc94f347c698c995929c850d9">00028</a>             QModelIndex <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a3364723bc94f347c698c995929c850d9">mIndex</a>;
+<a name="l00029"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#adcd9c5ce9bfac7a3432f417f58ef321c">00029</a>             QVariant <a class="code" href="classCSMWorld_1_1ModifyCommand.html#adcd9c5ce9bfac7a3432f417f58ef321c">mNew</a>;
+<a name="l00030"></a><a class="code" href="classCSMWorld_1_1ModifyCommand.html#a958a1dc4e2789f4bad76ee9faeb2f496">00030</a>             QVariant <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a958a1dc4e2789f4bad76ee9faeb2f496">mOld</a>;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032         <span class="keyword">public</span>:
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034             <a class="code" href="classCSMWorld_1_1ModifyCommand.html#ad77d544891188b693906451e011da510">ModifyCommand</a> (QAbstractItemModel&amp; model, <span class="keyword">const</span> QModelIndex&amp; index, <span class="keyword">const</span> QVariant&amp; new_,
+<a name="l00035"></a>00035                 QUndoCommand *parent = 0);
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a4c9306f1b08ec1db68233032c64fb031">redo</a>();
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1ModifyCommand.html#a0aa36cc7b01ed745162ddea677cad345">undo</a>();
+<a name="l00040"></a>00040     };
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html">00042</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1CreateCommand.html">CreateCommand</a> : <span class="keyword">public</span> QUndoCommand
+<a name="l00043"></a>00043     {
+<a name="l00044"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#abe98437e453910c52b2a2dbe9b4e7bce">00044</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1CreateCommand.html#abe98437e453910c52b2a2dbe9b4e7bce">mModel</a>;
+<a name="l00045"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#a39e077d6756b173446741fac6d2a7cf5">00045</a>             std::string <a class="code" href="classCSMWorld_1_1CreateCommand.html#a39e077d6756b173446741fac6d2a7cf5">mId</a>;
+<a name="l00046"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#aff8e0f233523aecc838f7121ef8b2c9c">00046</a>             <a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> <a class="code" href="classCSMWorld_1_1CreateCommand.html#aff8e0f233523aecc838f7121ef8b2c9c">mType</a>;
+<a name="l00047"></a><a class="code" href="classCSMWorld_1_1CreateCommand.html#abf0a98fc6861a2adfa888d79041e7037">00047</a>             std::map&lt;int, QVariant&gt; <a class="code" href="classCSMWorld_1_1CreateCommand.html#abf0a98fc6861a2adfa888d79041e7037">mValues</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         <span class="keyword">public</span>:
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051             <a class="code" href="classCSMWorld_1_1CreateCommand.html#a941163a11e5289ba6753d46550efebaa">CreateCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, QUndoCommand *parent = 0);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a996083cc2f7b318303e9e6d965db8743">setType</a> (<a class="code" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type);
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055             <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a201866cb3ababba90b929303ef2c2b2c">addValue</a> (<span class="keywordtype">int</span> column, <span class="keyword">const</span> QVariant&amp; value);
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a2625a41bdb07f5b7ba5c4bff802db344">redo</a>();
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1CreateCommand.html#a5a436b274923289c0179e47480d8697e">undo</a>();
+<a name="l00060"></a>00060     };
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html">00062</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a> : <span class="keyword">public</span> QUndoCommand
+<a name="l00063"></a>00063     {
+<a name="l00064"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html#a9882fec4bc5c0082943000023604e658">00064</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1RevertCommand.html#a9882fec4bc5c0082943000023604e658">mModel</a>;
+<a name="l00065"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html#acabe72cd935f2792636ac348e0d86a78">00065</a>             std::string <a class="code" href="classCSMWorld_1_1RevertCommand.html#acabe72cd935f2792636ac348e0d86a78">mId</a>;
+<a name="l00066"></a><a class="code" href="classCSMWorld_1_1RevertCommand.html#a0efbaf1ed7cd26c3d2eafb452c0a2195">00066</a>             <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> *<a class="code" href="classCSMWorld_1_1RevertCommand.html#a0efbaf1ed7cd26c3d2eafb452c0a2195">mOld</a>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068             <span class="comment">// not implemented</span>
+<a name="l00069"></a>00069             <a class="code" href="classCSMWorld_1_1RevertCommand.html#aad754b9dd3ecfc4b84295827f1c25e92">RevertCommand</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a>&amp;);
+<a name="l00070"></a>00070             <a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a>&amp; <a class="code" href="classCSMWorld_1_1RevertCommand.html#a526652e54287fc8699cf2c09fd491b8e">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html">RevertCommand</a>&amp;);
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072         <span class="keyword">public</span>:
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074             <a class="code" href="classCSMWorld_1_1RevertCommand.html#aad754b9dd3ecfc4b84295827f1c25e92">RevertCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, QUndoCommand *parent = 0);
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076             <span class="keyword">virtual</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html#a4ab28eb06a39bffb05dd3d21e72e87df">~RevertCommand</a>();
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html#a08210cf730bcf5d491b76e576f1cde6f">redo</a>();
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1RevertCommand.html#a137fa9872806dc10025aa00bfdf005d3">undo</a>();
+<a name="l00081"></a>00081     };
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html">00083</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a> : <span class="keyword">public</span> QUndoCommand
+<a name="l00084"></a>00084     {
+<a name="l00085"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html#a4d59879b69fa1105c931d81f692279b4">00085</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a4d59879b69fa1105c931d81f692279b4">mModel</a>;
+<a name="l00086"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html#ae5441660902b73f6ff99c611a324c7c6">00086</a>             std::string <a class="code" href="classCSMWorld_1_1DeleteCommand.html#ae5441660902b73f6ff99c611a324c7c6">mId</a>;
+<a name="l00087"></a><a class="code" href="classCSMWorld_1_1DeleteCommand.html#a571d5a81d02a6ea2717b07b8dc42e360">00087</a>             <a class="code" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> *<a class="code" href="classCSMWorld_1_1DeleteCommand.html#a571d5a81d02a6ea2717b07b8dc42e360">mOld</a>;
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089             <span class="comment">// not implemented</span>
+<a name="l00090"></a>00090             <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a3c6598c54a46e48488361f65868af584">DeleteCommand</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a>&amp;);
+<a name="l00091"></a>00091             <a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a>&amp; <a class="code" href="classCSMWorld_1_1DeleteCommand.html#aac57c3fa47ca7bf5f140a616fcc43d52">operator= </a>(<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html">DeleteCommand</a>&amp;);
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093         <span class="keyword">public</span>:
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095             <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a3c6598c54a46e48488361f65868af584">DeleteCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, QUndoCommand *parent = 0);
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097             <span class="keyword">virtual</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html#abd57e920c611c66f1087d494caa2dbec">~DeleteCommand</a>();
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a7b64c5ba8e69aebd734d22e314ea8065">redo</a>();
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1DeleteCommand.html#a8e72e0c40b712d66361a7b0687ef01da">undo</a>();
+<a name="l00102"></a>00102     };
 <a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="preprocessor">#endif</span>
+<a name="l00104"></a><a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html">00104</a>     <span class="keyword">class </span><a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html">ReorderRowsCommand</a> : <span class="keyword">public</span> QUndoCommand
+<a name="l00105"></a>00105     {
+<a name="l00106"></a><a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#ad76c4e4c8d0d55303f06641faf89f858">00106</a>             <a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; <a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#ad76c4e4c8d0d55303f06641faf89f858">mModel</a>;
+<a name="l00107"></a><a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#a8162680b79481d2997e5fefb2659588c">00107</a>             <span class="keywordtype">int</span> <a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#a8162680b79481d2997e5fefb2659588c">mBaseIndex</a>;
+<a name="l00108"></a><a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#a2e27b3054348dbf7c66b39d6fd9ed340">00108</a>             std::vector&lt;int&gt; <a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#a2e27b3054348dbf7c66b39d6fd9ed340">mNewOrder</a>;
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110         <span class="keyword">public</span>:
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112             <a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#a70bfe1613e732e267bf9150e3777aa35">ReorderRowsCommand</a> (<a class="code" href="classCSMWorld_1_1IdTable.html">IdTable</a>&amp; model, <span class="keywordtype">int</span> baseIndex, <span class="keyword">const</span> std::vector&lt;int&gt;&amp; newOrder);
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#a1cc87a0d6b578b65fe213557f1948fcf">redo</a>();
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCSMWorld_1_1ReorderRowsCommand.html#af625761a4476945abc430d9b1b830b01">undo</a>();
+<a name="l00117"></a>00117     };
+<a name="l00118"></a>00118 }
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

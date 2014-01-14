@@ -64,48 +64,54 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;OgreMaterial.h&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>Terrain
-<a name="l00007"></a>00007 {
-<a name="l00008"></a>00008 
-<a name="l00009"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html">00009</a>     <span class="keyword">class </span><a class="code" href="classTerrain_1_1MaterialGenerator.html">MaterialGenerator</a>
-<a name="l00010"></a>00010     {
-<a name="l00011"></a>00011     <span class="keyword">public</span>:
-<a name="l00016"></a>00016         <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5efb71e0c076cd7d93384718db259686">MaterialGenerator</a> (<span class="keywordtype">bool</span> shaders);
-<a name="l00017"></a>00017 
-<a name="l00018"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a3f511b278d692fe6836324e5530467dd">00018</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a3f511b278d692fe6836324e5530467dd">setLayerList</a> (<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; layerList) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5fc26cb78e42fedaf5a20c4ce008f096">mLayerList</a> = layerList; }
-<a name="l00019"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#ac5bac718608b7bacf821292ebaf4e176">00019</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#ac5bac718608b7bacf821292ebaf4e176">hasLayers</a>() { <span class="keywordflow">return</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5fc26cb78e42fedaf5a20c4ce008f096">mLayerList</a>.size(); }
-<a name="l00020"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a5d445d2671df7de97d1bd8bb5bbf0522">00020</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5d445d2671df7de97d1bd8bb5bbf0522">setBlendmapList</a> (<span class="keyword">const</span> std::vector&lt;Ogre::TexturePtr&gt;&amp; blendmapList) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">mBlendmapList</a> = blendmapList; }
-<a name="l00021"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#afad21ac123a002d13fdd76fa6ee28256">00021</a>         <span class="keyword">const</span> std::vector&lt;Ogre::TexturePtr&gt;&amp; <a class="code" href="classTerrain_1_1MaterialGenerator.html#afad21ac123a002d13fdd76fa6ee28256">getBlendmapList</a>() { <span class="keywordflow">return</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">mBlendmapList</a>; }
-<a name="l00022"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f1f755642be227eae42928373a50772">00022</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f1f755642be227eae42928373a50772">setCompositeMap</a> (<span class="keyword">const</span> std::string&amp; name) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a73c9f6dce079914afd0f63b3af81788f">mCompositeMap</a> = name; }
-<a name="l00023"></a>00023 
-<a name="l00024"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f8767ac16673a0a6a99f6797d3283ab">00024</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f8767ac16673a0a6a99f6797d3283ab">enableShadows</a>(<span class="keywordtype">bool</span> shadows) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5ce546ffacbf2f584173bc02ffd9321d">mShadows</a> = shadows; }
-<a name="l00025"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a6aab5391bb46a318a6778c0b23c4366b">00025</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a6aab5391bb46a318a6778c0b23c4366b">enableSplitShadows</a>(<span class="keywordtype">bool</span> splitShadows) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#adeec9fb876ced0b995e3936be5934612">mSplitShadows</a> = splitShadows; }
-<a name="l00026"></a>00026 
-<a name="l00030"></a>00030         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#ae2941a7de5b322f3c862a73943fbe602">generate</a> (Ogre::MaterialPtr mat);
-<a name="l00031"></a>00031 
-<a name="l00035"></a>00035         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#ad8379ca76b2f30ce65bd5afd7d6793c8">generateForCompositeMap</a> (Ogre::MaterialPtr mat);
-<a name="l00036"></a>00036 
-<a name="l00041"></a>00041         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#a76f14074002f5b89d65d0c57e6ac25f6">generateForCompositeMapRTT</a> (Ogre::MaterialPtr mat);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043     <span class="keyword">private</span>:
-<a name="l00044"></a>00044         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#a46aec67e2fa3054c1d63993b2ccc453f">create</a> (Ogre::MaterialPtr mat, <span class="keywordtype">bool</span> renderCompositeMap, <span class="keywordtype">bool</span> displayCompositeMap);
-<a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a5fc26cb78e42fedaf5a20c4ce008f096">00046</a>         std::vector&lt;std::string&gt; <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5fc26cb78e42fedaf5a20c4ce008f096">mLayerList</a>;
-<a name="l00047"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">00047</a>         std::vector&lt;Ogre::TexturePtr&gt; <a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">mBlendmapList</a>;
-<a name="l00048"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a73c9f6dce079914afd0f63b3af81788f">00048</a>         std::string <a class="code" href="classTerrain_1_1MaterialGenerator.html#a73c9f6dce079914afd0f63b3af81788f">mCompositeMap</a>;
-<a name="l00049"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a21d53002c63677c4933d66e113691aa5">00049</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a21d53002c63677c4933d66e113691aa5">mShaders</a>;
-<a name="l00050"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a5ce546ffacbf2f584173bc02ffd9321d">00050</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5ce546ffacbf2f584173bc02ffd9321d">mShadows</a>;
-<a name="l00051"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#adeec9fb876ced0b995e3936be5934612">00051</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#adeec9fb876ced0b995e3936be5934612">mSplitShadows</a>;
-<a name="l00052"></a>00052     };
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="preprocessor">#endif</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="storage_8hpp.html">storage.hpp</a>&quot;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>Terrain
+<a name="l00009"></a>00009 {
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html">00011</a>     <span class="keyword">class </span><a class="code" href="classTerrain_1_1MaterialGenerator.html">MaterialGenerator</a>
+<a name="l00012"></a>00012     {
+<a name="l00013"></a>00013     <span class="keyword">public</span>:
+<a name="l00018"></a>00018         <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5efb71e0c076cd7d93384718db259686">MaterialGenerator</a> (<span class="keywordtype">bool</span> shaders);
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a926319d6e7555d707cd97be3773a3e96">00020</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a926319d6e7555d707cd97be3773a3e96">setLayerList</a> (<span class="keyword">const</span> std::vector&lt;LayerInfo&gt;&amp; layerList) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a427a2c75b7a7dd4fb58b8ff6ea9cd739">mLayerList</a> = layerList; }
+<a name="l00021"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#ac5bac718608b7bacf821292ebaf4e176">00021</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#ac5bac718608b7bacf821292ebaf4e176">hasLayers</a>() { <span class="keywordflow">return</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a427a2c75b7a7dd4fb58b8ff6ea9cd739">mLayerList</a>.size(); }
+<a name="l00022"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a5d445d2671df7de97d1bd8bb5bbf0522">00022</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5d445d2671df7de97d1bd8bb5bbf0522">setBlendmapList</a> (<span class="keyword">const</span> std::vector&lt;Ogre::TexturePtr&gt;&amp; blendmapList) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">mBlendmapList</a> = blendmapList; }
+<a name="l00023"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#afad21ac123a002d13fdd76fa6ee28256">00023</a>         <span class="keyword">const</span> std::vector&lt;Ogre::TexturePtr&gt;&amp; <a class="code" href="classTerrain_1_1MaterialGenerator.html#afad21ac123a002d13fdd76fa6ee28256">getBlendmapList</a>() { <span class="keywordflow">return</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">mBlendmapList</a>; }
+<a name="l00024"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f1f755642be227eae42928373a50772">00024</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f1f755642be227eae42928373a50772">setCompositeMap</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a73c9f6dce079914afd0f63b3af81788f">mCompositeMap</a> = <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>; }
+<a name="l00025"></a>00025 
+<a name="l00026"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f8767ac16673a0a6a99f6797d3283ab">00026</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a0f8767ac16673a0a6a99f6797d3283ab">enableShadows</a>(<span class="keywordtype">bool</span> shadows) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5ce546ffacbf2f584173bc02ffd9321d">mShadows</a> = shadows; }
+<a name="l00027"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a796e8debacba68378bffc8f5820009f3">00027</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a796e8debacba68378bffc8f5820009f3">enableNormalMapping</a>(<span class="keywordtype">bool</span> normalMapping) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#ae75969aeebe9731d45b97f35160df141">mNormalMapping</a> = normalMapping; }
+<a name="l00028"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#ace5cc85f32adb6fa1fda2b6c64c1ea85">00028</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#ace5cc85f32adb6fa1fda2b6c64c1ea85">enableParallaxMapping</a>(<span class="keywordtype">bool</span> parallaxMapping) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#abbca8947da0874c5d5d93e1a794a6463">mParallaxMapping</a> = parallaxMapping; }
+<a name="l00029"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a6aab5391bb46a318a6778c0b23c4366b">00029</a>         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a6aab5391bb46a318a6778c0b23c4366b">enableSplitShadows</a>(<span class="keywordtype">bool</span> splitShadows) { <a class="code" href="classTerrain_1_1MaterialGenerator.html#adeec9fb876ced0b995e3936be5934612">mSplitShadows</a> = splitShadows; }
+<a name="l00030"></a>00030 
+<a name="l00034"></a>00034         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#ae2941a7de5b322f3c862a73943fbe602">generate</a> (Ogre::MaterialPtr mat);
+<a name="l00035"></a>00035 
+<a name="l00039"></a>00039         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#ad8379ca76b2f30ce65bd5afd7d6793c8">generateForCompositeMap</a> (Ogre::MaterialPtr mat);
+<a name="l00040"></a>00040 
+<a name="l00045"></a>00045         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#a76f14074002f5b89d65d0c57e6ac25f6">generateForCompositeMapRTT</a> (Ogre::MaterialPtr mat);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="keyword">private</span>:
+<a name="l00048"></a>00048         Ogre::MaterialPtr <a class="code" href="classTerrain_1_1MaterialGenerator.html#a46aec67e2fa3054c1d63993b2ccc453f">create</a> (Ogre::MaterialPtr mat, <span class="keywordtype">bool</span> renderCompositeMap, <span class="keywordtype">bool</span> displayCompositeMap);
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a427a2c75b7a7dd4fb58b8ff6ea9cd739">00050</a>         std::vector&lt;LayerInfo&gt; <a class="code" href="classTerrain_1_1MaterialGenerator.html#a427a2c75b7a7dd4fb58b8ff6ea9cd739">mLayerList</a>;
+<a name="l00051"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">00051</a>         std::vector&lt;Ogre::TexturePtr&gt; <a class="code" href="classTerrain_1_1MaterialGenerator.html#a59756451cd70cbc91f9f663b70b7e8c9">mBlendmapList</a>;
+<a name="l00052"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a73c9f6dce079914afd0f63b3af81788f">00052</a>         std::string <a class="code" href="classTerrain_1_1MaterialGenerator.html#a73c9f6dce079914afd0f63b3af81788f">mCompositeMap</a>;
+<a name="l00053"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a21d53002c63677c4933d66e113691aa5">00053</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a21d53002c63677c4933d66e113691aa5">mShaders</a>;
+<a name="l00054"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#a5ce546ffacbf2f584173bc02ffd9321d">00054</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#a5ce546ffacbf2f584173bc02ffd9321d">mShadows</a>;
+<a name="l00055"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#adeec9fb876ced0b995e3936be5934612">00055</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#adeec9fb876ced0b995e3936be5934612">mSplitShadows</a>;
+<a name="l00056"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#ae75969aeebe9731d45b97f35160df141">00056</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#ae75969aeebe9731d45b97f35160df141">mNormalMapping</a>;
+<a name="l00057"></a><a class="code" href="classTerrain_1_1MaterialGenerator.html#abbca8947da0874c5d5d93e1a794a6463">00057</a>         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1MaterialGenerator.html#abbca8947da0874c5d5d93e1a794a6463">mParallaxMapping</a>;
+<a name="l00058"></a>00058     };
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

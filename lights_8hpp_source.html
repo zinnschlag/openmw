@@ -64,57 +64,70 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;OgreController.h&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;OgreColourValue.h&gt;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="comment">/*</span>
-<a name="l00008"></a>00008 <span class="comment"> * Controller classes to handle pulsing and flicker lights</span>
-<a name="l00009"></a>00009 <span class="comment"> */</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">namespace </span>OEngine {
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>Render {
-<a name="l00013"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">00013</a>     <span class="keyword">enum</span> <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">LightType</a> {
-<a name="l00014"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da51315812cf4f9a72a0e12b4cb07d70a2">00014</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da51315812cf4f9a72a0e12b4cb07d70a2">LT_Normal</a>,
-<a name="l00015"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da3ca516b09f386aa0bc3cf345fdc91135">00015</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da3ca516b09f386aa0bc3cf345fdc91135">LT_Flicker</a>,
-<a name="l00016"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da4884797de8e345379ee64b262df26292">00016</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da4884797de8e345379ee64b262df26292">LT_FlickerSlow</a>,
-<a name="l00017"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da49a2f5da481750b0a9da95110139d33a">00017</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da49a2f5da481750b0a9da95110139d33a">LT_Pulse</a>,
-<a name="l00018"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da798754ae9246cc64a3eb9c16ea6c187a">00018</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da798754ae9246cc64a3eb9c16ea6c187a">LT_PulseSlow</a>
-<a name="l00019"></a>00019     };
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html">00021</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html">LightFunction</a> : <span class="keyword">public</span> Ogre::ControllerFunction&lt;Ogre::Real&gt;
-<a name="l00022"></a>00022     {
-<a name="l00023"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#ac79dae08c562146484be3936bb0b1343">00023</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">LightType</a> <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#ac79dae08c562146484be3936bb0b1343">mType</a>;
-<a name="l00024"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a3aad1b0cac6aed71e2a28772feb6cfdd">00024</a>         Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a3aad1b0cac6aed71e2a28772feb6cfdd">mPhase</a>;
-<a name="l00025"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a4975580eb4d8898846c1bbf80f904ae5">00025</a>         Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a4975580eb4d8898846c1bbf80f904ae5">mDirection</a>;
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027         <span class="keyword">static</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a9724ca6adb8991ed8a01fbf806ac0e21">pulseAmplitude</a>(Ogre::Real time);
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029         <span class="keyword">static</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#af397435213940fcc780cac6f40bf2fb1">flickerAmplitude</a>(Ogre::Real time);
-<a name="l00030"></a>00030         <span class="keyword">static</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#afc06a0d0aa5e634a1e1da2b91f9c6975">flickerFrequency</a>(Ogre::Real phase);
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="keyword">public</span>:
-<a name="l00033"></a>00033         <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#aafb0aa02c12730eff58e68ca01f45249">LightFunction</a>(<a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">LightType</a> type);
-<a name="l00034"></a>00034         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a28a5f4baa9537c98254bd8508cafe37b">calculate</a>(Ogre::Real value);
-<a name="l00035"></a>00035     };
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html">00037</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1LightValue.html">LightValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;Ogre::Real&gt;
-<a name="l00038"></a>00038     {
-<a name="l00039"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a9d05f0fff4e97f11aa0d68847845c1f4">00039</a>         Ogre::Light *<a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a9d05f0fff4e97f11aa0d68847845c1f4">mTarget</a>;
-<a name="l00040"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5eadbc8e80e25f280afe52415ace0947">00040</a>         Ogre::ColourValue <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5eadbc8e80e25f280afe52415ace0947">mColor</a>;
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="keyword">public</span>:
-<a name="l00043"></a>00043         <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5c18e88557c0712a70fbac0a0cfb5b6f">LightValue</a>(Ogre::Light *light, <span class="keyword">const</span> Ogre::ColourValue &amp;color);
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;OgreMath.h&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="comment">/*</span>
+<a name="l00009"></a>00009 <span class="comment"> * Controller classes to handle pulsing and flicker lights</span>
+<a name="l00010"></a>00010 <span class="comment"> */</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>OEngine {
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>Render {
+<a name="l00014"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">00014</a>     <span class="keyword">enum</span> <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">LightType</a> {
+<a name="l00015"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da51315812cf4f9a72a0e12b4cb07d70a2">00015</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da51315812cf4f9a72a0e12b4cb07d70a2">LT_Normal</a>,
+<a name="l00016"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da3ca516b09f386aa0bc3cf345fdc91135">00016</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da3ca516b09f386aa0bc3cf345fdc91135">LT_Flicker</a>,
+<a name="l00017"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da4884797de8e345379ee64b262df26292">00017</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da4884797de8e345379ee64b262df26292">LT_FlickerSlow</a>,
+<a name="l00018"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da49a2f5da481750b0a9da95110139d33a">00018</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da49a2f5da481750b0a9da95110139d33a">LT_Pulse</a>,
+<a name="l00019"></a><a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da798754ae9246cc64a3eb9c16ea6c187a">00019</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471da798754ae9246cc64a3eb9c16ea6c187a">LT_PulseSlow</a>
+<a name="l00020"></a>00020     };
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html">00022</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html">LightFunction</a> : <span class="keyword">public</span> Ogre::ControllerFunction&lt;Ogre::Real&gt;
+<a name="l00023"></a>00023     {
+<a name="l00024"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#ac79dae08c562146484be3936bb0b1343">00024</a>         <a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">LightType</a> <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#ac79dae08c562146484be3936bb0b1343">mType</a>;
+<a name="l00025"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a3aad1b0cac6aed71e2a28772feb6cfdd">00025</a>         Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a3aad1b0cac6aed71e2a28772feb6cfdd">mPhase</a>;
+<a name="l00026"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a4975580eb4d8898846c1bbf80f904ae5">00026</a>         Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a4975580eb4d8898846c1bbf80f904ae5">mDirection</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028         <span class="keyword">static</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a9724ca6adb8991ed8a01fbf806ac0e21">pulseAmplitude</a>(Ogre::Real time);
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030         <span class="keyword">static</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#af397435213940fcc780cac6f40bf2fb1">flickerAmplitude</a>(Ogre::Real time);
+<a name="l00031"></a>00031         <span class="keyword">static</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#afc06a0d0aa5e634a1e1da2b91f9c6975">flickerFrequency</a>(Ogre::Real phase);
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="keyword">public</span>:
+<a name="l00034"></a>00034         <span class="comment">// MSVC needs the constructor for a class inheriting a template to be defined in header</span>
+<a name="l00035"></a><a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#aafb0aa02c12730eff58e68ca01f45249">00035</a>         <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#aafb0aa02c12730eff58e68ca01f45249">LightFunction</a>(<a class="code" href="namespaceOEngine_1_1Render.html#ae83266a119a8c84e3d5a79252a97471d">LightType</a> type)
+<a name="l00036"></a>00036           : ControllerFunction&lt;Ogre::Real&gt;(true)
+<a name="l00037"></a>00037           , <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#ac79dae08c562146484be3936bb0b1343">mType</a>(type)
+<a name="l00038"></a>00038           , <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a3aad1b0cac6aed71e2a28772feb6cfdd">mPhase</a>(Ogre::Math::RangeRandom(-500.0f, +500.0f))
+<a name="l00039"></a>00039           , <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a4975580eb4d8898846c1bbf80f904ae5">mDirection</a>(1.0f)
+<a name="l00040"></a>00040         {
+<a name="l00041"></a>00041         }
+<a name="l00042"></a>00042         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightFunction.html#a28a5f4baa9537c98254bd8508cafe37b">calculate</a>(Ogre::Real value);
+<a name="l00043"></a>00043     };
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a52817cbfbdb7132df703e05ce4946b38">getValue</a>() <span class="keyword">const</span>;
-<a name="l00046"></a>00046         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#ad167f2493ff11f49918a087b9d6256a5">setValue</a>(Ogre::Real value);
-<a name="l00047"></a>00047     };
-<a name="l00048"></a>00048 }
-<a name="l00049"></a>00049 }
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="preprocessor">#endif</span>
+<a name="l00045"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html">00045</a>     <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1LightValue.html">LightValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;Ogre::Real&gt;
+<a name="l00046"></a>00046     {
+<a name="l00047"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a9d05f0fff4e97f11aa0d68847845c1f4">00047</a>         Ogre::Light *<a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a9d05f0fff4e97f11aa0d68847845c1f4">mTarget</a>;
+<a name="l00048"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5eadbc8e80e25f280afe52415ace0947">00048</a>         Ogre::ColourValue <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5eadbc8e80e25f280afe52415ace0947">mColor</a>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <span class="keyword">public</span>:
+<a name="l00051"></a>00051         <span class="comment">// MSVC needs the constructor for a class inheriting a template to be defined in header</span>
+<a name="l00052"></a><a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5c18e88557c0712a70fbac0a0cfb5b6f">00052</a>         <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5c18e88557c0712a70fbac0a0cfb5b6f">LightValue</a>(Ogre::Light *light, <span class="keyword">const</span> Ogre::ColourValue &amp;color)
+<a name="l00053"></a>00053           : <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a9d05f0fff4e97f11aa0d68847845c1f4">mTarget</a>(light)
+<a name="l00054"></a>00054           , <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a5eadbc8e80e25f280afe52415ace0947">mColor</a>(color)
+<a name="l00055"></a>00055         {
+<a name="l00056"></a>00056         }
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058         <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#a52817cbfbdb7132df703e05ce4946b38">getValue</a>() <span class="keyword">const</span>;
+<a name="l00059"></a>00059         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1LightValue.html#ad167f2493ff11f49918a087b9d6256a5">setValue</a>(Ogre::Real value);
+<a name="l00060"></a>00060     };
+<a name="l00061"></a>00061 }
+<a name="l00062"></a>00062 }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

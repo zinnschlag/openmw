@@ -76,7 +76,7 @@
 <a name="l00015"></a>00015         <span class="keyword">virtual</span> <a class="code" href="classMWGui_1_1HUD.html#a643dd2abbd2cd9cc8413f89923338199">~HUD</a>();
 <a name="l00016"></a>00016         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#aff7337267cda3fbc14abe6eee9747c9e">setValue</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">MWMechanics::DynamicStat&lt;float&gt;</a>&amp; value);
 <a name="l00017"></a>00017         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a3d7acf7f07d01b927113328ab73ad354">setFPS</a>(<span class="keywordtype">float</span> fps);
-<a name="l00018"></a>00018         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#abcf5544c7f50a41ce92ff36024aa3ad4">setTriangleCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>);
+<a name="l00018"></a>00018         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#abcf5544c7f50a41ce92ff36024aa3ad4">setTriangleCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count);
 <a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ae99705bbe6af78af53cfebcc66c3a993">setBatchCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count);
 <a name="l00020"></a>00020 
 <a name="l00023"></a>00023         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#af03d692816df1d6f7ac0a3f5c0390ffe">setDrowningTimeLeft</a>(<span class="keywordtype">float</span> time);
@@ -126,7 +126,7 @@
 <a name="l00067"></a><a class="code" href="classMWGui_1_1HUD.html#a760e2b3b519e271254a894b172a7aabe">00067</a>         MyGUI::ImageBox* <a class="code" href="classMWGui_1_1HUD.html#a760e2b3b519e271254a894b172a7aabe">mCrosshair</a>;
 <a name="l00068"></a><a class="code" href="classMWGui_1_1HUD.html#a7bfb0bdf776f1da9e0e5fbdf41067a39">00068</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1HUD.html#a7bfb0bdf776f1da9e0e5fbdf41067a39">mCellNameBox</a>;
 <a name="l00069"></a><a class="code" href="classMWGui_1_1HUD.html#a66cf843f62088acd9d7d8ad90f10ba10">00069</a>         MyGUI::TextBox* <a class="code" href="classMWGui_1_1HUD.html#a66cf843f62088acd9d7d8ad90f10ba10">mWeaponSpellBox</a>;
-<a name="l00070"></a><a class="code" href="classMWGui_1_1HUD.html#ad9a05add014943158ff51dcdde713cf8">00070</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1HUD.html#ad9a05add014943158ff51dcdde713cf8">mDrowningFrame</a>;
+<a name="l00070"></a><a class="code" href="classMWGui_1_1HUD.html#ad9a05add014943158ff51dcdde713cf8">00070</a>         MyGUI::Widget *<a class="code" href="classMWGui_1_1HUD.html#ad9a05add014943158ff51dcdde713cf8">mDrowningFrame</a>, *<a class="code" href="classMWGui_1_1HUD.html#ae95a2fbf54e0bb99d5df33b3ba5bb16a">mDrowningFlash</a>;
 <a name="l00071"></a>00071 
 <a name="l00072"></a><a class="code" href="classMWGui_1_1HUD.html#ac50db1b0ddd2c445844bd6de2b76c139">00072</a>         MyGUI::Widget* <a class="code" href="classMWGui_1_1HUD.html#ac50db1b0ddd2c445844bd6de2b76c139">mDummy</a>;
 <a name="l00073"></a>00073 
@@ -160,22 +160,25 @@
 <a name="l00101"></a><a class="code" href="classMWGui_1_1HUD.html#a883948dbc84b22002f2672cd9d839754">00101</a>         <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWGui_1_1HUD.html#a883948dbc84b22002f2672cd9d839754">mEnemy</a>;
 <a name="l00102"></a><a class="code" href="classMWGui_1_1HUD.html#aeafb9ee8a24b36ecdd89b9aaceca4169">00102</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1HUD.html#aeafb9ee8a24b36ecdd89b9aaceca4169">mEnemyHealthTimer</a>;
 <a name="l00103"></a>00103 
-<a name="l00104"></a>00104         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a7371a5a68d01bcecc0574b4ced993df6">onWorldClicked</a>(MyGUI::Widget* _sender);
-<a name="l00105"></a>00105         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a797c7d0f5ac82666b2f195ac72c60513">onWorldMouseOver</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00106"></a>00106         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a9364cd912b942a77d67c21b61d4a7680">onWorldMouseLostFocus</a>(MyGUI::Widget* _sender, MyGUI::Widget* _new);
-<a name="l00107"></a>00107         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a6b17a7757f1602d00e08f4a997ce4bf9">onHMSClicked</a>(MyGUI::Widget* _sender);
-<a name="l00108"></a>00108         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a1e68e2e375853f1f06fc1d1bb7b6f47d">onWeaponClicked</a>(MyGUI::Widget* _sender);
-<a name="l00109"></a>00109         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a9d50fbc5079db2442f0cdc37d714a3a7">onMagicClicked</a>(MyGUI::Widget* _sender);
-<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ae65314b893eaed69f500366e4f0bb4c2">onMapClicked</a>(MyGUI::Widget* _sender);
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#aac7ad5dcad86d1d7f6420def7e92be6d">updatePositions</a>();
-<a name="l00113"></a>00113     };
-<a name="l00114"></a>00114 }
+<a name="l00104"></a><a class="code" href="classMWGui_1_1HUD.html#a48592c729e79ed00908729a788a3540d">00104</a>         <span class="keywordtype">bool</span>  <a class="code" href="classMWGui_1_1HUD.html#a48592c729e79ed00908729a788a3540d">mIsDrowning</a>;
+<a name="l00105"></a><a class="code" href="classMWGui_1_1HUD.html#af47d6e8f32cfc8ec48848d6d32b86188">00105</a>         <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1HUD.html#af47d6e8f32cfc8ec48848d6d32b86188">mDrowningFlashTheta</a>;
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a7371a5a68d01bcecc0574b4ced993df6">onWorldClicked</a>(MyGUI::Widget* _sender);
+<a name="l00108"></a>00108         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a797c7d0f5ac82666b2f195ac72c60513">onWorldMouseOver</a>(MyGUI::Widget* _sender, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00109"></a>00109         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a9364cd912b942a77d67c21b61d4a7680">onWorldMouseLostFocus</a>(MyGUI::Widget* _sender, MyGUI::Widget* _new);
+<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a6b17a7757f1602d00e08f4a997ce4bf9">onHMSClicked</a>(MyGUI::Widget* _sender);
+<a name="l00111"></a>00111         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a1e68e2e375853f1f06fc1d1bb7b6f47d">onWeaponClicked</a>(MyGUI::Widget* _sender);
+<a name="l00112"></a>00112         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#a9d50fbc5079db2442f0cdc37d714a3a7">onMagicClicked</a>(MyGUI::Widget* _sender);
+<a name="l00113"></a>00113         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#ae65314b893eaed69f500366e4f0bb4c2">onMapClicked</a>(MyGUI::Widget* _sender);
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115         <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1HUD.html#aac7ad5dcad86d1d7f6420def7e92be6d">updatePositions</a>();
+<a name="l00116"></a>00116     };
+<a name="l00117"></a>00117 }
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

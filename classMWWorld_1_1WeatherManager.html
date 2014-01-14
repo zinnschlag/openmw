@@ -81,6 +81,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a35f6d79b2e5411e762120847d19da32e">WeatherManager</a> (<a class="el" href="classMWRender_1_1RenderingManager.html">MWRender::RenderingManager</a> *, <a class="el" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a> *fallback)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a29b2762eaaa6165a265159afe88729bc">~WeatherManager</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a89c3cfe5f6c04b08608c955bb46a3c74">changeWeather</a> (const std::string &amp;region, const unsigned int id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#ac6fc95f2fad8a6d6f40926dffe8fc6ca">switchToNextWeather</a> (bool instantly=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#adf3a824f4a93bb7a23f8f5bc695bff0e">update</a> (float duration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#afd4327b1dc7481ca4a7afaeba77c9fc4">stopSounds</a> (bool stopAll)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a8ca48f37acbbb5746b7f17cae2d9b2d4">setHour</a> (const float hour)</td></tr>
@@ -89,13 +90,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a9e0c137e43c12585074c048eb209a814">advanceTime</a> (double hours)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a1e4b8acd39d0fc11950560c0be383cd3">getWeatherID</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a95c5392deccabad08d66324fd703ae26">modRegion</a> (const std::string &amp;regionid, const std::vector&lt; char &gt; &amp;chances)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#ae98537e3096ef225ea2192c59bfe1a21">isDark</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pri-types"></a>
 Private Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
 std::vector&lt; char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a48c6bfd68d8362d105c125a721647f33">RegionModMap</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a72d3f0a2f96ecbf80255b27292171186">setFallbackWeather</a> (<a class="el" href="structMWWorld_1_1Weather.html">Weather</a> &amp;weather, const std::string &amp;name)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a72d3f0a2f96ecbf80255b27292171186">setFallbackWeather</a> (<a class="el" href="structMWWorld_1_1Weather.html">Weather</a> &amp;weather, const std::string &amp;<a class="el" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#ae0a094468bfaac29faaec1e9a0600778">transition</a> (const float factor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a1df3d0a1b06d8889ff4a3ed0969a9f18">setResult</a> (const Ogre::String &amp;weatherType)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWWorld_1_1WeatherManager.html#a8742ed5d73ccefa67389715a248fa3f3">calculateHourFade</a> (const std::string &amp;moonName) const </td></tr>
@@ -332,6 +334,23 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 </div>
 </div>
+<a class="anchor" id="ae98537e3096ef225ea2192c59bfe1a21"></a><!-- doxytag: member="MWWorld::WeatherManager::isDark" ref="ae98537e3096ef225ea2192c59bfe1a21" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWWorld_1_1WeatherManager.html#ae98537e3096ef225ea2192c59bfe1a21">WeatherManager::isDark</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classMWWorld_1_1World.html#a5f7f3b7cebd51528002a1318e682c046">World::isDark</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a95c5392deccabad08d66324fd703ae26"></a><!-- doxytag: member="MWWorld::WeatherManager::modRegion" ref="a95c5392deccabad08d66324fd703ae26" args="(const std::string &amp;regionid, const std::vector&lt; char &gt; &amp;chances)" -->
 <div class="memitem">
 <div class="memproto">
@@ -500,6 +519,23 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>stopAll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac6fc95f2fad8a6d6f40926dffe8fc6ca"></a><!-- doxytag: member="MWWorld::WeatherManager::switchToNextWeather" ref="ac6fc95f2fad8a6d6f40926dffe8fc6ca" args="(bool instantly=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWWorld_1_1WeatherManager.html#ac6fc95f2fad8a6d6f40926dffe8fc6ca">WeatherManager::switchToNextWeather</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>instantly</em> = <code>true</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1039,7 +1075,7 @@ std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

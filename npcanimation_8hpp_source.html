@@ -64,103 +64,116 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="animation_8hpp.html">animation.hpp</a>&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;../mwworld/containerstore.hpp&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;../mwworld/inventorystore.hpp&quot;</span>
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>ESM
 <a name="l00009"></a>00009 {
 <a name="l00010"></a>00010     <span class="keyword">struct </span>NPC;
 <a name="l00011"></a>00011 }
 <a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWWorld
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWRender
 <a name="l00014"></a>00014 {
-<a name="l00015"></a>00015     <span class="keyword">class </span>InventoryStore;
-<a name="l00016"></a>00016 }
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">namespace </span>MWRender
-<a name="l00019"></a>00019 {
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="classMWRender_1_1NpcAnimation.html">00021</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1NpcAnimation.html">NpcAnimation</a> : <span class="keyword">public</span> <a class="code" href="classMWRender_1_1Animation.html">Animation</a>
-<a name="l00022"></a>00022 {
-<a name="l00023"></a>00023 <span class="keyword">public</span>:
-<a name="l00024"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">00024</a>     <span class="keyword">typedef</span> std::map&lt;ESM::PartReferenceType,std::string&gt; <a class="code" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a>;
-<a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">00026</a>     <span class="keyword">enum</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> {
-<a name="l00027"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">00027</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>,
-<a name="l00028"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feaf0b3d9ca301c38c528eee8e632a5d5de">00028</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feaf0b3d9ca301c38c528eee8e632a5d5de">VM_FirstPerson</a>,
-<a name="l00029"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feab5c576d60b8b1381512ea383ac426259">00029</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feab5c576d60b8b1381512ea383ac426259">VM_HeadOnly</a>
-<a name="l00030"></a>00030     };
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">private</span>:
-<a name="l00033"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">00033</a>     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">sPartList</a>;
-<a name="l00034"></a>00034 
-<a name="l00035"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a03c8ee7686fad6e382b3a81c786d491d">00035</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a03c8ee7686fad6e382b3a81c786d491d">mStateID</a>;
+<a name="l00015"></a>00015 
+<a name="l00016"></a><a class="code" href="classMWRender_1_1SayAnimationValue.html">00016</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1SayAnimationValue.html">SayAnimationValue</a> : <span class="keyword">public</span> Ogre::<a class="code" href="classOgre_1_1ControllerValue.html">ControllerValue</a>&lt;Ogre::Real&gt;
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018 <span class="keyword">private</span>:
+<a name="l00019"></a><a class="code" href="classMWRender_1_1SayAnimationValue.html#ac0b4ae39e1bb8c20fb95bf5ce31d094b">00019</a>     <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> <a class="code" href="classMWRender_1_1SayAnimationValue.html#ac0b4ae39e1bb8c20fb95bf5ce31d094b">mReference</a>;
+<a name="l00020"></a>00020 <span class="keyword">public</span>:
+<a name="l00021"></a><a class="code" href="classMWRender_1_1SayAnimationValue.html#a5ad1bd80a69396311e594fef5527226e">00021</a>     <a class="code" href="classMWRender_1_1SayAnimationValue.html#a5ad1bd80a69396311e594fef5527226e">SayAnimationValue</a>(<a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> reference) : <a class="code" href="classMWRender_1_1SayAnimationValue.html#ac0b4ae39e1bb8c20fb95bf5ce31d094b">mReference</a>(reference) {}
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023     <span class="keyword">virtual</span> Ogre::Real <a class="code" href="classMWRender_1_1SayAnimationValue.html#abb49fb4dd8bc4aadc45938ea4ec9f706">getValue</a>() <span class="keyword">const</span>;
+<a name="l00024"></a><a class="code" href="classMWRender_1_1SayAnimationValue.html#ac3436a4044d0336601150def35190eb9">00024</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SayAnimationValue.html#ac3436a4044d0336601150def35190eb9">setValue</a>(Ogre::Real value)
+<a name="l00025"></a>00025     { }
+<a name="l00026"></a>00026 };
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="classMWRender_1_1NpcAnimation.html">00028</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1NpcAnimation.html">NpcAnimation</a> : <span class="keyword">public</span> <a class="code" href="classMWRender_1_1Animation.html">Animation</a>, <span class="keyword">public</span> MWWorld::InventoryStoreListener
+<a name="l00029"></a>00029 {
+<a name="l00030"></a>00030 <span class="keyword">public</span>:
+<a name="l00031"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a16a63c1b9413c02b294d4a267e539e2f">00031</a>     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a16a63c1b9413c02b294d4a267e539e2f">equipmentChanged</a>() { <a class="code" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">updateParts</a>(); }
+<a name="l00032"></a>00032     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae77cad2df0a78c059b07c180ee1af712">permanentEffectAdded</a>(<span class="keyword">const</span> <a class="code" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a> *magicEffect, <span class="keywordtype">bool</span> isNew, <span class="keywordtype">bool</span> playSound);
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="keyword">public</span>:
+<a name="l00035"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">00035</a>     <span class="keyword">typedef</span> std::map&lt;ESM::PartReferenceType,std::string&gt; <a class="code" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a>;
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <span class="comment">// Bounded Parts</span>
-<a name="l00038"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a8530ff06d509b41b9a6ac512d34e4c93">00038</a>     <a class="code" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a8530ff06d509b41b9a6ac512d34e4c93">mObjectParts</a>[<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>];
-<a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a18a74ca4eaee9c08a00173d54190dfa0">00040</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *<a class="code" href="classMWRender_1_1NpcAnimation.html#a18a74ca4eaee9c08a00173d54190dfa0">mNpc</a>;
-<a name="l00041"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a2a6e7c820277263a00930c6e70c38bfa">00041</a>     std::string    <a class="code" href="classMWRender_1_1NpcAnimation.html#a2a6e7c820277263a00930c6e70c38bfa">mHeadModel</a>;
-<a name="l00042"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a72ed46c1e138be66d31c2f0301b282df">00042</a>     std::string    <a class="code" href="classMWRender_1_1NpcAnimation.html#a72ed46c1e138be66d31c2f0301b282df">mHairModel</a>;
-<a name="l00043"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a7a5a114d0fb0a8b594e1cb746fb73b61">00043</a>     <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a>       <a class="code" href="classMWRender_1_1NpcAnimation.html#a7a5a114d0fb0a8b594e1cb746fb73b61">mViewMode</a>;
-<a name="l00044"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">00044</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">mShowWeapons</a>;
+<a name="l00037"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">00037</a>     <span class="keyword">enum</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> {
+<a name="l00038"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">00038</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>,
+<a name="l00039"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feaf0b3d9ca301c38c528eee8e632a5d5de">00039</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feaf0b3d9ca301c38c528eee8e632a5d5de">VM_FirstPerson</a>,
+<a name="l00040"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feab5c576d60b8b1381512ea383ac426259">00040</a>         <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7feab5c576d60b8b1381512ea383ac426259">VM_HeadOnly</a>
+<a name="l00041"></a>00041     };
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043 <span class="keyword">private</span>:
+<a name="l00044"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">00044</a>     <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">sPartList</a>;
 <a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a14636aff6eff26d4e72c6f1b0236db76">00046</a>     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a14636aff6eff26d4e72c6f1b0236db76">mTimeToChange</a>;
-<a name="l00047"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a37f6a02298e238b8d236987a82313687">00047</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a37f6a02298e238b8d236987a82313687">mRobe</a>;
-<a name="l00048"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ac7984c870b60de7cb6c9f03f4fae5463">00048</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#ac7984c870b60de7cb6c9f03f4fae5463">mHelmet</a>;
-<a name="l00049"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a3ed57b2e59da1c9cb73d226f2846def6">00049</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3ed57b2e59da1c9cb73d226f2846def6">mShirt</a>;
-<a name="l00050"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a3d4762c76c5a471fa2c0a5976bb1cd3b">00050</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3d4762c76c5a471fa2c0a5976bb1cd3b">mCuirass</a>;
-<a name="l00051"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a3b20709ab61117fbe81cacce460508c5">00051</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3b20709ab61117fbe81cacce460508c5">mGreaves</a>;
-<a name="l00052"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#aabfa5e8ab4bd515054e1990c764a51be">00052</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#aabfa5e8ab4bd515054e1990c764a51be">mPauldronL</a>;
-<a name="l00053"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a09040655c5cb2bdd544dd475fe07d4d6">00053</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a09040655c5cb2bdd544dd475fe07d4d6">mPauldronR</a>;
-<a name="l00054"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a55499981afa0d41beb2a6c2ace693052">00054</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a55499981afa0d41beb2a6c2ace693052">mBoots</a>;
-<a name="l00055"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a1f045d5b61a41abadd776ebbe89ad33a">00055</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a1f045d5b61a41abadd776ebbe89ad33a">mPants</a>;
-<a name="l00056"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#acb7ede373e723894b30b1097497cf4a1">00056</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#acb7ede373e723894b30b1097497cf4a1">mGloveL</a>;
-<a name="l00057"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a9fd2d937365896bdbf0f401607fd3159">00057</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a9fd2d937365896bdbf0f401607fd3159">mGloveR</a>;
-<a name="l00058"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a0b0c2c59028159b9ac2faf17f659ea06">00058</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a0b0c2c59028159b9ac2faf17f659ea06">mSkirtIter</a>;
-<a name="l00059"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#aef462ff694cf6ab035a53aaec79e43c7">00059</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#aef462ff694cf6ab035a53aaec79e43c7">mWeapon</a>;
-<a name="l00060"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a9070ca3d735e0a4cac924984f87b5dbb">00060</a>     <a class="code" href="classMWWorld_1_1ContainerStoreIterator.html" title="Iteration over a subset of objects in a ContainerStore.">MWWorld::ContainerStoreIterator</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a9070ca3d735e0a4cac924984f87b5dbb">mShield</a>;
-<a name="l00061"></a>00061 
-<a name="l00062"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">00062</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">mVisibilityFlags</a>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">00064</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">mPartslots</a>[<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>];  <span class="comment">//Each part slot is taken by clothing, armor, or is empty</span>
-<a name="l00065"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">00065</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">mPartPriorities</a>[<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>];
+<a name="l00046"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a8a7c6ba15bc11a2144d67f62fa4da1c8">00046</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a8a7c6ba15bc11a2144d67f62fa4da1c8">mListenerDisabled</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="comment">// Bounded Parts</span>
+<a name="l00049"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ae17f8b5dae97bd418f611c6fefed6366">00049</a>     <a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae17f8b5dae97bd418f611c6fefed6366">mObjectParts</a>[<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>];
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a18a74ca4eaee9c08a00173d54190dfa0">00051</a>     <span class="keyword">const</span> <a class="code" href="structESM_1_1NPC.html">ESM::NPC</a> *<a class="code" href="classMWRender_1_1NpcAnimation.html#a18a74ca4eaee9c08a00173d54190dfa0">mNpc</a>;
+<a name="l00052"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a2a6e7c820277263a00930c6e70c38bfa">00052</a>     std::string    <a class="code" href="classMWRender_1_1NpcAnimation.html#a2a6e7c820277263a00930c6e70c38bfa">mHeadModel</a>;
+<a name="l00053"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a72ed46c1e138be66d31c2f0301b282df">00053</a>     std::string    <a class="code" href="classMWRender_1_1NpcAnimation.html#a72ed46c1e138be66d31c2f0301b282df">mHairModel</a>;
+<a name="l00054"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a7a5a114d0fb0a8b594e1cb746fb73b61">00054</a>     <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a>       <a class="code" href="classMWRender_1_1NpcAnimation.html#a7a5a114d0fb0a8b594e1cb746fb73b61">mViewMode</a>;
+<a name="l00055"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">00055</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">mShowWeapons</a>;
+<a name="l00056"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a7cb900fd35490970a8e9cd7e0fe0cbe0">00056</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a7cb900fd35490970a8e9cd7e0fe0cbe0">mShowCarriedLeft</a>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">00058</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">mVisibilityFlags</a>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">00060</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">mPartslots</a>[<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>];  <span class="comment">//Each part slot is taken by clothing, armor, or is empty</span>
+<a name="l00061"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">00061</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">mPartPriorities</a>[<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>];
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a183fb11a2b214821a87fb6279dad3a04">00063</a>     Ogre::Vector3 <a class="code" href="classMWRender_1_1NpcAnimation.html#a183fb11a2b214821a87fb6279dad3a04">mFirstPersonOffset</a>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#a7be53110a6ecaeff5163845e2876af78">00065</a>     Ogre::SharedPtr&lt;SayAnimationValue&gt; <a class="code" href="classMWRender_1_1NpcAnimation.html#a7be53110a6ecaeff5163845e2876af78">mSayAnimationValue</a>;
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#acf50b96cffb19c225200c4bff36fbce7">updateNpcBase</a>();
+<a name="l00067"></a><a class="code" href="classMWRender_1_1NpcAnimation.html#ab801bb355fe1202ac1e08768e5e8b73c">00067</a>     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ab801bb355fe1202ac1e08768e5e8b73c">mAlpha</a>;
 <a name="l00068"></a>00068 
-<a name="l00069"></a>00069     <a class="code" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a22da4f057dfac3ec185e6059899d8e39">insertBoundedPart</a>(<span class="keyword">const</span> std::string &amp;model, <span class="keywordtype">int</span> group, <span class="keyword">const</span> std::string &amp;bonename);
+<a name="l00069"></a>00069     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#acf50b96cffb19c225200c4bff36fbce7">updateNpcBase</a>();
 <a name="l00070"></a>00070 
-<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a19745474066d5289f23025bad740d07d">removeIndividualPart</a>(<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type);
-<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa9e5c5ca4e238081ffefc27a351602ea">reserveIndividualPart</a>(<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority);
+<a name="l00071"></a>00071     <a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="code" href="classMWRender_1_1NpcAnimation.html#a6499be19f9ede7f4297550d04226cc51">insertBoundedPart</a>(<span class="keyword">const</span> std::string &amp;model, <span class="keywordtype">int</span> group, <span class="keyword">const</span> std::string &amp;bonename,
+<a name="l00072"></a>00072                                           <span class="keywordtype">bool</span> enchantedGlow, Ogre::Vector3* glowColor=NULL);
 <a name="l00073"></a>00073 
-<a name="l00074"></a>00074     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a1c52c8c1ac1b8490f7a35a4c505a0aae">addOrReplaceIndividualPart</a>(<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, <span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>);
-<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a>(<span class="keywordtype">int</span> group);
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ab893491b9ecd786e988c83355a7448e0">addPartGroup</a>(<span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, <span class="keyword">const</span> std::vector&lt;ESM::PartReference&gt; &amp;parts);
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 <span class="keyword">public</span>:
-<a name="l00079"></a>00079     <a class="code" href="classMWRender_1_1NpcAnimation.html#ad9d661cfec15df1e205eb834b9c1ac51">NpcAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, Ogre::SceneNode* node,
-<a name="l00080"></a>00080                  <a class="code" href="classMWWorld_1_1InventoryStore.html" title="&lt;">MWWorld::InventoryStore</a>&amp; inv, <span class="keywordtype">int</span> visibilityFlags,
-<a name="l00081"></a>00081                  <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode=<a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>);
-<a name="l00082"></a>00082     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa5faa3df208fc30caa0c63a28b6419c5">~NpcAnimation</a>();
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keyword">virtual</span> Ogre::Vector3 <a class="code" href="classMWRender_1_1NpcAnimation.html#a7e9a93865cafb8f8e64c3b85e4fc39c7">runAnimation</a>(<span class="keywordtype">float</span> timepassed);
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a0276bb5ac593134ce644726301e83e56">showWeapons</a>(<span class="keywordtype">bool</span> showWeapon);
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aed4db842528e550579621b23034ece08">setViewMode</a>(<a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode);
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a9582b561a63e258017a3f1899d614e50">updateParts</a>(<span class="keywordtype">bool</span> forceupdate = <span class="keyword">false</span>);
-<a name="l00091"></a>00091 
-<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a8b37aef38ba00e4f82ffd785141c1321" title="Rebuilds the NPC, updating their root model, animation sources, and equipment.">rebuild</a>();
-<a name="l00094"></a>00094 };
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 }
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098 <span class="preprocessor">#endif</span>
+<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a19745474066d5289f23025bad740d07d">removeIndividualPart</a>(<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type);
+<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa9e5c5ca4e238081ffefc27a351602ea">reserveIndividualPart</a>(<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority);
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ac6ff50d84c91eb2f59257b0a459f9534">addOrReplaceIndividualPart</a>(<a class="code" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, <span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, <span class="keyword">const</span> std::string &amp;<a class="code" href="test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>,
+<a name="l00078"></a>00078                                     <span class="keywordtype">bool</span> enchantedGlow=<span class="keyword">false</span>, Ogre::Vector3* glowColor=NULL);
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a>(<span class="keywordtype">int</span> group);
+<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa260e487ac7dcb53c7521df1e8e34271">addPartGroup</a>(<span class="keywordtype">int</span> group, <span class="keywordtype">int</span> priority, <span class="keyword">const</span> std::vector&lt;ESM::PartReference&gt; &amp;parts,
+<a name="l00081"></a>00081                                     <span class="keywordtype">bool</span> enchantedGlow=<span class="keyword">false</span>, Ogre::Vector3* glowColor=NULL);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa908fe262443783fc1b7590ba7197bb4">applyAlpha</a>(<span class="keywordtype">float</span> alpha, Ogre::Entity* ent, <a class="code" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> scene);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="keyword">public</span>:
+<a name="l00096"></a>00096     <a class="code" href="classMWRender_1_1NpcAnimation.html#a71863548fdccce7b0e7126864b2a9f54">NpcAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, Ogre::SceneNode* node, <span class="keywordtype">int</span> visibilityFlags, <span class="keywordtype">bool</span> disableListener = <span class="keyword">false</span>,
+<a name="l00097"></a>00097                  <a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode=<a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>);
+<a name="l00098"></a>00098     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aa5faa3df208fc30caa0c63a28b6419c5">~NpcAnimation</a>();
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     <span class="keyword">virtual</span> Ogre::Vector3 <a class="code" href="classMWRender_1_1NpcAnimation.html#a7e9a93865cafb8f8e64c3b85e4fc39c7">runAnimation</a>(<span class="keywordtype">float</span> timepassed);
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a0276bb5ac593134ce644726301e83e56">showWeapons</a>(<span class="keywordtype">bool</span> showWeapon);
+<a name="l00103"></a>00103     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#ae393536322e88da8ae74a2110be468ec">showCarriedLeft</a>(<span class="keywordtype">bool</span> showa);
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#aed4db842528e550579621b23034ece08">setViewMode</a>(<a class="code" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode);
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">updateParts</a>();
+<a name="l00108"></a>00108 
+<a name="l00112"></a>00112     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a03e2b001d4c360fe5d6defad29de6d53" title="Applies a translation to the arms and hands. This may be called multiple times before the animation i...">addFirstPersonOffset</a>(<span class="keyword">const</span> Ogre::Vector3 &amp;offset);
+<a name="l00113"></a>00113 
+<a name="l00115"></a>00115     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a8b37aef38ba00e4f82ffd785141c1321" title="Rebuilds the NPC, updating their root model, animation sources, and equipment.">rebuild</a>();
+<a name="l00116"></a>00116 
+<a name="l00118"></a>00118     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a1d422eb5a7a4548ef1a795a36f75384d" title="Make the NPC only partially visible.">setAlpha</a>(<span class="keywordtype">float</span> alpha);
+<a name="l00119"></a>00119 
+<a name="l00121"></a>00121     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1NpcAnimation.html#a19cbf5ba79b6e1beaba9394c9f7128a8" title="Prepare this animation for being rendered with camera (rotates billboard nodes)">preRender</a> (Ogre::Camera* camera);
+<a name="l00122"></a>00122 };
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124 }
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

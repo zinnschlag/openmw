@@ -109,223 +109,218 @@
 <a name="l00048"></a>00048     <span class="keyword">class </span>Shadows;
 <a name="l00049"></a>00049     <span class="keyword">class </span>LocalMap;
 <a name="l00050"></a>00050     <span class="keyword">class </span>Water;
-<a name="l00051"></a>00051     <span class="keyword">class </span>Compositors;
-<a name="l00052"></a>00052     <span class="keyword">class </span>ExternalRendering;
-<a name="l00053"></a>00053     <span class="keyword">class </span>GlobalMap;
-<a name="l00054"></a>00054     <span class="keyword">class </span>VideoPlayer;
-<a name="l00055"></a>00055     <span class="keyword">class </span>Animation;
-<a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classMWRender_1_1RenderingManager.html">00057</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1RenderingManager.html">RenderingManager</a>: <span class="keyword">private</span> <a class="code" href="classMWRender_1_1RenderingInterface.html">RenderingInterface</a>, <span class="keyword">public</span> Ogre::RenderTargetListener, <span class="keyword">public</span> OEngine::Render::WindowSizeListener
-<a name="l00058"></a>00058 {
-<a name="l00059"></a>00059 <span class="keyword">private</span>:
-<a name="l00060"></a>00060     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#aa6223af866d8bb3c60261d2fc40c6dcd">getObjects</a>();
-<a name="l00061"></a>00061     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#a1aab26ca177983f82a9df2a037143ba3">getActors</a>();
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="keyword">public</span>:
-<a name="l00064"></a>00064     <a class="code" href="classMWRender_1_1RenderingManager.html#ade4830b400d3d39ab9e5471a116ffb70">RenderingManager</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend, <span class="keyword">const</span> boost::filesystem::path&amp; resDir,
-<a name="l00065"></a>00065                      <span class="keyword">const</span> boost::filesystem::path&amp; cacheDir, <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* engine,
-<a name="l00066"></a>00066                      <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* fallback);
-<a name="l00067"></a>00067     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4128f1a977b9b47752547312dc06a81c">~RenderingManager</a>();
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">00069</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">togglePOV</a>()
-<a name="l00070"></a>00070     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a4eb823c508d3a281dc933d6bc5d0499d">toggleViewMode</a>(); }
-<a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">00072</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">togglePreviewMode</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
-<a name="l00073"></a>00073     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a253daff447caae0e554a1b25ab4d4537">togglePreviewMode</a>(enable); }
-<a name="l00074"></a>00074 
-<a name="l00075"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">00075</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">toggleVanityMode</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
-<a name="l00076"></a>00076     { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a0c2c4ab36df92e1e0c64066327d550d3">toggleVanityMode</a>(enable); }
-<a name="l00077"></a>00077 
-<a name="l00078"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">00078</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">allowVanityMode</a>(<span class="keywordtype">bool</span> allow)
-<a name="l00079"></a>00079     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#ac50992e1883bf71b1924278f5654a6b8">allowVanityMode</a>(allow); }
-<a name="l00080"></a>00080 
-<a name="l00081"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">00081</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">togglePlayerLooking</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
-<a name="l00082"></a>00082     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a6cda52914333bd9ccdde0f804e941c6f">togglePlayerLooking</a>(enable); }
-<a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">00084</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">changeVanityModeScale</a>(<span class="keywordtype">float</span> factor)
-<a name="l00085"></a>00085     {
-<a name="l00086"></a>00086         <span class="keywordflow">if</span>(<a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a06a6bc086c2d9cba2e041d11f308d4ed">isVanityOrPreviewModeEnabled</a>())
-<a name="l00087"></a>00087             <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a4fbdb0472bc2773d9925c1a3a0e3e455">setCameraDistance</a>(-factor/120.f*10, <span class="keyword">true</span>, <span class="keyword">true</span>);
-<a name="l00088"></a>00088     }
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aba53f12cdc900af02b863f9f09519694">resetCamera</a>();
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#adf9f6aa7147cd5ad6fb26fca6f24b658">vanityRotateCamera</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> *rot);
-<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa2c22f6682ce7ab62e6bd7d8d9564285">setCameraDistance</a>(<span class="keywordtype">float</span> dist, <span class="keywordtype">bool</span> adjust = <span class="keyword">false</span>, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">true</span>);
+<a name="l00051"></a>00051     <span class="keyword">class </span>ExternalRendering;
+<a name="l00052"></a>00052     <span class="keyword">class </span>GlobalMap;
+<a name="l00053"></a>00053     <span class="keyword">class </span>VideoPlayer;
+<a name="l00054"></a>00054     <span class="keyword">class </span>Animation;
+<a name="l00055"></a>00055 
+<a name="l00056"></a><a class="code" href="classMWRender_1_1RenderingManager.html">00056</a> <span class="keyword">class </span><a class="code" href="classMWRender_1_1RenderingManager.html">RenderingManager</a>: <span class="keyword">private</span> <a class="code" href="classMWRender_1_1RenderingInterface.html">RenderingInterface</a>, <span class="keyword">public</span> Ogre::RenderTargetListener, <span class="keyword">public</span> OEngine::Render::WindowSizeListener
+<a name="l00057"></a>00057 {
+<a name="l00058"></a>00058 <span class="keyword">private</span>:
+<a name="l00059"></a>00059     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#aa6223af866d8bb3c60261d2fc40c6dcd">getObjects</a>();
+<a name="l00060"></a>00060     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a>&amp; <a class="code" href="classMWRender_1_1RenderingManager.html#a1aab26ca177983f82a9df2a037143ba3">getActors</a>();
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="keyword">public</span>:
+<a name="l00063"></a>00063     <a class="code" href="classMWRender_1_1RenderingManager.html#ade4830b400d3d39ab9e5471a116ffb70">RenderingManager</a>(<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a>&amp; _rend, <span class="keyword">const</span> boost::filesystem::path&amp; resDir,
+<a name="l00064"></a>00064                      <span class="keyword">const</span> boost::filesystem::path&amp; cacheDir, <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* engine,
+<a name="l00065"></a>00065                      <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* fallback);
+<a name="l00066"></a>00066     <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4128f1a977b9b47752547312dc06a81c">~RenderingManager</a>();
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">00068</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af424255868606cd31c115800f596d09d">togglePOV</a>()
+<a name="l00069"></a>00069     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a4eb823c508d3a281dc933d6bc5d0499d">toggleViewMode</a>(); }
+<a name="l00070"></a>00070 
+<a name="l00071"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">00071</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ab6b73da608e3676f4daa44f942cf795c">togglePreviewMode</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
+<a name="l00072"></a>00072     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a253daff447caae0e554a1b25ab4d4537">togglePreviewMode</a>(enable); }
+<a name="l00073"></a>00073 
+<a name="l00074"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">00074</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3ba83316209d5a7a496196ab8b22eb8f">toggleVanityMode</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
+<a name="l00075"></a>00075     { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a0c2c4ab36df92e1e0c64066327d550d3">toggleVanityMode</a>(enable); }
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">00077</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a1b680ab466de025792ada18f626df18a">allowVanityMode</a>(<span class="keywordtype">bool</span> allow)
+<a name="l00078"></a>00078     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#ac50992e1883bf71b1924278f5654a6b8">allowVanityMode</a>(allow); }
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">00080</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a54a3b1a568f64e75e8f82e3105763930">togglePlayerLooking</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
+<a name="l00081"></a>00081     { <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a6cda52914333bd9ccdde0f804e941c6f">togglePlayerLooking</a>(enable); }
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">00083</a>     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5ce784127df4229e24d35dc34748aa00">changeVanityModeScale</a>(<span class="keywordtype">float</span> factor)
+<a name="l00084"></a>00084     {
+<a name="l00085"></a>00085         <span class="keywordflow">if</span>(<a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a06a6bc086c2d9cba2e041d11f308d4ed">isVanityOrPreviewModeEnabled</a>())
+<a name="l00086"></a>00086             <a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>-&gt;<a class="code" href="classMWRender_1_1Camera.html#a4fbdb0472bc2773d9925c1a3a0e3e455">setCameraDistance</a>(-factor/120.f*10, <span class="keyword">true</span>, <span class="keyword">true</span>);
+<a name="l00087"></a>00087     }
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aba53f12cdc900af02b863f9f09519694">resetCamera</a>();
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#adf9f6aa7147cd5ad6fb26fca6f24b658">vanityRotateCamera</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> *rot);
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa2c22f6682ce7ab62e6bd7d8d9564285">setCameraDistance</a>(<span class="keywordtype">float</span> dist, <span class="keywordtype">bool</span> adjust = <span class="keyword">false</span>, <span class="keywordtype">bool</span> <span class="keyword">override</span> = <span class="keyword">true</span>);
+<a name="l00093"></a>00093     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a64ca75daa7bb347d6f5252756762dbff">getCameraDistance</a>() <span class="keyword">const</span>;
 <a name="l00094"></a>00094 
 <a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a7fb0a8fac69f9e12cf0341d5ed861415">setupPlayer</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
 <a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ade3fffd0bb602bb05d2d504e0f035168">renderPlayer</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
 <a name="l00097"></a>00097 
 <a name="l00098"></a>00098     <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af7cde8af6563b78a3f21e109d6a89578">getSkyManager</a>();
-<a name="l00099"></a>00099     <a class="code" href="classMWRender_1_1Compositors.html" title="Manages a set of compositors for one viewport.">Compositors</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a72370172f10b23a9ec5dd3c036b639f6">getCompositors</a>();
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a491f355eb7a685224f4468c509e52f3f">toggleLight</a>();
-<a name="l00102"></a>00102     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2b94b78b821f779d26192fe2fe8c034e">toggleRenderMode</a>(<span class="keywordtype">int</span> mode);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104     <a class="code" href="classOEngine_1_1Render_1_1Fader.html">OEngine::Render::Fader</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af07d5433e2259581be518ebd0e449b94">getFader</a>();
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5a99302c50b22de9b2aef58d3f31440a">removeCell</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *store);
-<a name="l00107"></a>00107 
-<a name="l00110"></a>00110     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a446a27e1fdd96c690b6b1a94a4e81a0c">cellAdded</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *store);
-<a name="l00111"></a>00111     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a684dd08c9255e5dfee2d15e51ac6451e">waterAdded</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *store);
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af65c6fa0f785ee77b944f93e105ddcf5">enableTerrain</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af116c641994779d8fb035a45f9a6aeea">removeWater</a>();
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a89e1423760b44e031d070022cc3c9ef8" title="this event is fired immediately before changing cell">preCellChange</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* store);
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2545878fb321049ea7dcca55985ca43e">addObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00121"></a>00121     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5e4e7f6e2d75427ff131f808b2fc0555">removeObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00122"></a>00122 
-<a name="l00123"></a>00123     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af3d44ddd504488bef5401a0ce584535a">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; position);
-<a name="l00124"></a>00124     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a785bb7c6808ae780be09e4f0db511fb8">scaleObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; scale);
-<a name="l00125"></a>00125 
-<a name="l00127"></a>00127     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ae14d0ea59b6d1361da04a98e4d6a1cfd" title="Updates an object&#39;s rotation.">rotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00128"></a>00128 
-<a name="l00129"></a>00129     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a8ba134d3a829c162611011d1b97e83df">setWaterHeight</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> height);
-<a name="l00130"></a>00130     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9b46689311f4111b61a854fcf372c051">toggleWater</a>();
-<a name="l00131"></a>00131 
-<a name="l00135"></a>00135     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af2acd33268350c7c8c0b71061ec31247">updateObjectCell</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;cur);
-<a name="l00136"></a>00136 
-<a name="l00138"></a>00138     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a069549cce98a702f4e948fb193a6c218" title="Specifies an updated Ptr object for the player (used on cell change).">updatePlayerPtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00139"></a>00139 
-<a name="l00142"></a>00142     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9e4ed5892fefee1137616dee112148ed">rebuildPtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00143"></a>00143 
-<a name="l00144"></a>00144     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2e03fc527e4c8ef6c4e342d380f200d7">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
-<a name="l00145"></a>00145 
-<a name="l00146"></a>00146     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a708e72ad138ea15f7dcd24862637a84d">setAmbientColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; colour);
-<a name="l00147"></a>00147     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ad3968aef01cc6070276434b745b830a6">setSunColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; colour);
-<a name="l00148"></a>00148     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3269bf086242c837b2bbef131036e4f7">setSunDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
-<a name="l00149"></a>00149     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ad9e09b27f4b308c4d4e28b9e834607ca">sunEnable</a>(<span class="keywordtype">bool</span> real); 
-<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a407ae3e703ec39dca39f3be1dd3443de">sunDisable</a>(<span class="keywordtype">bool</span> real);
-<a name="l00151"></a>00151 
-<a name="l00152"></a>00152     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af188c4ebf7fb283bb68bb3ab64e3496e">disableLights</a>(<span class="keywordtype">bool</span> sun); 
-<a name="l00153"></a>00153     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3581a5c85dbd5b954b05e96625634a39">enableLights</a>(<span class="keywordtype">bool</span> sun);
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a491f355eb7a685224f4468c509e52f3f">toggleLight</a>();
+<a name="l00101"></a>00101     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2b94b78b821f779d26192fe2fe8c034e">toggleRenderMode</a>(<span class="keywordtype">int</span> mode);
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103     <a class="code" href="classOEngine_1_1Render_1_1Fader.html">OEngine::Render::Fader</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af07d5433e2259581be518ebd0e449b94">getFader</a>();
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5a99302c50b22de9b2aef58d3f31440a">removeCell</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *store);
+<a name="l00106"></a>00106 
+<a name="l00109"></a>00109     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a446a27e1fdd96c690b6b1a94a4e81a0c">cellAdded</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *store);
+<a name="l00110"></a>00110     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a684dd08c9255e5dfee2d15e51ac6451e">waterAdded</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *store);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af65c6fa0f785ee77b944f93e105ddcf5">enableTerrain</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>);
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af116c641994779d8fb035a45f9a6aeea">removeWater</a>();
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a89e1423760b44e031d070022cc3c9ef8" title="this event is fired immediately before changing cell">preCellChange</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* store);
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2545878fb321049ea7dcca55985ca43e">addObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00120"></a>00120     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a5e4e7f6e2d75427ff131f808b2fc0555">removeObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af3d44ddd504488bef5401a0ce584535a">moveObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; position);
+<a name="l00123"></a>00123     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a785bb7c6808ae780be09e4f0db511fb8">scaleObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> Ogre::Vector3&amp; scale);
+<a name="l00124"></a>00124 
+<a name="l00126"></a>00126     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ae14d0ea59b6d1361da04a98e4d6a1cfd" title="Updates an object&#39;s rotation.">rotateObject</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a8ba134d3a829c162611011d1b97e83df">setWaterHeight</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> height);
+<a name="l00129"></a>00129     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9b46689311f4111b61a854fcf372c051">toggleWater</a>();
+<a name="l00130"></a>00130 
+<a name="l00134"></a>00134     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af2acd33268350c7c8c0b71061ec31247">updateObjectCell</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;cur);
+<a name="l00135"></a>00135 
+<a name="l00137"></a>00137     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a069549cce98a702f4e948fb193a6c218" title="Specifies an updated Ptr object for the player (used on cell change).">updatePlayerPtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
+<a name="l00138"></a>00138 
+<a name="l00141"></a>00141     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9e4ed5892fefee1137616dee112148ed">rebuildPtr</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2e03fc527e4c8ef6c4e342d380f200d7">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a708e72ad138ea15f7dcd24862637a84d">setAmbientColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; colour);
+<a name="l00146"></a>00146     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ad3968aef01cc6070276434b745b830a6">setSunColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; colour);
+<a name="l00147"></a>00147     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3269bf086242c837b2bbef131036e4f7">setSunDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
+<a name="l00148"></a>00148     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ad9e09b27f4b308c4d4e28b9e834607ca">sunEnable</a>(<span class="keywordtype">bool</span> real); 
+<a name="l00149"></a>00149     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a407ae3e703ec39dca39f3be1dd3443de">sunDisable</a>(<span class="keywordtype">bool</span> real);
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af188c4ebf7fb283bb68bb3ab64e3496e">disableLights</a>(<span class="keywordtype">bool</span> sun); 
+<a name="l00152"></a>00152     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3581a5c85dbd5b954b05e96625634a39">enableLights</a>(<span class="keywordtype">bool</span> sun);
+<a name="l00153"></a>00153 
 <a name="l00154"></a>00154 
-<a name="l00155"></a>00155 
-<a name="l00156"></a>00156     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af4f60d349af561e81e67e34734ce8d62">preRenderTargetUpdate</a>(<span class="keyword">const</span> Ogre::RenderTargetEvent&amp; evt);
-<a name="l00157"></a>00157     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a66868deb8517b46a182f20cb57b94cc2">postRenderTargetUpdate</a>(<span class="keyword">const</span> Ogre::RenderTargetEvent&amp; evt);
-<a name="l00158"></a>00158 
-<a name="l00159"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a05a162f27ac9bb59e4ff82b905d3c482">00159</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a05a162f27ac9bb59e4ff82b905d3c482">occlusionQuerySupported</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a>-&gt;<a class="code" href="classMWRender_1_1OcclusionQuery.html#aea8138606df97f4246af2e460a667ebf">supported</a>(); }
-<a name="l00160"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a88fada0c4e75f7d628c90766a59251f1">00160</a>     <a class="code" href="classMWRender_1_1OcclusionQuery.html" title="Implements hardware occlusion queries on the GPU.">OcclusionQuery</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a88fada0c4e75f7d628c90766a59251f1">getOcclusionQuery</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a>; }
-<a name="l00161"></a>00161 
-<a name="l00162"></a>00162     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa03092fe6594c4a23fea7159c3deca9d">getTerrainHeightAt</a> (Ogre::Vector3 worldPos);
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164     <a class="code" href="classMWRender_1_1Shadows.html">Shadows</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a8989ceb8c98b3a151695f80066411a95">getShadows</a>();
-<a name="l00165"></a>00165 
-<a name="l00166"></a>00166     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af7f112da7cdf245be969e91a052bf776">switchToInterior</a>();
-<a name="l00167"></a>00167     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4b0f0a4c13219b5a813c3ff11ab29a84">switchToExterior</a>();
-<a name="l00168"></a>00168 
-<a name="l00169"></a>00169     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6b1438199f69f1802d737bf38cae7f54">getTriangleBatchCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;triangles, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;batches);
-<a name="l00170"></a>00170 
-<a name="l00171"></a>00171     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aed44fc56f3fb0e9dda497ee6d311f673">setGlare</a>(<span class="keywordtype">bool</span> glare);
-<a name="l00172"></a>00172     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a00d319d142d9956220db54788319c0a2">skyEnable</a> ();
-<a name="l00173"></a>00173     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a46528aa3bcae6a6a8b09e6f88c98745b">skyDisable</a> ();
-<a name="l00174"></a>00174     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3703f91f192442f5fdab54903b176236">skySetHour</a> (<span class="keywordtype">double</span> hour);
-<a name="l00175"></a>00175     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9cd360245bd49c7cb6345bb3f05b6eb7">skySetDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month);
-<a name="l00176"></a>00176     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a19f9c77f05413787731da1da115510e4">skyGetMasserPhase</a>() <span class="keyword">const</span>;
-<a name="l00177"></a>00177     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3fda5b437ab27ef22e2cfe8a10c84126">skyGetSecundaPhase</a>() <span class="keyword">const</span>;
-<a name="l00178"></a>00178     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a7a6b620389d596870542d7194f71ffde">skySetMoonColour</a> (<span class="keywordtype">bool</span> red);
-<a name="l00179"></a>00179     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4d72e246690ea9a24aaf4cebc8710040">configureAmbient</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> &amp;mCell);
-<a name="l00180"></a>00180 
-<a name="l00181"></a>00181     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a18ce880f42e6b71cdc485d36ad90f658">addWaterRippleEmitter</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> scale = 1.f, <span class="keywordtype">float</span> force = 1.f);
-<a name="l00182"></a>00182     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ae09e1ae192e9e09bf92fce72c89ab7d9">removeWaterRippleEmitter</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00183"></a>00183     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#afa5da501523afa8ddb78abfd5e77c2c5">updateWaterRippleEmitterPtr</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a75727c4ddf62092a0036c9e6bd5f3155" title="request the local map for a cell">requestMap</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell);
-<a name="l00187"></a>00187 
-<a name="l00189"></a>00189     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2298fb1bd66b2baec2e31c74948f5b21" title="configure fog according to cell">configureFog</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> &amp;mCell);
-<a name="l00190"></a>00190 
-<a name="l00192"></a>00192     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2298fb1bd66b2baec2e31c74948f5b21" title="configure fog according to cell">configureFog</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> density, <span class="keyword">const</span> Ogre::ColourValue&amp; colour);
-<a name="l00193"></a>00193 
-<a name="l00194"></a>00194     Ogre::Vector4 <a class="code" href="classMWRender_1_1RenderingManager.html#ad53c3402c39af20b28fc0552a1d43738">boundingBoxToScreen</a>(Ogre::AxisAlignedBox bounds);
-<a name="l00197"></a>00197 
-<a name="l00198"></a>00198     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2bc3215faa56c3f0a232f023f49fd218">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; settings);
-<a name="l00199"></a>00199 
-<a name="l00200"></a><a class="code" href="classMWRender_1_1RenderingManager.html#afd6092530e94b09a5690148338ed38b5">00200</a>     Ogre::Viewport* <a class="code" href="classMWRender_1_1RenderingManager.html#afd6092530e94b09a5690148338ed38b5">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a>.<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>(); }
-<a name="l00201"></a>00201 
-<a name="l00202"></a>00202     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a75b5ea8f32c2e3cb2289ea6d68a298a0" title="see MWRender::LocalMap::getInteriorMapPosition">getInteriorMapPosition</a> (Ogre::Vector2 position, <span class="keywordtype">float</span>&amp; nX, <span class="keywordtype">float</span>&amp; nY, <span class="keywordtype">int</span> &amp;x, <span class="keywordtype">int</span>&amp; y);
-<a name="l00204"></a>00204 
-<a name="l00205"></a>00205     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6eb971f13bdd57cbd3660ba7d505af54" title="see MWRender::LocalMap::isPositionExplored">isPositionExplored</a> (<span class="keywordtype">float</span> nX, <span class="keywordtype">float</span> nY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">bool</span> interior);
-<a name="l00207"></a>00207 
-<a name="l00208"></a>00208     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6b910d0bf241a720bcbcdbeb0a135fad">setupExternalRendering</a> (<a class="code" href="classMWRender_1_1ExternalRendering.html" title="Base class for out of world rendering.">MWRender::ExternalRendering</a>&amp; rendering);
-<a name="l00209"></a>00209 
-<a name="l00210"></a>00210     <a class="code" href="classMWRender_1_1Animation.html">Animation</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a62b4db00d910a84836adb97df3c29c69">getAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00211"></a>00211 
-<a name="l00212"></a>00212     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a81fe27ffe6c74059e7bdf92cbc97c617">playVideo</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">bool</span> allowSkipping);
-<a name="l00213"></a>00213     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2219e506df2fd9f12ec21876f82e2bef">stopVideo</a>();
-<a name="l00214"></a>00214     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af7d17a33f729260cb6466845f0e04e76">frameStarted</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> paused);
-<a name="l00215"></a>00215 
-<a name="l00216"></a>00216 <span class="keyword">protected</span>:
-<a name="l00217"></a>00217     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9fd98547be8ffe7869a0224d58689842">windowResized</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00218"></a>00218 
-<a name="l00219"></a>00219 <span class="keyword">private</span>:
-<a name="l00220"></a><a class="code" href="classMWRender_1_1RenderingManager.html#abf65c72304a76a51e16c9955c07ebf93">00220</a>     sh::Factory* <a class="code" href="classMWRender_1_1RenderingManager.html#abf65c72304a76a51e16c9955c07ebf93">mFactory</a>;
-<a name="l00221"></a>00221 
-<a name="l00222"></a>00222     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6286bf2576eb4ffe11b79c0e730a8e44">setAmbientMode</a>();
-<a name="l00223"></a>00223     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a40a2aa66cb1e6aee66da9925e0bed6dd">applyFog</a>(<span class="keywordtype">bool</span> underwater);
-<a name="l00224"></a>00224 
-<a name="l00225"></a>00225     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a12ba7c2e5259ef1e102d5eefb82746f9">setMenuTransparency</a>(<span class="keywordtype">float</span> val);
-<a name="l00226"></a>00226 
-<a name="l00227"></a>00227     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a14a8320f8301dabe4eb6ccad6a1013f0">applyCompositors</a>();
-<a name="l00228"></a>00228 
-<a name="l00229"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aea631539ef5a921861c5beb47966d8bf">00229</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aea631539ef5a921861c5beb47966d8bf">mSunEnabled</a>;
-<a name="l00230"></a>00230 
-<a name="l00231"></a><a class="code" href="classMWRender_1_1RenderingManager.html#af45e2dab2f75ffe8e7ff23ba95a40370">00231</a>     <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af45e2dab2f75ffe8e7ff23ba95a40370">mFallback</a>;
-<a name="l00232"></a>00232 
-<a name="l00233"></a><a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">00233</a>     <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">mSkyManager</a>;
-<a name="l00234"></a>00234 
-<a name="l00235"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">00235</a>     <a class="code" href="classMWRender_1_1OcclusionQuery.html" title="Implements hardware occlusion queries on the GPU.">OcclusionQuery</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a>;
-<a name="l00236"></a>00236 
-<a name="l00237"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5758ec73af33349ce16157dfc24f5033">00237</a>     <a class="code" href="classTerrain_1_1World.html" title="A quadtree-based terrain implementation suitable for large data sets.   Near cells are rendered with ...">Terrain::World</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a5758ec73af33349ce16157dfc24f5033">mTerrain</a>;
-<a name="l00238"></a>00238 
-<a name="l00239"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a0e6513aa391670dba6625b924a9279b6">00239</a>     <a class="code" href="classMWRender_1_1Water.html" title="Water rendering.">MWRender::Water</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#a0e6513aa391670dba6625b924a9279b6">mWater</a>;
-<a name="l00240"></a>00240 
-<a name="l00241"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a57b5a0a1ea97ad7f36d532d74d2e4d86">00241</a>     <a class="code" href="classMWRender_1_1GlobalMap.html">GlobalMap</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a57b5a0a1ea97ad7f36d532d74d2e4d86">mGlobalMap</a>;
-<a name="l00242"></a>00242 
-<a name="l00243"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">00243</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a>;
+<a name="l00155"></a>00155     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af4f60d349af561e81e67e34734ce8d62">preRenderTargetUpdate</a>(<span class="keyword">const</span> Ogre::RenderTargetEvent&amp; evt);
+<a name="l00156"></a>00156     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a66868deb8517b46a182f20cb57b94cc2">postRenderTargetUpdate</a>(<span class="keyword">const</span> Ogre::RenderTargetEvent&amp; evt);
+<a name="l00157"></a>00157 
+<a name="l00158"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a05a162f27ac9bb59e4ff82b905d3c482">00158</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a05a162f27ac9bb59e4ff82b905d3c482">occlusionQuerySupported</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a>-&gt;<a class="code" href="classMWRender_1_1OcclusionQuery.html#aea8138606df97f4246af2e460a667ebf">supported</a>(); }
+<a name="l00159"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a88fada0c4e75f7d628c90766a59251f1">00159</a>     <a class="code" href="classMWRender_1_1OcclusionQuery.html" title="Implements hardware occlusion queries on the GPU.">OcclusionQuery</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a88fada0c4e75f7d628c90766a59251f1">getOcclusionQuery</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a>; }
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aa03092fe6594c4a23fea7159c3deca9d">getTerrainHeightAt</a> (Ogre::Vector3 worldPos);
+<a name="l00162"></a>00162 
+<a name="l00163"></a>00163     <a class="code" href="classMWRender_1_1Shadows.html">Shadows</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a8989ceb8c98b3a151695f80066411a95">getShadows</a>();
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af7f112da7cdf245be969e91a052bf776">switchToInterior</a>();
+<a name="l00166"></a>00166     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4b0f0a4c13219b5a813c3ff11ab29a84">switchToExterior</a>();
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6b1438199f69f1802d737bf38cae7f54">getTriangleBatchCount</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;triangles, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;batches);
+<a name="l00169"></a>00169 
+<a name="l00170"></a>00170     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aed44fc56f3fb0e9dda497ee6d311f673">setGlare</a>(<span class="keywordtype">bool</span> glare);
+<a name="l00171"></a>00171     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a00d319d142d9956220db54788319c0a2">skyEnable</a> ();
+<a name="l00172"></a>00172     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a46528aa3bcae6a6a8b09e6f88c98745b">skyDisable</a> ();
+<a name="l00173"></a>00173     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3703f91f192442f5fdab54903b176236">skySetHour</a> (<span class="keywordtype">double</span> hour);
+<a name="l00174"></a>00174     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9cd360245bd49c7cb6345bb3f05b6eb7">skySetDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month);
+<a name="l00175"></a>00175     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a19f9c77f05413787731da1da115510e4">skyGetMasserPhase</a>() <span class="keyword">const</span>;
+<a name="l00176"></a>00176     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a3fda5b437ab27ef22e2cfe8a10c84126">skyGetSecundaPhase</a>() <span class="keyword">const</span>;
+<a name="l00177"></a>00177     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a7a6b620389d596870542d7194f71ffde">skySetMoonColour</a> (<span class="keywordtype">bool</span> red);
+<a name="l00178"></a>00178     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a4d72e246690ea9a24aaf4cebc8710040">configureAmbient</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> &amp;mCell);
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a18ce880f42e6b71cdc485d36ad90f658">addWaterRippleEmitter</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> scale = 1.f, <span class="keywordtype">float</span> force = 1.f);
+<a name="l00181"></a>00181     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ae09e1ae192e9e09bf92fce72c89ab7d9">removeWaterRippleEmitter</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00182"></a>00182     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#afa5da501523afa8ddb78abfd5e77c2c5">updateWaterRippleEmitterPtr</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a75727c4ddf62092a0036c9e6bd5f3155" title="request the local map for a cell">requestMap</a> (<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a>* cell);
+<a name="l00186"></a>00186 
+<a name="l00188"></a>00188     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2298fb1bd66b2baec2e31c74948f5b21" title="configure fog according to cell">configureFog</a>(<a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> &amp;mCell);
+<a name="l00189"></a>00189 
+<a name="l00191"></a>00191     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2298fb1bd66b2baec2e31c74948f5b21" title="configure fog according to cell">configureFog</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> density, <span class="keyword">const</span> Ogre::ColourValue&amp; colour);
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193     Ogre::Vector4 <a class="code" href="classMWRender_1_1RenderingManager.html#ad53c3402c39af20b28fc0552a1d43738">boundingBoxToScreen</a>(Ogre::AxisAlignedBox bounds);
+<a name="l00196"></a>00196 
+<a name="l00197"></a>00197     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2bc3215faa56c3f0a232f023f49fd218">processChangedSettings</a>(<span class="keyword">const</span> <a class="code" href="namespaceSettings.html#a17d4378fb52d5efbeadff4cb17e12857">Settings::CategorySettingVector</a>&amp; settings);
+<a name="l00198"></a>00198 
+<a name="l00199"></a><a class="code" href="classMWRender_1_1RenderingManager.html#afd6092530e94b09a5690148338ed38b5">00199</a>     Ogre::Viewport* <a class="code" href="classMWRender_1_1RenderingManager.html#afd6092530e94b09a5690148338ed38b5">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a>.<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>(); }
+<a name="l00200"></a>00200 
+<a name="l00201"></a>00201     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a75b5ea8f32c2e3cb2289ea6d68a298a0" title="see MWRender::LocalMap::getInteriorMapPosition">getInteriorMapPosition</a> (Ogre::Vector2 position, <span class="keywordtype">float</span>&amp; nX, <span class="keywordtype">float</span>&amp; nY, <span class="keywordtype">int</span> &amp;x, <span class="keywordtype">int</span>&amp; y);
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6eb971f13bdd57cbd3660ba7d505af54" title="see MWRender::LocalMap::isPositionExplored">isPositionExplored</a> (<span class="keywordtype">float</span> nX, <span class="keywordtype">float</span> nY, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">bool</span> interior);
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6b910d0bf241a720bcbcdbeb0a135fad">setupExternalRendering</a> (<a class="code" href="classMWRender_1_1ExternalRendering.html" title="Base class for out of world rendering.">MWRender::ExternalRendering</a>&amp; rendering);
+<a name="l00208"></a>00208 
+<a name="l00209"></a>00209     <a class="code" href="classMWRender_1_1Animation.html">Animation</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a62b4db00d910a84836adb97df3c29c69">getAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
+<a name="l00210"></a>00210 
+<a name="l00211"></a>00211     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a81fe27ffe6c74059e7bdf92cbc97c617">playVideo</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keywordtype">bool</span> allowSkipping);
+<a name="l00212"></a>00212     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a2219e506df2fd9f12ec21876f82e2bef">stopVideo</a>();
+<a name="l00213"></a>00213     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#af7d17a33f729260cb6466845f0e04e76">frameStarted</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> paused);
+<a name="l00214"></a>00214 
+<a name="l00215"></a>00215 <span class="keyword">protected</span>:
+<a name="l00216"></a>00216     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a9fd98547be8ffe7869a0224d58689842">windowResized</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00217"></a>00217 
+<a name="l00218"></a>00218 <span class="keyword">private</span>:
+<a name="l00219"></a><a class="code" href="classMWRender_1_1RenderingManager.html#abf65c72304a76a51e16c9955c07ebf93">00219</a>     sh::Factory* <a class="code" href="classMWRender_1_1RenderingManager.html#abf65c72304a76a51e16c9955c07ebf93">mFactory</a>;
+<a name="l00220"></a>00220 
+<a name="l00221"></a>00221     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a6286bf2576eb4ffe11b79c0e730a8e44">setAmbientMode</a>();
+<a name="l00222"></a>00222     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a40a2aa66cb1e6aee66da9925e0bed6dd">applyFog</a>(<span class="keywordtype">bool</span> underwater);
+<a name="l00223"></a>00223 
+<a name="l00224"></a>00224     <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a12ba7c2e5259ef1e102d5eefb82746f9">setMenuTransparency</a>(<span class="keywordtype">float</span> val);
+<a name="l00225"></a>00225 
+<a name="l00226"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aea631539ef5a921861c5beb47966d8bf">00226</a>     <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1RenderingManager.html#aea631539ef5a921861c5beb47966d8bf">mSunEnabled</a>;
+<a name="l00227"></a>00227 
+<a name="l00228"></a><a class="code" href="classMWRender_1_1RenderingManager.html#af45e2dab2f75ffe8e7ff23ba95a40370">00228</a>     <a class="code" href="classMWWorld_1_1Fallback.html">MWWorld::Fallback</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#af45e2dab2f75ffe8e7ff23ba95a40370">mFallback</a>;
+<a name="l00229"></a>00229 
+<a name="l00230"></a><a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">00230</a>     <a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#abcaa17558cef9519ff5fdedeca847dd0">mSkyManager</a>;
+<a name="l00231"></a>00231 
+<a name="l00232"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">00232</a>     <a class="code" href="classMWRender_1_1OcclusionQuery.html" title="Implements hardware occlusion queries on the GPU.">OcclusionQuery</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#adf783aba5be7251a6fd6513667212cc7">mOcclusionQuery</a>;
+<a name="l00233"></a>00233 
+<a name="l00234"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a5758ec73af33349ce16157dfc24f5033">00234</a>     <a class="code" href="classTerrain_1_1World.html" title="A quadtree-based terrain implementation suitable for large data sets.   Near cells are rendered with ...">Terrain::World</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a5758ec73af33349ce16157dfc24f5033">mTerrain</a>;
+<a name="l00235"></a>00235 
+<a name="l00236"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a0e6513aa391670dba6625b924a9279b6">00236</a>     <a class="code" href="classMWRender_1_1Water.html" title="Water rendering.">MWRender::Water</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#a0e6513aa391670dba6625b924a9279b6">mWater</a>;
+<a name="l00237"></a>00237 
+<a name="l00238"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a57b5a0a1ea97ad7f36d532d74d2e4d86">00238</a>     <a class="code" href="classMWRender_1_1GlobalMap.html">GlobalMap</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a57b5a0a1ea97ad7f36d532d74d2e4d86">mGlobalMap</a>;
+<a name="l00239"></a>00239 
+<a name="l00240"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">00240</a>     <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;<a class="code" href="classMWRender_1_1RenderingManager.html#a59022a94f468d088d37886028c64101e">mRendering</a>;
+<a name="l00241"></a>00241 
+<a name="l00242"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ab1310e7f022b14b6912ad1f7e91e8757">00242</a>     <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#ab1310e7f022b14b6912ad1f7e91e8757">mObjects</a>;
+<a name="l00243"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a21a5633212e80213f0377f454861b7aa">00243</a>     <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a21a5633212e80213f0377f454861b7aa">mActors</a>;
 <a name="l00244"></a>00244 
-<a name="l00245"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">00245</a>     <a class="code" href="classMWRender_1_1Objects.html">MWRender::Objects</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a78d3fb6c5955cedb66be4d9b848eec25">mObjects</a>;
-<a name="l00246"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">00246</a>     <a class="code" href="classMWRender_1_1Actors.html">MWRender::Actors</a> <a class="code" href="classMWRender_1_1RenderingManager.html#a00db5b0448c55c23ae11b9340102f266">mActors</a>;
-<a name="l00247"></a>00247 
-<a name="l00248"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a91cb4ca11b9dc8cabea35baacccac812">00248</a>     <a class="code" href="classMWRender_1_1NpcAnimation.html">MWRender::NpcAnimation</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#a91cb4ca11b9dc8cabea35baacccac812">mPlayerAnimation</a>;
+<a name="l00245"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a91cb4ca11b9dc8cabea35baacccac812">00245</a>     <a class="code" href="classMWRender_1_1NpcAnimation.html">MWRender::NpcAnimation</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#a91cb4ca11b9dc8cabea35baacccac812">mPlayerAnimation</a>;
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247     <span class="comment">// 0 normal, 1 more bright, 2 max</span>
+<a name="l00248"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">00248</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">mAmbientMode</a>;
 <a name="l00249"></a>00249 
-<a name="l00250"></a>00250     <span class="comment">// 0 normal, 1 more bright, 2 max</span>
-<a name="l00251"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">00251</a>     <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1RenderingManager.html#ace443f17e6c58f9fb8df43f6a71f179c">mAmbientMode</a>;
+<a name="l00250"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">00250</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">mAmbientColor</a>;
+<a name="l00251"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">00251</a>     Ogre::Light* <a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">mSun</a>;
 <a name="l00252"></a>00252 
-<a name="l00253"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">00253</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1RenderingManager.html#aa85ca5b75c8b38599bb98074a88976e3">mAmbientColor</a>;
-<a name="l00254"></a><a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">00254</a>     Ogre::Light* <a class="code" href="classMWRender_1_1RenderingManager.html#adb4969b1869c7d8a2f3c605148f4b050">mSun</a>;
-<a name="l00255"></a>00255 
-<a name="l00256"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ace2e564f1cffa636041559d61c406f14">00256</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1RenderingManager.html#ace2e564f1cffa636041559d61c406f14">mRootNode</a>;
-<a name="l00257"></a>00257 
-<a name="l00258"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ad0f34395ebed311803176dd9ec2459b6">00258</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1RenderingManager.html#ad0f34395ebed311803176dd9ec2459b6">mFogColour</a>;
-<a name="l00259"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a56fc771c4d27ecf706a73a940c801cbb">00259</a>     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a56fc771c4d27ecf706a73a940c801cbb">mFogStart</a>;
-<a name="l00260"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a37cc71a1a7b2e2fad61e9c72a0fdb9f2">00260</a>     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a37cc71a1a7b2e2fad61e9c72a0fdb9f2">mFogEnd</a>;
-<a name="l00261"></a>00261 
-<a name="l00262"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">00262</a>     <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">mPhysicsEngine</a>;
-<a name="l00263"></a>00263 
-<a name="l00264"></a><a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">00264</a>     <a class="code" href="classMWRender_1_1Camera.html" title="Camera control.">MWRender::Camera</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>;
-<a name="l00265"></a>00265 
-<a name="l00266"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aefa0b964533233e4973f4081b4db7347">00266</a>     <a class="code" href="classMWRender_1_1Debugging.html">MWRender::Debugging</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#aefa0b964533233e4973f4081b4db7347">mDebugging</a>;
-<a name="l00267"></a>00267 
-<a name="l00268"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a8034312c8383cb92e3e651353abb45fb">00268</a>     <a class="code" href="classMWRender_1_1LocalMap.html" title="Local map rendering.">MWRender::LocalMap</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a8034312c8383cb92e3e651353abb45fb">mLocalMap</a>;
-<a name="l00269"></a>00269 
-<a name="l00270"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a8219270fd9bf2b74b9f52b887eb0b7c9">00270</a>     <a class="code" href="classMWRender_1_1Shadows.html">MWRender::Shadows</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a8219270fd9bf2b74b9f52b887eb0b7c9">mShadows</a>;
+<a name="l00253"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ace2e564f1cffa636041559d61c406f14">00253</a>     Ogre::SceneNode *<a class="code" href="classMWRender_1_1RenderingManager.html#ace2e564f1cffa636041559d61c406f14">mRootNode</a>;
+<a name="l00254"></a>00254 
+<a name="l00255"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ad0f34395ebed311803176dd9ec2459b6">00255</a>     Ogre::ColourValue <a class="code" href="classMWRender_1_1RenderingManager.html#ad0f34395ebed311803176dd9ec2459b6">mFogColour</a>;
+<a name="l00256"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a56fc771c4d27ecf706a73a940c801cbb">00256</a>     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a56fc771c4d27ecf706a73a940c801cbb">mFogStart</a>;
+<a name="l00257"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a37cc71a1a7b2e2fad61e9c72a0fdb9f2">00257</a>     <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1RenderingManager.html#a37cc71a1a7b2e2fad61e9c72a0fdb9f2">mFogEnd</a>;
+<a name="l00258"></a>00258 
+<a name="l00259"></a><a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">00259</a>     <a class="code" href="classOEngine_1_1Physic_1_1PhysicEngine.html">OEngine::Physic::PhysicEngine</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#ac24918d9b27f6752ba070efad00d93a8">mPhysicsEngine</a>;
+<a name="l00260"></a>00260 
+<a name="l00261"></a><a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">00261</a>     <a class="code" href="classMWRender_1_1Camera.html" title="Camera control.">MWRender::Camera</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#afb6af3ba212f18c82975f9d70100fc6c">mCamera</a>;
+<a name="l00262"></a>00262 
+<a name="l00263"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aefa0b964533233e4973f4081b4db7347">00263</a>     <a class="code" href="classMWRender_1_1Debugging.html">MWRender::Debugging</a> *<a class="code" href="classMWRender_1_1RenderingManager.html#aefa0b964533233e4973f4081b4db7347">mDebugging</a>;
+<a name="l00264"></a>00264 
+<a name="l00265"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a8034312c8383cb92e3e651353abb45fb">00265</a>     <a class="code" href="classMWRender_1_1LocalMap.html" title="Local map rendering.">MWRender::LocalMap</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a8034312c8383cb92e3e651353abb45fb">mLocalMap</a>;
+<a name="l00266"></a>00266 
+<a name="l00267"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a8219270fd9bf2b74b9f52b887eb0b7c9">00267</a>     <a class="code" href="classMWRender_1_1Shadows.html">MWRender::Shadows</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a8219270fd9bf2b74b9f52b887eb0b7c9">mShadows</a>;
+<a name="l00268"></a>00268 
+<a name="l00269"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a6b79b4a5b22b9dd52cb893d1a8339866">00269</a>     <a class="code" href="classMWRender_1_1VideoPlayer.html">VideoPlayer</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a6b79b4a5b22b9dd52cb893d1a8339866">mVideoPlayer</a>;
+<a name="l00270"></a>00270 };
 <a name="l00271"></a>00271 
-<a name="l00272"></a><a class="code" href="classMWRender_1_1RenderingManager.html#aaf69d1306a8b19be370d241286fecf67">00272</a>     <a class="code" href="classMWRender_1_1Compositors.html" title="Manages a set of compositors for one viewport.">MWRender::Compositors</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#aaf69d1306a8b19be370d241286fecf67">mCompositors</a>;
+<a name="l00272"></a>00272 }
 <a name="l00273"></a>00273 
-<a name="l00274"></a><a class="code" href="classMWRender_1_1RenderingManager.html#a6b79b4a5b22b9dd52cb893d1a8339866">00274</a>     <a class="code" href="classMWRender_1_1VideoPlayer.html">VideoPlayer</a>* <a class="code" href="classMWRender_1_1RenderingManager.html#a6b79b4a5b22b9dd52cb893d1a8339866">mVideoPlayer</a>;
-<a name="l00275"></a>00275 };
-<a name="l00276"></a>00276 
-<a name="l00277"></a>00277 }
-<a name="l00278"></a>00278 
-<a name="l00279"></a>00279 <span class="preprocessor">#endif</span>
+<a name="l00274"></a>00274 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

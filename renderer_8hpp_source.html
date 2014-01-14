@@ -68,201 +68,131 @@
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="comment">// Static plugin headers</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#ifdef ENABLE_PLUGIN_CgProgramManager</span>
-<a name="l00012"></a>00012 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreCgPlugin.h&quot;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#endif</span>
-<a name="l00014"></a>00014 <span class="preprocessor"></span><span class="preprocessor">#ifdef ENABLE_PLUGIN_OctreeSceneManager</span>
-<a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreOctreePlugin.h&quot;</span>
-<a name="l00016"></a>00016 <span class="preprocessor">#endif</span>
-<a name="l00017"></a>00017 <span class="preprocessor"></span><span class="preprocessor">#ifdef ENABLE_PLUGIN_ParticleFX</span>
-<a name="l00018"></a>00018 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreParticleFXPlugin.h&quot;</span>
-<a name="l00019"></a>00019 <span class="preprocessor">#endif</span>
-<a name="l00020"></a>00020 <span class="preprocessor"></span><span class="preprocessor">#ifdef ENABLE_PLUGIN_GL</span>
-<a name="l00021"></a>00021 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreGLPlugin.h&quot;</span>
-<a name="l00022"></a>00022 <span class="preprocessor">#endif</span>
-<a name="l00023"></a>00023 <span class="preprocessor"></span><span class="preprocessor">#ifdef ENABLE_PLUGIN_Direct3D9</span>
-<a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor"># include &quot;OgreD3D9Plugin.h&quot;</span>
-<a name="l00025"></a>00025 <span class="preprocessor">#endif</span>
-<a name="l00026"></a>00026 <span class="preprocessor"></span>
-<a name="l00027"></a>00027 <span class="preprocessor">#include &quot;OgreTexture.h&quot;</span>
-<a name="l00028"></a>00028 <span class="preprocessor">#include &lt;OgreWindowEventUtilities.h&gt;</span>
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="preprocessor">#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE</span>
-<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#include &lt;OgreRoot.h&gt;</span>
-<a name="l00032"></a>00032 <span class="preprocessor">#endif</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="keyword">struct </span>SDL_Window;
-<a name="l00035"></a>00035 <span class="keyword">struct </span>SDL_Surface;
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">namespace </span>Ogre
-<a name="l00038"></a>00038 {
-<a name="l00039"></a>00039 <span class="preprocessor">#if OGRE_PLATFORM != OGRE_PLATFORM_APPLE</span>
-<a name="l00040"></a>00040 <span class="preprocessor"></span>    <span class="keyword">class </span><a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Root</a>;
-<a name="l00041"></a>00041 <span class="preprocessor">#endif</span>
-<a name="l00042"></a>00042 <span class="preprocessor"></span>    <span class="keyword">class </span>RenderWindow;
-<a name="l00043"></a>00043     <span class="keyword">class </span>SceneManager;
-<a name="l00044"></a>00044     <span class="keyword">class </span>Camera;
-<a name="l00045"></a>00045     <span class="keyword">class </span>Viewport;
-<a name="l00046"></a>00046     <span class="keyword">class </span>ParticleEmitterFactory;
-<a name="l00047"></a>00047     <span class="keyword">class </span>ParticleAffectorFactory;
-<a name="l00048"></a>00048 }
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050 <span class="keyword">namespace </span>OEngine
-<a name="l00051"></a>00051 {
-<a name="l00052"></a>00052     <span class="keyword">namespace </span>Render
-<a name="l00053"></a>00053     {
-<a name="l00054"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html">00054</a>         <span class="keyword">struct </span><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html">WindowSettings</a>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;OgreTexture.h&gt;</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">struct </span>SDL_Window;
+<a name="l00014"></a>00014 <span class="keyword">struct </span>SDL_Surface;
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>Ogre
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018     <span class="keyword">class </span><a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Root</a>;
+<a name="l00019"></a>00019     <span class="keyword">class </span>RenderWindow;
+<a name="l00020"></a>00020     <span class="keyword">class </span>SceneManager;
+<a name="l00021"></a>00021     <span class="keyword">class </span>Camera;
+<a name="l00022"></a>00022     <span class="keyword">class </span>Viewport;
+<a name="l00023"></a>00023     <span class="keyword">class </span>ParticleEmitterFactory;
+<a name="l00024"></a>00024     <span class="keyword">class </span>ParticleAffectorFactory;
+<a name="l00025"></a>00025 }
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">namespace </span>OgreInit
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029     <span class="keyword">class </span><a class="code" href="classOgreInit_1_1OgreInit.html#a09b0793c19f395025f8de08697cdd055">OgreInit</a>;
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="keyword">namespace </span>OEngine
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034     <span class="keyword">namespace </span>Render
+<a name="l00035"></a>00035     {
+<a name="l00036"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html">00036</a>         <span class="keyword">struct </span><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html">WindowSettings</a>
+<a name="l00037"></a>00037         {
+<a name="l00038"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#af68a2bc3c5d53b0bf950c80213a3e90f">00038</a>             <span class="keywordtype">bool</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#af68a2bc3c5d53b0bf950c80213a3e90f">vsync</a>;
+<a name="l00039"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#ac3cad94b37c2d8b2b5ec7647b07b8a97">00039</a>             <span class="keywordtype">bool</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#ac3cad94b37c2d8b2b5ec7647b07b8a97">fullscreen</a>;
+<a name="l00040"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7f329124beae34ef96e2bc8f6c1fe380">00040</a>             <span class="keywordtype">int</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#ad6f7497f405f560ad2a8843545689749">window_x</a>, <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7f329124beae34ef96e2bc8f6c1fe380">window_y</a>;
+<a name="l00041"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a31a0be127a7de4cff4b89f9d27a2c201">00041</a>             <span class="keywordtype">int</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a31a0be127a7de4cff4b89f9d27a2c201">screen</a>;
+<a name="l00042"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a6e8a9af0f7d442ca41287aab676429d3">00042</a>             std::string <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a6e8a9af0f7d442ca41287aab676429d3">fsaa</a>;
+<a name="l00043"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7a00ca74854f9e5c83db0fcf018e4827">00043</a>             std::string <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7a00ca74854f9e5c83db0fcf018e4827">icon</a>;
+<a name="l00044"></a>00044         };
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046         <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1Fader.html">Fader</a>;
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">00048</a>         <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">WindowSizeListener</a>
+<a name="l00049"></a>00049         {
+<a name="l00050"></a>00050         <span class="keyword">public</span>:
+<a name="l00051"></a>00051             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html#aeeb411f4a01d90d0290b5e5f251b9c5e">windowResized</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) = 0;
+<a name="l00052"></a>00052         };
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">00054</a>         <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OgreRenderer</a>
 <a name="l00055"></a>00055         {
-<a name="l00056"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#af68a2bc3c5d53b0bf950c80213a3e90f">00056</a>             <span class="keywordtype">bool</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#af68a2bc3c5d53b0bf950c80213a3e90f">vsync</a>;
-<a name="l00057"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#ac3cad94b37c2d8b2b5ec7647b07b8a97">00057</a>             <span class="keywordtype">bool</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#ac3cad94b37c2d8b2b5ec7647b07b8a97">fullscreen</a>;
-<a name="l00058"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7f329124beae34ef96e2bc8f6c1fe380">00058</a>             <span class="keywordtype">int</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#ad6f7497f405f560ad2a8843545689749">window_x</a>, <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7f329124beae34ef96e2bc8f6c1fe380">window_y</a>;
-<a name="l00059"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a31a0be127a7de4cff4b89f9d27a2c201">00059</a>             <span class="keywordtype">int</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a31a0be127a7de4cff4b89f9d27a2c201">screen</a>;
-<a name="l00060"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a6e8a9af0f7d442ca41287aab676429d3">00060</a>             std::string <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a6e8a9af0f7d442ca41287aab676429d3">fsaa</a>;
-<a name="l00061"></a><a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7a00ca74854f9e5c83db0fcf018e4827">00061</a>             std::string <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html#a7a00ca74854f9e5c83db0fcf018e4827">icon</a>;
-<a name="l00062"></a>00062         };
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064 <span class="preprocessor">#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE</span>
-<a name="l00065"></a><a class="code" href="classOEngine_1_1Render_1_1CustomRoot.html">00065</a> <span class="preprocessor"></span>        <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1CustomRoot.html">CustomRoot</a> : <span class="keyword">public</span> Ogre::<a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Root</a> {
-<a name="l00066"></a>00066         <span class="keyword">public</span>:
-<a name="l00067"></a>00067             <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Render_1_1CustomRoot.html#ae6624dd017c44e78c24b597251ec5e40">isQueuedEnd</a>() <span class="keyword">const</span>;
+<a name="l00056"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">00056</a>             <a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Ogre::Root</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">mRoot</a>;
+<a name="l00057"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">00057</a>             Ogre::RenderWindow *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>;
+<a name="l00058"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">00058</a>             SDL_Window *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">mSDLWindow</a>;
+<a name="l00059"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">00059</a>             Ogre::SceneManager *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>;
+<a name="l00060"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">00060</a>             Ogre::Camera *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>;
+<a name="l00061"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">00061</a>             Ogre::Viewport *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0c4012830b05226476215f7dc0caf993">00063</a>             <a class="code" href="classOgreInit_1_1OgreInit.html" title="Starts Ogre::Root and loads required plugins and NIF particle factories.">OgreInit::OgreInit</a>* <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0c4012830b05226476215f7dc0caf993">mOgreInit</a>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">00065</a>             <a class="code" href="classOEngine_1_1Render_1_1Fader.html">Fader</a>* <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">mFader</a>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">00067</a>             <a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">WindowSizeListener</a>* <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">mWindowListener</a>;
 <a name="l00068"></a>00068 
-<a name="l00069"></a>00069             <a class="code" href="classOEngine_1_1Render_1_1CustomRoot.html#acff6167791aeac493f50dae1a06a447f">CustomRoot</a>(<span class="keyword">const</span> Ogre::String&amp; pluginFileName = <span class="stringliteral">&quot;plugins.cfg&quot;</span>, 
-<a name="l00070"></a>00070                     <span class="keyword">const</span> Ogre::String&amp; configFileName = <span class="stringliteral">&quot;ogre.cfg&quot;</span>, 
-<a name="l00071"></a>00071                     <span class="keyword">const</span> Ogre::String&amp; logFileName = <span class="stringliteral">&quot;Ogre.log&quot;</span>);
-<a name="l00072"></a>00072         };
-<a name="l00073"></a>00073 <span class="preprocessor">#endif</span>
-<a name="l00074"></a>00074 <span class="preprocessor"></span>
-<a name="l00075"></a>00075         <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1Fader.html">Fader</a>;
-<a name="l00076"></a>00076 
-<a name="l00077"></a><a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">00077</a>         <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">WindowSizeListener</a>
-<a name="l00078"></a>00078         {
-<a name="l00079"></a>00079         <span class="keyword">public</span>:
-<a name="l00080"></a>00080             <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html#aeeb411f4a01d90d0290b5e5f251b9c5e">windowResized</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) = 0;
-<a name="l00081"></a>00081         };
+<a name="l00069"></a>00069         <span class="keyword">public</span>:
+<a name="l00070"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afaf0045e902ef6ecb73a229bede29ba5">00070</a>             <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afaf0045e902ef6ecb73a229bede29ba5">OgreRenderer</a>()
+<a name="l00071"></a>00071             : <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">mRoot</a>(NULL)
+<a name="l00072"></a>00072             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>(NULL)
+<a name="l00073"></a>00073             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">mSDLWindow</a>(NULL)
+<a name="l00074"></a>00074             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>(NULL)
+<a name="l00075"></a>00075             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>(NULL)
+<a name="l00076"></a>00076             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>(NULL)
+<a name="l00077"></a>00077             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0c4012830b05226476215f7dc0caf993">mOgreInit</a>(NULL)
+<a name="l00078"></a>00078             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">mFader</a>(NULL)
+<a name="l00079"></a>00079             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">mWindowListener</a>(NULL)
+<a name="l00080"></a>00080             {
+<a name="l00081"></a>00081             }
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">00083</a>         <span class="keyword">class </span><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html">OgreRenderer</a>
-<a name="l00084"></a>00084         {
-<a name="l00085"></a>00085 <span class="preprocessor">#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE</span>
-<a name="l00086"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aef1114076ac1d20ccdafca0a07eadc38">00086</a> <span class="preprocessor"></span>            <a class="code" href="classOEngine_1_1Render_1_1CustomRoot.html">CustomRoot</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aef1114076ac1d20ccdafca0a07eadc38">mRoot</a>;
-<a name="l00087"></a>00087 <span class="preprocessor">#else</span>
-<a name="l00088"></a>00088 <span class="preprocessor"></span>            <a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Ogre::Root</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aef1114076ac1d20ccdafca0a07eadc38">mRoot</a>;
-<a name="l00089"></a>00089 <span class="preprocessor">#endif</span>
-<a name="l00090"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">00090</a> <span class="preprocessor"></span>            Ogre::RenderWindow *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>;
-<a name="l00091"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">00091</a>             SDL_Window *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">mSDLWindow</a>;
-<a name="l00092"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">00092</a>             Ogre::SceneManager *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>;
-<a name="l00093"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">00093</a>             Ogre::Camera *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>;
-<a name="l00094"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">00094</a>             Ogre::Viewport *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>;
-<a name="l00095"></a>00095 <span class="preprocessor">            #ifdef ENABLE_PLUGIN_CgProgramManager</span>
-<a name="l00096"></a>00096 <span class="preprocessor"></span>            Ogre::CgPlugin* mCgPlugin;
-<a name="l00097"></a>00097 <span class="preprocessor">            #endif</span>
-<a name="l00098"></a>00098 <span class="preprocessor"></span><span class="preprocessor">            #ifdef ENABLE_PLUGIN_OctreeSceneManager</span>
-<a name="l00099"></a>00099 <span class="preprocessor"></span>            Ogre::OctreePlugin* mOctreePlugin;
-<a name="l00100"></a>00100 <span class="preprocessor">            #endif</span>
-<a name="l00101"></a>00101 <span class="preprocessor"></span><span class="preprocessor">            #ifdef ENABLE_PLUGIN_ParticleFX</span>
-<a name="l00102"></a>00102 <span class="preprocessor"></span>            Ogre::ParticleFXPlugin* mParticleFXPlugin;
-<a name="l00103"></a>00103 <span class="preprocessor">            #endif</span>
-<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">            #ifdef ENABLE_PLUGIN_GL</span>
-<a name="l00105"></a>00105 <span class="preprocessor"></span>            Ogre::GLPlugin* mGLPlugin;
-<a name="l00106"></a>00106 <span class="preprocessor">            #endif</span>
-<a name="l00107"></a>00107 <span class="preprocessor"></span><span class="preprocessor">            #ifdef ENABLE_PLUGIN_Direct3D9</span>
-<a name="l00108"></a>00108 <span class="preprocessor"></span>            Ogre::D3D9Plugin* mD3D9Plugin;
-<a name="l00109"></a>00109 <span class="preprocessor">            #endif</span>
-<a name="l00110"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">00110</a> <span class="preprocessor"></span>            <a class="code" href="classOEngine_1_1Render_1_1Fader.html">Fader</a>* <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">mFader</a>;
-<a name="l00111"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9442199466f2412af655d94b9aa323f3">00111</a>             std::vector&lt;Ogre::ParticleEmitterFactory*&gt; <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9442199466f2412af655d94b9aa323f3">mEmitterFactories</a>;
-<a name="l00112"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aead20f20f2376a5d619ad25465cb7ac0">00112</a>             std::vector&lt;Ogre::ParticleAffectorFactory*&gt; <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aead20f20f2376a5d619ad25465cb7ac0">mAffectorFactories</a>;
-<a name="l00113"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa5db5546d96c81db6baa3170208dda6d">00113</a>             <span class="keywordtype">bool</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa5db5546d96c81db6baa3170208dda6d">logging</a>;
+<a name="l00083"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa41e75e5f8bb32afdd727ffa84da5773">00083</a>             <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa41e75e5f8bb32afdd727ffa84da5773">~OgreRenderer</a>() { <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>(); }
+<a name="l00084"></a>00084 
+<a name="l00087"></a>00087             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a786865bc8ac43200e774e1ae28882971">configure</a>(
+<a name="l00088"></a>00088                 <span class="keyword">const</span> std::string &amp;logPath, <span class="comment">// Path to directory where to store log files</span>
+<a name="l00089"></a>00089                 <span class="keyword">const</span> std::string &amp;renderSystem,
+<a name="l00090"></a>00090                 <span class="keyword">const</span> std::string &amp;rttMode);      <span class="comment">// Enable or disable logging</span>
+<a name="l00091"></a>00091 
+<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9751a80a473670c571ca9a092d04c505" title="Create a window with the given title.">createWindow</a>(<span class="keyword">const</span> std::string &amp;title, <span class="keyword">const</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html">WindowSettings</a>&amp; settings);
+<a name="l00094"></a>00094 
+<a name="l00096"></a>00096             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af4a331699186e4315d612e6789f20fb6" title="Set up the scene manager, camera and viewport.">adjustCamera</a>(
+<a name="l00097"></a>00097                 <span class="keywordtype">float</span> fov=55,                      <span class="comment">// Field of view angle</span>
+<a name="l00098"></a>00098                 <span class="keywordtype">float</span> nearClip=5                   <span class="comment">// Near clip distance</span>
+<a name="l00099"></a>00099             );
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a06248f76f327c6d2ef0b8a5d5e816c39">setFov</a>(<span class="keywordtype">float</span> fov);
+<a name="l00102"></a>00102 
+<a name="l00104"></a>00104             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>();
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a941e77e336c9b63b1eeb4c16367f377c">update</a>(<span class="keywordtype">float</span> dt);
+<a name="l00107"></a>00107 
+<a name="l00109"></a>00109             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9dee535f72fbf42a35cf6b17025994db" title="Write a screenshot to file.">screenshot</a>(<span class="keyword">const</span> std::string &amp;file);
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111             <span class="keywordtype">float</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa8d8a7014bf994b6ebdca899187671a8">getFPS</a>();
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a385561ac892226f454f8e194d3272e8d">windowResized</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
 <a name="l00114"></a>00114 
-<a name="l00115"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">00115</a>             <a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">WindowSizeListener</a>* <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">mWindowListener</a>;
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117         <span class="keyword">public</span>:
-<a name="l00118"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afaf0045e902ef6ecb73a229bede29ba5">00118</a>             <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afaf0045e902ef6ecb73a229bede29ba5">OgreRenderer</a>()
-<a name="l00119"></a>00119             : <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aef1114076ac1d20ccdafca0a07eadc38">mRoot</a>(NULL)
-<a name="l00120"></a>00120             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>(NULL)
-<a name="l00121"></a>00121             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">mSDLWindow</a>(NULL)
-<a name="l00122"></a>00122             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>(NULL)
-<a name="l00123"></a>00123             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>(NULL)
-<a name="l00124"></a>00124             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>(NULL)
-<a name="l00125"></a>00125             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">mWindowListener</a>(NULL)
-<a name="l00126"></a>00126             #ifdef ENABLE_PLUGIN_CgProgramManager
-<a name="l00127"></a>00127             , mCgPlugin(NULL)
-<a name="l00128"></a>00128             #endif
-<a name="l00129"></a>00129             #ifdef ENABLE_PLUGIN_OctreeSceneManager
-<a name="l00130"></a>00130             , mOctreePlugin(NULL)
-<a name="l00131"></a>00131             #endif
-<a name="l00132"></a>00132             #ifdef ENABLE_PLUGIN_ParticleFX
-<a name="l00133"></a>00133             , mParticleFXPlugin(NULL)
-<a name="l00134"></a>00134             #endif
-<a name="l00135"></a>00135             #ifdef ENABLE_PLUGIN_GL
-<a name="l00136"></a>00136             , mGLPlugin(NULL)
-<a name="l00137"></a>00137             #endif
-<a name="l00138"></a>00138             #ifdef ENABLE_PLUGIN_Direct3D9
-<a name="l00139"></a>00139             , mD3D9Plugin(NULL)
-<a name="l00140"></a>00140             #endif
-<a name="l00141"></a>00141             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">mFader</a>(NULL)
-<a name="l00142"></a>00142             , <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa5db5546d96c81db6baa3170208dda6d">logging</a>(false)
-<a name="l00143"></a>00143             {
-<a name="l00144"></a>00144             }
-<a name="l00145"></a>00145 
-<a name="l00146"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa41e75e5f8bb32afdd727ffa84da5773">00146</a>             <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa41e75e5f8bb32afdd727ffa84da5773">~OgreRenderer</a>() { <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>(); }
-<a name="l00147"></a>00147 
-<a name="l00150"></a>00150             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6a9d8234cbd695cc52e4990018947e75">configure</a>(
-<a name="l00151"></a>00151                 <span class="keyword">const</span> std::string &amp;logPath, <span class="comment">// Path to directory where to store log files</span>
-<a name="l00152"></a>00152                 <span class="keyword">const</span> std::string &amp;renderSystem,
-<a name="l00153"></a>00153                 <span class="keyword">const</span> std::string &amp;rttMode,
-<a name="l00154"></a>00154                 <span class="keywordtype">bool</span> _logging);      <span class="comment">// Enable or disable logging</span>
-<a name="l00155"></a>00155 
-<a name="l00157"></a>00157             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9751a80a473670c571ca9a092d04c505" title="Create a window with the given title.">createWindow</a>(<span class="keyword">const</span> std::string &amp;title, <span class="keyword">const</span> <a class="code" href="structOEngine_1_1Render_1_1WindowSettings.html">WindowSettings</a>&amp; settings);
-<a name="l00158"></a>00158 
-<a name="l00160"></a>00160             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af4a331699186e4315d612e6789f20fb6" title="Set up the scene manager, camera and viewport.">adjustCamera</a>(
-<a name="l00161"></a>00161                 <span class="keywordtype">float</span> fov=55,                      <span class="comment">// Field of view angle</span>
-<a name="l00162"></a>00162                 <span class="keywordtype">float</span> nearClip=5                   <span class="comment">// Near clip distance</span>
-<a name="l00163"></a>00163             );
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a06248f76f327c6d2ef0b8a5d5e816c39">setFov</a>(<span class="keywordtype">float</span> fov);
-<a name="l00166"></a>00166 
-<a name="l00168"></a>00168             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#afac1d2552167ee4f985445029d864d82" title="Kill the renderer.">cleanup</a>();
-<a name="l00169"></a>00169 
-<a name="l00171"></a>00171             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6130d0c6d317fef7e173d8500fc232bd" title="Start the main rendering loop.">start</a>();
-<a name="l00172"></a>00172 
-<a name="l00173"></a>00173             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a930fa7595012db361985cf68c7341c01">loadPlugins</a>();
-<a name="l00174"></a>00174 
-<a name="l00175"></a>00175             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#ac33dca81c687a0ee59325816a874df60">unloadPlugins</a>();
-<a name="l00176"></a>00176 
-<a name="l00177"></a>00177             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a941e77e336c9b63b1eeb4c16367f377c">update</a>(<span class="keywordtype">float</span> dt);
-<a name="l00178"></a>00178 
-<a name="l00180"></a>00180             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a9dee535f72fbf42a35cf6b17025994db" title="Write a screenshot to file.">screenshot</a>(<span class="keyword">const</span> std::string &amp;file);
-<a name="l00181"></a>00181 
-<a name="l00182"></a>00182             <span class="keywordtype">float</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aa8d8a7014bf994b6ebdca899187671a8">getFPS</a>();
-<a name="l00183"></a>00183 
-<a name="l00184"></a>00184             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a385561ac892226f454f8e194d3272e8d">windowResized</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00185"></a>00185 
-<a name="l00187"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962">00187</a>             <a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Ogre::Root</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962" title="Get the Root.">getRoot</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aef1114076ac1d20ccdafca0a07eadc38">mRoot</a>; }
-<a name="l00188"></a>00188 
-<a name="l00190"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122">00190</a>             Ogre::RenderWindow *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122" title="Get the rendering window.">getWindow</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>; }
-<a name="l00191"></a>00191 
-<a name="l00193"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a040dad499251491ca5b482a00b14af2f">00193</a>             SDL_Window *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a040dad499251491ca5b482a00b14af2f" title="Get the SDL Window.">getSDLWindow</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">mSDLWindow</a>; }
-<a name="l00194"></a>00194 
-<a name="l00196"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277">00196</a>             Ogre::SceneManager *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277" title="Get the scene manager.">getScene</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>; }
-<a name="l00197"></a>00197 
-<a name="l00199"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a912fa8b3ccc76121a9f7670489b17196">00199</a>             <a class="code" href="classOEngine_1_1Render_1_1Fader.html">Fader</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a912fa8b3ccc76121a9f7670489b17196" title="Get the screen colour fader.">getFader</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">mFader</a>; }
-<a name="l00200"></a>00200 
-<a name="l00202"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0">00202</a>             Ogre::Camera *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0" title="Camera.">getCamera</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>; }
-<a name="l00203"></a>00203 
-<a name="l00205"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f">00205</a>             Ogre::Viewport *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>; }
-<a name="l00206"></a>00206 
-<a name="l00207"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af780c7930c2aa91a0ef8dce15347d442">00207</a>             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af780c7930c2aa91a0ef8dce15347d442">setWindowListener</a>(<a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">WindowSizeListener</a>* listener) { <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">mWindowListener</a> = listener; }
-<a name="l00208"></a>00208 
-<a name="l00209"></a>00209             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5f3c4268b9d5ff4e3ce85183ff7d3e2f">adjustViewport</a>();
-<a name="l00210"></a>00210         };
-<a name="l00211"></a>00211     }
-<a name="l00212"></a>00212 }
-<a name="l00213"></a>00213 <span class="preprocessor">#endif</span>
+<a name="l00116"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962">00116</a>             <a class="code" href="namespaceTerrain.html#a608c2c69b105a32a832bdd99edd599a7a42bc6396753a537b80ebf6a8cc67cafb">Ogre::Root</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a1159d1cf810406bfa9ada507d465b962" title="Get the Root.">getRoot</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aeac9c9239e11bd0a726d1daed2271a91">mRoot</a>; }
+<a name="l00117"></a>00117 
+<a name="l00119"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122">00119</a>             Ogre::RenderWindow *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a07ff529e52d39fc2d4404b7a1036e122" title="Get the rendering window.">getWindow</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a192a1309f4c32184ab906df9df8ba323">mWindow</a>; }
+<a name="l00120"></a>00120 
+<a name="l00122"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a040dad499251491ca5b482a00b14af2f">00122</a>             SDL_Window *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a040dad499251491ca5b482a00b14af2f" title="Get the SDL Window.">getSDLWindow</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aae876f27c3d09e76bc3125b40e3a7f6e">mSDLWindow</a>; }
+<a name="l00123"></a>00123 
+<a name="l00125"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277">00125</a>             Ogre::SceneManager *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#aedbfe0f11da5963bbc943628ea59e277" title="Get the scene manager.">getScene</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af51d3916465713517be6c2cefd59c045">mScene</a>; }
+<a name="l00126"></a>00126 
+<a name="l00128"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a912fa8b3ccc76121a9f7670489b17196">00128</a>             <a class="code" href="classOEngine_1_1Render_1_1Fader.html">Fader</a> *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a912fa8b3ccc76121a9f7670489b17196" title="Get the screen colour fader.">getFader</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a7eaf821688633a57e435045d790abbdb">mFader</a>; }
+<a name="l00129"></a>00129 
+<a name="l00131"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0">00131</a>             Ogre::Camera *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6132db3aa38699ccb150ea8adf24d4f0" title="Camera.">getCamera</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a6858d1227ae7a5d0b50aa10fd6143f02">mCamera</a>; }
+<a name="l00132"></a>00132 
+<a name="l00134"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f">00134</a>             Ogre::Viewport *<a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a4fff88c31afc9826051125b6588e907f" title="Viewport.">getViewport</a>() { <span class="keywordflow">return</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5396e9816402b743aa925fb48006941c">mView</a>; }
+<a name="l00135"></a>00135 
+<a name="l00136"></a><a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af780c7930c2aa91a0ef8dce15347d442">00136</a>             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#af780c7930c2aa91a0ef8dce15347d442">setWindowListener</a>(<a class="code" href="classOEngine_1_1Render_1_1WindowSizeListener.html">WindowSizeListener</a>* listener) { <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a0919f02c490f0e558f17b99000abbb4a">mWindowListener</a> = listener; }
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138             <span class="keywordtype">void</span> <a class="code" href="classOEngine_1_1Render_1_1OgreRenderer.html#a5f3c4268b9d5ff4e3ce85183ff7d3e2f">adjustViewport</a>();
+<a name="l00139"></a>00139         };
+<a name="l00140"></a>00140     }
+<a name="l00141"></a>00141 }
+<a name="l00142"></a>00142 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

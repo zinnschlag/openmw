@@ -91,7 +91,7 @@
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#ae4ea686a18e84e30c3809447a4a67805">getCellStore</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Cell.html">ESM::Cell</a> *cell);
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#aef89e5b01ba61ca7f142dfe2935376e5">getPtrAndCache</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>&amp; cellStore);
+<a name="l00034"></a>00034             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#aef89e5b01ba61ca7f142dfe2935376e5">getPtrAndCache</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>&amp; cellStore);
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036         <span class="keyword">public</span>:
 <a name="l00037"></a>00037 
@@ -101,20 +101,22 @@
 <a name="l00043"></a>00043 
 <a name="l00044"></a>00044             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a5bfd75ce02e958eb14ff83369f21deb1">getExterior</a> (<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a096df46a5f8feafc1db76c46427233ed">getInterior</a> (<span class="keyword">const</span> std::string&amp; name);
+<a name="l00046"></a>00046             <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a> *<a class="code" href="classMWWorld_1_1Cells.html#a096df46a5f8feafc1db76c46427233ed">getInterior</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#afd646c3bcb7c2fed47b99cbe9ab5af69">getPtr</a> (<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>&amp; cellStore, <span class="keywordtype">bool</span> searchInContainers = <span class="keyword">false</span>);
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#afd646c3bcb7c2fed47b99cbe9ab5af69">getPtr</a> (<span class="keyword">const</span> std::string&amp; name);
-<a name="l00052"></a>00052     };
-<a name="l00053"></a>00053 }
+<a name="l00048"></a>00048             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#afd646c3bcb7c2fed47b99cbe9ab5af69">getPtr</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">CellStore</a>&amp; cellStore, <span class="keywordtype">bool</span> searchInContainers = <span class="keyword">false</span>);
+<a name="l00051"></a>00051 
+<a name="l00053"></a>00053             <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a> <a class="code" href="classMWWorld_1_1Cells.html#afd646c3bcb7c2fed47b99cbe9ab5af69">getPtr</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>);
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055 <span class="preprocessor">#endif</span>
+<a name="l00058"></a>00058             <span class="keywordtype">void</span> <a class="code" href="classMWWorld_1_1Cells.html#a0ed541b3d2bc74ad1bd5247d203b54f3">getExteriorPtrs</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, std::vector&lt;MWWorld::Ptr&gt;&amp; out);
+<a name="l00059"></a>00059     };
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

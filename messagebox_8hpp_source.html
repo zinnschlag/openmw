@@ -80,95 +80,87 @@
 <a name="l00019"></a>00019     <span class="keyword">class </span>InteractiveMessageBox;
 <a name="l00020"></a>00020     <span class="keyword">class </span>MessageBoxManager;
 <a name="l00021"></a>00021     <span class="keyword">class </span>MessageBox;
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html">00023</a>     <span class="keyword">struct </span><a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html">MessageBoxManagerTimer</a> {
-<a name="l00024"></a><a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html#a6036e0e440388708e1cf8939a67e3957">00024</a>         <span class="keywordtype">float</span> <a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html#a6036e0e440388708e1cf8939a67e3957">current</a>;
-<a name="l00025"></a><a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html#a9c0c9b4c3d2630daa3388507cca70e29">00025</a>         <span class="keywordtype">float</span> <a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html#a9c0c9b4c3d2630daa3388507cca70e29">max</a>;
-<a name="l00026"></a><a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html#abff7fc2c2938980efeb361fd917d29cf">00026</a>         <a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a> *<a class="code" href="structMWGui_1_1MessageBoxManagerTimer.html#abff7fc2c2938980efeb361fd917d29cf">messageBox</a>;
-<a name="l00027"></a>00027     };
-<a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html">00029</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>
-<a name="l00030"></a>00030     {
-<a name="l00031"></a>00031         <span class="keyword">public</span>:
-<a name="l00032"></a>00032             <a class="code" href="classMWGui_1_1MessageBoxManager.html#a3054bafc3584039c3123d90287858779">MessageBoxManager</a> ();
-<a name="l00033"></a>00033             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#afb90d83fc2d6368f8fcc66333214c022">onFrame</a> (<span class="keywordtype">float</span> frameDuration);
-<a name="l00034"></a>00034             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a685418a94ed3d00b75b5fa8aa5918a48">createMessageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keywordtype">bool</span> stat = <span class="keyword">false</span>);
-<a name="l00035"></a>00035             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a016f01585f43045beb7010814ad1862a">removeStaticMessageBox</a> ();
-<a name="l00036"></a>00036             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#af056d06b15d9cfe6c9b1439d67ac6136">createInteractiveMessageBox</a> (<span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons);
-<a name="l00037"></a>00037             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#aca28228daa86008b681508330f03ecc6">isInteractiveMessageBox</a> ();
+<a name="l00022"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html">00022</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>
+<a name="l00023"></a>00023     {
+<a name="l00024"></a>00024         <span class="keyword">public</span>:
+<a name="l00025"></a>00025             <a class="code" href="classMWGui_1_1MessageBoxManager.html#a3054bafc3584039c3123d90287858779">MessageBoxManager</a> ();
+<a name="l00026"></a>00026             <a class="code" href="classMWGui_1_1MessageBoxManager.html#adb9fa9147f08479ca1d2d3a68e5ba083">~MessageBoxManager</a> ();
+<a name="l00027"></a>00027             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#afb90d83fc2d6368f8fcc66333214c022">onFrame</a> (<span class="keywordtype">float</span> frameDuration);
+<a name="l00028"></a>00028             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a685418a94ed3d00b75b5fa8aa5918a48">createMessageBox</a> (<span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keywordtype">bool</span> stat = <span class="keyword">false</span>);
+<a name="l00029"></a>00029             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a016f01585f43045beb7010814ad1862a">removeStaticMessageBox</a> ();
+<a name="l00030"></a>00030             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#af056d06b15d9cfe6c9b1439d67ac6136">createInteractiveMessageBox</a> (<span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons);
+<a name="l00031"></a>00031             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#aca28228daa86008b681508330f03ecc6">isInteractiveMessageBox</a> ();
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a3edf2bf0281480bcbd875ac2e8c8c7bf">removeMessageBox</a> (<a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a> *msgbox);
+<a name="l00034"></a>00034             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a1fe56d926569121a8a924b1a3b115bef">setMessageBoxSpeed</a> (<span class="keywordtype">int</span> speed);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a58123eaa612288de8bbcc70f48ddfd28">okayPressed</a>();
+<a name="l00037"></a>00037             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#ac0a6fcebf192b96a645bc89d597252b3">readPressedButton</a> ();
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#af9885b8afccf33365c4a9cd6ffd455ac">removeMessageBox</a> (<span class="keywordtype">float</span> time, <a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a> *msgbox);
-<a name="l00040"></a>00040             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#af9885b8afccf33365c4a9cd6ffd455ac">removeMessageBox</a> (<a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a> *msgbox);
-<a name="l00041"></a>00041             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a1fe56d926569121a8a924b1a3b115bef">setMessageBoxSpeed</a> (<span class="keywordtype">int</span> speed);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a58123eaa612288de8bbcc70f48ddfd28">okayPressed</a>();
-<a name="l00044"></a>00044             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#ac0a6fcebf192b96a645bc89d597252b3">readPressedButton</a> ();
+<a name="l00039"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#ab36255bbe303a45d83ded96f428f3dbe">00039</a>             <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;int&gt; <a class="code" href="classMWGui_1_1MessageBoxManager.html#ab36255bbe303a45d83ded96f428f3dbe">EventHandle_Int</a>;
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041             <span class="comment">// Note: this delegate unassigns itself after it was fired, i.e. works once.</span>
+<a name="l00042"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">00042</a>             <a class="code" href="classMWGui_1_1MessageBoxManager.html#ab36255bbe303a45d83ded96f428f3dbe">EventHandle_Int</a> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">eventButtonPressed</a>;
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#abaccff9e05c652676ef0f0b25950e680">00044</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#abaccff9e05c652676ef0f0b25950e680">onButtonPressed</a>(<span class="keywordtype">int</span> button) { <a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">eventButtonPressed</a>(button); <a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">eventButtonPressed</a>.clear(); }
 <a name="l00045"></a>00045 
-<a name="l00046"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#ab36255bbe303a45d83ded96f428f3dbe">00046</a>             <span class="keyword">typedef</span> MyGUI::delegates::CMultiDelegate1&lt;int&gt; <a class="code" href="classMWGui_1_1MessageBoxManager.html#ab36255bbe303a45d83ded96f428f3dbe">EventHandle_Int</a>;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048             <span class="comment">// Note: this delegate unassigns itself after it was fired, i.e. works once.</span>
-<a name="l00049"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">00049</a>             <a class="code" href="classMWGui_1_1MessageBoxManager.html#ab36255bbe303a45d83ded96f428f3dbe">EventHandle_Int</a> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">eventButtonPressed</a>;
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#abaccff9e05c652676ef0f0b25950e680">00051</a>             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#abaccff9e05c652676ef0f0b25950e680">onButtonPressed</a>(<span class="keywordtype">int</span> button) { <a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">eventButtonPressed</a>(button); <a class="code" href="classMWGui_1_1MessageBoxManager.html#a8a4869dfa58f28dab269659b62dfcd12">eventButtonPressed</a>.clear(); }
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <span class="keyword">private</span>:
-<a name="l00054"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a52e76fb51ff7f9765d4ff8e7cba97047">00054</a>             std::vector&lt;MessageBox*&gt; <a class="code" href="classMWGui_1_1MessageBoxManager.html#a52e76fb51ff7f9765d4ff8e7cba97047">mMessageBoxes</a>;
-<a name="l00055"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">00055</a>             <a class="code" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a>* <a class="code" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">mInterMessageBoxe</a>;
-<a name="l00056"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a6c6672e6044fcb33717919e4622f0f5d">00056</a>             <a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a>* <a class="code" href="classMWGui_1_1MessageBoxManager.html#a6c6672e6044fcb33717919e4622f0f5d">mStaticMessageBox</a>;
-<a name="l00057"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#abcdb6a5bb017b13760b7bd605f449a21">00057</a>             std::vector&lt;MessageBoxManagerTimer&gt; <a class="code" href="classMWGui_1_1MessageBoxManager.html#abcdb6a5bb017b13760b7bd605f449a21">mTimers</a>;
-<a name="l00058"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#ad9c0f7d1b8e1c9879309e75ce5172080">00058</a>             <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#ad9c0f7d1b8e1c9879309e75ce5172080">mMessageBoxSpeed</a>;
-<a name="l00059"></a>00059     };
-<a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classMWGui_1_1MessageBox.html">00061</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a> : <span class="keyword">public</span> OEngine::GUI::Layout
-<a name="l00062"></a>00062     {
-<a name="l00063"></a>00063         <span class="keyword">public</span>:
-<a name="l00064"></a>00064             <a class="code" href="classMWGui_1_1MessageBox.html#aac855aaf958fc19433be199a0a6d6b7f">MessageBox</a> (<a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; parMessageBoxManager, <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>);
-<a name="l00065"></a>00065             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBox.html#a663e22943d35d3a79f74dc25dcda6429">setMessage</a> (<span class="keyword">const</span> std::string&amp; message);
-<a name="l00066"></a>00066             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#aaddd2a45712e114ad8ce5d4dcd3f5d47">getHeight</a> ();
-<a name="l00067"></a>00067             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBox.html#a9e5b1cec10568a26797a18512c9b33f6">update</a> (<span class="keywordtype">int</span> height);
-<a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classMWGui_1_1MessageBox.html#af05c74055c1b8e96907a08044a9d17a4">00069</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1MessageBox.html#af05c74055c1b8e96907a08044a9d17a4">mMarkedToDelete</a>;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keyword">protected</span>:
-<a name="l00072"></a><a class="code" href="classMWGui_1_1MessageBox.html#a4b41b0520e3d9654b36465138a9d1d01">00072</a>             <a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; <a class="code" href="classMWGui_1_1MessageBox.html#a4b41b0520e3d9654b36465138a9d1d01">mMessageBoxManager</a>;
-<a name="l00073"></a><a class="code" href="classMWGui_1_1MessageBox.html#af8f07f9123a4379c179a5a585e7f7efa">00073</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#af8f07f9123a4379c179a5a585e7f7efa">mHeight</a>;
-<a name="l00074"></a><a class="code" href="classMWGui_1_1MessageBox.html#a3d7dcff627f604ee91cb58592159bf3e">00074</a>             <span class="keyword">const</span> std::string&amp; <a class="code" href="classMWGui_1_1MessageBox.html#a3d7dcff627f604ee91cb58592159bf3e">mMessage</a>;
-<a name="l00075"></a><a class="code" href="classMWGui_1_1MessageBox.html#a95d68c5cb369065a34bdcac8bd3d295a">00075</a>             MyGUI::EditBox* <a class="code" href="classMWGui_1_1MessageBox.html#a95d68c5cb369065a34bdcac8bd3d295a">mMessageWidget</a>;
-<a name="l00076"></a><a class="code" href="classMWGui_1_1MessageBox.html#ae5f2853582d0481dc707cc718cc2bb03">00076</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#ae5f2853582d0481dc707cc718cc2bb03">mFixedWidth</a>;
-<a name="l00077"></a><a class="code" href="classMWGui_1_1MessageBox.html#ad07c7c55da7efa485761b9b3dd4ea0be">00077</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#ad07c7c55da7efa485761b9b3dd4ea0be">mBottomPadding</a>;
-<a name="l00078"></a><a class="code" href="classMWGui_1_1MessageBox.html#a53c59a500b30311cc8734d0aff1f987b">00078</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#a53c59a500b30311cc8734d0aff1f987b">mNextBoxPadding</a>;
-<a name="l00079"></a>00079     };
+<a name="l00046"></a>00046         <span class="keyword">private</span>:
+<a name="l00047"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a52e76fb51ff7f9765d4ff8e7cba97047">00047</a>             std::vector&lt;MessageBox*&gt; <a class="code" href="classMWGui_1_1MessageBoxManager.html#a52e76fb51ff7f9765d4ff8e7cba97047">mMessageBoxes</a>;
+<a name="l00048"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">00048</a>             <a class="code" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a>* <a class="code" href="classMWGui_1_1MessageBoxManager.html#af900e1108d131b951029ea504f76c6f5">mInterMessageBoxe</a>;
+<a name="l00049"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a6c6672e6044fcb33717919e4622f0f5d">00049</a>             <a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a>* <a class="code" href="classMWGui_1_1MessageBoxManager.html#a6c6672e6044fcb33717919e4622f0f5d">mStaticMessageBox</a>;
+<a name="l00050"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#ad9c0f7d1b8e1c9879309e75ce5172080">00050</a>             <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#ad9c0f7d1b8e1c9879309e75ce5172080">mMessageBoxSpeed</a>;
+<a name="l00051"></a><a class="code" href="classMWGui_1_1MessageBoxManager.html#a44984b29f1a910529b3ef736a2d52163">00051</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBoxManager.html#a44984b29f1a910529b3ef736a2d52163">mLastButtonPressed</a>;
+<a name="l00052"></a>00052     };
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classMWGui_1_1MessageBox.html">00054</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1MessageBox.html">MessageBox</a> : <span class="keyword">public</span> OEngine::GUI::Layout
+<a name="l00055"></a>00055     {
+<a name="l00056"></a>00056         <span class="keyword">public</span>:
+<a name="l00057"></a>00057             <a class="code" href="classMWGui_1_1MessageBox.html#aac855aaf958fc19433be199a0a6d6b7f">MessageBox</a> (<a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; parMessageBoxManager, <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>);
+<a name="l00058"></a>00058             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBox.html#a663e22943d35d3a79f74dc25dcda6429">setMessage</a> (<span class="keyword">const</span> std::string&amp; message);
+<a name="l00059"></a>00059             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#aaddd2a45712e114ad8ce5d4dcd3f5d47">getHeight</a> ();
+<a name="l00060"></a>00060             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1MessageBox.html#a9e5b1cec10568a26797a18512c9b33f6">update</a> (<span class="keywordtype">int</span> height);
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classMWGui_1_1MessageBox.html#a2d5fc2b497f4b5c1517b594f3d20f6e9">00062</a>             <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1MessageBox.html#a2d5fc2b497f4b5c1517b594f3d20f6e9">mCurrentTime</a>;
+<a name="l00063"></a><a class="code" href="classMWGui_1_1MessageBox.html#a075ad9a7ec209cb55a0f74269afc2808">00063</a>             <span class="keywordtype">float</span> <a class="code" href="classMWGui_1_1MessageBox.html#a075ad9a7ec209cb55a0f74269afc2808">mMaxTime</a>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065         <span class="keyword">protected</span>:
+<a name="l00066"></a><a class="code" href="classMWGui_1_1MessageBox.html#a4b41b0520e3d9654b36465138a9d1d01">00066</a>             <a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; <a class="code" href="classMWGui_1_1MessageBox.html#a4b41b0520e3d9654b36465138a9d1d01">mMessageBoxManager</a>;
+<a name="l00067"></a><a class="code" href="classMWGui_1_1MessageBox.html#a3d7dcff627f604ee91cb58592159bf3e">00067</a>             <span class="keyword">const</span> std::string&amp; <a class="code" href="classMWGui_1_1MessageBox.html#a3d7dcff627f604ee91cb58592159bf3e">mMessage</a>;
+<a name="l00068"></a><a class="code" href="classMWGui_1_1MessageBox.html#a95d68c5cb369065a34bdcac8bd3d295a">00068</a>             MyGUI::EditBox* <a class="code" href="classMWGui_1_1MessageBox.html#a95d68c5cb369065a34bdcac8bd3d295a">mMessageWidget</a>;
+<a name="l00069"></a><a class="code" href="classMWGui_1_1MessageBox.html#ad07c7c55da7efa485761b9b3dd4ea0be">00069</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#ad07c7c55da7efa485761b9b3dd4ea0be">mBottomPadding</a>;
+<a name="l00070"></a><a class="code" href="classMWGui_1_1MessageBox.html#a53c59a500b30311cc8734d0aff1f987b">00070</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1MessageBox.html#a53c59a500b30311cc8734d0aff1f987b">mNextBoxPadding</a>;
+<a name="l00071"></a>00071     };
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html">00073</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
+<a name="l00074"></a>00074     {
+<a name="l00075"></a>00075         <span class="keyword">public</span>:
+<a name="l00076"></a>00076             <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a0472bb0b2f72602825447e92659dc9d2">InteractiveMessageBox</a> (<a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; parMessageBoxManager, <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons);
+<a name="l00077"></a>00077             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#af7a5942f6b826f4433adfc2b743fb896">okayPressed</a> ();
+<a name="l00078"></a>00078             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ae4bbe1c78c31867035a609f1cfb50813">mousePressed</a> (MyGUI::Widget* _widget);
+<a name="l00079"></a>00079             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#af741b55f4ef1fd8068043e4f2109ab18">readPressedButton</a> ();
 <a name="l00080"></a>00080 
-<a name="l00081"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html">00081</a>     <span class="keyword">class </span><a class="code" href="classMWGui_1_1InteractiveMessageBox.html">InteractiveMessageBox</a> : <span class="keyword">public</span> <a class="code" href="classMWGui_1_1WindowModal.html">WindowModal</a>
-<a name="l00082"></a>00082     {
-<a name="l00083"></a>00083         <span class="keyword">public</span>:
-<a name="l00084"></a>00084             <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a0472bb0b2f72602825447e92659dc9d2">InteractiveMessageBox</a> (<a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; parMessageBoxManager, <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceCompiler_1_1Generator.html#ac2c59268b5bf1bf561fda12fdd27eb77">message</a>, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; buttons);
-<a name="l00085"></a>00085             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#af7a5942f6b826f4433adfc2b743fb896">okayPressed</a> ();
-<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ae4bbe1c78c31867035a609f1cfb50813">mousePressed</a> (MyGUI::Widget* _widget);
-<a name="l00087"></a>00087             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#af741b55f4ef1fd8068043e4f2109ab18">readPressedButton</a> ();
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a734a34ecb392a929057e200458ea72d6">00089</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a734a34ecb392a929057e200458ea72d6">mMarkedToDelete</a>;
+<a name="l00081"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a734a34ecb392a929057e200458ea72d6">00081</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a734a34ecb392a929057e200458ea72d6">mMarkedToDelete</a>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083         <span class="keyword">private</span>:
+<a name="l00084"></a>00084             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#aaf15a6f381b15ce4bcd52250bdda9978">buttonActivated</a> (MyGUI::Widget* _widget);
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad112a4e9e29c7244c669025406be4fc2">00086</a>             <a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad112a4e9e29c7244c669025406be4fc2">mMessageBoxManager</a>;
+<a name="l00087"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a15d01178f609ab31b9df3fcae5aaa4c9">00087</a>             MyGUI::EditBox* <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a15d01178f609ab31b9df3fcae5aaa4c9">mMessageWidget</a>;
+<a name="l00088"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a99091bb04570cb7cce6e651d57cf9f05">00088</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a99091bb04570cb7cce6e651d57cf9f05">mButtonsWidget</a>;
+<a name="l00089"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a1e5fa8572b3b927aa3fdf235f2730bcb">00089</a>             std::vector&lt;MyGUI::Button*&gt; <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a1e5fa8572b3b927aa3fdf235f2730bcb">mButtons</a>;
 <a name="l00090"></a>00090 
-<a name="l00091"></a>00091         <span class="keyword">private</span>:
-<a name="l00092"></a>00092             <span class="keywordtype">void</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#aaf15a6f381b15ce4bcd52250bdda9978">buttonActivated</a> (MyGUI::Widget* _widget);
-<a name="l00093"></a>00093 
-<a name="l00094"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad112a4e9e29c7244c669025406be4fc2">00094</a>             <a class="code" href="classMWGui_1_1MessageBoxManager.html">MessageBoxManager</a>&amp; <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad112a4e9e29c7244c669025406be4fc2">mMessageBoxManager</a>;
-<a name="l00095"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a15d01178f609ab31b9df3fcae5aaa4c9">00095</a>             MyGUI::EditBox* <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a15d01178f609ab31b9df3fcae5aaa4c9">mMessageWidget</a>;
-<a name="l00096"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a99091bb04570cb7cce6e651d57cf9f05">00096</a>             MyGUI::Widget* <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a99091bb04570cb7cce6e651d57cf9f05">mButtonsWidget</a>;
-<a name="l00097"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a1e5fa8572b3b927aa3fdf235f2730bcb">00097</a>             std::vector&lt;MyGUI::Button*&gt; <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a1e5fa8572b3b927aa3fdf235f2730bcb">mButtons</a>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad672dcbb3ae88fbc2d8ace7fa04e78ee">00099</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad672dcbb3ae88fbc2d8ace7fa04e78ee">mTextButtonPadding</a>;
-<a name="l00100"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a427e88256d28047beb57ad4a073db803">00100</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a427e88256d28047beb57ad4a073db803">mButtonPressed</a>;
-<a name="l00101"></a>00101     };
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 }
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105 <span class="preprocessor">#endif</span>
+<a name="l00091"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad672dcbb3ae88fbc2d8ace7fa04e78ee">00091</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#ad672dcbb3ae88fbc2d8ace7fa04e78ee">mTextButtonPadding</a>;
+<a name="l00092"></a><a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a427e88256d28047beb57ad4a073db803">00092</a>             <span class="keywordtype">int</span> <a class="code" href="classMWGui_1_1InteractiveMessageBox.html#a427e88256d28047beb57ad4a073db803">mButtonPressed</a>;
+<a name="l00093"></a>00093     };
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 }
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

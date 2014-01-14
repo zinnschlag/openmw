@@ -64,30 +64,52 @@
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QWidget&gt;</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>CSVDoc
-<a name="l00007"></a>00007 {
-<a name="l00008"></a><a class="code" href="classCSVDoc_1_1StartupDialogue.html">00008</a>     <span class="keyword">class </span><a class="code" href="classCSVDoc_1_1StartupDialogue.html">StartupDialogue</a> : <span class="keyword">public</span> QWidget
-<a name="l00009"></a>00009     {
-<a name="l00010"></a>00010         Q_OBJECT
+<a name="l00006"></a>00006 <span class="keyword">class </span>QGridLayout;
+<a name="l00007"></a>00007 <span class="keyword">class </span>QString;
+<a name="l00008"></a>00008 <span class="keyword">class </span>QPushButton;
+<a name="l00009"></a>00009 <span class="keyword">class </span>QWidget;
+<a name="l00010"></a>00010 <span class="keyword">class </span>QIcon;
 <a name="l00011"></a>00011 
-<a name="l00012"></a>00012         <span class="keyword">public</span>:
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014             <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a14c7a8c68a753d8ed00d7df2170a3876">StartupDialogue</a>();
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016         signals:
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>CSVDoc
+<a name="l00013"></a>00013 {
+<a name="l00014"></a><a class="code" href="classCSVDoc_1_1StartupDialogue.html">00014</a>     <span class="keyword">class </span><a class="code" href="classCSVDoc_1_1StartupDialogue.html">StartupDialogue</a> : <span class="keyword">public</span> QWidget
+<a name="l00015"></a>00015     {
+<a name="l00016"></a>00016         Q_OBJECT
 <a name="l00017"></a>00017 
-<a name="l00018"></a>00018             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a30fee03ad98989afbef596742a662383">createDocument</a>();
+<a name="l00018"></a>00018         <span class="keyword">private</span>:
 <a name="l00019"></a>00019 
-<a name="l00020"></a>00020             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a68f89a43667520df7a4950f06efac67b">loadDocument</a>();
-<a name="l00021"></a>00021     };
-<a name="l00022"></a>00022 }
+<a name="l00020"></a><a class="code" href="classCSVDoc_1_1StartupDialogue.html#a5cbccd6dc3c1c4638833d133689c4385">00020</a>             <span class="keywordtype">int</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a5cbccd6dc3c1c4638833d133689c4385">mWidth</a>;
+<a name="l00021"></a><a class="code" href="classCSVDoc_1_1StartupDialogue.html#aca3d927cab1855d0526f6b7cbf2c5da5">00021</a>             <span class="keywordtype">int</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#aca3d927cab1855d0526f6b7cbf2c5da5">mColumn</a>;
+<a name="l00022"></a><a class="code" href="classCSVDoc_1_1StartupDialogue.html#a3a217e57d318c9b5336783dff08d188c">00022</a>             QGridLayout *<a class="code" href="classCSVDoc_1_1StartupDialogue.html#a3a217e57d318c9b5336783dff08d188c">mLayout</a>;
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="preprocessor">#endif</span>
+<a name="l00024"></a>00024             QPushButton *<a class="code" href="classCSVDoc_1_1StartupDialogue.html#a322e31c36344b54c10ab21eef969dd84">addButton</a> (<span class="keyword">const</span> QString&amp; label, <span class="keyword">const</span> QIcon&amp; icon);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026             QWidget *<a class="code" href="classCSVDoc_1_1StartupDialogue.html#add43a054d80efa5e1d2210e735b05125">createButtons</a>();
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028             QWidget *<a class="code" href="classCSVDoc_1_1StartupDialogue.html#aee825f98174eb7be7fb73341bb017f1d">createTools</a>();
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030         <span class="keyword">public</span>:
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032             <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a14c7a8c68a753d8ed00d7df2170a3876">StartupDialogue</a>();
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034         <a class="code" href="crashcatcher_8cpp.html#a8a4382419c8082232049525fbf312154">signals</a>:
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#adbc81b016567d4750c72a58ef0b994d0">createGame</a>();
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a73c3fe7321bec51684c337ceda1a1d08">createAddon</a>();
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#a68f89a43667520df7a4950f06efac67b">loadDocument</a>();
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classCSVDoc_1_1StartupDialogue.html#adabf32162a0441f4e78cbabba83bf058">editConfig</a>();
+<a name="l00043"></a>00043     };
+<a name="l00044"></a>00044 }
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

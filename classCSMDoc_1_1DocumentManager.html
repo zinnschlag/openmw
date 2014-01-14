@@ -77,10 +77,11 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#af8dd8df97a4681a69dba10751459f3b2">DocumentManager</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a197fe0140f85efbe027adf4e15f274dc">DocumentManager</a> (const <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;configuration)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a390e20a3f9e11f660037f05aec2b0d00">~DocumentManager</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMDoc_1_1Document.html">Document</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#adf399bf1fc83c9272848df0e32ab4dba">addDocument</a> (const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMDoc_1_1Document.html">Document</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a1cfe61be0cfd4c9724691cf3ae68a7ca">addDocument</a> (const std::vector&lt; boost::filesystem::path &gt; &amp;files, const boost::filesystem::path &amp;savePath, bool new_)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a3a71a028c151630ff0966e143f73f4aa">removeDocument</a> (<a class="el" href="classCSMDoc_1_1Document.html">Document</a> *document)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#ad9d0ee3853e69f25f67b6bbdcf667bca">setResourceDir</a> (const boost::filesystem::path &amp;parResDir)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#adf5575cd432ba70a9eb69cea143afa05">DocumentManager</a> (const <a class="el" href="classCSMDoc_1_1DocumentManager.html">DocumentManager</a> &amp;)</td></tr>
@@ -88,6 +89,8 @@ Private Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classCSMDoc_1_1Document.html">Document</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a2e8bab7e2d82c0efa3518dd76d921faf">mDocuments</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#a52624ca103dda4ee9d96c72f401cf967">mConfiguration</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1DocumentManager.html#ae434c2b3e44172a633828b416a1c0b58">mResDir</a></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="adf5575cd432ba70a9eb69cea143afa05"></a><!-- doxytag: member="CSMDoc::DocumentManager::DocumentManager" ref="adf5575cd432ba70a9eb69cea143afa05" args="(const DocumentManager &amp;)" -->
@@ -107,14 +110,15 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af8dd8df97a4681a69dba10751459f3b2"></a><!-- doxytag: member="CSMDoc::DocumentManager::DocumentManager" ref="af8dd8df97a4681a69dba10751459f3b2" args="()" -->
+<a class="anchor" id="a197fe0140f85efbe027adf4e15f274dc"></a><!-- doxytag: member="CSMDoc::DocumentManager::DocumentManager" ref="a197fe0140f85efbe027adf4e15f274dc" args="(const Files::ConfigurationManager &amp;configuration)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classCSMDoc_1_1DocumentManager.html#adf5575cd432ba70a9eb69cea143afa05">CSMDoc::DocumentManager::DocumentManager</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;&#160;</td>
+          <td class="paramname"><em>configuration</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -140,15 +144,21 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="adf399bf1fc83c9272848df0e32ab4dba"></a><!-- doxytag: member="CSMDoc::DocumentManager::addDocument" ref="adf399bf1fc83c9272848df0e32ab4dba" args="(const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)" -->
+<a class="anchor" id="a1cfe61be0cfd4c9724691cf3ae68a7ca"></a><!-- doxytag: member="CSMDoc::DocumentManager::addDocument" ref="a1cfe61be0cfd4c9724691cf3ae68a7ca" args="(const std::vector&lt; boost::filesystem::path &gt; &amp;files, const boost::filesystem::path &amp;savePath, bool new_)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> * <a class="el" href="classCSMDoc_1_1DocumentManager.html#adf399bf1fc83c9272848df0e32ab4dba">CSMDoc::DocumentManager::addDocument</a> </td>
+          <td class="memname"><a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> * <a class="el" href="classCSMDoc_1_1DocumentManager.html#a1cfe61be0cfd4c9724691cf3ae68a7ca">CSMDoc::DocumentManager::addDocument</a> </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; boost::filesystem::path &gt; &amp;&#160;</td>
           <td class="paramname"><em>files</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>savePath</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -209,13 +219,56 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad9d0ee3853e69f25f67b6bbdcf667bca"></a><!-- doxytag: member="CSMDoc::DocumentManager::setResourceDir" ref="ad9d0ee3853e69f25f67b6bbdcf667bca" args="(const boost::filesystem::path &amp;parResDir)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1DocumentManager.html#ad9d0ee3853e69f25f67b6bbdcf667bca">CSMDoc::DocumentManager::setResourceDir</a> </td>
+          <td>(</td>
+          <td class="paramtype">const boost::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>parResDir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a52624ca103dda4ee9d96c72f401cf967"></a><!-- doxytag: member="CSMDoc::DocumentManager::mConfiguration" ref="a52624ca103dda4ee9d96c72f401cf967" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a>&amp; <a class="el" href="classCSMDoc_1_1DocumentManager.html#a52624ca103dda4ee9d96c72f401cf967">CSMDoc::DocumentManager::mConfiguration</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a2e8bab7e2d82c0efa3518dd76d921faf"></a><!-- doxytag: member="CSMDoc::DocumentManager::mDocuments" ref="a2e8bab7e2d82c0efa3518dd76d921faf" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="classCSMDoc_1_1Document.html">Document</a> *&gt; <a class="el" href="classCSMDoc_1_1DocumentManager.html#a2e8bab7e2d82c0efa3518dd76d921faf">CSMDoc::DocumentManager::mDocuments</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae434c2b3e44172a633828b416a1c0b58"></a><!-- doxytag: member="CSMDoc::DocumentManager::mResDir" ref="ae434c2b3e44172a633828b416a1c0b58" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::filesystem::path <a class="el" href="classCSMDoc_1_1DocumentManager.html#ae434c2b3e44172a633828b416a1c0b58">CSMDoc::DocumentManager::mResDir</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -231,7 +284,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

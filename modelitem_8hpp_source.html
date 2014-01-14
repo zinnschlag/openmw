@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>OpenMW: components/fileorderlist/model/modelitem.hpp Source File</title>
+<title>OpenMW: components/contentselector/model/modelitem.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -56,46 +56,53 @@
 </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">components/fileorderlist/model/modelitem.hpp</div>  </div>
+<div class="title">components/contentselector/model/modelitem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="modelitem_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MODELITEM_HPP</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MODELITEM_HPP</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QObject&gt;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QMimeData&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QList&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a><a class="code" href="classModelItem.html">00007</a> <span class="keyword">class </span><a class="code" href="classModelItem.html">ModelItem</a> : <span class="keyword">public</span> QObject
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>ContentSelectorModel
 <a name="l00008"></a>00008 {
-<a name="l00009"></a>00009     Q_OBJECT
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">public</span>:
-<a name="l00012"></a>00012     <a class="code" href="classModelItem.html#a836145ffa7db459f5b0d1a77585fa0e5">ModelItem</a>(<a class="code" href="classModelItem.html">ModelItem</a> *<a class="code" href="classModelItem.html#ac0d677f3e04533bc9efc483193a54a37">parent</a> = 0);
-<a name="l00013"></a>00013     <a class="code" href="classModelItem.html#ada98e233b832fb3e3e3648c29ce8c98c">~ModelItem</a>();
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015     <a class="code" href="classModelItem.html">ModelItem</a> *<a class="code" href="classModelItem.html#ac0d677f3e04533bc9efc483193a54a37">parent</a>();
-<a name="l00016"></a>00016     <span class="keywordtype">int</span> <a class="code" href="classModelItem.html#a2f817b7441812512c4cd1b0d3e633070">row</a>() <span class="keyword">const</span>;
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018     <span class="keywordtype">int</span> <a class="code" href="classModelItem.html#a79b84da1b0fd07ea65b54f9ddedb95e1">childCount</a>() <span class="keyword">const</span>;
-<a name="l00019"></a>00019     <span class="keywordtype">int</span> <a class="code" href="classModelItem.html#ae2c2d26e3bac2837122c2d74f3c76bc3">childRow</a>(<a class="code" href="classModelItem.html">ModelItem</a> *<a class="code" href="classModelItem.html#ac843184eee719dee585121752235f6f6">child</a>) <span class="keyword">const</span>;
-<a name="l00020"></a>00020     <a class="code" href="classModelItem.html">ModelItem</a> *<a class="code" href="classModelItem.html#ac843184eee719dee585121752235f6f6">child</a>(<span class="keywordtype">int</span> row);
+<a name="l00009"></a><a class="code" href="classContentSelectorModel_1_1ModelItem.html">00009</a>     <span class="keyword">class </span><a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> : <span class="keyword">public</span> QMimeData
+<a name="l00010"></a>00010     {
+<a name="l00011"></a>00011         Q_OBJECT
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013     <span class="keyword">public</span>:
+<a name="l00014"></a>00014         <a class="code" href="classContentSelectorModel_1_1ModelItem.html#a04d07a70463a2f7860d2cfdfcf044f07">ModelItem</a>(<a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *<a class="code" href="classContentSelectorModel_1_1ModelItem.html#a470a360b7af3c9d2612a306e5e199bc5">parent</a> = 0);
+<a name="l00015"></a>00015         <span class="comment">//ModelItem(const ModelItem *parent = 0);</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017         <a class="code" href="classContentSelectorModel_1_1ModelItem.html#a9d6cda49e0c381d246a920f03bf7681d">~ModelItem</a>();
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019         <a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *<a class="code" href="classContentSelectorModel_1_1ModelItem.html#a470a360b7af3c9d2612a306e5e199bc5">parent</a>() <span class="keyword">const</span>;
+<a name="l00020"></a>00020         <span class="keywordtype">int</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html#a43efe542afe9de116ebeff3e5b91b4ac">row</a>() <span class="keyword">const</span>;
 <a name="l00021"></a>00021 
-<a name="l00022"></a>00022     <span class="keywordtype">void</span> <a class="code" href="classModelItem.html#aa3a00e6759ead56bf555c0e06f63e338">appendChild</a>(<a class="code" href="classModelItem.html">ModelItem</a> *child);
-<a name="l00023"></a>00023     <span class="keywordtype">void</span> <a class="code" href="classModelItem.html#a471a22c8f9400b5e4b8e7b398a1caa97">removeChild</a>(<span class="keywordtype">int</span> row);
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025     <span class="comment">//virtual bool acceptChild(ModelItem *child);</span>
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="keyword">protected</span>:
-<a name="l00028"></a><a class="code" href="classModelItem.html#a84c5a1cc7aa262d9ac50bbd98f7fd893">00028</a>     <a class="code" href="classModelItem.html">ModelItem</a> *<a class="code" href="classModelItem.html#a84c5a1cc7aa262d9ac50bbd98f7fd893">mParentItem</a>;
-<a name="l00029"></a><a class="code" href="classModelItem.html#aef42cf977f9b12f874f27201a5f15902">00029</a>     QList&lt;ModelItem*&gt; <a class="code" href="classModelItem.html#aef42cf977f9b12f874f27201a5f15902">mChildItems</a>;
-<a name="l00030"></a>00030 };
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#endif</span>
+<a name="l00022"></a>00022         <span class="keywordtype">int</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html#a2859f299533d04c6a211e3cdad54e9be">childCount</a>() <span class="keyword">const</span>;
+<a name="l00023"></a>00023         <span class="keywordtype">int</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html#a1987b1548350bc16603b6b4715dc0059">childRow</a>(<a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *<a class="code" href="classContentSelectorModel_1_1ModelItem.html#a88a8b29e62ed969898a7000225f0b6b3">child</a>) <span class="keyword">const</span>;
+<a name="l00024"></a>00024         <a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *<a class="code" href="classContentSelectorModel_1_1ModelItem.html#a88a8b29e62ed969898a7000225f0b6b3">child</a>(<span class="keywordtype">int</span> row);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html#a45a6f1e80d69440d17b074d9f637f77f">appendChild</a>(<a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *child);
+<a name="l00027"></a>00027         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html#afb5612838610270adc0a35aebd04d156">removeChild</a>(<span class="keywordtype">int</span> row);
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029         <span class="keywordtype">bool</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html#ac5dcef0ce32a631234d3f44e6ca85bb5">hasFormat</a>(<span class="keyword">const</span> QString &amp;mimetype) <span class="keyword">const</span>;
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031         <span class="comment">//virtual bool acceptChild(ModelItem *child);</span>
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="keyword">protected</span>:
+<a name="l00034"></a><a class="code" href="classContentSelectorModel_1_1ModelItem.html#aa1df6ad2cc6fba6c2f561275887a121e">00034</a>         <a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *<a class="code" href="classContentSelectorModel_1_1ModelItem.html#aa1df6ad2cc6fba6c2f561275887a121e">mParentItem</a>;
+<a name="l00035"></a><a class="code" href="classContentSelectorModel_1_1ModelItem.html#ad3268124c8feecc0f7db29f87de9cd07">00035</a>         QList&lt;ModelItem*&gt; <a class="code" href="classContentSelectorModel_1_1ModelItem.html#ad3268124c8feecc0f7db29f87de9cd07">mChildItems</a>;
+<a name="l00036"></a>00036     };
+<a name="l00037"></a>00037 }
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

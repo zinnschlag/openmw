@@ -64,6 +64,7 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
@@ -95,7 +96,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge modified into base.  <a href="#a42f9c4fa0d921fb9f522fed3433407be"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a8b6c0e660284cbdb311e2a25406dab31">purge</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove records that are flagged as erased.  <a href="#a8b6c0e660284cbdb311e2a25406dab31"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a43fb7b2e1201948ade6b9ad025cce5d1">removeRows</a> (int index, int <a class="el" href="esmwriter_8cpp.html#ab724e83983be606aaaa953ab6f0de653">count</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a43fb7b2e1201948ade6b9ad025cce5d1">removeRows</a> (int index, int count)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Merge modified into base.  <a href="#a43fb7b2e1201948ade6b9ad025cce5d1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#aad8b6e183726870a785a3a41580e92a4">appendBlankRecord</a> (const std::string &amp;id, <a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type=<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a5e6b63cd8a4efea626383d5c8f212b4d">searchId</a> (const std::string &amp;id) const </td></tr>
@@ -105,9 +106,19 @@ Public Member Functions</h2></td></tr>
 &lt; ESXRecordT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#ad67e225cc3571a0287b73c94ee6e9878">getRecord</a> (const std::string &amp;id) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structCSMWorld_1_1Record.html">Record</a><br class="typebreak"/>
 &lt; ESXRecordT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a3795111fe603c6f438b872d87e44cd04">getRecord</a> (int index) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#ae2baad61455d947a6a84d9dac3eba32c">getAppendIndex</a> (<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type=<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a>) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a265b1e33e23ec5ae6ad46b413403ea71">getAppendIndex</a> (const std::string &amp;id, <a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type=<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a>) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#ad03f1ebd24e1c7a8859d4c1d72830d7a">getIds</a> (bool listDeleted=true) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a31d1d768e667121fac620aa809a0f29d">insertRecord</a> (const <a class="el" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> &amp;record, int index, <a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a> type=<a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#aa87b4ede7bf61fb441f19055ab8f6607">reorderRows</a> (int baseIndex, const std::vector&lt; int &gt; &amp;newOrder)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#affd8493ab56a84a22ce3507b231536a4">addColumn</a> (<a class="el" href="structCSMWorld_1_1Column.html">Column</a>&lt; ESXRecordT &gt; *column)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a7e83d904c6da9621f1f847f939ad6d89">setRecord</a> (int index, const <a class="el" href="structCSMWorld_1_1Record.html">Record</a>&lt; ESXRecordT &gt; &amp;record)</td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, <br class="typebreak"/>
+int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a97e43da2a2b8425bc3645d132bd67eba">getIdMap</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structCSMWorld_1_1Record.html">Record</a><br class="typebreak"/>
+&lt; ESXRecordT &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a64007c7ae62feea926713a3da1625893">getRecords</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a1e93934c63addf3ea957411eaead4ec8">reorderRowsImp</a> (int baseIndex, const std::vector&lt; int &gt; &amp;newOrder)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMWorld_1_1Collection.html#a18e81664b193ff2ff5a510cb570276f3">Collection</a> (const <a class="el" href="classCSMWorld_1_1Collection.html">Collection</a> &amp;)</td></tr>
@@ -296,18 +307,28 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ae2baad61455d947a6a84d9dac3eba32c"></a><!-- doxytag: member="CSMWorld::Collection::getAppendIndex" ref="ae2baad61455d947a6a84d9dac3eba32c" args="(UniversalId::Type type=UniversalId::Type_None) const " -->
+<a class="anchor" id="a265b1e33e23ec5ae6ad46b413403ea71"></a><!-- doxytag: member="CSMWorld::Collection::getAppendIndex" ref="a265b1e33e23ec5ae6ad46b413403ea71" args="(const std::string &amp;id, UniversalId::Type type=UniversalId::Type_None) const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#ae2baad61455d947a6a84d9dac3eba32c">getAppendIndex</a> </td>
+          <td class="memname">int <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#a265b1e33e23ec5ae6ad46b413403ea71">getAppendIndex</a> </td>
           <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em> = <code><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a></code></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
         </tr>
       </table>
 </div>
@@ -319,7 +340,9 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classCSMWorld_1_1CollectionBase.html#a18baefcb0b9572aaa8e33e68d85ef301">CSMWorld::CollectionBase</a>.</p>
+<p>Implements <a class="el" href="classCSMWorld_1_1CollectionBase.html#a4a5e5e8e0b8f63082d0100a701e14c06">CSMWorld::CollectionBase</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classCSMWorld_1_1InfoCollection.html#afd4e3a00508246165c708ceaf017c777">CSMWorld::InfoCollection</a>.</p>
 
 </div>
 </div>
@@ -416,6 +439,52 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a97e43da2a2b8425bc3645d132bd67eba"></a><!-- doxytag: member="CSMWorld::Collection::getIdMap" ref="a97e43da2a2b8425bc3645d132bd67eba" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt; std::string, int &gt; &amp; <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#a97e43da2a2b8425bc3645d132bd67eba">getIdMap</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad03f1ebd24e1c7a8859d4c1d72830d7a"></a><!-- doxytag: member="CSMWorld::Collection::getIds" ref="ad03f1ebd24e1c7a8859d4c1d72830d7a" args="(bool listDeleted=true) const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#ad03f1ebd24e1c7a8859d4c1d72830d7a">getIds</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>listDeleted</em> = <code>true</code></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return a sorted collection of all IDs</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listDeleted</td><td>include deleted record in the list </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classCSMWorld_1_1CollectionBase.html#a25d1d8d46ea921f87d6d55938c888818">CSMWorld::CollectionBase</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a9018dfef5f88e25b013c77be4e25228a"></a><!-- doxytag: member="CSMWorld::Collection::getIndex" ref="a9018dfef5f88e25b013c77be4e25228a" args="(const std::string &amp;id) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -479,6 +548,24 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a64007c7ae62feea926713a3da1625893"></a><!-- doxytag: member="CSMWorld::Collection::getRecords" ref="a64007c7ae62feea926713a3da1625893" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structCSMWorld_1_1Record.html">Record</a>&lt; ESXRecordT &gt; &gt; &amp; <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#a64007c7ae62feea926713a3da1625893">getRecords</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a4731d68dda7380e80fd6a23a2b54b123"></a><!-- doxytag: member="CSMWorld::Collection::getSize" ref="a4731d68dda7380e80fd6a23a2b54b123" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -496,6 +583,44 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
 <div class="memdoc">
 
 <p>Implements <a class="el" href="classCSMWorld_1_1CollectionBase.html#a40a59aa0fc3b7f4e78410e168a4f8f10">CSMWorld::CollectionBase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a31d1d768e667121fac620aa809a0f29d"></a><!-- doxytag: member="CSMWorld::Collection::insertRecord" ref="a31d1d768e667121fac620aa809a0f29d" args="(const RecordBase &amp;record, int index, UniversalId::Type type=UniversalId::Type_None)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#a31d1d768e667121fac620aa809a0f29d">insertRecord</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structCSMWorld_1_1RecordBase.html">RecordBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>record</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2">UniversalId::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="classCSMWorld_1_1UniversalId.html#ad68e402e074c03aeffc692e97a7457b2a5a496e5f4cd35ae414415cc61a011289">UniversalId::Type_None</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Insert record before index.</p>
+<p>If the record type does not match, an exception is thrown.</p>
+<p>If the index is invalid either generally (by being out of range) or for the particular record, an exception is thrown. </p>
 
 </div>
 </div>
@@ -589,6 +714,72 @@ template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
 <p>&lt; Remove records that are flagged as erased. </p>
 
 <p>Implements <a class="el" href="classCSMWorld_1_1CollectionBase.html#a0bcd45baf6d2663709716a7fc6e4c26b">CSMWorld::CollectionBase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa87b4ede7bf61fb441f19055ab8f6607"></a><!-- doxytag: member="CSMWorld::Collection::reorderRows" ref="aa87b4ede7bf61fb441f19055ab8f6607" args="(int baseIndex, const std::vector&lt; int &gt; &amp;newOrder)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#aa87b4ede7bf61fb441f19055ab8f6607">reorderRows</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>baseIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>newOrder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Reorder the rows [baseIndex, baseIndex+newOrder.size()) according to the indices given in <em>newOrder</em> (baseIndex+newOrder[0] specifies the new index of row baseIndex).</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Success? </dd></dl>
+
+<p>Implements <a class="el" href="classCSMWorld_1_1CollectionBase.html#a9092b8e84b81a36cee95bfd24db3b8c8">CSMWorld::CollectionBase</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classCSMWorld_1_1InfoCollection.html#a1de5675f6308ae9c1cbbeecfff89d85f">CSMWorld::InfoCollection</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e93934c63addf3ea957411eaead4ec8"></a><!-- doxytag: member="CSMWorld::Collection::reorderRowsImp" ref="a1e93934c63addf3ea957411eaead4ec8" args="(int baseIndex, const std::vector&lt; int &gt; &amp;newOrder)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ESXRecordT , typename IdAccessorT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classCSMWorld_1_1Collection.html">CSMWorld::Collection</a>&lt; ESXRecordT, IdAccessorT &gt;::<a class="el" href="classCSMWorld_1_1Collection.html#a1e93934c63addf3ea957411eaead4ec8">reorderRowsImp</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>baseIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>newOrder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Reorder the rows [baseIndex, baseIndex+newOrder.size()) according to the indices given in <em>newOrder</em> (baseIndex+newOrder[0] specifies the new index of row baseIndex).</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Success? </dd></dl>
 
 </div>
 </div>
@@ -768,7 +959,7 @@ template&lt;typename ESXRecordT, typename IdAccessorT = IdAccessor&lt;ESXRecordT
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

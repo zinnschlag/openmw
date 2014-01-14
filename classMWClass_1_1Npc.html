@@ -116,6 +116,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return movement speed.  <a href="#acaf825c7d2108eb7707911c1abf97284"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a9a9f4191138f024f027fff003aac080d">getJump</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return jump velocity (not accounting for movement)  <a href="#a9a9f4191138f024f027fff003aac080d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#ab5ceb1a373f38e0191c2878c353bdbef">getFallDamage</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, float fallHeight) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return amount of health points lost when falling.  <a href="#ab5ceb1a373f38e0191c2878c353bdbef"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structMWMechanics_1_1Movement.html">MWMechanics::Movement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a0eb8ea9da7025a9869a92dd3e7e1369d">getMovementSettings</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return desired movement.  <a href="#a0eb8ea9da7025a9869a92dd3e7e1369d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a4cc2529dc7c297b6f24a6286ee4829d3">getMovementVector</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
@@ -133,7 +135,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Is <em>ptr</em> essential? (i.e. may losing <em>ptr</em> make the game unwinnable)  <a href="#a985fb12c1704931323c785f714ba71b3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a479e13f21b7782d5261aaa67d4275fa7">getServices</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;actor) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#ab6913adba8b910018fd70bc2045bfe97">isPersistent</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#ae64fa6b9a127eded92227a43503d4527">getSoundIdFromSndGen</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;name) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#ae64fa6b9a127eded92227a43503d4527">getSoundIdFromSndGen</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;<a class="el" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sound ID for <em>ptr</em> of the given soundgen <em>type</em>.  <a href="#ae64fa6b9a127eded92227a43503d4527"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a802295256c006cf2a3e72010333f774b">getModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWClass_1_1Npc.html#a82fa16f17da427b521dd0e0a42a1d842">isActor</a> () const </td></tr>
@@ -325,7 +327,6 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Any effect? </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000048">Todo:</a></b></dt><dd>consider instant effects </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ad55a73a42a6bcaf7cf1bfaaefd5ec7e8">MWWorld::Class</a>.</p>
 
@@ -476,6 +477,37 @@ Static Private Attributes</h2></td></tr>
 <p>Returns total weight of objects inside this object (including modifications from magic effects). Throws an exception, if the object can't hold other objects. </p>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#ab7faa52d10908b636947819a16dcd3f7">MWWorld::Class</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab5ceb1a373f38e0191c2878c353bdbef"></a><!-- doxytag: member="MWClass::Npc::getFallDamage" ref="ab5ceb1a373f38e0191c2878c353bdbef" args="(const MWWorld::Ptr &amp;ptr, float fallHeight) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classMWClass_1_1Npc.html#ab5ceb1a373f38e0191c2878c353bdbef">MWClass::Npc::getFallDamage</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fallHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return amount of health points lost when falling. </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#af15dfac18d3922ea6ad8a4a8489457b5">MWWorld::Class</a>.</p>
 
 </div>
 </div>
@@ -828,7 +860,7 @@ Static Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if this object has a tooltip when focused (default implementation: false) </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000047">Todo:</a></b></dt><dd>We don't want tooltips for NPCs in combat mode. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000068">Todo:</a></b></dt><dd>We don't want tooltips for NPCs in combat mode. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classMWWorld_1_1Class.html#a5963827820fe8384a4962a9e9734d3df">MWWorld::Class</a>.</p>
 
@@ -1442,7 +1474,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

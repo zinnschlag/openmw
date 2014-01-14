@@ -104,7 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Deregister all objects in the given cell.  <a href="#ab2a36be44f6076c5950773d159fda088"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#aec39afa8600f5030f60736aaa0f2c54d">watchActor</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a424362aa671ec1f0384ed948b66b4f11">update</a> (float duration, bool paused)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#af7924a2fc8b6e7f4b44a03c136e1f16f">setPlayerName</a> (const std::string &amp;name)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a0073450a1a3daf299ba3d40b7cb63b7f">advanceTime</a> (float duration)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#af7924a2fc8b6e7f4b44a03c136e1f16f">setPlayerName</a> (const std::string &amp;<a class="el" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player name.  <a href="#af7924a2fc8b6e7f4b44a03c136e1f16f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a8bf8fa1c62691847511286c8f73596f7">setPlayerRace</a> (const std::string &amp;id, bool male, const std::string &amp;head, const std::string &amp;hair)=0</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player race.  <a href="#a8bf8fa1c62691847511286c8f73596f7"></a><br/></td></tr>
@@ -129,6 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a02409b3d17844c02b8de812b5378e3a1">playAnimationGroup</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;groupName, int mode, int number=1)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#afe783818658da2e06a8f4c4d3bb92c60">skipAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a545c145a99320ac0d4a903624cbb073f">checkAnimationPlaying</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;groupName)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#a492b6773c7481ee98bebe185695ba915">updateMagicEffects</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#aa75397e5246316b95f449dff66351d4d">toggleAI</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#ab83e215181f4aaf18f7ffeac18708ea6">isAIActive</a> ()=0</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWBase_1_1MechanicsManager.html#ab7edc017d10857ab0a00455503831399">MechanicsManager</a> (const <a class="el" href="classMWBase_1_1MechanicsManager.html">MechanicsManager</a> &amp;)</td></tr>
@@ -241,6 +245,25 @@ Private Member Functions</h2></td></tr>
 <p>Register an object for management. </p>
 
 <p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a4fbf89c9b51a5ae2fcf78738a494d5c0">MWMechanics::MechanicsManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0073450a1a3daf299ba3d40b7cb63b7f"></a><!-- doxytag: member="MWBase::MechanicsManager::advanceTime" ref="a0073450a1a3daf299ba3d40b7cb63b7f" args="(float duration)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1MechanicsManager.html#a0073450a1a3daf299ba3d40b7cb63b7f">MWBase::MechanicsManager::advanceTime</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>duration</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a3b41fcd1f3b992ed5ca229513c7cf138">MWMechanics::MechanicsManager</a>.</p>
 
 </div>
 </div>
@@ -446,6 +469,24 @@ Private Member Functions</h2></td></tr>
 <p>Perform a persuasion action on NPC. </p>
 
 <p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#ad1921771e8711eb299c61a1d8cae6444">MWMechanics::MechanicsManager</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab83e215181f4aaf18f7ffeac18708ea6"></a><!-- doxytag: member="MWBase::MechanicsManager::isAIActive" ref="ab83e215181f4aaf18f7ffeac18708ea6" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classMWBase_1_1MechanicsManager.html#ab83e215181f4aaf18f7ffeac18708ea6">MWBase::MechanicsManager::isAIActive</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#aaa3c1952f6eb168e0c53d4fb7de5cc39">MWMechanics::MechanicsManager</a>.</p>
 
 </div>
 </div>
@@ -705,6 +746,24 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa75397e5246316b95f449dff66351d4d"></a><!-- doxytag: member="MWBase::MechanicsManager::toggleAI" ref="aa75397e5246316b95f449dff66351d4d" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1MechanicsManager.html#aa75397e5246316b95f449dff66351d4d">MWBase::MechanicsManager::toggleAI</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#a0c4385700bde462ccc1283969592296b">MWMechanics::MechanicsManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a424362aa671ec1f0384ed948b66b4f11"></a><!-- doxytag: member="MWBase::MechanicsManager::update" ref="a424362aa671ec1f0384ed948b66b4f11" args="(float duration, bool paused)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -772,6 +831,26 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a492b6773c7481ee98bebe185695ba915"></a><!-- doxytag: member="MWBase::MechanicsManager::updateMagicEffects" ref="a492b6773c7481ee98bebe185695ba915" args="(const MWWorld::Ptr &amp;ptr)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWBase_1_1MechanicsManager.html#a492b6773c7481ee98bebe185695ba915">MWBase::MechanicsManager::updateMagicEffects</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Update magic effects for an actor. Usually done automatically once per frame, but if we're currently paused we may want to do it manually (after equipping permanent enchantment) </p>
+
+<p>Implemented in <a class="el" href="classMWMechanics_1_1MechanicsManager.html#afc410b78620c72d4ec2447b495430128">MWMechanics::MechanicsManager</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aec39afa8600f5030f60736aaa0f2c54d"></a><!-- doxytag: member="MWBase::MechanicsManager::watchActor" ref="aec39afa8600f5030f60736aaa0f2c54d" args="(const MWWorld::Ptr &amp;ptr)=0" -->
 <div class="memitem">
 <div class="memproto">
@@ -799,7 +878,7 @@ Private Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

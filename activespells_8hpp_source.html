@@ -70,67 +70,81 @@
 <a name="l00009"></a>00009 
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="magiceffects_8hpp.html">magiceffects.hpp</a>&quot;</span>
 <a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>ESM
-<a name="l00013"></a>00013 {
-<a name="l00014"></a>00014     <span class="keyword">struct </span>Spell;
-<a name="l00015"></a>00015     <span class="keyword">struct </span>EffectList;
-<a name="l00016"></a>00016 }
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">namespace </span>MWWorld
-<a name="l00019"></a>00019 {
-<a name="l00020"></a>00020     <span class="keyword">class </span>Ptr;
-<a name="l00021"></a>00021 }
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">namespace </span>MWMechanics
-<a name="l00024"></a>00024 {
-<a name="l00029"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html">00029</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a>
-<a name="l00030"></a>00030     {
-<a name="l00031"></a>00031         <span class="keyword">public</span>:
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#a32f998e6d237e5589efff55d791d4534">00033</a>             <span class="keyword">typedef</span> std::multimap&lt;std::string, std::pair&lt;MWWorld::TimeStamp, float&gt; &gt; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a32f998e6d237e5589efff55d791d4534">TContainer</a>;
-<a name="l00034"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">00034</a>             <span class="keyword">typedef</span> TContainer::const_iterator <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a>;
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036         <span class="keyword">private</span>:
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3b209c604d2bc9e62bd8df430ae75e2d">00038</a>             <span class="keyword">mutable</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a32f998e6d237e5589efff55d791d4534">TContainer</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3b209c604d2bc9e62bd8df430ae75e2d">mSpells</a>; <span class="comment">// spellId, (time of casting, relative magnitude)</span>
-<a name="l00039"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#aa83026e7a85dccbe193aafd0dfa238c2">00039</a>             <span class="keyword">mutable</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#aa83026e7a85dccbe193aafd0dfa238c2">mEffects</a>;
-<a name="l00040"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#ac40e2632cc63471ccabfcc313b963ccc">00040</a>             <span class="keyword">mutable</span> <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ac40e2632cc63471ccabfcc313b963ccc">mSpellsChanged</a>;
-<a name="l00041"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#ae13a5d3f622c3f6fbcf64eff23264331">00041</a>             <span class="keyword">mutable</span> <a class="code" href="classMWWorld_1_1TimeStamp.html" title="In-game time stamp.">MWWorld::TimeStamp</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ae13a5d3f622c3f6fbcf64eff23264331">mLastUpdate</a>;
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#aab049ba1a7f84d70c71414e9e9debc0b">update</a>() <span class="keyword">const</span>;
-<a name="l00044"></a>00044             
-<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3d7d974dcf52933cf4a65c3139a303c4">rebuildEffects</a>() <span class="keyword">const</span>;
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;<a class="code" href="defs_8hpp.html">components/esm/defs.hpp</a>&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>MWMechanics
+<a name="l00015"></a>00015 {
+<a name="l00020"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html">00020</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1ActiveSpells.html" title="Lasting spell effects.">ActiveSpells</a>
+<a name="l00021"></a>00021     {
+<a name="l00022"></a>00022         <span class="keyword">public</span>:
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024             <span class="comment">// Parameters of an effect concerning lasting effects.</span>
+<a name="l00025"></a>00025             <span class="comment">// Note we are not using ENAMstruct since the magnitude may be modified by magic resistance, etc.</span>
+<a name="l00026"></a>00026             <span class="comment">// It could also be a negative magnitude, in case of inversing an effect, e.g. Absorb spell causes damage on target, but heals the caster.</span>
+<a name="l00027"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html">00027</a>             <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html">Effect</a>
+<a name="l00028"></a>00028             {
+<a name="l00029"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html#a0bd453cc70aa1187efc2746f6fbb05e7">00029</a>                 <span class="keywordtype">float</span> <a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html#a0bd453cc70aa1187efc2746f6fbb05e7">mMagnitude</a>;
+<a name="l00030"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html#ab8c356f34982e7254f2d3f4722adc447">00030</a>                 <a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a> <a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html#ab8c356f34982e7254f2d3f4722adc447">mKey</a>;
+<a name="l00031"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html#a48f8022de35cab60e7a1431ebc332f49">00031</a>                 <span class="keywordtype">float</span> <a class="code" href="structMWMechanics_1_1ActiveSpells_1_1Effect.html#a48f8022de35cab60e7a1431ebc332f49">mDuration</a>;
+<a name="l00032"></a>00032             };
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html">00034</a>             <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html">ActiveSpellParams</a>
+<a name="l00035"></a>00035             {
+<a name="l00036"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html#a2ecf029a6b9ded12399c6ab0430307c4">00036</a>                 std::vector&lt;Effect&gt; <a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html#a2ecf029a6b9ded12399c6ab0430307c4">mEffects</a>;
+<a name="l00037"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html#aa607c61486a72a85856db58fd0ac3304">00037</a>                 <a class="code" href="classMWWorld_1_1TimeStamp.html" title="In-game time stamp.">MWWorld::TimeStamp</a> <a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html#aa607c61486a72a85856db58fd0ac3304">mTimeStamp</a>;
+<a name="l00038"></a><a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html#ad91ddf909fd2350b4a07c9d4301c60bc">00038</a>                 std::string <a class="code" href="structMWMechanics_1_1ActiveSpells_1_1ActiveSpellParams.html#ad91ddf909fd2350b4a07c9d4301c60bc">mDisplayName</a>;
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040                 <span class="comment">// TODO: To handle CASTER_LINKED flag (spell is purged when caster dies),</span>
+<a name="l00041"></a>00041                 <span class="comment">// we should probably store a handle to the caster here.</span>
+<a name="l00042"></a>00042             };
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3991f6393f370a276a1a5c1801f41c56">00044</a>             <span class="keyword">typedef</span> std::multimap&lt;std::string, ActiveSpellParams &gt; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3991f6393f370a276a1a5c1801f41c56">TContainer</a>;
+<a name="l00045"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">00045</a>             <span class="keyword">typedef</span> TContainer::const_iterator <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a>;
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047             std::pair&lt;ESM::EffectList, std::pair&lt;bool, bool&gt; &gt; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a449b703337cc61ce91888be291bddebc">getEffectList</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050         <span class="keyword">public</span>:
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052             <a class="code" href="classMWMechanics_1_1ActiveSpells.html#af703b116be4d0780de71bff185a103c6">ActiveSpells</a>();
+<a name="l00047"></a>00047         <span class="keyword">private</span>:
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3b209c604d2bc9e62bd8df430ae75e2d">00049</a>             <span class="keyword">mutable</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3991f6393f370a276a1a5c1801f41c56">TContainer</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3b209c604d2bc9e62bd8df430ae75e2d">mSpells</a>;
+<a name="l00050"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#aa83026e7a85dccbe193aafd0dfa238c2">00050</a>             <span class="keyword">mutable</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#aa83026e7a85dccbe193aafd0dfa238c2">mEffects</a>;
+<a name="l00051"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#ac40e2632cc63471ccabfcc313b963ccc">00051</a>             <span class="keyword">mutable</span> <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ac40e2632cc63471ccabfcc313b963ccc">mSpellsChanged</a>;
+<a name="l00052"></a><a class="code" href="classMWMechanics_1_1ActiveSpells.html#ae13a5d3f622c3f6fbcf64eff23264331">00052</a>             <span class="keyword">mutable</span> <a class="code" href="classMWWorld_1_1TimeStamp.html" title="In-game time stamp.">MWWorld::TimeStamp</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ae13a5d3f622c3f6fbcf64eff23264331">mLastUpdate</a>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3370b0ef902728dd439edc092001520e">addSpell</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; actor);
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a69bde403b912c66a1e745f2ee769d4a0">removeSpell</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>);
+<a name="l00054"></a>00054             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#aab049ba1a7f84d70c71414e9e9debc0b">update</a>() <span class="keyword">const</span>;
+<a name="l00055"></a>00055             
+<a name="l00056"></a>00056             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3d7d974dcf52933cf4a65c3139a303c4">rebuildEffects</a>() <span class="keyword">const</span>;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058             <span class="keywordtype">double</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a255d6ee92d16a9e2ae319e4d14677114">timeToExpire</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a>&amp; iterator) <span class="keyword">const</span>;
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a457a8b2e7f661ba0d53554845b3fe535" title="case insensitive">isSpellActive</a> (std::string <span class="keywordtype">id</span>) <span class="keyword">const</span>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a0350515c13ade86d3865fa375b3a9aec">getMagicEffects</a>() <span class="keyword">const</span>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a32f998e6d237e5589efff55d791d4534">TContainer</a>&amp; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ad47a3ef283a59fe5cb5271d32b7a0d94">getActiveSpells</a>() <span class="keyword">const</span>;
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069             <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a7cd012fbaf717271309900a900a35ec0">begin</a>() <span class="keyword">const</span>;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071             <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a75ca6b2c4c1be33c74400096e9df6926">end</a>() <span class="keyword">const</span>;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073             <span class="keywordtype">double</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a255d6ee92d16a9e2ae319e4d14677114">timeToExpire</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a>&amp; iterator) <span class="keyword">const</span>;
-<a name="l00076"></a>00076     };
-<a name="l00077"></a>00077 }
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="preprocessor">#endif</span>
+<a name="l00062"></a>00062             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a3991f6393f370a276a1a5c1801f41c56">TContainer</a>&amp; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ad47a3ef283a59fe5cb5271d32b7a0d94">getActiveSpells</a>() <span class="keyword">const</span>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064             <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a7cd012fbaf717271309900a900a35ec0">begin</a>() <span class="keyword">const</span>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066             <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a673283b56e7a0f34390eac3f0a27cf85">TIterator</a> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a75ca6b2c4c1be33c74400096e9df6926">end</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keyword">public</span>:
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070             <a class="code" href="classMWMechanics_1_1ActiveSpells.html#af703b116be4d0780de71bff185a103c6">ActiveSpells</a>();
+<a name="l00071"></a>00071 
+<a name="l00080"></a>00080             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a85431136ee432e9ad86829d1c637952c" title="addSpell">addSpell</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> stack, std::vector&lt;Effect&gt; effects, <span class="keyword">const</span> std::string&amp; displayName);
+<a name="l00081"></a>00081 
+<a name="l00083"></a>00083             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a719d7af8f8c4c7d6ba9eca44a3cb63b2" title="Remove all active effects with this id.">purgeEffect</a> (<span class="keywordtype">short</span> effectId);
+<a name="l00084"></a>00084 
+<a name="l00086"></a>00086             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a8641f58f2416d03a01cebab5a97afc40" title="Remove all active effects, if roll succeeds (for each effect)">purgeAll</a> (<span class="keywordtype">float</span> chance);
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a457a8b2e7f661ba0d53554845b3fe535" title="case insensitive">isSpellActive</a> (std::string <span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091             <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; <a class="code" href="classMWMechanics_1_1ActiveSpells.html#a0350515c13ade86d3865fa375b3a9aec">getMagicEffects</a>() <span class="keyword">const</span>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1ActiveSpells.html#ab70b2de3202110707efc8f5c2e1bc495">visitEffectSources</a> (<a class="code" href="structMWMechanics_1_1EffectSourceVisitor.html">MWMechanics::EffectSourceVisitor</a>&amp; visitor) <span class="keyword">const</span>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     };
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

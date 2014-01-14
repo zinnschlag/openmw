@@ -78,9 +78,10 @@
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#a54f6c438194e7b51e2d67d1eda8ff00b">EnumDelegateFactory</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#a7fc651db7c11c45b8710450c32eb6037">EnumDelegateFactory</a> (const char **names, bool allowNone=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#ae5981328ffc6be297ba7f0d8f1a20ba5">EnumDelegateFactory</a> (const std::vector&lt; std::string &gt; &amp;names, bool allowNone=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#a9dd67541a8deb979734426fc981c9118">makeDelegate</a> (QUndoStack &amp;undoStack, QObject *parent) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The ownership of the returned <a class="el" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> is transferred to the caller.  <a href="#a9dd67541a8deb979734426fc981c9118"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#ab2fcfa5883f3f12941e9ce5dde7cbce4">add</a> (int value, const QString &amp;name)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#ab2fcfa5883f3f12941e9ce5dde7cbce4">add</a> (int value, const QString &amp;<a class="el" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; int, <br class="typebreak"/>
@@ -134,6 +135,33 @@ QString &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="e
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ae5981328ffc6be297ba7f0d8f1a20ba5"></a><!-- doxytag: member="CSVWorld::EnumDelegateFactory::EnumDelegateFactory" ref="ae5981328ffc6be297ba7f0d8f1a20ba5" args="(const std::vector&lt; std::string &gt; &amp;names, bool allowNone=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCSVWorld_1_1EnumDelegateFactory.html#a54f6c438194e7b51e2d67d1eda8ff00b">CSVWorld::EnumDelegateFactory::EnumDelegateFactory</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>allowNone</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -191,10 +219,16 @@ QString &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <div class="memdoc">
 
 <p>The ownership of the returned <a class="el" href="classCSVWorld_1_1CommandDelegate.html">CommandDelegate</a> is transferred to the caller. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allowNone</td><td>Use value of -1 for "none selected" (empty string) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="classCSVWorld_1_1CommandDelegateFactory.html#af48d0456a74268110687ced6ce43b824">CSVWorld::CommandDelegateFactory</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classCSVWorld_1_1DataDisplayDelegateFactory.html#a56a321453fb9555338138dca1c11261b">CSVWorld::DataDisplayDelegateFactory</a>, <a class="el" href="classCSVWorld_1_1RecordStatusDelegateFactory.html#a1a887d5bd6352a0f7ba66703e3bd99ad">CSVWorld::RecordStatusDelegateFactory</a>, and <a class="el" href="classCSVWorld_1_1RefIdTypeDelegateFactory.html#aac5e8cdf77ad7e567119bff8f9f754e0">CSVWorld::RefIdTypeDelegateFactory</a>.</p>
+<p>Reimplemented in <a class="el" href="classCSVWorld_1_1DataDisplayDelegateFactory.html#a56a321453fb9555338138dca1c11261b">CSVWorld::DataDisplayDelegateFactory</a>, <a class="el" href="classCSVWorld_1_1RecordStatusDelegateFactory.html#a1a887d5bd6352a0f7ba66703e3bd99ad">CSVWorld::RecordStatusDelegateFactory</a>, and <a class="el" href="classCSVWorld_1_1IdTypeDelegateFactory.html#a4114354c09f2e05451ee58e97619cf12">CSVWorld::IdTypeDelegateFactory</a>.</p>
 
 </div>
 </div>
@@ -220,7 +254,7 @@ QString &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:53 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

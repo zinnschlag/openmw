@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>OpenMW: components/fileorderlist/model/esm/esmfile.hpp Source File</title>
+<title>OpenMW: components/contentselector/model/esmfile.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -56,7 +56,7 @@
 </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">components/fileorderlist/model/esm/esmfile.hpp</div>  </div>
+<div class="title">components/contentselector/model/esmfile.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="esmfile_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef ESMFILE_HPP</span>
@@ -65,59 +65,91 @@
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;QDateTime&gt;</span>
 <a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QStringList&gt;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;../modelitem.hpp&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="modelitem_8hpp.html">modelitem.hpp</a>&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a><a class="code" href="classEsmFile.html">00009</a> <span class="keyword">class </span><a class="code" href="classEsmFile.html">EsmFile</a> : <span class="keyword">public</span> <a class="code" href="classModelItem.html">ModelItem</a>
-<a name="l00010"></a>00010 {
-<a name="l00011"></a>00011     Q_OBJECT
-<a name="l00012"></a><a class="code" href="classEsmFile.html#a35a706bd6d97e5d2f7e983fa5df4b415">00012</a>     Q_PROPERTY(QString <a class="code" href="classEsmFile.html#a35a706bd6d97e5d2f7e983fa5df4b415">filename</a> READ <a class="code" href="classEsmFile.html#a167ba729f0de4d53a7198857f4acbf13">fileName</a>)
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">public</span>:
-<a name="l00015"></a>00015     <a class="code" href="classEsmFile.html#ab70832b68094760a3e26b0ede838586e">EsmFile</a>(QString <a class="code" href="classEsmFile.html#a167ba729f0de4d53a7198857f4acbf13">fileName</a> = QString(), <a class="code" href="classModelItem.html">ModelItem</a> *<a class="code" href="classModelItem.html#ac0d677f3e04533bc9efc483193a54a37">parent</a> = 0);
-<a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="classEsmFile.html#ad38d0a2e95c9de1d995fe772e061bfd0">00017</a>     <a class="code" href="classEsmFile.html#ad38d0a2e95c9de1d995fe772e061bfd0">~EsmFile</a>()
-<a name="l00018"></a>00018     {}
+<a name="l00009"></a>00009 <span class="keyword">class </span>QMimeData;
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">namespace </span>ContentSelectorModel
+<a name="l00012"></a>00012 {
+<a name="l00013"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html">00013</a>     <span class="keyword">class </span><a class="code" href="classContentSelectorModel_1_1EsmFile.html">EsmFile</a> : <span class="keyword">public</span> <a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a>
+<a name="l00014"></a>00014     {
+<a name="l00015"></a>00015         Q_OBJECT
+<a name="l00016"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a427756ecac37ea631a87d24d3e3db1b3">00016</a>         Q_PROPERTY(QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a427756ecac37ea631a87d24d3e3db1b3">filename</a> READ <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a955a3d29b7ed16340ff378eef2bcb6d9">fileName</a>)
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018     <span class="keyword">public</span>:
 <a name="l00019"></a>00019 
-<a name="l00020"></a>00020     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#a89bbbcb33778f70fe3d05c17aaa45e11">setFileName</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classEsmFile.html#a167ba729f0de4d53a7198857f4acbf13">fileName</a>);
-<a name="l00021"></a>00021     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#a429990287c46cf0cec3736ddf4153795">setAuthor</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classEsmFile.html#a2cc9e4a2db8337985bbede237353204e">author</a>);
-<a name="l00022"></a>00022     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#a005cdb8825453a825b423d9a0781ae36">setSize</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classEsmFile.html#a2264169b01ee0d5349b1a86891bcee3a">size</a>);
-<a name="l00023"></a>00023     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#ac5cb4db92389330ca41a739d1e04371f">setDates</a>(<span class="keyword">const</span> QDateTime &amp;<a class="code" href="classEsmFile.html#a485bef898c17767533c76723e11b6022">modified</a>, <span class="keyword">const</span> QDateTime &amp;<a class="code" href="classEsmFile.html#a5b0fa5195836b8dde3726b0ed1e9d754">accessed</a>);
-<a name="l00024"></a>00024     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#a989a0cbc90f4101cf930591547eafbee">setVersion</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="classEsmFile.html#a5f23fa68456ac5a4ebaed1f0f321c139">version</a>);
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#a70c46dd4f02b3ab1a97d46cd215d8b31">setPath</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classEsmFile.html#a8e868c6130b78c4253afd9878a77c6ac">path</a>);
-<a name="l00026"></a>00026     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#a5213eaba32649f35c43371282e73abe7">setMasters</a>(<span class="keyword">const</span> QStringList &amp;<a class="code" href="classEsmFile.html#a9dbadb32d63de000769087a33ca64fa4">masters</a>);
-<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classEsmFile.html#ada29716c77e5ee04a1f09e7c4622cff3">setDescription</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classEsmFile.html#a388626e73010223e3612de589a6ff060">description</a>);
-<a name="l00028"></a>00028 
-<a name="l00029"></a><a class="code" href="classEsmFile.html#a167ba729f0de4d53a7198857f4acbf13">00029</a>     <span class="keyword">inline</span> QString <a class="code" href="classEsmFile.html#a167ba729f0de4d53a7198857f4acbf13">fileName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#ac86beac5adb636d5123bdf6a13ee0a41">mFileName</a>; }
-<a name="l00030"></a><a class="code" href="classEsmFile.html#a2cc9e4a2db8337985bbede237353204e">00030</a>     <span class="keyword">inline</span> QString <a class="code" href="classEsmFile.html#a2cc9e4a2db8337985bbede237353204e">author</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#a4f6e610cb1b8e129215f9e3d8c24588a">mAuthor</a>; }
-<a name="l00031"></a><a class="code" href="classEsmFile.html#a2264169b01ee0d5349b1a86891bcee3a">00031</a>     <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="classEsmFile.html#a2264169b01ee0d5349b1a86891bcee3a">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#a611d15e8b2afe733d41ba052f13c99ea">mSize</a>; }
-<a name="l00032"></a><a class="code" href="classEsmFile.html#a485bef898c17767533c76723e11b6022">00032</a>     <span class="keyword">inline</span> QDateTime <a class="code" href="classEsmFile.html#a485bef898c17767533c76723e11b6022">modified</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#a301fba781eda6a690377001db0dfb470">mModified</a>; }
-<a name="l00033"></a><a class="code" href="classEsmFile.html#a5b0fa5195836b8dde3726b0ed1e9d754">00033</a>     <span class="keyword">inline</span> QDateTime <a class="code" href="classEsmFile.html#a5b0fa5195836b8dde3726b0ed1e9d754">accessed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#a84850f364d62d31db8a6b63d0c47026c">mAccessed</a>; }
-<a name="l00034"></a><a class="code" href="classEsmFile.html#a5f23fa68456ac5a4ebaed1f0f321c139">00034</a>     <span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="classEsmFile.html#a5f23fa68456ac5a4ebaed1f0f321c139">version</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#a76990f848204b86c11ce3903f44b4dd1">mVersion</a>; }
-<a name="l00035"></a><a class="code" href="classEsmFile.html#a8e868c6130b78c4253afd9878a77c6ac">00035</a>     <span class="keyword">inline</span> QString <a class="code" href="classEsmFile.html#a8e868c6130b78c4253afd9878a77c6ac">path</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#ab6aa6dbc3daa1e1b02d0d72723db8d74">mPath</a>; }
-<a name="l00036"></a><a class="code" href="classEsmFile.html#a9dbadb32d63de000769087a33ca64fa4">00036</a>     <span class="keyword">inline</span> QStringList <a class="code" href="classEsmFile.html#a9dbadb32d63de000769087a33ca64fa4">masters</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#ac67c268f5826412e8db46246ee8051a6">mMasters</a>; }
-<a name="l00037"></a><a class="code" href="classEsmFile.html#a388626e73010223e3612de589a6ff060">00037</a>     <span class="keyword">inline</span> QString <a class="code" href="classEsmFile.html#a388626e73010223e3612de589a6ff060">description</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classEsmFile.html#af459e73b5757b4b5a23dacdebfe108a4">mDescription</a>; }
+<a name="l00020"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6">00020</a>         <span class="keyword">enum</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6">FileProperty</a>
+<a name="l00021"></a>00021         {
+<a name="l00022"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a275e35ecee4632e109597e97a231e486">00022</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a275e35ecee4632e109597e97a231e486">FileProperty_FileName</a>       = 0,
+<a name="l00023"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a665900f5321d120dc1948e678f4e97c4">00023</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a665900f5321d120dc1948e678f4e97c4">FileProperty_Author</a>         = 1,
+<a name="l00024"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6aaad66a9b855a7b06861375f57e514235">00024</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6aaad66a9b855a7b06861375f57e514235">FileProperty_Format</a>         = 2,
+<a name="l00025"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a15c947d352b057b7112d3571b508aab9">00025</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a15c947d352b057b7112d3571b508aab9">FileProperty_DateModified</a>   = 3,
+<a name="l00026"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6ada98fb7ef5d23405c7fadd1e4a387173">00026</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6ada98fb7ef5d23405c7fadd1e4a387173">FileProperty_FilePath</a>       = 4,
+<a name="l00027"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a660c61dcc157c24e2b94915df37765b8">00027</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a660c61dcc157c24e2b94915df37765b8">FileProperty_Description</a>    = 5,
+<a name="l00028"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a30c1c947f305ab249927c7eea61dc719">00028</a>             <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6a30c1c947f305ab249927c7eea61dc719">FileProperty_GameFile</a>       = 6
+<a name="l00029"></a>00029         };
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031         <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a1d16265299091e4cf40776ef4ba7a449">EsmFile</a>(QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a955a3d29b7ed16340ff378eef2bcb6d9">fileName</a> = QString(), <a class="code" href="classContentSelectorModel_1_1ModelItem.html">ModelItem</a> *<a class="code" href="classContentSelectorModel_1_1ModelItem.html#a470a360b7af3c9d2612a306e5e199bc5">parent</a> = 0);
+<a name="l00032"></a>00032      <span class="comment">//   EsmFile(const EsmFile &amp;);</span>
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0b2de9bde0829497de1e55563ce8cf7f">00034</a>         <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0b2de9bde0829497de1e55563ce8cf7f">~EsmFile</a>()
+<a name="l00035"></a>00035         {}
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#aa747a8120c606ac1c115781a295c5c75">setFileProperty</a> (<span class="keyword">const</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6">FileProperty</a> prop, <span class="keyword">const</span> QString &amp;value);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="keyword">private</span>:
-<a name="l00041"></a><a class="code" href="classEsmFile.html#ac86beac5adb636d5123bdf6a13ee0a41">00041</a>     QString <a class="code" href="classEsmFile.html#ac86beac5adb636d5123bdf6a13ee0a41">mFileName</a>;
-<a name="l00042"></a><a class="code" href="classEsmFile.html#a4f6e610cb1b8e129215f9e3d8c24588a">00042</a>     QString <a class="code" href="classEsmFile.html#a4f6e610cb1b8e129215f9e3d8c24588a">mAuthor</a>;
-<a name="l00043"></a><a class="code" href="classEsmFile.html#a611d15e8b2afe733d41ba052f13c99ea">00043</a>     <span class="keywordtype">int</span> <a class="code" href="classEsmFile.html#a611d15e8b2afe733d41ba052f13c99ea">mSize</a>;
-<a name="l00044"></a><a class="code" href="classEsmFile.html#a301fba781eda6a690377001db0dfb470">00044</a>     QDateTime <a class="code" href="classEsmFile.html#a301fba781eda6a690377001db0dfb470">mModified</a>;
-<a name="l00045"></a><a class="code" href="classEsmFile.html#a84850f364d62d31db8a6b63d0c47026c">00045</a>     QDateTime <a class="code" href="classEsmFile.html#a84850f364d62d31db8a6b63d0c47026c">mAccessed</a>;
-<a name="l00046"></a><a class="code" href="classEsmFile.html#a76990f848204b86c11ce3903f44b4dd1">00046</a>     <span class="keywordtype">float</span> <a class="code" href="classEsmFile.html#a76990f848204b86c11ce3903f44b4dd1">mVersion</a>;
-<a name="l00047"></a><a class="code" href="classEsmFile.html#ab6aa6dbc3daa1e1b02d0d72723db8d74">00047</a>     QString <a class="code" href="classEsmFile.html#ab6aa6dbc3daa1e1b02d0d72723db8d74">mPath</a>;
-<a name="l00048"></a><a class="code" href="classEsmFile.html#ac67c268f5826412e8db46246ee8051a6">00048</a>     QStringList <a class="code" href="classEsmFile.html#ac67c268f5826412e8db46246ee8051a6">mMasters</a>;
-<a name="l00049"></a><a class="code" href="classEsmFile.html#af459e73b5757b4b5a23dacdebfe108a4">00049</a>     QString <a class="code" href="classEsmFile.html#af459e73b5757b4b5a23dacdebfe108a4">mDescription</a>;
+<a name="l00039"></a>00039         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a1c25937d0ca8e474cbc3d79095553b7e">setFileName</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classContentSelectorModel_1_1EsmFile.html#a955a3d29b7ed16340ff378eef2bcb6d9">fileName</a>);
+<a name="l00040"></a>00040         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a50523726e70ac4115a52501686cc841a">setAuthor</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classContentSelectorModel_1_1EsmFile.html#af8c6762b1217cf20502a907f0751dc5e">author</a>);
+<a name="l00041"></a>00041         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#adb3bd38bc73935de35b7d13fd31fcd77">setSize</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> size);
+<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0bbcbaf6c2e0a8114ee6c1b23c744f70">setDate</a>(<span class="keyword">const</span> QDateTime &amp;<a class="code" href="classContentSelectorModel_1_1EsmFile.html#acaef2ca69906501bf68c87d5d5881b6b">modified</a>);
+<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7b1b91a377bfcff577b07109e7f2dfd3">setFormat</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a8f51a1438ea367eb53ebcb31cd673805">format</a>);
+<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a3775511eab8af3090fab26f81f80261d">setFilePath</a>(<span class="keyword">const</span> QString &amp;path);
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#ad7050066c3be83d6ac5ec5d2cb2c6602">setGameFiles</a>(<span class="keyword">const</span> QStringList &amp;<a class="code" href="classContentSelectorModel_1_1EsmFile.html#ab57db4ebf4cc4baef08d2b443891ff5f">gameFiles</a>);
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#ad094f23025930a83edea893fab64ae9f">setDescription</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classContentSelectorModel_1_1EsmFile.html#aac150b39d065508d3a97b3033619d649">description</a>);
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a171b31eb31c6c38deb196c50180d62cf">00048</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a171b31eb31c6c38deb196c50180d62cf">addGameFile</a> (<span class="keyword">const</span> QString &amp;<a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>) {<a class="code" href="classContentSelectorModel_1_1EsmFile.html#a88a6118bf10ab5af7c0e7d1637a468de">mGameFiles</a>.append(name); }
+<a name="l00049"></a>00049         QVariant <a class="code" href="classContentSelectorModel_1_1EsmFile.html#aa1f30d6d9ffe0726d596dd704f8e7848">fileProperty</a> (<span class="keyword">const</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a0aaf5d99f3609329d0ae1366839c9ae6">FileProperty</a> prop) <span class="keyword">const</span>;
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051 };
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="preprocessor">#endif</span>
+<a name="l00051"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a955a3d29b7ed16340ff378eef2bcb6d9">00051</a>         <span class="keyword">inline</span> QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a955a3d29b7ed16340ff378eef2bcb6d9">fileName</a>()<span class="keyword"> const             </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7a295df801dd8eb296435da1b35c25f4">mFileName</a>; }
+<a name="l00052"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#af8c6762b1217cf20502a907f0751dc5e">00052</a>         <span class="keyword">inline</span> QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#af8c6762b1217cf20502a907f0751dc5e">author</a>()<span class="keyword"> const               </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#acb2e5c88b239402a967b5a6a1ba38f29">mAuthor</a>; }
+<a name="l00053"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#acaef2ca69906501bf68c87d5d5881b6b">00053</a>         <span class="keyword">inline</span> QDateTime <a class="code" href="classContentSelectorModel_1_1EsmFile.html#acaef2ca69906501bf68c87d5d5881b6b">modified</a>()<span class="keyword"> const           </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a714f6f8b8fa5ae7dd75f716e867953b3">mModified</a>; }
+<a name="l00054"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a8f51a1438ea367eb53ebcb31cd673805">00054</a>         <span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a8f51a1438ea367eb53ebcb31cd673805">format</a>()<span class="keyword"> const                 </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a40c093845e18bef4336082d097bf46ac">mFormat</a>; }
+<a name="l00055"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a8145d57d5ee75329074a875c0ac7a280">00055</a>         <span class="keyword">inline</span> QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a8145d57d5ee75329074a875c0ac7a280">filePath</a>()<span class="keyword"> const                 </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7e1803c0951d9ff08edaa17d3e960d62">mPath</a>; }
+<a name="l00056"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#ab57db4ebf4cc4baef08d2b443891ff5f">00056</a>         <span class="keyword">inline</span> <span class="keyword">const</span> QStringList &amp;<a class="code" href="classContentSelectorModel_1_1EsmFile.html#ab57db4ebf4cc4baef08d2b443891ff5f">gameFiles</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a88a6118bf10ab5af7c0e7d1637a468de">mGameFiles</a>; }
+<a name="l00057"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#aac150b39d065508d3a97b3033619d649">00057</a>         <span class="keyword">inline</span> QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#aac150b39d065508d3a97b3033619d649">description</a>()<span class="keyword"> const          </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#aacd2ff0b53eabc86e5bc0abe9daf2987">mDescription</a>; }
+<a name="l00058"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a22dcfebf6896e27eca6c5559adfa8a8f">00058</a>         <span class="keyword">inline</span> QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a22dcfebf6896e27eca6c5559adfa8a8f">toolTip</a>()<span class="keyword"> const              </span>{ <span class="keywordflow">return</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a699326a3bb60d1d59a3b69602288c2b8">sToolTip</a>.arg(<a class="code" href="classContentSelectorModel_1_1EsmFile.html#acb2e5c88b239402a967b5a6a1ba38f29">mAuthor</a>)
+<a name="l00059"></a>00059                                                              .arg(<a class="code" href="classContentSelectorModel_1_1EsmFile.html#a40c093845e18bef4336082d097bf46ac">mFormat</a>)
+<a name="l00060"></a>00060                                                              .arg(<a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7e1803c0951d9ff08edaa17d3e960d62">mPath</a>)
+<a name="l00061"></a>00061                                                              .arg(<a class="code" href="classContentSelectorModel_1_1EsmFile.html#aacd2ff0b53eabc86e5bc0abe9daf2987">mDescription</a>)
+<a name="l00062"></a>00062                                                              .arg(<a class="code" href="classContentSelectorModel_1_1EsmFile.html#a88a6118bf10ab5af7c0e7d1637a468de">mGameFiles</a>.join(<span class="stringliteral">&quot;, &quot;</span>));
+<a name="l00063"></a>00063                                                     }
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a5f1710fb001aa3bdb88bce446ac98ab0">00065</a>         <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a5f1710fb001aa3bdb88bce446ac98ab0">isGameFile</a>()<span class="keyword"> const              </span>{ <span class="keywordflow">return</span> (<a class="code" href="classContentSelectorModel_1_1EsmFile.html#a88a6118bf10ab5af7c0e7d1637a468de">mGameFiles</a>.size() == 0); }
+<a name="l00066"></a>00066         QByteArray <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a5a71351a47cae2bbd0725ca8ec1a87c8">encodedData</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068     <span class="keyword">public</span>:
+<a name="l00069"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#aff56aeb23d3c7eca599176995fa2e14d">00069</a>         <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#aff56aeb23d3c7eca599176995fa2e14d">sPropertyCount</a>;
+<a name="l00070"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a699326a3bb60d1d59a3b69602288c2b8">00070</a>         <span class="keyword">static</span> QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a699326a3bb60d1d59a3b69602288c2b8">sToolTip</a>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keyword">private</span>:
+<a name="l00073"></a>00073 
+<a name="l00074"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7a295df801dd8eb296435da1b35c25f4">00074</a>         QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7a295df801dd8eb296435da1b35c25f4">mFileName</a>;
+<a name="l00075"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#acb2e5c88b239402a967b5a6a1ba38f29">00075</a>         QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#acb2e5c88b239402a967b5a6a1ba38f29">mAuthor</a>;
+<a name="l00076"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a714f6f8b8fa5ae7dd75f716e867953b3">00076</a>         QDateTime <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a714f6f8b8fa5ae7dd75f716e867953b3">mModified</a>;
+<a name="l00077"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a40c093845e18bef4336082d097bf46ac">00077</a>         <span class="keywordtype">int</span> <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a40c093845e18bef4336082d097bf46ac">mFormat</a>;
+<a name="l00078"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7e1803c0951d9ff08edaa17d3e960d62">00078</a>         QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a7e1803c0951d9ff08edaa17d3e960d62">mPath</a>;
+<a name="l00079"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a88a6118bf10ab5af7c0e7d1637a468de">00079</a>         QStringList <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a88a6118bf10ab5af7c0e7d1637a468de">mGameFiles</a>;
+<a name="l00080"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#aacd2ff0b53eabc86e5bc0abe9daf2987">00080</a>         QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#aacd2ff0b53eabc86e5bc0abe9daf2987">mDescription</a>;
+<a name="l00081"></a><a class="code" href="classContentSelectorModel_1_1EsmFile.html#a55888e9a140e73f20f936002c795db20">00081</a>         QString <a class="code" href="classContentSelectorModel_1_1EsmFile.html#a55888e9a140e73f20f936002c795db20">mToolTip</a>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     };
+<a name="l00084"></a>00084 }
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

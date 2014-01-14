@@ -68,32 +68,41 @@
 <a name="l00007"></a>00007 {
 <a name="l00008"></a><a class="code" href="classCSMFilter_1_1ValueNode.html">00008</a>     <span class="keyword">class </span><a class="code" href="classCSMFilter_1_1ValueNode.html">ValueNode</a> : <span class="keyword">public</span> <a class="code" href="classCSMFilter_1_1LeafNode.html">LeafNode</a>
 <a name="l00009"></a>00009     {
-<a name="l00010"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a73365c5c7c52c34aec607d49d00a8b34">00010</a>             <span class="keywordtype">int</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a73365c5c7c52c34aec607d49d00a8b34">mColumnId</a>;
-<a name="l00011"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a1e4547ad4ee2c986b720a01652480e19">00011</a>             std::string <a class="code" href="classCSMFilter_1_1ValueNode.html#a1e4547ad4ee2c986b720a01652480e19">mText</a>;
-<a name="l00012"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#ae9de117825978274654303377ecfde52">00012</a>             <span class="keywordtype">double</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#ae9de117825978274654303377ecfde52">mLower</a>;
-<a name="l00013"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a4d213831957a5df5acefc9925eb1c690">00013</a>             <span class="keywordtype">double</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a4d213831957a5df5acefc9925eb1c690">mUpper</a>;
-<a name="l00014"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a262e5ae36a0051cce47141998c2dccb7">00014</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a262e5ae36a0051cce47141998c2dccb7">mMin</a>;
-<a name="l00015"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a1f76d40360955ab81d443e1099a32ea6">00015</a>             <span class="keywordtype">bool</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a1f76d40360955ab81d443e1099a32ea6">mMax</a>;
+<a name="l00010"></a>00010         <span class="keyword">public</span>:
+<a name="l00011"></a>00011 
+<a name="l00012"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516">00012</a>             <span class="keyword">enum</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516">Type</a>
+<a name="l00013"></a>00013             {
+<a name="l00014"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516a04bfc17dff40bb1eee604f36c023a0aa">00014</a>                 <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516a495e8d91f1b4b2f34edca4c7bcc81e68">Type_Closed</a>, <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516a04bfc17dff40bb1eee604f36c023a0aa">Type_Open</a>, <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516afe519e086586236a81cb4a57fbc054f9">Type_Infinite</a>
+<a name="l00015"></a>00015             };
 <a name="l00016"></a>00016 
-<a name="l00017"></a>00017         <span class="keyword">public</span>:
+<a name="l00017"></a>00017         <span class="keyword">private</span>:
 <a name="l00018"></a>00018 
-<a name="l00019"></a>00019             <a class="code" href="classCSMFilter_1_1ValueNode.html#ad3b7835acfe9ab34edd86a8eff0327ab">ValueNode</a> (<span class="keywordtype">int</span> columnId, <span class="keywordtype">double</span> lower, <span class="keywordtype">double</span> upper, <span class="keywordtype">bool</span> min, <span class="keywordtype">bool</span> max);
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a4c80c552e05fe762cdab3d938ff8bf76">test</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1IdTable.html">CSMWorld::IdTable</a>&amp; table, <span class="keywordtype">int</span> row,
-<a name="l00022"></a>00022                 <span class="keyword">const</span> std::map&lt;int, int&gt;&amp; columns) <span class="keyword">const</span>;
+<a name="l00019"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a73365c5c7c52c34aec607d49d00a8b34">00019</a>             <span class="keywordtype">int</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a73365c5c7c52c34aec607d49d00a8b34">mColumnId</a>;
+<a name="l00020"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a1e4547ad4ee2c986b720a01652480e19">00020</a>             std::string <a class="code" href="classCSMFilter_1_1ValueNode.html#a1e4547ad4ee2c986b720a01652480e19">mText</a>;
+<a name="l00021"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#ae9de117825978274654303377ecfde52">00021</a>             <span class="keywordtype">double</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#ae9de117825978274654303377ecfde52">mLower</a>;
+<a name="l00022"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a4d213831957a5df5acefc9925eb1c690">00022</a>             <span class="keywordtype">double</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a4d213831957a5df5acefc9925eb1c690">mUpper</a>;
+<a name="l00023"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a5c71b67aee2dd1979888cda662c878fd">00023</a>             <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516">Type</a> <a class="code" href="classCSMFilter_1_1ValueNode.html#a5c71b67aee2dd1979888cda662c878fd">mLowerType</a>;
+<a name="l00024"></a><a class="code" href="classCSMFilter_1_1ValueNode.html#a28721a306c51de0028891bf3f1790d92">00024</a>             <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516">Type</a> <a class="code" href="classCSMFilter_1_1ValueNode.html#a28721a306c51de0028891bf3f1790d92">mUpperType</a>;
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026             <span class="keyword">virtual</span> std::vector&lt;int&gt; <a class="code" href="classCSMFilter_1_1ValueNode.html#af0fa5c05ed34574187b150ba4ddbace7">getReferencedColumns</a>() <span class="keyword">const</span>;
+<a name="l00026"></a>00026         <span class="keyword">public</span>:
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028             <a class="code" href="classCSMFilter_1_1ValueNode.html#a18fec95c68006f9837a6129b84be3ac4">ValueNode</a> (<span class="keywordtype">int</span> columnId, <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516">Type</a> lowerType, <a class="code" href="classCSMFilter_1_1ValueNode.html#a6fb9278b512efcd3f0a3bbb515396516">Type</a> upperType, <span class="keywordtype">double</span> lower, <span class="keywordtype">double</span> upper);
 <a name="l00029"></a>00029 
-<a name="l00030"></a>00030             <span class="keyword">virtual</span> std::string <a class="code" href="classCSMFilter_1_1ValueNode.html#a3c1e4e52092ef7ff44f1807e499a5742">toString</a> (<span class="keywordtype">bool</span> numericColumns) <span class="keyword">const</span>;
-<a name="l00034"></a>00034     };
-<a name="l00035"></a>00035 }
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="preprocessor">#endif</span>
+<a name="l00030"></a>00030             <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCSMFilter_1_1ValueNode.html#a4c80c552e05fe762cdab3d938ff8bf76">test</a> (<span class="keyword">const</span> <a class="code" href="classCSMWorld_1_1IdTable.html">CSMWorld::IdTable</a>&amp; table, <span class="keywordtype">int</span> row,
+<a name="l00031"></a>00031                 <span class="keyword">const</span> std::map&lt;int, int&gt;&amp; columns) <span class="keyword">const</span>;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035             <span class="keyword">virtual</span> std::vector&lt;int&gt; <a class="code" href="classCSMFilter_1_1ValueNode.html#af0fa5c05ed34574187b150ba4ddbace7">getReferencedColumns</a>() <span class="keyword">const</span>;
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039             <span class="keyword">virtual</span> std::string <a class="code" href="classCSMFilter_1_1ValueNode.html#a3c1e4e52092ef7ff44f1807e499a5742">toString</a> (<span class="keywordtype">bool</span> numericColumns) <span class="keyword">const</span>;
+<a name="l00043"></a>00043     };
+<a name="l00044"></a>00044 }
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

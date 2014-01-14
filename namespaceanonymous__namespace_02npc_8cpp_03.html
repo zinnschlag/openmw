@@ -71,6 +71,8 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const Ogre::Radian&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02npc_8cpp_03.html#aeb345e2aab6eeca86e816ea7bdf64edb">kOgrePi</a> (Ogre::Math::PI)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const Ogre::Radian&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02npc_8cpp_03.html#afd8e6dea8ecefb43b8ea30ba0666e9b1">kOgrePiOverTwo</a> (Ogre::Math::PI/Ogre::Real(2.0))</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02npc_8cpp_03.html#a28a6cc4f774a1bb063b2dce5a2d11e4f">autoCalculateAttributes</a> (const <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> *npc, <a class="el" href="classMWMechanics_1_1CreatureStats.html">MWMechanics::CreatureStats</a> &amp;creatureStats)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceanonymous__namespace_02npc_8cpp_03.html#a62b7a3aad43e5b98a3751b9c26185952">autoCalculateSkills</a> (const <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> *npc, <a class="el" href="classMWMechanics_1_1NpcStats.html">MWMechanics::NpcStats</a> &amp;npcStats)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">autoCalculateSkills  <a href="#a62b7a3aad43e5b98a3751b9c26185952"></a><br/></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="a28a6cc4f774a1bb063b2dce5a2d11e4f"></a><!-- doxytag: member="anonymous_namespace{npc.cpp}::autoCalculateAttributes" ref="a28a6cc4f774a1bb063b2dce5a2d11e4f" args="(const ESM::NPC *npc, MWMechanics::CreatureStats &amp;creatureStats)" -->
@@ -97,6 +99,40 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a62b7a3aad43e5b98a3751b9c26185952"></a><!-- doxytag: member="anonymous_namespace{npc.cpp}::autoCalculateSkills" ref="a62b7a3aad43e5b98a3751b9c26185952" args="(const ESM::NPC *npc, MWMechanics::NpcStats &amp;npcStats)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void anonymous_namespace{npc.cpp}::<a class="el" href="namespaceanonymous__namespace_02npc_8cpp_03.html#a62b7a3aad43e5b98a3751b9c26185952">autoCalculateSkills</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> *&#160;</td>
+          <td class="paramname"><em>npc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classMWMechanics_1_1NpcStats.html">MWMechanics::NpcStats</a> &amp;&#160;</td>
+          <td class="paramname"><em>npcStats</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>autoCalculateSkills </p>
+<p>Skills are calculated with following formulae ( <a href="http://www.uesp.net/wiki/Morrowind:NPCs#Skills">http://www.uesp.net/wiki/Morrowind:NPCs#Skills</a> ):</p>
+<p>Skills: (Level - 1) × (Majority Multiplier + Specialization Multiplier)</p>
+<p>The Majority Multiplier is 1.0 for a Major or Minor Skill, or 0.1 for a Miscellaneous Skill.</p>
+<p>The Specialization Multiplier is 0.5 for a Skill in the same Specialization as the class, zero for other Skills.</p>
+<p>and by adding class, race, specialization bonus. </p>
 
 </div>
 </div>
@@ -138,7 +174,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

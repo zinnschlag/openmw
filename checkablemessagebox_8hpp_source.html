@@ -95,75 +95,91 @@
 <a name="l00034"></a>00034 <span class="preprocessor">#include &lt;QMessageBox&gt;</span>
 <a name="l00035"></a>00035 <span class="preprocessor">#include &lt;QDialog&gt;</span>
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">class </span><a class="code" href="classCheckableMessageBoxPrivate.html">CheckableMessageBoxPrivate</a>;
+<a name="l00037"></a>00037 <span class="keyword">class </span>QCheckBox;
 <a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="classCheckableMessageBox.html">00039</a> <span class="keyword">class </span><a class="code" href="classCheckableMessageBox.html">CheckableMessageBox</a> : <span class="keyword">public</span> QDialog
+<a name="l00039"></a>00039 <span class="keyword">namespace </span>Launcher
 <a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     Q_OBJECT
-<a name="l00042"></a><a class="code" href="classCheckableMessageBox.html#a93297480697b716dfd1413a8a4d08da6">00042</a>     Q_PROPERTY(QString <a class="code" href="classCheckableMessageBox.html#a43da3a1db96d4652160f6c1c92b6d329">text</a> READ <a class="code" href="classCheckableMessageBox.html#a43da3a1db96d4652160f6c1c92b6d329">text</a> WRITE <a class="code" href="classCheckableMessageBox.html#aaf2b9be65116f82d8b9d4f8e300e07db">setText</a>)
-<a name="l00043"></a><a class="code" href="classCheckableMessageBox.html#a57120879435094e19e07b5161c33086b">00043</a>     Q_PROPERTY(QPixmap <a class="code" href="classCheckableMessageBox.html#a585290cdf8bc5c768548e51f751254d9">iconPixmap</a> READ <a class="code" href="classCheckableMessageBox.html#a585290cdf8bc5c768548e51f751254d9">iconPixmap</a> WRITE <a class="code" href="classCheckableMessageBox.html#a5e827782bb561f850d9b63fd727f0003">setIconPixmap</a>)
-<a name="l00044"></a><a class="code" href="classCheckableMessageBox.html#a0e83d7e14d8c8c2dcc9861c3dab34c6d">00044</a>     Q_PROPERTY(<span class="keywordtype">bool</span> <a class="code" href="classCheckableMessageBox.html#afedc35d754a832cbbd6cc2d6035ac598">isChecked</a> READ <a class="code" href="classCheckableMessageBox.html#afedc35d754a832cbbd6cc2d6035ac598">isChecked</a> WRITE <a class="code" href="classCheckableMessageBox.html#a5b4e20c4da8f98827f28b773d722b5f4">setChecked</a>)
-<a name="l00045"></a><a class="code" href="classCheckableMessageBox.html#ad8e02f485623d14f6a0dbe2ee5daa448">00045</a>     Q_PROPERTY(QString <a class="code" href="classCheckableMessageBox.html#a238da82ee8424479d1c45d3fc261cd5c">checkBoxText</a> READ <a class="code" href="classCheckableMessageBox.html#a238da82ee8424479d1c45d3fc261cd5c">checkBoxText</a> WRITE <a class="code" href="classCheckableMessageBox.html#a86257e222157b2fcd357c37e3da4985e">setCheckBoxText</a>)
-<a name="l00046"></a><a class="code" href="classCheckableMessageBox.html#a609f7c9639e84f216640159a6c8c3a4d">00046</a>     Q_PROPERTY(QDialogButtonBox::StandardButtons <a class="code" href="classCheckableMessageBox.html#a609f7c9639e84f216640159a6c8c3a4d">buttons</a> READ <a class="code" href="classCheckableMessageBox.html#af7438a14dd3367fb0f9db892aa26f349">standardButtons</a> WRITE <a class="code" href="classCheckableMessageBox.html#abf822d6645b2f2b61aac1ef9bb4412dc">setStandardButtons</a>)
-<a name="l00047"></a><a class="code" href="classCheckableMessageBox.html#a8c8c117be02216bd8671b13c4958d324">00047</a>     Q_PROPERTY(QDialogButtonBox::StandardButton <a class="code" href="classCheckableMessageBox.html#a4fe9899d28862a97c94780771bd03e41">defaultButton</a> READ <a class="code" href="classCheckableMessageBox.html#a4fe9899d28862a97c94780771bd03e41">defaultButton</a> WRITE <a class="code" href="classCheckableMessageBox.html#a1822467b452724213ad71ed19ddb3bd6">setDefaultButton</a>)
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049 public:
-<a name="l00050"></a>00050     explicit <a class="code" href="classCheckableMessageBox.html">CheckableMessageBox</a>(QWidget *parent);
-<a name="l00051"></a>00051     virtual ~<a class="code" href="classCheckableMessageBox.html">CheckableMessageBox</a>();
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     static QDialogButtonBox::StandardButton
-<a name="l00054"></a>00054         <a class="code" href="classCheckableMessageBox.html#ad35641cca50c29f43d2bbee47e2a2b66">question</a>(QWidget *parent,
-<a name="l00055"></a>00055                  const QString &amp;title,
-<a name="l00056"></a>00056                  const QString &amp;<a class="code" href="classCheckableMessageBox.html#ad35641cca50c29f43d2bbee47e2a2b66">question</a>,
-<a name="l00057"></a>00057                  const QString &amp;<a class="code" href="classCheckableMessageBox.html#a238da82ee8424479d1c45d3fc261cd5c">checkBoxText</a>,
-<a name="l00058"></a>00058                  <span class="keywordtype">bool</span> *checkBoxSetting,
-<a name="l00059"></a>00059                  QDialogButtonBox::StandardButtons <a class="code" href="classCheckableMessageBox.html#a609f7c9639e84f216640159a6c8c3a4d">buttons</a> = QDialogButtonBox::Yes|QDialogButtonBox::No,
-<a name="l00060"></a>00060                  QDialogButtonBox::StandardButton <a class="code" href="classCheckableMessageBox.html#a4fe9899d28862a97c94780771bd03e41">defaultButton</a> = QDialogButtonBox::No);
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062     QString <a class="code" href="classCheckableMessageBox.html#a43da3a1db96d4652160f6c1c92b6d329">text</a>() const;
-<a name="l00063"></a>00063     <span class="keywordtype">void</span> setText(const QString &amp;);
+<a name="l00041"></a><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html">00041</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html">CheckableMessageBoxPrivate</a>
+<a name="l00042"></a>00042     {
+<a name="l00043"></a>00043     <span class="keyword">public</span>:
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#ac73bf8590adc5dfdb074011ccb64f950">00045</a>         QLabel *<a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#ac73bf8590adc5dfdb074011ccb64f950">pixmapLabel</a>;
+<a name="l00046"></a><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a82e86f60bfe530d5cdc051c431fccce6">00046</a>         QLabel *<a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a82e86f60bfe530d5cdc051c431fccce6">messageLabel</a>;
+<a name="l00047"></a><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a6b9b2889592e56913b5235bf17649832">00047</a>         QCheckBox *<a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a6b9b2889592e56913b5235bf17649832">checkBox</a>;
+<a name="l00048"></a><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a2b14dbadf91251233874371c021d813e">00048</a>         QDialogButtonBox *<a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a2b14dbadf91251233874371c021d813e">buttonBox</a>;
+<a name="l00049"></a><a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#adc202883765e4036ab2701169f66d7f0">00049</a>         QAbstractButton *<a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#adc202883765e4036ab2701169f66d7f0">clickedButton</a>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="keyword">public</span>:
+<a name="l00052"></a>00052         <a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html#a3410119e439378f165fbd6b59fb99ef0">CheckableMessageBoxPrivate</a>(QDialog *q);
+<a name="l00053"></a>00053     };
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html">00055</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1CheckableMessageBox.html">CheckableMessageBox</a> : <span class="keyword">public</span> QDialog
+<a name="l00056"></a>00056     {
+<a name="l00057"></a>00057         Q_OBJECT
+<a name="l00058"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#a0eb703d5365973ba08892e04f9670352">00058</a>         Q_PROPERTY(QString <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ac3fad509ed2e60064b27573aa6029f65">text</a> READ <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ac3fad509ed2e60064b27573aa6029f65">text</a> WRITE <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a629aec9356f28b9367e4a4201c2ab560">setText</a>)
+<a name="l00059"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#add59ffab555cd992fe71a988e1414881">00059</a>         Q_PROPERTY(QPixmap <a class="code" href="classLauncher_1_1CheckableMessageBox.html#abb591ba4a5ca3ce73683e96a34aed8ff">iconPixmap</a> READ <a class="code" href="classLauncher_1_1CheckableMessageBox.html#abb591ba4a5ca3ce73683e96a34aed8ff">iconPixmap</a> WRITE <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a6776536f1fd177962cd402f8e856db4e">setIconPixmap</a>)
+<a name="l00060"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#a88c5208205a6892e03ebc6cbb8399caf">00060</a>         Q_PROPERTY(<span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#af6651079d6f596f0fd2ef4b2a7bfa775">isChecked</a> READ <a class="code" href="classLauncher_1_1CheckableMessageBox.html#af6651079d6f596f0fd2ef4b2a7bfa775">isChecked</a> WRITE <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a155aceb8a1ab67877b75ebe0d7a2c094">setChecked</a>)
+<a name="l00061"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#a402f2c3bf522282005a3afb09d7357d2">00061</a>         Q_PROPERTY(QString <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a7a26c6bb47a000841a10ac60365b1e23">checkBoxText</a> READ <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a7a26c6bb47a000841a10ac60365b1e23">checkBoxText</a> WRITE <a class="code" href="classLauncher_1_1CheckableMessageBox.html#aab8fc15bce7d0acc6a0da7ea423331b9">setCheckBoxText</a>)
+<a name="l00062"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#ab9ae2ae27c14f2f871839abf8c42be76">00062</a>         Q_PROPERTY(QDialogButtonBox::StandardButtons <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ab9ae2ae27c14f2f871839abf8c42be76">buttons</a> READ <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a69ed5c34641e5a153d30fcc7086f6fc9">standardButtons</a> WRITE <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ae59417284610abfbabfb283d3fa7dc04">setStandardButtons</a>)
+<a name="l00063"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#a2b6472cff3fa4e3f502dc0ee7191bc33">00063</a>         Q_PROPERTY(QDialogButtonBox::StandardButton <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a70440063bb61d8fdec9b12decfc1e068">defaultButton</a> READ <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a70440063bb61d8fdec9b12decfc1e068">defaultButton</a> WRITE <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a5682bf0c958309caeb59546d0f0381f6">setDefaultButton</a>)
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065     <span class="keywordtype">bool</span> <a class="code" href="classCheckableMessageBox.html#afedc35d754a832cbbd6cc2d6035ac598">isChecked</a>() const;
-<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#a5b4e20c4da8f98827f28b773d722b5f4">setChecked</a>(<span class="keywordtype">bool</span> s);
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068     QString checkBoxText() const;
-<a name="l00069"></a>00069     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#a86257e222157b2fcd357c37e3da4985e">setCheckBoxText</a>(const QString &amp;);
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071     <span class="keywordtype">bool</span> <a class="code" href="classCheckableMessageBox.html#a7b4426fce273ea0e3821edbb618c5435">isCheckBoxVisible</a>() const;
-<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#a4cc3db7302656ba9cf051fe8e93c3b93">setCheckBoxVisible</a>(<span class="keywordtype">bool</span>);
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074     QDialogButtonBox::StandardButtons <a class="code" href="classCheckableMessageBox.html#af7438a14dd3367fb0f9db892aa26f349">standardButtons</a>() const;
-<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#abf822d6645b2f2b61aac1ef9bb4412dc">setStandardButtons</a>(QDialogButtonBox::StandardButtons s);
-<a name="l00076"></a>00076     QPushButton *<a class="code" href="classCheckableMessageBox.html#ae18c9f442b2e3c18537facc309cce10d">button</a>(QDialogButtonBox::StandardButton b) const;
-<a name="l00077"></a>00077     QPushButton *<a class="code" href="classCheckableMessageBox.html#a5250cedc895e5083811226267e6cbc86">addButton</a>(const QString &amp;<a class="code" href="classCheckableMessageBox.html#a43da3a1db96d4652160f6c1c92b6d329">text</a>, QDialogButtonBox::ButtonRole role);
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     QDialogButtonBox::StandardButton <a class="code" href="classCheckableMessageBox.html#a4fe9899d28862a97c94780771bd03e41">defaultButton</a>() const;
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#a1822467b452724213ad71ed19ddb3bd6">setDefaultButton</a>(QDialogButtonBox::StandardButton s);
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082     <span class="comment">// See static QMessageBox::standardPixmap()</span>
-<a name="l00083"></a>00083     QPixmap <a class="code" href="classCheckableMessageBox.html#a585290cdf8bc5c768548e51f751254d9">iconPixmap</a>() const;
-<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#a5e827782bb561f850d9b63fd727f0003">setIconPixmap</a> (const QPixmap &amp;p);
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="comment">// Query the result</span>
-<a name="l00087"></a>00087     QAbstractButton *<a class="code" href="classCheckableMessageBox.html#ab15f14a00094bf61d496874d47a716d1">clickedButton</a>() const;
-<a name="l00088"></a>00088     QDialogButtonBox::StandardButton <a class="code" href="classCheckableMessageBox.html#a7bd63e586a93a11f40ff367bdb77b000">clickedStandardButton</a>() const;
+<a name="l00065"></a>00065     public:
+<a name="l00066"></a>00066         explicit <a class="code" href="classLauncher_1_1CheckableMessageBox.html">CheckableMessageBox</a>(QWidget *parent);
+<a name="l00067"></a>00067         virtual ~<a class="code" href="classLauncher_1_1CheckableMessageBox.html">CheckableMessageBox</a>();
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         static QDialogButtonBox::StandardButton
+<a name="l00070"></a>00070             <a class="code" href="classLauncher_1_1CheckableMessageBox.html#aab0eb82ff42f86105124f902a8ba6678">question</a>(QWidget *parent,
+<a name="l00071"></a>00071                      const QString &amp;title,
+<a name="l00072"></a>00072                      const QString &amp;<a class="code" href="classLauncher_1_1CheckableMessageBox.html#aab0eb82ff42f86105124f902a8ba6678">question</a>,
+<a name="l00073"></a>00073                      const QString &amp;<a class="code" href="classLauncher_1_1CheckableMessageBox.html#a7a26c6bb47a000841a10ac60365b1e23">checkBoxText</a>,
+<a name="l00074"></a>00074                      <span class="keywordtype">bool</span> *checkBoxSetting,
+<a name="l00075"></a>00075                      QDialogButtonBox::StandardButtons <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ab9ae2ae27c14f2f871839abf8c42be76">buttons</a> = QDialogButtonBox::Yes|QDialogButtonBox::No,
+<a name="l00076"></a>00076                      QDialogButtonBox::StandardButton <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a70440063bb61d8fdec9b12decfc1e068">defaultButton</a> = QDialogButtonBox::No);
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078         QString <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ac3fad509ed2e60064b27573aa6029f65">text</a>() const;
+<a name="l00079"></a>00079         <span class="keywordtype">void</span> setText(const QString &amp;);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#af6651079d6f596f0fd2ef4b2a7bfa775">isChecked</a>() const;
+<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a155aceb8a1ab67877b75ebe0d7a2c094">setChecked</a>(<span class="keywordtype">bool</span> s);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084         QString checkBoxText() const;
+<a name="l00085"></a>00085         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#aab8fc15bce7d0acc6a0da7ea423331b9">setCheckBoxText</a>(const QString &amp;);
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a2b27554517334540717c98700cd36fe9">isCheckBoxVisible</a>() const;
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a90f237ba173e1dcc6cbd3c9b09a486ea">setCheckBoxVisible</a>(<span class="keywordtype">bool</span>);
 <a name="l00089"></a>00089 
-<a name="l00090"></a>00090     <span class="comment">// Conversion convenience</span>
-<a name="l00091"></a>00091     static QMessageBox::StandardButton <a class="code" href="classCheckableMessageBox.html#a7f604c76fe940060cbdb5b94034e149c">dialogButtonBoxToMessageBoxButton</a>(QDialogButtonBox::StandardButton);
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093 private slots:
-<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classCheckableMessageBox.html#ab9e685f89351154388e0c4f36ea562a7">slotClicked</a>(QAbstractButton *b);
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 private:
-<a name="l00097"></a><a class="code" href="classCheckableMessageBox.html#a6c5a2f97b871678707accbe58b29e864">00097</a>     <a class="code" href="classCheckableMessageBoxPrivate.html">CheckableMessageBoxPrivate</a> *<a class="code" href="classCheckableMessageBox.html#a6c5a2f97b871678707accbe58b29e864">d</a>;
-<a name="l00098"></a>00098 };
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100 <span class="preprocessor">#endif // CHECKABLEMESSAGEBOX_HPP</span>
+<a name="l00090"></a>00090         QDialogButtonBox::StandardButtons <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a69ed5c34641e5a153d30fcc7086f6fc9">standardButtons</a>() const;
+<a name="l00091"></a>00091         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#ae59417284610abfbabfb283d3fa7dc04">setStandardButtons</a>(QDialogButtonBox::StandardButtons s);
+<a name="l00092"></a>00092         QPushButton *<a class="code" href="classLauncher_1_1CheckableMessageBox.html#a8ca6dec46872c5a8169184725bdb493f">button</a>(QDialogButtonBox::StandardButton b) const;
+<a name="l00093"></a>00093         QPushButton *<a class="code" href="classLauncher_1_1CheckableMessageBox.html#a7d456ce10a79bd9d270a6b135b1d2423">addButton</a>(const QString &amp;<a class="code" href="classLauncher_1_1CheckableMessageBox.html#ac3fad509ed2e60064b27573aa6029f65">text</a>, QDialogButtonBox::ButtonRole role);
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095         QDialogButtonBox::StandardButton <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a70440063bb61d8fdec9b12decfc1e068">defaultButton</a>() const;
+<a name="l00096"></a>00096         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a5682bf0c958309caeb59546d0f0381f6">setDefaultButton</a>(QDialogButtonBox::StandardButton s);
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098         <span class="comment">// See static QMessageBox::standardPixmap()</span>
+<a name="l00099"></a>00099         QPixmap <a class="code" href="classLauncher_1_1CheckableMessageBox.html#abb591ba4a5ca3ce73683e96a34aed8ff">iconPixmap</a>() const;
+<a name="l00100"></a>00100         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a6776536f1fd177962cd402f8e856db4e">setIconPixmap</a> (const QPixmap &amp;p);
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="comment">// Query the result</span>
+<a name="l00103"></a>00103         QAbstractButton *<a class="code" href="classLauncher_1_1CheckableMessageBox.html#a9851cc410f66fb5032ec4ad1d71cf077">clickedButton</a>() const;
+<a name="l00104"></a>00104         QDialogButtonBox::StandardButton <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a2f0d50e5bffe466b1127ed0246ebf0a0">clickedStandardButton</a>() const;
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106         <span class="comment">// Conversion convenience</span>
+<a name="l00107"></a>00107         static QMessageBox::StandardButton <a class="code" href="classLauncher_1_1CheckableMessageBox.html#aaf00ab660a9b62d2bd50377b2cf2adb7">dialogButtonBoxToMessageBoxButton</a>(QDialogButtonBox::StandardButton);
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109     private slots:
+<a name="l00110"></a>00110         <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1CheckableMessageBox.html#a8fda27bb7e6039dce16e92e634d749cf">slotClicked</a>(QAbstractButton *b);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112     private:
+<a name="l00113"></a><a class="code" href="classLauncher_1_1CheckableMessageBox.html#ab6c7a372fcbfa77e8e6afb7323ec8420">00113</a>         <a class="code" href="classLauncher_1_1CheckableMessageBoxPrivate.html">CheckableMessageBoxPrivate</a> *<a class="code" href="classLauncher_1_1CheckableMessageBox.html#ab6c7a372fcbfa77e8e6afb7323ec8420">d</a>;
+<a name="l00114"></a>00114     };
+<a name="l00115"></a>00115 }
+<a name="l00116"></a>00116 <span class="preprocessor">#endif // CHECKABLEMESSAGEBOX_HPP</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -82,10 +82,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#af31931e476e24e7120e879c1e2d9b33d">Objects</a> (<a class="el" href="classOEngine_1_1Render_1_1OgreRenderer.html">OEngine::Render::OgreRenderer</a> &amp;renderer)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a591d8286b3f6c062e6b726c227c5dc6e">~Objects</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#ae25757dbd6b93990a38588608a793367">insertModel</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, const std::string &amp;model)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1ObjectAnimation.html">ObjectAnimation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a859f04cdf268b6877ce371c60c5e5eb9">getAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a2d93f08c8c24efd234e32928a3c7936f">enableLights</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a6e00cc58aa1bf31ea2e71da41e392271">disableLights</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#ad40043f14256adb57c9ab8fae2f1f265">update</a> (const float dt)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">per-frame update  <a href="#ad40043f14256adb57c9ab8fae2f1f265"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a8de2dd891ac80f1edbe6332db0ea7f55">update</a> (float dt, Ogre::Camera *camera)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">per-frame update  <a href="#a8de2dd891ac80f1edbe6332db0ea7f55"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Ogre::AxisAlignedBox&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a3d20a5f37bf31d60d993b5e6bc367d3d">getDimensions</a> (<a class="el" href="classMWWorld_1_1CellStore.html">MWWorld::CellStore</a> *)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">get a bounding box that encloses all objects in the specified cell  <a href="#a3d20a5f37bf31d60d993b5e6bc367d3d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1Objects.html#a3165ad1c1a25d00248b3ec983670072e">deleteObject</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr)</td></tr>
@@ -235,6 +236,23 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a859f04cdf268b6877ce371c60c5e5eb9"></a><!-- doxytag: member="MWRender::Objects::getAnimation" ref="a859f04cdf268b6877ce371c60c5e5eb9" args="(const MWWorld::Ptr &amp;ptr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMWRender_1_1ObjectAnimation.html">ObjectAnimation</a> * <a class="el" href="classMWRender_1_1Objects.html#a859f04cdf268b6877ce371c60c5e5eb9">Objects::getAnimation</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a3d20a5f37bf31d60d993b5e6bc367d3d"></a><!-- doxytag: member="MWRender::Objects::getDimensions" ref="a3d20a5f37bf31d60d993b5e6bc367d3d" args="(MWWorld::CellStore *)" -->
 <div class="memitem">
 <div class="memproto">
@@ -348,16 +366,26 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad40043f14256adb57c9ab8fae2f1f265"></a><!-- doxytag: member="MWRender::Objects::update" ref="ad40043f14256adb57c9ab8fae2f1f265" args="(const float dt)" -->
+<a class="anchor" id="a8de2dd891ac80f1edbe6332db0ea7f55"></a><!-- doxytag: member="MWRender::Objects::update" ref="a8de2dd891ac80f1edbe6332db0ea7f55" args="(float dt, Ogre::Camera *camera)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1Objects.html#ad40043f14256adb57c9ab8fae2f1f265">Objects::update</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1Objects.html#a8de2dd891ac80f1edbe6332db0ea7f55">Objects::update</a> </td>
           <td>(</td>
-          <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">Ogre::Camera *&#160;</td>
+          <td class="paramname"><em>camera</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -509,7 +537,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

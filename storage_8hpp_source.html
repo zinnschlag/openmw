@@ -72,55 +72,66 @@
 <a name="l00011"></a>00011 <span class="keyword">namespace </span>Terrain
 <a name="l00012"></a>00012 {
 <a name="l00013"></a>00013 
-<a name="l00015"></a><a class="code" href="classTerrain_1_1Storage.html">00015</a>     <span class="keyword">class </span><a class="code" href="classTerrain_1_1Storage.html" title="We keep storage of terrain data abstract here since we need different implementations for game and ed...">Storage</a>
-<a name="l00016"></a>00016     {
-<a name="l00017"></a>00017     <span class="keyword">public</span>:
-<a name="l00018"></a><a class="code" href="classTerrain_1_1Storage.html#a2ed30552457ea67635c22306be24c5bb">00018</a>         <span class="keyword">virtual</span> <a class="code" href="classTerrain_1_1Storage.html#a2ed30552457ea67635c22306be24c5bb">~Storage</a>() {}
-<a name="l00019"></a>00019     <span class="keyword">private</span>:
-<a name="l00020"></a>00020         <span class="keyword">virtual</span> <a class="code" href="structESM_1_1Land.html">ESM::Land</a>* <a class="code" href="classTerrain_1_1Storage.html#a40ed337c548dc076543a9cf56fb1a89c">getLand</a> (<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY) = 0;
-<a name="l00021"></a>00021         <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1LandTexture.html">ESM::LandTexture</a>* <a class="code" href="classTerrain_1_1Storage.html#a9c17d1782e6754dfd6d6806555441cac">getLandTexture</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">short</span> plugin) = 0;
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023     <span class="keyword">public</span>:
-<a name="l00025"></a>00025         <span class="keyword">virtual</span> Ogre::AxisAlignedBox <a class="code" href="classTerrain_1_1Storage.html#abe5cd3bb5840bcf5624bae98ddf40d71" title="Get bounds of the whole terrain in cell units.">getBounds</a>() = 0;
-<a name="l00026"></a>00026 
-<a name="l00035"></a>00035         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1Storage.html#a0d080ebb5192d4be8953bc74bb99578e">getMinMaxHeights</a> (<span class="keywordtype">float</span> size, <span class="keyword">const</span> Ogre::Vector2&amp; center, <span class="keywordtype">float</span>&amp; min, <span class="keywordtype">float</span>&amp; max);
-<a name="l00036"></a>00036 
-<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a35de50593d4fedd350edf6297605beb3">fillVertexBuffers</a> (<span class="keywordtype">int</span> lodLevel, <span class="keywordtype">float</span> size, <span class="keyword">const</span> Ogre::Vector2&amp; center,
-<a name="l00045"></a>00045                                 Ogre::HardwareVertexBufferSharedPtr vertexBuffer,
-<a name="l00046"></a>00046                                 Ogre::HardwareVertexBufferSharedPtr normalBuffer,
-<a name="l00047"></a>00047                                 Ogre::HardwareVertexBufferSharedPtr colourBuffer);
-<a name="l00048"></a>00048 
-<a name="l00059"></a>00059         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a65ecdc732eb4ae20c431226b5002d7ba">getBlendmaps</a> (<span class="keywordtype">float</span> chunkSize, <span class="keyword">const</span> Ogre::Vector2&amp; chunkCenter, <span class="keywordtype">bool</span> pack,
-<a name="l00060"></a>00060                            std::vector&lt;Ogre::TexturePtr&gt;&amp; blendmaps,
-<a name="l00061"></a>00061                            std::vector&lt;std::string&gt;&amp; layerList);
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063         <span class="keywordtype">float</span> <a class="code" href="classTerrain_1_1Storage.html#ad02b339cc8782f8b51f732f8f87fa07c">getHeightAt</a> (<span class="keyword">const</span> Ogre::Vector3&amp; worldPos);
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065     <span class="keyword">private</span>:
-<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a00510b6f9e8a42703e4a0c7148c85cb0">fixNormal</a> (Ogre::Vector3&amp; normal, <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);
-<a name="l00067"></a>00067         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a6245140a9a2b430f8647b19159ff9f0a">fixColour</a> (Ogre::ColourValue&amp; colour, <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);
-<a name="l00068"></a>00068         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a5666c866eef165f60a550345080a0495">averageNormal</a> (Ogre::Vector3&amp; normal, <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);
+<a name="l00014"></a><a class="code" href="structTerrain_1_1LayerInfo.html">00014</a>     <span class="keyword">struct </span><a class="code" href="structTerrain_1_1LayerInfo.html">LayerInfo</a>
+<a name="l00015"></a>00015     {
+<a name="l00016"></a><a class="code" href="structTerrain_1_1LayerInfo.html#a7ad67c2fb5a509aa60b0281518c58da7">00016</a>         std::string <a class="code" href="structTerrain_1_1LayerInfo.html#a7ad67c2fb5a509aa60b0281518c58da7">mDiffuseMap</a>;
+<a name="l00017"></a><a class="code" href="structTerrain_1_1LayerInfo.html#a6ae7b1f723ad6a335edee3ca07c99a34">00017</a>         std::string <a class="code" href="structTerrain_1_1LayerInfo.html#a6ae7b1f723ad6a335edee3ca07c99a34">mNormalMap</a>;
+<a name="l00018"></a><a class="code" href="structTerrain_1_1LayerInfo.html#a11debd113002c067401bb89be7dd5bc4">00018</a>         <span class="keywordtype">bool</span> <a class="code" href="structTerrain_1_1LayerInfo.html#a11debd113002c067401bb89be7dd5bc4">mParallax</a>; <span class="comment">// Height info in normal map alpha channel?</span>
+<a name="l00019"></a>00019     };
+<a name="l00020"></a>00020 
+<a name="l00022"></a><a class="code" href="classTerrain_1_1Storage.html">00022</a>     <span class="keyword">class </span><a class="code" href="classTerrain_1_1Storage.html" title="We keep storage of terrain data abstract here since we need different implementations for game and ed...">Storage</a>
+<a name="l00023"></a>00023     {
+<a name="l00024"></a>00024     <span class="keyword">public</span>:
+<a name="l00025"></a><a class="code" href="classTerrain_1_1Storage.html#a2ed30552457ea67635c22306be24c5bb">00025</a>         <span class="keyword">virtual</span> <a class="code" href="classTerrain_1_1Storage.html#a2ed30552457ea67635c22306be24c5bb">~Storage</a>() {}
+<a name="l00026"></a>00026     <span class="keyword">private</span>:
+<a name="l00027"></a>00027         <span class="keyword">virtual</span> <a class="code" href="structESM_1_1Land.html">ESM::Land</a>* <a class="code" href="classTerrain_1_1Storage.html#a40ed337c548dc076543a9cf56fb1a89c">getLand</a> (<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY) = 0;
+<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structESM_1_1LandTexture.html">ESM::LandTexture</a>* <a class="code" href="classTerrain_1_1Storage.html#a9c17d1782e6754dfd6d6806555441cac">getLandTexture</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">short</span> plugin) = 0;
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030     <span class="keyword">public</span>:
+<a name="l00032"></a>00032         <span class="keyword">virtual</span> Ogre::AxisAlignedBox <a class="code" href="classTerrain_1_1Storage.html#abe5cd3bb5840bcf5624bae98ddf40d71" title="Get bounds of the whole terrain in cell units.">getBounds</a>() = 0;
+<a name="l00033"></a>00033 
+<a name="l00042"></a>00042         <span class="keywordtype">bool</span> <a class="code" href="classTerrain_1_1Storage.html#a0d080ebb5192d4be8953bc74bb99578e">getMinMaxHeights</a> (<span class="keywordtype">float</span> size, <span class="keyword">const</span> Ogre::Vector2&amp; center, <span class="keywordtype">float</span>&amp; min, <span class="keywordtype">float</span>&amp; max);
+<a name="l00043"></a>00043 
+<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a35de50593d4fedd350edf6297605beb3">fillVertexBuffers</a> (<span class="keywordtype">int</span> lodLevel, <span class="keywordtype">float</span> size, <span class="keyword">const</span> Ogre::Vector2&amp; center,
+<a name="l00052"></a>00052                                 Ogre::HardwareVertexBufferSharedPtr vertexBuffer,
+<a name="l00053"></a>00053                                 Ogre::HardwareVertexBufferSharedPtr normalBuffer,
+<a name="l00054"></a>00054                                 Ogre::HardwareVertexBufferSharedPtr colourBuffer);
+<a name="l00055"></a>00055 
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a0b1869ebb23c780a09b445c29abc5dad">getBlendmaps</a> (<span class="keywordtype">float</span> chunkSize, <span class="keyword">const</span> Ogre::Vector2&amp; chunkCenter, <span class="keywordtype">bool</span> pack,
+<a name="l00067"></a>00067                            std::vector&lt;Ogre::TexturePtr&gt;&amp; blendmaps,
+<a name="l00068"></a>00068                            std::vector&lt;LayerInfo&gt;&amp; layerList);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070         <span class="keywordtype">float</span> <a class="code" href="classTerrain_1_1Storage.html#ae56b0cb9261a10738f6d55594cc9b934">getVertexHeight</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Land.html">ESM::Land</a>* land, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00070"></a>00070         <span class="keywordtype">float</span> <a class="code" href="classTerrain_1_1Storage.html#ad02b339cc8782f8b51f732f8f87fa07c">getHeightAt</a> (<span class="keyword">const</span> Ogre::Vector3&amp; worldPos);
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072         <span class="comment">// Since plugins can define new texture palettes, we need to know the plugin index too</span>
-<a name="l00073"></a>00073         <span class="comment">// in order to retrieve the correct texture name.</span>
-<a name="l00074"></a>00074         <span class="comment">// pair  &lt;texture id, plugin id&gt;</span>
-<a name="l00075"></a><a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">00075</a>         <span class="keyword">typedef</span> std::pair&lt;short, short&gt; <a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a>;
+<a name="l00072"></a>00072     <span class="keyword">private</span>:
+<a name="l00073"></a>00073         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a00510b6f9e8a42703e4a0c7148c85cb0">fixNormal</a> (Ogre::Vector3&amp; normal, <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a6245140a9a2b430f8647b19159ff9f0a">fixColour</a> (Ogre::ColourValue&amp; colour, <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classTerrain_1_1Storage.html#a5666c866eef165f60a550345080a0495">averageNormal</a> (Ogre::Vector3&amp; normal, <span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> row);
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077         <a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a> <a class="code" href="classTerrain_1_1Storage.html#ad21644734ac213f72857e02998f009a9">getVtexIndexAt</a>(<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
-<a name="l00078"></a>00078                                                <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
-<a name="l00079"></a>00079         std::string <a class="code" href="classTerrain_1_1Storage.html#ae8bc0df8ce04106f8050e6738d09aec4">getTextureName</a> (<a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a> <span class="keywordtype">id</span>);
-<a name="l00080"></a>00080     };
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082 }
+<a name="l00077"></a>00077         <span class="keywordtype">float</span> <a class="code" href="classTerrain_1_1Storage.html#ae56b0cb9261a10738f6d55594cc9b934">getVertexHeight</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1Land.html">ESM::Land</a>* land, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079         <span class="comment">// Since plugins can define new texture palettes, we need to know the plugin index too</span>
+<a name="l00080"></a>00080         <span class="comment">// in order to retrieve the correct texture name.</span>
+<a name="l00081"></a>00081         <span class="comment">// pair  &lt;texture id, plugin id&gt;</span>
+<a name="l00082"></a><a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">00082</a>         <span class="keyword">typedef</span> std::pair&lt;short, short&gt; <a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a>;
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084 <span class="preprocessor">#endif</span>
+<a name="l00084"></a>00084         <a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a> <a class="code" href="classTerrain_1_1Storage.html#ad21644734ac213f72857e02998f009a9">getVtexIndexAt</a>(<span class="keywordtype">int</span> cellX, <span class="keywordtype">int</span> cellY,
+<a name="l00085"></a>00085                                                <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);
+<a name="l00086"></a>00086         std::string <a class="code" href="classTerrain_1_1Storage.html#ae8bc0df8ce04106f8050e6738d09aec4">getTextureName</a> (<a class="code" href="classTerrain_1_1Storage.html#acc2f322d76f4bec2cf0a8e508b0689d5">UniqueTextureId</a> <span class="keywordtype">id</span>);
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classTerrain_1_1Storage.html#afa75d9bcbf7868b392da674acf87a5d6">00088</a>         std::map&lt;std::string, LayerInfo&gt; <a class="code" href="classTerrain_1_1Storage.html#afa75d9bcbf7868b392da674acf87a5d6">mLayerInfoMap</a>;
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090         <a class="code" href="structTerrain_1_1LayerInfo.html">LayerInfo</a> <a class="code" href="classTerrain_1_1Storage.html#a7ff7fc9ab36b41243f07e0974404c0f3">getLayerInfo</a>(<span class="keyword">const</span> std::string&amp; texture);
+<a name="l00091"></a>00091     };
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093 }
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

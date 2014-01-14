@@ -63,86 +63,95 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define GAME_MWMECHANICS_MAGICEFFECTS_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;map&gt;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">namespace </span>ESM
-<a name="l00007"></a>00007 {
-<a name="l00008"></a>00008     <span class="keyword">struct </span>ENAMstruct;
-<a name="l00009"></a>00009     <span class="keyword">struct </span>EffectList;
-<a name="l00010"></a>00010 }
-<a name="l00011"></a>00011 
-<a name="l00012"></a>00012 <span class="keyword">namespace </span>MWMechanics
-<a name="l00013"></a>00013 {
-<a name="l00014"></a><a class="code" href="structMWMechanics_1_1EffectKey.html">00014</a>     <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a>
-<a name="l00015"></a>00015     {
-<a name="l00016"></a><a class="code" href="structMWMechanics_1_1EffectKey.html#a9a294b12419475799d5fe5cc617e91ad">00016</a>         <span class="keywordtype">int</span> <a class="code" href="structMWMechanics_1_1EffectKey.html#a9a294b12419475799d5fe5cc617e91ad">mId</a>;
-<a name="l00017"></a><a class="code" href="structMWMechanics_1_1EffectKey.html#a3e14922ca819a6c32ed25821a3fa53a2">00017</a>         <span class="keywordtype">int</span> <a class="code" href="structMWMechanics_1_1EffectKey.html#a3e14922ca819a6c32ed25821a3fa53a2">mArg</a>; <span class="comment">// skill or ability</span>
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019         <a class="code" href="structMWMechanics_1_1EffectKey.html#acce425f2ff4077cd0b6ab895f1f14101">EffectKey</a>();
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="structMWMechanics_1_1EffectKey.html#abf1c400b3f4b385fe27866d4830d7dbd">00021</a>         <a class="code" href="structMWMechanics_1_1EffectKey.html#abf1c400b3f4b385fe27866d4830d7dbd">EffectKey</a> (<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> arg = -1) : <a class="code" href="structMWMechanics_1_1EffectKey.html#a9a294b12419475799d5fe5cc617e91ad">mId</a> (id), <a class="code" href="structMWMechanics_1_1EffectKey.html#a3e14922ca819a6c32ed25821a3fa53a2">mArg</a> (arg) {}
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <a class="code" href="structMWMechanics_1_1EffectKey.html#acce425f2ff4077cd0b6ab895f1f14101">EffectKey</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a>&amp; effect);
-<a name="l00024"></a>00024     };
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026     <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#a16b7fdf375344b8c26824d08ab00fcd3">operator&lt; </a>(<span class="keyword">const</span> EffectKey&amp; left, <span class="keyword">const</span> EffectKey&amp; right);
-<a name="l00027"></a>00027 
-<a name="l00028"></a><a class="code" href="structMWMechanics_1_1EffectParam.html">00028</a>     <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>
-<a name="l00029"></a>00029     {
-<a name="l00030"></a><a class="code" href="structMWMechanics_1_1EffectParam.html#a50ce99011aa12bfea65cf047809e11ed">00030</a>         <span class="keywordtype">int</span> <a class="code" href="structMWMechanics_1_1EffectParam.html#a50ce99011aa12bfea65cf047809e11ed">mMagnitude</a>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032         <a class="code" href="structMWMechanics_1_1EffectParam.html#a5b8d4338b8a67238a2a0d684d26b47de">EffectParam</a>();
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>ESM
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009     <span class="keyword">struct </span>ENAMstruct;
+<a name="l00010"></a>00010     <span class="keyword">struct </span>EffectList;
+<a name="l00011"></a>00011 }
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>MWMechanics
+<a name="l00014"></a>00014 {
+<a name="l00015"></a><a class="code" href="structMWMechanics_1_1EffectKey.html">00015</a>     <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a>
+<a name="l00016"></a>00016     {
+<a name="l00017"></a><a class="code" href="structMWMechanics_1_1EffectKey.html#a9a294b12419475799d5fe5cc617e91ad">00017</a>         <span class="keywordtype">int</span> <a class="code" href="structMWMechanics_1_1EffectKey.html#a9a294b12419475799d5fe5cc617e91ad">mId</a>;
+<a name="l00018"></a><a class="code" href="structMWMechanics_1_1EffectKey.html#a3e14922ca819a6c32ed25821a3fa53a2">00018</a>         <span class="keywordtype">int</span> <a class="code" href="structMWMechanics_1_1EffectKey.html#a3e14922ca819a6c32ed25821a3fa53a2">mArg</a>; <span class="comment">// skill or ability</span>
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020         <a class="code" href="structMWMechanics_1_1EffectKey.html#acce425f2ff4077cd0b6ab895f1f14101">EffectKey</a>();
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="structMWMechanics_1_1EffectKey.html#abf1c400b3f4b385fe27866d4830d7dbd">00022</a>         <a class="code" href="structMWMechanics_1_1EffectKey.html#abf1c400b3f4b385fe27866d4830d7dbd">EffectKey</a> (<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> arg = -1) : <a class="code" href="structMWMechanics_1_1EffectKey.html#a9a294b12419475799d5fe5cc617e91ad">mId</a> (id), <a class="code" href="structMWMechanics_1_1EffectKey.html#a3e14922ca819a6c32ed25821a3fa53a2">mArg</a> (arg) {}
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024         <a class="code" href="structMWMechanics_1_1EffectKey.html#acce425f2ff4077cd0b6ab895f1f14101">EffectKey</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1ENAMstruct.html">ESM::ENAMstruct</a>&amp; effect);
+<a name="l00025"></a>00025     };
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027     <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#a16b7fdf375344b8c26824d08ab00fcd3">operator&lt; </a>(<span class="keyword">const</span> EffectKey&amp; left, <span class="keyword">const</span> EffectKey&amp; right);
+<a name="l00028"></a>00028 
+<a name="l00029"></a><a class="code" href="structMWMechanics_1_1EffectParam.html">00029</a>     <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>
+<a name="l00030"></a>00030     {
+<a name="l00031"></a>00031         <span class="comment">// Note usually this would be int, but applying partial resistance might introduce decimal point.</span>
+<a name="l00032"></a><a class="code" href="structMWMechanics_1_1EffectParam.html#ab0d1ff3ec48747295cfa02581e95b923">00032</a>         <span class="keywordtype">float</span> <a class="code" href="structMWMechanics_1_1EffectParam.html#ab0d1ff3ec48747295cfa02581e95b923">mMagnitude</a>;
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; <a class="code" href="structMWMechanics_1_1EffectParam.html#a461a8cc4e6a0043d5b5e1a94011c8ed0">operator+= </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; param);
+<a name="l00034"></a>00034         <a class="code" href="structMWMechanics_1_1EffectParam.html#a5b8d4338b8a67238a2a0d684d26b47de">EffectParam</a>();
 <a name="l00035"></a>00035 
-<a name="l00036"></a>00036         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; <a class="code" href="structMWMechanics_1_1EffectParam.html#adeafdd965effcec1018d0f794712bb60">operator-= </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; param);
-<a name="l00037"></a>00037     };
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="namespaceMWMechanics.html#a745c883c1fd08de2ee06cce62349a8dd">00039</a>     <span class="keyword">inline</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> <a class="code" href="namespaceMWMechanics.html#a745c883c1fd08de2ee06cce62349a8dd">operator+ </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; left, <span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; right)
-<a name="l00040"></a>00040     {
-<a name="l00041"></a>00041         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> param (left);
-<a name="l00042"></a>00042         <span class="keywordflow">return</span> param += right;
-<a name="l00043"></a>00043     }
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="namespaceMWMechanics.html#a5a8980361b4894f0c8f534570def9662">00045</a>     <span class="keyword">inline</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> <a class="code" href="namespaceMWMechanics.html#a5a8980361b4894f0c8f534570def9662">operator- </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; left, <span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; right)
-<a name="l00046"></a>00046     {
-<a name="l00047"></a>00047         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> param (left);
-<a name="l00048"></a>00048         <span class="keywordflow">return</span> param -= right;
-<a name="l00049"></a>00049     }
-<a name="l00050"></a>00050 
-<a name="l00052"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html">00052</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>
-<a name="l00053"></a>00053     {
-<a name="l00054"></a>00054         <span class="keyword">public</span>:
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a4fc05ab3a53e101b396bc8d65039d6f2">00056</a>             <span class="keyword">typedef</span> std::map&lt;EffectKey, EffectParam&gt; <a class="code" href="classMWMechanics_1_1MagicEffects.html#a4fc05ab3a53e101b396bc8d65039d6f2">Collection</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058         <span class="keyword">private</span>:
-<a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">00060</a>             <a class="code" href="classMWMechanics_1_1MagicEffects.html#a4fc05ab3a53e101b396bc8d65039d6f2">Collection</a> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">mCollection</a>;
+<a name="l00036"></a><a class="code" href="structMWMechanics_1_1EffectParam.html#ad6a1f77eb75b3d934ad923ced43e550b">00036</a>         <a class="code" href="structMWMechanics_1_1EffectParam.html#ad6a1f77eb75b3d934ad923ced43e550b">EffectParam</a>(<span class="keywordtype">float</span> magnitude) : <a class="code" href="structMWMechanics_1_1EffectParam.html#ab0d1ff3ec48747295cfa02581e95b923">mMagnitude</a>(magnitude) {}
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; <a class="code" href="structMWMechanics_1_1EffectParam.html#a461a8cc4e6a0043d5b5e1a94011c8ed0">operator+= </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; param);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; <a class="code" href="structMWMechanics_1_1EffectParam.html#adeafdd965effcec1018d0f794712bb60">operator-= </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; param);
+<a name="l00041"></a>00041     };
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="namespaceMWMechanics.html#a745c883c1fd08de2ee06cce62349a8dd">00043</a>     <span class="keyword">inline</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> <a class="code" href="namespaceMWMechanics.html#a745c883c1fd08de2ee06cce62349a8dd">operator+ </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; left, <span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; right)
+<a name="l00044"></a>00044     {
+<a name="l00045"></a>00045         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> param (left);
+<a name="l00046"></a>00046         <span class="keywordflow">return</span> param += right;
+<a name="l00047"></a>00047     }
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="namespaceMWMechanics.html#a5a8980361b4894f0c8f534570def9662">00049</a>     <span class="keyword">inline</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> <a class="code" href="namespaceMWMechanics.html#a5a8980361b4894f0c8f534570def9662">operator- </a>(<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; left, <span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; right)
+<a name="l00050"></a>00050     {
+<a name="l00051"></a>00051         <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> param (left);
+<a name="l00052"></a>00052         <span class="keywordflow">return</span> param -= right;
+<a name="l00053"></a>00053     }
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055     <span class="comment">// Used by effect management classes (ActiveSpells, InventoryStore, Spells) to list active effect sources for GUI display</span>
+<a name="l00056"></a><a class="code" href="structMWMechanics_1_1EffectSourceVisitor.html">00056</a>     <span class="keyword">struct </span><a class="code" href="structMWMechanics_1_1EffectSourceVisitor.html">EffectSourceVisitor</a>
+<a name="l00057"></a>00057     {
+<a name="l00058"></a>00058         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structMWMechanics_1_1EffectSourceVisitor.html#ad36e8a2323aec12e4ea94efa07370417">visit</a> (<a class="code" href="structMWMechanics_1_1EffectKey.html">MWMechanics::EffectKey</a> key,
+<a name="l00059"></a>00059                                  <span class="keyword">const</span> std::string&amp; sourceName, <span class="keywordtype">float</span> magnitude, <span class="keywordtype">float</span> remainingTime = -1) = 0;
+<a name="l00060"></a>00060     };
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062         <span class="keyword">public</span>:
-<a name="l00063"></a>00063 
-<a name="l00064"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a638e246aa72bf5ddcb3185a4c621998a">00064</a>             Collection::const_iterator <a class="code" href="classMWMechanics_1_1MagicEffects.html#a638e246aa72bf5ddcb3185a4c621998a">begin</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">mCollection</a>.begin(); }
-<a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a5cdf71bce7e8bd4a47f108a9c61c8ff2">00066</a>             Collection::const_iterator <a class="code" href="classMWMechanics_1_1MagicEffects.html#a5cdf71bce7e8bd4a47f108a9c61c8ff2">end</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">mCollection</a>.end(); }
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#ac8d6214a7c4a511cb902d4853a94536c">add</a> (<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a>&amp; key, <span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; param);
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#ac8d6214a7c4a511cb902d4853a94536c">add</a> (<span class="keyword">const</span> <a class="code" href="structESM_1_1EffectList.html">ESM::EffectList</a>&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>, <span class="keywordtype">float</span> magnitude = -1);
+<a name="l00063"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html">00063</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>
+<a name="l00064"></a>00064     {
+<a name="l00065"></a>00065         <span class="keyword">public</span>:
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a4fc05ab3a53e101b396bc8d65039d6f2">00067</a>             <span class="keyword">typedef</span> std::map&lt;EffectKey, EffectParam&gt; <a class="code" href="classMWMechanics_1_1MagicEffects.html#a4fc05ab3a53e101b396bc8d65039d6f2">Collection</a>;
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         <span class="keyword">private</span>:
+<a name="l00070"></a>00070 
+<a name="l00071"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">00071</a>             <a class="code" href="classMWMechanics_1_1MagicEffects.html#a4fc05ab3a53e101b396bc8d65039d6f2">Collection</a> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">mCollection</a>;
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073             <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; <a class="code" href="classMWMechanics_1_1MagicEffects.html#ad6035b41e9eb2108286ffd45945e8ae8">operator+= </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; effects);
+<a name="l00073"></a>00073         <span class="keyword">public</span>:
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075             <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a>&amp; key) <span class="keyword">const</span>;
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078             <span class="keyword">static</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a31c772ff6372af591ddd17b293813ae8" title="Return changes from prev to now.">diff</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; prev, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; now);
-<a name="l00080"></a>00080     };
-<a name="l00081"></a>00081 }
+<a name="l00075"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a638e246aa72bf5ddcb3185a4c621998a">00075</a>             Collection::const_iterator <a class="code" href="classMWMechanics_1_1MagicEffects.html#a638e246aa72bf5ddcb3185a4c621998a">begin</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">mCollection</a>.begin(); }
+<a name="l00076"></a>00076 
+<a name="l00077"></a><a class="code" href="classMWMechanics_1_1MagicEffects.html#a5cdf71bce7e8bd4a47f108a9c61c8ff2">00077</a>             Collection::const_iterator <a class="code" href="classMWMechanics_1_1MagicEffects.html#a5cdf71bce7e8bd4a47f108a9c61c8ff2">end</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a1ac2615ac60fbfae073c5ee746aa7a3c">mCollection</a>.end(); }
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html#ac8d6214a7c4a511cb902d4853a94536c">add</a> (<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a>&amp; key, <span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a>&amp; param);
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081             <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; <a class="code" href="classMWMechanics_1_1MagicEffects.html#ad6035b41e9eb2108286ffd45945e8ae8">operator+= </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; effects);
 <a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="preprocessor">#endif</span>
+<a name="l00083"></a>00083             <a class="code" href="structMWMechanics_1_1EffectParam.html">EffectParam</a> <span class="keyword">get</span> (<span class="keyword">const</span> <a class="code" href="structMWMechanics_1_1EffectKey.html">EffectKey</a>&amp; key) <span class="keyword">const</span>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086             <span class="keyword">static</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a> <a class="code" href="classMWMechanics_1_1MagicEffects.html#a31c772ff6372af591ddd17b293813ae8" title="Return changes from prev to now.">diff</a> (<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; prev, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1MagicEffects.html" title="Effects currently affecting a NPC or creature.">MagicEffects</a>&amp; now);
+<a name="l00088"></a>00088     };
+<a name="l00089"></a>00089 }
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

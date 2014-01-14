@@ -86,59 +86,63 @@
 <a name="l00025"></a>00025 {
 <a name="l00026"></a><a class="code" href="classMWMechanics_1_1Actors.html">00026</a>     <span class="keyword">class </span><a class="code" href="classMWMechanics_1_1Actors.html">Actors</a>
 <a name="l00027"></a>00027     {
-<a name="l00028"></a><a class="code" href="classMWMechanics_1_1Actors.html#ab7afdd28eae0634943e313c9dd8275da">00028</a>         <span class="keyword">typedef</span> std::map&lt;MWWorld::Ptr,CharacterController*&gt; <a class="code" href="classMWMechanics_1_1Actors.html#ab7afdd28eae0634943e313c9dd8275da">PtrControllerMap</a>;
-<a name="l00029"></a><a class="code" href="classMWMechanics_1_1Actors.html#a28cebcd276f4562dae6e5c97469c3b63">00029</a>         <a class="code" href="classMWMechanics_1_1Actors.html#ab7afdd28eae0634943e313c9dd8275da">PtrControllerMap</a> <a class="code" href="classMWMechanics_1_1Actors.html#a28cebcd276f4562dae6e5c97469c3b63">mActors</a>;
+<a name="l00028"></a><a class="code" href="classMWMechanics_1_1Actors.html#ab7afdd28eae0634943e313c9dd8275da">00028</a>             <span class="keyword">typedef</span> std::map&lt;MWWorld::Ptr,CharacterController*&gt; <a class="code" href="classMWMechanics_1_1Actors.html#ab7afdd28eae0634943e313c9dd8275da">PtrControllerMap</a>;
+<a name="l00029"></a><a class="code" href="classMWMechanics_1_1Actors.html#a28cebcd276f4562dae6e5c97469c3b63">00029</a>             <a class="code" href="classMWMechanics_1_1Actors.html#ab7afdd28eae0634943e313c9dd8275da">PtrControllerMap</a> <a class="code" href="classMWMechanics_1_1Actors.html#a28cebcd276f4562dae6e5c97469c3b63">mActors</a>;
 <a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classMWMechanics_1_1Actors.html#a7c75b01b53113a581190187871307c7e">00031</a>         std::map&lt;std::string, int&gt; <a class="code" href="classMWMechanics_1_1Actors.html#a7c75b01b53113a581190187871307c7e">mDeathCount</a>;
+<a name="l00031"></a><a class="code" href="classMWMechanics_1_1Actors.html#a7c75b01b53113a581190187871307c7e">00031</a>             std::map&lt;std::string, int&gt; <a class="code" href="classMWMechanics_1_1Actors.html#a7c75b01b53113a581190187871307c7e">mDeathCount</a>;
 <a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classMWMechanics_1_1Actors.html#a10f52760074361ad5ea7292e25f9b770">00033</a>         <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1Actors.html#a10f52760074361ad5ea7292e25f9b770">mDuration</a>;
+<a name="l00033"></a>00033             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a98be32a7cae0e52c04ca5209c09b5ea9">updateNpc</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a98be32a7cae0e52c04ca5209c09b5ea9">updateNpc</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr, <span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00035"></a>00035             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ae564959119ba88f7956b901c357e2758">adjustMagicEffects</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; creature);
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ae564959119ba88f7956b901c357e2758">adjustMagicEffects</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; creature);
+<a name="l00037"></a>00037             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a0f3247dc3dcfdce41f500faff397904f">calculateDynamicStats</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a0f3247dc3dcfdce41f500faff397904f">calculateDynamicStats</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a0dcba47491b72359e5c76511e6c3fd9a">calculateCreatureStatModifiers</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#aa845f11827de366ac04fb7c75c18588b">calculateRestoration</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ae46f7c57519d942338677fd6a0915b54">updateDrowning</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047         <span class="keyword">public</span>:
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049             <a class="code" href="classMWMechanics_1_1Actors.html#a5fe67c9a26dbe046ebc5c6d18f81107d">Actors</a>();
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ab0c22aa4094dab454ebc0c155cdc114f">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a270279bb3e7e9870de407e905ae8eadc">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a2c9ef0e9aab4d686c6aa393bdb9e9f5b" title="Updates an actor with a new Ptr.">updateActor</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a69311c88cbd0ce33d633826e13c0a088" title="Deregister all actors in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore);
+<a name="l00039"></a>00039             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#aaeb9f8753ca25ab09b5af8630205ce72">calculateCreatureStatModifiers</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
+<a name="l00040"></a>00040             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a80aa3a551b7f96700d8e6293aa721765">calculateNpcStatModifiers</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#aa845f11827de366ac04fb7c75c18588b">calculateRestoration</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ae46f7c57519d942338677fd6a0915b54">updateDrowning</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a6cb2fcb13b34d92052dd53a23ba4f0e3">updateEquippedLight</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048         <span class="keyword">public</span>:
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050             <a class="code" href="classMWMechanics_1_1Actors.html#a5fe67c9a26dbe046ebc5c6d18f81107d">Actors</a>();
+<a name="l00051"></a>00051             <a class="code" href="classMWMechanics_1_1Actors.html#addc25aead513300d0e06b8ed39902d87">~Actors</a>();
+<a name="l00052"></a>00052 
+<a name="l00055"></a><a class="code" href="classMWMechanics_1_1Actors.html#ae9acc75d922e60bf1ba950e653d045c3">00055</a>             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ae9acc75d922e60bf1ba950e653d045c3">updateMagicEffects</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr) { <a class="code" href="classMWMechanics_1_1Actors.html#ae564959119ba88f7956b901c357e2758">adjustMagicEffects</a>(ptr); }
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#ab0c22aa4094dab454ebc0c155cdc114f">addActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a270279bb3e7e9870de407e905ae8eadc">removeActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a1588180bba8597286a1db1389cee106e" title="Update actor stats and store desired velocity vectors in movement.">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00067"></a>00067             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a2c9ef0e9aab4d686c6aa393bdb9e9f5b" title="Updates an actor with a new Ptr.">updateActor</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;old, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a2c9ef0e9aab4d686c6aa393bdb9e9f5b" title="Updates an actor with a new Ptr.">updateActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a3909f92ca68a2c5745725ff6f3109f74" title="If the player is sleeping, this should be called every hour.">restoreDynamicStats</a>();
-<a name="l00076"></a>00076             
-<a name="l00077"></a>00077             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1Actors.html#a1a982410415bc13319b00ffef49b30a7" title="Return the number of deaths for actors with the given ID.">countDeaths</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00070"></a>00070             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a5ee8a8c8179edfb79760b95afbf374cc" title="Deregister all actors (except for ignore) in the given cell.">dropActors</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1CellStore.html" title="A storage struct for one single cell reference.">MWWorld::CellStore</a> *cellStore, <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ignore);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a1588180bba8597286a1db1389cee106e" title="Update actor stats and store desired velocity vectors in movement.">update</a> (<span class="keywordtype">float</span> duration, <span class="keywordtype">bool</span> paused);
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a2c9ef0e9aab4d686c6aa393bdb9e9f5b" title="Updates an actor with a new Ptr.">updateActor</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keywordtype">float</span> duration);
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a3d41bc43afc6c0f03e1c91915566d862">forceStateUpdate</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a239c946c8695a9b0116bc53dac42a9b7">playAnimationGroup</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> number);
-<a name="l00083"></a>00083         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#aca7de8b1ba5eb2199049d26df41e390e">skipAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
-<a name="l00084"></a>00084         <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1Actors.html#ac8d6bb7ae8ce79efe8db22e3919cad4a">checkAnimationPlaying</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName);
-<a name="l00085"></a>00085     };
-<a name="l00086"></a>00086 }
+<a name="l00080"></a>00080             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a3909f92ca68a2c5745725ff6f3109f74" title="If the player is sleeping, this should be called every hour.">restoreDynamicStats</a>();
+<a name="l00082"></a>00082             
+<a name="l00083"></a>00083             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1Actors.html#a1a982410415bc13319b00ffef49b30a7" title="Return the number of deaths for actors with the given ID.">countDeaths</a> (<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>) <span class="keyword">const</span>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a3d41bc43afc6c0f03e1c91915566d862">forceStateUpdate</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a> &amp;ptr);
 <a name="l00087"></a>00087 
-<a name="l00088"></a>00088 <span class="preprocessor">#endif</span>
+<a name="l00088"></a>00088         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#a239c946c8695a9b0116bc53dac42a9b7">playAnimationGroup</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> number);
+<a name="l00089"></a>00089         <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1Actors.html#aca7de8b1ba5eb2199049d26df41e390e">skipAnimation</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr);
+<a name="l00090"></a>00090         <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1Actors.html#ac8d6bb7ae8ce79efe8db22e3919cad4a">checkAnimationPlaying</a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">MWWorld::Ptr</a>&amp; ptr, <span class="keyword">const</span> std::string&amp; groupName);
+<a name="l00091"></a>00091     };
+<a name="l00092"></a>00092 }
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

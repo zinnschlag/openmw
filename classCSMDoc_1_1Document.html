@@ -87,11 +87,13 @@ Signals</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a0f1ed9a09d8f39663255100f6168b5dd">progress</a> (int current, int max, int type, int threads, <a class="el" href="classCSMDoc_1_1Document.html">CSMDoc::Document</a> *document)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ab49af7b51149c463ac2994963672b4b6">Document</a> (const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a23d5829e7e37f21dcd9fb8932f1d0893">Document</a> (const <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;configuration, const std::vector&lt; boost::filesystem::path &gt; &amp;files, const boost::filesystem::path &amp;savePath, const boost::filesystem::path &amp;resDir, bool new_)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a10be508e20e2935ece42718b6d4fbd8d">~Document</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QUndoStack &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a957f3e6dda44e1e37da75b2a4555eb8f">getUndoStack</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a5777353f5e927b32a9790eafc4b9bd90">getState</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a7145b57f82737553e9378c2c6192d80f">getName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const boost::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#afa7aaec431e82498188f8f8e3bd2f048">getSavePath</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::vector<br class="typebreak"/>
+&lt; boost::filesystem::path &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#aff6042312f48e490b6f2a83a2e99bfc0">getContentFiles</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ad79298efc2ab12f512039986ea4b5d78">save</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMWorld_1_1UniversalId.html">CSMWorld::UniversalId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ab78b83efc9004274f6fc2575393fe7c0">verify</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a28b2ac93c6d0a4c42be88f525b7058be">abortOperation</a> (int type)</td></tr>
@@ -102,9 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a72efe466f37e9b24f0a2cc9b261c2c0e">modificationStateChanged</a> (bool clean)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a5104033a3c71312681b807198b5795d3">reportMessage</a> (const QString &amp;message, int type)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ae9d6e5e674f95d492f1635dfe0150237">operationDone</a> (int type)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a2701809ca57a732c732197030e1a2ea2">saving</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">dummy implementation -&gt; remove when proper save is implemented.  <a href="#a2701809ca57a732c732197030e1a2ea2"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a3151defec1f537249a449cf0a69ef73f">Document</a> (const <a class="el" href="classCSMDoc_1_1Document.html">Document</a> &amp;)</td></tr>
@@ -118,14 +119,15 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ada5a5f6cf619ff8a6f23cb4b45b5b844">addOptionalGlobal</a> (const <a class="el" href="structESM_1_1Global.html">ESM::Global</a> &amp;global)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#afd3898225ca22e98281caa70cb96e26c">mName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a396b98a64c2f0f1b06b3a93a6d9b99eb">mSavePath</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector<br class="typebreak"/>
+&lt; boost::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a3fb2ba7018abfa01a0e3bbc94d983aa3">mContentFiles</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMWorld_1_1Data.html">CSMWorld::Data</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#abafa0a06fc44ef3b05c7524abb41f39e">mData</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMTools_1_1Tools.html">CSMTools::Tools</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a28402d7b5a42d42cd2ccd03b413721a2">mTools</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a7df686237ebc8fe09ce5dc2254a52eb0">mProjectPath</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCSMDoc_1_1Saving.html">Saving</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#ad83875d9049bcf48a86d69f9f906251a">mSaving</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boost::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#af4df8ae0e07de6f11f5e5268e95c33f8">mResDir</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QUndoStack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#acd67babd7b5b5f1ac29566c571ff9c3c">mUndoStack</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a5613a16a53f661b4fc1144fcf69398dc">mSaveCount</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">dummy implementation -&gt; remove when proper save is implemented.  <a href="#a5613a16a53f661b4fc1144fcf69398dc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">QTimer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCSMDoc_1_1Document.html#a3d48961b82ff1111df38c910a0d8faac">mSaveTimer</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">dummy implementation -&gt; remove when proper save is implemented.  <a href="#a3d48961b82ff1111df38c910a0d8faac"></a><br/></td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a3151defec1f537249a449cf0a69ef73f"></a><!-- doxytag: member="CSMDoc::Document::Document" ref="a3151defec1f537249a449cf0a69ef73f" args="(const Document &amp;)" -->
@@ -145,15 +147,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab49af7b51149c463ac2994963672b4b6"></a><!-- doxytag: member="CSMDoc::Document::Document" ref="ab49af7b51149c463ac2994963672b4b6" args="(const std::vector&lt; boost::filesystem::path &gt; &amp;files, bool new_)" -->
+<a class="anchor" id="a23d5829e7e37f21dcd9fb8932f1d0893"></a><!-- doxytag: member="CSMDoc::Document::Document" ref="a23d5829e7e37f21dcd9fb8932f1d0893" args="(const Files::ConfigurationManager &amp;configuration, const std::vector&lt; boost::filesystem::path &gt; &amp;files, const boost::filesystem::path &amp;savePath, const boost::filesystem::path &amp;resDir, bool new_)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classCSMDoc_1_1Document.html#a3151defec1f537249a449cf0a69ef73f">CSMDoc::Document::Document</a> </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="structFiles_1_1ConfigurationManager.html">Files::ConfigurationManager</a> &amp;&#160;</td>
+          <td class="paramname"><em>configuration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::vector&lt; boost::filesystem::path &gt; &amp;&#160;</td>
           <td class="paramname"><em>files</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>savePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>resDir</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -169,11 +189,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>adjust last file name: </dd></dl>
-<ul>
-<li>make sure it is located in the data-local directory (adjust path if necessary) </li>
-<li>make sure the extension matches the new scheme (change it if necesarry) </li>
-</ul>
 
 </div>
 </div>
@@ -309,6 +324,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aff6042312f48e490b6f2a83a2e99bfc0"></a><!-- doxytag: member="CSMDoc::Document::getContentFiles" ref="aff6042312f48e490b6f2a83a2e99bfc0" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; boost::filesystem::path &gt; &amp; <a class="el" href="classCSMDoc_1_1Document.html#aff6042312f48e490b6f2a83a2e99bfc0">CSMDoc::Document::getContentFiles</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="attention"><dt><b>Attention:</b></dt><dd>The last element in this collection is the file that is being edited, but with its original path instead of the save path. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a3d2c0634e7eec5055abc612006da7763"></a><!-- doxytag: member="CSMDoc::Document::getData" ref="a3d2c0634e7eec5055abc612006da7763" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -341,23 +373,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7145b57f82737553e9378c2c6192d80f"></a><!-- doxytag: member="CSMDoc::Document::getName" ref="a7145b57f82737553e9378c2c6192d80f" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; <a class="el" href="classCSMDoc_1_1Document.html#a7145b57f82737553e9378c2c6192d80f">CSMDoc::Document::getName</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>replace with ESX list </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aee49730eed85495888d49d399b05416a"></a><!-- doxytag: member="CSMDoc::Document::getReport" ref="aee49730eed85495888d49d399b05416a" args="(const CSMWorld::UniversalId &amp;id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -374,6 +389,22 @@ Private Attributes</h2></td></tr>
 <div class="memdoc">
 
 <p>The ownership of the returned report is not transferred. </p>
+
+</div>
+</div>
+<a class="anchor" id="afa7aaec431e82498188f8f8e3bd2f048"></a><!-- doxytag: member="CSMDoc::Document::getSavePath" ref="afa7aaec431e82498188f8f8e3bd2f048" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const boost::filesystem::path &amp; <a class="el" href="classCSMDoc_1_1Document.html#afa7aaec431e82498188f8f8e3bd2f048">CSMDoc::Document::getSavePath</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -577,6 +608,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5104033a3c71312681b807198b5795d3"></a><!-- doxytag: member="CSMDoc::Document::reportMessage" ref="a5104033a3c71312681b807198b5795d3" args="(const QString &amp;message, int type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#a5104033a3c71312681b807198b5795d3">CSMDoc::Document::reportMessage</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private, slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>find a better way to get these messages to the user. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ad79298efc2ab12f512039986ea4b5d78"></a><!-- doxytag: member="CSMDoc::Document::save" ref="ad79298efc2ab12f512039986ea4b5d78" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -590,24 +649,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a2701809ca57a732c732197030e1a2ea2"></a><!-- doxytag: member="CSMDoc::Document::saving" ref="a2701809ca57a732c732197030e1a2ea2" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classCSMDoc_1_1Document.html#a2701809ca57a732c732197030e1a2ea2">CSMDoc::Document::saving</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [private, slot]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>dummy implementation -&gt; remove when proper save is implemented. </p>
 
 </div>
 </div>
@@ -655,6 +696,19 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a3fb2ba7018abfa01a0e3bbc94d983aa3"></a><!-- doxytag: member="CSMDoc::Document::mContentFiles" ref="a3fb2ba7018abfa01a0e3bbc94d983aa3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;boost::filesystem::path&gt; <a class="el" href="classCSMDoc_1_1Document.html#a3fb2ba7018abfa01a0e3bbc94d983aa3">CSMDoc::Document::mContentFiles</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="abafa0a06fc44ef3b05c7524abb41f39e"></a><!-- doxytag: member="CSMDoc::Document::mData" ref="abafa0a06fc44ef3b05c7524abb41f39e" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -668,47 +722,55 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afd3898225ca22e98281caa70cb96e26c"></a><!-- doxytag: member="CSMDoc::Document::mName" ref="afd3898225ca22e98281caa70cb96e26c" args="" -->
+<a class="anchor" id="a7df686237ebc8fe09ce5dc2254a52eb0"></a><!-- doxytag: member="CSMDoc::Document::mProjectPath" ref="a7df686237ebc8fe09ce5dc2254a52eb0" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string <a class="el" href="classCSMDoc_1_1Document.html#afd3898225ca22e98281caa70cb96e26c">CSMDoc::Document::mName</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>replace name with ESX list </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a5613a16a53f661b4fc1144fcf69398dc"></a><!-- doxytag: member="CSMDoc::Document::mSaveCount" ref="a5613a16a53f661b4fc1144fcf69398dc" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="classCSMDoc_1_1Document.html#a5613a16a53f661b4fc1144fcf69398dc">CSMDoc::Document::mSaveCount</a><code> [private]</code></td>
+          <td class="memname">boost::filesystem::path <a class="el" href="classCSMDoc_1_1Document.html#a7df686237ebc8fe09ce5dc2254a52eb0">CSMDoc::Document::mProjectPath</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>dummy implementation -&gt; remove when proper save is implemented. </p>
-
 </div>
 </div>
-<a class="anchor" id="a3d48961b82ff1111df38c910a0d8faac"></a><!-- doxytag: member="CSMDoc::Document::mSaveTimer" ref="a3d48961b82ff1111df38c910a0d8faac" args="" -->
+<a class="anchor" id="af4df8ae0e07de6f11f5e5268e95c33f8"></a><!-- doxytag: member="CSMDoc::Document::mResDir" ref="af4df8ae0e07de6f11f5e5268e95c33f8" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">QTimer <a class="el" href="classCSMDoc_1_1Document.html#a3d48961b82ff1111df38c910a0d8faac">CSMDoc::Document::mSaveTimer</a><code> [private]</code></td>
+          <td class="memname">boost::filesystem::path <a class="el" href="classCSMDoc_1_1Document.html#af4df8ae0e07de6f11f5e5268e95c33f8">CSMDoc::Document::mResDir</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>dummy implementation -&gt; remove when proper save is implemented. </p>
+</div>
+</div>
+<a class="anchor" id="a396b98a64c2f0f1b06b3a93a6d9b99eb"></a><!-- doxytag: member="CSMDoc::Document::mSavePath" ref="a396b98a64c2f0f1b06b3a93a6d9b99eb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::filesystem::path <a class="el" href="classCSMDoc_1_1Document.html#a396b98a64c2f0f1b06b3a93a6d9b99eb">CSMDoc::Document::mSavePath</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad83875d9049bcf48a86d69f9f906251a"></a><!-- doxytag: member="CSMDoc::Document::mSaving" ref="ad83875d9049bcf48a86d69f9f906251a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCSMDoc_1_1Saving.html">Saving</a> <a class="el" href="classCSMDoc_1_1Document.html#ad83875d9049bcf48a86d69f9f906251a">CSMDoc::Document::mSaving</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -746,7 +808,7 @@ Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:50 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

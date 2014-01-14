@@ -78,25 +78,36 @@
 <a name="l00017"></a>00017                            <span class="keywordtype">bool</span> allowShortcuts = <span class="keyword">true</span>);
 <a name="l00018"></a>00018 
 <a name="l00019"></a>00019             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#aaedaeb86d2fade5d688c1edfedd3a0f4" title="true if the last point of the path has been reached.">checkPathCompleted</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
-<a name="l00021"></a>00021             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#a844771951277628217e82b1229bbcff2">getZAngleToNext</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y) <span class="keyword">const</span>;
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#ac7a8e1e52719974f331b9196c84b9f07">00023</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ac7a8e1e52719974f331b9196c84b9f07">isPathConstructed</a>()<span class="keyword"> const</span>
-<a name="l00024"></a>00024 <span class="keyword">            </span>{
-<a name="l00025"></a>00025                 <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ac63137f5135508e1aeed9694a00af20e">mIsPathConstructed</a>;
-<a name="l00026"></a>00026             }
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028         <span class="keyword">private</span>:
-<a name="l00029"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">00029</a>             std::list&lt;ESM::Pathgrid::Point&gt; <a class="code" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">mPath</a>;
-<a name="l00030"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#ac63137f5135508e1aeed9694a00af20e">00030</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ac63137f5135508e1aeed9694a00af20e">mIsPathConstructed</a>;
-<a name="l00031"></a>00031     };
-<a name="l00032"></a>00032 }
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034 <span class="preprocessor">#endif</span>
+<a name="l00021"></a>00021             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#acf2896317a6972d62ad81d6f539796ff" title="true if a way point was reached">checkWaypoint</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);
+<a name="l00023"></a>00023             <span class="keywordtype">float</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#a844771951277628217e82b1229bbcff2">getZAngleToNext</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y) <span class="keyword">const</span>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#ac7a8e1e52719974f331b9196c84b9f07">00025</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ac7a8e1e52719974f331b9196c84b9f07">isPathConstructed</a>()<span class="keyword"> const</span>
+<a name="l00026"></a>00026 <span class="keyword">            </span>{
+<a name="l00027"></a>00027                 <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ac63137f5135508e1aeed9694a00af20e">mIsPathConstructed</a>;
+<a name="l00028"></a>00028             }
+<a name="l00029"></a>00029 
+<a name="l00030"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#ae3f96a25693f1d06e9bbb0a567a10cf1">00030</a>             <span class="keywordtype">int</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ae3f96a25693f1d06e9bbb0a567a10cf1">getPathSize</a>()<span class="keyword"> const</span>
+<a name="l00031"></a>00031 <span class="keyword">            </span>{
+<a name="l00032"></a>00032                 <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">mPath</a>.size();
+<a name="l00033"></a>00033             }
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#ad13709217e5051cb6328e11181892f0a">00035</a>             std::list&lt;ESM::Pathgrid::Point&gt; <a class="code" href="classMWMechanics_1_1PathFinder.html#ad13709217e5051cb6328e11181892f0a">getPath</a>()<span class="keyword"> const</span>
+<a name="l00036"></a>00036 <span class="keyword">            </span>{
+<a name="l00037"></a>00037                 <span class="keywordflow">return</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">mPath</a>;
+<a name="l00038"></a>00038             }
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <span class="keyword">private</span>:
+<a name="l00041"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">00041</a>             std::list&lt;ESM::Pathgrid::Point&gt; <a class="code" href="classMWMechanics_1_1PathFinder.html#a0a7aa45ec30f03705e1f87f2f85ba5a0">mPath</a>;
+<a name="l00042"></a><a class="code" href="classMWMechanics_1_1PathFinder.html#ac63137f5135508e1aeed9694a00af20e">00042</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWMechanics_1_1PathFinder.html#ac63137f5135508e1aeed9694a00af20e">mIsPathConstructed</a>;
+<a name="l00043"></a>00043     };
+<a name="l00044"></a>00044 }
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

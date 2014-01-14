@@ -213,48 +213,60 @@
 <a name="l00159"></a><a class="code" href="classMWMechanics_1_1DynamicStat.html#af8b03ca15e2d5961ec8b25e27d4eb805">00159</a>             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html#af8b03ca15e2d5961ec8b25e27d4eb805" title="Change modified relatively.">modify</a> (<span class="keyword">const</span> T&amp; diff)
 <a name="l00160"></a>00160             {
 <a name="l00161"></a>00161                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#a592c77dcee32866defa154c655e9333d">mStatic</a>.modify (diff);
-<a name="l00162"></a>00162                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#a0293c4ced581d0961dbcd8c45f4268f7">setCurrent</a> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>()+diff);
+<a name="l00162"></a>00162                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#abb00fb02a2face04357f86ec5117d2ec">setCurrent</a> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>()+diff);
 <a name="l00163"></a>00163             }
 <a name="l00164"></a>00164 
-<a name="l00165"></a><a class="code" href="classMWMechanics_1_1DynamicStat.html#a0293c4ced581d0961dbcd8c45f4268f7">00165</a>             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html#a0293c4ced581d0961dbcd8c45f4268f7">setCurrent</a> (<span class="keyword">const</span> T&amp; value)
+<a name="l00165"></a><a class="code" href="classMWMechanics_1_1DynamicStat.html#abb00fb02a2face04357f86ec5117d2ec">00165</a>             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html#abb00fb02a2face04357f86ec5117d2ec">setCurrent</a> (<span class="keyword">const</span> T&amp; value, <span class="keywordtype">bool</span> allowDecreaseBelowZero = <span class="keyword">false</span>)
 <a name="l00166"></a>00166             {
-<a name="l00167"></a>00167                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = value;
-<a name="l00168"></a>00168 
-<a name="l00169"></a>00169                 <span class="keywordflow">if</span> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a>&lt;0)
-<a name="l00170"></a>00170                     <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = 0;
-<a name="l00171"></a>00171                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a>&gt;<a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>())
-<a name="l00172"></a>00172                     <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = <a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>();
-<a name="l00173"></a>00173             }
-<a name="l00174"></a>00174 
-<a name="l00175"></a><a class="code" href="classMWMechanics_1_1DynamicStat.html#ada407647d4c895a5f22f1b2b23e8234e">00175</a>             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html#ada407647d4c895a5f22f1b2b23e8234e">setModifier</a> (<span class="keyword">const</span> T&amp; modifier)
-<a name="l00176"></a>00176             {
-<a name="l00177"></a>00177                 T diff =  modifier - <a class="code" href="classMWMechanics_1_1DynamicStat.html#a592c77dcee32866defa154c655e9333d">mStatic</a>.getModifier();
-<a name="l00178"></a>00178                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#a592c77dcee32866defa154c655e9333d">mStatic</a>.setModifier (modifier);
-<a name="l00179"></a>00179                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#a0293c4ced581d0961dbcd8c45f4268f7">setCurrent</a> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>()+diff);
-<a name="l00180"></a>00180             }
-<a name="l00181"></a>00181     };
-<a name="l00182"></a>00182 
-<a name="l00183"></a>00183     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00184"></a><a class="code" href="namespaceMWMechanics.html#abe2b4bc02ab8b97c94fd792f3c749d88">00184</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#a1cf6546808e1a276bcd46f32a0bf78b6">operator== </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; right)
-<a name="l00185"></a>00185     {
-<a name="l00186"></a>00186         <span class="keywordflow">return</span> left.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a78395b99b2dc600e6da5e72519a744ce">getBase</a>()==right.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a78395b99b2dc600e6da5e72519a744ce">getBase</a>() &amp;&amp;
-<a name="l00187"></a>00187             left.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>()==right.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>() &amp;&amp;
-<a name="l00188"></a>00188             left.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>()==right.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>();
-<a name="l00189"></a>00189     }
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00192"></a><a class="code" href="namespaceMWMechanics.html#a827e83c836068f239163611fff28c3eb">00192</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#aeb79b78f19cefc833885cf5e3aba2414">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; right)
-<a name="l00193"></a>00193     {
-<a name="l00194"></a>00194         <span class="keywordflow">return</span> !(left==right);
-<a name="l00195"></a>00195     }
-<a name="l00196"></a>00196 }
-<a name="l00197"></a>00197 
-<a name="l00198"></a>00198 <span class="preprocessor">#endif</span>
+<a name="l00167"></a>00167                 <span class="keywordflow">if</span> (value &gt; <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a>)
+<a name="l00168"></a>00168                 {
+<a name="l00169"></a>00169                     <span class="comment">// increase</span>
+<a name="l00170"></a>00170                     <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = value;
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172                     <span class="keywordflow">if</span> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> &gt; <a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>())
+<a name="l00173"></a>00173                         <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = <a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>();
+<a name="l00174"></a>00174                 }
+<a name="l00175"></a>00175                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (value &gt; 0 || allowDecreaseBelowZero)
+<a name="l00176"></a>00176                 {
+<a name="l00177"></a>00177                     <span class="comment">// allowed decrease</span>
+<a name="l00178"></a>00178                     <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = value;
+<a name="l00179"></a>00179                 }
+<a name="l00180"></a>00180                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> &gt; 0)
+<a name="l00181"></a>00181                 {
+<a name="l00182"></a>00182                     <span class="comment">// capped decrease</span>
+<a name="l00183"></a>00183                     <a class="code" href="classMWMechanics_1_1DynamicStat.html#a58224c2a7ff5e7c7c2019908273b7e46">mCurrent</a> = 0;
+<a name="l00184"></a>00184                 }
+<a name="l00185"></a>00185             }
+<a name="l00186"></a>00186 
+<a name="l00187"></a><a class="code" href="classMWMechanics_1_1DynamicStat.html#ada407647d4c895a5f22f1b2b23e8234e">00187</a>             <span class="keywordtype">void</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html#ada407647d4c895a5f22f1b2b23e8234e">setModifier</a> (<span class="keyword">const</span> T&amp; modifier)
+<a name="l00188"></a>00188             {
+<a name="l00189"></a>00189                 T diff =  modifier - <a class="code" href="classMWMechanics_1_1DynamicStat.html#a592c77dcee32866defa154c655e9333d">mStatic</a>.getModifier();
+<a name="l00190"></a>00190                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#a592c77dcee32866defa154c655e9333d">mStatic</a>.setModifier (modifier);
+<a name="l00191"></a>00191                 <a class="code" href="classMWMechanics_1_1DynamicStat.html#abb00fb02a2face04357f86ec5117d2ec">setCurrent</a> (<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>()+diff);
+<a name="l00192"></a>00192             }
+<a name="l00193"></a>00193     };
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00196"></a><a class="code" href="namespaceMWMechanics.html#abe2b4bc02ab8b97c94fd792f3c749d88">00196</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#a1cf6546808e1a276bcd46f32a0bf78b6">operator== </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; right)
+<a name="l00197"></a>00197     {
+<a name="l00198"></a>00198         <span class="keywordflow">return</span> left.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a78395b99b2dc600e6da5e72519a744ce">getBase</a>()==right.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a78395b99b2dc600e6da5e72519a744ce">getBase</a>() &amp;&amp;
+<a name="l00199"></a>00199             left.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>()==right.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a5341e59c91e5cc6782ef8f8fa1177bda">getModified</a>() &amp;&amp;
+<a name="l00200"></a>00200             left.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>()==right.<a class="code" href="classMWMechanics_1_1DynamicStat.html#a1d6bad5d87e630be4d8682f23df932bc">getCurrent</a>();
+<a name="l00201"></a>00201     }
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00204"></a><a class="code" href="namespaceMWMechanics.html#a827e83c836068f239163611fff28c3eb">00204</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceMWMechanics.html#aeb79b78f19cefc833885cf5e3aba2414">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; left, <span class="keyword">const</span> <a class="code" href="classMWMechanics_1_1DynamicStat.html">DynamicStat&lt;T&gt;</a>&amp; right)
+<a name="l00205"></a>00205     {
+<a name="l00206"></a>00206         <span class="keywordflow">return</span> !(left==right);
+<a name="l00207"></a>00207     }
+<a name="l00208"></a>00208 }
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

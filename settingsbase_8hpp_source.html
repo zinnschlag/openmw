@@ -68,111 +68,113 @@
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;QRegExp&gt;</span>
 <a name="l00008"></a>00008 <span class="preprocessor">#include &lt;QMap&gt;</span>
 <a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="keyword">template</span> &lt;<span class="keyword">class</span> Map&gt;
-<a name="l00011"></a><a class="code" href="classSettingsBase.html">00011</a> <span class="keyword">class </span><a class="code" href="classSettingsBase.html">SettingsBase</a>
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">public</span>:
-<a name="l00015"></a><a class="code" href="classSettingsBase.html#a7f09f7757eae42130dc9427e03392d9f">00015</a>     <a class="code" href="classSettingsBase.html#a7f09f7757eae42130dc9427e03392d9f">SettingsBase</a>() { <a class="code" href="classSettingsBase.html#a843be9cbeae90cf92d87d8f26e3ca99f">mMultiValue</a> = <span class="keyword">false</span>; }
-<a name="l00016"></a><a class="code" href="classSettingsBase.html#a6980b1c8d7eba14c2702358d951eeec3">00016</a>     <a class="code" href="classSettingsBase.html#a6980b1c8d7eba14c2702358d951eeec3">~SettingsBase</a>() {}
-<a name="l00017"></a>00017 
-<a name="l00018"></a><a class="code" href="classSettingsBase.html#a561caa89bc01c1e18f43ee7a98171d1f">00018</a>     <span class="keyword">inline</span> QString <a class="code" href="classSettingsBase.html#a561caa89bc01c1e18f43ee7a98171d1f">value</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;defaultValue = QString())
-<a name="l00019"></a>00019     {
-<a name="l00020"></a>00020         <span class="keywordflow">return</span> <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.value(key).isEmpty() ? defaultValue : <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.value(key);
-<a name="l00021"></a>00021     }
-<a name="l00022"></a>00022 
-<a name="l00023"></a><a class="code" href="classSettingsBase.html#a82b5c77866f7583c16930f26d6c110b8">00023</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classSettingsBase.html#a82b5c77866f7583c16930f26d6c110b8">setValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classSettingsBase.html#a561caa89bc01c1e18f43ee7a98171d1f">value</a>)
-<a name="l00024"></a>00024     {
-<a name="l00025"></a>00025         QStringList values = <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.values(key);
-<a name="l00026"></a>00026         <span class="keywordflow">if</span> (!values.contains(value))
-<a name="l00027"></a>00027             <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.insert(key, value);
-<a name="l00028"></a>00028     }
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="classSettingsBase.html#a784680bc4998c88983b577d70a892fe8">00030</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classSettingsBase.html#a784680bc4998c88983b577d70a892fe8">setMultiValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classSettingsBase.html#a561caa89bc01c1e18f43ee7a98171d1f">value</a>)
-<a name="l00031"></a>00031     {
-<a name="l00032"></a>00032         QStringList values = <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.values(key);
-<a name="l00033"></a>00033         <span class="keywordflow">if</span> (!values.contains(value))
-<a name="l00034"></a>00034             <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.insertMulti(key, value);
-<a name="l00035"></a>00035     }
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classSettingsBase.html#a2b3be2e88a522fb685d569125ae3c503">00037</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classSettingsBase.html#a2b3be2e88a522fb685d569125ae3c503">setMultiValueEnabled</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
-<a name="l00038"></a>00038     {
-<a name="l00039"></a>00039         <a class="code" href="classSettingsBase.html#a843be9cbeae90cf92d87d8f26e3ca99f">mMultiValue</a> = <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>;
-<a name="l00040"></a>00040     }
-<a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="classSettingsBase.html#ae4e8cfd2ab01a47253a2a4e8e1de819f">00042</a>     <span class="keyword">inline</span> <span class="keywordtype">void</span> <span class="keyword">remove</span>(<span class="keyword">const</span> QString &amp;key)
-<a name="l00043"></a>00043     {
-<a name="l00044"></a>00044         <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.remove(key);
-<a name="l00045"></a>00045     }
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classSettingsBase.html#af3d0fa51b9f046bae3ff861e64b1b95a">00047</a>     Map <a class="code" href="classSettingsBase.html#af3d0fa51b9f046bae3ff861e64b1b95a">getSettings</a>() {<span class="keywordflow">return</span> <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>;}
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>Launcher
+<a name="l00011"></a>00011 {
+<a name="l00012"></a>00012     <span class="keyword">template</span> &lt;<span class="keyword">class</span> Map&gt;
+<a name="l00013"></a><a class="code" href="classLauncher_1_1SettingsBase.html">00013</a>     <span class="keyword">class </span><a class="code" href="classLauncher_1_1SettingsBase.html">SettingsBase</a>
+<a name="l00014"></a>00014     {
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016     <span class="keyword">public</span>:
+<a name="l00017"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a4d61547907f41644efc343cfdba18354">00017</a>         <a class="code" href="classLauncher_1_1SettingsBase.html#a4d61547907f41644efc343cfdba18354">SettingsBase</a>() { <a class="code" href="classLauncher_1_1SettingsBase.html#a88e04f4fb6f0c38fcb16437bd9bde9ed">mMultiValue</a> = <span class="keyword">false</span>; }
+<a name="l00018"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a64a4bc8480cbeed24dd7a81250c5e7e6">00018</a>         <a class="code" href="classLauncher_1_1SettingsBase.html#a64a4bc8480cbeed24dd7a81250c5e7e6">~SettingsBase</a>() {}
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a275e1be65af5236e547fb1deafeb2914">00020</a>         <span class="keyword">inline</span> QString <a class="code" href="classLauncher_1_1SettingsBase.html#a275e1be65af5236e547fb1deafeb2914">value</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;defaultValue = QString())
+<a name="l00021"></a>00021         {
+<a name="l00022"></a>00022             <span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.value(key).isEmpty() ? defaultValue : <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.value(key);
+<a name="l00023"></a>00023         }
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a269921dc3d8e488cc78ab12caaa81236">00025</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a269921dc3d8e488cc78ab12caaa81236">setValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classLauncher_1_1SettingsBase.html#a275e1be65af5236e547fb1deafeb2914">value</a>)
+<a name="l00026"></a>00026         {
+<a name="l00027"></a>00027             QStringList values = <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.values(key);
+<a name="l00028"></a>00028             <span class="keywordflow">if</span> (!values.contains(value))
+<a name="l00029"></a>00029                 <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.insert(key, value);
+<a name="l00030"></a>00030         }
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a37bfcd86b9288a956ebfa5d6c7442212">00032</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a37bfcd86b9288a956ebfa5d6c7442212">setMultiValue</a>(<span class="keyword">const</span> QString &amp;key, <span class="keyword">const</span> QString &amp;<a class="code" href="classLauncher_1_1SettingsBase.html#a275e1be65af5236e547fb1deafeb2914">value</a>)
+<a name="l00033"></a>00033         {
+<a name="l00034"></a>00034             QStringList values = <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.values(key);
+<a name="l00035"></a>00035             <span class="keywordflow">if</span> (!values.contains(value))
+<a name="l00036"></a>00036                 <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.insertMulti(key, value);
+<a name="l00037"></a>00037         }
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a669b3ae1fbdd1249deffabaf8c01ea78">00039</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a669b3ae1fbdd1249deffabaf8c01ea78">setMultiValueEnabled</a>(<span class="keywordtype">bool</span> <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>)
+<a name="l00040"></a>00040         {
+<a name="l00041"></a>00041             <a class="code" href="classLauncher_1_1SettingsBase.html#a88e04f4fb6f0c38fcb16437bd9bde9ed">mMultiValue</a> = <a class="code" href="namespaceCompiler_1_1Generator.html#a1d63b5cd16dc9d0d8e5afbf607cd6dd4">enable</a>;
+<a name="l00042"></a>00042         }
+<a name="l00043"></a>00043 
+<a name="l00044"></a><a class="code" href="classLauncher_1_1SettingsBase.html#ac00dd584b5010748e36bb396840f5e62">00044</a>         <span class="keyword">inline</span> <span class="keywordtype">void</span> <span class="keyword">remove</span>(<span class="keyword">const</span> QString &amp;key)
+<a name="l00045"></a>00045         {
+<a name="l00046"></a>00046             <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.remove(key);
+<a name="l00047"></a>00047         }
 <a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="classSettingsBase.html#a30c13c70d3721580d3913ee15d1fa8e7">00049</a>     <span class="keywordtype">bool</span> <a class="code" href="classSettingsBase.html#a30c13c70d3721580d3913ee15d1fa8e7">readFile</a>(QTextStream &amp;stream)
-<a name="l00050"></a>00050     {
-<a name="l00051"></a>00051         <a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>.clear();
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         QString sectionPrefix;
+<a name="l00049"></a><a class="code" href="classLauncher_1_1SettingsBase.html#acc2bc1f1901e1fb64ae01b52f1faf81b">00049</a>         Map <a class="code" href="classLauncher_1_1SettingsBase.html#acc2bc1f1901e1fb64ae01b52f1faf81b">getSettings</a>() {<span class="keywordflow">return</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>;}
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a381784f17a14c95d40924d16870a40bb">00051</a>         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a381784f17a14c95d40924d16870a40bb">readFile</a>(QTextStream &amp;stream)
+<a name="l00052"></a>00052         {
+<a name="l00053"></a>00053             <a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>.clear();
 <a name="l00054"></a>00054 
-<a name="l00055"></a>00055         QRegExp sectionRe(<span class="stringliteral">&quot;^\\[([^]]+)\\]&quot;</span>);
-<a name="l00056"></a>00056         QRegExp keyRe(<span class="stringliteral">&quot;^([^=]+)\\s*=\\s*(.+)$&quot;</span>);
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058         <span class="keywordflow">while</span> (!stream.atEnd()) {
-<a name="l00059"></a>00059             QString line = stream.readLine();
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061             <span class="keywordflow">if</span> (line.isEmpty() || line.startsWith(<span class="stringliteral">&quot;#&quot;</span>))
-<a name="l00062"></a>00062                 <span class="keywordflow">continue</span>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064             <span class="keywordflow">if</span> (sectionRe.exactMatch(line)) {
-<a name="l00065"></a>00065                 sectionPrefix = sectionRe.cap(1);
-<a name="l00066"></a>00066                 sectionPrefix.append(<span class="stringliteral">&quot;/&quot;</span>);
-<a name="l00067"></a>00067                 <span class="keywordflow">continue</span>;
-<a name="l00068"></a>00068             }
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070             <span class="keywordflow">if</span> (keyRe.indexIn(line) != -1) {
+<a name="l00055"></a>00055             QString sectionPrefix;
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057             QRegExp sectionRe(<span class="stringliteral">&quot;^\\[([^]]+)\\]&quot;</span>);
+<a name="l00058"></a>00058             QRegExp keyRe(<span class="stringliteral">&quot;^([^=]+)\\s*=\\s*(.+)$&quot;</span>);
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060             <span class="keywordflow">while</span> (!stream.atEnd()) {
+<a name="l00061"></a>00061                 QString line = stream.readLine();
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063                 <span class="keywordflow">if</span> (line.isEmpty() || line.startsWith(<span class="stringliteral">&quot;#&quot;</span>))
+<a name="l00064"></a>00064                     <span class="keywordflow">continue</span>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066                 <span class="keywordflow">if</span> (sectionRe.exactMatch(line)) {
+<a name="l00067"></a>00067                     sectionPrefix = sectionRe.cap(1);
+<a name="l00068"></a>00068                     sectionPrefix.append(<span class="stringliteral">&quot;/&quot;</span>);
+<a name="l00069"></a>00069                     <span class="keywordflow">continue</span>;
+<a name="l00070"></a>00070                 }
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072                 QString key = keyRe.cap(1).trimmed();
-<a name="l00073"></a>00073                 QString <a class="code" href="classSettingsBase.html#a561caa89bc01c1e18f43ee7a98171d1f">value</a> = keyRe.cap(2).trimmed();
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075                 <span class="keywordflow">if</span> (!sectionPrefix.isEmpty())
-<a name="l00076"></a>00076                     key.prepend(sectionPrefix);
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078                 <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.remove(key);
+<a name="l00072"></a>00072                 <span class="keywordflow">if</span> (keyRe.indexIn(line) != -1) {
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074                     QString key = keyRe.cap(1).trimmed();
+<a name="l00075"></a>00075                     QString <a class="code" href="classLauncher_1_1SettingsBase.html#a275e1be65af5236e547fb1deafeb2914">value</a> = keyRe.cap(2).trimmed();
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077                     <span class="keywordflow">if</span> (!sectionPrefix.isEmpty())
+<a name="l00078"></a>00078                         key.prepend(sectionPrefix);
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080                 QStringList values = <a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>.values(key);
+<a name="l00080"></a>00080                     <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.remove(key);
 <a name="l00081"></a>00081 
-<a name="l00082"></a>00082                 <span class="keywordflow">if</span> (!values.contains(value)) {
-<a name="l00083"></a>00083                     <span class="keywordflow">if</span> (<a class="code" href="classSettingsBase.html#a843be9cbeae90cf92d87d8f26e3ca99f">mMultiValue</a>) {
-<a name="l00084"></a>00084                         <a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>.insertMulti(key, value);
-<a name="l00085"></a>00085                     } <span class="keywordflow">else</span> {
-<a name="l00086"></a>00086                         <a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>.insert(key, value);
-<a name="l00087"></a>00087                     }
-<a name="l00088"></a>00088                 }
-<a name="l00089"></a>00089             }
-<a name="l00090"></a>00090         }
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092         <span class="keywordflow">if</span> (<a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.isEmpty()) {
-<a name="l00093"></a>00093             <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a> = <a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>; <span class="comment">// This is the first time we read a file</span>
-<a name="l00094"></a>00094             <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00095"></a>00095         }
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097         <span class="comment">// Merge the changed keys with those which didn&#39;t</span>
-<a name="l00098"></a>00098         <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>.unite(<a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>);
-<a name="l00099"></a>00099         <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00100"></a>00100     }
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102 <span class="keyword">private</span>:
-<a name="l00103"></a><a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">00103</a>     Map <a class="code" href="classSettingsBase.html#aee1af95d3a62649f3eaf69fbba8eca05">mSettings</a>;
-<a name="l00104"></a><a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">00104</a>     Map <a class="code" href="classSettingsBase.html#a5e4872a4ce86b6ad209034fb4f0db45c">mCache</a>;
-<a name="l00105"></a>00105 
-<a name="l00106"></a><a class="code" href="classSettingsBase.html#a843be9cbeae90cf92d87d8f26e3ca99f">00106</a>     <span class="keywordtype">bool</span> <a class="code" href="classSettingsBase.html#a843be9cbeae90cf92d87d8f26e3ca99f">mMultiValue</a>;
-<a name="l00107"></a>00107 };
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109 <span class="preprocessor">#endif // SETTINGSBASE_HPP</span>
+<a name="l00082"></a>00082                     QStringList values = <a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>.values(key);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084                     <span class="keywordflow">if</span> (!values.contains(value)) {
+<a name="l00085"></a>00085                         <span class="keywordflow">if</span> (<a class="code" href="classLauncher_1_1SettingsBase.html#a88e04f4fb6f0c38fcb16437bd9bde9ed">mMultiValue</a>) {
+<a name="l00086"></a>00086                             <a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>.insertMulti(key, value);
+<a name="l00087"></a>00087                         } <span class="keywordflow">else</span> {
+<a name="l00088"></a>00088                             <a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>.insert(key, value);
+<a name="l00089"></a>00089                         }
+<a name="l00090"></a>00090                     }
+<a name="l00091"></a>00091                 }
+<a name="l00092"></a>00092             }
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094             <span class="keywordflow">if</span> (<a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.isEmpty()) {
+<a name="l00095"></a>00095                 <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a> = <a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>; <span class="comment">// This is the first time we read a file</span>
+<a name="l00096"></a>00096                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00097"></a>00097             }
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099             <span class="comment">// Merge the changed keys with those which didn&#39;t</span>
+<a name="l00100"></a>00100             <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>.unite(<a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>);
+<a name="l00101"></a>00101             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00102"></a>00102         }
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="keyword">private</span>:
+<a name="l00105"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">00105</a>         Map <a class="code" href="classLauncher_1_1SettingsBase.html#a6ba3705438b99f22f83672e578d58838">mSettings</a>;
+<a name="l00106"></a><a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">00106</a>         Map <a class="code" href="classLauncher_1_1SettingsBase.html#ae1cd371cdb475795412b15c89405efce">mCache</a>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="classLauncher_1_1SettingsBase.html#a88e04f4fb6f0c38fcb16437bd9bde9ed">00108</a>         <span class="keywordtype">bool</span> <a class="code" href="classLauncher_1_1SettingsBase.html#a88e04f4fb6f0c38fcb16437bd9bde9ed">mMultiValue</a>;
+<a name="l00109"></a>00109     };
+<a name="l00110"></a>00110 }
+<a name="l00111"></a>00111 <span class="preprocessor">#endif // SETTINGSBASE_HPP</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:48 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

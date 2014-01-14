@@ -79,7 +79,7 @@
 <a name="l00019"></a>00019             <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#a177ab26b23ec2b77ef07a9c17796359a">operator= </a>(<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ManualRef.html" title="Manually constructed live cell ref.">ManualRef</a>&amp;);
 <a name="l00020"></a>00020 
 <a name="l00021"></a>00021             <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00022"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">00022</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">MWWorld::Store&lt;T&gt;</a>&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00022"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">00022</a>             <span class="keywordtype">bool</span> <a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Store.html">MWWorld::Store&lt;T&gt;</a>&amp; <a class="code" href="bsatool_8cpp.html#a6e7f1179c5854ac3883506e79162011b">list</a>, <span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>)
 <a name="l00023"></a>00023             {
 <a name="l00024"></a>00024                 <span class="keywordflow">if</span> (<span class="keyword">const</span> T *instance = list.<a class="code" href="classMWWorld_1_1Store.html#aba72510a3d5fd541159dcc7978d8d960">search</a> (name))
 <a name="l00025"></a>00025                 {
@@ -97,7 +97,7 @@
 <a name="l00037"></a>00037 
 <a name="l00038"></a>00038         <span class="keyword">public</span>:
 <a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a650599e0f85feba64202eb5396a6b8d6">00040</a>             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; name)
+<a name="l00040"></a><a class="code" href="classMWWorld_1_1ManualRef.html#a09ebb73a4c0b2f1831fa684de5710d22">00040</a>             <a class="code" href="classMWWorld_1_1ManualRef.html#ab8c4e2d1ad1e6b9872c58541e323cd13">ManualRef</a> (<span class="keyword">const</span> <a class="code" href="classMWWorld_1_1ESMStore.html">MWWorld::ESMStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>, <span class="keyword">const</span> <span class="keywordtype">int</span> count=1)
 <a name="l00041"></a>00041             {
 <a name="l00042"></a>00042                 <span class="comment">// create</span>
 <a name="l00043"></a>00043                 <span class="keywordflow">if</span> (!<a class="code" href="classMWWorld_1_1ManualRef.html#ac8a5ddf9916a83ddc9b161956d42a2fb">create</a> (store.<a class="code" href="classMWWorld_1_1ESMStore.html#a94ffe201bd012dd41fcdabfb35c69e24">get</a>&lt;<a class="code" href="structESM_1_1Activator.html">ESM::Activator</a>&gt;(), name) &amp;&amp;
@@ -124,7 +124,7 @@
 <a name="l00064"></a>00064 
 <a name="l00065"></a>00065                 <span class="comment">// initialise</span>
 <a name="l00066"></a>00066                 <a class="code" href="classESM_1_1CellRef.html">ESM::CellRef</a>&amp; cellRef = <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>.<a class="code" href="classMWWorld_1_1Ptr.html#ac7dc2521d5840cd2b197f22b81a6624e">getCellRef</a>();
-<a name="l00067"></a>00067                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a417b985f89787037c02484bdc640fee3">mRefID</a> = name;
+<a name="l00067"></a>00067                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a417b985f89787037c02484bdc640fee3">mRefID</a> = <a class="code" href="crashcatcher_8cpp.html#a8f8f80d37794cde9472343e4487ba3eb">name</a>;
 <a name="l00068"></a>00068                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a6be30fde570fd6a29c15398db74f1249">mRefnum</a> = -1;
 <a name="l00069"></a>00069                 cellRef.<a class="code" href="classESM_1_1CellRef.html#ac91bf3ffc72c608e74a2b34e3955d9cb">mScale</a> = 1;
 <a name="l00070"></a>00070                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a908da9aef1f8b665b3a70889a1131c2f">mFactIndex</a> = 0;
@@ -134,21 +134,22 @@
 <a name="l00074"></a>00074                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a34f73ffd66499acbb093be6b4790bf5d">mTeleport</a> = <span class="keyword">false</span>;
 <a name="l00075"></a>00075                 cellRef.<a class="code" href="classESM_1_1CellRef.html#a14da4d3daf012d6b959c7bbaaecf0255">mLockLevel</a> = 0;
 <a name="l00076"></a>00076                 cellRef.<a class="code" href="classESM_1_1CellRef.html#ae23d48655f6195d7d36158610bf78484">mReferenceBlocked</a> = 0;
-<a name="l00077"></a>00077             }
-<a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">00079</a>             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">getPtr</a>()<span class="keyword"> const</span>
-<a name="l00080"></a>00080 <span class="keyword">            </span>{
-<a name="l00081"></a>00081                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>;
-<a name="l00082"></a>00082             }
-<a name="l00083"></a>00083     };
-<a name="l00084"></a>00084 }
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086 <span class="preprocessor">#endif</span>
+<a name="l00077"></a>00077                 <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>.<a class="code" href="classMWWorld_1_1Ptr.html#aa35780406bea82e5dcff038800bd10e0">getRefData</a>().<a class="code" href="classMWWorld_1_1RefData.html#a3ad2649a24b88d1ffc1b709f6d42e9f1">setCount</a>(count);
+<a name="l00078"></a>00078             }
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">00080</a>             <span class="keyword">const</span> <a class="code" href="classMWWorld_1_1Ptr.html" title="Pointer to a LiveCellRef.">Ptr</a>&amp; <a class="code" href="classMWWorld_1_1ManualRef.html#ad240ee3ca28fcd482deefe7e56728d14">getPtr</a>()<span class="keyword"> const</span>
+<a name="l00081"></a>00081 <span class="keyword">            </span>{
+<a name="l00082"></a>00082                 <span class="keywordflow">return</span> <a class="code" href="classMWWorld_1_1ManualRef.html#a5faa8b23ef66f831bf80552d4ca1f08a">mPtr</a>;
+<a name="l00083"></a>00083             }
+<a name="l00084"></a>00084     };
+<a name="l00085"></a>00085 }
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:52 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

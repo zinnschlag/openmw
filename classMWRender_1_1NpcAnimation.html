@@ -72,7 +72,7 @@
 <div class="title">MWRender::NpcAnimation Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="MWRender::NpcAnimation" --><!-- doxytag: inherits="MWRender::Animation" -->
+<!-- doxytag: class="MWRender::NpcAnimation" --><!-- doxytag: inherits="MWRender::Animation,MWWorld::InventoryStoreListener" -->
 <p><code>#include &lt;<a class="el" href="npcanimation_8hpp_source.html">npcanimation.hpp</a>&gt;</code></p>
 
 <p><a href="classMWRender_1_1NpcAnimation-members.html">List of all members.</a></p>
@@ -88,50 +88,50 @@ Public Types</h2></td></tr>
 std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ad9d661cfec15df1e205eb834b9c1ac51">NpcAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node, <a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;inv, int visibilityFlags, <a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode=<a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a16a63c1b9413c02b294d4a267e539e2f">equipmentChanged</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae77cad2df0a78c059b07c180ee1af712">permanentEffectAdded</a> (const <a class="el" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a> *magicEffect, bool isNew, bool playSound)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a71863548fdccce7b0e7126864b2a9f54">NpcAnimation</a> (const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;ptr, Ogre::SceneNode *node, int visibilityFlags, bool disableListener=false, <a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode=<a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fead5a17ffa7dfe39a101e2e3db0fe3d139">VM_Normal</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aa5faa3df208fc30caa0c63a28b6419c5">~NpcAnimation</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7e9a93865cafb8f8e64c3b85e4fc39c7">runAnimation</a> (float timepassed)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a0276bb5ac593134ce644726301e83e56">showWeapons</a> (bool showWeapon)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae393536322e88da8ae74a2110be468ec">showCarriedLeft</a> (bool showa)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aed4db842528e550579621b23034ece08">setViewMode</a> (<a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a> viewMode)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9582b561a63e258017a3f1899d614e50">updateParts</a> (bool forceupdate=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">updateParts</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a03e2b001d4c360fe5d6defad29de6d53">addFirstPersonOffset</a> (const Ogre::Vector3 &amp;offset)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a translation to the arms and hands. This may be called multiple times before the animation is updated to add additional offsets.  <a href="#a03e2b001d4c360fe5d6defad29de6d53"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a8b37aef38ba00e4f82ffd785141c1321">rebuild</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rebuilds the NPC, updating their root model, animation sources, and equipment.  <a href="#a8b37aef38ba00e4f82ffd785141c1321"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a1d422eb5a7a4548ef1a795a36f75384d">setAlpha</a> (float alpha)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the NPC only partially visible.  <a href="#a1d422eb5a7a4548ef1a795a36f75384d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a19cbf5ba79b6e1beaba9394c9f7128a8">preRender</a> (Ogre::Camera *camera)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare this animation for being rendered with <em>camera</em> (rotates billboard nodes)  <a href="#a19cbf5ba79b6e1beaba9394c9f7128a8"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#acf50b96cffb19c225200c4bff36fbce7">updateNpcBase</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a22da4f057dfac3ec185e6059899d8e39">insertBoundedPart</a> (const std::string &amp;model, int group, const std::string &amp;bonename)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a6499be19f9ede7f4297550d04226cc51">insertBoundedPart</a> (const std::string &amp;model, int group, const std::string &amp;bonename, bool enchantedGlow, Ogre::Vector3 *glowColor=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a19745474066d5289f23025bad740d07d">removeIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aa9e5c5ca4e238081ffefc27a351602ea">reserveIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, int group, int priority)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a1c52c8c1ac1b8490f7a35a4c505a0aae">addOrReplaceIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, int group, int priority, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ac6ff50d84c91eb2f59257b0a459f9534">addOrReplaceIndividualPart</a> (<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a> type, int group, int priority, const std::string &amp;<a class="el" href="ogre__nif__test_8cpp.html#ac10e3d9053de72b8ebb2424223d5c951">mesh</a>, bool enchantedGlow=false, Ogre::Vector3 *glowColor=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a3ecce52f0e5b45c0792138adaede219c">removePartGroup</a> (int group)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ab893491b9ecd786e988c83355a7448e0">addPartGroup</a> (int group, int priority, const std::vector&lt; <a class="el" href="structESM_1_1PartReference.html">ESM::PartReference</a> &gt; &amp;parts)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aa260e487ac7dcb53c7521df1e8e34271">addPartGroup</a> (int group, int priority, const std::vector&lt; <a class="el" href="structESM_1_1PartReference.html">ESM::PartReference</a> &gt; &amp;parts, bool enchantedGlow=false, Ogre::Vector3 *glowColor=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aa908fe262443783fc1b7590ba7197bb4">applyAlpha</a> (float alpha, Ogre::Entity *ent, <a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> scene)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a03c8ee7686fad6e382b3a81c786d491d">mStateID</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a8530ff06d509b41b9a6ac512d34e4c93">mObjectParts</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a8a7c6ba15bc11a2144d67f62fa4da1c8">mListenerDisabled</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae17f8b5dae97bd418f611c6fefed6366">mObjectParts</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structESM_1_1NPC.html">ESM::NPC</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a18a74ca4eaee9c08a00173d54190dfa0">mNpc</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a2a6e7c820277263a00930c6e70c38bfa">mHeadModel</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a72ed46c1e138be66d31c2f0301b282df">mHairModel</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWRender_1_1NpcAnimation.html#acc36454cb5664bffd09e93179eefd7fe">ViewMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7a5a114d0fb0a8b594e1cb746fb73b61">mViewMode</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">mShowWeapons</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a14636aff6eff26d4e72c6f1b0236db76">mTimeToChange</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a37f6a02298e238b8d236987a82313687">mRobe</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ac7984c870b60de7cb6c9f03f4fae5463">mHelmet</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a3ed57b2e59da1c9cb73d226f2846def6">mShirt</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a3d4762c76c5a471fa2c0a5976bb1cd3b">mCuirass</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a3b20709ab61117fbe81cacce460508c5">mGreaves</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aabfa5e8ab4bd515054e1990c764a51be">mPauldronL</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a09040655c5cb2bdd544dd475fe07d4d6">mPauldronR</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a55499981afa0d41beb2a6c2ace693052">mBoots</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a1f045d5b61a41abadd776ebbe89ad33a">mPants</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#acb7ede373e723894b30b1097497cf4a1">mGloveL</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9fd2d937365896bdbf0f401607fd3159">mGloveR</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a0b0c2c59028159b9ac2faf17f659ea06">mSkirtIter</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#aef462ff694cf6ab035a53aaec79e43c7">mWeapon</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a9070ca3d735e0a4cac924984f87b5dbb">mShield</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7cb900fd35490970a8e9cd7e0fe0cbe0">mShowCarriedLeft</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ae187f243cefea7340dcff45b1966efd2">mVisibilityFlags</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#af693df42e0c77dd0983dcff95854bec4">mPartslots</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a6dc6621e5e48c58b4cfabc6764c9d86f">mPartPriorities</a> [<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a183fb11a2b214821a87fb6279dad3a04">mFirstPersonOffset</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Ogre::SharedPtr<br class="typebreak"/>
+&lt; <a class="el" href="classMWRender_1_1SayAnimationValue.html">SayAnimationValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a7be53110a6ecaeff5163845e2876af78">mSayAnimationValue</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#ab801bb355fe1202ac1e08768e5e8b73c">mAlpha</a></td></tr>
 <tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classMWRender_1_1NpcAnimation.html#aec0b2638cfb476b114f05f22307f232d">PartBoneMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMWRender_1_1NpcAnimation.html#a845ed78baadbf3e7b510c208fbc5cc37">sPartList</a> = <a class="el" href="namespaceMWRender.html#af171044f3ca5dd7d4ca290be6b29546c">createPartListMap</a>()</td></tr>
@@ -175,12 +175,12 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad9d661cfec15df1e205eb834b9c1ac51"></a><!-- doxytag: member="MWRender::NpcAnimation::NpcAnimation" ref="ad9d661cfec15df1e205eb834b9c1ac51" args="(const MWWorld::Ptr &amp;ptr, Ogre::SceneNode *node, MWWorld::InventoryStore &amp;inv, int visibilityFlags, ViewMode viewMode=VM_Normal)" -->
+<a class="anchor" id="a71863548fdccce7b0e7126864b2a9f54"></a><!-- doxytag: member="MWRender::NpcAnimation::NpcAnimation" ref="a71863548fdccce7b0e7126864b2a9f54" args="(const MWWorld::Ptr &amp;ptr, Ogre::SceneNode *node, int visibilityFlags, bool disableListener=false, ViewMode viewMode=VM_Normal)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWRender_1_1NpcAnimation.html#ad9d661cfec15df1e205eb834b9c1ac51">MWRender::NpcAnimation::NpcAnimation</a> </td>
+          <td class="memname"><a class="el" href="classMWRender_1_1NpcAnimation.html#a71863548fdccce7b0e7126864b2a9f54">MWRender::NpcAnimation::NpcAnimation</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMWWorld_1_1Ptr.html">MWWorld::Ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>ptr</em>, </td>
@@ -194,14 +194,14 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classMWWorld_1_1InventoryStore.html">MWWorld::InventoryStore</a> &amp;&#160;</td>
-          <td class="paramname"><em>inv</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>visibilityFlags</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>visibilityFlags</em>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>disableListener</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -217,6 +217,16 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td></td></tr>
+    <tr><td class="paramname">node</td><td></td></tr>
+    <tr><td class="paramname">visibilityFlags</td><td></td></tr>
+    <tr><td class="paramname">disableListener</td><td>Don't listen for equipment changes and magic effects. InventoryStore only supports one listener at a time, so you shouldn't do this if creating several NpcAnimations for the same Ptr, eg preview dolls for the player. Those need to be manually rendered anyway. </td></tr>
+    <tr><td class="paramname">viewMode</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -237,12 +247,31 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a1c52c8c1ac1b8490f7a35a4c505a0aae"></a><!-- doxytag: member="MWRender::NpcAnimation::addOrReplaceIndividualPart" ref="a1c52c8c1ac1b8490f7a35a4c505a0aae" args="(ESM::PartReferenceType type, int group, int priority, const std::string &amp;mesh)" -->
+<a class="anchor" id="a03e2b001d4c360fe5d6defad29de6d53"></a><!-- doxytag: member="MWRender::NpcAnimation::addFirstPersonOffset" ref="a03e2b001d4c360fe5d6defad29de6d53" args="(const Ogre::Vector3 &amp;offset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#a1c52c8c1ac1b8490f7a35a4c505a0aae">MWRender::NpcAnimation::addOrReplaceIndividualPart</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a03e2b001d4c360fe5d6defad29de6d53">MWRender::NpcAnimation::addFirstPersonOffset</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Ogre::Vector3 &amp;&#160;</td>
+          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Applies a translation to the arms and hands. This may be called multiple times before the animation is updated to add additional offsets. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac6ff50d84c91eb2f59257b0a459f9534"></a><!-- doxytag: member="MWRender::NpcAnimation::addOrReplaceIndividualPart" ref="ac6ff50d84c91eb2f59257b0a459f9534" args="(ESM::PartReferenceType type, int group, int priority, const std::string &amp;mesh, bool enchantedGlow=false, Ogre::Vector3 *glowColor=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#ac6ff50d84c91eb2f59257b0a459f9534">MWRender::NpcAnimation::addOrReplaceIndividualPart</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2a">ESM::PartReferenceType</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
@@ -263,7 +292,19 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>&#160;</td>
+          <td class="paramname"><em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enchantedGlow</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3 *&#160;</td>
+          <td class="paramname"><em>glowColor</em> = <code>NULL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -276,12 +317,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab893491b9ecd786e988c83355a7448e0"></a><!-- doxytag: member="MWRender::NpcAnimation::addPartGroup" ref="ab893491b9ecd786e988c83355a7448e0" args="(int group, int priority, const std::vector&lt; ESM::PartReference &gt; &amp;parts)" -->
+<a class="anchor" id="aa260e487ac7dcb53c7521df1e8e34271"></a><!-- doxytag: member="MWRender::NpcAnimation::addPartGroup" ref="aa260e487ac7dcb53c7521df1e8e34271" args="(int group, int priority, const std::vector&lt; ESM::PartReference &gt; &amp;parts, bool enchantedGlow=false, Ogre::Vector3 *glowColor=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#ab893491b9ecd786e988c83355a7448e0">MWRender::NpcAnimation::addPartGroup</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#aa260e487ac7dcb53c7521df1e8e34271">MWRender::NpcAnimation::addPartGroup</a> </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>group</em>, </td>
@@ -296,7 +337,19 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="structESM_1_1PartReference.html">ESM::PartReference</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>parts</em>&#160;</td>
+          <td class="paramname"><em>parts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enchantedGlow</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3 *&#160;</td>
+          <td class="paramname"><em>glowColor</em> = <code>NULL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -309,12 +362,64 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a22da4f057dfac3ec185e6059899d8e39"></a><!-- doxytag: member="MWRender::NpcAnimation::insertBoundedPart" ref="a22da4f057dfac3ec185e6059899d8e39" args="(const std::string &amp;model, int group, const std::string &amp;bonename)" -->
+<a class="anchor" id="aa908fe262443783fc1b7590ba7197bb4"></a><!-- doxytag: member="MWRender::NpcAnimation::applyAlpha" ref="aa908fe262443783fc1b7590ba7197bb4" args="(float alpha, Ogre::Entity *ent, NifOgre::ObjectScenePtr scene)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a22da4f057dfac3ec185e6059899d8e39">MWRender::NpcAnimation::insertBoundedPart</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#aa908fe262443783fc1b7590ba7197bb4">MWRender::NpcAnimation::applyAlpha</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Entity *&#160;</td>
+          <td class="paramname"><em>ent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a>&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a16a63c1b9413c02b294d4a267e539e2f"></a><!-- doxytag: member="MWRender::NpcAnimation::equipmentChanged" ref="a16a63c1b9413c02b294d4a267e539e2f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classMWRender_1_1NpcAnimation.html#a16a63c1b9413c02b294d4a267e539e2f">MWRender::NpcAnimation::equipmentChanged</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Fired when items are equipped or unequipped </p>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1InventoryStoreListener.html#a0176574e85f629f307f03bf42444d493">MWWorld::InventoryStoreListener</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6499be19f9ede7f4297550d04226cc51"></a><!-- doxytag: member="MWRender::NpcAnimation::insertBoundedPart" ref="a6499be19f9ede7f4297550d04226cc51" args="(const std::string &amp;model, int group, const std::string &amp;bonename, bool enchantedGlow, Ogre::Vector3 *glowColor=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a6499be19f9ede7f4297550d04226cc51">MWRender::NpcAnimation::insertBoundedPart</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>model</em>, </td>
@@ -329,7 +434,19 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>bonename</em>&#160;</td>
+          <td class="paramname"><em>bonename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enchantedGlow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ogre::Vector3 *&#160;</td>
+          <td class="paramname"><em>glowColor</em> = <code>NULL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -339,6 +456,71 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae77cad2df0a78c059b07c180ee1af712"></a><!-- doxytag: member="MWRender::NpcAnimation::permanentEffectAdded" ref="ae77cad2df0a78c059b07c180ee1af712" args="(const ESM::MagicEffect *magicEffect, bool isNew, bool playSound)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#ae77cad2df0a78c059b07c180ee1af712">MWRender::NpcAnimation::permanentEffectAdded</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structESM_1_1MagicEffect.html">ESM::MagicEffect</a> *&#160;</td>
+          <td class="paramname"><em>magicEffect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isNew</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>playSound</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">effect</td><td></td></tr>
+    <tr><td class="paramname">isNew</td><td>Is this effect new (e.g. the item for it was just now manually equipped) or was it loaded from a savegame / initial game state? <br/>
+ If it isn't new, non-looping VFX should not be played. </td></tr>
+    <tr><td class="paramname">playSound</td><td>Play effect sound? </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classMWWorld_1_1InventoryStoreListener.html#a938652c7531344523eeeee7e221a65d2">MWWorld::InventoryStoreListener</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a19cbf5ba79b6e1beaba9394c9f7128a8"></a><!-- doxytag: member="MWRender::NpcAnimation::preRender" ref="a19cbf5ba79b6e1beaba9394c9f7128a8" args="(Ogre::Camera *camera)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a19cbf5ba79b6e1beaba9394c9f7128a8">MWRender::NpcAnimation::preRender</a> </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::Camera *&#160;</td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Prepare this animation for being rendered with <em>camera</em> (rotates billboard nodes) </p>
+
+<p>Reimplemented from <a class="el" href="classMWRender_1_1Animation.html#af57e944412345b055c146b410bfdbeb7">MWRender::Animation</a>.</p>
 
 </div>
 </div>
@@ -446,6 +628,27 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1d422eb5a7a4548ef1a795a36f75384d"></a><!-- doxytag: member="MWRender::NpcAnimation::setAlpha" ref="a1d422eb5a7a4548ef1a795a36f75384d" args="(float alpha)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a1d422eb5a7a4548ef1a795a36f75384d">MWRender::NpcAnimation::setAlpha</a> </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Make the NPC only partially visible. </p>
+
+<p>Reimplemented from <a class="el" href="classMWRender_1_1Animation.html#ad15d015ec9f2f9f6d6585a65cf02151e">MWRender::Animation</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aed4db842528e550579621b23034ece08"></a><!-- doxytag: member="MWRender::NpcAnimation::setViewMode" ref="aed4db842528e550579621b23034ece08" args="(ViewMode viewMode)" -->
 <div class="memitem">
 <div class="memproto">
@@ -460,6 +663,25 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae393536322e88da8ae74a2110be468ec"></a><!-- doxytag: member="MWRender::NpcAnimation::showCarriedLeft" ref="ae393536322e88da8ae74a2110be468ec" args="(bool showa)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#ae393536322e88da8ae74a2110be468ec">MWRender::NpcAnimation::showCarriedLeft</a> </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>showa</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classMWRender_1_1Animation.html#a4a247dfafe9c1efeeeaa8a609bca4758">MWRender::Animation</a>.</p>
 
 </div>
 </div>
@@ -498,15 +720,14 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9582b561a63e258017a3f1899d614e50"></a><!-- doxytag: member="MWRender::NpcAnimation::updateParts" ref="a9582b561a63e258017a3f1899d614e50" args="(bool forceupdate=false)" -->
+<a class="anchor" id="a1fd4637c3b5e7ee4c5895227ea983acd"></a><!-- doxytag: member="MWRender::NpcAnimation::updateParts" ref="a1fd4637c3b5e7ee4c5895227ea983acd" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a9582b561a63e258017a3f1899d614e50">MWRender::NpcAnimation::updateParts</a> </td>
+          <td class="memname">void <a class="el" href="classMWRender_1_1NpcAnimation.html#a1fd4637c3b5e7ee4c5895227ea983acd">MWRender::NpcAnimation::updateParts</a> </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forceupdate</em> = <code>false</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -516,12 +737,12 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a55499981afa0d41beb2a6c2ace693052"></a><!-- doxytag: member="MWRender::NpcAnimation::mBoots" ref="a55499981afa0d41beb2a6c2ace693052" args="" -->
+<a class="anchor" id="ab801bb355fe1202ac1e08768e5e8b73c"></a><!-- doxytag: member="MWRender::NpcAnimation::mAlpha" ref="ab801bb355fe1202ac1e08768e5e8b73c" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a55499981afa0d41beb2a6c2ace693052">MWRender::NpcAnimation::mBoots</a><code> [private]</code></td>
+          <td class="memname">float <a class="el" href="classMWRender_1_1NpcAnimation.html#ab801bb355fe1202ac1e08768e5e8b73c">MWRender::NpcAnimation::mAlpha</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -529,51 +750,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3d4762c76c5a471fa2c0a5976bb1cd3b"></a><!-- doxytag: member="MWRender::NpcAnimation::mCuirass" ref="a3d4762c76c5a471fa2c0a5976bb1cd3b" args="" -->
+<a class="anchor" id="a183fb11a2b214821a87fb6279dad3a04"></a><!-- doxytag: member="MWRender::NpcAnimation::mFirstPersonOffset" ref="a183fb11a2b214821a87fb6279dad3a04" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a3d4762c76c5a471fa2c0a5976bb1cd3b">MWRender::NpcAnimation::mCuirass</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="acb7ede373e723894b30b1097497cf4a1"></a><!-- doxytag: member="MWRender::NpcAnimation::mGloveL" ref="acb7ede373e723894b30b1097497cf4a1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#acb7ede373e723894b30b1097497cf4a1">MWRender::NpcAnimation::mGloveL</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a9fd2d937365896bdbf0f401607fd3159"></a><!-- doxytag: member="MWRender::NpcAnimation::mGloveR" ref="a9fd2d937365896bdbf0f401607fd3159" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a9fd2d937365896bdbf0f401607fd3159">MWRender::NpcAnimation::mGloveR</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a3b20709ab61117fbe81cacce460508c5"></a><!-- doxytag: member="MWRender::NpcAnimation::mGreaves" ref="a3b20709ab61117fbe81cacce460508c5" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a3b20709ab61117fbe81cacce460508c5">MWRender::NpcAnimation::mGreaves</a><code> [private]</code></td>
+          <td class="memname">Ogre::Vector3 <a class="el" href="classMWRender_1_1NpcAnimation.html#a183fb11a2b214821a87fb6279dad3a04">MWRender::NpcAnimation::mFirstPersonOffset</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -607,12 +789,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac7984c870b60de7cb6c9f03f4fae5463"></a><!-- doxytag: member="MWRender::NpcAnimation::mHelmet" ref="ac7984c870b60de7cb6c9f03f4fae5463" args="" -->
+<a class="anchor" id="a8a7c6ba15bc11a2144d67f62fa4da1c8"></a><!-- doxytag: member="MWRender::NpcAnimation::mListenerDisabled" ref="a8a7c6ba15bc11a2144d67f62fa4da1c8" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#ac7984c870b60de7cb6c9f03f4fae5463">MWRender::NpcAnimation::mHelmet</a><code> [private]</code></td>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#a8a7c6ba15bc11a2144d67f62fa4da1c8">MWRender::NpcAnimation::mListenerDisabled</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -633,25 +815,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8530ff06d509b41b9a6ac512d34e4c93"></a><!-- doxytag: member="MWRender::NpcAnimation::mObjectParts" ref="a8530ff06d509b41b9a6ac512d34e4c93" args="[ESM::PRT_Count]" -->
+<a class="anchor" id="ae17f8b5dae97bd418f611c6fefed6366"></a><!-- doxytag: member="MWRender::NpcAnimation::mObjectParts" ref="ae17f8b5dae97bd418f611c6fefed6366" args="[ESM::PRT_Count]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNifOgre_1_1ObjectList.html">NifOgre::ObjectList</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a8530ff06d509b41b9a6ac512d34e4c93">MWRender::NpcAnimation::mObjectParts</a>[<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]<code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a1f045d5b61a41abadd776ebbe89ad33a"></a><!-- doxytag: member="MWRender::NpcAnimation::mPants" ref="a1f045d5b61a41abadd776ebbe89ad33a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a1f045d5b61a41abadd776ebbe89ad33a">MWRender::NpcAnimation::mPants</a><code> [private]</code></td>
+          <td class="memname"><a class="el" href="namespaceNifOgre.html#a88e4fc83e9049c95023af307eb61b9bf">NifOgre::ObjectScenePtr</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#ae17f8b5dae97bd418f611c6fefed6366">MWRender::NpcAnimation::mObjectParts</a>[<a class="el" href="namespaceESM.html#a88722716faa2add177b6c1c0daf87b2aa309931182fab7ea8d58df455bc0dc764">ESM::PRT_Count</a>]<code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -685,12 +854,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aabfa5e8ab4bd515054e1990c764a51be"></a><!-- doxytag: member="MWRender::NpcAnimation::mPauldronL" ref="aabfa5e8ab4bd515054e1990c764a51be" args="" -->
+<a class="anchor" id="a7be53110a6ecaeff5163845e2876af78"></a><!-- doxytag: member="MWRender::NpcAnimation::mSayAnimationValue" ref="a7be53110a6ecaeff5163845e2876af78" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#aabfa5e8ab4bd515054e1990c764a51be">MWRender::NpcAnimation::mPauldronL</a><code> [private]</code></td>
+          <td class="memname">Ogre::SharedPtr&lt;<a class="el" href="classMWRender_1_1SayAnimationValue.html">SayAnimationValue</a>&gt; <a class="el" href="classMWRender_1_1NpcAnimation.html#a7be53110a6ecaeff5163845e2876af78">MWRender::NpcAnimation::mSayAnimationValue</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -698,51 +867,12 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a09040655c5cb2bdd544dd475fe07d4d6"></a><!-- doxytag: member="MWRender::NpcAnimation::mPauldronR" ref="a09040655c5cb2bdd544dd475fe07d4d6" args="" -->
+<a class="anchor" id="a7cb900fd35490970a8e9cd7e0fe0cbe0"></a><!-- doxytag: member="MWRender::NpcAnimation::mShowCarriedLeft" ref="a7cb900fd35490970a8e9cd7e0fe0cbe0" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a09040655c5cb2bdd544dd475fe07d4d6">MWRender::NpcAnimation::mPauldronR</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a37f6a02298e238b8d236987a82313687"></a><!-- doxytag: member="MWRender::NpcAnimation::mRobe" ref="a37f6a02298e238b8d236987a82313687" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a37f6a02298e238b8d236987a82313687">MWRender::NpcAnimation::mRobe</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a9070ca3d735e0a4cac924984f87b5dbb"></a><!-- doxytag: member="MWRender::NpcAnimation::mShield" ref="a9070ca3d735e0a4cac924984f87b5dbb" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a9070ca3d735e0a4cac924984f87b5dbb">MWRender::NpcAnimation::mShield</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a3ed57b2e59da1c9cb73d226f2846def6"></a><!-- doxytag: member="MWRender::NpcAnimation::mShirt" ref="a3ed57b2e59da1c9cb73d226f2846def6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a3ed57b2e59da1c9cb73d226f2846def6">MWRender::NpcAnimation::mShirt</a><code> [private]</code></td>
+          <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#a7cb900fd35490970a8e9cd7e0fe0cbe0">MWRender::NpcAnimation::mShowCarriedLeft</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -756,45 +886,6 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">bool <a class="el" href="classMWRender_1_1NpcAnimation.html#ae8d5ba71473bcadbab79ffe01601b0cb">MWRender::NpcAnimation::mShowWeapons</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0b0c2c59028159b9ac2faf17f659ea06"></a><!-- doxytag: member="MWRender::NpcAnimation::mSkirtIter" ref="a0b0c2c59028159b9ac2faf17f659ea06" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#a0b0c2c59028159b9ac2faf17f659ea06">MWRender::NpcAnimation::mSkirtIter</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a03c8ee7686fad6e382b3a81c786d491d"></a><!-- doxytag: member="MWRender::NpcAnimation::mStateID" ref="a03c8ee7686fad6e382b3a81c786d491d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="classMWRender_1_1NpcAnimation.html#a03c8ee7686fad6e382b3a81c786d491d">MWRender::NpcAnimation::mStateID</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a14636aff6eff26d4e72c6f1b0236db76"></a><!-- doxytag: member="MWRender::NpcAnimation::mTimeToChange" ref="a14636aff6eff26d4e72c6f1b0236db76" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="classMWRender_1_1NpcAnimation.html#a14636aff6eff26d4e72c6f1b0236db76">MWRender::NpcAnimation::mTimeToChange</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -828,19 +919,6 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aef462ff694cf6ab035a53aaec79e43c7"></a><!-- doxytag: member="MWRender::NpcAnimation::mWeapon" ref="aef462ff694cf6ab035a53aaec79e43c7" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMWWorld_1_1ContainerStoreIterator.html">MWWorld::ContainerStoreIterator</a> <a class="el" href="classMWRender_1_1NpcAnimation.html#aef462ff694cf6ab035a53aaec79e43c7">MWRender::NpcAnimation::mWeapon</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a845ed78baadbf3e7b510c208fbc5cc37"></a><!-- doxytag: member="MWRender::NpcAnimation::sPartList" ref="a845ed78baadbf3e7b510c208fbc5cc37" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -862,7 +940,7 @@ Static Private Attributes</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:54 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

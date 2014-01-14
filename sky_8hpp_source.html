@@ -72,214 +72,218 @@
 <a name="l00011"></a>00011 
 <a name="l00012"></a>00012 <span class="preprocessor">#include &lt;extern/shiny/Main/Factory.hpp&gt;</span>
 <a name="l00013"></a>00013 
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;../mwworld/weather.hpp&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;<a class="code" href="ogrenifloader_8hpp.html">components/nifogre/ogrenifloader.hpp</a>&gt;</span>
+<a name="l00015"></a>00015 
 <a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="keyword">namespace </span>Ogre
-<a name="l00018"></a>00018 {
-<a name="l00019"></a>00019     <span class="keyword">class </span>RenderWindow;
-<a name="l00020"></a>00020     <span class="keyword">class </span>SceneNode;
-<a name="l00021"></a>00021     <span class="keyword">class </span>Camera;
-<a name="l00022"></a>00022     <span class="keyword">class </span>Viewport;
-<a name="l00023"></a>00023     <span class="keyword">class </span>SceneManager;
-<a name="l00024"></a>00024     <span class="keyword">class </span>Entity;
-<a name="l00025"></a>00025     <span class="keyword">class </span>BillboardSet;
-<a name="l00026"></a>00026     <span class="keyword">class </span>TextureUnitState;
-<a name="l00027"></a>00027 }
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">namespace </span>MWRender
-<a name="l00030"></a>00030 {
-<a name="l00031"></a><a class="code" href="classMWRender_1_1BillboardObject.html">00031</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a> : <span class="keyword">public</span> sh::MaterialInstanceListener
-<a name="l00032"></a>00032     {
-<a name="l00033"></a>00033     <span class="keyword">public</span>:
-<a name="l00034"></a>00034         <a class="code" href="classMWRender_1_1BillboardObject.html#a498062638a016de97f35831fb1b75850">BillboardObject</a>(  <span class="keyword">const</span> Ogre::String&amp; textureName,
-<a name="l00035"></a>00035                         <span class="keyword">const</span> <span class="keywordtype">float</span> size,
-<a name="l00036"></a>00036                         <span class="keyword">const</span> Ogre::Vector3&amp; position,
-<a name="l00037"></a>00037                         Ogre::SceneNode* rootNode,
-<a name="l00038"></a>00038                           <span class="keyword">const</span> std::string&amp; material
-<a name="l00039"></a>00039                     );
-<a name="l00040"></a>00040         <a class="code" href="classMWRender_1_1BillboardObject.html#a498062638a016de97f35831fb1b75850">BillboardObject</a>();
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#aed2282571949cb3c0a75d1d311d35ca6">requestedConfiguration</a> (sh::MaterialInstance* m, <span class="keyword">const</span> std::string&amp; configuration);
-<a name="l00043"></a>00043         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a087827a004a63944e3ddedee84b865f9">createdConfiguration</a> (sh::MaterialInstance* m, <span class="keyword">const</span> std::string&amp; configuration);
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classMWRender_1_1BillboardObject.html#a720762d2f1067853f6d127996cb2d9db">00045</a>         <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a720762d2f1067853f6d127996cb2d9db">~BillboardObject</a>() {}
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;../mwworld/weather.hpp&quot;</span>
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>Ogre
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021     <span class="keyword">class </span>RenderWindow;
+<a name="l00022"></a>00022     <span class="keyword">class </span>SceneNode;
+<a name="l00023"></a>00023     <span class="keyword">class </span>Camera;
+<a name="l00024"></a>00024     <span class="keyword">class </span>Viewport;
+<a name="l00025"></a>00025     <span class="keyword">class </span>SceneManager;
+<a name="l00026"></a>00026     <span class="keyword">class </span>Entity;
+<a name="l00027"></a>00027     <span class="keyword">class </span>BillboardSet;
+<a name="l00028"></a>00028     <span class="keyword">class </span>TextureUnitState;
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="keyword">namespace </span>MWRender
+<a name="l00032"></a>00032 {
+<a name="l00033"></a><a class="code" href="classMWRender_1_1BillboardObject.html">00033</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a> : <span class="keyword">public</span> sh::MaterialInstanceListener
+<a name="l00034"></a>00034     {
+<a name="l00035"></a>00035     <span class="keyword">public</span>:
+<a name="l00036"></a>00036         <a class="code" href="classMWRender_1_1BillboardObject.html#a498062638a016de97f35831fb1b75850">BillboardObject</a>(  <span class="keyword">const</span> Ogre::String&amp; textureName,
+<a name="l00037"></a>00037                         <span class="keyword">const</span> <span class="keywordtype">float</span> size,
+<a name="l00038"></a>00038                         <span class="keyword">const</span> Ogre::Vector3&amp; position,
+<a name="l00039"></a>00039                         Ogre::SceneNode* rootNode,
+<a name="l00040"></a>00040                           <span class="keyword">const</span> std::string&amp; material
+<a name="l00041"></a>00041                     );
+<a name="l00042"></a>00042         <a class="code" href="classMWRender_1_1BillboardObject.html#a498062638a016de97f35831fb1b75850">BillboardObject</a>();
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#aed2282571949cb3c0a75d1d311d35ca6">requestedConfiguration</a> (sh::MaterialInstance* m, <span class="keyword">const</span> std::string&amp; configuration);
+<a name="l00045"></a>00045         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a087827a004a63944e3ddedee84b865f9">createdConfiguration</a> (sh::MaterialInstance* m, <span class="keyword">const</span> std::string&amp; configuration);
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a6f35db988a14d3b78e10e8d30eeaf582">setColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; pColour);
-<a name="l00048"></a>00048         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#ac377bd7c5d14b49ab986a02eb55bb9b4">setPosition</a>(<span class="keyword">const</span> Ogre::Vector3&amp; pPosition);
-<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#ae15b2475efe1f6d0a51866a295df2033">setVisible</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> visible);
-<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a48563a7801501a3e6d4575fca94a964f">setRenderQueue</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);
-<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a9254aa719c51804c595abdcffeca05c4">setVisibilityFlags</a>(<span class="keywordtype">int</span> flags);
-<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a0b2aa574875c06cfa3896455020ad1b9">setSize</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> size);
-<a name="l00053"></a>00053         Ogre::Vector3 <a class="code" href="classMWRender_1_1BillboardObject.html#aadd882aa8ce613cb772e7b51d80613c3">getPosition</a>() <span class="keyword">const</span>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a61e140c3967a011a3c4671823472f013">setVisibility</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> visibility);
+<a name="l00047"></a><a class="code" href="classMWRender_1_1BillboardObject.html#a720762d2f1067853f6d127996cb2d9db">00047</a>         <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a720762d2f1067853f6d127996cb2d9db">~BillboardObject</a>() {}
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a6f35db988a14d3b78e10e8d30eeaf582">setColour</a>(<span class="keyword">const</span> Ogre::ColourValue&amp; pColour);
+<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#ac377bd7c5d14b49ab986a02eb55bb9b4">setPosition</a>(<span class="keyword">const</span> Ogre::Vector3&amp; pPosition);
+<a name="l00051"></a>00051         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#ae15b2475efe1f6d0a51866a295df2033">setVisible</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span> visible);
+<a name="l00052"></a>00052         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a48563a7801501a3e6d4575fca94a964f">setRenderQueue</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);
+<a name="l00053"></a>00053         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a9254aa719c51804c595abdcffeca05c4">setVisibilityFlags</a>(<span class="keywordtype">int</span> flags);
+<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a0b2aa574875c06cfa3896455020ad1b9">setSize</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> size);
+<a name="l00055"></a>00055         Ogre::Vector3 <a class="code" href="classMWRender_1_1BillboardObject.html#aadd882aa8ce613cb772e7b51d80613c3">getPosition</a>() <span class="keyword">const</span>;
 <a name="l00056"></a>00056 
-<a name="l00057"></a>00057         Ogre::SceneNode* <a class="code" href="classMWRender_1_1BillboardObject.html#a81ada49385c3a877a848ccc7ed985366">getNode</a>();
+<a name="l00057"></a>00057         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1BillboardObject.html#a61e140c3967a011a3c4671823472f013">setVisibility</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> visibility);
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059     <span class="keyword">protected</span>:
-<a name="l00060"></a><a class="code" href="classMWRender_1_1BillboardObject.html#ac6c7a7912da64ff51f8bd23364e6e5f7">00060</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1BillboardObject.html#ac6c7a7912da64ff51f8bd23364e6e5f7">mVisibility</a>;
-<a name="l00061"></a><a class="code" href="classMWRender_1_1BillboardObject.html#a9f4e8911d6d1abf0dc4bdf58b165efcf">00061</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1BillboardObject.html#a9f4e8911d6d1abf0dc4bdf58b165efcf">mColour</a>;
-<a name="l00062"></a><a class="code" href="classMWRender_1_1BillboardObject.html#a3bad1368786c70947ee68a2759b86479">00062</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1BillboardObject.html#a3bad1368786c70947ee68a2759b86479">mNode</a>;
-<a name="l00063"></a><a class="code" href="classMWRender_1_1BillboardObject.html#aede7fbb05489357cc00fa8207e522b41">00063</a>         sh::MaterialInstance* <a class="code" href="classMWRender_1_1BillboardObject.html#aede7fbb05489357cc00fa8207e522b41">mMaterial</a>;
-<a name="l00064"></a><a class="code" href="classMWRender_1_1BillboardObject.html#aa7a0f2f2f8b3808fdb9aeadc60bba936">00064</a>         Ogre::Entity* <a class="code" href="classMWRender_1_1BillboardObject.html#aa7a0f2f2f8b3808fdb9aeadc60bba936">mEntity</a>;
-<a name="l00065"></a>00065     };
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068     <span class="comment">/*</span>
-<a name="l00069"></a>00069 <span class="comment">     * The moons need a seperate class because of their shader (which allows them to be partially transparent)</span>
-<a name="l00070"></a>00070 <span class="comment">     */</span>
-<a name="l00071"></a><a class="code" href="classMWRender_1_1Moon.html">00071</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Moon.html">Moon</a> : <span class="keyword">public</span> <a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a>
-<a name="l00072"></a>00072     {
-<a name="l00073"></a>00073     <span class="keyword">public</span>:
-<a name="l00074"></a>00074         <a class="code" href="classMWRender_1_1Moon.html#ac18dc840c739ce082d28b8ad0a75e8a6">Moon</a>(  <span class="keyword">const</span> Ogre::String&amp; textureName,
-<a name="l00075"></a>00075                         <span class="keyword">const</span> <span class="keywordtype">float</span> size,
-<a name="l00076"></a>00076                         <span class="keyword">const</span> Ogre::Vector3&amp; position,
-<a name="l00077"></a>00077                         Ogre::SceneNode* rootNode,
-<a name="l00078"></a>00078                <span class="keyword">const</span> std::string&amp; material
-<a name="l00079"></a>00079                     );
-<a name="l00080"></a>00080 
-<a name="l00081"></a><a class="code" href="classMWRender_1_1Moon.html#a2fd9908a13064ddc7591b07a1079b0c4">00081</a>         <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Moon.html#a2fd9908a13064ddc7591b07a1079b0c4">~Moon</a>() {}
+<a name="l00059"></a>00059         Ogre::SceneNode* <a class="code" href="classMWRender_1_1BillboardObject.html#a81ada49385c3a877a848ccc7ed985366">getNode</a>();
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     <span class="keyword">protected</span>:
+<a name="l00062"></a><a class="code" href="classMWRender_1_1BillboardObject.html#ac6c7a7912da64ff51f8bd23364e6e5f7">00062</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1BillboardObject.html#ac6c7a7912da64ff51f8bd23364e6e5f7">mVisibility</a>;
+<a name="l00063"></a><a class="code" href="classMWRender_1_1BillboardObject.html#a9f4e8911d6d1abf0dc4bdf58b165efcf">00063</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1BillboardObject.html#a9f4e8911d6d1abf0dc4bdf58b165efcf">mColour</a>;
+<a name="l00064"></a><a class="code" href="classMWRender_1_1BillboardObject.html#a3bad1368786c70947ee68a2759b86479">00064</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1BillboardObject.html#a3bad1368786c70947ee68a2759b86479">mNode</a>;
+<a name="l00065"></a><a class="code" href="classMWRender_1_1BillboardObject.html#aede7fbb05489357cc00fa8207e522b41">00065</a>         sh::MaterialInstance* <a class="code" href="classMWRender_1_1BillboardObject.html#aede7fbb05489357cc00fa8207e522b41">mMaterial</a>;
+<a name="l00066"></a><a class="code" href="classMWRender_1_1BillboardObject.html#aa7a0f2f2f8b3808fdb9aeadc60bba936">00066</a>         Ogre::Entity* <a class="code" href="classMWRender_1_1BillboardObject.html#aa7a0f2f2f8b3808fdb9aeadc60bba936">mEntity</a>;
+<a name="l00067"></a>00067     };
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="comment">/*</span>
+<a name="l00071"></a>00071 <span class="comment">     * The moons need a seperate class because of their shader (which allows them to be partially transparent)</span>
+<a name="l00072"></a>00072 <span class="comment">     */</span>
+<a name="l00073"></a><a class="code" href="classMWRender_1_1Moon.html">00073</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1Moon.html">Moon</a> : <span class="keyword">public</span> <a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a>
+<a name="l00074"></a>00074     {
+<a name="l00075"></a>00075     <span class="keyword">public</span>:
+<a name="l00076"></a>00076         <a class="code" href="classMWRender_1_1Moon.html#ac18dc840c739ce082d28b8ad0a75e8a6">Moon</a>(  <span class="keyword">const</span> Ogre::String&amp; textureName,
+<a name="l00077"></a>00077                         <span class="keyword">const</span> <span class="keywordtype">float</span> size,
+<a name="l00078"></a>00078                         <span class="keyword">const</span> Ogre::Vector3&amp; position,
+<a name="l00079"></a>00079                         Ogre::SceneNode* rootNode,
+<a name="l00080"></a>00080                <span class="keyword">const</span> std::string&amp; material
+<a name="l00081"></a>00081                     );
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">00083</a>         <span class="keyword">enum</span> <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a>
-<a name="l00084"></a>00084         {
-<a name="l00085"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba8e9960b1c67081840a2dbbe574837862">00085</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba8e9960b1c67081840a2dbbe574837862">Phase_New</a> = 0,
-<a name="l00086"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20bab118d42ad77ae02b0dbc736bead20360">00086</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20bab118d42ad77ae02b0dbc736bead20360">Phase_WaxingCrescent</a>,
-<a name="l00087"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba4bbb0f8decc594720a8e40892da7ea7e">00087</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba4bbb0f8decc594720a8e40892da7ea7e">Phase_WaxingHalf</a>,
-<a name="l00088"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba961e2f9baa07b18565abf08ea498010e">00088</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba961e2f9baa07b18565abf08ea498010e">Phase_WaxingGibbous</a>,
-<a name="l00089"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba89f03544ea82bfdac073a767aa0afe60">00089</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba89f03544ea82bfdac073a767aa0afe60">Phase_Full</a>,
-<a name="l00090"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba856f432a99fc2f8dbdf3f983e2cd5793">00090</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba856f432a99fc2f8dbdf3f983e2cd5793">Phase_WaningGibbous</a>,
-<a name="l00091"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba5e3aca8b278c57cf3a9eeb688b684436">00091</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba5e3aca8b278c57cf3a9eeb688b684436">Phase_WaningHalf</a>,
-<a name="l00092"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba6b0d928472685720bd91d617058c4749">00092</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba6b0d928472685720bd91d617058c4749">Phase_WaningCrescent</a>
-<a name="l00093"></a>00093         };
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">00095</a>         <span class="keyword">enum</span> <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">Type</a>
-<a name="l00096"></a>00096         {
-<a name="l00097"></a><a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba8f901da056c2d1c463181112df2963e5">00097</a>             <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba8f901da056c2d1c463181112df2963e5">Type_Masser</a> = 0,
-<a name="l00098"></a><a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba4aa35f5281e80bfcce416439f2517b32">00098</a>             <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba4aa35f5281e80bfcce416439f2517b32">Type_Secunda</a>
-<a name="l00099"></a>00099         };
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Moon.html#a303bbd4d01c52e08d4d5b96fdfed57e8">setPhase</a>(<span class="keyword">const</span> <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a>&amp; phase);
-<a name="l00102"></a>00102         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Moon.html#ad2f635f9a551b1a22bad43c5e49050e4">setType</a>(<span class="keyword">const</span> <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">Type</a>&amp; type);
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104         <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a> <a class="code" href="classMWRender_1_1Moon.html#aac56ea3c785e4d8cf048eda24103f367">getPhase</a>() <span class="keyword">const</span>;
-<a name="l00105"></a>00105         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1Moon.html#a257f82a75bd025c751c9786a7f404db1">getPhaseInt</a>() <span class="keyword">const</span>;
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107     <span class="keyword">private</span>:
-<a name="l00108"></a><a class="code" href="classMWRender_1_1Moon.html#a4eda55a7014ebc6144b3b79df5c544b6">00108</a>         <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">Type</a> <a class="code" href="classMWRender_1_1Moon.html#a4eda55a7014ebc6144b3b79df5c544b6">mType</a>;
-<a name="l00109"></a><a class="code" href="classMWRender_1_1Moon.html#a7242b92c99888aca6be66097d26eb2f3">00109</a>         <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a> <a class="code" href="classMWRender_1_1Moon.html#a7242b92c99888aca6be66097d26eb2f3">mPhase</a>;
-<a name="l00110"></a>00110     };
-<a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="classMWRender_1_1SkyManager.html">00112</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>
-<a name="l00113"></a>00113     {
-<a name="l00114"></a>00114     <span class="keyword">public</span>:
-<a name="l00115"></a>00115         <a class="code" href="classMWRender_1_1SkyManager.html#a7e5473f23cc3b2aca07a4721f8319a90">SkyManager</a>(Ogre::SceneNode* <a class="code" href="ogre__common_8cpp.html#acee200c3caa45e111e61483dcd269689">root</a>, Ogre::Camera* pCamera);
-<a name="l00116"></a>00116         <a class="code" href="classMWRender_1_1SkyManager.html#a1c13e29d10368a4f571cdcf6fa4b2938">~SkyManager</a>();
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a44d80a92d6ba0028e84946c9279bbb1e">update</a>(<span class="keywordtype">float</span> duration);
+<a name="l00083"></a><a class="code" href="classMWRender_1_1Moon.html#a2fd9908a13064ddc7591b07a1079b0c4">00083</a>         <span class="keyword">virtual</span> <a class="code" href="classMWRender_1_1Moon.html#a2fd9908a13064ddc7591b07a1079b0c4">~Moon</a>() {}
+<a name="l00084"></a>00084 
+<a name="l00085"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">00085</a>         <span class="keyword">enum</span> <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a>
+<a name="l00086"></a>00086         {
+<a name="l00087"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba8e9960b1c67081840a2dbbe574837862">00087</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba8e9960b1c67081840a2dbbe574837862">Phase_New</a> = 0,
+<a name="l00088"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20bab118d42ad77ae02b0dbc736bead20360">00088</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20bab118d42ad77ae02b0dbc736bead20360">Phase_WaxingCrescent</a>,
+<a name="l00089"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba4bbb0f8decc594720a8e40892da7ea7e">00089</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba4bbb0f8decc594720a8e40892da7ea7e">Phase_WaxingHalf</a>,
+<a name="l00090"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba961e2f9baa07b18565abf08ea498010e">00090</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba961e2f9baa07b18565abf08ea498010e">Phase_WaxingGibbous</a>,
+<a name="l00091"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba89f03544ea82bfdac073a767aa0afe60">00091</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba89f03544ea82bfdac073a767aa0afe60">Phase_Full</a>,
+<a name="l00092"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba856f432a99fc2f8dbdf3f983e2cd5793">00092</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba856f432a99fc2f8dbdf3f983e2cd5793">Phase_WaningGibbous</a>,
+<a name="l00093"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba5e3aca8b278c57cf3a9eeb688b684436">00093</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba5e3aca8b278c57cf3a9eeb688b684436">Phase_WaningHalf</a>,
+<a name="l00094"></a><a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba6b0d928472685720bd91d617058c4749">00094</a>             <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20ba6b0d928472685720bd91d617058c4749">Phase_WaningCrescent</a>
+<a name="l00095"></a>00095         };
+<a name="l00096"></a>00096 
+<a name="l00097"></a><a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">00097</a>         <span class="keyword">enum</span> <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">Type</a>
+<a name="l00098"></a>00098         {
+<a name="l00099"></a><a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba8f901da056c2d1c463181112df2963e5">00099</a>             <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba8f901da056c2d1c463181112df2963e5">Type_Masser</a> = 0,
+<a name="l00100"></a><a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba4aa35f5281e80bfcce416439f2517b32">00100</a>             <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454ba4aa35f5281e80bfcce416439f2517b32">Type_Secunda</a>
+<a name="l00101"></a>00101         };
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Moon.html#a303bbd4d01c52e08d4d5b96fdfed57e8">setPhase</a>(<span class="keyword">const</span> <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a>&amp; phase);
+<a name="l00104"></a>00104         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1Moon.html#ad2f635f9a551b1a22bad43c5e49050e4">setType</a>(<span class="keyword">const</span> <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">Type</a>&amp; type);
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106         <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a> <a class="code" href="classMWRender_1_1Moon.html#aac56ea3c785e4d8cf048eda24103f367">getPhase</a>() <span class="keyword">const</span>;
+<a name="l00107"></a>00107         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1Moon.html#a257f82a75bd025c751c9786a7f404db1">getPhaseInt</a>() <span class="keyword">const</span>;
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109     <span class="keyword">private</span>:
+<a name="l00110"></a><a class="code" href="classMWRender_1_1Moon.html#a4eda55a7014ebc6144b3b79df5c544b6">00110</a>         <a class="code" href="classMWRender_1_1Moon.html#a4ae3bf0c382b84dde0e9edf04d2d454b">Type</a> <a class="code" href="classMWRender_1_1Moon.html#a4eda55a7014ebc6144b3b79df5c544b6">mType</a>;
+<a name="l00111"></a><a class="code" href="classMWRender_1_1Moon.html#a7242b92c99888aca6be66097d26eb2f3">00111</a>         <a class="code" href="classMWRender_1_1Moon.html#ab04c8d05389fbf6d43ec3741328ef20b">Phase</a> <a class="code" href="classMWRender_1_1Moon.html#a7242b92c99888aca6be66097d26eb2f3">mPhase</a>;
+<a name="l00112"></a>00112     };
+<a name="l00113"></a>00113 
+<a name="l00114"></a><a class="code" href="classMWRender_1_1SkyManager.html">00114</a>     <span class="keyword">class </span><a class="code" href="classMWRender_1_1SkyManager.html">SkyManager</a>
+<a name="l00115"></a>00115     {
+<a name="l00116"></a>00116     <span class="keyword">public</span>:
+<a name="l00117"></a>00117         <a class="code" href="classMWRender_1_1SkyManager.html#a7e5473f23cc3b2aca07a4721f8319a90">SkyManager</a>(Ogre::SceneNode* <a class="code" href="ogre__common_8cpp.html#acee200c3caa45e111e61483dcd269689">root</a>, Ogre::Camera* pCamera);
+<a name="l00118"></a>00118         <a class="code" href="classMWRender_1_1SkyManager.html#a1c13e29d10368a4f571cdcf6fa4b2938">~SkyManager</a>();
 <a name="l00119"></a>00119 
-<a name="l00120"></a>00120         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a241084295c16c64d1c50d97ec2549693">enable</a>();
+<a name="l00120"></a>00120         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a44d80a92d6ba0028e84946c9279bbb1e">update</a>(<span class="keywordtype">float</span> duration);
 <a name="l00121"></a>00121 
-<a name="l00122"></a>00122         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a00b24076d1cdcdb3fd0be0408f99c47a">disable</a>();
+<a name="l00122"></a>00122         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a241084295c16c64d1c50d97ec2549693">enable</a>();
 <a name="l00123"></a>00123 
-<a name="l00124"></a>00124         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a6f87da45cd31d88fc30442b7616a6c03" title="will be called even when sky is disabled.">setHour</a> (<span class="keywordtype">double</span> hour);
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a2a56b60804dcd30c88684d5834884bd1" title="will be called even when sky is disabled.">setDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month);
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a40753cf6b7ac43d8f131225b832db47a">getMasserPhase</a>() <span class="keyword">const</span>;
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a15c585382904faca2f0dba42c5dffb9f">getSecundaPhase</a>() <span class="keyword">const</span>;
-<a name="l00137"></a>00137 
-<a name="l00138"></a>00138         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a3f0355447d0179a01cc4852422712ef6" title="change Secunda colour to red">setMoonColour</a> (<span class="keywordtype">bool</span> red);
-<a name="l00140"></a>00140 
-<a name="l00141"></a>00141         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ad4c2ca851804bacad1990c2ba4c592fb">setWeather</a>(<span class="keyword">const</span> <a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">MWWorld::WeatherResult</a>&amp; weather);
+<a name="l00124"></a>00124         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a00b24076d1cdcdb3fd0be0408f99c47a">disable</a>();
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a6f87da45cd31d88fc30442b7616a6c03" title="will be called even when sky is disabled.">setHour</a> (<span class="keywordtype">double</span> hour);
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a2a56b60804dcd30c88684d5834884bd1" title="will be called even when sky is disabled.">setDate</a> (<span class="keywordtype">int</span> day, <span class="keywordtype">int</span> month);
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a40753cf6b7ac43d8f131225b832db47a">getMasserPhase</a>() <span class="keyword">const</span>;
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a15c585382904faca2f0dba42c5dffb9f">getSecundaPhase</a>() <span class="keyword">const</span>;
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a3f0355447d0179a01cc4852422712ef6" title="change Secunda colour to red">setMoonColour</a> (<span class="keywordtype">bool</span> red);
 <a name="l00142"></a>00142 
-<a name="l00143"></a>00143         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#a9e57417d22f595c02e65eb8848b681c0">getSunNode</a>();
+<a name="l00143"></a>00143         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ad4c2ca851804bacad1990c2ba4c592fb">setWeather</a>(<span class="keyword">const</span> <a class="code" href="structMWWorld_1_1WeatherResult.html" title="Defines the actual weather that results from weather setting (see below), time of day and weather tra...">MWWorld::WeatherResult</a>&amp; weather);
 <a name="l00144"></a>00144 
-<a name="l00145"></a>00145         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a8c8ae9a390692a5bbef8e4b1e78f10f7">sunEnable</a>();
+<a name="l00145"></a>00145         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#a9e57417d22f595c02e65eb8848b681c0">getSunNode</a>();
 <a name="l00146"></a>00146 
-<a name="l00147"></a>00147         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a0e29187f90f05645ede10e108aa79f7c">sunDisable</a>();
+<a name="l00147"></a>00147         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a8c8ae9a390692a5bbef8e4b1e78f10f7">sunEnable</a>();
 <a name="l00148"></a>00148 
-<a name="l00149"></a>00149         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a4a791e83acdd6c4cc6e17644cb3a6e97">setSunDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
+<a name="l00149"></a>00149         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a0e29187f90f05645ede10e108aa79f7c">sunDisable</a>();
 <a name="l00150"></a>00150 
-<a name="l00151"></a>00151         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a642c3fe2e4974fec62e782acadaa3533">setMasserDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
+<a name="l00151"></a>00151         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a4a791e83acdd6c4cc6e17644cb3a6e97">setSunDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
 <a name="l00152"></a>00152 
-<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#aff87a4257ecb03883cbb384848ca1113">setSecundaDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
+<a name="l00153"></a>00153         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a642c3fe2e4974fec62e782acadaa3533">setMasserDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
 <a name="l00154"></a>00154 
-<a name="l00155"></a>00155         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a008b19e5c6945f35dd78c4bf61de29a5">setMasserFade</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> fade);
+<a name="l00155"></a>00155         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#aff87a4257ecb03883cbb384848ca1113">setSecundaDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; direction);
 <a name="l00156"></a>00156 
-<a name="l00157"></a>00157         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#af6637788f23291654deae390e10586d6">setSecundaFade</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> fade);
+<a name="l00157"></a>00157         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a008b19e5c6945f35dd78c4bf61de29a5">setMasserFade</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> fade);
 <a name="l00158"></a>00158 
-<a name="l00159"></a>00159         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac83ff1b4906fdaf1a83fee22564ae87b">masserEnable</a>();
-<a name="l00160"></a>00160         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#aa89f87d7ad14dd9fad43a72021407231">masserDisable</a>();
-<a name="l00161"></a>00161 
-<a name="l00162"></a>00162         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a517ae7e012a31a3f00217e0b004dbda2">secundaEnable</a>();
-<a name="l00163"></a>00163         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#acf637d16f4f295361178f352eabb98da">secundaDisable</a>();
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a6d2a8b68c1cded6381382dde4dcb4741">setLightningStrength</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> factor);
-<a name="l00166"></a>00166         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a0c2f8ede56897eae46d7c572d19c7536">setLightningDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; dir);
-<a name="l00167"></a>00167         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a8aa92a519e7a8edca1f1b3be6a182a5f" title="disable prior to map render">setLightningEnabled</a>(<span class="keywordtype">bool</span> enabled); 
-<a name="l00168"></a>00168 
-<a name="l00169"></a>00169         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac239df9c1ed457baf45cb0624956d503">setGlare</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> glare);
-<a name="l00170"></a>00170         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ae13b05463e153b9c408c20660264b0bf">setGlareEnabled</a>(<span class="keywordtype">bool</span> enabled);
-<a name="l00171"></a>00171         Ogre::Vector3 <a class="code" href="classMWRender_1_1SkyManager.html#ad6ffd777cb8ec368313d4ee336452a43">getRealSunPos</a>();
-<a name="l00172"></a>00172 
-<a name="l00173"></a>00173     <span class="keyword">private</span>:
-<a name="l00174"></a>00174         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#acd93996a16615ca3cfde16924d739dcf" title="no need to call this, automatically done on first enable()">create</a>();
-<a name="l00176"></a>00176 
-<a name="l00177"></a><a class="code" href="classMWRender_1_1SkyManager.html#aae81cb096b6fff6102b29db0b60f7ea2">00177</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#aae81cb096b6fff6102b29db0b60f7ea2">mCreated</a>;
+<a name="l00159"></a>00159         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#af6637788f23291654deae390e10586d6">setSecundaFade</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> fade);
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac83ff1b4906fdaf1a83fee22564ae87b">masserEnable</a>();
+<a name="l00162"></a>00162         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#aa89f87d7ad14dd9fad43a72021407231">masserDisable</a>();
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a517ae7e012a31a3f00217e0b004dbda2">secundaEnable</a>();
+<a name="l00165"></a>00165         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#acf637d16f4f295361178f352eabb98da">secundaDisable</a>();
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a6d2a8b68c1cded6381382dde4dcb4741">setLightningStrength</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> factor);
+<a name="l00168"></a>00168         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a0c2f8ede56897eae46d7c572d19c7536">setLightningDirection</a>(<span class="keyword">const</span> Ogre::Vector3&amp; dir);
+<a name="l00169"></a>00169         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#a8aa92a519e7a8edca1f1b3be6a182a5f" title="disable prior to map render">setLightningEnabled</a>(<span class="keywordtype">bool</span> enabled); 
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac239df9c1ed457baf45cb0624956d503">setGlare</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> glare);
+<a name="l00172"></a>00172         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#ae13b05463e153b9c408c20660264b0bf">setGlareEnabled</a>(<span class="keywordtype">bool</span> enabled);
+<a name="l00173"></a>00173         Ogre::Vector3 <a class="code" href="classMWRender_1_1SkyManager.html#ad6ffd777cb8ec368313d4ee336452a43">getRealSunPos</a>();
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175     <span class="keyword">private</span>:
+<a name="l00176"></a>00176         <span class="keywordtype">void</span> <a class="code" href="classMWRender_1_1SkyManager.html#acd93996a16615ca3cfde16924d739dcf" title="no need to call this, automatically done on first enable()">create</a>();
 <a name="l00178"></a>00178 
-<a name="l00179"></a><a class="code" href="classMWRender_1_1SkyManager.html#a09ab6983271ba7fed5bf354c292f0ed5">00179</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#a09ab6983271ba7fed5bf354c292f0ed5">mMoonRed</a>;
+<a name="l00179"></a><a class="code" href="classMWRender_1_1SkyManager.html#aae81cb096b6fff6102b29db0b60f7ea2">00179</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#aae81cb096b6fff6102b29db0b60f7ea2">mCreated</a>;
 <a name="l00180"></a>00180 
-<a name="l00181"></a><a class="code" href="classMWRender_1_1SkyManager.html#af089d03908bfd0447e15eedf6f6eef24">00181</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#af089d03908bfd0447e15eedf6f6eef24">mHour</a>;
-<a name="l00182"></a><a class="code" href="classMWRender_1_1SkyManager.html#a9944fe55beb324714163e7d6d09562b1">00182</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a9944fe55beb324714163e7d6d09562b1">mDay</a>;
-<a name="l00183"></a><a class="code" href="classMWRender_1_1SkyManager.html#ad31dadf3eb38d0154ccad0e6cd815a85">00183</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#ad31dadf3eb38d0154ccad0e6cd815a85">mMonth</a>;
-<a name="l00184"></a>00184 
-<a name="l00185"></a><a class="code" href="classMWRender_1_1SkyManager.html#ac264d46aed1ae5a0d67b35708b68044d">00185</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac264d46aed1ae5a0d67b35708b68044d">mCloudAnimationTimer</a>;
+<a name="l00181"></a><a class="code" href="classMWRender_1_1SkyManager.html#a09ab6983271ba7fed5bf354c292f0ed5">00181</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#a09ab6983271ba7fed5bf354c292f0ed5">mMoonRed</a>;
+<a name="l00182"></a>00182 
+<a name="l00183"></a><a class="code" href="classMWRender_1_1SkyManager.html#af089d03908bfd0447e15eedf6f6eef24">00183</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#af089d03908bfd0447e15eedf6f6eef24">mHour</a>;
+<a name="l00184"></a><a class="code" href="classMWRender_1_1SkyManager.html#a9944fe55beb324714163e7d6d09562b1">00184</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#a9944fe55beb324714163e7d6d09562b1">mDay</a>;
+<a name="l00185"></a><a class="code" href="classMWRender_1_1SkyManager.html#ad31dadf3eb38d0154ccad0e6cd815a85">00185</a>         <span class="keywordtype">int</span> <a class="code" href="classMWRender_1_1SkyManager.html#ad31dadf3eb38d0154ccad0e6cd815a85">mMonth</a>;
 <a name="l00186"></a>00186 
-<a name="l00187"></a><a class="code" href="classMWRender_1_1SkyManager.html#a3bc73e62933e86115297847e94063f41">00187</a>         <a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a3bc73e62933e86115297847e94063f41">mSun</a>;
-<a name="l00188"></a><a class="code" href="classMWRender_1_1SkyManager.html#a2a66b4095685cff8c2e985f2ddbf4229">00188</a>         <a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a2a66b4095685cff8c2e985f2ddbf4229">mSunGlare</a>;
-<a name="l00189"></a><a class="code" href="classMWRender_1_1SkyManager.html#a7635320d31736b54a69c8752986095fe">00189</a>         <a class="code" href="classMWRender_1_1Moon.html">Moon</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a7635320d31736b54a69c8752986095fe">mMasser</a>;
-<a name="l00190"></a><a class="code" href="classMWRender_1_1SkyManager.html#ab06b2605d93baa4462f6b71bb7ff7896">00190</a>         <a class="code" href="classMWRender_1_1Moon.html">Moon</a>* <a class="code" href="classMWRender_1_1SkyManager.html#ab06b2605d93baa4462f6b71bb7ff7896">mSecunda</a>;
-<a name="l00191"></a>00191 
-<a name="l00192"></a><a class="code" href="classMWRender_1_1SkyManager.html#ae8d58f94998dcabc2d791bbf6639b6f7">00192</a>         Ogre::Camera* <a class="code" href="classMWRender_1_1SkyManager.html#ae8d58f94998dcabc2d791bbf6639b6f7">mCamera</a>;
-<a name="l00193"></a><a class="code" href="classMWRender_1_1SkyManager.html#ae711eab19574dc33c66ba41a061497c0">00193</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#ae711eab19574dc33c66ba41a061497c0">mRootNode</a>;
-<a name="l00194"></a><a class="code" href="classMWRender_1_1SkyManager.html#a76cdbb930fcf8590edf85d33a8db454b">00194</a>         Ogre::SceneManager* <a class="code" href="classMWRender_1_1SkyManager.html#a76cdbb930fcf8590edf85d33a8db454b">mSceneMgr</a>;
-<a name="l00195"></a>00195 
-<a name="l00196"></a><a class="code" href="classMWRender_1_1SkyManager.html#a282e0a7c8a408def01b02f48e3d9af3b">00196</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#a282e0a7c8a408def01b02f48e3d9af3b">mAtmosphereDay</a>;
-<a name="l00197"></a><a class="code" href="classMWRender_1_1SkyManager.html#a374127d055b81ac21e4d9bc85eb6eed3">00197</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#a374127d055b81ac21e4d9bc85eb6eed3">mAtmosphereNight</a>;
-<a name="l00198"></a>00198 
-<a name="l00199"></a>00199         <span class="comment">// remember some settings so we don&#39;t have to apply them again if they didnt change</span>
-<a name="l00200"></a><a class="code" href="classMWRender_1_1SkyManager.html#a6a3a5dedf14a58033c48eb793fd65b02">00200</a>         Ogre::String <a class="code" href="classMWRender_1_1SkyManager.html#a6a3a5dedf14a58033c48eb793fd65b02">mClouds</a>;
-<a name="l00201"></a><a class="code" href="classMWRender_1_1SkyManager.html#ad74ac87912a545f60795b29354c52b94">00201</a>         Ogre::String <a class="code" href="classMWRender_1_1SkyManager.html#ad74ac87912a545f60795b29354c52b94">mNextClouds</a>;
-<a name="l00202"></a><a class="code" href="classMWRender_1_1SkyManager.html#ad24cfd4c124a492aaf487a263624183c">00202</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#ad24cfd4c124a492aaf487a263624183c">mCloudBlendFactor</a>;
-<a name="l00203"></a><a class="code" href="classMWRender_1_1SkyManager.html#a8991006f131dd4e7084dd4064eea9f01">00203</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a8991006f131dd4e7084dd4064eea9f01">mCloudOpacity</a>;
-<a name="l00204"></a><a class="code" href="classMWRender_1_1SkyManager.html#a0fa50fd70d46d706694cfe52c413982e">00204</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a0fa50fd70d46d706694cfe52c413982e">mCloudSpeed</a>;
-<a name="l00205"></a><a class="code" href="classMWRender_1_1SkyManager.html#aec5fd39cfb47722518a958ea117e8247">00205</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#aec5fd39cfb47722518a958ea117e8247">mStarsOpacity</a>;
-<a name="l00206"></a><a class="code" href="classMWRender_1_1SkyManager.html#a0a05e49419506c4069920fbd9b83bd97">00206</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1SkyManager.html#a0a05e49419506c4069920fbd9b83bd97">mCloudColour</a>;
-<a name="l00207"></a><a class="code" href="classMWRender_1_1SkyManager.html#a0ffe30b55aadea51cf42b8ebea5f0b70">00207</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1SkyManager.html#a0ffe30b55aadea51cf42b8ebea5f0b70">mSkyColour</a>;
-<a name="l00208"></a><a class="code" href="classMWRender_1_1SkyManager.html#aa26e6cfe15600a5fb1beb12b76f693d4">00208</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1SkyManager.html#aa26e6cfe15600a5fb1beb12b76f693d4">mFogColour</a>;
-<a name="l00209"></a>00209 
-<a name="l00210"></a><a class="code" href="classMWRender_1_1SkyManager.html#abce97dc56c530962df294372a6f0af42">00210</a>         Ogre::Light* <a class="code" href="classMWRender_1_1SkyManager.html#abce97dc56c530962df294372a6f0af42">mLightning</a>;
-<a name="l00211"></a>00211 
-<a name="l00212"></a><a class="code" href="classMWRender_1_1SkyManager.html#a849d1716a7efb5d24e3791aabb3d6e70">00212</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a849d1716a7efb5d24e3791aabb3d6e70">mRemainingTransitionTime</a>;
+<a name="l00187"></a><a class="code" href="classMWRender_1_1SkyManager.html#ac264d46aed1ae5a0d67b35708b68044d">00187</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#ac264d46aed1ae5a0d67b35708b68044d">mCloudAnimationTimer</a>;
+<a name="l00188"></a>00188 
+<a name="l00189"></a><a class="code" href="classMWRender_1_1SkyManager.html#a3bc73e62933e86115297847e94063f41">00189</a>         <a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a3bc73e62933e86115297847e94063f41">mSun</a>;
+<a name="l00190"></a><a class="code" href="classMWRender_1_1SkyManager.html#a2a66b4095685cff8c2e985f2ddbf4229">00190</a>         <a class="code" href="classMWRender_1_1BillboardObject.html">BillboardObject</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a2a66b4095685cff8c2e985f2ddbf4229">mSunGlare</a>;
+<a name="l00191"></a><a class="code" href="classMWRender_1_1SkyManager.html#a7635320d31736b54a69c8752986095fe">00191</a>         <a class="code" href="classMWRender_1_1Moon.html">Moon</a>* <a class="code" href="classMWRender_1_1SkyManager.html#a7635320d31736b54a69c8752986095fe">mMasser</a>;
+<a name="l00192"></a><a class="code" href="classMWRender_1_1SkyManager.html#ab06b2605d93baa4462f6b71bb7ff7896">00192</a>         <a class="code" href="classMWRender_1_1Moon.html">Moon</a>* <a class="code" href="classMWRender_1_1SkyManager.html#ab06b2605d93baa4462f6b71bb7ff7896">mSecunda</a>;
+<a name="l00193"></a>00193 
+<a name="l00194"></a><a class="code" href="classMWRender_1_1SkyManager.html#ae8d58f94998dcabc2d791bbf6639b6f7">00194</a>         Ogre::Camera* <a class="code" href="classMWRender_1_1SkyManager.html#ae8d58f94998dcabc2d791bbf6639b6f7">mCamera</a>;
+<a name="l00195"></a><a class="code" href="classMWRender_1_1SkyManager.html#ae711eab19574dc33c66ba41a061497c0">00195</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#ae711eab19574dc33c66ba41a061497c0">mRootNode</a>;
+<a name="l00196"></a><a class="code" href="classMWRender_1_1SkyManager.html#a76cdbb930fcf8590edf85d33a8db454b">00196</a>         Ogre::SceneManager* <a class="code" href="classMWRender_1_1SkyManager.html#a76cdbb930fcf8590edf85d33a8db454b">mSceneMgr</a>;
+<a name="l00197"></a>00197 
+<a name="l00198"></a><a class="code" href="classMWRender_1_1SkyManager.html#a282e0a7c8a408def01b02f48e3d9af3b">00198</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#a282e0a7c8a408def01b02f48e3d9af3b">mAtmosphereDay</a>;
+<a name="l00199"></a><a class="code" href="classMWRender_1_1SkyManager.html#a374127d055b81ac21e4d9bc85eb6eed3">00199</a>         Ogre::SceneNode* <a class="code" href="classMWRender_1_1SkyManager.html#a374127d055b81ac21e4d9bc85eb6eed3">mAtmosphereNight</a>;
+<a name="l00200"></a>00200 
+<a name="l00201"></a><a class="code" href="classMWRender_1_1SkyManager.html#a67dcd2c7c48ee0e5d843e9ef7e924407">00201</a>         std::vector&lt;NifOgre::ObjectScenePtr&gt; <a class="code" href="classMWRender_1_1SkyManager.html#a67dcd2c7c48ee0e5d843e9ef7e924407">mObjects</a>;
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203         <span class="comment">// remember some settings so we don&#39;t have to apply them again if they didnt change</span>
+<a name="l00204"></a><a class="code" href="classMWRender_1_1SkyManager.html#a6a3a5dedf14a58033c48eb793fd65b02">00204</a>         Ogre::String <a class="code" href="classMWRender_1_1SkyManager.html#a6a3a5dedf14a58033c48eb793fd65b02">mClouds</a>;
+<a name="l00205"></a><a class="code" href="classMWRender_1_1SkyManager.html#ad74ac87912a545f60795b29354c52b94">00205</a>         Ogre::String <a class="code" href="classMWRender_1_1SkyManager.html#ad74ac87912a545f60795b29354c52b94">mNextClouds</a>;
+<a name="l00206"></a><a class="code" href="classMWRender_1_1SkyManager.html#ad24cfd4c124a492aaf487a263624183c">00206</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#ad24cfd4c124a492aaf487a263624183c">mCloudBlendFactor</a>;
+<a name="l00207"></a><a class="code" href="classMWRender_1_1SkyManager.html#a8991006f131dd4e7084dd4064eea9f01">00207</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a8991006f131dd4e7084dd4064eea9f01">mCloudOpacity</a>;
+<a name="l00208"></a><a class="code" href="classMWRender_1_1SkyManager.html#a0fa50fd70d46d706694cfe52c413982e">00208</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a0fa50fd70d46d706694cfe52c413982e">mCloudSpeed</a>;
+<a name="l00209"></a><a class="code" href="classMWRender_1_1SkyManager.html#aec5fd39cfb47722518a958ea117e8247">00209</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#aec5fd39cfb47722518a958ea117e8247">mStarsOpacity</a>;
+<a name="l00210"></a><a class="code" href="classMWRender_1_1SkyManager.html#a0a05e49419506c4069920fbd9b83bd97">00210</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1SkyManager.html#a0a05e49419506c4069920fbd9b83bd97">mCloudColour</a>;
+<a name="l00211"></a><a class="code" href="classMWRender_1_1SkyManager.html#a0ffe30b55aadea51cf42b8ebea5f0b70">00211</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1SkyManager.html#a0ffe30b55aadea51cf42b8ebea5f0b70">mSkyColour</a>;
+<a name="l00212"></a><a class="code" href="classMWRender_1_1SkyManager.html#aa26e6cfe15600a5fb1beb12b76f693d4">00212</a>         Ogre::ColourValue <a class="code" href="classMWRender_1_1SkyManager.html#aa26e6cfe15600a5fb1beb12b76f693d4">mFogColour</a>;
 <a name="l00213"></a>00213 
-<a name="l00214"></a><a class="code" href="classMWRender_1_1SkyManager.html#a6423349cd08c73f8b2aa1b3f6ace0766">00214</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a6423349cd08c73f8b2aa1b3f6ace0766">mGlare</a>; <span class="comment">// target</span>
-<a name="l00215"></a><a class="code" href="classMWRender_1_1SkyManager.html#adb7dcdd2cd63e85b71068d5f529f156f">00215</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#adb7dcdd2cd63e85b71068d5f529f156f">mGlareFade</a>; <span class="comment">// actual</span>
-<a name="l00216"></a>00216 
-<a name="l00217"></a><a class="code" href="classMWRender_1_1SkyManager.html#a07a5056a87cb7216f16f1bbb502a2eb7">00217</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#a07a5056a87cb7216f16f1bbb502a2eb7">mEnabled</a>;
-<a name="l00218"></a><a class="code" href="classMWRender_1_1SkyManager.html#aa26f58ff357adb5e7bb6a6caf82da470">00218</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#aa26f58ff357adb5e7bb6a6caf82da470">mSunEnabled</a>;
-<a name="l00219"></a><a class="code" href="classMWRender_1_1SkyManager.html#a36c7254efd149632a211f26e42fb024f">00219</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#a36c7254efd149632a211f26e42fb024f">mMasserEnabled</a>;
-<a name="l00220"></a><a class="code" href="classMWRender_1_1SkyManager.html#ae35b450d884c8fdafb4ca38d72c09728">00220</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#ae35b450d884c8fdafb4ca38d72c09728">mSecundaEnabled</a>;
-<a name="l00221"></a>00221     };
-<a name="l00222"></a>00222 }
-<a name="l00223"></a>00223 
-<a name="l00224"></a>00224 <span class="preprocessor">#endif // GAME_RENDER_SKY_H</span>
+<a name="l00214"></a><a class="code" href="classMWRender_1_1SkyManager.html#abce97dc56c530962df294372a6f0af42">00214</a>         Ogre::Light* <a class="code" href="classMWRender_1_1SkyManager.html#abce97dc56c530962df294372a6f0af42">mLightning</a>;
+<a name="l00215"></a>00215 
+<a name="l00216"></a><a class="code" href="classMWRender_1_1SkyManager.html#a849d1716a7efb5d24e3791aabb3d6e70">00216</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a849d1716a7efb5d24e3791aabb3d6e70">mRemainingTransitionTime</a>;
+<a name="l00217"></a>00217 
+<a name="l00218"></a><a class="code" href="classMWRender_1_1SkyManager.html#a6423349cd08c73f8b2aa1b3f6ace0766">00218</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#a6423349cd08c73f8b2aa1b3f6ace0766">mGlare</a>; <span class="comment">// target</span>
+<a name="l00219"></a><a class="code" href="classMWRender_1_1SkyManager.html#adb7dcdd2cd63e85b71068d5f529f156f">00219</a>         <span class="keywordtype">float</span> <a class="code" href="classMWRender_1_1SkyManager.html#adb7dcdd2cd63e85b71068d5f529f156f">mGlareFade</a>; <span class="comment">// actual</span>
+<a name="l00220"></a>00220 
+<a name="l00221"></a><a class="code" href="classMWRender_1_1SkyManager.html#a07a5056a87cb7216f16f1bbb502a2eb7">00221</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#a07a5056a87cb7216f16f1bbb502a2eb7">mEnabled</a>;
+<a name="l00222"></a><a class="code" href="classMWRender_1_1SkyManager.html#aa26f58ff357adb5e7bb6a6caf82da470">00222</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#aa26f58ff357adb5e7bb6a6caf82da470">mSunEnabled</a>;
+<a name="l00223"></a><a class="code" href="classMWRender_1_1SkyManager.html#a36c7254efd149632a211f26e42fb024f">00223</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#a36c7254efd149632a211f26e42fb024f">mMasserEnabled</a>;
+<a name="l00224"></a><a class="code" href="classMWRender_1_1SkyManager.html#ae35b450d884c8fdafb4ca38d72c09728">00224</a>         <span class="keywordtype">bool</span> <a class="code" href="classMWRender_1_1SkyManager.html#ae35b450d884c8fdafb4ca38d72c09728">mSecundaEnabled</a>;
+<a name="l00225"></a>00225     };
+<a name="l00226"></a>00226 }
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228 <span class="preprocessor">#endif // GAME_RENDER_SKY_H</span>
 </pre></div></div><!-- contents -->
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 9 2013 17:02:51 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 14 2014 10:03:49 for OpenMW by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
