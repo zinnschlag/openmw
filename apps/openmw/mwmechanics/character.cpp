@@ -859,9 +859,8 @@ void CharacterController::update(float duration)
     {
         bool onground = world->isOnGround(mPtr);
         bool inwater = world->isSwimming(mPtr);
-        bool isrunning = cls.getStance(mPtr, MWWorld::Class::Run);
-        isrunning = true;
-        bool sneak = cls.getStance(mPtr, MWWorld::Class::Sneak);
+        bool isrunning = cls.getCreatureStats(mPtr).getStance(MWMechanics::CreatureStats::Stance_Run);
+        bool sneak = cls.getCreatureStats(mPtr).getStance(MWMechanics::CreatureStats::Stance_Sneak);
         bool flying = world->isFlying(mPtr);
         Ogre::Vector3 vec = cls.getMovementVector(mPtr);
         vec.normalise();
@@ -1018,14 +1017,16 @@ void CharacterController::update(float duration)
                 cls.getCreatureStats(mPtr).setHealth(health);
                 cls.onHit(mPtr, realHealthLost, true, MWWorld::Ptr(), MWWorld::Ptr(), true);
 
-                // report acrobatics progression
-                if (mPtr.getRefData().getHandle() == "player")
-                    cls.skillUsageSucceeded(mPtr, ESM::Skill::Acrobatics, 1);
-
-                const float acrobaticsSkill = cls.getNpcStats(mPtr).getSkill(ESM::Skill::Acrobatics).getModified();
+                const float acrobaticsSkill = cls.getSkill(mPtr, ESM::Skill::Acrobatics);
                 if (healthLost > (acrobaticsSkill * fatigueTerm))
                 {
-                    //TODO: actor falls over
+                    cls.getCreatureStats(mPtr).setKnockedDown(true);
+                }
+                else
+                {
+                    // report acrobatics progression
+                    if (mPtr.getRefData().getHandle() == "player")
+                        cls.skillUsageSucceeded(mPtr, ESM::Skill::Acrobatics, 1);
                 }
             }
         }

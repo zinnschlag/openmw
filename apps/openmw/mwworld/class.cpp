@@ -147,21 +147,6 @@ namespace MWWorld
         return "";
     }
 
-    void Class::setForceStance (const Ptr& ptr, Stance stance, bool force) const
-    {
-        throw std::runtime_error ("stance not supported by class");
-    }
-
-    void Class::setStance (const Ptr& ptr, Stance stance, bool set) const
-    {
-        throw std::runtime_error ("stance not supported by class");
-    }
-
-    bool Class::getStance (const Ptr& ptr, Stance stance, bool ignoreForce) const
-    {
-        return false;
-    }
-
     float Class::getSpeed (const Ptr& ptr) const
     {
         return 0;
@@ -371,6 +356,11 @@ namespace MWWorld
     bool Class::isFlying(const Ptr &ptr) const
     {
         return false;
+    }
+
+    int Class::getSkill(const MWWorld::Ptr& ptr, int skill) const
+    {
+        throw std::runtime_error("class does not support skills");
     }
 
 }

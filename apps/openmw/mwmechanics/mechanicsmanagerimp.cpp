@@ -896,18 +896,13 @@ namespace MWMechanics
             return false;
 
         float sneakTerm = 0;
-        if (ptr.getClass().getStance(ptr, MWWorld::Class::Sneak)
+        if (ptr.getClass().getCreatureStats(ptr).getStance(CreatureStats::Stance_Sneak)
                 && !MWBase::Environment::get().getWorld()->isSwimming(ptr)
                 && MWBase::Environment::get().getWorld()->isOnGround(ptr))
         {
             static float fSneakSkillMult = store.find("fSneakSkillMult")->getFloat();
             static float fSneakBootMult = store.find("fSneakBootMult")->getFloat();
-            float sneak = 0;
-            // TODO: According to Hrnchamd Research:Movement, "Creatures have generalized combat, magic and stealth
-            // stats which substitute for the specific skills (in the same way as specializations)."
-            // This probably applies to a large part of the code base.
-            if (ptr.getClass().isNpc())
-                sneak = ptr.getClass().getNpcStats(ptr).getSkill(ESM::Skill::Sneak).getModified();
+            float sneak = ptr.getClass().getSkill(ptr, ESM::Skill::Sneak);
             int agility = stats.getAttribute(ESM::Attribute::Agility).getModified();
             int luck = stats.getAttribute(ESM::Attribute::Luck).getModified();
             float bootWeight = 0;
@@ -935,9 +930,7 @@ namespace MWMechanics
         int obsAgility = observerStats.getAttribute(ESM::Attribute::Agility).getModified();
         int obsLuck = observerStats.getAttribute(ESM::Attribute::Luck).getModified();
         float obsBlind = observerStats.getMagicEffects().get(ESM::MagicEffect::Blind).mMagnitude;
-        int obsSneak = 0;
-        if (observer.getClass().isNpc())
-            obsSneak = observer.getClass().getNpcStats(observer).getSkill(ESM::Skill::Sneak).getModified();
+        int obsSneak = observer.getClass().getSkill(observer, ESM::Skill::Sneak);
 
         float obsTerm = obsSneak + 0.2 * obsAgility + 0.1 * obsLuck - obsBlind;
 
