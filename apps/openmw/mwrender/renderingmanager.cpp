@@ -19,7 +19,6 @@
 
 #include <openengine/bullet/physic.hpp>
 
-#include <components/esm/loadstat.hpp>
 #include <components/settings/settings.hpp>
 #include <components/terrain/world.hpp>
 
@@ -35,16 +34,15 @@
 #include "../mwmechanics/creaturestats.hpp"
 
 #include "../mwworld/ptr.hpp"
-#include "../mwworld/player.hpp"
 
 #include "shadows.hpp"
 #include "localmap.hpp"
 #include "water.hpp"
 #include "npcanimation.hpp"
-#include "externalrendering.hpp"
 #include "globalmap.hpp"
 #include "videoplayer.hpp"
 #include "terrainstorage.hpp"
+#include "effectmanager.hpp"
 
 using namespace MWRender;
 using namespace Ogre;
@@ -61,9 +59,11 @@ RenderingManager::RenderingManager(OEngine::Render::OgreRenderer& _rend, const b
     , mSunEnabled(0)
     , mPhysicsEngine(engine)
     , mTerrain(NULL)
+    , mEffectManager(NULL)
 {
     mActors = new MWRender::Actors(mRendering, this);
     mObjects = new MWRender::Objects(mRendering);
+    mEffectManager = new EffectManager(mRendering.getScene());
     // select best shader mode
     bool openGL = (Ogre::Root::getSingleton ().getRenderSystem ()->getName().find("OpenGL") != std::string::npos);
     bool glES = (Ogre::Root::getSingleton ().getRenderSystem ()->getName().find("OpenGL ES") != std::string::npos);
@@ -197,6 +197,7 @@ RenderingManager::~RenderingManager ()
     delete mVideoPlayer;
     delete mActors;
     delete mObjects;
+    delete mEffectManager;
     delete mFactory;
 }
 
@@ -289,6 +290,9 @@ void RenderingManager::rotateObject(const MWWorld::Ptr &ptr)
 void
 RenderingManager::updateObjectCell(const MWWorld::Ptr &old, const MWWorld::Ptr &cur)
 {
+    Ogre::Image im;
+    im.encode(".jpg");
+
     Ogre::SceneNode *child =
         mRendering.getScene()->getSceneNode(old.getRefData().getHandle());
 
@@ -338,7 +342,7 @@ void RenderingManager::update (float duration, bool paused)
 
     MWBase::World *world = MWBase::Environment::get().getWorld();
 
-    MWWorld::Ptr player = world->getPlayer().getPlayer();
+    MWWorld::Ptr player = world->getPlayerPtr();
 
     int blind = MWWorld::Class::get(player).getCreatureStats(player).getMagicEffects().get(ESM::MagicEffect::Blind).mMagnitude;
     mRendering.getFader()->setFactor(std::max(0.f, 1.f-(blind / 100.f)));
@@ -362,12 +366,14 @@ void RenderingManager::update (float duration, bool paused)
     }
 
     // Sink the camera while sneaking
-    bool isSneaking = MWWorld::Class::get(player).getStance(player, MWWorld::Class::Sneak);
+    bool isSneaking = player.getClass().getCreatureStats(player).getStance(MWMechanics::CreatureStats::Stance_Sneak);
     bool isInAir = !world->isOnGround(player);
     bool isSwimming = world->isSwimming(player);
 
+    static const int i1stPersonSneakDelta = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>()
+            .find("i1stPersonSneakDelta")->getInt();
     if(isSneaking && !(isSwimming || isInAir))
-        mCamera->setSneakOffset();
+        mCamera->setSneakOffset(i1stPersonSneakDelta);
 
 
     mOcclusionQuery->update(duration);
@@ -384,6 +390,8 @@ void RenderingManager::update (float duration, bool paused)
 
     if(paused)
         return;
+
+    mEffectManager->update(duration);
 
     mActors->update (mRendering.getCamera());
     mPlayerAnimation->preRender(mRendering.getCamera());
@@ -417,12 +425,7 @@ void RenderingManager::postRenderTargetUpdate(const RenderTargetEvent &evt)
 
 void RenderingManager::waterAdded (MWWorld::CellStore *store)
 {
-    const MWWorld::Store<ESM::Land> &lands =
-        MWBase::Environment::get().getWorld()->getStore().get<ESM::Land>();
-
-    if(store->mCell->mData.mFlags & ESM::Cell::HasWater
-        || ((store->mCell->isExterior())
-            && !lands.search(store->mCell->getGridX(),store->mCell->getGridY()) )) // always use water, if the cell does not have land.
+    if(store->mCell->mData.mFlags & ESM::Cell::HasWater)
     {
         mWater->changeCell(store->mCell);
         mWater->setActive(true);
@@ -602,7 +605,7 @@ void RenderingManager::setAmbientColour(const Ogre::ColourValue& colour)
 {
     mAmbientColor = colour;
 
-    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayer().getPlayer();
+    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
     int nightEye = MWWorld::Class::get(player).getCreatureStats(player).getMagicEffects().get(ESM::MagicEffect::NightEye).mMagnitude;
     Ogre::ColourValue final = colour;
     final += Ogre::ColourValue(0.7,0.7,0.7,0) * std::min(1.f, (nightEye/100.f));
@@ -691,14 +694,14 @@ Shadows* RenderingManager::getShadows()
 
 void RenderingManager::switchToInterior()
 {
-    // causes light flicker in opengl when moving..
-    //mRendering.getScene()->setCameraRelativeRendering(false);
+    // TODO: also do this when switching worldspace
+    mEffectManager->clear();
 }
 
 void RenderingManager::switchToExterior()
 {
-    // causes light flicker in opengl when moving..
-    //mRendering.getScene()->setCameraRelativeRendering(true);
+    // TODO: also do this when switching worldspace
+    mEffectManager->clear();
 }
 
 Ogre::Vector4 RenderingManager::boundingBoxToScreen(Ogre::AxisAlignedBox bounds)
@@ -754,7 +757,7 @@ void RenderingManager::processChangedSettings(const Settings::CategorySettingVec
         else if (it->second == "max viewing distance" && it->first == "Viewing distance")
         {
             if (!MWBase::Environment::get().getWorld()->isCellExterior() && !MWBase::Environment::get().getWorld()->isCellQuasiExterior())
-                configureFog(*MWBase::Environment::get().getWorld()->getPlayer().getPlayer().getCell());
+                configureFog(*MWBase::Environment::get().getWorld()->getPlayerPtr().getCell());
         }
         else if (it->first == "Video" && (
                 it->second == "resolution x"
@@ -948,11 +951,6 @@ bool RenderingManager::isPositionExplored (float nX, float nY, int x, int y, boo
     return mLocalMap->isPositionExplored(nX, nY, x, y, interior);
 }
 
-void RenderingManager::setupExternalRendering (MWRender::ExternalRendering& rendering)
-{
-    rendering.setup (mRendering.getScene());
-}
-
 Animation* RenderingManager::getAnimation(const MWWorld::Ptr &ptr)
 {
     Animation *anim = mActors->getAnimation(ptr);
@@ -966,6 +964,38 @@ Animation* RenderingManager::getAnimation(const MWWorld::Ptr &ptr)
     return anim;
 }
 
+void RenderingManager::screenshot(Image &image, int w, int h)
+{
+    // Create a temporary render target. We do not use the RenderWindow since we want a specific size.
+    // Also, the GUI should not be visible (and it is only rendered on the RenderWindow's primary viewport)
+    const std::string tempName = "@temp";
+    Ogre::TexturePtr texture = Ogre::TextureManager::getSingleton().createManual(tempName,
+        Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, w, h, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
+
+    float oldAspect = mRendering.getCamera()->getAspectRatio();
+
+    mRendering.getCamera()->setAspectRatio(w / static_cast<float>(h));
+
+    Ogre::RenderTarget* rt = texture->getBuffer()->getRenderTarget();
+    Ogre::Viewport* vp = rt->addViewport(mRendering.getCamera());
+    vp->setBackgroundColour(mRendering.getViewport()->getBackgroundColour());
+    vp->setOverlaysEnabled(false);
+    vp->setVisibilityMask(mRendering.getViewport()->getVisibilityMask());
+    rt->update();
+
+    Ogre::PixelFormat pf = rt->suggestPixelFormat();
+
+    std::vector<Ogre::uchar> data;
+    data.resize(w * h * Ogre::PixelUtil::getNumElemBytes(pf));
+
+    Ogre::PixelBox pb(w, h, 1, pf, &data[0]);
+    rt->copyContentsToMemory(pb);
+
+    image.loadDynamicImage(&data[0], w, h, pf);
+
+    Ogre::TextureManager::getSingleton().remove(tempName);
+    mRendering.getCamera()->setAspectRatio(oldAspect);
+}
 
 void RenderingManager::playVideo(const std::string& name, bool allowSkipping)
 {
@@ -1039,6 +1069,11 @@ void RenderingManager::enableTerrain(bool enable)
 float RenderingManager::getCameraDistance() const
 {
     return mCamera->getCameraDistance();
+}
+
+void RenderingManager::spawnEffect(const std::string &model, const std::string &texture, const Vector3 &worldPosition)
+{
+    mEffectManager->addEffect(model, texture, worldPosition);
 }
 
 } // namespace
