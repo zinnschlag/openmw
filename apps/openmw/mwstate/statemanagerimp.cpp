@@ -35,6 +35,7 @@ void MWState::StateManager::cleanup (bool force)
         MWBase::Environment::get().getJournal()->clear();
         MWBase::Environment::get().getScriptManager()->getGlobalScripts().clear();
         MWBase::Environment::get().getWorld()->clear();
+        MWBase::Environment::get().getWindowManager()->clear();
 
         mState = State_NoGame;
         mCharacterManager.clearCurrentCharacter();
@@ -73,8 +74,8 @@ void MWState::StateManager::askLoadRecent()
         {
             MWState::Slot lastSave = *getCurrentCharacter()->begin();
             std::vector<std::string> buttons;
-            buttons.push_back("Yes");
-            buttons.push_back("No");
+            buttons.push_back("#{sYes}");
+            buttons.push_back("#{sNo}");
             std::string tag("%s");
             std::string message = MWBase::Environment::get().getWindowManager()->getGameSettingString("sLoadLastSaveMsg", tag);
             size_t pos = message.find(tag);
@@ -173,6 +174,7 @@ void MWState::StateManager::saveGame (const std::string& description, const Slot
         +MWBase::Environment::get().getJournal()->countSavedGameRecords()
         +MWBase::Environment::get().getWorld()->countSavedGameRecords()
         +MWBase::Environment::get().getScriptManager()->getGlobalScripts().countSavedGameRecords()
+                + 1 // global map
         );
 
     writer.save (stream);
@@ -184,6 +186,7 @@ void MWState::StateManager::saveGame (const std::string& description, const Slot
     MWBase::Environment::get().getJournal()->write (writer);
     MWBase::Environment::get().getWorld()->write (writer);
     MWBase::Environment::get().getScriptManager()->getGlobalScripts().write (writer);
+    MWBase::Environment::get().getWindowManager()->write(writer);
 
     writer.close();
 
@@ -242,6 +245,11 @@ void MWState::StateManager::loadGame (const Character *character, const Slot *sl
                     MWBase::Environment::get().getScriptManager()->getGlobalScripts().readRecord (reader, n.val);
                     break;
 
+                case ESM::REC_GMAP:
+
+                    MWBase::Environment::get().getWindowManager()->readRecord(reader, n.val);
+                    break;
+
                 default:
 
                     // ignore invalid records
@@ -257,6 +265,7 @@ void MWState::StateManager::loadGame (const Character *character, const Slot *sl
         Settings::Manager::setString ("character", "Saves",
             slot->mPath.parent_path().filename().string());
 
+        MWBase::Environment::get().getWindowManager()->setNewGame(false);
         MWBase::Environment::get().getWorld()->setupPlayer();
         MWBase::Environment::get().getWorld()->renderPlayer();
         MWBase::Environment::get().getWindowManager()->updatePlayer();

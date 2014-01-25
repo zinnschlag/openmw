@@ -1381,4 +1381,19 @@ namespace MWGui
         Settings::Manager::setFloat(setting + " h", "Windows", h);
     }
 
+    void WindowManager::clear()
+    {
+        mMap->clear();
+    }
+
+    void WindowManager::write(ESM::ESMWriter &writer)
+    {
+        mMap->write(writer);
+    }
+
+    void WindowManager::readRecord(ESM::ESMReader &reader, int32_t type)
+    {
+        mMap->readRecord(reader, type);
+    }
+
 }
