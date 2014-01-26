@@ -22,7 +22,7 @@ namespace MWMechanics
 {
 
 class Movement;
-class NpcStats;
+class CreatureStats;
 
 enum Priority {
     Priority_Default,
@@ -92,7 +92,8 @@ enum CharacterState {
     CharState_SwimDeath,
 
     CharState_Hit,
-    CharState_KnockDown
+    CharState_KnockDown,
+    CharState_Block
 };
 
 enum WeaponType {
@@ -170,18 +171,22 @@ class CharacterController
 
     static void getWeaponGroup(WeaponType weaptype, std::string &group);
 
-    static MWWorld::ContainerStoreIterator getActiveWeapon(NpcStats &stats,
+    static MWWorld::ContainerStoreIterator getActiveWeapon(CreatureStats &stats,
                                                            MWWorld::InventoryStore &inv,
                                                            WeaponType *weaptype);
 
     void clearAnimQueue();
 
-    bool updateNpcState(bool inwater, bool isrunning);
+    bool updateWeaponState(bool inwater, bool isrunning);
     bool updateCreatureState();
 
     void updateVisibility();
 
     void playRandomDeath(float startpoint = 0.0f);
+
+    /// choose a random animation group with \a prefix and numeric suffix
+    /// @param num if non-NULL, the chosen animation number will be written here
+    std::string chooseRandomGroup (const std::string& prefix, int* num = NULL);
 
 public:
     CharacterController(const MWWorld::Ptr &ptr, MWRender::Animation *anim);

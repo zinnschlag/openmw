@@ -38,17 +38,21 @@ namespace MWMechanics
 
         const MWWorld::Ptr target = MWBase::Environment::get().getWorld()->getPtr(mTargetId, false);
 
+        if (target.getClass().getCreatureStats(target).isDead())
+            return true;
+
         if(MWWorld::Class::get(actor).getCreatureStats(actor).getHealth().getCurrent() <= 0) return true;
 
         actor.getClass().getCreatureStats(actor).setMovementFlag(CreatureStats::Flag_Run, true);
 
-        if(actor.getTypeName() == typeid(ESM::NPC).name())
+        if (actor.getClass().hasInventoryStore(actor))
         {
-            MWMechanics::DrawState_ state = actor.getClass().getNpcStats(actor).getDrawState();
+            MWMechanics::DrawState_ state = actor.getClass().getCreatureStats(actor).getDrawState();
             if (state == MWMechanics::DrawState_Spell || state == MWMechanics::DrawState_Nothing)
-                actor.getClass().getNpcStats(actor).setDrawState(MWMechanics::DrawState_Weapon);
+                actor.getClass().getCreatureStats(actor).setDrawState(MWMechanics::DrawState_Weapon);
             //MWWorld::Class::get(actor).getCreatureStats(actor).setAttackingOrSpell(true);
         }
+
         ESM::Position pos = actor.getRefData().getPosition();
         const ESM::Pathgrid *pathgrid =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::Pathgrid>().search(*actor.getCell()->mCell);
@@ -158,6 +162,7 @@ namespace MWMechanics
     {
         return mTargetId;
     }
+
 
     AiCombat *MWMechanics::AiCombat::clone() const
     {
