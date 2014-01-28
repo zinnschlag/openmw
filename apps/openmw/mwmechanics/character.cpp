@@ -39,17 +39,17 @@
 namespace
 {
 
-int getBestAttack (const ESM::Weapon* weapon)
+std::string getBestAttack (const ESM::Weapon* weapon)
 {
     int slash = (weapon->mData.mSlash[0] + weapon->mData.mSlash[1])/2;
     int chop = (weapon->mData.mChop[0] + weapon->mData.mChop[1])/2;
     int thrust = (weapon->mData.mThrust[0] + weapon->mData.mThrust[1])/2;
     if (slash >= chop && slash >= thrust)
-        return MWMechanics::CreatureStats::AT_Slash;
+        return "slash";
     else if (chop >= slash && chop >= thrust)
-        return MWMechanics::CreatureStats::AT_Chop;
+        return "chop";
     else
-        return MWMechanics::CreatureStats::AT_Thrust;
+        return "thrust";
 }
 
 }
@@ -310,7 +310,7 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
 }
 
 
-void CharacterController::getWeaponGroup(WeaponType weaptype, std::string &group)
+void getWeaponGroup(WeaponType weaptype, std::string &group)
 {
     const WeaponInfo *info = std::find_if(sWeaponTypeList, sWeaponTypeListEnd, FindWeaponType(weaptype));
     if(info != sWeaponTypeListEnd)
@@ -318,7 +318,7 @@ void CharacterController::getWeaponGroup(WeaponType weaptype, std::string &group
 }
 
 
-MWWorld::ContainerStoreIterator CharacterController::getActiveWeapon(CreatureStats &stats, MWWorld::InventoryStore &inv, WeaponType *weaptype)
+MWWorld::ContainerStoreIterator getActiveWeapon(CreatureStats &stats, MWWorld::InventoryStore &inv, WeaponType *weaptype)
 {
     if(stats.getDrawState() == DrawState_Spell)
     {
@@ -478,18 +478,7 @@ bool CharacterController::updateCreatureState()
         {
             MWBase::Environment::get().getWorld()->breakInvisibility(mPtr);
 
-            switch (stats.getAttackType())
-            {
-            case CreatureStats::AT_Chop:
-                mCurrentWeapon = "attack1";
-                break;
-            case CreatureStats::AT_Slash:
-                mCurrentWeapon = "attack2";
-                break;
-            case CreatureStats::AT_Thrust:
-                mCurrentWeapon = "attack3";
-                break;
-            }
+            determineAttackType();
 
             mAnimation->play(mCurrentWeapon, Priority_Weapon,
                              MWRender::Animation::Group_All, true,
@@ -505,7 +494,7 @@ bool CharacterController::updateCreatureState()
     return false;
 }
 
-bool CharacterController::updateWeaponState(bool inwater, bool isrunning)
+bool CharacterController::updateWeaponState()
 {
     const MWWorld::Class &cls = MWWorld::Class::get(mPtr);
     CreatureStats &stats = cls.getCreatureStats(mPtr);
@@ -574,7 +563,9 @@ bool CharacterController::updateWeaponState(bool inwater, bool isrunning)
     if(isWerewolf)
     {
         MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
-        if(isrunning && !inwater && mWeaponType == WeapType_None)
+        if(cls.getCreatureStats(mPtr).getStance(MWMechanics::CreatureStats::Stance_Run)
+            && !MWBase::Environment::get().getWorld()->isSwimming(mPtr)
+            && mWeaponType == WeapType_None)
         {
             if(!sndMgr->getSoundPlaying(mPtr, "WolfRun"))
                 sndMgr->playSound3D(mPtr, "WolfRun", 1.0f, 1.0f, MWBase::SoundManager::Play_TypeSfx,
@@ -700,16 +691,10 @@ bool CharacterController::updateWeaponState(bool inwater, bool isrunning)
                     mAttackType = "shoot";
                 else
                 {
-                    int attackType = stats.getAttackType();
                     if(isWeapon && Settings::Manager::getBool("best attack", "Game"))
-                        attackType = getBestAttack(weapon->get<ESM::Weapon>()->mBase);
-
-                    if (attackType == MWMechanics::CreatureStats::AT_Chop)
-                        mAttackType = "chop";
-                    else if (attackType == MWMechanics::CreatureStats::AT_Slash)
-                        mAttackType = "slash";
+                        mAttackType = getBestAttack(weapon->get<ESM::Weapon>()->mBase);
                     else
-                        mAttackType = "thrust";
+                        determineAttackType();
                 }
 
                 mAnimation->play(mCurrentWeapon, Priority_Weapon,
@@ -890,7 +875,8 @@ void CharacterController::update(float duration)
         bool isrunning = cls.getCreatureStats(mPtr).getStance(MWMechanics::CreatureStats::Stance_Run);
         bool sneak = cls.getCreatureStats(mPtr).getStance(MWMechanics::CreatureStats::Stance_Sneak);
         bool flying = world->isFlying(mPtr);
-        Ogre::Vector3 vec = cls.getMovementVector(mPtr);
+        //Ogre::Vector3 vec = cls.getMovementVector(mPtr);
+        Ogre::Vector3 vec(cls.getMovementSettings(mPtr).mPosition);
         vec.normalise();
         if(mHitState != CharState_None && mJumpState == JumpState_None)
             vec = Ogre::Vector3(0.0f);
@@ -1117,7 +1103,7 @@ void CharacterController::update(float duration)
         }
 
         if(cls.hasInventoryStore(mPtr))
-            forcestateupdate = updateWeaponState(inwater, isrunning) || forcestateupdate;
+            forcestateupdate = updateWeaponState() || forcestateupdate;
         else
             forcestateupdate = updateCreatureState() || forcestateupdate;
 
@@ -1137,6 +1123,7 @@ void CharacterController::update(float duration)
         }
 
         movement = vec;
+        cls.getMovementSettings(mPtr).mPosition[0] = cls.getMovementSettings(mPtr).mPosition[1] = cls.getMovementSettings(mPtr).mPosition[2] = 0;
     }
     else if(cls.getCreatureStats(mPtr).isDead())
     {
@@ -1305,6 +1292,30 @@ void CharacterController::updateVisibility()
     }
 
     mAnimation->setAlpha(alpha);
+}
+
+void CharacterController::determineAttackType()
+{
+    float * move = mPtr.getClass().getMovementSettings(mPtr).mPosition;
+    
+    if(mPtr.getClass().hasInventoryStore(mPtr))
+    {
+        if (move[0] && !move[1]) //sideway
+            mAttackType = "slash";
+        else if (move[1]) //forward
+            mAttackType = "thrust";
+        else
+            mAttackType = "chop";
+    }
+    else
+    {
+        if (move[0] && !move[1]) //sideway
+            mCurrentWeapon = "attack2";
+        else if (move[1]) //forward
+            mCurrentWeapon = "attack3";
+        else
+            mCurrentWeapon = "attack1";
+    }
 }
 
 }

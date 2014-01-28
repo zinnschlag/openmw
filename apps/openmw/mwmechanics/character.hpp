@@ -166,18 +166,13 @@ class CharacterController
     float mSecondsOfRunning;
 
     std::string mAttackType; // slash, chop or thrust
+    void determineAttackType();
 
     void refreshCurrentAnims(CharacterState idle, CharacterState movement, bool force=false);
 
-    static void getWeaponGroup(WeaponType weaptype, std::string &group);
-
-    static MWWorld::ContainerStoreIterator getActiveWeapon(CreatureStats &stats,
-                                                           MWWorld::InventoryStore &inv,
-                                                           WeaponType *weaptype);
-
     void clearAnimQueue();
 
-    bool updateWeaponState(bool inwater, bool isrunning);
+    bool updateWeaponState();
     bool updateCreatureState();
 
     void updateVisibility();
@@ -211,6 +206,8 @@ public:
     void forceStateUpdate();
 };
 
+    void getWeaponGroup(WeaponType weaptype, std::string &group);
+    MWWorld::ContainerStoreIterator getActiveWeapon(CreatureStats &stats, MWWorld::InventoryStore &inv, WeaponType *weaptype);
 }
 
 #endif /* GAME_MWMECHANICS_CHARACTER_HPP */
