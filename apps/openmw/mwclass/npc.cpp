@@ -603,10 +603,7 @@ namespace MWClass
             {
                 MWMechanics::CastSpell cast(ptr, victim);
                 cast.mHitPosition = hitPosition;
-                bool success = cast.cast(weapon);
-
-                if (ptr.getRefData().getHandle() == "player" && success)
-                    skillUsageSucceeded (ptr, ESM::Skill::Enchant, 3);
+                cast.cast(weapon);
             }
         }
 
@@ -726,6 +723,9 @@ namespace MWClass
                     if (armorref.mCharge == 0)
                         inv.unequipItem(armor, ptr);
 
+                    if (ptr.getRefData().getHandle() == "player")
+                        skillUsageSucceeded(ptr, get(armor).getEquipmentSkill(armor), 0);
+
                     switch(get(armor).getEquipmentSkill(armor))
                     {
                         case ESM::Skill::LightArmor:
@@ -739,6 +739,8 @@ namespace MWClass
                             break;
                     }
                 }
+                else if(ptr.getRefData().getHandle() == "player")
+                    skillUsageSucceeded(ptr, ESM::Skill::Unarmored, 0);
             }
         }
 
