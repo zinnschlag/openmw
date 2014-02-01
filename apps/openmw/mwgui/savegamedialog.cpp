@@ -15,6 +15,8 @@
 
 #include "../mwstate/character.hpp"
 
+#include "confirmationdialog.hpp"
+
 namespace MWGui
 {
     SaveGameDialog::SaveGameDialog()
@@ -34,7 +36,27 @@ namespace MWGui
         mCancelButton->eventMouseButtonClick += MyGUI::newDelegate(this, &SaveGameDialog::onCancelButtonClicked);
         mCharacterSelection->eventComboChangePosition += MyGUI::newDelegate(this, &SaveGameDialog::onCharacterSelected);
         mSaveList->eventListChangePosition += MyGUI::newDelegate(this, &SaveGameDialog::onSlotSelected);
+        mSaveList->eventListSelectAccept += MyGUI::newDelegate(this, &SaveGameDialog::onSlotActivated);
+        mSaveNameEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SaveGameDialog::onEditSelectAccept);
+        mSaveNameEdit->eventEditTextChange += MyGUI::newDelegate(this, &SaveGameDialog::onSaveNameChanged);
+    }
 
+    void SaveGameDialog::onSlotActivated(MyGUI::ListBox *sender, size_t pos)
+    {
+        onSlotSelected(sender, pos);
+        accept();
+    }
+
+    void SaveGameDialog::onSaveNameChanged(MyGUI::EditBox *sender)
+    {
+        // This might have previously been a save slot from the list. If so, that is no longer the case
+        mSaveList->setIndexSelected(MyGUI::ITEM_NONE);
+        onSlotSelected(mSaveList, MyGUI::ITEM_NONE);
+    }
+
+    void SaveGameDialog::onEditSelectAccept(MyGUI::EditBox *sender)
+    {
+        accept();
     }
 
     void SaveGameDialog::open()
@@ -42,6 +64,8 @@ namespace MWGui
         WindowModal::open();
 
         mSaveNameEdit->setCaption ("");
+        if (mSaving)
+            MWBase::Environment::get().getWindowManager()->setKeyFocusWidget(mSaveNameEdit);
 
         center();
 
@@ -101,8 +125,15 @@ namespace MWGui
         setVisible(false);
     }
 
-    void SaveGameDialog::onOkButtonClicked(MyGUI::Widget *sender)
+    void SaveGameDialog::onConfirmationGiven()
     {
+        accept(true);
+    }
+
+    void SaveGameDialog::accept(bool reallySure)
+    {
+        MWBase::Environment::get().getWindowManager()->setKeyFocusWidget(NULL);
+
         // Get the selected slot, if any
         unsigned int i=0;
         const MWState::Slot* slot = NULL;
@@ -118,6 +149,21 @@ namespace MWGui
 
         if (mSaving)
         {
+            // If overwriting an existing slot, ask for confirmation first
+            if (slot != NULL && !reallySure)
+            {
+                ConfirmationDialog* dialog = MWBase::Environment::get().getWindowManager()->getConfirmationDialog();
+                dialog->open("#{sMessage4}");
+                dialog->eventOkClicked.clear();
+                dialog->eventOkClicked += MyGUI::newDelegate(this, &SaveGameDialog::onConfirmationGiven);
+                dialog->eventCancelClicked.clear();
+                return;
+            }
+            if (mSaveNameEdit->getCaption().empty())
+            {
+                MWBase::Environment::get().getWindowManager()->messageBox("#{sNotifyMessage65}");
+                return;
+            }
             MWBase::Environment::get().getStateManager()->saveGame (mSaveNameEdit->getCaption(), slot);
         }
         else
@@ -133,6 +179,11 @@ namespace MWGui
         {
             MWBase::Environment::get().getWindowManager()->pushGuiMode (MWGui::GM_MainMenu);
         }
+    }
+
+    void SaveGameDialog::onOkButtonClicked(MyGUI::Widget *sender)
+    {
+        accept();
     }
 
     void SaveGameDialog::onCharacterSelected(MyGUI::ComboBox *sender, size_t pos)
@@ -172,6 +223,9 @@ namespace MWGui
             mScreenshot->setImageTexture("");
             return;
         }
+
+        if (mSaving)
+            mSaveNameEdit->setCaption(sender->getItemNameAt(pos));
 
         const MWState::Slot* slot = NULL;
         unsigned int i=0;
