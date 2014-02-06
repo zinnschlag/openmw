@@ -93,6 +93,7 @@ enum CharacterState {
 
     CharState_Hit,
     CharState_KnockDown,
+    CharState_KnockOut,
     CharState_Block
 };
 
@@ -105,7 +106,7 @@ enum WeaponType {
     WeapType_TwoWide,
     WeapType_BowAndArrow,
     WeapType_Crossbow,
-    WeapType_ThowWeapon,
+    WeapType_Thrown,
     WeapType_PickProbe,
 
     WeapType_Spell

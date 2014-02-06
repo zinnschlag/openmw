@@ -119,7 +119,7 @@ static const struct WeaponInfo {
     { WeapType_TwoWide, "2w", "weapontwowide" },
     { WeapType_BowAndArrow, "1h", "bowandarrow" },
     { WeapType_Crossbow, "crossbow", "crossbow" },
-    { WeapType_ThowWeapon, "1h", "throwweapon" },
+    { WeapType_Thrown, "1h", "throwweapon" },
     { WeapType_PickProbe, "1h", "pickprobe" },
     { WeapType_Spell, "spell", "spellcast" },
 };
@@ -157,7 +157,14 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
         bool block = mPtr.getClass().getCreatureStats(mPtr).getBlock();
         if(mHitState == CharState_None)
         {
-            if(knockdown)
+            if (mPtr.getClass().getCreatureStats(mPtr).getFatigue().getCurrent() < 0)
+            {
+                mHitState = CharState_KnockOut;
+                mCurrentHit = "knockout";
+                mAnimation->play(mCurrentHit, Priority_Knockdown, MWRender::Animation::Group_All, false, 1, "start", "stop", 0.0f, ~0ul);
+                mPtr.getClass().getCreatureStats(mPtr).setKnockedDown(true);
+            }
+            else if(knockdown)
             {
                 mHitState = CharState_KnockDown;
                 mCurrentHit = "knockdown";
@@ -186,6 +193,12 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
             if (block)
                 mPtr.getClass().getCreatureStats(mPtr).setBlock(false);
             mHitState = CharState_None;
+        }
+        else if (mHitState == CharState_KnockOut && mPtr.getClass().getCreatureStats(mPtr).getFatigue().getCurrent() > 0)
+        {
+            mHitState = CharState_KnockDown;
+            mAnimation->disable(mCurrentHit);
+            mAnimation->play(mCurrentHit, Priority_Knockdown, MWRender::Animation::Group_All, true, 1, "loop stop", "stop", 0.0f, 0);
         }
     }
 
@@ -302,8 +315,18 @@ void CharacterController::refreshCurrentAnims(CharacterState idle, CharacterStat
         if(!mCurrentMovement.empty())
         {
             float vel, speedmult = 1.0f;
+
+            bool isrunning = mPtr.getClass().getCreatureStats(mPtr).getStance(MWMechanics::CreatureStats::Stance_Run);
+
             if(mMovementSpeed > 0.0f && (vel=mAnimation->getVelocity(mCurrentMovement)) > 1.0f)
                 speedmult = mMovementSpeed / vel;
+            else if (mMovementState == CharState_TurnLeft || mMovementState == CharState_TurnRight)
+                speedmult = 1.f; // TODO: should get a speed mult depending on the current turning speed
+            else if (mMovementSpeed > 0.0f)
+                // The first person anims don't have any velocity to calculate a speed multiplier from.
+                // We use the third person velocities instead.
+                // FIXME: should be pulled from the actual animation, but it is not presently loaded.
+                speedmult = mMovementSpeed / (isrunning ? 222.857f : 154.064f);
             mAnimation->play(mCurrentMovement, Priority_Movement, movegroup, false,
                              speedmult, ((mode!=2)?"start":"loop start"), "stop", 0.0f, ~0ul);
         }
@@ -367,7 +390,7 @@ MWWorld::ContainerStoreIterator getActiveWeapon(CreatureStats &stats, MWWorld::I
                         *weaptype = WeapType_Crossbow;
                         break;
                     case ESM::Weapon::MarksmanThrown:
-                        *weaptype = WeapType_ThowWeapon;
+                        *weaptype = WeapType_Thrown;
                         break;
                 }
             }
@@ -534,6 +557,7 @@ bool CharacterController::updateWeaponState()
         {
             getWeaponGroup(weaptype, weapgroup);
             mAnimation->showWeapons(false);
+            mAnimation->setWeaponGroup(weapgroup);
             
             mAnimation->play(weapgroup, Priority_Weapon,
                              MWRender::Animation::Group_UpperBody, true,
@@ -587,6 +611,19 @@ bool CharacterController::updateWeaponState()
     float weapSpeed = 1.0f;
     if(isWeapon)
         weapSpeed = weapon->get<ESM::Weapon>()->mBase->mData.mSpeed;
+
+    // Cancel attack if we no longer have ammunition
+    bool ammunition = true;
+    MWWorld::ContainerStoreIterator ammo = inv.getSlot(MWWorld::InventoryStore::Slot_Ammunition);
+    if (mWeaponType == WeapType_Crossbow)
+        ammunition = (ammo != inv.end() && ammo->get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::Bolt);
+    else if (mWeaponType == WeapType_BowAndArrow)
+        ammunition = (ammo != inv.end() && ammo->get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::Arrow);
+    if (!ammunition && mUpperBodyState > UpperCharState_WeapEquiped)
+    {
+        mAnimation->disable(mCurrentWeapon);
+        mUpperBodyState = UpperCharState_WeapEquiped;
+    }
 
     float complete;
     bool animPlaying;
@@ -692,10 +729,10 @@ bool CharacterController::updateWeaponState()
                 if(item.getRefData().getCount())
                     MWBase::Environment::get().getWindowManager()->setSelectedWeapon(item);
             }
-            else
+            else if (ammunition)
             {
                 if(mWeaponType == WeapType_Crossbow || mWeaponType == WeapType_BowAndArrow ||
-                   mWeaponType == WeapType_ThowWeapon)
+                   mWeaponType == WeapType_Thrown)
                     mAttackType = "shoot";
                 else
                 {
@@ -759,12 +796,59 @@ bool CharacterController::updateWeaponState()
         }
     }
 
+    mAnimation->setPitchFactor(0.f);
+    if (mWeaponType == WeapType_BowAndArrow || mWeaponType == WeapType_Thrown)
+    {
+        switch (mUpperBodyState)
+        {
+        case UpperCharState_StartToMinAttack:
+            mAnimation->setPitchFactor(complete);
+            break;
+        case UpperCharState_MinAttackToMaxAttack:
+        case UpperCharState_MaxAttackToMinHit:
+        case UpperCharState_MinHitToHit:
+            mAnimation->setPitchFactor(1.f);
+            break;
+        case UpperCharState_FollowStartToFollowStop:
+            if (animPlaying)
+                mAnimation->setPitchFactor(1.f-complete);
+            break;
+        default:
+            break;
+        }
+    }
+    else if (mWeaponType == WeapType_Crossbow)
+    {
+        switch (mUpperBodyState)
+        {
+        case UpperCharState_EquipingWeap:
+            mAnimation->setPitchFactor(complete);
+            break;
+        case UpperCharState_UnEquipingWeap:
+            mAnimation->setPitchFactor(1.f-complete);
+            break;
+        case UpperCharState_WeapEquiped:
+        case UpperCharState_StartToMinAttack:
+        case UpperCharState_MinAttackToMaxAttack:
+        case UpperCharState_MaxAttackToMinHit:
+        case UpperCharState_MinHitToHit:
+        case UpperCharState_FollowStartToFollowStop:
+            mAnimation->setPitchFactor(1.f);
+            break;
+        default:
+            break;
+        }
+    }
+
     if(!animPlaying)
     {
         if(mUpperBodyState == UpperCharState_EquipingWeap ||
            mUpperBodyState == UpperCharState_FollowStartToFollowStop ||
            mUpperBodyState == UpperCharState_CastingSpell)
         {
+            if (ammunition && mWeaponType == WeapType_Crossbow)
+                mAnimation->attachArrow();
+
             mUpperBodyState = UpperCharState_WeapEquiped;
             //don't allow to continue playing hit animation on UpperBody after actor had attacked during it
             if(mHitState == CharState_Hit) 
@@ -1121,7 +1205,7 @@ void CharacterController::update(float duration)
         if (!mSkipAnim)
         {
             rot *= Ogre::Math::RadiansToDegrees(1.0f);
-            if(mHitState != CharState_KnockDown)
+            if(mHitState != CharState_KnockDown && mHitState != CharState_KnockOut)
             {
                 world->rotateObject(mPtr, rot.x, rot.y, rot.z, true);
             }
