@@ -162,6 +162,5 @@ endif()
 
 # Debug version needs increased number of sections beyond 2^16
 if (CMAKE_CL_64)
-	set (CMAKE_CXX_FLAGS_DEBUG "/bigobj")
+    ADD_DEFINITIONS(/bigobj)
 endif (CMAKE_CL_64)
-
