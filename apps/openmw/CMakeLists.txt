@@ -160,7 +160,9 @@ if (BUILD_WITH_CODE_COVERAGE)
   target_link_libraries(openmw gcov)
 endif()
 
-# Debug version needs increased number of sections beyond 2^16
-if (CMAKE_CL_64)
-    ADD_DEFINITIONS(/bigobj)
-endif (CMAKE_CL_64)
+if (MSVC)
+    # Debug version needs increased number of sections beyond 2^16
+    if (CMAKE_CL_64)
+        ADD_DEFINITIONS(/bigobj)
+    endif (CMAKE_CL_64)
+endif (MSVC)
