@@ -162,8 +162,6 @@ namespace MWWorld
             mRendering.cellAdded (cell);
 
             mRendering.configureAmbient(*cell);
-            mRendering.requestMap(cell);
-            mRendering.configureAmbient(*cell);
         }
 
         // register local scripts
@@ -197,6 +195,11 @@ namespace MWWorld
         mechMgr->updateCell(old, player);
         mechMgr->watchActor(player);
 
+        mRendering.updateTerrain();
+
+        for (CellStoreCollection::iterator active = mActiveCells.begin(); active!=mActiveCells.end(); ++active)
+            mRendering.requestMap(*active);
+
         MWBase::Environment::get().getWindowManager()->changeCell(mCurrentCell);
     }
 
@@ -211,11 +214,12 @@ namespace MWWorld
 
     void Scene::changeCell (int X, int Y, const ESM::Position& position, bool adjustPlayerPos)
     {
-        mRendering.enableTerrain(true);
         Nif::NIFFile::CacheLock cachelock;
 
         Loading::Listener* loadingListener = MWBase::Environment::get().getWindowManager()->getLoadingScreen();
         Loading::ScopedLoad load(loadingListener);
+
+        mRendering.enableTerrain(true);
 
         std::string loadingExteriorText = "#{sLoadingMessage3}";
         loadingListener->setLabel(loadingExteriorText);
@@ -361,10 +365,10 @@ namespace MWWorld
         Nif::NIFFile::CacheLock lock;
         MWBase::Environment::get().getWorld ()->getFader ()->fadeOut(0.5);
 
-        mRendering.enableTerrain(false);
-
         Loading::Listener* loadingListener = MWBase::Environment::get().getWindowManager()->getLoadingScreen();
         Loading::ScopedLoad load(loadingListener);
+
+        mRendering.enableTerrain(false);
 
         std::string loadingInteriorText = "#{sLoadingMessage2}";
         loadingListener->setLabel(loadingInteriorText);

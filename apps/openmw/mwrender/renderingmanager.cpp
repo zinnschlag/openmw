@@ -5,12 +5,14 @@
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 #include <OgreViewport.h>
 #include <OgreCamera.h>
 #include <OgreTextureManager.h>
 #include <OgreHardwarePixelBuffer.h>
 #include <OgreControllerManager.h>
 #include <OgreMeshManager.h>
+#include <OgreRenderTexture.h>
 
 #include <SDL_video.h>
 
@@ -649,6 +651,18 @@ void RenderingManager::setGlare(bool glare)
     mSkyManager->setGlare(glare);
 }
 
+void RenderingManager::updateTerrain()
+{
+    if (mTerrain)
+    {
+        // Avoid updating with dims.getCenter for each cell. Player position should be good enough
+        mTerrain->update(mRendering.getCamera()->getRealPosition());
+        mTerrain->syncLoad();
+        // need to update again so the chunks that were just loaded can be made visible
+        mTerrain->update(mRendering.getCamera()->getRealPosition());
+    }
+}
+
 void RenderingManager::requestMap(MWWorld::CellStore* cell)
 {
     if (cell->getCell()->isExterior())
@@ -658,9 +672,6 @@ void RenderingManager::requestMap(MWWorld::CellStore* cell)
         Ogre::AxisAlignedBox dims = mObjects->getDimensions(cell);
         Ogre::Vector2 center (cell->getCell()->getGridX() + 0.5, cell->getCell()->getGridY() + 0.5);
         dims.merge(mTerrain->getWorldBoundingBox(center));
-
-        if (dims.isFinite())
-            mTerrain->update(dims.getCenter());
 
         mLocalMap->requestMap(cell, dims.getMinimum().z, dims.getMaximum().z);
     }
@@ -1043,20 +1054,16 @@ void RenderingManager::enableTerrain(bool enable)
     {
         if (!mTerrain)
         {
-            Loading::Listener* listener = MWBase::Environment::get().getWindowManager()->getLoadingScreen();
-            Loading::ScopedLoad load(listener);
-            mTerrain = new Terrain::World(listener, mRendering.getScene(), new MWRender::TerrainStorage(), RV_Terrain,
+            mTerrain = new Terrain::World(mRendering.getScene(), new MWRender::TerrainStorage(), RV_Terrain,
                                             Settings::Manager::getBool("distant land", "Terrain"),
-                                            Settings::Manager::getBool("shader", "Terrain"));
+                                            Settings::Manager::getBool("shader", "Terrain"), Terrain::Align_XY, 1, 64);
             mTerrain->applyMaterials(Settings::Manager::getBool("enabled", "Shadows"),
                                      Settings::Manager::getBool("split", "Shadows"));
             mTerrain->update(mRendering.getCamera()->getRealPosition());
-            mTerrain->setLoadingListener(NULL);
         }
         mTerrain->setVisible(true);
     }
-    else
-        if (mTerrain)
+    else if (mTerrain)
             mTerrain->setVisible(false);
 }
 
