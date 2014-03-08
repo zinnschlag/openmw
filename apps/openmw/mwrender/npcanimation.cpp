@@ -532,7 +532,7 @@ Ogre::Vector3 NpcAnimation::runAnimation(float timepassed)
     {
         float pitch = mPtr.getRefData().getPosition().rot[0];
         Ogre::Node *node = baseinst->getBone("Bip01 Neck");
-        node->pitch(Ogre::Radian(pitch), Ogre::Node::TS_WORLD);
+        node->pitch(Ogre::Radian(-pitch), Ogre::Node::TS_WORLD);
 
         // This has to be done before this function ends;
         // updateSkeletonInstance, below, touches the hands.
@@ -543,9 +543,9 @@ Ogre::Vector3 NpcAnimation::runAnimation(float timepassed)
         // In third person mode we may still need pitch for ranged weapon targeting
         float pitch = mPtr.getRefData().getPosition().rot[0] * mPitchFactor;
         Ogre::Node *node = baseinst->getBone("Bip01 Spine2");
-        node->pitch(Ogre::Radian(pitch/2), Ogre::Node::TS_WORLD);
+        node->pitch(Ogre::Radian(-pitch/2), Ogre::Node::TS_WORLD);
         node = baseinst->getBone("Bip01 Spine1");
-        node->pitch(Ogre::Radian(pitch/2), Ogre::Node::TS_WORLD);
+        node->pitch(Ogre::Radian(-pitch/2), Ogre::Node::TS_WORLD);
     }
     mFirstPersonOffset = 0.f; // reset the X, Y, Z offset for the next frame.
 
@@ -770,12 +770,57 @@ void NpcAnimation::attachArrow()
 
 void NpcAnimation::releaseArrow()
 {
-    // Thrown weapons get detached now
     MWWorld::InventoryStore& inv = mPtr.getClass().getInventoryStore(mPtr);
     MWWorld::ContainerStoreIterator weapon = inv.getSlot(MWWorld::InventoryStore::Slot_CarriedRight);
-    if (weapon != inv.end() && weapon->get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::MarksmanThrown)
+    if (weapon == inv.end())
+        return;
+
+    // The orientation of the launched projectile. Always the same as the actor orientation, even if the ArrowBone's orientation dictates otherwise.
+    Ogre::Quaternion orient = Ogre::Quaternion(Ogre::Radian(mPtr.getRefData().getPosition().rot[2]), Ogre::Vector3::NEGATIVE_UNIT_Z) *
+            Ogre::Quaternion(Ogre::Radian(mPtr.getRefData().getPosition().rot[0]), Ogre::Vector3::NEGATIVE_UNIT_X);
+
+    const MWWorld::Store<ESM::GameSetting> &gmst =
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+
+    // Reduce fatigue
+    // somewhat of a guess, but using the weapon weight makes sense
+    const float fFatigueAttackBase = gmst.find("fFatigueAttackBase")->getFloat();
+    const float fFatigueAttackMult = gmst.find("fFatigueAttackMult")->getFloat();
+    const float fWeaponFatigueMult = gmst.find("fWeaponFatigueMult")->getFloat();
+    MWMechanics::CreatureStats& attackerStats = mPtr.getClass().getCreatureStats(mPtr);
+    MWMechanics::DynamicStat<float> fatigue = attackerStats.getFatigue();
+    const float normalizedEncumbrance = mPtr.getClass().getEncumbrance(mPtr) / mPtr.getClass().getCapacity(mPtr);
+    float fatigueLoss = fFatigueAttackBase + normalizedEncumbrance * fFatigueAttackMult;
+    if (!weapon->isEmpty())
+        fatigueLoss += weapon->getClass().getWeight(*weapon) * attackerStats.getAttackStrength() * fWeaponFatigueMult;
+    fatigue.setCurrent(fatigue.getCurrent() - fatigueLoss);
+    attackerStats.setFatigue(fatigue);
+
+    if (weapon->get<ESM::Weapon>()->mBase->mData.mType == ESM::Weapon::MarksmanThrown)
     {
+        // Thrown weapons get detached now
+        NifOgre::ObjectScenePtr objects = mObjectParts[ESM::PRT_Weapon];
+
+        Ogre::Vector3 launchPos(0,0,0);
+        if (objects->mSkelBase)
+        {
+            launchPos = objects->mSkelBase->getParentNode()->_getDerivedPosition();
+        }
+        else if (objects->mEntities.size())
+        {
+            objects->mEntities[0]->getParentNode()->needUpdate(true);
+            launchPos = objects->mEntities[0]->getParentNode()->_getDerivedPosition();
+        }
+
+        float fThrownWeaponMinSpeed = gmst.find("fThrownWeaponMinSpeed")->getFloat();
+        float fThrownWeaponMaxSpeed = gmst.find("fThrownWeaponMaxSpeed")->getFloat();
+        float speed = fThrownWeaponMinSpeed + (fThrownWeaponMaxSpeed - fThrownWeaponMinSpeed) *
+                mPtr.getClass().getCreatureStats(mPtr).getAttackStrength();
+
+        MWBase::Environment::get().getWorld()->launchProjectile(mPtr, *weapon, launchPos, orient, *weapon, speed);
+
         showWeapons(false);
+
         inv.remove(*weapon, 1, mPtr);
     }
     else
@@ -784,6 +829,24 @@ void NpcAnimation::releaseArrow()
         MWWorld::ContainerStoreIterator ammo = inv.getSlot(MWWorld::InventoryStore::Slot_Ammunition);
         if (ammo == inv.end())
             return;
+
+        Ogre::Vector3 launchPos(0,0,0);
+        if (mAmmunition->mSkelBase)
+        {
+            launchPos = mAmmunition->mSkelBase->getParentNode()->_getDerivedPosition();
+        }
+        else if (mAmmunition->mEntities.size())
+        {
+            mAmmunition->mEntities[0]->getParentNode()->needUpdate(true);
+            launchPos = mAmmunition->mEntities[0]->getParentNode()->_getDerivedPosition();
+        }
+
+        float fProjectileMinSpeed = gmst.find("fProjectileMinSpeed")->getFloat();
+        float fProjectileMaxSpeed = gmst.find("fProjectileMaxSpeed")->getFloat();
+        float speed = fProjectileMinSpeed + (fProjectileMaxSpeed - fProjectileMinSpeed) * mPtr.getClass().getCreatureStats(mPtr).getAttackStrength();
+
+        MWBase::Environment::get().getWorld()->launchProjectile(mPtr, *ammo, launchPos, orient, *weapon, speed);
+
         inv.remove(*ammo, 1, mPtr);
         mAmmunition.setNull();
     }
