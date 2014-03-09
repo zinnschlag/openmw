@@ -379,7 +379,13 @@ namespace MWGui
             else if (_sender == mShadowsEnabledButton)
                 Settings::Manager::setBool("enabled", "Shadows", newState);
             else if (_sender == mShadowsLargeDistance)
+            {
                 Settings::Manager::setBool("split", "Shadows", newState);
+                if(newState)
+                    Settings::Manager::setInt("outdoor splits count", "Shadows", 3);
+                else
+                    Settings::Manager::setInt("outdoor splits count", "Shadows", 1);
+            }
             else if (_sender == mActorShadows)
                 Settings::Manager::setBool("actor shadows", "Shadows", newState);
             else if (_sender == mStaticsShadows)

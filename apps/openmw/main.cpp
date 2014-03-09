@@ -115,7 +115,7 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
         ("resources", bpo::value<std::string>()->default_value("resources"),
             "set resources directory")
 
-        ("start", bpo::value<std::string>()->default_value(""),
+        ("start", bpo::value<std::string>()->default_value("Beshara"),
             "set initial cell")
 
         ("content", bpo::value<StringsVector>()->default_value(StringsVector(), "")
@@ -137,7 +137,7 @@ bool parseOptions (int argc, char** argv, OMW::Engine& engine, Files::Configurat
             "select a file containing a list of console commands that is executed on startup")
 
         ("skip-menu", bpo::value<bool>()->implicit_value(true)
-            ->default_value(false), "skip main menu on game startup")
+            ->default_value(true), "skip main menu on game startup")
 
         ("fs-strict", bpo::value<bool>()->implicit_value(true)
             ->default_value(false), "strict file system handling (no case folding)")

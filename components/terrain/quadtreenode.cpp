@@ -287,7 +287,7 @@ void QuadTreeNode::update(const Ogre::Vector3 &cameraPos, Loading::Listener* loa
             mSceneNode->attachObject(mChunk);
 
             mMaterialGenerator->enableShadows(mTerrain->getShadowsEnabled());
-            mMaterialGenerator->enableSplitShadows(mTerrain->getSplitShadowsEnabled());
+            mMaterialGenerator->setShadowSplits(mTerrain->getShadowSplits());
 
             if (mSize == 1)
             {
@@ -493,7 +493,7 @@ void QuadTreeNode::applyMaterials()
     if (mChunk)
     {
         mMaterialGenerator->enableShadows(mTerrain->getShadowsEnabled());
-        mMaterialGenerator->enableSplitShadows(mTerrain->getSplitShadowsEnabled());
+        mMaterialGenerator->setShadowSplits(mTerrain->getShadowSplits());
         if (mSize <= 1)
             mChunk->setMaterial(mMaterialGenerator->generate(Ogre::MaterialPtr()));
         else

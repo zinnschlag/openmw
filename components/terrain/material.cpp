@@ -37,7 +37,7 @@ namespace Terrain
     MaterialGenerator::MaterialGenerator(bool shaders)
         : mShaders(shaders)
         , mShadows(false)
-        , mSplitShadows(false)
+        , mShadowSplits(1)
         , mNormalMapping(true)
         , mParallaxMapping(true)
     {
@@ -172,7 +172,7 @@ namespace Terrain
                 // shadow. TODO: repeated, put in function
                 if (mShadows)
                 {
-                    for (Ogre::uint i = 0; i < (mSplitShadows ? 3 : 1); ++i)
+                    for (Ogre::uint i = 0; i < mShadowSplits; ++i)
                     {
                         sh::MaterialInstanceTextureUnit* shadowTex = p->createTextureUnit ("shadowMap" + Ogre::StringConverter::toString(i));
                         shadowTex->setProperty ("content_type", sh::makeProperty<sh::StringValue> (new sh::StringValue("shadow")));
@@ -199,7 +199,7 @@ namespace Terrain
                     std::vector<std::string> blendTextures;
                     int remainingTextureUnits = OGRE_MAX_TEXTURE_LAYERS;
                     if (shadows)
-                        remainingTextureUnits -= (mSplitShadows ? 3 : 1);
+                        remainingTextureUnits -= mShadowSplits;
                     while (remainingTextureUnits && layerOffset + numLayersInThisPass < (int)mLayerList.size())
                     {
                         int layerIndex = numLayersInThisPass + layerOffset;
@@ -326,7 +326,7 @@ namespace Terrain
                     // shadow
                     if (shadows)
                     {
-                        for (Ogre::uint i = 0; i < (mSplitShadows ? 3 : 1); ++i)
+                        for (Ogre::uint i = 0; i < mShadowSplits; ++i)
                         {
                             sh::MaterialInstanceTextureUnit* shadowTex = p->createTextureUnit ("shadowMap" + Ogre::StringConverter::toString(i));
                             shadowTex->setProperty ("content_type", sh::makeProperty<sh::StringValue> (new sh::StringValue("shadow")));
