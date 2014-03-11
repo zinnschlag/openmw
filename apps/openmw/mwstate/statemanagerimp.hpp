@@ -21,7 +21,7 @@ namespace MWState
 
         private:
 
-            void cleanup (bool force = false);
+            void cleanup ();
 
             std::map<int, int> buildContentFileIndexMap (const ESM::ESMReader& reader) const;
 

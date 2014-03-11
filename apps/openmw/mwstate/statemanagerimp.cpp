@@ -30,22 +30,19 @@
 
 #include "../mwscript/globalscripts.hpp"
 
-void MWState::StateManager::cleanup (bool force)
+void MWState::StateManager::cleanup ()
 {
-    if (mState!=State_NoGame || force)
-    {
-        MWBase::Environment::get().getSoundManager()->clear();
-        MWBase::Environment::get().getDialogueManager()->clear();
-        MWBase::Environment::get().getJournal()->clear();
-        MWBase::Environment::get().getScriptManager()->getGlobalScripts().clear();
-        MWBase::Environment::get().getWorld()->clear();
-        MWBase::Environment::get().getWindowManager()->clear();
-        MWBase::Environment::get().getInputManager()->clear();
+    MWBase::Environment::get().getSoundManager()->clear();
+    MWBase::Environment::get().getDialogueManager()->clear();
+    MWBase::Environment::get().getJournal()->clear();
+    MWBase::Environment::get().getScriptManager()->getGlobalScripts().clear();
+    MWBase::Environment::get().getWorld()->clear();
+    MWBase::Environment::get().getWindowManager()->clear();
+    MWBase::Environment::get().getInputManager()->clear();
 
-        mState = State_NoGame;
-        mCharacterManager.clearCurrentCharacter();
-        mTimePlayed = 0;
-    }
+    mState = State_NoGame;
+    mCharacterManager.clearCurrentCharacter();
+    mTimePlayed = 0;
 }
 
 std::map<int, int> MWState::StateManager::buildContentFileIndexMap (const ESM::ESMReader& reader)
@@ -311,7 +308,7 @@ void MWState::StateManager::loadGame (const Character *character, const Slot *sl
     catch (const std::exception& e)
     {
         std::cerr << "failed to load saved game: " << e.what() << std::endl;
-        cleanup (true);
+        cleanup ();
     }
 }
 
