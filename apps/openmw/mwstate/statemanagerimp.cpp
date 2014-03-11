@@ -220,7 +220,7 @@ void MWState::StateManager::loadGame (const Character *character, const Slot *sl
 {
     try
     {
-        cleanup();
+        cleanup(true); // force cleanup before loading the records from the save
 
         mTimePlayed = slot->mProfile.mTimePlayed;
 
