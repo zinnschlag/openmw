@@ -17,22 +17,30 @@
 using namespace Ogre;
 using namespace MWRender;
 
-Vector3 sunDir = Vector3(-0.55,-0.55, -0.45);
-
-Ogre::Vector3* GetWorldSpaceFrustumSlice(const Ogre::Camera *cam, Ogre::Real z)
+Ogre::Vector3* GetFrustumSlicePoints(const Ogre::Camera *cam, Ogre::Real z, bool InWorldSpace = false)
 {
     Ogre::Vector3 *points = new Ogre::Vector3[4];
 
     float halfH = z * Ogre::Math::Tan(cam->getFOVy()/2);
     float halfW = halfH * cam->getAspectRatio();
     Ogre::Vector3 vUp, vRight, vFwd, vPos;
-    vUp = cam->getDerivedUp();
-    vRight = cam->getDerivedRight();
-    vFwd = cam->getDerivedDirection();
-    vPos = cam->getDerivedPosition();
-    vUp.normalise();
-    vRight.normalise();
-    vFwd.normalise();
+    if(InWorldSpace)
+    {
+        vUp = cam->getDerivedUp();
+        vRight = cam->getDerivedRight();
+        vFwd = cam->getDerivedDirection();
+        vPos = cam->getDerivedPosition();
+        vUp.normalise();
+        vRight.normalise();
+        vFwd.normalise();
+    }
+    else
+    {
+        vUp = Vector3::UNIT_Y;
+        vRight = Vector3::UNIT_X;
+        vFwd = Vector3::UNIT_Z;
+        vPos = Vector3::ZERO;
+    }
     
     points[0] = vPos + vFwd*z - vRight*halfW + vUp*halfH; // left top
     points[1] = vPos + vFwd*z - vRight*halfW - vUp*halfH; // left bottom
@@ -42,18 +50,36 @@ Ogre::Vector3* GetWorldSpaceFrustumSlice(const Ogre::Camera *cam, Ogre::Real z)
     return points;
 }
 
-Ogre::Vector3* GetObjectSpaceFrustumSlice(const Ogre::Camera *cam, Ogre::Real z)
+Ogre::Vector2 CalcFrustumDiagAndCenterOffset(const Ogre::Camera *cam, Ogre::Real zNear, Ogre::Real zFar)
 {
-    Ogre::Vector3 *points = new Ogre::Vector3[4];
-    float halfH = z * Ogre::Math::Tan(cam->getFOVy()/2);
+    Ogre::Real tanBy2 = Ogre::Math::Tan(cam->getFOVy()/2);
+    float halfH = zFar * tanBy2;
     float halfW = halfH * cam->getAspectRatio();
 
-    points[0] = Vector3::UNIT_Z*z - Vector3::UNIT_X*halfW + Vector3::UNIT_Y*halfH; // left top
-    points[1] = Vector3::UNIT_Z*z - Vector3::UNIT_X*halfW - Vector3::UNIT_Y*halfH; // left bottom
-    points[2] = Vector3::UNIT_Z*z + Vector3::UNIT_X*halfW - Vector3::UNIT_Y*halfH; // right bottom
-    points[3] = Vector3::UNIT_Z*z + Vector3::UNIT_X*halfW + Vector3::UNIT_Y*halfH; // right top
+    // find longest diagonal length
+    Vector3 points[2];
+    points[0] = zFar*Vector3::UNIT_Z - halfW*Vector3::UNIT_X - halfH*Vector3::UNIT_Y;
+    points[1] = zFar*Vector3::UNIT_Z + halfW*Vector3::UNIT_X + halfH*Vector3::UNIT_Y;
 
-    return points;
+    Ogre::Vector2 vDiagCenterOffset;
+
+    vDiagCenterOffset.x = (points[1]-points[0]).length(); // far left bottom - far right top
+
+    halfH = zNear * tanBy2;
+    halfW = halfH * cam->getAspectRatio();
+    points[1] = zNear*Vector3::UNIT_Z + halfW*Vector3::UNIT_X + halfH*Vector3::UNIT_Y;
+
+    vDiagCenterOffset.y = (points[1]-points[0]).length(); // from near left bottom - far right top
+
+    if(vDiagCenterOffset.y > vDiagCenterOffset.x) vDiagCenterOffset.x = vDiagCenterOffset.y;
+
+    // find offset to the center of frustum (for the case of max diagonal)
+    Real newDiag = 0.25f * vDiagCenterOffset.x*vDiagCenterOffset.x - halfH*halfH - halfW*halfW;
+    if(newDiag <= 0.0) newDiag = 0;
+    else newDiag = Ogre::Math::Sqrt(newDiag);
+    vDiagCenterOffset.y = zNear + newDiag;
+    
+    return vDiagCenterOffset;
 }
 
 StablePSSMShadowCameraSetup::StablePSSMShadowCameraSetup() : Ogre::PSSMShadowCameraSetup()
@@ -67,106 +93,57 @@ StablePSSMShadowCameraSetup::~StablePSSMShadowCameraSetup()
 void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, const Ogre::Camera *cam,
 			const Ogre::Viewport *vp, const Ogre::Light *light, Ogre::Camera *texCam, size_t iteration) const
 {
-    bool bold = false;
-    if(!bold)
-    {
     // apply the right clip distance.
 	Real nearDist = mSplitPoints[iteration];
-	Real farDist = mSplitPoints[iteration + 1];
-    
-	// Add a padding factor to internal distances so that the connecting split point will not have bad artifacts.
-	if (iteration > 0)
-	{
-		nearDist -= mSplitPadding;
-	}
-	if (iteration < mSplitCount - 1)
-	{
-		farDist += mSplitPadding;
-	}
+	Real farDist  = mSplitPoints[iteration + 1];
 
 	mCurrentIteration = iteration;
-
-    // 1. Get current cascade's frustum corners    
-    Vector3 *pointsNear = GetObjectSpaceFrustumSlice(cam, nearDist);
-    Vector3 *pointsFar = GetObjectSpaceFrustumSlice(cam, farDist);
-   /* Vector3 *pointsNear = GetWorldSpaceFrustumSlice(cam, nearDist);
-    Vector3 *pointsFar = GetWorldSpaceFrustumSlice(cam, farDist);*/
     
-
-    // 2. Find max needed dimensions in cascade's view space
-
-    // but first get texCam orientation
-    Vector3 dir = -light->getDerivedDirection();
-	dir.normalise();
-
-	Vector3 up = Vector3::UNIT_Y;
-	// Check it's not coincident with dir
-	if (Math::Abs(up.dotProduct(dir)) >= 1.0f)
-	{
-	    // Use camera up
-	    up = Vector3::UNIT_Z;
-	}
-	// cross twice to rederive, only direction is unaltered
-	Vector3 left = dir.crossProduct(up);
-	left.normalise();
-	up = dir.crossProduct(left);
-	up.normalise();
-
-    Real zLocal = (farDist+nearDist)/2; //the middle of curr cascade frustum in local space
-    Vector3 pos = cam->getDerivedPosition() + cam->getDerivedDirection()*zLocal;
-    //pos += dir * mShadowFar;
-
-    // 3. Make fixed size & fixed resolution of cascade frustum
-    Vector3 vDiag = pointsFar[3] - pointsNear[1]; // far right top - near left bottom
-    Real diagLen = vDiag.length();
-
-    vDiag = pointsFar[3] - pointsFar[1]; // far right top - far left bottom
-    Real diagLen2 = vDiag.length();
-    if(diagLen2 > diagLen) diagLen = diagLen2;
-
-    Real fUnitsPerTexel = diagLen / Settings::Manager::getInt("texture size", "Shadows");
-    
-    vDiag = Vector3(diagLen, diagLen, 0);
-
-    pointsNear = GetWorldSpaceFrustumSlice(cam, nearDist);
-    pointsFar = GetWorldSpaceFrustumSlice(cam, farDist);
-
-    Matrix4 matToLS = buildViewMatrix(pos, dir, up);
-
-    Vector3 vMin = Ogre::Vector3(FLT_MAX);
-    Vector3 vMax = -vMin;
-
-    Vector3 * points = pointsNear;
-    for(int k=0; k<2; k++)
-    {
-        for(int i=0; i<4; i++)
-        {
-            Vector3 v3 = matToLS * points[i];
-            if(v3.x < vMin.x) vMin.x = v3.x;
-            if(v3.y < vMin.y) vMin.y = v3.y;
-            if(v3.z < vMin.z) vMin.z = v3.z;
-            if(v3.x > vMax.x) vMax.x = v3.x;
-            if(v3.y > vMax.y) vMax.y = v3.y;
-            if(v3.z > vMax.z) vMax.z = v3.z;
-        }
-        points = pointsFar;
-    }
-    
-    /*Vector3 vPadding = (vDiag - (vMax - vMin)) / 2;
-    vPadding.z = 0;
-    vMin -= vPadding;
-    vMax += vPadding;*/
-
-    //float fUnitsPerTexel = diagLen / Settings::Manager::getInt("texture size", "Shadows");
-
-   /* vMin.x = floor(vMin.x/fUnitsPerTexel)*fUnitsPerTexel;
-	vMin.y = floor(vMin.y/fUnitsPerTexel)*fUnitsPerTexel;
-	vMax.x = floor(vMax.x/fUnitsPerTexel)*fUnitsPerTexel;
-	vMax.y = floor(vMax.y/fUnitsPerTexel)*fUnitsPerTexel;*/
-
-    // 4. Prepare matrix
     if (light->getType() == Light::LT_DIRECTIONAL)
 	{
+        // get maximum needed cascade size and shadow camera offset along camera dir
+        Vector2 vDiagCenter = CalcFrustumDiagAndCenterOffset(cam, nearDist, farDist);
+
+        Vector3 pos = cam->getDerivedPosition() + cam->getDerivedDirection() * vDiagCenter.y;
+    
+        Vector3 dir = -light->getDerivedDirection();
+	    dir.normalise();
+
+	    Vector3 up = Vector3::UNIT_Y;
+	    // Check it's not coincident with dir
+	    if (Math::Abs(up.dotProduct(dir)) >= 1.0f)
+	    {
+	        // Use camera up
+	        up = Vector3::UNIT_Z;
+	    }
+	    // cross twice to rederive, only direction is unaltered
+	    Vector3 left = dir.crossProduct(up);
+	    left.normalise();
+	    up = dir.crossProduct(left);
+	    up.normalise();
+
+        Matrix4 matToLS = buildViewMatrix(pos, dir, up);
+
+        // Get max needed z for current cascade
+        Vector3 *pointsNear = GetFrustumSlicePoints(cam, nearDist, true);
+        Vector3 *pointsFar = GetFrustumSlicePoints(cam, farDist, true);
+        Vector3 *points = pointsNear;
+
+        Real maxZ = -FLT_MAX;
+        for(int k=0; k<2; k++)
+        {
+            for(int i=0; i<4; i++)
+            {
+                Vector3 v3 = matToLS * points[i];
+                if(v3.z > maxZ) maxZ = v3.z;
+            }
+            points = pointsFar;
+        }
+
+        delete[] pointsNear;
+        delete[] pointsFar;
+
+        // Prepare shadow camera
         texCam->setCustomViewMatrix(false);
 	    texCam->setCustomProjectionMatrix(false);
 
@@ -179,16 +156,19 @@ void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, 
 
         texCam->setNearClipDistance(nearClip);
         texCam->setFarClipDistance(shadowFar);
+
+        // filter padding should be added to avoid seams between cascades
+        // should be done after all diagonal calculations
+        int filterPadding = 2; // value in pixels
+        vDiagCenter.x *= static_cast<Ogre::Real>(texCam->getViewport()->getActualWidth() + filterPadding*2) / texCam->getViewport()->getActualWidth();
         
-        //texCam->setOrthoWindow(vMax.x - vMin.x, vMax.y - vMin.y);
-        //texCam->setOrthoWindow(diagLen, diagLen);
         texCam->setAspectRatio(1.0f);
-        texCam->setOrthoWindowWidth(diagLen);
+        texCam->setOrthoWindowWidth(vDiagCenter.x);
 
         // Reduce jittering caused by the projection moving with the camera
 	    Real worldTexelSize = (texCam->getOrthoWindowWidth()) / texCam->getViewport()->getActualWidth();
         
-        pos += dir * (shadowFar-vMax.z); // cam->getFarClipDistance();
+        pos += dir * (shadowFar - maxZ);
         Quaternion q;
         q.FromAxes(left, up, dir);
 	    Vector3 lightSpacePos = q.Inverse() * pos;
@@ -199,19 +179,10 @@ void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, 
 
 	    //convert back to world space
         pos = q * lightSpacePos;
-        
-        //if(iteration == 0) std::cerr<<iteration<<"_"<<pos<<std::endl;
 
         texCam->setPosition(pos);
-        //texCam->setDirection(light->getDerivedDirection());
-        //texCam->setDirection(-dir);
         texCam->setOrientation(q);
     }
-
-    delete[] pointsNear;
-    delete[] pointsFar;
-    }
-    else PSSMShadowCameraSetup::getShadowCamera(sm, cam, vp, light, texCam, iteration);
 }
 
 Shadows::Shadows(OEngine::Render::OgreRenderer* rend) :
@@ -272,8 +243,7 @@ void Shadows::recreate()
         // Make sure to keep this in sync with the camera's near clip distance!
         mPSSMSetup->setSplitPadding(mRendering->getCamera()->getNearClipDistance());
 
-        mPSSMSetup->calculateSplitPoints(splitsCount, mRendering->getCamera()->getNearClipDistance(), Settings::Manager::getFloat("max viewing distance", "Viewing distance"), 0.88);
-        //mPSSMSetup->calculateSplitPoints(PSSM_SPLITS, mRendering->getCamera()->getNearClipDistance(), mShadowFar, 0.88);
+        mPSSMSetup->calculateSplitPoints(splitsCount, mRendering->getCamera()->getNearClipDistance(), Settings::Manager::getFloat("max viewing distance", "Viewing distance"), 0.65);
 
         //const Real adjustFactors[PSSM_SPLITS] = {64, 64, 64};
         for (int i=0; i < splitsCount; ++i)

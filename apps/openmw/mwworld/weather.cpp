@@ -91,7 +91,7 @@ WeatherManager::WeatherManager(MWRender::RenderingManager* rendering,MWWorld::Fa
      mWeatherUpdateTime(0), mThunderFlash(0), mThunderChance(0),
      mThunderChanceNeeded(50), mThunderSoundDelay(0), mRemainingTransitionTime(0),
      mMonth(0), mDay(0), mTimePassed(0), mFallback(fallback), mWindSpeed(0.f),
-     mRendering(rendering), mSunUpdateInterval(2.0f), mSunStandInterval(8.0f), mSunUpdateTimer(0.0f), mHourUpdate(-1), mSunUpdating(false)
+     mRendering(rendering), mSunUpdateInterval(1.0f), mSunStandInterval(9.0f), mSunUpdateTimer(0.0f), mHourUpdate(-1), mSunUpdating(false)
 {
     //Globals
     mThunderSoundID0 = mFallback->getFallbackString("Weather_Thunderstorm_Thunder_Sound_ID_0");
