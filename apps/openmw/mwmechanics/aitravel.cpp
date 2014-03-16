@@ -2,7 +2,9 @@
 
 #include "../mwbase/world.hpp"
 #include "../mwbase/environment.hpp"
+
 #include "../mwworld/class.hpp"
+#include "../mwworld/cellstore.hpp"
 
 #include "steering.hpp"
 #include "movement.hpp"
@@ -21,8 +23,8 @@ namespace MWMechanics
 {
     AiTravel::AiTravel(float x, float y, float z)
     : mX(x),mY(y),mZ(z),mPathFinder()
-    , cellX(std::numeric_limits<int>::max())
-    , cellY(std::numeric_limits<int>::max())
+    , mCellX(std::numeric_limits<int>::max())
+    , mCellY(std::numeric_limits<int>::max())
     {
     }
 
@@ -36,12 +38,12 @@ namespace MWMechanics
         MWBase::World *world = MWBase::Environment::get().getWorld();
         ESM::Position pos = actor.getRefData().getPosition();
         Movement &movement = actor.getClass().getMovementSettings(actor);
-        const ESM::Cell *cell = actor.getCell()->mCell;
+        const ESM::Cell *cell = actor.getCell()->getCell();
 
         MWWorld::Ptr player = world->getPlayerPtr();
-        if(cell->mData.mX != player.getCell()->mCell->mData.mX)
+        if(cell->mData.mX != player.getCell()->getCell()->mData.mX)
         {
-            int sideX = sgn(cell->mData.mX - player.getCell()->mCell->mData.mX);
+            int sideX = sgn(cell->mData.mX - player.getCell()->getCell()->mData.mX);
             //check if actor is near the border of an inactive cell. If so, stop walking.
             if(sideX * (pos.pos[0] - cell->mData.mX*ESM::Land::REAL_SIZE) >
                sideX * (ESM::Land::REAL_SIZE/2.0f - 200.0f))
@@ -50,9 +52,9 @@ namespace MWMechanics
                 return false;
             }
         }
-        if(cell->mData.mY != player.getCell()->mCell->mData.mY)
+        if(cell->mData.mY != player.getCell()->getCell()->mData.mY)
         {
-            int sideY = sgn(cell->mData.mY - player.getCell()->mCell->mData.mY);
+            int sideY = sgn(cell->mData.mY - player.getCell()->getCell()->mData.mY);
             //check if actor is near the border of an inactive cell. If so, stop walking.
             if(sideY * (pos.pos[1] - cell->mData.mY*ESM::Land::REAL_SIZE) >
                sideY * (ESM::Land::REAL_SIZE/2.0f - 200.0f))
@@ -62,11 +64,11 @@ namespace MWMechanics
             }
         }
 
-        bool cellChange = cell->mData.mX != cellX || cell->mData.mY != cellY;
+        bool cellChange = cell->mData.mX != mCellX || cell->mData.mY != mCellY;
         if(!mPathFinder.isPathConstructed() || cellChange)
         {
-            cellX = cell->mData.mX;
-            cellY = cell->mData.mY;
+            mCellX = cell->mData.mX;
+            mCellY = cell->mData.mY;
 
             ESM::Pathgrid::Point dest;
             dest.mX = mX;

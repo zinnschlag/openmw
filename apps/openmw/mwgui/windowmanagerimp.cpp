@@ -3,6 +3,8 @@
 #include <cassert>
 #include <iterator>
 
+#include <OgreTextureManager.h>
+
 #include "MyGUI_UString.h"
 #include "MyGUI_IPointer.h"
 #include "MyGUI_ResourceImageSetPointer.h"
@@ -18,6 +20,7 @@
 
 #include "../mwworld/class.hpp"
 #include "../mwworld/player.hpp"
+#include "../mwworld/cellstore.hpp"
 
 #include "console.hpp"
 #include "journalwindow.hpp"
@@ -648,19 +651,14 @@ namespace MWGui
         mGarbageDialogs.push_back(dialog);
     }
 
-    void WindowManager::messageBox (const std::string& message, const std::vector<std::string>& buttons, bool showInDialogueModeOnly)
+    void WindowManager::messageBox (const std::string& message, const std::vector<std::string>& buttons, enum MWGui::ShowInDialogueMode showInDialogueMode)
     {
         if (buttons.empty()) {
             /* If there are no buttons, and there is a dialogue window open, messagebox goes to the dialogue window */
-            if (getMode() == GM_Dialogue) {
+            if (getMode() == GM_Dialogue && showInDialogueMode != MWGui::ShowInDialogueMode_Never) {
                 mDialogueWindow->addMessageBox(MyGUI::LanguageManager::getInstance().replaceTags(message));
-            } else {
-                if (showInDialogueModeOnly) {
-                    if (getMode() == GM_Dialogue)
-                        mMessageBoxManager->createMessageBox(message);
-                } else {
-                    mMessageBoxManager->createMessageBox(message);
-                }
+            } else if (showInDialogueMode != MWGui::ShowInDialogueMode_Only) {
+                mMessageBoxManager->createMessageBox(message);
             }
         } else {
             mMessageBoxManager->createInteractiveMessageBox(message, buttons);
@@ -744,22 +742,22 @@ namespace MWGui
         mMap->setCellName( name );
         mHud->setCellName( name );
 
-        if (cell->mCell->isExterior())
+        if (cell->getCell()->isExterior())
         {
-            if (!cell->mCell->mName.empty())
-                mMap->addVisitedLocation ("#{sCell=" + name + "}", cell->mCell->getGridX (), cell->mCell->getGridY ());
+            if (!cell->getCell()->mName.empty())
+                mMap->addVisitedLocation ("#{sCell=" + name + "}", cell->getCell()->getGridX (), cell->getCell()->getGridY ());
 
-            mMap->cellExplored(cell->mCell->getGridX(), cell->mCell->getGridY());
+            mMap->cellExplored (cell->getCell()->getGridX(), cell->getCell()->getGridY());
 
             mMap->setCellPrefix("Cell");
             mHud->setCellPrefix("Cell");
-            mMap->setActiveCell( cell->mCell->getGridX(), cell->mCell->getGridY() );
-            mHud->setActiveCell( cell->mCell->getGridX(), cell->mCell->getGridY() );
+            mMap->setActiveCell (cell->getCell()->getGridX(), cell->getCell()->getGridY());
+            mHud->setActiveCell (cell->getCell()->getGridX(), cell->getCell()->getGridY());
         }
         else
         {
-            mMap->setCellPrefix( cell->mCell->mName );
-            mHud->setCellPrefix( cell->mCell->mName );
+            mMap->setCellPrefix (cell->getCell()->mName );
+            mHud->setCellPrefix (cell->getCell()->mName );
 
             Ogre::Vector3 worldPos;
             if (!MWBase::Environment::get().getWorld()->findInteriorPositionInWorldSpace(cell, worldPos))
@@ -1035,6 +1033,11 @@ namespace MWGui
     {
         mSelectedSpell = "";
         mHud->unsetSelectedSpell();
+
+        MWWorld::Player* player = &MWBase::Environment::get().getWorld()->getPlayer();
+        if (player->getDrawState() == MWMechanics::DrawState_Spell)
+            player->setDrawState(MWMechanics::DrawState_Nothing);
+
         mSpellWindow->setTitle("#{sNone}");
     }
 

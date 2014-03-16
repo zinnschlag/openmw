@@ -1,6 +1,7 @@
 #include "engine.hpp"
 
 #include <stdexcept>
+#include <iomanip>
 
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
@@ -155,6 +156,7 @@ OMW::Engine::Engine(Files::ConfigurationManager& configurationManager)
   , mSkipMenu (false)
   , mUseSound (true)
   , mCompileAll (false)
+  , mWarningsMode (1)
   , mScriptContext (0)
   , mFSStrict (false)
   , mScriptConsoleMode (false)
@@ -402,7 +404,7 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
     // Create the world
     mEnvironment.setWorld( new MWWorld::World (*mOgre, mFileCollections, mContentFiles,
         mResDir, mCfgMgr.getCachePath(), mEncoder, mFallbackMap,
-        mActivationDistanceOverride));
+        mActivationDistanceOverride, mCellName));
     MWBase::Environment::get().getWorld()->setupPlayer();
     input->setPlayer(&mEnvironment.getWorld()->getPlayer());
 
@@ -424,7 +426,7 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
     mScriptContext->setExtensions (&mExtensions);
 
     mEnvironment.setScriptManager (new MWScript::ScriptManager (MWBase::Environment::get().getWorld()->getStore(),
-        mVerboseScripts, *mScriptContext));
+        mVerboseScripts, *mScriptContext, mWarningsMode));
 
     // Create game mechanics system
     MWMechanics::MechanicsManager* mechanics = new MWMechanics::MechanicsManager;
@@ -438,31 +440,6 @@ void OMW::Engine::prepareEngine (Settings::Manager & settings)
     mechanics->buildPlayer();
     window->updatePlayer();
 
-    // load cell
-    ESM::Position pos;
-    MWBase::World *world = MWBase::Environment::get().getWorld();
-
-    if (!mCellName.empty())
-    {
-        if (world->findExteriorPosition(mCellName, pos)) {
-            world->changeToExteriorCell (pos);
-        }
-        else {
-            world->findInteriorPosition(mCellName, pos);
-            world->changeToInteriorCell (mCellName, pos);
-        }
-    }
-    else
-    {
-        pos.pos[0] = pos.pos[1] = pos.pos[2] = 0;
-        pos.rot[0] = pos.rot[1] = pos.pos[2] = 0;
-        world->changeToExteriorCell (pos);
-    }
-
-    Ogre::FrameEvent event;
-    event.timeSinceLastEvent = 0;
-    event.timeSinceLastFrame = 0;
-    frameRenderingQueued(event);
     mOgre->getRoot()->addFrameListener (this);
 
     // scripts
@@ -500,14 +477,14 @@ void OMW::Engine::go()
     // Play some good 'ol tunes
     MWBase::Environment::get().getSoundManager()->playPlaylist(std::string("Explore"));
 
-    if (!mStartupScript.empty())
-        MWBase::Environment::get().getWindowManager()->executeInConsole (mStartupScript);
-
     // start in main menu
     if (!mSkipMenu)
         MWBase::Environment::get().getWindowManager()->pushGuiMode (MWGui::GM_MainMenu);
     else
         MWBase::Environment::get().getStateManager()->newGame (true);
+
+    if (!mStartupScript.empty())
+        MWBase::Environment::get().getWindowManager()->executeInConsole (mStartupScript);
 
     // Start the main rendering loop
     while (!mEnvironment.get().getStateManager()->hasQuitRequest())
@@ -612,8 +589,12 @@ void OMW::Engine::setStartupScript (const std::string& path)
     mStartupScript = path;
 }
 
-
 void OMW::Engine::setActivationDistanceOverride (int distance)
 {
     mActivationDistanceOverride = distance;
+}
+
+void OMW::Engine::setWarningsMode (int mode)
+{
+    mWarningsMode = mode;
 }

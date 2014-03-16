@@ -14,6 +14,8 @@
 #include <components/interpreter/runtime.hpp>
 #include <components/interpreter/opcodes.hpp>
 
+#include <components/esm/loadskil.hpp>
+
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
 
@@ -70,7 +72,7 @@ namespace MWScript
                             msgBox = boost::str(boost::format(msgBox) % count % itemName);
                         }
                         std::vector <std::string> noButtons;
-                        MWBase::Environment::get().getWindowManager()->messageBox(msgBox, noButtons, /*showInDialogueModeOnly*/ true);
+                        MWBase::Environment::get().getWindowManager()->messageBox(msgBox, noButtons, MWGui::ShowInDialogueMode_Only);
                     }
                 }
         };
@@ -142,7 +144,7 @@ namespace MWScript
                             msgBox = boost::str (boost::format(msgBox) % itemName);
                         }
                         std::vector <std::string> noButtons;
-                        MWBase::Environment::get().getWindowManager()->messageBox(msgBox, noButtons, /*showInDialogueModeOnly*/ true);
+                        MWBase::Environment::get().getWindowManager()->messageBox(msgBox, noButtons, MWGui::ShowInDialogueMode_Only);
                     }
                 }
         };
@@ -284,7 +286,7 @@ namespace MWScript
                 virtual void execute(Interpreter::Runtime &runtime)
                 {
                     MWWorld::Ptr ptr = R()(runtime);
-      
+
                     const std::string &name = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 

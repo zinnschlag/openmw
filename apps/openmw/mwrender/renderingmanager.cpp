@@ -5,12 +5,14 @@
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 #include <OgreViewport.h>
 #include <OgreCamera.h>
 #include <OgreTextureManager.h>
 #include <OgreHardwarePixelBuffer.h>
 #include <OgreControllerManager.h>
 #include <OgreMeshManager.h>
+#include <OgreRenderTexture.h>
 
 #include <SDL_video.h>
 
@@ -24,6 +26,7 @@
 
 #include "../mwworld/esmstore.hpp"
 #include "../mwworld/class.hpp"
+#include "../mwworld/cellstore.hpp"
 
 #include "../mwbase/world.hpp" // these includes can be removed once the static-hack is gone
 #include "../mwbase/environment.hpp"
@@ -277,13 +280,12 @@ void RenderingManager::rotateObject(const MWWorld::Ptr &ptr)
 
     if(ptr.getRefData().getHandle() == mCamera->getHandle() &&
        !mCamera->isVanityOrPreviewModeEnabled())
-        mCamera->rotateCamera(rot, false);
+        mCamera->rotateCamera(-rot, false);
 
-    Ogre::Quaternion newo = Ogre::Quaternion(Ogre::Radian(-rot.z), Ogre::Vector3::UNIT_Z);
+    Ogre::Quaternion newo = Ogre::Quaternion(Ogre::Radian(rot.z), Ogre::Vector3::NEGATIVE_UNIT_Z);
     if(!MWWorld::Class::get(ptr).isActor())
-        newo = Ogre::Quaternion(Ogre::Radian(-rot.x), Ogre::Vector3::UNIT_X) *
-               Ogre::Quaternion(Ogre::Radian(-rot.y), Ogre::Vector3::UNIT_Y) * newo;
-
+        newo = Ogre::Quaternion(Ogre::Radian(rot.x), Ogre::Vector3::NEGATIVE_UNIT_X) *
+               Ogre::Quaternion(Ogre::Radian(rot.y), Ogre::Vector3::NEGATIVE_UNIT_Y) * newo;
     ptr.getRefData().getBaseNode()->setOrientation(newo);
 }
 
@@ -422,9 +424,9 @@ void RenderingManager::postRenderTargetUpdate(const RenderTargetEvent &evt)
 
 void RenderingManager::waterAdded (MWWorld::CellStore *store)
 {
-    if(store->mCell->mData.mFlags & ESM::Cell::HasWater)
+    if (store->getCell()->mData.mFlags & ESM::Cell::HasWater)
     {
-        mWater->changeCell(store->mCell);
+        mWater->changeCell (store->getCell());
         mWater->setActive(true);
     }
     else
@@ -501,9 +503,9 @@ bool RenderingManager::toggleRenderMode(int mode)
 void RenderingManager::configureFog(MWWorld::CellStore &mCell)
 {
     Ogre::ColourValue color;
-    color.setAsABGR (mCell.mCell->mAmbi.mFog);
+    color.setAsABGR (mCell.getCell()->mAmbi.mFog);
 
-    configureFog(mCell.mCell->mAmbi.mFogDensity, color);
+    configureFog (mCell.getCell()->mAmbi.mFogDensity, color);
 }
 
 void RenderingManager::configureFog(const float density, const Ogre::ColourValue& colour)
@@ -553,8 +555,8 @@ void RenderingManager::setAmbientMode()
 
 void RenderingManager::configureAmbient(MWWorld::CellStore &mCell)
 {
-    if (mCell.mCell->mData.mFlags & ESM::Cell::Interior)
-        mAmbientColor.setAsABGR (mCell.mCell->mAmbi.mAmbient);
+    if (mCell.getCell()->mData.mFlags & ESM::Cell::Interior)
+        mAmbientColor.setAsABGR (mCell.getCell()->mAmbi.mAmbient);
     setAmbientMode();
 
     // Create a "sun" that shines light downwards. It doesn't look
@@ -564,10 +566,10 @@ void RenderingManager::configureAmbient(MWWorld::CellStore &mCell)
         mSun = mRendering.getScene()->createLight();
         mSun->setType(Ogre::Light::LT_DIRECTIONAL);
     }
-    if (mCell.mCell->mData.mFlags & ESM::Cell::Interior)
+    if (mCell.getCell()->mData.mFlags & ESM::Cell::Interior)
     {
         Ogre::ColourValue colour;
-        colour.setAsABGR (mCell.mCell->mAmbi.mSunlight);
+        colour.setAsABGR (mCell.getCell()->mAmbi.mSunlight);
         mSun->setDiffuseColour (colour);
         mSun->setDirection(0,-1,0);
     }
@@ -648,18 +650,27 @@ void RenderingManager::setGlare(bool glare)
     mSkyManager->setGlare(glare);
 }
 
+void RenderingManager::updateTerrain()
+{
+    if (mTerrain)
+    {
+        // Avoid updating with dims.getCenter for each cell. Player position should be good enough
+        mTerrain->update(mRendering.getCamera()->getRealPosition());
+        mTerrain->syncLoad();
+        // need to update again so the chunks that were just loaded can be made visible
+        mTerrain->update(mRendering.getCamera()->getRealPosition());
+    }
+}
+
 void RenderingManager::requestMap(MWWorld::CellStore* cell)
 {
-    if (cell->mCell->isExterior())
+    if (cell->getCell()->isExterior())
     {
         assert(mTerrain);
 
         Ogre::AxisAlignedBox dims = mObjects->getDimensions(cell);
-        Ogre::Vector2 center(cell->mCell->getGridX() + 0.5, cell->mCell->getGridY() + 0.5);
+        Ogre::Vector2 center (cell->getCell()->getGridX() + 0.5, cell->getCell()->getGridY() + 0.5);
         dims.merge(mTerrain->getWorldBoundingBox(center));
-
-        if (dims.isFinite())
-            mTerrain->update(dims.getCenter());
 
         mLocalMap->requestMap(cell, dims.getMinimum().z, dims.getMaximum().z);
     }
@@ -980,13 +991,11 @@ void RenderingManager::screenshot(Image &image, int w, int h)
 
     Ogre::PixelFormat pf = rt->suggestPixelFormat();
 
-    std::vector<Ogre::uchar> data;
-    data.resize(w * h * Ogre::PixelUtil::getNumElemBytes(pf));
-
-    Ogre::PixelBox pb(w, h, 1, pf, &data[0]);
-    rt->copyContentsToMemory(pb);
-
-    image.loadDynamicImage(&data[0], w, h, pf);
+    image.loadDynamicImage(
+        OGRE_ALLOC_T(Ogre::uchar, w * h * Ogre::PixelUtil::getNumElemBytes(pf), Ogre::MEMCATEGORY_GENERAL),
+        w, h, 1, pf, true // autoDelete=true, frees memory we allocate
+    );
+    rt->copyContentsToMemory(image.getPixelBox()); // getPixelBox returns a box sharing the same memory as the image
 
     Ogre::TextureManager::getSingleton().remove(tempName);
     mRendering.getCamera()->setAspectRatio(oldAspect);
@@ -1044,20 +1053,16 @@ void RenderingManager::enableTerrain(bool enable)
     {
         if (!mTerrain)
         {
-            Loading::Listener* listener = MWBase::Environment::get().getWindowManager()->getLoadingScreen();
-            Loading::ScopedLoad load(listener);
-            mTerrain = new Terrain::World(listener, mRendering.getScene(), new MWRender::TerrainStorage(), RV_Terrain,
+            mTerrain = new Terrain::World(mRendering.getScene(), new MWRender::TerrainStorage(), RV_Terrain,
                                             Settings::Manager::getBool("distant land", "Terrain"),
-                                            Settings::Manager::getBool("shader", "Terrain"));
+                                            Settings::Manager::getBool("shader", "Terrain"), Terrain::Align_XY, 1, 64);
             mTerrain->applyMaterials(Settings::Manager::getBool("enabled", "Shadows"),
                                      Settings::Manager::getInt("outdoor splits count", "Shadows"));
             mTerrain->update(mRendering.getCamera()->getRealPosition());
-            mTerrain->setLoadingListener(NULL);
         }
         mTerrain->setVisible(true);
     }
-    else
-        if (mTerrain)
+    else if (mTerrain)
             mTerrain->setVisible(false);
 }
 
@@ -1068,7 +1073,7 @@ float RenderingManager::getCameraDistance() const
 
 void RenderingManager::spawnEffect(const std::string &model, const std::string &texture, const Vector3 &worldPosition, float scale)
 {
-    mEffectManager->addEffect(model, "", worldPosition, scale);
+    mEffectManager->addEffect(model, texture, worldPosition, scale);
 }
 
 } // namespace

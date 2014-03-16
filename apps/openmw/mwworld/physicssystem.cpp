@@ -8,6 +8,7 @@
 #include <OgreViewport.h>
 #include <OgreCamera.h>
 #include <OgreTextureManager.h>
+#include <OgreSceneNode.h>
 
 #include <openengine/bullet/trace.h>
 #include <openengine/bullet/physic.hpp>
@@ -15,13 +16,15 @@
 
 #include <components/nifbullet/bulletnifloader.hpp>
 
+#include <components/esm/loadgmst.hpp>
+
 #include "../mwbase/world.hpp" // FIXME
 #include "../mwbase/environment.hpp"
 
 #include "../mwmechanics/creaturestats.hpp"
 
-#include <components/esm/loadgmst.hpp>
 #include "../mwworld/esmstore.hpp"
+#include "../mwworld/cellstore.hpp"
 
 #include "ptr.hpp"
 #include "class.hpp"
@@ -117,11 +120,9 @@ namespace MWWorld
             OEngine::Physic::PhysicActor *physicActor = engine->getCharacter(ptr.getRefData().getHandle());
             if(!physicActor || !physicActor->getCollisionMode())
             {
-                // FIXME: This works, but it's inconcsistent with how the rotations are applied elsewhere. Why?
-                return position + (Ogre::Quaternion(Ogre::Radian(-refpos.rot[2]), Ogre::Vector3::UNIT_Z)*
-                                   Ogre::Quaternion(Ogre::Radian(-refpos.rot[1]), Ogre::Vector3::UNIT_Y)*
-                                   Ogre::Quaternion(Ogre::Radian( refpos.rot[0]), Ogre::Vector3::UNIT_X)) *
-                                  movement * time;
+                return position +  (Ogre::Quaternion(Ogre::Radian(refpos.rot[2]), Ogre::Vector3::NEGATIVE_UNIT_Z) *
+                                    Ogre::Quaternion(Ogre::Radian(refpos.rot[0]), Ogre::Vector3::NEGATIVE_UNIT_X))
+                                * movement * time;
             }
 
             btCollisionObject *colobj = physicActor->getCollisionBody();
@@ -137,14 +138,12 @@ namespace MWWorld
             Ogre::Vector3 velocity;
             if(position.z < waterlevel || isFlying)
             {
-                velocity = (Ogre::Quaternion(Ogre::Radian(-refpos.rot[2]), Ogre::Vector3::UNIT_Z)*
-                            Ogre::Quaternion(Ogre::Radian(-refpos.rot[1]), Ogre::Vector3::UNIT_Y)*
-                            Ogre::Quaternion(Ogre::Radian( refpos.rot[0]), Ogre::Vector3::UNIT_X)) *
-                           movement;
+                velocity = (Ogre::Quaternion(Ogre::Radian(refpos.rot[2]), Ogre::Vector3::NEGATIVE_UNIT_Z)*
+                            Ogre::Quaternion(Ogre::Radian(refpos.rot[0]), Ogre::Vector3::NEGATIVE_UNIT_X)) * movement;
             }
             else
             {
-                velocity = Ogre::Quaternion(Ogre::Radian(-refpos.rot[2]), Ogre::Vector3::UNIT_Z) * movement;
+                velocity = Ogre::Quaternion(Ogre::Radian(refpos.rot[2]), Ogre::Vector3::NEGATIVE_UNIT_Z) * movement;
                 if(!physicActor->getOnGround())
                 {
                     // If falling, add part of the incoming velocity with the current inertia
@@ -574,7 +573,7 @@ namespace MWWorld
             for(;iter != mMovementQueue.end();iter++)
             {
                 float waterlevel = -std::numeric_limits<float>::max();
-                const ESM::Cell *cell = iter->first.getCell()->mCell;
+                const ESM::Cell *cell = iter->first.getCell()->getCell();
                 if(cell->hasWater())
                     waterlevel = cell->mWater;
 

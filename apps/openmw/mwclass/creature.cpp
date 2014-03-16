@@ -7,6 +7,7 @@
 #include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/magiceffects.hpp"
 #include "../mwmechanics/movement.hpp"
+#include "../mwmechanics/disease.hpp"
 #include "../mwmechanics/spellcasting.hpp"
 
 #include "../mwbase/environment.hpp"
@@ -22,6 +23,7 @@
 #include "../mwworld/customdata.hpp"
 #include "../mwworld/containerstore.hpp"
 #include "../mwworld/physicssystem.hpp"
+#include "../mwworld/cellstore.hpp"
 
 #include "../mwrender/renderinginterface.hpp"
 #include "../mwrender/actors.hpp"
@@ -242,15 +244,7 @@ namespace MWClass
 
         Ogre::Vector3 hitPosition = result.second;
 
-        MWMechanics::CreatureStats &otherstats = victim.getClass().getCreatureStats(victim);
-        const MWMechanics::MagicEffects &mageffects = stats.getMagicEffects();
-        float hitchance = ref->mBase->mData.mCombat +
-                          (stats.getAttribute(ESM::Attribute::Agility).getModified() / 5.0f) +
-                          (stats.getAttribute(ESM::Attribute::Luck).getModified() / 10.0f);
-        hitchance *= stats.getFatigueTerm();
-        hitchance += mageffects.get(ESM::MagicEffect::FortifyAttack).mMagnitude -
-                     mageffects.get(ESM::MagicEffect::Blind).mMagnitude;
-        hitchance -= otherstats.getEvasion();
+        float hitchance = MWMechanics::getHitChance(ptr, victim, ref->mBase->mData.mCombat);
 
         if((::rand()/(RAND_MAX+1.0)) > hitchance/100.0f)
         {
@@ -332,6 +326,8 @@ namespace MWClass
 
         if (damage > 0)
             MWBase::Environment::get().getWorld()->spawnBloodEffect(victim, hitPosition);
+
+        MWMechanics::diseaseContact(victim, ptr);
 
         victim.getClass().onHit(victim, damage, true, weapon, ptr, true);
     }
@@ -679,7 +675,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Creature> *ref =
             ptr.get<ESM::Creature>();
 
-        return MWWorld::Ptr(&cell.mCreatures.insert(*ref), &cell);
+        return MWWorld::Ptr(&cell.get<ESM::Creature>().insert(*ref), &cell);
     }
 
     bool Creature::isFlying(const MWWorld::Ptr &ptr) const
@@ -766,8 +762,11 @@ namespace MWClass
 
         ensureCustomData (ptr);
 
-        dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData()).mContainerStore->
-            readState (state2.mInventory);
+        CustomData& customData = dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData());
+
+        customData.mContainerStore->readState (state2.mInventory);
+        customData.mCreatureStats.readState (state2.mCreatureStats);
+
     }
 
     void Creature::writeAdditionalState (const MWWorld::Ptr& ptr, ESM::ObjectState& state)
@@ -777,8 +776,10 @@ namespace MWClass
 
         ensureCustomData (ptr);
 
-        dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData()).mContainerStore->
-            writeState (state2.mInventory);
+        CustomData& customData = dynamic_cast<CustomData&> (*ptr.getRefData().getCustomData());
+
+        customData.mContainerStore->writeState (state2.mInventory);
+        customData.mCreatureStats.writeState (state2.mCreatureStats);
     }
 
     const ESM::GameSetting* Creature::fMinWalkSpeedCreature;

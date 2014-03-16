@@ -5,11 +5,18 @@
 #include <string>
 
 #include <QTableView>
+#include <QtGui/qevent.h>
 
 #include "../../model/filter/node.hpp"
+#include "../../model/world/columnbase.hpp"
 
 class QUndoStack;
 class QAction;
+
+namespace CSMDoc
+{
+    class Document;
+}
 
 namespace CSMWorld
 {
@@ -29,7 +36,6 @@ namespace CSVWorld
             Q_OBJECT
 
             std::vector<CommandDelegate *> mDelegates;
-            QUndoStack& mUndoStack;
             QAction *mEditAction;
             QAction *mCreateAction;
             QAction *mCloneAction;
@@ -37,10 +43,12 @@ namespace CSVWorld
             QAction *mDeleteAction;
             QAction *mMoveUpAction;
             QAction *mMoveDownAction;
+            QAction *mViewAction;
             CSMWorld::IdTableProxyModel *mProxyModel;
             CSMWorld::IdTable *mModel;
             bool mEditLock;
             int mRecordStatusDisplay;
+            CSMDoc::Document& mDocument;
 
         private:
 
@@ -50,9 +58,18 @@ namespace CSVWorld
 
             std::vector<std::string> listDeletableSelectedIds() const;
 
+            void mouseMoveEvent(QMouseEvent *event);
+
+            void dragEnterEvent(QDragEnterEvent *event);
+
+            void dragMoveEvent(QDragMoveEvent *event);
+
+            void dropEvent(QDropEvent *event);
+
         public:
 
-            Table (const CSMWorld::UniversalId& id, CSMWorld::Data& data, QUndoStack& undoStack, bool createAndDelete, bool sorting);
+            Table (const CSMWorld::UniversalId& id, bool createAndDelete,
+                bool sorting, CSMDoc::Document& document);
             ///< \param createAndDelete Allow creation and deletion of records.
             /// \param sorting Allow changing order of rows in the view via column headers.
 
@@ -62,9 +79,11 @@ namespace CSVWorld
 
             void updateEditorSetting (const QString &settingName, const QString &settingValue);
 
+            std::vector<std::string> getColumnsWithDisplay(CSMWorld::ColumnBase::Display display) const;
+
         signals:
 
-            void editRequest (int row);
+            void editRequest (const CSMWorld::UniversalId& id, const std::string& hint);
 
             void selectionSizeChanged (int size);
 
@@ -89,6 +108,8 @@ namespace CSVWorld
             void moveUpRecord();
 
             void moveDownRecord();
+
+            void viewRecord();
 
         public slots:
 

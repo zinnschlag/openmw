@@ -2,10 +2,14 @@
 #include "table.hpp"
 
 #include <QHeaderView>
-
 #include <QAction>
+#include <QApplication>
 #include <QMenu>
 #include <QContextMenuEvent>
+#include <QString>
+#include <QtCore/qnamespace.h>
+
+#include "../../model/doc/document.hpp"
 
 #include "../../model/world/data.hpp"
 #include "../../model/world/commands.hpp"
@@ -13,6 +17,8 @@
 #include "../../model/world/idtable.hpp"
 #include "../../model/world/record.hpp"
 #include "../../model/world/columns.hpp"
+#include "../../model/world/tablemimedata.hpp"
+#include "../../model/world/tablemimedata.hpp"
 
 #include "recordstatusdelegate.hpp"
 #include "util.hpp"
@@ -30,8 +36,21 @@ void CSVWorld::Table::contextMenuEvent (QContextMenuEvent *event)
         if (selectedRows.size()==1)
         {
             menu.addAction (mEditAction);
+
             if (mCreateAction)
                 menu.addAction(mCloneAction);
+
+            if (mModel->getViewing()!=CSMWorld::IdTable::Viewing_None)
+            {
+                int row = selectedRows.begin()->row();
+
+                row = mProxyModel->mapToSource (mProxyModel->index (row, 0)).row();
+
+                CSMWorld::UniversalId id = mModel->view (row).first;
+
+                if (!mDocument.getData().getCells().getRecord (id.getId()).isDeleted())
+                    menu.addAction (mViewAction);
+            }
         }
 
         if (mCreateAction)
@@ -88,7 +107,7 @@ std::vector<std::string> CSVWorld::Table::listRevertableSelectedIds() const
         QModelIndexList selectedRows = selectionModel()->selectedRows();
 
         for (QModelIndexList::const_iterator iter (selectedRows.begin()); iter!=selectedRows.end();
-             ++iter)
+            ++iter)
         {
             QModelIndex index = mProxyModel->mapToSource (mProxyModel->index (iter->row(), 0));
 
@@ -157,11 +176,12 @@ std::vector<std::string> CSVWorld::Table::listDeletableSelectedIds() const
     return deletableIds;
 }
 
-CSVWorld::Table::Table (const CSMWorld::UniversalId& id, CSMWorld::Data& data, QUndoStack& undoStack,
-    bool createAndDelete, bool sorting)
-    : mUndoStack (undoStack), mCreateAction (0), mCloneAction(0), mEditLock (false), mRecordStatusDisplay (0)
+CSVWorld::Table::Table (const CSMWorld::UniversalId& id,
+    bool createAndDelete, bool sorting, CSMDoc::Document& document)
+: mCreateAction (0), mCloneAction(0), mEditLock (false), mRecordStatusDisplay (0),
+  mDocument (document)
 {
-    mModel = &dynamic_cast<CSMWorld::IdTable&> (*data.getTableModel (id));
+    mModel = &dynamic_cast<CSMWorld::IdTable&> (*mDocument.getData().getTableModel (id));
 
     mProxyModel = new CSMWorld::IdTableProxyModel (this);
     mProxyModel->setSourceModel (mModel);
@@ -185,7 +205,7 @@ CSVWorld::Table::Table (const CSMWorld::UniversalId& id, CSMWorld::Data& data, Q
                 mModel->headerData (i, Qt::Horizontal, CSMWorld::ColumnBase::Role_Display).toInt());
 
             CommandDelegate *delegate = CommandDelegateFactoryCollection::get().makeDelegate (display,
-                undoStack, this);
+                mDocument.getUndoStack(), this);
 
             mDelegates.push_back (delegate);
             setItemDelegateForColumn (i, delegate);
@@ -225,6 +245,10 @@ CSVWorld::Table::Table (const CSMWorld::UniversalId& id, CSMWorld::Data& data, Q
     connect (mMoveDownAction, SIGNAL (triggered()), this, SLOT (moveDownRecord()));
     addAction (mMoveDownAction);
 
+    mViewAction = new QAction (tr ("View"), this);
+    connect (mViewAction, SIGNAL (triggered()), this, SLOT (viewRecord()));
+    addAction (mViewAction);
+
     connect (mProxyModel, SIGNAL (rowsInserted (const QModelIndex&, int, int)),
         this, SLOT (tableSizeUpdate()));
 
@@ -235,6 +259,8 @@ CSVWorld::Table::Table (const CSMWorld::UniversalId& id, CSMWorld::Data& data, Q
 
     connect (selectionModel(), SIGNAL (selectionChanged (const QItemSelection&, const QItemSelection&)),
         this, SLOT (selectionSizeUpdate ()));
+
+    setAcceptDrops(true);
 }
 
 void CSVWorld::Table::setEditLock (bool locked)
@@ -261,13 +287,13 @@ void CSVWorld::Table::revertRecord()
         if (revertableIds.size()>0)
         {
             if (revertableIds.size()>1)
-                mUndoStack.beginMacro (tr ("Revert multiple records"));
+                mDocument.getUndoStack().beginMacro (tr ("Revert multiple records"));
 
             for (std::vector<std::string>::const_iterator iter (revertableIds.begin()); iter!=revertableIds.end(); ++iter)
-                mUndoStack.push (new CSMWorld::RevertCommand (*mModel, *iter));
+                mDocument.getUndoStack().push (new CSMWorld::RevertCommand (*mModel, *iter));
 
             if (revertableIds.size()>1)
-                mUndoStack.endMacro();
+                mDocument.getUndoStack().endMacro();
         }
     }
 }
@@ -281,13 +307,13 @@ void CSVWorld::Table::deleteRecord()
         if (deletableIds.size()>0)
         {
             if (deletableIds.size()>1)
-                mUndoStack.beginMacro (tr ("Delete multiple records"));
+                mDocument.getUndoStack().beginMacro (tr ("Delete multiple records"));
 
             for (std::vector<std::string>::const_iterator iter (deletableIds.begin()); iter!=deletableIds.end(); ++iter)
-                mUndoStack.push (new CSMWorld::DeleteCommand (*mModel, *iter));
+                mDocument.getUndoStack().push (new CSMWorld::DeleteCommand (*mModel, *iter));
 
             if (deletableIds.size()>1)
-                mUndoStack.endMacro();
+                mDocument.getUndoStack().endMacro();
         }
     }
 }
@@ -299,7 +325,7 @@ void CSVWorld::Table::editRecord()
         QModelIndexList selectedRows = selectionModel()->selectedRows();
 
         if (selectedRows.size()==1)
-            emit editRequest (selectedRows.begin()->row());
+            emit editRequest (getUniversalId (selectedRows.begin()->row()), "");
     }
 }
 
@@ -340,7 +366,7 @@ void CSVWorld::Table::moveUpRecord()
             for (int i=1; i<row2-row; ++i)
                 newOrder[i] = i;
 
-            mUndoStack.push (new CSMWorld::ReorderRowsCommand (*mModel, row, newOrder));
+            mDocument.getUndoStack().push (new CSMWorld::ReorderRowsCommand (*mModel, row, newOrder));
         }
     }
 }
@@ -369,8 +395,25 @@ void CSVWorld::Table::moveDownRecord()
             for (int i=1; i<row2-row; ++i)
                 newOrder[i] = i;
 
-            mUndoStack.push (new CSMWorld::ReorderRowsCommand (*mModel, row, newOrder));
+            mDocument.getUndoStack().push (new CSMWorld::ReorderRowsCommand (*mModel, row, newOrder));
         }
+    }
+}
+
+void CSVWorld::Table::viewRecord()
+{
+    QModelIndexList selectedRows = selectionModel()->selectedRows();
+
+    if (selectedRows.size()==1)
+    {
+        int row =selectedRows.begin()->row();
+
+        row = mProxyModel->mapToSource (mProxyModel->index (row, 0)).row();
+
+        std::pair<CSMWorld::UniversalId, std::string> params = mModel->view (row);
+
+        if (params.first.getType()!=CSMWorld::UniversalId::Type_None)
+            emit editRequest (params.first, params.second);
     }
 }
 
@@ -431,4 +474,109 @@ void CSVWorld::Table::requestFocus (const std::string& id)
 void CSVWorld::Table::recordFilterChanged (boost::shared_ptr<CSMFilter::Node> filter)
 {
     mProxyModel->setFilter (filter);
+}
+
+void CSVWorld::Table::mouseMoveEvent (QMouseEvent* event)
+{
+    if (event->buttons() & Qt::LeftButton)
+    {
+        QModelIndexList selectedRows = selectionModel()->selectedRows();
+
+        if (selectedRows.size() == 0)
+        {
+            return;
+        }
+
+        QDrag* drag = new QDrag (this);
+        CSMWorld::TableMimeData* mime = NULL;
+
+        if (selectedRows.size() == 1)
+        {
+            mime = new CSMWorld::TableMimeData (getUniversalId (selectedRows.begin()->row()), mDocument);
+        }
+        else
+        {
+            std::vector<CSMWorld::UniversalId> idToDrag;
+
+            foreach (QModelIndex it, selectedRows) //I had a dream. Dream where you could use C++11 in OpenMW.
+            {
+                idToDrag.push_back (getUniversalId (it.row()));
+            }
+
+            mime = new CSMWorld::TableMimeData (idToDrag, mDocument);
+        }
+
+        drag->setMimeData (mime);
+        drag->setPixmap (QString::fromStdString (mime->getIcon()));
+
+        Qt::DropActions action = Qt::IgnoreAction;
+        switch (QApplication::keyboardModifiers())
+        {
+            case Qt::ControlModifier:
+                action = Qt::CopyAction;
+                break;
+
+            case Qt::ShiftModifier:
+                action = Qt::MoveAction;
+                break;
+        }
+
+        drag->exec(action);
+    }
+
+}
+
+void CSVWorld::Table::dragEnterEvent(QDragEnterEvent *event)
+{
+        event->acceptProposedAction();
+}
+
+void CSVWorld::Table::dropEvent(QDropEvent *event)
+{
+    QModelIndex index = indexAt (event->pos());
+
+    if (!index.isValid())
+    {
+        return;
+    }
+
+    const CSMWorld::TableMimeData* mime = dynamic_cast<const CSMWorld::TableMimeData*> (event->mimeData());
+    if (mime->fromDocument (mDocument))
+    {
+        CSMWorld::ColumnBase::Display display = static_cast<CSMWorld::ColumnBase::Display>
+                                                (mModel->headerData (index.column(), Qt::Horizontal, CSMWorld::ColumnBase::Role_Display).toInt());
+
+        if (mime->holdsType (display))
+        {
+            CSMWorld::UniversalId record (mime->returnMatching (display));
+
+            std::auto_ptr<CSMWorld::ModifyCommand> command (new CSMWorld::ModifyCommand
+                    (*mProxyModel, index, QVariant (QString::fromUtf8 (record.getId().c_str()))));
+
+            mDocument.getUndoStack().push (command.release());
+        }
+    } //TODO handle drops from different document
+}
+
+void CSVWorld::Table::dragMoveEvent(QDragMoveEvent *event)
+{
+        event->accept();
+}
+
+std::vector<std::string> CSVWorld::Table::getColumnsWithDisplay(CSMWorld::ColumnBase::Display display) const
+{
+    const int count = mModel->columnCount();
+
+    std::vector<std::string> titles;
+    for (int i = 0; i < count; ++i)
+    {
+        CSMWorld::ColumnBase::Display columndisplay = static_cast<CSMWorld::ColumnBase::Display>
+                                                     (mModel->headerData (i, Qt::Horizontal, CSMWorld::ColumnBase::Role_Display).toInt());
+
+        if (display == columndisplay)
+        {
+            titles.push_back(mModel->headerData (i, Qt::Horizontal).toString().toStdString());
+        }
+    }
+    return titles;
 }
