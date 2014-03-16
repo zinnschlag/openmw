@@ -26,7 +26,7 @@ namespace Terrain
         void enableShadows(bool shadows) { mShadows = shadows; }
         void enableNormalMapping(bool normalMapping) { mNormalMapping = normalMapping; }
         void enableParallaxMapping(bool parallaxMapping) { mParallaxMapping = parallaxMapping; }
-        void setShadowSplits(int splitShadows) { mShadowSplits = splitShadows; }
+        void setShadowSplits(Ogre::uint splitShadows) { mShadowSplits = splitShadows; }
 
         /// Creates a material suitable for displaying a chunk of terrain using alpha-blending.
         /// @param mat Material that will be replaced by the generated material. May be empty as well, in which case
@@ -52,7 +52,7 @@ namespace Terrain
         std::string mCompositeMap;
         bool mShaders;
         bool mShadows;
-        int mShadowSplits;
+        Ogre::uint mShadowSplits;
         bool mNormalMapping;
         bool mParallaxMapping;
     };

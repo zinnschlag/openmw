@@ -92,12 +92,12 @@ float pssmDepthShadow (
 #else // smooth transitions between cascades; for transition region there are 2 * (PCF size) fetches
 	if (depth <= pssmSplitPoints.x)
 	{
-		float trans = shSaturate(depth/pssmSplitPoints.x - 0.9) * 10;
+		float trans = max(depth/pssmSplitPoints.x - 0.9, 0.0) * 10;
 		shadow = shadowWithTransition(shadowMap0, lightSpacePos0, shadowMap1, lightSpacePos1, invShadowmapSize0, trans);
 	}
     else if (depth <= pssmSplitPoints.y)
     {
-		float trans = shSaturate(depth/pssmSplitPoints.y - 0.9) * 10;
+		float trans = max(depth/pssmSplitPoints.y - 0.9, 0.0) * 10;
 		shadow = shadowWithTransition(shadowMap1, lightSpacePos1, shadowMap2, lightSpacePos2, invShadowmapSize1, trans);
 	}
     else

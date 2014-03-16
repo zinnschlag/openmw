@@ -794,6 +794,7 @@ namespace MWWorld
         removeContainerScripts(getPlayerPtr());
         mWorldScene->changeToExteriorCell(position);
         addContainerScripts(getPlayerPtr(), getPlayerPtr().getCell());
+        mWeatherManager->ForceSunUpdate();
     }
 
     void World::changeToCell (const ESM::CellId& cellId, const ESM::Position& position)

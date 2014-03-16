@@ -131,7 +131,7 @@ void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, 
         Vector3 *pointsFar = GetFrustumSlicePoints(cam, farDist, true);
         Vector3 *points = pointsNear;
 
-        Real maxZ = -FLT_MAX;
+        Real maxZ = -3.402823466e+38F;
         for(int k=0; k<2; k++)
         {
             for(int i=0; i<4; i++)

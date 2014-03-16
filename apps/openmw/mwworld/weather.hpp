@@ -156,9 +156,11 @@ namespace MWWorld
         /// @see World::isDark
         bool isDark() const;
 
+        void ForceSunUpdate() { mSunForceUpdate = true;}
+
     private:
         // interval-based sun direction update: for stable shadows
-        bool mSunUpdating;
+        bool mSunUpdating, mSunForceUpdate;
         float mSunUpdateInterval, mSunStandInterval;
         float mHourUpdate, mHourLast;
         float mSunUpdateTimer;

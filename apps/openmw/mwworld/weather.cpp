@@ -371,12 +371,12 @@ void WeatherManager::update(float duration)
     // sun direction updating operate in 2 modes:
     // mSunUpdateInterval=0.0f, then update dir constantly
     // else use interval-based updating
-    bool bForceUpdateDir = false;
-    if(abs(mHour - mHourLast) >= 0.99f || mHourUpdate < 0) 
+    
+    if(abs(mHour - mHourLast) >= 0.99f || mHourUpdate < 0 || mSunForceUpdate)
     {
         mHourUpdate = mHour;
         mHourLast = mHour;
-        bForceUpdateDir = true;
+        mSunForceUpdate = true;
     }
     
     mSunUpdateTimer += duration;
@@ -395,8 +395,8 @@ void WeatherManager::update(float duration)
     mHourLast = mHour;
 
     float hour = (mSunUpdateInterval == 0.0)? mHour: mHourUpdate;
-
-    if(mSunUpdateInterval == 0.0f || mSunUpdating || bForceUpdateDir)
+    
+    if(mSunUpdateInterval == 0.0f || mSunUpdating || mSunForceUpdate)
     {
         // rise at 6, set at 20
         if (hour >= mSunriseTime && hour <= mNightStart)
@@ -420,7 +420,7 @@ void WeatherManager::update(float duration)
         if(mSunUpdateTimer > mSunUpdateInterval) {mSunUpdating = false; mSunUpdateTimer = 0; mHourUpdate = mHour;}
     }
     else if(mSunUpdateTimer > mSunStandInterval) {mSunUpdating = true; mSunUpdateTimer = 0;}
-
+    mSunForceUpdate = false;
     /*
      * TODO: import separated fadeInStart/Finish, fadeOutStart/Finish
      * for masser and secunda

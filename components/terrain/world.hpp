@@ -47,7 +47,7 @@ namespace Terrain
         bool getDistantLandEnabled() { return mDistantLand; }
         bool getShadersEnabled() { return mShaders; }
         bool getShadowsEnabled() { return mShadows; }
-        int getShadowSplits() { return mShadowSplits; }
+        Ogre::uint getShadowSplits() { return mShadowSplits; }
 
         float getHeightAt (const Ogre::Vector3& worldPos);
 
@@ -98,7 +98,7 @@ namespace Terrain
         bool mDistantLand;
         bool mShaders;
         bool mShadows;
-        int mShadowSplits;
+        Ogre::uint mShadowSplits;
         bool mVisible;
         Alignment mAlign;
 
