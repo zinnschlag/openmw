@@ -1,5 +1,6 @@
 
 #define FIXED_BIAS 0.00001
+#define TRANS_BETWEEN_CASCADES 1
 
 float bilinearSample(shTexture2D shadowMap, float2 shadowMapPos, float depth, float2 texelSize)
 {
@@ -37,12 +38,24 @@ float depthShadowPCF16 (shTexture2D shadowMap, float4 shadowMapPos, float2 offse
     shadowMapPos /= shadowMapPos.w;
 
     float sum;
-    sum  = bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(0, 0), shadowMapPos.z, offset).r;
-    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(0, 1), shadowMapPos.z, offset).r;
-    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(1, 0), shadowMapPos.z, offset).r;
-    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(1, 1), shadowMapPos.z, offset).r;
+	
+    sum  = bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(0, 0), shadowMapPos.z, offset);
+    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(0, 1), shadowMapPos.z, offset);
+    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(1, 0), shadowMapPos.z, offset);
+    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(1, 1), shadowMapPos.z, offset);
 
     return sum/4;
+}
+
+float shadowWithTransition(shTexture2D shadowMap, float4 shadowMapPos, shTexture2D shadowMapNext, float4 shadowMapPosNext, float2 offset, float trans)
+{
+	if(trans > 0.0)
+	{
+		float shadow1 = depthShadowPCF16(shadowMap, shadowMapPos, offset);
+		float shadow2 = depthShadowPCF16(shadowMapNext, shadowMapPosNext, offset);
+		return shLerp(shadow1, shadow2, trans);
+	}
+	else return depthShadowPCF16(shadowMap, shadowMapPos, offset);
 }
 
 
@@ -67,13 +80,28 @@ float pssmDepthShadow (
 
 {
     float shadow;
-    
+	
+#ifndef TRANS_BETWEEN_CASCADES
     if (depth <= pssmSplitPoints.x)
         shadow = depthShadowPCF16(shadowMap0, lightSpacePos0, invShadowmapSize0);
     else if (depth <= pssmSplitPoints.y)
         shadow = depthShadowPCF16(shadowMap1, lightSpacePos1, invShadowmapSize1);
     else
         shadow = depthShadowPCF16(shadowMap2, lightSpacePos2, invShadowmapSize2);
-
+		
+#else // smooth transitions between cascades; for transition region there are 2 * (PCF size) fetches
+	if (depth <= pssmSplitPoints.x)
+	{
+		float trans = shSaturate(depth/pssmSplitPoints.x - 0.9) * 10;
+		shadow = shadowWithTransition(shadowMap0, lightSpacePos0, shadowMap1, lightSpacePos1, invShadowmapSize0, trans);
+	}
+    else if (depth <= pssmSplitPoints.y)
+    {
+		float trans = shSaturate(depth/pssmSplitPoints.y - 0.9) * 10;
+		shadow = shadowWithTransition(shadowMap1, lightSpacePos1, shadowMap2, lightSpacePos2, invShadowmapSize1, trans);
+	}
+    else
+        shadow = depthShadowPCF16(shadowMap2, lightSpacePos2, invShadowmapSize2);
+#endif
     return shadow;
 }
