@@ -329,83 +329,81 @@ CSMWorld::ColumnBase::Display CSMWorld::TableMimeData::convertEnums (CSMWorld::U
 
 
         case CSMWorld::UniversalId::Type_Activator:
-            return CSMWorld::ColumnBase::Display_Activator;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Potion:
-            return CSMWorld::ColumnBase::Display_Potion;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Apparatus:
-            return CSMWorld::ColumnBase::Display_Apparatus;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Armor:
-            return CSMWorld::ColumnBase::Display_Armor;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Book:
-            return CSMWorld::ColumnBase::Display_Book;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Clothing:
-            return CSMWorld::ColumnBase::Display_Clothing;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Container:
-            return CSMWorld::ColumnBase::Display_Container;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Creature:
-            return CSMWorld::ColumnBase::Display_Creature;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Door:
-            return CSMWorld::ColumnBase::Display_Door;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Ingredient:
-            return CSMWorld::ColumnBase::Display_Ingredient;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_CreatureLevelledList:
-            return CSMWorld::ColumnBase::Display_CreatureLevelledList;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_ItemLevelledList:
-            return CSMWorld::ColumnBase::Display_ItemLevelledList;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Light:
-            return CSMWorld::ColumnBase::Display_Light;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Lockpick:
-            return CSMWorld::ColumnBase::Display_Lockpick;
-
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
         case CSMWorld::UniversalId::Type_Miscellaneous:
-            return CSMWorld::ColumnBase::Display_Miscellaneous;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Npc:
-            return CSMWorld::ColumnBase::Display_Npc;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Probe:
-            return CSMWorld::ColumnBase::Display_Probe;
-
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
         case CSMWorld::UniversalId::Type_Repair:
-            return CSMWorld::ColumnBase::Display_Repair;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Static:
-            return CSMWorld::ColumnBase::Display_Static;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Weapon:
-            return CSMWorld::ColumnBase::Display_Weapon;
+            return CSMWorld::ColumnBase::Display_Referenceable;
 
 
         case CSMWorld::UniversalId::Type_Reference:
