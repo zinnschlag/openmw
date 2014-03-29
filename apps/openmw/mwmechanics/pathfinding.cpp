@@ -502,12 +502,7 @@ namespace MWMechanics
             }
         }
 
-        // TODO: There might be a cheaper way to find a cell change
-        if(!mCell || (
-                        (mCell->getCell()->mData.mX != cell->getCell()->mData.mX) ||
-                        (mCell->getCell()->mData.mY != cell->getCell()->mData.mY)
-                     )
-          )
+        if(mCell != cell)
         {
             mIsGraphConstructed = false; // must be in a new cell, need a new mGraph and mSCComp
             mCell = cell;
