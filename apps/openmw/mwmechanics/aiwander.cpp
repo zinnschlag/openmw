@@ -111,7 +111,9 @@ namespace MWMechanics
             mCellX = actor.getCell()->getCell()->mData.mX;
             mCellY = actor.getCell()->getCell()->mData.mY;
 
-            // TODO: If there is no path does this actor get stuck forever?
+            // If there is no path this actor doesn't go anywhere. See:
+            // https://forum.openmw.org/viewtopic.php?t=1556
+            // http://www.fliggerty.com/phpBB3/viewtopic.php?f=30&t=5833
             if(!mPathgrid)
                 mDistance = 0;
             else if(mPathgrid->mPoints.empty())
@@ -164,7 +166,7 @@ namespace MWMechanics
             }
         }
 
-        // TODO: Does this actor stay in one spot forever while in AiWander?
+        // Actor becomes stationary - see above URL's for previous research
         if(mAllowedNodes.empty())
             mDistance = 0;
 

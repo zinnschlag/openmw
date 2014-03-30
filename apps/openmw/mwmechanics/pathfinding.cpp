@@ -419,7 +419,6 @@ namespace MWMechanics
         std::list<ESM::Pathgrid::Point> path;
         if(current != goal)
             return path; // for some reason couldn't build a path
-                         // e.g. start was not reachable (we assume it is)
 
         // reconstruct path to return, using world co-ordinates
         while(mGraph[current].parent != -1)
@@ -463,7 +462,7 @@ namespace MWMechanics
      * mPathConstructed is set true if successful, false if not
      *
      * May update mGraph by calling buildPathgridGraph() if it isn't
-     * constructed yet.  At the same time mConnectedPoints is also updated.
+     * constructed yet.  At the same time mSCComp is also updated.
      *
      * NOTE: co-ordinates must be converted prior to calling getClosestPoint()
      *
