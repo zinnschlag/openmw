@@ -430,18 +430,6 @@ namespace MWMechanics
             current = mGraph[current].parent;
         }
 
-        // TODO: Is this a bug?  If path is empty the algorithm couldn't find a path.
-        //       Simply using the destination as the path in this scenario seems strange.
-        //       Commented out pending further testing.
-#if 0
-        if(path.empty())
-        {
-            ESM::Pathgrid::Point pt = pathGrid->mPoints[goal];
-            pt.mX += xCell;
-            pt.mY += yCell;
-            path.push_front(pt);
-        }
-#endif
         return path;
     }
 
@@ -567,6 +555,16 @@ namespace MWMechanics
         }
         else
             mIsPathConstructed = false; // this shouldn't really happen, but just in case
+
+        // Maybe there is no pathgrid for this cell, or maybe the closest pathgrid
+        // points were unreachable.  Just go to destination and let physics take care
+        // of any blockages.
+        if(!mIsPathConstructed)
+        {
+            mPath.push_back(endPoint);
+            mIsPathConstructed = true;
+        }
+        return;
     }
 
     float PathFinder::getZAngleToNext(float x, float y) const
