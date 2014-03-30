@@ -27,6 +27,9 @@ OcclusionQuery::OcclusionQuery(OEngine::Render::OgreRenderer* renderer, SceneNod
     mRendering = renderer;
     mSunNode = sunNode;
 
+    mSupported = false;
+    return;
+
     try {
         RenderSystem* renderSystem = Root::getSingleton().getRenderSystem();
 
