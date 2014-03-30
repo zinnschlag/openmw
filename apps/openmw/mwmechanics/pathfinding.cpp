@@ -438,6 +438,9 @@ namespace MWMechanics
      * result before using it.  If there is no path the AI routies need to
      * implement some other heuristics to reach the target.
      *
+     * NOTE: Above note is no longer fully accurate.  If all attempts to build a path
+     * using pathgrid points fails, a direct path to endPoint is created instead.
+     *
      * NOTE: startPoint & endPoint are in world co-ordinates
      *
      * Updates mPath using aStarSearch() or ray test (if shortcut allowed).
