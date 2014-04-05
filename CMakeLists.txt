@@ -132,6 +132,7 @@ set(OENGINE_OGRE
 
 set(OENGINE_GUI
   ${LIBDIR}/openengine/gui/manager.cpp
+  ${LIBDIR}/openengine/gui/layout.hpp
 )
 
 set(OENGINE_BULLET
@@ -465,7 +466,6 @@ if(WIN32)
     INSTALL(FILES
         "${OpenMW_SOURCE_DIR}/readme.txt"
         "${OpenMW_SOURCE_DIR}/GPL3.txt"
-        "${OpenMW_SOURCE_DIR}/OFL.txt"
         "${OpenMW_SOURCE_DIR}/DejaVu Font License.txt"
         "${OpenMW_BINARY_DIR}/settings-default.cfg"
         "${OpenMW_BINARY_DIR}/transparency-overrides.cfg"
