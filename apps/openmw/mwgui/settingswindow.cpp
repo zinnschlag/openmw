@@ -341,7 +341,7 @@ namespace MWGui
                 parseResolution (resX, resY, resStr);
 
                 if (resX == Settings::Manager::getInt("resolution x", "Video")
-                    && resY  == Settings::Manager::getInt("resolution y", "Video"))
+                    && resY == Settings::Manager::getInt("resolution y", "Video"))
                     supported = true;
             }
 
