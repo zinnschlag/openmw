@@ -19,6 +19,227 @@
 using namespace Ogre;
 using namespace MWRender;
 
+namespace Ogre 
+{
+
+Ogre::Vector3* GetFrustumSlicePoints(const Ogre::Camera *cam, Ogre::Real z, bool InWorldSpace = false)
+{
+    Ogre::Vector3 *points = new Ogre::Vector3[4];
+
+    float halfH = z * Ogre::Math::Tan(cam->getFOVy()/2);
+    float halfW = halfH * cam->getAspectRatio();
+    Ogre::Vector3 vUp, vRight, vFwd, vPos;
+    if(InWorldSpace)
+    {
+        vUp = cam->getDerivedUp();
+        vRight = cam->getDerivedRight();
+        vFwd = cam->getDerivedDirection();
+        vPos = cam->getDerivedPosition();
+        vUp.normalise();
+        vRight.normalise();
+        vFwd.normalise();
+    }
+    else
+    {
+        vUp = Vector3::UNIT_Y;
+        vRight = Vector3::UNIT_X;
+        vFwd = Vector3::UNIT_Z;
+        vPos = Vector3::ZERO;
+    }
+    
+    points[0] = vPos + vFwd*z - vRight*halfW + vUp*halfH; // left top
+    points[1] = vPos + vFwd*z - vRight*halfW - vUp*halfH; // left bottom
+    points[2] = vPos + vFwd*z + vRight*halfW - vUp*halfH; // right bottom
+    points[3] = vPos + vFwd*z + vRight*halfW + vUp*halfH; // right top
+
+    return points;
+}
+
+Ogre::Vector2 CalcFrustumDiagAndCenterOffset(const Ogre::Camera *cam, Ogre::Real zNear, Ogre::Real zFar)
+{
+    Ogre::Real tanBy2 = Ogre::Math::Tan(cam->getFOVy()/2);
+    float halfH = zFar * tanBy2;
+    float halfW = halfH * cam->getAspectRatio();
+
+    // find longest diagonal length
+    Vector3 points[2];
+    points[0] = zFar*Vector3::UNIT_Z - halfW*Vector3::UNIT_X - halfH*Vector3::UNIT_Y;
+    points[1] = zFar*Vector3::UNIT_Z + halfW*Vector3::UNIT_X + halfH*Vector3::UNIT_Y;
+
+    Ogre::Vector2 vDiagCenterOffset;
+
+    vDiagCenterOffset.x = (points[1]-points[0]).length(); // far left bottom - far right top
+
+    halfH = zNear * tanBy2;
+    halfW = halfH * cam->getAspectRatio();
+    points[1] = zNear*Vector3::UNIT_Z + halfW*Vector3::UNIT_X + halfH*Vector3::UNIT_Y;
+
+    vDiagCenterOffset.y = (points[1]-points[0]).length(); // from near left bottom - far right top
+
+    if(vDiagCenterOffset.y > vDiagCenterOffset.x) vDiagCenterOffset.x = vDiagCenterOffset.y;
+
+    // find offset to the center of frustum (for the case of max diagonal)
+    Real newDiag = 0.25f * vDiagCenterOffset.x*vDiagCenterOffset.x - halfH*halfH - halfW*halfW;
+    if(newDiag <= 0.0) newDiag = 0;
+    else newDiag = Ogre::Math::Sqrt(newDiag);
+    vDiagCenterOffset.y = zNear + newDiag;
+    
+    return vDiagCenterOffset;
+}
+
+Ogre::Matrix4 buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up)
+{
+	Vector3 xN = dir.crossProduct(up);
+	xN.normalise();
+	Vector3 upN = xN.crossProduct(dir);
+	upN.normalise();
+
+	Matrix4 m(  xN.x,		xN.y,		xN.z,		-xN.dotProduct(pos),
+		        upN.x,		upN.y,		upN.z,		-upN.dotProduct(pos),
+		        -dir.x,		-dir.y,	    -dir.z,	    dir.dotProduct(pos),
+		        0.0,		0.0,	    0.0,	    1.0);
+
+	return m;
+}
+
+StablePSSMShadowCameraSetup::StablePSSMShadowCameraSetup() : DefaultShadowCameraSetup()
+{
+    calculateSplitPoints(3, 100, 100000);
+}
+
+StablePSSMShadowCameraSetup::~StablePSSMShadowCameraSetup()
+{
+}
+
+void StablePSSMShadowCameraSetup::calculateSplitPoints(size_t cascadeCount, Real firstSplitDist, Real farDist, Real lambda)
+{
+	if (cascadeCount < 2)
+		OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot specify less than 2 cascades", 
+		"StableCSMShadowCameraSetup::calculateSplitPoints");
+
+	mSplitPoints.resize(cascadeCount + 1);
+	mCascadeCount = cascadeCount;
+
+	mSplitPoints[0] = 0;
+	firstSplitDist = std::max((Real)0.001, firstSplitDist);
+
+	for (size_t i = 1; i <= mCascadeCount; i++)
+	{
+		Real fraction = (Real)(i-1) / (mCascadeCount-1);
+		Real logDist = firstSplitDist * Math::Pow(farDist / firstSplitDist, fraction);
+		Real linDist = firstSplitDist + fraction * (farDist - firstSplitDist);
+		Real splitPoint = linDist + lambda * (logDist - linDist);
+
+		mSplitPoints[i] = splitPoint;
+	}
+}
+
+void StablePSSMShadowCameraSetup::setSplitPoints(const PSSMShadowCameraSetup::SplitPointList& newSplitPoints)
+{
+	if (newSplitPoints.size() < 3) // 3, not 2 since splits + 1 points
+		OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot specify less than 2 splits", 
+		"StableCSMShadowCameraSetup::setSplitPoints");
+	mCascadeCount = newSplitPoints.size() - 1;
+	mSplitPoints = newSplitPoints;
+}
+
+void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, const Ogre::Camera *cam,
+			const Ogre::Viewport *vp, const Ogre::Light *light, Ogre::Camera *texCam, size_t iteration) const
+{
+    // apply the right clip distance.
+	Real nearDist = mSplitPoints[iteration];
+	Real farDist  = mSplitPoints[iteration + 1];
+
+	mCurrentIteration = iteration;
+    
+    if (light->getType() == Light::LT_DIRECTIONAL)
+	{
+        // get maximum needed cascade size and shadow camera offset along camera dir
+        Vector2 vDiagCenter = CalcFrustumDiagAndCenterOffset(cam, nearDist, farDist);
+
+        Vector3 pos = cam->getDerivedPosition() + cam->getDerivedDirection() * vDiagCenter.y;
+    
+        Vector3 dir = -light->getDerivedDirection();
+	    dir.normalise();
+
+	    Vector3 up = Vector3::UNIT_Y;
+	    // Check it's not coincident with dir
+	    if (Math::Abs(up.dotProduct(dir)) >= 1.0f)
+	    {
+	        // Use camera up
+	        up = Vector3::UNIT_Z;
+	    }
+	    // cross twice to rederive, only direction is unaltered
+	    Vector3 left = dir.crossProduct(up);
+	    left.normalise();
+	    up = dir.crossProduct(left);
+	    up.normalise();
+
+        Matrix4 matToLS = buildViewMatrix(pos, dir, up);
+
+        // Get max needed z for current cascade
+        Vector3 *pointsNear = GetFrustumSlicePoints(cam, nearDist, true);
+        Vector3 *pointsFar = GetFrustumSlicePoints(cam, farDist, true);
+        Vector3 *points = pointsNear;
+
+        Real maxZ = -3.402823466e+38F;
+        for(int k=0; k<2; k++)
+        {
+            for(int i=0; i<4; i++)
+            {
+                Vector3 v3 = matToLS * points[i];
+                if(v3.z > maxZ) maxZ = v3.z;
+            }
+            points = pointsFar;
+        }
+
+        delete[] pointsNear;
+        delete[] pointsFar;
+
+        // Prepare shadow camera
+        texCam->setCustomViewMatrix(false);
+	    texCam->setCustomProjectionMatrix(false);
+
+        Real nearClip = light->getShadowNearClipDistance();
+		if (nearClip <= 0.0f) nearClip = cam->getNearClipDistance();
+
+        Real shadowFar = light->getShadowFarDistance();
+
+        texCam->setProjectionType(PT_ORTHOGRAPHIC);
+
+        texCam->setNearClipDistance(nearClip);
+        texCam->setFarClipDistance(shadowFar);
+
+        // filter padding should be added to avoid seams between cascades
+        // should be done after all diagonal calculations
+        int filterPadding = 2; // value in pixels
+        vDiagCenter.x *= static_cast<Ogre::Real>(texCam->getViewport()->getActualWidth() + filterPadding*2) / texCam->getViewport()->getActualWidth();
+        
+        texCam->setAspectRatio(1.0f);
+        texCam->setOrthoWindowWidth(vDiagCenter.x);
+
+        // Reduce jittering caused by the projection moving with the camera
+	    Real worldTexelSize = (texCam->getOrthoWindowWidth()) / texCam->getViewport()->getActualWidth();
+        
+        pos += dir * (shadowFar - maxZ);
+        Quaternion q;
+        q.FromAxes(left, up, dir);
+	    Vector3 lightSpacePos = q.Inverse() * pos;
+		
+	    //snap to nearest texel
+	    lightSpacePos.x -= fmod(lightSpacePos.x, worldTexelSize);
+        lightSpacePos.y -= fmod(lightSpacePos.y, worldTexelSize);
+
+	    //convert back to world space
+        pos = q * lightSpacePos;
+
+        texCam->setPosition(pos);
+        texCam->setOrientation(q);
+    }
+}
+
+}
+//---------------------------------------------------------------------
 Shadows::Shadows(OEngine::Render::OgreRenderer* rend) :
     mShadowFar(1000), mFadeStart(0.9)
 {
@@ -32,6 +253,7 @@ void Shadows::recreate()
     bool enabled = Settings::Manager::getBool("enabled", "Shadows");
 
     bool split = Settings::Manager::getBool("split", "Shadows");
+    int splitsCount = Settings::Manager::getInt("outdoor splits count", "Shadows");
 
     sh::Factory::getInstance ().setGlobalSetting ("shadows", enabled && !split ? "true" : "false");
     sh::Factory::getInstance ().setGlobalSetting ("shadows_pssm", enabled && split ? "true" : "false");
@@ -50,8 +272,8 @@ void Shadows::recreate()
     // no point light shadows, i'm afraid. might revisit this with Deferred Shading
     mSceneMgr->setShadowTextureCountPerLightType(Light::LT_POINT, 0);
 
-    mSceneMgr->setShadowTextureCountPerLightType(Light::LT_DIRECTIONAL, split ? 3 : 1);
-    mSceneMgr->setShadowTextureCount(split ? 3 : 1);
+    mSceneMgr->setShadowTextureCountPerLightType(Light::LT_DIRECTIONAL, splitsCount);
+    mSceneMgr->setShadowTextureCount(splitsCount);
 
     mSceneMgr->setShadowTextureSelfShadow(true);
     mSceneMgr->setShadowCasterRenderBackFaces(true);
@@ -67,17 +289,22 @@ void Shadows::recreate()
     ShadowCameraSetupPtr shadowCameraSetup;
     if (split)
     {
+#ifdef STABLEPSSM
+        mPSSMSetup = new StablePSSMShadowCameraSetup();
+#else
         mPSSMSetup = new PSSMShadowCameraSetup();
 
         // Make sure to keep this in sync with the camera's near clip distance!
         mPSSMSetup->setSplitPadding(mRendering->getCamera()->getNearClipDistance());
+#endif
 
-        mPSSMSetup->calculateSplitPoints(3, mRendering->getCamera()->getNearClipDistance(), mShadowFar);
+        mPSSMSetup->calculateSplitPoints(splitsCount, mRendering->getCamera()->getNearClipDistance(), Settings::Manager::getFloat("max viewing distance", "Viewing distance"), 0.65);
 
-        const Real adjustFactors[3] = {64, 64, 64};
-        for (int i=0; i < 3; ++i)
+#ifndef STABLEPSSM
+        //const Real adjustFactors[PSSM_SPLITS] = {64, 64, 64};
+        for (int i=0; i < splitsCount; ++i)
         {
-            mPSSMSetup->setOptimalAdjustFactor(i, adjustFactors[i]);
+            mPSSMSetup->setOptimalAdjustFactor(i, 64);
             /*if (i==0)
                 mSceneMgr->setShadowTextureConfig(i, texsize, texsize, Ogre::PF_FLOAT32_R);
             else if (i ==1)
@@ -85,9 +312,10 @@ void Shadows::recreate()
             else if (i ==2)
                 mSceneMgr->setShadowTextureConfig(i, texsize/4, texsize/4, Ogre::PF_FLOAT32_R);*/
         }
+#endif
 
         // Populate from split point 1, not 0, since split 0 isn't useful (usually 0)
-        const PSSMShadowCameraSetup::SplitPointList& splitPointList = getPSSMSetup()->getSplitPoints();
+        const PSSMShadowCameraSetup::SplitPointList& splitPointList = mPSSMSetup->getSplitPoints();
         sh::Vector3* splitPoints = new sh::Vector3(splitPointList[1], splitPointList[2], splitPointList[3]);
 
         sh::Factory::getInstance ().setSharedParameter ("pssmSplitPoints", sh::makeProperty<sh::Vector3>(splitPoints));
@@ -112,7 +340,7 @@ void Shadows::recreate()
                             + (RV_Statics + RV_StaticsSmall) * Settings::Manager::getBool("statics shadows", "Shadows")
                             + RV_Misc * Settings::Manager::getBool("misc shadows", "Shadows")
             + RV_Terrain * (Settings::Manager::getBool("terrain shadows", "Shadows"));
-    for (int i = 0; i < (split ? 3 : 1); ++i)
+    for (int i = 0; i < splitsCount; ++i)
     {
         TexturePtr shadowTexture = mSceneMgr->getShadowTexture(i);
         Viewport* vp = shadowTexture->getBuffer()->getRenderTarget()->getViewport(0);
@@ -180,11 +408,6 @@ void Shadows::recreate()
             mgr.destroy(overlay);
     }
     */
-}
-
-PSSMShadowCameraSetup* Shadows::getPSSMSetup()
-{
-    return mPSSMSetup;
 }
 
 float Shadows::getShadowFar() const

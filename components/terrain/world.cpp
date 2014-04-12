@@ -225,10 +225,10 @@ namespace Terrain
         return mStorage->getHeightAt(worldPos);
     }
 
-    void World::applyMaterials(bool shadows, bool splitShadows)
+    void World::applyMaterials(bool shadows, int splitShadows)
     {
         mShadows = shadows;
-        mSplitShadows = splitShadows;
+        mShadowSplits = splitShadows;
         mRootNode->applyMaterials();
     }
 

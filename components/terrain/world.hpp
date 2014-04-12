@@ -47,7 +47,7 @@ namespace Terrain
         bool getDistantLandEnabled() { return mDistantLand; }
         bool getShadersEnabled() { return mShaders; }
         bool getShadowsEnabled() { return mShadows; }
-        bool getSplitShadowsEnabled() { return mSplitShadows; }
+        Ogre::uint getShadowSplits() { return mShadowSplits; }
 
         float getHeightAt (const Ogre::Vector3& worldPos);
 
@@ -75,7 +75,7 @@ namespace Terrain
         /// enough, since turning a feature on/off can change the number of texture units available for layer/blend
         /// textures, and to properly respond to this we may need to change the structure of the material, such as
         /// adding or removing passes. This can only be achieved by a full rebuild.)
-        void applyMaterials(bool shadows, bool splitShadows);
+        void applyMaterials(bool shadows, int splitShadows);
 
         int getVisiblityFlags() { return mVisibilityFlags; }
 
@@ -98,7 +98,7 @@ namespace Terrain
         bool mDistantLand;
         bool mShaders;
         bool mShadows;
-        bool mSplitShadows;
+        Ogre::uint mShadowSplits;
         bool mVisible;
         Alignment mAlign;
 

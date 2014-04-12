@@ -857,7 +857,7 @@ void RenderingManager::processChangedSettings(const Settings::CategorySettingVec
         mObjects->rebuildStaticGeometry();
         if (mTerrain)
             mTerrain->applyMaterials(Settings::Manager::getBool("enabled", "Shadows"),
-                                     Settings::Manager::getBool("split", "Shadows"));
+                                     Settings::Manager::getInt("outdoor splits count", "Shadows"));
     }
 }
 
@@ -1038,7 +1038,7 @@ void RenderingManager::enableTerrain(bool enable)
                                             Settings::Manager::getBool("distant land", "Terrain"),
                                             Settings::Manager::getBool("shader", "Terrain"), Terrain::Align_XY, 1, 64);
             mTerrain->applyMaterials(Settings::Manager::getBool("enabled", "Shadows"),
-                                     Settings::Manager::getBool("split", "Shadows"));
+                                     Settings::Manager::getInt("outdoor splits count", "Shadows"));
             mTerrain->update(mRendering.getCamera()->getRealPosition());
         }
         mTerrain->setVisible(true);

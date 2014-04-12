@@ -394,7 +394,7 @@ void QuadTreeNode::load(const LoadResponseData &data)
     mSceneNode->attachObject(mChunk);
 
     mMaterialGenerator->enableShadows(mTerrain->getShadowsEnabled());
-    mMaterialGenerator->enableSplitShadows(mTerrain->getSplitShadowsEnabled());
+    mMaterialGenerator->setShadowSplits(mTerrain->getShadowSplits());
 
     if (mTerrain->areLayersLoaded())
     {
@@ -610,7 +610,7 @@ void QuadTreeNode::applyMaterials()
     if (mChunk)
     {
         mMaterialGenerator->enableShadows(mTerrain->getShadowsEnabled());
-        mMaterialGenerator->enableSplitShadows(mTerrain->getSplitShadowsEnabled());
+        mMaterialGenerator->setShadowSplits(mTerrain->getShadowSplits());
         if (mSize <= 1)
             mChunk->setMaterial(mMaterialGenerator->generate(Ogre::MaterialPtr()));
         else

@@ -93,6 +93,7 @@ WeatherManager::WeatherManager(MWRender::RenderingManager* rendering,MWWorld::Fa
      mHour(14), mCurrentWeather("clear"), mNextWeather(""), mFirstUpdate(true),
      mWeatherUpdateTime(0), mThunderFlash(0), mThunderChance(0),
      mThunderChanceNeeded(50), mThunderSoundDelay(0), mRemainingTransitionTime(0),
+     mSunUpdateInterval(1.0f), mSunStandInterval(9.0f), mSunUpdateTimer(0.0f), mHourUpdate(-1), mSunUpdating(false),
      mTimePassed(0), mFallback(fallback), mWindSpeed(0.f), mRendering(rendering)
 {
     //Globals
@@ -368,23 +369,60 @@ void WeatherManager::update(float duration)
 
     //Day duration
     float dayDuration = (mNightStart - 1) - mSunriseTime;
+    
+    // sun direction updating operate in 2 modes:
+    // mSunUpdateInterval=0.0f, then update dir constantly
+    // else use interval-based updating
+    
+    if(abs(mHour - mHourLast) >= 0.99f || mHourUpdate < 0 || mSunForceUpdate)
+    {
+        mHourUpdate = mHour;
+        mHourLast = mHour;
+        mSunForceUpdate = true;
+    }
+    
+    mSunUpdateTimer += duration;
 
-    // rise at 6, set at 20
-    if (mHour >= mSunriseTime && mHour <= mNightStart)
-        height = 1 - std::abs(((mHour - dayDuration) / 7.f));
-    else if (mHour > mNightStart)
-        height = (mHour - mNightStart) / 4.f;
-    else //if (mHour > 0 && mHour < 6)
-        height = 1 - (mHour / mSunriseTime);
+    if(mSunUpdating) 
+    {
+        if(mHour - mHourLast > 0.0f) // sync update need
+        {
+            mHourUpdate += MWBase::Environment::get().getWorld()->getTimeScaleFactor()
+                * duration/3600 * (mSunUpdateInterval+mSunStandInterval)/mSunUpdateInterval; 
+        }
+        else mSunUpdateTimer -= duration;
 
-    int facing = (mHour > 13.f) ? 1 : -1;
+        if(mHourUpdate > mHour) mHourUpdate = mHour;
+    }
+    mHourLast = mHour;
 
-    Vector3 final(
-            (height - 1) * facing,
-            (height - 1) * facing,
-            height);
-    mRendering->setSunDirection(final);
+    float hour = (mSunUpdateInterval == 0.0)? mHour: mHourUpdate;
+    
+    if(mSunUpdateInterval == 0.0f || mSunUpdating || mSunForceUpdate)
+    {
+        // rise at 6, set at 20
+        if (hour >= mSunriseTime && hour <= mNightStart)
+            height = 1 - std::abs(((hour - dayDuration) / 7.f));
+        else if (hour > mNightStart)
+            height = (hour - mNightStart) / 4.f;
+        else //if (mHour > 0 && mHour < 6)
+            height = 1 - (hour / mSunriseTime);
 
+        int facing = (hour > 13.f) ? 1 : -1;
+
+        Vector3 final(
+                (height - 1) * facing,
+                (height - 1) * facing,
+                height);
+        mRendering->setSunDirection(final);
+    }
+
+    if(mSunUpdating)
+    {
+        if(mSunUpdateTimer > mSunUpdateInterval) {mSunUpdating = false; mSunUpdateTimer = 0; mHourUpdate = mHour;}
+    }
+    else if(mSunUpdateTimer > mSunStandInterval) {mSunUpdating = true; mSunUpdateTimer = 0;}
+    mSunForceUpdate = false;
     /*
      * TODO: import separated fadeInStart/Finish, fadeOutStart/Finish
      * for masser and secunda

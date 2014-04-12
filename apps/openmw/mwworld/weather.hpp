@@ -158,11 +158,18 @@ namespace MWWorld
         /// @see World::isDark
         bool isDark() const;
 
+        void ForceSunUpdate() { mSunForceUpdate = true;}
         void write(ESM::ESMWriter& writer);
 
         bool readRecord(ESM::ESMReader& reader, int32_t type);
 
     private:
+        // interval-based sun direction update: for stable shadows
+        bool mSunUpdating, mSunForceUpdate;
+        float mSunUpdateInterval, mSunStandInterval;
+        float mHourUpdate, mHourLast;
+        float mSunUpdateTimer;
+
         float mHour;
         float mWindSpeed;
         MWWorld::Fallback* mFallback;
