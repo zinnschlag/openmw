@@ -16,7 +16,7 @@ namespace OEngine{
     }
 }
 
-namespace MWRender
+namespace Ogre
 {
     class StablePSSMShadowCameraSetup: public Ogre::DefaultShadowCameraSetup
     {
@@ -58,7 +58,10 @@ namespace MWRender
 
 	    mutable size_t mCurrentIteration;
     };
+}
 
+namespace MWRender
+{
     class Shadows
     {
     public:
@@ -74,7 +77,7 @@ namespace MWRender
         Ogre::SceneManager* mSceneMgr;
 
 #ifdef STABLEPSSM
-        StablePSSMShadowCameraSetup* mPSSMSetup;
+        Ogre::StablePSSMShadowCameraSetup* mPSSMSetup;
 #else
         Ogre::PSSMShadowCameraSetup* mPSSMSetup;
 #endif

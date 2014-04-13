@@ -19,6 +19,9 @@
 using namespace Ogre;
 using namespace MWRender;
 
+namespace Ogre 
+{
+
 Ogre::Vector3* GetFrustumSlicePoints(const Ogre::Camera *cam, Ogre::Real z, bool InWorldSpace = false)
 {
     Ogre::Vector3 *points = new Ogre::Vector3[4];
@@ -235,6 +238,7 @@ void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, 
     }
 }
 
+}
 //---------------------------------------------------------------------
 Shadows::Shadows(OEngine::Render::OgreRenderer* rend) :
     mShadowFar(1000), mFadeStart(0.9)
