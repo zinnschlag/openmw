@@ -84,12 +84,60 @@ Ogre::Vector2 CalcFrustumDiagAndCenterOffset(const Ogre::Camera *cam, Ogre::Real
     return vDiagCenterOffset;
 }
 
-StablePSSMShadowCameraSetup::StablePSSMShadowCameraSetup() : Ogre::PSSMShadowCameraSetup()
+Ogre::Matrix4 buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up)
 {
+	Vector3 xN = dir.crossProduct(up);
+	xN.normalise();
+	Vector3 upN = xN.crossProduct(dir);
+	upN.normalise();
+
+	Matrix4 m(  xN.x,		xN.y,		xN.z,		-xN.dotProduct(pos),
+		        upN.x,		upN.y,		upN.z,		-upN.dotProduct(pos),
+		        -dir.x,		-dir.y,	    -dir.z,	    dir.dotProduct(pos),
+		        0.0,		0.0,	    0.0,	    1.0);
+
+	return m;
+}
+
+StablePSSMShadowCameraSetup::StablePSSMShadowCameraSetup() : DefaultShadowCameraSetup()
+{
+    calculateSplitPoints(3, 100, 100000);
 }
 
 StablePSSMShadowCameraSetup::~StablePSSMShadowCameraSetup()
 {
+}
+
+void StablePSSMShadowCameraSetup::calculateSplitPoints(size_t cascadeCount, Real firstSplitDist, Real farDist, Real lambda)
+{
+	if (cascadeCount < 2)
+		OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot specify less than 2 cascades", 
+		"StableCSMShadowCameraSetup::calculateSplitPoints");
+
+	mSplitPoints.resize(cascadeCount + 1);
+	mCascadeCount = cascadeCount;
+
+	mSplitPoints[0] = 0;
+	firstSplitDist = std::max((Real)0.001, firstSplitDist);
+
+	for (size_t i = 1; i <= mCascadeCount; i++)
+	{
+		Real fraction = (Real)(i-1) / (mCascadeCount-1);
+		Real logDist = firstSplitDist * Math::Pow(farDist / firstSplitDist, fraction);
+		Real linDist = firstSplitDist + fraction * (farDist - firstSplitDist);
+		Real splitPoint = linDist + lambda * (logDist - linDist);
+
+		mSplitPoints[i] = splitPoint;
+	}
+}
+
+void StablePSSMShadowCameraSetup::setSplitPoints(const PSSMShadowCameraSetup::SplitPointList& newSplitPoints)
+{
+	if (newSplitPoints.size() < 3) // 3, not 2 since splits + 1 points
+		OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot specify less than 2 splits", 
+		"StableCSMShadowCameraSetup::setSplitPoints");
+	mCascadeCount = newSplitPoints.size() - 1;
+	mSplitPoints = newSplitPoints;
 }
 
 void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, const Ogre::Camera *cam,
@@ -187,6 +235,7 @@ void StablePSSMShadowCameraSetup::getShadowCamera(const Ogre::SceneManager *sm, 
     }
 }
 
+//---------------------------------------------------------------------
 Shadows::Shadows(OEngine::Render::OgreRenderer* rend) :
     mShadowFar(1000), mFadeStart(0.9)
 {
@@ -240,13 +289,14 @@ void Shadows::recreate()
         mPSSMSetup = new StablePSSMShadowCameraSetup();
 #else
         mPSSMSetup = new PSSMShadowCameraSetup();
-#endif
 
         // Make sure to keep this in sync with the camera's near clip distance!
         mPSSMSetup->setSplitPadding(mRendering->getCamera()->getNearClipDistance());
+#endif
 
         mPSSMSetup->calculateSplitPoints(splitsCount, mRendering->getCamera()->getNearClipDistance(), Settings::Manager::getFloat("max viewing distance", "Viewing distance"), 0.65);
 
+#ifndef STABLEPSSM
         //const Real adjustFactors[PSSM_SPLITS] = {64, 64, 64};
         for (int i=0; i < splitsCount; ++i)
         {
@@ -258,9 +308,10 @@ void Shadows::recreate()
             else if (i ==2)
                 mSceneMgr->setShadowTextureConfig(i, texsize/4, texsize/4, Ogre::PF_FLOAT32_R);*/
         }
+#endif
 
         // Populate from split point 1, not 0, since split 0 isn't useful (usually 0)
-        const PSSMShadowCameraSetup::SplitPointList& splitPointList = getPSSMSetup()->getSplitPoints();
+        const PSSMShadowCameraSetup::SplitPointList& splitPointList = mPSSMSetup->getSplitPoints();
         sh::Vector3* splitPoints = new sh::Vector3(splitPointList[1], splitPointList[2], splitPointList[3]);
 
         sh::Factory::getInstance ().setSharedParameter ("pssmSplitPoints", sh::makeProperty<sh::Vector3>(splitPoints));
@@ -353,11 +404,6 @@ void Shadows::recreate()
             mgr.destroy(overlay);
     }
     */
-}
-
-PSSMShadowCameraSetup* Shadows::getPSSMSetup()
-{
-    return mPSSMSetup;
 }
 
 float Shadows::getShadowFar() const

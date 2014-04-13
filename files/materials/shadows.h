@@ -4,19 +4,20 @@
 
 float bilinearSample(shTexture2D shadowMap, float2 shadowMapPos, float depth, float2 texelSize)
 {
-    float2 centroidUV = floor(shadowMapPos.xy/texelSize.xy) * texelSize.xy;
-	
+    float2 centroidUV = floor(shadowMapPos.xy / texelSize.xy) * texelSize.xy;
+
     float4 c;
-    c.x = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(0,0)*texelSize).r) ? 1 : 0;
-    c.y = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(0,1)*texelSize).r) ? 1 : 0;
-    c.z = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(1,0)*texelSize).r) ? 1 : 0;
-    c.w = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(1,1)*texelSize).r) ? 1 : 0;
+    c.x = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(0,0)*texelSize.xy).r) ? 1 : 0;
+    c.y = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(0,1)*texelSize.xy).r) ? 1 : 0;
+    c.z = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(1,0)*texelSize.xy).r) ? 1 : 0;
+    c.w = (depth <= FIXED_BIAS + shSample(shadowMap, centroidUV + float2(1,1)*texelSize.xy).r) ? 1 : 0;
 
 #if !SH_GLSL
     float2 weight = frac(shadowMapPos.xy / texelSize.xy);
 #else
     float2 weight = fract(shadowMapPos.xy / texelSize.xy);
 #endif
+
     c.x = shLerp(shLerp(c.x, c.y, weight.y), shLerp(c.z, c.w, weight.y), weight.x);
     return c.x;
 }
@@ -39,23 +40,71 @@ float depthShadowPCF16 (shTexture2D shadowMap, float4 shadowMapPos, float2 offse
 
     float sum;
 	
-    sum  = bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(0, 0), shadowMapPos.z, offset);
-    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(0, 1), shadowMapPos.z, offset);
-    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(1, 0), shadowMapPos.z, offset);
-    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset * float2(1, 1), shadowMapPos.z, offset);
+    sum  = bilinearSample(shadowMap, shadowMapPos.xy + offset.xy * float2(0, 0), shadowMapPos.z, offset);
+    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset.xy * float2(0, 1), shadowMapPos.z, offset);
+    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset.xy * float2(1, 0), shadowMapPos.z, offset);
+    sum += bilinearSample(shadowMap, shadowMapPos.xy + offset.xy * float2(1, 1), shadowMapPos.z, offset);
 
-    return sum/4;
+    return sum*0.25;
+}
+
+// uses only 9 shadowmap fetches instead of 16 for equal result
+float depthShadowPCF16_optimised (shTexture2D shadowMap, float4 shadowMapPos, float2 texelSize)
+{
+	float2 centroidUV = floor(shadowMapPos.xy / texelSize.xy) * texelSize.xy;
+	
+#if !SH_GLSL
+    float2 weight = frac(shadowMapPos.xy / texelSize.xy);
+#else
+    float2 weight = fract(shadowMapPos.xy / texelSize.xy);
+#endif
+	
+	float sum;
+	
+	float4 c;
+	c.x = shSample(shadowMap, centroidUV + float2(0,0)*texelSize.xy).r;
+	c.y = shSample(shadowMap, centroidUV + float2(0,1)*texelSize.xy).r;
+    c.z = shSample(shadowMap, centroidUV + float2(1,0)*texelSize.xy).r;
+    c.w = shSample(shadowMap, centroidUV + float2(1,1)*texelSize.xy).r;
+	c = step(c.xyzw + FIXED_BIAS, shadowMapPos.zzzz).xyzw;
+
+	//top-left pixel bilinear sample
+	sum = shLerp(shLerp(c.x, c.y, weight.y), shLerp(c.z, c.w, weight.y), weight.x);
+	
+	float2 c2;
+	c2.x = shSample(shadowMap, centroidUV + float2(2,0)*texelSize.xy).r;
+	c2.y = shSample(shadowMap, centroidUV + float2(2,1)*texelSize.xy).r;
+	c2 = step(c2.xy + FIXED_BIAS, shadowMapPos.zz).xy;
+	
+	//top-right
+	sum += shLerp(shLerp(c.z, c.w, weight.y), shLerp(c2.x, c2.y, weight.y), weight.x);
+	
+	float2 c3;
+	c3.x = shSample(shadowMap, centroidUV + float2(1,2)*texelSize.xy).r;
+	c3.y = shSample(shadowMap, centroidUV + float2(2,2)*texelSize.xy).r;
+	c3 = step(c3.xy + FIXED_BIAS, shadowMapPos.zz).xy;
+	
+	//bottom-right
+	sum += shLerp(shLerp(c.w, c3.x, weight.y), shLerp(c2.y, c3.y, weight.y), weight.x);
+	
+	c.x = shSample(shadowMap, centroidUV + float2(0,2)*texelSize.xy).r;
+	c.x = step(c.x + FIXED_BIAS, shadowMapPos.z);
+	
+	//bottom-left
+	sum += shLerp(shLerp(c.y, c.x, weight.y), shLerp(c.w, c3.x, weight.y), weight.x);
+	
+	return 1.0 - sum*0.25;
 }
 
 float shadowWithTransition(shTexture2D shadowMap, float4 shadowMapPos, shTexture2D shadowMapNext, float4 shadowMapPosNext, float2 offset, float trans)
 {
 	if(trans > 0.0)
 	{
-		float shadow1 = depthShadowPCF16(shadowMap, shadowMapPos, offset);
-		float shadow2 = depthShadowPCF16(shadowMapNext, shadowMapPosNext, offset);
+		float shadow1 = depthShadowPCF16_optimised(shadowMap, shadowMapPos, offset);
+		float shadow2 = depthShadowPCF16_optimised(shadowMapNext, shadowMapPosNext, offset);
 		return shLerp(shadow1, shadow2, trans);
 	}
-	else return depthShadowPCF16(shadowMap, shadowMapPos, offset);
+	else return depthShadowPCF16_optimised(shadowMap, shadowMapPos, offset);
 }
 
 
@@ -101,7 +150,7 @@ float pssmDepthShadow (
 		shadow = shadowWithTransition(shadowMap1, lightSpacePos1, shadowMap2, lightSpacePos2, invShadowmapSize1, trans);
 	}
     else
-        shadow = depthShadowPCF16(shadowMap2, lightSpacePos2, invShadowmapSize2);
+        shadow = depthShadowPCF16_optimised(shadowMap2, lightSpacePos2, invShadowmapSize2);
 #endif
     return shadow;
 }

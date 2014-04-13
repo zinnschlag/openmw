@@ -17,8 +17,7 @@
 	    shOutputPosition = shMatrixMult(wvp, shInputPosition);
 
 	    // depth info for the fragment.
-	    depth.x = shOutputPosition.z;
-	    depth.y = shOutputPosition.w;
+	    depth.xy = shOutputPosition.zw;
 
 	    // clamp z to zero. seem to do the trick. :-/
 	    shOutputPosition.z = max(shOutputPosition.z, 0);
