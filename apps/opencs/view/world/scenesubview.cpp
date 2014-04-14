@@ -61,6 +61,12 @@ CSVWorld::SceneSubView::SceneSubView (const CSMWorld::UniversalId& id, CSMDoc::D
     mScene->selectDefaultNavigationMode();
 
     connect (mScene, SIGNAL (closeRequest()), this, SLOT (closeRequest()));
+
+    connect(filterBox, SIGNAL(recordDropped(std::vector<CSMWorld::UniversalId>&, Qt::DropAction)),
+            this, SLOT(createFilterRequest(std::vector<CSMWorld::UniversalId>&, Qt::DropAction)));
+
+      connect(this, SIGNAL(createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >&, Qt::DropAction)),
+            filterBox, SIGNAL(createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >&, Qt::DropAction)));
 }
 
 void CSVWorld::SceneSubView::setEditLock (bool locked)
@@ -83,4 +89,26 @@ void CSVWorld::SceneSubView::setStatusBar (bool show)
 void CSVWorld::SceneSubView::closeRequest()
 {
     deleteLater();
+}
+
+void CSVWorld::SceneSubView::createFilterRequest (std::vector< CSMWorld::UniversalId>& types, Qt::DropAction action)
+{
+    std::vector<std::pair<std::string, std::vector<std::string> > > filterSource;
+
+    for (std::vector<CSMWorld::UniversalId>::iterator it = types.begin(); it != types.end(); ++it)
+    {
+        if (it->getType() == CSMWorld::UniversalId::Type_Cell ||
+            it->getType() == CSMWorld::UniversalId::Type_Region)
+        {
+            std::vector<std::string> id;
+            id.push_back("Id");
+
+            std::pair<std::string, std::vector<std::string> > pair(                         //splited long line
+            std::make_pair(it->getId(), id));
+            filterSource.push_back(pair);
+            break;
+        }
+
+    }
+    emit createFilterRequest(filterSource, action);
 }

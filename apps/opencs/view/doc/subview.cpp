@@ -25,3 +25,8 @@ void CSVDoc::SubView::setUniversalId (const CSMWorld::UniversalId& id)
     mUniversalId = id;
     setWindowTitle (mUniversalId.toString().c_str());
 }
+
+void CSVDoc::SubView::createFilterRequest (std::vector< CSMWorld::UniversalId >& types, Qt::DropAction action)
+{
+//does nothing
+}

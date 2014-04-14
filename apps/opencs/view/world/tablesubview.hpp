@@ -51,7 +51,7 @@ namespace CSVWorld
                                      Qt::DropAction action);
             void useFilterRequest(const std::string& idOfFilter);
 
-        private slots:
+        protected slots:
 
             void editRequest (const CSMWorld::UniversalId& id, const std::string& hint);
             void cloneRequest (const CSMWorld::UniversalId& toClone);

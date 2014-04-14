@@ -48,6 +48,12 @@ namespace CSVDoc
         signals:
 
             void focusId (const CSMWorld::UniversalId& universalId, const std::string& hint);
+            void createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >& filterSource,
+                                     Qt::DropAction action);
+
+        protected slots:
+            void createFilterRequest(std::vector< CSMWorld::UniversalId >& types,
+                                     Qt::DropAction action);
     };
 }
 
