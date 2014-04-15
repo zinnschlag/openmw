@@ -7,7 +7,7 @@
 #include "editwidget.hpp"
 
 CSVFilter::RecordFilterBox::RecordFilterBox (CSMWorld::Data& data, QWidget *parent)
-: QWidget (parent)
+: QWidget (parent), mEditWidget(new EditWidget(data, this))
 {
     QHBoxLayout *layout = new QHBoxLayout (this);
 
@@ -15,18 +15,23 @@ CSVFilter::RecordFilterBox::RecordFilterBox (CSMWorld::Data& data, QWidget *pare
 
     layout->addWidget (new QLabel ("Record Filter", this));
 
-    EditWidget *editWidget = new EditWidget (data, this);
-
-    layout->addWidget (editWidget);
+    layout->addWidget (mEditWidget);
 
     setLayout (layout);
 
     connect (
-        editWidget, SIGNAL (filterChanged (boost::shared_ptr<CSMFilter::Node>)),
+        mEditWidget, SIGNAL (filterChanged (boost::shared_ptr<CSMFilter::Node>)),
         this, SIGNAL (filterChanged (boost::shared_ptr<CSMFilter::Node>)));
+}
 
-    connect(this, SIGNAL(createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >&, Qt::DropAction)),
-            editWidget, SLOT(createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >&, Qt::DropAction)));
+void CSVFilter::RecordFilterBox::createFilterRequest (std::vector< std::pair< std::string, std::vector< std::string > > >& filterSource,
+                                                      Qt::DropAction action)
+{
+    mEditWidget->createFilterRequest(filterSource, action);
+}
 
-    connect(this, SIGNAL(useFilterRequest(const std::string&)), editWidget, SLOT(useFilterRequest(const std::string&)));
+void CSVFilter::RecordFilterBox::useFilterRequest (const std::string& idOfFilter)
+{
+    mEditWidget->clear();
+    mEditWidget->insert(QString::fromUtf8(idOfFilter.c_str()));
 }

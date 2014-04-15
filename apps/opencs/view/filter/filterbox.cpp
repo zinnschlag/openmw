@@ -9,26 +9,20 @@
 #include <apps/opencs/model/world/tablemimedata.hpp>
 
 CSVFilter::FilterBox::FilterBox (CSMWorld::Data& data, QWidget *parent)
-: QWidget (parent)
+: QWidget (parent), mRecordFilterBox(new RecordFilterBox(data, this))
 {
     QHBoxLayout *layout = new QHBoxLayout (this);
 
     layout->setContentsMargins (0, 0, 0, 0);
 
-    RecordFilterBox *recordFilterBox = new RecordFilterBox (data, this);
-
-    layout->addWidget (recordFilterBox);
+    layout->addWidget (mRecordFilterBox);
 
     setLayout (layout);
 
-    connect (recordFilterBox,
+    connect (mRecordFilterBox,
         SIGNAL (filterChanged (boost::shared_ptr<CSMFilter::Node>)),
         this, SIGNAL (recordFilterChanged (boost::shared_ptr<CSMFilter::Node>)));
 
-    connect(this, SIGNAL(createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >&, Qt::DropAction)),
-            recordFilterBox, SIGNAL(createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >&, Qt::DropAction)));
-
-    connect(this, SIGNAL(useFilterRequest(const std::string&)), recordFilterBox, SIGNAL(useFilterRequest(const std::string&)));
     setAcceptDrops(true);
 }
 
@@ -47,4 +41,15 @@ void CSVFilter::FilterBox::dragEnterEvent (QDragEnterEvent* event)
 void CSVFilter::FilterBox::dragMoveEvent (QDragMoveEvent* event)
 {
     event->accept();
+}
+
+void CSVFilter::FilterBox::createFilterRequest (std::vector< std::pair< std::string, std::vector< std::string > > >& filterSource,
+                                                Qt::DropAction action)
+{
+    mRecordFilterBox->createFilterRequest(filterSource, action);
+}
+
+void CSVFilter::FilterBox::useFilterRequest (const std::string& idOfFilter)
+{
+    mRecordFilterBox->useFilterRequest(idOfFilter);
 }

@@ -2,6 +2,7 @@
 #define CSV_WORLD_TABLESUBVIEW_H
 
 #include "../doc/subview.hpp"
+#include "../filter/filterbox.hpp"
 
 #include <QtCore/qnamespace.h>
 
@@ -29,6 +30,7 @@ namespace CSVWorld
 
             Table *mTable;
             TableBottomBox *mBottom;
+            CSVFilter::FilterBox* mFilterBox;
 
         public:
 
@@ -47,9 +49,6 @@ namespace CSVWorld
         signals:
             void cloneRequest(const std::string&,
                               const CSMWorld::UniversalId::Type);
-            void createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >& filterSource,
-                                     Qt::DropAction action);
-            void useFilterRequest(const std::string& idOfFilter);
 
         private slots:
 
