@@ -1,4 +1,3 @@
-
 #include "dialoguesubview.hpp"
 
 #include <utility>
@@ -122,18 +121,45 @@ void CSVWorld::DialogueDelegateDispatcherProxy::tableMimeDataDropped(const std::
 {
     QLineEdit* lineEdit = qobject_cast<QLineEdit*>(mEditor);
     {
-      if (!lineEdit or !mIndexWrapper.get())
-      {
-	return;
-      }
+        if (!lineEdit || !mIndexWrapper.get())
+        {
+            return;
+        }
     }
     for (unsigned i = 0; i < data.size();  ++i)
     {
-        if (mDisplay == CSMWorld::TableMimeData::convertEnums(data[i].getType()))
+        CSMWorld::UniversalId::Type type = data[i].getType();
+        if (mDisplay == CSMWorld::ColumnBase::Display_Referenceable)
         {
-	    emit tableMimeDataDropped(mEditor, mIndexWrapper->mIndex, data[i], document);
-	    emit editorDataCommited(mEditor, mIndexWrapper->mIndex, mDisplay);
-	    break;
+            if (  type == CSMWorld::UniversalId::Type_Activator
+                || type == CSMWorld::UniversalId::Type_Potion
+                || type == CSMWorld::UniversalId::Type_Apparatus
+                || type == CSMWorld::UniversalId::Type_Armor
+                || type == CSMWorld::UniversalId::Type_Book
+                || type == CSMWorld::UniversalId::Type_Clothing
+                || type == CSMWorld::UniversalId::Type_Container
+                || type == CSMWorld::UniversalId::Type_Creature
+                || type == CSMWorld::UniversalId::Type_Door
+                || type == CSMWorld::UniversalId::Type_Ingredient
+                || type == CSMWorld::UniversalId::Type_CreatureLevelledList
+                || type == CSMWorld::UniversalId::Type_ItemLevelledList
+                || type == CSMWorld::UniversalId::Type_Light
+                || type == CSMWorld::UniversalId::Type_Lockpick
+                || type == CSMWorld::UniversalId::Type_Miscellaneous
+                || type == CSMWorld::UniversalId::Type_Npc
+                || type == CSMWorld::UniversalId::Type_Probe
+                || type == CSMWorld::UniversalId::Type_Repair
+                || type == CSMWorld::UniversalId::Type_Static
+                || type == CSMWorld::UniversalId::Type_Weapon)
+            {
+                type = CSMWorld::UniversalId::Type_Referenceable;
+            }
+        }
+        if (mDisplay == CSMWorld::TableMimeData::convertEnums(type))
+        {
+            emit tableMimeDataDropped(mEditor, mIndexWrapper->mIndex, data[i], document);
+            emit editorDataCommited(mEditor, mIndexWrapper->mIndex, mDisplay);
+            break;
         }
     }
 }
@@ -444,7 +470,7 @@ CSVWorld::DialogueSubView::DialogueSubView (const CSMWorld::UniversalId& id, CSM
     mMainLayout = new QVBoxLayout(mainWidget);
 
     mEditWidget = new EditWidget(mainWidget, mRow, mTable, mUndoStack, false);
-    connect(mEditWidget, SIGNAL(tableMimeDataDropped(QWidget*, const QModelIndex&, const CSMWorld::UniversalId&, const CSMDoc::Document*)), 
+    connect(mEditWidget, SIGNAL(tableMimeDataDropped(QWidget*, const QModelIndex&, const CSMWorld::UniversalId&, const CSMDoc::Document*)),
             this, SLOT(tableMimeDataDropped(QWidget*, const QModelIndex&, const CSMWorld::UniversalId&, const CSMDoc::Document*)));
 
     mMainLayout->addWidget(mEditWidget);
@@ -490,7 +516,7 @@ void CSVWorld::DialogueSubView::prevId()
         {
                 mEditWidget->remake(newRow);
                 setUniversalId(CSMWorld::UniversalId (static_cast<CSMWorld::UniversalId::Type> (mTable->data (mTable->index (newRow, 2)).toInt()),
-                                        mTable->data (mTable->index (newRow, 0)).toString().toStdString()));
+                                        mTable->data (mTable->index (newRow, 0)).toString().toUtf8().constData()));
                 mRow = newRow;
                 mEditWidget->setDisabled(mLocked);
                 return;
@@ -522,7 +548,7 @@ void CSVWorld::DialogueSubView::nextId()
         {
                 mEditWidget->remake(newRow);
                 setUniversalId(CSMWorld::UniversalId (static_cast<CSMWorld::UniversalId::Type> (mTable->data (mTable->index (newRow, 2)).toInt()),
-                                          mTable->data (mTable->index (newRow, 0)).toString().toStdString()));
+                                          mTable->data (mTable->index (newRow, 0)).toString().toUtf8().constData()));
                 mRow = newRow;
                 mEditWidget->setDisabled(mLocked);
                 return;
@@ -580,7 +606,7 @@ void CSVWorld::DialogueSubView::revertRecord()
 
         if (state!=CSMWorld::RecordBase::State_BaseOnly)
         {
-            mUndoStack.push(new CSMWorld::RevertCommand(*mTable, mTable->data(mTable->index (mRow, 0)).toString().toStdString()));
+            mUndoStack.push(new CSMWorld::RevertCommand(*mTable, mTable->data(mTable->index (mRow, 0)).toString().toUtf8().constData()));
         }
         if (rows != mTable->rowCount())
         {
@@ -613,7 +639,7 @@ void CSVWorld::DialogueSubView::deleteRecord()
         mRow < rows &&
         mBottom->canCreateAndDelete())
     {
-        mUndoStack.push(new CSMWorld::DeleteCommand(*mTable, mTable->data(mTable->index (mRow, 0)).toString().toStdString()));
+        mUndoStack.push(new CSMWorld::DeleteCommand(*mTable, mTable->data(mTable->index (mRow, 0)).toString().toUtf8().constData()));
         if (rows != mTable->rowCount())
         {
             if (mTable->rowCount() == 0)
@@ -639,7 +665,7 @@ void CSVWorld::DialogueSubView::requestFocus (const std::string& id)
 
 void CSVWorld::DialogueSubView::cloneRequest ()
 {
-    mBottom->cloneRequest(mTable->data(mTable->index (mRow, 0)).toString().toStdString(),
+    mBottom->cloneRequest(mTable->data(mTable->index (mRow, 0)).toString().toUtf8().constData(),
                           static_cast<CSMWorld::UniversalId::Type>(mTable->data(mTable->index(mRow, 2)).toInt()));
 }
 
@@ -647,7 +673,7 @@ void CSVWorld::DialogueSubView::showPreview ()
 {
     if (mTable->hasPreview() && mRow < mTable->rowCount())
     {
-       emit focusId(CSMWorld::UniversalId(CSMWorld::UniversalId::Type_Preview, mTable->data(mTable->index (mRow, 0)).toString().toStdString()), "");
+       emit focusId(CSMWorld::UniversalId(CSMWorld::UniversalId::Type_Preview, mTable->data(mTable->index (mRow, 0)).toString().toUtf8().constData()), "");
     }
 }
 
