@@ -30,11 +30,14 @@ namespace CSVFilter
 
             EditWidget (CSMWorld::Data& data, QWidget *parent = 0);
 
+            void createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >& filterSource,
+                                     Qt::DropAction action);
+
         signals:
 
             void filterChanged (boost::shared_ptr<CSMFilter::Node> filter);
 
-    private:
+        private:
             std::string generateFilter(std::pair<std::string, std::vector<std::string> >& seekedString) const;
 
         private slots:
@@ -46,11 +49,6 @@ namespace CSVFilter
             void filterRowsRemoved (const QModelIndex& parent, int start, int end);
 
             void filterRowsInserted (const QModelIndex& parent, int start, int end);
-
-            void createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >& filterSource,
-                                     Qt::DropAction action);
-
-            void useFilterRequest(const std::string& idOfFilter);
     };
 }
 
