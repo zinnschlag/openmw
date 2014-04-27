@@ -9,6 +9,7 @@
 
 #include <OgreSceneNode.h>
 
+#include <libs/openengine/bullet/trace.h>
 #include <libs/openengine/bullet/physic.hpp>
 
 #include <components/bsa/bsa_archive.hpp>
@@ -1711,11 +1712,43 @@ namespace MWWorld
         return pos.z < cell->getWaterLevel();
     }
 
+    // physactor->getOnGround() is not a reliable indicator of whether the actor
+    // is on the ground (defaults to false, which means code blocks such as
+    // CharacterController::update() may falsely detect "falling").
+    //
+    // Also, collisions can move z position slightly off zero, giving a false
+    // indication. In order to reduce false detection of jumping, small distance
+    // below the actor is detected and ignored. A value of 1.5 is used here, but
+    // something larger may be more suitable.  This change should resolve Bug#1271.
+    //
+    // TODO: There might be better places to update PhysicActor::mOnGround.
     bool World::isOnGround(const MWWorld::Ptr &ptr) const
     {
         RefData &refdata = ptr.getRefData();
         const OEngine::Physic::PhysicActor *physactor = mPhysEngine->getCharacter(refdata.getHandle());
-        return physactor && physactor->getOnGround();
+
+        if(!physactor)
+            return false;
+
+        if(physactor->getOnGround())
+            return true;
+        else
+        {
+            Ogre::Vector3 pos(ptr.getRefData().getPosition().pos);
+            OEngine::Physic::ActorTracer tracer;
+            // a small distance above collision object is considered "on ground"
+            tracer.findGround(physactor->getCollisionBody(),
+                              pos,
+                              pos - Ogre::Vector3(0, 0, 1.5f), // trace a small amount down
+                              mPhysEngine);
+            if(tracer.mFraction < 1.0f) // collision, must be close to something below
+            {
+                const_cast<OEngine::Physic::PhysicActor *> (physactor)->setOnGround(true);
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     bool World::vanityRotateCamera(float * rot)
@@ -1875,7 +1908,7 @@ namespace MWWorld
                     out.push_back(searchPtrViaHandle(*it));
         }
     }
-
+    
     bool World::getLOS(const MWWorld::Ptr& npc,const MWWorld::Ptr& targetNpc)
     {
         if (!targetNpc.getRefData().isEnabled() || !npc.getRefData().isEnabled())
@@ -1891,6 +1924,19 @@ namespace MWWorld
         std::pair<std::string, float> result = mPhysEngine->rayTest(from, to,false);
         if(result.first == "") return true;
         return false;
+    }
+
+    float World::getDistToNearestRayHit(const Ogre::Vector3& from, const Ogre::Vector3& dir, float maxDist)
+    {
+        btVector3 btFrom(from.x, from.y, from.z);
+        btVector3 btTo = btVector3(dir.x, dir.y, dir.z);
+        btTo.normalize();
+        btTo = btFrom + btTo * maxDist;
+
+        std::pair<std::string, float> result = mPhysEngine->rayTest(btFrom, btTo, false);
+
+        if(result.second == -1) return maxDist;
+        else return result.second*(btTo-btFrom).length();
     }
 
     void World::enableActorCollision(const MWWorld::Ptr& actor, bool enable)
@@ -2023,7 +2069,6 @@ namespace MWWorld
         {
             // Update the GUI only when called on the player
             MWBase::WindowManager* windowManager = MWBase::Environment::get().getWindowManager();
-            windowManager->unsetSelectedWeapon();
 
             if (werewolf)
             {
@@ -2070,6 +2115,12 @@ namespace MWWorld
             if (col.doesExist(*it))
             {
                 contentLoader.load(col.getPath(*it), idx);
+            }
+            else
+            {
+                std::stringstream msg;
+                msg << "Failed loading " << *it << ": the content file does not exist";
+                throw std::runtime_error(msg.str());
             }
         }
     }
@@ -2656,6 +2707,7 @@ namespace MWWorld
         MWWorld::Ptr closestChest;
         float closestDistance = FLT_MAX;
 
+        //Find closest stolen_goods chest
         std::vector<MWWorld::Ptr> chests;
         mCells.getInteriorPtrs("stolen_goods", chests);
 
@@ -2673,17 +2725,18 @@ namespace MWWorld
             }
         }
 
-        if (!closestChest.isEmpty())
+        if (!closestChest.isEmpty()) //Found a close chest
         {
             ContainerStore& store = ptr.getClass().getContainerStore(ptr);
-            for (ContainerStoreIterator it = store.begin(); it != store.end(); ++it)
+            for (ContainerStoreIterator it = store.begin(); it != store.end(); ++it) //Move all stolen stuff into chest
             {
-                if (!it->getCellRef().mOwner.empty() && it->getCellRef().mOwner != "player")
+                if (!it->getCellRef().mOwner.empty() && it->getCellRef().mOwner != "player") //Not owned by no one/player?
                 {
                     closestChest.getClass().getContainerStore(closestChest).add(*it, it->getRefData().getCount(), closestChest);
                     store.remove(*it, it->getRefData().getCount(), ptr);
                 }
             }
+            closestChest.getCellRef().mLockLevel = abs(closestChest.getCellRef().mLockLevel);
         }
     }
 
@@ -2751,6 +2804,8 @@ namespace MWWorld
                     skillMsg.replace(skillMsg.find("%d"), 2, skillValue.str());
                 message += "\n" + skillMsg;
             }
+
+            // TODO: Sleep the player
 
             std::vector<std::string> buttons;
             buttons.push_back("#{sOk}");
