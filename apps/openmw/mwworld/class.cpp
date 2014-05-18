@@ -396,4 +396,24 @@ namespace MWWorld
     void Class::readAdditionalState (const MWWorld::Ptr& ptr, const ESM::ObjectState& state) const {}
 
     void Class::writeAdditionalState (const MWWorld::Ptr& ptr, ESM::ObjectState& state) const {}
+
+    int Class::getBaseGold(const MWWorld::Ptr& ptr) const
+    {
+        throw std::runtime_error("class does not support base gold");
+    }
+
+    bool Class::isClass(const MWWorld::Ptr& ptr, const std::string &className) const
+    {
+        return false;
+    }
+
+    int Class::getDoorState (const MWWorld::Ptr &ptr) const
+    {
+        throw std::runtime_error("this is not a door");
+    }
+
+    void Class::setDoorState (const MWWorld::Ptr &ptr, int state) const
+    {
+        throw std::runtime_error("this is not a door");
+    }
 }

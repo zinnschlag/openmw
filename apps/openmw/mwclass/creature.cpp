@@ -134,10 +134,6 @@ namespace MWClass
             getContainerStore(ptr).fill(ref->mBase->mInventory, getId(ptr), "",
                                        MWBase::Environment::get().getWorld()->getStore());
 
-            // TODO: this is not quite correct, in vanilla the merchant's gold pool is not available in his inventory.
-            // (except for gold you gave him)
-            getContainerStore(ptr).add(MWWorld::ContainerStore::sGoldId, ref->mBase->mData.mGold, ptr);
-
             if (ref->mBase->mFlags & ESM::Creature::Weapon)
                 getInventoryStore(ptr).autoEquip(ptr);   
         }
@@ -168,7 +164,11 @@ namespace MWClass
     {
         const std::string model = getModel(ptr);
         if(!model.empty())
+        {
             physics.addActor(ptr);
+            if (getCreatureStats(ptr).isDead())
+                MWBase::Environment::get().getWorld()->enableActorCollision(ptr, false);
+        }
         MWBase::Environment::get().getMechanicsManager()->add(ptr);
     }
 
@@ -340,6 +340,12 @@ namespace MWClass
     void Creature::onHit(const MWWorld::Ptr &ptr, float damage, bool ishealth, const MWWorld::Ptr &object, const MWWorld::Ptr &attacker, bool successful) const
     {
         // NOTE: 'object' and/or 'attacker' may be empty.
+
+        getCreatureStats(ptr).setAttacked(true);
+
+        // Self defense
+        if (!attacker.isEmpty() && ptr.getClass().getCreatureStats(ptr).getAiSetting(MWMechanics::CreatureStats::AI_Fight).getModified() < 80)
+            MWBase::Environment::get().getMechanicsManager()->startCombat(ptr, attacker);
 
         if(!successful)
         {
@@ -809,6 +815,31 @@ namespace MWClass
 
         customData.mContainerStore->writeState (state2.mInventory);
         customData.mCreatureStats.writeState (state2.mCreatureStats);
+    }
+
+    int Creature::getBaseGold(const MWWorld::Ptr& ptr) const
+    {
+        return ptr.get<ESM::Creature>()->mBase->mData.mGold;
+    }
+
+    void Creature::respawn(const MWWorld::Ptr &ptr) const
+    {
+        if (ptr.get<ESM::Creature>()->mBase->mFlags & ESM::Creature::Respawn)
+        {
+            // Note we do not respawn moved references in the cell they were moved to. Instead they are respawned in the original cell.
+            // This also means we cannot respawn dynamically placed references with no content file connection.
+            if (ptr.getCellRef().mRefNum.mContentFile != -1)
+            {
+                if (ptr.getRefData().getCount() == 0)
+                    ptr.getRefData().setCount(1);
+
+                // Reset to original position
+                ESM::Position& pos = ptr.getRefData().getPosition();
+                pos = ptr.getCellRef().mPos;
+
+                ptr.getRefData().setCustomData(NULL);
+            }
+        }
     }
 
     const ESM::GameSetting* Creature::fMinWalkSpeedCreature;

@@ -35,7 +35,7 @@ namespace MWGui
         , mTrading(false)
         , mLastXSize(0)
         , mLastYSize(0)
-        , mPreview(MWBase::Environment::get().getWorld ()->getPlayerPtr())
+        , mPreview(new MWRender::InventoryPreview(MWBase::Environment::get().getWorld ()->getPlayerPtr()))
         , mPreviewDirty(true)
         , mDragAndDrop(dragAndDrop)
         , mSelectedItem(-1)
@@ -91,8 +91,8 @@ namespace MWGui
         mTradeModel = new TradeItemModel(new InventoryItemModel(mPtr), MWWorld::Ptr());
         mSortModel = new SortFilterItemModel(mTradeModel);
         mItemView->setModel(mSortModel);
-        mPreview = MWRender::InventoryPreview(mPtr);
-        mPreview.setup();
+        mPreview.reset(new MWRender::InventoryPreview(mPtr));
+        mPreview->setup();
     }
 
     void InventoryWindow::setGuiMode(GuiMode mode)
@@ -408,14 +408,8 @@ namespace MWGui
 
             if (mDragAndDrop->mSourceModel != mTradeModel)
             {
-                // add item to the player's inventory
-                MWWorld::ContainerStore& invStore = MWWorld::Class::get(mPtr).getContainerStore(mPtr);
-                MWWorld::ContainerStoreIterator it = invStore.begin();
-
-                it = invStore.add(ptr, mDragAndDrop->mDraggedCount, mPtr);
-
-                mDragAndDrop->mSourceModel->removeItem(mDragAndDrop->mItem, mDragAndDrop->mDraggedCount);
-                ptr = *it;
+                // Move item to the player's inventory
+                ptr = mDragAndDrop->mSourceModel->moveItem(mDragAndDrop->mItem, mDragAndDrop->mDraggedCount, mTradeModel);
             }
             useItem(ptr);
         }
@@ -444,7 +438,7 @@ namespace MWGui
 
     MWWorld::Ptr InventoryWindow::getAvatarSelectedItem(int x, int y)
     {
-        int slot = mPreview.getSlotSelected (x, y);
+        int slot = mPreview->getSlotSelected (x, y);
 
         if (slot == -1)
             return MWWorld::Ptr();
@@ -493,7 +487,7 @@ namespace MWGui
             mPreviewDirty = false;
             MyGUI::IntSize size = mAvatarImage->getSize();
 
-            mPreview.update (size.width, size.height);
+            mPreview->update (size.width, size.height);
 
             mAvatarImage->setImageTexture("CharacterPreview");
             mAvatarImage->setImageCoord(MyGUI::IntCoord(0, 0, std::min(512, size.width), std::min(1024, size.height)));
@@ -541,9 +535,11 @@ namespace MWGui
 
         int count = object.getRefData().getCount();
 
+        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+        MWBase::Environment::get().getWorld()->breakInvisibility(player);
+
         // add to player inventory
         // can't use ActionTake here because we need an MWWorld::Ptr to the newly inserted object
-        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
         MWWorld::Ptr newObject = *player.getClass().getContainerStore (player).add (object, object.getRefData().getCount(), player);
         // remove from world
         MWBase::Environment::get().getWorld()->deleteObject (object);

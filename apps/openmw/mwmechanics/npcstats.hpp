@@ -31,15 +31,15 @@ namespace MWMechanics
             std::map<std::string, int> mFactionRank;
 
             int mDisposition;
-            SkillValue mSkill[27];
-            SkillValue mWerewolfSkill[27];
+            SkillValue mSkill[ESM::Skill::Length];
+            SkillValue mWerewolfSkill[ESM::Skill::Length];
             int mBounty;
             std::set<std::string> mExpelled;
             std::map<std::string, int> mFactionReputation;
             int mReputation;
+            int mCrimeId;
             int mWerewolfKills;
             int mProfit;
-            float mAttackStrength;
 
             int mLevelProgress; // 0-10
 
@@ -63,12 +63,13 @@ namespace MWMechanics
             void modifyProfit(int diff);
 
             int getBaseDisposition() const;
-
             void setBaseDisposition(int disposition);
 
             int getReputation() const;
-
             void setReputation(int reputation);
+
+            int getCrimeId() const;
+            void setCrimeId(int id);
 
             const SkillValue& getSkill (int index) const;
             SkillValue& getSkill (int index);

@@ -71,16 +71,22 @@ namespace MWGui
     {
     }
 
+    MWWorld::Ptr ItemModel::moveItem(const ItemStack &item, size_t count, ItemModel *otherModel)
+    {
+        MWWorld::Ptr ret = otherModel->copyItem(item, count);
+        removeItem(item, count);
+        return ret;
+    }
+
 
     ProxyItemModel::~ProxyItemModel()
     {
         delete mSourceModel;
     }
 
-    void ProxyItemModel::copyItem (const ItemStack& item, size_t count)
+    MWWorld::Ptr ProxyItemModel::copyItem (const ItemStack& item, size_t count, bool setNewOwner)
     {
-        // no need to use mapToSource since itemIndex refers to an index in the sourceModel
-        mSourceModel->copyItem (item, count);
+        return mSourceModel->copyItem (item, count, setNewOwner);
     }
 
     void ProxyItemModel::removeItem (const ItemStack& item, size_t count)

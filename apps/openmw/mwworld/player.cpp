@@ -9,13 +9,18 @@
 #include <components/esm/defs.hpp>
 #include <components/esm/loadbsgn.hpp>
 
+#include "../mwworld/esmstore.hpp"
+
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/windowmanager.hpp"
 #include "../mwbase/soundmanager.hpp"
+#include "../mwbase/mechanicsmanager.hpp"
 
 #include "../mwmechanics/movement.hpp"
 #include "../mwmechanics/npcstats.hpp"
+#include "../mwmechanics/actors.hpp"
+#include "../mwmechanics/mechanicsmanagerimp.hpp"
 
 #include "class.hpp"
 #include "ptr.hpp"
@@ -28,9 +33,11 @@ namespace MWWorld
       : mCellStore(0),
         mLastKnownExteriorPosition(0,0,0),
         mAutoMove(false),
-        mForwardBackward (0),
+        mForwardBackward(0),
         mTeleported(false),
-        mMarkedCell(NULL)
+        mMarkedCell(NULL),
+        mCurrentCrimeId(-1),
+        mPaidCrimeId(-1)
     {
         mPlayer.mBase = player;
         mPlayer.mRef.mRefID = "player";
@@ -93,7 +100,6 @@ namespace MWWorld
     void Player::setLeftRight (int value)
     {
         MWWorld::Ptr ptr = getPlayer();
-
         MWWorld::Class::get (ptr).getMovementSettings (ptr).mPosition[0] = value;
     }
 
@@ -112,7 +118,6 @@ namespace MWWorld
     void Player::setUpDown(int value)
     {
         MWWorld::Ptr ptr = getPlayer();
-
         MWWorld::Class::get (ptr).getMovementSettings (ptr).mPosition[2] = value;
     }
 
@@ -125,11 +130,7 @@ namespace MWWorld
     void Player::setSneak(bool sneak)
     {
         MWWorld::Ptr ptr = getPlayer();
-
         ptr.getClass().getCreatureStats(ptr).setMovementFlag(MWMechanics::CreatureStats::Flag_Sneak, sneak);
-
-        // TODO show sneak indicator only when the player is not detected by any actor
-        MWBase::Environment::get().getWindowManager()->setSneakVisibility(sneak);
     }
 
     void Player::yaw(float yaw)
@@ -164,6 +165,10 @@ namespace MWWorld
         mTeleported = teleported;
     }
 
+    bool Player::isInCombat() {
+        return MWBase::Environment::get().getMechanicsManager()->getActorsFighting(getPlayer()).size() != 0;
+    }
+
     void Player::markPosition(CellStore *markedCell, ESM::Position markedPosition)
     {
         mMarkedCell = markedCell;
@@ -187,12 +192,15 @@ namespace MWWorld
         mTeleported = false;
     }
 
-    void Player::write (ESM::ESMWriter& writer) const
+    void Player::write (ESM::ESMWriter& writer, Loading::Listener& progress) const
     {
         ESM::Player player;
 
         mPlayer.save (player.mObject);
         player.mCellId = mCellStore->getCell()->getCellId();
+
+        player.mCurrentCrimeId = mCurrentCrimeId;
+        player.mPaidCrimeId = mPaidCrimeId;
 
         player.mBirthsign = mSign;
 
@@ -214,6 +222,8 @@ namespace MWWorld
         writer.startRecord (ESM::REC_PLAY);
         player.save (writer);
         writer.endRecord (ESM::REC_PLAY);
+
+        progress.increaseProgress();
     }
 
     bool Player::readRecord (ESM::ESMReader& reader, int32_t type)
@@ -238,6 +248,9 @@ namespace MWWorld
             if (!player.mBirthsign.empty() &&
                 !world.getStore().get<ESM::BirthSign>().search (player.mBirthsign))
                 throw std::runtime_error ("invalid player state record (birthsign)");
+
+            mCurrentCrimeId = player.mCurrentCrimeId;
+            mPaidCrimeId = player.mPaidCrimeId;
 
             mSign = player.mBirthsign;
 
@@ -273,5 +286,20 @@ namespace MWWorld
         }
 
         return false;
+    }
+
+    int Player::getNewCrimeId()
+    {
+        return ++mCurrentCrimeId;
+    }
+
+    void Player::recordCrimeId()
+    {
+        mPaidCrimeId = mCurrentCrimeId;
+    }
+
+    int Player::getCrimeId() const
+    {
+        return mPaidCrimeId;
     }
 }

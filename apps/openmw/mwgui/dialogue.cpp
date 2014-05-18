@@ -56,26 +56,16 @@ namespace MWGui
 
     void PersuasionDialog::onPersuade(MyGUI::Widget *sender)
     {
-        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
         MWBase::MechanicsManager::PersuasionType type;
         if (sender == mAdmireButton) type = MWBase::MechanicsManager::PT_Admire;
         else if (sender == mIntimidateButton) type = MWBase::MechanicsManager::PT_Intimidate;
         else if (sender == mTauntButton) type = MWBase::MechanicsManager::PT_Taunt;
         else if (sender == mBribe10Button)
-        {
-            player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, 10, player);
             type = MWBase::MechanicsManager::PT_Bribe10;
-        }
         else if (sender == mBribe100Button)
-        {
-            player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, 100, player);
             type = MWBase::MechanicsManager::PT_Bribe100;
-        }
         else /*if (sender == mBribe1000Button)*/
-        {
-            player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, 1000, player);
             type = MWBase::MechanicsManager::PT_Bribe1000;
-        }
 
         MWBase::Environment::get().getDialogueManager()->persuade(type);
 
@@ -172,7 +162,8 @@ namespace MWGui
         {
             std::string::const_iterator i = text.begin ();
             KeywordSearchT::Match match;
-            while (i != text.end () && keywordSearch->search (i, text.end (), match))
+
+            while (i != text.end () && keywordSearch->search (i, text.end (), match, text.begin ()))
             {
                 if (i != match.mBeg)
                     addTopicLink (typesetter, 0, i - text.begin (), match.mBeg - text.begin ());
@@ -520,7 +511,7 @@ namespace MWGui
 
     void DialogueWindow::onScrollbarMoved(MyGUI::ScrollBar *sender, size_t pos)
     {
-        mHistory->setPosition(0,-pos);
+        mHistory->setPosition(0, pos * -1);
     }
 
     void DialogueWindow::addResponse(const std::string &text, const std::string &title)

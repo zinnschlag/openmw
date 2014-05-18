@@ -61,6 +61,7 @@
 #include "itemview.hpp"
 #include "fontloader.hpp"
 #include "videowidget.hpp"
+#include "backgroundimage.hpp"
 
 namespace MWGui
 {
@@ -160,6 +161,7 @@ namespace MWGui
         MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::MWScrollView>("Widget");
         MyGUI::FactoryManager::getInstance().registerFactory<MWGui::Widgets::MWScrollBar>("Widget");
         MyGUI::FactoryManager::getInstance().registerFactory<VideoWidget>("Widget");
+        MyGUI::FactoryManager::getInstance().registerFactory<BackgroundImage>("Widget");
         BookPage::registerMyGUIComponents ();
         ItemView::registerComponents();
 
@@ -185,7 +187,7 @@ namespace MWGui
         MyGUI::InputManager::getInstance().eventChangeKeyFocus += MyGUI::newDelegate(this, &WindowManager::onKeyFocusChanged);
 
         onCursorChange(MyGUI::PointerManager::getInstance().getDefaultPointer());
-        SDL_ShowCursor(false);
+        //SDL_ShowCursor(false);
 
         mCursorManager->setEnabled(true);
 
@@ -287,6 +289,10 @@ namespace MWGui
 
     void WindowManager::setNewGame(bool newgame)
     {
+        // This method will always be called after loading a savegame or starting a new game
+        // Reset enemy, it could be a dangling pointer from a previous game
+        mHud->resetEnemy();
+
         if (newgame)
         {
             disallowAll();
@@ -619,9 +625,9 @@ namespace MWGui
         mStatsWindow->setValue (id, value);
     }
 
-    void WindowManager::setDrowningTimeLeft (float time)
+    void WindowManager::setDrowningTimeLeft (float time, float maxTime)
     {
-        mHud->setDrowningTimeLeft(time);
+        mHud->setDrowningTimeLeft(time, maxTime);
     }
 
     void WindowManager::setPlayerClass (const ESM::Class &class_)
@@ -760,8 +766,6 @@ namespace MWGui
 
             mMap->setCellPrefix("Cell");
             mHud->setCellPrefix("Cell");
-            mMap->setActiveCell (cell->getCell()->getGridX(), cell->getCell()->getGridY());
-            mHud->setActiveCell (cell->getCell()->getGridX(), cell->getCell()->getGridY());
         }
         else
         {
@@ -777,10 +781,10 @@ namespace MWGui
         }
     }
 
-    void WindowManager::setInteriorMapTexture(const int x, const int y)
+    void WindowManager::setActiveMap(int x, int y, bool interior)
     {
-        mMap->setActiveCell(x,y, true);
-        mHud->setActiveCell(x,y, true);
+        mMap->setActiveCell(x,y, interior);
+        mHud->setActiveCell(x,y, interior);
     }
 
     void WindowManager::setPlayerPos(const float x, const float y)
@@ -810,10 +814,10 @@ namespace MWGui
         mHud->setMinimapVisible (visible);
     }
 
-    void WindowManager::toggleFogOfWar()
+    bool WindowManager::toggleFogOfWar()
     {
         mMap->toggleFogOfWar();
-        mHud->toggleFogOfWar();
+        return mHud->toggleFogOfWar();
     }
 
     void WindowManager::setFocusObject(const MWWorld::Ptr& focus)
@@ -826,9 +830,9 @@ namespace MWGui
         mToolTips->setFocusObjectScreenCoords(min_x, min_y, max_x, max_y);
     }
 
-    void WindowManager::toggleFullHelp()
+    bool WindowManager::toggleFullHelp()
     {
-        mToolTips->toggleFullHelp();
+        return mToolTips->toggleFullHelp();
     }
 
     bool WindowManager::getFullHelp() const
@@ -1322,9 +1326,6 @@ namespace MWGui
 
     void WindowManager::updatePlayer()
     {
-        unsetSelectedSpell();
-        unsetSelectedWeapon();
-
         mInventoryWindow->updatePlayer();
     }
 
@@ -1399,16 +1400,63 @@ namespace MWGui
     void WindowManager::clear()
     {
         mMap->clear();
+        mQuickKeysMenu->clear();
+
+        mTrainingWindow->resetReference();
+        mDialogueWindow->resetReference();
+        mTradeWindow->resetReference();
+        mSpellBuyingWindow->resetReference();
+        mSpellCreationDialog->resetReference();
+        mEnchantingDialog->resetReference();
+        mContainerWindow->resetReference();
+        mCompanionWindow->resetReference();
+        mConsole->resetReference();
+
+        mGuiModes.clear();
+        updateVisible();
     }
 
-    void WindowManager::write(ESM::ESMWriter &writer)
+    void WindowManager::write(ESM::ESMWriter &writer, Loading::Listener& progress)
     {
-        mMap->write(writer);
+        mMap->write(writer, progress);
+
+        mQuickKeysMenu->write(writer);
+        progress.increaseProgress();
+
+        if (!mSelectedSpell.empty())
+        {
+            writer.startRecord(ESM::REC_ASPL);
+            writer.writeHNString("ID__", mSelectedSpell);
+            writer.endRecord(ESM::REC_ASPL);
+            progress.increaseProgress();
+        }
     }
 
     void WindowManager::readRecord(ESM::ESMReader &reader, int32_t type)
     {
-        mMap->readRecord(reader, type);
+        if (type == ESM::REC_GMAP)
+            mMap->readRecord(reader, type);
+        else if (type == ESM::REC_KEYS)
+            mQuickKeysMenu->readRecord(reader, type);
+        else if (type == ESM::REC_ASPL)
+        {
+            reader.getSubNameIs("ID__");
+            mSelectedSpell = reader.getHString();
+        }
+    }
+
+    int WindowManager::countSavedGameRecords() const
+    {
+        return 1 // Global map
+                + 1 // QuickKeysMenu
+                + (!mSelectedSpell.empty() ? 1 : 0);
+    }
+
+    bool WindowManager::isSavingAllowed() const
+    {
+        return !MyGUI::InputManager::getInstance().isModalAny()
+                // TODO: remove this, once we have properly serialized the state of open windows
+                && (!isGuiMode() || (mGuiModes.size() == 1 && (getMode() == GM_MainMenu || getMode() == GM_Rest || getMode() == GM_RestBed)));
     }
 
     void WindowManager::playVideo(const std::string &name, bool allowSkipping)

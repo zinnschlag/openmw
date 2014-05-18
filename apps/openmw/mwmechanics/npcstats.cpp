@@ -29,6 +29,7 @@ MWMechanics::NpcStats::NpcStats()
 , mLevelProgress(0)
 , mDisposition(0)
 , mReputation(0)
+, mCrimeId(-1)
 , mWerewolfKills (0)
 , mProfit(0)
 , mTimeToStartDrowning(20.0)
@@ -340,6 +341,16 @@ void MWMechanics::NpcStats::setReputation(int reputation)
     mReputation = reputation;
 }
 
+int MWMechanics::NpcStats::getCrimeId() const
+{
+    return mCrimeId;
+}
+
+void MWMechanics::NpcStats::setCrimeId(int id)
+{
+    mCrimeId = id;
+}
+
 bool MWMechanics::NpcStats::hasSkillsForRank (const std::string& factionId, int rank) const
 {
     if (rank<0 || rank>=10)
@@ -421,9 +432,9 @@ float MWMechanics::NpcStats::getTimeToStartDrowning() const
 {
     return mTimeToStartDrowning;
 }
+
 void MWMechanics::NpcStats::setTimeToStartDrowning(float time)
 {
-    assert(time>=0 && time<=20);
     mTimeToStartDrowning=time;
 }
 
@@ -435,11 +446,18 @@ void MWMechanics::NpcStats::writeState (ESM::NpcStats& state) const
 
     state.mDisposition = mDisposition;
 
-    for (int i=0; i<27; ++i)
+    for (int i=0; i<ESM::Skill::Length; ++i)
     {
         mSkill[i].writeState (state.mSkills[i].mRegular);
         mWerewolfSkill[i].writeState (state.mSkills[i].mWerewolf);
     }
+    for (int i=0; i<ESM::Attribute::Length; ++i)
+    {
+        mWerewolfAttributes[i].writeState (state.mWerewolfAttributes[i]);
+    }
+    state.mIsWerewolf = mIsWerewolf;
+
+    state.mCrimeId = mCrimeId;
 
     state.mBounty = mBounty;
 
@@ -454,10 +472,9 @@ void MWMechanics::NpcStats::writeState (ESM::NpcStats& state) const
     state.mReputation = mReputation;
     state.mWerewolfKills = mWerewolfKills;
     state.mProfit = mProfit;
-    state.mAttackStrength = mAttackStrength;
     state.mLevelProgress = mLevelProgress;
 
-    for (int i=0; i<8; ++i)
+    for (int i=0; i<ESM::Attribute::Length; ++i)
         state.mSkillIncrease[i] = mSkillIncreases[i];
 
     std::copy (mUsedIds.begin(), mUsedIds.end(), std::back_inserter (state.mUsedIds));
@@ -478,7 +495,7 @@ void MWMechanics::NpcStats::readState (const ESM::NpcStats& state)
             if (iter->second.mExpelled)
                 mExpelled.insert (iter->first);
 
-            if (iter->second.mRank)
+            if (iter->second.mRank >= 0)
                 mFactionRank.insert (std::make_pair (iter->first, iter->second.mRank));
 
             if (iter->second.mReputation)
@@ -487,20 +504,26 @@ void MWMechanics::NpcStats::readState (const ESM::NpcStats& state)
 
     mDisposition = state.mDisposition;
 
-    for (int i=0; i<27; ++i)
+    for (int i=0; i<ESM::Skill::Length; ++i)
     {
         mSkill[i].readState (state.mSkills[i].mRegular);
         mWerewolfSkill[i].readState (state.mSkills[i].mWerewolf);
     }
+    for (int i=0; i<ESM::Attribute::Length; ++i)
+    {
+        mWerewolfAttributes[i].readState (state.mWerewolfAttributes[i]);
+    }
 
+    mIsWerewolf = state.mIsWerewolf;
+
+    mCrimeId = state.mCrimeId;
     mBounty = state.mBounty;
     mReputation = state.mReputation;
     mWerewolfKills = state.mWerewolfKills;
     mProfit = state.mProfit;
-    mAttackStrength = state.mAttackStrength;
     mLevelProgress = state.mLevelProgress;
 
-    for (int i=0; i<8; ++i)
+    for (int i=0; i<ESM::Attribute::Length; ++i)
         mSkillIncreases[i] = state.mSkillIncrease[i];
 
     for (std::vector<std::string>::const_iterator iter (state.mUsedIds.begin());

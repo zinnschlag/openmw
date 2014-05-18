@@ -31,6 +31,9 @@ namespace ESM
             Faction();
         };
 
+        StatState<int> mWerewolfAttributes[8];
+        bool mIsWerewolf;
+
         std::map<std::string, Faction> mFactions;
         int mDisposition;
         Skill mSkills[27];
@@ -38,13 +41,13 @@ namespace ESM
         int mReputation;
         int mWerewolfKills;
         int mProfit;
-        float mAttackStrength;
         int mLevelProgress;
         int mSkillIncrease[8];
         std::vector<std::string> mUsedIds;
         float mTimeToStartDrowning;
         float mLastDrowningHit;
         float mLevelHealthBonus;
+        int mCrimeId;
 
         void load (ESMReader &esm);
         void save (ESMWriter &esm) const;

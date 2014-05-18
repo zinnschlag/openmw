@@ -431,6 +431,11 @@ void CharacterController::playRandomDeath(float startpoint)
         mDeathState = static_cast<CharacterState>(CharState_Death1 + (selected-1));
     }
 
+    // For dead actors, refreshCurrentAnims is no longer called, so we need to disable the movement state manually.
+    mMovementState = CharState_None;
+    mAnimation->disable(mCurrentMovement);
+    mCurrentMovement = "";
+
     mAnimation->play(mCurrentDeath, Priority_Death, MWRender::Animation::Group_All,
                     false, 1.0f, "start", "stop", startpoint, 0);
 }
@@ -489,12 +494,13 @@ CharacterController::CharacterController(const MWWorld::Ptr &ptr, MWRender::Anim
         mIdleState = CharState_Idle;
     }
 
-    refreshCurrentAnims(mIdleState, mMovementState, true);
 
     if(mDeathState != CharState_None)
     {
         playRandomDeath(1.0f);
     }
+    else
+        refreshCurrentAnims(mIdleState, mMovementState, true);
 }
 
 CharacterController::~CharacterController()
@@ -740,10 +746,6 @@ bool CharacterController::updateWeaponState()
                     MWBase::Environment::get().getWindowManager()->messageBox(resultMessage);
                 if(!resultSound.empty())
                     MWBase::Environment::get().getSoundManager()->playSound(resultSound, 1.0f, 1.0f);
-
-                // Set again, just to update the charge bar
-                if(item.getRefData().getCount())
-                    MWBase::Environment::get().getWindowManager()->setSelectedWeapon(item);
             }
             else if (ammunition)
             {
@@ -1014,6 +1016,7 @@ void CharacterController::update(float duration)
         if(mHitState != CharState_None && mJumpState == JumpState_None)
             vec = Ogre::Vector3(0.0f);
         Ogre::Vector3 rot = cls.getRotationVector(mPtr);
+
         mMovementSpeed = cls.getSpeed(mPtr);
 
         vec.x *= mMovementSpeed;
@@ -1179,7 +1182,7 @@ void CharacterController::update(float duration)
         }
         else
         {
-           if(!(vec.z > 0.0f))
+            if(!(vec.z > 0.0f))
                 mJumpState = JumpState_None;
             vec.z = 0.0f;
 
@@ -1369,9 +1372,9 @@ bool CharacterController::kill()
 {
     if( isDead() )
     {
-        //player's death animation is over
         if( mPtr.getRefData().getHandle()=="player" && !isAnimPlaying(mCurrentDeath) )
         {
+            //player's death animation is over
             MWBase::Environment::get().getStateManager()->askLoadRecent();
         }
         return false;

@@ -24,6 +24,9 @@ namespace ESM
         CellId mMarkedCell;
         unsigned char mAutoMove;
         std::string mBirthsign;
+        
+        int mCurrentCrimeId;
+        int mPaidCrimeId;
 
         void load (ESMReader &esm);
         void save (ESMWriter &esm) const;

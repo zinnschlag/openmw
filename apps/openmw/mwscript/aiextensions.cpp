@@ -16,7 +16,6 @@
 #include "../mwmechanics/aifollow.hpp"
 #include "../mwmechanics/aitravel.hpp"
 #include "../mwmechanics/aiwander.hpp"
-#include "../mwmechanics/aicombat.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -48,7 +47,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiActivate activatePackage(objectID);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(activatePackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(activatePackage, ptr);
                     std::cout << "AiActivate" << std::endl;
                 }
         };
@@ -75,7 +74,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiTravel travelPackage(x, y, z);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(travelPackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(travelPackage, ptr);
 
                     std::cout << "AiTravel: " << x << ", " << y << ", " << z << std::endl;
                 }
@@ -109,7 +108,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiEscort escortPackage(actorID, duration, x, y, z);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(escortPackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(escortPackage, ptr);
 
                     std::cout << "AiEscort: " << x << ", " << y << ", " << z << ", " << duration
                         << std::endl;
@@ -147,7 +146,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiEscort escortPackage(actorID, cellID, duration, x, y, z);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(escortPackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(escortPackage, ptr);
 
                     std::cout << "AiEscort: " << x << ", " << y << ", " << z << ", " << duration
                         << std::endl;
@@ -211,7 +210,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiWander wanderPackage(range, duration, time, idleList, repeat);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(wanderPackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(wanderPackage, ptr);
                 }
         };
 
@@ -299,7 +298,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiFollow followPackage(actorID, duration, x, y ,z);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(followPackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(followPackage, ptr);
 
                     std::cout << "AiFollow: " << actorID << ", " << x << ", " << y << ", " << z << ", " << duration
                         << std::endl;
@@ -337,7 +336,7 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i) runtime.pop();
 
                     MWMechanics::AiFollow followPackage(actorID, cellID, duration, x, y ,z);
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(followPackage);
+                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getAiSequence().stack(followPackage, ptr);
                     std::cout << "AiFollow: " << actorID << ", " << x << ", " << y << ", " << z << ", " << duration
                         << std::endl;
                 }
@@ -435,12 +434,8 @@ namespace MWScript
                     std::string targetID = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    MWMechanics::CreatureStats& creatureStats = actor.getClass().getCreatureStats(actor);
-                    
-
-                    creatureStats.setHostile(true);
-                    creatureStats.getAiSequence().stack(
-                        MWMechanics::AiCombat(MWBase::Environment::get().getWorld()->getPtr(targetID, true) ));
+                    MWWorld::Ptr target = MWBase::Environment::get().getWorld()->getPtr(targetID, true);
+                    MWBase::Environment::get().getMechanicsManager()->startCombat(actor, target);
                 }
         };
 

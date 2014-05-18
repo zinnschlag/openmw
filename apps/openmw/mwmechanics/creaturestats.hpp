@@ -24,6 +24,7 @@ namespace MWMechanics
     ///
     class CreatureStats
     {
+        static int sActorId;
         DrawState_ mDrawState;
         AttributeValue mAttributes[8];
         DynamicStat<float> mDynamic[3]; // health, magicka, fatigue
@@ -41,6 +42,8 @@ namespace MWMechanics
         bool mHostile;
         bool mAttackingOrSpell;
         bool mKnockdown;
+        bool mKnockdownOneFrame;
+        bool mKnockdownOverOneFrame;
         bool mHitRecovery;
         bool mBlock;
         unsigned int mMovementFlags;
@@ -53,15 +56,16 @@ namespace MWMechanics
         // Do we need to recalculate stats derived from attributes or other factors?
         bool mRecalcDynamicStats;
 
-        std::map<std::string, MWWorld::TimeStamp> mUsedPowers;
-
         MWWorld::TimeStamp mTradeTime; // Relates to NPC gold reset delay
 
         int mGoldPool; // the pool of merchant gold not in inventory
+        int mActorId;
 
     protected:
+        // These two are only set by NpcStats, but they are declared in CreatureStats to prevent using virtual methods.
         bool mIsWerewolf;
         AttributeValue mWerewolfAttributes[8];
+
         int mLevel;
 
     public:
@@ -81,9 +85,6 @@ namespace MWMechanics
         /// Reset the fall height
         /// @return total fall height
         float land();
-
-        bool canUsePower (const std::string& power) const;
-        void usePower (const std::string& power);
 
         const AttributeValue & getAttribute(int index) const;
 
@@ -175,15 +176,12 @@ namespace MWMechanics
         void talkedToPlayer();
 
         bool isAlarmed() const;
-
         void setAlarmed (bool alarmed);
 
         bool getAttacked() const;
-
         void setAttacked (bool attacked);
 
         bool isHostile() const;
-
         void setHostile (bool hostile);
 
         bool getCreatureTargetted() const;
@@ -191,7 +189,14 @@ namespace MWMechanics
         float getEvasion() const;
 
         void setKnockedDown(bool value);
+        ///Returns true for the entire duration of the actor being knocked down
         bool getKnockedDown() const;
+        void setKnockedDownOneFrame(bool value);
+        ///Returns true only for the first frame of the actor being knocked out; used for "onKnockedOut" command
+        bool getKnockedDownOneFrame() const;
+        void setKnockedDownOverOneFrame(bool value);
+        ///Returns true for all but the first frame of being knocked out; used to know to not reset mKnockedDownOneFrame
+        bool getKnockedDownOverOneFrame() const;
         void setHitRecovery(bool value);
         bool getHitRecovery() const;
         void setBlock(bool value);
@@ -218,14 +223,23 @@ namespace MWMechanics
         void setLastHitObject(const std::string &objectid);
         const std::string &getLastHitObject() const;
 
-        // Note, this is just a cache to avoid checking the whole container store every frame TODO: Put it somewhere else?
+        // Note, this is just a cache to avoid checking the whole container store every frame. We don't need to store it in saves.
+        // TODO: Put it somewhere else?
         std::set<int> mBoundItems;
-        // Same as above
-        std::map<int, std::string> mSummonedCreatures;
+
+        // TODO: store in savegame
+        // TODO: encapsulate?
+        // <ESM::MagicEffect index, actor index>
+        std::map<int, int> mSummonedCreatures;
+        // Contains summoned creatures with an expired lifetime that have not been deleted yet.
+        std::vector<int> mSummonGraveyard;
 
         void writeState (ESM::CreatureStats& state) const;
 
         void readState (const ESM::CreatureStats& state);
+
+        static void writeActorIdCounter (ESM::ESMWriter& esm);
+        static void readActorIdCounter (ESM::ESMReader& esm);
 
         // Relates to NPC gold reset delay
         void setTradeTime(MWWorld::TimeStamp tradeTime);
@@ -233,6 +247,15 @@ namespace MWMechanics
 
         void setGoldPool(int pool);
         int getGoldPool() const;
+
+        int getActorId();
+        ///< Will generate an actor ID, if the actor does not have one yet.
+
+        bool matchesActorId (int id) const;
+        ///< Check if \a id matches the actor ID of *this (if the actor does not have an ID
+        /// assigned this function will return false).
+
+        static void cleanup();
     };
 }
 

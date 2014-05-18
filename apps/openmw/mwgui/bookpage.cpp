@@ -695,6 +695,8 @@ protected:
     typedef TypesetBookImpl::Section Section;
     typedef TypesetBookImpl::Line    Line;
     typedef TypesetBookImpl::Run     Run;
+    bool mIsPageReset;
+    size_t mPage;
 
     struct TextFormat : ISubWidget
     {
@@ -745,6 +747,23 @@ protected:
         void destroyDrawItem() {};
     };
 
+    void resetPage()
+    {
+       mIsPageReset = true;
+       mPage = 0;
+    }
+
+    void setPage(size_t page)
+    {
+       mIsPageReset = false;
+       mPage = page;
+    }
+
+    bool isPageDifferent(size_t page)
+    {
+       return mIsPageReset || (mPage != page);
+    }
+
 public:
 
     typedef TypesetBookImpl::StyleImpl Style;
@@ -760,14 +779,13 @@ public:
 
 
     boost::shared_ptr <TypesetBookImpl> mBook;
-    size_t mPage;
 
     MyGUI::ILayerNode* mNode;
     ActiveTextFormats mActiveTextFormats;
 
     PageDisplay ()
     {
-        mPage = -1;
+        resetPage ();
         mViewTop = 0;
         mViewBottom = 0;
         mFocusItem = NULL;
@@ -783,7 +801,8 @@ public:
 
             ActiveTextFormats::iterator i = mActiveTextFormats.find (Font);
 
-            mNode->outOfDate (i->second->mRenderItem);
+            if (mNode)
+                mNode->outOfDate (i->second->mRenderItem);
         }
     }
 
@@ -901,7 +920,7 @@ public:
                 createActiveFormats (newBook);
 
                 mBook = newBook;
-                mPage = newPage;
+                setPage (newPage);
 
                 if (newPage < mBook->mPages.size ())
                 {
@@ -917,19 +936,19 @@ public:
             else
             {
                 mBook.reset ();
-                mPage = -1;
+                resetPage ();
                 mViewTop = 0;
                 mViewBottom = 0;
             }
         }
         else
-        if (mBook && mPage != newPage)
+        if (mBook && isPageDifferent (newPage))
         {
             if (mNode != NULL)
                 for (ActiveTextFormats::iterator i = mActiveTextFormats.begin (); i != mActiveTextFormats.end (); ++i)
                     mNode->outOfDate(i->second->mRenderItem);
 
-            mPage = newPage;
+            setPage (newPage);
 
             if (newPage < mBook->mPages.size ())
             {
@@ -1125,6 +1144,8 @@ public:
 protected:
     void onMouseLostFocus(Widget* _new)
     {
+        // NOTE: MyGUI also fires eventMouseLostFocus for widgets that are about to be destroyed (if they had focus).
+        // Child widgets may already be destroyed! So be careful.
         if (PageDisplay* pd = dynamic_cast <PageDisplay*> (getSubWidgetText ()))
         {
             pd->onMouseLostFocus ();

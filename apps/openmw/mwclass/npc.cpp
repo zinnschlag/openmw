@@ -357,21 +357,12 @@ namespace MWClass
             data->mInventoryStore.fill(ref->mBase->mInventory, getId(ptr), "",
                                        MWBase::Environment::get().getWorld()->getStore());
 
-            // Relates to NPC gold reset delay
-            data->mNpcStats.setTradeTime(MWWorld::TimeStamp(0.0, 0));
-
             data->mNpcStats.setGoldPool(gold);
 
             // store
             ptr.getRefData().setCustomData (data.release());
 
-            // TODO: this is not quite correct, in vanilla the merchant's gold pool is not available in his inventory.
-            // (except for gold you gave him)
-            getContainerStore(ptr).add(MWWorld::ContainerStore::sGoldId, gold, ptr);
-
-            getInventoryStore(ptr).autoEquip(ptr);
-
-            
+            getInventoryStore(ptr).autoEquip(ptr); 
         }
     }
 
@@ -397,6 +388,8 @@ namespace MWClass
     {
         physics.addActor(ptr);
         MWBase::Environment::get().getMechanicsManager()->add(ptr);
+        if (getCreatureStats(ptr).isDead())
+            MWBase::Environment::get().getWorld()->enableActorCollision(ptr, false);
     }
 
     bool Npc::isPersistent(const MWWorld::Ptr &actor) const
@@ -627,8 +620,12 @@ namespace MWClass
         // NOTE: 'object' and/or 'attacker' may be empty.
 
         // Attacking peaceful NPCs is a crime
-        if (!attacker.isEmpty() && ptr.getClass().isNpc() && ptr.getClass().getCreatureStats(ptr).getAiSetting(MWMechanics::CreatureStats::AI_Fight).getModified() <= 30)
+        // anything below 80 is considered peaceful (see Actors::updateActor)
+        if (!attacker.isEmpty() && !ptr.getClass().getCreatureStats(ptr).isHostile() &&
+                ptr.getClass().getCreatureStats(ptr).getAiSetting(MWMechanics::CreatureStats::AI_Fight).getModified() < 80)
             MWBase::Environment::get().getMechanicsManager()->commitCrime(attacker, ptr, MWBase::MechanicsManager::OT_Assault);
+
+        getCreatureStats(ptr).setAttacked(true);
 
         if(!successful)
         {
@@ -665,7 +662,6 @@ namespace MWClass
             {
                 MWBase::Environment::get().getDialogueManager()->say(ptr, "hit");
             }
-            getCreatureStats(ptr).setAttacked(true);
 
             // Check for knockdown
             float agilityTerm = getCreatureStats(ptr).getAttribute(ESM::Attribute::Agility).getModified() * fKnockDownMult->getFloat();
@@ -802,6 +798,10 @@ namespace MWClass
     boost::shared_ptr<MWWorld::Action> Npc::activate (const MWWorld::Ptr& ptr,
         const MWWorld::Ptr& actor) const
     {
+        // player got activated by another NPC
+        if(ptr.getRefData().getHandle() == "player")
+            return boost::shared_ptr<MWWorld::Action>(new MWWorld::ActionTalk(actor));
+
         if(get(actor).isNpc() && get(actor).getNpcStats(actor).isWerewolf())
         {
             const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
@@ -818,7 +818,9 @@ namespace MWClass
             return boost::shared_ptr<MWWorld::Action>(new MWWorld::FailedAction("#{sActorInCombat}"));
         if(getCreatureStats(actor).getStance(MWMechanics::CreatureStats::Stance_Sneak))
             return boost::shared_ptr<MWWorld::Action>(new MWWorld::ActionOpen(ptr)); // stealing
+        
         return boost::shared_ptr<MWWorld::Action>(new MWWorld::ActionTalk(ptr));
+
     }
 
     MWWorld::ContainerStore& Npc::getContainerStore (const MWWorld::Ptr& ptr)
@@ -1292,6 +1294,40 @@ namespace MWClass
         customData.mInventoryStore.writeState (state2.mInventory);
         customData.mNpcStats.writeState (state2.mNpcStats);
         static_cast<const MWMechanics::CreatureStats&> (customData.mNpcStats).writeState (state2.mCreatureStats);
+    }
+
+    int Npc::getBaseGold(const MWWorld::Ptr& ptr) const
+    {
+        MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
+        if(ref->mBase->mNpdtType != ESM::NPC::NPC_WITH_AUTOCALCULATED_STATS)
+            return ref->mBase->mNpdt52.mGold;
+        else
+            return ref->mBase->mNpdt12.mGold;
+    }
+
+    bool Npc::isClass(const MWWorld::Ptr& ptr, const std::string &className) const
+    {
+        return Misc::StringUtils::ciEqual(ptr.get<ESM::NPC>()->mBase->mClass, className);
+    }
+
+    void Npc::respawn(const MWWorld::Ptr &ptr) const
+    {
+        if (ptr.get<ESM::NPC>()->mBase->mFlags & ESM::NPC::Respawn)
+        {
+            // Note we do not respawn moved references in the cell they were moved to. Instead they are respawned in the original cell.
+            // This also means we cannot respawn dynamically placed references with no content file connection.
+            if (ptr.getCellRef().mRefNum.mContentFile != -1)
+            {
+                if (ptr.getRefData().getCount() == 0)
+                    ptr.getRefData().setCount(1);
+
+                // Reset to original position
+                ESM::Position& pos = ptr.getRefData().getPosition();
+                pos = ptr.getCellRef().mPos;
+
+                ptr.getRefData().setCustomData(NULL);
+            }
+        }
     }
 
     const ESM::GameSetting *Npc::fMinWalkSpeed;

@@ -8,7 +8,6 @@
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
-#include "../mwbase/windowmanager.hpp"
 #include "../mwbase/mechanicsmanager.hpp"
 
 #include "../mwmechanics/npcstats.hpp"
@@ -150,10 +149,6 @@ void MWWorld::InventoryStore::equip (int slot, const ContainerStoreIterator& ite
 
     fireEquipmentChangedEvent();
     updateMagicEffects(actor);
-
-    // Update HUD icon for player weapon
-    if (slot == MWWorld::InventoryStore::Slot_CarriedRight)
-        MWBase::Environment::get().getWindowManager()->setSelectedWeapon(*getSlot(slot));
 }
 
 void MWWorld::InventoryStore::unequipAll(const MWWorld::Ptr& actor)
@@ -197,11 +192,16 @@ void MWWorld::InventoryStore::autoEquip (const MWWorld::Ptr& actor)
     {
         Ptr test = *iter;
 
-        // Don't autoEquip lights
+        // Don't autoEquip lights. Handled in Actors::updateEquippedLight based on environment light.
         if (test.getTypeName() == typeid(ESM::Light).name())
         {
             continue;
         }
+
+        // Don't auto-equip probes or lockpicks. NPCs can't use them (yet). And AiCombat would attempt to "attack" with them.
+        // NOTE: In the future AiCombat should handle equipping appropriate weapons
+        if (test.getTypeName() == typeid(ESM::Lockpick).name() || test.getTypeName() == typeid(ESM::Probe).name())
+            continue;
 
         // Only autoEquip if we are the original owner of the item.
         // This stops merchants from auto equipping anything you sell to them.
@@ -494,7 +494,6 @@ int MWWorld::InventoryStore::remove(const Ptr& item, int count, const Ptr& actor
             && *mSelectedEnchantItem == item && actor.getRefData().getHandle() == "player")
     {
         mSelectedEnchantItem = end();
-        MWBase::Environment::get().getWindowManager()->unsetSelectedSpell();
     }
 
     updateRechargingItems();
@@ -532,18 +531,9 @@ MWWorld::ContainerStoreIterator MWWorld::InventoryStore::unequipSlot(int slot, c
             if (script != "")
                 (*it).getRefData().getLocals().setVarByInt(script, "onpcequip", 0);
 
-            // Update HUD icon when removing player weapon or selected enchanted item.
-            // We have to check for both as the weapon could also be the enchanted item.
-            if (slot == MWWorld::InventoryStore::Slot_CarriedRight)
-            {
-                // weapon
-                MWBase::Environment::get().getWindowManager()->unsetSelectedWeapon();
-            }
             if ((mSelectedEnchantItem != end()) && (mSelectedEnchantItem == it))
             {
-                // enchanted item
                 mSelectedEnchantItem = end();
-                MWBase::Environment::get().getWindowManager()->unsetSelectedSpell();
             }
         }
 
@@ -609,7 +599,7 @@ void MWWorld::InventoryStore::visitEffectSources(MWMechanics::EffectSourceVisito
             const EffectParams& params = mPermanentMagicEffectMagnitudes[(**iter).getCellRef().mRefID][i];
             float magnitude = effectIt->mMagnMin + (effectIt->mMagnMax - effectIt->mMagnMin) * params.mRandom;
             magnitude *= params.mMultiplier;
-            visitor.visit(MWMechanics::EffectKey(*effectIt), (**iter).getClass().getName(**iter), "", magnitude);
+            visitor.visit(MWMechanics::EffectKey(*effectIt), (**iter).getClass().getName(**iter), -1, magnitude);
 
             ++i;
         }

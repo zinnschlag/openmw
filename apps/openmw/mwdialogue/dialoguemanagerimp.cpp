@@ -144,7 +144,6 @@ namespace MWDialogue
 
         //setup the list of topics known by the actor. Topics who are also on the knownTopics list will be added to the GUI
         updateTopics();
-        updateGlobals();
 
         //greeting
         const MWWorld::Store<ESM::Dialogue> &dialogs =
@@ -392,6 +391,8 @@ namespace MWDialogue
         win->setKeywords(keywordList);
 
         mChoice = choice;
+
+        updateGlobals();
     }
 
     void DialogueManager::keywordSelected (const std::string& keyword)
@@ -468,11 +469,6 @@ namespace MWDialogue
         mIsInChoice = true;
     }
 
-    MWWorld::Ptr DialogueManager::getActor() const
-    {
-        return mActor;
-    }
-
     void DialogueManager::goodbye()
     {
         mIsInChoice = true;
@@ -500,7 +496,24 @@ namespace MWDialogue
             mTemporaryDispositionChange = 100 - curDisp;
 
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-        MWWorld::Class::get(player).skillUsageSucceeded(player, ESM::Skill::Speechcraft, success ? 0 : 1);
+        player.getClass().skillUsageSucceeded(player, ESM::Skill::Speechcraft, success ? 0 : 1);
+
+        if (success)
+        {
+            int gold=0;
+            if (type == MWBase::MechanicsManager::PT_Bribe10)
+                gold = 10;
+            else if (type == MWBase::MechanicsManager::PT_Bribe100)
+                gold = 100;
+            else if (type == MWBase::MechanicsManager::PT_Bribe1000)
+                gold = 1000;
+
+            if (gold)
+            {
+                player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, gold, player);
+                mActor.getClass().getContainerStore(mActor).add(MWWorld::ContainerStore::sGoldId, gold, mActor);
+            }
+        }
 
         std::string text;
 
@@ -597,7 +610,7 @@ namespace MWDialogue
         return 1; // known topics
     }
 
-    void DialogueManager::write (ESM::ESMWriter& writer) const
+    void DialogueManager::write (ESM::ESMWriter& writer, Loading::Listener& progress) const
     {
         ESM::DialogueState state;
 
@@ -609,6 +622,7 @@ namespace MWDialogue
         writer.startRecord (ESM::REC_DIAS);
         state.save (writer);
         writer.endRecord (ESM::REC_DIAS);
+        progress.increaseProgress();
     }
 
     void DialogueManager::readRecord (ESM::ESMReader& reader, int32_t type)
