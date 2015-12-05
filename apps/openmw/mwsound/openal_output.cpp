@@ -11,11 +11,16 @@
 #include "sound_decoder.hpp"
 #include "sound.hpp"
 #include "soundmanagerimp.hpp"
+#include "loudness.hpp"
 
 #ifndef ALC_ALL_DEVICES_SPECIFIER
 #define ALC_ALL_DEVICES_SPECIFIER 0x1013
 #endif
 
+namespace
+{
+    const int loudnessFPS = 20; // loudness values per second of audio
+}
 
 namespace MWSound
 {
@@ -288,7 +293,7 @@ OpenAL_SoundStream::OpenAL_SoundStream(OpenAL_Output &output, ALuint src, Decode
 
         mOutput.mActiveSounds.push_back(this);
     }
-    catch(std::exception &e)
+    catch(std::exception&)
     {
         alDeleteBuffers(sNumBuffers, mBuffers);
         alGetError();
@@ -471,7 +476,7 @@ bool OpenAL_SoundStream::process()
 
         mIsFinished = finished;
     }
-    catch(std::exception &e) {
+    catch(std::exception&) {
         std::cout<< "Error updating stream \""<<mDecoder->getName()<<"\"" <<std::endl;
         mSamplesQueued = 0;
         mIsFinished = true;
@@ -691,7 +696,7 @@ void OpenAL_Output::init(const std::string &devname)
         fail(std::string("Failed to setup context: ")+alcGetString(mDevice, alcGetError(mDevice)));
     }
 
-    alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
+    alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED);
     throwALerror();
 
     ALCint maxmono=0, maxstereo=0;
@@ -734,7 +739,7 @@ void OpenAL_Output::deinit()
     mUnusedBuffers.clear();
     while(!mBufferCache.empty())
     {
-        alDeleteBuffers(1, &mBufferCache.begin()->second);
+        alDeleteBuffers(1, &mBufferCache.begin()->second.mALBuffer);
         mBufferCache.erase(mBufferCache.begin());
     }
 
@@ -750,14 +755,14 @@ void OpenAL_Output::deinit()
 }
 
 
-ALuint OpenAL_Output::getBuffer(const std::string &fname)
+const CachedSound& OpenAL_Output::getBuffer(const std::string &fname)
 {
     ALuint buf = 0;
 
     NameMap::iterator iditer = mBufferCache.find(fname);
     if(iditer != mBufferCache.end())
     {
-        buf = iditer->second;
+        buf = iditer->second.mALBuffer;
         if(mBufferRefs[buf]++ == 0)
         {
             IDDq::iterator iter = std::find(mUnusedBuffers.begin(),
@@ -766,7 +771,7 @@ ALuint OpenAL_Output::getBuffer(const std::string &fname)
                 mUnusedBuffers.erase(iter);
         }
 
-        return buf;
+        return iditer->second;
     }
     throwALerror();
 
@@ -781,7 +786,7 @@ ALuint OpenAL_Output::getBuffer(const std::string &fname)
     {
         decoder->open(fname);
     }
-    catch(Ogre::FileNotFoundException &e)
+    catch(Ogre::FileNotFoundException&)
     {
         std::string::size_type pos = fname.rfind('.');
         if(pos == std::string::npos)
@@ -795,12 +800,16 @@ ALuint OpenAL_Output::getBuffer(const std::string &fname)
     decoder->readAll(data);
     decoder->close();
 
+    CachedSound cached;
+    analyzeLoudness(data, srate, chans, type, cached.mLoudnessVector, static_cast<float>(loudnessFPS));
+
     alGenBuffers(1, &buf);
     throwALerror();
 
     alBufferData(buf, format, &data[0], data.size(), srate);
-    mBufferCache[fname] = buf;
     mBufferRefs[buf] = 1;
+    cached.mALBuffer = buf;
+    mBufferCache[fname] = cached;
 
     ALint bufsize = 0;
     alGetBufferi(buf, AL_SIZE, &bufsize);
@@ -821,7 +830,7 @@ ALuint OpenAL_Output::getBuffer(const std::string &fname)
         NameMap::iterator nameiter = mBufferCache.begin();
         while(nameiter != mBufferCache.end())
         {
-            if(nameiter->second == oldbuf)
+            if(nameiter->second.mALBuffer == oldbuf)
                 mBufferCache.erase(nameiter++);
             else
                 ++nameiter;
@@ -832,7 +841,8 @@ ALuint OpenAL_Output::getBuffer(const std::string &fname)
         alDeleteBuffers(1, &oldbuf);
         mBufferCacheMemSize -= bufsize;
     }
-    return buf;
+
+    return mBufferCache[fname];
 }
 
 void OpenAL_Output::bufferFinished(ALuint buf)
@@ -856,10 +866,10 @@ MWBase::SoundPtr OpenAL_Output::playSound(const std::string &fname, float vol, f
 
     try
     {
-        buf = getBuffer(fname);
+        buf = getBuffer(fname).mALBuffer;
         sound.reset(new OpenAL_Sound(*this, src, buf, Ogre::Vector3(0.0f), vol, basevol, pitch, 1.0f, 1000.0f, flags));
     }
-    catch(std::exception &e)
+    catch(std::exception&)
     {
         mFreeSources.push_back(src);
         if(buf && alIsBuffer(buf))
@@ -875,7 +885,7 @@ MWBase::SoundPtr OpenAL_Output::playSound(const std::string &fname, float vol, f
         offset=1;
 
     alSourcei(src, AL_BUFFER, buf);
-    alSourcef(src, AL_SEC_OFFSET, sound->getLength()*offset/pitch);
+    alSourcef(src, AL_SEC_OFFSET, static_cast<ALfloat>(sound->getLength()*offset / pitch));
     alSourcePlay(src);
     throwALerror();
 
@@ -883,7 +893,7 @@ MWBase::SoundPtr OpenAL_Output::playSound(const std::string &fname, float vol, f
 }
 
 MWBase::SoundPtr OpenAL_Output::playSound3D(const std::string &fname, const Ogre::Vector3 &pos, float vol, float basevol, float pitch,
-                                            float min, float max, int flags, float offset)
+                                            float min, float max, int flags, float offset, bool extractLoudness)
 {
     boost::shared_ptr<OpenAL_Sound> sound;
     ALuint src=0, buf=0;
@@ -895,10 +905,14 @@ MWBase::SoundPtr OpenAL_Output::playSound3D(const std::string &fname, const Ogre
 
     try
     {
-        buf = getBuffer(fname);
+        const CachedSound& cached = getBuffer(fname);
+        buf = cached.mALBuffer;
+
         sound.reset(new OpenAL_Sound3D(*this, src, buf, pos, vol, basevol, pitch, min, max, flags));
+        if (extractLoudness)
+            sound->setLoudnessVector(cached.mLoudnessVector, static_cast<float>(loudnessFPS));
     }
-    catch(std::exception &e)
+    catch(std::exception&)
     {
         mFreeSources.push_back(src);
         if(buf && alIsBuffer(buf))
@@ -915,7 +929,7 @@ MWBase::SoundPtr OpenAL_Output::playSound3D(const std::string &fname, const Ogre
         offset=1;
 
     alSourcei(src, AL_BUFFER, buf);
-    alSourcef(src, AL_SEC_OFFSET, sound->getLength()*offset/pitch);
+    alSourcef(src, AL_SEC_OFFSET, static_cast<ALfloat>(sound->getLength()*offset / pitch));
 
     alSourcePlay(src);
     throwALerror();
@@ -940,7 +954,7 @@ MWBase::SoundPtr OpenAL_Output::streamSound(DecoderPtr decoder, float volume, fl
     {
         sound.reset(new OpenAL_SoundStream(*this, src, decoder, volume, pitch, flags));
     }
-    catch(std::exception &e)
+    catch(std::exception&)
     {
         mFreeSources.push_back(src);
         throw;

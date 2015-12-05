@@ -28,12 +28,20 @@ namespace CSVWorld
                 Type_Id
             };
 
+            enum Mode
+            {
+                Mode_General,
+                Mode_Console,
+                Mode_Dialogue
+            };
+
         private:
 
             Compiler::NullErrorHandler mErrorHandler;
             Compiler::Extensions mExtensions;
             CSMWorld::ScriptContext mContext;
             std::map<Type, QTextCharFormat> mScheme;
+            Mode mMode;
 
         private:
 
@@ -74,11 +82,13 @@ namespace CSVWorld
 
         public:
 
-            ScriptHighlighter (const CSMWorld::Data& data, QTextDocument *parent);
+            ScriptHighlighter (const CSMWorld::Data& data, Mode mode, QTextDocument *parent);
 
             virtual void highlightBlock (const QString& text);
 
             void invalidateIds();
+
+            bool updateUserSetting (const QString &name, const QStringList &list);
     };
 }
 

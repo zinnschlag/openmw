@@ -6,6 +6,11 @@
 
 #include "../mwmechanics/drawstate.hpp"
 
+#include "../mwmechanics/stat.hpp"
+
+#include <components/esm/loadskil.hpp>
+#include <components/esm/attr.hpp>
+
 #include <OgreVector3.h>
 
 namespace ESM
@@ -19,6 +24,11 @@ namespace MWBase
 {
     class World;
     class Ptr;
+}
+
+namespace Loading
+{
+    class Listener;
 }
 
 namespace MWWorld
@@ -41,9 +51,21 @@ namespace MWWorld
         bool                    mAutoMove;
         int                     mForwardBackward;
         bool                    mTeleported;
+
+        int                     mCurrentCrimeId;    // the id assigned witnesses
+        int                     mPaidCrimeId;      // the last id paid off (0 bounty)
+
+        // Saved skills and attributes prior to becoming a werewolf
+        MWMechanics::SkillValue mSaveSkills[ESM::Skill::Length];
+        MWMechanics::AttributeValue mSaveAttributes[ESM::Attribute::Length];
+
     public:
 
         Player(const ESM::NPC *player, const MWBase::World& world);
+
+        void saveSkillsAttributes();
+        void restoreSkillsAttributes();
+        void setWerewolfSkillsAttributes();
 
         // For mark/recall magic effects
         void markPosition (CellStore* markedCell, ESM::Position markedPosition);
@@ -63,15 +85,12 @@ namespace MWWorld
         MWWorld::Ptr getPlayer();
 
         void setBirthSign(const std::string &sign);
-
         const std::string &getBirthSign() const;
 
         void setDrawState (MWMechanics::DrawState_ state);
-
-        bool getAutoMove() const;
-
         MWMechanics::DrawState_ getDrawState(); /// \todo constness
 
+        bool getAutoMove() const;
         void setAutoMove (bool enable);
 
         void setLeftRight (int value);
@@ -89,11 +108,18 @@ namespace MWWorld
         bool wasTeleported() const;
         void setTeleported(bool teleported);
 
+        ///Checks all nearby actors to see if anyone has an aipackage against you
+        bool isInCombat();
+
         void clear();
 
-        void write (ESM::ESMWriter& writer) const;
+        void write (ESM::ESMWriter& writer, Loading::Listener& progress) const;
 
-        bool readRecord (ESM::ESMReader& reader, int32_t type);
+        bool readRecord (ESM::ESMReader& reader, uint32_t type);
+
+        int getNewCrimeId();  // get new id for witnesses
+        void recordCrimeId(); // record the paid crime id when bounty is 0
+        int getCrimeId() const;     // get the last paid crime id
     };
 }
 #endif

@@ -1,8 +1,13 @@
 #include "manager.hpp"
+#include "loglistener.hpp"
 
 #include <MyGUI_Gui.h>
 #include <MyGUI_OgrePlatform.h>
 #include <MyGUI_Timer.h>
+
+#include <MyGUI_LevelLogFilter.h>
+#include <MyGUI_LogSource.h>
+#include <MyGUI_ConsoleLogListener.h>
 
 #include <cassert>
 
@@ -18,6 +23,7 @@ namespace MyGUI
  *  As of MyGUI 3.2.0, MyGUI::OgreDataManager::isDataExist is unnecessarily complex
  *  this override fixes the resulting performance issue.
  */
+// Remove for MyGUI 3.2.2
 class FixedOgreDataManager : public MyGUI::OgreDataManager
 {
 public:
@@ -93,10 +99,13 @@ public:
         mManualRender(false),
         mCountBatch(0),
         mVertexProgramNoTexture(NULL),
-        mFragmentProgramNoTexture(NULL),
         mVertexProgramOneTexture(NULL),
+        mFragmentProgramNoTexture(NULL),
         mFragmentProgramOneTexture(NULL)
     {
+        mTextureAddressMode.u = Ogre::TextureUnitState::TAM_CLAMP;
+        mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
+        mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
     }
 
     void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
@@ -129,28 +138,6 @@ public:
             setRenderSystem(root->getRenderSystem());
         setRenderWindow(_window);
         setSceneManager(_scene);
-
-        // ADDED
-        sh::MaterialInstance* mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/NoTexture");
-        sh::Factory::getInstance()._ensureMaterial("MyGUI/NoTexture", "Default");
-        mVertexProgramNoTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
-                ->getVertexProgram()->_getBindingDelegate();
-
-        mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/OneTexture");
-        sh::Factory::getInstance()._ensureMaterial("MyGUI/OneTexture", "Default");
-        mVertexProgramOneTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
-                ->getVertexProgram()->_getBindingDelegate();
-
-        mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/NoTexture");
-        sh::Factory::getInstance()._ensureMaterial("MyGUI/NoTexture", "Default");
-        mFragmentProgramNoTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
-                ->getFragmentProgram()->_getBindingDelegate();
-
-        mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/OneTexture");
-        sh::Factory::getInstance()._ensureMaterial("MyGUI/OneTexture", "Default");
-        mFragmentProgramOneTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
-                ->getFragmentProgram()->_getBindingDelegate();
-
 
 
         MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
@@ -354,6 +341,30 @@ public:
         }
     }
 
+    void initShaders()
+    {
+        // ADDED
+        sh::MaterialInstance* mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/NoTexture");
+        sh::Factory::getInstance()._ensureMaterial("MyGUI/NoTexture", "Default");
+        mVertexProgramNoTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
+                ->getVertexProgram()->_getBindingDelegate();
+
+        mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/OneTexture");
+        sh::Factory::getInstance()._ensureMaterial("MyGUI/OneTexture", "Default");
+        mVertexProgramOneTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
+                ->getVertexProgram()->_getBindingDelegate();
+
+        mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/NoTexture");
+        sh::Factory::getInstance()._ensureMaterial("MyGUI/NoTexture", "Default");
+        mFragmentProgramNoTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
+                ->getFragmentProgram()->_getBindingDelegate();
+
+        mat = sh::Factory::getInstance().getMaterialInstance("MyGUI/OneTexture");
+        sh::Factory::getInstance()._ensureMaterial("MyGUI/OneTexture", "Default");
+        mFragmentProgramOneTexture = static_cast<sh::OgreMaterial*>(mat->getMaterial())->getOgreTechniqueForConfiguration("Default")->getPass(0)
+                ->getFragmentProgram()->_getBindingDelegate();
+    }
+
     void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
     {
         if (getManualRender())
@@ -363,6 +374,8 @@ public:
         }
 
         // ADDED
+        if (!mVertexProgramNoTexture)
+            initShaders();
 
         if (_texture)
         {
@@ -438,7 +451,6 @@ public:
         mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
 
         // always use wireframe
-        // TODO: add option to enable wireframe mode in platform
         mRenderSystem->_setPolygonMode(Ogre::PM_SOLID);
     }
 
@@ -554,8 +566,34 @@ public:
     }
 };
 
-}
+/// \brief Helper class holding data that required during
+/// MyGUI log creation
+class LogFacility
+{
+    ConsoleLogListener  mConsole;
+    CustomLogListener   mFile;
+    LevelLogFilter      mFilter;
+    LogSource           mSource;
 
+public:
+
+    LogFacility(const std::string &output, bool console)
+      : mFile(output)
+    {
+        mConsole.setEnabled(console);
+        mFilter.setLoggingLevel(LogLevel::Info);
+
+        mSource.addLogListener(&mFile);
+        mSource.addLogListener(&mConsole);
+        mSource.setLogFilter(&mFilter);
+
+        mSource.open();
+    }
+
+    LogSource *getSource() { return &mSource; }
+};
+
+}
 
 void MyGUIManager::setup(Ogre::RenderWindow *wnd, Ogre::SceneManager *mgr, bool logging, const std::string& logDir)
 {
@@ -586,10 +624,10 @@ void MyGUIManager::setup(Ogre::RenderWindow *wnd, Ogre::SceneManager *mgr, bool 
         mRenderManager = new MyGUI::OgreRenderManager();
     mDataManager = new MyGUI::FixedOgreDataManager();
 
-    LogManager::getInstance().setSTDOutputEnabled(logging);
-
-    if (!theLogFile.empty())
-        LogManager::getInstance().createDefaultSource(theLogFile);
+    // Do not use default log since it don't support Unicode path on Windows.
+    // Instead, manually create log source using LogFacility and pass it.
+    mLogFacility = new MyGUI::LogFacility(theLogFile, logging);
+    LogManager::getInstance().addLogSource(mLogFacility->getSource());
 
     if (mShaderRenderManager)
         mShaderRenderManager->initialise(wnd, mgr);
@@ -602,23 +640,11 @@ void MyGUIManager::setup(Ogre::RenderWindow *wnd, Ogre::SceneManager *mgr, bool 
     mGui->initialise("");
 }
 
-void MyGUIManager::updateWindow (Ogre::RenderWindow *wnd)
-{
-    if (mShaderRenderManager)
-    {
-        mShaderRenderManager->setRenderWindow (wnd);
-        mShaderRenderManager->setActiveViewport(0);
-    }
-    else
-    {
-        mRenderManager->setRenderWindow (wnd);
-        mRenderManager->setActiveViewport(0);
-    }
-}
-
 void MyGUIManager::windowResized()
 {
+#ifndef ANDROID
     mRenderManager->setActiveViewport(0);
+#endif
 }
 
 void MyGUIManager::shutdown()
@@ -648,5 +674,7 @@ void MyGUIManager::shutdown()
         delete mLogManager;
         mLogManager = NULL;
     }
+    delete mLogFacility;
+
     mGui = NULL;
 }

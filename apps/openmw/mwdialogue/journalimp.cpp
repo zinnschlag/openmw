@@ -1,4 +1,3 @@
-
 #include "journalimp.hpp"
 
 #include <iterator>
@@ -9,6 +8,7 @@
 #include <components/esm/journalentry.hpp>
 
 #include "../mwworld/esmstore.hpp"
+#include "../mwworld/class.hpp"
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -56,7 +56,7 @@ namespace MWDialogue
             if (infoId.empty())
                 return true;
 
-            for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
+            for (ESM::Dialogue::InfoContainer::const_iterator iter (dialogue->mInfo.begin());
                 iter!=dialogue->mInfo.end(); ++iter)
                 if (iter->mId == infoId)
                     return true;
@@ -91,9 +91,7 @@ namespace MWDialogue
 
         quest.addEntry (entry); // we are doing slicing on purpose here
 
-        std::vector<std::string> empty;
-        std::string notification = "#{sJournalEntry}";
-        MWBase::Environment::get().getWindowManager()->messageBox (notification, empty);
+        MWBase::Environment::get().getWindowManager()->messageBox ("#{sJournalEntry}");
     }
 
     void Journal::setJournalIndex (const std::string& id, int index)
@@ -103,13 +101,23 @@ namespace MWDialogue
         quest.setIndex (index);
     }
 
-    void Journal::addTopic (const std::string& topicId, const std::string& infoId, const std::string& actorName)
+    void Journal::addTopic (const std::string& topicId, const std::string& infoId, const MWWorld::Ptr& actor)
     {
         Topic& topic = getTopic (topicId);
 
-        JournalEntry entry(topicId, infoId);
-        entry.mActorName = actorName;
+        JournalEntry entry(topicId, infoId, actor);
+        entry.mActorName = actor.getClass().getName(actor);
         topic.addEntry (entry);
+    }
+
+    void Journal::removeLastAddedTopicResponse(const std::string &topicId, const std::string &actorName)
+    {
+        Topic& topic = getTopic (topicId);
+
+        topic.removeLastAddedResponse(actorName);
+
+        if (topic.begin() == topic.end())
+            mTopics.erase(mTopics.find(topicId)); // All responses removed -> remove topic
     }
 
     int Journal::getJournalIndex (const std::string& id) const
@@ -167,7 +175,7 @@ namespace MWDialogue
         return count;
     }
 
-    void Journal::write (ESM::ESMWriter& writer) const
+    void Journal::write (ESM::ESMWriter& writer, Loading::Listener& progress) const
     {
         for (TQuestIter iter (mQuests.begin()); iter!=mQuests.end(); ++iter)
         {
@@ -218,9 +226,9 @@ namespace MWDialogue
         }
     }
 
-    void Journal::readRecord (ESM::ESMReader& reader, int32_t type)
+    void Journal::readRecord (ESM::ESMReader& reader, uint32_t type)
     {
-        if (type==ESM::REC_JOUR)
+        if (type==ESM::REC_JOUR || type==ESM::REC_JOUR_LEGACY)
         {
             ESM::JournalEntry record;
             record.load (reader);
@@ -250,7 +258,12 @@ namespace MWDialogue
             record.load (reader);
 
             if (isThere (record.mTopic))
-                mQuests.insert (std::make_pair (record.mTopic, record));
+            {
+                std::pair<TQuestContainer::iterator, bool> result = mQuests.insert (std::make_pair (record.mTopic, record));
+                // reapply quest index, this is to handle users upgrading from only
+                // Morrowind.esm (no quest states) to Morrowind.esm + Tribunal.esm
+                result.first->second.setIndex(record.mState);
+            }
         }
     }
 }

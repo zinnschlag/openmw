@@ -1,4 +1,3 @@
-
 #include "multidircollection.hpp"
 
 #include <cctype>
@@ -60,10 +59,10 @@ namespace Files
             {
                 boost::filesystem::path path = *dirIter;
 
-                if (!equal (extension, boost::filesystem::path (path.extension()).string()))
+                if (!equal (extension, path.extension().string()))
                     continue;
 
-                std::string filename = boost::filesystem::path (path.filename()).string();
+                std::string filename = path.filename().string();
 
                 TIter result = mFiles.find (filename);
 

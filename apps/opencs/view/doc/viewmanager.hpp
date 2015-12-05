@@ -5,6 +5,8 @@
 
 #include <QObject>
 
+#include "loader.hpp"
+
 namespace CSMDoc
 {
     class Document;
@@ -14,6 +16,11 @@ namespace CSMDoc
 namespace CSVWorld
 {
     class CommandDelegateFactoryCollection;
+}
+
+namespace CSMWorld
+{
+    class UniversalId;
 }
 
 namespace CSVDoc
@@ -29,6 +36,7 @@ namespace CSVDoc
             CSVWorld::CommandDelegateFactoryCollection *mDelegateFactories;
             bool mExitOnSaveStateChange;
             bool mUserWarned;
+            Loader mLoader;
 
             // not implemented
             ViewManager (const ViewManager&);
@@ -38,6 +46,7 @@ namespace CSVDoc
             bool notifySaveOnClose (View *view = 0);
             bool showModifiedDocumentMessageBox (View *view);
             bool showSaveInProgressMessageBox (View *view);
+            bool removeDocument(View *view);
 
         public:
 
@@ -48,10 +57,13 @@ namespace CSVDoc
             View *addView (CSMDoc::Document *document);
             ///< The ownership of the returned view is not transferred.
 
+            View *addView (CSMDoc::Document *document, const CSMWorld::UniversalId& id, const std::string& hint);
+
             int countViews (const CSMDoc::Document *document) const;
             ///< Return number of views for \a document.
 
             bool closeRequest (View *view);
+            void removeDocAndView (CSMDoc::Document *document);
 
         signals:
 
@@ -65,6 +77,8 @@ namespace CSVDoc
 
             void editSettingsRequest();
 
+            void mergeDocument (CSMDoc::Document *document);
+
         public slots:
 
             void exitApplication (CSVDoc::View *view);
@@ -76,9 +90,6 @@ namespace CSVDoc
             void progress (int current, int max, int type, int threads, CSMDoc::Document *document);
 
             void onExitWarningHandler(int state, CSMDoc::Document* document);
-
-            /// connected to update signal in UserSettings
-            void slotUpdateEditorSetting (const QString &, const QString &);
     };
 
 }

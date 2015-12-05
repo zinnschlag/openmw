@@ -1,22 +1,28 @@
 #include "journalwindow.hpp"
 
-#include "../mwbase/environment.hpp"
-#include "../mwbase/soundmanager.hpp"
-#include "../mwbase/windowmanager.hpp"
-#include "list.hpp"
-
 #include <sstream>
 #include <set>
 #include <stack>
 #include <string>
 #include <utility>
+
+#include <MyGUI_TextBox.h>
+#include <MyGUI_Button.h>
+
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
-#include "boost/lexical_cast.hpp"
+
+#include <components/misc/stringops.hpp>
+#include <components/widgets/imagebutton.hpp>
+#include <components/widgets/list.hpp>
+
+#include "../mwbase/environment.hpp"
+#include "../mwbase/soundmanager.hpp"
+#include "../mwbase/windowmanager.hpp"
+#include "../mwbase/journal.hpp"
 
 #include "bookpage.hpp"
 #include "windowbase.hpp"
-#include "imagebutton.hpp"
 #include "journalviewmodel.hpp"
 #include "journalbooks.hpp"
 
@@ -36,9 +42,7 @@ namespace
     static char const PageOneNum [] = "PageOneNum";
     static char const PageTwoNum [] = "PageTwoNum";
     static char const TopicsList [] = "TopicsList";
-    static char const TopicsPage [] = "TopicsPage";
     static char const QuestsList [] = "QuestsList";
-    static char const QuestsPage [] = "QuestsPage";
     static char const LeftBookPage [] = "LeftBookPage";
     static char const RightBookPage [] = "RightBookPage";
     static char const LeftTopicIndex [] = "LeftTopicIndex";
@@ -71,7 +75,7 @@ namespace
         void setText (char const * name, value_type const & value)
         {
             getWidget <MyGUI::TextBox> (name) ->
-                setCaption (boost::lexical_cast <std::string> (value));
+                setCaption (MyGUI::utility::toString (value));
         }
 
         void setVisible (char const * name, bool visible)
@@ -82,7 +86,7 @@ namespace
 
         void adviseButtonClick (char const * name, void (JournalWindowImpl::*Handler) (MyGUI::Widget* _sender))
         {
-            getWidget <MWGui::ImageButton> (name) ->
+            getWidget <Gui::ImageButton> (name) ->
                 eventMouseButtonClick += newDelegate(this, Handler);
         }
 
@@ -110,14 +114,22 @@ namespace
             adviseButtonClick (ShowAllBTN,    &JournalWindowImpl::notifyShowAll   );
             adviseButtonClick (ShowActiveBTN, &JournalWindowImpl::notifyShowActive);
 
+            Gui::MWList* list = getWidget<Gui::MWList>(QuestsList);
+            list->eventItemSelected += MyGUI::newDelegate(this, &JournalWindowImpl::notifyQuestClicked);
+
+            Gui::MWList* topicsList = getWidget<Gui::MWList>(TopicsList);
+            topicsList->eventItemSelected += MyGUI::newDelegate(this, &JournalWindowImpl::notifyTopicSelected);
+
             {
                 MWGui::BookPage::ClickCallback callback;
                 
                 callback = boost::bind (&JournalWindowImpl::notifyTopicClicked, this, _1);
 
-                getPage (TopicsPage)->adviseLinkClicked (callback);
                 getPage (LeftBookPage)->adviseLinkClicked (callback);
                 getPage (RightBookPage)->adviseLinkClicked (callback);
+
+                getPage (LeftBookPage)->eventMouseWheel += MyGUI::newDelegate(this, &JournalWindowImpl::notifyMouseWheel);
+                getPage (RightBookPage)->eventMouseWheel += MyGUI::newDelegate(this, &JournalWindowImpl::notifyMouseWheel);
             }
 
             {
@@ -129,14 +141,6 @@ namespace
                 getPage (RightTopicIndex)->adviseLinkClicked (callback);
             }
 
-            {
-                MWGui::BookPage::ClickCallback callback;
-                
-                callback = boost::bind (&JournalWindowImpl::notifyQuestClicked, this, _1);
-
-                getPage (QuestsPage)->adviseLinkClicked (callback);
-            }
-
             adjustButton(OptionsBTN, true);
             adjustButton(PrevPageBTN);
             adjustButton(NextPageBTN);
@@ -146,12 +150,12 @@ namespace
             adjustButton(ShowActiveBTN, true);
             adjustButton(JournalBTN);
 
-            MWGui::ImageButton* optionsButton = getWidget<MWGui::ImageButton>(OptionsBTN);
+            Gui::ImageButton* optionsButton = getWidget<Gui::ImageButton>(OptionsBTN);
             if (optionsButton->getWidth() == 0)
             {
                 // If tribunal is not installed (-> no options button), we still want the Topics button available,
                 // so place it where the options button would have been
-                MWGui::ImageButton* topicsButton = getWidget<MWGui::ImageButton>(TopicsBTN);
+                Gui::ImageButton* topicsButton = getWidget<Gui::ImageButton>(TopicsBTN);
                 topicsButton->detachFromWidget();
                 topicsButton->attachToWidget(optionsButton->getParent());
                 topicsButton->setPosition(optionsButton->getPosition());
@@ -159,7 +163,7 @@ namespace
                 topicsButton->eventMouseButtonClick += MyGUI::newDelegate(this, &JournalWindowImpl::notifyOptions);
             }
 
-            MWGui::ImageButton* nextButton = getWidget<MWGui::ImageButton>(NextPageBTN);
+            Gui::ImageButton* nextButton = getWidget<Gui::ImageButton>(NextPageBTN);
             if (nextButton->getSize().width == 64)
             {
                 // english button has a 7 pixel wide strip of garbage on its right edge
@@ -182,7 +186,7 @@ namespace
 
         void adjustButton (char const * name, bool optional = false)
         {
-            MWGui::ImageButton* button = getWidget<MWGui::ImageButton>(name);
+            Gui::ImageButton* button = getWidget<Gui::ImageButton>(name);
 
             MyGUI::IntSize diff = button->getSize() - button->getRequestedSize(!optional);
             button->setSize(button->getRequestedSize(!optional));
@@ -201,10 +205,6 @@ namespace
 
             setBookMode ();
 
-            /// \todo Wiping the whole book layout each time the journal is opened is probably too costly for a large journal (eg 300+ pages).
-            /// There should be a way to keep the existing layout and append new entries to the end of it.
-            /// However, that still leaves the problem of having to add links to previously unknown, but now known topics, so
-            /// we maybe need to find another way to speed things up.
             Book journalBook;
             if (mModel->isEmpty ())
                 journalBook = createEmptyJournalBook ();
@@ -271,6 +271,10 @@ namespace
             //TODO: figure out how to make "options" page overlay book page
             //      correctly, so that text may show underneath
             getPage (RightBookPage)->showPage (Book (), 0);
+
+            // If in quest mode, ensure the quest list is updated
+            if (mQuestMode)
+                notifyQuests(getWidget<MyGUI::Widget>(QuestsList));
         }
 
         void pushBook (Book book, unsigned int page)
@@ -349,9 +353,22 @@ namespace
             setVisible (JournalBTN, true);
         }
 
-        void notifyQuestClicked (intptr_t questId)
+        void notifyTopicSelected (const std::string& topic, int id)
         {
-            Book book = createQuestBook (questId);
+            const MWBase::Journal* journal = MWBase::Environment::get().getJournal();
+            intptr_t topicId = 0; /// \todo get rid of intptr ids
+            for(MWBase::Journal::TTopicIter i = journal->topicBegin(); i != journal->topicEnd (); ++i)
+            {
+                if (Misc::StringUtils::ciEqual(i->first, topic))
+                    topicId = intptr_t (&i->second);
+            }
+
+            notifyTopicClicked(topicId);
+        }
+
+        void notifyQuestClicked (const std::string& name, int id)
+        {
+            Book book = createQuestBook (name);
 
             if (mStates.size () > 1)
                 replaceBook (book, 0);
@@ -380,22 +397,20 @@ namespace
             popBook ();
         }
 
-        void showList (char const * listId, char const * pageId, Book book)
-        {
-            std::pair <int, int> size = book->getSize ();
-
-            getPage (pageId)->showPage (book, 0);
-
-            getWidget <MyGUI::ScrollView> (listId)->setCanvasSize (size.first, size.second);
-        }
-
         void notifyIndexLinkClicked (MWGui::TypesetBook::InteractiveId character)
         {
             setVisible (LeftTopicIndex, false);
             setVisible (RightTopicIndex, false);
             setVisible (TopicsList, true);
 
-            showList (TopicsList, TopicsPage, createTopicIndexBook ((char)character));
+            Gui::MWList* list = getWidget<Gui::MWList>(TopicsList);
+            list->clear();
+
+            AddNamesToList add(list);
+
+            mModel->visitTopicNamesStartingWith((char) character, add);
+
+            list->adjustSize();
         }
 
         void notifyTopics(MyGUI::Widget* _sender)
@@ -409,9 +424,34 @@ namespace
             setVisible (ShowActiveBTN, false);
         }
 
+        struct AddNamesToList
+        {
+            AddNamesToList(Gui::MWList* list) : mList(list) {}
+
+            Gui::MWList* mList;
+            void operator () (const std::string& name, bool finished=false)
+            {
+                mList->addItem(name);
+            }
+        };
+        struct SetNamesInactive
+        {
+            SetNamesInactive(Gui::MWList* list) : mList(list) {}
+
+            Gui::MWList* mList;
+            void operator () (const std::string& name, bool finished)
+            {
+                if (finished)
+                {
+                    mList->getItemWidget(name)->setStateSelected(true);
+                }
+            }
+        };
+
         void notifyQuests(MyGUI::Widget* _sender)
         {
             mQuestMode = true;
+
             setVisible (LeftTopicIndex, false);
             setVisible (RightTopicIndex, false);
             setVisible (TopicsList, false);
@@ -419,23 +459,32 @@ namespace
             setVisible (ShowAllBTN, !mAllQuests);
             setVisible (ShowActiveBTN, mAllQuests);
 
-            showList (QuestsList, QuestsPage, createQuestIndexBook (!mAllQuests));
+            Gui::MWList* list = getWidget<Gui::MWList>(QuestsList);
+            list->clear();
+
+            AddNamesToList add(list);
+
+            mModel->visitQuestNames(!mAllQuests, add);
+
+            list->adjustSize();
+
+            if (mAllQuests)
+            {
+                SetNamesInactive setInactive(list);
+                mModel->visitQuestNames(!mAllQuests, setInactive);
+            }
         }
 
         void notifyShowAll(MyGUI::Widget* _sender)
         {
             mAllQuests = true;
-            setVisible (ShowAllBTN, !mAllQuests);
-            setVisible (ShowActiveBTN, mAllQuests);
-            showList (QuestsList, QuestsPage, createQuestIndexBook (!mAllQuests));
+            notifyQuests(_sender);
         }
 
         void notifyShowActive(MyGUI::Widget* _sender)
         {
             mAllQuests = false;
-            setVisible (ShowAllBTN, !mAllQuests);
-            setVisible (ShowActiveBTN, mAllQuests);
-            showList (QuestsList, QuestsPage, createQuestIndexBook (!mAllQuests));
+            notifyQuests(_sender);
         }
 
         void notifyCancel(MyGUI::Widget* _sender)
@@ -449,6 +498,14 @@ namespace
             MWBase::Environment::get().getWindowManager ()->popGuiMode ();
         }
 
+        void notifyMouseWheel(MyGUI::Widget* sender, int rel)
+        {
+            if (rel < 0)
+                notifyNextPage(sender);
+            else
+                notifyPrevPage(sender);
+        }
+
         void notifyNextPage(MyGUI::Widget* _sender)
         {
             if (!mStates.empty ())
@@ -456,7 +513,7 @@ namespace
                 unsigned int  & page = mStates.top ().mPage;
                 Book   book = mStates.top ().mBook;
 
-                if (page < book->pageCount () - 2)
+                if (page+2 < book->pageCount())
                 {
                     page += 2;
                     updateShowingPages ();
@@ -470,7 +527,7 @@ namespace
             {
                 unsigned int & page = mStates.top ().mPage;
 
-                if(page > 0)
+                if(page >= 2)
                 {
                     page -= 2;
                     updateShowingPages ();

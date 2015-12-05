@@ -12,6 +12,8 @@ class ESMWriter;
 struct BodyPart
 {
     static unsigned int sRecordId;
+    /// Return a string descriptor for this record type. Currently used for debugging / error logs only.
+    static std::string getRecordType() { return "BodyPart"; }
 
     enum MeshPart
     {
@@ -49,17 +51,20 @@ struct BodyPart
 
     struct BYDTstruct
     {
-        char mPart;
-        char mVampire;
-        char mFlags;
-        char mType;
+        unsigned char mPart; // mesh part
+        unsigned char mVampire; // boolean
+        unsigned char mFlags;
+        unsigned char mType; // mesh type
     };
 
     BYDTstruct mData;
     std::string mId, mModel, mRace;
 
-    void load(ESMReader &esm);
-    void save(ESMWriter &esm) const;
+    void load(ESMReader &esm, bool &isDeleted);
+    void save(ESMWriter &esm, bool isDeleted = false) const;
+
+    void blank();
+    ///< Set record to default state (does not touch the ID).
 };
 }
 #endif

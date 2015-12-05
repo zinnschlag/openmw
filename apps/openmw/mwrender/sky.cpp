@@ -8,16 +8,21 @@
 #include <OgreSceneManager.h>
 #include <OgreHardwareVertexBuffer.h>
 #include <OgreHighLevelGpuProgramManager.h>
-#include <OgreBillboardSet.h>
+#include <OgreParticle.h>
+#include <OgreParticleSystem.h>
 #include <OgreEntity.h>
 #include <OgreSubEntity.h>
 #include <OgreTechnique.h>
+#include <OgreControllerManager.h>
 
 #include <OgreMeshManager.h>
 
 #include <boost/lexical_cast.hpp>
 
+#include <openengine/misc/rng.hpp>
+
 #include <components/nifogre/ogrenifloader.hpp>
+#include <components/misc/resourcehelpers.hpp>
 
 #include <extern/shiny/Platforms/Ogre/OgreMaterial.hpp>
 
@@ -32,11 +37,47 @@
 using namespace MWRender;
 using namespace Ogre;
 
+namespace
+{
+
+void setAlpha (NifOgre::ObjectScenePtr scene, Ogre::MovableObject* movable, float alpha)
+{
+    Ogre::MaterialPtr mat = scene->mMaterialControllerMgr.getWritableMaterial(movable);
+    Ogre::Material::TechniqueIterator techs = mat->getTechniqueIterator();
+    while(techs.hasMoreElements())
+    {
+        Ogre::Technique *tech = techs.getNext();
+        Ogre::Technique::PassIterator passes = tech->getPassIterator();
+        while(passes.hasMoreElements())
+        {
+            Ogre::Pass *pass = passes.getNext();
+            Ogre::ColourValue diffuse = pass->getDiffuse();
+            diffuse.a = alpha;
+            pass->setDiffuse(diffuse);
+        }
+    }
+
+}
+
+void setAlpha (NifOgre::ObjectScenePtr scene, float alpha)
+{
+    for(size_t i = 0; i < scene->mParticles.size(); ++i)
+        setAlpha(scene, scene->mParticles[i], alpha);
+    for(size_t i = 0; i < scene->mEntities.size(); ++i)
+    {
+        if (scene->mEntities[i] != scene->mSkelBase)
+            setAlpha(scene, scene->mEntities[i], alpha);
+    }
+}
+
+}
+
 BillboardObject::BillboardObject( const String& textureName,
                     const float initialSize,
                     const Vector3& position,
                     SceneNode* rootNode,
                     const std::string& material)
+: mVisibility(1.0f)
 {
     SceneManager* sceneMgr = rootNode->getCreator();
 
@@ -64,10 +105,6 @@ BillboardObject::BillboardObject( const String& textureName,
     sh::Factory::getInstance().getMaterialInstance ("BillboardMaterial"+StringConverter::toString(bodyCount))->setListener(this);
 
     bodyCount++;
-}
-
-BillboardObject::BillboardObject()
-{
 }
 
 void BillboardObject::requestedConfiguration (sh::MaterialInstance* m, const std::string& configuration)
@@ -148,8 +185,11 @@ Moon::Moon( const String& textureName,
                     SceneNode* rootNode,
             const std::string& material)
     : BillboardObject(textureName, initialSize, position, rootNode, material)
+    , mType(Type_Masser)
 {
     setVisibility(1.0);
+
+    mMaterial->setProperty("alphatexture", sh::makeProperty(new sh::StringValue(textureName + "_alpha")));
 
     mPhase = Moon::Phase_Full;
 }
@@ -179,16 +219,17 @@ void Moon::setPhase(const Moon::Phase& phase)
     textureName += ".dds";
 
     if (mType == Moon::Type_Secunda)
+    {
         sh::Factory::getInstance ().setTextureAlias ("secunda_texture", textureName);
+        sh::Factory::getInstance ().setTextureAlias ("secunda_texture_alpha", "textures\\tx_mooncircle_full_s.dds");
+    }
     else
+    {
         sh::Factory::getInstance ().setTextureAlias ("masser_texture", textureName);
+        sh::Factory::getInstance ().setTextureAlias ("masser_texture_alpha", "textures\\tx_mooncircle_full_m.dds");
+    }
 
     mPhase = phase;
-}
-
-Moon::Phase Moon::getPhase() const
-{
-    return mPhase;
 }
 
 unsigned int Moon::getPhaseInt() const
@@ -206,9 +247,13 @@ unsigned int Moon::getPhaseInt() const
 }
 
 SkyManager::SkyManager(Ogre::SceneNode *root, Ogre::Camera *pCamera)
-    : mHour(0.0f)
+    : mCreated(false)
+    , mMoonRed(false)
+    , mIsStorm(false)
+    , mHour(0.0f)
     , mDay(0)
     , mMonth(0)
+    , mCloudAnimationTimer(0.f)
     , mSun(NULL)
     , mSunGlare(NULL)
     , mMasser(NULL)
@@ -218,26 +263,30 @@ SkyManager::SkyManager(Ogre::SceneNode *root, Ogre::Camera *pCamera)
     , mSceneMgr(NULL)
     , mAtmosphereDay(NULL)
     , mAtmosphereNight(NULL)
+    , mCloudNode(NULL)
+    , mParticleNode(NULL)
+    , mRainTimer(0)
+    , mStormDirection(0,-1,0)
     , mClouds()
     , mNextClouds()
     , mCloudBlendFactor(0.0f)
     , mCloudOpacity(0.0f)
     , mCloudSpeed(0.0f)
     , mStarsOpacity(0.0f)
+    , mLightning(NULL)
     , mRemainingTransitionTime(0.0f)
-    , mGlareFade(0.0f)
     , mGlare(0.0f)
+    , mGlareFade(0.0f)
+    , mRainEnabled(false)
+    , mRainSpeed(0)
+    , mRainFrequency(1)
     , mEnabled(true)
     , mSunEnabled(true)
     , mMasserEnabled(true)
     , mSecundaEnabled(true)
-    , mCreated(false)
-    , mCloudAnimationTimer(0.f)
-    , mMoonRed(false)
 {
     mSceneMgr = root->getCreator();
     mRootNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    mRootNode->setInheritOrientation(false);
 }
 
 void SkyManager::create()
@@ -263,22 +312,22 @@ void SkyManager::create()
     // Create light used for thunderstorm
     mLightning = mSceneMgr->createLight();
     mLightning->setType (Ogre::Light::LT_DIRECTIONAL);
-    mLightning->setDirection (Ogre::Vector3(0.3, -0.7, 0.3));
+    mLightning->setDirection (Ogre::Vector3(0.3f, -0.7f, 0.3f));
     mLightning->setVisible (false);
     mLightning->setDiffuseColour (ColourValue(3,3,3));
 
     const MWWorld::Fallback* fallback=MWBase::Environment::get().getWorld()->getFallback();
-    mSecunda = new Moon("secunda_texture", fallback->getFallbackFloat("Moons_Secunda_Size")/100, Vector3(-0.4, 0.4, 0.5), mRootNode, "openmw_moon");
+    mSecunda = new Moon("secunda_texture", fallback->getFallbackFloat("Moons_Secunda_Size")/100, Vector3(-0.4f, 0.4f, 0.5f), mRootNode, "openmw_moon");
     mSecunda->setType(Moon::Type_Secunda);
     mSecunda->setRenderQueue(RQG_SkiesEarly+4);
 
-    mMasser = new Moon("masser_texture", fallback->getFallbackFloat("Moons_Masser_Size")/100, Vector3(-0.4, 0.4, 0.5), mRootNode, "openmw_moon");
+    mMasser = new Moon("masser_texture", fallback->getFallbackFloat("Moons_Masser_Size")/100, Vector3(-0.4f, 0.4f, 0.5f), mRootNode, "openmw_moon");
     mMasser->setRenderQueue(RQG_SkiesEarly+3);
     mMasser->setType(Moon::Type_Masser);
 
-    mSun = new BillboardObject("textures\\tx_sun_05.dds", 1, Vector3(0.4, 0.4, 0.4), mRootNode, "openmw_sun");
+    mSun = new BillboardObject("textures\\tx_sun_05.dds", 1, Vector3(0.4f, 0.4f, 0.4f), mRootNode, "openmw_sun");
     mSun->setRenderQueue(RQG_SkiesEarly+4);
-    mSunGlare = new BillboardObject("textures\\tx_sun_flash_grey_05.dds", 3, Vector3(0.4, 0.4, 0.4), mRootNode, "openmw_sun");
+    mSunGlare = new BillboardObject("textures\\tx_sun_flash_grey_05.dds", 3, Vector3(0.4f, 0.4f, 0.4f), mRootNode, "openmw_sun");
     mSunGlare->setRenderQueue(RQG_SkiesLate);
     mSunGlare->setVisibilityFlags(RV_NoReflection);
 
@@ -286,7 +335,12 @@ void SkyManager::create()
 
     // Stars
     mAtmosphereNight = mRootNode->createChildSceneNode();
-    NifOgre::ObjectScenePtr objects = NifOgre::Loader::createObjects(mAtmosphereNight, "meshes\\sky_night_01.nif");
+    NifOgre::ObjectScenePtr objects;
+    if (Ogre::ResourceGroupManager::getSingleton().resourceExistsInAnyGroup("meshes\\sky_night_02.nif"))
+        objects = NifOgre::Loader::createObjects(mAtmosphereNight, "meshes\\sky_night_02.nif");
+    else
+        objects = NifOgre::Loader::createObjects(mAtmosphereNight, "meshes\\sky_night_01.nif");
+
     for(size_t i = 0, matidx = 0;i < objects->mEntities.size();i++)
     {
         Entity* night1_ent = objects->mEntities[i];
@@ -329,8 +383,8 @@ void SkyManager::create()
     mObjects.push_back(objects);
 
     // Clouds
-    SceneNode* clouds_node = mRootNode->createChildSceneNode();
-    objects = NifOgre::Loader::createObjects(clouds_node, "meshes\\sky_clouds_01.nif");
+    mCloudNode = mRootNode->createChildSceneNode();
+    objects = NifOgre::Loader::createObjects(mCloudNode, "meshes\\sky_clouds_01.nif");
     for(size_t i = 0;i < objects->mEntities.size();i++)
     {
         Entity* clouds_ent = objects->mEntities[i];
@@ -349,6 +403,7 @@ void SkyManager::create()
 
 SkyManager::~SkyManager()
 {
+    clearRain();
     delete mSun;
     delete mSunGlare;
     delete mMasser;
@@ -367,10 +422,128 @@ int SkyManager::getSecundaPhase() const
     return mSecunda->getPhaseInt();
 }
 
+void SkyManager::clearRain()
+{
+    for (std::map<Ogre::SceneNode*, NifOgre::ObjectScenePtr>::iterator it = mRainModels.begin(); it != mRainModels.end();)
+    {
+        it->second.setNull();
+        mSceneMgr->destroySceneNode(it->first);
+        mRainModels.erase(it++);
+    }
+}
+
+void SkyManager::updateRain(float dt)
+{
+    // Move existing rain
+    // Note: if rain gets disabled, we let the existing rain drops finish falling down.
+    float minHeight = 200;
+    for (std::map<Ogre::SceneNode*, NifOgre::ObjectScenePtr>::iterator it = mRainModels.begin(); it != mRainModels.end();)
+    {
+        Ogre::Vector3 pos = it->first->getPosition();
+        pos.z -= mRainSpeed * dt;
+        it->first->setPosition(pos);
+        if (pos.z < -minHeight
+                // Here we might want to add a "splash" effect later
+                || MWBase::Environment::get().getWorld()->isUnderwater(
+                    MWBase::Environment::get().getWorld()->getPlayerPtr().getCell(), it->first->_getDerivedPosition()))
+        {
+            it->second.setNull();
+            mSceneMgr->destroySceneNode(it->first);
+            mRainModels.erase(it++);
+        }
+        else
+            ++it;
+    }
+
+    // Spawn new rain
+    float rainFrequency = mRainFrequency;
+    if (mRainEnabled)
+    {
+        mRainTimer += dt;
+        if (mRainTimer >= 1.f/rainFrequency)
+        {
+            mRainTimer = 0;
+
+            // TODO: handle rain settings from Morrowind.ini
+            const float rangeRandom = 100;
+            float xOffs = OEngine::Misc::Rng::rollProbability() * rangeRandom - (rangeRandom / 2);
+            float yOffs = OEngine::Misc::Rng::rollProbability() * rangeRandom - (rangeRandom / 2);
+
+            // Create a separate node to control the offset, since a node with setInheritOrientation(false) will still
+            // consider the orientation of the parent node for its position, just not for its orientation
+            float startHeight = 700;
+            Ogre::Vector3 worldPos = mParticleNode->_getDerivedPosition();
+            worldPos += Ogre::Vector3(xOffs, yOffs, startHeight);
+            if (MWBase::Environment::get().getWorld()->isUnderwater(
+                                        MWBase::Environment::get().getWorld()->getPlayerPtr().getCell(), worldPos))
+                return;
+
+            Ogre::SceneNode* offsetNode = mParticleNode->createChildSceneNode(Ogre::Vector3(xOffs,yOffs,startHeight));
+
+            // Spawn a new rain object for each instance.
+            // TODO: this is inefficient. We could try to use an Ogre::ParticleSystem instead, but then we would need to make assumptions
+            // about the rain meshes being Quads and their dimensions.
+            // Or we could clone meshes into one vertex buffer manually.
+            NifOgre::ObjectScenePtr objects = NifOgre::Loader::createObjects(offsetNode, mRainEffect);
+            for (unsigned int i=0; i<objects->mEntities.size(); ++i)
+            {
+                objects->mEntities[i]->setRenderQueueGroup(RQG_Alpha);
+                objects->mEntities[i]->setVisibilityFlags(RV_Sky);
+            }
+            for (unsigned int i=0; i<objects->mParticles.size(); ++i)
+            {
+                objects->mParticles[i]->setRenderQueueGroup(RQG_Alpha);
+                objects->mParticles[i]->setVisibilityFlags(RV_Sky);
+            }
+            mRainModels[offsetNode] = objects;
+        }
+    }
+}
+
 void SkyManager::update(float duration)
 {
     if (!mEnabled) return;
     const MWWorld::Fallback* fallback=MWBase::Environment::get().getWorld()->getFallback();
+
+    if (!mParticle.isNull())
+    {
+        for (unsigned int i=0; i<mParticle->mControllers.size(); ++i)
+            mParticle->mControllers[i].update();
+
+        for (unsigned int i=0; i<mParticle->mParticles.size(); ++i)
+        {
+            Ogre::ParticleSystem* psys = mParticle->mParticles[i];
+            Ogre::ParticleIterator pi = psys->_getIterator();
+            while (!pi.end())
+            {
+                Ogre::Particle *p = pi.getNext();
+                #if OGRE_VERSION >= (1 << 16 | 10 << 8 | 0)
+                Ogre::Vector3 pos = p->mPosition;
+                Ogre::Real& timeToLive = p->mTimeToLive;
+                #else
+                Ogre::Vector3 pos = p->position;
+                Ogre::Real& timeToLive = p->timeToLive;
+                #endif
+
+                if (psys->getKeepParticlesInLocalSpace() && psys->getParentNode())
+                    pos = psys->getParentNode()->convertLocalToWorldPosition(pos);
+
+                if (MWBase::Environment::get().getWorld()->isUnderwater(
+                            MWBase::Environment::get().getWorld()->getPlayerPtr().getCell(), pos))
+                    timeToLive = 0;
+            }
+        }
+
+        if (mIsStorm)
+            mParticleNode->setOrientation(Ogre::Vector3::UNIT_Y.getRotationTo(mStormDirection));
+    }
+
+    if (mIsStorm)
+        mCloudNode->setOrientation(Ogre::Vector3::UNIT_Y.getRotationTo(mStormDirection));
+    else
+        mCloudNode->setOrientation(Ogre::Quaternion::IDENTITY);
+
+    updateRain(duration);
 
     // UV Scroll the clouds
     mCloudAnimationTimer += duration * mCloudSpeed;
@@ -422,13 +595,22 @@ void SkyManager::enable()
     if (!mCreated)
         create();
 
+    if (mParticleNode)
+        mParticleNode->setVisible(true);
+
     mRootNode->setVisible(true);
     mEnabled = true;
 }
 
 void SkyManager::disable()
 {
+    if (mParticleNode)
+        mParticleNode->setVisible(false);
+
+    clearRain();
+
     mRootNode->setVisible(false);
+
     mEnabled = false;
 }
 
@@ -441,15 +623,46 @@ void SkyManager::setWeather(const MWWorld::WeatherResult& weather)
 {
     if (!mCreated) return;
 
+    mRainEffect = weather.mRainEffect;
+    mRainEnabled = !mRainEffect.empty();
+    mRainFrequency = weather.mRainFrequency;
+    mRainSpeed = weather.mRainSpeed;
+    mIsStorm = weather.mIsStorm;
+
+    if (mCurrentParticleEffect != weather.mParticleEffect)
+    {
+        mCurrentParticleEffect = weather.mParticleEffect;
+
+        if (mCurrentParticleEffect.empty())
+        {
+            mParticle.setNull();
+        }
+        else
+        {
+            mParticle = NifOgre::Loader::createObjects(mParticleNode, mCurrentParticleEffect);
+            for(size_t i = 0; i < mParticle->mParticles.size(); ++i)
+            {
+                ParticleSystem* particle = mParticle->mParticles[i];
+                particle->setRenderQueueGroup(RQG_Alpha);
+                particle->setVisibilityFlags(RV_Sky);
+            }
+            for (size_t i = 0; i < mParticle->mControllers.size(); ++i)
+            {
+                if (mParticle->mControllers[i].getSource().isNull())
+                    mParticle->mControllers[i].setSource(Ogre::ControllerManager::getSingleton().getFrameTimeSource());
+            }
+        }
+    }
+
     if (mClouds != weather.mCloudTexture)
     {
-        sh::Factory::getInstance().setTextureAlias ("cloud_texture_1", "textures\\"+weather.mCloudTexture);
+        sh::Factory::getInstance().setTextureAlias ("cloud_texture_1", Misc::ResourceHelpers::correctTexturePath(weather.mCloudTexture));
         mClouds = weather.mCloudTexture;
     }
 
     if (mNextClouds != weather.mNextCloudTexture)
     {
-        sh::Factory::getInstance().setTextureAlias ("cloud_texture_2", "textures\\"+weather.mNextCloudTexture);
+        sh::Factory::getInstance().setTextureAlias ("cloud_texture_2", Misc::ResourceHelpers::correctTexturePath(weather.mNextCloudTexture));
         mNextClouds = weather.mNextCloudTexture;
     }
 
@@ -469,9 +682,9 @@ void SkyManager::setWeather(const MWWorld::WeatherResult& weather)
 
     if (mCloudColour != weather.mSunColor)
     {
-        ColourValue clr( weather.mSunColor.r*0.7 + weather.mAmbientColor.r*0.7,
-                        weather.mSunColor.g*0.7 + weather.mAmbientColor.g*0.7,
-                        weather.mSunColor.b*0.7 + weather.mAmbientColor.b*0.7);
+        ColourValue clr( weather.mSunColor.r*0.7f + weather.mAmbientColor.r*0.7f,
+                        weather.mSunColor.g*0.7f + weather.mAmbientColor.g*0.7f,
+                        weather.mSunColor.b*0.7f + weather.mAmbientColor.b*0.7f);
 
         sh::Factory::getInstance().setSharedParameter ("cloudColour",
             sh::makeProperty<sh::Vector3>(new sh::Vector3(clr.r, clr.g, clr.b)));
@@ -523,6 +736,11 @@ void SkyManager::setWeather(const MWWorld::WeatherResult& weather)
     mSun->setVisibility(weather.mGlareView * strength);
 
     mAtmosphereNight->setVisible(weather.mNight && mEnabled);
+
+    if (mParticle.get())
+        setAlpha(mParticle, weather.mEffectFade);
+    for (std::map<Ogre::SceneNode*, NifOgre::ObjectScenePtr>::iterator it = mRainModels.begin(); it != mRainModels.end(); ++it)
+        setAlpha(it->second, weather.mEffectFade);
 }
 
 void SkyManager::setGlare(const float glare)
@@ -546,14 +764,19 @@ void SkyManager::sunDisable()
     mSunEnabled = false;
 }
 
-void SkyManager::setSunDirection(const Vector3& direction)
+void SkyManager::setStormDirection(const Vector3 &direction)
+{
+    mStormDirection = direction;
+}
+
+void SkyManager::setSunDirection(const Vector3& direction, bool is_night)
 {
     if (!mCreated) return;
     mSun->setPosition(direction);
     mSunGlare->setPosition(direction);
 
     float height = direction.z;
-    float fade = ( height > 0.5) ? 1.0 : height * 2;
+    float fade = is_night ? 0.0f : (( height > 0.5) ? 1.0f : height * 2);
     sh::Factory::getInstance ().setSharedParameter ("waterSunFade_sunHeight", sh::makeProperty<sh::Vector2>(new sh::Vector2(fade, height)));
 }
 
@@ -600,16 +823,6 @@ void SkyManager::setLightningStrength(const float factor)
     else
         mLightning->setVisible(false);
 }
-void SkyManager::setLightningEnabled(bool enabled)
-{
-    /// \todo
-}
-
-void SkyManager::setLightningDirection(const Ogre::Vector3& dir)
-{
-    if (!mCreated) return;
-    mLightning->setDirection (dir);
-}
 
 void SkyManager::setMasserFade(const float fade)
 {
@@ -625,7 +838,7 @@ void SkyManager::setSecundaFade(const float fade)
 
 void SkyManager::setHour(double hour)
 {
-    mHour = hour;
+    mHour = static_cast<float>(hour);
 }
 
 void SkyManager::setDate(int day, int month)
@@ -645,4 +858,17 @@ void SkyManager::setGlareEnabled (bool enabled)
     if (!mCreated || !mEnabled)
         return;
     mSunGlare->setVisible (mSunEnabled && enabled);
+}
+
+void SkyManager::attachToNode(SceneNode *sceneNode)
+{
+    if (!mParticleNode)
+    {
+        mParticleNode = sceneNode->createChildSceneNode();
+        mParticleNode->setInheritOrientation(false);
+    }
+    else
+    {
+        sceneNode->addChild(mParticleNode);
+    }
 }

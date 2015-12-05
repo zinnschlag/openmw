@@ -1,4 +1,3 @@
-
 #include "textnode.hpp"
 
 #include <sstream>
@@ -7,13 +6,13 @@
 #include <QRegExp>
 
 #include "../world/columns.hpp"
-#include "../world/idtable.hpp"
+#include "../world/idtablebase.hpp"
 
 CSMFilter::TextNode::TextNode (int columnId, const std::string& text)
 : mColumnId (columnId), mText (text)
 {}
 
-bool CSMFilter::TextNode::test (const CSMWorld::IdTable& table, int row,
+bool CSMFilter::TextNode::test (const CSMWorld::IdTableBase& table, int row,
     const std::map<int, int>& columns) const
 {
     const std::map<int, int>::const_iterator iter = columns.find (mColumnId);

@@ -10,6 +10,21 @@ namespace ESM
     class ESMWriter;
     class ESMReader;
 
+
+    struct RefNum
+    {
+        unsigned int mIndex;
+        int mContentFile;
+
+        void load (ESMReader& esm, bool wide = false);
+
+        void save (ESMWriter &esm, bool wide = false, const std::string& tag = "FRMR") const;
+
+        enum { RefNum_NoContentFile = -1 };
+        inline bool hasContentFile() const { return mContentFile != RefNum_NoContentFile; }
+        inline void unset() { mIndex = 0; mContentFile = RefNum_NoContentFile; }
+    };
+
     /* Cell reference. This represents ONE object (of many) inside the
     cell. The cell references are not loaded as part of the normal
     loading process, but are rather loaded later on demand when we are
@@ -19,41 +34,43 @@ namespace ESM
     class CellRef
     {
         public:
+            // Reference number
+            // Note: Currently unused for items in containers
+            RefNum mRefNum;
 
-            struct RefNum
-            {
-                int mIndex;
-                int mContentFile; // -1 no content file
-            };
-
-            RefNum mRefNum;        // Reference number
             std::string mRefID;    // ID of object being referenced
 
             float mScale;          // Scale applied to mesh
 
-            // The NPC that owns this object (and will get angry if you steal
-            // it)
+            // The NPC that owns this object (and will get angry if you steal it)
             std::string mOwner;
 
-            // I have no idea, looks like a link to a global variable?
-            std::string mGlob;
+            // Name of a global variable. If the global variable is set to '1', using the object is temporarily allowed
+            // even if it has an Owner field.
+            // Used by bed rent scripts to allow the player to use the bed for the duration of the rent.
+            std::string mGlobalVariable;
 
-            // ID of creature trapped in this soul gem (?)
+            // ID of creature trapped in this soul gem
             std::string mSoul;
 
             // The faction that owns this object (and will get angry if
             // you take it and are not a faction member)
             std::string mFaction;
 
-            // INDX might be PC faction rank required to use the item? Sometimes
-            // is -1, which I assume means "any rank".
-            int mFactIndex;
+            // PC faction rank required to use the item. Sometimes is -1, which means "any rank".
+            int mFactionRank;
 
             // For weapon or armor, this is the remaining item health.
             // For tools (lockpicks, probes, repair hammer) it is the remaining uses.
-            int mCharge;
+            // For lights it is remaining time.
+            // This could be -1 if the charge was not touched yet (i.e. full).
+            union
+            {
+                int mChargeInt;     // Used by everything except lights
+                float mChargeFloat; // Used only by lights
+            };
 
-            // Remaining enchantment charge
+            // Remaining enchantment charge. This could be -1 if the charge was not touched yet (i.e. full).
             float mEnchantmentCharge;
 
             // This is 5 for Gold_005 references, 100 for Gold_100 and so on.
@@ -78,23 +95,24 @@ namespace ESM
             // -1 is not blocked, otherwise it is blocked.
             signed char mReferenceBlocked;
 
-            // Occurs in Tribunal.esm, eg. in the cell "Mournhold, Plaza
-            // Brindisi Dorom", where it has the value 100. Also only for
-            // activators.
-            int mFltv;
-            int mNam0;
-
             // Position and rotation of this object within the cell
             Position mPos;
 
-            void load (ESMReader& esm, bool wideRefNum = false);
+            /// Calls loadId and loadData
+            void load (ESMReader& esm, bool &isDeleted, bool wideRefNum = false);
 
-            void save (ESMWriter &esm, bool wideRefNum = false, bool inInventory = false) const;
+            void loadId (ESMReader& esm, bool wideRefNum = false);
+
+            /// Implicitly called by load
+            void loadData (ESMReader& esm, bool &isDeleted);
+
+            void save (ESMWriter &esm, bool wideRefNum = false, bool inInventory = false, bool isDeleted = false) const;
 
             void blank();
     };
 
-    bool operator== (const CellRef::RefNum& left, const CellRef::RefNum& right);
+    bool operator== (const RefNum& left, const RefNum& right);
+    bool operator< (const RefNum& left, const RefNum& right);
 }
 
 #endif

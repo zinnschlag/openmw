@@ -2,6 +2,7 @@
 #include "aisequence.hpp"
 
 #include "aipackage.hpp"
+#include "aistate.hpp"
 
 #include "aiwander.hpp"
 #include "aiescort.hpp"
@@ -9,6 +10,9 @@
 #include "aifollow.hpp"
 #include "aiactivate.hpp"
 #include "aicombat.hpp"
+#include "aipursue.hpp"
+
+#include <components/esm/aisequence.hpp>
 
 #include "../mwworld/class.hpp"
 #include "creaturestats.hpp"
@@ -16,90 +20,216 @@
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 
-void MWMechanics::AiSequence::copy (const AiSequence& sequence)
+namespace MWMechanics
+{
+
+void AiSequence::copy (const AiSequence& sequence)
 {
     for (std::list<AiPackage *>::const_iterator iter (sequence.mPackages.begin());
         iter!=sequence.mPackages.end(); ++iter)
         mPackages.push_back ((*iter)->clone());
 }
 
-MWMechanics::AiSequence::AiSequence() : mDone (false), mLastAiPackage(-1) {}
+AiSequence::AiSequence() : mDone (false), mLastAiPackage(-1) {}
 
-MWMechanics::AiSequence::AiSequence (const AiSequence& sequence) : mDone (false)
+AiSequence::AiSequence (const AiSequence& sequence)
 {
     copy (sequence);
+    mDone = sequence.mDone;
+    mLastAiPackage = sequence.mLastAiPackage;
 }
 
-MWMechanics::AiSequence& MWMechanics::AiSequence::operator= (const AiSequence& sequence)
+AiSequence& AiSequence::operator= (const AiSequence& sequence)
 {
     if (this!=&sequence)
     {
         clear();
         copy (sequence);
         mDone = sequence.mDone;
+        mLastAiPackage = sequence.mLastAiPackage;
     }
-    
+
     return *this;
 }
 
-MWMechanics::AiSequence::~AiSequence()
+AiSequence::~AiSequence()
 {
     clear();
 }
 
-int MWMechanics::AiSequence::getTypeId() const
+int AiSequence::getTypeId() const
 {
     if (mPackages.empty())
         return -1;
-        
+
     return mPackages.front()->getTypeId();
 }
 
-bool MWMechanics::AiSequence::getCombatTarget(std::string &targetActorId) const
+bool AiSequence::getCombatTarget(MWWorld::Ptr &targetActor) const
 {
     if (getTypeId() != AiPackage::TypeIdCombat)
         return false;
     const AiCombat *combat = static_cast<const AiCombat *>(mPackages.front());
-    targetActorId = combat->getTargetId();
+    
+    targetActor = combat->getTarget();
+
     return true;
 }
 
-void MWMechanics::AiSequence::stopCombat()
+std::list<AiPackage*>::const_iterator AiSequence::begin() const
 {
-    while (getTypeId() == AiPackage::TypeIdCombat)
+    return mPackages.begin();
+}
+
+std::list<AiPackage*>::const_iterator AiSequence::end() const
+{
+    return mPackages.end();
+}
+
+std::list<AiPackage*>::const_iterator AiSequence::erase(std::list<AiPackage*>::const_iterator package)
+{
+    // Not sure if manually terminated packages should trigger mDone, probably not?
+    for(std::list<AiPackage*>::iterator it = mPackages.begin(); it != mPackages.end(); ++it)
     {
-        delete *mPackages.begin();
-        mPackages.erase (mPackages.begin());
+        if (package == it)
+        {
+            return mPackages.erase(it);
+        }
+    }
+    throw std::runtime_error("can't find package to erase");
+}
+
+bool AiSequence::isInCombat() const
+{
+    for(std::list<AiPackage*>::const_iterator it = mPackages.begin(); it != mPackages.end(); ++it)
+    {
+        if ((*it)->getTypeId() == AiPackage::TypeIdCombat)
+            return true;
+    }
+    return false;
+}
+
+bool AiSequence::isInCombat(const MWWorld::Ptr &actor) const
+{
+    for(std::list<AiPackage*>::const_iterator it = mPackages.begin(); it != mPackages.end(); ++it)
+    {
+        if ((*it)->getTypeId() == AiPackage::TypeIdCombat)
+        {
+            const AiCombat *combat = static_cast<const AiCombat *>(*it);
+            if (combat->getTarget() == actor)
+                return true;
+        }
+    }
+    return false;
+}
+
+void AiSequence::stopCombat()
+{
+    for(std::list<AiPackage*>::iterator it = mPackages.begin(); it != mPackages.end(); )
+    {
+        if ((*it)->getTypeId() == AiPackage::TypeIdCombat)
+            it = mPackages.erase(it);
+        else
+            ++it;
     }
 }
 
-bool MWMechanics::AiSequence::isPackageDone() const
+void AiSequence::stopPursuit()
+{
+    for(std::list<AiPackage*>::iterator it = mPackages.begin(); it != mPackages.end(); )
+    {
+        if ((*it)->getTypeId() == AiPackage::TypeIdPursue)
+            it = mPackages.erase(it);
+        else
+            ++it;
+    }
+}
+
+bool AiSequence::isPackageDone() const
 {
     return mDone;
 }
 
-void MWMechanics::AiSequence::execute (const MWWorld::Ptr& actor,float duration)
+void AiSequence::execute (const MWWorld::Ptr& actor, AiState& state,float duration)
 {
     if(actor != MWBase::Environment::get().getWorld()->getPlayerPtr())
     {
         if (!mPackages.empty())
         {
-            mLastAiPackage = mPackages.front()->getTypeId();
-            if (mPackages.front()->execute (actor,duration))
+            MWMechanics::AiPackage* package = mPackages.front();
+            mLastAiPackage = package->getTypeId();
+
+            // if active package is combat one, choose nearest target
+            if (mLastAiPackage == AiPackage::TypeIdCombat)
             {
-                delete *mPackages.begin();
-                mPackages.erase (mPackages.begin());
+                std::list<AiPackage *>::iterator itActualCombat;
+
+                float nearestDist = std::numeric_limits<float>::max();
+                Ogre::Vector3 vActorPos = Ogre::Vector3(actor.getRefData().getPosition().pos);
+
+                for(std::list<AiPackage *>::iterator it = mPackages.begin(); it != mPackages.end();)
+                {
+                    if ((*it)->getTypeId() != AiPackage::TypeIdCombat) break;
+
+                    MWWorld::Ptr target = static_cast<const AiCombat *>(*it)->getTarget();
+
+                    // target disappeared (e.g. summoned creatures)
+                    if (target.isEmpty())
+                    {
+                        delete *it;
+                        it = mPackages.erase(it);
+                    }
+                    else
+                    {
+                        const ESM::Position &targetPos = target.getRefData().getPosition();
+
+                        float distTo = (Ogre::Vector3(targetPos.pos) - vActorPos).length();
+                        if (distTo < nearestDist)
+                        {
+                            nearestDist = distTo;
+                            itActualCombat = it;
+                        }
+                        ++it;
+                    }
+                }
+
+                if (!mPackages.empty())
+                {
+                    if (nearestDist < std::numeric_limits<float>::max() && mPackages.begin() != itActualCombat)
+                    {
+                        // move combat package with nearest target to the front
+                        mPackages.splice(mPackages.begin(), mPackages, itActualCombat);
+                    }
+
+                    package = mPackages.front();
+                    mLastAiPackage = package->getTypeId();
+                }
+                else 
+                {
+                    mDone = true;
+                    return;
+                }
+            }
+
+            if (package->execute (actor,state,duration))
+            {
+                // To account for the rare case where AiPackage::execute() queued another AI package
+                // (e.g. AiPursue executing a dialogue script that uses startCombat)
+                std::list<MWMechanics::AiPackage*>::iterator toRemove =
+                        std::find(mPackages.begin(), mPackages.end(), package);
+                mPackages.erase(toRemove);
+                delete package;
                 mDone = true;
             }
             else
             {
-                mDone = false;    
+                mDone = false;
             }
         }
     }
 }
 
-void MWMechanics::AiSequence::clear()
+void AiSequence::clear()
 {
     for (std::list<AiPackage *>::const_iterator iter (mPackages.begin()); iter!=mPackages.end(); ++iter)
         delete *iter;
@@ -107,27 +237,44 @@ void MWMechanics::AiSequence::clear()
     mPackages.clear();
 }
 
-void MWMechanics::AiSequence::stack (const AiPackage& package)
+void AiSequence::stack (const AiPackage& package, const MWWorld::Ptr& actor)
 {
-    for(std::list<AiPackage *>::iterator it = mPackages.begin(); it != mPackages.end(); it++)
+    if (actor == MWBase::Environment::get().getWorld()->getPlayerPtr())
+        throw std::runtime_error("Can't add AI packages to player");
+
+    if (package.getTypeId() == AiPackage::TypeIdCombat || package.getTypeId() == AiPackage::TypeIdPursue)
     {
-        if(mPackages.front()->getPriority() <= package.getPriority())
+        // Notify AiWander of our current position so we can return to it after combat finished
+        for (std::list<AiPackage *>::const_iterator iter (mPackages.begin()); iter!=mPackages.end(); ++iter)
+        {
+            if((*iter)->getTypeId() == AiPackage::TypeIdPursue && package.getTypeId() == AiPackage::TypeIdPursue
+                && static_cast<const AiPursue*>(*iter)->getTarget() == static_cast<const AiPursue*>(&package)->getTarget())
+            {
+                return; // target is already pursued
+            }
+            if((*iter)->getTypeId() == AiPackage::TypeIdCombat && package.getTypeId() == AiPackage::TypeIdCombat
+                && static_cast<const AiCombat*>(*iter)->getTarget() == static_cast<const AiCombat*>(&package)->getTarget())
+            {
+                return; // already in combat with this actor
+            }
+            else if ((*iter)->getTypeId() == AiPackage::TypeIdWander)
+                static_cast<AiWander*>(*iter)->setReturnPosition(Ogre::Vector3(actor.getRefData().getPosition().pos));
+        }
+    }
+
+    for(std::list<AiPackage *>::iterator it = mPackages.begin(); it != mPackages.end(); ++it)
+    {
+        if((*it)->getPriority() <= package.getPriority())
         {
             mPackages.insert(it,package.clone());
             return;
         }
     }
 
-    if(mPackages.empty())
-        mPackages.push_front (package.clone());
+    mPackages.push_front (package.clone());
 }
 
-void MWMechanics::AiSequence::queue (const AiPackage& package)
-{
-    mPackages.push_back (package.clone());
-}
-
-MWMechanics::AiPackage* MWMechanics::AiSequence::getActivePackage()
+AiPackage* MWMechanics::AiSequence::getActivePackage()
 {
     if(mPackages.empty())
         throw std::runtime_error(std::string("No AI Package!"));
@@ -135,7 +282,7 @@ MWMechanics::AiPackage* MWMechanics::AiSequence::getActivePackage()
         return mPackages.front();
 }
 
-void MWMechanics::AiSequence::fill(const ESM::AIPackageList &list)
+void AiSequence::fill(const ESM::AIPackageList &list)
 {
     for (std::vector<ESM::AIPackage>::const_iterator it = list.mList.begin(); it != list.mList.end(); ++it)
     {
@@ -143,10 +290,11 @@ void MWMechanics::AiSequence::fill(const ESM::AIPackageList &list)
         if (it->mType == ESM::AI_Wander)
         {
             ESM::AIWander data = it->mWander;
-            std::vector<int> idles;
+            std::vector<unsigned char> idles;
+            idles.reserve(8);
             for (int i=0; i<8; ++i)
                 idles.push_back(data.mIdle[i]);
-            package = new MWMechanics::AiWander(data.mDistance, data.mDuration, data.mTimeOfDay, idles, data.mShouldRepeat);
+            package = new MWMechanics::AiWander(data.mDistance, data.mDuration, data.mTimeOfDay, idles, data.mShouldRepeat != 0);
         }
         else if (it->mType == ESM::AI_Escort)
         {
@@ -171,3 +319,87 @@ void MWMechanics::AiSequence::fill(const ESM::AIPackageList &list)
         mPackages.push_back(package);
     }
 }
+
+void AiSequence::writeState(ESM::AiSequence::AiSequence &sequence) const
+{
+    for (std::list<AiPackage *>::const_iterator iter (mPackages.begin()); iter!=mPackages.end(); ++iter)
+    {
+        (*iter)->writeState(sequence);
+    }
+}
+
+void AiSequence::readState(const ESM::AiSequence::AiSequence &sequence)
+{
+    if (!sequence.mPackages.empty())
+        clear();
+
+    for (std::vector<ESM::AiSequence::AiPackageContainer>::const_iterator it = sequence.mPackages.begin();
+         it != sequence.mPackages.end(); ++it)
+    {
+        switch (it->mType)
+        {
+        case ESM::AiSequence::Ai_Wander:
+        {
+            MWMechanics::AiWander* wander = new AiWander(
+                        static_cast<ESM::AiSequence::AiWander*>(it->mPackage));
+            mPackages.push_back(wander);
+            break;
+        }
+        case ESM::AiSequence::Ai_Travel:
+        {
+            MWMechanics::AiTravel* travel = new AiTravel(
+                        static_cast<ESM::AiSequence::AiTravel*>(it->mPackage));
+            mPackages.push_back(travel);
+            break;
+        }
+        case ESM::AiSequence::Ai_Escort:
+        {
+            MWMechanics::AiEscort* escort = new AiEscort(
+                        static_cast<ESM::AiSequence::AiEscort*>(it->mPackage));
+            mPackages.push_back(escort);
+            break;
+        }
+        case ESM::AiSequence::Ai_Follow:
+        {
+            MWMechanics::AiFollow* follow = new AiFollow(
+                        static_cast<ESM::AiSequence::AiFollow*>(it->mPackage));
+            mPackages.push_back(follow);
+            break;
+        }
+        case ESM::AiSequence::Ai_Activate:
+        {
+            MWMechanics::AiActivate* activate = new AiActivate(
+                        static_cast<ESM::AiSequence::AiActivate*>(it->mPackage));
+            mPackages.push_back(activate);
+            break;
+        }
+        case ESM::AiSequence::Ai_Combat:
+        {
+            MWMechanics::AiCombat* combat = new AiCombat(
+                        static_cast<ESM::AiSequence::AiCombat*>(it->mPackage));
+            mPackages.push_back(combat);
+            break;
+        }
+        case ESM::AiSequence::Ai_Pursue:
+        {
+            MWMechanics::AiPursue* pursue = new AiPursue(
+                        static_cast<ESM::AiSequence::AiPursue*>(it->mPackage));
+            mPackages.push_back(pursue);
+            break;
+        }
+        default:
+            break;
+        }
+    }
+}
+
+void AiSequence::fastForward(const MWWorld::Ptr& actor, AiState& state)
+{
+    if (!mPackages.empty())
+    {
+        MWMechanics::AiPackage* package = mPackages.front();
+        package->fastForward(actor, state);
+    }
+}
+
+} // namespace MWMechanics

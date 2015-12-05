@@ -9,11 +9,11 @@
 namespace sh
 {
 	MaterialInstance::MaterialInstance (const std::string& name, Factory* f)
-		: mName(name)
+		: mFailedToCreate(false)
+		, mListener(NULL)
+		, mName(name)
 		, mShadersEnabled(true)
 		, mFactory(f)
-		, mListener(NULL)
-		, mFailedToCreate(false)
 	{
 	}
 
@@ -163,7 +163,8 @@ namespace sh
 						mTexUnits.push_back(texUnit);
 
 						// set texture unit indices (required by GLSL)
-						if (useShaders && ((hasVertex && foundVertex) || (hasFragment && foundFragment)) && mFactory->getCurrentLanguage () == Language_GLSL)
+						if (useShaders && ((hasVertex && foundVertex) || (hasFragment && foundFragment)) && (mFactory->getCurrentLanguage () == Language_GLSL
+											|| mFactory->getCurrentLanguage() == Language_GLSLES))
 						{
 							pass->setTextureUnitIndex (foundVertex ? GPT_Vertex : GPT_Fragment, texIt->getName(), i);
 

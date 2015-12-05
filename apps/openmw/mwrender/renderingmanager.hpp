@@ -4,8 +4,6 @@
 #include "sky.hpp"
 #include "debugging.hpp"
 
-#include <openengine/ogre/fader.hpp>
-
 #include <components/settings/settings.hpp>
 
 #include <boost/filesystem.hpp>
@@ -95,26 +93,25 @@ public:
 
     MWRender::Camera* getCamera() const;
 
-    void toggleLight();
     bool toggleRenderMode(int mode);
-
-    OEngine::Render::Fader* getFader();
 
     void removeCell (MWWorld::CellStore *store);
 
     /// \todo this function should be removed later. Instead the rendering subsystems should track
     /// when rebatching is needed and update automatically at the end of each frame.
     void cellAdded (MWWorld::CellStore *store);
-    void waterAdded(MWWorld::CellStore *store);
+
+    /// Clear all savegame-specific data (i.e. fog of war textures)
+    void clear();
 
     void enableTerrain(bool enable);
 
     void removeWater();
 
-    void preCellChange (MWWorld::CellStore* store);
-    ///< this event is fired immediately before changing cell
+    /// Write current fog of war for this cell to the CellStore
+    void writeFog (MWWorld::CellStore* store);
 
-    void addObject (const MWWorld::Ptr& ptr);
+    void addObject (const MWWorld::Ptr& ptr, const std::string& model);
     void removeObject (const MWWorld::Ptr& ptr);
 
     void moveObject (const MWWorld::Ptr& ptr, const Ogre::Vector3& position);
@@ -123,8 +120,10 @@ public:
     /// Updates an object's rotation
     void rotateObject (const MWWorld::Ptr& ptr);
 
-    void setWaterHeight(const float height);
-    void toggleWater();
+    void setWaterHeight(float height);
+    void setWaterEnabled(bool enabled);
+    bool toggleWater();
+    bool toggleWorld();
 
     /// Updates object rendering after cell change
     /// \param old Object reference in previous cell
@@ -142,7 +141,7 @@ public:
 
     void setAmbientColour(const Ogre::ColourValue& colour);
     void setSunColour(const Ogre::ColourValue& colour);
-    void setSunDirection(const Ogre::Vector3& direction);
+    void setSunDirection(const Ogre::Vector3& direction, bool is_night);
     void sunEnable(bool real); ///< @param real whether or not to really disable the sunlight (otherwise just set diffuse to 0)
     void sunDisable(bool real);
 
@@ -158,10 +157,7 @@ public:
 
     float getTerrainHeightAt (Ogre::Vector3 worldPos);
 
-    Shadows* getShadows();
-
-    void switchToInterior();
-    void switchToExterior();
+    void notifyWorldSpaceChanged();
 
     void getTriangleBatchCount(unsigned int &triangles, unsigned int &batches);
 
@@ -187,7 +183,7 @@ public:
     ///< request the local map for a cell
 
     /// configure fog according to cell
-    void configureFog(MWWorld::CellStore &mCell);
+    void configureFog(const MWWorld::CellStore &mCell);
 
     /// configure fog manually
     void configureFog(const float density, const Ogre::ColourValue& colour);
@@ -200,8 +196,11 @@ public:
 
     Ogre::Viewport* getViewport() { return mRendering.getViewport(); }
 
-    void getInteriorMapPosition (Ogre::Vector2 position, float& nX, float& nY, int &x, int& y);
-    ///< see MWRender::LocalMap::getInteriorMapPosition
+    void worldToInteriorMapPosition (Ogre::Vector2 position, float& nX, float& nY, int &x, int& y);
+    ///< see MWRender::LocalMap::worldToInteriorMapPosition
+
+    Ogre::Vector2 interiorMapToWorldPosition (float nX, float nY, int x, int y);
+    ///< see MWRender::LocalMap::interiorMapToWorldPosition
 
     bool isPositionExplored (float nX, float nY, int x, int y, bool interior);
     ///< see MWRender::LocalMap::isPositionExplored
@@ -221,6 +220,8 @@ private:
 
     void setAmbientMode();
     void applyFog(bool underwater);
+
+    void attachCameraTo(const MWWorld::Ptr& ptr);
 
     void setMenuTransparency(float val);
 
@@ -268,6 +269,8 @@ private:
     MWRender::LocalMap* mLocalMap;
 
     MWRender::Shadows* mShadows;
+
+    bool mRenderWorld;
 };
 
 }

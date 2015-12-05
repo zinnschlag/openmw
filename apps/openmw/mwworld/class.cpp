@@ -1,4 +1,3 @@
-
 #include "class.hpp"
 
 #include <stdexcept>
@@ -10,6 +9,7 @@
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
 #include "../mwbase/world.hpp"
+#include "../mwworld/esmstore.hpp"
 
 #include "ptr.hpp"
 #include "refdata.hpp"
@@ -37,12 +37,12 @@ namespace MWWorld
         throw std::runtime_error ("class does not support ID retrieval");
     }
 
-    void Class::insertObjectRendering (const Ptr& ptr, MWRender::RenderingInterface& renderingInterface) const
+    void Class::insertObjectRendering (const Ptr& ptr, const std::string& mesh, MWRender::RenderingInterface& renderingInterface) const
     {
 
     }
 
-    void Class::insertObject(const Ptr& ptr, MWWorld::PhysicsSystem& physics) const
+    void Class::insertObject(const Ptr& ptr, const std::string& mesh, MWWorld::PhysicsSystem& physics) const
     {
 
     }
@@ -52,7 +52,7 @@ namespace MWWorld
         return false;
     }
 
-    void Class::skillUsageSucceeded (const MWWorld::Ptr& ptr, int skill, int usageType) const
+    void Class::skillUsageSucceeded (const MWWorld::Ptr& ptr, int skill, int usageType, float extraFactor) const
     {
         throw std::runtime_error ("class does not represent an actor");
     }
@@ -80,6 +80,14 @@ namespace MWWorld
     bool Class::hasItemHealth (const Ptr& ptr) const
     {
         return false;
+    }
+
+    int Class::getItemHealth(const Ptr &ptr) const
+    {
+        if (ptr.getCellRef().getCharge() == -1)
+            return getItemMaxHealth(ptr);
+        else
+            return ptr.getCellRef().getCharge();
     }
 
     int Class::getItemMaxHealth (const Ptr& ptr) const
@@ -170,11 +178,6 @@ namespace MWWorld
     int Class::getEnchantmentPoints (const MWWorld::Ptr& ptr) const
     {
         throw std::runtime_error ("class does not support enchanting");
-    }
-
-    float Class::getFallDamage(const MWWorld::Ptr &ptr, float fallHeight) const
-    {
-        return 0;
     }
 
     MWMechanics::Movement& Class::getMovementSettings (const Ptr& ptr) const
@@ -295,16 +298,12 @@ namespace MWWorld
     {
     }
 
-    void Class::adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const
-    {
-    }
-
     std::string Class::getModel(const MWWorld::Ptr &ptr) const
     {
         return "";
     }
 
-    void Class::applyEnchantment(const MWWorld::Ptr &ptr, const std::string& enchId, int enchCharge, const std::string& newName) const
+    std::string Class::applyEnchantment(const MWWorld::Ptr &ptr, const std::string& enchId, int enchCharge, const std::string& newName) const
     {
         throw std::runtime_error ("class can't be enchanted");
     }
@@ -314,7 +313,7 @@ namespace MWWorld
         return std::make_pair (1, "");
     }
 
-    void Class::adjustPosition(const MWWorld::Ptr& ptr) const
+    void Class::adjustPosition(const MWWorld::Ptr& ptr, bool force) const
     {
     }
 
@@ -323,7 +322,7 @@ namespace MWWorld
         if(!MWBase::Environment::get().getWindowManager()->isAllowed(MWGui::GW_Inventory))
             return boost::shared_ptr<Action>(new NullAction());
 
-        if(get(actor).isNpc() && get(actor).getNpcStats(actor).isWerewolf())
+        if(actor.getClass().isNpc() && actor.getClass().getNpcStats(actor).isWerewolf())
         {
             const MWWorld::ESMStore &store = MWBase::Environment::get().getWorld()->getStore();
             const ESM::Sound *sound = store.get<ESM::Sound>().searchRandom("WolfItem");
@@ -350,7 +349,7 @@ namespace MWWorld
     Class::copyToCell(const Ptr &ptr, CellStore &cell) const
     {
         Ptr newPtr = copyToCellImpl(ptr, cell);
-
+        newPtr.getCellRef().unsetRefNum(); // This RefNum is only valid within the original cell of the reference
         return newPtr;
     }
 
@@ -358,7 +357,7 @@ namespace MWWorld
     Class::copyToCell(const Ptr &ptr, CellStore &cell, const ESM::Position &pos) const
     {
         Ptr newPtr = copyToCell(ptr, cell);
-        newPtr.getRefData().getPosition() = pos;
+        newPtr.getRefData().setPosition(pos);
 
         return newPtr;
     }
@@ -383,6 +382,16 @@ namespace MWWorld
         return false;
     }
 
+    bool Class::isPureWaterCreature(const MWWorld::Ptr& ptr) const
+    {
+        return canSwim(ptr) && !canWalk(ptr);
+    }
+
+    bool Class::isMobile(const MWWorld::Ptr& ptr) const
+    {
+        return canSwim(ptr) || canWalk(ptr) || canFly(ptr);
+    }
+
     int Class::getSkill(const MWWorld::Ptr& ptr, int skill) const
     {
         throw std::runtime_error("class does not support skills");
@@ -396,4 +405,57 @@ namespace MWWorld
     void Class::readAdditionalState (const MWWorld::Ptr& ptr, const ESM::ObjectState& state) const {}
 
     void Class::writeAdditionalState (const MWWorld::Ptr& ptr, ESM::ObjectState& state) const {}
+
+    int Class::getBaseGold(const MWWorld::Ptr& ptr) const
+    {
+        throw std::runtime_error("class does not support base gold");
+    }
+
+    bool Class::isClass(const MWWorld::Ptr& ptr, const std::string &className) const
+    {
+        return false;
+    }
+
+    int Class::getDoorState (const MWWorld::Ptr &ptr) const
+    {
+        throw std::runtime_error("this is not a door");
+    }
+
+    void Class::setDoorState (const MWWorld::Ptr &ptr, int state) const
+    {
+        throw std::runtime_error("this is not a door");
+    }
+
+    float Class::getNormalizedEncumbrance(const Ptr &ptr) const
+    {
+        float capacity = getCapacity(ptr);
+        if (capacity == 0)
+            return 1.f;
+
+        return getEncumbrance(ptr) / capacity;
+    }
+
+    std::string Class::getSound(const MWWorld::Ptr&) const
+    {
+      return std::string();
+    }
+
+    int Class::getBaseFightRating(const Ptr &ptr) const
+    {
+        throw std::runtime_error("class does not support fight rating");
+    }
+
+    std::string Class::getPrimaryFaction (const MWWorld::Ptr& ptr) const
+    {
+        return std::string();
+    }
+    int Class::getPrimaryFactionRank (const MWWorld::Ptr& ptr) const
+    {
+        return -1;
+    }
+
+    int Class::getEffectiveArmorRating(const Ptr &ptr, const Ptr &actor) const
+    {
+        throw std::runtime_error("class does not support armor ratings");
+    }
 }

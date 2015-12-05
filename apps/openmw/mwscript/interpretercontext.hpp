@@ -5,8 +5,6 @@
 
 #include <components/interpreter/context.hpp>
 
-#include "../mwbase/world.hpp"
-
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/action.hpp"
 
@@ -22,20 +20,27 @@ namespace MWInput
 
 namespace MWScript
 {
-    struct Locals;
+    class Locals;
 
     class InterpreterContext : public Interpreter::Context
     {
             Locals *mLocals;
-            MWWorld::Ptr mReference;
+            mutable MWWorld::Ptr mReference;
 
             MWWorld::Ptr mActivated;
             bool mActivationHandled;
-            boost::shared_ptr<MWWorld::Action> mAction;
 
-            MWWorld::Ptr getReference (const std::string& id, bool activeOnly, bool doThrow=true);
+            std::string mTargetId;
 
-            const MWWorld::Ptr getReference (const std::string& id, bool activeOnly, bool doThrow=true) const;
+            /// If \a id is empty, a reference the script is run from is returned or in case
+            /// of a non-local script the reference derived from the target ID.
+            MWWorld::Ptr getReferenceImp (const std::string& id = "", bool activeOnly = false,
+                bool doThrow=true);
+
+            /// If \a id is empty, a reference the script is run from is returned or in case
+            /// of a non-local script the reference derived from the target ID.
+            const MWWorld::Ptr getReferenceImp (const std::string& id = "",
+                bool activeOnly = false, bool doThrow=true) const;
 
             const Locals& getMemberLocals (std::string& id, bool global) const;
             ///< \a id is changed to the respective script ID, if \a id wasn't a script ID before
@@ -43,9 +48,14 @@ namespace MWScript
             Locals& getMemberLocals (std::string& id, bool global);
             ///< \a id is changed to the respective script ID, if \a id wasn't a script ID before
 
+            /// Throws an exception if local variable can't be found.
+            int findLocalVariableIndex (const std::string& scriptId, const std::string& name,
+                char type) const;
+
         public:
 
-            InterpreterContext (MWScript::Locals *locals, MWWorld::Ptr reference);
+            InterpreterContext (MWScript::Locals *locals, MWWorld::Ptr reference,
+                const std::string& targetId = "");
             ///< The ownership of \a locals is not transferred. 0-pointer allowed.
 
             virtual int getLocalShort (int index) const;
@@ -66,7 +76,7 @@ namespace MWScript
                 const std::vector<std::string>& buttons);
 
             virtual void report (const std::string& message);
-            ///< By default echo via messageBox.
+            ///< By default, do nothing.
 
             virtual bool menuMode();
 
@@ -114,11 +124,12 @@ namespace MWScript
 
             virtual bool isScriptRunning (const std::string& name) const;
 
-            virtual void startScript (const std::string& name);
+            virtual void startScript (const std::string& name, const std::string& targetId = "");
 
             virtual void stopScript (const std::string& name);
 
             virtual float getDistance (const std::string& name, const std::string& id = "") const;
+            ///< @note if \a id is empty, assumes an implicit reference
 
             bool hasBeenActivated (const MWWorld::Ptr& ptr);
             ///< \attention Calling this function for the right reference will mark the action as
@@ -126,15 +137,12 @@ namespace MWScript
 
             bool hasActivationBeenHandled() const;
 
-            void activate (const MWWorld::Ptr& ptr, boost::shared_ptr<MWWorld::Action> action);
-            ///< Store reference acted upon and action. The actual execution of the action does not
+            void activate (const MWWorld::Ptr& ptr);
+            ///< Store reference acted upon. The actual execution of the action does not
             /// take place here.
 
-            void executeActivation();
-            ///< Execute the action defined by the last activate call.
-
-            void clearActivation();
-            ///< Discard the action defined by the last activate call.
+            void executeActivation(MWWorld::Ptr ptr, MWWorld::Ptr actor);
+            ///< Execute the activation action for this ptr. If ptr is mActivated, mark activation as handled.
 
             virtual float getSecondsPassed() const;
 
@@ -158,6 +166,11 @@ namespace MWScript
 
             MWWorld::Ptr getReference(bool required=true);
             ///< Reference, that the script is running from (can be empty)
+
+            void updatePtr(const MWWorld::Ptr& updated);
+            ///< Update the Ptr stored in mReference, if there is one stored there. Should be called after the reference has been moved to a new cell.
+
+            virtual std::string getTargetId() const;
     };
 }
 

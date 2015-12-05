@@ -8,18 +8,33 @@
 
 #include "../world/scriptcontext.hpp"
 
+namespace CSMDoc
+{
+    class Document;
+}
+
 namespace CSMTools
 {
     /// \brief VerifyStage: make sure that scripts compile
     class ScriptCheckStage : public CSMDoc::Stage, private Compiler::ErrorHandler
     {
-            const CSMWorld::Data& mData;
+            enum WarningMode
+            {
+                Mode_Ignore,
+                Mode_Normal,
+                Mode_Strict
+            };
+
+            const CSMDoc::Document& mDocument;
             Compiler::Extensions mExtensions;
             CSMWorld::ScriptContext mContext;
             std::string mId;
             std::string mFile;
-            std::vector<std::string> *mMessages;
+            CSMDoc::Messages *mMessages;
+            WarningMode mWarningMode;
 
+            CSMDoc::Message::Severity getSeverity (Type type);
+            
             virtual void report (const std::string& message, const Compiler::TokenLoc& loc, Type type);
             ///< Report error to the user.
 
@@ -28,13 +43,15 @@ namespace CSMTools
 
         public:
 
-            ScriptCheckStage (const CSMWorld::Data& data);
+            ScriptCheckStage (const CSMDoc::Document& document);
 
             virtual int setup();
             ///< \return number of steps
 
-            virtual void perform (int stage, std::vector<std::string>& messages);
+            virtual void perform (int stage, CSMDoc::Messages& messages);
             ///< Messages resulting from this tage will be appended to \a messages.
+
+            virtual void updateUserSetting (const QString& name, const QStringList& value);
     };
 }
 

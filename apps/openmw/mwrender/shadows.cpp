@@ -20,10 +20,9 @@ using namespace Ogre;
 using namespace MWRender;
 
 Shadows::Shadows(OEngine::Render::OgreRenderer* rend) :
-    mShadowFar(1000), mFadeStart(0.9)
+    mRendering(rend), mSceneMgr(rend->getScene()), mPSSMSetup(NULL),
+    mShadowFar(1000), mFadeStart(0.9f)
 {
-    mRendering = rend;
-    mSceneMgr = mRendering->getScene();
     recreate();
 }
 
@@ -59,7 +58,7 @@ void Shadows::recreate()
     mSceneMgr->setShadowTexturePixelFormat(PF_FLOAT32_R);
     mSceneMgr->setShadowDirectionalLightExtrusionDistance(1000000);
 
-    mShadowFar = split ? Settings::Manager::getInt("split shadow distance", "Shadows") : Settings::Manager::getInt("shadow distance", "Shadows");
+    mShadowFar = Settings::Manager::getFloat(split ? "split shadow distance" : "shadow distance", "Shadows");
     mSceneMgr->setShadowFarDistance(mShadowFar);
 
     mFadeStart = Settings::Manager::getFloat("fade start", "Shadows");
@@ -185,14 +184,4 @@ void Shadows::recreate()
 PSSMShadowCameraSetup* Shadows::getPSSMSetup()
 {
     return mPSSMSetup;
-}
-
-float Shadows::getShadowFar() const
-{
-    return mShadowFar;
-}
-
-float Shadows::getFadeStart() const
-{
-    return mFadeStart;
 }

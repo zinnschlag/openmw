@@ -6,6 +6,7 @@
 #include <QtCore/qnamespace.h>
 
 class QModelIndex;
+class QWidget;
 
 namespace CSMWorld
 {
@@ -15,6 +16,11 @@ namespace CSMWorld
 namespace CSMDoc
 {
     class Document;
+}
+
+namespace CSVFilter
+{
+    class FilterBox;
 }
 
 namespace CSVWorld
@@ -29,6 +35,9 @@ namespace CSVWorld
 
             Table *mTable;
             TableBottomBox *mBottom;
+            CSVFilter::FilterBox *mFilterBox;
+            bool mShowOptions;
+            QWidget *mOptions;
 
         public:
 
@@ -37,9 +46,12 @@ namespace CSVWorld
 
             virtual void setEditLock (bool locked);
 
-            virtual void updateEditorSetting (const QString& key, const QString& value);
+            virtual void updateUserSetting
+                                (const QString& name, const QStringList &list);
 
             virtual void setStatusBar (bool show);
+
+            virtual void useHint (const std::string& hint);
 
         protected:
             bool eventFilter(QObject* object, QEvent *event);
@@ -47,9 +59,6 @@ namespace CSVWorld
         signals:
             void cloneRequest(const std::string&,
                               const CSMWorld::UniversalId::Type);
-            void createFilterRequest(std::vector<std::pair<std::string, std::vector<std::string> > >& filterSource,
-                                     Qt::DropAction action);
-            void useFilterRequest(const std::string& idOfFilter);
 
         private slots:
 
@@ -57,6 +66,7 @@ namespace CSVWorld
             void cloneRequest (const CSMWorld::UniversalId& toClone);
             void createFilterRequest(std::vector< CSMWorld::UniversalId >& types,
                                      Qt::DropAction action);
+            void toggleOptions ();
     };
 }
 

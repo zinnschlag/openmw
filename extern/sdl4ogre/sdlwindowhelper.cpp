@@ -6,6 +6,7 @@
 
 #include <SDL_syswm.h>
 #include <SDL_endian.h>
+#include <stdexcept>
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 #include "osx_utils.h"
@@ -29,20 +30,23 @@ SDLWindowHelper::SDLWindowHelper (SDL_Window* window, int w, int h,
 
 	switch (wmInfo.subsystem)
 	{
-#ifdef WIN32
+#ifdef _WIN32
 	case SDL_SYSWM_WINDOWS:
 		// Windows code
-		winHandle = Ogre::StringConverter::toString((unsigned long)wmInfo.info.win.window);
+		winHandle = Ogre::StringConverter::toString((uintptr_t)wmInfo.info.win.window);
 		break;
 #elif __MACOSX__
 	case SDL_SYSWM_COCOA:
 		//required to make OGRE play nice with our window
 		params.insert(std::make_pair("macAPI", "cocoa"));
 		params.insert(std::make_pair("macAPICocoaUseNSView", "true"));
-
 		winHandle  = Ogre::StringConverter::toString(WindowContentViewHandle(wmInfo));
 		break;
-#else
+#elif ANDROID           
+        case SDL_SYSWM_ANDROID:
+		winHandle = Ogre::StringConverter::toString((unsigned long)wmInfo.info.android.window);
+		break;
+ #else
 	case SDL_SYSWM_X11:
 		winHandle = Ogre::StringConverter::toString((unsigned long)wmInfo.info.x11.window);
 		break;
@@ -54,7 +58,12 @@ SDLWindowHelper::SDLWindowHelper (SDL_Window* window, int w, int h,
 
 	/// \todo externalWindowHandle is deprecated according to the source code. Figure out a way to get parentWindowHandle
 	/// to work properly. On Linux/X11 it causes an occasional GLXBadDrawable error.
-	params.insert(std::make_pair("externalWindowHandle",  winHandle));
+
+#ifdef ANDROID	
+        SDL_GLContext context= SDL_GL_CreateContext(window);
+        params.insert(std::make_pair("currentGLContext","True"));
+#endif
+        params.insert(std::make_pair("externalWindowHandle",  winHandle));
 
 	mWindow = Ogre::Root::getSingleton().createRenderWindow(title, w, h, fullscreen, &params);
 }
@@ -84,7 +93,8 @@ void SDLWindowHelper::setWindowIcon(const std::string &name)
 			int bpp = surface->format->BytesPerPixel;
 			/* Here p is the address to the pixel we want to set */
 			Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
-			Uint32 pixel = SDL_MapRGBA(surface->format, clr.r*255, clr.g*255, clr.b*255, clr.a*255);
+            Uint32 pixel = SDL_MapRGBA(surface->format, static_cast<Uint8>(clr.r * 255), 
+                static_cast<Uint8>(clr.g * 255), static_cast<Uint8>(clr.b * 255), static_cast<Uint8>(clr.a * 255));
 			switch(bpp) {
 			case 1:
 				*p = pixel;

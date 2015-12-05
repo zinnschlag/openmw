@@ -1,12 +1,17 @@
 #ifndef CSV_WORLD_SCRIPTSUBVIEW_H
 #define CSV_WORLD_SCRIPTSUBVIEW_H
 
+#include <QVBoxLayout>
+
+#include "../../model/world/commanddispatcher.hpp"
+
 #include "../doc/subview.hpp"
 
-#include <QTimer>
-
-class QTextEdit;
 class QModelIndex;
+class QLabel;
+class QVBoxLayout;
+class QSplitter;
+class QTime;
 
 namespace CSMDoc
 {
@@ -20,34 +25,41 @@ namespace CSMWorld
 
 namespace CSVWorld
 {
-    class ScriptHighlighter;
+    class ScriptEdit;
+    class RecordButtonBar;
+    class TableBottomBox;
+    class ScriptErrorTable;
 
     class ScriptSubView : public CSVDoc::SubView
     {
             Q_OBJECT
 
-            QTextEdit *mEditor;
+            ScriptEdit *mEditor;
             CSMDoc::Document& mDocument;
             CSMWorld::IdTable *mModel;
             int mColumn;
-            int mChangeLocked;
-            ScriptHighlighter *mHighlighter;
-            QTimer mUpdateTimer;
+            int mIdColumn;
+            int mStateColumn;
+            TableBottomBox *mBottom;
+            RecordButtonBar *mButtons;
+            CSMWorld::CommandDispatcher mCommandDispatcher;
+            QVBoxLayout mLayout;
+            QSplitter *mMain;
+            ScriptErrorTable *mErrors;
+            QTimer *mCompileDelay;
+            int mErrorHeight;
 
-            class ChangeLock
-            {
-                    ScriptSubView& mView;
+        private:
 
-                    ChangeLock (const ChangeLock&);
-                    ChangeLock& operator= (const ChangeLock&);
+            void addButtonBar();
 
-                public:
+            void recompile();
 
-                    ChangeLock (ScriptSubView& view);
-                    ~ChangeLock();
-            };
+            bool isDeleted() const;
 
-            friend class ChangeLock;
+            void updateDeletedState();
+
+            void adjustSplitter();
 
         public:
 
@@ -55,9 +67,13 @@ namespace CSVWorld
 
             virtual void setEditLock (bool locked);
 
-        public slots:
+            virtual void useHint (const std::string& hint);
 
-            void idListChanged();
+            virtual void updateUserSetting (const QString& name, const QStringList& value);
+
+            virtual void setStatusBar (bool show);
+
+        public slots:
 
             void textChanged();
 
@@ -67,7 +83,15 @@ namespace CSVWorld
 
         private slots:
 
-            void updateHighlighting();
+            void updateStatusBar();
+
+            void switchToRow (int row);
+
+            void switchToId (const std::string& id);
+
+            void highlightError (int line, int column);
+
+            void updateRequest();
     };
 }
 

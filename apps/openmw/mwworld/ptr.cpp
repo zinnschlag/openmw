@@ -1,18 +1,10 @@
-
 #include "ptr.hpp"
 
 #include <cassert>
 
 #include "containerstore.hpp"
 #include "class.hpp"
-
-
-/* This shouldn't really be here. */
-MWWorld::LiveCellRefBase::LiveCellRefBase(std::string type, const ESM::CellRef &cref)
-  : mClass(&Class::get(type)), mRef(cref), mData(mRef)
-{
-}
-
+#include "livecellref.hpp"
 
 const std::string& MWWorld::Ptr::getTypeName() const
 {
@@ -29,7 +21,7 @@ MWWorld::LiveCellRefBase *MWWorld::Ptr::getBase() const
     return mRef;
 }
 
-ESM::CellRef& MWWorld::Ptr::getCellRef() const
+MWWorld::CellRef& MWWorld::Ptr::getCellRef() const
 {
     assert(mRef);
 

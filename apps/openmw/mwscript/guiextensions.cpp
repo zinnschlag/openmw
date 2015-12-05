@@ -1,4 +1,3 @@
-
 #include "guiextensions.hpp"
 
 #include <components/compiler/extensions.hpp>
@@ -12,7 +11,7 @@
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
-
+#include "../mwbase/world.hpp"
 #include "../mwbase/mechanicsmanager.hpp"
 
 #include "interpretercontext.hpp"
@@ -92,7 +91,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    MWBase::Environment::get().getWindowManager()->toggleFogOfWar();
+                    runtime.getContext().report(MWBase::Environment::get().getWindowManager()->toggleFogOfWar() ? "Fog of war -> On"
+                                                                                                                : "Fog of war -> Off");
                 }
         };
 
@@ -102,7 +102,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    MWBase::Environment::get().getWindowManager()->toggleFullHelp();
+                    runtime.getContext().report(MWBase::Environment::get().getWindowManager()->toggleFullHelp() ? "Full help -> On"
+                                                                                                                : "Full help -> Off");
                 }
         };
 
@@ -160,6 +161,62 @@ namespace MWScript
             }
         };
 
+        class OpMenuTest : public Interpreter::Opcode1
+        {
+        public:
+
+            virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
+            {
+                int arg=0;
+                if(arg0>0)
+                {
+                    arg = runtime[0].mInteger;
+                    runtime.pop();
+                }
+
+
+                if (arg == 0)
+                {
+                    MWGui::GuiMode modes[] = { MWGui::GM_Inventory, MWGui::GM_Container };
+
+                    for (int i=0; i<2; ++i)
+                    {
+                        if (MWBase::Environment::get().getWindowManager()->containsMode(modes[i]))
+                            MWBase::Environment::get().getWindowManager()->removeGuiMode(modes[i]);
+                    }
+                }
+                else
+                {
+                    MWGui::GuiWindow gw = MWGui::GW_None;
+                    if (arg == 3)
+                        gw = MWGui::GW_Stats;
+                    if (arg == 4)
+                        gw = MWGui::GW_Inventory;
+                    if (arg == 5)
+                        gw = MWGui::GW_Magic;
+                    if (arg == 6)
+                        gw = MWGui::GW_Map;
+
+                    MWBase::Environment::get().getWindowManager()->pinWindow(gw);
+                }
+            }
+        };
+
+        class OpToggleMenus : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                bool state = MWBase::Environment::get().getWindowManager()->toggleGui();
+                runtime.getContext().report(state ? "GUI -> On" : "GUI -> Off");
+
+                if (!state)
+                {
+                    while (MWBase::Environment::get().getWindowManager()->getMode() != MWGui::GM_None) // don't use isGuiMode, or we get an infinite loop for modal message boxes!
+                        MWBase::Environment::get().getWindowManager()->popGuiMode();
+                }
+            }
+        };
 
         void installOpcodes (Interpreter::Interpreter& interpreter)
         {
@@ -173,6 +230,8 @@ namespace MWScript
                 new OpShowDialogue (MWGui::GM_Race));
             interpreter.installSegment5 (Compiler::Gui::opcodeEnableStatsReviewMenu,
                 new OpShowDialogue (MWGui::GM_Review));
+            interpreter.installSegment5 (Compiler::Gui::opcodeEnableLevelupMenu,
+                new OpShowDialogue (MWGui::GM_Levelup));
 
             interpreter.installSegment5 (Compiler::Gui::opcodeEnableInventoryMenu,
                 new OpEnableWindow (MWGui::GW_Inventory));
@@ -198,6 +257,8 @@ namespace MWScript
 
             interpreter.installSegment5 (Compiler::Gui::opcodeShowMap, new OpShowMap);
             interpreter.installSegment5 (Compiler::Gui::opcodeFillMap, new OpFillMap);
+            interpreter.installSegment3 (Compiler::Gui::opcodeMenuTest, new OpMenuTest);
+            interpreter.installSegment5 (Compiler::Gui::opcodeToggleMenus, new OpToggleMenus);
         }
     }
 }

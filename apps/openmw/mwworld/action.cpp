@@ -1,4 +1,3 @@
-
 #include "action.hpp"
 
 #include "../mwbase/environment.hpp"
@@ -11,7 +10,7 @@ const MWWorld::Ptr& MWWorld::Action::getTarget() const
     return mTarget;
 }
 
-MWWorld::Action::Action (bool keepSound, const Ptr& target) : mKeepSound (keepSound), mTarget (target), mSoundOffset(0)
+MWWorld::Action::Action (bool keepSound, const Ptr& target) : mKeepSound (keepSound), mSoundOffset(0), mTarget (target)
 {}
 
 MWWorld::Action::~Action() {}
@@ -20,7 +19,7 @@ void MWWorld::Action::execute (const Ptr& actor)
 {
     if (!mSoundId.empty())
     {
-        if (mKeepSound && actor.getRefData().getHandle()=="player")
+        if (mKeepSound && actor == MWBase::Environment::get().getWorld()->getPlayerPtr())
             MWBase::Environment::get().getSoundManager()->playSound(mSoundId, 1.0, 1.0,
                     MWBase::SoundManager::Play_TypeSfx, MWBase::SoundManager::Play_Normal,mSoundOffset);
         else

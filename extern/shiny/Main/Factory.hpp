@@ -206,7 +206,7 @@ namespace sh
 
 		std::string getCacheFolder () { return mPlatform->getCacheFolder (); }
 		bool getReadSourceCache() { return mReadSourceCache; }
-		bool getWriteSourceCache() { return mReadSourceCache; }
+		bool getWriteSourceCache() { return mWriteSourceCache; }
 	public:
 		bool getWriteMicrocodeCache() { return mWriteMicrocodeCache; } // Fixme
 
@@ -259,8 +259,8 @@ namespace sh
 		Platform* mPlatform;
 
 		MaterialInstance* findInstance (const std::string& name);
-    private:
 		MaterialInstance* searchInstance (const std::string& name);
+
 		/// @return was anything removed?
 		bool removeCache (const std::string& pattern);
 

@@ -1,149 +1,176 @@
 #include "settings.hpp"
 
-#include <fstream>
 #include <stdexcept>
 
-#include <OgreResourceGroupManager.h>
+#include <OgreString.h> // FIXME: workaround compilation error with OgreCommon.h included by OgreStringConverter.h
 #include <OgreStringConverter.h>
 
-using namespace Settings;
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
+#include <boost/algorithm/string.hpp>
 
-Ogre::ConfigFile Manager::mFile = Ogre::ConfigFile();
-Ogre::ConfigFile Manager::mDefaultFile = Ogre::ConfigFile();
+namespace Settings
+{
+
+CategorySettingValueMap Manager::mDefaultSettings = CategorySettingValueMap();
+CategorySettingValueMap Manager::mUserSettings = CategorySettingValueMap();
 CategorySettingVector Manager::mChangedSettings = CategorySettingVector();
-CategorySettingValueMap Manager::mNewSettings = CategorySettingValueMap();
 
-void Manager::loadUser (const std::string& file)
+
+class SettingsFileParser
 {
-    mFile.load(file);
-}
+public:
+    SettingsFileParser() : mLine(0) {}
 
-void Manager::loadDefault (const std::string& file)
-{
-    mDefaultFile.load(file);
-}
-
-void Manager::saveUser(const std::string& file)
-{
-    std::fstream fout(file.c_str(), std::ios::out);
-
-    Ogre::ConfigFile::SectionIterator seci = mFile.getSectionIterator();
-
-    while (seci.hasMoreElements())
+    void loadSettingsFile (const std::string& file, CategorySettingValueMap& settings)
     {
-        Ogre::String sectionName = seci.peekNextKey();
-
-        if (sectionName.length() > 0)
-            fout << '\n' << '[' << seci.peekNextKey() << ']' << '\n';
-
-        Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
-        Ogre::ConfigFile::SettingsMultiMap::iterator i;
-        for (i = settings->begin(); i != settings->end(); ++i)
+        mFile = file;
+        boost::filesystem::ifstream stream;
+        stream.open(boost::filesystem::path(file));
+        std::string currentCategory;
+        mLine = 0;
+        while (!stream.eof() && !stream.fail())
         {
-            fout << i->first.c_str() << " = " << i->second.c_str() << '\n';
-        }
+            ++mLine;
+            std::string line;
+            std::getline( stream, line );
 
-        CategorySettingValueMap::iterator it = mNewSettings.begin();
-        while (it != mNewSettings.end())
-        {
-            if (it->first.first == sectionName)
+            size_t i = 0;
+            if (!skipWhiteSpace(i, line))
+                continue;
+
+            if (line[i] == '#') // skip comment
+                continue;
+
+            if (line[i] == '[')
             {
-                fout << it->first.second << " = " << it->second << '\n';
-                mNewSettings.erase(it++);
+                size_t end = line.find(']', i);
+                if (end == std::string::npos)
+                    fail("unterminated category");
+
+                currentCategory = line.substr(i+1, end - (i+1));
+                boost::algorithm::trim(currentCategory);
+                i = end+1;
             }
-            else
-                ++it;
+
+            if (!skipWhiteSpace(i, line))
+                continue;
+
+            if (currentCategory.empty())
+                fail("empty category name");
+
+            size_t settingEnd = line.find('=', i);
+            if (settingEnd == std::string::npos)
+                fail("unterminated setting name");
+
+            std::string setting = line.substr(i, (settingEnd-i));
+            boost::algorithm::trim(setting);
+
+            size_t valueBegin = settingEnd+1;
+            std::string value = line.substr(valueBegin);
+            boost::algorithm::trim(value);
+
+            if (settings.insert(std::make_pair(std::make_pair(currentCategory, setting), value)).second == false)
+                fail(std::string("duplicate setting: [" + currentCategory + "] " + setting));
         }
     }
 
-    std::string category = "";
-    for (CategorySettingValueMap::iterator it = mNewSettings.begin();
-            it != mNewSettings.end(); ++it)
+private:
+    /// Increment i until it longer points to a whitespace character
+    /// in the string or has reached the end of the string.
+    /// @return false if we have reached the end of the string
+    bool skipWhiteSpace(size_t& i, std::string& str)
     {
-        if (category != it->first.first)
+        while (i < str.size() && std::isspace(str[i], std::locale::classic()))
         {
-            category = it->first.first;
-            fout << '\n' << '[' << category << ']' << '\n';
+            ++i;
         }
-        fout << it->first.second << " = " << it->second << '\n';
+        return i < str.size();
     }
 
-    fout.close();
-}
+    void fail(const std::string& message)
+    {
+        std::stringstream error;
+        error << "Error on line " << mLine << " in " << mFile << ":\n" << message;
+        throw std::runtime_error(error.str());
+    }
 
-const std::string Manager::getString (const std::string& setting, const std::string& category)
+    std::string mFile;
+    int mLine;
+};
+
+void Manager::loadDefault(const std::string &file)
 {
-    if (mNewSettings.find(std::make_pair(category, setting)) != mNewSettings.end())
-        return mNewSettings[std::make_pair(category, setting)];
-
-    std::string defaultval = mDefaultFile.getSetting(setting, category, "NOTFOUND");
-    std::string val = mFile.getSetting(setting, category, defaultval);
-
-    if (val == "NOTFOUND")
-        throw std::runtime_error("Trying to retrieve a non-existing setting: " + setting + " Make sure the settings-default.cfg file was properly installed.");
-    return val;
+    SettingsFileParser parser;
+    parser.loadSettingsFile(file, mDefaultSettings);
 }
 
-const float Manager::getFloat (const std::string& setting, const std::string& category)
+void Manager::loadUser(const std::string &file)
+{
+    SettingsFileParser parser;
+    parser.loadSettingsFile(file, mUserSettings);
+}
+
+void Manager::saveUser(const std::string &file)
+{
+    boost::filesystem::ofstream stream;
+    stream.open(boost::filesystem::path(file));
+    std::string currentCategory;
+    for (CategorySettingValueMap::iterator it = mUserSettings.begin(); it != mUserSettings.end(); ++it)
+    {
+        if (it->first.first != currentCategory)
+        {
+            currentCategory = it->first.first;
+            stream << "\n[" << currentCategory << "]\n";
+        }
+        stream << it->first.second << " = " << it->second << "\n";
+    }
+}
+
+std::string Manager::getString(const std::string &setting, const std::string &category)
+{
+    CategorySettingValueMap::key_type key = std::make_pair(category, setting);
+    CategorySettingValueMap::iterator it = mUserSettings.find(key);
+    if (it != mUserSettings.end())
+        return it->second;
+
+    it = mDefaultSettings.find(key);
+    if (it != mDefaultSettings.end())
+        return it->second;
+
+    throw std::runtime_error(std::string("Trying to retrieve a non-existing setting: ") + setting
+                             + ".\nMake sure the settings-default.cfg file file was properly installed.");
+}
+
+float Manager::getFloat (const std::string& setting, const std::string& category)
 {
     return Ogre::StringConverter::parseReal( getString(setting, category) );
 }
 
-const int Manager::getInt (const std::string& setting, const std::string& category)
+int Manager::getInt (const std::string& setting, const std::string& category)
 {
     return Ogre::StringConverter::parseInt( getString(setting, category) );
 }
 
-const bool Manager::getBool (const std::string& setting, const std::string& category)
+bool Manager::getBool (const std::string& setting, const std::string& category)
 {
     return Ogre::StringConverter::parseBool( getString(setting, category) );
 }
 
-void Manager::setString (const std::string& setting, const std::string& category, const std::string& value)
+void Manager::setString(const std::string &setting, const std::string &category, const std::string &value)
 {
-    CategorySetting s = std::make_pair(category, setting);
+    CategorySettingValueMap::key_type key = std::make_pair(category, setting);
 
-    bool found=false;
-    try
+    CategorySettingValueMap::iterator found = mUserSettings.find(key);
+    if (found != mUserSettings.end())
     {
-        Ogre::ConfigFile::SettingsIterator it = mFile.getSettingsIterator(category);
-        while (it.hasMoreElements())
-        {
-            Ogre::ConfigFile::SettingsMultiMap::iterator i = it.current();
-
-            if ((*i).first == setting)
-            {
-                if ((*i).second != value)
-                {
-                    mChangedSettings.push_back(std::make_pair(category, setting));
-                    (*i).second = value;
-                }
-                found = true;
-            }
-
-            it.getNext();
-        }
+        if (found->second == value)
+            return;
     }
-    catch (Ogre::Exception&)
-    {}
 
-    if (!found)
-    {
-        if (mNewSettings.find(s) != mNewSettings.end())
-        {
-            if (mNewSettings[s] != value)
-            {
-                mChangedSettings.push_back(std::make_pair(category, setting));
-                mNewSettings[s] = value;
-            }
-        }
-        else
-        {
-            if (mDefaultFile.getSetting(setting, category) != value)
-                mChangedSettings.push_back(std::make_pair(category, setting));
-            mNewSettings[s] = value;
-        }
-    }
+    mUserSettings[key] = value;
+
+    mChangedSettings.insert(key);
 }
 
 void Manager::setInt (const std::string& setting, const std::string& category, const int value)
@@ -151,12 +178,12 @@ void Manager::setInt (const std::string& setting, const std::string& category, c
     setString(setting, category, Ogre::StringConverter::toString(value));
 }
 
-void Manager::setFloat (const std::string& setting, const std::string& category, const float value)
+void Manager::setFloat (const std::string &setting, const std::string &category, const float value)
 {
     setString(setting, category, Ogre::StringConverter::toString(value));
 }
 
-void Manager::setBool (const std::string& setting, const std::string& category, const bool value)
+void Manager::setBool(const std::string &setting, const std::string &category, const bool value)
 {
     setString(setting, category, Ogre::StringConverter::toString(value));
 }
@@ -166,4 +193,6 @@ const CategorySettingVector Manager::apply()
     CategorySettingVector vec = mChangedSettings;
     mChangedSettings.clear();
     return vec;
+}
+
 }

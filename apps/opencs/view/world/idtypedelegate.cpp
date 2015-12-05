@@ -3,30 +3,11 @@
 #include "../../model/world/universalid.hpp"
 
 CSVWorld::IdTypeDelegate::IdTypeDelegate
-    (const ValueList &values, const IconList &icons, QUndoStack& undoStack, QObject *parent)
-    : DataDisplayDelegate (values, icons, undoStack, parent)
+    (const ValueList &values, const IconList &icons, CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent)
+    : DataDisplayDelegate (values, icons, dispatcher, document,
+                           "records", "type-format",
+                           parent)
 {}
-
-bool CSVWorld::IdTypeDelegate::updateEditorSetting (const QString &settingName, const QString &settingValue)
-{
-    /// \todo make the setting key a member variable, that is initialised from a constructor argument
-    if (settingName == "Referenceable ID Type Display")
-    {
-        if (settingValue == "Icon and Text")
-            mDisplayMode = Mode_IconAndText;
-
-        else if (settingValue == "Icon Only")
-            mDisplayMode = Mode_IconOnly;
-
-        else if (settingValue == "Text Only")
-            mDisplayMode = Mode_TextOnly;
-
-        return true;
-    }
-
-    return false;
-}
-
 
 CSVWorld::IdTypeDelegateFactory::IdTypeDelegateFactory()
 {
@@ -39,8 +20,8 @@ CSVWorld::IdTypeDelegateFactory::IdTypeDelegateFactory()
     }
 }
 
-CSVWorld::CommandDelegate *CSVWorld::IdTypeDelegateFactory::makeDelegate (QUndoStack& undoStack,
-    QObject *parent) const
+CSVWorld::CommandDelegate *CSVWorld::IdTypeDelegateFactory::makeDelegate (
+    CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent) const
 {
-    return new IdTypeDelegate (mValues, mIcons, undoStack, parent);
+    return new IdTypeDelegate (mValues, mIcons, dispatcher, document, parent);
 }

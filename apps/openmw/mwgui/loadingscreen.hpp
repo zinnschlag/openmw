@@ -1,15 +1,22 @@
 #ifndef MWGUI_LOADINGSCREEN_H
 #define MWGUI_LOADINGSCREEN_H
 
-#include <OgreSceneManager.h>
 #include <OgreTimer.h>
+#include <OgreStringVector.h>
 
 #include "windowbase.hpp"
 
 #include <components/loadinglistener/loadinglistener.hpp>
 
+namespace Ogre
+{
+    class SceneManager;
+}
+
 namespace MWGui
 {
+    class BackgroundImage;
+
     class LoadingScreen : public WindowBase, public Loading::Listener
     {
     public:
@@ -23,9 +30,9 @@ namespace MWGui
 
         virtual void setProgressRange (size_t range);
         virtual void setProgress (size_t value);
-        virtual void increaseProgress (size_t increase);
+        virtual void increaseProgress (size_t increase=1);
 
-        virtual void removeWallpaper();
+        virtual void setVisible(bool visible);
 
         LoadingScreen(Ogre::SceneManager* sceneMgr, Ogre::RenderWindow* rw);
         virtual ~LoadingScreen();
@@ -33,13 +40,9 @@ namespace MWGui
         void setLoadingProgress (const std::string& stage, int depth, int current, int total);
         void loadingDone();
 
-        void onResChange(int w, int h);
-
         void updateWindow(Ogre::RenderWindow* rw) { mWindow = rw; }
 
     private:
-        bool mFirstLoad;
-
         Ogre::SceneManager* mSceneMgr;
         Ogre::RenderWindow* mWindow;
 
@@ -49,12 +52,11 @@ namespace MWGui
 
         size_t mProgress;
 
+        MyGUI::Widget* mLoadingBox;
+
         MyGUI::TextBox* mLoadingText;
         MyGUI::ScrollBar* mProgressBar;
-        MyGUI::ImageBox* mBackgroundImage;
-
-        Ogre::Rectangle2D* mRectangle;
-        Ogre::MaterialPtr mBackgroundMaterial;
+        BackgroundImage* mBackgroundImage;
 
         Ogre::StringVector mResources;
 

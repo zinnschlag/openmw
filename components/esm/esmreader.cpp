@@ -21,9 +21,9 @@ ESM_Context ESMReader::getContext()
 }
 
 ESMReader::ESMReader()
-    : mBuffer(50*1024)
+    : mIdx(0)
     , mRecordFlags(0)
-    , mIdx(0)
+    , mBuffer(50*1024)
     , mGlobalReaderList(NULL)
     , mEncoder(NULL)
 {
@@ -123,7 +123,7 @@ std::string ESMReader::getHString()
         // Skip the following zero byte
         mCtx.leftRec--;
         char c;
-        mEsm->read(&c, 1);
+        getExact(&c, 1);
         return "";
     }
 
@@ -134,7 +134,11 @@ void ESMReader::getHExact(void*p, int size)
 {
     getSubHeader();
     if (size != static_cast<int> (mCtx.leftSub))
-        fail("getHExact() size mismatch");
+    {
+        std::stringstream error;
+        error << "getHExact(): size mismatch (requested " << size << ", got " << mCtx.leftSub << ")";
+        fail(error.str());
+    }
     getExact(p, size);
 }
 
@@ -170,6 +174,22 @@ bool ESMReader::isNextSub(const char* name)
     return !mCtx.subCached;
 }
 
+bool ESMReader::peekNextSub(const char *name)
+{
+    if (!mCtx.leftRec)
+        return false;
+
+    getSubName();
+
+    mCtx.subCached = true;
+    return mCtx.subName == name;
+}
+
+void ESMReader::cacheSubName()
+{
+    mCtx.subCached = true;
+}
+
 // Read subrecord name. This gets called a LOT, so I've optimized it
 // slightly.
 void ESMReader::getSubName()
@@ -182,7 +202,7 @@ void ESMReader::getSubName()
     }
 
     // reading the subrecord data anyway.
-    mEsm->read(mCtx.subName.name, 4);
+    getExact(mCtx.subName.name, 4);
     mCtx.leftRec -= 4;
 }
 
@@ -190,7 +210,7 @@ bool ESMReader::isEmptyOrGetName()
 {
     if (mCtx.leftRec)
     {
-        mEsm->read(mCtx.subName.name, 4);
+        getExact(mCtx.subName.name, 4);
         mCtx.leftRec -= 4;
         return false;
     }
@@ -208,6 +228,17 @@ void ESMReader::skipHSubSize(int size)
     skipHSub();
     if (static_cast<int> (mCtx.leftSub) != size)
         fail("skipHSubSize() mismatch");
+}
+
+void ESMReader::skipHSubUntil(const char *name)
+{
+    while (hasMoreSubs() && !isNextSub(name))
+    {
+        mCtx.subCached = false;
+        skipHSub();
+    }
+    if (hasMoreSubs())
+        mCtx.subCached = true;
 }
 
 void ESMReader::getSubHeader()
@@ -248,14 +279,7 @@ void ESMReader::skipRecord()
 {
     skip(mCtx.leftRec);
     mCtx.leftRec = 0;
-}
-
-void ESMReader::skipHRecord()
-{
-    if (!mCtx.leftFile)
-        return;
-    getRecHeader();
-    skipRecord();
+    mCtx.subCached = false;
 }
 
 void ESMReader::getRecHeader(uint32_t &flags)
@@ -287,9 +311,16 @@ void ESMReader::getRecHeader(uint32_t &flags)
 
 void ESMReader::getExact(void*x, int size)
 {
-    int t = mEsm->read(x, size);
-    if (t != size)
-        fail("Read error");
+    try
+    {
+        int t = mEsm->read(x, size);
+        if (t != size)
+            fail("Read error");
+    }
+    catch (std::exception& e)
+    {
+        fail(std::string("Read error: ") + e.what());
+    }
 }
 
 std::string ESMReader::getString(int size)
@@ -307,8 +338,7 @@ std::string ESMReader::getString(int size)
     char *ptr = &mBuffer[0];
     getExact(ptr, size);
 
-    if (size>0 && ptr[size-1]==0)
-        --size;
+    size = strnlen(ptr, size);
 
     // Convert to UTF8 and return
     if (mEncoder)

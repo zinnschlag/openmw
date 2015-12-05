@@ -1,22 +1,26 @@
 #include "referenceablecheck.hpp"
+
+#include <components/misc/stringops.hpp>
+
 #include "../world/record.hpp"
 #include "../world/universalid.hpp"
-#include <components/misc/stringops.hpp>
 
 CSMTools::ReferenceableCheckStage::ReferenceableCheckStage(
     const CSMWorld::RefIdData& referenceable, const CSMWorld::IdCollection<ESM::Race >& races,
     const CSMWorld::IdCollection<ESM::Class>& classes,
-    const CSMWorld::IdCollection<ESM::Faction>& faction)
+    const CSMWorld::IdCollection<ESM::Faction>& faction,
+    const CSMWorld::IdCollection<ESM::Script>& scripts)
     :
     mReferencables(referenceable),
-    mClasses(classes),
     mRaces(races),
+    mClasses(classes),
     mFactions(faction),
+    mScripts(scripts),
     mPlayerPresent(false)
 {
 }
 
-void CSMTools::ReferenceableCheckStage::perform(int stage, std::vector< std::string >& messages)
+void CSMTools::ReferenceableCheckStage::perform (int stage, CSMDoc::Messages& messages)
 {
     //Checks for books, than, when stage is above mBooksSize goes to other checks, with (stage - PrevSum) as stage.
     const int bookSize(mReferencables.getBooks().getSize());
@@ -206,11 +210,11 @@ void CSMTools::ReferenceableCheckStage::perform(int stage, std::vector< std::str
         staticCheck(stage, mReferencables.getStatics(), messages);
         return;
     }
-    
+
     stage -= staticSize;
 
     const int creatureSize(mReferencables.getCreatures().getSize());
-    
+
     if (stage < creatureSize)
     {
         creatureCheck(stage, mReferencables.getCreatures(), messages);
@@ -230,7 +234,7 @@ int CSMTools::ReferenceableCheckStage::setup()
 void CSMTools::ReferenceableCheckStage::bookCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Book >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -243,12 +247,15 @@ void CSMTools::ReferenceableCheckStage::bookCheck(
     CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Book, book.mId);
 
     inventoryItemCheck<ESM::Book>(book, messages, id.toString(), true);
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Book>(book, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::activatorCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Activator >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -262,15 +269,16 @@ void CSMTools::ReferenceableCheckStage::activatorCheck(
 
     //Checking for model, IIRC all activators should have a model
     if (activator.mModel.empty())
-    {
-        messages.push_back(id.toString() + "|" + activator.mId + " has no model");
-    }
+        messages.push_back (std::make_pair (id, activator.mId + " has no model"));
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Activator>(activator, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::potionCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Potion >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -284,13 +292,16 @@ void CSMTools::ReferenceableCheckStage::potionCheck(
 
     inventoryItemCheck<ESM::Potion>(potion, messages, id.toString());
     //IIRC potion can have empty effects list just fine.
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Potion>(potion, messages, id.toString());
 }
 
 
 void CSMTools::ReferenceableCheckStage::apparatusCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Apparatus >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -305,12 +316,15 @@ void CSMTools::ReferenceableCheckStage::apparatusCheck(
     inventoryItemCheck<ESM::Apparatus>(apparatus, messages, id.toString());
 
     toolCheck<ESM::Apparatus>(apparatus, messages, id.toString());
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Apparatus>(apparatus, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::armorCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Armor >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -326,21 +340,20 @@ void CSMTools::ReferenceableCheckStage::armorCheck(
 
     //checking for armor class, armor should have poistive armor class, but 0 is considered legal
     if (armor.mData.mArmor < 0)
-    {
-        messages.push_back(id.toString() + "|" + armor.mId + " has negative armor class");
-    }
+        messages.push_back (std::make_pair (id, armor.mId + " has negative armor class"));
 
     //checking for health. Only positive numbers are allowed, or 0 is illegal
     if (armor.mData.mHealth <= 0)
-    {
-        messages.push_back(id.toString() + "|" + armor.mId + " has non positive health");
-    }
+        messages.push_back (std::make_pair (id, armor.mId + " has non positive health"));
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Armor>(armor, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::clothingCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Clothing >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -352,12 +365,15 @@ void CSMTools::ReferenceableCheckStage::clothingCheck(
     const ESM::Clothing& clothing = (dynamic_cast<const CSMWorld::Record<ESM::Clothing>& >(baseRecord)).get();
     CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Clothing, clothing.mId);
     inventoryItemCheck<ESM::Clothing>(clothing, messages, id.toString(), true);
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Clothing>(clothing, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::containerCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Container >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -371,153 +387,121 @@ void CSMTools::ReferenceableCheckStage::containerCheck(
 
     //Checking for model, IIRC all containers should have a model
     if (container.mModel.empty())
-    {
-        messages.push_back(id.toString() + "|" + container.mId + " has no model");
-    }
+        messages.push_back (std::make_pair (id, container.mId + " has no model"));
 
     //Checking for capacity (weight)
     if (container.mWeight < 0) //0 is allowed
-    {
-        messages.push_back(id.toString() + "|" + container.mId + " has negative weight (capacity)");
-    }
+        messages.push_back (std::make_pair (id,
+            container.mId + " has negative weight (capacity)"));
 
     //checking for name
     if (container.mName.empty())
-    {
-        messages.push_back(id.toString() + "|" + container.mId + " has an empty name");
-    }
+        messages.push_back (std::make_pair (id, container.mId + " has an empty name"));
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Container>(container, messages, id.toString());
 }
 
-void CSMTools::ReferenceableCheckStage::creatureCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::Creature >& records,
-    std::vector< std::string >& messages)
+void CSMTools::ReferenceableCheckStage::creatureCheck (
+    int stage, const CSMWorld::RefIdDataContainer< ESM::Creature >& records,
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
     const ESM::Creature& creature = (dynamic_cast<const CSMWorld::Record<ESM::Creature>&>(baseRecord)).get();
     CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Creature, creature.mId);
 
     if (creature.mModel.empty())
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has no model");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has no model"));
 
     if (creature.mName.empty())
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has an empty name");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has an empty name"));
 
     //stats checks
     if (creature.mData.mLevel < 1)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has non-postive level");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has non-postive level"));
 
     if (creature.mData.mStrength < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative strength");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative strength"));
 
     if (creature.mData.mIntelligence < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative intelligence");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative intelligence"));
 
     if (creature.mData.mWillpower < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative willpower");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative willpower"));
 
     if (creature.mData.mAgility < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative agility");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative agility"));
 
     if (creature.mData.mSpeed < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative speed");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative speed"));
 
     if (creature.mData.mEndurance < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative endurance");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative endurance"));
 
     if (creature.mData.mPersonality < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative personality");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative personality"));
 
     if (creature.mData.mLuck < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative luck");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative luck"));
 
     if (creature.mData.mHealth < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative health");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative health"));
 
     if (creature.mData.mSoul < 0)
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative soul value");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative soul value"));
 
     for (int i = 0; i < 6; ++i)
     {
         if (creature.mData.mAttack[i] < 0)
         {
-            messages.push_back(id.toString() + "|" + creature.mId + " has negative attack strength");
+            messages.push_back (std::make_pair (id,
+                creature.mId + " has negative attack strength"));
             break;
         }
     }
 
     //TODO, find meaning of other values
     if (creature.mData.mGold < 0) //It seems that this is for gold in merchant creatures
-    {
-        messages.push_back(id.toString() + "|" + creature.mId + " has negative gold ");
-    }
+        messages.push_back (std::make_pair (id, creature.mId + " has negative gold "));
+
+    if (creature.mScale == 0)
+        messages.push_back (std::make_pair (id, creature.mId + " has zero scale value"));
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Creature>(creature, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::doorCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::Door >& records,
-    std::vector< std::string >& messages)
+    int stage, const CSMWorld::RefIdDataContainer< ESM::Door >& records,
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
-    const ESM::Door& Door = (dynamic_cast<const CSMWorld::Record<ESM::Door>&>(baseRecord)).get();
-    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Door, Door.mId);
+    const ESM::Door& door = (dynamic_cast<const CSMWorld::Record<ESM::Door>&>(baseRecord)).get();
+    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Door, door.mId);
 
     //usual, name or model
-    if (Door.mName.empty())
-    {
-        messages.push_back(id.toString() + "|" + Door.mId + " has an empty name");
-    }
+    if (door.mName.empty())
+        messages.push_back (std::make_pair (id, door.mId + " has an empty name"));
 
-    if (Door.mModel.empty())
-    {
-        messages.push_back(id.toString() + "|" + Door.mId + " has no model");
-    }
+    if (door.mModel.empty())
+        messages.push_back (std::make_pair (id, door.mId + " has no model"));
 
-    //TODO, check what static unsigned int sRecordId; is for
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Door>(door, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::ingredientCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Ingredient >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -526,16 +510,19 @@ void CSMTools::ReferenceableCheckStage::ingredientCheck(
         return;
     }
 
-    const ESM::Ingredient& Ingredient = (dynamic_cast<const CSMWorld::Record<ESM::Ingredient>& >(baseRecord)).get();
-    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Ingredient, Ingredient.mId);
+    const ESM::Ingredient& ingredient = (dynamic_cast<const CSMWorld::Record<ESM::Ingredient>& >(baseRecord)).get();
+    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Ingredient, ingredient.mId);
 
-    inventoryItemCheck<ESM::Ingredient>(Ingredient, messages, id.toString());
+    inventoryItemCheck<ESM::Ingredient>(ingredient, messages, id.toString());
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Ingredient>(ingredient, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::creaturesLevListCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::CreatureLevList >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -553,7 +540,7 @@ void CSMTools::ReferenceableCheckStage::creaturesLevListCheck(
 void CSMTools::ReferenceableCheckStage::itemLevelledListCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::ItemLevList >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -569,40 +556,36 @@ void CSMTools::ReferenceableCheckStage::itemLevelledListCheck(
 }
 
 void CSMTools::ReferenceableCheckStage::lightCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::Light >& records,
-    std::vector< std::string >& messages)
+    int stage, const CSMWorld::RefIdDataContainer< ESM::Light >& records,
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
     const ESM::Light& light = (dynamic_cast<const CSMWorld::Record<ESM::Light>& >(baseRecord)).get();
     CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Light, light.mId);
 
     if (light.mData.mRadius < 0)
-    {
-        messages.push_back(id.toString() + "|" + light.mId + " has negative light radius");
-    }
+        messages.push_back (std::make_pair (id, light.mId + " has negative light radius"));
 
     if (light.mData.mFlags & ESM::Light::Carry)
     {
         inventoryItemCheck<ESM::Light>(light, messages, id.toString());
 
         if (light.mData.mTime == 0)
-        {
-            messages.push_back(id.toString() + "|" + light.mId + " has zero duration");
-        }
+            messages.push_back (std::make_pair (id, light.mId + " has zero duration"));
     }
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Light>(light, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::lockpickCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Lockpick >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -617,12 +600,15 @@ void CSMTools::ReferenceableCheckStage::lockpickCheck(
     inventoryItemCheck<ESM::Lockpick>(lockpick, messages, id.toString());
 
     toolCheck<ESM::Lockpick>(lockpick, messages, id.toString(), true);
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Lockpick>(lockpick, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::miscCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Miscellaneous >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -635,22 +621,22 @@ void CSMTools::ReferenceableCheckStage::miscCheck(
     CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Miscellaneous, miscellaneous.mId);
 
     inventoryItemCheck<ESM::Miscellaneous>(miscellaneous, messages, id.toString());
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Miscellaneous>(miscellaneous, messages, id.toString());
 }
 
-void CSMTools::ReferenceableCheckStage::npcCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::NPC >& records,
-    std::vector< std::string >& messages)
+void CSMTools::ReferenceableCheckStage::npcCheck (
+    int stage, const CSMWorld::RefIdDataContainer< ESM::NPC >& records,
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
     const ESM::NPC& npc = (dynamic_cast<const CSMWorld::Record<ESM::NPC>& >(baseRecord)).get();
-    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Npc, npc.mId);
+    CSMWorld::UniversalId id (CSMWorld::UniversalId::Type_Npc, npc.mId);
 
     short level(npc.mNpdt52.mLevel);
     char disposition(npc.mNpdt52.mDisposition);
@@ -661,15 +647,13 @@ void CSMTools::ReferenceableCheckStage::npcCheck(
 
     //Detect if player is present
     if (Misc::StringUtils::ciEqual(npc.mId, "player")) //Happy now, scrawl?
-    {
         mPlayerPresent = true;
-    }
 
     if (npc.mNpdtType == ESM::NPC::NPC_WITH_AUTOCALCULATED_STATS) //12 = autocalculated
     {
-        if ((npc.mFlags & ESM::NPC::Autocalc) == 0) //0x0008 = autocalculated flag
+        if ((npc.mFlags & ESM::NPC::Autocalc) == 0) //0x0010 = autocalculated flag
         {
-            messages.push_back(id.toString() + "|" + npc.mId + " mNpdtType or flags mismatch!"); //should not happend?
+            messages.push_back (std::make_pair (id, npc.mId + " mNpdtType or flags mismatch!")); //should not happend?
             return;
         }
 
@@ -681,146 +665,98 @@ void CSMTools::ReferenceableCheckStage::npcCheck(
     }
     else
     {
-        if (npc.mNpdt52.mMana < 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " mana has negative value");
-        }
-
-        if (npc.mNpdt52.mFatigue < 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " fatigue has negative value");
-        }
-
         if (npc.mNpdt52.mAgility == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " agility has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " agility has zero value"));
 
         if (npc.mNpdt52.mEndurance == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " endurance has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " endurance has zero value"));
 
         if (npc.mNpdt52.mIntelligence == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " intelligence has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " intelligence has zero value"));
 
         if (npc.mNpdt52.mLuck == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " luck has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " luck has zero value"));
 
         if (npc.mNpdt52.mPersonality == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " personality has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " personality has zero value"));
 
         if (npc.mNpdt52.mStrength == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " strength has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " strength has zero value"));
 
         if (npc.mNpdt52.mSpeed == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " speed has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " speed has zero value"));
 
         if (npc.mNpdt52.mWillpower == 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " willpower has zero value");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " willpower has zero value"));
     }
 
     if (level < 1)
-    {
-        messages.push_back(id.toString() + "|" + npc.mId + " level is non positive");
-    }
+        messages.push_back (std::make_pair (id, npc.mId + " level is non positive"));
 
     if (gold < 0)
-    {
-        messages.push_back(id.toString() + "|" + npc.mId + " gold has negative value");
-    }
+        messages.push_back (std::make_pair (id, npc.mId + " gold has negative value"));
 
     if (npc.mName.empty())
-    {
-        messages.push_back(id.toString() + "|" + npc.mId + " has any empty name");
-    }
+        messages.push_back (std::make_pair (id, npc.mId + " has any empty name"));
 
     if (npc.mClass.empty())
     {
-        messages.push_back(id.toString() + "|" + npc.mId + " has any empty class");
+        messages.push_back (std::make_pair (id, npc.mId + " has any empty class"));
     }
-    else //checking if there is such class
+    else if (mClasses.searchId (npc.mClass) == -1)
     {
-        if (mClasses.searchId(npc.mClass) == -1)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " has invalid class");
-        }
+        messages.push_back (std::make_pair (id, npc.mId + " has invalid class"));
     }
 
     if (npc.mRace.empty())
     {
-        messages.push_back(id.toString() + "|" + npc.mId + " has any empty race");
+        messages.push_back (std::make_pair (id, npc.mId + " has any empty race"));
     }
-    else //checking if there is a such race
+    else if (mRaces.searchId (npc.mRace) == -1)
     {
-        if (mRaces.searchId(npc.mRace) == -1)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " has invalid race");
-        }
+        messages.push_back (std::make_pair (id, npc.mId + " has invalid race"));
     }
 
     if (disposition < 0)
-    {
-        messages.push_back(id.toString() + "|" + npc.mId + " has negative disposition");
-    }
+        messages.push_back (std::make_pair (id, npc.mId + " has negative disposition"));
 
     if (reputation < 0) //It seems that no character in Morrowind.esm have negative reputation. I'm assuming that negative reputation is invalid
     {
-        messages.push_back(id.toString() + "|" + npc.mId + " has negative reputation");
+        messages.push_back (std::make_pair (id, npc.mId + " has negative reputation"));
     }
 
-    if (npc.mFaction.empty() == false)
+    if (!npc.mFaction.empty())
     {
         if (rank < 0)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " has negative rank");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " has negative rank"));
 
         if (mFactions.searchId(npc.mFaction) == -1)
-        {
-            messages.push_back(id.toString() + "|" + npc.mId + " has invalid faction");
-        }
+            messages.push_back (std::make_pair (id, npc.mId + " has invalid faction"));
     }
 
     if (npc.mHead.empty())
-    {
-        messages.push_back(id.toString() + "|" + npc.mId + " has no head");
-    }
+        messages.push_back (std::make_pair (id, npc.mId + " has no head"));
 
     if (npc.mHair.empty())
-    {
-        messages.push_back(id.toString() + "|" + npc.mId + " has no hair");
-    }
+        messages.push_back (std::make_pair (id, npc.mId + " has no hair"));
 
     //TODO: reputation, Disposition, rank, everything else
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::NPC>(npc, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::weaponCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::Weapon >& records,
-    std::vector< std::string >& messages)
+    int stage, const CSMWorld::RefIdDataContainer< ESM::Weapon >& records,
+    CSMDoc::Messages& messages)
 {
-    const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
+    const CSMWorld::RecordBase& baseRecord = records.getRecord (stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
     const ESM::Weapon& weapon = (dynamic_cast<const CSMWorld::Record<ESM::Weapon>& >(baseRecord)).get();
-    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Weapon, weapon.mId);
+    CSMWorld::UniversalId id (CSMWorld::UniversalId::Type_Weapon, weapon.mId);
 
     //TODO, It seems that this stuff for spellcasting is obligatory and In fact We should check if records are present
     if
@@ -860,20 +796,17 @@ void CSMTools::ReferenceableCheckStage::weaponCheck(
                 weapon.mData.mType == ESM::Weapon::Bolt))
         {
             if (weapon.mData.mSlash[0] > weapon.mData.mSlash[1])
-            {
-                messages.push_back(id.toString() + "|" + weapon.mId + " has minimum slash damage higher than maximum");
-            }
+                messages.push_back (std::make_pair (id,
+                    weapon.mId + " has minimum slash damage higher than maximum"));
 
             if (weapon.mData.mThrust[0] > weapon.mData.mThrust[1])
-            {
-                messages.push_back(id.toString() + "|" + weapon.mId + " has minimum thrust damage higher than maximum");
-            }
+                messages.push_back (std::make_pair (id,
+                    weapon.mId + " has minimum thrust damage higher than maximum"));
         }
 
         if (weapon.mData.mChop[0] > weapon.mData.mChop[1])
-        {
-            messages.push_back(id.toString() + "|" + weapon.mId + " has minimum chop damage higher than maximum");
-        }
+            messages.push_back (std::make_pair (id,
+                weapon.mId + " has minimum chop damage higher than maximum"));
 
         if (!(weapon.mData.mType == ESM::Weapon::Arrow ||
                 weapon.mData.mType == ESM::Weapon::Bolt ||
@@ -881,22 +814,21 @@ void CSMTools::ReferenceableCheckStage::weaponCheck(
         {
             //checking of health
             if (weapon.mData.mHealth <= 0)
-            {
-                messages.push_back(id.toString() + "|" + weapon.mId + " has non-positivie health");
-            }
+                messages.push_back (std::make_pair (id, weapon.mId + " has non-positivie health"));
 
             if (weapon.mData.mReach < 0)
-            {
-                messages.push_back(id.toString() + "|" + weapon.mId + " has negative reach");
-            }
+                messages.push_back (std::make_pair (id, weapon.mId + " has negative reach"));
         }
     }
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Weapon>(weapon, messages, id.toString());
 }
 
 void CSMTools::ReferenceableCheckStage::probeCheck(
     int stage,
     const CSMWorld::RefIdDataContainer< ESM::Probe >& records,
-    std::vector< std::string >& messages)
+    CSMDoc::Messages& messages)
 {
     const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
 
@@ -910,186 +842,146 @@ void CSMTools::ReferenceableCheckStage::probeCheck(
 
     inventoryItemCheck<ESM::Probe>(probe, messages, id.toString());
     toolCheck<ESM::Probe>(probe, messages, id.toString(), true);
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Probe>(probe, messages, id.toString());
 }
 
-void CSMTools::ReferenceableCheckStage::repairCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::Repair >& records,
-    std::vector< std::string >& messages)
+void CSMTools::ReferenceableCheckStage::repairCheck (
+    int stage, const CSMWorld::RefIdDataContainer< ESM::Repair >& records,
+    CSMDoc::Messages& messages)
 {
-    const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
+    const CSMWorld::RecordBase& baseRecord = records.getRecord (stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
     const ESM::Repair& repair = (dynamic_cast<const CSMWorld::Record<ESM::Repair>& >(baseRecord)).get();
-    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Repair, repair.mId);
+    CSMWorld::UniversalId id (CSMWorld::UniversalId::Type_Repair, repair.mId);
 
-    inventoryItemCheck<ESM::Repair>(repair, messages, id.toString());
-    toolCheck<ESM::Repair>(repair, messages, id.toString(), true);
+    inventoryItemCheck<ESM::Repair> (repair, messages, id.toString());
+    toolCheck<ESM::Repair> (repair, messages, id.toString(), true);
+
+    // Check that mentioned scripts exist
+    scriptCheck<ESM::Repair>(repair, messages, id.toString());
 }
 
-void CSMTools::ReferenceableCheckStage::staticCheck(
-    int stage,
-    const CSMWorld::RefIdDataContainer< ESM::Static >& records,
-    std::vector< std::string >& messages)
+void CSMTools::ReferenceableCheckStage::staticCheck (
+    int stage, const CSMWorld::RefIdDataContainer< ESM::Static >& records,
+    CSMDoc::Messages& messages)
 {
-    const CSMWorld::RecordBase& baseRecord = records.getRecord(stage);
+    const CSMWorld::RecordBase& baseRecord = records.getRecord (stage);
 
     if (baseRecord.isDeleted())
-    {
         return;
-    }
 
     const ESM::Static& staticElement = (dynamic_cast<const CSMWorld::Record<ESM::Static>& >(baseRecord)).get();
-    CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Static, staticElement.mId);
+    CSMWorld::UniversalId id (CSMWorld::UniversalId::Type_Static, staticElement.mId);
 
     if (staticElement.mModel.empty())
-    {
-        messages.push_back(id.toString() + "|" + staticElement.mId + " has no model");
-    }
+        messages.push_back (std::make_pair (id, staticElement.mId + " has no model"));
 }
 
 //final check
 
-void CSMTools::ReferenceableCheckStage::finalCheck(std::vector< std::string >& messages)
+void CSMTools::ReferenceableCheckStage::finalCheck (CSMDoc::Messages& messages)
 {
     if (!mPlayerPresent)
-    {
-        CSMWorld::UniversalId id(CSMWorld::UniversalId::Type_Npc);
-        messages.push_back(id.toString() + "| There is no player record");
-    }
+        messages.push_back (std::make_pair (CSMWorld::UniversalId::Type_Referenceables,
+            "There is no player record"));
 }
 
 
 //Templates begins here
 
-template<typename ITEM> void CSMTools::ReferenceableCheckStage::inventoryItemCheck(
-    const ITEM& someItem,
-    std::vector< std::string >& messages,
-    const std::string& someID, bool enchantable)
+template<typename Item> void CSMTools::ReferenceableCheckStage::inventoryItemCheck (
+    const Item& someItem, CSMDoc::Messages& messages, const std::string& someID, bool enchantable)
 {
     if (someItem.mName.empty())
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has an empty name");
-    }
+        messages.push_back (std::make_pair (someID, someItem.mId + " has an empty name"));
 
     //Checking for weight
     if (someItem.mData.mWeight < 0)
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has negative weight");
-    }
+        messages.push_back (std::make_pair (someID, someItem.mId + " has negative weight"));
 
     //Checking for value
     if (someItem.mData.mValue < 0)
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has negative value");
-    }
-
-//checking for model
-    if (someItem.mModel.empty())
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has no model");
-    }
-
-    //checking for icon
-    if (someItem.mIcon.empty())
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has no icon");
-    }
-
-    if (enchantable)
-    {
-        if (someItem.mData.mEnchant < 0)
-        {
-            messages.push_back(someID + "|" + someItem.mId + " has negative enchantment");
-        }
-    }
-}
-
-template<typename ITEM> void CSMTools::ReferenceableCheckStage::inventoryItemCheck(
-    const ITEM& someItem,
-    std::vector< std::string >& messages,
-    const std::string& someID)
-{
-    if (someItem.mName.empty())
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has an empty name");
-    }
-
-    //Checking for weight
-    if (someItem.mData.mWeight < 0)
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has negative weight");
-    }
-
-    //Checking for value
-    if (someItem.mData.mValue < 0)
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has negative value");
-    }
+        messages.push_back (std::make_pair (someID, someItem.mId + " has negative value"));
 
     //checking for model
     if (someItem.mModel.empty())
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has no model");
-    }
+        messages.push_back (std::make_pair (someID, someItem.mId + " has no model"));
 
     //checking for icon
     if (someItem.mIcon.empty())
-    {
-        messages.push_back(someID + "|" + someItem.mId + " has no icon");
-    }
+        messages.push_back (std::make_pair (someID, someItem.mId + " has no icon"));
+
+    if (enchantable && someItem.mData.mEnchant < 0)
+        messages.push_back (std::make_pair (someID, someItem.mId + " has negative enchantment"));
 }
 
-template<typename TOOL> void CSMTools::ReferenceableCheckStage::toolCheck(
-    const TOOL& someTool,
-    std::vector< std::string >& messages,
-    const std::string& someID, bool canBeBroken)
+template<typename Item> void CSMTools::ReferenceableCheckStage::inventoryItemCheck (
+    const Item& someItem, CSMDoc::Messages& messages, const std::string& someID)
+{
+    if (someItem.mName.empty())
+        messages.push_back (std::make_pair (someID, someItem.mId + " has an empty name"));
+
+    //Checking for weight
+    if (someItem.mData.mWeight < 0)
+        messages.push_back (std::make_pair (someID, someItem.mId + " has negative weight"));
+
+    //Checking for value
+    if (someItem.mData.mValue < 0)
+        messages.push_back (std::make_pair (someID, someItem.mId + " has negative value"));
+
+    //checking for model
+    if (someItem.mModel.empty())
+        messages.push_back (std::make_pair (someID, someItem.mId + " has no model"));
+
+    //checking for icon
+    if (someItem.mIcon.empty())
+        messages.push_back (std::make_pair (someID, someItem.mId + " has no icon"));
+}
+
+template<typename Tool> void CSMTools::ReferenceableCheckStage::toolCheck (
+    const Tool& someTool, CSMDoc::Messages& messages, const std::string& someID, bool canBeBroken)
 {
     if (someTool.mData.mQuality <= 0)
-    {
-        messages.push_back(someID + "|" + someTool.mId + " has non-positive quality");
-    }
+        messages.push_back (std::make_pair (someID, someTool.mId + " has non-positive quality"));
 
-    if (canBeBroken)
-    {
-        if (someTool.mData.mUses <= 0)
-        {
-            messages.push_back(someID + "|" + someTool.mId + " has non-positive uses count");
-        }
-    }
+    if (canBeBroken && someTool.mData.mUses<=0)
+        messages.push_back (std::make_pair (someID,
+            someTool.mId + " has non-positive uses count"));
 }
 
-template<typename TOOL> void CSMTools::ReferenceableCheckStage::toolCheck(
-    const TOOL& someTool,
-    std::vector< std::string >& messages,
-    const std::string& someID)
+template<typename Tool> void CSMTools::ReferenceableCheckStage::toolCheck (
+    const Tool& someTool, CSMDoc::Messages& messages, const std::string& someID)
 {
     if (someTool.mData.mQuality <= 0)
-    {
-        messages.push_back(someID + "|" + someTool.mId + " has non-positive quality");
-    }
+        messages.push_back (std::make_pair (someID, someTool.mId + " has non-positive quality"));
 }
 
-template<typename LIST> void CSMTools::ReferenceableCheckStage::listCheck(
-    const LIST& someList,
-    std::vector< std::string >& messages,
-    const std::string& someID)
+template<typename List> void CSMTools::ReferenceableCheckStage::listCheck (
+    const List& someList, CSMDoc::Messages& messages, const std::string& someID)
 {
     for (unsigned i = 0; i < someList.mList.size(); ++i)
     {
         if (mReferencables.searchId(someList.mList[i].mId).first == -1)
-        {
-            messages.push_back(someID + "|" + someList.mId + " contains item without referencable");
-        }
+            messages.push_back (std::make_pair (someID,
+                someList.mId + " contains item without referencable"));
 
         if (someList.mList[i].mLevel < 1)
-        {
-            messages.push_back(someID + "|" + someList.mId + " contains item with non-positive level");
-        }
+            messages.push_back (std::make_pair (someID,
+                someList.mId + " contains item with non-positive level"));
     }
 }
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+
+template<typename Tool> void CSMTools::ReferenceableCheckStage::scriptCheck (
+    const Tool& someTool, CSMDoc::Messages& messages, const std::string& someID)
+{
+    if (!someTool.mScript.empty())
+    {
+        if (mScripts.searchId(someTool.mScript) == -1)
+            messages.push_back (std::make_pair (someID, someTool.mId + " refers to an unknown script \""+someTool.mScript+"\""));
+    }
+}

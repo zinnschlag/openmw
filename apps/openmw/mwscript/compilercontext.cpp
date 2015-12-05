@@ -1,4 +1,3 @@
-
 #include "compilercontext.hpp"
 
 #include "../mwworld/esmstore.hpp"
@@ -45,7 +44,7 @@ namespace MWScript
         {
             MWWorld::Ptr ptr = MWBase::Environment::get().getWorld()->getPtr (id, false);
 
-            script = MWWorld::Class::get (ptr).getScript (ptr);
+            script = ptr.getClass().getScript (ptr);
             reference = true;
         }
 

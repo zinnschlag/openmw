@@ -7,20 +7,56 @@
 #include <QMenuBar>
 #include <QMdiArea>
 #include <QDockWidget>
-#include <QtGui/QApplication>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QScrollArea>
+#include <QHBoxLayout>
+#include <QDesktopWidget>
+#include <QScrollBar>
 
 #include "../../model/doc/document.hpp"
+#include "../../model/settings/usersettings.hpp"
+
+#include "../../model/world/idtable.hpp"
+
 #include "../world/subviews.hpp"
+#include "../world/tablesubview.hpp"
+
 #include "../tools/subviews.hpp"
-#include "../settings/usersettingsdialog.hpp"
+
 #include "viewmanager.hpp"
 #include "operations.hpp"
 #include "subview.hpp"
+#include "globaldebugprofilemenu.hpp"
+#include "runlogsubview.hpp"
+#include "subviewfactoryimp.hpp"
 
 void CSVDoc::View::closeEvent (QCloseEvent *event)
 {
     if (!mViewManager.closeRequest (this))
         event->ignore();
+    else
+    {
+        if (mSaveWindowState)
+        {
+            CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
+            if (isMaximized() && mXWorkaround)
+            {
+                userSettings.setDefinitions("window/maximized", (QStringList() << "true"));
+                userSettings.saveDefinitions(); // store previously saved geometry & state
+            }
+            else
+            {
+                userSettings.value("window/geometry", saveGeometry());
+                userSettings.value("window/state", saveState());
+                userSettings.setDefinitions("window/maximized", (QStringList() << "false"));
+                userSettings.saveDefinitions();
+            }
+        }
+
+        // closeRequest() returns true if last document
+        mViewManager.removeDocAndView(mDocument);
+    }
 }
 
 void CSVDoc::View::setupFileMenu()
@@ -46,6 +82,18 @@ void CSVDoc::View::setupFileMenu()
     mVerify = new QAction (tr ("&Verify"), this);
     connect (mVerify, SIGNAL (triggered()), this, SLOT (verify()));
     file->addAction (mVerify);
+
+    mMerge = new QAction (tr ("Merge"), this);
+    connect (mMerge, SIGNAL (triggered()), this, SLOT (merge()));
+    file->addAction (mMerge);
+
+    QAction *loadErrors = new QAction (tr ("Load Error Log"), this);
+    connect (loadErrors, SIGNAL (triggered()), this, SLOT (loadErrorLog()));
+    file->addAction (loadErrors);
+
+    QAction *meta = new QAction (tr ("Meta Data"), this);
+    connect (meta, SIGNAL (triggered()), this, SLOT (addMetaDataSubView()));
+    file->addAction (meta);
 
     QAction *close = new QAction (tr ("&Close"), this);
     connect (close, SIGNAL (triggered()), this, SLOT (close()));
@@ -73,6 +121,10 @@ void CSVDoc::View::setupEditMenu()
     QAction *userSettings = new QAction (tr ("&Preferences"), this);
     connect (userSettings, SIGNAL (triggered()), this, SIGNAL (editSettingsRequest()));
     edit->addAction (userSettings);
+
+    QAction *search = new QAction (tr ("Search"), this);
+    connect (search, SIGNAL (triggered()), this, SLOT (addSearchSubView()));
+    edit->addAction (search);
 }
 
 void CSVDoc::View::setupViewMenu()
@@ -86,6 +138,10 @@ void CSVDoc::View::setupViewMenu()
     mShowStatusBar = new QAction (tr ("Show Status Bar"), this);
     mShowStatusBar->setCheckable (true);
     connect (mShowStatusBar, SIGNAL (toggled (bool)), this, SLOT (toggleShowStatusBar (bool)));
+    std::string showStatusBar =
+        CSMSettings::UserSettings::instance().settingValue("window/show-statusbar").toStdString();
+    if(showStatusBar == "true")
+        mShowStatusBar->setChecked(true);
     view->addAction (mShowStatusBar);
 
     QAction *filters = new QAction (tr ("Filters"), this);
@@ -105,13 +161,21 @@ void CSVDoc::View::setupWorldMenu()
     connect (cells, SIGNAL (triggered()), this, SLOT (addCellsSubView()));
     world->addAction (cells);
 
-    QAction *referenceables = new QAction (tr ("Referenceables"), this);
+    QAction *referenceables = new QAction (tr ("Objects"), this);
     connect (referenceables, SIGNAL (triggered()), this, SLOT (addReferenceablesSubView()));
     world->addAction (referenceables);
 
-    QAction *references = new QAction (tr ("References"), this);
+    QAction *references = new QAction (tr ("Instances"), this);
     connect (references, SIGNAL (triggered()), this, SLOT (addReferencesSubView()));
     world->addAction (references);
+
+    QAction *grid = new QAction (tr ("Pathgrid"), this);
+    connect (grid, SIGNAL (triggered()), this, SLOT (addPathgridSubView()));
+    world->addAction (grid);
+
+    QAction *land = new QAction (tr ("Lands"), this);
+    connect (land, SIGNAL (triggered()), this, SLOT (addLandSubView()));
+    world->addAction (land);
 
     world->addSeparator(); // items that don't represent single record lists follow here
 
@@ -139,6 +203,18 @@ void CSVDoc::View::setupMechanicsMenu()
     QAction *spells = new QAction (tr ("Spells"), this);
     connect (spells, SIGNAL (triggered()), this, SLOT (addSpellsSubView()));
     mechanics->addAction (spells);
+
+    QAction *enchantments = new QAction (tr ("Enchantments"), this);
+    connect (enchantments, SIGNAL (triggered()), this, SLOT (addEnchantmentsSubView()));
+    mechanics->addAction (enchantments);
+
+    QAction *effects = new QAction (tr ("Magic Effects"), this);
+    connect (effects, SIGNAL (triggered()), this, SLOT (addMagicEffectsSubView()));
+    mechanics->addAction (effects);
+
+    QAction *startScripts = new QAction (tr ("Start Scripts"), this);
+    connect (startScripts, SIGNAL (triggered()), this, SLOT (addStartScriptsSubView()));
+    mechanics->addAction (startScripts);
 }
 
 void CSVDoc::View::setupCharacterMenu()
@@ -180,6 +256,10 @@ void CSVDoc::View::setupCharacterMenu()
     QAction *journalInfos = new QAction (tr ("Journal Infos"), this);
     connect (journalInfos, SIGNAL (triggered()), this, SLOT (addJournalInfosSubView()));
     characters->addAction (journalInfos);
+
+    QAction *bodyParts = new QAction (tr ("Body Parts"), this);
+    connect (bodyParts, SIGNAL (triggered()), this, SLOT (addBodyPartsSubView()));
+    characters->addAction (bodyParts);
 }
 
 void CSVDoc::View::setupAssetsMenu()
@@ -189,6 +269,69 @@ void CSVDoc::View::setupAssetsMenu()
     QAction *sounds = new QAction (tr ("Sounds"), this);
     connect (sounds, SIGNAL (triggered()), this, SLOT (addSoundsSubView()));
     assets->addAction (sounds);
+
+    QAction *soundGens = new QAction (tr ("Sound Generators"), this);
+    connect (soundGens, SIGNAL (triggered()), this, SLOT (addSoundGensSubView()));
+    assets->addAction (soundGens);
+
+    assets->addSeparator(); // resources follow here
+
+    QAction *meshes = new QAction (tr ("Meshes"), this);
+    connect (meshes, SIGNAL (triggered()), this, SLOT (addMeshesSubView()));
+    assets->addAction (meshes);
+
+    QAction *icons = new QAction (tr ("Icons"), this);
+    connect (icons, SIGNAL (triggered()), this, SLOT (addIconsSubView()));
+    assets->addAction (icons);
+
+    QAction *musics = new QAction (tr ("Music"), this);
+    connect (musics, SIGNAL (triggered()), this, SLOT (addMusicsSubView()));
+    assets->addAction (musics);
+
+    QAction *soundsRes = new QAction (tr ("Sound Files"), this);
+    connect (soundsRes, SIGNAL (triggered()), this, SLOT (addSoundsResSubView()));
+    assets->addAction (soundsRes);
+
+    QAction *textures = new QAction (tr ("Textures"), this);
+    connect (textures, SIGNAL (triggered()), this, SLOT (addTexturesSubView()));
+    assets->addAction (textures);
+
+    QAction *land = new QAction (tr ("Land Textures"), this);
+    connect (land, SIGNAL (triggered()), this, SLOT (addLandTextureSubView()));
+    assets->addAction (land);
+
+    QAction *videos = new QAction (tr ("Videos"), this);
+    connect (videos, SIGNAL (triggered()), this, SLOT (addVideosSubView()));
+    assets->addAction (videos);
+}
+
+void CSVDoc::View::setupDebugMenu()
+{
+    QMenu *debug = menuBar()->addMenu (tr ("Debug"));
+
+    QAction *profiles = new QAction (tr ("Debug Profiles"), this);
+    connect (profiles, SIGNAL (triggered()), this, SLOT (addDebugProfilesSubView()));
+    debug->addAction (profiles);
+
+    debug->addSeparator();
+
+    mGlobalDebugProfileMenu = new GlobalDebugProfileMenu (
+        &dynamic_cast<CSMWorld::IdTable&> (*mDocument->getData().getTableModel (
+        CSMWorld::UniversalId::Type_DebugProfiles)), this);
+
+    connect (mGlobalDebugProfileMenu, SIGNAL (triggered (const std::string&)),
+        this, SLOT (run (const std::string&)));
+
+    QAction *runDebug = debug->addMenu (mGlobalDebugProfileMenu);
+    runDebug->setText (tr ("Run OpenMW"));
+
+    mStopDebug = new QAction (tr ("Shutdown OpenMW"), this);
+    connect (mStopDebug, SIGNAL (triggered()), this, SLOT (stop()));
+    debug->addAction (mStopDebug);
+
+    QAction *runLog = new QAction (tr ("Run Log"), this);
+    connect (runLog, SIGNAL (triggered()), this, SLOT (addRunLogSubView()));
+    debug->addAction (runLog);
 }
 
 void CSVDoc::View::setupUi()
@@ -200,6 +343,7 @@ void CSVDoc::View::setupUi()
     setupMechanicsMenu();
     setupCharacterMenu();
     setupAssetsMenu();
+    setupDebugMenu();
 }
 
 void CSVDoc::View::updateTitle()
@@ -214,12 +358,58 @@ void CSVDoc::View::updateTitle()
     if (mViewTotal>1)
         stream << " [" << (mViewIndex+1) << "/" << mViewTotal << "]";
 
-    setWindowTitle (stream.str().c_str());
+    CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
+
+    bool hideTitle = userSettings.setting ("window/hide-subview", QString ("false"))=="true" &&
+        mSubViews.size()==1 && !mSubViews.at (0)->isFloating();
+
+    if (hideTitle)
+        stream << " - " << mSubViews.at (0)->getTitle();
+
+    setWindowTitle (QString::fromUtf8(stream.str().c_str()));
+}
+
+void CSVDoc::View::updateSubViewIndicies(SubView *view)
+{
+    if(view && mSubViews.contains(view))
+    {
+        mSubViews.removeOne(view);
+
+        // adjust (reduce) the scroll area (even floating), except when it is "Scrollbar Only"
+        CSMSettings::UserSettings &settings = CSMSettings::UserSettings::instance();
+        if(settings.settingValue ("window/mainwindow-scrollbar") == "Grow then Scroll")
+            updateScrollbar();
+    }
+
+    CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
+
+    bool hideTitle = userSettings.setting ("window/hide-subview", QString ("false"))=="true" &&
+        mSubViews.size()==1 && !mSubViews.at (0)->isFloating();
+
+    updateTitle();
+
+    foreach (SubView *subView, mSubViews)
+    {
+        if (!subView->isFloating())
+        {
+            if (hideTitle)
+            {
+                subView->setTitleBarWidget (new QWidget (this));
+                subView->setWindowTitle (QString::fromUtf8 (subView->getTitle().c_str()));
+            }
+            else
+            {
+                delete subView->titleBarWidget();
+                subView->setTitleBarWidget (0);
+            }
+        }
+    }
 }
 
 void CSVDoc::View::updateActions()
 {
     bool editing = !(mDocument->getState() & CSMDoc::State_Locked);
+    bool running = mDocument->getState() & CSMDoc::State_Running;
 
     for (std::vector<QAction *>::iterator iter (mEditingActions.begin()); iter!=mEditingActions.end(); ++iter)
         (*iter)->setEnabled (editing);
@@ -227,32 +417,75 @@ void CSVDoc::View::updateActions()
     mUndo->setEnabled (editing & mDocument->getUndoStack().canUndo());
     mRedo->setEnabled (editing & mDocument->getUndoStack().canRedo());
 
-    mSave->setEnabled (!(mDocument->getState() & CSMDoc::State_Saving));
+    mSave->setEnabled (!(mDocument->getState() & CSMDoc::State_Saving) && !running);
     mVerify->setEnabled (!(mDocument->getState() & CSMDoc::State_Verifying));
+
+    mGlobalDebugProfileMenu->updateActions (running);
+    mStopDebug->setEnabled (running);
+
+    mMerge->setEnabled (mDocument->getContentFiles().size()>1 &&
+        !(mDocument->getState() & CSMDoc::State_Merging));
 }
 
 CSVDoc::View::View (ViewManager& viewManager, CSMDoc::Document *document, int totalViews)
     : mViewManager (viewManager), mDocument (document), mViewIndex (totalViews-1),
-      mViewTotal (totalViews)
+      mViewTotal (totalViews), mScroll(0), mScrollbarOnly(false),
+      mSaveWindowState(false), mXWorkaround(false)
 {
-    QString width = CSMSettings::UserSettings::instance().getSetting(QString("Window Size"), QString("Width"));
-    QString height = CSMSettings::UserSettings::instance().getSetting(QString("Window Size"), QString("Height"));
+    CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
+    mXWorkaround = userSettings.settingValue ("window/x-save-state-workaround").toStdString() == "true";
+    mSaveWindowState = userSettings.setting ("window/save-state", "true").toStdString() == "true";
 
-    resize (width.toInt(), height.toInt());
+    // check if saved state should be used and whether it is the first time
+    if (mSaveWindowState && userSettings.hasSettingDefinitions ("window/maximized"))
+    {
+        restoreGeometry(userSettings.value("window/geometry").toByteArray());
+        restoreState(userSettings.value("window/state").toByteArray());
+
+        if (mXWorkaround && userSettings.settingValue ("window/maximized").toStdString() == "true")
+            setWindowState(windowState() | Qt::WindowMaximized);
+    }
+    else
+    {
+        int width = userSettings.settingValue ("window/default-width").toInt();
+        int height = userSettings.settingValue ("window/default-height").toInt();
+
+        width = std::max(width, 300);
+        height = std::max(height, 300);
+
+        resize (width, height);
+    }
 
     mSubViewWindow.setDockOptions (QMainWindow::AllowNestedDocks);
 
-    setCentralWidget (&mSubViewWindow);
+    CSMSettings::UserSettings &settings = CSMSettings::UserSettings::instance();
+    if(settings.settingValue ("window/mainwindow-scrollbar") == "Grow Only")
+    {
+        setCentralWidget (&mSubViewWindow);
+    }
+    else
+    {
+        mScroll = new QScrollArea(this);
+        mScroll->setWidgetResizable(true);
+        mScroll->setWidget(&mSubViewWindow);
+        setCentralWidget(mScroll);
+    }
 
     mOperations = new Operations;
     addDockWidget (Qt::BottomDockWidgetArea, mOperations);
+
+    setContextMenuPolicy(Qt::NoContextMenu);
 
     updateTitle();
 
     setupUi();
 
+    updateActions();
+
     CSVWorld::addSubViewFactories (mSubViewFactory);
     CSVTools::addSubViewFactories (mSubViewFactory);
+
+    mSubViewFactory.add (CSMWorld::UniversalId::Type_RunLog, new SubViewFactory<RunLogSubView>);
 
     connect (mOperations, SIGNAL (abortOperation (int)), this, SLOT (abortOperation (int)));
 }
@@ -285,7 +518,8 @@ void CSVDoc::View::updateDocumentState()
 
     static const int operations[] =
     {
-        CSMDoc::State_Saving, CSMDoc::State_Verifying,
+        CSMDoc::State_Saving, CSMDoc::State_Verifying, CSMDoc::State_Searching,
+        CSMDoc::State_Merging,
         -1 // end marker
     };
 
@@ -308,37 +542,138 @@ void CSVDoc::View::updateProgress (int current, int max, int type, int threads)
 
 void CSVDoc::View::addSubView (const CSMWorld::UniversalId& id, const std::string& hint)
 {
-    /// \todo add an user setting for limiting the number of sub views per top level view. Automatically open a new top level view if this
-    /// number is exceeded
+    CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
 
-    /// \todo if the sub view limit setting is one, the sub view title bar should be hidden and the text in the main title bar adjusted
-    /// accordingly
+    bool isReferenceable = id.getClass() == CSMWorld::UniversalId::Class_RefRecord;
 
-    /// \todo add an user setting to reuse sub views (on a per document basis or on a per top level view basis)
+    // User setting to reuse sub views (on a per top level view basis)
+    bool reuse =
+        userSettings.setting ("window/reuse", QString("true")) == "true" ? true : false;
+    if(reuse)
+    {
+        foreach(SubView *sb, mSubViews)
+        {
+            bool isSubViewReferenceable =
+                sb->getUniversalId().getType() == CSMWorld::UniversalId::Type_Referenceable;
 
-    const std::vector<CSMWorld::UniversalId::Type> referenceables(CSMWorld::UniversalId::listReferenceableTypes());
+            if((isReferenceable && isSubViewReferenceable && id.getId() == sb->getUniversalId().getId())
+               ||
+               (!isReferenceable && id == sb->getUniversalId()))
+            {
+                sb->setFocus();
+                if (!hint.empty())
+                    sb->useHint (hint);
+                return;
+            }
+        }
+    }
+
+    if (mScroll)
+        QObject::connect(mScroll->horizontalScrollBar(),
+            SIGNAL(rangeChanged(int,int)), this, SLOT(moveScrollBarToEnd(int,int)));
+
+    // User setting for limiting the number of sub views per top level view.
+    // Automatically open a new top level view if this number is exceeded
+    //
+    // If the sub view limit setting is one, the sub view title bar is hidden and the
+    // text in the main title bar is adjusted accordingly
+    int maxSubView = userSettings.setting("window/max-subviews", QString("256")).toInt();
+    if(mSubViews.size() >= maxSubView) // create a new top level view
+    {
+        mViewManager.addView(mDocument, id, hint);
+
+        return;
+    }
+
     SubView *view = NULL;
-    if(std::find(referenceables.begin(), referenceables.end(), id.getType()) != referenceables.end())
+    if(isReferenceable)
     {
         view = mSubViewFactory.makeSubView (CSMWorld::UniversalId(CSMWorld::UniversalId::Type_Referenceable, id.getId()), *mDocument);
-    } else
+    }
+    else
     {
         view = mSubViewFactory.makeSubView (id, *mDocument);
     }
     assert(view);
-    if (!hint.empty())
-        view->useHint (hint);
+    view->setParent(this);
+    mSubViews.append(view); // only after assert
+
+    int minWidth = userSettings.setting ("window/minimum-width", QString("325")).toInt();
+    view->setMinimumWidth(minWidth);
 
     view->setStatusBar (mShowStatusBar->isChecked());
 
+    // Work out how to deal with additional subviews
+    //
+    // Policy for "Grow then Scroll":
+    //
+    // - Increase the horizontal width of the mainwindow until it becomes greater than or equal
+    //   to the screen (monitor) width.
+    // - Move the mainwindow position sideways if necessary to fit within the screen.
+    // - Any more additions increases the size of the mSubViewWindow (horizontal scrollbar
+    //   should become visible)
+    // - Move the scroll bar to the newly added subview
+    //
+    CSMSettings::UserSettings &settings = CSMSettings::UserSettings::instance();
+    QString mainwinScroll = settings.settingValue ("window/mainwindow-scrollbar");
+    mScrollbarOnly = mainwinScroll.isEmpty() || mainwinScroll == "Scrollbar Only";
+
+    QDesktopWidget *dw = QApplication::desktop();
+    QRect rect;
+    if(settings.settingValue ("window/grow-limit") == "true")
+        rect = dw->screenGeometry(this);
+    else
+        rect = dw->screenGeometry(dw->screen(dw->screenNumber(this)));
+
+    if (!mScrollbarOnly && mScroll && mSubViews.size() > 1)
+    {
+        int newWidth = width()+minWidth;
+        int frameWidth = frameGeometry().width() - width();
+        if (newWidth+frameWidth <= rect.width())
+        {
+            resize(newWidth, height());
+            // WARNING: below code assumes that new subviews are added to the right
+            if (x() > rect.width()-(newWidth+frameWidth))
+                move(rect.width()-(newWidth+frameWidth), y()); // shift left to stay within the screen
+        }
+        else
+        {
+            // full width
+            resize(rect.width()-frameWidth, height());
+            mSubViewWindow.setMinimumWidth(mSubViewWindow.width()+minWidth);
+            move(0, y());
+        }
+    }
+
     mSubViewWindow.addDockWidget (Qt::TopDockWidgetArea, view);
+
+    updateSubViewIndicies();
 
     connect (view, SIGNAL (focusId (const CSMWorld::UniversalId&, const std::string&)), this,
         SLOT (addSubView (const CSMWorld::UniversalId&, const std::string&)));
 
-    CSMSettings::UserSettings::instance().updateSettings("Display Format");
+    connect (view, SIGNAL (closeRequest (SubView *)), this, SLOT (closeRequest (SubView *)));
+
+    connect (view, SIGNAL (updateTitle()), this, SLOT (updateTitle()));
+
+    connect (view, SIGNAL (updateSubViewIndicies (SubView *)),
+        this, SLOT (updateSubViewIndicies (SubView *)));
 
     view->show();
+
+    if (!hint.empty())
+        view->useHint (hint);
+}
+
+void CSVDoc::View::moveScrollBarToEnd(int min, int max)
+{
+    if (mScroll)
+    {
+        mScroll->horizontalScrollBar()->setValue(max);
+
+        QObject::disconnect(mScroll->horizontalScrollBar(),
+            SIGNAL(rangeChanged(int,int)), this, SLOT(moveScrollBarToEnd(int,int)));
+    }
 }
 
 void CSVDoc::View::newView()
@@ -456,6 +791,96 @@ void CSVDoc::View::addJournalInfosSubView()
     addSubView (CSMWorld::UniversalId::Type_JournalInfos);
 }
 
+void CSVDoc::View::addEnchantmentsSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Enchantments);
+}
+
+void CSVDoc::View::addBodyPartsSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_BodyParts);
+}
+
+void CSVDoc::View::addSoundGensSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_SoundGens);
+}
+
+void CSVDoc::View::addMeshesSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Meshes);
+}
+
+void CSVDoc::View::addIconsSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Icons);
+}
+
+void CSVDoc::View::addMusicsSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Musics);
+}
+
+void CSVDoc::View::addSoundsResSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_SoundsRes);
+}
+
+void CSVDoc::View::addMagicEffectsSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_MagicEffects);
+}
+
+void CSVDoc::View::addTexturesSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Textures);
+}
+
+void CSVDoc::View::addVideosSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Videos);
+}
+
+void CSVDoc::View::addDebugProfilesSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_DebugProfiles);
+}
+
+void CSVDoc::View::addRunLogSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_RunLog);
+}
+
+void CSVDoc::View::addPathgridSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Pathgrids);
+}
+
+void CSVDoc::View::addLandTextureSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_LandTextures);
+}
+
+void CSVDoc::View::addLandSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_Lands);
+}
+
+void CSVDoc::View::addStartScriptsSubView()
+{
+    addSubView (CSMWorld::UniversalId::Type_StartScripts);
+}
+
+void CSVDoc::View::addSearchSubView()
+{
+    addSubView (mDocument->newSearch());
+}
+
+void CSVDoc::View::addMetaDataSubView()
+{
+    addSubView (CSMWorld::UniversalId (CSMWorld::UniversalId::Type_MetaData, "sys::meta"));
+}
+
 void CSVDoc::View::abortOperation (int type)
 {
     mDocument->abortOperation (type);
@@ -484,24 +909,63 @@ void CSVDoc::View::resizeViewHeight (int height)
         resize (geometry().width(), height);
 }
 
-void CSVDoc::View::updateEditorSetting (const QString &settingName, const QString &settingValue)
+void CSVDoc::View::updateUserSetting (const QString &name, const QStringList &list)
 {
-    if ( (settingName == "Record Status Display") || (settingName == "Referenceable ID Type Display") )
-    {
-        foreach (QObject *view, mSubViewWindow.children())
-        {
-         // not all mSubviewWindow children are CSVDoc::Subview objects
-         CSVDoc::SubView *subview = dynamic_cast<CSVDoc::SubView *>(view);
+    if (name=="window/hide-subview")
+        updateSubViewIndicies (0);
 
-         if (subview)
-             subview->updateEditorSetting (settingName, settingValue);
+    if (name == "window/save-state")
+        mSaveWindowState = list.at(0) == "true";
+
+    if (name == "window/x-save-state-workaround")
+        mXWorkaround = list.at(0) == "true";
+
+    foreach (SubView *subView, mSubViews)
+    {
+        subView->updateUserSetting (name, list);
+    }
+
+    if (name=="window/mainwindow-scrollbar")
+    {
+        if(list.at(0) != "Grow Only")
+        {
+            if (mScroll)
+            {
+                if (list.at(0).isEmpty() || list.at(0) == "Scrollbar Only")
+                {
+                    mScrollbarOnly = true;
+                    mSubViewWindow.setMinimumWidth(0);
+                }
+                else
+                {
+                    if(!mScrollbarOnly)
+                        return;
+
+                    mScrollbarOnly = false;
+                    updateScrollbar();
+                }
+            }
+            else
+            {
+                mScroll = new QScrollArea(this);
+                mScroll->setWidgetResizable(true);
+                mScroll->setWidget(&mSubViewWindow);
+                setCentralWidget(mScroll);
+            }
+        }
+        else
+        {
+            if (mScroll)
+            {
+                mScroll->takeWidget();
+                setCentralWidget (&mSubViewWindow);
+                mScroll->deleteLater();
+                mScroll = 0;
+            }
+            else
+                return;
         }
     }
-    else if (settingName == "Width")
-            resizeViewWidth (settingValue.toInt());
-
-    else if (settingName == "Height")
-            resizeViewHeight (settingValue.toInt());
 }
 
 void CSVDoc::View::toggleShowStatusBar (bool show)
@@ -511,4 +975,96 @@ void CSVDoc::View::toggleShowStatusBar (bool show)
         if (CSVDoc::SubView *subView = dynamic_cast<CSVDoc::SubView *> (view))
             subView->setStatusBar (show);
     }
+}
+
+void CSVDoc::View::toggleStatusBar(bool checked)
+{
+    mShowStatusBar->setChecked(checked);
+}
+
+void CSVDoc::View::loadErrorLog()
+{
+    addSubView (CSMWorld::UniversalId (CSMWorld::UniversalId::Type_LoadErrorLog, 0));
+}
+
+void CSVDoc::View::run (const std::string& profile, const std::string& startupInstruction)
+{
+    mDocument->startRunning (profile, startupInstruction);
+}
+
+void CSVDoc::View::stop()
+{
+    mDocument->stopRunning();
+}
+
+void CSVDoc::View::closeRequest (SubView *subView)
+{
+    CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
+
+    if (mSubViews.size()>1 || mViewTotal<=1 ||
+        userSettings.setting ("window/hide-subview", QString ("false"))!="true")
+    {
+        subView->deleteLater();
+        mSubViews.removeOne (subView);
+    }
+    else if (mViewManager.closeRequest (this))
+        mViewManager.removeDocAndView (mDocument);
+}
+
+// for more reliable detetion of isMaximized(), see https://bugreports.qt.io/browse/QTBUG-30085
+void CSVDoc::View::saveWindowState()
+{
+    if (!isMaximized())
+    {
+        // update but don't save to config file yet
+        CSMSettings::UserSettings &userSettings = CSMSettings::UserSettings::instance();
+        userSettings.value("window/geometry", saveGeometry());
+        userSettings.value("window/state", saveState());
+    }
+}
+
+// For X11 where Qt does not remember pre-maximised state
+void CSVDoc::View::moveEvent (QMoveEvent *event)
+{
+    if (mXWorkaround && mSaveWindowState)
+        QMetaObject::invokeMethod(this, "saveWindowState", Qt::QueuedConnection);
+
+    QMainWindow::moveEvent(event);
+}
+
+// For X11 where Qt does not remember pre-maximised state
+void CSVDoc::View::resizeEvent (QResizeEvent *event)
+{
+    if (mXWorkaround && mSaveWindowState)
+        QMetaObject::invokeMethod(this, "saveWindowState", Qt::QueuedConnection);
+
+    QMainWindow::resizeEvent(event);
+}
+
+void CSVDoc::View::updateScrollbar()
+{
+    QRect rect;
+    QWidget *topLevel = QApplication::topLevelAt(pos());
+    if (topLevel)
+        rect = topLevel->rect();
+    else
+        rect = this->rect();
+
+    int newWidth = 0;
+    for (int i = 0; i < mSubViews.size(); ++i)
+    {
+        newWidth += mSubViews[i]->width();
+    }
+
+    int frameWidth = frameGeometry().width() - width();
+
+    if ((newWidth+frameWidth) >= rect.width())
+        mSubViewWindow.setMinimumWidth(newWidth);
+    else
+        mSubViewWindow.setMinimumWidth(0);
+}
+
+void CSVDoc::View::merge()
+{
+    emit mergeDocument (mDocument);
 }

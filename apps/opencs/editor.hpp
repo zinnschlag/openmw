@@ -3,6 +3,9 @@
 
 #include <memory>
 
+#include <boost/interprocess/sync/file_lock.hpp>
+#include <boost/filesystem/fstream.hpp>
+
 #include <QObject>
 #include <QString>
 #include <QLocalServer>
@@ -16,6 +19,8 @@
 
 #include <components/files/multidircollection.hpp>
 
+#include <components/nifcache/nifcache.hpp>
+
 #include "model/settings/usersettings.hpp"
 #include "model/doc/documentmanager.hpp"
 
@@ -24,11 +29,19 @@
 #include "view/doc/filedialog.hpp"
 #include "view/doc/newgame.hpp"
 
-#include "view/settings/usersettingsdialog.hpp"
+#include "view/settings/dialog.hpp"
+#include "view/render/overlaysystem.hpp"
+
+#include "view/tools/merge.hpp"
 
 namespace OgreInit
 {
     class OgreInit;
+}
+
+namespace CSMDoc
+{
+    class Document;
 }
 
 namespace CS
@@ -37,21 +50,29 @@ namespace CS
     {
             Q_OBJECT
 
+            Nif::Cache mNifCache;
             Files::ConfigurationManager mCfgMgr;
             CSMSettings::UserSettings mUserSettings;
+            std::auto_ptr<CSVRender::OverlaySystem> mOverlaySystem;
             CSMDoc::DocumentManager mDocumentManager;
             CSVDoc::ViewManager mViewManager;
             CSVDoc::StartupDialogue mStartup;
             CSVDoc::NewGameDialogue mNewGame;
-            CSVSettings::UserSettingsDialog mSettings;
+            CSVSettings::Dialog mSettings;
             CSVDoc::FileDialog mFileDialog;
             boost::filesystem::path mLocal;
             boost::filesystem::path mResources;
+            boost::filesystem::path mPid;
+            boost::interprocess::file_lock mLock;
+            boost::filesystem::ofstream mPidFile;
             bool mFsStrict;
+            CSVTools::Merge mMerge;
+
+            void showSplashMessage();
 
             void setupDataFiles (const Files::PathContainer& dataDirs);
 
-            std::pair<Files::PathContainer, std::vector<std::string> > readConfig();
+            std::pair<Files::PathContainer, std::vector<std::string> > readConfig(bool quiet=false);
             ///< \return data paths
 
             // not implemented
@@ -61,6 +82,7 @@ namespace CS
         public:
 
             Editor (OgreInit::OgreInit& ogreInit);
+            ~Editor ();
 
             bool makeIPCServer();
             void connectToIPCServer();
@@ -75,6 +97,8 @@ namespace CS
 
             void createGame();
             void createAddon();
+            void cancelCreateGame();
+            void cancelFileDialog();
 
             void loadDocument();
             void openFiles (const boost::filesystem::path &path);
@@ -84,6 +108,14 @@ namespace CS
             void showStartup();
 
             void showSettings();
+
+            void documentAdded (CSMDoc::Document *document);
+
+            void documentAboutToBeRemoved (CSMDoc::Document *document);
+
+            void lastDocumentDeleted();
+
+            void mergeDocument (CSMDoc::Document *document);
 
         private:
 

@@ -28,7 +28,7 @@ namespace ESM
             int type;           // 0=esp, 1=esm, 32=ess (unused)
             NAME32 author;      // Author's name
             NAME256 desc;       // File description
-            int records;        // Number of records? Not used.
+            int records;        // Number of records
         };
 
         // Defines another files (esm or esp) that this file depends upon.
@@ -38,6 +38,20 @@ namespace ESM
             uint64_t size;
             int index; // Position of the parent file in the global list of loaded files
         };
+
+        struct GMDT
+        {
+            float mCurrentHealth;
+            float mMaximumHealth;
+            float mHour;
+            unsigned char unknown1[12];
+            NAME64 mCurrentCell;
+            unsigned char unknown2[4];
+            NAME32 mPlayerName;
+        };
+        GMDT mGameData; // Used in .ess savegames only
+        std::vector<unsigned char> mSCRD; // Used in .ess savegames only, unknown
+        std::vector<unsigned char> mSCRS; // Used in .ess savegames only, screenshot
 
         Data mData;
         int mFormat;

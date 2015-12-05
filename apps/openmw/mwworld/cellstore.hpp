@@ -3,19 +3,31 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <string>
+#include <typeinfo>
+#include <boost/shared_ptr.hpp>
 
 #include "livecellref.hpp"
-#include "esmstore.hpp"
 #include "cellreflist.hpp"
+
+#include <components/esm/fogstate.hpp>
+#include <components/esm/records.hpp>
+
+#include "../mwmechanics/pathgrid.hpp"  // TODO: maybe belongs in mwworld
+
+#include "timestamp.hpp"
 
 namespace ESM
 {
     struct CellState;
+    struct FogState;
 }
 
 namespace MWWorld
 {
     class Ptr;
+    class ESMStore;
+
 
     /// \brief Mutable state of a cell
     class CellStore
@@ -29,11 +41,18 @@ namespace MWWorld
 
         private:
 
+            // Even though fog actually belongs to the player and not cells,
+            // it makes sense to store it here since we need it once for each cell.
+            // Note this is NULL until the cell is explored to save some memory
+            boost::shared_ptr<ESM::FogState> mFogState;
+
             const ESM::Cell *mCell;
             State mState;
             bool mHasState;
             std::vector<std::string> mIds;
             float mWaterLevel;
+
+            MWWorld::TimeStamp mLastRespawn;
 
             CellRefList<ESM::Activator>         mActivators;
             CellRefList<ESM::Potion>            mPotions;
@@ -78,9 +97,17 @@ namespace MWWorld
             Ptr searchViaHandle (const std::string& handle);
             ///< Will return an empty Ptr if cell is not loaded.
 
+            Ptr searchViaActorId (int id);
+            ///< Will return an empty Ptr if cell is not loaded.
+
             float getWaterLevel() const;
 
             void setWaterLevel (float level);
+
+            void setFog (ESM::FogState* fog);
+            ///< \note Takes ownership of the pointer
+
+            ESM::FogState* getFog () const;
 
             int count() const;
             ///< Return total number of references, including deleted ones.
@@ -93,6 +120,7 @@ namespace MWWorld
 
             /// Call functor (ref) for each reference. functor must return a bool. Returning
             /// false will abort the iteration.
+            /// \attention This function also lists deleted (count 0) objects!
             /// \return Iteration completed?
             ///
             /// \note Creatures and NPCs are handled last.
@@ -124,6 +152,17 @@ namespace MWWorld
                     forEachImp (functor, mCreatureLists);
             }
 
+            template<class Functor>
+            bool forEachContainer (Functor& functor)
+            {
+                mHasState = true;
+
+                return
+                    forEachImp (functor, mContainers) &&
+                    forEachImp (functor, mCreatures) &&
+                    forEachImp (functor, mNpcs);
+            }
+
             bool isExterior() const;
 
             Ptr searchInContainer (const std::string& id);
@@ -132,14 +171,30 @@ namespace MWWorld
 
             void saveState (ESM::CellState& state) const;
 
+            void writeFog (ESM::ESMWriter& writer) const;
+
+            void readFog (ESM::ESMReader& reader);
+
             void writeReferences (ESM::ESMWriter& writer) const;
 
             void readReferences (ESM::ESMReader& reader, const std::map<int, int>& contentFileMap);
 
+            void respawn ();
+            ///< Check mLastRespawn and respawn references if necessary. This is a no-op if the cell is not loaded.
+
             template <class T>
             CellRefList<T>& get() {
-                throw std::runtime_error ("Storage for this type not exist in cells");
+                throw std::runtime_error ("Storage for type " + std::string(typeid(T).name())+ " does not exist in cells");
             }
+
+            template <class T>
+            const CellRefList<T>& getReadOnly() {
+                throw std::runtime_error ("Read Only CellRefList access not available for type " + std::string(typeid(T).name()) );
+            }
+
+            bool isPointConnected(const int start, const int end) const;
+
+            std::list<ESM::Pathgrid::Point> aStarSearch(const int start, const int end) const;
 
         private:
 
@@ -149,7 +204,7 @@ namespace MWWorld
                 for (typename List::List::iterator iter (list.mList.begin()); iter!=list.mList.end();
                     ++iter)
                 {
-                    if (!iter->mData.getCount())
+                    if (iter->mData.isDeletedByContentFile())
                         continue;
                     if (!functor (MWWorld::Ptr(&*iter, this)))
                         return false;
@@ -166,6 +221,8 @@ namespace MWWorld
             ///< Make case-adjustments to \a ref and insert it into the respective container.
             ///
             /// Invalid \a ref objects are silently dropped.
+
+            MWMechanics::PathgridGraph mPathgridGraph;
     };
 
     template<>
@@ -306,6 +363,12 @@ namespace MWWorld
     {
         mHasState = true;
         return mWeapons;
+    }
+
+    template<>
+    inline const CellRefList<ESM::Door>& CellStore::getReadOnly<ESM::Door>()
+    {
+        return mDoors;
     }
 
     bool operator== (const CellStore& left, const CellStore& right);

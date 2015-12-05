@@ -2,6 +2,8 @@
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/world.hpp"
+#include "../mwworld/player.hpp"
 
 namespace MWWorld
 {
@@ -12,7 +14,11 @@ namespace MWWorld
 
     void ActionRepair::executeImp (const Ptr& actor)
     {
-        MWBase::Environment::get().getWindowManager()->pushGuiMode(MWGui::GM_Repair);
+        if(MWBase::Environment::get().getWorld()->getPlayer().isInCombat()) {
+            MWBase::Environment::get().getWindowManager()->messageBox("#{sInventoryMessage2}");
+            return;
+        }
+
         MWBase::Environment::get().getWindowManager()->startRepairItem(getTarget());
     }
 }

@@ -5,6 +5,9 @@
 #include <string>
 
 #include <OgreColourValue.h>
+#include <OgreVector3.h>
+
+#include "../mwbase/soundmanager.hpp"
 
 namespace ESM
 {
@@ -16,6 +19,11 @@ namespace ESM
 namespace MWRender
 {
     class RenderingManager;
+}
+
+namespace Loading
+{
+    class Listener;
 }
 
 namespace MWWorld
@@ -52,7 +60,17 @@ namespace MWWorld
         bool mNight; // use night skybox
         float mNightFade; // fading factor for night skybox
 
+        bool mIsStorm;
+
         std::string mAmbientLoopSoundID;
+        float mAmbientSoundVolume;
+
+        std::string mParticleEffect;
+        std::string mRainEffect;
+        float mEffectFade;
+
+        float mRainSpeed;
+        float mRainFrequency;
     };
 
 
@@ -95,7 +113,7 @@ namespace MWWorld
         // Duration of weather transition (in days)
         float mTransitionDelta;
 
-        // No idea what this one is used for?
+        // Used by scripts to animate signs, etc based on the wind (GetWindSpeed)
         float mWindSpeed;
 
         // Cloud animation speed multiplier
@@ -111,10 +129,25 @@ namespace MWWorld
         // This is used for Blight, Ashstorm and Blizzard (Bloodmoon)
         std::string mAmbientLoopSoundID;
 
-        // Rain sound effect
-        std::string mRainLoopSoundID;
+        // Is this an ash storm / blight storm? If so, the following will happen:
+        // - The particles and clouds will be oriented so they appear to come from the Red Mountain.
+        // - Characters will animate their hand to protect eyes from the storm when looking in its direction (idlestorm animation)
+        // - Slower movement when walking against the storm (fStromWalkMult)
+        bool mIsStorm;
 
-        /// \todo disease chance
+        // How fast does rain travel down?
+        // In Morrowind.ini this is set globally, but we may want to change it per weather later.
+        float mRainSpeed;
+
+        // How often does a new rain mesh spawn?
+        float mRainFrequency;
+
+        std::string mParticleEffect;
+
+        std::string mRainEffect;
+
+        // Note: For Weather Blight, there is a "Disease Chance" (=0.1) setting. But according to MWSFD this feature
+        // is broken in the vanilla game and was disabled.
     };
 
     ///
@@ -137,14 +170,20 @@ namespace MWWorld
         /**
          * Per-frame update
          * @param duration
+         * @param paused
          */
-        void update(float duration);
+        void update(float duration, bool paused = false);
 
-        void stopSounds(bool stopAll);
+        void stopSounds();
 
         void setHour(const float hour);
 
         float getWindSpeed() const;
+
+        /// Are we in an ash or blight storm?
+        bool isInStorm() const;
+
+        Ogre::Vector3 getStormDirection() const;
 
         void advanceTime(double hours)
         {
@@ -158,13 +197,21 @@ namespace MWWorld
         /// @see World::isDark
         bool isDark() const;
 
-        void write(ESM::ESMWriter& writer);
+        void write(ESM::ESMWriter& writer, Loading::Listener& progress);
 
-        bool readRecord(ESM::ESMReader& reader, int32_t type);
+        bool readRecord(ESM::ESMReader& reader, uint32_t type);
+
+        void clear();
 
     private:
         float mHour;
         float mWindSpeed;
+        bool mIsStorm;
+        Ogre::Vector3 mStormDirection;
+
+        MWBase::SoundPtr mAmbientSound;
+        std::string mPlayingSoundID;
+
         MWWorld::Fallback* mFallback;
         void setFallbackWeather(Weather& weather,const std::string& name);
         MWRender::RenderingManager* mRendering;
@@ -172,8 +219,6 @@ namespace MWWorld
         std::map<std::string, Weather> mWeatherSettings;
 
         std::map<std::string, std::string> mRegionOverrides;
-
-        std::vector<std::string> mSoundsPlaying;
 
         std::string mCurrentWeather;
         std::string mNextWeather;
@@ -203,6 +248,7 @@ namespace MWWorld
         typedef std::map<std::string,std::vector<char> > RegionModMap;
         RegionModMap mRegionMods;
 
+        float mRainSpeed;
         float mSunriseTime;
         float mSunsetTime;
         float mSunriseDuration;

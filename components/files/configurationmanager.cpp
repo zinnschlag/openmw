@@ -1,12 +1,12 @@
 #include "configurationmanager.hpp"
 
 #include <string>
-#include <fstream>
 #include <iostream>
 #include <algorithm>
 
 #include <boost/bind.hpp>
 #include <boost/algorithm/string/erase.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 /**
  * \namespace Files
@@ -16,13 +16,20 @@ namespace Files
 
 static const char* const openmwCfgFile = "openmw.cfg";
 
+#if defined(_WIN32) || defined(__WINDOWS__)
+static const char* const applicationName = "OpenMW";
+#else
+static const char* const applicationName = "openmw";
+#endif
+
 const char* const mwToken = "?mw?";
 const char* const localToken = "?local?";
-const char* const userToken = "?user?";
+const char* const userDataToken = "?userdata?";
 const char* const globalToken = "?global?";
 
-ConfigurationManager::ConfigurationManager()
-    : mFixedPath("openmw")
+ConfigurationManager::ConfigurationManager(bool silent)
+    : mFixedPath(applicationName)
+    , mSilent(silent)
 {
     setupTokensMapping();
 
@@ -40,21 +47,35 @@ void ConfigurationManager::setupTokensMapping()
 {
     mTokensMapping.insert(std::make_pair(mwToken, &FixedPath<>::getInstallPath));
     mTokensMapping.insert(std::make_pair(localToken, &FixedPath<>::getLocalPath));
-    mTokensMapping.insert(std::make_pair(userToken, &FixedPath<>::getUserConfigPath));
+    mTokensMapping.insert(std::make_pair(userDataToken, &FixedPath<>::getUserDataPath));
     mTokensMapping.insert(std::make_pair(globalToken, &FixedPath<>::getGlobalDataPath));
 }
 
 void ConfigurationManager::readConfiguration(boost::program_options::variables_map& variables,
-    boost::program_options::options_description& description)
+    boost::program_options::options_description& description, bool quiet)
 {
+    bool silent = mSilent;
+    mSilent = quiet;
+
+    boost::filesystem::path pUser = boost::filesystem::canonical(mFixedPath.getUserConfigPath());
+    boost::filesystem::path pLocal = boost::filesystem::canonical(mFixedPath.getLocalPath());
+    boost::filesystem::path pGlobal = boost::filesystem::canonical(mFixedPath.getGlobalConfigPath());
+
     loadConfig(mFixedPath.getUserConfigPath(), variables, description);
     boost::program_options::notify(variables);
 
-    loadConfig(mFixedPath.getLocalPath(), variables, description);
-    boost::program_options::notify(variables);
-    loadConfig(mFixedPath.getGlobalConfigPath(), variables, description);
-    boost::program_options::notify(variables);
+    if (pLocal != pUser)
+    {
+        loadConfig(mFixedPath.getLocalPath(), variables, description);
+        boost::program_options::notify(variables);
+    }
 
+    if (pGlobal != pUser && pGlobal != pLocal)
+    {
+        loadConfig(mFixedPath.getGlobalConfigPath(), variables, description);
+        boost::program_options::notify(variables);
+    }
+    mSilent = silent;
 }
 
 void ConfigurationManager::processPaths(Files::PathContainer& dataDirs, bool create)
@@ -123,19 +144,22 @@ void ConfigurationManager::loadConfig(const boost::filesystem::path& path,
     cfgFile /= std::string(openmwCfgFile);
     if (boost::filesystem::is_regular_file(cfgFile))
     {
-        std::cout << "Loading config file: " << cfgFile.string() << "... ";
+        if (!mSilent)
+            std::cout << "Loading config file: " << cfgFile.string() << "... ";
 
-        std::ifstream configFileStream(cfgFile.string().c_str());
+        boost::filesystem::ifstream configFileStream(cfgFile);
         if (configFileStream.is_open())
         {
             boost::program_options::store(boost::program_options::parse_config_file(
                 configFileStream, description, true), variables);
 
-            std::cout << "done." << std::endl;
+            if (!mSilent)
+                std::cout << "done." << std::endl;
         }
         else
         {
-            std::cout << "failed." << std::endl;
+            if (!mSilent)
+                std::cout << "failed." << std::endl;
         }
     }
 }

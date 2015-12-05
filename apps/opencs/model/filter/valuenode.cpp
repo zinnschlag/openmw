@@ -1,17 +1,16 @@
-
 #include "valuenode.hpp"
 
 #include <sstream>
 #include <stdexcept>
 
 #include "../world/columns.hpp"
-#include "../world/idtable.hpp"
+#include "../world/idtablebase.hpp"
 
 CSMFilter::ValueNode::ValueNode (int columnId, Type lowerType, Type upperType,
     double lower, double upper)
-: mColumnId (columnId), mLowerType (lowerType), mUpperType (upperType), mLower (lower), mUpper (upper){}
+: mColumnId (columnId), mLower (lower), mUpper (upper), mLowerType (lowerType), mUpperType (upperType){}
 
-bool CSMFilter::ValueNode::test (const CSMWorld::IdTable& table, int row,
+bool CSMFilter::ValueNode::test (const CSMWorld::IdTableBase& table, int row,
     const std::map<int, int>& columns) const
 {
     const std::map<int, int>::const_iterator iter = columns.find (mColumnId);

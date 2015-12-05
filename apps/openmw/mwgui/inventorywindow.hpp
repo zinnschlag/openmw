@@ -1,14 +1,23 @@
 #ifndef MGUI_Inventory_H
 #define MGUI_Inventory_H
 
-#include "../mwrender/characterpreview.hpp"
-
 #include "windowpinnablebase.hpp"
-#include "widgets.hpp"
 #include "mode.hpp"
+
+#include "../mwworld/ptr.hpp"
+
+namespace MWRender
+{
+    class InventoryPreview;
+}
 
 namespace MWGui
 {
+    namespace Widgets
+    {
+        class MWDynamicStat;
+    }
+
     class ItemView;
     class SortFilterItemModel;
     class TradeItemModel;
@@ -33,10 +42,9 @@ namespace MWGui
 
             MWWorld::Ptr getAvatarSelectedItem(int x, int y);
 
-            void rebuildAvatar() {
-                mPreview.rebuild();
-            }
+            void rebuildAvatar();
 
+            SortFilterItemModel* getSortFilterModel();
             TradeItemModel* getTradeModel();
             ItemModel* getModel();
 
@@ -48,11 +56,15 @@ namespace MWGui
 
             void setGuiMode(GuiMode mode);
 
+            /// Cycle to previous/next weapon
+            void cycle(bool next);
+
         private:
             DragAndDrop* mDragAndDrop;
 
             bool mPreviewDirty;
-            size_t mSelectedItem;
+            bool mPreviewResize;
+            int mSelectedItem;
 
             MWWorld::Ptr mPtr;
 
@@ -81,7 +93,7 @@ namespace MWGui
             int mLastXSize;
             int mLastYSize;
 
-            MWRender::InventoryPreview mPreview;
+            std::auto_ptr<MWRender::InventoryPreview> mPreview;
 
             bool mTrading;
 
@@ -97,11 +109,15 @@ namespace MWGui
             void onFilterChanged(MyGUI::Widget* _sender);
             void onAvatarClicked(MyGUI::Widget* _sender);
             void onPinToggled();
+            void onTitleDoubleClicked();
 
             void updateEncumbranceBar();
             void notifyContentChanged();
 
             void adjustPanes();
+
+            /// Unequips mSelectedItem, if it is equipped, and then updates mSelectedItem in case it was re-stacked
+            void ensureSelectedItemUnequipped();
     };
 }
 

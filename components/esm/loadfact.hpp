@@ -2,7 +2,7 @@
 #define OPENMW_ESM_FACT_H
 
 #include <string>
-#include <vector>
+#include <map>
 
 namespace ESM
 {
@@ -30,6 +30,8 @@ struct RankData
 struct Faction
 {
     static unsigned int sRecordId;
+    /// Return a string descriptor for this record type. Currently used for debugging / error logs only.
+    static std::string getRecordType() { return "Faction"; }
 
     std::string mId, mName;
 
@@ -40,8 +42,9 @@ struct Faction
 
         RankData mRankData[10];
 
-        int mSkills[6]; // IDs of skills this faction require
-        int mUnknown; // Always -1?
+        int mSkills[7]; // IDs of skills this faction require
+                        // Each element will either contain an ESM::Skill index, or -1.
+
         int mIsHidden; // 1 - hidden from player
 
         int& getSkill (int index, bool ignored = false);
@@ -53,19 +56,14 @@ struct Faction
 
     FADTstruct mData;
 
-    struct Reaction
-    {
-        std::string mFaction;
-        int mReaction;
-    };
-
-    std::vector<Reaction> mReactions;
+    // <Faction ID, Reaction>
+    std::map<std::string, int> mReactions;
 
     // Name of faction ranks (may be empty for NPC factions)
     std::string mRanks[10];
 
-    void load(ESMReader &esm);
-    void save(ESMWriter &esm) const;
+    void load(ESMReader &esm, bool &isDeleted);
+    void save(ESMWriter &esm, bool isDeleted = false) const;
 
     void blank();
      ///< Set record to default state (does not touch the ID/index).

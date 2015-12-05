@@ -8,17 +8,19 @@
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
+#include "../mwbase/mechanicsmanager.hpp"
 
 namespace MWMechanics
 {
+    int CreatureStats::sActorId = 0;
+
     CreatureStats::CreatureStats()
-        : mLevel (0), mDead (false), mDied (false), mFriendlyHits (0),
-          mTalkedTo (false), mAlarmed (false),
-          mAttacked (false), mHostile (false),
-          mAttackingOrSpell(false),
-          mIsWerewolf(false),
-          mFallHeight(0), mRecalcDynamicStats(false), mKnockdown(false), mHitRecovery(false), mBlock(false),
-          mMovementFlags(0), mDrawState (DrawState_Nothing), mAttackStrength(0.f)
+        : mDrawState (DrawState_Nothing), mDead (false), mDied (false), mMurdered(false), mFriendlyHits (0),
+          mTalkedTo (false), mAlarmed (false), mAttacked (false), mAttackingOrSpell(false),
+          mKnockdown(false), mKnockdownOneFrame(false), mKnockdownOverOneFrame(false),
+          mHitRecovery(false), mBlock(false), mMovementFlags(0), mAttackStrength(0.f),
+          mFallHeight(0), mRecalcMagicka(false), mLastRestock(0,0), mGoldPool(0), mActorId(-1),
+          mDeathAnimation(0), mLevel (0)
     {
         for (int i=0; i<4; ++i)
             mAiSettings[i] = 0;
@@ -36,10 +38,10 @@ namespace MWMechanics
 
     float CreatureStats::getFatigueTerm() const
     {
-        int max = getFatigue().getModified();
-        int current = getFatigue().getCurrent();
+        float max = getFatigue().getModified();
+        float current = getFatigue().getCurrent();
 
-        float normalised = max==0 ? 1 : std::max (0.0f, static_cast<float> (current)/max);
+        float normalised = floor(max) == 0 ? 1 : std::max (0.0f, current / max);
 
         const MWWorld::Store<ESM::GameSetting> &gmst =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
@@ -53,7 +55,7 @@ namespace MWMechanics
         if (index < 0 || index > 7) {
             throw std::runtime_error("attribute index is out of range");
         }
-        return (!mIsWerewolf ? mAttributes[index] : mWerewolfAttributes[index]);
+        return mAttributes[index];
     }
 
     const DynamicStat<float> &CreatureStats::getHealth() const
@@ -98,7 +100,6 @@ namespace MWMechanics
 
     Stat<int> CreatureStats::getAiSetting (AiSetting index) const
     {
-        assert (index>=0 && index<4);
         return mAiSettings[index];
     }
 
@@ -113,11 +114,6 @@ namespace MWMechanics
     Spells &CreatureStats::getSpells()
     {
         return mSpells;
-    }
-
-    void CreatureStats::setSpells(const Spells &spells)
-    {
-        mSpells = spells;
     }
 
     ActiveSpells &CreatureStats::getActiveSpells()
@@ -143,20 +139,29 @@ namespace MWMechanics
             throw std::runtime_error("attribute index is out of range");
         }
 
-        const AttributeValue& currentValue = !mIsWerewolf ? mAttributes[index] : mWerewolfAttributes[index];
+        const AttributeValue& currentValue = mAttributes[index];
 
         if (value != currentValue)
         {
-            if (index != ESM::Attribute::Luck
-                    && index != ESM::Attribute::Personality
-                    && index != ESM::Attribute::Speed)
-                mRecalcDynamicStats = true;
-        }
-
-        if(!mIsWerewolf)
             mAttributes[index] = value;
-        else
-            mWerewolfAttributes[index] = value;
+
+            if (index == ESM::Attribute::Intelligence)
+                mRecalcMagicka = true;
+            else if (index == ESM::Attribute::Strength ||
+                     index == ESM::Attribute::Willpower ||
+                     index == ESM::Attribute::Agility ||
+                     index == ESM::Attribute::Endurance)
+            {
+                int strength     = getAttribute(ESM::Attribute::Strength).getModified();
+                int willpower    = getAttribute(ESM::Attribute::Willpower).getModified();
+                int agility      = getAttribute(ESM::Attribute::Agility).getModified();
+                int endurance    = getAttribute(ESM::Attribute::Endurance).getModified();
+                DynamicStat<float> fatigue = getFatigue();
+                float diff = (strength+willpower+agility+endurance) - fatigue.getBase();
+                fatigue.modify(diff);
+                setFatigue(fatigue);
+            }
+        }
     }
 
     void CreatureStats::setHealth(const DynamicStat<float> &value)
@@ -183,10 +188,13 @@ namespace MWMechanics
 
         if (index==0 && mDynamic[index].getCurrent()<1)
         {
-            if (!mDead)
-                mDied = true;
-
             mDead = true;
+
+            mDynamic[index].setModifier(0);
+            mDynamic[index].setCurrent(0);
+
+            if (MWBase::Environment::get().getWorld()->getGodModeState())
+                MWBase::Environment::get().getMechanicsManager()->keepPlayerAlive();
         }
     }
 
@@ -195,18 +203,13 @@ namespace MWMechanics
         mLevel = level;
     }
 
-    void CreatureStats::setActiveSpells(const ActiveSpells &active)
+    void CreatureStats::modifyMagicEffects(const MagicEffects &effects)
     {
-        mActiveSpells = active;
-    }
+        if (effects.get(ESM::MagicEffect::FortifyMaximumMagicka).getModifier()
+                != mMagicEffects.get(ESM::MagicEffect::FortifyMaximumMagicka).getModifier())
+            mRecalcMagicka = true;
 
-    void CreatureStats::setMagicEffects(const MagicEffects &effects)
-    {
-        if (effects.get(ESM::MagicEffect::FortifyMaximumMagicka).mMagnitude
-                != mMagicEffects.get(ESM::MagicEffect::FortifyMaximumMagicka).mMagnitude)
-            mRecalcDynamicStats = true;
-
-        mMagicEffects = effects;
+        mMagicEffects.setModifiers(effects);
     }
 
     void CreatureStats::setAttackingOrSpell(bool attackingOrSpell)
@@ -216,7 +219,6 @@ namespace MWMechanics
 
     void CreatureStats::setAiSetting (AiSetting index, Stat<int> value)
     {
-        assert (index>=0 && index<4);
         mAiSettings[index] = value;
     }
 
@@ -232,6 +234,11 @@ namespace MWMechanics
         return mDead;
     }
 
+    void CreatureStats::notifyDied()
+    {
+        mDied = true;
+    }
+
     bool CreatureStats::hasDied() const
     {
         return mDied;
@@ -242,15 +249,26 @@ namespace MWMechanics
         mDied = false;
     }
 
+    bool CreatureStats::hasBeenMurdered() const
+    {
+        return mMurdered;
+    }
+
+    void CreatureStats::notifyMurder()
+    {
+        mMurdered = true;
+    }
+
+    void CreatureStats::clearHasBeenMurdered()
+    {
+        mMurdered = false;
+    }
+
     void CreatureStats::resurrect()
     {
         if (mDead)
         {
-            if (mDynamic[0].getCurrent()<1)
-            {
-                mDynamic[0].setModified(mDynamic[0].getModified(), 1);
-                mDynamic[0].setCurrent(1);
-            }
+            mDynamic[0].setCurrent(mDynamic[0].getModified());
             if (mDynamic[0].getCurrent()>=1)
                 mDead = false;
         }
@@ -306,34 +324,12 @@ namespace MWMechanics
         mAttacked = attacked;
     }
 
-    bool CreatureStats::isHostile() const
-    {
-        return mHostile;
-    }
-
-    void CreatureStats::setHostile (bool hostile)
-    {
-        mHostile = hostile;
-    }
-
-    bool CreatureStats::getCreatureTargetted() const
-    {
-        std::string target;
-        if (mAiSequence.getCombatTarget(target))
-        {
-            MWWorld::Ptr targetPtr;
-            targetPtr = MWBase::Environment::get().getWorld()->getPtr(target, true);
-            return targetPtr.getTypeName() == typeid(ESM::Creature).name();
-        }
-        return false;
-    }
-
     float CreatureStats::getEvasion() const
     {
         float evasion = (getAttribute(ESM::Attribute::Agility).getModified() / 5.0f) +
                         (getAttribute(ESM::Attribute::Luck).getModified() / 10.0f);
         evasion *= getFatigueTerm();
-        evasion += mMagicEffects.get(ESM::MagicEffect::Sanctuary).mMagnitude;
+        evasion += std::min(100.f, mMagicEffects.get(ESM::MagicEffect::Sanctuary).getMagnitude());
 
         return evasion;
     }
@@ -348,18 +344,14 @@ namespace MWMechanics
         return mLastHitObject;
     }
 
-    bool CreatureStats::canUsePower(const std::string &power) const
+    void CreatureStats::setLastHitAttemptObject(const std::string& objectid)
     {
-        std::map<std::string, MWWorld::TimeStamp>::const_iterator it = mUsedPowers.find(power);
-        if (it == mUsedPowers.end() || it->second + 24 <= MWBase::Environment::get().getWorld()->getTimeStamp())
-            return true;
-        else
-            return false;
+        mLastHitAttemptObject = objectid;
     }
 
-    void CreatureStats::usePower(const std::string &power)
+    const std::string &CreatureStats::getLastHitAttemptObject() const
     {
-        mUsedPowers[power] = MWBase::Environment::get().getWorld()->getTimeStamp();
+        return mLastHitAttemptObject;
     }
 
     void CreatureStats::addToFallHeight(float height)
@@ -376,22 +368,46 @@ namespace MWMechanics
 
     bool CreatureStats::needToRecalcDynamicStats()
     {
-         if (mRecalcDynamicStats)
+         if (mRecalcMagicka)
          {
-             mRecalcDynamicStats = false;
+             mRecalcMagicka = false;
              return true;
          }
          return false;
     }
 
+    void CreatureStats::setNeedRecalcDynamicStats(bool val)
+    {
+        mRecalcMagicka = val;
+    }
+
     void CreatureStats::setKnockedDown(bool value)
     {
         mKnockdown = value;
+        if(!value) //Resets the "OverOneFrame" flag
+            setKnockedDownOverOneFrame(false);
     }
 
     bool CreatureStats::getKnockedDown() const
     {
         return mKnockdown;
+    }
+
+    void CreatureStats::setKnockedDownOneFrame(bool value)
+    {
+        mKnockdownOneFrame = value;
+    }
+
+    bool CreatureStats::getKnockedDownOneFrame() const
+    {
+        return mKnockdownOneFrame;
+    }
+
+    void CreatureStats::setKnockedDownOverOneFrame(bool value) {
+        mKnockdownOverOneFrame = value;
+    }
+    bool CreatureStats::getKnockedDownOverOneFrame() const {
+        return mKnockdownOverOneFrame;
     }
 
     void CreatureStats::setHitRecovery(bool value)
@@ -416,7 +432,7 @@ namespace MWMechanics
 
     bool CreatureStats::getMovementFlag (Flag flag) const
     {
-        return mMovementFlags & flag;
+        return (mMovementFlags & flag) != 0;
     }
 
     void CreatureStats::setMovementFlag (Flag flag, bool state)
@@ -435,8 +451,9 @@ namespace MWMechanics
                 return getMovementFlag (Flag_Run) || getMovementFlag (Flag_ForceRun);
             case Stance_Sneak:
                 return getMovementFlag (Flag_Sneak) || getMovementFlag (Flag_ForceSneak);
+            default:
+                return false;
         }
-        return false; // shut up, compiler
     }
 
     DrawState_ CreatureStats::getDrawState() const
@@ -461,39 +478,170 @@ namespace MWMechanics
 
     void CreatureStats::writeState (ESM::CreatureStats& state) const
     {
-        for (int i=0; i<8; ++i)
+        for (int i=0; i<ESM::Attribute::Length; ++i)
             mAttributes[i].writeState (state.mAttributes[i]);
 
         for (int i=0; i<3; ++i)
             mDynamic[i].writeState (state.mDynamic[i]);
+
+        state.mTradeTime = mLastRestock.toEsm();
+        state.mGoldPool = mGoldPool;
+
+        state.mDead = mDead;
+        state.mDied = mDied;
+        state.mMurdered = mMurdered;
+        // The vanilla engine does not store friendly hits in the save file. Since there's no other mechanism
+        // that ever resets the friendly hits (at least not to my knowledge) this should be regarded a feature
+        // rather than a bug.
+        //state.mFriendlyHits = mFriendlyHits;
+        state.mTalkedTo = mTalkedTo;
+        state.mAlarmed = mAlarmed;
+        state.mAttacked = mAttacked;
+        state.mAttackingOrSpell = mAttackingOrSpell;
+        // TODO: rewrite. does this really need 3 separate bools?
+        state.mKnockdown = mKnockdown;
+        state.mKnockdownOneFrame = mKnockdownOneFrame;
+        state.mKnockdownOverOneFrame = mKnockdownOverOneFrame;
+        state.mHitRecovery = mHitRecovery;
+        state.mBlock = mBlock;
+        state.mMovementFlags = mMovementFlags;
+        state.mAttackStrength = mAttackStrength;
+        state.mFallHeight = mFallHeight; // TODO: vertical velocity (move from PhysicActor to CreatureStats?)
+        state.mLastHitObject = mLastHitObject;
+        state.mLastHitAttemptObject = mLastHitAttemptObject;
+        state.mRecalcDynamicStats = mRecalcMagicka;
+        state.mDrawState = mDrawState;
+        state.mLevel = mLevel;
+        state.mActorId = mActorId;
+        state.mDeathAnimation = mDeathAnimation;
+
+        mSpells.writeState(state.mSpells);
+        mActiveSpells.writeState(state.mActiveSpells);
+        mAiSequence.writeState(state.mAiSequence);
+        mMagicEffects.writeState(state.mMagicEffects);
+
+        state.mSummonedCreatureMap = mSummonedCreatures;
+        state.mSummonGraveyard = mSummonGraveyard;
+
+        state.mHasAiSettings = true;
+        for (int i=0; i<4; ++i)
+            mAiSettings[i].writeState (state.mAiSettings[i]);
     }
 
     void CreatureStats::readState (const ESM::CreatureStats& state)
     {
-        for (int i=0; i<8; ++i)
+        for (int i=0; i<ESM::Attribute::Length; ++i)
             mAttributes[i].readState (state.mAttributes[i]);
 
         for (int i=0; i<3; ++i)
             mDynamic[i].readState (state.mDynamic[i]);
+
+        mLastRestock = MWWorld::TimeStamp(state.mTradeTime);
+        mGoldPool = state.mGoldPool;
+
+        mDead = state.mDead;
+        mDied = state.mDied;
+        mMurdered = state.mMurdered;
+        mTalkedTo = state.mTalkedTo;
+        mAlarmed = state.mAlarmed;
+        mAttacked = state.mAttacked;
+        mAttackingOrSpell = state.mAttackingOrSpell;
+        // TODO: rewrite. does this really need 3 separate bools?
+        mKnockdown = state.mKnockdown;
+        mKnockdownOneFrame = state.mKnockdownOneFrame;
+        mKnockdownOverOneFrame = state.mKnockdownOverOneFrame;
+        mHitRecovery = state.mHitRecovery;
+        mBlock = state.mBlock;
+        mMovementFlags = state.mMovementFlags;
+        mAttackStrength = state.mAttackStrength;
+        mFallHeight = state.mFallHeight;
+        mLastHitObject = state.mLastHitObject;
+        mLastHitAttemptObject = state.mLastHitAttemptObject;
+        mRecalcMagicka = state.mRecalcDynamicStats;
+        mDrawState = DrawState_(state.mDrawState);
+        mLevel = state.mLevel;
+        mActorId = state.mActorId;
+        mDeathAnimation = state.mDeathAnimation;
+
+        mSpells.readState(state.mSpells);
+        mActiveSpells.readState(state.mActiveSpells);
+        mAiSequence.readState(state.mAiSequence);
+        mMagicEffects.readState(state.mMagicEffects);
+
+        mSummonedCreatures = state.mSummonedCreatureMap;
+        mSummonGraveyard = state.mSummonGraveyard;
+
+        if (state.mHasAiSettings)
+            for (int i=0; i<4; ++i)
+                mAiSettings[i].readState(state.mAiSettings[i]);
     }
 
-    // Relates to NPC gold reset delay
-    void CreatureStats::setTradeTime(MWWorld::TimeStamp tradeTime) 
+    void CreatureStats::setLastRestockTime(MWWorld::TimeStamp tradeTime)
     {
-        mTradeTime = tradeTime;
+        mLastRestock = tradeTime;
     }
 
-    MWWorld::TimeStamp CreatureStats::getTradeTime() const
+    MWWorld::TimeStamp CreatureStats::getLastRestockTime() const
     {
-        return mTradeTime;
+        return mLastRestock;
     }
 
-    void CreatureStats::setGoldPool(int pool) 
+    void CreatureStats::setGoldPool(int pool)
     {
         mGoldPool = pool;
     }
-    int CreatureStats::getGoldPool() const 
+    int CreatureStats::getGoldPool() const
     {
         return mGoldPool;
+    }
+
+    int CreatureStats::getActorId()
+    {
+        if (mActorId==-1)
+            mActorId = sActorId++;
+
+        return mActorId;
+    }
+
+    bool CreatureStats::matchesActorId (int id) const
+    {
+        return mActorId!=-1 && id==mActorId;
+    }
+
+    void CreatureStats::cleanup()
+    {
+        sActorId = 0;
+    }
+
+    void CreatureStats::writeActorIdCounter (ESM::ESMWriter& esm)
+    {
+        esm.startRecord(ESM::REC_ACTC);
+        esm.writeHNT("COUN", sActorId);
+        esm.endRecord(ESM::REC_ACTC);
+    }
+
+    void CreatureStats::readActorIdCounter (ESM::ESMReader& esm)
+    {
+        esm.getHNT(sActorId, "COUN");
+    }
+
+    unsigned char CreatureStats::getDeathAnimation() const
+    {
+        return mDeathAnimation;
+    }
+
+    void CreatureStats::setDeathAnimation(unsigned char index)
+    {
+        mDeathAnimation = index;
+    }
+
+    std::map<CreatureStats::SummonKey, int>& CreatureStats::getSummonedCreatureMap()
+    {
+        return mSummonedCreatures;
+    }
+
+    std::vector<int>& CreatureStats::getSummonedCreatureGraveyard()
+    {
+        return mSummonGraveyard;
     }
 }

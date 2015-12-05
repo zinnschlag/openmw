@@ -1,4 +1,3 @@
-
 #ifndef MWGUI_TOOLTIPS_H
 #define MWGUI_TOOLTIPS_H
 
@@ -7,6 +6,12 @@
 
 #include "widgets.hpp"
 
+namespace ESM
+{
+    struct Class;
+    struct Race;
+}
+
 namespace MWGui
 {
     // Info about tooltip that is supplied by the MWWorld::Class object
@@ -14,10 +19,10 @@ namespace MWGui
     {
     public:
         ToolTipInfo()
-            : isPotion(false)
-            , imageSize(32)
-            , wordWrap(true)
+            : imageSize(32)
             , remainingEnchantCharge(-1)
+            , isPotion(false)
+            , wordWrap(true)
         {}
 
         std::string caption;
@@ -32,6 +37,9 @@ namespace MWGui
         // effects (for potions, ingredients)
         Widgets::SpellEffectList effects;
 
+        // local map notes
+        std::vector<std::string> notes;
+
         bool isPotion; // potions do not show target in the tooltip
         bool wordWrap;
     };
@@ -45,7 +53,7 @@ namespace MWGui
 
         void setEnabled(bool enabled);
 
-        void toggleFullHelp(); ///< show extra info in item tooltips (owner, script)
+        bool toggleFullHelp(); ///< show extra info in item tooltips (owner, script)
         bool getFullHelp() const;
 
         void setDelay(float delay);
@@ -66,6 +74,9 @@ namespace MWGui
         static std::string getCountString(const int value);
         ///< @return blank string if count is 1, or else " (value)"
 
+        static std::string getCellRefString(const MWWorld::CellRef& cellref);
+        ///< Returns a string containing debug tooltip information about the given cellref.
+
         // these do not create an actual tooltip, but they fill in the data that is required so the tooltip
         // system knows what to show in case this widget is hovered
         static void createSkillToolTip(MyGUI::Widget* widget, int skillId);
@@ -81,8 +92,6 @@ namespace MWGui
 
         MWWorld::Ptr mFocusObject;
 
-        void findImageExtension(std::string& image);
-
         MyGUI::IntSize getToolTipViaPtr (bool image=true);
         ///< @return requested tooltip size
 
@@ -95,7 +104,9 @@ namespace MWGui
         /// Adjust position for a tooltip so that it doesn't leave the screen and does not obscure the mouse cursor
         void position(MyGUI::IntPoint& position, MyGUI::IntSize size, MyGUI::IntSize viewportSize);
 
-	int mHorizontalScrollIndex;
+        static std::string sSchoolNames[6];
+
+        int mHorizontalScrollIndex;
 
 
         float mDelay;

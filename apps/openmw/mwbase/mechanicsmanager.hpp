@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <stdint.h>
 
 namespace Ogre
 {
@@ -13,12 +14,20 @@ namespace Ogre
 namespace ESM
 {
     struct Class;
+
+    class ESMReader;
+    class ESMWriter;
 }
 
 namespace MWWorld
 {
     class Ptr;
     class CellStore;
+}
+
+namespace Loading
+{
+    class Listener;
 }
 
 namespace MWBase
@@ -96,27 +105,33 @@ namespace MWBase
             /// Check if \a observer is potentially aware of \a ptr. Does not do a line of sight check!
             virtual bool awarenessCheck (const MWWorld::Ptr& ptr, const MWWorld::Ptr& observer) = 0;
 
+            /// Makes \a ptr fight \a target. Also shouts a combat taunt.
+            virtual void startCombat (const MWWorld::Ptr& ptr, const MWWorld::Ptr& target) = 0;
+
             enum OffenseType
             {
                 OT_Theft, // Taking items owned by an NPC or a faction you are not a member of
                 OT_Assault, // Attacking a peaceful NPC
                 OT_Murder, // Murdering a peaceful NPC
-                OT_Trespassing, // Staying in a cell you are not allowed in (where is this defined?)
+                OT_Trespassing, // Picking the lock of an owned door/chest
                 OT_SleepingInOwnedBed, // Sleeping in a bed owned by an NPC or a faction you are not a member of
                 OT_Pickpocket // Entering pickpocket mode, leaving it, and being detected. Any items stolen are a separate crime (Theft)
             };
             /**
-             * @brief Commit a crime. If any actors witness the crime and report it,
-             *        reportCrime will be called automatically.
+             * @note victim may be empty
              * @param arg Depends on \a type, e.g. for Theft, the value of the item that was stolen.
-             * @return was the crime reported?
+             * @param victimAware Is the victim already aware of the crime?
+             *                    If this parameter is false, it will be determined by a line-of-sight and awareness check.
+             * @return was the crime seen?
              */
             virtual bool commitCrime (const MWWorld::Ptr& ptr, const MWWorld::Ptr& victim,
-                                      OffenseType type, int arg=0) = 0;
-            virtual void reportCrime (const MWWorld::Ptr& ptr, const MWWorld::Ptr& victim,
-                                      OffenseType type, int arg=0) = 0;
+                                      OffenseType type, int arg=0, bool victimAware=false) = 0;
+            /// @return false if the attack was considered a "friendly hit" and forgiven
+            virtual bool actorAttacked (const MWWorld::Ptr& victim, const MWWorld::Ptr& attacker) = 0;
             /// Utility to check if taking this item is illegal and calling commitCrime if so
-            virtual void itemTaken (const MWWorld::Ptr& ptr, const MWWorld::Ptr& item, int count) = 0;
+            /// @param container The container the item is in; may be empty for an item in the world
+            virtual void itemTaken (const MWWorld::Ptr& ptr, const MWWorld::Ptr& item, const MWWorld::Ptr& container,
+                                    int count) = 0;
             /// Utility to check if opening (i.e. unlocking) this object is illegal and calling commitCrime if so
             virtual void objectOpened (const MWWorld::Ptr& ptr, const MWWorld::Ptr& item) = 0;
             /// Attempt sleeping in a bed. If this is illegal, call commitCrime.
@@ -160,11 +175,42 @@ namespace MWBase
             virtual bool isAIActive() = 0;
 
             virtual void getObjectsInRange (const Ogre::Vector3& position, float radius, std::vector<MWWorld::Ptr>& objects) = 0;
+            virtual void getActorsInRange(const Ogre::Vector3 &position, float radius, std::vector<MWWorld::Ptr> &objects) = 0;
 
-            ///return the list of actors which are following the given actor (ie AiFollow is active and the target is the actor)
+            ///return the list of actors which are following the given actor
+            /**ie AiFollow is active and the target is the actor**/
             virtual std::list<MWWorld::Ptr> getActorsFollowing(const MWWorld::Ptr& actor) = 0;
+            virtual std::list<int> getActorsFollowingIndices(const MWWorld::Ptr& actor) = 0;
+
+            ///Returns a list of actors who are fighting the given actor within the fAlarmDistance
+            /** ie AiCombat is active and the target is the actor **/
+            virtual std::list<MWWorld::Ptr> getActorsFighting(const MWWorld::Ptr& actor) = 0;
 
             virtual void playerLoaded() = 0;
+
+            virtual int countSavedGameRecords() const = 0;
+
+            virtual void write (ESM::ESMWriter& writer, Loading::Listener& listener) const = 0;
+
+            virtual void readRecord (ESM::ESMReader& reader, uint32_t type) = 0;
+
+            virtual void clear() = 0;
+
+            virtual bool isAggressive (const MWWorld::Ptr& ptr, const MWWorld::Ptr& target) = 0;
+
+            /// Resurrects the player if necessary
+            virtual void keepPlayerAlive() = 0;
+
+            virtual bool isReadyToBlock (const MWWorld::Ptr& ptr) const = 0;
+
+            virtual void confiscateStolenItems (const MWWorld::Ptr& player, const MWWorld::Ptr& targetContainer) = 0;
+
+            /// List the owners that the player has stolen this item from (the owner can be an NPC or a faction).
+            /// <Owner, item count>
+            virtual std::vector<std::pair<std::string, int> > getStolenItemOwners(const std::string& itemid) = 0;
+
+            /// Has the player stolen this item from the given owner?
+            virtual bool isItemStolenFrom(const std::string& itemid, const std::string& ownerid) = 0;
     };
 }
 

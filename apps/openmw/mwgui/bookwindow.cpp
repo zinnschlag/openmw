@@ -1,6 +1,6 @@
 #include "bookwindow.hpp"
 
-#include <boost/lexical_cast.hpp>
+#include <MyGUI_TextBox.h>
 
 #include <components/esm/loadbook.hpp>
 
@@ -18,9 +18,9 @@ namespace MWGui
 
     BookWindow::BookWindow ()
         : WindowBase("openmw_book.layout")
+        , mCurrentPage(0)
         , mTakeButtonShow(true)
         , mTakeButtonAllowed(true)
-        , mCurrentPage(0)
     {
         getWidget(mCloseButton, "CloseButton");
         mCloseButton->eventMouseButtonClick += MyGUI::newDelegate(this, &BookWindow::onCloseButtonClicked);
@@ -70,15 +70,10 @@ namespace MWGui
 
     void BookWindow::clearPages()
     {
-        for (std::vector<MyGUI::Widget*>::iterator it=mPages.begin();
-            it!=mPages.end(); ++it)
-        {
-            MyGUI::Gui::getInstance().destroyWidget(*it);
-        }
         mPages.clear();
     }
 
-    void BookWindow::open (MWWorld::Ptr book)
+    void BookWindow::open (MWWorld::Ptr book, bool showTakeButton)
     {
         mBook = book;
 
@@ -89,29 +84,21 @@ namespace MWGui
 
         MWWorld::LiveCellRef<ESM::Book> *ref = mBook.get<ESM::Book>();
 
-        BookTextParser parser;
-        std::vector<std::string> results = parser.split(ref->mBase->mText, mLeftPage->getSize().width, mLeftPage->getSize().height);
-
-        int i=0;
-        for (std::vector<std::string>::iterator it=results.begin();
-            it!=results.end(); ++it)
-        {
-            MyGUI::Widget* parent;
-            if (i%2 == 0)
-                parent = mLeftPage;
-            else
-                parent = mRightPage;
-
-            MyGUI::Widget* pageWidget = parent->createWidgetReal<MyGUI::Widget>("", MyGUI::FloatCoord(0.0,0.0,1.0,1.0), MyGUI::Align::Default, "BookPage" + boost::lexical_cast<std::string>(i));
-            pageWidget->setNeedMouseFocus(false);
-            parser.parsePage(*it, pageWidget, mLeftPage->getSize().width);
-            mPages.push_back(pageWidget);
-            ++i;
-        }
+        Formatting::BookFormatter formatter;
+        mPages = formatter.markupToWidget(mLeftPage, ref->mBase->mText);
+        formatter.markupToWidget(mRightPage, ref->mBase->mText);
 
         updatePages();
 
-        setTakeButtonShow(true);
+        setTakeButtonShow(showTakeButton);
+    }
+
+    void BookWindow::exit()
+    {
+        // no 3d sounds because the object could be in a container.
+        MWBase::Environment::get().getSoundManager()->playSound ("book close", 1.0, 1.0);
+
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Book);
     }
 
     void BookWindow::setTakeButtonShow(bool show)
@@ -128,10 +115,7 @@ namespace MWGui
 
     void BookWindow::onCloseButtonClicked (MyGUI::Widget* sender)
     {
-        // no 3d sounds because the object could be in a container.
-        MWBase::Environment::get().getSoundManager()->playSound ("book close", 1.0, 1.0);
-
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Book);
+        exit();
     }
 
     void BookWindow::onTakeButtonClicked (MyGUI::Widget* sender)
@@ -156,21 +140,8 @@ namespace MWGui
 
     void BookWindow::updatePages()
     {
-        mLeftPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage*2 + 1) );
-        mRightPageNumber->setCaption( boost::lexical_cast<std::string>(mCurrentPage*2 + 2) );
-
-        unsigned int i=0;
-        for (std::vector<MyGUI::Widget*>::iterator it = mPages.begin();
-            it != mPages.end(); ++it)
-        {
-            if (mCurrentPage*2 == i || mCurrentPage*2+1 == i)
-                (*it)->setVisible(true);
-            else
-            {
-                (*it)->setVisible(false);
-            }
-            ++i;
-        }
+        mLeftPageNumber->setCaption( MyGUI::utility::toString(mCurrentPage*2 + 1) );
+        mRightPageNumber->setCaption( MyGUI::utility::toString(mCurrentPage*2 + 2) );
 
         //If it is the last page, hide the button "Next Page"
         if (   (mCurrentPage+1)*2 == mPages.size()
@@ -186,9 +157,30 @@ namespace MWGui
         } else {
             mPrevPageButton->setVisible(true);
         }
+
+        if (mPages.empty())
+            return;
+
+        MyGUI::Widget * paper;
+
+        paper = mLeftPage->getChildAt(0);
+        paper->setCoord(paper->getPosition().left, -mPages[mCurrentPage*2].first,
+                paper->getWidth(), mPages[mCurrentPage*2].second);
+
+        paper = mRightPage->getChildAt(0);
+        if ((mCurrentPage+1)*2 <= mPages.size())
+        {
+            paper->setCoord(paper->getPosition().left, -mPages[mCurrentPage*2+1].first,
+                    paper->getWidth(), mPages[mCurrentPage*2+1].second);
+            paper->setVisible(true);
+        }
+        else
+        {
+            paper->setVisible(false);
+        }
     }
 
-    void BookWindow::adjustButton (MWGui::ImageButton* button)
+    void BookWindow::adjustButton (Gui::ImageButton* button)
     {
         MyGUI::IntSize diff = button->getSize() - button->getRequestedSize();
         button->setSize(button->getRequestedSize());

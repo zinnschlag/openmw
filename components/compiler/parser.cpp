@@ -1,4 +1,3 @@
-
 #include "parser.hpp"
 
 #include <cctype>
@@ -19,13 +18,6 @@ namespace Compiler
     {
         mErrorHandler.error (message, loc);
         throw SourceException();
-    }
-
-    // Report the error
-
-    void Parser::reportError (const std::string& message, const TokenLoc& loc)
-    {
-        mErrorHandler.error (message, loc);
     }
 
     // Report the warning without throwing an exception.

@@ -1,4 +1,3 @@
-
 #include "refdata.hpp"
 
 #include <OgreSceneNode.h>
@@ -22,6 +21,8 @@ namespace MWWorld
         mCount = refData.mCount;
         mPosition = refData.mPosition;
         mLocalRotation = refData.mLocalRotation;
+        mChanged = refData.mChanged;
+        mDeleted = refData.mDeleted;
 
         mCustomData = refData.mCustomData ? refData.mCustomData->clone() : 0;
     }
@@ -35,7 +36,7 @@ namespace MWWorld
     }
 
     RefData::RefData()
-    : mBaseNode(0), mHasLocals (false), mEnabled (true), mCount (1), mCustomData (0)
+    : mBaseNode(0), mDeleted(false), mHasLocals (false), mEnabled (true), mCount (1), mCustomData (0), mChanged(false)
     {
         for (int i=0; i<3; ++i)
         {
@@ -46,8 +47,10 @@ namespace MWWorld
     }
 
     RefData::RefData (const ESM::CellRef& cellRef)
-    : mBaseNode(0), mHasLocals (false), mEnabled (true), mCount (1), mPosition (cellRef.mPos),
-      mCustomData (0)
+    : mBaseNode(0), mDeleted(false),  mHasLocals (false), mEnabled (true),
+      mCount (1), mPosition (cellRef.mPos),
+      mCustomData (0),
+      mChanged(false) // Loading from ESM/ESP files -> assume unchanged
     {
         mLocalRotation.rot[0]=0;
         mLocalRotation.rot[1]=0;
@@ -55,9 +58,13 @@ namespace MWWorld
     }
 
     RefData::RefData (const ESM::ObjectState& objectState)
-    : mBaseNode (0), mHasLocals (false), mEnabled (objectState.mEnabled),
-      mCount (objectState.mCount), mPosition (objectState.mPosition), mCustomData (0)
-    {
+    : mBaseNode (0), mDeleted(false), mHasLocals (false),
+      mEnabled (objectState.mEnabled != 0),
+      mCount (objectState.mCount),
+      mPosition (objectState.mPosition),
+      mCustomData (0),
+      mChanged(true) // Loading from a savegame -> assume changed
+    {   
         for (int i=0; i<3; ++i)
             mLocalRotation.rot[i] = objectState.mLocalRotation[i];
     }
@@ -149,6 +156,8 @@ namespace MWWorld
         {
             mLocals.configure (script);
             mHasLocals = true;
+            if (!mLocals.isEmpty())
+                mChanged = true;
         }
     }
 
@@ -157,7 +166,24 @@ namespace MWWorld
         if(count == 0)
             MWBase::Environment::get().getWorld()->removeRefScript(this);
 
+        mChanged = true;
+
         mCount = count;
+    }
+
+    void RefData::setDeleted(bool deleted)
+    {
+        mDeleted = deleted;
+    }
+
+    bool RefData::isDeleted() const
+    {
+        return mDeleted || mCount == 0;
+    }
+
+    bool RefData::isDeletedByContentFile() const
+    {
+        return mDeleted;
     }
 
     MWScript::Locals& RefData::getLocals()
@@ -172,26 +198,41 @@ namespace MWWorld
 
     void RefData::enable()
     {
+        mChanged = !mEnabled;
         mEnabled = true;
     }
 
     void RefData::disable()
     {
+        mChanged = mEnabled;
         mEnabled = false;
     }
 
-    ESM::Position& RefData::getPosition()
+    void RefData::setPosition(const ESM::Position& pos)
+    {
+        mChanged = true;
+        mPosition = pos;
+    }
+
+    const ESM::Position& RefData::getPosition()
     {
         return mPosition;
     }
 
-    LocalRotation& RefData::getLocalRotation()
+    void RefData::setLocalRotation(const LocalRotation& rot)
+    {
+        mChanged = true;
+        mLocalRotation = rot;
+    }
+
+    const LocalRotation& RefData::getLocalRotation()
     {
         return mLocalRotation;
     }
 
     void RefData::setCustomData (CustomData *data)
     {
+        mChanged = true; // We do not currently track CustomData, so assume anything with a CustomData is changed
         delete mCustomData;
         mCustomData = data;
     }
@@ -199,5 +240,10 @@ namespace MWWorld
     CustomData *RefData::getCustomData()
     {
         return mCustomData;
+    }
+
+    bool RefData::hasChanged() const
+    {
+        return mChanged;
     }
 }

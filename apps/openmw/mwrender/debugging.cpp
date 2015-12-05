@@ -21,6 +21,7 @@
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/cellstore.hpp"
 #include "../mwworld/esmstore.hpp"
+#include "../mwmechanics/pathfinding.hpp"
 
 #include "renderconst.hpp"
 
@@ -81,12 +82,12 @@ ManualObject *Debugging::createPathgridLines(const ESM::Pathgrid *pathgrid)
     {
         const ESM::Pathgrid::Edge &edge = *it;
         const ESM::Pathgrid::Point &p1 = pathgrid->mPoints[edge.mV0], &p2 = pathgrid->mPoints[edge.mV1];
-        Vector3 direction = (Vector3(p2.mX, p2.mY, p2.mZ) - Vector3(p1.mX, p1.mY, p1.mZ));
+        Vector3 direction = (MWMechanics::PathFinder::MakeOgreVector3(p2) - MWMechanics::PathFinder::MakeOgreVector3(p1));
         Vector3 lineDisplacement = direction.crossProduct(Vector3::UNIT_Z).normalisedCopy();
         lineDisplacement = lineDisplacement * POINT_MESH_BASE +
                                 Vector3(0, 0, 10); // move lines up a little, so they will be less covered by meshes/landscape
-        result->position(Vector3(p1.mX, p1.mY, p1.mZ) + lineDisplacement);
-        result->position(Vector3(p2.mX, p2.mY, p2.mZ) + lineDisplacement);
+        result->position(MWMechanics::PathFinder::MakeOgreVector3(p1) + lineDisplacement);
+        result->position(MWMechanics::PathFinder::MakeOgreVector3(p2) + lineDisplacement);
     }
     result->end();
 
@@ -106,9 +107,9 @@ ManualObject *Debugging::createPathgridPoints(const ESM::Pathgrid *pathgrid)
     uint32 startIndex = 0;
     for(ESM::Pathgrid::PointList::const_iterator it = pathgrid->mPoints.begin();
         it != pathgrid->mPoints.end();
-        it++, startIndex += 6)
+        ++it, startIndex += 6)
     {
-        Vector3 pointPos(it->mX, it->mY, it->mZ);
+        Vector3 pointPos(MWMechanics::PathFinder::MakeOgreVector3(*it));
 
         if (!first)
         {
@@ -117,11 +118,13 @@ ManualObject *Debugging::createPathgridPoints(const ESM::Pathgrid *pathgrid)
             result->index(startIndex); // start point of current octahedron
         }
 
+        Ogre::Real pointMeshBase = static_cast<Ogre::Real>(POINT_MESH_BASE);
+
         result->position(pointPos + Vector3(0, 0, height)); // 0
-        result->position(pointPos + Vector3(-POINT_MESH_BASE, -POINT_MESH_BASE, 0)); // 1
-        result->position(pointPos + Vector3(POINT_MESH_BASE, -POINT_MESH_BASE, 0)); // 2
-        result->position(pointPos + Vector3(POINT_MESH_BASE, POINT_MESH_BASE, 0)); // 3
-        result->position(pointPos + Vector3(-POINT_MESH_BASE, POINT_MESH_BASE, 0)); // 4
+        result->position(pointPos + Vector3(-pointMeshBase, -pointMeshBase, 0)); // 1
+        result->position(pointPos + Vector3(pointMeshBase, -pointMeshBase, 0)); // 2
+        result->position(pointPos + Vector3(pointMeshBase, pointMeshBase, 0)); // 3
+        result->position(pointPos + Vector3(-pointMeshBase, pointMeshBase, 0)); // 4
         result->position(pointPos + Vector3(0, 0, -height)); // 5
 
         result->index(startIndex + 0);
@@ -152,10 +155,10 @@ ManualObject *Debugging::createPathgridPoints(const ESM::Pathgrid *pathgrid)
 }
 
 Debugging::Debugging(SceneNode *root, OEngine::Physic::PhysicEngine *engine) :
-    mRootNode(root), mEngine(engine),
-    mSceneMgr(root->getCreator()),
+    mEngine(engine), mSceneMgr(root->getCreator()),
     mPathgridEnabled(false),
-    mInteriorPathgridNode(NULL), mPathGridRoot(NULL),
+    mRootNode(root),
+    mPathGridRoot(NULL), mInteriorPathgridNode(NULL),
     mGridMatsCreated(false)
 {
     ResourceGroupManager::getSingleton().createResourceGroup(DEBUGGING_GROUP);
@@ -231,15 +234,16 @@ void Debugging::togglePathgrid()
 
 void Debugging::enableCellPathgrid(MWWorld::CellStore *store)
 {
+    MWBase::World* world = MWBase::Environment::get().getWorld();
     const ESM::Pathgrid *pathgrid =
-        MWBase::Environment::get().getWorld()->getStore().get<ESM::Pathgrid>().search(*store->getCell());
+        world->getStore().get<ESM::Pathgrid>().search(*store->getCell());
     if (!pathgrid) return;
 
     Vector3 cellPathGridPos(0, 0, 0);
     if (store->getCell()->isExterior())
     {
-        cellPathGridPos.x = store->getCell()->mData.mX * ESM::Land::REAL_SIZE;
-        cellPathGridPos.y = store->getCell()->mData.mY * ESM::Land::REAL_SIZE;
+        cellPathGridPos.x = static_cast<Ogre::Real>(store->getCell()->mData.mX * ESM::Land::REAL_SIZE);
+        cellPathGridPos.y = static_cast<Ogre::Real>(store->getCell()->mData.mY * ESM::Land::REAL_SIZE);
     }
     SceneNode *cellPathGrid = mPathGridRoot->createChildSceneNode(cellPathGridPos);
     cellPathGrid->attachObject(createPathgridLines(pathgrid));

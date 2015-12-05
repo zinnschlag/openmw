@@ -1,6 +1,7 @@
 #include "document.hpp"
 
 #include <cassert>
+#include <fstream>
 
 #include <boost/filesystem.hpp>
 
@@ -8,22 +9,7 @@
 #include <components/files/configurationmanager.hpp>
 #endif
 
-void CSMDoc::Document::load (const std::vector<boost::filesystem::path>::const_iterator& begin,
-                             const std::vector<boost::filesystem::path>::const_iterator& end, bool lastAsModified)
-{
-    assert (begin!=end);
-
-    std::vector<boost::filesystem::path>::const_iterator end2 (end);
-
-    if (lastAsModified)
-        --end2;
-
-    for (std::vector<boost::filesystem::path>::const_iterator iter (begin); iter!=end2; ++iter)
-        getData().loadFile (*iter, true, false);
-
-    if (lastAsModified)
-        getData().loadFile (*end2, false, false);
-}
+#include "../../view/world/physicssystem.hpp"
 
 void CSMDoc::Document::addGmsts()
 {
@@ -813,9 +799,9 @@ void CSMDoc::Document::addGmsts()
         "sBookSkillMessage",
         "sBounty",
         "sBreath",
-        "sBribe",
-        "sBribe",
-        "sBribe",
+        "sBribe 10 Gold",
+        "sBribe 100 Gold",
+        "sBribe 1000 Gold",
         "sBribeFail",
         "sBribeSuccess",
         "sBuy",
@@ -2039,6 +2025,7 @@ void CSMDoc::Document::addOptionalGmsts()
     {
         ESM::GameSetting gmst;
         gmst.mId = sFloats[i];
+        gmst.blank();
         gmst.mValue.setType (ESM::VT_Float);
         addOptionalGmst (gmst);
     }
@@ -2047,6 +2034,7 @@ void CSMDoc::Document::addOptionalGmsts()
     {
         ESM::GameSetting gmst;
         gmst.mId = sIntegers[i];
+        gmst.blank();
         gmst.mValue.setType (ESM::VT_Int);
         addOptionalGmst (gmst);
     }
@@ -2055,6 +2043,7 @@ void CSMDoc::Document::addOptionalGmsts()
     {
         ESM::GameSetting gmst;
         gmst.mId = sStrings[i];
+        gmst.blank();
         gmst.mValue.setType (ESM::VT_String);
         gmst.mValue.setString ("<no text>");
         addOptionalGmst (gmst);
@@ -2075,12 +2064,26 @@ void CSMDoc::Document::addOptionalGlobals()
     {
         ESM::Global global;
         global.mId = sGlobals[i];
+        global.blank();
         global.mValue.setType (ESM::VT_Long);
 
         if (i==0)
             global.mValue.setInteger (1); // dayspassed starts counting at 1
 
         addOptionalGlobal (global);
+    }
+}
+
+void CSMDoc::Document::addOptionalMagicEffects()
+{
+    for (int i=ESM::MagicEffect::SummonFabricant; i<=ESM::MagicEffect::SummonCreature05; ++i)
+    {
+        ESM::MagicEffect effect;
+        effect.mIndex = i;
+        effect.mId = ESM::MagicEffect::indexToId (i);
+        effect.blank();
+
+        addOptionalMagicEffect (effect);
     }
 }
 
@@ -2103,6 +2106,17 @@ void CSMDoc::Document::addOptionalGlobal (const ESM::Global& global)
         record.mBase = global;
         record.mState = CSMWorld::RecordBase::State_BaseOnly;
         getData().getGlobals().appendRecord (record);
+    }
+}
+
+void CSMDoc::Document::addOptionalMagicEffect (const ESM::MagicEffect& magicEffect)
+{
+    if (getData().getMagicEffects().searchId (magicEffect.mId)==-1)
+    {
+        CSMWorld::Record<ESM::MagicEffect> record;
+        record.mBase = magicEffect;
+        record.mState = CSMWorld::RecordBase::State_BaseOnly;
+        getData().getMagicEffects().appendRecord (record);
     }
 }
 
@@ -2217,79 +2231,82 @@ void CSMDoc::Document::createBase()
 
         getData().getTopics().add (record);
     }
+
+    for (int i=0; i<ESM::MagicEffect::Length; ++i)
+    {
+        ESM::MagicEffect record;
+
+        record.mIndex = i;
+        record.mId = ESM::MagicEffect::indexToId (i);
+
+        record.blank();
+
+        getData().getMagicEffects().add (record);
+    }
 }
 
-CSMDoc::Document::Document (const Files::ConfigurationManager& configuration, const std::vector< boost::filesystem::path >& files, const boost::filesystem::path& savePath, const boost::filesystem::path& resDir, bool new_)
-    : mSavePath (savePath), mContentFiles (files), mTools (mData), mResDir(resDir),
-      mProjectPath ((configuration.getUserDataPath() / "projects") /
-                    (savePath.filename().string() + ".project")),
-      mSaving (*this, mProjectPath)
+CSMDoc::Document::Document (const Files::ConfigurationManager& configuration,
+    const std::vector< boost::filesystem::path >& files, bool new_,
+    const boost::filesystem::path& savePath, const boost::filesystem::path& resDir,
+    ToUTF8::FromType encoding, const CSMWorld::ResourcesManager& resourcesManager,
+    const std::vector<std::string>& blacklistedScripts)
+: mSavePath (savePath), mContentFiles (files), mNew (new_), mData (encoding, resourcesManager),
+  mTools (*this, encoding),
+  mProjectPath ((configuration.getUserDataPath() / "projects") /
+  (savePath.filename().string() + ".project")),
+  mSavingOperation (*this, mProjectPath, encoding),
+  mSaving (&mSavingOperation),
+  mResDir(resDir),
+  mRunner (mProjectPath), mPhysics(boost::shared_ptr<CSVWorld::PhysicsSystem>()),
+  mDirty (false), mIdCompletionManager(mData)
 {
-    if (files.empty())
+    if (mContentFiles.empty())
         throw std::runtime_error ("Empty content file sequence");
 
-    if (new_ && files.size()==1)
-        createBase();
-    else
+    if (!boost::filesystem::exists (mProjectPath))
     {
-        std::vector<boost::filesystem::path>::const_iterator end = files.end();
+        boost::filesystem::path customFiltersPath (configuration.getUserDataPath());
+        customFiltersPath /= "defaultfilters";
 
-        if (new_)
-            --end;
+        std::ofstream destination (mProjectPath.string().c_str(), std::ios::binary);
 
-        load (files.begin(), end, !new_);
-    }
-
-    if (new_)
-    {
-        mData.setDescription ("");
-        mData.setAuthor ("");
-    }
-
-    bool filtersFound = false;
-
-    if (boost::filesystem::exists (mProjectPath))
-    {
-        filtersFound = true;
-    }
-    else
-    {
-        boost::filesystem::path locCustomFiltersPath (configuration.getUserDataPath());
-        locCustomFiltersPath /= "defaultfilters";
-
-        if (boost::filesystem::exists(locCustomFiltersPath))
+        if (boost::filesystem::exists (customFiltersPath))
         {
-            boost::filesystem::copy_file (locCustomFiltersPath, mProjectPath);
-            filtersFound = true;
+            destination << std::ifstream(customFiltersPath.string().c_str(), std::ios::binary).rdbuf();
         }
         else
         {
-            boost::filesystem::path filters(mResDir);
-            filters /= "defaultfilters";
-
-            if (boost::filesystem::exists(filters))
-            {
-                boost::filesystem::copy_file(filters, mProjectPath);
-                filtersFound = true;
-            }
+            destination << std::ifstream(std::string(mResDir.string() + "/defaultfilters").c_str(), std::ios::binary).rdbuf();
         }
     }
 
-    if (filtersFound)
-        getData().loadFile (mProjectPath, false, true);
+    if (mNew)
+    {
+        if (mContentFiles.size()==1)
+            createBase();
+    }
+
+    mBlacklist.add (CSMWorld::UniversalId::Type_Script, blacklistedScripts);
 
     addOptionalGmsts();
     addOptionalGlobals();
+    addOptionalMagicEffects();
 
     connect (&mUndoStack, SIGNAL (cleanChanged (bool)), this, SLOT (modificationStateChanged (bool)));
 
     connect (&mTools, SIGNAL (progress (int, int, int)), this, SLOT (progress (int, int, int)));
-    connect (&mTools, SIGNAL (done (int)), this, SLOT (operationDone (int)));
+    connect (&mTools, SIGNAL (done (int, bool)), this, SLOT (operationDone (int, bool)));
+    connect (&mTools, SIGNAL (mergeDone (CSMDoc::Document*)),
+            this, SIGNAL (mergeDone (CSMDoc::Document*)));
 
     connect (&mSaving, SIGNAL (progress (int, int, int)), this, SLOT (progress (int, int, int)));
-    connect (&mSaving, SIGNAL (done (int)), this, SLOT (operationDone (int)));
-    connect (&mSaving, SIGNAL (reportMessage (const QString&, int)),
-             this, SLOT (reportMessage (const QString&, int)));
+    connect (&mSaving, SIGNAL (done (int, bool)), this, SLOT (operationDone (int, bool)));
+
+    connect (
+        &mSaving, SIGNAL (reportMessage (const CSMDoc::Message&, int)),
+        this, SLOT (reportMessage (const CSMDoc::Message&, int)));
+
+    connect (&mRunner, SIGNAL (runStateChanged()), this, SLOT (runStateChanged()));
 }
 
 CSMDoc::Document::~Document()
@@ -2305,11 +2322,14 @@ int CSMDoc::Document::getState() const
 {
     int state = 0;
 
-    if (!mUndoStack.isClean())
+    if (!mUndoStack.isClean() || mDirty)
         state |= State_Modified;
 
     if (mSaving.isRunning())
         state |= State_Locked | State_Saving | State_Operation;
+
+    if (mRunner.isRunning())
+        state |= State_Locked | State_Running;
 
     if (int operations = mTools.getRunningOperations())
         state |= State_Locked | State_Operation | operations;
@@ -2322,9 +2342,19 @@ const boost::filesystem::path& CSMDoc::Document::getSavePath() const
     return mSavePath;
 }
 
+const boost::filesystem::path& CSMDoc::Document::getProjectPath() const
+{
+    return mProjectPath;
+}
+
 const std::vector<boost::filesystem::path>& CSMDoc::Document::getContentFiles() const
 {
     return mContentFiles;
+}
+
+bool CSMDoc::Document::isNew() const
+{
+    return mNew;
 }
 
 void CSMDoc::Document::save()
@@ -2338,11 +2368,29 @@ void CSMDoc::Document::save()
     emit stateChanged (getState(), this);
 }
 
-CSMWorld::UniversalId CSMDoc::Document::verify()
+CSMWorld::UniversalId CSMDoc::Document::verify (const CSMWorld::UniversalId& reportId)
 {
-    CSMWorld::UniversalId id = mTools.runVerifier();
+    CSMWorld::UniversalId id = mTools.runVerifier (reportId);
     emit stateChanged (getState(), this);
     return id;
+}
+
+
+CSMWorld::UniversalId CSMDoc::Document::newSearch()
+{
+    return mTools.newSearch();
+}
+
+void CSMDoc::Document::runSearch (const CSMWorld::UniversalId& searchId, const CSMTools::Search& search)
+{
+    mTools.runSearch (searchId, search);
+    emit stateChanged (getState(), this);
+}
+
+void CSMDoc::Document::runMerge (std::auto_ptr<CSMDoc::Document> target)
+{
+    mTools.runMerge (target);
+    emit stateChanged (getState(), this);
 }
 
 void CSMDoc::Document::abortOperation (int type)
@@ -2358,14 +2406,17 @@ void CSMDoc::Document::modificationStateChanged (bool clean)
     emit stateChanged (getState(), this);
 }
 
-void CSMDoc::Document::reportMessage (const QString& message, int type)
+void CSMDoc::Document::reportMessage (const CSMDoc::Message& message, int type)
 {
     /// \todo find a better way to get these messages to the user.
-    std::cout << message.toUtf8().constData() << std::endl;
+    std::cout << message.mMessage << std::endl;
 }
 
-void CSMDoc::Document::operationDone (int type)
+void CSMDoc::Document::operationDone (int type, bool failed)
 {
+    if (type==CSMDoc::State_Saving && !failed)
+        mDirty = false;
+
     emit stateChanged (getState(), this);
 }
 
@@ -2384,7 +2435,74 @@ CSMTools::ReportModel *CSMDoc::Document::getReport (const CSMWorld::UniversalId&
     return mTools.getReport (id);
 }
 
+bool CSMDoc::Document::isBlacklisted (const CSMWorld::UniversalId& id)
+    const
+{
+    return mBlacklist.isBlacklisted (id);
+}
+
+void CSMDoc::Document::startRunning (const std::string& profile,
+    const std::string& startupInstruction)
+{
+    std::vector<std::string> contentFiles;
+
+    for (std::vector<boost::filesystem::path>::const_iterator iter (mContentFiles.begin());
+        iter!=mContentFiles.end(); ++iter)
+        contentFiles.push_back (iter->filename().string());
+
+    mRunner.configure (getData().getDebugProfiles().getRecord (profile).get(), contentFiles,
+        startupInstruction);
+
+    int state = getState();
+
+    if (state & State_Modified)
+    {
+        // need to save first
+        mRunner.start (true);
+
+        new SaveWatcher (&mRunner, &mSaving); // no, that is not a memory leak. Qt is weird.
+
+        if (!(state & State_Saving))
+            save();
+    }
+    else
+        mRunner.start();
+}
+
+void CSMDoc::Document::stopRunning()
+{
+    mRunner.stop();
+}
+
+QTextDocument *CSMDoc::Document::getRunLog()
+{
+    return mRunner.getLog();
+}
+
+void CSMDoc::Document::runStateChanged()
+{
+    emit stateChanged (getState(), this);
+}
+
 void CSMDoc::Document::progress (int current, int max, int type)
 {
     emit progress (current, max, type, 1, this);
+}
+
+boost::shared_ptr<CSVWorld::PhysicsSystem> CSMDoc::Document::getPhysics ()
+{
+    if(!mPhysics)
+        mPhysics = boost::shared_ptr<CSVWorld::PhysicsSystem> (new CSVWorld::PhysicsSystem());
+
+    return mPhysics;
+}
+
+CSMWorld::IdCompletionManager &CSMDoc::Document::getIdCompletionManager()
+{
+    return mIdCompletionManager;
+}
+
+void CSMDoc::Document::flagAsDirty()
+{
+    mDirty = true;
 }

@@ -11,8 +11,8 @@ class StringUtils
 {
     struct ci
     {
-        bool operator()(int x, int y) const {
-            return std::tolower(x) < std::tolower(y);
+        bool operator()(char x, char y) const {
+            return tolower(x) < tolower(y);
         }
     };
 
@@ -28,7 +28,7 @@ public:
         std::string::const_iterator xit = x.begin();
         std::string::const_iterator yit = y.begin();
         for (; xit != x.end(); ++xit, ++yit) {
-            if (std::tolower(*xit) != std::tolower(*yit)) {
+            if (tolower(*xit) != tolower(*yit)) {
                 return false;
             }
         }
@@ -42,7 +42,7 @@ public:
         for(;xit != x.end() && yit != y.end() && len > 0;++xit,++yit,--len)
         {
             int res = *xit - *yit;
-            if(res != 0 && std::tolower(*xit) != std::tolower(*yit))
+            if(res != 0 && tolower(*xit) != tolower(*yit))
                 return (res > 0) ? 1 : -1;
         }
         if(len > 0)
@@ -57,12 +57,8 @@ public:
 
     /// Transforms input string to lower case w/o copy
     static std::string &toLower(std::string &inout) {
-        std::transform(
-            inout.begin(),
-            inout.end(),
-            inout.begin(),
-            (int (*)(int)) std::tolower
-        );
+        for (unsigned int i=0; i<inout.size(); ++i)
+            inout[i] = tolower(inout[i]);
         return inout;
     }
 
@@ -73,19 +69,6 @@ public:
         return toLower(out);
     }
 };
-
-
-/// Returns true if str1 begins with substring str2
-bool begins(const char* str1, const char* str2);
-
-/// Returns true if str1 ends with substring str2
-bool ends(const char* str1, const char* str2);
-
-/// Case insensitive, returns true if str1 begins with substring str2
-bool ibegins(const char* str1, const char* str2);
-
-/// Case insensitive, returns true if str1 ends with substring str2
-bool iends(const char* str1, const char* str2);
 
 }
 

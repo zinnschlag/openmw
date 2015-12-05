@@ -1,6 +1,8 @@
 #include "spellbuyingwindow.hpp"
 
-#include <boost/lexical_cast.hpp>
+#include <MyGUI_Gui.h>
+#include <MyGUI_Button.h>
+#include <MyGUI_ScrollView.h>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
@@ -21,8 +23,8 @@ namespace MWGui
 
     SpellBuyingWindow::SpellBuyingWindow() :
         WindowBase("openmw_spell_buying_window.layout")
-        , mCurrentY(0)
         , mLastPos(0)
+        , mCurrentY(0)
     {
         setCoord(0, 0, 450, 300);
 
@@ -33,33 +35,39 @@ namespace MWGui
         mCancelButton->eventMouseButtonClick += MyGUI::newDelegate(this, &SpellBuyingWindow::onCancelButtonClicked);
     }
 
+    void SpellBuyingWindow::exit()
+    {
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_SpellBuying);
+    }
+
     void SpellBuyingWindow::addSpell(const std::string& spellId)
     {
         const MWWorld::ESMStore &store =
             MWBase::Environment::get().getWorld()->getStore();
 
         const ESM::Spell* spell = MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(spellId);
-        int price = spell->mData.mCost*store.get<ESM::GameSetting>().find("fSpellValueMult")->getFloat();
+        int price = static_cast<int>(spell->mData.mCost*store.get<ESM::GameSetting>().find("fSpellValueMult")->getFloat());
         price = MWBase::Environment::get().getMechanicsManager()->getBarterOffer(mPtr,price,true);
 
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
         int playerGold = player.getClass().getContainerStore(player).count(MWWorld::ContainerStore::sGoldId);
 
+        // TODO: refactor to use MyGUI::ListBox
+
         MyGUI::Button* toAdd =
             mSpellsView->createWidget<MyGUI::Button>(
-                "SandTextButton",
+                price <= playerGold ? "SandTextButton" : "SandTextButtonDisabled", // can't use setEnabled since that removes tooltip
                 0,
                 mCurrentY,
                 200,
                 sLineHeight,
                 MyGUI::Align::Default
             );
-        toAdd->setEnabled(price<=playerGold);
 
         mCurrentY += sLineHeight;
 
         toAdd->setUserData(price);
-        toAdd->setCaptionWithReplacing(spell->mName+"   -   "+boost::lexical_cast<std::string>(price)+"#{sgp}");
+        toAdd->setCaptionWithReplacing(spell->mName+"   -   "+MyGUI::utility::toString(price)+"#{sgp}");
         toAdd->setSize(toAdd->getTextSize().width,sLineHeight);
         toAdd->eventMouseWheel += MyGUI::newDelegate(this, &SpellBuyingWindow::onMouseWheel);
         toAdd->setUserString("ToolTipType", "Spell");
@@ -83,7 +91,7 @@ namespace MWGui
         mPtr = actor;
         clearSpells();
 
-        MWMechanics::Spells& merchantSpells = MWWorld::Class::get (actor).getCreatureStats (actor).getSpells();
+        MWMechanics::Spells& merchantSpells = actor.getClass().getCreatureStats (actor).getSpells();
 
         for (MWMechanics::Spells::TIterator iter = merchantSpells.begin(); iter!=merchantSpells.end(); ++iter)
         {
@@ -93,6 +101,15 @@ namespace MWGui
             if (spell->mData.mType!=ESM::Spell::ST_Spell)
                 continue; // don't try to sell diseases, curses or powers
 
+            if (actor.getClass().isNpc())
+            {
+                const ESM::Race* race =
+                        MWBase::Environment::get().getWorld()->getStore().get<ESM::Race>().find(
+                        actor.get<ESM::NPC>()->mBase->mRace);
+                if (race->mPowers.exists(spell->mId))
+                    continue;
+            }
+
             if (playerHasSpell(iter->first))
                 continue;
 
@@ -101,19 +118,16 @@ namespace MWGui
 
         updateLabels();
 
+        // Canvas size must be expressed with VScroll disabled, otherwise MyGUI would expand the scroll area when the scrollbar is hidden
+        mSpellsView->setVisibleVScroll(false);
         mSpellsView->setCanvasSize (MyGUI::IntSize(mSpellsView->getWidth(), std::max(mSpellsView->getHeight(), mCurrentY)));
+        mSpellsView->setVisibleVScroll(true);
     }
 
     bool SpellBuyingWindow::playerHasSpell(const std::string &id)
     {
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-        MWMechanics::Spells& playerSpells = MWWorld::Class::get (player).getCreatureStats (player).getSpells();
-        for (MWMechanics::Spells::TIterator it = playerSpells.begin(); it != playerSpells.end(); ++it)
-        {
-            if (Misc::StringUtils::ciEqual(id, it->first))
-                return true;
-        }
-        return false;
+        return player.getClass().getCreatureStats(player).getSpells().hasSpell(id);
     }
 
     void SpellBuyingWindow::onSpellButtonClick(MyGUI::Widget* _sender)
@@ -121,10 +135,18 @@ namespace MWGui
         int price = *_sender->getUserData<int>();
 
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-        MWMechanics::CreatureStats& stats = MWWorld::Class::get(player).getCreatureStats(player);
+        if (price > player.getClass().getContainerStore(player).count(MWWorld::ContainerStore::sGoldId))
+            return;
+
+        MWMechanics::CreatureStats& stats = player.getClass().getCreatureStats(player);
         MWMechanics::Spells& spells = stats.getSpells();
         spells.add (mSpellsWidgetMap.find(_sender)->second);
         player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, price, player);
+
+        // add gold to NPC trading gold pool
+        MWMechanics::CreatureStats& npcStats = mPtr.getClass().getCreatureStats(mPtr);
+        npcStats.setGoldPool(npcStats.getGoldPool() + price);
+
         startSpellBuying(mPtr);
 
         MWBase::Environment::get().getSoundManager()->playSound ("Item Gold Up", 1.0, 1.0);
@@ -132,7 +154,7 @@ namespace MWGui
 
     void SpellBuyingWindow::onCancelButtonClicked(MyGUI::Widget* _sender)
     {
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_SpellBuying);
+        exit();
     }
 
     void SpellBuyingWindow::updateLabels()
@@ -140,7 +162,7 @@ namespace MWGui
         MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
         int playerGold = player.getClass().getContainerStore(player).count(MWWorld::ContainerStore::sGoldId);
 
-        mPlayerGold->setCaptionWithReplacing("#{sGold}: " + boost::lexical_cast<std::string>(playerGold));
+        mPlayerGold->setCaptionWithReplacing("#{sGold}: " + MyGUI::utility::toString(playerGold));
         mPlayerGold->setCoord(8,
                               mPlayerGold->getTop(),
                               mPlayerGold->getTextSize().width,
@@ -159,7 +181,7 @@ namespace MWGui
         if (mSpellsView->getViewOffset().top + _rel*0.3 > 0)
             mSpellsView->setViewOffset(MyGUI::IntPoint(0, 0));
         else
-            mSpellsView->setViewOffset(MyGUI::IntPoint(0, mSpellsView->getViewOffset().top + _rel*0.3));
+            mSpellsView->setViewOffset(MyGUI::IntPoint(0, static_cast<int>(mSpellsView->getViewOffset().top + _rel*0.3f)));
     }
 }
 

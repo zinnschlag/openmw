@@ -1,12 +1,13 @@
-
 #include "door.hpp"
 
 #include <components/esm/loaddoor.hpp>
+#include <components/esm/doorstate.hpp>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/windowmanager.hpp"
 #include "../mwbase/soundmanager.hpp"
+#include "../mwbase/mechanicsmanager.hpp"
 
 #include "../mwworld/ptr.hpp"
 #include "../mwworld/nullaction.hpp"
@@ -14,30 +15,63 @@
 #include "../mwworld/actionteleport.hpp"
 #include "../mwworld/actiondoor.hpp"
 #include "../mwworld/cellstore.hpp"
+#include "../mwworld/esmstore.hpp"
 #include "../mwworld/physicssystem.hpp"
 #include "../mwworld/inventorystore.hpp"
 #include "../mwworld/actiontrap.hpp"
+#include "../mwworld/customdata.hpp"
 
 #include "../mwgui/tooltips.hpp"
 
-#include "../mwrender/objects.hpp"
+#include "../mwrender/actors.hpp"
 #include "../mwrender/renderinginterface.hpp"
+
+namespace
+{
+    struct DoorCustomData : public MWWorld::CustomData
+    {
+        int mDoorState; // 0 = nothing, 1 = opening, 2 = closing
+
+        virtual MWWorld::CustomData *clone() const;
+    };
+
+    MWWorld::CustomData *DoorCustomData::clone() const
+    {
+        return new DoorCustomData (*this);
+    }
+}
 
 namespace MWClass
 {
-    void Door::insertObjectRendering (const MWWorld::Ptr& ptr, MWRender::RenderingInterface& renderingInterface) const
+    std::string Door::getId (const MWWorld::Ptr& ptr) const
     {
-        const std::string model = getModel(ptr);
+        return ptr.get<ESM::Door>()->mBase->mId;
+    }
+
+    void Door::insertObjectRendering (const MWWorld::Ptr& ptr, const std::string& model, MWRender::RenderingInterface& renderingInterface) const
+    {
         if (!model.empty()) {
-            renderingInterface.getObjects().insertModel(ptr, model);
+            MWRender::Actors& actors = renderingInterface.getActors();
+            actors.insertActivator(ptr, model);
         }
     }
 
-    void Door::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics) const
+    void Door::insertObject(const MWWorld::Ptr& ptr, const std::string& model, MWWorld::PhysicsSystem& physics) const
     {
-        const std::string model = getModel(ptr);
         if(!model.empty())
-            physics.addObject(ptr);
+            physics.addObject(ptr, model);
+
+        // Resume the door's opening/closing animation if it wasn't finished
+        if (ptr.getRefData().getCustomData())
+        {
+            const DoorCustomData& customData = dynamic_cast<const DoorCustomData&>(*ptr.getRefData().getCustomData());
+            if (customData.mDoorState > 0)
+            {
+                MWBase::Environment::get().getWorld()->activateDoor(ptr, customData.mDoorState);
+            }
+        }
+
+        MWBase::Environment::get().getMechanicsManager()->add(ptr);
     }
 
     std::string Door::getModel(const MWWorld::Ptr &ptr) const
@@ -58,9 +92,6 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Door> *ref =
             ptr.get<ESM::Door>();
 
-        if (ref->mRef.mTeleport && !ref->mRef.mDestCell.empty()) // TODO doors that lead to exteriors
-            return ref->mRef.mDestCell;
-
         return ref->mBase->mName;
     }
 
@@ -74,23 +105,23 @@ namespace MWClass
         const std::string lockedSound = "LockedDoor";
         const std::string trapActivationSound = "Disarm Trap Fail";
 
-        MWWorld::ContainerStore &invStore = get(actor).getContainerStore(actor);
+        MWWorld::ContainerStore &invStore = actor.getClass().getContainerStore(actor);
 
-        bool needKey = ptr.getCellRef().mLockLevel>0;
+        bool needKey = ptr.getCellRef().getLockLevel() > 0;
         bool hasKey = false;
         std::string keyName;
 
         // make key id lowercase
-        std::string keyId = ptr.getCellRef().mKey;
+        std::string keyId = ptr.getCellRef().getKey();
         Misc::StringUtils::toLower(keyId);
         for (MWWorld::ContainerStoreIterator it = invStore.begin(); it != invStore.end(); ++it)
         {
-            std::string refId = it->getCellRef().mRefID;
+            std::string refId = it->getCellRef().getRefId();
             Misc::StringUtils::toLower(refId);
             if (refId == keyId)
             {
                 hasKey = true;
-                keyName = get(*it).getName(*it);
+                keyName = it->getClass().getName(*it);
             }
         }
 
@@ -98,24 +129,24 @@ namespace MWClass
         {
             if(actor == MWBase::Environment::get().getWorld()->getPlayerPtr())
                 MWBase::Environment::get().getWindowManager()->messageBox(keyName + " #{sKeyUsed}");
-            ptr.getCellRef().mLockLevel = 0;
+            unlock(ptr); //Call the function here. because that makes sense.
             // using a key disarms the trap
-            ptr.getCellRef().mTrap = "";
+            ptr.getCellRef().setTrap("");
         }
 
         if (!needKey || hasKey)
         {
-            if(!ptr.getCellRef().mTrap.empty())
+            if(!ptr.getCellRef().getTrap().empty())
             {
                 // Trap activation
-                boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionTrap(actor, ptr.getCellRef().mTrap, ptr));
+                boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionTrap(actor, ptr.getCellRef().getTrap(), ptr));
                 action->setSound(trapActivationSound);
                 return action;
             }
 
-            if (ref->mRef.mTeleport)
+            if (ptr.getCellRef().getTeleport())
             {
-                boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionTeleport (ref->mRef.mDestCell, ref->mRef.mDoorDest));
+                boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionTeleport (ptr.getCellRef().getDestCell(), ptr.getCellRef().getDoorDest(), true));
 
                 action->setSound(openSound);
 
@@ -125,22 +156,29 @@ namespace MWClass
             {
                 // animated door
                 boost::shared_ptr<MWWorld::Action> action(new MWWorld::ActionDoor(ptr));
-                if (MWBase::Environment::get().getWorld()->getOpenOrCloseDoor(ptr))
+                int doorstate = getDoorState(ptr);
+                bool opening = true;
+                if (doorstate == 1)
+                    opening = false;
+                if (doorstate == 0 && ptr.getRefData().getLocalRotation().rot[2] != 0)
+                    opening = false;
+
+                if (opening)
                 {
                     MWBase::Environment::get().getSoundManager()->fadeOutSound3D(ptr,
-                            closeSound, 0.5);
-                    float offset = ptr.getRefData().getLocalRotation().rot[2]/ 3.14159265 * 2.0;
+                            closeSound, 0.5f);
+                    float offset = ptr.getRefData().getLocalRotation().rot[2]/ 3.14159265f * 2.0f;
                     action->setSoundOffset(offset);
                     action->setSound(openSound);
                 }
                 else
                 {
                     MWBase::Environment::get().getSoundManager()->fadeOutSound3D(ptr,
-                                                openSound, 0.5);
-                    float offset = 1.0 - ptr.getRefData().getLocalRotation().rot[2]/ 3.14159265 * 2.0;
+                                                openSound, 0.5f);
+                    float offset = 1.0f - ptr.getRefData().getLocalRotation().rot[2]/ 3.14159265f * 2.0f;
                     //most if not all door have closing bang somewhere in the middle of the sound,
                     //so we divide offset by two
-                    action->setSoundOffset(offset * 0.5);
+                    action->setSoundOffset(offset * 0.5f);
                     action->setSound(closeSound);
                 }
 
@@ -158,15 +196,15 @@ namespace MWClass
 
     void Door::lock (const MWWorld::Ptr& ptr, int lockLevel) const
     {
-        if (lockLevel<0)
-            lockLevel = 0;
-
-        ptr.getCellRef().mLockLevel = lockLevel;
+        if(lockLevel!=0)
+            ptr.getCellRef().setLockLevel(abs(lockLevel)); //Changes lock to locklevel, in positive
+        else
+            ptr.getCellRef().setLockLevel(abs(ptr.getCellRef().getLockLevel())); //No locklevel given, just flip the origional one
     }
 
     void Door::unlock (const MWWorld::Ptr& ptr) const
     {
-        ptr.getCellRef().mLockLevel = 0;
+        ptr.getCellRef().setLockLevel(-abs(ptr.getCellRef().getLockLevel())); //Makes lockLevel negative
     }
 
     std::string Door::getScript (const MWWorld::Ptr& ptr) const
@@ -202,20 +240,24 @@ namespace MWClass
 
         std::string text;
 
-        if (ref->mRef.mTeleport)
+        if (ptr.getCellRef().getTeleport())
         {
             text += "\n#{sTo}";
             text += "\n" + getDestination(*ref);
         }
 
-        if (ref->mRef.mLockLevel > 0)
-            text += "\n#{sLockLevel}: " + MWGui::ToolTips::toString(ref->mRef.mLockLevel);
-        if (ref->mRef.mTrap != "")
+        if (ptr.getCellRef().getLockLevel() > 0)
+            text += "\n#{sLockLevel}: " + MWGui::ToolTips::toString(ptr.getCellRef().getLockLevel());
+        else if (ptr.getCellRef().getLockLevel() < 0)
+            text += "\n#{sUnlocked}";
+        if (ptr.getCellRef().getTrap() != "")
             text += "\n#{sTrapped}";
 
         if (MWBase::Environment::get().getWindowManager()->getFullHelp())
+        {
+            text += MWGui::ToolTips::getCellRefString(ptr.getCellRef());
             text += MWGui::ToolTips::getMiscString(ref->mBase->mScript, "Script");
-
+        }
         info.text = text;
 
         return info;
@@ -226,16 +268,16 @@ namespace MWClass
         const MWWorld::ESMStore& store = MWBase::Environment::get().getWorld()->getStore();
 
         std::string dest;
-        if (door.mRef.mDestCell != "")
+        if (door.mRef.getDestCell() != "")
         {
             // door leads to an interior, use interior name as tooltip
-            dest = door.mRef.mDestCell;
+            dest = door.mRef.getDestCell();
         }
         else
         {
             // door leads to exterior, use cell name (if any), otherwise translated region name
             int x,y;
-            MWBase::Environment::get().getWorld()->positionToIndex (door.mRef.mDoorDest.pos[0], door.mRef.mDoorDest.pos[1], x, y);
+            MWBase::Environment::get().getWorld()->positionToIndex (door.mRef.getDoorDest().pos[0], door.mRef.getDoorDest().pos[1], x, y);
             const ESM::Cell* cell = store.get<ESM::Cell>().find(x,y);
             if (cell->mName != "")
                 dest = cell->mName;
@@ -260,4 +302,51 @@ namespace MWClass
 
         return MWWorld::Ptr(&cell.get<ESM::Door>().insert(*ref), &cell);
     }
+
+    void Door::ensureCustomData(const MWWorld::Ptr &ptr) const
+    {
+        if (!ptr.getRefData().getCustomData())
+        {
+            std::auto_ptr<DoorCustomData> data(new DoorCustomData);
+
+            data->mDoorState = 0;
+            ptr.getRefData().setCustomData(data.release());
+        }
+    }
+
+    int Door::getDoorState (const MWWorld::Ptr &ptr) const
+    {
+        ensureCustomData(ptr);
+        const DoorCustomData& customData = dynamic_cast<const DoorCustomData&>(*ptr.getRefData().getCustomData());
+        return customData.mDoorState;
+    }
+
+    void Door::setDoorState (const MWWorld::Ptr &ptr, int state) const
+    {
+        if (ptr.getCellRef().getTeleport())
+            throw std::runtime_error("load doors can't be moved");
+
+        ensureCustomData(ptr);
+        DoorCustomData& customData = dynamic_cast<DoorCustomData&>(*ptr.getRefData().getCustomData());
+        customData.mDoorState = state;
+    }
+
+    void Door::readAdditionalState (const MWWorld::Ptr& ptr, const ESM::ObjectState& state) const
+    {
+        ensureCustomData(ptr);
+        DoorCustomData& customData = dynamic_cast<DoorCustomData&>(*ptr.getRefData().getCustomData());
+
+        const ESM::DoorState& state2 = dynamic_cast<const ESM::DoorState&>(state);
+        customData.mDoorState = state2.mDoorState;
+    }
+
+    void Door::writeAdditionalState (const MWWorld::Ptr& ptr, ESM::ObjectState& state) const
+    {
+        ensureCustomData(ptr);
+        const DoorCustomData& customData = dynamic_cast<const DoorCustomData&>(*ptr.getRefData().getCustomData());
+
+        ESM::DoorState& state2 = dynamic_cast<ESM::DoorState&>(state);
+        state2.mDoorState = customData.mDoorState;
+    }
+
 }

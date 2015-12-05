@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <stdint.h>
 
 #include <OgreTexture.h>
 
@@ -37,13 +38,12 @@ namespace OEngine
         {
             bool vsync;
             bool fullscreen;
+            bool window_border;
             int window_x, window_y;
             int screen;
             std::string fsaa;
             std::string icon;
         };
-
-        class Fader;
 
         class WindowSizeListener
         {
@@ -62,9 +62,14 @@ namespace OEngine
 
             OgreInit::OgreInit* mOgreInit;
 
-            Fader* mFader;
-
             WindowSizeListener* mWindowListener;
+
+            int mWindowWidth;
+            int mWindowHeight;
+            bool mOutstandingResize;
+
+            // Store system gamma ramp on window creation. Restore system gamma ramp on exit
+            uint16_t mOldSystemGammaRamp[256*3];
 
         public:
             OgreRenderer()
@@ -75,12 +80,14 @@ namespace OEngine
             , mCamera(NULL)
             , mView(NULL)
             , mOgreInit(NULL)
-            , mFader(NULL)
             , mWindowListener(NULL)
+            , mWindowWidth(0)
+            , mWindowHeight(0)
+            , mOutstandingResize(false)
             {
             }
 
-            ~OgreRenderer() { cleanup(); }
+            ~OgreRenderer();
 
             /** Configure the renderer. This will load configuration files and
             set up the Root and logging classes. */
@@ -91,6 +98,9 @@ namespace OEngine
 
             /// Create a window with the given title
             void createWindow(const std::string &title, const WindowSettings& settings);
+
+            void setWindowGammaContrast(float gamma, float contrast);
+            void restoreWindowGammaRamp();
 
             /// Set up the scene manager, camera and viewport
             void adjustCamera(
@@ -106,9 +116,7 @@ namespace OEngine
             void update(float dt);
 
             /// Write a screenshot to file
-            void screenshot(const std::string &file);
-
-            float getFPS();
+            void screenshot(const std::string &file, const std::string& imageFormat);
 
             void windowResized(int x, int y);
 
@@ -124,16 +132,13 @@ namespace OEngine
             /// Get the scene manager
             Ogre::SceneManager *getScene() { return mScene; }
 
-            /// Get the screen colour fader
-            Fader *getFader() { return mFader; }
-
             /// Camera
             Ogre::Camera *getCamera() { return mCamera; }
 
             /// Viewport
             Ogre::Viewport *getViewport() { return mView; }
 
-            void setWindowListener(WindowSizeListener* listener) { mWindowListener = listener; }
+            void setWindowListener(WindowSizeListener* listener);
 
             void adjustViewport();
         };

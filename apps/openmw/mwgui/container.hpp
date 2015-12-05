@@ -28,24 +28,6 @@ namespace MWGui
 
 namespace MWGui
 {
-    class DragAndDrop
-    {
-    public:
-        bool mIsOnDragAndDrop;
-        MyGUI::Widget* mDraggedWidget;
-        MyGUI::Widget* mDragAndDropWidget;
-        ItemModel* mSourceModel;
-        ItemView* mSourceView;
-        SortFilterItemModel* mSourceSortModel;
-        ItemStack mItem;
-        int mDraggedCount;
-
-        void startDrag (int index, SortFilterItemModel* sortModel, ItemModel* sourceModel, ItemView* sourceView, int count);
-        void drop (ItemModel* targetModel, ItemView* targetView);
-
-        void finish();
-    };
-
     class ContainerWindow : public WindowBase, public ReferenceInterface
     {
     public:
@@ -53,6 +35,10 @@ namespace MWGui
 
         void open(const MWWorld::Ptr& container, bool loot=false);
         virtual void close();
+
+        virtual void resetReference();
+
+        virtual void exit();
 
     private:
         DragAndDrop* mDragAndDrop;
@@ -62,7 +48,7 @@ namespace MWGui
         MWGui::ItemView* mItemView;
         SortFilterItemModel* mSortModel;
         ItemModel* mModel;
-        size_t mSelectedItem;
+        int mSelectedItem;
 
         MyGUI::Button* mDisposeCorpseButton;
         MyGUI::Button* mTakeButton;

@@ -25,6 +25,9 @@
 
 #include <stdexcept>
 
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/fstream.hpp>
+
 #include "../files/constrainedfiledatastream.hpp"
 
 using namespace std;
@@ -72,10 +75,11 @@ void BSAFile::readHeader()
      */
     assert(!isLoaded);
 
-    std::ifstream input(filename.c_str(), std::ios_base::binary);
+    namespace bfs = boost::filesystem;
+    bfs::ifstream input(bfs::path(filename), std::ios_base::binary);
 
     // Total archive size
-    size_t fsize = 0;
+    std::streamoff fsize = 0;
     if(input.seekg(0, std::ios_base::end))
     {
         fsize = input.tellg();
@@ -107,7 +111,7 @@ void BSAFile::readHeader()
     // Each file must take up at least 21 bytes of data in the bsa. So
     // if files*21 overflows the file size then we are guaranteed that
     // the archive is corrupt.
-    if((filenum*21 > fsize -12) || (dirsize+8*filenum > fsize -12) )
+    if((filenum*21 > unsigned(fsize -12)) || (dirsize+8*filenum > unsigned(fsize -12)) )
         fail("Directory information larger than entire archive");
 
     // Read the offset info into a temporary buffer

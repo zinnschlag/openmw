@@ -30,6 +30,11 @@ namespace Ogre
     struct RenderTargetEvent;
 }
 
+namespace MWWorld
+{
+    class Fallback;
+}
+
 namespace MWRender {
 
     class SkyManager;
@@ -41,10 +46,10 @@ namespace MWRender {
     {
     public:
         Reflection(Ogre::SceneManager* sceneManager)
-            : mSceneMgr(sceneManager)
-            , mIsUnderwater(false)
-            , mCamera(NULL)
+            : mCamera(NULL)
             , mParentCamera(NULL)
+            , mSceneMgr(sceneManager)
+            , mIsUnderwater(false)
             {}
         virtual ~Reflection() {}
 
@@ -117,7 +122,7 @@ namespace MWRender {
         bool mIsUnderwater;
         bool mActive;
         bool mToggled;
-        int mTop;
+        float mTop;
 
         float mWaterTimer;
 
@@ -145,12 +150,14 @@ namespace MWRender {
         Ogre::Vector2 mPlayer;
 
     public:
-        Water (Ogre::Camera *camera, RenderingManager* rend);
+        Water (Ogre::Camera *camera, RenderingManager* rend, const MWWorld::Fallback* fallback);
         ~Water();
+
+        void clearRipples();
 
         void setActive(bool active);
 
-        void toggle();
+        bool toggle();
         void update(float dt, Ogre::Vector3 player);
         void frameStarted(float dt);
 

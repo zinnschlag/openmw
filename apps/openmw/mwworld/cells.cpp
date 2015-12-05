@@ -78,6 +78,7 @@ void MWWorld::Cells::writeCell (ESM::ESMWriter& writer, CellStore& cell) const
     writer.startRecord (ESM::REC_CSTA);
     cellState.mId.save (writer);
     cellState.save (writer);
+    cell.writeFog(writer);
     cell.writeReferences (writer);
     writer.endRecord (ESM::REC_CSTA);
 }
@@ -192,8 +193,10 @@ MWWorld::Ptr MWWorld::Cells::getPtr (const std::string& name)
         }
 
     // Then check cells that are already listed
-    for (std::map<std::pair<int, int>, CellStore>::iterator iter = mExteriors.begin();
-        iter!=mExteriors.end(); ++iter)
+    // Search in reverse, this is a workaround for an ambiguous chargen_plank reference in the vanilla game.
+    // there is one at -22,16 and one at -2,-9, the latter should be used.
+    for (std::map<std::pair<int, int>, CellStore>::reverse_iterator iter = mExteriors.rbegin();
+        iter!=mExteriors.rend(); ++iter)
     {
         Ptr ptr = getPtrAndCache (name, iter->second);
         if (!ptr.isEmpty())
@@ -238,26 +241,30 @@ MWWorld::Ptr MWWorld::Cells::getPtr (const std::string& name)
 
 void MWWorld::Cells::getExteriorPtrs(const std::string &name, std::vector<MWWorld::Ptr> &out)
 {
-    for (std::map<std::pair<int, int>, CellStore>::iterator iter = mExteriors.begin();
-        iter!=mExteriors.end(); ++iter)
+    const MWWorld::Store<ESM::Cell> &cells = mStore.get<ESM::Cell>();
+    for (MWWorld::Store<ESM::Cell>::iterator iter = cells.extBegin(); iter != cells.extEnd(); ++iter)
     {
-        Ptr ptr = getPtrAndCache (name, iter->second);
+        CellStore *cellStore = getCellStore (&(*iter));
+
+        Ptr ptr = getPtrAndCache (name, *cellStore);
+
         if (!ptr.isEmpty())
             out.push_back(ptr);
     }
-
 }
 
 void MWWorld::Cells::getInteriorPtrs(const std::string &name, std::vector<MWWorld::Ptr> &out)
 {
-    for (std::map<std::string, CellStore>::iterator iter = mInteriors.begin();
-        iter!=mInteriors.end(); ++iter)
+    const MWWorld::Store<ESM::Cell> &cells = mStore.get<ESM::Cell>();
+    for (MWWorld::Store<ESM::Cell>::iterator iter = cells.intBegin(); iter != cells.intEnd(); ++iter)
     {
-        Ptr ptr = getPtrAndCache (name, iter->second);
+        CellStore *cellStore = getCellStore (&(*iter));
+
+        Ptr ptr = getPtrAndCache (name, *cellStore);
+
         if (!ptr.isEmpty())
             out.push_back(ptr);
     }
-
 }
 
 int MWWorld::Cells::countSavedGameRecords() const
@@ -277,20 +284,26 @@ int MWWorld::Cells::countSavedGameRecords() const
     return count;
 }
 
-void MWWorld::Cells::write (ESM::ESMWriter& writer) const
+void MWWorld::Cells::write (ESM::ESMWriter& writer, Loading::Listener& progress) const
 {
     for (std::map<std::pair<int, int>, CellStore>::iterator iter (mExteriors.begin());
         iter!=mExteriors.end(); ++iter)
         if (iter->second.hasState())
+        {
             writeCell (writer, iter->second);
+            progress.increaseProgress();
+        }
 
     for (std::map<std::string, CellStore>::iterator iter (mInteriors.begin());
         iter!=mInteriors.end(); ++iter)
         if (iter->second.hasState())
+        {
             writeCell (writer, iter->second);
+            progress.increaseProgress();
+        }
 }
 
-bool MWWorld::Cells::readRecord (ESM::ESMReader& reader, int32_t type,
+bool MWWorld::Cells::readRecord (ESM::ESMReader& reader, uint32_t type,
     const std::map<int, int>& contentFileMap)
 {
     if (type==ESM::REC_CSTA)
@@ -307,11 +320,16 @@ bool MWWorld::Cells::readRecord (ESM::ESMReader& reader, int32_t type,
         catch (...)
         {
             // silently drop cells that don't exist anymore
+            reader.skipRecord();
+            return true;
             /// \todo log
         }
 
         state.load (reader);
         cellStore->loadState (state);
+
+        if (state.mHasFogOfWar)
+            cellStore->readFog(reader);
 
         if (cellStore->getState()!=CellStore::State_Loaded)
             cellStore->load (mStore, mReader);

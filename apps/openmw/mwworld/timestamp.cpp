@@ -1,9 +1,9 @@
-
 #include "timestamp.hpp"
 
 #include <cmath>
-
 #include <stdexcept>
+
+#include <components/esm/defs.hpp>
 
 namespace MWWorld
 {
@@ -33,7 +33,7 @@ namespace MWWorld
 
         mHour = static_cast<float> (std::fmod (hours, 24));
 
-        mDay += hours / 24;
+        mDay += static_cast<int>(hours / 24);
 
         return *this;
     }
@@ -104,5 +104,19 @@ namespace MWWorld
         }
 
         return hours + 24*days;
+    }
+
+    ESM::TimeStamp TimeStamp::toEsm() const
+    {
+        ESM::TimeStamp ret;
+        ret.mDay = mDay;
+        ret.mHour = mHour;
+        return ret;
+    }
+
+    TimeStamp::TimeStamp(const ESM::TimeStamp &esm)
+    {
+        mDay = esm.mDay;
+        mHour = esm.mHour;
     }
 }

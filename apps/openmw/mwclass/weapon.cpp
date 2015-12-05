@@ -1,4 +1,3 @@
-
 #include "weapon.hpp"
 
 #include <components/esm/loadweap.hpp>
@@ -12,6 +11,7 @@
 #include "../mwworld/actionequip.hpp"
 #include "../mwworld/inventorystore.hpp"
 #include "../mwworld/cellstore.hpp"
+#include "../mwworld/esmstore.hpp"
 #include "../mwworld/physicssystem.hpp"
 #include "../mwworld/nullaction.hpp"
 
@@ -29,19 +29,17 @@ namespace MWClass
         return ref->mBase->mId;
     }
 
-    void Weapon::insertObjectRendering (const MWWorld::Ptr& ptr, MWRender::RenderingInterface& renderingInterface) const
+    void Weapon::insertObjectRendering (const MWWorld::Ptr& ptr, const std::string& model, MWRender::RenderingInterface& renderingInterface) const
     {
-        const std::string model = getModel(ptr);
         if (!model.empty()) {
             renderingInterface.getObjects().insertModel(ptr, model);
         }
     }
 
-    void Weapon::insertObject(const MWWorld::Ptr& ptr, MWWorld::PhysicsSystem& physics) const
+    void Weapon::insertObject(const MWWorld::Ptr& ptr, const std::string& model, MWWorld::PhysicsSystem& physics) const
     {
-        const std::string model = getModel(ptr);
         if(!model.empty())
-            physics.addObject(ptr,true);
+            physics.addObject(ptr, model, true);
     }
 
     std::string Weapon::getModel(const MWWorld::Ptr &ptr) const
@@ -154,10 +152,7 @@ namespace MWClass
         MWWorld::LiveCellRef<ESM::Weapon> *ref =
             ptr.get<ESM::Weapon>();
 
-        if (ptr.getCellRef().mCharge == -1)
-            return ref->mBase->mData.mValue;
-        else
-            return ref->mBase->mData.mValue * (static_cast<float>(ptr.getCellRef().mCharge) / getItemMaxHealth(ptr));
+        return ref->mBase->mData.mValue;
     }
 
     void Weapon::registerSelf()
@@ -193,9 +188,8 @@ namespace MWClass
         {
             return std::string("Item Weapon Longblade Up");
         }
-        // Shortblade and thrown weapons
-        // thrown weapons may not be entirely correct
-        if (type == 0 || type == 11)
+        // Shortblade
+        if (type == 0)
         {
             return std::string("Item Weapon Shortblade Up");
         }
@@ -204,8 +198,8 @@ namespace MWClass
         {
             return std::string("Item Weapon Spear Up");
         }
-        // Blunts and Axes
-        if (type == 3 || type == 4 || type == 5 || type == 7 || type == 8)
+        // Blunts, Axes and Thrown weapons
+        if (type == 3 || type == 4 || type == 5 || type == 7 || type == 8 || type == 11)
         {
             return std::string("Item Weapon Blunt Up");
         }
@@ -239,9 +233,8 @@ namespace MWClass
         {
             return std::string("Item Weapon Longblade Down");
         }
-        // Shortblade and thrown weapons
-        // thrown weapons may not be entirely correct
-        if (type == 0 || type == 11)
+        // Shortblade
+        if (type == 0)
         {
             return std::string("Item Weapon Shortblade Down");
         }
@@ -250,8 +243,8 @@ namespace MWClass
         {
             return std::string("Item Weapon Spear Down");
         }
-        // Blunts and Axes
-        if (type == 3 || type == 4 || type == 5 || type == 7 || type == 8)
+        // Blunts, Axes and Thrown weapons
+        if (type == 3 || type == 4 || type == 5 || type == 7 || type == 8 || type == 11)
         {
             return std::string("Item Weapon Blunt Down");
         }
@@ -340,22 +333,21 @@ namespace MWClass
 
         if (ref->mBase->mData.mType < 11) // thrown weapons and arrows/bolts don't have health, only quantity
         {
-            int remainingHealth = (ptr.getCellRef().mCharge != -1) ? ptr.getCellRef().mCharge : ref->mBase->mData.mHealth;
+            int remainingHealth = getItemHealth(ptr);
             text += "\n#{sCondition}: " + MWGui::ToolTips::toString(remainingHealth) + "/"
                     + MWGui::ToolTips::toString(ref->mBase->mData.mHealth);
         }
 
         text += "\n#{sWeight}: " + MWGui::ToolTips::toString(ref->mBase->mData.mWeight);
-        text += MWGui::ToolTips::getValueString(getValue(ptr), "#{sValue}");
+        text += MWGui::ToolTips::getValueString(ref->mBase->mData.mValue, "#{sValue}");
 
         info.enchant = ref->mBase->mEnchant;
 
         if (!info.enchant.empty())
-            info.remainingEnchantCharge = ptr.getCellRef().mEnchantmentCharge;
+            info.remainingEnchantCharge = static_cast<int>(ptr.getCellRef().getEnchantmentCharge());
 
         if (MWBase::Environment::get().getWindowManager()->getFullHelp()) {
-            text += MWGui::ToolTips::getMiscString(ref->mRef.mOwner, "Owner");
-            text += MWGui::ToolTips::getMiscString(ref->mRef.mFaction, "Faction");
+            text += MWGui::ToolTips::getCellRefString(ptr.getCellRef());
             text += MWGui::ToolTips::getMiscString(ref->mBase->mScript, "Script");
         }
 
@@ -372,7 +364,7 @@ namespace MWClass
         return ref->mBase->mEnchant;
     }
 
-    void Weapon::applyEnchantment(const MWWorld::Ptr &ptr, const std::string& enchId, int enchCharge, const std::string& newName) const
+    std::string Weapon::applyEnchantment(const MWWorld::Ptr &ptr, const std::string& enchId, int enchCharge, const std::string& newName) const
     {
         MWWorld::LiveCellRef<ESM::Weapon> *ref =
         ptr.get<ESM::Weapon>();
@@ -382,17 +374,17 @@ namespace MWClass
         newItem.mName=newName;
         newItem.mData.mEnchant=enchCharge;
         newItem.mEnchant=enchId;
+        newItem.mData.mFlags |= ESM::Weapon::Magical;
         const ESM::Weapon *record = MWBase::Environment::get().getWorld()->createRecord (newItem);
-        ref->mBase = record;
-        ref->mRef.mRefID = record->mId;
+        return record->mId;
     }
 
     std::pair<int, std::string> Weapon::canBeEquipped(const MWWorld::Ptr &ptr, const MWWorld::Ptr &npc) const
     {
-        if (ptr.getCellRef().mCharge == 0)
+        if (hasItemHealth(ptr) && ptr.getCellRef().getCharge() == 0)
             return std::make_pair(0, "#{sInventoryMessage1}");
 
-        std::pair<std::vector<int>, bool> slots_ = MWWorld::Class::get(ptr).getEquipmentSlots(ptr);
+        std::pair<std::vector<int>, bool> slots_ = ptr.getClass().getEquipmentSlots(ptr);
 
         if (slots_.first.empty())
             return std::make_pair (0, "");
@@ -439,7 +431,8 @@ namespace MWClass
 
     bool Weapon::canSell (const MWWorld::Ptr& item, int npcServices) const
     {
-        return npcServices & ESM::NPC::Weapon;
+        return (npcServices & ESM::NPC::Weapon)
+                || ((npcServices & ESM::NPC::MagicItems) && !getEnchantment(item).empty());
     }
 
     float Weapon::getWeight(const MWWorld::Ptr &ptr) const

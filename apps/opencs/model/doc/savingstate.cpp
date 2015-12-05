@@ -1,14 +1,11 @@
-
 #include "savingstate.hpp"
 
 #include "operation.hpp"
 #include "document.hpp"
 
-CSMDoc::SavingState::SavingState (Operation& operation, const boost::filesystem::path& projectPath)
-: mOperation (operation),
-   /// \todo set encoding properly, once config implementation has been fixed.
-  mEncoder (ToUTF8::calculateEncoding ("win1252")),
-  mProjectPath (projectPath), mProjectFile (false)
+CSMDoc::SavingState::SavingState (Operation& operation, const boost::filesystem::path& projectPath,
+    ToUTF8::FromType encoding)
+: mOperation (operation), mEncoder (encoding),  mProjectPath (projectPath), mProjectFile (false)
 {
     mWriter.setEncoder (&mEncoder);
 }
@@ -26,6 +23,8 @@ void CSMDoc::SavingState::start (Document& document, bool project)
         mStream.close();
 
     mStream.clear();
+
+    mSubRecords.clear();
 
     if (project)
         mPath = mProjectPath;
@@ -49,7 +48,7 @@ const boost::filesystem::path& CSMDoc::SavingState::getTmpPath() const
     return mTmpPath;
 }
 
-std::ofstream& CSMDoc::SavingState::getStream()
+boost::filesystem::ofstream& CSMDoc::SavingState::getStream()
 {
     return mStream;
 }
@@ -62,4 +61,9 @@ ESM::ESMWriter& CSMDoc::SavingState::getWriter()
 bool CSMDoc::SavingState::isProjectFile() const
 {
     return mProjectFile;
+}
+
+std::map<std::string, std::deque<int> >& CSMDoc::SavingState::getSubRecords()
+{
+    return mSubRecords;
 }

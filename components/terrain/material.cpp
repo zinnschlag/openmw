@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2015 scrawl <scrawl@baseoftrash.de>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 #include "material.hpp"
 
 #include <OgreMaterialManager.h>
@@ -15,7 +36,7 @@ namespace
 
 int getBlendmapIndexForLayer (int layerIndex)
 {
-    return std::floor((layerIndex-1)/4.f);
+    return static_cast<int>(std::floor((layerIndex - 1) / 4.f));
 }
 
 std::string getBlendmapComponentForLayer (int layerIndex)
@@ -36,8 +57,8 @@ std::string getBlendmapComponentForLayer (int layerIndex)
 namespace Terrain
 {
 
-    MaterialGenerator::MaterialGenerator(bool shaders)
-        : mShaders(shaders)
+    MaterialGenerator::MaterialGenerator()
+        : mShaders(true)
         , mShadows(false)
         , mSplitShadows(false)
         , mNormalMapping(true)
@@ -46,35 +67,28 @@ namespace Terrain
 
     }
 
-    Ogre::MaterialPtr MaterialGenerator::generate(Ogre::MaterialPtr mat)
+    Ogre::MaterialPtr MaterialGenerator::generate()
     {
         assert(!mLayerList.empty() && "Can't create material with no layers");
 
-        return create(mat, false, false);
+        return create(false, false);
     }
 
-    Ogre::MaterialPtr MaterialGenerator::generateForCompositeMapRTT(Ogre::MaterialPtr mat)
+    Ogre::MaterialPtr MaterialGenerator::generateForCompositeMapRTT()
     {
         assert(!mLayerList.empty() && "Can't create material with no layers");
 
-        return create(mat, true, false);
+        return create(true, false);
     }
 
-    Ogre::MaterialPtr MaterialGenerator::generateForCompositeMap(Ogre::MaterialPtr mat)
+    Ogre::MaterialPtr MaterialGenerator::generateForCompositeMap()
     {
-        return create(mat, false, true);
+        return create(false, true);
     }
 
-    Ogre::MaterialPtr MaterialGenerator::create(Ogre::MaterialPtr mat, bool renderCompositeMap, bool displayCompositeMap)
+    Ogre::MaterialPtr MaterialGenerator::create(bool renderCompositeMap, bool displayCompositeMap)
     {
         assert(!renderCompositeMap || !displayCompositeMap);
-        if (!mat.isNull())
-        {
-#if TERRAIN_USE_SHADER
-            sh::Factory::getInstance().destroyMaterialInstance(mat->getName());
-#endif
-            Ogre::MaterialManager::getSingleton().remove(mat->getName());
-        }
 
         static int count = 0;
         std::stringstream name;
@@ -82,7 +96,7 @@ namespace Terrain
 
         if (!mShaders)
         {
-            mat = Ogre::MaterialManager::getSingleton().create(name.str(),
+            Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().create(name.str(),
                                                                Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
             Ogre::Technique* technique = mat->getTechnique(0);
             technique->removeAllPasses();
@@ -181,7 +195,7 @@ namespace Terrain
                 // shadow. TODO: repeated, put in function
                 if (mShadows)
                 {
-                    for (Ogre::uint i = 0; i < (mSplitShadows ? 3 : 1); ++i)
+                    for (int i = 0; i < (mSplitShadows ? 3 : 1); ++i)
                     {
                         sh::MaterialInstanceTextureUnit* shadowTex = p->createTextureUnit ("shadowMap" + Ogre::StringConverter::toString(i));
                         shadowTex->setProperty ("content_type", sh::makeProperty<sh::StringValue> (new sh::StringValue("shadow")));
@@ -334,7 +348,7 @@ namespace Terrain
                     // shadow
                     if (shadows)
                     {
-                        for (Ogre::uint i = 0; i < (mSplitShadows ? 3 : 1); ++i)
+                        for (int i = 0; i < (mSplitShadows ? 3 : 1); ++i)
                         {
                             sh::MaterialInstanceTextureUnit* shadowTex = p->createTextureUnit ("shadowMap" + Ogre::StringConverter::toString(i));
                             shadowTex->setProperty ("content_type", sh::makeProperty<sh::StringValue> (new sh::StringValue("shadow")));

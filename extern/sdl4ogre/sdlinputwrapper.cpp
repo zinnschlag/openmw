@@ -10,25 +10,28 @@ namespace SFO
     /// \brief General purpose wrapper for OGRE applications around SDL's event
     ///        queue, mostly used for handling input-related events.
     InputWrapper::InputWrapper(SDL_Window* window, Ogre::RenderWindow* ogreWindow, bool grab) :
-        mSDLWindow(window),
-        mOgreWindow(ogreWindow),
-        mWarpCompensate(false),
-        mMouseRelative(false),
-        mGrabPointer(false),
-        mWrapPointer(false),
-        mMouseZ(0),
-        mMouseY(0),
-        mMouseX(0),
-        mMouseInWindow(true),
-        mJoyListener(NULL),
-        mKeyboardListener(NULL),
         mMouseListener(NULL),
+        mKeyboardListener(NULL),
         mWindowListener(NULL),
-        mWindowHasFocus(true),
+        mConListener(NULL),
+        mWarpX(0),
+        mWarpY(0),
+        mWarpCompensate(false),
+        mWrapPointer(false),
+        mAllowGrab(grab),
+        mWantMouseVisible(false),
         mWantGrab(false),
         mWantRelative(false),
-        mWantMouseVisible(false),
-        mAllowGrab(grab)
+        mGrabPointer(false),
+        mMouseRelative(false),
+        mFirstMouseMove(true),
+        mMouseZ(0),
+        mMouseX(0),
+        mMouseY(0),
+        mWindowHasFocus(true),
+        mMouseInWindow(true),
+        mSDLWindow(window),
+        mOgreWindow(ogreWindow)
     {
         _setupOISKeys();
     }
@@ -88,24 +91,32 @@ namespace SFO
                 case SDL_TEXTINPUT:
                     mKeyboardListener->textInput(evt.text);
                     break;
+                case SDL_JOYHATMOTION: //As we manage everything with GameController, don't even bother with these.
                 case SDL_JOYAXISMOTION:
-                    if (mJoyListener)
-                        mJoyListener->axisMoved(evt.jaxis, evt.jaxis.axis);
-                    break;
                 case SDL_JOYBUTTONDOWN:
-                    if (mJoyListener)
-                        mJoyListener->buttonPressed(evt.jbutton, evt.jbutton.button);
-                    break;
                 case SDL_JOYBUTTONUP:
-                    if (mJoyListener)
-                        mJoyListener->buttonReleased(evt.jbutton, evt.jbutton.button);
-                    break;
                 case SDL_JOYDEVICEADDED:
-                    //SDL_JoystickOpen(evt.jdevice.which);
-                    //std::cout << "Detected a new joystick: " << SDL_JoystickNameForIndex(evt.jdevice.which) << std::endl;
-                    break;
                 case SDL_JOYDEVICEREMOVED:
-                    //std::cout << "A joystick has been removed" << std::endl;
+                    break;
+                case SDL_CONTROLLERDEVICEADDED:
+                    if(mConListener)
+                        mConListener->controllerAdded(1, evt.cdevice); //We only support one joystick, so give everything a generic deviceID
+                    break;
+                case SDL_CONTROLLERDEVICEREMOVED:
+                    if(mConListener)
+                        mConListener->controllerRemoved(evt.cdevice);
+                    break;
+                case SDL_CONTROLLERBUTTONDOWN:
+                    if(mConListener)
+                        mConListener->buttonPressed(1, evt.cbutton);
+                    break;
+                case SDL_CONTROLLERBUTTONUP:
+                    if(mConListener)
+                        mConListener->buttonReleased(1, evt.cbutton);
+                    break;
+                case SDL_CONTROLLERAXISMOTION:
+                    if(mConListener)
+                        mConListener->axisMoved(1, evt.caxis);
                     break;
                 case SDL_WINDOWEVENT:
                     handleWindowEvent(evt);
@@ -114,8 +125,12 @@ namespace SFO
                     if (mWindowListener)
                         mWindowListener->windowClosed();
                     break;
+                case SDL_CLIPBOARDUPDATE:
+                    break; // We don't need this event, clipboard is retrieved on demand
                 default:
-                    std::cerr << "Unhandled SDL event of type " << evt.type << std::endl;
+                    std::ios::fmtflags f(std::cerr.flags());
+                    std::cerr << "Unhandled SDL event of type 0x" << std::hex << evt.type << std::endl;
+                    std::cerr.flags(f);
                     break;
             }
         }
@@ -186,12 +201,12 @@ namespace SFO
 
     bool InputWrapper::isModifierHeld(SDL_Keymod mod)
     {
-        return SDL_GetModState() & mod;
+        return (SDL_GetModState() & mod) != 0;
     }
 
     bool InputWrapper::isKeyDown(SDL_Scancode key)
     {
-        return SDL_GetKeyboardState(NULL)[key];
+        return (SDL_GetKeyboardState(NULL)[key]) != 0;
     }
 
     /// \brief Moves the mouse to the specified point within the viewport
@@ -239,10 +254,12 @@ namespace SFO
 
         mWrapPointer = false;
 
-        //eep, wrap the pointer manually if the input driver doesn't support
-        //relative positioning natively
-        int success = SDL_SetRelativeMouseMode(relative ? SDL_TRUE : SDL_FALSE);
-        if(relative && success != 0)
+        // eep, wrap the pointer manually if the input driver doesn't support
+        // relative positioning natively
+        // also use wrapping if no-grab was specified in options (SDL_SetRelativeMouseMode
+        // appears to eat the mouse cursor when pausing in a debugger)
+        bool success = mAllowGrab && SDL_SetRelativeMouseMode(relative ? SDL_TRUE : SDL_FALSE) == 0;
+        if(relative && !success)
             mWrapPointer = true;
 
         //now remove all mouse events using the old setting from the queue
@@ -308,6 +325,13 @@ namespace SFO
             pack_evt.y = mMouseY = evt.motion.y;
             pack_evt.xrel = evt.motion.xrel;
             pack_evt.yrel = evt.motion.yrel;
+            if (mFirstMouseMove)
+            {
+                // first event should be treated as non-relative, since there's no point of reference
+                // SDL then (incorrectly) uses (0,0) as point of reference, on Linux at least...
+                pack_evt.xrel = pack_evt.yrel = 0;
+                mFirstMouseMove = false;
+            }
         }
         else if(evt.type == SDL_MOUSEWHEEL)
         {
@@ -338,9 +362,6 @@ namespace SFO
     {
         //lifted from OIS's SDLKeyboard.cpp
 
-        //TODO: Consider switching to scancodes so we
-        //can properly support international keyboards
-        //look at SDL_GetKeyFromScancode and SDL_GetKeyName
         mKeyMap.insert( KeyMap::value_type(SDLK_UNKNOWN, OIS::KC_UNASSIGNED));
         mKeyMap.insert( KeyMap::value_type(SDLK_ESCAPE, OIS::KC_ESCAPE) );
         mKeyMap.insert( KeyMap::value_type(SDLK_1, OIS::KC_1) );
@@ -443,5 +464,10 @@ namespace SFO
         mKeyMap.insert( KeyMap::value_type(SDLK_PAGEDOWN, OIS::KC_PGDOWN) );
         mKeyMap.insert( KeyMap::value_type(SDLK_INSERT, OIS::KC_INSERT) );
         mKeyMap.insert( KeyMap::value_type(SDLK_DELETE, OIS::KC_DELETE) );
+        mKeyMap.insert( KeyMap::value_type(SDLK_KP_ENTER, OIS::KC_NUMPADENTER) );
+        mKeyMap.insert( KeyMap::value_type(SDLK_RCTRL, OIS::KC_RCONTROL) );
+        mKeyMap.insert( KeyMap::value_type(SDLK_LGUI, OIS::KC_LWIN) );
+        mKeyMap.insert( KeyMap::value_type(SDLK_RGUI, OIS::KC_RWIN) );
+        mKeyMap.insert( KeyMap::value_type(SDLK_APPLICATION, OIS::KC_APPS) );
     }
 }

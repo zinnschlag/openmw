@@ -6,6 +6,7 @@
 #include <OgreBone.h>
 
 #include <components/nif/node.hpp>
+#include <components/nifcache/nifcache.hpp>
 #include <components/misc/stringops.hpp>
 
 namespace NifOgre
@@ -14,10 +15,24 @@ namespace NifOgre
 void NIFSkeletonLoader::buildBones(Ogre::Skeleton *skel, const Nif::Node *node, Ogre::Bone *parent)
 {
     Ogre::Bone *bone;
-    if(!skel->hasBone(node->name))
-        bone = skel->createBone(node->name);
+    if (node->name.empty())
+    {
+        // HACK: use " " instead of empty name, otherwise Ogre will replace it with an auto-generated
+        // name in SkeletonInstance::cloneBoneAndChildren.
+        static const char* emptyname = " ";
+        if (!skel->hasBone(emptyname))
+            bone = skel->createBone(emptyname);
+        else
+            bone = skel->createBone();
+    }
     else
-        bone = skel->createBone();
+    {
+        if(!skel->hasBone(node->name))
+            bone = skel->createBone(node->name);
+        else
+            bone = skel->createBone();
+    }
+
     if(parent) parent->addChild(bone);
     mNifToOgreHandleMap[node->recIndex] = bone->getHandle();
 
@@ -42,6 +57,7 @@ void NIFSkeletonLoader::buildBones(Ogre::Skeleton *skel, const Nif::Node *node, 
     while(!ctrl.empty())
     {
         if(!(ctrl->recType == Nif::RC_NiParticleSystemController ||
+             ctrl->recType == Nif::RC_NiBSPArrayController ||
              ctrl->recType == Nif::RC_NiVisController ||
              ctrl->recType == Nif::RC_NiUVController ||
              ctrl->recType == Nif::RC_NiKeyframeController ||
@@ -68,7 +84,7 @@ void NIFSkeletonLoader::loadResource(Ogre::Resource *resource)
     Ogre::Skeleton *skel = dynamic_cast<Ogre::Skeleton*>(resource);
     OgreAssert(skel, "Attempting to load a skeleton into a non-skeleton resource!");
 
-    Nif::NIFFile::ptr nif(Nif::NIFFile::create(skel->getName()));
+    Nif::NIFFilePtr nif(Nif::Cache::getInstance().load(skel->getName()));
     const Nif::Node *node = static_cast<const Nif::Node*>(nif->getRoot(0));
 
     try {
@@ -87,7 +103,7 @@ bool NIFSkeletonLoader::needSkeleton(const Nif::Node *node)
     /* We need to be a little aggressive here, since some NIFs have a crap-ton
      * of nodes and Ogre only supports 256 bones. We will skip a skeleton if:
      * There are no bones used for skinning, there are no keyframe controllers, there
-     * are no nodes named "AttachLight", and the tree consists of NiNode,
+     * are no nodes named "AttachLight" or "ArrowBone", and the tree consists of NiNode,
      * NiTriShape, and RootCollisionNode types only.
      */
     if(node->boneTrafo)
@@ -102,7 +118,7 @@ bool NIFSkeletonLoader::needSkeleton(const Nif::Node *node)
         } while(!(ctrl=ctrl->next).empty());
     }
 
-    if (node->name == "AttachLight")
+    if (node->name == "AttachLight" || node->name == "ArrowBone")
         return true;
 
     if(node->recType == Nif::RC_NiNode || node->recType == Nif::RC_RootCollisionNode)

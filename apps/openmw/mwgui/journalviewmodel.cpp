@@ -8,13 +8,15 @@
 
 #include <components/misc/utf8stream.hpp>
 
+#include <components/translation/translation.hpp>
+
 #include "../mwbase/world.hpp"
 #include "../mwbase/journal.hpp"
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
-#include "../mwdialogue/journalentry.hpp"
 
-#include "keywordsearch.hpp"
+#include "../mwdialogue/journalentry.hpp"
+#include "../mwdialogue/keywordsearch.hpp"
 
 namespace MWGui {
 
@@ -22,7 +24,7 @@ struct JournalViewModelImpl;
 
 struct JournalViewModelImpl : JournalViewModel
 {
-    typedef KeywordSearch <std::string, intptr_t> KeywordSearchT;
+    typedef MWDialogue::KeywordSearch <std::string, intptr_t> KeywordSearchT;
 
     mutable bool             mKeywordSearchLoaded;
     mutable KeywordSearchT mKeywordSearch;
@@ -90,7 +92,7 @@ struct JournalViewModelImpl : JournalViewModel
         JournalViewModelImpl const *    mModel;
 
         BaseEntry (JournalViewModelImpl const * model, iterator_t itr) :
-            mModel (model), itr (itr), loaded (false)
+            itr (itr), mModel (model), loaded (false)
         {}
 
         virtual ~BaseEntry () {}
@@ -113,10 +115,10 @@ struct JournalViewModelImpl : JournalViewModel
 
                 utf8text = getText ();
 
-                size_t pos_begin, pos_end;
+                size_t pos_end = 0;
                 for(;;)
                 {
-                    pos_begin = utf8text.find('@');
+                    size_t pos_begin = utf8text.find('@');
                     if (pos_begin != std::string::npos)
                         pos_end = utf8text.find('#', pos_begin);
 
@@ -174,12 +176,14 @@ struct JournalViewModelImpl : JournalViewModel
             }
             else
             {
+                std::vector<KeywordSearchT::Match> matches;
+                mModel->mKeywordSearch.highlightKeywords(utf8text.begin(), utf8text.end(), matches);
+
                 std::string::const_iterator i = utf8text.begin ();
-
-                KeywordSearchT::Match match;
-
-                while (i != utf8text.end () && mModel->mKeywordSearch.search (i, utf8text.end (), match))
+                for (std::vector<KeywordSearchT::Match>::const_iterator it = matches.begin(); it != matches.end(); ++it)
                 {
+                    const KeywordSearchT::Match& match = *it;
+
                     if (i != match.mBeg)
                         visitor (0, i - utf8text.begin (), match.mBeg - utf8text.begin ());
 
@@ -195,31 +199,43 @@ struct JournalViewModelImpl : JournalViewModel
 
     };
 
-    void visitQuestNames (bool active_only, boost::function <void (QuestId, Utf8Span)> visitor) const
+    void visitQuestNames (bool active_only, boost::function <void (const std::string&, bool)> visitor) const
     {
         MWBase::Journal * journal = MWBase::Environment::get ().getJournal ();
 
+        std::set<std::string> visitedQuests;
+
+        // Note that for purposes of the journal GUI, quests are identified by the name, not the ID, so several
+        // different quest IDs can end up in the same quest log. A quest log should be considered finished
+        // when any quest ID in that log is finished.
         for (MWBase::Journal::TQuestIter i = journal->questBegin (); i != journal->questEnd (); ++i)
         {
-            if (active_only && i->second.isFinished ())
+            const MWDialogue::Quest& quest = i->second;
+
+            bool isFinished = false;
+            for (MWBase::Journal::TQuestIter j = journal->questBegin (); j != journal->questEnd (); ++j)
+            {
+                if (quest.getName() == j->second.getName() && j->second.isFinished())
+                    isFinished = true;
+            }
+
+            if (active_only && isFinished)
                 continue;
 
-            const MWDialogue::Quest& quest = i->second;
             // Unfortunately Morrowind.esm has no quest names, since the quest book was added with tribunal.
             // Note that even with Tribunal, some quests still don't have quest names. I'm assuming those are not supposed
             // to appear in the quest book.
             if (!quest.getName().empty())
-                visitor (reinterpret_cast <QuestId> (&i->second), toUtf8Span (quest.getName()));
+            {
+                // Don't list the same quest name twice
+                if (visitedQuests.find(quest.getName()) != visitedQuests.end())
+                    continue;
+
+                visitor (quest.getName(), isFinished);
+
+                visitedQuests.insert(quest.getName());
+            }
         }
-    }
-
-    void visitQuestName (QuestId questId, boost::function <void (Utf8Span)> visitor) const
-    {
-        MWDialogue::Quest const * quest = reinterpret_cast <MWDialogue::Quest const *> (questId);
-
-        std::string name = quest->getName ();
-
-        visitor (toUtf8Span (name));
     }
 
     template <typename iterator_t>
@@ -249,7 +265,7 @@ struct JournalViewModelImpl : JournalViewModel
                 os
                     << itr->mDayOfMonth << ' '
                     << MWBase::Environment::get().getWorld()->getMonthName (itr->mMonth)
-                    << " (" << dayStr << " " << (itr->mDay + 1) << ')';
+                    << " (" << dayStr << " " << (itr->mDay) << ')';
 
                 timestamp_buffer = os.str ();
             }
@@ -258,20 +274,29 @@ struct JournalViewModelImpl : JournalViewModel
         }
     };
 
-    void visitJournalEntries (QuestId questId, boost::function <void (JournalEntry const &)> visitor) const
+    void visitJournalEntries (const std::string& questName, boost::function <void (JournalEntry const &)> visitor) const
     {
         MWBase::Journal * journal = MWBase::Environment::get().getJournal();
 
-        if (questId != 0)
+        if (!questName.empty())
         {
-            MWDialogue::Quest const * quest = reinterpret_cast <MWDialogue::Quest const *> (questId);
+            std::vector<MWDialogue::Quest const*> quests;
+            for (MWBase::Journal::TQuestIter questIt = journal->questBegin(); questIt != journal->questEnd(); ++questIt)
+            {
+                if (Misc::StringUtils::ciEqual(questIt->second.getName(), questName))
+                    quests.push_back(&questIt->second);
+            }
 
             for(MWBase::Journal::TEntryIter i = journal->begin(); i != journal->end (); ++i)
             {
-                for (MWDialogue::Topic::TEntryIter j = quest->begin (); j != quest->end (); ++j)
+                for (std::vector<MWDialogue::Quest const*>::iterator questIt = quests.begin(); questIt != quests.end(); ++questIt)
                 {
-                    if (i->mInfoId == j->mInfoId)
-                        visitor (JournalEntryImpl <MWBase::Journal::TEntryIter> (this, i));
+                    MWDialogue::Quest const* quest = *questIt;
+                    for (MWDialogue::Topic::TEntryIter j = quest->begin (); j != quest->end (); ++j)
+                    {
+                        if (i->mInfoId == j->mInfoId)
+                            visitor (JournalEntryImpl <MWBase::Journal::TEntryIter> (this, i));
+                    }
                 }
             }
         }
@@ -282,18 +307,13 @@ struct JournalViewModelImpl : JournalViewModel
         }
     }
 
-    void visitTopics (boost::function <void (TopicId, Utf8Span)> visitor) const
-    {
-        throw std::runtime_error ("not implemented");
-    }
-
     void visitTopicName (TopicId topicId, boost::function <void (Utf8Span)> visitor) const
     {
         MWDialogue::Topic const & topic = * reinterpret_cast <MWDialogue::Topic const *> (topicId);
         visitor (toUtf8Span (topic.getName()));
     }
 
-    void visitTopicNamesStartingWith (char character, boost::function < void (TopicId , Utf8Span) > visitor) const
+    void visitTopicNamesStartingWith (char character, boost::function < void (const std::string&) > visitor) const
     {
         MWBase::Journal * journal = MWBase::Environment::get().getJournal();
 
@@ -302,7 +322,7 @@ struct JournalViewModelImpl : JournalViewModel
             if (i->first [0] != std::tolower (character, mLocale))
                 continue;
 
-            visitor (TopicId (&i->second), toUtf8Span (i->second.getName()));
+            visitor (i->second.getName());
         }
 
     }

@@ -170,10 +170,10 @@ namespace MWMechanics
             }
 
             /// Change modified relatively.
-            void modify (const T& diff)
+            void modify (const T& diff, bool allowCurrentDecreaseBelowZero=false)
             {
                 mStatic.modify (diff);
-                setCurrent (getCurrent()+diff);
+                setCurrent (getCurrent()+diff, allowCurrentDecreaseBelowZero);
             }
 
             void setCurrent (const T& value, bool allowDecreaseBelowZero = false)
@@ -198,11 +198,11 @@ namespace MWMechanics
                 }
             }
 
-            void setModifier (const T& modifier)
+            void setModifier (const T& modifier, bool allowCurrentDecreaseBelowZero=false)
             {
                 T diff =  modifier - mStatic.getModifier();
                 mStatic.setModifier (modifier);
-                setCurrent (getCurrent()+diff);
+                setCurrent (getCurrent()+diff, allowCurrentDecreaseBelowZero);
             }
 
             void writeState (ESM::StatState<T>& state) const
@@ -236,21 +236,26 @@ namespace MWMechanics
     {
         int mBase;
         int mModifier;
-        int mDamage;
+        float mDamage; // needs to be float to allow continuous damage
 
     public:
         AttributeValue() : mBase(0), mModifier(0), mDamage(0) {}
 
-        int getModified() const { return std::max(0, mBase - mDamage + mModifier); }
+        int getModified() const { return std::max(0, mBase - (int) mDamage + mModifier); }
         int getBase() const { return mBase; }
         int getModifier() const {  return mModifier; }
 
         void setBase(int base) { mBase = std::max(0, base); }
+
         void setModifier(int mod) { mModifier = mod; }
 
-        void damage(int damage) { mDamage += damage; }
-        void restore(int amount) { mDamage -= std::min(mDamage, amount); }
-        int getDamage() const { return mDamage; }
+        // Maximum attribute damage is limited to the modified value.
+        // Note: I think MW applies damage directly to mModified, since you can also
+        // "restore" drained attributes. We need to rewrite the magic effect system to support this.
+        void damage(float damage) { mDamage += std::min(damage, (float)getModified()); }
+        void restore(float amount) { mDamage -= std::min(mDamage, amount); }
+
+        float getDamage() const { return mDamage; }
 
         void writeState (ESM::StatState<int>& state) const;
 

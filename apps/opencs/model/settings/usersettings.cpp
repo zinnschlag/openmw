@@ -1,18 +1,18 @@
 #include "usersettings.hpp"
 
-#include <QTextStream>
-#include <QDir>
-#include <QString>
-#include <QRegExp>
-#include <QMap>
-#include <QMessageBox>
-#include <QTextCodec>
-
+#include <QSettings>
 #include <QFile>
 
 #include <components/files/configurationmanager.hpp>
-#include "settingcontainer.hpp"
+#include <components/settings/settings.hpp>
 #include <boost/version.hpp>
+
+#include "setting.hpp"
+#include "support.hpp"
+#include <QTextCodec>
+#include <QDebug>
+
+#include <extern/shiny/Main/Factory.hpp>
 
 /**
  * Workaround for problems with whitespaces in paths in older versions of Boost library
@@ -30,326 +30,795 @@ namespace boost
 } /* namespace boost */
 #endif /* (BOOST_VERSION <= 104600) */
 
-CSMSettings::UserSettings *CSMSettings::UserSettings::mUserSettingsInstance = 0;
+CSMSettings::UserSettings *CSMSettings::UserSettings::sUserSettingsInstance = 0;
 
-CSMSettings::UserSettings::UserSettings()
+    CSMSettings::UserSettings::UserSettings (const Files::ConfigurationManager& configurationManager)
+    : mCfgMgr (configurationManager)
+    , mSettingDefinitions(NULL)
 {
-    assert(!mUserSettingsInstance);
-    mUserSettingsInstance = this;
+    assert(!sUserSettingsInstance);
+    sUserSettingsInstance = this;
 
-    mReadWriteMessage = QObject::tr("<br><b>Could not open or create file for writing</b><br><br> \
-            Please make sure you have the right permissions and try again.<br>");
-
-    mReadOnlyMessage = QObject::tr("<br><b>Could not open file for reading</b><br><br> \
-            Please make sure you have the right permissions and try again.<br>");
-
-    buildEditorSettingDefaults();
+    buildSettingModelDefaults();
 }
 
-void CSMSettings::UserSettings::buildEditorSettingDefaults()
+void CSMSettings::UserSettings::buildSettingModelDefaults()
 {
-    SettingContainer *windowHeight = new SettingContainer("768", this);
-    SettingContainer *windowWidth = new SettingContainer("1024", this);
-    SettingContainer *rsDelegate = new SettingContainer("Icon and Text", this);
-    SettingContainer *refIdTypeDelegate = new SettingContainer("Icon and Text", this);
+    QString section;
 
-    windowHeight->setObjectName ("Height");
-    windowWidth->setObjectName ("Width");
-    rsDelegate->setObjectName ("Record Status Display");
-    refIdTypeDelegate->setObjectName ("Referenceable ID Type Display");
+    declareSection ("3d-render", "3D Rendering");
+    {
+        Setting *shaders = createSetting (Type_CheckBox, "shaders", "Enable Shaders");
+        shaders->setDefaultValue ("true");
 
-    SettingMap *displayFormatMap = new SettingMap;
-    SettingMap *windowSizeMap = new SettingMap;
+        Setting *farClipDist = createSetting (Type_DoubleSpinBox, "far-clip-distance", "Far clipping distance");
+        farClipDist->setDefaultValue (300000);
+        farClipDist->setRange (0, 1000000);
+        farClipDist->setToolTip ("The maximum distance objects are still rendered at.");
 
-    displayFormatMap->insert (rsDelegate->objectName(), rsDelegate );
-    displayFormatMap->insert (refIdTypeDelegate->objectName(), refIdTypeDelegate);
+        QString defaultValue = "None";
+        Setting *antialiasing = createSetting (Type_ComboBox, "antialiasing", "Antialiasing");
+        antialiasing->setDeclaredValues (QStringList()
+            << defaultValue << "MSAA 2" << "MSAA 4" << "MSAA 8" << "MSAA 16");
+        antialiasing->setDefaultValue (defaultValue);
+    }
 
-    windowSizeMap->insert (windowWidth->objectName(), windowWidth );
-    windowSizeMap->insert (windowHeight->objectName(), windowHeight );
+    declareSection ("3d-render-adv", "3D Rendering (Advanced)");
+    {
+        Setting *numLights = createSetting (Type_SpinBox, "num_lights",
+            "Number of lights per pass");
+        numLights->setDefaultValue (8);
+        numLights->setRange (1, 100);
+    }
 
-    mEditorSettingDefaults.insert ("Display Format", displayFormatMap);
-    mEditorSettingDefaults.insert ("Window Size", windowSizeMap);
+    declareSection ("scene-input", "Scene Input");
+    {
+        Setting *timer = createSetting (Type_SpinBox, "timer", "Input responsiveness");
+        timer->setDefaultValue (20);
+        timer->setRange (1, 100);
+        timer->setToolTip ("The time between two checks for user input in milliseconds.<p>"
+            "Lower value result in higher responsiveness.");
+
+        Setting *fastFactor = createSetting (Type_SpinBox, "fast-factor",
+            "Fast movement factor");
+        fastFactor->setDefaultValue (4);
+        fastFactor->setRange (1, 100);
+        fastFactor->setToolTip (
+            "Factor by which movement is speed up while the shift key is held down.");
+    }
+
+    declareSection ("window", "Window");
+    {
+        Setting *preDefined = createSetting (Type_ComboBox, "pre-defined",
+            "Default window size");
+        preDefined->setEditorSetting (false);
+        preDefined->setDeclaredValues (
+            QStringList() << "640 x 480" << "800 x 600" << "1024 x 768" << "1440 x 900");
+        preDefined->setViewLocation (1, 1);
+        preDefined->setColumnSpan (2);
+        preDefined->setToolTip ("Newly opened top-level windows will open with this size "
+            "(picked from a list of pre-defined values)");
+
+        Setting *width = createSetting (Type_LineEdit, "default-width",
+            "Default window width");
+        width->setDefaultValues (QStringList() << "1024");
+        width->setViewLocation (2, 1);
+        width->setColumnSpan (1);
+        width->setToolTip ("Newly opened top-level windows will open with this width.");
+        preDefined->addProxy (width, QStringList() << "640" << "800" << "1024" << "1440");
+
+        Setting *height = createSetting (Type_LineEdit, "default-height",
+            "Default window height");
+        height->setDefaultValues (QStringList() << "768");
+        height->setViewLocation (2, 2);
+        height->setColumnSpan (1);
+        height->setToolTip ("Newly opened top-level windows will open with this height.");
+        preDefined->addProxy (height, QStringList() << "480" << "600" << "768" << "900");
+
+        Setting *reuse = createSetting (Type_CheckBox, "reuse", "Reuse Subviews");
+        reuse->setDefaultValue ("true");
+        reuse->setToolTip ("When a new subview is requested and a matching subview already "
+            " exist, do not open a new subview and use the existing one instead.");
+
+        Setting *statusBar = createSetting (Type_CheckBox, "show-statusbar", "Show Status Bar");
+        statusBar->setDefaultValue ("true");
+        statusBar->setToolTip ("If a newly open top level window is showing status bars or not. "
+            " Note that this does not affect existing windows.");
+
+        Setting *maxSubView = createSetting (Type_SpinBox, "max-subviews",
+            "Maximum number of subviews per top-level window");
+        maxSubView->setDefaultValue (256);
+        maxSubView->setRange (1, 256);
+        maxSubView->setToolTip ("If the maximum number is reached and a new subview is opened "
+            "it will be placed into a new top-level window.");
+
+        Setting *hide = createSetting (Type_CheckBox, "hide-subview", "Hide single subview");
+        hide->setDefaultValue ("false");
+        hide->setToolTip ("When a view contains only a single subview, hide the subview title "
+            "bar and if this subview is closed also close the view (unless it is the last "
+            "view for this document)");
+
+        Setting *minWidth = createSetting (Type_SpinBox, "minimum-width",
+            "Minimum subview width");
+        minWidth->setDefaultValue (325);
+        minWidth->setRange (50, 10000);
+        minWidth->setToolTip ("Minimum width of subviews.");
+
+        QString defaultScroll = "Scrollbar Only";
+        QStringList scrollValues = QStringList() << defaultScroll << "Grow Only" << "Grow then Scroll";
+
+        Setting *mainwinScroll = createSetting (Type_RadioButton, "mainwindow-scrollbar",
+            "Add a horizontal scrollbar to the main view window.");
+        mainwinScroll->setDefaultValue (defaultScroll);
+        mainwinScroll->setDeclaredValues (scrollValues);
+        mainwinScroll->setToolTip ("Scrollbar Only: Simple addition of scrollbars, the view window does not grow"
+            " automatically.\n"
+            "Grow Only: Original Editor behaviour. The view window grows as subviews are added. No scrollbars.\n"
+            "Grow then Scroll: The view window grows. The scrollbar appears once it cannot grow any further.");
+
+        Setting *grow = createSetting (Type_CheckBox, "grow-limit", "Grow Limit Screen");
+        grow->setDefaultValue ("false");
+        grow->setToolTip ("When \"Grow then Scroll\" option is selected, the window size grows to"
+            " the width of the virtual desktop. \nIf this option is selected the the window growth"
+            "is limited to the current screen.");
+
+        Setting *saveState = createSetting (Type_CheckBox, "save-state", "Save window size and position");
+        saveState->setDefaultValue ("true");
+        saveState->setToolTip ("Remember window size and position between editing sessions.");
+
+        Setting *saveX = createSetting (Type_CheckBox, "x-save-state-workaround", "X windows workaround");
+        saveX->setDefaultValue ("false");
+        saveX->setToolTip ("Some X window managers don't remember the windows state before being"
+            " maximized. In such environments exiting while maximized will correctly start in a maximized"
+            " window, but restoring back to the normal size won't work.  Try this workaround.");
+    }
+
+    declareSection ("records", "Records");
+    {
+        QString defaultValue = "Icon and Text";
+        QStringList values = QStringList() << defaultValue << "Icon Only" << "Text Only";
+
+        Setting *rsd = createSetting (Type_RadioButton, "status-format",
+            "Modification status display format");
+        rsd->setDefaultValue (defaultValue);
+        rsd->setDeclaredValues (values);
+
+        Setting *ritd = createSetting (Type_RadioButton, "type-format",
+            "ID type display format");
+        ritd->setDefaultValue (defaultValue);
+        ritd->setDeclaredValues (values);
+    }
+
+    declareSection ("table-input", "ID Tables");
+    {
+        QString inPlaceEdit ("Edit in Place");
+        QString editRecord ("Edit Record");
+        QString view ("View");
+        QString editRecordAndClose ("Edit Record and Close");
+
+        QStringList values;
+        values
+            << "None" << inPlaceEdit << editRecord << view << "Revert" << "Delete"
+            << editRecordAndClose << "View and Close";
+
+        QString toolTip = "<ul>"
+            "<li>None</li>"
+            "<li>Edit in Place: Edit the clicked cell</li>"
+            "<li>Edit Record: Open a dialogue subview for the clicked record</li>"
+            "<li>View: Open a scene subview for the clicked record (not available everywhere)</li>"
+            "<li>Revert: Revert record</li>"
+            "<li>Delete: Delete recordy</li>"
+            "<li>Edit Record and Close: Open a dialogue subview for the clicked record and close the table subview</li>"
+            "<li>View And Close: Open a scene subview for the clicked record and close the table subview</li>"
+            "</ul>";
+
+        Setting *doubleClick = createSetting (Type_ComboBox, "double", "Double Click");
+        doubleClick->setDeclaredValues (values);
+        doubleClick->setDefaultValue (inPlaceEdit);
+        doubleClick->setToolTip ("Action on double click in table:<p>" + toolTip);
+
+        Setting *shiftDoubleClick = createSetting (Type_ComboBox, "double-s",
+            "Shift Double Click");
+        shiftDoubleClick->setDeclaredValues (values);
+        shiftDoubleClick->setDefaultValue (editRecord);
+        shiftDoubleClick->setToolTip ("Action on shift double click in table:<p>" + toolTip);
+
+        Setting *ctrlDoubleClick = createSetting (Type_ComboBox, "double-c",
+            "Control Double Click");
+        ctrlDoubleClick->setDeclaredValues (values);
+        ctrlDoubleClick->setDefaultValue (view);
+        ctrlDoubleClick->setToolTip ("Action on control double click in table:<p>" + toolTip);
+
+        Setting *shiftCtrlDoubleClick = createSetting (Type_ComboBox, "double-sc",
+            "Shift Control Double Click");
+        shiftCtrlDoubleClick->setDeclaredValues (values);
+        shiftCtrlDoubleClick->setDefaultValue (editRecordAndClose);
+        shiftCtrlDoubleClick->setToolTip ("Action on shift control double click in table:<p>" + toolTip);
+
+        QString defaultValue = "Jump and Select";
+        QStringList jumpValues = QStringList() << defaultValue << "Jump Only" << "No Jump";
+
+        Setting *jumpToAdded = createSetting (Type_RadioButton, "jump-to-added",
+            "Jump to the added or cloned record.");
+        jumpToAdded->setDefaultValue (defaultValue);
+        jumpToAdded->setDeclaredValues (jumpValues);
+
+        Setting *jumpToModified = createSetting (Type_CheckBox, "jump-to-modified", "Jump to modified Record");
+        jumpToModified->setDefaultValue ("true");
+        jumpToModified->setToolTip ("Whether to jump to the modified record. This setting effects the instances table only."
+                "\nCan be useful in finding the moved or modified object instance while 3D editing.");
+
+        Setting *extendedConfig = createSetting (Type_CheckBox, "extended-config",
+            "Manually specify affected record types for an extended delete/revert");
+        extendedConfig->setDefaultValue("false");
+        extendedConfig->setToolTip("Delete and revert commands have an extended form that also affects "
+                                   "associated records.\n\n"
+                                   "If this option is enabled, types of affected records are selected "
+                                   "manually before a command execution.\nOtherwise, all associated "
+                                   "records are deleted/reverted immediately.");
+    }
+
+    declareSection ("dialogues", "ID Dialogues");
+    {
+        Setting *toolbar = createSetting (Type_CheckBox, "toolbar", "Show toolbar");
+        toolbar->setDefaultValue ("true");
+    }
+
+    declareSection ("report-input", "Reports");
+    {
+        QString none ("None");
+        QString edit ("Edit");
+        QString remove ("Remove");
+        QString editAndRemove ("Edit And Remove");
+
+        QStringList values;
+        values << none << edit << remove << editAndRemove;
+
+        QString toolTip = "<ul>"
+            "<li>None</li>"
+            "<li>Edit: Open a table or dialogue suitable for addressing the listed report</li>"
+            "<li>Remove: Remove the report from the report table</li>"
+            "<li>Edit and Remove: Open a table or dialogue suitable for addressing the listed report, then remove the report from the report table</li>"
+            "</ul>";
+
+        Setting *doubleClick = createSetting (Type_ComboBox, "double", "Double Click");
+        doubleClick->setDeclaredValues (values);
+        doubleClick->setDefaultValue (edit);
+        doubleClick->setToolTip ("Action on double click in report table:<p>" + toolTip);
+
+        Setting *shiftDoubleClick = createSetting (Type_ComboBox, "double-s",
+            "Shift Double Click");
+        shiftDoubleClick->setDeclaredValues (values);
+        shiftDoubleClick->setDefaultValue (remove);
+        shiftDoubleClick->setToolTip ("Action on shift double click in report table:<p>" + toolTip);
+
+        Setting *ctrlDoubleClick = createSetting (Type_ComboBox, "double-c",
+            "Control Double Click");
+        ctrlDoubleClick->setDeclaredValues (values);
+        ctrlDoubleClick->setDefaultValue (editAndRemove);
+        ctrlDoubleClick->setToolTip ("Action on control double click in report table:<p>" + toolTip);
+
+        Setting *shiftCtrlDoubleClick = createSetting (Type_ComboBox, "double-sc",
+            "Shift Control Double Click");
+        shiftCtrlDoubleClick->setDeclaredValues (values);
+        shiftCtrlDoubleClick->setDefaultValue (none);
+        shiftCtrlDoubleClick->setToolTip ("Action on shift control double click in report table:<p>" + toolTip);
+    }
+
+    declareSection ("search", "Search & Replace");
+    {
+        Setting *before = createSetting (Type_SpinBox, "char-before",
+            "Characters before search string");
+        before->setDefaultValue (10);
+        before->setRange (0, 1000);
+        before->setToolTip ("Maximum number of character to display in search result before the searched text");
+
+        Setting *after = createSetting (Type_SpinBox, "char-after",
+            "Characters after search string");
+        after->setDefaultValue (10);
+        after->setRange (0, 1000);
+        after->setToolTip ("Maximum number of character to display in search result after the searched text");
+
+        Setting *autoDelete = createSetting (Type_CheckBox, "auto-delete", "Delete row from result table after a successful replace");
+        autoDelete->setDefaultValue ("true");
+    }
+
+    declareSection ("script-editor", "Scripts");
+    {
+        Setting *lineNum = createSetting (Type_CheckBox, "show-linenum", "Show Line Numbers");
+        lineNum->setDefaultValue ("true");
+        lineNum->setToolTip ("Show line numbers to the left of the script editor window."
+                " The current row and column numbers of the text cursor are shown at the bottom.");
+
+        Setting *monoFont = createSetting (Type_CheckBox, "mono-font", "Use monospace font");
+        monoFont->setDefaultValue ("true");
+        monoFont->setToolTip ("Whether to use monospaced fonts on script edit subview.");
+
+        QString tooltip =
+            "\n#RGB (each of R, G, and B is a single hex digit)"
+            "\n#RRGGBB"
+            "\n#RRRGGGBBB"
+            "\n#RRRRGGGGBBBB"
+            "\nA name from the list of colors defined in the list of SVG color keyword names."
+            "\nX11 color names may also work.";
+
+        QString modeNormal ("Normal");
+
+        QStringList modes;
+        modes << "Ignore" << modeNormal << "Strict";
+
+        Setting *warnings = createSetting (Type_ComboBox, "warnings",
+            "Warning Mode");
+        warnings->setDeclaredValues (modes);
+        warnings->setDefaultValue (modeNormal);
+        warnings->setToolTip ("<ul>How to handle warning messages during compilation:<p>"
+        "<li>Ignore: Do not report warning</li>"
+        "<li>Normal: Report warning as a warning</li>"
+        "<li>Strict: Promote warning to an error</li>"
+        "</ul>");
+
+        Setting *toolbar = createSetting (Type_CheckBox, "toolbar", "Show toolbar");
+        toolbar->setDefaultValue ("true");
+
+        Setting *delay = createSetting (Type_SpinBox, "compile-delay",
+            "Delay between updating of source errors");
+        delay->setDefaultValue (100);
+        delay->setRange (0, 10000);
+        delay->setToolTip ("Delay in milliseconds");
+
+        Setting *errorHeight = createSetting (Type_SpinBox, "error-height",
+            "Initial height of the error panel");
+        errorHeight->setDefaultValue (100);
+        errorHeight->setRange (100, 10000);
+
+        Setting *formatInt = createSetting (Type_LineEdit, "colour-int", "Highlight Colour: Int");
+        formatInt->setDefaultValues (QStringList() << "Dark magenta");
+        formatInt->setToolTip ("(Default: Green) Use one of the following formats:" + tooltip);
+
+        Setting *formatFloat = createSetting (Type_LineEdit, "colour-float", "Highlight Colour: Float");
+        formatFloat->setDefaultValues (QStringList() << "Magenta");
+        formatFloat->setToolTip ("(Default: Magenta) Use one of the following formats:" + tooltip);
+
+        Setting *formatName = createSetting (Type_LineEdit, "colour-name", "Highlight Colour: Name");
+        formatName->setDefaultValues (QStringList() << "Gray");
+        formatName->setToolTip ("(Default: Gray) Use one of the following formats:" + tooltip);
+
+        Setting *formatKeyword = createSetting (Type_LineEdit, "colour-keyword", "Highlight Colour: Keyword");
+        formatKeyword->setDefaultValues (QStringList() << "Red");
+        formatKeyword->setToolTip ("(Default: Red) Use one of the following formats:" + tooltip);
+
+        Setting *formatSpecial = createSetting (Type_LineEdit, "colour-special", "Highlight Colour: Special");
+        formatSpecial->setDefaultValues (QStringList() << "Dark yellow");
+        formatSpecial->setToolTip ("(Default: Dark yellow) Use one of the following formats:" + tooltip);
+
+        Setting *formatComment = createSetting (Type_LineEdit, "colour-comment", "Highlight Colour: Comment");
+        formatComment->setDefaultValues (QStringList() << "Green");
+        formatComment->setToolTip ("(Default: Green) Use one of the following formats:" + tooltip);
+
+        Setting *formatId = createSetting (Type_LineEdit, "colour-id", "Highlight Colour: Id");
+        formatId->setDefaultValues (QStringList() << "Blue");
+        formatId->setToolTip ("(Default: Blue) Use one of the following formats:" + tooltip);
+    }
+
+    declareSection ("filter", "Global Filter");
+    {
+        Setting *projAdded = createSetting (Type_CheckBox, "project-added", "Project::added initial value");
+        projAdded->setDefaultValue ("false");
+        projAdded->setToolTip ("Show records added by the project when opening a table."
+                " Other records are filterd out.");
+
+        Setting *projModified = createSetting (Type_CheckBox, "project-modified", "Project::modified initial value");
+        projModified->setDefaultValue ("false");
+        projModified->setToolTip ("Show records modified by the project when opening a table."
+                " Other records are filterd out.");
+    }
+
+    declareSection ("general-input", "General Input");
+    {
+        Setting *cycle = createSetting (Type_CheckBox, "cycle", "Cyclic next/previous");
+        cycle->setDefaultValue ("false");
+        cycle->setToolTip ("When using next/previous functions at the last/first item of a "
+            "list go to the first/last item");
+    }
+
+    {
+        /******************************************************************
+        * There are three types of values:
+        *
+        * Declared values
+        *
+        *       Pre-determined values, typically for
+        *       combobox drop downs and boolean (radiobutton / checkbox) labels.
+        *       These values represent the total possible list of values that
+        *       may define a setting.  No other values are allowed.
+        *
+        * Defined values
+        *
+        *       Values which represent the actual, current value of
+        *       a setting.  For settings with declared values, this must be one
+        *       or several declared values, as appropriate.
+        *
+        * Proxy values
+        *       Values the proxy master updates the proxy slave when
+        *       it's own definition is set / changed.  These are definitions for
+        *       proxy slave settings, but must match any declared values the
+        *       proxy slave has, if any.
+        *******************************************************************/
+/*
+        //create setting objects, specifying the basic widget type,
+        //the page name, and the view name
+
+        Setting *masterBoolean = createSetting (Type_RadioButton, section,
+                                                "Master Proxy");
+
+        Setting *slaveBoolean = createSetting (Type_CheckBox, section,
+                                                "Proxy Checkboxes");
+
+        Setting *slaveSingleText = createSetting (Type_LineEdit, section,
+                                                "Proxy TextBox 1");
+
+        Setting *slaveMultiText = createSetting (Type_LineEdit, section,
+                                                "ProxyTextBox 2");
+
+        Setting *slaveAlphaSpinbox = createSetting (Type_SpinBox, section,
+                                                "Alpha Spinbox");
+
+        Setting *slaveIntegerSpinbox = createSetting (Type_SpinBox, section,
+                                                "Int Spinbox");
+
+        Setting *slaveDoubleSpinbox = createSetting (Type_DoubleSpinBox,
+                                                section, "Double Spinbox");
+
+        Setting *slaveSlider = createSetting (Type_Slider, section, "Slider");
+
+        Setting *slaveDial = createSetting (Type_Dial, section, "Dial");
+
+        //set declared values for selected views
+        masterBoolean->setDeclaredValues (QStringList()
+                                        << "Profile One" << "Profile Two"
+                                        << "Profile Three" << "Profile Four");
+
+        slaveBoolean->setDeclaredValues (QStringList()
+                            << "One" << "Two" << "Three" << "Four" << "Five");
+
+        slaveAlphaSpinbox->setDeclaredValues (QStringList()
+                            << "One" << "Two" << "Three" << "Four");
+
+
+        masterBoolean->addProxy (slaveBoolean, QList <QStringList>()
+                                 << (QStringList() << "One" << "Three")
+                                 << (QStringList() << "One" << "Three")
+                                 << (QStringList() << "One" << "Three" << "Five")
+                                 << (QStringList() << "Two" << "Four")
+                                 );
+
+        masterBoolean->addProxy (slaveSingleText, QList <QStringList>()
+                                 << (QStringList() << "Text A")
+                                 << (QStringList() << "Text B")
+                                 << (QStringList() << "Text A")
+                                 << (QStringList() << "Text C")
+                                 );
+
+        masterBoolean->addProxy (slaveMultiText, QList <QStringList>()
+                                 << (QStringList() << "One" << "Three")
+                                 << (QStringList() << "One" << "Three")
+                                 << (QStringList() << "One" << "Three" << "Five")
+                                 << (QStringList() << "Two" << "Four")
+                                 );
+
+        masterBoolean->addProxy (slaveAlphaSpinbox, QList <QStringList>()
+                                 << (QStringList() << "Four")
+                                 << (QStringList() << "Three")
+                                 << (QStringList() << "Two")
+                                 << (QStringList() << "One"));
+
+        masterBoolean->addProxy (slaveIntegerSpinbox, QList <QStringList> ()
+                                 << (QStringList() << "0")
+                                 << (QStringList() << "7")
+                                 << (QStringList() << "14")
+                                 << (QStringList() << "21"));
+
+        masterBoolean->addProxy (slaveDoubleSpinbox, QList <QStringList> ()
+                                 << (QStringList() << "0.17")
+                                 << (QStringList() << "0.34")
+                                 << (QStringList() << "0.51")
+                                 << (QStringList() << "0.68"));
+
+        masterBoolean->addProxy (slaveSlider, QList <QStringList> ()
+                                 << (QStringList() << "25")
+                                 << (QStringList() << "50")
+                                 << (QStringList() << "75")
+                                 << (QStringList() << "100")
+                                 );
+
+        masterBoolean->addProxy (slaveDial, QList <QStringList> ()
+                                 << (QStringList() << "25")
+                                 << (QStringList() << "50")
+                                 << (QStringList() << "75")
+                                 << (QStringList() << "100")
+                                 );
+
+        //settings with proxies are not serialized by default
+        //other settings non-serialized for demo purposes
+        slaveBoolean->setSerializable (false);
+        slaveSingleText->setSerializable (false);
+        slaveMultiText->setSerializable (false);
+        slaveAlphaSpinbox->setSerializable (false);
+        slaveIntegerSpinbox->setSerializable (false);
+        slaveDoubleSpinbox->setSerializable (false);
+        slaveSlider->setSerializable (false);
+        slaveDial->setSerializable (false);
+
+        slaveBoolean->setDefaultValues (QStringList()
+                                        << "One" << "Three" << "Five");
+
+        slaveSingleText->setDefaultValue ("Text A");
+
+        slaveMultiText->setDefaultValues (QStringList()
+                                         << "One" << "Three" << "Five");
+
+        slaveSingleText->setWidgetWidth (24);
+        slaveMultiText->setWidgetWidth (24);
+
+        slaveAlphaSpinbox->setDefaultValue ("Two");
+        slaveAlphaSpinbox->setWidgetWidth (20);
+        //slaveAlphaSpinbox->setPrefix ("No. ");
+        //slaveAlphaSpinbox->setSuffix ("!");
+        slaveAlphaSpinbox->setWrapping (true);
+
+        slaveIntegerSpinbox->setDefaultValue (14);
+        slaveIntegerSpinbox->setMinimum (0);
+        slaveIntegerSpinbox->setMaximum (58);
+        slaveIntegerSpinbox->setPrefix ("$");
+        slaveIntegerSpinbox->setSuffix (".00");
+        slaveIntegerSpinbox->setWidgetWidth (10);
+        slaveIntegerSpinbox->setSpecialValueText ("Nothing!");
+
+        slaveDoubleSpinbox->setDefaultValue (0.51);
+        slaveDoubleSpinbox->setSingleStep(0.17);
+        slaveDoubleSpinbox->setMaximum(4.0);
+
+        slaveSlider->setMinimum (0);
+        slaveSlider->setMaximum (100);
+        slaveSlider->setDefaultValue (75);
+        slaveSlider->setWidgetWidth (100);
+        slaveSlider->setTicksAbove (true);
+        slaveSlider->setTickInterval (25);
+
+        slaveDial->setMinimum (0);
+        slaveDial->setMaximum (100);
+        slaveDial->setSingleStep (5);
+        slaveDial->setDefaultValue (75);
+        slaveDial->setTickInterval (25);
+*/
+        }
 }
 
 CSMSettings::UserSettings::~UserSettings()
 {
-    mUserSettingsInstance = 0;
-}
-
-QTextStream *CSMSettings::UserSettings::openFileStream (const QString &filePath, bool isReadOnly) const
-{
-    QIODevice::OpenMode openFlags = QIODevice::Text;
-
-    if (isReadOnly)
-        openFlags = QIODevice::ReadOnly | openFlags;
-    else
-        openFlags = QIODevice::ReadWrite | QIODevice::Truncate | openFlags;
-
-    QFile *file = new QFile(filePath);
-    QTextStream *stream = 0;
-
-    if (file->open(openFlags))
-    {
-        stream = new QTextStream(file);
-        stream->setCodec(QTextCodec::codecForName("UTF-8"));
-    }
-
-    return stream;
-
-}
-
-bool CSMSettings::UserSettings::writeSettings(QMap<QString, CSMSettings::SettingList *> &settings)
-{
-    QTextStream *stream = openFileStream(mUserFilePath);
-
-    bool success = (stream);
-
-    if (success)
-    {
-        QList<QString> keyList = settings.keys();
-
-        foreach (QString key, keyList)
-        {
-            SettingList *sectionSettings = settings[key];
-
-            *stream << "[" << key << "]" << '\n';
-
-            foreach (SettingContainer *item, *sectionSettings)
-                *stream << item->objectName() << " = " << item->getValue() << '\n';
-        }
-
-        stream->device()->close();
-        delete stream;
-        stream = 0;
-    }
-    else
-    {
-        displayFileErrorMessage(mReadWriteMessage, false);
-    }
-
-    return (success);
-}
-
-
-const CSMSettings::SectionMap &CSMSettings::UserSettings::getSectionMap() const
-{
-    return mSectionSettings;
-}
-
-const CSMSettings::SettingMap *CSMSettings::UserSettings::getSettings(const QString &sectionName) const
-{
-    return getValidSettings(sectionName);
-}
-
-bool CSMSettings::UserSettings::loadFromFile(const QString &filePath)
-{
-    if (filePath.isEmpty())
-        return false;
-
-    SectionMap loadedSettings;
-
-    QTextStream *stream = openFileStream (filePath, true);
-
-    bool success = (stream);
-
-    if (success)
-    {
-        //looks for a square bracket, "'\\["
-        //that has one or more "not nothing" in it, "([^]]+)"
-        //and is closed with a square bracket, "\\]"
-
-        QRegExp sectionRe("^\\[([^]]+)\\]");
-
-        //Find any character(s) that is/are not equal sign(s), "[^=]+"
-        //followed by an optional whitespace, an equal sign, and another optional whitespace, "\\s*=\\s*"
-        //and one or more periods, "(.+)"
-
-        QRegExp keyRe("^([^=]+)\\s*=\\s*(.+)$");
-
-        CSMSettings::SettingMap *settings = 0;
-        QString section = "none";
-
-        while (!stream->atEnd())
-        {
-            QString line = stream->readLine().simplified();
-
-            if (line.isEmpty() || line.startsWith("#"))
-                continue;
-
-            //if a section is found, push it onto a new QStringList
-            //and push the QStringList onto
-            if (sectionRe.exactMatch(line))
-            {
-                //add the previous section's settings to the member map
-                if (settings)
-                    loadedSettings.insert(section, settings);
-
-                //save new section and create a new list
-                section = sectionRe.cap(1);
-                settings = new SettingMap;
-                continue;
-            }
-
-            if (keyRe.indexIn(line) != -1)
-            {
-                SettingContainer *sc  = new SettingContainer (keyRe.cap(2).simplified());
-                sc->setObjectName(keyRe.cap(1).simplified());
-                (*settings)[keyRe.cap(1).simplified()]  = sc;
-            }
-
-        }
-
-        loadedSettings.insert(section, settings);
-
-        stream->device()->close();
-        delete stream;
-        stream = 0;
-    }
-
-    mergeMap (loadedSettings);
-
-    return success;
-}
-
-void CSMSettings::UserSettings::mergeMap (const CSMSettings::SectionMap &sectionSettings)
-{
-    foreach (QString key, sectionSettings.uniqueKeys())
-    {
-        // insert entire section if it does not already exist in the loaded files
-        if (mSectionSettings.find(key) == mSectionSettings.end())
-            mSectionSettings.insert(key, sectionSettings.value(key));
-        else
-        {
-            SettingMap *passedSettings = sectionSettings.value(key);
-            SettingMap *settings = mSectionSettings.value(key);
-
-            foreach (QString key2, passedSettings->uniqueKeys())
-            {
-                //insert section settings individially if they do not already exist
-                if (settings->find(key2) == settings->end())
-                    settings->insert(key2, passedSettings->value(key2));
-                else
-                {
-                    settings->value(key2)->update(passedSettings->value(key2)->getValue());
-                }
-            }
-        }
-    }
+    sUserSettingsInstance = 0;
 }
 
 void CSMSettings::UserSettings::loadSettings (const QString &fileName)
 {
-    mSectionSettings.clear();
+    QString userFilePath = QString::fromUtf8
+                                (mCfgMgr.getUserConfigPath().string().c_str());
 
-    //global
-    QString globalFilePath = QString::fromStdString(mCfgMgr.getGlobalPath().string()) + fileName;
-    bool globalOk = loadFromFile(globalFilePath);
+    QString globalFilePath = QString::fromUtf8
+                                (mCfgMgr.getGlobalPath().string().c_str());
 
+    QString otherFilePath = globalFilePath;
 
-    //local
-    QString localFilePath = QString::fromStdString(mCfgMgr.getLocalPath().string()) + fileName;
-    bool localOk = loadFromFile(localFilePath);
-
-    //user
-    mUserFilePath = QString::fromStdString(mCfgMgr.getUserConfigPath().string()) + fileName;
-    loadFromFile(mUserFilePath);
-
-    if (!(localOk || globalOk))
+    //test for local only if global fails (uninstalled copy)
+    if (!QFile (globalFilePath + fileName).exists())
     {
-        QString message = QObject::tr("<br><b>Could not open user settings files for reading</b><br><br> \
-                Global and local settings files could not be read.\
-                You may have incorrect file permissions or the OpenCS installation may be corrupted.<br>");
-
-        message += QObject::tr("<br>Global filepath: ") + globalFilePath;
-        message += QObject::tr("<br>Local filepath: ") + localFilePath;
-
-        displayFileErrorMessage ( message, true);
+        //if global is invalid, use the local path
+        otherFilePath = QString::fromUtf8
+                                    (mCfgMgr.getLocalPath().string().c_str());
     }
+
+    QSettings::setPath
+                (QSettings::IniFormat, QSettings::UserScope, userFilePath);
+
+    QSettings::setPath
+                (QSettings::IniFormat, QSettings::SystemScope, otherFilePath);
+
+    mSettingDefinitions = new QSettings
+        (QSettings::IniFormat, QSettings::UserScope, "opencs", QString(), this);
 }
 
-void CSMSettings::UserSettings::updateSettings (const QString &sectionName, const QString &settingName)
+// if the key is not found create one with a default value
+QString CSMSettings::UserSettings::setting(const QString &viewKey, const QString &value)
 {
-
-    SettingMap *settings = getValidSettings(sectionName);
-
-    if (!settings)
-        return;
-
-    if (settingName.isEmpty())
+    if(mSettingDefinitions->contains(viewKey))
+        return settingValue(viewKey);
+    else if(value != QString())
     {
-        foreach (const SettingContainer *setting, *settings)
-            emit signalUpdateEditorSetting (setting->objectName(), setting->getValue());
+        mSettingDefinitions->setValue (viewKey, QStringList() << value);
+        return value;
     }
-    else
-    {
-        if (settings->find(settingName) != settings->end())
-        {
-            const SettingContainer *setting = settings->value(settingName);
-            emit signalUpdateEditorSetting (setting->objectName(), setting->getValue());
-        }
-    }
+
+    return QString();
 }
 
-QString CSMSettings::UserSettings::getSetting (const QString &section, const QString &setting) const
+QVariant CSMSettings::UserSettings::value(const QString &viewKey, const QVariant &value)
 {
-    SettingMap *settings = getValidSettings(section);
+    if(value != QVariant())
+    {
+        mSettingDefinitions->setValue (viewKey, value);
+        return value;
+    }
+    else if(mSettingDefinitions->contains(viewKey))
+    {
+        return mSettingDefinitions->value (viewKey);
+    }
 
-    QString retVal = "";
+    return QVariant();
+}
 
-    if (settings->find(setting) != settings->end())
-        retVal = settings->value(setting)->getValue();
+bool CSMSettings::UserSettings::hasSettingDefinitions (const QString &viewKey) const
+{
+    return (mSettingDefinitions->contains (viewKey));
+}
 
-    return retVal;
+void CSMSettings::UserSettings::setDefinitions
+                                (const QString &key, const QStringList &list)
+{
+    mSettingDefinitions->setValue (key, list);
+}
+
+void CSMSettings::UserSettings::saveDefinitions() const
+{
+    mSettingDefinitions->sync();
+}
+
+QString CSMSettings::UserSettings::settingValue (const QString &settingKey)
+{
+    QStringList defs;
+
+    if (!mSettingDefinitions->contains (settingKey))
+        return QString();
+
+    defs = mSettingDefinitions->value (settingKey).toStringList();
+
+    if (defs.isEmpty())
+        return QString();
+
+    return defs.at(0);
 }
 
 CSMSettings::UserSettings& CSMSettings::UserSettings::instance()
 {
-    assert(mUserSettingsInstance);
-    return *mUserSettingsInstance;
+    assert(sUserSettingsInstance);
+    return *sUserSettingsInstance;
 }
 
-void CSMSettings::UserSettings::displayFileErrorMessage(const QString &message, bool isReadOnly)
+void CSMSettings::UserSettings::updateUserSetting(const QString &settingKey,
+                                                    const QStringList &list)
 {
-        // File cannot be opened or created
-        QMessageBox msgBox;
-        msgBox.setWindowTitle(QObject::tr("OpenCS configuration file I/O error"));
-        msgBox.setIcon(QMessageBox::Critical);
-        msgBox.setStandardButtons(QMessageBox::Ok);
+    mSettingDefinitions->setValue (settingKey ,list);
 
-        if (!isReadOnly)
-            msgBox.setText (mReadWriteMessage + message);
-        else
-            msgBox.setText (message);
-
-        msgBox.exec();
-}
-
-CSMSettings::SettingMap *
-CSMSettings::UserSettings::getValidSettings (const QString &sectionName) const
-{
-    SettingMap *settings = 0;
-
-    //copy the default values for the entire section if it's not found
-    if (mSectionSettings.find(sectionName) == mSectionSettings.end())
+    if(settingKey == "3d-render-adv/num_lights" && !list.empty())
     {
-        if (mEditorSettingDefaults.find(sectionName) != mEditorSettingDefaults.end())
-            settings = mEditorSettingDefaults.value (sectionName);
+        sh::Factory::getInstance ().setGlobalSetting ("num_lights", list.at(0).toStdString());
     }
-    //otherwise, iterate the section's settings, looking for missing values and replacing them with defaults.
-    else
+    else if(settingKey == "3d-render/shaders" && !list.empty())
     {
-        SettingMap *loadedSettings = mSectionSettings[sectionName];
-        SettingMap *defaultSettings = mEditorSettingDefaults[sectionName];
+        sh::Factory::getInstance ().setShadersEnabled (list.at(0).toStdString() == "true" ? true : false);
+    }
 
-        foreach (QString key, defaultSettings->uniqueKeys())
+    emit userSettingUpdated (settingKey, list);
+}
+
+CSMSettings::Setting *CSMSettings::UserSettings::findSetting
+                        (const QString &pageName, const QString &settingName)
+{
+    foreach (Setting *setting, mSettings)
+    {
+        if (setting->name() == settingName)
         {
-            //write the default value to the loaded settings
-            if (loadedSettings->find((key))==loadedSettings->end())
-                loadedSettings->insert(key, defaultSettings->value(key));
+            if (setting->page() == pageName)
+                return setting;
+        }
+    }
+    return 0;
+}
+
+void CSMSettings::UserSettings::removeSetting
+                        (const QString &pageName, const QString &settingName)
+{
+    if (mSettings.isEmpty())
+        return;
+
+    QList <Setting *>::iterator removeIterator = mSettings.begin();
+
+    while (removeIterator != mSettings.end())
+    {
+        if ((*removeIterator)->name() == settingName)
+        {
+            if ((*removeIterator)->page() == pageName)
+            {
+                mSettings.erase (removeIterator);
+                break;
+            }
+        }
+        removeIterator++;
+    }
+}
+
+CSMSettings::SettingPageMap CSMSettings::UserSettings::settingPageMap() const
+{
+    SettingPageMap pageMap;
+
+    foreach (Setting *setting, mSettings)
+    {
+        SettingPageMap::iterator iter = pageMap.find (setting->page());
+
+        if (iter==pageMap.end())
+        {
+            QPair<QString, QList <Setting *> > value;
+
+            std::map<QString, QString>::const_iterator iter2 =
+                mSectionLabels.find (setting->page());
+
+            value.first = iter2!=mSectionLabels.end() ? iter2->second : "";
+
+            iter = pageMap.insert (setting->page(), value);
         }
 
-        settings = mSectionSettings.value (sectionName);
+        iter->second.append (setting);
     }
 
-    return settings;
+    return pageMap;
+}
+
+CSMSettings::Setting *CSMSettings::UserSettings::createSetting
+        (CSMSettings::SettingType type, const QString &name, const QString& label)
+{
+    Setting *setting = new Setting (type, name, mSection, label);
+
+    // set useful defaults
+    int row = 1;
+
+    if (!mSettings.empty())
+        row = mSettings.back()->viewRow()+1;
+
+    setting->setViewLocation (row, 1);
+
+    setting->setColumnSpan (3);
+
+    int width = 10;
+
+    if (type==Type_CheckBox)
+        width = 40;
+
+    setting->setWidgetWidth (width);
+
+    if (type==Type_CheckBox)
+        setting->setStyleSheet ("QGroupBox { border: 0px; }");
+
+    if (type==Type_CheckBox)
+        setting->setDeclaredValues(QStringList() << "true" << "false");
+
+    if (type==Type_CheckBox)
+        setting->setSpecialValueText (setting->getLabel());
+
+    //add declaration to the model
+    mSettings.append (setting);
+
+    return setting;
+}
+
+void CSMSettings::UserSettings::declareSection (const QString& page, const QString& label)
+{
+    mSection = page;
+    mSectionLabels[page] = label;
+}
+
+QStringList CSMSettings::UserSettings::definitions (const QString &viewKey) const
+{
+    if (mSettingDefinitions->contains (viewKey))
+        return mSettingDefinitions->value (viewKey).toStringList();
+
+    return QStringList();
 }

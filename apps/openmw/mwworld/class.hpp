@@ -43,7 +43,6 @@ namespace ESM
 
 namespace MWWorld
 {
-    class Ptr;
     class ContainerStore;
     class InventoryStore;
     class PhysicsSystem;
@@ -72,12 +71,6 @@ namespace MWWorld
 
         public:
 
-            /// NPC-stances.
-            enum Stance
-            {
-                Run, Sneak
-            };
-
             virtual ~Class();
 
             const std::string& getTypeName() const {
@@ -87,21 +80,24 @@ namespace MWWorld
             virtual std::string getId (const Ptr& ptr) const;
             ///< Return ID of \a ptr or throw an exception, if class does not support ID retrieval
             /// (default implementation: throw an exception)
+            /// @note This function is currently redundant; the same ID can be retrieved by CellRef::getRefId.
+            ///       Leaving it here for now in case we want to optimize later.
 
-            virtual void insertObjectRendering (const Ptr& ptr, MWRender::RenderingInterface& renderingInterface) const;
-            virtual void insertObject(const Ptr& ptr, MWWorld::PhysicsSystem& physics) const;
+            virtual void insertObjectRendering (const Ptr& ptr, const std::string& mesh, MWRender::RenderingInterface& renderingInterface) const;
+            virtual void insertObject(const Ptr& ptr, const std::string& mesh, MWWorld::PhysicsSystem& physics) const;
             ///< Add reference into a cell for rendering (default implementation: don't render anything).
 
             virtual std::string getName (const Ptr& ptr) const = 0;
             ///< \return name (the one that is to be presented to the user; not the internal one);
             /// can return an empty string.
 
-            virtual void adjustPosition(const MWWorld::Ptr& ptr) const;
+            virtual void adjustPosition(const MWWorld::Ptr& ptr, bool force) const;
             ///< Adjust position to stand on ground. Must be called post model load
+            /// @param force do this even if the ptr is flying
 
             virtual MWMechanics::CreatureStats& getCreatureStats (const Ptr& ptr) const;
             ///< Return creature stats or throw an exception, if class does not have creature stats
-            /// (default implementation: throw an exceoption)
+            /// (default implementation: throw an exception)
 
             virtual bool hasToolTip (const Ptr& ptr) const;
             ///< @return true if this object has a tooltip when focused (default implementation: false)
@@ -111,21 +107,24 @@ namespace MWWorld
 
             virtual MWMechanics::NpcStats& getNpcStats (const Ptr& ptr) const;
             ///< Return NPC stats or throw an exception, if class does not have NPC stats
-            /// (default implementation: throw an exceoption)
+            /// (default implementation: throw an exception)
 
             virtual bool hasItemHealth (const Ptr& ptr) const;
             ///< \return Item health data available? (default implementation: false)
 
+            virtual int getItemHealth (const Ptr& ptr) const;
+            ///< Return current item health or throw an exception if class does not have item health
+
             virtual int getItemMaxHealth (const Ptr& ptr) const;
             ///< Return item max health or throw an exception, if class does not have item health
-            /// (default implementation: throw an exceoption)
+            /// (default implementation: throw an exception)
 
             virtual void hit(const Ptr& ptr, int type=-1) const;
             ///< Execute a melee hit, using the current weapon. This will check the relevant skills
             /// of the given attacker, and whoever is hit.
             /// \param type - type of attack, one of the MWMechanics::CreatureStats::AttackType
             ///               enums. ignored for creature attacks.
-            /// (default implementation: throw an exceoption)
+            /// (default implementation: throw an exception)
 
             virtual void onHit(const MWWorld::Ptr &ptr, float damage, bool ishealth, const MWWorld::Ptr &object, const MWWorld::Ptr &attacker, bool successful) const;
             ///< Alerts \a ptr that it's being hit for \a damage points to health if \a ishealth is
@@ -141,7 +140,7 @@ namespace MWWorld
             ///< Sets a new current health value for the actor, optionally specifying the object causing
             /// the change. Use this instead of using CreatureStats directly as this will make sure the
             /// correct dialog and actor states are properly handled when being hurt or healed.
-            /// (default implementation: throw an exceoption)
+            /// (default implementation: throw an exception)
 
             virtual boost::shared_ptr<Action> activate (const Ptr& ptr, const Ptr& actor) const;
             ///< Generate action for activation (default implementation: return a null action).
@@ -153,11 +152,11 @@ namespace MWWorld
 
             virtual ContainerStore& getContainerStore (const Ptr& ptr) const;
             ///< Return container store or throw an exception, if class does not have a
-            /// container store (default implementation: throw an exceoption)
+            /// container store (default implementation: throw an exception)
 
             virtual InventoryStore& getInventoryStore (const Ptr& ptr) const;
             ///< Return inventory store or throw an exception, if class does not have a
-            /// inventory store (default implementation: throw an exceoption)
+            /// inventory store (default implementation: throw an exception)
 
             virtual bool hasInventoryStore (const Ptr& ptr) const;
             ///< Does this object have an inventory store, i.e. equipment slots? (default implementation: false)
@@ -185,9 +184,6 @@ namespace MWWorld
 
             virtual float getJump(const MWWorld::Ptr &ptr) const;
             ///< Return jump velocity (not accounting for movement)
-
-            virtual float getFallDamage(const MWWorld::Ptr &ptr, float fallHeight) const;
-            ///< Return amount of health points lost when falling
 
             virtual MWMechanics::Movement& getMovementSettings (const Ptr& ptr) const;
             ///< Return desired movement.
@@ -225,6 +221,9 @@ namespace MWWorld
             /// effects). Throws an exception, if the object can't hold other objects.
             /// (default implementation: throws an exception)
 
+            virtual float getNormalizedEncumbrance (const MWWorld::Ptr& ptr) const;
+            ///< Returns encumbrance re-scaled to capacity
+
             virtual bool apply (const MWWorld::Ptr& ptr, const std::string& id,
                 const MWWorld::Ptr& actor) const;
             ///< Apply \a id on \a ptr.
@@ -233,7 +232,7 @@ namespace MWWorld
             ///
             /// (default implementation: ignore and return false)
 
-            virtual void skillUsageSucceeded (const MWWorld::Ptr& ptr, int skill, int usageType) const;
+            virtual void skillUsageSucceeded (const MWWorld::Ptr& ptr, int skill, int usageType, float extraFactor=1.f) const;
             ///< Inform actor \a ptr that a skill use has succeeded.
             ///
             /// (default implementations: throws an exception)
@@ -269,8 +268,6 @@ namespace MWWorld
 
             virtual void adjustScale(const MWWorld::Ptr& ptr,float& scale) const;
 
-            virtual void adjustRotation(const MWWorld::Ptr& ptr,float& x,float& y,float& z) const;
-
             virtual bool canSell (const MWWorld::Ptr& item, int npcServices) const;
             ///< Determine whether or not \a item can be sold to an npc with the given \a npcServices
 
@@ -278,7 +275,8 @@ namespace MWWorld
 
             virtual std::string getModel(const MWWorld::Ptr &ptr) const;
 
-            virtual void applyEnchantment(const MWWorld::Ptr &ptr, const std::string& enchId, int enchCharge, const std::string& newName) const;
+            virtual std::string applyEnchantment(const MWWorld::Ptr &ptr, const std::string& enchId, int enchCharge, const std::string& newName) const;
+            ///< Creates a new record using \a ptr as template, with the given name and the given enchantment applied to it.
 
             virtual std::pair<int, std::string> canBeEquipped(const MWWorld::Ptr &ptr, const MWWorld::Ptr &npc) const;
             ///< Return 0 if player cannot equip item. 1 if can equip. 2 if it's twohanded weapon. 3 if twohanded weapon conflicts with that.
@@ -311,6 +309,8 @@ namespace MWWorld
             virtual bool canFly(const MWWorld::Ptr& ptr) const;
             virtual bool canSwim(const MWWorld::Ptr& ptr) const;
             virtual bool canWalk(const MWWorld::Ptr& ptr) const;
+            bool isPureWaterCreature(const MWWorld::Ptr& ptr) const;
+            bool isMobile(const MWWorld::Ptr& ptr) const;
 
             virtual int getSkill(const MWWorld::Ptr& ptr, int skill) const;
 
@@ -325,13 +325,31 @@ namespace MWWorld
             static const Class& get (const std::string& key);
             ///< If there is no class for this \a key, an exception is thrown.
 
-            static const Class& get (const Ptr& ptr)
-            {
-                return ptr.getClass();
-            }
-            ///< If there is no class for this pointer, an exception is thrown.
-
             static void registerClass (const std::string& key,  boost::shared_ptr<Class> instance);
+
+            virtual int getBaseGold(const MWWorld::Ptr& ptr) const;
+
+            virtual bool isClass(const MWWorld::Ptr& ptr, const std::string &className) const;
+
+            /// 0 = nothing, 1 = opening, 2 = closing
+            virtual int getDoorState (const MWWorld::Ptr &ptr) const;
+            /// This does not actually cause the door to move. Use World::activateDoor instead.
+            virtual void setDoorState (const MWWorld::Ptr &ptr, int state) const;
+
+            virtual void respawn (const MWWorld::Ptr& ptr) const {}
+
+            virtual void restock (const MWWorld::Ptr& ptr) const {}
+
+            /// Returns sound id
+            virtual std::string getSound(const MWWorld::Ptr& ptr) const;
+
+            virtual int getBaseFightRating (const MWWorld::Ptr& ptr) const;
+
+            virtual std::string getPrimaryFaction (const MWWorld::Ptr& ptr) const;
+            virtual int getPrimaryFactionRank (const MWWorld::Ptr& ptr) const;
+
+            /// Get the effective armor rating, factoring in the actor's skills, for the given armor.
+            virtual int getEffectiveArmorRating(const MWWorld::Ptr& ptr, const MWWorld::Ptr& actor) const;
     };
 }
 

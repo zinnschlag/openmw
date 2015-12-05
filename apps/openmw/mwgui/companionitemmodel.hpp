@@ -13,8 +13,10 @@ namespace MWGui
     public:
         CompanionItemModel (const MWWorld::Ptr& actor);
 
-        virtual void copyItem (const ItemStack& item, size_t count);
+        virtual MWWorld::Ptr copyItem (const ItemStack& item, size_t count, bool setNewOwner);
         virtual void removeItem (const ItemStack& item, size_t count);
+
+        bool hasProfit(const MWWorld::Ptr& actor);
     };
 
 }

@@ -4,6 +4,12 @@
 #include <vector>
 #include <string>
 
+#include "../world/universalid.hpp"
+
+#include "messages.hpp"
+
+class QString;
+
 namespace CSMDoc
 {
     class Stage
@@ -15,8 +21,11 @@ namespace CSMDoc
             virtual int setup() = 0;
             ///< \return number of steps
 
-            virtual void perform (int stage, std::vector<std::string>& messages) = 0;
+            virtual void perform (int stage, Messages& messages) = 0;
             ///< Messages resulting from this stage will be appended to \a messages.
+
+            /// Default-implementation: ignore
+            virtual void updateUserSetting (const QString& name, const QStringList& value);
     };
 }
 

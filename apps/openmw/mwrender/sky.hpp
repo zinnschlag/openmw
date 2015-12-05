@@ -39,7 +39,6 @@ namespace MWRender
                         Ogre::SceneNode* rootNode,
                           const std::string& material
                     );
-        BillboardObject();
 
         void requestedConfiguration (sh::MaterialInstance* m, const std::string& configuration);
         void createdConfiguration (sh::MaterialInstance* m, const std::string& configuration);
@@ -103,7 +102,6 @@ namespace MWRender
         void setPhase(const Phase& phase);
         void setType(const Type& type);
 
-        Phase getPhase() const;
         unsigned int getPhaseInt() const;
 
     private:
@@ -116,6 +114,9 @@ namespace MWRender
     public:
         SkyManager(Ogre::SceneNode* root, Ogre::Camera* pCamera);
         ~SkyManager();
+
+        /// Attach weather particle effects to this scene node (should be the Camera's parent node)
+        void attachToNode(Ogre::SceneNode* sceneNode);
 
         void update(float duration);
 
@@ -148,7 +149,11 @@ namespace MWRender
 
         void sunDisable();
 
-        void setSunDirection(const Ogre::Vector3& direction);
+        void setRainSpeed(float speed);
+
+        void setStormDirection(const Ogre::Vector3& direction);
+
+        void setSunDirection(const Ogre::Vector3& direction, bool is_night);
 
         void setMasserDirection(const Ogre::Vector3& direction);
 
@@ -165,8 +170,6 @@ namespace MWRender
         void secundaDisable();
 
         void setLightningStrength(const float factor);
-        void setLightningDirection(const Ogre::Vector3& dir);
-        void setLightningEnabled(bool enabled); ///< disable prior to map render
 
         void setGlare(const float glare);
         void setGlareEnabled(bool enabled);
@@ -176,9 +179,14 @@ namespace MWRender
         void create();
         ///< no need to call this, automatically done on first enable()
 
+        void updateRain(float dt);
+        void clearRain();
+
         bool mCreated;
 
         bool mMoonRed;
+
+        bool mIsStorm;
 
         float mHour;
         int mDay;
@@ -198,7 +206,17 @@ namespace MWRender
         Ogre::SceneNode* mAtmosphereDay;
         Ogre::SceneNode* mAtmosphereNight;
 
+        Ogre::SceneNode* mCloudNode;
+
         std::vector<NifOgre::ObjectScenePtr> mObjects;
+
+        Ogre::SceneNode* mParticleNode;
+        NifOgre::ObjectScenePtr mParticle;
+
+        std::map<Ogre::SceneNode*, NifOgre::ObjectScenePtr> mRainModels;
+        float mRainTimer;
+
+        Ogre::Vector3 mStormDirection;
 
         // remember some settings so we don't have to apply them again if they didnt change
         Ogre::String mClouds;
@@ -211,12 +229,19 @@ namespace MWRender
         Ogre::ColourValue mSkyColour;
         Ogre::ColourValue mFogColour;
 
+        std::string mCurrentParticleEffect;
+
         Ogre::Light* mLightning;
 
         float mRemainingTransitionTime;
 
         float mGlare; // target
         float mGlareFade; // actual
+
+        bool mRainEnabled;
+        std::string mRainEffect;
+        float mRainSpeed;
+        float mRainFrequency;
 
         bool mEnabled;
         bool mSunEnabled;

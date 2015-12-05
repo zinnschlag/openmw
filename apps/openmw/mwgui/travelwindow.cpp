@@ -1,18 +1,23 @@
 #include "travelwindow.hpp"
 
-#include <boost/lexical_cast.hpp>
+#include <MyGUI_Button.h>
+#include <MyGUI_ScrollView.h>
+#include <MyGUI_Gui.h>
 
 #include <OgreVector3.h>
-
-#include <libs/openengine/ogre/fader.hpp>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/windowmanager.hpp"
 #include "../mwbase/mechanicsmanager.hpp"
+#include "../mwbase/soundmanager.hpp"
+#include "../mwbase/dialoguemanager.hpp"
+
+#include "../mwmechanics/creaturestats.hpp"
 
 #include "../mwworld/class.hpp"
 #include "../mwworld/containerstore.hpp"
+#include "../mwworld/actionteleport.hpp"
 #include "../mwworld/esmstore.hpp"
 #include "../mwworld/cellstore.hpp"
 
@@ -23,7 +28,6 @@ namespace MWGui
     TravelWindow::TravelWindow() :
         WindowBase("openmw_travel_window.layout")
         , mCurrentY(0)
-        , mLastPos(0)
     {
         setCoord(0, 0, 450, 300);
 
@@ -45,7 +49,12 @@ namespace MWGui
                           mSelect->getHeight());
     }
 
-    void TravelWindow::addDestination(const std::string& travelId,ESM::Position pos,bool interior)
+    void TravelWindow::exit()
+    {
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Travel);
+    }
+
+    void TravelWindow::addDestination(const std::string& name,ESM::Position pos,bool interior)
     {
         int price = 0;
 
@@ -57,13 +66,13 @@ namespace MWGui
 
         if(interior)
         {
-            price = gmst.find("fMagesGuildTravel")->getFloat();
+            price = gmst.find("fMagesGuildTravel")->getInt();
         }
         else
         {
             ESM::Position PlayerPos = player.getRefData().getPosition();
             float d = sqrt( pow(pos.pos[0] - PlayerPos.pos[0],2) + pow(pos.pos[1] - PlayerPos.pos[1],2) + pow(pos.pos[2] - PlayerPos.pos[2],2)   );
-            price = d/gmst.find("fTravelMult")->getFloat();
+            price = static_cast<int>(d / gmst.find("fTravelMult")->getFloat());
         }
 
         price = MWBase::Environment::get().getMechanicsManager()->getBarterOffer(mPtr,price,true);
@@ -80,13 +89,12 @@ namespace MWGui
         oss << price;
         toAdd->setUserString("price",oss.str());
 
-        toAdd->setCaptionWithReplacing("#{sCell=" + travelId + "}   -   " + boost::lexical_cast<std::string>(price)+"#{sgp}");
+        toAdd->setCaptionWithReplacing("#{sCell=" + name + "}   -   " + MyGUI::utility::toString(price)+"#{sgp}");
         toAdd->setSize(toAdd->getTextSize().width,sLineHeight);
         toAdd->eventMouseWheel += MyGUI::newDelegate(this, &TravelWindow::onMouseWheel);
-        toAdd->setUserString("Destination", travelId);
+        toAdd->setUserString("Destination", name);
         toAdd->setUserData(pos);
         toAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &TravelWindow::onTravelButtonClick);
-        mDestinationsWidgetMap.insert(std::make_pair (toAdd, travelId));
     }
 
     void TravelWindow::clearDestinations()
@@ -95,7 +103,6 @@ namespace MWGui
         mCurrentY = 0;
         while (mDestinationsView->getChildCount())
             MyGUI::Gui::getInstance().destroyWidget(mDestinationsView->getChildAt(0));
-        mDestinationsWidgetMap.clear();
     }
 
     void TravelWindow::startTravel(const MWWorld::Ptr& actor)
@@ -104,23 +111,33 @@ namespace MWGui
         mPtr = actor;
         clearDestinations();
 
-        for(unsigned int i = 0;i<mPtr.get<ESM::NPC>()->mBase->mTransport.size();i++)
+        std::vector<ESM::Transport::Dest> transport;
+        if (mPtr.getClass().isNpc())
+            transport = mPtr.get<ESM::NPC>()->mBase->getTransport();
+        else if (mPtr.getTypeName() == typeid(ESM::Creature).name())
+            transport = mPtr.get<ESM::Creature>()->mBase->getTransport();
+
+        for(unsigned int i = 0;i<transport.size();i++)
         {
-            std::string cellname = mPtr.get<ESM::NPC>()->mBase->mTransport[i].mCellName;
+            std::string cellname = transport[i].mCellName;
             bool interior = true;
             int x,y;
-            MWBase::Environment::get().getWorld()->positionToIndex(mPtr.get<ESM::NPC>()->mBase->mTransport[i].mPos.pos[0],
-                                                                   mPtr.get<ESM::NPC>()->mBase->mTransport[i].mPos.pos[1],x,y);
+            MWBase::Environment::get().getWorld()->positionToIndex(transport[i].mPos.pos[0],
+                                                                   transport[i].mPos.pos[1],x,y);
             if (cellname == "")
             {
-                cellname = MWBase::Environment::get().getWorld()->getExterior(x,y)->getCell()->mName;
+                MWWorld::CellStore* cell = MWBase::Environment::get().getWorld()->getExterior(x,y);
+                cellname = MWBase::Environment::get().getWorld()->getCellName(cell);
                 interior = false;
             }
-            addDestination(cellname,mPtr.get<ESM::NPC>()->mBase->mTransport[i].mPos,interior);
+            addDestination(cellname,transport[i].mPos,interior);
         }
 
         updateLabels();
+        // Canvas size must be expressed with VScroll disabled, otherwise MyGUI would expand the scroll area when the scrollbar is hidden
+        mDestinationsView->setVisibleVScroll(false);
         mDestinationsView->setCanvasSize (MyGUI::IntSize(mDestinationsView->getWidth(), std::max(mDestinationsView->getHeight(), mCurrentY)));
+        mDestinationsView->setVisibleVScroll(true);
     }
 
     void TravelWindow::onTravelButtonClick(MyGUI::Widget* _sender)
@@ -135,18 +152,21 @@ namespace MWGui
         if (playerGold<price)
             return;
 
+        if (!mPtr.getCell()->isExterior())
+            // Interior cell -> mages guild transport
+            MWBase::Environment::get().getSoundManager()->playSound("mysticism cast", 1, 1);
 
         player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, price, player);
 
-        MWBase::Environment::get().getWorld ()->getFader ()->fadeOut(1);
+        // add gold to NPC trading gold pool
+        MWMechanics::CreatureStats& npcStats = mPtr.getClass().getCreatureStats(mPtr);
+        npcStats.setGoldPool(npcStats.getGoldPool() + price);
+
+        MWBase::Environment::get().getWindowManager()->fadeScreenOut(1);
         ESM::Position pos = *_sender->getUserData<ESM::Position>();
         std::string cellname = _sender->getUserString("Destination");
-        int x,y;
         bool interior = _sender->getUserString("interior") == "y";
-        MWBase::Environment::get().getWorld()->positionToIndex(pos.pos[0],pos.pos[1],x,y);
-        if(interior)
-            MWBase::Environment::get().getWorld()->changeToInteriorCell(cellname, pos);
-        else
+        if (!interior)
         {
             ESM::Position playerPos = player.getRefData().getPosition();
             float d = Ogre::Vector3(pos.pos[0], pos.pos[1], 0).distance(
@@ -157,20 +177,22 @@ namespace MWGui
                 MWBase::Environment::get().getMechanicsManager ()->rest (true);
             }
             MWBase::Environment::get().getWorld()->advanceTime(hours);
-
-            MWBase::Environment::get().getWorld()->changeToExteriorCell(pos);
         }
 
-        MWWorld::Class::get(player).adjustPosition(player);
         MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Travel);
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Dialogue);
-        MWBase::Environment::get().getWorld ()->getFader ()->fadeOut(0);
-        MWBase::Environment::get().getWorld ()->getFader ()->fadeIn(1);
+        MWBase::Environment::get().getDialogueManager()->goodbyeSelected();
+
+        // Teleports any followers, too.
+        MWWorld::ActionTeleport action(interior ? cellname : "", pos, true);
+        action.execute(player);
+
+        MWBase::Environment::get().getWindowManager()->fadeScreenOut(0);
+        MWBase::Environment::get().getWindowManager()->fadeScreenIn(1);
     }
 
     void TravelWindow::onCancelButtonClicked(MyGUI::Widget* _sender)
     {
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Travel);
+        exit();
     }
 
     void TravelWindow::updateLabels()
@@ -178,7 +200,7 @@ namespace MWGui
         MWWorld::Ptr player = MWBase::Environment::get().getWorld ()->getPlayerPtr();
         int playerGold = player.getClass().getContainerStore(player).count(MWWorld::ContainerStore::sGoldId);
 
-        mPlayerGold->setCaptionWithReplacing("#{sGold}: " + boost::lexical_cast<std::string>(playerGold));
+        mPlayerGold->setCaptionWithReplacing("#{sGold}: " + MyGUI::utility::toString(playerGold));
         mPlayerGold->setCoord(8,
                               mPlayerGold->getTop(),
                               mPlayerGold->getTextSize().width,
@@ -193,10 +215,10 @@ namespace MWGui
 
     void TravelWindow::onMouseWheel(MyGUI::Widget* _sender, int _rel)
     {
-        if (mDestinationsView->getViewOffset().top + _rel*0.3 > 0)
+        if (mDestinationsView->getViewOffset().top + _rel*0.3f > 0)
             mDestinationsView->setViewOffset(MyGUI::IntPoint(0, 0));
         else
-            mDestinationsView->setViewOffset(MyGUI::IntPoint(0, mDestinationsView->getViewOffset().top + _rel*0.3));
+            mDestinationsView->setViewOffset(MyGUI::IntPoint(0, static_cast<int>(mDestinationsView->getViewOffset().top + _rel*0.3f)));
     }
 }
 

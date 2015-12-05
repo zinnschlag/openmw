@@ -47,6 +47,7 @@ namespace MWScript
                     if (world->findExteriorPosition(cell, pos))
                     {
                         world->changeToExteriorCell(pos);
+                        world->fixPosition(world->getPlayerPtr());
                     }
                     else
                     {
@@ -79,6 +80,7 @@ namespace MWScript
                     pos.rot[0] = pos.rot[1] = pos.rot[2] = 0;
 
                     world->changeToExteriorCell (pos);
+                    world->fixPosition(world->getPlayerPtr());
                 }
         };
 
@@ -88,6 +90,12 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
+                    if (!MWBase::Environment::get().getWorld()->getPlayerPtr().isInCell())
+                    {
+                        runtime.push (0);
+                        return;
+                    }
+
                     bool interior =
                         !MWBase::Environment::get().getWorld()->getPlayerPtr().getCell()->getCell()->isExterior();
 
@@ -104,18 +112,14 @@ namespace MWScript
                     std::string name = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    const ESM::Cell *cell = MWBase::Environment::get().getWorld()->getPlayerPtr().getCell()->getCell();
-
-                    std::string current = cell->mName;
-
-                    if (!(cell->mData.mFlags & ESM::Cell::Interior) && current.empty()
-                            && !cell->mRegion.empty())
+                    if (!MWBase::Environment::get().getWorld()->getPlayerPtr().isInCell())
                     {
-                        const ESM::Region *region =
-                            MWBase::Environment::get().getWorld()->getStore().get<ESM::Region>().find (cell->mRegion);
-
-                        current = region->mName;
+                        runtime.push(0);
+                        return;
                     }
+                    const MWWorld::CellStore *cell = MWBase::Environment::get().getWorld()->getPlayerPtr().getCell();
+
+                    std::string current = MWBase::Environment::get().getWorld()->getCellName(cell);
                     Misc::StringUtils::toLower(current);
 
                     bool match = current.length()>=name.length() &&
@@ -131,11 +135,16 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
+                    if (!MWBase::Environment::get().getWorld()->getPlayerPtr().isInCell())
+                    {
+                        runtime.push(0.f);
+                        return;
+                    }
                     MWWorld::CellStore *cell = MWBase::Environment::get().getWorld()->getPlayerPtr().getCell();
                     if (cell->getCell()->hasWater())
                         runtime.push (cell->getWaterLevel());
                     else
-                        runtime.push (-std::numeric_limits<float>().max());
+                        runtime.push (-std::numeric_limits<float>::max());
                 }
         };
 
@@ -146,6 +155,11 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     Interpreter::Type_Float level = runtime[0].mFloat;
+
+                    if (!MWBase::Environment::get().getWorld()->getPlayerPtr().isInCell())
+                    {
+                        return;
+                    }
 
                     MWWorld::CellStore *cell = MWBase::Environment::get().getWorld()->getPlayerPtr().getCell();
 
@@ -164,6 +178,11 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     Interpreter::Type_Float level = runtime[0].mFloat;
+
+                    if (!MWBase::Environment::get().getWorld()->getPlayerPtr().isInCell())
+                    {
+                        return;
+                    }
 
                     MWWorld::CellStore *cell = MWBase::Environment::get().getWorld()->getPlayerPtr().getCell();
 

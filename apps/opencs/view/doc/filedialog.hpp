@@ -37,6 +37,7 @@ namespace CSVDoc
         ContentAction mAction;
         FileWidget *mFileWidget;
         AdjusterWidget *mAdjusterWidget;
+        bool mDialogBuilt;
 
     public:
 
@@ -44,6 +45,7 @@ namespace CSVDoc
         void showDialog (ContentAction action);
 
         void addFiles (const QString &path);
+        void clearFiles ();
 
         QString filename() const;
         QStringList selectedFilePaths();
@@ -69,6 +71,7 @@ namespace CSVDoc
         void slotUpdateAcceptButton (int);
         void slotUpdateAcceptButton (const QString &, bool);
         void slotRejected();
+        void slotAddonDataChanged(const QModelIndex& topleft, const QModelIndex& bottomright);
     };
 }
 #endif // FILEDIALOG_HPP

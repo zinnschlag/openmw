@@ -1,5 +1,7 @@
 #include "security.hpp"
 
+#include <openengine/misc/rng.hpp>
+
 #include "../mwworld/class.hpp"
 #include "../mwworld/containerstore.hpp"
 #include "../mwworld/esmstore.hpp"
@@ -18,27 +20,27 @@ namespace MWMechanics
     Security::Security(const MWWorld::Ptr &actor)
         : mActor(actor)
     {
-        CreatureStats& creatureStats = MWWorld::Class::get(actor).getCreatureStats(actor);
-        NpcStats& npcStats = MWWorld::Class::get(actor).getNpcStats(actor);
-        mAgility = creatureStats.getAttribute(ESM::Attribute::Agility).getModified();
-        mLuck = creatureStats.getAttribute(ESM::Attribute::Luck).getModified();
-        mSecuritySkill = npcStats.getSkill(ESM::Skill::Security).getModified();
+        CreatureStats& creatureStats = actor.getClass().getCreatureStats(actor);
+        NpcStats& npcStats = actor.getClass().getNpcStats(actor);
+        mAgility = static_cast<float>(creatureStats.getAttribute(ESM::Attribute::Agility).getModified());
+        mLuck = static_cast<float>(creatureStats.getAttribute(ESM::Attribute::Luck).getModified());
+        mSecuritySkill = static_cast<float>(npcStats.getSkill(ESM::Skill::Security).getModified());
         mFatigueTerm = creatureStats.getFatigueTerm();
     }
 
     void Security::pickLock(const MWWorld::Ptr &lock, const MWWorld::Ptr &lockpick,
                             std::string& resultMessage, std::string& resultSound)
     {
-        if (lock.getCellRef().mLockLevel <= 0)
+        if (!(lock.getCellRef().getLockLevel() > 0)) //If it's unlocked back out immediately
             return;
 
-        int lockStrength = lock.getCellRef().mLockLevel;
+        int lockStrength = lock.getCellRef().getLockLevel();
 
         float pickQuality = lockpick.get<ESM::Lockpick>()->mBase->mData.mQuality;
 
         float fPickLockMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find("fPickLockMult")->getFloat();
 
-        float x = 0.2 * mAgility + 0.1 * mLuck + mSecuritySkill;
+        float x = 0.2f * mAgility + 0.1f * mLuck + mSecuritySkill;
         x *= pickQuality * mFatigueTerm;
         x += fPickLockMult * lockStrength;
 
@@ -48,39 +50,38 @@ namespace MWMechanics
         else
         {
             MWBase::Environment::get().getMechanicsManager()->objectOpened(mActor, lock);
-            int roll = static_cast<float> (std::rand()) / RAND_MAX * 100;
-            if (roll <= x)
+            if (OEngine::Misc::Rng::roll0to99() <= x)
             {
-                MWWorld::Class::get(lock).unlock(lock);
+                lock.getClass().unlock(lock);
                 resultMessage = "#{sLockSuccess}";
                 resultSound = "Open Lock";
-                MWWorld::Class::get(mActor).skillUsageSucceeded(mActor, ESM::Skill::Security, 1);
+                mActor.getClass().skillUsageSucceeded(mActor, ESM::Skill::Security, 1);
             }
             else
                 resultMessage = "#{sLockFail}";
         }
 
-        if (lockpick.getCellRef().mCharge == -1)
-            lockpick.getCellRef().mCharge = lockpick.get<ESM::Lockpick>()->mBase->mData.mUses;
-        --lockpick.getCellRef().mCharge;
-        if (!lockpick.getCellRef().mCharge)
+        int uses = lockpick.getClass().getItemHealth(lockpick);
+        --uses;
+        lockpick.getCellRef().setCharge(uses);
+        if (!uses)
             lockpick.getContainerStore()->remove(lockpick, 1, mActor);
     }
 
     void Security::probeTrap(const MWWorld::Ptr &trap, const MWWorld::Ptr &probe,
                              std::string& resultMessage, std::string& resultSound)
     {
-        if (trap.getCellRef().mTrap  == "")
+        if (trap.getCellRef().getTrap()  == "")
             return;
 
         float probeQuality = probe.get<ESM::Probe>()->mBase->mData.mQuality;
 
-        const ESM::Spell* trapSpell = MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(trap.getCellRef().mTrap);
-        float trapSpellPoints = trapSpell->mData.mCost;
+        const ESM::Spell* trapSpell = MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(trap.getCellRef().getTrap());
+        int trapSpellPoints = trapSpell->mData.mCost;
 
         float fTrapCostMult = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>().find("fTrapCostMult")->getFloat();
 
-        float x = 0.2 * mAgility + 0.1 * mLuck + mSecuritySkill;
+        float x = 0.2f * mAgility + 0.1f * mLuck + mSecuritySkill;
         x += fTrapCostMult * trapSpellPoints;
         x *= probeQuality * mFatigueTerm;
 
@@ -90,23 +91,22 @@ namespace MWMechanics
         else
         {
             MWBase::Environment::get().getMechanicsManager()->objectOpened(mActor, trap);
-            int roll = static_cast<float> (std::rand()) / RAND_MAX * 100;
-            if (roll <= x)
+            if (OEngine::Misc::Rng::roll0to99() <= x)
             {
-                trap.getCellRef().mTrap = "";
+                trap.getCellRef().setTrap("");
 
                 resultSound = "Disarm Trap";
                 resultMessage = "#{sTrapSuccess}";
-                MWWorld::Class::get(mActor).skillUsageSucceeded(mActor, ESM::Skill::Security, 0);
+                mActor.getClass().skillUsageSucceeded(mActor, ESM::Skill::Security, 0);
             }
             else
                 resultMessage = "#{sTrapFail}";
         }
 
-        if (probe.getCellRef().mCharge == -1)
-            probe.getCellRef().mCharge = probe.get<ESM::Probe>()->mBase->mData.mUses;
-        --probe.getCellRef().mCharge;
-        if (!probe.getCellRef().mCharge)
+        int uses = probe.getClass().getItemHealth(probe);
+        --uses;
+        probe.getCellRef().setCharge(uses);
+        if (!uses)
             probe.getContainerStore()->remove(probe, 1, mActor);
     }
 

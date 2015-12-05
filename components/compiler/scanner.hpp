@@ -88,9 +88,12 @@ namespace Compiler
 
             bool scanName (char c, Parser& parser, bool& cont);
 
-            bool scanName (char c, std::string& name);
+            /// \param name May contain the start of the name (one or more characters)
+            bool scanName (std::string& name);
 
             bool scanSpecial (char c, Parser& parser, bool& cont);
+
+            bool isStringCharacter (char c, bool lookAhead = true);
 
             static bool isWhitespace (char c);
 
@@ -119,7 +122,7 @@ namespace Compiler
             ///< put back a keyword token
 
             void listKeywords (std::vector<std::string>& keywords);
-            ///< Append all known keywords to \æ kaywords.
+            ///< Append all known keywords to \a kaywords.
     };
 }
 

@@ -126,6 +126,8 @@ protected:
 
     MWWorld::Ptr mPtr;
 
+    Ogre::Light* mGlowLight;
+
     Ogre::SceneNode *mInsert;
     Ogre::Entity *mSkelBase;
     NifOgre::ObjectScenePtr mObjectRoot;
@@ -171,9 +173,10 @@ protected:
      */
     bool reset(AnimState &state, const NifOgre::TextKeyMap &keys,
                const std::string &groupname, const std::string &start, const std::string &stop,
-               float startpoint);
+               float startpoint, bool loopfallback);
 
-    void handleTextKey(AnimState &state, const std::string &groupname, const NifOgre::TextKeyMap::const_iterator &key);
+    void handleTextKey(AnimState &state, const std::string &groupname, const NifOgre::TextKeyMap::const_iterator &key,
+                       const NifOgre::TextKeyMap& map);
 
     /* Sets the root model of the object. If 'baseonly' is true, then any meshes or particle
      * systems in the model are ignored (useful for NPCs, where only the skeleton is needed for
@@ -203,6 +206,9 @@ public:
                                     Ogre::uint8 transqueue, Ogre::Real dist=0.0f,
                                     bool enchantedGlow=false, Ogre::Vector3* glowColor=NULL);
 
+    /// Returns the name of the .nif file that makes up this animation's base skeleton.
+    /// If there is no skeleton, returns "".
+    std::string getObjectRootName() const;
 
     Animation(const MWWorld::Ptr &ptr, Ogre::SceneNode *node);
     virtual ~Animation();
@@ -210,7 +216,7 @@ public:
     /**
      * @brief Add an effect mesh attached to a bone or the insert scene node
      * @param model
-     * @param effectId An ID for this effect. Note that adding the same ID again won't add another effect.
+     * @param effectId An ID for this effect by which you can identify it later. If this is not wanted, set to -1.
      * @param loop Loop the effect. If false, it is removed automatically after it finishes playing. If true,
      *              you need to remove it manually using removeEffect when the effect should end.
      * @param bonename Bone to attach to, or empty string to use the scene node instead
@@ -225,9 +231,7 @@ public:
     virtual void preRender (Ogre::Camera* camera);
 
     virtual void setAlpha(float alpha) {}
-private:
-    void updateEffects(float duration);
-
+    virtual void setVampire(bool vampire) {}
 
 public:
     void updatePtr(const MWWorld::Ptr &ptr);
@@ -254,17 +258,28 @@ public:
      *                   at the start marker, 1 starts at the stop marker.
      * \param loops How many times to loop the animation. This will use the
      *              "loop start" and "loop stop" markers if they exist,
-     *              otherwise it will use "start" and "stop".
+     *              otherwise it may fall back to "start" and "stop", but only if
+     *              the \a loopFallback parameter is true.
+     * \param loopFallback Allow looping an animation that has no loop keys, i.e. fall back to use
+     *                     the "start" and "stop" keys for looping?
      */
     void play(const std::string &groupname, int priority, int groups, bool autodisable,
               float speedmult, const std::string &start, const std::string &stop,
-              float startpoint, size_t loops);
+              float startpoint, size_t loops, bool loopfallback=false);
+
+    /** If the given animation group is currently playing, set its remaining loop count to '0'.
+     */
+    void stopLooping(const std::string& groupName);
+
+    /** Adjust the speed multiplier of an already playing animation.
+     */
+    void adjustSpeedMult (const std::string& groupname, float speedmult);
 
     /** Returns true if the named animation group is playing. */
     bool isPlaying(const std::string &groupname) const;
 
-    //Checks if playing any animation which shouldn't be stopped when switching camera view modes
-    bool allowSwitchViewMode() const;
+    /// Returns true if no important animations are currently playing on the upper body.
+    bool upperBodyReady() const;
 
     /** Gets info about the given animation group.
      * \param groupname Animation group to check.
@@ -276,6 +291,9 @@ public:
 
     /// Get the absolute position in the animation track of the first text key with the given group.
     float getStartTime(const std::string &groupname) const;
+
+    /// Get the absolute position in the animation track of the text key
+    float getTextKeyTime(const std::string &textKey) const;
 
     /// Get the current absolute position in the animation track for the animation that is currently playing from the given group.
     float getCurrentTime(const std::string& groupname) const;
@@ -294,18 +312,32 @@ public:
     /// A relative factor (0-1) that decides if and how much the skeleton should be pitched
     /// to indicate the facing orientation of the character.
     virtual void setPitchFactor(float factor) {}
+    virtual void setHeadPitch(Ogre::Radian factor) {}
+    virtual void setHeadYaw(Ogre::Radian factor) {}
+    virtual Ogre::Radian getHeadPitch() const { return Ogre::Radian(0.f); }
+    virtual Ogre::Radian getHeadYaw() const { return Ogre::Radian(0.f); }
 
     virtual Ogre::Vector3 runAnimation(float duration);
+
+    /// This is typically called as part of runAnimation, but may be called manually if needed.
+    void updateEffects(float duration);
+
+    // TODO: move outside of this class
+    /// Makes this object glow, by placing a Light in its center.
+    /// @param effect Controls the radius and intensity of the light.
+    void setLightEffect(float effect);
 
     virtual void showWeapons(bool showWeapon);
     virtual void showCarriedLeft(bool show) {}
     virtual void attachArrow() {}
     virtual void releaseArrow() {}
     void enableLights(bool enable);
+    virtual void enableHeadAnimation(bool enable) {}
 
     Ogre::AxisAlignedBox getWorldBounds();
 
     Ogre::Node *getNode(const std::string &name);
+    Ogre::Node *getNode(int handle);
 
     // Attaches the given object to a bone on this object's base skeleton. If the bone doesn't
     // exist, the object isn't attached and NULL is returned. The returned TagPoint is only
@@ -317,8 +349,6 @@ public:
 class ObjectAnimation : public Animation {
 public:
     ObjectAnimation(const MWWorld::Ptr& ptr, const std::string &model);
-
-    void addLight(const ESM::Light *light);
 
     bool canBatch() const;
     void fillBatch(Ogre::StaticGeometry *sg);

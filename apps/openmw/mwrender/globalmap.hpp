@@ -12,43 +12,48 @@ namespace Loading
 
 namespace ESM
 {
-    class ESMWriter;
-    class ESMReader;
+    struct GlobalMap;
 }
 
 namespace MWRender
 {
 
-    class GlobalMap
+    class GlobalMap : public Ogre::ManualResourceLoader
     {
     public:
         GlobalMap(const std::string& cacheDir);
+        ~GlobalMap();
 
         void render(Loading::Listener* loadingListener);
 
-        int getWidth() { return mWidth; }
-        int getHeight() { return mHeight; }
+        int getWidth() const { return mWidth; }
+        int getHeight() const { return mHeight; }
+
+        int getCellSize() const { return mCellSize; }
 
         void worldPosToImageSpace(float x, float z, float& imageX, float& imageY);
-        ///< @param x x ogre coords
-        /// @param z z ogre coords
 
         void cellTopLeftCornerToImageSpace(int x, int y, float& imageX, float& imageY);
 
         void exploreCell (int cellX, int cellY);
 
+        virtual void loadResource(Ogre::Resource* resource);
+
         /// Clears the overlay
         void clear();
 
-        void write (ESM::ESMWriter& writer);
-        void readRecord (ESM::ESMReader& reader, int32_t type, std::vector<std::pair<int, int> >& exploredCells);
+        void write (ESM::GlobalMap& map);
+        void read (ESM::GlobalMap& map);
 
     private:
         std::string mCacheDir;
 
+        int mCellSize;
+
         std::vector< std::pair<int,int> > mExploredCells;
 
         Ogre::TexturePtr mOverlayTexture;
+        Ogre::Image mOverlayImage; // Backup in system memory
 
         int mWidth;
         int mHeight;

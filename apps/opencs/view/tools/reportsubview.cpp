@@ -1,31 +1,25 @@
-
 #include "reportsubview.hpp"
 
-#include <QTableView>
-#include <QHeaderView>
-
-#include "../../model/tools/reportmodel.hpp"
-
-#include "../../view/world/idtypedelegate.hpp"
+#include "reporttable.hpp"
 
 CSVTools::ReportSubView::ReportSubView (const CSMWorld::UniversalId& id, CSMDoc::Document& document)
-: CSVDoc::SubView (id), mModel (document.getReport (id))
+: CSVDoc::SubView (id), mDocument (document), mRefreshState (0)
 {
-    setWidget (mTable = new QTableView (this));
-    mTable->setModel (mModel);
+    if (id.getType()==CSMWorld::UniversalId::Type_VerificationResults)
+        mRefreshState = CSMDoc::State_Verifying;
 
-    mTable->horizontalHeader()->setResizeMode (QHeaderView::Interactive);
-    mTable->verticalHeader()->hide();
-    mTable->setSortingEnabled (true);
-    mTable->setSelectionBehavior (QAbstractItemView::SelectRows);
-    mTable->setSelectionMode (QAbstractItemView::ExtendedSelection);
+    setWidget (mTable = new ReportTable (document, id, false, mRefreshState, this));
 
-    mIdTypeDelegate = CSVWorld::IdTypeDelegateFactory().makeDelegate (
-        document.getUndoStack(), this);
+    connect (mTable, SIGNAL (editRequest (const CSMWorld::UniversalId&, const std::string&)),
+        SIGNAL (focusId (const CSMWorld::UniversalId&, const std::string&)));
 
-    mTable->setItemDelegateForColumn (0, mIdTypeDelegate);
+    if (mRefreshState==CSMDoc::State_Verifying)
+    {
+        connect (mTable, SIGNAL (refreshRequest()), this, SLOT (refreshRequest()));
 
-    connect (mTable, SIGNAL (doubleClicked (const QModelIndex&)), this, SLOT (show (const QModelIndex&)));
+        connect (&document, SIGNAL (stateChanged (int, CSMDoc::Document *)),
+            mTable, SLOT (stateChanged (int, CSMDoc::Document *)));
+    }
 }
 
 void CSVTools::ReportSubView::setEditLock (bool locked)
@@ -33,12 +27,19 @@ void CSVTools::ReportSubView::setEditLock (bool locked)
     // ignored. We don't change document state anyway.
 }
 
-void CSVTools::ReportSubView::updateEditorSetting (const QString& key, const QString& value)
+void CSVTools::ReportSubView::updateUserSetting (const QString &name, const QStringList &list)
 {
-    mIdTypeDelegate->updateEditorSetting (key, value);
+    mTable->updateUserSetting (name, list);
 }
 
-void CSVTools::ReportSubView::show (const QModelIndex& index)
+void CSVTools::ReportSubView::refreshRequest()
 {
-    focusId (mModel->getUniversalId (index.row()), "");
+    if (!(mDocument.getState() & mRefreshState))
+    {
+        if (mRefreshState==CSMDoc::State_Verifying)
+        {
+            mTable->clear();
+            mDocument.verify (getUniversalId());            
+        }
+    }
 }

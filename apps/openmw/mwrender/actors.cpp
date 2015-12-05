@@ -49,22 +49,17 @@ void Actors::insertBegin(const MWWorld::Ptr &ptr)
     Ogre::SceneNode* insert = cellnode->createChildSceneNode();
     const float *f = ptr.getRefData().getPosition().pos;
     insert->setPosition(f[0], f[1], f[2]);
-    insert->setScale(ptr.getCellRef().mScale, ptr.getCellRef().mScale, ptr.getCellRef().mScale);
+    insert->setScale(ptr.getCellRef().getScale(), ptr.getCellRef().getScale(), ptr.getCellRef().getScale());
 
     // Convert MW rotation to a quaternion:
-    f = ptr.getCellRef().mPos.rot;
+    f = ptr.getCellRef().getPosition().rot;
 
-    // Rotate around X axis
-    Ogre::Quaternion xr(Ogre::Radian(-f[0]), Ogre::Vector3::UNIT_X);
-
-    // Rotate around Y axis
-    Ogre::Quaternion yr(Ogre::Radian(-f[1]), Ogre::Vector3::UNIT_Y);
-
-    // Rotate around Z axis
+    // For rendering purposes, actors should only rotate around the Z axis.
+    // X rotation is used for camera rotation (for the player) and for
+    // ranged magic / ranged weapon aiming.
     Ogre::Quaternion zr(Ogre::Radian(-f[2]), Ogre::Vector3::UNIT_Z);
 
-   // Rotates first around z, then y, then x
-    insert->setOrientation(xr*yr*zr);
+    insert->setOrientation(zr);
     ptr.getRefData().setBaseNode(insert);
 }
 
@@ -76,22 +71,31 @@ void Actors::insertNPC(const MWWorld::Ptr& ptr)
     mAllActors[ptr] = anim;
     mRendering->addWaterRippleEmitter (ptr);
 }
-void Actors::insertCreature (const MWWorld::Ptr& ptr, bool weaponsShields)
+void Actors::insertCreature (const MWWorld::Ptr& ptr, const std::string &model, bool weaponsShields)
 {
     insertBegin(ptr);
     Animation* anim = NULL;
     if (weaponsShields)
-        anim = new CreatureWeaponAnimation(ptr);
+        anim = new CreatureWeaponAnimation(ptr, model);
     else
-        anim = new CreatureAnimation(ptr);
+        anim = new CreatureAnimation(ptr, model);
     delete mAllActors[ptr];
     mAllActors[ptr] = anim;
     mRendering->addWaterRippleEmitter (ptr);
 }
-void Actors::insertActivator (const MWWorld::Ptr& ptr)
+void Actors::insertActivator (const MWWorld::Ptr& ptr, const std::string &model, bool addLight)
 {
     insertBegin(ptr);
-    ActivatorAnimation* anim = new ActivatorAnimation(ptr);
+    ActivatorAnimation* anim = new ActivatorAnimation(ptr, model);
+
+    if(ptr.getTypeName() == typeid(ESM::Light).name())
+    {
+        if (addLight)
+            anim->addLight(ptr.get<ESM::Light>()->mBase);
+        else
+            anim->removeParticles();
+    }
+
     delete mAllActors[ptr];
     mAllActors[ptr] = anim;
 }
@@ -192,6 +196,20 @@ void Actors::updateObjectCell(const MWWorld::Ptr &old, const MWWorld::Ptr &cur)
     }
 
     mRendering->updateWaterRippleEmitterPtr (old, cur);
+}
+
+void Actors::enableLights()
+{
+    PtrAnimationMap::const_iterator it = mAllActors.begin();
+    for(;it != mAllActors.end();++it)
+        it->second->enableLights(true);
+}
+
+void Actors::disableLights()
+{
+    PtrAnimationMap::const_iterator it = mAllActors.begin();
+    for(;it != mAllActors.end();++it)
+        it->second->enableLights(false);
 }
 
 }

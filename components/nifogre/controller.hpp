@@ -2,6 +2,7 @@
 #define COMPONENTS_NIFOGRE_CONTROLLER_H
 
 #include <components/nif/niffile.hpp>
+#include <components/nif/nifkey.hpp>
 #include <OgreController.h>
 
 namespace NifOgre
@@ -10,43 +11,55 @@ namespace NifOgre
     class ValueInterpolator
     {
     protected:
-        float interpKey(const Nif::FloatKeyList::VecType &keys, float time, float def=0.f) const
+        float interpKey(const Nif::FloatKeyMap::MapType &keys, float time, float def=0.f) const
         {
             if (keys.size() == 0)
                 return def;
 
-            if(time <= keys.front().mTime)
-                return keys.front().mValue;
+            if(time <= keys.begin()->first)
+                return keys.begin()->second.mValue;
 
-            Nif::FloatKeyList::VecType::const_iterator iter(keys.begin()+1);
-            for(;iter != keys.end();iter++)
+            Nif::FloatKeyMap::MapType::const_iterator it = keys.lower_bound(time);
+            if (it != keys.end())
             {
-                if(iter->mTime < time)
-                    continue;
+                float aTime = it->first;
+                const Nif::FloatKey* aKey = &it->second;
 
-                Nif::FloatKeyList::VecType::const_iterator last(iter-1);
-                float a = (time-last->mTime) / (iter->mTime-last->mTime);
-                return last->mValue + ((iter->mValue - last->mValue)*a);
+                assert (it != keys.begin()); // Shouldn't happen, was checked at beginning of this function
+
+                Nif::FloatKeyMap::MapType::const_iterator last = --it;
+                float aLastTime = last->first;
+                const Nif::FloatKey* aLastKey = &last->second;
+
+                float a = (time - aLastTime) / (aTime - aLastTime);
+                return aLastKey->mValue + ((aKey->mValue - aLastKey->mValue) * a);
             }
-            return keys.back().mValue;
+            else
+                return keys.rbegin()->second.mValue;
         }
 
-        Ogre::Vector3 interpKey(const Nif::Vector3KeyList::VecType &keys, float time) const
+        Ogre::Vector3 interpKey(const Nif::Vector3KeyMap::MapType &keys, float time) const
         {
-            if(time <= keys.front().mTime)
-                return keys.front().mValue;
+            if(time <= keys.begin()->first)
+                return keys.begin()->second.mValue;
 
-            Nif::Vector3KeyList::VecType::const_iterator iter(keys.begin()+1);
-            for(;iter != keys.end();iter++)
+            Nif::Vector3KeyMap::MapType::const_iterator it = keys.lower_bound(time);
+            if (it != keys.end())
             {
-                if(iter->mTime < time)
-                    continue;
+                float aTime = it->first;
+                const Nif::Vector3Key* aKey = &it->second;
 
-                Nif::Vector3KeyList::VecType::const_iterator last(iter-1);
-                float a = (time-last->mTime) / (iter->mTime-last->mTime);
-                return last->mValue + ((iter->mValue - last->mValue)*a);
+                assert (it != keys.begin()); // Shouldn't happen, was checked at beginning of this function
+
+                Nif::Vector3KeyMap::MapType::const_iterator last = --it;
+                float aLastTime = last->first;
+                const Nif::Vector3Key* aLastKey = &last->second;
+
+                float a = (time - aLastTime) / (aTime - aLastTime);
+                return aLastKey->mValue + ((aKey->mValue - aLastKey->mValue) * a);
             }
-            return keys.back().mValue;
+            else
+                return keys.rbegin()->second.mValue;
         }
     };
 
@@ -76,6 +89,9 @@ namespace NifOgre
         {
             if(mDeltaInput)
             {
+                if (mStopTime - mStartTime == 0.f)
+                    return 0.f;
+
                 mDeltaCount += value*mFrequency;
                 if(mDeltaCount < mStartTime)
                     mDeltaCount = mStopTime - std::fmod(mStartTime - mDeltaCount,

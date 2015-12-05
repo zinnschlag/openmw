@@ -24,14 +24,16 @@ namespace MWGui
     struct MagicEffectInfo
     {
         MagicEffectInfo()
-            : mPermanent(false)
-            , mMagnitude(0)
-        , mRemainingTime(0)
+            : mMagnitude(0)
+            , mRemainingTime(0.f)
+            , mTotalTime(0.f)
+            , mPermanent(false)
         {}
         std::string mSource; // display name for effect source (e.g. potion name)
         MWMechanics::EffectKey mKey;
         int mMagnitude;
         float mRemainingTime;
+        float mTotalTime;
         bool mPermanent; // the effect is permanent
     };
 
@@ -42,9 +44,11 @@ namespace MWGui
 
         std::map <int, std::vector<MagicEffectInfo> > mEffectSources;
 
+        virtual ~EffectSourceVisitor() {}
+
         virtual void visit (MWMechanics::EffectKey key,
-                                 const std::string& sourceName, const std::string& casterHandle,
-                            float magnitude, float remainingTime = -1);
+                                 const std::string& sourceName, const std::string& sourceId, int casterActorId,
+                            float magnitude, float remainingTime = -1, float totalTime = -1);
     };
 
     class SpellIcons

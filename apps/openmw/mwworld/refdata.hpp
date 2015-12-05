@@ -33,9 +33,11 @@ namespace MWWorld
             MWScript::Locals mLocals; // if we find the overhead of heaving a locals
                                       // object in the refdata of refs without a script,
                                       // we can make this a pointer later.
+            bool mDeleted; // separate delete flag used for deletion by a content file
             bool mHasLocals;
             bool mEnabled;
             int mCount; // 0: deleted
+
 
             ESM::Position mPosition;
 
@@ -47,12 +49,14 @@ namespace MWWorld
 
             void cleanup();
 
+            bool mChanged;
+
         public:
 
             RefData();
 
             /// @param cellRef Used to copy constant data such as position into this class where it can
-            /// be altered without effecting the original data. This makes it possible
+            /// be altered without affecting the original data. This makes it possible
             /// to reset the position as the orignal data is still held in the CellRef
             RefData (const ESM::CellRef& cellRef);
 
@@ -84,11 +88,20 @@ namespace MWWorld
             void setLocals (const ESM::Script& script);
 
             void setCount (int count);
-            /// Set object count (an object pile is a simple object with a count >1).
+            ///< Set object count (an object pile is a simple object with a count >1).
             ///
             /// \warning Do not call setCount() to add or remove objects from a
             /// container or an actor's inventory. Call ContainerStore::add() or
             /// ContainerStore::remove() instead.
+
+            /// This flag is only used for content stack loading and will not be stored in the savegame.
+            /// If the object was deleted by gameplay, then use setCount(0) instead.
+            void setDeleted(bool deleted);
+
+            /// Returns true if the object was either deleted by the content file or by gameplay.
+            bool isDeleted() const;
+            /// Returns true if the object was deleted by a content file.
+            bool isDeletedByContentFile() const;
 
             MWScript::Locals& getLocals();
 
@@ -98,16 +111,21 @@ namespace MWWorld
 
             void disable();
 
-            ESM::Position& getPosition();
+            void setPosition (const ESM::Position& pos);
+            const ESM::Position& getPosition();
 
-            LocalRotation& getLocalRotation();
+            void setLocalRotation (const LocalRotation& rotation);
+            const LocalRotation& getLocalRotation();
 
             void setCustomData (CustomData *data);
-            ///< Set custom data (potentially replacing old custom data). The ownership of \æ data is
+            ///< Set custom data (potentially replacing old custom data). The ownership of \a data is
             /// transferred to this.
 
             CustomData *getCustomData();
             ///< May return a 0-pointer. The ownership of the return data object is not transferred.
+
+            bool hasChanged() const;
+            ///< Has this RefData changed since it was originally loaded?
     };
 }
 
