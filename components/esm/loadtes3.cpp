@@ -1,4 +1,3 @@
-
 #include "loadtes3.hpp"
 
 #include "esmcommon.hpp"
@@ -45,6 +44,25 @@ void ESM::Header::load (ESMReader &esm)
         m.size = esm.getHNLong ("DATA");
         mMaster.push_back (m);
     }
+
+    if (esm.isNextSub("GMDT"))
+    {
+        esm.getHT(mGameData);
+    }
+    if (esm.isNextSub("SCRD"))
+    {
+        esm.getSubHeader();
+        mSCRD.resize(esm.getSubSize());
+        if (mSCRD.size())
+            esm.getExact(&mSCRD[0], mSCRD.size());
+    }
+    if (esm.isNextSub("SCRS"))
+    {
+        esm.getSubHeader();
+        mSCRS.resize(esm.getSubSize());
+        if (mSCRS.size())
+            esm.getExact(&mSCRS[0], mSCRS.size());
+    }
 }
 
 void ESM::Header::save (ESMWriter &esm)
@@ -52,7 +70,13 @@ void ESM::Header::save (ESMWriter &esm)
     if (mFormat>0)
         esm.writeHNT ("FORM", mFormat);
 
-    esm.writeHNT ("HEDR", mData, 300);
+    esm.startSubRecord("HEDR");
+    esm.writeT(mData.version);
+    esm.writeT(mData.type);
+    esm.writeFixedSizeString(mData.author.toString(), 32);
+    esm.writeFixedSizeString(mData.desc.toString(), 256);
+    esm.writeT(mData.records);
+    esm.endRecord("HEDR");
 
     for (std::vector<Header::MasterData>::iterator iter = mMaster.begin();
          iter != mMaster.end(); ++iter)

@@ -10,6 +10,7 @@
 
 class QAction;
 class QDockWidget;
+class QScrollArea;
 
 namespace CSMDoc
 {
@@ -21,10 +22,16 @@ namespace CSMWorld
     class UniversalId;
 }
 
+namespace CSMPrefs
+{
+    class Setting;
+}
+
 namespace CSVDoc
 {
     class ViewManager;
     class Operations;
+    class GlobalDebugProfileMenu;
 
     class View : public QMainWindow
     {
@@ -34,15 +41,21 @@ namespace CSVDoc
             CSMDoc::Document *mDocument;
             int mViewIndex;
             int mViewTotal;
+            QList<SubView *> mSubViews;
             QAction *mUndo;
             QAction *mRedo;
             QAction *mSave;
             QAction *mVerify;
             QAction *mShowStatusBar;
+            QAction *mStopDebug;
+            QAction *mMerge;
             std::vector<QAction *> mEditingActions;
             Operations *mOperations;
             SubViewFactoryManager mSubViewFactory;
             QMainWindow mSubViewWindow;
+            GlobalDebugProfileMenu *mGlobalDebugProfileMenu;
+            QScrollArea *mScroll;
+            bool mScrollbarOnly;
 
 
             // not implemented
@@ -67,21 +80,21 @@ namespace CSVDoc
 
             void setupAssetsMenu();
 
-            void setupUi();
+            void setupDebugMenu();
 
-            void updateTitle();
+            void setupUi();
 
             void updateActions();
 
             void exitApplication();
-
-            void loadUserSettings();
 
             /// User preference function
             void resizeViewWidth (int width);
 
             /// User preference function
             void resizeViewHeight (int height);
+
+            void updateScrollbar();
 
         public:
 
@@ -101,10 +114,9 @@ namespace CSVDoc
 
             void updateProgress (int current, int max, int type, int threads);
 
-            Operations *getOperations() const;
+            void toggleStatusBar(bool checked);
 
-            /// Function called by view manager when user preferences are updated
-            void updateEditorSetting (const QString &, const QString &);
+            Operations *getOperations() const;
 
         signals:
 
@@ -118,6 +130,8 @@ namespace CSVDoc
 
             void editSettingsRequest();
 
+            void mergeDocument (CSMDoc::Document *document);
+
         public slots:
 
             void addSubView (const CSMWorld::UniversalId& id, const std::string& hint = "");
@@ -126,7 +140,14 @@ namespace CSVDoc
 
             void abortOperation (int type);
 
+            void updateTitle();
+
+            // called when subviews are added or removed
+            void updateSubViewIndicies (SubView *view = 0);
+
         private slots:
+
+            void settingChanged (const CSMPrefs::Setting *setting);
 
             void newView();
 
@@ -176,7 +197,51 @@ namespace CSVDoc
 
             void addJournalInfosSubView();
 
+            void addEnchantmentsSubView();
+
+            void addBodyPartsSubView();
+
+            void addSoundGensSubView();
+
+            void addMagicEffectsSubView();
+
+            void addMeshesSubView();
+
+            void addIconsSubView();
+
+            void addMusicsSubView();
+
+            void addSoundsResSubView();
+
+            void addTexturesSubView();
+
+            void addVideosSubView();
+
+            void addDebugProfilesSubView();
+
+            void addRunLogSubView();
+
+            void addPathgridSubView();
+
+            void addStartScriptsSubView();
+
+            void addSearchSubView();
+
+            void addMetaDataSubView();
+
             void toggleShowStatusBar (bool show);
+
+            void loadErrorLog();
+
+            void run (const std::string& profile, const std::string& startupInstruction = "");
+
+            void stop();
+
+            void closeRequest (SubView *subView);
+
+            void moveScrollBarToEnd(int min, int max);
+
+            void merge();
     };
 }
 

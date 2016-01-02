@@ -1,4 +1,3 @@
-
 #include "vartypedelegate.hpp"
 
 #include <QUndoStack>
@@ -47,8 +46,8 @@ void CSVWorld::VarTypeDelegate::addCommands (QAbstractItemModel *model, const QM
 }
 
 CSVWorld::VarTypeDelegate::VarTypeDelegate (const std::vector<std::pair<int, QString> >& values,
-    QUndoStack& undoStack, QObject *parent)
-: EnumDelegate (values, undoStack, parent)
+    CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent)
+: EnumDelegate (values, dispatcher, document, parent)
 {}
 
 
@@ -68,10 +67,10 @@ CSVWorld::VarTypeDelegateFactory::VarTypeDelegateFactory (ESM::VarType type0,
         add (type3);
 }
 
-CSVWorld::CommandDelegate *CSVWorld::VarTypeDelegateFactory::makeDelegate (QUndoStack& undoStack,
-    QObject *parent) const
+CSVWorld::CommandDelegate *CSVWorld::VarTypeDelegateFactory::makeDelegate (
+    CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent) const
 {
-    return new VarTypeDelegate (mValues, undoStack, parent);
+    return new VarTypeDelegate (mValues, dispatcher, document, parent);
 }
 
 void CSVWorld::VarTypeDelegateFactory::add (ESM::VarType type)
@@ -79,7 +78,7 @@ void CSVWorld::VarTypeDelegateFactory::add (ESM::VarType type)
     std::vector<std::string> enums =
         CSMWorld::Columns::getEnums (CSMWorld::Columns::ColumnId_ValueType);
 
-    if (type<0 && type>=enums.size())
+    if (static_cast<size_t>(type) >= enums.size())
         throw std::logic_error ("Unsupported variable type");
 
     mValues.push_back (std::make_pair (type, QString::fromUtf8 (enums[type].c_str())));

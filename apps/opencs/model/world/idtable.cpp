@@ -1,12 +1,12 @@
-
 #include "idtable.hpp"
+
+#include <stdexcept>
 
 #include "collectionbase.hpp"
 #include "columnbase.hpp"
 
-CSMWorld::IdTable::IdTable (CollectionBase *idCollection, Reordering reordering,
-    Viewing viewing, bool preview)
-: mIdCollection (idCollection), mReordering (reordering), mViewing (viewing), mPreview (preview)
+CSMWorld::IdTable::IdTable (CollectionBase *idCollection, unsigned int features)
+: IdTableBase (features), mIdCollection (idCollection)
 {}
 
 CSMWorld::IdTable::~IdTable()
@@ -28,9 +28,18 @@ int CSMWorld::IdTable::columnCount (const QModelIndex & parent) const
     return mIdCollection->getColumns();
 }
 
-QVariant CSMWorld::IdTable::data  (const QModelIndex & index, int role) const
+QVariant CSMWorld::IdTable::data (const QModelIndex & index, int role) const
 {
-    if (role!=Qt::DisplayRole && role!=Qt::EditRole)
+    if (index.row() < 0 || index.column() < 0)
+        return QVariant();
+
+    if (role==ColumnBase::Role_Display)
+        return QVariant(mIdCollection->getColumn(index.column()).mDisplayType);
+
+    if (role==ColumnBase::Role_ColumnId)
+        return QVariant (getColumnId (index.column()));
+
+    if ((role!=Qt::DisplayRole && role!=Qt::EditRole))
         return QVariant();
 
     if (role==Qt::EditRole && !mIdCollection->getColumn (index.column()).isEditable())
@@ -44,6 +53,9 @@ QVariant CSMWorld::IdTable::headerData (int section, Qt::Orientation orientation
     if (orientation==Qt::Vertical)
         return QVariant();
 
+    if (orientation != Qt::Horizontal)
+        throw std::logic_error("Unknown header orientation specified");
+
     if (role==Qt::DisplayRole)
         return tr (mIdCollection->getColumn (section).getTitle().c_str());
 
@@ -53,17 +65,26 @@ QVariant CSMWorld::IdTable::headerData (int section, Qt::Orientation orientation
     if (role==ColumnBase::Role_Display)
         return mIdCollection->getColumn (section).mDisplayType;
 
+    if (role==ColumnBase::Role_ColumnId)
+        return getColumnId (section);
+
     return QVariant();
 }
 
-bool CSMWorld::IdTable::setData ( const QModelIndex &index, const QVariant &value, int role)
+bool CSMWorld::IdTable::setData (const QModelIndex &index, const QVariant &value, int role)
 {
     if (mIdCollection->getColumn (index.column()).isEditable() && role==Qt::EditRole)
     {
         mIdCollection->setData (index.row(), index.column(), value);
+        emit dataChanged(index, index);
 
-        emit dataChanged (CSMWorld::IdTable::index (index.row(), 0),
-            CSMWorld::IdTable::index (index.row(), mIdCollection->getColumns()-1));
+        // Modifying a value can also change the Modified status of a record.
+        int stateColumn = searchColumnIndex(Columns::ColumnId_Modification);
+        if (stateColumn != -1)
+        {
+            QModelIndex stateIndex = this->index(index.row(), stateColumn);
+            emit dataChanged(stateIndex, stateIndex);
+        }
 
         return true;
     }
@@ -73,6 +94,9 @@ bool CSMWorld::IdTable::setData ( const QModelIndex &index, const QVariant &valu
 
 Qt::ItemFlags CSMWorld::IdTable::flags (const QModelIndex & index) const
 {
+    if (!index.isValid())
+        return 0;
+
     Qt::ItemFlags flags = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 
     if (mIdCollection->getColumn (index.column()).isUserEditable())
@@ -130,28 +154,29 @@ void CSMWorld::IdTable::cloneRecord(const std::string& origin,
                                     CSMWorld::UniversalId::Type type)
 {
     int index = mIdCollection->getAppendIndex (destination);
+
     beginInsertRows (QModelIndex(), index, index);
     mIdCollection->cloneRecord(origin, destination, type);
     endInsertRows();
 }
 
-
+///This method can return only indexes to the top level table cells
 QModelIndex CSMWorld::IdTable::getModelIndex (const std::string& id, int column) const
 {
-    return index (mIdCollection->getIndex (id), column);
+    return index(mIdCollection->getIndex (id), column);
 }
 
-void CSMWorld::IdTable::setRecord (const std::string& id, const RecordBase& record)
+void CSMWorld::IdTable::setRecord (const std::string& id, const RecordBase& record, CSMWorld::UniversalId::Type type)
 {
     int index = mIdCollection->searchId (id);
 
     if (index==-1)
     {
-        int index = mIdCollection->getAppendIndex (id);
+        int index = mIdCollection->getAppendIndex (id, type);
 
         beginInsertRows (QModelIndex(), index, index);
 
-        mIdCollection->appendRecord (record);
+        mIdCollection->appendRecord (record, type);
 
         endInsertRows();
     }
@@ -186,27 +211,12 @@ void CSMWorld::IdTable::reorderRows (int baseIndex, const std::vector<int>& newO
                 index (baseIndex+newOrder.size()-1, mIdCollection->getColumns()-1));
 }
 
-CSMWorld::IdTable::Reordering CSMWorld::IdTable::getReordering() const
-{
-    return mReordering;
-}
-
-CSMWorld::IdTable::Viewing CSMWorld::IdTable::getViewing() const
-{
-    return mViewing;
-}
-
-bool CSMWorld::IdTable::hasPreview() const
-{
-    return mPreview;
-}
-
 std::pair<CSMWorld::UniversalId, std::string> CSMWorld::IdTable::view (int row) const
 {
     std::string id;
     std::string hint;
 
-    if (mViewing==Viewing_Cell)
+    if (getFeatures() & Feature_ViewCell)
     {
         int cellColumn = mIdCollection->searchColumnIndex (Columns::ColumnId_Cell);
         int idColumn = mIdCollection->searchColumnIndex (Columns::ColumnId_Id);
@@ -217,7 +227,7 @@ std::pair<CSMWorld::UniversalId, std::string> CSMWorld::IdTable::view (int row) 
             hint = "r:" + std::string (mIdCollection->getData (row, idColumn).toString().toUtf8().constData());
         }
     }
-    else if (mViewing==Viewing_Id)
+    else if (getFeatures() & Feature_ViewId)
     {
         int column = mIdCollection->searchColumnIndex (Columns::ColumnId_Id);
 
@@ -237,7 +247,18 @@ std::pair<CSMWorld::UniversalId, std::string> CSMWorld::IdTable::view (int row) 
     return std::make_pair (UniversalId (UniversalId::Type_Scene, id), hint);
 }
 
+///For top level data/columns
+bool CSMWorld::IdTable::isDeleted (const std::string& id) const
+{
+    return getRecord (id).isDeleted();
+}
+
 int CSMWorld::IdTable::getColumnId(int column) const
 {
     return mIdCollection->getColumn(column).getId();
+}
+
+CSMWorld::CollectionBase *CSMWorld::IdTable::idCollection() const
+{
+    return mIdCollection;
 }

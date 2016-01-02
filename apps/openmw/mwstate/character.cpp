@@ -1,4 +1,3 @@
-
 #include "character.hpp"
 
 #include <ctime>
@@ -14,9 +13,6 @@
 
 #include <components/misc/stringops.hpp>
 
-#include "../mwbase/environment.hpp"
-#include "../mwbase/world.hpp"
-
 bool MWState::operator< (const Slot& left, const Slot& right)
 {
     return left.mTimeStamp<right.mTimeStamp;
@@ -31,9 +27,6 @@ void MWState::Character::addSlot (const boost::filesystem::path& path, const std
 
     ESM::ESMReader reader;
     reader.open (slot.mPath.string());
-
-    if (reader.getFormat()>ESM::Header::CurrentFormat)
-        return; // format is too new -> ignore
 
     if (reader.getRecName()!=ESM::REC_SAVE)
         return; // invalid save file -> ignore
@@ -54,9 +47,29 @@ void MWState::Character::addSlot (const ESM::SavedGame& profile)
     Slot slot;
 
     std::ostringstream stream;
-    stream << mNext++;
 
-    slot.mPath = mPath / stream.str();
+    // The profile description is user-supplied, so we need to escape the path
+    for (std::string::const_iterator it = profile.mDescription.begin(); it != profile.mDescription.end(); ++it)
+    {
+        if (std::isalnum(*it))  // Ignores multibyte characters and non alphanumeric characters
+            stream << *it;
+        else
+            stream << "_";
+    }
+
+    const std::string ext = ".omwsave";
+    slot.mPath = mPath / (stream.str() + ext);
+
+    // Append an index if necessary to ensure a unique file
+    int i=0;
+    while (boost::filesystem::exists(slot.mPath))
+    {
+           std::ostringstream test;
+           test << stream.str();
+           test << " - " << ++i;
+           slot.mPath = mPath / (test.str() + ext);
+    }
+
     slot.mProfile = profile;
     slot.mTimeStamp = std::time (0);
 
@@ -64,7 +77,7 @@ void MWState::Character::addSlot (const ESM::SavedGame& profile)
 }
 
 MWState::Character::Character (const boost::filesystem::path& saves, const std::string& game)
-: mPath (saves), mNext (0)
+: mPath (saves)
 {
     if (!boost::filesystem::is_directory (mPath))
     {
@@ -82,16 +95,24 @@ MWState::Character::Character (const boost::filesystem::path& saves, const std::
                 addSlot (slotPath, game);
             }
             catch (...) {} // ignoring bad saved game files for now
-
-            std::istringstream stream (slotPath.filename().string());
-
-            int index = 0;
-
-            if ((stream >> index) && index>=mNext)
-                mNext = index+1;
         }
 
         std::sort (mSlots.begin(), mSlots.end());
+    }
+}
+
+void MWState::Character::cleanup()
+{
+    if (mSlots.size() == 0)
+    {
+        // All slots are gone, no need to keep the empty directory
+        if (boost::filesystem::is_directory (mPath))
+        {
+            // Extra safety check to make sure the directory is empty (e.g. slots failed to parse header)
+            boost::filesystem::directory_iterator it(mPath);
+            if (it == boost::filesystem::directory_iterator())
+                boost::filesystem::remove_all(mPath);
+        }
     }
 }
 
@@ -100,6 +121,21 @@ const MWState::Slot *MWState::Character::createSlot (const ESM::SavedGame& profi
     addSlot (profile);
 
     return &mSlots.back();
+}
+
+void MWState::Character::deleteSlot (const Slot *slot)
+{
+    int index = slot - &mSlots[0];
+
+    if (index<0 || index>=static_cast<int> (mSlots.size()))
+    {
+        // sanity check; not entirely reliable
+        throw std::logic_error ("slot not found");
+    }
+
+    boost::filesystem::remove(slot->mPath);
+
+    mSlots.erase (mSlots.begin()+index);
 }
 
 const MWState::Slot *MWState::Character::updateSlot (const Slot *slot, const ESM::SavedGame& profile)
@@ -150,4 +186,9 @@ ESM::SavedGame MWState::Character::getSignature() const
             slot = *iter;
 
     return slot.mProfile;
+}
+
+const boost::filesystem::path& MWState::Character::getPath() const
+{
+    return mPath;
 }

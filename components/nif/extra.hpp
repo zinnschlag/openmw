@@ -24,40 +24,15 @@
 #ifndef OPENMW_COMPONENTS_NIF_EXTRA_HPP
 #define OPENMW_COMPONENTS_NIF_EXTRA_HPP
 
-#include "record.hpp"
-#include "niffile.hpp"
-#include "recordptr.hpp"
+#include "base.hpp"
 
 namespace Nif
 {
 
-/** A record that can have extra data. The extra data objects
-    themselves decend from the Extra class, and all the extra data
-    connected to an object form a linked list
-*/
-class Extra : public Record
-{
-public:
-    ExtraPtr extra;
-
-    void read(NIFStream *nif) { extra.read(nif); }
-    void post(NIFFile *nif) { extra.post(nif); }
-};
-
 class NiVertWeightsExtraData : public Extra
 {
 public:
-    void read(NIFStream *nif)
-    {
-        Extra::read(nif);
-
-        // We should have s*4+2 == i, for some reason. Might simply be the
-        // size of the rest of the record, unhelpful as that may be.
-        /*int i =*/ nif->getInt();
-        int s = nif->getUShort();
-
-        nif->skip(s * sizeof(float)); // vertex weights I guess
-    }
+    void read(NIFStream *nif);
 };
 
 class NiTextKeyExtraData : public Extra
@@ -70,20 +45,7 @@ public:
     };
     std::vector<TextKey> list;
 
-    void read(NIFStream *nif)
-    {
-        Extra::read(nif);
-
-        nif->getInt(); // 0
-
-        int keynum = nif->getInt();
-        list.resize(keynum);
-        for(int i=0; i<keynum; i++)
-        {
-            list[i].time = nif->getFloat();
-            list[i].text = nif->getString();
-        }
-    }
+    void read(NIFStream *nif);
 };
 
 class NiStringExtraData : public Extra
@@ -95,13 +57,7 @@ public:
     */
     std::string string;
 
-    void read(NIFStream *nif)
-    {
-        Extra::read(nif);
-
-        nif->getInt(); // size of string + 4. Really useful...
-        string = nif->getString();
-    }
+    void read(NIFStream *nif);
 };
 
 } // Namespace

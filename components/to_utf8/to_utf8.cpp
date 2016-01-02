@@ -4,6 +4,7 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 
 /* This file contains the code to translate from WINDOWS-1252 (native
    charset used in English version of Morrowind) to UTF-8. The library
@@ -83,11 +84,11 @@ std::string Utf8Encoder::getUtf8(const char* input, size_t size)
     // is also ok.)
     assert(input[size] == 0);
 
-    // TODO: The rest of this function is designed for single-character
-    // input encodings only. It also assumes that the input the input
-    // encoding shares its first 128 values (0-127) with ASCII. These
-    // conditions must be checked again if you add more input encodings
-    // later.
+    // Note: The rest of this function is designed for single-character
+    // input encodings only. It also assumes that the input encoding
+    // shares its first 128 values (0-127) with ASCII. There are no plans
+    // to add more encodings to this module (we are using utf8 for new
+    // content files), so that shouldn't be an issue.
 
     // Compute output length, and check for pure ascii input at the same
     // time.
@@ -318,7 +319,9 @@ void Utf8Encoder::copyFromArray2(const char*& chp, char* &out)
         }
     }
 
+    std::ios::fmtflags f(std::cout.flags());
     std::cout << "Could not find glyph " << std::hex << (int)ch << " " << (int)ch2 << " " << (int)ch3 << std::endl;
+    std::cout.flags(f);
 
     *(out++) = ch; // Could not find glyph, just put whatever
 }
@@ -329,8 +332,10 @@ ToUTF8::FromType ToUTF8::calculateEncoding(const std::string& encodingName)
         return ToUTF8::WINDOWS_1250;
     else if (encodingName == "win1251")
         return ToUTF8::WINDOWS_1251;
-    else
+    else if (encodingName == "win1252")
         return ToUTF8::WINDOWS_1252;
+    else
+        throw std::runtime_error(std::string("Unknown encoding '") + encodingName + std::string("', see openmw --help for available options."));
 }
 
 std::string ToUTF8::encodingUsingMessage(const std::string& encodingName)
@@ -339,6 +344,8 @@ std::string ToUTF8::encodingUsingMessage(const std::string& encodingName)
         return "Using Central and Eastern European font encoding.";
     else if (encodingName == "win1251")
         return "Using Cyrillic font encoding.";
-    else
+    else if (encodingName == "win1252")
         return "Using default (English) font encoding.";
+    else
+        throw std::runtime_error(std::string("Unknown encoding '") + encodingName + std::string("', see openmw --help for available options."));
 }

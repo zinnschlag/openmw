@@ -5,7 +5,7 @@
 
 #include "../mwworld/ptr.hpp"
 
-#include "imagebutton.hpp"
+#include <components/widgets/imagebutton.hpp>
 
 namespace MWGui
 {
@@ -14,10 +14,9 @@ namespace MWGui
         public:
             BookWindow();
 
-            void open(MWWorld::Ptr book);
-            void setTakeButtonShow(bool show);
-            void nextPage();
-            void prevPage();
+            virtual void exit();
+
+            void openBook(MWWorld::Ptr book, bool showTakeButton);
             void setInventoryAllowed(bool allowed);
 
         protected:
@@ -26,23 +25,31 @@ namespace MWGui
             void onCloseButtonClicked (MyGUI::Widget* sender);
             void onTakeButtonClicked (MyGUI::Widget* sender);
             void onMouseWheel(MyGUI::Widget* _sender, int _rel);
+            void setTakeButtonShow(bool show);
+
+            void nextPage();
+            void prevPage();
 
             void updatePages();
             void clearPages();
-            void adjustButton(MWGui::ImageButton* button);
+            void adjustButton(Gui::ImageButton* button);
 
         private:
-            MWGui::ImageButton* mCloseButton;
-            MWGui::ImageButton* mTakeButton;
-            MWGui::ImageButton* mNextPageButton;
-            MWGui::ImageButton* mPrevPageButton;
+            typedef std::pair<int, int> Page;
+            typedef std::vector<Page> Pages;
+
+            Gui::ImageButton* mCloseButton;
+            Gui::ImageButton* mTakeButton;
+            Gui::ImageButton* mNextPageButton;
+            Gui::ImageButton* mPrevPageButton;
+
             MyGUI::TextBox* mLeftPageNumber;
             MyGUI::TextBox* mRightPageNumber;
             MyGUI::Widget* mLeftPage;
             MyGUI::Widget* mRightPage;
 
             unsigned int mCurrentPage; // 0 is first page
-            std::vector<MyGUI::Widget*> mPages;
+            Pages mPages;
 
             MWWorld::Ptr mBook;
 

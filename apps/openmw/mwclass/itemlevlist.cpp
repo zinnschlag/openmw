@@ -1,11 +1,11 @@
-
 #include "itemlevlist.hpp"
 
 #include <components/esm/loadlevlist.hpp>
 
 namespace MWClass
 {
-    std::string ItemLevList::getName (const MWWorld::Ptr& ptr) const
+
+    std::string ItemLevList::getName (const MWWorld::ConstPtr& ptr) const
     {
         return "";
     }

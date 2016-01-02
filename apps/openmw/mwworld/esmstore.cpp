@@ -7,6 +7,9 @@
 
 #include <components/loadinglistener/loadinglistener.hpp>
 
+#include <components/esm/esmreader.hpp>
+#include <components/esm/esmwriter.hpp>
+
 namespace MWWorld
 {
 
@@ -16,7 +19,8 @@ static bool isCacheableRecord(int id)
         id == ESM::REC_BOOK || id == ESM::REC_CLOT || id == ESM::REC_CONT || id == ESM::REC_CREA ||
         id == ESM::REC_DOOR || id == ESM::REC_INGR || id == ESM::REC_LEVC || id == ESM::REC_LEVI ||
         id == ESM::REC_LIGH || id == ESM::REC_LOCK || id == ESM::REC_MISC || id == ESM::REC_NPC_ ||
-        id == ESM::REC_PROB || id == ESM::REC_REPA || id == ESM::REC_STAT || id == ESM::REC_WEAP)
+        id == ESM::REC_PROB || id == ESM::REC_REPA || id == ESM::REC_STAT || id == ESM::REC_WEAP ||
+        id == ESM::REC_BODY)
     {
         return true;
     }
@@ -27,24 +31,28 @@ void ESMStore::load(ESM::ESMReader &esm, Loading::Listener* listener)
 {
     listener->setProgressRange(1000);
 
-    std::set<std::string> missing;
-
     ESM::Dialogue *dialogue = 0;
+
+    // Land texture loading needs to use a separate internal store for each plugin.
+    // We set the number of plugins here to avoid continual resizes during loading,
+    // and so we can properly verify if valid plugin indices are being passed to the
+    // LandTexture Store retrieval methods.
+    mLandTextures.resize(esm.getGlobalReaderList()->size());
 
     /// \todo Move this to somewhere else. ESMReader?
     // Cache parent esX files by tracking their indices in the global list of
     //  all files/readers used by the engine. This will greaty accelerate
     //  refnumber mangling, as required for handling moved references.
-    int index = ~0;
     const std::vector<ESM::Header::MasterData> &masters = esm.getGameFiles();
     std::vector<ESM::ESMReader> *allPlugins = esm.getGlobalReaderList();
     for (size_t j = 0; j < masters.size(); j++) {
         ESM::Header::MasterData &mast = const_cast<ESM::Header::MasterData&>(masters[j]);
         std::string fname = mast.name;
+        int index = ~0;
         for (int i = 0; i < esm.getIndex(); i++) {
             const std::string &candidate = allPlugins->at(i).getContext().filename;
             std::string fnamecandidate = boost::filesystem::path(candidate).filename().string();
-            if (fname == fnamecandidate) {
+            if (Misc::StringUtils::ciEqual(fname, fnamecandidate)) {
                 index = i;
                 break;
             }
@@ -70,12 +78,12 @@ void ESMStore::load(ESM::ESMReader &esm, Loading::Listener* listener)
 
         if (it == mStores.end()) {
             if (n.val == ESM::REC_INFO) {
-                std::string id = esm.getHNOString("INAM");
-                if (dialogue) {
-                    dialogue->mInfo.push_back(ESM::DialInfo());
-                    dialogue->mInfo.back().mId = id;
-                    dialogue->mInfo.back().load(esm);
-                } else {
+                if (dialogue)
+                {
+                    dialogue->readInfo(esm, esm.getIndex() != 0);
+                }
+                else
+                {
                     std::cerr << "error: info record without dialog" << std::endl;
                     esm.skipRecord();
                 }
@@ -83,66 +91,62 @@ void ESMStore::load(ESM::ESMReader &esm, Loading::Listener* listener)
                 mMagicEffects.load (esm);
             } else if (n.val == ESM::REC_SKIL) {
                 mSkills.load (esm);
-            } else {
-                // Not found (this would be an error later)
+            }
+            else if (n.val==ESM::REC_FILT || n.val == ESM::REC_DBGP)
+            {
+                // ignore project file only records
                 esm.skipRecord();
-                missing.insert(n.toString());
+            }
+            else {
+                std::stringstream error;
+                error << "Unknown record: " << n.toString();
+                throw std::runtime_error(error.str());
             }
         } else {
-            // Load it
-            std::string id = esm.getHNOString("NAME");
-            // ... unless it got deleted! This means that the following record
-            //  has been deleted, and trying to load it using standard assumptions
-            //  on the structure will (probably) fail.
-            if (esm.isNextSub("DELE")) {
-              esm.skipRecord();
-              it->second->eraseStatic(id);
-              continue;
+            RecordId id = it->second->load(esm);
+            if (id.mIsDeleted)
+            {
+                it->second->eraseStatic(id.mId);
+                continue;
             }
-            it->second->load(esm, id);
 
             if (n.val==ESM::REC_DIAL) {
-                dialogue = const_cast<ESM::Dialogue*>(mDialogs.find(id));
+                dialogue = const_cast<ESM::Dialogue*>(mDialogs.find(id.mId));
             } else {
                 dialogue = 0;
             }
-            // Insert the reference into the global lookup
-            if (!id.empty() && isCacheableRecord(n.val)) {
-                mIds[Misc::StringUtils::lowerCase (id)] = n.val;
-            }
         }
-        listener->setProgress(esm.getFileOffset() / (float)esm.getFileSize() * 1000);
+        listener->setProgress(static_cast<size_t>(esm.getFileOffset() / (float)esm.getFileSize() * 1000));
     }
-
-  /* This information isn't needed on screen. But keep the code around
-     for debugging purposes later.
-
-  cout << "\n" << mStores.size() << " record types:\n";
-  for(RecListList::iterator it = mStores.begin(); it != mStores.end(); it++)
-    cout << "  " << toStr(it->first) << ": " << it->second->getSize() << endl;
-  cout << "\nNot implemented yet: ";
-  for(set<string>::iterator it = missing.begin();
-      it != missing.end(); it++ )
-    cout << *it << " ";
-  cout << endl;
-  */
 }
 
 void ESMStore::setUp()
 {
-    std::map<int, StoreBase *>::iterator it = mStores.begin();
-    for (; it != mStores.end(); ++it) {
-        it->second->setUp();
+    mIds.clear();
+
+    std::map<int, StoreBase *>::iterator storeIt = mStores.begin();
+    for (; storeIt != mStores.end(); ++storeIt) {
+        storeIt->second->setUp();
+
+        if (isCacheableRecord(storeIt->first))
+        {
+            std::vector<std::string> identifiers;
+            storeIt->second->listIdentifier(identifiers);
+
+            for (std::vector<std::string>::const_iterator record = identifiers.begin(); record != identifiers.end(); ++record)
+                mIds[*record] = storeIt->first;
+        }
     }
     mSkills.setUp();
     mMagicEffects.setUp();
     mAttributes.setUp();
+    mDialogs.setUp();
 }
 
     int ESMStore::countSavedGameRecords() const
     {
-        return
-            mPotions.getDynamicSize()
+        return 1 // DYNA (dynamic name counter)
+            +mPotions.getDynamicSize()
             +mArmors.getDynamicSize()
             +mBooks.getDynamicSize()
             +mClasses.getDynamicSize()
@@ -150,23 +154,33 @@ void ESMStore::setUp()
             +mEnchants.getDynamicSize()
             +mNpcs.getDynamicSize()
             +mSpells.getDynamicSize()
-            +mWeapons.getDynamicSize();
+            +mWeapons.getDynamicSize()
+            +mCreatureLists.getDynamicSize()
+            +mItemLists.getDynamicSize();
     }
 
-    void ESMStore::write (ESM::ESMWriter& writer) const
+    void ESMStore::write (ESM::ESMWriter& writer, Loading::Listener& progress) const
     {
-        mPotions.write (writer);
-        mArmors.write (writer);
-        mBooks.write (writer);
-        mClasses.write (writer);
-        mClothes.write (writer);
-        mEnchants.write (writer);
-        mSpells.write (writer);
-        mWeapons.write (writer);
-        mNpcs.write (writer);
+        writer.startRecord(ESM::REC_DYNA);
+        writer.startSubRecord("COUN");
+        writer.writeT(mDynamicCount);
+        writer.endRecord("COUN");
+        writer.endRecord(ESM::REC_DYNA);
+
+        mPotions.write (writer, progress);
+        mArmors.write (writer, progress);
+        mBooks.write (writer, progress);
+        mClasses.write (writer, progress);
+        mClothes.write (writer, progress);
+        mEnchants.write (writer, progress);
+        mSpells.write (writer, progress);
+        mWeapons.write (writer, progress);
+        mNpcs.write (writer, progress);
+        mItemLists.write (writer, progress);
+        mCreatureLists.write (writer, progress);
     }
 
-    bool ESMStore::readRecord (ESM::ESMReader& reader, int32_t type)
+    bool ESMStore::readRecord (ESM::ESMReader& reader, uint32_t type)
     {
         switch (type)
         {
@@ -179,22 +193,31 @@ void ESMStore::setUp()
             case ESM::REC_SPEL:
             case ESM::REC_WEAP:
             case ESM::REC_NPC_:
+            case ESM::REC_LEVI:
+            case ESM::REC_LEVC:
 
-                mStores[type]->read (reader);
+                {
+                    mStores[type]->read (reader);
+                }
 
                 if (type==ESM::REC_NPC_)
                 {
                     // NPC record will always be last and we know that there can be only one
-                    // dynamic NPC record (player) -> We are done here with dynamic record laoding
+                    // dynamic NPC record (player) -> We are done here with dynamic record loading
                     setUp();
 
                     const ESM::NPC *player = mNpcs.find ("player");
 
                     if (!mRaces.find (player->mRace) ||
                         !mClasses.find (player->mClass))
-                        throw std::runtime_error ("Invalid player record (race or class unavilable");
+                        throw std::runtime_error ("Invalid player record (race or class unavailable");
                 }
 
+                return true;
+
+            case ESM::REC_DYNA:
+                reader.getSubNameIs("COUN");
+                reader.getHT(mDynamicCount);
                 return true;
 
             default:

@@ -1,64 +1,78 @@
 #ifndef MWGUI_LOADINGSCREEN_H
 #define MWGUI_LOADINGSCREEN_H
 
-#include <OgreSceneManager.h>
-#include <OgreTimer.h>
+#include <osg/Timer>
+#include <osg/ref_ptr>
 
 #include "windowbase.hpp"
 
 #include <components/loadinglistener/loadinglistener.hpp>
 
+namespace osgViewer
+{
+    class Viewer;
+}
+
+namespace osg
+{
+    class Texture2D;
+}
+
+namespace VFS
+{
+    class Manager;
+}
+
 namespace MWGui
 {
+    class BackgroundImage;
+
     class LoadingScreen : public WindowBase, public Loading::Listener
     {
     public:
-        virtual void setLabel (const std::string& label);
-
-        /// Indicate that some progress has been made, without specifying how much
-        virtual void indicateProgress ();
-
-        virtual void loadingOn();
-        virtual void loadingOff();
-
-        virtual void setProgressRange (size_t range);
-        virtual void setProgress (size_t value);
-        virtual void increaseProgress (size_t increase);
-
-        virtual void removeWallpaper();
-
-        LoadingScreen(Ogre::SceneManager* sceneMgr, Ogre::RenderWindow* rw);
+        LoadingScreen(const VFS::Manager* vfs, osgViewer::Viewer* viewer);
         virtual ~LoadingScreen();
 
-        void setLoadingProgress (const std::string& stage, int depth, int current, int total);
-        void loadingDone();
+        /// Overridden from Loading::Listener, see the Loading::Listener documentation for usage details
+        virtual void setLabel (const std::string& label, bool important);
+        virtual void loadingOn();
+        virtual void loadingOff();
+        virtual void setProgressRange (size_t range);
+        virtual void setProgress (size_t value);
+        virtual void increaseProgress (size_t increase=1);
 
-        void onResChange(int w, int h);
-
-        void updateWindow(Ogre::RenderWindow* rw) { mWindow = rw; }
+        virtual void setVisible(bool visible);
 
     private:
-        bool mFirstLoad;
+        void findSplashScreens();
+        bool needToDrawLoadingScreen();
 
-        Ogre::SceneManager* mSceneMgr;
-        Ogre::RenderWindow* mWindow;
+        const VFS::Manager* mVFS;
+        osg::ref_ptr<osgViewer::Viewer> mViewer;
 
-        unsigned long mLastWallpaperChangeTime;
-        unsigned long mLastRenderTime;
-        Ogre::Timer mTimer;
+        double mTargetFrameRate;
+
+        double mLastWallpaperChangeTime;
+        double mLastRenderTime;
+        osg::Timer mTimer;
+        double mLoadingOnTime;
+
+        bool mImportantLabel;
 
         size_t mProgress;
 
+        MyGUI::Widget* mLoadingBox;
+
         MyGUI::TextBox* mLoadingText;
         MyGUI::ScrollBar* mProgressBar;
-        MyGUI::ImageBox* mBackgroundImage;
+        BackgroundImage* mBackgroundImage;
 
-        Ogre::Rectangle2D* mRectangle;
-        Ogre::MaterialPtr mBackgroundMaterial;
+        std::vector<std::string> mSplashScreens;
 
-        Ogre::StringVector mResources;
+        // TODO: add releaseGLObjects() for mTexture
 
-        bool mVSyncWasEnabled;
+        osg::ref_ptr<osg::Texture2D> mTexture;
+        std::auto_ptr<MyGUI::ITexture> mGuiTexture;
 
         void changeWallpaper();
 

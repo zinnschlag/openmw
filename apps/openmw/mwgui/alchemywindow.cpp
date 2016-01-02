@@ -1,40 +1,34 @@
 #include "alchemywindow.hpp"
 
-#include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
+#include <MyGUI_Gui.h>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/soundmanager.hpp"
 #include "../mwbase/windowmanager.hpp"
 
+#include "../mwmechanics/magiceffects.hpp"
+#include "../mwmechanics/alchemy.hpp"
+#include "../mwmechanics/actorutil.hpp"
+
 #include "../mwworld/class.hpp"
+#include "../mwworld/esmstore.hpp"
+
+#include <components/esm/records.hpp>
 
 #include "inventoryitemmodel.hpp"
 #include "sortfilteritemmodel.hpp"
 #include "itemview.hpp"
-
-namespace
-{
-    std::string getIconPath(MWWorld::Ptr ptr)
-    {
-        std::string path = std::string("icons\\");
-        path += MWWorld::Class::get(ptr).getInventoryIcon(ptr);
-        int pos = path.rfind(".");
-        path.erase(pos);
-        path.append(".dds");
-        return path;
-    }
-
-}
+#include "itemwidget.hpp"
 
 namespace MWGui
 {
     AlchemyWindow::AlchemyWindow()
         : WindowBase("openmw_alchemy_window.layout")
+        , mSortModel(NULL)
+        , mAlchemy(new MWMechanics::Alchemy())
         , mApparatus (4)
         , mIngredients (4)
-        , mSortModel(NULL)
     {
         getWidget(mCreateButton, "CreateButton");
         getWidget(mCancelButton, "CancelButton");
@@ -66,18 +60,12 @@ namespace MWGui
 
     void AlchemyWindow::onCancelButtonClicked(MyGUI::Widget* _sender)
     {
-        mAlchemy.clear();
-
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Alchemy);
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Inventory);
+        exit();
     }
 
     void AlchemyWindow::onCreateButtonClicked(MyGUI::Widget* _sender)
     {
-        std::string name = mNameEdit->getCaption();
-        boost::algorithm::trim(name);
-
-        MWMechanics::Alchemy::Result result = mAlchemy.create (mNameEdit->getCaption ());
+        MWMechanics::Alchemy::Result result = mAlchemy->create (mNameEdit->getCaption ());
 
         if (result == MWMechanics::Alchemy::Result_NoName)
         {
@@ -125,38 +113,43 @@ namespace MWGui
                 MWWorld::Ptr ingred = *mIngredients[i]->getUserData<MWWorld::Ptr>();
                 if (ingred.getRefData().getCount() == 0)
                     removeIngredient(mIngredients[i]);
-        }
+            }
 
         update();
     }
 
     void AlchemyWindow::open()
     {
-        mAlchemy.setAlchemist (MWBase::Environment::get().getWorld()->getPlayerPtr());
+        mAlchemy->setAlchemist (MWMechanics::getPlayer());
 
-        InventoryItemModel* model = new InventoryItemModel(MWBase::Environment::get().getWorld()->getPlayerPtr());
+        InventoryItemModel* model = new InventoryItemModel(MWMechanics::getPlayer());
         mSortModel = new SortFilterItemModel(model);
         mSortModel->setFilter(SortFilterItemModel::Filter_OnlyIngredients);
         mItemView->setModel (mSortModel);
+        mItemView->resetScrollBars();
 
         mNameEdit->setCaption("");
 
         int index = 0;
-
-        mAlchemy.setAlchemist (MWBase::Environment::get().getWorld()->getPlayerPtr());
-
-        for (MWMechanics::Alchemy::TToolsIterator iter (mAlchemy.beginTools());
-            iter!=mAlchemy.endTools() && index<static_cast<int> (mApparatus.size()); ++iter, ++index)
+        for (MWMechanics::Alchemy::TToolsIterator iter (mAlchemy->beginTools());
+            iter!=mAlchemy->endTools() && index<static_cast<int> (mApparatus.size()); ++iter, ++index)
         {
+            mApparatus.at (index)->setItem(*iter);
+            mApparatus.at (index)->clearUserStrings();
             if (!iter->isEmpty())
             {
                 mApparatus.at (index)->setUserString ("ToolTipType", "ItemPtr");
                 mApparatus.at (index)->setUserData (*iter);
-                mApparatus.at (index)->setImageTexture (getIconPath (*iter));
             }
         }
 
         update();
+    }
+
+    void AlchemyWindow::exit() {
+        mAlchemy->clear();
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Alchemy);
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Inventory);
     }
 
     void AlchemyWindow::onIngredientSelected(MyGUI::Widget* _sender)
@@ -168,28 +161,33 @@ namespace MWGui
     void AlchemyWindow::onSelectedItem(int index)
     {
         MWWorld::Ptr item = mSortModel->getItem(index).mBase;
-        int res = mAlchemy.addIngredient(item);
+        int res = mAlchemy->addIngredient(item);
 
         if (res != -1)
         {
             update();
 
-            std::string sound = MWWorld::Class::get(item).getUpSoundId(item);
+            std::string sound = item.getClass().getUpSoundId(item);
             MWBase::Environment::get().getSoundManager()->playSound (sound, 1.0, 1.0);
         }
     }
 
     void AlchemyWindow::update()
     {
+        std::string suggestedName = mAlchemy->suggestPotionName();
+        if (suggestedName != mSuggestedPotionName)
+            mNameEdit->setCaptionWithReplacing(suggestedName);
+        mSuggestedPotionName = suggestedName;
+
         mSortModel->clearDragItems();
 
-        MWMechanics::Alchemy::TIngredientsIterator it = mAlchemy.beginIngredients ();
+        MWMechanics::Alchemy::TIngredientsIterator it = mAlchemy->beginIngredients ();
         for (int i=0; i<4; ++i)
         {
-            MyGUI::ImageBox* ingredient = mIngredients[i];
+            ItemWidget* ingredient = mIngredients[i];
 
             MWWorld::Ptr item;
-            if (it != mAlchemy.endIngredients ())
+            if (it != mAlchemy->endIngredients ())
             {
                 item = *it;
                 ++it;
@@ -201,32 +199,36 @@ namespace MWGui
             if (ingredient->getChildCount())
                 MyGUI::Gui::getInstance().destroyWidget(ingredient->getChildAt(0));
 
-            ingredient->setImageTexture("");
             ingredient->clearUserStrings ();
+
+            ingredient->setItem(item);
 
             if (item.isEmpty ())
                 continue;
 
             ingredient->setUserString("ToolTipType", "ItemPtr");
             ingredient->setUserData(item);
-            ingredient->setImageTexture(getIconPath(item));
 
-            MyGUI::TextBox* text = ingredient->createWidget<MyGUI::TextBox>("SandBrightText", MyGUI::IntCoord(0, 14, 32, 18), MyGUI::Align::Default, std::string("Label"));
-            text->setTextAlign(MyGUI::Align::Right);
-            text->setNeedMouseFocus(false);
-            text->setTextShadow(true);
-            text->setTextShadowColour(MyGUI::Colour(0,0,0));
-            text->setCaption(ItemView::getCountString(ingredient->getUserData<MWWorld::Ptr>()->getRefData().getCount()));
+            ingredient->setCount(ingredient->getUserData<MWWorld::Ptr>()->getRefData().getCount());
         }
 
         mItemView->update();
 
-        std::vector<ESM::ENAMstruct> effects;
-        ESM::EffectList list;
-        list.mList = effects;
-        for (MWMechanics::Alchemy::TEffectsIterator it = mAlchemy.beginEffects (); it != mAlchemy.endEffects (); ++it)
+        std::set<MWMechanics::EffectKey> effectIds = mAlchemy->listEffects();
+        Widgets::SpellEffectList list;
+        for (std::set<MWMechanics::EffectKey>::iterator it = effectIds.begin(); it != effectIds.end(); ++it)
         {
-            list.mList.push_back(*it);
+            Widgets::SpellEffectParams params;
+            params.mEffectID = it->mId;
+            const ESM::MagicEffect* magicEffect = MWBase::Environment::get().getWorld()->getStore().get<ESM::MagicEffect>().find(it->mId);
+            if (magicEffect->mData.mFlags & ESM::MagicEffect::TargetSkill)
+                params.mSkill = it->mArg;
+            else if (magicEffect->mData.mFlags & ESM::MagicEffect::TargetAttribute)
+                params.mAttribute = it->mArg;
+            params.mIsConstant = true;
+            params.mNoTarget = true;
+
+            list.push_back(params);
         }
 
         while (mEffectsBox->getChildCount())
@@ -236,8 +238,7 @@ namespace MWGui
         Widgets::MWEffectListPtr effectsWidget = mEffectsBox->createWidget<Widgets::MWEffectList>
             ("MW_StatName", coord, MyGUI::Align::Left | MyGUI::Align::Top);
 
-        Widgets::SpellEffectList _list = Widgets::MWEffectList::effectListFromESM(&list);
-        effectsWidget->setEffectList(_list);
+        effectsWidget->setEffectList(list);
 
         std::vector<MyGUI::Widget*> effectItems;
         effectsWidget->createEffectWidgets(effectItems, mEffectsBox, coord, false, 0);
@@ -248,7 +249,7 @@ namespace MWGui
     {
         for (int i=0; i<4; ++i)
             if (mIngredients[i] == ingredient)
-                mAlchemy.removeIngredient (i);
+                mAlchemy->removeIngredient (i);
 
         update();
     }

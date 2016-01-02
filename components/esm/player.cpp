@@ -1,4 +1,3 @@
-
 #include "player.hpp"
 
 #include "esmreader.hpp"
@@ -6,6 +5,7 @@
 
 void ESM::Player::load (ESMReader &esm)
 {
+    mObject.mRef.loadId(esm, true);
     mObject.load (esm);
 
     mCellId.load (esm);
@@ -25,6 +25,19 @@ void ESM::Player::load (ESMReader &esm)
     esm.getHNOT (mAutoMove, "AMOV");
 
     mBirthsign = esm.getHNString ("SIGN");
+
+    mCurrentCrimeId = -1;
+    esm.getHNOT (mCurrentCrimeId, "CURD");
+    mPaidCrimeId = -1;
+    esm.getHNOT (mPaidCrimeId, "PAYD");
+
+    if (esm.hasMoreSubs())
+    {
+        for (int i=0; i<ESM::Attribute::Length; ++i)
+            mSaveAttributes[i].load(esm);
+        for (int i=0; i<ESM::Skill::Length; ++i)
+            mSaveSkills[i].load(esm);
+    }
 }
 
 void ESM::Player::save (ESMWriter &esm) const
@@ -45,4 +58,12 @@ void ESM::Player::save (ESMWriter &esm) const
         esm.writeHNT ("AMOV", mAutoMove);
 
     esm.writeHNString ("SIGN", mBirthsign);
+
+    esm.writeHNT ("CURD", mCurrentCrimeId);
+    esm.writeHNT ("PAYD", mPaidCrimeId);
+
+    for (int i=0; i<ESM::Attribute::Length; ++i)
+        mSaveAttributes[i].save(esm);
+    for (int i=0; i<ESM::Skill::Length; ++i)
+        mSaveSkills[i].save(esm);
 }

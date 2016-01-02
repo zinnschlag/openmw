@@ -1,52 +1,15 @@
-/*
-  OpenMW - The completely unofficial reimplementation of Morrowind
-  Copyright (C) 2008-2010  Nicolay Korslund
-  Email: < korslund@gmail.com >
-  WWW: http://openmw.sourceforge.net/
-
-  This file (nif_file.h) is part of the OpenMW package.
-
-  OpenMW is distributed as free software: you can redistribute it
-  and/or modify it under the terms of the GNU General Public License
-  version 3, as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  version 3 along with this program. If not, see
-  http://www.gnu.org/licenses/ .
-
- */
+///Main header for reading .nif files
 
 #ifndef OPENMW_COMPONENTS_NIF_NIFFILE_HPP
 #define OPENMW_COMPONENTS_NIF_NIFFILE_HPP
 
-#include <OgreResourceGroupManager.h>
-#include <OgreDataStream.h>
-#include <OgreVector2.h>
-#include <OgreVector3.h>
-#include <OgreVector4.h>
-#include <OgreMatrix3.h>
-#include <OgreQuaternion.h>
-#include <OgreStringConverter.h>
-
 #include <stdexcept>
 #include <vector>
-#include <cassert>
+#include <iostream>
 
-#include <boost/weak_ptr.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
-#include <boost/detail/endian.hpp>
-
-#include <stdint.h>
+#include <components/files/constrainedfilestream.hpp>
 
 #include "record.hpp"
-#include "niftypes.hpp"
-#include "nifstream.hpp"
 
 namespace Nif
 {
@@ -58,155 +21,80 @@ class NIFFile
     };
 
     /// Nif file version
-    int ver;
+    unsigned int ver;
 
-    /// File name, used for error messages
+    /// File name, used for error messages and opening the file
     std::string filename;
 
     /// Record list
     std::vector<Record*> records;
 
-    /// Root list
+    /// Root list.  This is a select portion of the pointers from records
     std::vector<Record*> roots;
 
+    bool mUseSkinning;
+
     /// Parse the file
-    void parse();
+    void parse(Files::IStreamPtr stream);
 
-    class LoadedCache;
-    friend class LoadedCache;
+    /// Get the file's version in a human readable form
+    ///\returns A string containing a human readable NIF version number
+    std::string printVersion(unsigned int version);
 
-    // attempt to protect NIFFile from misuse...
-    struct psudo_private_modifier {}; // this dirty little trick should optimize out
+    ///Private Copy Constructor
     NIFFile (NIFFile const &);
+    ///\overload
     void operator = (NIFFile const &);
 
 public:
-    /// Used for error handling
+    /// Used if file parsing fails
     void fail(const std::string &msg)
     {
-        std::string err = "NIFFile Error: " + msg;
+        std::string err = " NIFFile Error: " + msg;
         err += "\nFile: " + filename;
         throw std::runtime_error(err);
     }
-
+    /// Used when something goes wrong, but not catastrophically so
     void warn(const std::string &msg)
     {
-        std::cerr << "NIFFile Warning: " << msg <<std::endl
+        std::cerr << " NIFFile Warning: " << msg <<std::endl
                   << "File: " << filename <<std::endl;
     }
 
-    typedef boost::shared_ptr <NIFFile> ptr;
-
     /// Open a NIF stream. The name is used for error messages.
-    NIFFile(const std::string &name, psudo_private_modifier);
+    NIFFile(Files::IStreamPtr stream, const std::string &name);
     ~NIFFile();
 
-    static ptr create (const std::string &name);
-    static void lockCache ();
-    static void unlockCache ();
-
-    struct CacheLock
-    {
-        CacheLock () { lockCache (); }
-        ~CacheLock () { unlockCache (); }
-    };
-
     /// Get a given record
-    Record *getRecord(size_t index)
+    Record *getRecord(size_t index) const
     {
         Record *res = records.at(index);
-        assert(res != NULL);
         return res;
     }
     /// Number of records
-    size_t numRecords() { return records.size(); }
+    size_t numRecords() const { return records.size(); }
 
     /// Get a given root
-    Record *getRoot(size_t index=0)
+    Record *getRoot(size_t index=0) const
     {
         Record *res = roots.at(index);
-        assert(res != NULL);
         return res;
     }
     /// Number of roots
-    size_t numRoots() { return roots.size(); }
+    size_t numRoots() const { return roots.size(); }
+
+    /// Set whether there is skinning contained in this NIF file.
+    /// @note This is just a hint for users of the NIF file and has no effect on the loading procedure.
+    void setUseSkinning(bool skinning);
+
+    bool getUseSkinning() const;
+
+    /// Get the name of the file
+    std::string getFilename(){ return filename; }
 };
+typedef boost::shared_ptr<Nif::NIFFile> NIFFilePtr;
 
 
-template<typename T>
-struct KeyT {
-    float mTime;
-    T mValue;
-    T mForwardValue;  // Only for Quadratic interpolation
-    T mBackwardValue; // Only for Quadratic interpolation
-    float mTension;    // Only for TBC interpolation
-    float mBias;       // Only for TBC interpolation
-    float mContinuity; // Only for TBC interpolation
-};
-typedef KeyT<float> FloatKey;
-typedef KeyT<Ogre::Vector3> Vector3Key;
-typedef KeyT<Ogre::Vector4> Vector4Key;
-typedef KeyT<Ogre::Quaternion> QuaternionKey;
-
-template<typename T, T (NIFStream::*getValue)()>
-struct KeyListT {
-    typedef std::vector< KeyT<T> > VecType;
-
-    static const int sLinearInterpolation = 1;
-    static const int sQuadraticInterpolation = 2;
-    static const int sTBCInterpolation = 3;
-
-    int mInterpolationType;
-    VecType mKeys;
-
-    void read(NIFStream *nif, bool force=false)
-    {
-        size_t count = nif->getInt();
-        if(count == 0 && !force)
-            return;
-
-        mInterpolationType = nif->getInt();
-        mKeys.resize(count);
-        if(mInterpolationType == sLinearInterpolation)
-        {
-            for(size_t i = 0;i < count;i++)
-            {
-                KeyT<T> &key = mKeys[i];
-                key.mTime = nif->getFloat();
-                key.mValue = (nif->*getValue)();
-            }
-        }
-        else if(mInterpolationType == sQuadraticInterpolation)
-        {
-            for(size_t i = 0;i < count;i++)
-            {
-                KeyT<T> &key = mKeys[i];
-                key.mTime = nif->getFloat();
-                key.mValue = (nif->*getValue)();
-                key.mForwardValue = (nif->*getValue)();
-                key.mBackwardValue = (nif->*getValue)();
-            }
-        }
-        else if(mInterpolationType == sTBCInterpolation)
-        {
-            for(size_t i = 0;i < count;i++)
-            {
-                KeyT<T> &key = mKeys[i];
-                key.mTime = nif->getFloat();
-                key.mValue = (nif->*getValue)();
-                key.mTension = nif->getFloat();
-                key.mBias = nif->getFloat();
-                key.mContinuity = nif->getFloat();
-            }
-        }
-        else
-            nif->file->fail("Unhandled interpolation type: "+Ogre::StringConverter::toString(mInterpolationType));
-    }
-};
-typedef KeyListT<float,&NIFStream::getFloat> FloatKeyList;
-typedef KeyListT<Ogre::Vector3,&NIFStream::getVector3> Vector3KeyList;
-typedef KeyListT<Ogre::Vector4,&NIFStream::getVector4> Vector4KeyList;
-typedef KeyListT<Ogre::Quaternion,&NIFStream::getQuaternion> QuaternionKeyList;
 
 } // Namespace
 #endif

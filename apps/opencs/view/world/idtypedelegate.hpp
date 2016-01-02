@@ -11,10 +11,7 @@ namespace CSVWorld
     class IdTypeDelegate : public DataDisplayDelegate
     {
         public:
-            IdTypeDelegate (const ValueList &mValues, const IconList &icons, QUndoStack& undoStack, QObject *parent);
-
-            virtual bool updateEditorSetting (const QString &settingName, const QString &settingValue);
-
+            IdTypeDelegate (const ValueList &mValues, const IconList &icons, CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent);
     };
 
     class IdTypeDelegateFactory : public DataDisplayDelegateFactory
@@ -23,7 +20,7 @@ namespace CSVWorld
 
             IdTypeDelegateFactory();
 
-            virtual CommandDelegate *makeDelegate (QUndoStack& undoStack, QObject *parent) const;
+            virtual CommandDelegate *makeDelegate (CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent) const;
             ///< The ownership of the returned CommandDelegate is transferred to the caller.
     };
 }

@@ -1,45 +1,101 @@
 #include "videowidget.hpp"
 
+#include <extern/osg-ffmpeg-videoplayer/videoplayer.hpp>
+
+#include <MyGUI_RenderManager.h>
+
+#include <osg/Texture2D>
+
+#include <components/vfs/manager.hpp>
+#include <components/myguiplatform/myguitexture.hpp>
+
+#include "../mwsound/movieaudiofactory.hpp"
+
 namespace MWGui
 {
 
 VideoWidget::VideoWidget()
-    : mAllowSkipping(true)
+    : mVFS(NULL)
 {
-    eventKeyButtonPressed += MyGUI::newDelegate(this, &VideoWidget::onKeyPressed);
-
+    mPlayer.reset(new Video::VideoPlayer());
     setNeedKeyFocus(true);
 }
 
-void VideoWidget::playVideo(const std::string &video, bool allowSkipping)
+void VideoWidget::setVFS(const VFS::Manager *vfs)
 {
-    mAllowSkipping = allowSkipping;
+    mVFS = vfs;
+}
 
-    mPlayer.playVideo(video);
+void VideoWidget::playVideo(const std::string &video)
+{
+    mPlayer->setAudioFactory(new MWSound::MovieAudioFactory());
 
-    setImageTexture(mPlayer.getTextureName());
+    Files::IStreamPtr videoStream;
+    try
+    {
+        videoStream = mVFS->get(video);
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Failed to open video: " << e.what() << std::endl;
+        return;
+    }
+
+    mPlayer->playVideo(videoStream, video);
+
+    osg::ref_ptr<osg::Texture2D> texture = mPlayer->getVideoTexture();
+    if (!texture)
+        return;
+
+    mTexture.reset(new osgMyGUI::OSGTexture(texture));
+
+    setRenderItemTexture(mTexture.get());
+    getSubWidgetMain()->_setUVSet(MyGUI::FloatRect(0.f, 0.f, 1.f, 1.f));
 }
 
 int VideoWidget::getVideoWidth()
 {
-    return mPlayer.getVideoWidth();
+    return mPlayer->getVideoWidth();
 }
 
 int VideoWidget::getVideoHeight()
 {
-    return mPlayer.getVideoHeight();
-}
-
-void VideoWidget::onKeyPressed(MyGUI::Widget *_sender, MyGUI::KeyCode _key, MyGUI::Char _char)
-{
-    if (_key == MyGUI::KeyCode::Escape && mAllowSkipping)
-        mPlayer.stopVideo();
+    return mPlayer->getVideoHeight();
 }
 
 bool VideoWidget::update()
 {
-    mPlayer.update();
-    return mPlayer.isPlaying();
+    return mPlayer->update();
+}
+
+void VideoWidget::stop()
+{
+    mPlayer->close();
+}
+
+bool VideoWidget::hasAudioStream()
+{
+    return mPlayer->hasAudioStream();
+}
+
+void VideoWidget::autoResize(bool stretch)
+{
+    MyGUI::IntSize screenSize = MyGUI::RenderManager::getInstance().getViewSize();
+    if (getParent())
+        screenSize = getParent()->getSize();
+
+    if (getVideoHeight() > 0 && !stretch)
+    {
+        double imageaspect = static_cast<double>(getVideoWidth())/getVideoHeight();
+
+        int leftPadding = std::max(0, static_cast<int>(screenSize.width - screenSize.height * imageaspect) / 2);
+        int topPadding = std::max(0, static_cast<int>(screenSize.height - screenSize.width / imageaspect) / 2);
+
+        setCoord(leftPadding, topPadding,
+                               screenSize.width - leftPadding*2, screenSize.height - topPadding*2);
+    }
+    else
+        setCoord(0,0,screenSize.width,screenSize.height);
 }
 
 }

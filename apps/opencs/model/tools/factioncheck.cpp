@@ -1,4 +1,3 @@
-
 #include "factioncheck.hpp"
 
 #include <sstream>
@@ -18,7 +17,7 @@ int CSMTools::FactionCheckStage::setup()
     return mFactions.getSize();
 }
 
-void CSMTools::FactionCheckStage::perform (int stage, std::vector<std::string>& messages)
+void CSMTools::FactionCheckStage::perform (int stage, CSMDoc::Messages& messages)
 {
     const CSMWorld::Record<ESM::Faction>& record = mFactions.getRecord (stage);
 
@@ -31,35 +30,26 @@ void CSMTools::FactionCheckStage::perform (int stage, std::vector<std::string>& 
 
     // test for empty name
     if (faction.mName.empty())
-        messages.push_back (id.toString() + "|" + faction.mId + " has an empty name");
+        messages.push_back (std::make_pair (id, faction.mId + " has an empty name"));
 
     // test for invalid attributes
     if (faction.mData.mAttribute[0]==faction.mData.mAttribute[1] && faction.mData.mAttribute[0]!=-1)
     {
-        std::ostringstream stream;
-
-        stream << id.toString() << "|Faction lists same attribute twice";
-
-        messages.push_back (stream.str());
+        messages.push_back (std::make_pair (id , "Faction lists same attribute twice"));
     }
 
     // test for non-unique skill
     std::map<int, int> skills; // ID, number of occurrences
 
-    for (int i=0; i<6; ++i)
+    for (int i=0; i<7; ++i)
         if (faction.mData.mSkills[i]!=-1)
             ++skills[faction.mData.mSkills[i]];
 
     for (std::map<int, int>::const_iterator iter (skills.begin()); iter!=skills.end(); ++iter)
         if (iter->second>1)
         {
-            std::ostringstream stream;
-
-            stream
-                << id.toString() << "|"
-                << ESM::Skill::indexToId (iter->first) << " is listed more than once";
-
-            messages.push_back (stream.str());
+            messages.push_back (std::make_pair (id,
+                ESM::Skill::indexToId (iter->first) + " is listed more than once"));
         }
 
     /// \todo check data members that can't be edited in the table view

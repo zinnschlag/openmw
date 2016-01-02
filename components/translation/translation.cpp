@@ -1,10 +1,16 @@
 #include "translation.hpp"
-#include <components/misc/stringops.hpp>
 
-#include <fstream>
+#include <boost/filesystem/fstream.hpp>
+
+#include <components/misc/stringops.hpp>
 
 namespace Translation
 {
+    Storage::Storage()
+        : mEncoder(NULL)
+    {
+    }
+
     void Storage::loadTranslationData(const Files::Collections& dataFileCollections,
                                       const std::string& esmFileName)
     {
@@ -28,9 +34,8 @@ namespace Translation
 
         if (dataFileCollections.getCollection (extension).doesExist (fileName))
         {
-            std::string path = dataFileCollections.getCollection (extension).getPath (fileName).string();
-
-            std::ifstream stream (path.c_str());
+            boost::filesystem::ifstream stream (
+                dataFileCollections.getCollection (extension).getPath (fileName));
 
             if (!stream.is_open())
                 throw std::runtime_error ("failed to open translation file: " + fileName);
@@ -42,7 +47,7 @@ namespace Translation
     void Storage::loadDataFromStream(ContainerType& container, std::istream& stream)
     {
         std::string line;
-        while (!stream.eof())
+        while (!stream.eof() && !stream.fail())
         {
             std::getline( stream, line );
             if (!line.empty() && *line.rbegin() == '\r')

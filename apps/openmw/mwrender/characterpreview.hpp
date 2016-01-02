@@ -1,60 +1,72 @@
 #ifndef MWRENDER_CHARACTERPREVIEW_H
 #define MWRENDER_CHARACTERPREVIEW_H
 
-#include <OgreRenderTarget.h>
-#include <OgreMaterialManager.h>
-#include <OgreVector3.h>
+#include <osg/ref_ptr>
+#include <memory>
+
+#include <osg/PositionAttitudeTransform>
 
 #include <components/esm/loadnpc.hpp>
 
+#include <components/resource/resourcesystem.hpp>
+
 #include "../mwworld/ptr.hpp"
 
-namespace OEngine
+namespace osg
 {
-namespace Render
-{
-class SelectionBuffer;
+    class Texture2D;
+    class Camera;
 }
+
+namespace osgViewer
+{
+    class Viewer;
 }
 
 namespace MWRender
 {
 
     class NpcAnimation;
+    class DrawOnceCallback;
 
     class CharacterPreview
     {
     public:
-        CharacterPreview(MWWorld::Ptr character, int sizeX, int sizeY, const std::string& name,
-                         Ogre::Vector3 position, Ogre::Vector3 lookAt);
+        CharacterPreview(osgViewer::Viewer* viewer, Resource::ResourceSystem* resourceSystem, MWWorld::Ptr character, int sizeX, int sizeY,
+                         const osg::Vec3f& position, const osg::Vec3f& lookAt);
         virtual ~CharacterPreview();
 
-        virtual void setup ();
-        virtual void onSetup();
+        int getTextureWidth() const;
+        int getTextureHeight() const;
 
-        virtual void rebuild();
+        void redraw();
+
+        void rebuild();
+
+        osg::ref_ptr<osg::Texture2D> getTexture();
+
+    private:
+        CharacterPreview(const CharacterPreview&);
+        CharacterPreview& operator=(const CharacterPreview&);
 
     protected:
         virtual bool renderHeadOnly() { return false; }
+        virtual void onSetup();
 
-        Ogre::TexturePtr mTexture;
-        Ogre::RenderTarget* mRenderTarget;
-        Ogre::Viewport* mViewport;
+        osg::ref_ptr<osgViewer::Viewer> mViewer;
+        Resource::ResourceSystem* mResourceSystem;
+        osg::ref_ptr<osg::Texture2D> mTexture;
+        osg::ref_ptr<osg::Camera> mCamera;
+        osg::ref_ptr<DrawOnceCallback> mDrawOnceCallback;
 
-        Ogre::Camera* mCamera;
-
-        Ogre::SceneManager* mSceneMgr;
-        Ogre::SceneNode* mNode;
-
-        Ogre::Vector3 mPosition;
-        Ogre::Vector3 mLookAt;
+        osg::Vec3f mPosition;
+        osg::Vec3f mLookAt;
 
         MWWorld::Ptr mCharacter;
 
-        MWRender::NpcAnimation* mAnimation;
+        std::auto_ptr<MWRender::NpcAnimation> mAnimation;
+        osg::ref_ptr<osg::PositionAttitudeTransform> mNode;
         std::string mCurrentAnimGroup;
-
-        std::string mName;
 
         int mSizeX;
         int mSizeY;
@@ -64,18 +76,20 @@ namespace MWRender
     {
     public:
 
-        InventoryPreview(MWWorld::Ptr character);
-        virtual ~InventoryPreview();
-        virtual void onSetup();
+        InventoryPreview(osgViewer::Viewer* viewer, Resource::ResourceSystem* resourceSystem, MWWorld::Ptr character);
 
-        void update(int sizeX, int sizeY);
+        void updatePtr(const MWWorld::Ptr& ptr);
+
+        void update(); // Render preview again, e.g. after changed equipment
+        void setViewport(int sizeX, int sizeY);
 
         int getSlotSelected(int posX, int posY);
 
-    private:
-
-        OEngine::Render::SelectionBuffer* mSelectionBuffer;
+    protected:
+        virtual void onSetup();
     };
+
+    class UpdateCameraCallback;
 
     class RaceSelectionPreview : public CharacterPreview
     {
@@ -85,22 +99,25 @@ namespace MWRender
     protected:
 
         virtual bool renderHeadOnly() { return true; }
-
-        void updateCamera();
+        virtual void onSetup();
 
     public:
-        RaceSelectionPreview();
+        RaceSelectionPreview(osgViewer::Viewer* viewer, Resource::ResourceSystem* resourceSystem);
+        virtual ~RaceSelectionPreview();
 
-        virtual void onSetup();
-        void render();
-
-        void update(float angle);
+        void setAngle(float angleRadians);
 
         const ESM::NPC &getPrototype() const {
             return mBase;
         }
 
         void setPrototype(const ESM::NPC &proto);
+
+    private:
+
+        osg::ref_ptr<UpdateCameraCallback> mUpdateCameraCallback;
+
+        float mPitchRadians;
     };
 
 }

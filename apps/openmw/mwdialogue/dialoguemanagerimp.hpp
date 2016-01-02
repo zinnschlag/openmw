@@ -4,7 +4,7 @@
 #include "../mwbase/dialoguemanager.hpp"
 
 #include <map>
-#include <list>
+#include <set>
 
 #include <components/compiler/streamerrorhandler.hpp>
 #include <components/translation/translation.hpp>
@@ -23,8 +23,13 @@ namespace MWDialogue
     class DialogueManager : public MWBase::DialogueManager
     {
             std::map<std::string, ESM::Dialogue> mDialogueMap;
-            std::map<std::string, bool> mKnownTopics;// Those are the topics the player knows.
-            std::list<std::string> mActorKnownTopics;
+            std::set<std::string> mKnownTopics;// Those are the topics the player knows.
+
+            // Modified faction reactions. <Faction1, <Faction2, Difference> >
+            typedef std::map<std::string, std::map<std::string, int> > ModFactionReactionMap;
+            ModFactionReactionMap mChangedFactionReaction;
+
+            std::set<std::string> mActorKnownTopics;
 
             Translation::Storage& mTranslationDataStorage;
             MWScript::CompilerContext mCompilerContext;
@@ -35,12 +40,11 @@ namespace MWDialogue
             bool mTalkedTo;
 
             int mChoice;
-            std::string mLastTopic;
+            std::string mLastTopic; // last topic ID, lowercase
             bool mIsInChoice;
 
             float mTemporaryDispositionChange;
             float mPermanentDispositionChange;
-            bool mScriptVerbose;
 
             void parseText (const std::string& text);
 
@@ -68,9 +72,6 @@ namespace MWDialogue
 
             virtual void goodbye();
 
-            virtual MWWorld::Ptr getActor() const;
-            ///< Return the actor the player is currently talking to.
-
             virtual bool checkServiceRefused ();
 
             virtual void say(const MWWorld::Ptr &actor, const std::string &topic) const;
@@ -82,29 +83,27 @@ namespace MWDialogue
 
             virtual void persuade (int type);
             virtual int getTemporaryDispositionChange () const;
+
+            /// @note This change is temporary and gets discarded when dialogue ends.
             virtual void applyDispositionChange (int delta);
 
             virtual int countSavedGameRecords() const;
 
-            virtual void write (ESM::ESMWriter& writer) const;
+            virtual void write (ESM::ESMWriter& writer, Loading::Listener& progress) const;
 
-            virtual void readRecord (ESM::ESMReader& reader, int32_t type);
+            virtual void readRecord (ESM::ESMReader& reader, uint32_t type);
+
+            /// Changes faction1's opinion of faction2 by \a diff.
+            virtual void modFactionReaction (const std::string& faction1, const std::string& faction2, int diff);
+
+            virtual void setFactionReaction (const std::string& faction1, const std::string& faction2, int absolute);
+
+            /// @return faction1's opinion of faction2
+            virtual int getFactionReaction (const std::string& faction1, const std::string& faction2) const;
+
+            /// Removes the last added topic response for the given actor from the journal
+            virtual void clearInfoActor (const MWWorld::Ptr& actor) const;
     };
-
-
-    struct HyperTextToken
-    {
-        HyperTextToken(const std::string& text, bool link) : mText(text), mLink(link) {}
-
-        std::string mText;
-        bool mLink;
-    };
-
-    // In translations (at least Russian) the links are marked with @#, so
-    // it should be a function to parse it
-    std::vector<HyperTextToken> ParseHyperText(const std::string& text);
-
-    size_t RemovePseudoAsterisks(std::string& phrase);
 }
 
 #endif

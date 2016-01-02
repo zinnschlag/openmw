@@ -4,9 +4,16 @@
 #include <fstream>
 #include <stdexcept>
 
+#include <components/to_utf8/to_utf8.hpp>
+
 namespace ESM
 {
-    ESMWriter::ESMWriter() : mEncoder (0), mRecordCount (0), mCounting (true) {}
+    ESMWriter::ESMWriter()
+        : mStream(NULL)
+        , mEncoder (0)
+        , mRecordCount (0)
+        , mCounting (true)
+    {}
 
     unsigned int ESMWriter::getVersion() const
     {
@@ -16,6 +23,11 @@ namespace ESM
     void ESMWriter::setVersion(unsigned int ver)
     {
         mHeader.mData.version = ver;
+    }
+
+    void ESMWriter::setType(int type)
+    {
+        mHeader.mData.type = type;
     }
 
     void ESMWriter::setAuthor(const std::string& auth)
@@ -100,6 +112,9 @@ namespace ESM
 
     void ESMWriter::startSubRecord(const std::string& name)
     {
+        // Sub-record hierarchies are not properly supported in ESMReader. This should be fixed later.
+        assert (mRecords.size() <= 1);
+
         writeName(name);
         RecordData rec;
         rec.name = name;
@@ -157,6 +172,15 @@ namespace ESM
         }
 
         endRecord(name);
+    }
+
+    void ESMWriter::writeFixedSizeString(const std::string &data, int size)
+    {
+        std::string string;
+        if (!data.empty())
+            string = mEncoder ? mEncoder->getLegacyEnc(data) : data;
+        string.resize(size);
+        write(string.c_str(), string.size());
     }
 
     void ESMWriter::writeHString(const std::string& data)

@@ -1,9 +1,6 @@
-
 #include "miscextensions.hpp"
 
 #include <cstdlib>
-
-#include <libs/openengine/ogre/fader.hpp>
 
 #include <components/compiler/extensions.hpp>
 #include <components/compiler/opcodes.hpp>
@@ -19,17 +16,57 @@
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
 #include "../mwbase/scriptmanager.hpp"
+#include "../mwbase/world.hpp"
 
 #include "../mwworld/class.hpp"
+#include "../mwworld/player.hpp"
 #include "../mwworld/containerstore.hpp"
 #include "../mwworld/esmstore.hpp"
+#include "../mwworld/cellstore.hpp"
 
 #include "../mwmechanics/npcstats.hpp"
 #include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/spellcasting.hpp"
+#include "../mwmechanics/actorutil.hpp"
 
 #include "interpretercontext.hpp"
 #include "ref.hpp"
+
+namespace
+{
+
+    void addToLevList(ESM::LevelledListBase* list, const std::string& itemId, int level)
+    {
+        for (std::vector<ESM::LevelledListBase::LevelItem>::iterator it = list->mList.begin(); it != list->mList.end(); ++it)
+        {
+            if (it->mLevel == level && itemId == it->mId)
+                return;
+        }
+
+        ESM::LevelledListBase::LevelItem item;
+        item.mId = itemId;
+        item.mLevel = level;
+        list->mList.push_back(item);
+    }
+
+    void removeFromLevList(ESM::LevelledListBase* list, const std::string& itemId, int level)
+    {
+        // level of -1 removes all items with that itemId
+        for (std::vector<ESM::LevelledListBase::LevelItem>::iterator it = list->mList.begin(); it != list->mList.end();)
+        {
+            if (level != -1 && it->mLevel != level)
+            {
+                ++it;
+                continue;
+            }
+            if (Misc::StringUtils::ciEqual(itemId, it->mId))
+                it = list->mList.erase(it);
+            else
+                ++it;
+        }
+    }
+
+}
 
 namespace MWScript
 {
@@ -44,7 +81,7 @@ namespace MWScript
                 std::string name = runtime.getStringLiteral (runtime[0].mInteger);
                 runtime.pop();
 
-                bool allowSkipping = runtime[0].mInteger;
+                bool allowSkipping = runtime[0].mInteger != 0;
                 runtime.pop();
 
                 MWBase::Environment::get().getWindowManager()->playVideo (name, allowSkipping);
@@ -108,6 +145,7 @@ namespace MWScript
                 }
         };
 
+        template <class R>
         class OpActivate : public Interpreter::Opcode0
         {
             public:
@@ -117,7 +155,9 @@ namespace MWScript
                     InterpreterContext& context =
                         static_cast<InterpreterContext&> (runtime.getContext());
 
-                    context.executeActivation();
+                    MWWorld::Ptr ptr = R()(runtime);
+
+                    context.executeActivation(ptr, MWMechanics::getPlayer());
                 }
         };
 
@@ -130,7 +170,10 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    Interpreter::Type_Integer lockLevel = 100;
+                    Interpreter::Type_Integer lockLevel = ptr.getCellRef().getLockLevel();
+                    if(lockLevel==0) { //no lock level was ever set, set to 100 as default
+                        lockLevel = 100;
+                    }
 
                     if (arg0==1)
                     {
@@ -138,7 +181,20 @@ namespace MWScript
                         runtime.pop();
                     }
 
-                    MWWorld::Class::get (ptr).lock (ptr, lockLevel);
+                    ptr.getClass().lock (ptr, lockLevel);
+
+                    // Instantly reset door to closed state
+                    // This is done when using Lock in scripts, but not when using Lock spells.
+                    if (ptr.getTypeName() == typeid(ESM::Door).name() && !ptr.getCellRef().getTeleport())
+                    {
+                        MWBase::Environment::get().getWorld()->activateDoor(ptr, 0);
+
+                        float xr = ptr.getCellRef().getPosition().rot[0];
+                        float yr = ptr.getCellRef().getPosition().rot[1];
+                        float zr = ptr.getCellRef().getPosition().rot[2];
+
+                        MWBase::Environment::get().getWorld()->rotateObject(ptr, xr, yr, zr);
+                    }
                 }
         };
 
@@ -151,7 +207,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    MWWorld::Class::get (ptr).unlock (ptr);
+                    ptr.getClass().unlock (ptr);
                 }
         };
 
@@ -161,13 +217,10 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    InterpreterContext& context =
-                        static_cast<InterpreterContext&> (runtime.getContext());
-
                     bool enabled =
-                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWBase::World::Render_CollisionDebug);
+                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWRender::Render_CollisionDebug);
 
-                    context.report (enabled ?
+                    runtime.getContext().report (enabled ?
                         "Collision Mesh Rendering -> On" : "Collision Mesh Rendering -> Off");
                 }
         };
@@ -179,13 +232,10 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    InterpreterContext& context =
-                        static_cast<InterpreterContext&> (runtime.getContext());
-
                     bool enabled =
-                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWBase::World::Render_BoundingBoxes);
+                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWRender::Render_BoundingBoxes);
 
-                    context.report (enabled ?
+                    runtime.getContext().report (enabled ?
                         "Bounding Box Rendering -> On" : "Bounding Box Rendering -> Off");
                 }
         };
@@ -196,13 +246,10 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    InterpreterContext& context =
-                        static_cast<InterpreterContext&> (runtime.getContext());
-
                     bool enabled =
-                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWBase::World::Render_Wireframe);
+                        MWBase::Environment::get().getWorld()->toggleRenderMode (MWRender::Render_Wireframe);
 
-                    context.report (enabled ?
+                    runtime.getContext().report (enabled ?
                         "Wireframe Rendering -> On" : "Wireframe Rendering -> Off");
                 }
         };
@@ -212,13 +259,10 @@ namespace MWScript
         public:
             virtual void execute (Interpreter::Runtime& runtime)
             {
-                InterpreterContext& context =
-                    static_cast<InterpreterContext&> (runtime.getContext());
-
                 bool enabled =
-                    MWBase::Environment::get().getWorld()->toggleRenderMode (MWBase::World::Render_Pathgrid);
+                    MWBase::Environment::get().getWorld()->toggleRenderMode (MWRender::Render_Pathgrid);
 
-                context.report (enabled ?
+                runtime.getContext().report (enabled ?
                     "Path Grid rendering -> On" : "Path Grid Rendering -> Off");
             }
         };
@@ -232,7 +276,7 @@ namespace MWScript
                     Interpreter::Type_Float time = runtime[0].mFloat;
                     runtime.pop();
 
-                    MWBase::Environment::get().getWorld()->getFader()->fadeIn(time);
+                    MWBase::Environment::get().getWindowManager()->fadeScreenIn(time, false);
                 }
         };
 
@@ -245,7 +289,7 @@ namespace MWScript
                     Interpreter::Type_Float time = runtime[0].mFloat;
                     runtime.pop();
 
-                    MWBase::Environment::get().getWorld()->getFader()->fadeOut(time);
+                    MWBase::Environment::get().getWindowManager()->fadeScreenOut(time, false);
                 }
         };
 
@@ -261,7 +305,7 @@ namespace MWScript
                     Interpreter::Type_Float time = runtime[0].mFloat;
                     runtime.pop();
 
-                    MWBase::Environment::get().getWorld()->getFader()->fadeTo(alpha, time);
+                    MWBase::Environment::get().getWindowManager()->fadeScreenTo(static_cast<int>(alpha), time, false);
                 }
         };
 
@@ -271,7 +315,19 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    MWBase::Environment::get().getWorld()->toggleWater();
+                    runtime.getContext().report(MWBase::Environment::get().getWorld()->toggleWater() ? "Water -> On"
+                                                                                                     : "Water -> Off");
+                }
+        };
+
+        class OpToggleWorld : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    runtime.getContext().report(MWBase::Environment::get().getWorld()->toggleWorld() ? "World -> On"
+                                                                                                     : "World -> Off");
                 }
         };
 
@@ -282,8 +338,37 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     // We are ignoring the DontSaveObject statement for now. Probably not worth
-                    /// bothering with. The incompatibility we are creating should be marginal at most.
+                    // bothering with. The incompatibility we are creating should be marginal at most.
                 }
+        };
+
+        class OpPcForce1stPerson : public Interpreter::Opcode0
+        {
+        public:
+
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                if (!MWBase::Environment::get().getWorld()->isFirstPerson())
+                    MWBase::Environment::get().getWorld()->togglePOV();
+            }
+        };
+
+        class OpPcForce3rdPerson : public Interpreter::Opcode0
+        {
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                if (MWBase::Environment::get().getWorld()->isFirstPerson())
+                    MWBase::Environment::get().getWorld()->togglePOV();
+            }
+        };
+
+        class OpPcGet3rdPerson : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute(Interpreter::Runtime& runtime)
+            {
+                runtime.push(!MWBase::Environment::get().getWorld()->isFirstPerson());
+            }
         };
 
         class OpToggleVanityMode : public Interpreter::Opcode0
@@ -294,17 +379,14 @@ namespace MWScript
 
             virtual void execute(Interpreter::Runtime &runtime)
             {
-                InterpreterContext& context =
-                    static_cast<InterpreterContext&> (runtime.getContext());
-
                 MWBase::World *world =
                     MWBase::Environment::get().getWorld();
 
                 if (world->toggleVanityMode(sActivate)) {
-                    context.report(sActivate ? "Vanity Mode -> On" : "Vanity Mode -> Off");
+                    runtime.getContext().report(sActivate ? "Vanity Mode -> On" : "Vanity Mode -> Off");
                     sActivate = !sActivate;
                 } else {
-                    context.report("Vanity Mode -> No");
+                    runtime.getContext().report("Vanity Mode -> No");
                 }
             }
         };
@@ -319,7 +401,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push (ptr.getCellRef ().mLockLevel > 0);
+                    runtime.push (ptr.getCellRef().getLockLevel() > 0);
                 }
         };
 
@@ -340,9 +422,17 @@ namespace MWScript
                     if(key < 0 || key > 32767 || *end != '\0')
                         key = ESM::MagicEffect::effectStringToId(effect);
 
-                    runtime.push(MWWorld::Class::get(ptr).getCreatureStats(ptr).getMagicEffects().get(
-                                      MWMechanics::EffectKey(key)).mMagnitude > 0);
-                }
+                    const MWMechanics::MagicEffects& effects = ptr.getClass().getCreatureStats(ptr).getMagicEffects();
+                    for (MWMechanics::MagicEffects::Collection::const_iterator it = effects.begin(); it != effects.end(); ++it)
+                    {
+                        if (it->first.mId == key && it->second.getModifier() > 0)
+                        {
+                            runtime.push(1);
+                            return;
+                        }
+                    }
+                    runtime.push(0);
+               }
         };
 
         template<class R>
@@ -364,7 +454,7 @@ namespace MWScript
                     store.get<ESM::Creature>().find(creature); // This line throws an exception if it can't find the creature
 
                     MWWorld::Ptr item = *ptr.getClass().getContainerStore(ptr).add(gem, 1, ptr);
-                    item.getCellRef().mSoul = creature;
+                    item.getCellRef().setSoul(creature);
                 }
         };
 
@@ -384,10 +474,10 @@ namespace MWScript
                     for (unsigned int i=0; i<arg0; ++i)
                         runtime.pop();
 
-                    MWWorld::ContainerStore& store = MWWorld::Class::get (ptr).getContainerStore (ptr);
+                    MWWorld::ContainerStore& store = ptr.getClass().getContainerStore (ptr);
                     for (MWWorld::ContainerStoreIterator it = store.begin(); it != store.end(); ++it)
                     {
-                        if (::Misc::StringUtils::ciEqual(it->getCellRef().mSoul, soul))
+                        if (::Misc::StringUtils::ciEqual(it->getCellRef().getSoul(), soul))
                         {
                             store.remove(*it, 1, ptr);
                             return;
@@ -419,16 +509,17 @@ namespace MWScript
                     if (amount == 0)
                         return;
 
-                    MWWorld::ContainerStore& store = MWWorld::Class::get (ptr).getContainerStore (ptr);
+                    MWWorld::ContainerStore& store = ptr.getClass().getContainerStore (ptr);
 
 
                     int toRemove = amount;
                     for (MWWorld::ContainerStoreIterator iter (store.begin()); iter!=store.end(); ++iter)
                     {
-                        if (::Misc::StringUtils::ciEqual(iter->getCellRef().mRefID, item))
+                        if (::Misc::StringUtils::ciEqual(iter->getCellRef().getRefId(), item))
                         {
                             int removed = store.remove(*iter, toRemove, ptr);
-                            MWBase::Environment::get().getWorld()->dropObjectOnGround(ptr, *iter, removed);
+                            MWWorld::Ptr dropped = MWBase::Environment::get().getWorld()->dropObjectOnGround(ptr, *iter, removed);
+                            dropped.getCellRef().setOwner("");
 
                             toRemove -= removed;
 
@@ -452,12 +543,12 @@ namespace MWScript
                     std::string soul = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    MWWorld::ContainerStore& store = MWWorld::Class::get (ptr).getContainerStore (ptr);
+                    MWWorld::ContainerStore& store = ptr.getClass().getContainerStore (ptr);
 
 
                     for (MWWorld::ContainerStoreIterator iter (store.begin()); iter!=store.end(); ++iter)
                     {
-                        if (::Misc::StringUtils::ciEqual(iter->getCellRef().mSoul, soul))
+                        if (::Misc::StringUtils::ciEqual(iter->getCellRef().getSoul(), soul))
                         {
                             MWBase::Environment::get().getWorld()->dropObjectOnGround(ptr, *iter, 1);
                             store.remove(*iter, 1, ptr);
@@ -476,7 +567,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push(MWWorld::Class::get(ptr).getCreatureStats (ptr).getAttacked ());
+                    runtime.push(ptr.getClass().getCreatureStats (ptr).getAttacked ());
                 }
         };
 
@@ -489,7 +580,8 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push(ptr.getClass().getNpcStats (ptr).getDrawState () == MWMechanics::DrawState_Weapon);
+                    runtime.push((ptr.getClass().hasInventoryStore(ptr) || ptr.getClass().isBipedal(ptr)) &&
+                                ptr.getClass().getCreatureStats (ptr).getDrawState () == MWMechanics::DrawState_Weapon);
                 }
         };
 
@@ -502,7 +594,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push(ptr.getClass().getNpcStats (ptr).getDrawState () == MWMechanics::DrawState_Spell);
+                    runtime.push(ptr.getClass().getCreatureStats (ptr).getDrawState () == MWMechanics::DrawState_Spell);
                 }
         };
 
@@ -517,7 +609,8 @@ namespace MWScript
                     std::string id = runtime.getStringLiteral(runtime[0].mInteger);
                     runtime.pop();
 
-                    runtime.push(MWWorld::Class::get(ptr).getCreatureStats(ptr).getActiveSpells().isSpellActive(id));
+                    const MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats(ptr);
+                    runtime.push(stats.getActiveSpells().isSpellActive(id) || stats.getSpells().isSpellActive(id));
                 }
         };
 
@@ -544,6 +637,10 @@ namespace MWScript
 
                     if (parameter == 1)
                         MWBase::Environment::get().getWorld()->deleteObject(ptr);
+                    else if (parameter == 0)
+                        MWBase::Environment::get().getWorld()->undeleteObject(ptr);
+                    else
+                        throw std::runtime_error("SetDelete: unexpected parameter");
                 }
         };
 
@@ -594,6 +691,60 @@ namespace MWScript
                 }
         };
 
+        template <class R>
+        class OpGetCollidingPc : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+                    runtime.push (MWBase::Environment::get().getWorld()->getPlayerCollidingWith(ptr));
+                }
+        };
+
+        template <class R>
+        class OpGetCollidingActor : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+                    runtime.push (MWBase::Environment::get().getWorld()->getActorCollidingWith(ptr));
+                }
+        };
+
+        template <class R>
+        class OpHurtStandingActor : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+                    float healthDiffPerSecond = runtime[0].mFloat;
+                    runtime.pop();
+
+                    MWBase::Environment::get().getWorld()->hurtStandingActors(ptr, healthDiffPerSecond);
+                }
+        };
+
+        template <class R>
+        class OpHurtCollidingActor : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+                    float healthDiffPerSecond = runtime[0].mFloat;
+                    runtime.pop();
+
+                    MWBase::Environment::get().getWorld()->hurtCollidingActors(ptr, healthDiffPerSecond);
+                }
+        };
+
         class OpGetWindSpeed : public Interpreter::Opcode0
         {
             public:
@@ -616,8 +767,29 @@ namespace MWScript
                     std::string objectID = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    MWMechanics::CreatureStats &stats = MWWorld::Class::get(ptr).getCreatureStats(ptr);
+                    MWMechanics::CreatureStats &stats = ptr.getClass().getCreatureStats(ptr);
                     runtime.push(::Misc::StringUtils::ciEqual(objectID, stats.getLastHitObject()));
+
+                    stats.setLastHitObject(std::string());
+                }
+        };
+
+        template <class R>
+        class OpHitAttemptOnMe : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+
+                    std::string objectID = runtime.getStringLiteral (runtime[0].mInteger);
+                    runtime.pop();
+
+                    MWMechanics::CreatureStats &stats = ptr.getClass().getCreatureStats(ptr);
+                    runtime.push(::Misc::StringUtils::ciEqual(objectID, stats.getLastHitAttemptObject()));
+
+                    stats.setLastHitAttemptObject(std::string());
                 }
         };
 
@@ -652,12 +824,12 @@ namespace MWScript
             {
                 std::stringstream str;
 
-                const std::string script = MWWorld::Class::get(ptr).getScript(ptr);
+                const std::string script = ptr.getClass().getScript(ptr);
                 if(script.empty())
-                    str<< ptr.getCellRef().mRefID<<" ("<<ptr.getRefData().getHandle()<<") does not have a script.";
+                    str<< ptr.getCellRef().getRefId()<<"  does not have a script.";
                 else
                 {
-                    str<< "Local variables for "<<ptr.getCellRef().mRefID<<" ("<<ptr.getRefData().getHandle()<<")";
+                    str<< "Local variables for "<<ptr.getCellRef().getRefId();
 
                     const Locals &locals = ptr.getRefData().getLocals();
                     const Compiler::Locals &complocals = MWBase::Environment::get().getScriptManager()->getLocals(script);
@@ -690,14 +862,11 @@ namespace MWScript
 
             void printGlobalVars(Interpreter::Runtime &runtime)
             {
-                InterpreterContext& context =
-                    static_cast<InterpreterContext&> (runtime.getContext());
-
                 std::stringstream str;
                 str<< "Global variables:";
 
                 MWBase::World *world = MWBase::Environment::get().getWorld();
-                std::vector<std::string> names = context.getGlobals();
+                std::vector<std::string> names = runtime.getContext().getGlobals();
                 for(size_t i = 0;i < names.size();++i)
                 {
                     char type = world->getGlobalVariableType (names[i]);
@@ -707,17 +876,17 @@ namespace MWScript
                     {
                         case 's':
 
-                            str << context.getGlobalShort (names[i]) << " (short)";
+                            str << runtime.getContext().getGlobalShort (names[i]) << " (short)";
                             break;
 
                         case 'l':
 
-                            str << context.getGlobalLong (names[i]) << " (long)";
+                            str << runtime.getContext().getGlobalLong (names[i]) << " (long)";
                             break;
 
                         case 'f':
 
-                            str << context.getGlobalFloat (names[i]) << " (float)";
+                            str << runtime.getContext().getGlobalFloat (names[i]) << " (float)";
                             break;
 
                         default:
@@ -726,7 +895,7 @@ namespace MWScript
                     }
                 }
 
-                context.report (str.str());
+                runtime.getContext().report (str.str());
             }
 
         public:
@@ -743,16 +912,25 @@ namespace MWScript
             }
         };
 
+        class OpToggleScripts : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                bool enabled = MWBase::Environment::get().getWorld()->toggleScripts();
+
+                runtime.getContext().report(enabled ? "Scripts -> On" : "Scripts -> Off");
+            }
+        };
+
         class OpToggleGodMode : public Interpreter::Opcode0
         {
             public:
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    InterpreterContext& context = static_cast<InterpreterContext&> (runtime.getContext());
-
                     bool enabled = MWBase::Environment::get().getWorld()->toggleGodMode();
 
-                    context.report (enabled ? "God Mode -> On" : "God Mode -> Off");
+                    runtime.getContext().report (enabled ? "God Mode -> On" : "God Mode -> Off");
                 }
         };
 
@@ -773,7 +951,8 @@ namespace MWScript
                 MWWorld::Ptr target = MWBase::Environment::get().getWorld()->getPtr (targetId, false);
 
                 MWMechanics::CastSpell cast(ptr, target);
-                cast.mHitPosition = Ogre::Vector3(target.getRefData().getPosition().pos);
+                cast.mHitPosition = target.getRefData().getPosition().asVec3();
+                cast.mAlwaysSucceed = true;
                 cast.cast(spell);
             }
         };
@@ -790,7 +969,8 @@ namespace MWScript
                 runtime.pop();
 
                 MWMechanics::CastSpell cast(ptr, ptr);
-                cast.mHitPosition = Ogre::Vector3(ptr.getRefData().getPosition().pos);
+                cast.mHitPosition = ptr.getRefData().getPosition().asVec3();
+                cast.mAlwaysSucceed = true;
                 cast.cast(spell);
             }
         };
@@ -810,9 +990,10 @@ namespace MWScript
         public:
             virtual void execute(Interpreter::Runtime &runtime)
             {
-                MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                MWWorld::Ptr player = MWMechanics::getPlayer();
                 player.getClass().getNpcStats(player).setBounty(0);
                 MWBase::Environment::get().getWorld()->confiscateStolenItems(player);
+                MWBase::Environment::get().getWorld()->getPlayer().recordCrimeId();
             }
         };
 
@@ -821,8 +1002,9 @@ namespace MWScript
         public:
             virtual void execute(Interpreter::Runtime &runtime)
             {
-                MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                MWWorld::Ptr player = MWMechanics::getPlayer();
                 player.getClass().getNpcStats(player).setBounty(0);
+                MWBase::Environment::get().getWorld()->getPlayer().recordCrimeId();
             }
         };
 
@@ -832,8 +1014,7 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime &runtime)
                 {
-                    /// \todo implement jail check
-                    runtime.push (0);
+                    runtime.push (MWBase::Environment::get().getWindowManager()->containsMode(MWGui::GM_Jail));
                 }
         };
 
@@ -848,11 +1029,139 @@ namespace MWScript
                 }
         };
 
+        template <class R>
+        class OpBetaComment : public Interpreter::Opcode1
+        {
+        public:
+            virtual void execute(Interpreter::Runtime &runtime, unsigned int arg0)
+            {
+                MWWorld::Ptr ptr = R()(runtime);
+
+                std::stringstream msg;
+
+                msg << "Content file: ";
+
+                if (!ptr.getCellRef().hasContentFile())
+                    msg << "[None]" << std::endl;
+                else
+                {
+                    std::vector<std::string> contentFiles = MWBase::Environment::get().getWorld()->getContentFiles();
+
+                    msg << contentFiles.at (ptr.getCellRef().getRefNum().mContentFile) << std::endl;
+                    msg << "RefNum: " << ptr.getCellRef().getRefNum().mIndex << std::endl;
+                }
+
+                if (ptr.getRefData().isDeletedByContentFile())
+                    msg << "[Deleted by content file]" << std::endl;
+                if (!ptr.getRefData().getCount())
+                    msg << "[Deleted]" << std::endl;
+
+                msg << "RefID: " << ptr.getCellRef().getRefId() << std::endl;
+
+                if (ptr.isInCell())
+                {
+                    MWWorld::CellStore* cell = ptr.getCell();
+                    msg << "Cell: " << MWBase::Environment::get().getWorld()->getCellName(cell) << std::endl;
+                    if (cell->getCell()->isExterior())
+                        msg << "Grid: " << cell->getCell()->getGridX() << " " << cell->getCell()->getGridY() << std::endl;
+                    osg::Vec3f pos (ptr.getRefData().getPosition().asVec3());
+                    msg << "Coordinates: " << pos.x() << " " << pos.y() << " " << pos.z() << std::endl;
+                    msg << "Model: " << ptr.getClass().getModel(ptr) << std::endl;
+                    if (!ptr.getClass().getScript(ptr).empty())
+                        msg << "Script: " << ptr.getClass().getScript(ptr) << std::endl;
+                }
+
+                while (arg0 > 0)
+                {
+                    std::string notes = runtime.getStringLiteral (runtime[0].mInteger);
+                    runtime.pop();
+                    if (!notes.empty())
+                        msg << "Notes: " << notes << std::endl;
+                    --arg0;
+                }
+
+                runtime.getContext().report(msg.str());
+            }
+        };
+
+        class OpAddToLevCreature : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                const std::string& levId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                const std::string& creatureId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                int level = runtime[0].mInteger;
+                runtime.pop();
+
+                ESM::CreatureLevList listCopy = *MWBase::Environment::get().getWorld()->getStore().get<ESM::CreatureLevList>().find(levId);
+                addToLevList(&listCopy, creatureId, level);
+                MWBase::Environment::get().getWorld()->createOverrideRecord(listCopy);
+            }
+        };
+
+        class OpRemoveFromLevCreature : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                const std::string& levId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                const std::string& creatureId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                int level = runtime[0].mInteger;
+                runtime.pop();
+
+                ESM::CreatureLevList listCopy = *MWBase::Environment::get().getWorld()->getStore().get<ESM::CreatureLevList>().find(levId);
+                removeFromLevList(&listCopy, creatureId, level);
+                MWBase::Environment::get().getWorld()->createOverrideRecord(listCopy);
+            }
+        };
+
+        class OpAddToLevItem : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                const std::string& levId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                const std::string& itemId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                int level = runtime[0].mInteger;
+                runtime.pop();
+
+                ESM::ItemLevList listCopy = *MWBase::Environment::get().getWorld()->getStore().get<ESM::ItemLevList>().find(levId);
+                addToLevList(&listCopy, itemId, level);
+                MWBase::Environment::get().getWorld()->createOverrideRecord(listCopy);
+            }
+        };
+
+        class OpRemoveFromLevItem : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                const std::string& levId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                const std::string& itemId = runtime.getStringLiteral(runtime[0].mInteger);
+                runtime.pop();
+                int level = runtime[0].mInteger;
+                runtime.pop();
+
+                ESM::ItemLevList listCopy = *MWBase::Environment::get().getWorld()->getStore().get<ESM::ItemLevList>().find(levId);
+                removeFromLevList(&listCopy, itemId, level);
+                MWBase::Environment::get().getWorld()->createOverrideRecord(listCopy);
+            }
+        };
+
         void installOpcodes (Interpreter::Interpreter& interpreter)
         {
             interpreter.installSegment5 (Compiler::Misc::opcodeXBox, new OpXBox);
             interpreter.installSegment5 (Compiler::Misc::opcodeOnActivate, new OpOnActivate);
-            interpreter.installSegment5 (Compiler::Misc::opcodeActivate, new OpActivate);
+            interpreter.installSegment5 (Compiler::Misc::opcodeActivate, new OpActivate<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeActivateExplicit, new OpActivate<ExplicitRef>);
             interpreter.installSegment3 (Compiler::Misc::opcodeLock, new OpLock<ImplicitRef>);
             interpreter.installSegment3 (Compiler::Misc::opcodeLockExplicit, new OpLock<ExplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeUnlock, new OpUnlock<ImplicitRef>);
@@ -865,7 +1174,11 @@ namespace MWScript
             interpreter.installSegment5 (Compiler::Misc::opcodeFadeTo, new OpFadeTo);
             interpreter.installSegment5 (Compiler::Misc::opcodeTogglePathgrid, new OpTogglePathgrid);
             interpreter.installSegment5 (Compiler::Misc::opcodeToggleWater, new OpToggleWater);
+            interpreter.installSegment5 (Compiler::Misc::opcodeToggleWorld, new OpToggleWorld);
             interpreter.installSegment5 (Compiler::Misc::opcodeDontSaveObject, new OpDontSaveObject);
+            interpreter.installSegment5 (Compiler::Misc::opcodePcForce1stPerson, new OpPcForce1stPerson);
+            interpreter.installSegment5 (Compiler::Misc::opcodePcForce3rdPerson, new OpPcForce3rdPerson);
+            interpreter.installSegment5 (Compiler::Misc::opcodePcGet3rdPerson, new OpPcGet3rdPerson);
             interpreter.installSegment5 (Compiler::Misc::opcodeToggleVanityMode, new OpToggleVanityMode);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetPcSleep, new OpGetPcSleep);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetPcJumping, new OpGetPcJumping);
@@ -904,14 +1217,25 @@ namespace MWScript
             interpreter.installSegment5 (Compiler::Misc::opcodeGetStandingPcExplicit, new OpGetStandingPc<ExplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetStandingActor, new OpGetStandingActor<ImplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetStandingActorExplicit, new OpGetStandingActor<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeGetCollidingPc, new OpGetCollidingPc<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeGetCollidingPcExplicit, new OpGetCollidingPc<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeGetCollidingActor, new OpGetCollidingActor<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeGetCollidingActorExplicit, new OpGetCollidingActor<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeHurtStandingActor, new OpHurtStandingActor<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeHurtStandingActorExplicit, new OpHurtStandingActor<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeHurtCollidingActor, new OpHurtCollidingActor<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeHurtCollidingActorExplicit, new OpHurtCollidingActor<ExplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetWindSpeed, new OpGetWindSpeed);
             interpreter.installSegment5 (Compiler::Misc::opcodeHitOnMe, new OpHitOnMe<ImplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeHitOnMeExplicit, new OpHitOnMe<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeHitAttemptOnMe, new OpHitAttemptOnMe<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeHitAttemptOnMeExplicit, new OpHitAttemptOnMe<ExplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeDisableTeleporting, new OpEnableTeleporting<false>);
             interpreter.installSegment5 (Compiler::Misc::opcodeEnableTeleporting, new OpEnableTeleporting<true>);
             interpreter.installSegment5 (Compiler::Misc::opcodeShowVars, new OpShowVars<ImplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeShowVarsExplicit, new OpShowVars<ExplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeToggleGodMode, new OpToggleGodMode);
+            interpreter.installSegment5 (Compiler::Misc::opcodeToggleScripts, new OpToggleScripts);
             interpreter.installSegment5 (Compiler::Misc::opcodeDisableLevitation, new OpEnableLevitation<false>);
             interpreter.installSegment5 (Compiler::Misc::opcodeEnableLevitation, new OpEnableLevitation<true>);
             interpreter.installSegment5 (Compiler::Misc::opcodeCast, new OpCast<ImplicitRef>);
@@ -920,6 +1244,12 @@ namespace MWScript
             interpreter.installSegment5 (Compiler::Misc::opcodeExplodeSpellExplicit, new OpExplodeSpell<ExplicitRef>);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetPcInJail, new OpGetPcInJail);
             interpreter.installSegment5 (Compiler::Misc::opcodeGetPcTraveling, new OpGetPcTraveling);
+            interpreter.installSegment3 (Compiler::Misc::opcodeBetaComment, new OpBetaComment<ImplicitRef>);
+            interpreter.installSegment3 (Compiler::Misc::opcodeBetaCommentExplicit, new OpBetaComment<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Misc::opcodeAddToLevCreature, new OpAddToLevCreature);
+            interpreter.installSegment5 (Compiler::Misc::opcodeRemoveFromLevCreature, new OpRemoveFromLevCreature);
+            interpreter.installSegment5 (Compiler::Misc::opcodeAddToLevItem, new OpAddToLevItem);
+            interpreter.installSegment5 (Compiler::Misc::opcodeRemoveFromLevItem, new OpRemoveFromLevItem);
         }
     }
 }

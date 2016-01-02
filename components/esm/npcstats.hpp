@@ -16,12 +16,6 @@ namespace ESM
 
     struct NpcStats
     {
-        struct Skill
-        {
-            StatState<int> mRegular;
-            StatState<int> mWerewolf;
-        };
-
         struct Faction
         {
             bool mExpelled;
@@ -31,20 +25,24 @@ namespace ESM
             Faction();
         };
 
-        std::map<std::string, Faction> mFactions;
+        bool mIsWerewolf;
+
+        bool mWerewolfDeprecatedData;
+
+        std::map<std::string, Faction> mFactions; // lower case IDs
         int mDisposition;
-        Skill mSkills[27];
+        StatState<int> mSkills[27];
         int mBounty;
         int mReputation;
         int mWerewolfKills;
-        int mProfit;
-        float mAttackStrength;
         int mLevelProgress;
         int mSkillIncrease[8];
-        std::vector<std::string> mUsedIds;
+        std::vector<std::string> mUsedIds; // lower case IDs
         float mTimeToStartDrowning;
-        float mLastDrowningHit;
-        float mLevelHealthBonus;
+        int mCrimeId;
+
+        /// Initialize to default state
+        void blank();
 
         void load (ESMReader &esm);
         void save (ESMWriter &esm) const;

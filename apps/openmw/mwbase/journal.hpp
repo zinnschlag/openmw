@@ -11,6 +11,11 @@
 #include "../mwdialogue/topic.hpp"
 #include "../mwdialogue/quest.hpp"
 
+namespace Loading
+{
+    class Listener;
+}
+
 namespace ESM
 {
     class ESMReader;
@@ -32,7 +37,7 @@ namespace MWBase
 
             typedef std::deque<MWDialogue::StampedJournalEntry> TEntryContainer;
             typedef TEntryContainer::const_iterator TEntryIter;
-            typedef std::map<std::string, MWDialogue::Quest> TQuestContainer; // topc, quest
+            typedef std::map<std::string, MWDialogue::Quest> TQuestContainer; // topic, quest
             typedef TQuestContainer::const_iterator TQuestIter;
             typedef std::map<std::string, MWDialogue::Topic> TTopicContainer; // topic-id, topic-content
             typedef TTopicContainer::const_iterator TTopicIter;
@@ -54,7 +59,12 @@ namespace MWBase
             virtual int getJournalIndex (const std::string& id) const = 0;
             ///< Get the journal index.
 
-            virtual void addTopic (const std::string& topicId, const std::string& infoId, const std::string& actorName) = 0;
+            virtual void addTopic (const std::string& topicId, const std::string& infoId, const MWWorld::Ptr& actor) = 0;
+            /// \note topicId must be lowercase
+
+            virtual void removeLastAddedTopicResponse (const std::string& topicId, const std::string& actorName) = 0;
+            ///< Removes the last topic response added for the given topicId and actor name.
+            /// \note topicId must be lowercase
 
             virtual TEntryIter begin() const = 0;
             ///< Iterator pointing to the begin of the main journal.
@@ -80,9 +90,9 @@ namespace MWBase
 
             virtual int countSavedGameRecords() const = 0;
 
-            virtual void write (ESM::ESMWriter& writer) const = 0;
+            virtual void write (ESM::ESMWriter& writer, Loading::Listener& progress) const = 0;
 
-            virtual void readRecord (ESM::ESMReader& reader, int32_t type) = 0;
+            virtual void readRecord (ESM::ESMReader& reader, uint32_t type) = 0;
     };
 }
 

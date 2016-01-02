@@ -1,4 +1,3 @@
-
 #include "streamerrorhandler.hpp"
 
 #include "tokenloc.hpp"
@@ -16,7 +15,7 @@ namespace Compiler
             mStream << "warning ";
 
         mStream
-            << "line " << loc.mLine << ", column " << loc.mColumn
+            << "line " << loc.mLine+1 << ", column " << loc.mColumn+1
             << " (" << loc.mLiteral << ")" << std::endl
             << "    " << message << std::endl;
     }

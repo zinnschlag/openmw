@@ -1,24 +1,35 @@
 #ifndef OPENMW_MWGUI_VIDEOWIDGET_H
 #define OPENMW_MWGUI_VIDEOWIDGET_H
 
-#include <MyGUI_ImageBox.h>
+#include <MyGUI_Widget.h>
 
-#include "../mwrender/videoplayer.hpp"
+namespace Video
+{
+    class VideoPlayer;
+}
+
+namespace VFS
+{
+    class Manager;
+}
 
 namespace MWGui
 {
 
     /**
-     * Widget that plays a video. Can be skipped by pressing Esc.
+     * Widget that plays a video.
      */
-    class VideoWidget : public MyGUI::ImageBox
+    class VideoWidget : public MyGUI::Widget
     {
     public:
         MYGUI_RTTI_DERIVED(VideoWidget)
 
         VideoWidget();
 
-        void playVideo (const std::string& video, bool allowSkipping);
+        /// Set the VFS (virtual file system) to find the videos on.
+        void setVFS(const VFS::Manager* vfs);
+
+        void playVideo (const std::string& video);
 
         int getVideoWidth();
         int getVideoHeight();
@@ -26,12 +37,22 @@ namespace MWGui
         /// @return Is the video still playing?
         bool update();
 
+        /// Return true if a video is currently playing and it has an audio stream.
+        bool hasAudioStream();
+
+        /// Stop video and free resources (done automatically on destruction)
+        void stop();
+
+        /// Adjust the coordinates of this video widget relative to its parent,
+        /// based on the dimensions of the playing video.
+        /// @param stretch Stretch the video to fill the whole screen? If false,
+        ///                black bars may be added to fix the aspect ratio.
+        void autoResize (bool stretch);
+
     private:
-        bool mAllowSkipping;
-
-        MWRender::VideoPlayer mPlayer;
-
-        void onKeyPressed(MyGUI::Widget *_sender, MyGUI::KeyCode _key, MyGUI::Char _char);
+        const VFS::Manager* mVFS;
+        std::auto_ptr<MyGUI::ITexture> mTexture;
+        std::auto_ptr<Video::VideoPlayer> mPlayer;
     };
 
 }

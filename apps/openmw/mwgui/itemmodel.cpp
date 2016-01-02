@@ -1,27 +1,68 @@
 #include "itemmodel.hpp"
 
+#include <set>
+
 #include "../mwworld/class.hpp"
 #include "../mwworld/containerstore.hpp"
+#include "../mwworld/store.hpp"
+#include "../mwworld/esmstore.hpp"
+
+#include "../mwbase/world.hpp"
+#include "../mwbase/environment.hpp"
 
 namespace MWGui
 {
 
     ItemStack::ItemStack(const MWWorld::Ptr &base, ItemModel *creator, size_t count)
-        : mCreator(creator)
-        , mCount(count)
+        : mType(Type_Normal)
         , mFlags(0)
-        , mType(Type_Normal)
+        , mCreator(creator)
+        , mCount(count)
         , mBase(base)
     {
-        if (MWWorld::Class::get(base).getEnchantment(base) != "")
+        if (base.getClass().getEnchantment(base) != "")
             mFlags |= Flag_Enchanted;
+
+        static std::set<std::string> boundItemIDCache;
+
+        // If this is empty then we haven't executed the GMST cache logic yet; or there isn't any sMagicBound* GMST's for some reason
+        if (boundItemIDCache.empty())
+        {
+            // Build a list of known bound item ID's
+            const MWWorld::Store<ESM::GameSetting> &gameSettings = MWBase::Environment::get().getWorld()->getStore().get<ESM::GameSetting>();
+
+            for (MWWorld::Store<ESM::GameSetting>::iterator currentIteration = gameSettings.begin(); currentIteration != gameSettings.end(); ++currentIteration)
+            {
+                const ESM::GameSetting &currentSetting = *currentIteration;
+                std::string currentGMSTID = currentSetting.mId;
+                Misc::StringUtils::lowerCaseInPlace(currentGMSTID);
+
+                // Don't bother checking this GMST if it's not a sMagicBound* one.
+                const std::string& toFind = "smagicbound";
+                if (currentGMSTID.compare(0, toFind.length(), toFind) != 0)
+                    continue;
+
+                // All sMagicBound* GMST's should be of type string
+                std::string currentGMSTValue = currentSetting.getString();
+                Misc::StringUtils::lowerCaseInPlace(currentGMSTValue);
+
+                boundItemIDCache.insert(currentGMSTValue);
+            }
+        }
+
+        // Perform bound item check and assign the Flag_Bound bit if it passes
+        std::string tempItemID = base.getCellRef().getRefId();
+        Misc::StringUtils::lowerCaseInPlace(tempItemID);
+
+        if (boundItemIDCache.count(tempItemID) != 0)
+            mFlags |= Flag_Bound;
     }
 
     ItemStack::ItemStack()
-        : mCreator(NULL)
-        , mCount(0)
+        : mType(Type_Normal)
         , mFlags(0)
-        , mType(Type_Normal)
+        , mCreator(NULL)
+        , mCount(0)
     {
     }
 
@@ -71,16 +112,27 @@ namespace MWGui
     {
     }
 
+    MWWorld::Ptr ItemModel::moveItem(const ItemStack &item, size_t count, ItemModel *otherModel)
+    {
+        MWWorld::Ptr ret = otherModel->copyItem(item, count);
+        removeItem(item, count);
+        return ret;
+    }
+
+
+    ProxyItemModel::ProxyItemModel()
+        : mSourceModel(NULL)
+    {
+    }
 
     ProxyItemModel::~ProxyItemModel()
     {
         delete mSourceModel;
     }
 
-    void ProxyItemModel::copyItem (const ItemStack& item, size_t count)
+    MWWorld::Ptr ProxyItemModel::copyItem (const ItemStack& item, size_t count, bool setNewOwner)
     {
-        // no need to use mapToSource since itemIndex refers to an index in the sourceModel
-        mSourceModel->copyItem (item, count);
+        return mSourceModel->copyItem (item, count, setNewOwner);
     }
 
     void ProxyItemModel::removeItem (const ItemStack& item, size_t count)
@@ -94,7 +146,7 @@ namespace MWGui
         for (size_t i=0; i<mSourceModel->getItemCount(); ++i)
         {
             const ItemStack& item = mSourceModel->getItem(i);
-            if (item == itemToSearch)
+            if (item.mBase == itemToSearch.mBase)
                 return i;
         }
         return -1;
@@ -106,7 +158,7 @@ namespace MWGui
         for (size_t i=0; i<getItemCount(); ++i)
         {
             const ItemStack& item = getItem(i);
-            if (item == itemToSearch)
+            if (item.mBase == itemToSearch.mBase)
                 return i;
         }
         return -1;
@@ -115,6 +167,20 @@ namespace MWGui
     ItemModel::ModelIndex ProxyItemModel::getIndex (ItemStack item)
     {
         return mSourceModel->getIndex(item);
+    }
+
+    void ProxyItemModel::setSourceModel(ItemModel *sourceModel)
+    {
+        if (mSourceModel == sourceModel)
+            return;
+
+        if (mSourceModel)
+        {
+            delete mSourceModel;
+            mSourceModel = NULL;
+        }
+
+        mSourceModel = sourceModel;
     }
 
 }

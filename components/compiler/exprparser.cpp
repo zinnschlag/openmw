@@ -1,4 +1,3 @@
-
 #include "exprparser.hpp"
 
 #include <stdexcept>
@@ -16,6 +15,8 @@
 #include "stringparser.hpp"
 #include "extensions.hpp"
 #include "context.hpp"
+#include "discardparser.hpp"
+#include "junkparser.hpp"
 
 namespace Compiler
 {
@@ -98,7 +99,7 @@ namespace Compiler
         else if (t1=='f' || t2=='f')
             mOperands.push_back ('f');
         else
-            std::logic_error ("failed to determine result operand type");
+            throw std::logic_error ("failed to determine result operand type");
     }
 
     void ExprParser::pop()
@@ -322,7 +323,7 @@ namespace Compiler
                     mNextOperand = false;
                     mOperands.push_back ('l');
 
-                    return 2;
+                    return true;
                 }
             }
 
@@ -351,7 +352,10 @@ namespace Compiler
             if (extensions->isInstruction (keyword, argumentType, hasExplicit))
             {
                 // pretend this is not a keyword
-                return parseName (loc.mLiteral, loc, scanner);
+                std::string name = loc.mLiteral;
+                if (name.size()>=2 && name[0]=='"' && name[name.size()-1]=='"')
+                    name = name.substr (1, name.size()-2);
+                return parseName (name, loc, scanner);
             }
         }
 
@@ -386,6 +390,9 @@ namespace Compiler
                     mExplicit.clear();
                     mRefOp = false;
 
+                    std::vector<Interpreter::Type_Code> ignore;
+                    parseArguments ("x", scanner, ignore);
+
                     mNextOperand = false;
                     return true;
                 }
@@ -401,6 +408,21 @@ namespace Compiler
                     mExplicit.clear();
                     mRefOp = false;
 
+                    mNextOperand = false;
+                    return true;
+                }
+                else if (keyword==Scanner::K_scriptrunning)
+                {
+                    start();
+
+                    mTokenLoc = loc;
+                    parseArguments ("c", scanner);
+
+                    Generator::scriptRunning (mCode);
+                    mOperands.push_back ('l');
+
+                    mExplicit.clear();
+                    mRefOp = false;
                     mNextOperand = false;
                     return true;
                 }
@@ -527,6 +549,9 @@ namespace Compiler
                 Generator::getDisabled (mCode, mLiterals, "");
                 mOperands.push_back ('l');
 
+                std::vector<Interpreter::Type_Code> ignore;
+                parseArguments ("x", scanner, ignore);
+
                 mNextOperand = false;
                 return true;
             }
@@ -627,6 +652,13 @@ namespace Compiler
             return true;
         }
 
+        if (code ==Scanner::S_plus && mNextOperand)
+        {
+            // Also unary, but +, just ignore it
+            mTokenLoc = loc;
+            return true;
+        }
+
         if (code==Scanner::S_open)
         {
             if (mNextOperand)
@@ -638,7 +670,7 @@ namespace Compiler
             else
             {
                 // no comma was used between arguments
-                scanner.putbackKeyword (code, loc);
+                scanner.putbackSpecial (code, loc);
                 return false;
             }
         }
@@ -730,13 +762,15 @@ namespace Compiler
     }
 
     int ExprParser::parseArguments (const std::string& arguments, Scanner& scanner,
-        std::vector<Interpreter::Type_Code>& code, bool invert)
+        std::vector<Interpreter::Type_Code>& code, int ignoreKeyword)
     {
         bool optional = false;
         int optionalCount = 0;
 
         ExprParser parser (getErrorHandler(), getContext(), mLocals, mLiterals, true);
         StringParser stringParser (getErrorHandler(), getContext(), mLiterals);
+        DiscardParser discardParser (getErrorHandler(), getContext());
+        JunkParser junkParser (getErrorHandler(), getContext(), ignoreKeyword);
 
         std::stack<std::vector<Interpreter::Type_Code> > stack;
 
@@ -762,19 +796,48 @@ namespace Compiler
 
                 if (*iter!='x')
                 {
-                    if (invert)
-                    {
-                        std::vector<Interpreter::Type_Code> tmp;
-                        stringParser.append (tmp);
+                    std::vector<Interpreter::Type_Code> tmp;
+                    stringParser.append (tmp);
 
-                        stack.push (tmp);
-                    }
-                    else
-                        stringParser.append (code);
+                    stack.push (tmp);
 
                     if (optional)
                         ++optionalCount;
                 }
+                else
+                    getErrorHandler().warning("Ignoring extra argument", mTokenLoc);
+            }
+            else if (*iter=='X')
+            {
+                parser.reset();
+
+                parser.setOptional (true);
+
+                scanner.scan (parser);
+
+                if (parser.isEmpty())
+                    break;
+                else
+                    getErrorHandler().warning("Ignoring extra argument", mTokenLoc);
+            }
+            else if (*iter=='z')
+            {
+                discardParser.reset();
+                discardParser.setOptional (true);
+
+                scanner.scan (discardParser);
+
+                if (discardParser.isEmpty())
+                    break;
+                else
+                    getErrorHandler().warning("Ignoring extra argument", mTokenLoc);
+            }
+            else if (*iter=='j')
+            {
+                /// \todo disable this when operating in strict mode
+                junkParser.reset();
+
+                scanner.scan (junkParser);
             }
             else
             {
@@ -795,10 +858,7 @@ namespace Compiler
                 if (type!=*iter)
                     Generator::convert (tmp, type, *iter);
 
-                if (invert)
-                    stack.push (tmp);
-                else
-                    std::copy (tmp.begin(), tmp.end(), std::back_inserter (code));
+                stack.push (tmp);
 
                 if (optional)
                     ++optionalCount;

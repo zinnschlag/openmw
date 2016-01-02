@@ -6,6 +6,7 @@
 #include "loadcont.hpp"
 #include "spelllist.hpp"
 #include "aipackage.hpp"
+#include "transport.hpp"
 
 namespace ESM
 {
@@ -21,6 +22,8 @@ class ESMWriter;
 struct Creature
 {
     static unsigned int sRecordId;
+    /// Return a string descriptor for this record type. Currently used for debugging / error logs only.
+    static std::string getRecordType() { return "Creature"; }
 
     // Default is 0x48?
     enum Flags
@@ -33,7 +36,7 @@ struct Creature
 
         Respawn     = 0x002,
         Weapon      = 0x004, // Has weapon and shield
-        None        = 0x008, // ??
+        None        = 0x008, // ?? This flag appears set for every creature in Morrowind.esm
         Essential   = 0x080,
 
         // Blood types
@@ -88,13 +91,15 @@ struct Creature
     InventoryList mInventory;
     SpellList mSpells;
 
-
     bool mHasAI;
     AIData mAiData;
     AIPackageList mAiPackage;
+    Transport mTransport;
 
-    void load(ESMReader &esm);
-    void save(ESMWriter &esm) const;
+    const std::vector<Transport::Dest>& getTransport() const;
+
+    void load(ESMReader &esm, bool &isDeleted);
+    void save(ESMWriter &esm, bool isDeleted = false) const;
 
     void blank();
     ///< Set record to default state (does not touch the ID).

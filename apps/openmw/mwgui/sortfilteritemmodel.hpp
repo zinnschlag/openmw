@@ -24,7 +24,9 @@ namespace MWGui
 
         void setCategory (int category);
         void setFilter (int filter);
-        void setShowEquipped (bool show) { mShowEquipped = show; }
+
+        /// Use ItemStack::Type for sorting?
+        void setSortByType(bool sort) { mSortByType = sort; }
 
         static const int Category_Weapon = (1<<1);
         static const int Category_Apparel = (1<<2);
@@ -36,6 +38,7 @@ namespace MWGui
         static const int Filter_OnlyEnchanted = (1<<1);
         static const int Filter_OnlyEnchantable = (1<<2);
         static const int Filter_OnlyChargedSoulstones = (1<<3);
+        static const int Filter_OnlyUsableItems = (1<<4); // Only items with a Use action
 
 
     private:
@@ -45,7 +48,7 @@ namespace MWGui
 
         int mCategory;
         int mFilter;
-        bool mShowEquipped;
+        bool mSortByType;
     };
 
 }

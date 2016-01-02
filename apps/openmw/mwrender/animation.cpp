@@ -1,1313 +1,1471 @@
 #include "animation.hpp"
 
-#include <OgreSkeletonManager.h>
-#include <OgreSkeletonInstance.h>
-#include <OgreEntity.h>
-#include <OgreSubEntity.h>
-#include <OgreParticleSystem.h>
-#include <OgreBone.h>
-#include <OgreSubMesh.h>
-#include <OgreSceneManager.h>
-#include <OgreControllerManager.h>
-#include <OgreStaticGeometry.h>
-#include <OgreSceneNode.h>
-#include <OgreTechnique.h>
+#include <iomanip>
+#include <limits>
 
-#include <components/esm/loadligh.hpp>
-#include <components/esm/loadweap.hpp>
-#include <components/esm/loadench.hpp>
-#include <components/esm/loadstat.hpp>
+#include <osg/PositionAttitudeTransform>
+#include <osg/TexGen>
+#include <osg/TexEnvCombine>
+#include <osg/ComputeBoundsVisitor>
+#include <osg/MatrixTransform>
+#include <osg/Geode>
+#include <osg/BlendFunc>
+#include <osg/Material>
+#include <osg/Version>
 
-#include <libs/openengine/ogre/lights.hpp>
+#include <osgParticle/ParticleSystem>
 
-#include <extern/shiny/Main/Factory.hpp>
+#include <components/nifosg/nifloader.hpp>
+
+#include <components/resource/resourcesystem.hpp>
+#include <components/resource/scenemanager.hpp>
+#include <components/resource/keyframemanager.hpp>
+#include <components/resource/texturemanager.hpp>
+
+#include <components/nifosg/nifloader.hpp> // KeyframeHolder
+#include <components/nifosg/controller.hpp>
+
+#include <components/vfs/manager.hpp>
+
+#include <components/sceneutil/statesetupdater.hpp>
+#include <components/sceneutil/visitor.hpp>
+#include <components/sceneutil/lightmanager.hpp>
+#include <components/sceneutil/util.hpp>
+#include <components/sceneutil/lightcontroller.hpp>
+#include <components/sceneutil/skeleton.hpp>
+#include <components/sceneutil/positionattitudetransform.hpp>
 
 #include "../mwbase/environment.hpp"
-#include "../mwbase/soundmanager.hpp"
 #include "../mwbase/world.hpp"
-
-#include "../mwmechanics/character.hpp"
-#include "../mwmechanics/creaturestats.hpp"
-
+#include "../mwworld/esmstore.hpp"
 #include "../mwworld/class.hpp"
 #include "../mwworld/fallback.hpp"
 #include "../mwworld/cellstore.hpp"
-#include "../mwworld/esmstore.hpp"
 
-#include "renderconst.hpp"
+#include "../mwmechanics/character.hpp" // FIXME: for MWMechanics::Priority
 
+#include "vismask.hpp"
+#include "util.hpp"
+#include "rotatecontroller.hpp"
+
+namespace
+{
+
+    class GlowUpdater : public SceneUtil::StateSetUpdater
+    {
+    public:
+        GlowUpdater(osg::Vec4f color, const std::vector<osg::ref_ptr<osg::Texture2D> >& textures)
+            : mTexUnit(1) // FIXME: might not always be 1
+            , mColor(color)
+            , mTextures(textures)
+        {
+        }
+
+        virtual void setDefaults(osg::StateSet *stateset)
+        {
+            stateset->setTextureMode(mTexUnit, GL_TEXTURE_2D, osg::StateAttribute::ON);
+
+            osg::TexGen* texGen = new osg::TexGen;
+            texGen->setMode(osg::TexGen::SPHERE_MAP);
+
+            stateset->setTextureAttributeAndModes(mTexUnit, texGen, osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+
+            osg::TexEnvCombine* texEnv = new osg::TexEnvCombine;
+            texEnv->setSource0_RGB(osg::TexEnvCombine::CONSTANT);
+            texEnv->setConstantColor(mColor);
+            texEnv->setCombine_RGB(osg::TexEnvCombine::INTERPOLATE);
+            texEnv->setSource2_RGB(osg::TexEnvCombine::TEXTURE);
+            texEnv->setOperand2_RGB(osg::TexEnvCombine::SRC_COLOR);
+
+            stateset->setTextureAttributeAndModes(mTexUnit, texEnv, osg::StateAttribute::ON);
+        }
+
+        virtual void apply(osg::StateSet *stateset, osg::NodeVisitor *nv)
+        {
+            float time = nv->getFrameStamp()->getSimulationTime();
+            int index = (int)(time*16) % mTextures.size();
+            stateset->setTextureAttribute(mTexUnit, mTextures[index], osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+        }
+
+    private:
+        int mTexUnit;
+        osg::Vec4f mColor;
+        std::vector<osg::ref_ptr<osg::Texture2D> > mTextures;
+    };
+
+    class NodeMapVisitor : public osg::NodeVisitor
+    {
+    public:
+        NodeMapVisitor() : osg::NodeVisitor(osg::NodeVisitor::TRAVERSE_ALL_CHILDREN) {}
+
+        void apply(osg::MatrixTransform& trans)
+        {
+            mMap[Misc::StringUtils::lowerCase(trans.getName())] = &trans;
+            traverse(trans);
+        }
+
+        typedef std::map<std::string, osg::ref_ptr<osg::MatrixTransform> > NodeMap;
+
+        const NodeMap& getNodeMap() const
+        {
+            return mMap;
+        }
+
+    private:
+        NodeMap mMap;
+    };
+
+    NifOsg::TextKeyMap::const_iterator findGroupStart(const NifOsg::TextKeyMap &keys, const std::string &groupname)
+    {
+        NifOsg::TextKeyMap::const_iterator iter(keys.begin());
+        for(;iter != keys.end();++iter)
+        {
+            if(iter->second.compare(0, groupname.size(), groupname) == 0 &&
+               iter->second.compare(groupname.size(), 2, ": ") == 0)
+                break;
+        }
+        return iter;
+    }
+
+    float calcAnimVelocity(const std::multimap<float, std::string>& keys,
+                                      NifOsg::KeyframeController *nonaccumctrl, const osg::Vec3f& accum, const std::string &groupname)
+    {
+        const std::string start = groupname+": start";
+        const std::string loopstart = groupname+": loop start";
+        const std::string loopstop = groupname+": loop stop";
+        const std::string stop = groupname+": stop";
+        float starttime = std::numeric_limits<float>::max();
+        float stoptime = 0.0f;
+
+        // Pick the last Loop Stop key and the last Loop Start key.
+        // This is required because of broken text keys in AshVampire.nif.
+        // It has *two* WalkForward: Loop Stop keys at different times, the first one is used for stopping playback
+        // but the animation velocity calculation uses the second one.
+        // As result the animation velocity calculation is not correct, and this incorrect velocity must be replicated,
+        // because otherwise the Creature's Speed (dagoth uthol) would not be sufficient to move fast enough.
+        NifOsg::TextKeyMap::const_reverse_iterator keyiter(keys.rbegin());
+        while(keyiter != keys.rend())
+        {
+            if(keyiter->second == start || keyiter->second == loopstart)
+            {
+                starttime = keyiter->first;
+                break;
+            }
+            ++keyiter;
+        }
+        keyiter = keys.rbegin();
+        while(keyiter != keys.rend())
+        {
+            if (keyiter->second == stop)
+                stoptime = keyiter->first;
+            else if (keyiter->second == loopstop)
+            {
+                stoptime = keyiter->first;
+                break;
+            }
+            ++keyiter;
+        }
+
+        if(stoptime > starttime)
+        {
+            osg::Vec3f startpos = osg::componentMultiply(nonaccumctrl->getTranslation(starttime), accum);
+            osg::Vec3f endpos = osg::componentMultiply(nonaccumctrl->getTranslation(stoptime), accum);
+
+            return (startpos-endpos).length() / (stoptime - starttime);
+        }
+
+        return 0.0f;
+    }
+
+    /// @brief Base class for visitors that remove nodes from a scene graph.
+    /// Subclasses need to fill the mToRemove vector.
+    /// To use, node->accept(removeVisitor); removeVisitor.remove();
+    class RemoveVisitor : public osg::NodeVisitor
+    {
+    public:
+        RemoveVisitor()
+            : osg::NodeVisitor(TRAVERSE_ALL_CHILDREN)
+        {
+        }
+
+        void remove()
+        {
+            for (RemoveVec::iterator it = mToRemove.begin(); it != mToRemove.end(); ++it)
+                it->second->removeChild(it->first);
+        }
+
+    protected:
+        // <node to remove, parent node to remove it from>
+        typedef std::vector<std::pair<osg::Node*, osg::Group*> > RemoveVec;
+        std::vector<std::pair<osg::Node*, osg::Group*> > mToRemove;
+    };
+
+    // Removes all drawables from a graph.
+    class RemoveDrawableVisitor : public RemoveVisitor
+    {
+    public:
+        virtual void apply(osg::Geode &geode)
+        {
+            applyImpl(geode);
+        }
+
+#if OSG_VERSION_GREATER_OR_EQUAL(3,3,3)
+        virtual void apply(osg::Drawable& drw)
+        {
+            applyImpl(drw);
+        }
+#endif
+
+        void applyImpl(osg::Node& node)
+        {
+            osg::NodePath::iterator parent = getNodePath().end()-2;
+            // We know that the parent is a Group because only Groups can have children.
+            osg::Group* parentGroup = static_cast<osg::Group*>(*parent);
+
+            // Try to prune nodes that would be empty after the removal
+            if (parent != getNodePath().begin())
+            {
+                // This could be extended to remove the parent's parent, and so on if they are empty as well.
+                // But for NIF files, there won't be a benefit since only TriShapes can be set to STATIC dataVariance.
+                osg::Group* parentParent = static_cast<osg::Group*>(*(parent - 1));
+                if (parentGroup->getNumChildren() == 1 && parentGroup->getDataVariance() == osg::Object::STATIC)
+                {
+                    mToRemove.push_back(std::make_pair(parentGroup, parentParent));
+                    return;
+                }
+            }
+
+            mToRemove.push_back(std::make_pair(&node, parentGroup));
+        }
+    };
+
+    class RemoveTriBipVisitor : public RemoveVisitor
+    {
+    public:
+        virtual void apply(osg::Geode &node)
+        {
+            applyImpl(node);
+        }
+
+#if OSG_VERSION_GREATER_OR_EQUAL(3,3,3)
+        virtual void apply(osg::Drawable& drw)
+        {
+            applyImpl(drw);
+        }
+#endif
+
+        void applyImpl(osg::Node& node)
+        {
+            const std::string toFind = "tri bip";
+            if (Misc::StringUtils::ciCompareLen(node.getName(), toFind, toFind.size()) == 0)
+            {
+                osg::Group* parent = static_cast<osg::Group*>(*(getNodePath().end()-2));
+                // Not safe to remove in apply(), since the visitor is still iterating the child list
+                mToRemove.push_back(std::make_pair(&node, parent));
+            }
+        }
+    };
+
+}
 
 namespace MWRender
 {
 
-Ogre::Real Animation::AnimationTime::getValue() const
-{
-    AnimStateMap::const_iterator iter = mAnimation->mStates.find(mAnimationName);
-    if(iter != mAnimation->mStates.end())
-        return iter->second.mTime;
-    return 0.0f;
-}
-
-void Animation::AnimationTime::setValue(Ogre::Real)
-{
-}
-
-Ogre::Real Animation::EffectAnimationTime::getValue() const
-{
-    return mTime;
-}
-
-void Animation::EffectAnimationTime::setValue(Ogre::Real)
-{
-}
-
-Animation::Animation(const MWWorld::Ptr &ptr, Ogre::SceneNode *node)
-    : mPtr(ptr)
-    , mInsert(node)
-    , mSkelBase(NULL)
-    , mAccumRoot(NULL)
-    , mNonAccumRoot(NULL)
-    , mNonAccumCtrl(NULL)
-    , mAccumulate(0.0f)
-    , mNullAnimationTimePtr(OGRE_NEW NullAnimationTime)
-{
-    for(size_t i = 0;i < sNumGroups;i++)
-        mAnimationTimePtr[i].bind(OGRE_NEW AnimationTime(this));
-}
-
-Animation::~Animation()
-{
-    mEffects.clear();
-
-    mAnimSources.clear();
-}
-
-
-void Animation::setObjectRoot(const std::string &model, bool baseonly)
-{
-    OgreAssert(mAnimSources.empty(), "Setting object root while animation sources are set!");
-
-    mSkelBase = NULL;
-    mObjectRoot.setNull();
-
-    if(model.empty())
-        return;
-
-    std::string mdlname = Misc::StringUtils::lowerCase(model);
-    std::string::size_type p = mdlname.rfind('\\');
-    if(p == std::string::npos)
-        p = mdlname.rfind('/');
-    if(p != std::string::npos)
-        mdlname.insert(mdlname.begin()+p+1, 'x');
-    else
-        mdlname.insert(mdlname.begin(), 'x');
-    if(!Ogre::ResourceGroupManager::getSingleton().resourceExistsInAnyGroup(mdlname))
+    struct Animation::AnimSource
     {
-        mdlname = model;
-        Misc::StringUtils::toLower(mdlname);
-    }
+        osg::ref_ptr<const NifOsg::KeyframeHolder> mKeyframes;
 
-    mObjectRoot = (!baseonly ? NifOgre::Loader::createObjects(mInsert, mdlname) :
-                               NifOgre::Loader::createObjectBase(mInsert, mdlname));
-    if(mObjectRoot->mSkelBase)
-    {
-        mSkelBase = mObjectRoot->mSkelBase;
+        typedef std::map<std::string, osg::ref_ptr<NifOsg::KeyframeController> > ControllerMap;
 
-        Ogre::AnimationStateSet *aset = mObjectRoot->mSkelBase->getAllAnimationStates();
-        Ogre::AnimationStateIterator asiter = aset->getAnimationStateIterator();
-        while(asiter.hasMoreElements())
-        {
-            Ogre::AnimationState *state = asiter.getNext();
-            state->setEnabled(false);
-            state->setLoop(false);
-        }
+        ControllerMap mControllerMap[Animation::sNumBlendMasks];
 
-        // Set the bones as manually controlled since we're applying the
-        // transformations manually
-        Ogre::SkeletonInstance *skelinst = mObjectRoot->mSkelBase->getSkeleton();
-        Ogre::Skeleton::BoneIterator boneiter = skelinst->getBoneIterator();
-        while(boneiter.hasMoreElements())
-            boneiter.getNext()->setManuallyControlled(true);
-
-        // Reattach any objects that have been attached to this one
-        ObjectAttachMap::iterator iter = mAttachedObjects.begin();
-        while(iter != mAttachedObjects.end())
-        {
-            if(!skelinst->hasBone(iter->second))
-                mAttachedObjects.erase(iter++);
-            else
-            {
-                mSkelBase->attachObjectToBone(iter->second, iter->first);
-                ++iter;
-            }
-        }
-    }
-    else
-        mAttachedObjects.clear();
-
-    for(size_t i = 0;i < mObjectRoot->mControllers.size();i++)
-    {
-        if(mObjectRoot->mControllers[i].getSource().isNull())
-            mObjectRoot->mControllers[i].setSource(mAnimationTimePtr[0]);
-    }
-}
-
-struct AddGlow
-{
-    Ogre::Vector3* mColor;
-    NifOgre::MaterialControllerManager* mMaterialControllerMgr;
-    AddGlow(Ogre::Vector3* col, NifOgre::MaterialControllerManager* materialControllerMgr)
-        : mColor(col)
-        , mMaterialControllerMgr(materialControllerMgr)
-    {}
-
-    void operator()(Ogre::Entity* entity) const
-    {
-        if (!entity->getNumSubEntities())
-            return;
-        Ogre::MaterialPtr writableMaterial = mMaterialControllerMgr->getWritableMaterial(entity);
-        sh::MaterialInstance* instance = sh::Factory::getInstance().getMaterialInstance(writableMaterial->getName());
-
-        instance->setProperty("env_map", sh::makeProperty(new sh::BooleanValue(true)));
-        instance->setProperty("env_map_color", sh::makeProperty(new sh::Vector3(mColor->x, mColor->y, mColor->z)));
-    }
-};
-
-class VisQueueSet
-{
-    Ogre::uint32 mVisFlags;
-    Ogre::uint8 mSolidQueue, mTransQueue;
-    Ogre::Real mDist;
-
-public:
-    VisQueueSet(Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist)
-      : mVisFlags(visflags), mSolidQueue(solidqueue), mTransQueue(transqueue), mDist(dist)
-    { }
-
-    void operator()(Ogre::Entity *entity) const
-    {
-        if(mVisFlags != 0)
-            entity->setVisibilityFlags(mVisFlags);
-        entity->setRenderingDistance(mDist);
-
-        unsigned int numsubs = entity->getNumSubEntities();
-        for(unsigned int i = 0;i < numsubs;++i)
-        {
-            Ogre::SubEntity* subEnt = entity->getSubEntity(i);
-            sh::Factory::getInstance()._ensureMaterial(subEnt->getMaterial()->getName(), "Default");
-            subEnt->setRenderQueueGroup(subEnt->getMaterial()->isTransparent() ? mTransQueue : mSolidQueue);
-        }
-    }
-
-    void operator()(Ogre::ParticleSystem *psys) const
-    {
-        if(mVisFlags != 0)
-            psys->setVisibilityFlags(mVisFlags);
-        psys->setRenderingDistance(mDist);
-        // TODO: Check particle material for actual transparency
-        psys->setRenderQueueGroup(mTransQueue);
-    }
-};
-
-void Animation::setRenderProperties(NifOgre::ObjectScenePtr objlist, Ogre::uint32 visflags, Ogre::uint8 solidqueue, Ogre::uint8 transqueue, Ogre::Real dist, bool enchantedGlow, Ogre::Vector3* glowColor)
-{
-    std::for_each(objlist->mEntities.begin(), objlist->mEntities.end(),
-                  VisQueueSet(visflags, solidqueue, transqueue, dist));
-    std::for_each(objlist->mParticles.begin(), objlist->mParticles.end(),
-                  VisQueueSet(visflags, solidqueue, transqueue, dist));
-
-    if (enchantedGlow)
-        std::for_each(objlist->mEntities.begin(), objlist->mEntities.end(),
-                  AddGlow(glowColor, &objlist->mMaterialControllerMgr));
-}
-
-
-size_t Animation::detectAnimGroup(const Ogre::Node *node)
-{
-    static const char sGroupRoots[sNumGroups][32] = {
-        "", /* Lower body / character root */
-        "Bip01 Spine1", /* Torso */
-        "Bip01 L Clavicle", /* Left arm */
-        "Bip01 R Clavicle", /* Right arm */
+        const std::multimap<float, std::string>& getTextKeys();
     };
 
-    while(node)
+    class ResetAccumRootCallback : public osg::NodeCallback
     {
-        const Ogre::String &name = node->getName();
-        for(size_t i = 1;i < sNumGroups;i++)
+    public:
+        virtual void operator()(osg::Node* node, osg::NodeVisitor* nv)
         {
-            if(name == sGroupRoots[i])
-                return i;
+            osg::MatrixTransform* transform = static_cast<osg::MatrixTransform*>(node);
+
+            osg::Matrix mat = transform->getMatrix();
+            osg::Vec3f position = mat.getTrans();
+            position = osg::componentMultiply(mResetAxes, position);
+            mat.setTrans(position);
+            transform->setMatrix(mat);
+
+            traverse(node, nv);
         }
 
-        node = node->getParent();
+        void setAccumulate(const osg::Vec3f& accumulate)
+        {
+            // anything that accumulates (1.f) should be reset in the callback to (0.f)
+            mResetAxes.x() = accumulate.x() != 0.f ? 0.f : 1.f;
+            mResetAxes.y() = accumulate.y() != 0.f ? 0.f : 1.f;
+            mResetAxes.z() = accumulate.z() != 0.f ? 0.f : 1.f;
+        }
+
+    private:
+        osg::Vec3f mResetAxes;
+    };
+
+    Animation::Animation(const MWWorld::Ptr &ptr, osg::ref_ptr<osg::Group> parentNode, Resource::ResourceSystem* resourceSystem)
+        : mInsert(parentNode)
+        , mSkeleton(NULL)
+        , mPtr(ptr)
+        , mResourceSystem(resourceSystem)
+        , mAccumulate(1.f, 1.f, 0.f)
+        , mTextKeyListener(NULL)
+        , mHeadYawRadians(0.f)
+        , mHeadPitchRadians(0.f)
+        , mAlpha(1.f)
+    {
+        for(size_t i = 0;i < sNumBlendMasks;i++)
+            mAnimationTimePtr[i].reset(new AnimationTime);
     }
 
-    return 0;
-}
-
-
-void Animation::addAnimSource(const std::string &model)
-{
-    OgreAssert(mInsert, "Object is missing a root!");
-    if(!mSkelBase)
-        return;
-
-    std::string kfname = Misc::StringUtils::lowerCase(model);
-    std::string::size_type p = kfname.rfind('\\');
-    if(p == std::string::npos)
-        p = kfname.rfind('/');
-    if(p != std::string::npos)
-        kfname.insert(kfname.begin()+p+1, 'x');
-    else
-        kfname.insert(kfname.begin(), 'x');
-
-    if(kfname.size() > 4 && kfname.compare(kfname.size()-4, 4, ".nif") == 0)
-        kfname.replace(kfname.size()-4, 4, ".kf");
-
-    if(!Ogre::ResourceGroupManager::getSingleton().resourceExistsInAnyGroup(kfname))
-        return;
-
-    std::vector<Ogre::Controller<Ogre::Real> > ctrls;
-    Ogre::SharedPtr<AnimSource> animsrc(OGRE_NEW AnimSource);
-    NifOgre::Loader::createKfControllers(mSkelBase, kfname, animsrc->mTextKeys, ctrls);
-    if(animsrc->mTextKeys.empty() || ctrls.empty())
-        return;
-
-    mAnimSources.push_back(animsrc);
-
-    std::vector<Ogre::Controller<Ogre::Real> > *grpctrls = animsrc->mControllers;
-    for(size_t i = 0;i < ctrls.size();i++)
+    Animation::~Animation()
     {
-        NifOgre::NodeTargetValue<Ogre::Real> *dstval;
-        dstval = static_cast<NifOgre::NodeTargetValue<Ogre::Real>*>(ctrls[i].getDestination().getPointer());
+        setLightEffect(0.f);
 
-        size_t grp = detectAnimGroup(dstval->getNode());
+        if (mObjectRoot)
+            mInsert->removeChild(mObjectRoot);
+    }
 
-        if(!mAccumRoot && grp == 0)
+    MWWorld::Ptr Animation::getPtr()
+    {
+        return mPtr;
+    }
+
+    void Animation::setActive(bool active)
+    {
+        if (mSkeleton)
+            mSkeleton->setActive(active);
+    }
+
+    void Animation::updatePtr(const MWWorld::Ptr &ptr)
+    {
+        mPtr = ptr;
+    }
+
+    void Animation::setAccumulation(const osg::Vec3f& accum)
+    {
+        mAccumulate = accum;
+
+        if (mResetAccumRootCallback)
+            mResetAccumRootCallback->setAccumulate(mAccumulate);
+    }
+
+    size_t Animation::detectBlendMask(osg::Node* node)
+    {
+        static const char sBlendMaskRoots[sNumBlendMasks][32] = {
+            "", /* Lower body / character root */
+            "Bip01 Spine1", /* Torso */
+            "Bip01 L Clavicle", /* Left arm */
+            "Bip01 R Clavicle", /* Right arm */
+        };
+
+        while(node != mObjectRoot)
         {
-            mNonAccumRoot = dstval->getNode();
-            mAccumRoot = mNonAccumRoot->getParent();
-            if(!mAccumRoot)
+            const std::string &name = node->getName();
+            for(size_t i = 1;i < sNumBlendMasks;i++)
             {
-                std::cerr<< "Non-Accum root for "<<mPtr.getCellRef().mRefID<<" is skeleton root??" <<std::endl;
-                mNonAccumRoot = NULL;
+                if(name == sBlendMaskRoots[i])
+                    return i;
             }
+
+            assert(node->getNumParents() > 0);
+
+            node = node->getParent(0);
         }
 
-        if (grp == 0 && dstval->getNode()->getName() == "Bip01")
-        {
-            mNonAccumRoot = dstval->getNode();
-            mAccumRoot = mNonAccumRoot->getParent();
-            if(!mAccumRoot)
-            {
-                std::cerr<< "Non-Accum root for "<<mPtr.getCellRef().mRefID<<" is skeleton root??" <<std::endl;
-                mNonAccumRoot = NULL;
-            }
-        }
-
-        ctrls[i].setSource(mAnimationTimePtr[grp]);
-        grpctrls[grp].push_back(ctrls[i]);
-    }
-}
-
-void Animation::clearAnimSources()
-{
-    mStates.clear();
-
-    for(size_t i = 0;i < sNumGroups;i++)
-        mAnimationTimePtr[i]->setAnimName(std::string());
-
-    mNonAccumCtrl = NULL;
-
-    mAccumRoot = NULL;
-    mNonAccumRoot = NULL;
-
-    mAnimSources.clear();
-}
-
-
-void Animation::addExtraLight(Ogre::SceneManager *sceneMgr, NifOgre::ObjectScenePtr objlist, const ESM::Light *light)
-{
-    const MWWorld::Fallback *fallback = MWBase::Environment::get().getWorld()->getFallback();
-
-    const int clr = light->mData.mColor;
-    Ogre::ColourValue color(((clr >> 0) & 0xFF) / 255.0f,
-                            ((clr >> 8) & 0xFF) / 255.0f,
-                            ((clr >> 16) & 0xFF) / 255.0f);
-    const float radius = float(light->mData.mRadius);
-
-    if((light->mData.mFlags&ESM::Light::Negative))
-        color *= -1;
-
-    objlist->mLights.push_back(sceneMgr->createLight());
-    Ogre::Light *olight = objlist->mLights.back();
-    olight->setDiffuseColour(color);
-
-    Ogre::ControllerValueRealPtr src(Ogre::ControllerManager::getSingleton().getFrameTimeSource());
-    Ogre::ControllerValueRealPtr dest(OGRE_NEW OEngine::Render::LightValue(olight, color));
-    Ogre::ControllerFunctionRealPtr func(OGRE_NEW OEngine::Render::LightFunction(
-        (light->mData.mFlags&ESM::Light::Flicker) ? OEngine::Render::LT_Flicker :
-        (light->mData.mFlags&ESM::Light::FlickerSlow) ? OEngine::Render::LT_FlickerSlow :
-        (light->mData.mFlags&ESM::Light::Pulse) ? OEngine::Render::LT_Pulse :
-        (light->mData.mFlags&ESM::Light::PulseSlow) ? OEngine::Render::LT_PulseSlow :
-        OEngine::Render::LT_Normal
-    ));
-    objlist->mControllers.push_back(Ogre::Controller<Ogre::Real>(src, dest, func));
-
-    bool interior = !(mPtr.isInCell() && mPtr.getCell()->getCell()->isExterior());
-    bool quadratic = fallback->getFallbackBool("LightAttenuation_OutQuadInLin") ?
-                     !interior : fallback->getFallbackBool("LightAttenuation_UseQuadratic");
-
-    // with the standard 1 / (c + d*l + d*d*q) equation the attenuation factor never becomes zero,
-    // so we ignore lights if their attenuation falls below this factor.
-    const float threshold = 0.03;
-
-    if (!quadratic)
-    {
-        float r = radius * fallback->getFallbackFloat("LightAttenuation_LinearRadiusMult");
-        float attenuation = fallback->getFallbackFloat("LightAttenuation_LinearValue") / r;
-        float activationRange = 1.0f / (threshold * attenuation);
-        olight->setAttenuation(activationRange, 0, attenuation, 0);
-    }
-    else
-    {
-        float r = radius * fallback->getFallbackFloat("LightAttenuation_QuadraticRadiusMult");
-        float attenuation = fallback->getFallbackFloat("LightAttenuation_QuadraticValue") / std::pow(r, 2);
-        float activationRange = std::sqrt(1.0f / (threshold * attenuation));
-        olight->setAttenuation(activationRange, 0, 0, attenuation);
+        return 0;
     }
 
-    // If there's an AttachLight bone, attach the light to that, otherwise put it in the center,
-    if(objlist->mSkelBase && objlist->mSkelBase->getSkeleton()->hasBone("AttachLight"))
-        objlist->mSkelBase->attachObjectToBone("AttachLight", olight);
-    else
+    const std::multimap<float, std::string> &Animation::AnimSource::getTextKeys()
     {
-        Ogre::AxisAlignedBox bounds = Ogre::AxisAlignedBox::BOX_NULL;
-        for(size_t i = 0;i < objlist->mEntities.size();i++)
-        {
-            Ogre::Entity *ent = objlist->mEntities[i];
-            bounds.merge(ent->getBoundingBox());
-        }
-
-        Ogre::SceneNode *node = bounds.isFinite() ? mInsert->createChildSceneNode(bounds.getCenter())
-                                                  : mInsert->createChildSceneNode();
-        node->attachObject(olight);
-    }
-}
-
-
-Ogre::Node *Animation::getNode(const std::string &name)
-{
-    if(mSkelBase)
-    {
-        Ogre::SkeletonInstance *skel = mSkelBase->getSkeleton();
-        if(skel->hasBone(name))
-            return skel->getBone(name);
-    }
-    return NULL;
-}
-
-NifOgre::TextKeyMap::const_iterator Animation::findGroupStart(const NifOgre::TextKeyMap &keys, const std::string &groupname)
-{
-    NifOgre::TextKeyMap::const_iterator iter(keys.begin());
-    for(;iter != keys.end();iter++)
-    {
-        if(iter->second.compare(0, groupname.size(), groupname) == 0 &&
-           iter->second.compare(groupname.size(), 2, ": ") == 0)
-            break;
-    }
-    return iter;
-}
-
-
-bool Animation::hasAnimation(const std::string &anim)
-{
-    AnimSourceList::const_iterator iter(mAnimSources.begin());
-    for(;iter != mAnimSources.end();iter++)
-    {
-        const NifOgre::TextKeyMap &keys = (*iter)->mTextKeys;
-        if(findGroupStart(keys, anim) != keys.end())
-            return true;
+        return mKeyframes->mTextKeys;
     }
 
-    return false;
-}
-
-
-void Animation::setAccumulation(const Ogre::Vector3 &accum)
-{
-    mAccumulate = accum;
-}
-
-
-void Animation::updatePtr(const MWWorld::Ptr &ptr)
-{
-    mPtr = ptr;
-}
-
-
-float Animation::calcAnimVelocity(const NifOgre::TextKeyMap &keys, NifOgre::NodeTargetValue<Ogre::Real> *nonaccumctrl, const Ogre::Vector3 &accum, const std::string &groupname)
-{
-    const std::string start = groupname+": start";
-    const std::string loopstart = groupname+": loop start";
-    const std::string loopstop = groupname+": loop stop";
-    const std::string stop = groupname+": stop";
-    float starttime = std::numeric_limits<float>::max();
-    float stoptime = 0.0f;
-    NifOgre::TextKeyMap::const_iterator keyiter(keys.begin());
-    while(keyiter != keys.end())
+    void Animation::addAnimSource(const std::string &model)
     {
-        if(keyiter->second == start || keyiter->second == loopstart)
-            starttime = keyiter->first;
-        else if(keyiter->second == loopstop || keyiter->second == stop)
-        {
-            stoptime = keyiter->first;
-            break;
-        }
-        keyiter++;
-    }
+        std::string kfname = model;
+        Misc::StringUtils::lowerCaseInPlace(kfname);
 
-    if(stoptime > starttime)
-    {
-        Ogre::Vector3 startpos = nonaccumctrl->getTranslation(starttime) * accum;
-        Ogre::Vector3 endpos = nonaccumctrl->getTranslation(stoptime) * accum;
-
-        return startpos.distance(endpos) / (stoptime - starttime);
-    }
-
-    return 0.0f;
-}
-
-float Animation::getVelocity(const std::string &groupname) const
-{
-    /* Look in reverse; last-inserted source has priority. */
-    AnimSourceList::const_reverse_iterator animsrc(mAnimSources.rbegin());
-    for(;animsrc != mAnimSources.rend();animsrc++)
-    {
-        const NifOgre::TextKeyMap &keys = (*animsrc)->mTextKeys;
-        if(findGroupStart(keys, groupname) != keys.end())
-            break;
-    }
-    if(animsrc == mAnimSources.rend())
-        return 0.0f;
-
-    float velocity = 0.0f;
-    const NifOgre::TextKeyMap &keys = (*animsrc)->mTextKeys;
-    const std::vector<Ogre::Controller<Ogre::Real> >&ctrls = (*animsrc)->mControllers[0];
-    for(size_t i = 0;i < ctrls.size();i++)
-    {
-        NifOgre::NodeTargetValue<Ogre::Real> *dstval;
-        dstval = static_cast<NifOgre::NodeTargetValue<Ogre::Real>*>(ctrls[i].getDestination().getPointer());
-        if(dstval->getNode() == mNonAccumRoot)
-        {
-            velocity = calcAnimVelocity(keys, dstval, mAccumulate, groupname);
-            break;
-        }
-    }
-
-    // If there's no velocity, keep looking
-    if(!(velocity > 1.0f))
-    {
-        AnimSourceList::const_reverse_iterator animiter = mAnimSources.rbegin();
-        while(*animiter != *animsrc)
-            ++animiter;
-
-        while(!(velocity > 1.0f) && ++animiter != mAnimSources.rend())
-        {
-            const NifOgre::TextKeyMap &keys = (*animiter)->mTextKeys;
-            const std::vector<Ogre::Controller<Ogre::Real> >&ctrls = (*animiter)->mControllers[0];
-            for(size_t i = 0;i < ctrls.size();i++)
-            {
-                NifOgre::NodeTargetValue<Ogre::Real> *dstval;
-                dstval = static_cast<NifOgre::NodeTargetValue<Ogre::Real>*>(ctrls[i].getDestination().getPointer());
-                if(dstval->getNode() == mNonAccumRoot)
-                {
-                    velocity = calcAnimVelocity(keys, dstval, mAccumulate, groupname);
-                    break;
-                }
-            }
-        }
-    }
-
-    return velocity;
-}
-
-
-static void updateBoneTree(const Ogre::SkeletonInstance *skelsrc, Ogre::Bone *bone)
-{
-    if(skelsrc->hasBone(bone->getName()))
-    {
-        Ogre::Bone *srcbone = skelsrc->getBone(bone->getName());
-        if(!srcbone->getParent() || !bone->getParent())
-        {
-            bone->setOrientation(srcbone->getOrientation());
-            bone->setPosition(srcbone->getPosition());
-            bone->setScale(srcbone->getScale());
-        }
+        if(kfname.size() > 4 && kfname.compare(kfname.size()-4, 4, ".nif") == 0)
+            kfname.replace(kfname.size()-4, 4, ".kf");
         else
+            return;
+
+        if(!mResourceSystem->getVFS()->exists(kfname))
+            return;
+
+        boost::shared_ptr<AnimSource> animsrc;
+        animsrc.reset(new AnimSource);
+        animsrc->mKeyframes = mResourceSystem->getKeyframeManager()->get(kfname);
+
+        if (!animsrc->mKeyframes || animsrc->mKeyframes->mTextKeys.empty() || animsrc->mKeyframes->mKeyframeControllers.empty())
+            return;
+
+        for (NifOsg::KeyframeHolder::KeyframeControllerMap::const_iterator it = animsrc->mKeyframes->mKeyframeControllers.begin();
+             it != animsrc->mKeyframes->mKeyframeControllers.end(); ++it)
         {
-            bone->_setDerivedOrientation(srcbone->_getDerivedOrientation());
-            bone->_setDerivedPosition(srcbone->_getDerivedPosition());
-            bone->setScale(Ogre::Vector3::UNIT_SCALE);
-        }
-    }
-
-    Ogre::Node::ChildNodeIterator boneiter = bone->getChildIterator();
-    while(boneiter.hasMoreElements())
-        updateBoneTree(skelsrc, static_cast<Ogre::Bone*>(boneiter.getNext()));
-}
-
-void Animation::updateSkeletonInstance(const Ogre::SkeletonInstance *skelsrc, Ogre::SkeletonInstance *skel)
-{
-    Ogre::Skeleton::BoneIterator boneiter = skel->getRootBoneIterator();
-    while(boneiter.hasMoreElements())
-        updateBoneTree(skelsrc, boneiter.getNext());
-}
-
-
-void Animation::updatePosition(float oldtime, float newtime, Ogre::Vector3 &position)
-{
-    /* Get the non-accumulation root's difference from the last update, and move the position
-     * accordingly.
-     */
-    Ogre::Vector3 off = mNonAccumCtrl->getTranslation(newtime)*mAccumulate;
-    position += off - mNonAccumCtrl->getTranslation(oldtime)*mAccumulate;
-
-    /* Translate the accumulation root back to compensate for the move. */
-    mAccumRoot->setPosition(-off);
-}
-
-bool Animation::reset(AnimState &state, const NifOgre::TextKeyMap &keys, const std::string &groupname, const std::string &start, const std::string &stop, float startpoint)
-{
-    const NifOgre::TextKeyMap::const_iterator groupstart = findGroupStart(keys, groupname);
-
-    std::string starttag = groupname+": "+start;
-    NifOgre::TextKeyMap::const_iterator startkey(groupstart);
-    while(startkey != keys.end() && startkey->second != starttag)
-        startkey++;
-    if(startkey == keys.end() && start == "loop start")
-    {
-        starttag = groupname+": start";
-        startkey = groupstart;
-        while(startkey != keys.end() && startkey->second != starttag)
-            startkey++;
-    }
-    if(startkey == keys.end())
-        return false;
-
-    const std::string stoptag = groupname+": "+stop;
-    NifOgre::TextKeyMap::const_iterator stopkey(groupstart);
-    while(stopkey != keys.end()
-          // We have to ignore extra garbage at the end.
-          // The Scrib's idle3 animation has "Idle3: Stop." instead of "Idle3: Stop".
-          // Why, just why? :(
-          && (stopkey->second.size() < stoptag.size() || stopkey->second.substr(0,stoptag.size()) != stoptag))
-        stopkey++;
-    if(stopkey == keys.end())
-        return false;
-
-    if(startkey->first > stopkey->first)
-        return false;
-
-    state.mStartTime = startkey->first;
-    state.mLoopStartTime = startkey->first;
-    state.mLoopStopTime = stopkey->first;
-    state.mStopTime = stopkey->first;
-
-    state.mTime = state.mStartTime + ((state.mStopTime - state.mStartTime) * startpoint);
-    if(state.mTime > state.mStartTime)
-    {
-        const std::string loopstarttag = groupname+": loop start";
-        const std::string loopstoptag = groupname+": loop stop";
-        NifOgre::TextKeyMap::const_iterator key(groupstart);
-        while(key->first <= state.mTime && key != stopkey)
-        {
-            if(key->second == loopstarttag)
-                state.mLoopStartTime = key->first;
-            else if(key->second == loopstoptag)
-                state.mLoopStopTime = key->first;
-            key++;
-        }
-    }
-
-    return true;
-}
-
-void split(const std::string &s, char delim, std::vector<std::string> &elems) {
-    std::stringstream ss(s);
-    std::string item;
-    while (std::getline(ss, item, delim)) {
-        elems.push_back(item);
-    }
-}
-
-void Animation::handleTextKey(AnimState &state, const std::string &groupname, const NifOgre::TextKeyMap::const_iterator &key)
-{
-    //float time = key->first;
-    const std::string &evt = key->second;
-
-    if(evt.compare(0, 7, "sound: ") == 0)
-    {
-        MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
-        sndMgr->playSound3D(mPtr, evt.substr(7), 1.0f, 1.0f);
-        return;
-    }
-    if(evt.compare(0, 10, "soundgen: ") == 0)
-    {
-        std::string soundgen = evt.substr(10);
-
-        // The event can optionally contain volume and pitch modifiers
-        float volume=1.f, pitch=1.f;
-        if (soundgen.find(" ") != std::string::npos)
-        {
-            std::vector<std::string> tokens;
-            split(soundgen, ' ', tokens);
-            soundgen = tokens[0];
-            if (tokens.size() >= 2)
-                volume = Ogre::StringConverter::parseReal(tokens[1]);
-            if (tokens.size() >= 3)
-                pitch = Ogre::StringConverter::parseReal(tokens[2]);
-        }
-
-        std::string sound = mPtr.getClass().getSoundIdFromSndGen(mPtr, soundgen);
-        if(!sound.empty())
-        {
-            MWBase::SoundManager *sndMgr = MWBase::Environment::get().getSoundManager();
-            MWBase::SoundManager::PlayType type = MWBase::SoundManager::Play_TypeSfx;
-            if(evt.compare(10, evt.size()-10, "left") == 0 || evt.compare(10, evt.size()-10, "right") == 0)
-                type = MWBase::SoundManager::Play_TypeFoot;
-            sndMgr->playSound3D(mPtr, sound, volume, pitch, type);
-        }
-        return;
-    }
-
-    if(evt.compare(0, groupname.size(), groupname) != 0 ||
-       evt.compare(groupname.size(), 2, ": ") != 0)
-    {
-        // Not ours, skip it
-        return;
-    }
-    size_t off = groupname.size()+2;
-    size_t len = evt.size() - off;
-
-    if(evt.compare(off, len, "loop start") == 0)
-        state.mLoopStartTime = key->first;
-    else if(evt.compare(off, len, "loop stop") == 0)
-        state.mLoopStopTime = key->first;
-    else if(evt.compare(off, len, "equip attach") == 0)
-        showWeapons(true);
-    else if(evt.compare(off, len, "unequip detach") == 0)
-        showWeapons(false);
-    else if(evt.compare(off, len, "chop hit") == 0)
-        mPtr.getClass().hit(mPtr, ESM::Weapon::AT_Chop);
-    else if(evt.compare(off, len, "slash hit") == 0)
-        mPtr.getClass().hit(mPtr, ESM::Weapon::AT_Slash);
-    else if(evt.compare(off, len, "thrust hit") == 0)
-        mPtr.getClass().hit(mPtr, ESM::Weapon::AT_Thrust);
-    else if(evt.compare(off, len, "hit") == 0)
-    {
-        if (groupname == "attack1")
-            mPtr.getClass().hit(mPtr, ESM::Weapon::AT_Chop);
-        else if (groupname == "attack2")
-            mPtr.getClass().hit(mPtr, ESM::Weapon::AT_Slash);
-        else if (groupname == "attack3")
-            mPtr.getClass().hit(mPtr, ESM::Weapon::AT_Thrust);
-        else
-            mPtr.getClass().hit(mPtr);
-    }
-    else if (evt.compare(off, len, "shoot attach") == 0)
-        attachArrow();
-    else if (evt.compare(off, len, "shoot release") == 0)
-        releaseArrow();
-    else if (evt.compare(off, len, "shoot follow attach") == 0)
-        attachArrow();
-
-    else if (groupname == "spellcast" && evt.substr(evt.size()-7, 7) == "release")
-        MWBase::Environment::get().getWorld()->castSpell(mPtr);
-
-    else if (groupname == "shield" && evt.compare(off, len, "block hit") == 0)
-        mPtr.getClass().block(mPtr);
-}
-
-void Animation::changeGroups(const std::string &groupname, int groups)
-{
-    AnimStateMap::iterator stateiter = mStates.begin();
-    stateiter = mStates.find(groupname);
-    if(stateiter != mStates.end())
-    {
-        if(stateiter->second.mGroups != groups)
-        {
-            stateiter->second.mGroups = groups;
-            resetActiveGroups();
-        }
-        return;
-    }
-}
-void Animation::play(const std::string &groupname, int priority, int groups, bool autodisable, float speedmult, const std::string &start, const std::string &stop, float startpoint, size_t loops)
-{
-    if(!mSkelBase || mAnimSources.empty())
-        return;
-
-    if(groupname.empty())
-    {
-        resetActiveGroups();
-        return;
-    }
-
-    priority = std::max(0, priority);
-
-    AnimStateMap::iterator stateiter = mStates.begin();
-    while(stateiter != mStates.end())
-    {
-        if(stateiter->second.mPriority == priority)
-            mStates.erase(stateiter++);
-        else
-            ++stateiter;
-    }
-
-    stateiter = mStates.find(groupname);
-    if(stateiter != mStates.end())
-    {
-        stateiter->second.mPriority = priority;
-        resetActiveGroups();
-        return;
-    }
-
-    /* Look in reverse; last-inserted source has priority. */
-    AnimSourceList::reverse_iterator iter(mAnimSources.rbegin());
-    for(;iter != mAnimSources.rend();iter++)
-    {
-        const NifOgre::TextKeyMap &textkeys = (*iter)->mTextKeys;
-        AnimState state;
-        if(reset(state, textkeys, groupname, start, stop, startpoint))
-        {
-            state.mSource = *iter;
-            state.mSpeedMult = speedmult;
-            state.mLoopCount = loops;
-            state.mPlaying = (state.mTime < state.mStopTime);
-            state.mPriority = priority;
-            state.mGroups = groups;
-            state.mAutoDisable = autodisable;
-            mStates[groupname] = state;
-
-            NifOgre::TextKeyMap::const_iterator textkey(textkeys.lower_bound(state.mTime));
-            while(textkey != textkeys.end() && textkey->first <= state.mTime)
+            std::string bonename = Misc::StringUtils::lowerCase(it->first);
+            NodeMap::const_iterator found = mNodeMap.find(bonename);
+            if (found == mNodeMap.end())
             {
-                handleTextKey(state, groupname, textkey);
-                textkey++;
-            }
-
-            if(state.mTime >= state.mLoopStopTime && state.mLoopCount > 0)
-            {
-                state.mLoopCount--;
-                state.mTime = state.mLoopStartTime;
-                state.mPlaying = true;
-                if(state.mTime >= state.mLoopStopTime)
-                    break;
-
-                textkey = textkeys.lower_bound(state.mTime);
-                while(textkey != textkeys.end() && textkey->first <= state.mTime)
-                {
-                    handleTextKey(state, groupname, textkey);
-                    textkey++;
-                }
-            }
-
-            break;
-        }
-    }
-    if(iter == mAnimSources.rend())
-        std::cerr<< "Failed to find animation "<<groupname<<" for "<<mPtr.getCellRef().mRefID <<std::endl;
-
-    resetActiveGroups();
-}
-
-bool Animation::isPlaying(const std::string &groupname) const
-{
-    AnimStateMap::const_iterator state(mStates.find(groupname));
-    if(state != mStates.end())
-        return state->second.mPlaying;
-    return false;
-}
-
-void Animation::resetActiveGroups()
-{
-    for(size_t grp = 0;grp < sNumGroups;grp++)
-    {
-        AnimStateMap::const_iterator active = mStates.end();
-
-        AnimStateMap::const_iterator state = mStates.begin();
-        for(;state != mStates.end();++state)
-        {
-            if(!(state->second.mGroups&(1<<grp)))
+                std::cerr << "addAnimSource: can't find bone '" + bonename << "' in " << model << " (referenced by " << kfname << ")" << std::endl;
                 continue;
+            }
 
-            if(active == mStates.end() || active->second.mPriority < state->second.mPriority)
-                active = state;
+            osg::Node* node = found->second;
+
+            size_t blendMask = detectBlendMask(node);
+
+            // clone the controller, because each Animation needs its own ControllerSource
+            osg::ref_ptr<NifOsg::KeyframeController> cloned = osg::clone(it->second.get(), osg::CopyOp::DEEP_COPY_ALL);
+            cloned->setSource(mAnimationTimePtr[blendMask]);
+
+            animsrc->mControllerMap[blendMask].insert(std::make_pair(bonename, cloned));
         }
 
-        mAnimationTimePtr[grp]->setAnimName((active == mStates.end()) ?
-                                             std::string() : active->first);
-    }
-    mNonAccumCtrl = NULL;
+        mAnimSources.push_back(animsrc);
 
-    if(!mNonAccumRoot || mAccumulate == Ogre::Vector3(0.0f))
-        return;
+        SceneUtil::AssignControllerSourcesVisitor assignVisitor(mAnimationTimePtr[0]);
+        mObjectRoot->accept(assignVisitor);
 
-    AnimStateMap::const_iterator state = mStates.find(mAnimationTimePtr[0]->getAnimName());
-    if(state == mStates.end())
-        return;
-
-    const Ogre::SharedPtr<AnimSource> &animsrc = state->second.mSource;
-    const std::vector<Ogre::Controller<Ogre::Real> >&ctrls = animsrc->mControllers[0];
-    for(size_t i = 0;i < ctrls.size();i++)
-    {
-        NifOgre::NodeTargetValue<Ogre::Real> *dstval;
-        dstval = static_cast<NifOgre::NodeTargetValue<Ogre::Real>*>(ctrls[i].getDestination().getPointer());
-        if(dstval->getNode() == mNonAccumRoot)
+        if (!mAccumRoot)
         {
-            mNonAccumCtrl = dstval;
-            break;
+            NodeMap::const_iterator found = mNodeMap.find("root bone");
+            if (found == mNodeMap.end())
+                found = mNodeMap.find("bip01");
+
+            if (found != mNodeMap.end())
+                mAccumRoot = found->second;
         }
     }
-}
 
-
-bool Animation::getInfo(const std::string &groupname, float *complete, float *speedmult) const
-{
-    AnimStateMap::const_iterator iter = mStates.find(groupname);
-    if(iter == mStates.end())
+    void Animation::clearAnimSources()
     {
-        if(complete) *complete = 0.0f;
-        if(speedmult) *speedmult = 0.0f;
+        mStates.clear();
+
+        for(size_t i = 0;i < sNumBlendMasks;i++)
+            mAnimationTimePtr[i]->setTimePtr(boost::shared_ptr<float>());
+
+        mAccumCtrl = NULL;
+
+        mAnimSources.clear();
+    }
+
+    bool Animation::hasAnimation(const std::string &anim)
+    {
+        AnimSourceList::const_iterator iter(mAnimSources.begin());
+        for(;iter != mAnimSources.end();++iter)
+        {
+            const NifOsg::TextKeyMap &keys = (*iter)->getTextKeys();
+            if(findGroupStart(keys, anim) != keys.end())
+                return true;
+        }
+
         return false;
     }
 
-    if(complete)
+    float Animation::getStartTime(const std::string &groupname) const
     {
-        if(iter->second.mStopTime > iter->second.mStartTime)
-            *complete = (iter->second.mTime - iter->second.mStartTime) /
-                        (iter->second.mStopTime - iter->second.mStartTime);
-        else
-            *complete = (iter->second.mPlaying ? 0.0f : 1.0f);
-    }
-    if(speedmult) *speedmult = iter->second.mSpeedMult;
-    return true;
-}
-
-float Animation::getStartTime(const std::string &groupname) const
-{
-    AnimSourceList::const_iterator iter(mAnimSources.begin());
-    for(;iter != mAnimSources.end();iter++)
-    {
-        const NifOgre::TextKeyMap &keys = (*iter)->mTextKeys;
-        NifOgre::TextKeyMap::const_iterator found = findGroupStart(keys, groupname);
-        if(found != keys.end())
-            return found->first;
-    }
-    return -1.f;
-}
-
-float Animation::getCurrentTime(const std::string &groupname) const
-{
-    AnimStateMap::const_iterator iter = mStates.find(groupname);
-    if(iter == mStates.end())
-        return -1.f;
-
-    return iter->second.mTime;
-}
-
-void Animation::disable(const std::string &groupname)
-{
-    AnimStateMap::iterator iter = mStates.find(groupname);
-    if(iter != mStates.end())
-        mStates.erase(iter);
-    resetActiveGroups();
-}
-
-
-Ogre::Vector3 Animation::runAnimation(float duration)
-{
-    Ogre::Vector3 movement(0.0f);
-    AnimStateMap::iterator stateiter = mStates.begin();
-    while(stateiter != mStates.end())
-    {
-        AnimState &state = stateiter->second;
-        const NifOgre::TextKeyMap &textkeys = state.mSource->mTextKeys;
-        NifOgre::TextKeyMap::const_iterator textkey(textkeys.upper_bound(state.mTime));
-
-        float timepassed = duration * state.mSpeedMult;
-        while(state.mPlaying)
+        for(AnimSourceList::const_iterator iter(mAnimSources.begin()); iter != mAnimSources.end(); ++iter)
         {
-            float targetTime;
+            const NifOsg::TextKeyMap &keys = (*iter)->getTextKeys();
 
-            if(state.mTime >= state.mLoopStopTime && state.mLoopCount > 0)
-                goto handle_loop;
+            NifOsg::TextKeyMap::const_iterator found = findGroupStart(keys, groupname);
+            if(found != keys.end())
+                return found->first;
+        }
+        return -1.f;
+    }
 
-            targetTime = state.mTime + timepassed;
-            if(textkey == textkeys.end() || textkey->first > targetTime)
+    float Animation::getTextKeyTime(const std::string &textKey) const
+    {
+        for(AnimSourceList::const_iterator iter(mAnimSources.begin()); iter != mAnimSources.end(); ++iter)
+        {
+            const NifOsg::TextKeyMap &keys = (*iter)->getTextKeys();
+
+            for(NifOsg::TextKeyMap::const_iterator iterKey(keys.begin()); iterKey != keys.end(); ++iterKey)
             {
-                if(mNonAccumCtrl && stateiter->first == mAnimationTimePtr[0]->getAnimName())
-                    updatePosition(state.mTime, targetTime, movement);
-                state.mTime = std::min(targetTime, state.mStopTime);
+                if(iterKey->second.compare(0, textKey.size(), textKey) == 0)
+                    return iterKey->first;
             }
+        }
+
+        return -1.f;
+    }
+
+    void Animation::handleTextKey(AnimState &state, const std::string &groupname, const std::multimap<float, std::string>::const_iterator &key,
+                       const std::multimap<float, std::string>& map)
+    {
+        const std::string &evt = key->second;
+
+        size_t off = groupname.size()+2;
+        size_t len = evt.size() - off;
+
+        if(evt.compare(0, groupname.size(), groupname) == 0 &&
+           evt.compare(groupname.size(), 2, ": ") == 0)
+        {
+            if(evt.compare(off, len, "loop start") == 0)
+                state.mLoopStartTime = key->first;
+            else if(evt.compare(off, len, "loop stop") == 0)
+                state.mLoopStopTime = key->first;
+        }
+
+        if (mTextKeyListener)
+        {
+            try
+            {
+                mTextKeyListener->handleTextKey(groupname, key, map);
+            }
+            catch (std::exception& e)
+            {
+                std::cerr << "Error handling text key " << evt << ": " << e.what() << std::endl;
+            }
+        }
+    }
+
+    void Animation::play(const std::string &groupname, const AnimPriority& priority, int blendMask, bool autodisable, float speedmult,
+                         const std::string &start, const std::string &stop, float startpoint, size_t loops, bool loopfallback)
+    {
+        if(!mObjectRoot || mAnimSources.empty())
+            return;
+
+        if(groupname.empty())
+        {
+            resetActiveGroups();
+            return;
+        }
+
+        AnimStateMap::iterator stateiter = mStates.begin();
+        while(stateiter != mStates.end())
+        {
+            if(stateiter->second.mPriority == priority)
+                mStates.erase(stateiter++);
             else
+                ++stateiter;
+        }
+
+        stateiter = mStates.find(groupname);
+        if(stateiter != mStates.end())
+        {
+            stateiter->second.mPriority = priority;
+            resetActiveGroups();
+            return;
+        }
+
+        /* Look in reverse; last-inserted source has priority. */
+        AnimState state;
+        AnimSourceList::reverse_iterator iter(mAnimSources.rbegin());
+        for(;iter != mAnimSources.rend();++iter)
+        {
+            const NifOsg::TextKeyMap &textkeys = (*iter)->getTextKeys();
+            if(reset(state, textkeys, groupname, start, stop, startpoint, loopfallback))
             {
-                if(mNonAccumCtrl && stateiter->first == mAnimationTimePtr[0]->getAnimName())
-                    updatePosition(state.mTime, textkey->first, movement);
-                state.mTime = textkey->first;
-            }
+                state.mSource = *iter;
+                state.mSpeedMult = speedmult;
+                state.mLoopCount = loops;
+                state.mPlaying = (state.getTime() < state.mStopTime);
+                state.mPriority = priority;
+                state.mBlendMask = blendMask;
+                state.mAutoDisable = autodisable;
+                mStates[groupname] = state;
 
-            state.mPlaying = (state.mTime < state.mStopTime);
-            timepassed = targetTime - state.mTime;
-
-            while(textkey != textkeys.end() && textkey->first <= state.mTime)
-            {
-                handleTextKey(state, stateiter->first, textkey);
-                textkey++;
-            }
-
-            if(state.mTime >= state.mLoopStopTime && state.mLoopCount > 0)
-            {
-            handle_loop:
-                state.mLoopCount--;
-                state.mTime = state.mLoopStartTime;
-                state.mPlaying = true;
-
-                textkey = textkeys.lower_bound(state.mTime);
-                while(textkey != textkeys.end() && textkey->first <= state.mTime)
+                NifOsg::TextKeyMap::const_iterator textkey(textkeys.lower_bound(state.getTime()));
+                if (state.mPlaying)
                 {
-                    handleTextKey(state, stateiter->first, textkey);
-                    textkey++;
+                    while(textkey != textkeys.end() && textkey->first <= state.getTime())
+                    {
+                        handleTextKey(state, groupname, textkey, textkeys);
+                        ++textkey;
+                    }
                 }
 
-                if(state.mTime >= state.mLoopStopTime)
-                    break;
-            }
+                if(state.getTime() >= state.mLoopStopTime && state.mLoopCount > 0)
+                {
+                    state.mLoopCount--;
+                    state.setTime(state.mLoopStartTime);
+                    state.mPlaying = true;
+                    if(state.getTime() >= state.mLoopStopTime)
+                        break;
 
-            if(timepassed <= 0.0f)
+                    NifOsg::TextKeyMap::const_iterator textkey(textkeys.lower_bound(state.getTime()));
+                    while(textkey != textkeys.end() && textkey->first <= state.getTime())
+                    {
+                        handleTextKey(state, groupname, textkey, textkeys);
+                        ++textkey;
+                    }
+                }
+
+                break;
+            }
+        }
+        if(iter == mAnimSources.rend())
+            std::cerr<< "Failed to find animation "<<groupname<<" for "<<mPtr.getCellRef().getRefId() <<std::endl;
+
+        resetActiveGroups();
+    }
+
+    bool Animation::reset(AnimState &state, const NifOsg::TextKeyMap &keys, const std::string &groupname, const std::string &start, const std::string &stop, float startpoint, bool loopfallback)
+    {
+        // Look for text keys in reverse. This normally wouldn't matter, but for some reason undeadwolf_2.nif has two
+        // separate walkforward keys, and the last one is supposed to be used.
+        NifOsg::TextKeyMap::const_reverse_iterator groupend(keys.rbegin());
+        for(;groupend != keys.rend();++groupend)
+        {
+            if(groupend->second.compare(0, groupname.size(), groupname) == 0 &&
+               groupend->second.compare(groupname.size(), 2, ": ") == 0)
                 break;
         }
 
-        if(!state.mPlaying && state.mAutoDisable)
+        std::string starttag = groupname+": "+start;
+        NifOsg::TextKeyMap::const_reverse_iterator startkey(groupend);
+        while(startkey != keys.rend() && startkey->second != starttag)
+            ++startkey;
+        if(startkey == keys.rend() && start == "loop start")
         {
-            mStates.erase(stateiter++);
-            resetActiveGroups();
+            starttag = groupname+": start";
+            startkey = groupend;
+            while(startkey != keys.rend() && startkey->second != starttag)
+                ++startkey;
+        }
+        if(startkey == keys.rend())
+            return false;
+
+        const std::string stoptag = groupname+": "+stop;
+        NifOsg::TextKeyMap::const_reverse_iterator stopkey(groupend);
+        while(stopkey != keys.rend()
+              // We have to ignore extra garbage at the end.
+              // The Scrib's idle3 animation has "Idle3: Stop." instead of "Idle3: Stop".
+              // Why, just why? :(
+              && (stopkey->second.size() < stoptag.size() || stopkey->second.substr(0,stoptag.size()) != stoptag))
+            ++stopkey;
+        if(stopkey == keys.rend())
+            return false;
+
+        if(startkey->first > stopkey->first)
+            return false;
+
+        state.mStartTime = startkey->first;
+        if (loopfallback)
+        {
+            state.mLoopStartTime = startkey->first;
+            state.mLoopStopTime = stopkey->first;
         }
         else
-            ++stateiter;
-    }
-
-    for(size_t i = 0;i < mObjectRoot->mControllers.size();i++)
-        mObjectRoot->mControllers[i].update();
-
-    // Apply group controllers
-    for(size_t grp = 0;grp < sNumGroups;grp++)
-    {
-        const std::string &name = mAnimationTimePtr[grp]->getAnimName();
-        if(!name.empty() && (stateiter=mStates.find(name)) != mStates.end())
         {
-            const Ogre::SharedPtr<AnimSource> &src = stateiter->second.mSource;
-            for(size_t i = 0;i < src->mControllers[grp].size();i++)
-                src->mControllers[grp][i].update();
+            state.mLoopStartTime = startkey->first;
+            state.mLoopStopTime = std::numeric_limits<float>::max();
         }
-    }
+        state.mStopTime = stopkey->first;
 
-    if(mSkelBase)
-    {
-        // HACK: Dirty the animation state set so that Ogre will apply the
-        // transformations to entities this skeleton instance is shared with.
-        mSkelBase->getAllAnimationStates()->_notifyDirty();
-    }
+        state.setTime(state.mStartTime + ((state.mStopTime - state.mStartTime) * startpoint));
 
-    updateEffects(duration);
+        // mLoopStartTime and mLoopStopTime normally get assigned when encountering these keys while playing the animation
+        // (see handleTextKey). But if startpoint is already past these keys, or start time is == stop time, we need to assign them now.
+        const std::string loopstarttag = groupname+": loop start";
+        const std::string loopstoptag = groupname+": loop stop";
 
-    return movement;
-}
-
-void Animation::showWeapons(bool showWeapon)
-{
-}
-
-
-class ToggleLight {
-    bool mEnable;
-
-public:
-    ToggleLight(bool enable) : mEnable(enable) { }
-
-    void operator()(Ogre::Light *light) const
-    { light->setVisible(mEnable); }
-};
-
-void Animation::enableLights(bool enable)
-{
-    std::for_each(mObjectRoot->mLights.begin(), mObjectRoot->mLights.end(), ToggleLight(enable));
-}
-
-
-class MergeBounds {
-    Ogre::AxisAlignedBox *mBounds;
-
-public:
-    MergeBounds(Ogre::AxisAlignedBox *bounds) : mBounds(bounds) { }
-
-    void operator()(Ogre::MovableObject *obj)
-    {
-        mBounds->merge(obj->getWorldBoundingBox(true));
-    }
-};
-
-Ogre::AxisAlignedBox Animation::getWorldBounds()
-{
-    Ogre::AxisAlignedBox bounds = Ogre::AxisAlignedBox::BOX_NULL;
-    std::for_each(mObjectRoot->mEntities.begin(), mObjectRoot->mEntities.end(), MergeBounds(&bounds));
-    return bounds;
-}
-
-
-Ogre::TagPoint *Animation::attachObjectToBone(const Ogre::String &bonename, Ogre::MovableObject *obj)
-{
-    Ogre::TagPoint *tag = NULL;
-    Ogre::SkeletonInstance *skel = (mSkelBase ? mSkelBase->getSkeleton() : NULL);
-    if(skel && skel->hasBone(bonename))
-    {
-        tag = mSkelBase->attachObjectToBone(bonename, obj);
-        mAttachedObjects[obj] = bonename;
-    }
-    return tag;
-}
-
-void Animation::detachObjectFromBone(Ogre::MovableObject *obj)
-{
-    ObjectAttachMap::iterator iter = mAttachedObjects.find(obj);
-    if(iter != mAttachedObjects.end())
-        mAttachedObjects.erase(iter);
-    mSkelBase->detachObjectFromBone(obj);
-}
-
-bool Animation::allowSwitchViewMode() const
-{
-    for (AnimStateMap::const_iterator stateiter = mStates.begin(); stateiter != mStates.end(); ++stateiter)
-    {
-        if(stateiter->second.mPriority > MWMechanics::Priority_Movement
-                && stateiter->second.mPriority < MWMechanics::Priority_Torch)
-            return false;
-    }
-    return true;
-}
-
-void Animation::addEffect(const std::string &model, int effectId, bool loop, const std::string &bonename, std::string texture)
-{
-    // Early out if we already have this effect
-    for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
-        if (it->mLoop && loop && it->mEffectId == effectId && it->mBoneName == bonename)
-            return;
-
-    // fix texture extension to .dds
-    if (texture.size() > 4)
-    {
-        texture[texture.size()-3] = 'd';
-        texture[texture.size()-2] = 'd';
-        texture[texture.size()-1] = 's';
-    }
-
-    EffectParams params;
-    params.mModelName = model;
-    if (bonename.empty())
-        params.mObjects = NifOgre::Loader::createObjects(mInsert, model);
-    else
-        params.mObjects = NifOgre::Loader::createObjects(mSkelBase, bonename, mInsert, model);
-
-    // TODO: turn off shadow casting
-    setRenderProperties(params.mObjects, RV_Misc,
-                        RQG_Main, RQG_Alpha, 0.f, false, NULL);
-
-    params.mLoop = loop;
-    params.mEffectId = effectId;
-    params.mBoneName = bonename;
-
-    for(size_t i = 0;i < params.mObjects->mControllers.size();i++)
-    {
-        if(params.mObjects->mControllers[i].getSource().isNull())
-            params.mObjects->mControllers[i].setSource(Ogre::SharedPtr<EffectAnimationTime> (new EffectAnimationTime()));
-    }
-
-    if (!texture.empty())
-    {
-        for(size_t i = 0;i < params.mObjects->mParticles.size(); ++i)
+        NifOsg::TextKeyMap::const_reverse_iterator key(groupend);
+        for (; key != startkey && key != keys.rend(); ++key)
         {
-            Ogre::ParticleSystem* partSys = params.mObjects->mParticles[i];
+            if (key->first > state.getTime())
+                continue;
 
-            Ogre::MaterialPtr mat = params.mObjects->mMaterialControllerMgr.getWritableMaterial(partSys);
+            if (key->second == loopstarttag)
+                state.mLoopStartTime = key->first;
+            else if (key->second == loopstoptag)
+                state.mLoopStopTime = key->first;
+        }
 
-            for (int t=0; t<mat->getNumTechniques(); ++t)
+        return true;
+    }
+
+    void Animation::setTextKeyListener(Animation::TextKeyListener *listener)
+    {
+        mTextKeyListener = listener;
+    }
+
+    void Animation::resetActiveGroups()
+    {
+        // remove all previous external controllers from the scene graph
+        for (ControllerMap::iterator it = mActiveControllers.begin(); it != mActiveControllers.end(); ++it)
+        {
+            osg::Node* node = it->first;
+            node->removeUpdateCallback(it->second);
+
+            // Should be no longer needed with OSG 3.4
+            it->second->setNestedCallback(NULL);
+        }
+
+        mActiveControllers.clear();
+
+        mAccumCtrl = NULL;
+
+        for(size_t blendMask = 0;blendMask < sNumBlendMasks;blendMask++)
+        {
+            AnimStateMap::const_iterator active = mStates.end();
+
+            AnimStateMap::const_iterator state = mStates.begin();
+            for(;state != mStates.end();++state)
             {
-                Ogre::Technique* tech = mat->getTechnique(t);
-                for (int p=0; p<tech->getNumPasses(); ++p)
+                if(!(state->second.mBlendMask&(1<<blendMask)))
+                    continue;
+
+                if(active == mStates.end() || active->second.mPriority[(BoneGroup)blendMask] < state->second.mPriority[(BoneGroup)blendMask])
+                    active = state;
+            }
+
+            mAnimationTimePtr[blendMask]->setTimePtr(active == mStates.end() ? boost::shared_ptr<float>() : active->second.mTime);
+
+            // add external controllers for the AnimSource active in this blend mask
+            if (active != mStates.end())
+            {
+                boost::shared_ptr<AnimSource> animsrc = active->second.mSource;
+
+                for (AnimSource::ControllerMap::iterator it = animsrc->mControllerMap[blendMask].begin(); it != animsrc->mControllerMap[blendMask].end(); ++it)
                 {
-                    Ogre::Pass* pass = tech->getPass(p);
-                    for (int tex=0; tex<pass->getNumTextureUnitStates(); ++tex)
+                    osg::ref_ptr<osg::Node> node = mNodeMap.at(it->first); // this should not throw, we already checked for the node existing in addAnimSource
+
+                    node->addUpdateCallback(it->second);
+                    mActiveControllers.insert(std::make_pair(node, it->second));
+
+                    if (blendMask == 0 && node == mAccumRoot)
                     {
-                        Ogre::TextureUnitState* tus = pass->getTextureUnitState(tex);
-                        tus->setTextureName("textures\\" + texture);
+                        mAccumCtrl = it->second;
+
+                        // make sure reset is last in the chain of callbacks
+                        if (!mResetAccumRootCallback)
+                        {
+                            mResetAccumRootCallback = new ResetAccumRootCallback;
+                            mResetAccumRootCallback->setAccumulate(mAccumulate);
+                        }
+                        mAccumRoot->addUpdateCallback(mResetAccumRootCallback);
+                        mActiveControllers.insert(std::make_pair(mAccumRoot, mResetAccumRootCallback));
                     }
                 }
             }
         }
+        addControllers();
     }
 
-    mEffects.push_back(params);
-}
-
-void Animation::removeEffect(int effectId)
-{
-    for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+    void Animation::stopLooping(const std::string& groupname)
     {
-        if (it->mEffectId == effectId)
+        AnimStateMap::iterator stateiter = mStates.find(groupname);
+        if(stateiter != mStates.end())
         {
-            mEffects.erase(it);
+            stateiter->second.mLoopCount = 0;
             return;
         }
     }
-}
 
-void Animation::getLoopingEffects(std::vector<int> &out)
-{
-    for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+    void Animation::adjustSpeedMult(const std::string &groupname, float speedmult)
     {
-        if (it->mLoop)
-            out.push_back(it->mEffectId);
+        AnimStateMap::iterator state(mStates.find(groupname));
+        if(state != mStates.end())
+            state->second.mSpeedMult = speedmult;
     }
-}
 
-void Animation::updateEffects(float duration)
-{
-    for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); )
+    bool Animation::isPlaying(const std::string &groupname) const
     {
-        NifOgre::ObjectScenePtr objects = it->mObjects;
-        for(size_t i = 0; i < objects->mControllers.size() ;i++)
-        {
-            EffectAnimationTime* value = dynamic_cast<EffectAnimationTime*>(objects->mControllers[i].getSource().get());
-            if (value)
-                value->addTime(duration);
+        AnimStateMap::const_iterator state(mStates.find(groupname));
+        if(state != mStates.end())
+            return state->second.mPlaying;
+        return false;
+    }
 
-            objects->mControllers[i].update();
+    bool Animation::getInfo(const std::string &groupname, float *complete, float *speedmult) const
+    {
+        AnimStateMap::const_iterator iter = mStates.find(groupname);
+        if(iter == mStates.end())
+        {
+            if(complete) *complete = 0.0f;
+            if(speedmult) *speedmult = 0.0f;
+            return false;
         }
 
-        if (objects->mControllers[0].getSource()->getValue() >= objects->mMaxControllerLength)
+        if(complete)
         {
-            if (it->mLoop)
+            if(iter->second.mStopTime > iter->second.mStartTime)
+                *complete = (iter->second.getTime() - iter->second.mStartTime) /
+                            (iter->second.mStopTime - iter->second.mStartTime);
+            else
+                *complete = (iter->second.mPlaying ? 0.0f : 1.0f);
+        }
+        if(speedmult) *speedmult = iter->second.mSpeedMult;
+        return true;
+    }
+
+    float Animation::getCurrentTime(const std::string &groupname) const
+    {
+        AnimStateMap::const_iterator iter = mStates.find(groupname);
+        if(iter == mStates.end())
+            return -1.f;
+
+        return iter->second.getTime();
+    }
+
+    void Animation::disable(const std::string &groupname)
+    {
+        AnimStateMap::iterator iter = mStates.find(groupname);
+        if(iter != mStates.end())
+            mStates.erase(iter);
+        resetActiveGroups();
+    }
+
+    float Animation::getVelocity(const std::string &groupname) const
+    {
+        if (!mAccumRoot)
+            return 0.0f;
+
+        // Look in reverse; last-inserted source has priority.
+        AnimSourceList::const_reverse_iterator animsrc(mAnimSources.rbegin());
+        for(;animsrc != mAnimSources.rend();++animsrc)
+        {
+            const NifOsg::TextKeyMap &keys = (*animsrc)->getTextKeys();
+            if(findGroupStart(keys, groupname) != keys.end())
+                break;
+        }
+        if(animsrc == mAnimSources.rend())
+            return 0.0f;
+
+        float velocity = 0.0f;
+        const NifOsg::TextKeyMap &keys = (*animsrc)->getTextKeys();
+
+        const AnimSource::ControllerMap& ctrls = (*animsrc)->mControllerMap[0];
+        for (AnimSource::ControllerMap::const_iterator it = ctrls.begin(); it != ctrls.end(); ++it)
+        {
+            if (Misc::StringUtils::ciEqual(it->first, mAccumRoot->getName()))
             {
-                // Start from the beginning again; carry over the remainder
-                float remainder = objects->mControllers[0].getSource()->getValue() - objects->mMaxControllerLength;
-                for(size_t i = 0; i < objects->mControllers.size() ;i++)
+                velocity = calcAnimVelocity(keys, it->second, mAccumulate, groupname);
+                break;
+            }
+        }
+
+        // If there's no velocity, keep looking
+        if(!(velocity > 1.0f))
+        {
+            AnimSourceList::const_reverse_iterator animiter = mAnimSources.rbegin();
+            while(*animiter != *animsrc)
+                ++animiter;
+
+            while(!(velocity > 1.0f) && ++animiter != mAnimSources.rend())
+            {
+                const NifOsg::TextKeyMap &keys = (*animiter)->getTextKeys();
+
+                const AnimSource::ControllerMap& ctrls = (*animiter)->mControllerMap[0];
+                for (AnimSource::ControllerMap::const_iterator it = ctrls.begin(); it != ctrls.end(); ++it)
                 {
-                    EffectAnimationTime* value = dynamic_cast<EffectAnimationTime*>(objects->mControllers[i].getSource().get());
-                    if (value)
-                        value->resetTime(remainder);
+                    if (Misc::StringUtils::ciEqual(it->first, mAccumRoot->getName()))
+                    {
+                        velocity = calcAnimVelocity(keys, it->second, mAccumulate, groupname);
+                        break;
+                    }
                 }
             }
-            else
+        }
+
+        return velocity;
+    }
+
+    void Animation::updatePosition(float oldtime, float newtime, osg::Vec3f& position)
+    {
+        // Get the difference from the last update, and move the position
+        osg::Vec3f off = osg::componentMultiply(mAccumCtrl->getTranslation(newtime), mAccumulate);
+        position += off - osg::componentMultiply(mAccumCtrl->getTranslation(oldtime), mAccumulate);
+    }
+
+    osg::Vec3f Animation::runAnimation(float duration)
+    {
+        osg::Vec3f movement(0.f, 0.f, 0.f);
+        AnimStateMap::iterator stateiter = mStates.begin();
+        while(stateiter != mStates.end())
+        {
+            AnimState &state = stateiter->second;
+            const NifOsg::TextKeyMap &textkeys = state.mSource->getTextKeys();
+            NifOsg::TextKeyMap::const_iterator textkey(textkeys.upper_bound(state.getTime()));
+
+            float timepassed = duration * state.mSpeedMult;
+            while(state.mPlaying)
             {
-                it = mEffects.erase(it);
-                continue;
+                float targetTime;
+
+                if(state.getTime() >= state.mLoopStopTime && state.mLoopCount > 0)
+                    goto handle_loop;
+
+                targetTime = state.getTime() + timepassed;
+                if(textkey == textkeys.end() || textkey->first > targetTime)
+                {
+                    if(mAccumCtrl && state.mTime == mAnimationTimePtr[0]->getTimePtr())
+                        updatePosition(state.getTime(), targetTime, movement);
+                    state.setTime(std::min(targetTime, state.mStopTime));
+                }
+                else
+                {
+                    if(mAccumCtrl && state.mTime == mAnimationTimePtr[0]->getTimePtr())
+                        updatePosition(state.getTime(), textkey->first, movement);
+                    state.setTime(textkey->first);
+                }
+
+                state.mPlaying = (state.getTime() < state.mStopTime);
+                timepassed = targetTime - state.getTime();
+
+                while(textkey != textkeys.end() && textkey->first <= state.getTime())
+                {
+                    handleTextKey(state, stateiter->first, textkey, textkeys);
+                    ++textkey;
+                }
+
+                if(state.getTime() >= state.mLoopStopTime && state.mLoopCount > 0)
+                {
+                handle_loop:
+                    state.mLoopCount--;
+                    state.setTime(state.mLoopStartTime);
+                    state.mPlaying = true;
+
+                    textkey = textkeys.lower_bound(state.getTime());
+                    while(textkey != textkeys.end() && textkey->first <= state.getTime())
+                    {
+                        handleTextKey(state, stateiter->first, textkey, textkeys);
+                        ++textkey;
+                    }
+
+                    if(state.getTime() >= state.mLoopStopTime)
+                        break;
+                }
+
+                if(timepassed <= 0.0f)
+                    break;
+            }
+
+            if(!state.mPlaying && state.mAutoDisable)
+            {
+                mStates.erase(stateiter++);
+
+                resetActiveGroups();
+            }
+            else
+                ++stateiter;
+        }
+
+        updateEffects(duration);
+
+        if (mHeadController)
+        {
+            const float epsilon = 0.001f;
+            bool enable = (std::abs(mHeadPitchRadians) > epsilon || std::abs(mHeadYawRadians) > epsilon);
+            mHeadController->setEnabled(enable);
+            if (enable)
+                mHeadController->setRotate(osg::Quat(mHeadPitchRadians, osg::Vec3f(1,0,0)) * osg::Quat(mHeadYawRadians, osg::Vec3f(0,0,1)));
+        }
+
+        return movement;
+    }
+
+    void Animation::setObjectRoot(const std::string &model, bool forceskeleton, bool baseonly, bool isCreature)
+    {
+        osg::ref_ptr<osg::StateSet> previousStateset;
+        if (mObjectRoot)
+        {
+            previousStateset = mObjectRoot->getStateSet();
+            mObjectRoot->getParent(0)->removeChild(mObjectRoot);
+        }
+        mObjectRoot = NULL;
+        mSkeleton = NULL;
+
+        mNodeMap.clear();
+        mActiveControllers.clear();
+        mAccumRoot = NULL;
+        mAccumCtrl = NULL;
+
+        if (!forceskeleton)
+        {
+            osg::ref_ptr<osg::Node> created = mResourceSystem->getSceneManager()->createInstance(model, mInsert);
+            mObjectRoot = created->asGroup();
+            if (!mObjectRoot)
+            {
+                mInsert->removeChild(created);
+                mObjectRoot = new osg::Group;
+                mObjectRoot->addChild(created);
+                mInsert->addChild(mObjectRoot);
             }
         }
-         ++it;
-    }
-}
-
-void Animation::preRender(Ogre::Camera *camera)
-{
-    for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
-    {
-        NifOgre::ObjectScenePtr objects = it->mObjects;
-        objects->rotateBillboardNodes(camera);
-    }
-    mObjectRoot->rotateBillboardNodes(camera);
-}
-
-// TODO: Should not be here
-Ogre::Vector3 Animation::getEnchantmentColor(MWWorld::Ptr item)
-{
-    Ogre::Vector3 result(1,1,1);
-    std::string enchantmentName = item.getClass().getEnchantment(item);
-    if (enchantmentName.empty())
-        return result;
-    const ESM::Enchantment* enchantment = MWBase::Environment::get().getWorld()->getStore().get<ESM::Enchantment>().find(enchantmentName);
-    assert (enchantment->mEffects.mList.size());
-    const ESM::MagicEffect* magicEffect = MWBase::Environment::get().getWorld()->getStore().get<ESM::MagicEffect>().find(
-            enchantment->mEffects.mList.front().mEffectID);
-    result.x = magicEffect->mData.mRed / 255.f;
-    result.y = magicEffect->mData.mGreen / 255.f;
-    result.z = magicEffect->mData.mBlue / 255.f;
-    return result;
-}
-
-
-ObjectAnimation::ObjectAnimation(const MWWorld::Ptr& ptr, const std::string &model)
-  : Animation(ptr, ptr.getRefData().getBaseNode())
-{
-    setObjectRoot(model, false);
-
-    Ogre::Vector3 extents = getWorldBounds().getSize();
-    float size = std::max(std::max(extents.x, extents.y), extents.z);
-
-    bool small = (size < Settings::Manager::getInt("small object size", "Viewing distance")) &&
-                 Settings::Manager::getBool("limit small object distance", "Viewing distance");
-    // do not fade out doors. that will cause holes and look stupid
-    if(ptr.getTypeName().find("Door") != std::string::npos)
-        small = false;
-
-    float dist = small ? Settings::Manager::getInt("small object distance", "Viewing distance") : 0.0f;
-    Ogre::Vector3 col = getEnchantmentColor(ptr);
-    setRenderProperties(mObjectRoot, (mPtr.getTypeName() == typeid(ESM::Static).name()) ?
-                                     (small ? RV_StaticsSmall : RV_Statics) : RV_Misc,
-                        RQG_Main, RQG_Alpha, dist, !ptr.getClass().getEnchantment(ptr).empty(), &col);
-}
-
-void ObjectAnimation::addLight(const ESM::Light *light)
-{
-    addExtraLight(mInsert->getCreator(), mObjectRoot, light);
-}
-
-
-class FindEntityTransparency {
-public:
-    bool operator()(Ogre::Entity *ent) const
-    {
-        unsigned int numsubs = ent->getNumSubEntities();
-        for(unsigned int i = 0;i < numsubs;++i)
+        else
         {
-            sh::Factory::getInstance()._ensureMaterial(ent->getSubEntity(i)->getMaterial()->getName(), "Default");
-            if(ent->getSubEntity(i)->getMaterial()->isTransparent())
-                return true;
+            osg::ref_ptr<osg::Node> created = mResourceSystem->getSceneManager()->createInstance(model);
+            osg::ref_ptr<SceneUtil::Skeleton> skel = dynamic_cast<SceneUtil::Skeleton*>(created.get());
+            if (!skel)
+            {
+                skel = new SceneUtil::Skeleton;
+                skel->addChild(created);
+            }
+            mSkeleton = skel.get();
+            mObjectRoot = skel;
+            mInsert->addChild(mObjectRoot);
         }
-        return false;
+
+        if (previousStateset)
+            mObjectRoot->setStateSet(previousStateset);
+
+        if (baseonly)
+        {
+            RemoveDrawableVisitor removeDrawableVisitor;
+            mObjectRoot->accept(removeDrawableVisitor);
+            removeDrawableVisitor.remove();
+        }
+
+        if (isCreature)
+        {
+            RemoveTriBipVisitor removeTriBipVisitor;
+            mObjectRoot->accept(removeTriBipVisitor);
+            removeTriBipVisitor.remove();
+        }
+
+        NodeMapVisitor visitor;
+        mObjectRoot->accept(visitor);
+        mNodeMap = visitor.getNodeMap();
+
+        mObjectRoot->addCullCallback(new SceneUtil::LightListCallback);
     }
-};
 
-bool ObjectAnimation::canBatch() const
-{
-    if(!mObjectRoot->mParticles.empty() || !mObjectRoot->mLights.empty() || !mObjectRoot->mControllers.empty())
-        return false;
-    if (!mObjectRoot->mBillboardNodes.empty())
-        return false;
-    return std::find_if(mObjectRoot->mEntities.begin(), mObjectRoot->mEntities.end(),
-                        FindEntityTransparency()) == mObjectRoot->mEntities.end();
-}
-
-void ObjectAnimation::fillBatch(Ogre::StaticGeometry *sg)
-{
-    std::vector<Ogre::Entity*>::reverse_iterator iter = mObjectRoot->mEntities.rbegin();
-    for(;iter != mObjectRoot->mEntities.rend();++iter)
+    osg::Group* Animation::getObjectRoot()
     {
-        Ogre::Node *node = (*iter)->getParentNode();
-        if ((*iter)->isVisible())
-            sg->addEntity(*iter, node->_getDerivedPosition(), node->_getDerivedOrientation(), node->_getDerivedScale());
+        return mObjectRoot.get();
     }
-}
+
+    osg::Group* Animation::getOrCreateObjectRoot()
+    {
+        if (mObjectRoot)
+            return mObjectRoot.get();
+
+        mObjectRoot = new osg::Group;
+        mInsert->addChild(mObjectRoot);
+        return mObjectRoot.get();
+    }
+
+    void Animation::addGlow(osg::ref_ptr<osg::Node> node, osg::Vec4f glowColor)
+    {
+        std::vector<osg::ref_ptr<osg::Texture2D> > textures;
+        for (int i=0; i<32; ++i)
+        {
+            std::stringstream stream;
+            stream << "textures/magicitem/caust";
+            stream << std::setw(2);
+            stream << std::setfill('0');
+            stream << i;
+            stream << ".dds";
+
+            textures.push_back(mResourceSystem->getTextureManager()->getTexture2D(stream.str(), osg::Texture2D::REPEAT, osg::Texture2D::REPEAT));
+        }
+
+        osg::ref_ptr<GlowUpdater> glowupdater (new GlowUpdater(glowColor, textures));
+        node->addUpdateCallback(glowupdater);
+    }
+
+    // TODO: Should not be here
+    osg::Vec4f Animation::getEnchantmentColor(MWWorld::Ptr item)
+    {
+        osg::Vec4f result(1,1,1,1);
+        std::string enchantmentName = item.getClass().getEnchantment(item);
+        if (enchantmentName.empty())
+            return result;
+        const ESM::Enchantment* enchantment = MWBase::Environment::get().getWorld()->getStore().get<ESM::Enchantment>().find(enchantmentName);
+        assert (enchantment->mEffects.mList.size());
+        const ESM::MagicEffect* magicEffect = MWBase::Environment::get().getWorld()->getStore().get<ESM::MagicEffect>().find(
+                enchantment->mEffects.mList.front().mEffectID);
+        result.x() = magicEffect->mData.mRed / 255.f;
+        result.y() = magicEffect->mData.mGreen / 255.f;
+        result.z() = magicEffect->mData.mBlue / 255.f;
+        return result;
+    }
+
+    void Animation::addExtraLight(osg::ref_ptr<osg::Group> parent, const ESM::Light *esmLight)
+    {
+        SceneUtil::FindByNameVisitor visitor("AttachLight");
+        parent->accept(visitor);
+
+        osg::Group* attachTo = NULL;
+        if (visitor.mFoundNode)
+        {
+            attachTo = visitor.mFoundNode;
+        }
+        else
+        {
+            osg::ComputeBoundsVisitor computeBound;
+            computeBound.setTraversalMask(~Mask_ParticleSystem);
+            parent->accept(computeBound);
+
+            // PositionAttitudeTransform seems to be slightly faster than MatrixTransform
+            osg::ref_ptr<osg::PositionAttitudeTransform> trans(new osg::PositionAttitudeTransform);
+            trans->setPosition(computeBound.getBoundingBox().center());
+
+            parent->addChild(trans);
+
+            attachTo = trans;
+        }
+
+        osg::ref_ptr<SceneUtil::LightSource> lightSource = new SceneUtil::LightSource;
+        osg::ref_ptr<osg::Light> light (new osg::Light);
+        lightSource->setNodeMask(Mask_Lighting);
+
+        const MWWorld::Fallback* fallback = MWBase::Environment::get().getWorld()->getFallback();
+
+        float radius = esmLight->mData.mRadius;
+        lightSource->setRadius(radius);
+
+        static bool outQuadInLin = fallback->getFallbackBool("LightAttenuation_OutQuadInLin");
+        static bool useQuadratic = fallback->getFallbackBool("LightAttenuation_UseQuadratic");
+        static float quadraticValue = fallback->getFallbackFloat("LightAttenuation_QuadraticValue");
+        static float quadraticRadiusMult = fallback->getFallbackFloat("LightAttenuation_QuadraticRadiusMult");
+        static bool useLinear = fallback->getFallbackBool("LightAttenuation_UseLinear");
+        static float linearRadiusMult = fallback->getFallbackFloat("LightAttenuation_LinearRadiusMult");
+        static float linearValue = fallback->getFallbackFloat("LightAttenuation_LinearValue");
+
+        bool exterior = mPtr.isInCell() && mPtr.getCell()->getCell()->isExterior();
+
+        SceneUtil::configureLight(light, radius, exterior, outQuadInLin, useQuadratic, quadraticValue,
+                                  quadraticRadiusMult, useLinear, linearRadiusMult, linearValue);
+
+        osg::Vec4f diffuse = SceneUtil::colourFromRGB(esmLight->mData.mColor);
+        if (esmLight->mData.mFlags & ESM::Light::Negative)
+        {
+            diffuse *= -1;
+            diffuse.a() = 1;
+        }
+        light->setDiffuse(diffuse);
+        light->setAmbient(osg::Vec4f(0,0,0,1));
+        light->setSpecular(osg::Vec4f(0,0,0,0));
+
+        lightSource->setLight(light);
+
+        osg::ref_ptr<SceneUtil::LightController> ctrl (new SceneUtil::LightController);
+        ctrl->setDiffuse(light->getDiffuse());
+        if (esmLight->mData.mFlags & ESM::Light::Flicker)
+            ctrl->setType(SceneUtil::LightController::LT_Flicker);
+        if (esmLight->mData.mFlags & ESM::Light::FlickerSlow)
+            ctrl->setType(SceneUtil::LightController::LT_FlickerSlow);
+        if (esmLight->mData.mFlags & ESM::Light::Pulse)
+            ctrl->setType(SceneUtil::LightController::LT_Pulse);
+        if (esmLight->mData.mFlags & ESM::Light::PulseSlow)
+            ctrl->setType(SceneUtil::LightController::LT_PulseSlow);
+
+        lightSource->addUpdateCallback(ctrl);
+
+        attachTo->addChild(lightSource);
+    }
+
+    void Animation::addEffect (const std::string& model, int effectId, bool loop, const std::string& bonename, std::string texture)
+    {
+        if (!mObjectRoot.get())
+            return;
+
+        // Early out if we already have this effect
+        for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+            if (it->mLoop && loop && it->mEffectId == effectId && it->mBoneName == bonename)
+                return;
+
+        EffectParams params;
+        params.mModelName = model;
+        osg::ref_ptr<osg::Group> parentNode;
+        if (bonename.empty())
+            parentNode = mInsert;
+        else
+        {
+            NodeMap::iterator found = mNodeMap.find(Misc::StringUtils::lowerCase(bonename));
+            if (found == mNodeMap.end())
+                throw std::runtime_error("Can't find bone " + bonename);
+
+            parentNode = found->second;
+        }
+        osg::ref_ptr<osg::Node> node = mResourceSystem->getSceneManager()->createInstance(model, parentNode);
+
+        node->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
+
+        params.mObjects = PartHolderPtr(new PartHolder(node));
+
+        SceneUtil::FindMaxControllerLengthVisitor findMaxLengthVisitor;
+        node->accept(findMaxLengthVisitor);
+
+        // FreezeOnCull doesn't work so well with effect particles, that tend to have moving emitters
+        SceneUtil::DisableFreezeOnCullVisitor disableFreezeOnCullVisitor;
+        node->accept(disableFreezeOnCullVisitor);
+
+        params.mMaxControllerLength = findMaxLengthVisitor.getMaxLength();
+
+        node->setNodeMask(Mask_Effect);
+
+        params.mLoop = loop;
+        params.mEffectId = effectId;
+        params.mBoneName = bonename;
+
+        params.mAnimTime = boost::shared_ptr<EffectAnimationTime>(new EffectAnimationTime);
+
+        SceneUtil::AssignControllerSourcesVisitor assignVisitor(boost::shared_ptr<SceneUtil::ControllerSource>(params.mAnimTime));
+        node->accept(assignVisitor);
+
+        overrideTexture(texture, mResourceSystem, node);
+
+        // TODO: in vanilla morrowind the effect is scaled based on the host object's bounding box.
+
+        mEffects.push_back(params);
+    }
+
+    void Animation::removeEffect(int effectId)
+    {
+        for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+        {
+            if (it->mEffectId == effectId)
+            {
+                mEffects.erase(it);
+                return;
+            }
+        }
+    }
+
+    void Animation::getLoopingEffects(std::vector<int> &out)
+    {
+        for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+        {
+            if (it->mLoop)
+                out.push_back(it->mEffectId);
+        }
+    }
+
+    void Animation::updateEffects(float duration)
+    {
+        for (std::vector<EffectParams>::iterator it = mEffects.begin(); it != mEffects.end(); )
+        {
+            it->mAnimTime->addTime(duration);
+
+            if (it->mAnimTime->getTime() >= it->mMaxControllerLength)
+            {
+                if (it->mLoop)
+                {
+                    // Start from the beginning again; carry over the remainder
+                    // Not sure if this is actually needed, the controller function might already handle loops
+                    float remainder = it->mAnimTime->getTime() - it->mMaxControllerLength;
+                    it->mAnimTime->resetTime(remainder);
+                }
+                else
+                {
+                    it = mEffects.erase(it);
+                    continue;
+                }
+            }
+            ++it;
+        }
+    }
+
+    bool Animation::upperBodyReady() const
+    {
+        for (AnimStateMap::const_iterator stateiter = mStates.begin(); stateiter != mStates.end(); ++stateiter)
+        {
+            if (stateiter->second.mPriority.contains(int(MWMechanics::Priority_Hit))
+                    || stateiter->second.mPriority.contains(int(MWMechanics::Priority_Weapon))
+                    || stateiter->second.mPriority.contains(int(MWMechanics::Priority_Knockdown))
+                    || stateiter->second.mPriority.contains(int(MWMechanics::Priority_Death)))
+                return false;
+        }
+        return true;
+    }
+
+    const osg::Node* Animation::getNode(const std::string &name) const
+    {
+        std::string lowerName = Misc::StringUtils::lowerCase(name);
+        NodeMap::const_iterator found = mNodeMap.find(lowerName);
+        if (found == mNodeMap.end())
+            return NULL;
+        else
+            return found->second;
+    }
+
+    void Animation::setAlpha(float alpha)
+    {
+        if (alpha == mAlpha)
+            return;
+        mAlpha = alpha;
+
+        if (alpha != 1.f)
+        {
+            osg::StateSet* stateset (new osg::StateSet);
+
+            osg::BlendFunc* blendfunc (new osg::BlendFunc);
+            stateset->setAttributeAndModes(blendfunc, osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+
+            // FIXME: overriding diffuse/ambient/emissive colors
+            osg::Material* material (new osg::Material);
+            material->setColorMode(osg::Material::OFF);
+            material->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4f(1,1,1,alpha));
+            material->setAmbient(osg::Material::FRONT_AND_BACK, osg::Vec4f(1,1,1,1));
+            stateset->setAttributeAndModes(material, osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+
+            mObjectRoot->setStateSet(stateset);
+        }
+        else
+        {
+            mObjectRoot->setStateSet(NULL);
+        }
+
+        setRenderBin();
+    }
+
+    void Animation::setRenderBin()
+    {
+        if (mAlpha != 1.f)
+        {
+            osg::StateSet* stateset = mObjectRoot->getOrCreateStateSet();
+            stateset->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+            stateset->setRenderBinMode(osg::StateSet::OVERRIDE_RENDERBIN_DETAILS);
+        }
+        else if (osg::StateSet* stateset = mObjectRoot->getStateSet())
+            stateset->setRenderBinToInherit();
+    }
+
+    void Animation::setLightEffect(float effect)
+    {
+        if (effect == 0)
+        {
+            if (mGlowLight)
+            {
+                mInsert->removeChild(mGlowLight);
+                mGlowLight = NULL;
+            }
+        }
+        else
+        {
+            effect += 3;
+            float radius = effect * 66.f;
+            float linearAttenuation = 0.5f / effect;
+
+            if (!mGlowLight || linearAttenuation != mGlowLight->getLight(0)->getLinearAttenuation())
+            {
+                if (mGlowLight)
+                {
+                    mInsert->removeChild(mGlowLight);
+                    mGlowLight = NULL;
+                }
+
+                osg::ref_ptr<osg::Light> light (new osg::Light);
+                light->setDiffuse(osg::Vec4f(0,0,0,0));
+                light->setSpecular(osg::Vec4f(0,0,0,0));
+                light->setAmbient(osg::Vec4f(1.5f,1.5f,1.5f,1.f));
+                light->setLinearAttenuation(linearAttenuation);
+
+                mGlowLight = new SceneUtil::LightSource;
+                mGlowLight->setNodeMask(Mask_Lighting);
+                mInsert->addChild(mGlowLight);
+                mGlowLight->setLight(light);
+            }
+
+            mGlowLight->setRadius(radius);
+        }
+    }
+
+    void Animation::addControllers()
+    {
+        mHeadController = NULL;
+
+        if (mPtr.getClass().isBipedal(mPtr))
+        {
+            NodeMap::iterator found = mNodeMap.find("bip01 head");
+            if (found != mNodeMap.end() && dynamic_cast<osg::MatrixTransform*>(found->second.get()))
+            {
+                osg::Node* node = found->second;
+                mHeadController = new RotateController(mObjectRoot.get());
+                node->addUpdateCallback(mHeadController);
+                mActiveControllers.insert(std::make_pair(node, mHeadController));
+            }
+        }
+    }
+
+    void Animation::setHeadPitch(float pitchRadians)
+    {
+        mHeadPitchRadians = pitchRadians;
+    }
+
+    void Animation::setHeadYaw(float yawRadians)
+    {
+        mHeadYawRadians = yawRadians;
+    }
+
+    float Animation::getHeadPitch() const
+    {
+        return mHeadPitchRadians;
+    }
+
+    float Animation::getHeadYaw() const
+    {
+        return mHeadYawRadians;
+    }
+
+    // ------------------------------------------------------
+
+    float Animation::AnimationTime::getValue(osg::NodeVisitor*)
+    {
+        if (mTimePtr)
+            return *mTimePtr;
+        return 0.f;
+    }
+
+    float EffectAnimationTime::getValue(osg::NodeVisitor*)
+    {
+        return mTime;
+    }
+
+    void EffectAnimationTime::addTime(float duration)
+    {
+        mTime += duration;
+    }
+
+    void EffectAnimationTime::resetTime(float time)
+    {
+        mTime = time;
+    }
+
+    float EffectAnimationTime::getTime() const
+    {
+        return mTime;
+    }
+
+    // --------------------------------------------------------------------------------
+
+    ObjectAnimation::ObjectAnimation(const MWWorld::Ptr &ptr, const std::string &model, Resource::ResourceSystem* resourceSystem, bool animated, bool allowLight)
+        : Animation(ptr, osg::ref_ptr<osg::Group>(ptr.getRefData().getBaseNode()), resourceSystem)
+    {
+        if (!model.empty())
+        {
+            setObjectRoot(model, false, false, false);
+            if (animated)
+                addAnimSource(model);
+
+            if (!ptr.getClass().getEnchantment(ptr).empty())
+                addGlow(mObjectRoot, getEnchantmentColor(ptr));
+        }
+        if (ptr.getTypeName() == typeid(ESM::Light).name() && allowLight)
+            addExtraLight(getOrCreateObjectRoot(), ptr.get<ESM::Light>()->mBase);
+    }
+
+    Animation::AnimState::~AnimState()
+    {
+
+    }
+
+    // ------------------------------
+
+    PartHolder::PartHolder(osg::ref_ptr<osg::Node> node)
+        : mNode(node)
+    {
+    }
+
+    PartHolder::~PartHolder()
+    {
+        if (mNode->getNumParents())
+            mNode->getParent(0)->removeChild(mNode);
+    }
 
 }

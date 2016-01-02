@@ -1,14 +1,15 @@
-
 #include "dialoguemanagerimp.hpp"
 
 #include <cctype>
 #include <cstdlib>
 #include <algorithm>
 #include <iterator>
+#include <list>
 
 #include <components/esm/loaddial.hpp>
 #include <components/esm/loadinfo.hpp>
 #include <components/esm/dialoguestate.hpp>
+#include <components/esm/esmwriter.hpp>
 
 #include <components/compiler/exception.hpp>
 #include <components/compiler/errorhandler.hpp>
@@ -40,18 +41,21 @@
 
 #include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/npcstats.hpp"
+#include "../mwmechanics/actorutil.hpp"
 
 #include "filter.hpp"
+#include "hypertextparser.hpp"
 
 namespace MWDialogue
 {
     DialogueManager::DialogueManager (const Compiler::Extensions& extensions, bool scriptVerbose, Translation::Storage& translationDataStorage) :
-      mCompilerContext (MWScript::CompilerContext::Type_Dialgoue),
-        mErrorStream(std::cout.rdbuf()),mErrorHandler(mErrorStream)
-      , mTemporaryDispositionChange(0.f)
-      , mPermanentDispositionChange(0.f), mScriptVerbose (scriptVerbose)
-      , mTranslationDataStorage(translationDataStorage)
+      mTranslationDataStorage(translationDataStorage)
+      , mCompilerContext (MWScript::CompilerContext::Type_Dialogue)
+      , mErrorStream(std::cout.rdbuf())
+      , mErrorHandler(mErrorStream)
       , mTalkedTo(false)
+      , mTemporaryDispositionChange(0.f)
+      , mPermanentDispositionChange(0.f)
     {
         mChoice = -1;
         mIsInChoice = false;
@@ -77,47 +81,32 @@ namespace MWDialogue
 
     void DialogueManager::addTopic (const std::string& topic)
     {
-        mKnownTopics[Misc::StringUtils::lowerCase(topic)] = true;
+        mKnownTopics.insert( Misc::StringUtils::lowerCase(topic) );
     }
 
     void DialogueManager::parseText (const std::string& text)
     {
-        std::vector<HyperTextToken> hypertext = ParseHyperText(text);
+        std::vector<HyperTextParser::Token> hypertext = HyperTextParser::parseHyperText(text);
 
-        //calculation of standard form fir all hyperlinks
-        for (size_t i = 0; i < hypertext.size(); ++i)
+        for (std::vector<HyperTextParser::Token>::iterator tok = hypertext.begin(); tok != hypertext.end(); ++tok)
         {
-            if (hypertext[i].mLink)
+            std::string topicId = Misc::StringUtils::lowerCase(tok->mText);
+
+            if (tok->isExplicitLink())
             {
-                size_t asterisk_count = MWDialogue::RemovePseudoAsterisks(hypertext[i].mText);
+                // calculation of standard form for all hyperlinks
+                size_t asterisk_count = HyperTextParser::removePseudoAsterisks(topicId);
                 for(; asterisk_count > 0; --asterisk_count)
-                    hypertext[i].mText.append("*");
+                    topicId.append("*");
 
-                hypertext[i].mText = mTranslationDataStorage.topicStandardForm(hypertext[i].mText);
+                topicId = mTranslationDataStorage.topicStandardForm(topicId);
             }
-        }
 
-        for (size_t i = 0; i < hypertext.size(); ++i)
-        {
-            std::list<std::string>::iterator it;
-            for(it = mActorKnownTopics.begin(); it != mActorKnownTopics.end(); ++it)
-            {
-                if (hypertext[i].mLink)
-                {
-                    if( hypertext[i].mText == *it )
-                    {
-                        mKnownTopics[hypertext[i].mText] = true;
-                    }
-                }
-                else if( !mTranslationDataStorage.hasTranslation() )
-                {
-                    size_t pos = Misc::StringUtils::lowerCase(hypertext[i].mText).find(*it, 0);
-                    if(pos !=std::string::npos)
-                    {
-                        mKnownTopics[*it] = true;
-                    }
-                }
-            }
+            if (tok->isImplicitKeyword() && mTranslationDataStorage.hasTranslation())
+                continue;
+
+            if (mActorKnownTopics.count( topicId ))
+                mKnownTopics.insert( topicId );
         }
 
         updateTopics();
@@ -125,6 +114,12 @@ namespace MWDialogue
 
     void DialogueManager::startDialogue (const MWWorld::Ptr& actor)
     {
+        updateGlobals();
+
+        // Dialogue with dead actor (e.g. through script) should not be allowed.
+        if (actor.getClass().getCreatureStats(actor).isDead())
+            return;
+
         mLastTopic = "";
         mPermanentDispositionChange = 0;
         mTemporaryDispositionChange = 0;
@@ -134,17 +129,17 @@ namespace MWDialogue
 
         mActor = actor;
 
-        MWMechanics::CreatureStats& creatureStats = MWWorld::Class::get (actor).getCreatureStats (actor);
+        MWMechanics::CreatureStats& creatureStats = actor.getClass().getCreatureStats (actor);
         mTalkedTo = creatureStats.hasTalkedToPlayer();
 
         mActorKnownTopics.clear();
 
         MWGui::DialogueWindow* win = MWBase::Environment::get().getWindowManager()->getDialogueWindow();
-        win->startDialogue(actor, MWWorld::Class::get (actor).getName (actor));
 
-        //setup the list of topics known by the actor. Topics who are also on the knownTopics list will be added to the GUI
-        updateTopics();
-        updateGlobals();
+        // If the dialogue window was already open, keep the existing history
+        bool resetHistory = (!MWBase::Environment::get().getWindowManager()->containsMode(MWGui::GM_Dialogue));
+
+        win->startDialogue(actor, actor.getClass().getName (actor), resetHistory);
 
         //greeting
         const MWWorld::Store<ESM::Dialogue> &dialogs =
@@ -169,16 +164,30 @@ namespace MWDialogue
                         // TODO play sound
                     }
 
+                    // first topics update so that parseText knows the keywords to highlight
+                    updateTopics();
+
                     parseText (info->mResponse);
 
                     MWScript::InterpreterContext interpreterContext(&mActor.getRefData().getLocals(),mActor);
                     win->addResponse (Interpreter::fixDefinesDialog(info->mResponse, interpreterContext));
                     executeScript (info->mResultScript);
                     mLastTopic = Misc::StringUtils::lowerCase(it->mId);
-                    break;
+
+                    // update topics again to accomodate changes resulting from executeScript
+                    updateTopics();
+
+                    return;
                 }
             }
         }
+
+        // No greetings found. The dialogue window should not be shown.
+        // If this is a companion, we must show the companion window directly (used by BM_bear_be_unique).
+        bool isCompanion = !mActor.getClass().getScript(mActor).empty()
+                && mActor.getRefData().getLocals().getIntVar(mActor.getClass().getScript(mActor), "companion");
+        if (isCompanion)
+            MWBase::Environment::get().getWindowManager()->showCompanionWindow(mActor);
     }
 
     bool DialogueManager::compile (const std::string& cmd,std::vector<Interpreter::Type_Code>& code)
@@ -195,7 +204,7 @@ namespace MWDialogue
 
             Compiler::Locals locals;
 
-            std::string actorScript = MWWorld::Class::get (mActor).getScript (mActor);
+            std::string actorScript = mActor.getClass().getScript (mActor);
 
             if (!actorScript.empty())
             {
@@ -224,7 +233,7 @@ namespace MWDialogue
             success = false;
         }
 
-        if (!success && mScriptVerbose)
+        if (!success)
         {
             std::cerr
                 << "compiling failed (dialogue script)" << std::endl
@@ -249,7 +258,7 @@ namespace MWDialogue
             }
             catch (const std::exception& error)
             {
-                std::cerr << std::string ("Dialogue error: An exception has been thrown: ") + error.what();
+                std::cerr << std::string ("Dialogue error: An exception has been thrown: ") + error.what() << std::endl;
             }
         }
     }
@@ -273,6 +282,9 @@ namespace MWDialogue
             std::string title;
             if (dialogue.mType==ESM::Dialogue::Persuasion)
             {
+                // Determine GMST from dialogue topic. GMSTs are:
+                // sAdmireSuccess, sAdmireFail, sIntimidateSuccess, sIntimidateFail,
+                // sTauntSuccess, sTauntFail, sBribeSuccess, sBribeFail
                 std::string modifiedTopic = "s" + topic;
 
                 modifiedTopic.erase (std::remove (modifiedTopic.begin(), modifiedTopic.end(), ' '), modifiedTopic.end());
@@ -287,7 +299,21 @@ namespace MWDialogue
 
             MWScript::InterpreterContext interpreterContext(&mActor.getRefData().getLocals(),mActor);
             win->addResponse (Interpreter::fixDefinesDialog(info->mResponse, interpreterContext), title);
-            MWBase::Environment::get().getJournal()->addTopic (topic, info->mId, mActor.getClass().getName(mActor));
+
+            if (dialogue.mType == ESM::Dialogue::Topic)
+            {
+                // Make sure the returned DialInfo is from the Dialogue we supplied. If could also be from the Info refusal group,
+                // in which case it should not be added to the journal.
+                for (ESM::Dialogue::InfoContainer::const_iterator iter = dialogue.mInfo.begin();
+                    iter!=dialogue.mInfo.end(); ++iter)
+                {
+                    if (iter->mId == info->mId)
+                    {
+                        MWBase::Environment::get().getJournal()->addTopic (topic, info->mId, mActor);
+                        break;
+                    }
+                }
+            }
 
             executeScript (info->mResultScript);
 
@@ -307,6 +333,8 @@ namespace MWDialogue
 
     void DialogueManager::updateTopics()
     {
+        updateGlobals();
+
         std::list<std::string> keywordList;
         int choice = mChoice;
         mChoice = -1;
@@ -324,10 +352,10 @@ namespace MWDialogue
                 if (filter.responseAvailable (*iter))
                 {
                     std::string lower = Misc::StringUtils::lowerCase(iter->mId);
-                    mActorKnownTopics.push_back (lower);
+                    mActorKnownTopics.insert (lower);
 
                     //does the player know the topic?
-                    if (mKnownTopics.find (lower) != mKnownTopics.end())
+                    if (mKnownTopics.count(lower))
                     {
                         keywordList.push_back (iter->mId);
                     }
@@ -365,7 +393,8 @@ namespace MWDialogue
             || services & ESM::NPC::Misc)
             windowServices |= MWGui::DialogueWindow::Service_Trade;
 
-        if(mActor.getTypeName() == typeid(ESM::NPC).name() && !mActor.get<ESM::NPC>()->mBase->mTransport.empty())
+        if((mActor.getTypeName() == typeid(ESM::NPC).name() && !mActor.get<ESM::NPC>()->mBase->getTransport().empty())
+                || (mActor.getTypeName() == typeid(ESM::Creature).name() && !mActor.get<ESM::Creature>()->mBase->getTransport().empty()))
             windowServices |= MWGui::DialogueWindow::Service_Travel;
 
         if (services & ESM::NPC::Spells)
@@ -388,7 +417,7 @@ namespace MWDialogue
         win->setServices (windowServices);
 
         // sort again, because the previous sort was case-sensitive
-        keywordList.sort(Misc::StringUtils::ciEqual);
+        keywordList.sort(Misc::StringUtils::ciLess);
         win->setKeywords(keywordList);
 
         mChoice = choice;
@@ -400,7 +429,6 @@ namespace MWDialogue
         {
             if(mDialogueMap.find(keyword) != mDialogueMap.end())
             {
-                ESM::Dialogue ndialogue = mDialogueMap[keyword];
                 if (mDialogueMap[keyword].mType == ESM::Dialogue::Topic)
                 {
                     executeTopic (keyword);
@@ -423,8 +451,8 @@ namespace MWDialogue
         // Apply disposition change to NPC's base disposition
         if (mActor.getClass().isNpc())
         {
-            MWMechanics::NpcStats& npcStats = MWWorld::Class::get(mActor).getNpcStats(mActor);
-            npcStats.setBaseDisposition(npcStats.getBaseDisposition() + mPermanentDispositionChange);
+            MWMechanics::NpcStats& npcStats = mActor.getClass().getNpcStats(mActor);
+            npcStats.setBaseDisposition(static_cast<int>(npcStats.getBaseDisposition() + mPermanentDispositionChange));
         }
         mPermanentDispositionChange = 0;
         mTemporaryDispositionChange = 0;
@@ -452,8 +480,26 @@ namespace MWDialogue
 
                     MWScript::InterpreterContext interpreterContext(&mActor.getRefData().getLocals(),mActor);
                     MWBase::Environment::get().getWindowManager()->getDialogueWindow()->addResponse (Interpreter::fixDefinesDialog(text, interpreterContext));
-                    MWBase::Environment::get().getJournal()->addTopic (mLastTopic, info->mId, mActor.getClass().getName(mActor));
+
+                    // Make sure the returned DialInfo is from the Dialogue we supplied. If could also be from the Info refusal group,
+                    // in which case it should not be added to the journal.
+                    for (ESM::Dialogue::InfoContainer::const_iterator iter = mDialogueMap[mLastTopic].mInfo.begin();
+                        iter!=mDialogueMap[mLastTopic].mInfo.end(); ++iter)
+                    {
+                        if (iter->mId == info->mId)
+                        {
+                            MWBase::Environment::get().getJournal()->addTopic (mLastTopic, info->mId, mActor);
+                            break;
+                        }
+                    }
+
                     executeScript (info->mResultScript);
+                }
+                else
+                {
+                    mChoice = -1;
+                    mIsInChoice = false;
+                    MWBase::Environment::get().getWindowManager()->getDialogueWindow()->clearChoices();
                 }
             }
         }
@@ -463,14 +509,10 @@ namespace MWDialogue
 
     void DialogueManager::askQuestion (const std::string& question, int choice)
     {
+        mIsInChoice = true;
+
         MWGui::DialogueWindow* win = MWBase::Environment::get().getWindowManager()->getDialogueWindow();
         win->addChoice(question, choice);
-        mIsInChoice = true;
-    }
-
-    MWWorld::Ptr DialogueManager::getActor() const
-    {
-        return mActor;
     }
 
     void DialogueManager::goodbye()
@@ -493,14 +535,31 @@ namespace MWDialogue
         mPermanentDispositionChange += perm;
 
         // change temp disposition so that final disposition is between 0...100
-        int curDisp = MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(mActor);
+        float curDisp = static_cast<float>(MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(mActor));
         if (curDisp + mTemporaryDispositionChange < 0)
             mTemporaryDispositionChange = -curDisp;
         else if (curDisp + mTemporaryDispositionChange > 100)
             mTemporaryDispositionChange = 100 - curDisp;
 
-        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-        MWWorld::Class::get(player).skillUsageSucceeded(player, ESM::Skill::Speechcraft, success ? 0 : 1);
+        MWWorld::Ptr player = MWMechanics::getPlayer();
+        player.getClass().skillUsageSucceeded(player, ESM::Skill::Speechcraft, success ? 0 : 1);
+
+        if (success)
+        {
+            int gold=0;
+            if (type == MWBase::MechanicsManager::PT_Bribe10)
+                gold = 10;
+            else if (type == MWBase::MechanicsManager::PT_Bribe100)
+                gold = 100;
+            else if (type == MWBase::MechanicsManager::PT_Bribe1000)
+                gold = 1000;
+
+            if (gold)
+            {
+                player.getClass().getContainerStore(player).remove(MWWorld::ContainerStore::sGoldId, gold, player);
+                mActor.getClass().getContainerStore(mActor).add(MWWorld::ContainerStore::sGoldId, gold, mActor);
+            }
+        }
 
         std::string text;
 
@@ -519,22 +578,12 @@ namespace MWDialogue
 
     int DialogueManager::getTemporaryDispositionChange() const
     {
-        return mTemporaryDispositionChange;
+        return static_cast<int>(mTemporaryDispositionChange);
     }
 
     void DialogueManager::applyDispositionChange(int delta)
     {
-        int oldTemp = mTemporaryDispositionChange;
         mTemporaryDispositionChange += delta;
-        // don't allow increasing beyond 100 or decreasing below 0
-        int curDisp = MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(mActor);
-        if (curDisp + mTemporaryDispositionChange < 0)
-            mTemporaryDispositionChange = -curDisp;
-        else if (curDisp + mTemporaryDispositionChange > 100)
-            mTemporaryDispositionChange = 100 - curDisp;
-
-        int diff = mTemporaryDispositionChange - oldTemp;
-        mPermanentDispositionChange += diff;
     }
 
     bool DialogueManager::checkServiceRefused()
@@ -597,21 +646,24 @@ namespace MWDialogue
         return 1; // known topics
     }
 
-    void DialogueManager::write (ESM::ESMWriter& writer) const
+    void DialogueManager::write (ESM::ESMWriter& writer, Loading::Listener& progress) const
     {
         ESM::DialogueState state;
 
-        for (std::map<std::string, bool>::const_iterator iter (mKnownTopics.begin());
+        for (std::set<std::string>::const_iterator iter (mKnownTopics.begin());
             iter!=mKnownTopics.end(); ++iter)
-            if (iter->second)
-                state.mKnownTopics.push_back (iter->first);
+        {
+            state.mKnownTopics.push_back (*iter);
+        }
+
+        state.mChangedFactionReaction = mChangedFactionReaction;
 
         writer.startRecord (ESM::REC_DIAS);
         state.save (writer);
         writer.endRecord (ESM::REC_DIAS);
     }
 
-    void DialogueManager::readRecord (ESM::ESMReader& reader, int32_t type)
+    void DialogueManager::readRecord (ESM::ESMReader& reader, uint32_t type)
     {
         if (type==ESM::REC_DIAS)
         {
@@ -623,59 +675,66 @@ namespace MWDialogue
             for (std::vector<std::string>::const_iterator iter (state.mKnownTopics.begin());
                 iter!=state.mKnownTopics.end(); ++iter)
                 if (store.get<ESM::Dialogue>().search (*iter))
-                    mKnownTopics.insert (std::make_pair (*iter, true));
+                    mKnownTopics.insert (*iter);
+
+            mChangedFactionReaction = state.mChangedFactionReaction;
         }
     }
 
-
-    std::vector<HyperTextToken> ParseHyperText(const std::string& text)
+    void DialogueManager::modFactionReaction(const std::string &faction1, const std::string &faction2, int diff)
     {
-        std::vector<HyperTextToken> result;
-        MyGUI::UString utext(text);
-        size_t pos_begin, pos_end, iteration_pos = 0;
-        for(;;)
-        {
-            pos_begin = utext.find('@', iteration_pos);
-            if (pos_begin != std::string::npos)
-                pos_end = utext.find('#', pos_begin);
+        std::string fact1 = Misc::StringUtils::lowerCase(faction1);
+        std::string fact2 = Misc::StringUtils::lowerCase(faction2);
 
-            if (pos_begin != std::string::npos && pos_end != std::string::npos)
-            {
-                result.push_back( HyperTextToken(utext.substr(iteration_pos, pos_begin - iteration_pos), false) );
+        // Make sure the factions exist
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(fact1);
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(fact2);
 
-                std::string link = utext.substr(pos_begin + 1, pos_end - pos_begin - 1);
-                result.push_back( HyperTextToken(link, true) );
+        int newValue = getFactionReaction(faction1, faction2) + diff;
 
-                iteration_pos = pos_end + 1;
-            }
-            else
-            {
-                result.push_back( HyperTextToken(utext.substr(iteration_pos), false) );
-                break;
-            }
-        }
-
-        return result;
+        std::map<std::string, int>& map = mChangedFactionReaction[fact1];
+        map[fact2] = newValue;
     }
 
-    size_t RemovePseudoAsterisks(std::string& phrase)
+    void DialogueManager::setFactionReaction(const std::string &faction1, const std::string &faction2, int absolute)
     {
-        size_t pseudoAsterisksCount = 0;
-        const char specialPseudoAsteriskCharacter = 127;
+        std::string fact1 = Misc::StringUtils::lowerCase(faction1);
+        std::string fact2 = Misc::StringUtils::lowerCase(faction2);
 
-        if( !phrase.empty() )
+        // Make sure the factions exist
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(fact1);
+        MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(fact2);
+
+        std::map<std::string, int>& map = mChangedFactionReaction[fact1];
+        map[fact2] = absolute;
+    }
+
+    int DialogueManager::getFactionReaction(const std::string &faction1, const std::string &faction2) const
+    {
+        std::string fact1 = Misc::StringUtils::lowerCase(faction1);
+        std::string fact2 = Misc::StringUtils::lowerCase(faction2);
+
+        ModFactionReactionMap::const_iterator map = mChangedFactionReaction.find(fact1);
+        if (map != mChangedFactionReaction.end() && map->second.find(fact2) != map->second.end())
+            return map->second.at(fact2);
+
+        const ESM::Faction* faction = MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(fact1);
+
+        std::map<std::string, int>::const_iterator it = faction->mReactions.begin();
+        for (; it != faction->mReactions.end(); ++it)
         {
-            std::string::reverse_iterator rit = phrase.rbegin();
-
-            while( rit != phrase.rend() && *rit == specialPseudoAsteriskCharacter )
-            {
-                pseudoAsterisksCount++;
-                ++rit;
-            }
+            if (Misc::StringUtils::ciEqual(it->first, fact2))
+                    return it->second;
         }
+        return 0;
+    }
 
-        phrase = phrase.substr(0, phrase.length() - pseudoAsterisksCount);
-
-        return pseudoAsterisksCount;
+    void DialogueManager::clearInfoActor(const MWWorld::Ptr &actor) const
+    {
+        if (actor == mActor && !mLastTopic.empty())
+        {
+            MWBase::Environment::get().getJournal()->removeLastAddedTopicResponse(
+                        mLastTopic, actor.getClass().getName(actor));
+        }
     }
 }

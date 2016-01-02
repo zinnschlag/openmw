@@ -1,14 +1,33 @@
 #ifndef MGUI_Inventory_H
 #define MGUI_Inventory_H
 
-#include "../mwrender/characterpreview.hpp"
-
 #include "windowpinnablebase.hpp"
-#include "widgets.hpp"
 #include "mode.hpp"
+
+#include "../mwworld/ptr.hpp"
+
+namespace osgViewer
+{
+    class Viewer;
+}
+
+namespace Resource
+{
+    class ResourceSystem;
+}
+
+namespace MWRender
+{
+    class InventoryPreview;
+}
 
 namespace MWGui
 {
+    namespace Widgets
+    {
+        class MWDynamicStat;
+    }
+
     class ItemView;
     class SortFilterItemModel;
     class TradeItemModel;
@@ -18,11 +37,9 @@ namespace MWGui
     class InventoryWindow : public WindowPinnableBase
     {
         public:
-            InventoryWindow(DragAndDrop* dragAndDrop);
+            InventoryWindow(DragAndDrop* dragAndDrop, osgViewer::Viewer* viewer, Resource::ResourceSystem* resourceSystem);
 
             virtual void open();
-
-            void doRenderUpdate();
 
             /// start trading, disables item drag&drop
             void setTrading(bool trading);
@@ -33,10 +50,9 @@ namespace MWGui
 
             MWWorld::Ptr getAvatarSelectedItem(int x, int y);
 
-            void rebuildAvatar() {
-                mPreview.rebuild();
-            }
+            void rebuildAvatar();
 
+            SortFilterItemModel* getSortFilterModel();
             TradeItemModel* getTradeModel();
             ItemModel* getModel();
 
@@ -48,11 +64,13 @@ namespace MWGui
 
             void setGuiMode(GuiMode mode);
 
+            /// Cycle to previous/next weapon
+            void cycle(bool next);
+
         private:
             DragAndDrop* mDragAndDrop;
 
-            bool mPreviewDirty;
-            size_t mSelectedItem;
+            int mSelectedItem;
 
             MWWorld::Ptr mPtr;
 
@@ -81,7 +99,8 @@ namespace MWGui
             int mLastXSize;
             int mLastYSize;
 
-            MWRender::InventoryPreview mPreview;
+            std::auto_ptr<MyGUI::ITexture> mPreviewTexture;
+            std::auto_ptr<MWRender::InventoryPreview> mPreview;
 
             bool mTrading;
 
@@ -97,11 +116,18 @@ namespace MWGui
             void onFilterChanged(MyGUI::Widget* _sender);
             void onAvatarClicked(MyGUI::Widget* _sender);
             void onPinToggled();
+            void onTitleDoubleClicked();
 
             void updateEncumbranceBar();
             void notifyContentChanged();
+            void dirtyPreview();
+            void updatePreviewSize();
+            void updateArmorRating();
 
             void adjustPanes();
+
+            /// Unequips mSelectedItem, if it is equipped, and then updates mSelectedItem in case it was re-stacked
+            void ensureSelectedItemUnequipped();
     };
 }
 

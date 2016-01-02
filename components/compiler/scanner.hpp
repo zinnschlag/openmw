@@ -37,6 +37,7 @@ namespace Compiler
             float mPutbackFloat;
             std::string mPutbackName;
             TokenLoc mPutbackLoc;
+            bool mStrictKeywords;
 
         public:
 
@@ -88,9 +89,12 @@ namespace Compiler
 
             bool scanName (char c, Parser& parser, bool& cont);
 
-            bool scanName (char c, std::string& name);
+            /// \param name May contain the start of the name (one or more characters)
+            bool scanName (std::string& name);
 
             bool scanSpecial (char c, Parser& parser, bool& cont);
+
+            bool isStringCharacter (char c, bool lookAhead = true);
 
             static bool isWhitespace (char c);
 
@@ -113,13 +117,18 @@ namespace Compiler
             ///< put back a float token
 
             void putbackName (const std::string& name, const TokenLoc& loc);
-            ///< put back a name toekn
+            ///< put back a name token
 
             void putbackKeyword (int keyword, const TokenLoc& loc);
             ///< put back a keyword token
 
             void listKeywords (std::vector<std::string>& keywords);
-            ///< Append all known keywords to \æ kaywords.
+            ///< Append all known keywords to \a keywords.
+
+            /// Do not accept keywords in quotation marks anymore.
+            ///
+            /// \attention This mode lasts only until the next newline is reached.
+            void enableStrictKeywords();
     };
 }
 

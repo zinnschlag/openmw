@@ -1,11 +1,16 @@
 #include "scrollwindow.hpp"
 
+#include <MyGUI_ScrollView.h>
+
 #include <components/esm/loadbook.hpp>
+#include <components/widgets/imagebutton.hpp>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/soundmanager.hpp"
 #include "../mwbase/windowmanager.hpp"
+
+#include "../mwmechanics/actorutil.hpp"
 
 #include "../mwworld/actiontake.hpp"
 
@@ -13,7 +18,7 @@
 
 namespace
 {
-    void adjustButton (MWGui::ImageButton* button)
+    void adjustButton (Gui::ImageButton* button)
     {
         MyGUI::IntSize diff = button->getSize() - button->getRequestedSize();
         button->setSize(button->getRequestedSize());
@@ -45,7 +50,7 @@ namespace MWGui
         center();
     }
 
-    void ScrollWindow::open (MWWorld::Ptr scroll)
+    void ScrollWindow::openScroll (MWWorld::Ptr scroll, bool showTakeButton)
     {
         // no 3d sounds because the object could be in a container.
         MWBase::Environment::get().getSoundManager()->playSound ("scroll", 1.0, 1.0);
@@ -54,17 +59,28 @@ namespace MWGui
 
         MWWorld::LiveCellRef<ESM::Book> *ref = mScroll.get<ESM::Book>();
 
-        BookTextParser parser;
-        MyGUI::IntSize size = parser.parseScroll(ref->mBase->mText, mTextView, 390);
+        Formatting::BookFormatter formatter;
+        formatter.markupToWidget(mTextView, ref->mBase->mText, 390, mTextView->getHeight());
+        MyGUI::IntSize size = mTextView->getChildAt(0)->getSize();
 
+        // Canvas size must be expressed with VScroll disabled, otherwise MyGUI would expand the scroll area when the scrollbar is hidden
+        mTextView->setVisibleVScroll(false);
         if (size.height > mTextView->getSize().height)
             mTextView->setCanvasSize(MyGUI::IntSize(410, size.height));
         else
             mTextView->setCanvasSize(410, mTextView->getSize().height);
+        mTextView->setVisibleVScroll(true);
 
         mTextView->setViewOffset(MyGUI::IntPoint(0,0));
 
-        setTakeButtonShow(true);
+        setTakeButtonShow(showTakeButton);
+    }
+
+    void ScrollWindow::exit()
+    {
+        MWBase::Environment::get().getSoundManager()->playSound ("scroll", 1.0, 1.0);
+
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Scroll);
     }
 
     void ScrollWindow::setTakeButtonShow(bool show)
@@ -81,9 +97,7 @@ namespace MWGui
 
     void ScrollWindow::onCloseButtonClicked (MyGUI::Widget* _sender)
     {
-        MWBase::Environment::get().getSoundManager()->playSound ("scroll", 1.0, 1.0);
-
-        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Scroll);
+        exit();
     }
 
     void ScrollWindow::onTakeButtonClicked (MyGUI::Widget* _sender)
@@ -91,7 +105,7 @@ namespace MWGui
         MWBase::Environment::get().getSoundManager()->playSound("Item Book Up", 1.0, 1.0);
 
         MWWorld::ActionTake take(mScroll);
-        take.execute (MWBase::Environment::get().getWorld()->getPlayerPtr());
+        take.execute (MWMechanics::getPlayer());
 
         MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Scroll);
     }

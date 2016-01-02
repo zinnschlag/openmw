@@ -15,6 +15,11 @@ namespace ESM
     struct Cell;
 }
 
+namespace Loading
+{
+    class Listener;
+}
+
 namespace MWWorld
 {
     class ESMStore;
@@ -69,9 +74,9 @@ namespace MWWorld
 
             int countSavedGameRecords() const;
 
-            void write (ESM::ESMWriter& writer) const;
+            void write (ESM::ESMWriter& writer, Loading::Listener& progress) const;
 
-            bool readRecord (ESM::ESMReader& reader, int32_t type,
+            bool readRecord (ESM::ESMReader& reader, uint32_t type,
                 const std::map<int, int>& contentFileMap);
     };
 }

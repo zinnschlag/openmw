@@ -18,14 +18,18 @@ namespace MWGui
     public:
         CompanionWindow(DragAndDrop* dragAndDrop, MessageBoxManager* manager);
 
-        void open(const MWWorld::Ptr& npc);
+        virtual void exit();
+
+        virtual void resetReference();
+
+        void openCompanion(const MWWorld::Ptr& npc);
         void onFrame ();
 
     private:
         ItemView* mItemView;
         SortFilterItemModel* mSortModel;
         CompanionItemModel* mModel;
-        size_t mSelectedItem;
+        int mSelectedItem;
 
         DragAndDrop* mDragAndDrop;
 

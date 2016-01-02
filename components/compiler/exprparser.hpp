@@ -96,13 +96,12 @@ namespace Compiler
             /// \return Type ('l': integer, 'f': float)
 
             int parseArguments (const std::string& arguments, Scanner& scanner,
-                std::vector<Interpreter::Type_Code>& code, bool invert = false);
+                std::vector<Interpreter::Type_Code>& code, int ignoreKeyword = -1);
             ///< Parse sequence of arguments specified by \a arguments.
-            /// \param arguments Each character represents one arguments ('l': integer,
-            /// 'f': float, 'S': string, 'c': string (case smashed), '/': following arguments are
-            /// optional)
-            /// 'x': optional string that will be ignored (die in a fire, MW script compiler!)
+            /// \param arguments Uses ScriptArgs typedef
+            /// \see Compiler::ScriptArgs
             /// \param invert Store arguments in reverted order.
+            /// \param ignoreKeyword A keyword that is seen as junk
             /// \return number of optional arguments
     };
 }

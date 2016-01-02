@@ -5,8 +5,10 @@
 #include "../mwworld/livecellref.hpp"
 
 #include "../mwmechanics/drawstate.hpp"
+#include "../mwmechanics/stat.hpp"
 
-#include <OgreVector3.h>
+#include <components/esm/loadskil.hpp>
+#include <components/esm/attr.hpp>
 
 namespace ESM
 {
@@ -15,10 +17,9 @@ namespace ESM
     class ESMReader;
 }
 
-namespace MWBase
+namespace Loading
 {
-    class World;
-    class Ptr;
+    class Listener;
 }
 
 namespace MWWorld
@@ -32,7 +33,7 @@ namespace MWWorld
         MWWorld::CellStore      *mCellStore;
         std::string             mSign;
 
-        Ogre::Vector3 mLastKnownExteriorPosition;
+        osg::Vec3f mLastKnownExteriorPosition;
 
         ESM::Position           mMarkedPosition;
         // If no position was marked, this is NULL
@@ -41,9 +42,23 @@ namespace MWWorld
         bool                    mAutoMove;
         int                     mForwardBackward;
         bool                    mTeleported;
+
+        int                     mCurrentCrimeId;    // the id assigned witnesses
+        int                     mPaidCrimeId;      // the last id paid off (0 bounty)
+
+        // Saved skills and attributes prior to becoming a werewolf
+        MWMechanics::SkillValue mSaveSkills[ESM::Skill::Length];
+        MWMechanics::AttributeValue mSaveAttributes[ESM::Attribute::Length];
+
+        bool mAttackingOrSpell;
+
     public:
 
-        Player(const ESM::NPC *player, const MWBase::World& world);
+        Player(const ESM::NPC *player);
+
+        void saveSkillsAttributes();
+        void restoreSkillsAttributes();
+        void setWerewolfSkillsAttributes();
 
         // For mark/recall magic effects
         void markPosition (CellStore* markedCell, ESM::Position markedPosition);
@@ -52,9 +67,8 @@ namespace MWWorld
         /// Interiors can not always be mapped to a world position. However
         /// world position is still required for divine / almsivi magic effects
         /// and the player arrow on the global map.
-        /// TODO: This should be stored in the savegame, too.
-        void setLastKnownExteriorPosition (const Ogre::Vector3& position) { mLastKnownExteriorPosition = position; }
-        Ogre::Vector3 getLastKnownExteriorPosition() const { return mLastKnownExteriorPosition; }
+        void setLastKnownExteriorPosition (const osg::Vec3f& position) { mLastKnownExteriorPosition = position; }
+        osg::Vec3f getLastKnownExteriorPosition() const { return mLastKnownExteriorPosition; }
 
         void set (const ESM::NPC *player);
 
@@ -63,15 +77,15 @@ namespace MWWorld
         MWWorld::Ptr getPlayer();
 
         void setBirthSign(const std::string &sign);
-
         const std::string &getBirthSign() const;
 
         void setDrawState (MWMechanics::DrawState_ state);
-
-        bool getAutoMove() const;
-
         MWMechanics::DrawState_ getDrawState(); /// \todo constness
 
+        /// Activate the object under the crosshair, if any
+        void activate();
+
+        bool getAutoMove() const;
         void setAutoMove (bool enable);
 
         void setLeftRight (int value);
@@ -89,11 +103,21 @@ namespace MWWorld
         bool wasTeleported() const;
         void setTeleported(bool teleported);
 
+        void setAttackingOrSpell(bool attackingOrSpell);
+        bool getAttackingOrSpell() const;
+
+        ///Checks all nearby actors to see if anyone has an aipackage against you
+        bool isInCombat();
+
         void clear();
 
-        void write (ESM::ESMWriter& writer) const;
+        void write (ESM::ESMWriter& writer, Loading::Listener& progress) const;
 
-        bool readRecord (ESM::ESMReader& reader, int32_t type);
+        bool readRecord (ESM::ESMReader& reader, uint32_t type);
+
+        int getNewCrimeId();  // get new id for witnesses
+        void recordCrimeId(); // record the paid crime id when bounty is 0
+        int getCrimeId() const;     // get the last paid crime id
     };
 }
 #endif

@@ -1,4 +1,3 @@
-
 #include "referenceablecreator.hpp"
 
 #include <QComboBox>
@@ -40,6 +39,13 @@ void CSVWorld::ReferenceableCreator::reset()
 {
     mType->setCurrentIndex (0);
     GenericCreator::reset();
+}
+
+void CSVWorld::ReferenceableCreator::cloneMode (const std::string& originId,
+    const CSMWorld::UniversalId::Type type)
+{
+    GenericCreator::cloneMode (originId, type);
+    mType->setCurrentIndex (mType->findData (static_cast<int> (type)));
 }
 
 void CSVWorld::ReferenceableCreator::toggleWidgets(bool active)

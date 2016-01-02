@@ -3,351 +3,250 @@
 #include <QEvent>
 #include <QResizeEvent>
 #include <QTimer>
+#include <QShortcut>
+#include <QLayout>
 
-#include <OgreRoot.h>
-#include <OgreRenderWindow.h>
-#include <OgreEntity.h>
-#include <OgreCamera.h>
-#include <OgreSceneNode.h>
-#include <OgreViewport.h>
+#include <osgQt/GraphicsWindowQt>
+#include <osg/GraphicsContext>
+#include <osgViewer/CompositeViewer>
+#include <osgViewer/ViewerEventHandlers>
+#include <osg/LightModel>
 
-#include "../world/scenetoolmode.hpp"
+#include <components/resource/scenemanager.hpp>
+#include <components/resource/resourcesystem.hpp>
 
-#include "navigation.hpp"
+#include "../widget/scenetoolmode.hpp"
+
 #include "lighting.hpp"
 
 namespace CSVRender
 {
-    SceneWidget::SceneWidget(QWidget *parent)
-        : QWidget(parent)
-        , mWindow(NULL)
-        , mCamera(NULL)
-        , mSceneMgr(NULL), mNavigation (0), mLighting (0), mUpdate (false)
-        , mKeyForward (false), mKeyBackward (false), mKeyLeft (false), mKeyRight (false)
-        , mKeyRollLeft (false), mKeyRollRight (false)
-        , mFast (false), mDragging (false), mMod1 (false)
-        , mFastFactor (4) /// \todo make this configurable
-        , mDefaultAmbient (0, 0, 0, 0), mHasDefaultAmbient (false)
-    {
-        setAttribute(Qt::WA_PaintOnScreen);
-        setAttribute(Qt::WA_NoSystemBackground);
 
-        setFocusPolicy (Qt::StrongFocus);
+RenderWidget::RenderWidget(QWidget *parent, Qt::WindowFlags f)
+    : QWidget(parent, f)
+    , mRootNode(0)
+{
 
-        mSceneMgr = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC);
+    osgViewer::CompositeViewer& viewer = CompositeViewer::get();
 
-        mSceneMgr->setAmbientLight (Ogre::ColourValue (0,0,0,1));
+    osg::DisplaySettings* ds = osg::DisplaySettings::instance().get();
+    //ds->setNumMultiSamples(8);
 
-        mCamera = mSceneMgr->createCamera("foo");
+    osg::ref_ptr<osg::GraphicsContext::Traits> traits = new osg::GraphicsContext::Traits;
+    traits->windowName = "";
+    traits->windowDecoration = true;
+    traits->x = 0;
+    traits->y = 0;
+    traits->width = width();
+    traits->height = height();
+    traits->doubleBuffer = true;
+    traits->alpha = ds->getMinimumNumAlphaBits();
+    traits->stencil = ds->getMinimumNumStencilBits();
+    traits->sampleBuffers = ds->getMultiSamples();
+    traits->samples = ds->getNumMultiSamples();
+    // Doesn't make much sense as we're running on demand updates, and there seems to be a bug with the refresh rate when running multiple QGLWidgets
+    traits->vsync = false;
 
-        mCamera->setPosition (300, 0, 0);
-        mCamera->lookAt (0, 0, 0);
-        mCamera->setNearClipDistance (0.1);
-        mCamera->setFarClipDistance (30000);
-        mCamera->roll (Ogre::Degree (90));
+    mView = new osgViewer::View;
 
-        setLighting (&mLightingDay);
+    osg::ref_ptr<osgQt::GraphicsWindowQt> window = new osgQt::GraphicsWindowQt(traits.get());
+    QLayout* layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(window->getGLWidget());
+    setLayout(layout);
 
-        QTimer *timer = new QTimer (this);
+    // Pass events through this widget first
+    window->getGLWidget()->installEventFilter(this);
 
-        connect (timer, SIGNAL (timeout()), this, SLOT (update()));
-        timer->start (20); /// \todo make this configurable
-    }
+    mView->getCamera()->setGraphicsContext(window);
+    mView->getCamera()->setClearColor( osg::Vec4(0.2, 0.2, 0.6, 1.0) );
+    mView->getCamera()->setViewport( new osg::Viewport(0, 0, traits->width, traits->height) );
+    mView->getCamera()->setProjectionMatrixAsPerspective(30.0f, static_cast<double>(traits->width)/static_cast<double>(traits->height), 1.0f, 10000.0f );
 
-    CSVWorld::SceneToolMode *SceneWidget::makeLightingSelector (CSVWorld::SceneToolbar *parent)
-    {
-        CSVWorld::SceneToolMode *tool = new CSVWorld::SceneToolMode (parent);
+    mRootNode = new osg::Group;
 
-        tool->addButton (":door.png", "day"); /// \todo replace icons
-        tool->addButton (":GMST.png", "night");
-        tool->addButton (":Info.png", "bright");
+    mView->getCamera()->getOrCreateStateSet()->setMode(GL_NORMALIZE, osg::StateAttribute::ON);
+    mView->getCamera()->getOrCreateStateSet()->setMode(GL_CULL_FACE, osg::StateAttribute::ON);
 
-        connect (tool, SIGNAL (modeChanged (const std::string&)),
-            this, SLOT (selectLightingMode (const std::string&)));
+    mView->setSceneData(mRootNode);
 
-        return tool;
-    }
+    // Press S to reveal profiling stats
+    mView->addEventHandler(new osgViewer::StatsHandler);
 
-    void SceneWidget::setDefaultAmbient (const Ogre::ColourValue& colour)
-    {
-        mDefaultAmbient = colour;
-        mHasDefaultAmbient = true;
+    mView->getCamera()->setCullMask(~(0x1));
 
-        if (mLighting)
-            mLighting->setDefaultAmbient (colour);
-    }
+    viewer.addView(mView);
+    viewer.setDone(false);
+    viewer.realize();
+}
 
-    void SceneWidget::updateOgreWindow()
-    {
-        if (mWindow)
-        {
-            Ogre::Root::getSingleton().destroyRenderTarget(mWindow);
-            mWindow = NULL;
-        }
+RenderWidget::~RenderWidget()
+{
+    CompositeViewer::get().removeView(mView);
+}
 
-        std::stringstream windowHandle;
-        windowHandle << this->winId();
+void RenderWidget::flagAsModified()
+{
+    mView->requestRedraw();
+}
 
-        std::stringstream windowTitle;
-        static int count=0;
-        windowTitle << ++count;
+void RenderWidget::setVisibilityMask(int mask)
+{
+    // 0x1 reserved for separating cull and update visitors
+    mView->getCamera()->setCullMask(mask<<1);
+}
 
-        Ogre::NameValuePairList params;
+bool RenderWidget::eventFilter(QObject* obj, QEvent* event)
+{
+    // handle event in this widget, is there a better way to do this?
+    if (event->type() == QEvent::MouseButtonPress)
+        mousePressEvent(static_cast<QMouseEvent*>(event));
+    if (event->type() == QEvent::MouseButtonRelease)
+        mouseReleaseEvent(static_cast<QMouseEvent*>(event));
+    if (event->type() == QEvent::MouseMove)
+        mouseMoveEvent(static_cast<QMouseEvent*>(event));
+    if (event->type() == QEvent::KeyPress)
+        keyPressEvent(static_cast<QKeyEvent*>(event));
+    if (event->type() == QEvent::KeyRelease)
+        keyReleaseEvent(static_cast<QKeyEvent*>(event));
+    if (event->type() == QEvent::Wheel)
+        wheelEvent(static_cast<QWheelEvent *>(event));
 
-        params.insert(std::make_pair("externalWindowHandle",  windowHandle.str()));
-        params.insert(std::make_pair("title", windowTitle.str()));
-        params.insert(std::make_pair("FSAA", "0")); // TODO setting
-        params.insert(std::make_pair("vsync", "false")); // TODO setting
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-        params.insert(std::make_pair("macAPI", "cocoa"));
-        params.insert(std::make_pair("macAPICocoaUseNSView", "true"));
-#endif
+    // Always pass the event on to GLWidget, i.e. to OSG event queue
+    return QObject::eventFilter(obj, event);
+}
 
-        mWindow = Ogre::Root::getSingleton().createRenderWindow(windowTitle.str(), this->width(), this->height(), false, &params);
-        mWindow->addViewport(mCamera)->setBackgroundColour(Ogre::ColourValue(0.3,0.3,0.3,1));
+// --------------------------------------------------
 
-        Ogre::Real aspectRatio = Ogre::Real(width()) / Ogre::Real(height());
-        mCamera->setAspectRatio(aspectRatio);
-    }
-
-    SceneWidget::~SceneWidget()
-    {
-        if (mWindow)
-            Ogre::Root::getSingleton().destroyRenderTarget (mWindow);
-
-        if (mSceneMgr)
-            Ogre::Root::getSingleton().destroySceneManager (mSceneMgr);
-    }
-
-    void SceneWidget::setNavigation (Navigation *navigation)
-    {
-        if ((mNavigation = navigation))
-        {
-            mNavigation->setFastModeFactor (mFast ? mFastFactor : 1);
-            if (mNavigation->activate (mCamera))
-                mUpdate = true;
-        }
-    }
-
-    Ogre::SceneManager *SceneWidget::getSceneManager()
-    {
-        return mSceneMgr;
-    }
-
-    void SceneWidget::flagAsModified()
-    {
-        mUpdate = true;
-    }
-
-    void SceneWidget::paintEvent(QPaintEvent* e)
-    {
-        if (!mWindow)
-            updateOgreWindow();
-
-        mWindow->update();
-        e->accept();
-    }
-
-    QPaintEngine* SceneWidget::paintEngine() const
-    {
-        // We don't want another paint engine to get in the way.
-        // So we return nothing.
-        return NULL;
-    }
-
-    void SceneWidget::resizeEvent(QResizeEvent *e)
-    {
-        if (!mWindow)
-            return;
-
-        const QSize &newSize = e->size();
-
-        // TODO: Fix Ogre to handle this more consistently (fixed in 1.9)
-#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-        mWindow->resize(newSize.width(), newSize.height());
+CompositeViewer::CompositeViewer()
+    : mSimulationTime(0.0)
+{
+#if QT_VERSION >= 0x050000
+    // Qt5 is currently crashing and reporting "Cannot make QOpenGLContext current in a different thread" when the viewer is run multi-threaded, this is regression from Qt4
+    osgViewer::ViewerBase::ThreadingModel threadingModel = osgViewer::ViewerBase::SingleThreaded;
 #else
-        mWindow->windowMovedOrResized();
+    osgViewer::ViewerBase::ThreadingModel threadingModel = osgViewer::ViewerBase::DrawThreadPerContext;
 #endif
 
-        Ogre::Real aspectRatio = Ogre::Real(newSize.width()) / Ogre::Real(newSize.height());
-        mCamera->setAspectRatio(aspectRatio);
-    }
+    setThreadingModel(threadingModel);
 
-    bool SceneWidget::event(QEvent *e)
-    {
-        if (e->type() == QEvent::WinIdChange)
-        {
-            // I haven't actually seen this happen yet.
-            if (mWindow)
-                updateOgreWindow();
-        }
-        return QWidget::event(e);
-    }
+    // disable the default setting of viewer.done() by pressing Escape.
+    setKeyEventSetsDone(0);
 
-    void SceneWidget::keyPressEvent (QKeyEvent *event)
-    {
-        switch (event->key())
-        {
-            case Qt::Key_W: mKeyForward = true; break;
-            case Qt::Key_S: mKeyBackward = true; break;
-            case Qt::Key_A: mKeyLeft = true; break;
-            case Qt::Key_D: mKeyRight = true; break;
-            case Qt::Key_Q: mKeyRollLeft = true; break;
-            case Qt::Key_E: mKeyRollRight = true; break;
-            case Qt::Key_Control: mMod1 = true; break;
+    // Only render when the camera position changed, or content flagged dirty
+    //setRunFrameScheme(osgViewer::ViewerBase::ON_DEMAND);
+    setRunFrameScheme(osgViewer::ViewerBase::CONTINUOUS);
 
-            case Qt::Key_Shift:
+    connect( &mTimer, SIGNAL(timeout()), this, SLOT(update()) );
+    mTimer.start( 10 );
+}
 
-                mFast = true;
+CompositeViewer &CompositeViewer::get()
+{
+    static CompositeViewer sThis;
+    return sThis;
+}
 
-                if (mNavigation)
-                    mNavigation->setFastModeFactor (mFastFactor);
+void CompositeViewer::update()
+{
+    mSimulationTime += mFrameTimer.time_s();
+    mFrameTimer.setStartTick();
+    frame(mSimulationTime);
+}
 
-                break;
+// ---------------------------------------------------
 
-            default: QWidget::keyPressEvent (event);
-        }
-    }
+SceneWidget::SceneWidget(boost::shared_ptr<Resource::ResourceSystem> resourceSystem, QWidget *parent, Qt::WindowFlags f)
+    : RenderWidget(parent, f)
+    , mResourceSystem(resourceSystem)
+    , mLighting(NULL)
+    , mHasDefaultAmbient(false)
+{
+    // we handle lighting manually
+    mView->setLightingMode(osgViewer::View::NO_LIGHT);
 
-    void SceneWidget::keyReleaseEvent (QKeyEvent *event)
-    {
-        switch (event->key())
-        {
-            case Qt::Key_W: mKeyForward = false; break;
-            case Qt::Key_S: mKeyBackward = false; break;
-            case Qt::Key_A: mKeyLeft = false; break;
-            case Qt::Key_D: mKeyRight = false; break;
-            case Qt::Key_Q: mKeyRollLeft = false; break;
-            case Qt::Key_E: mKeyRollRight = false; break;
-            case Qt::Key_Control: mMod1 = false; break;
+    setLighting(&mLightingDay);
 
-            case Qt::Key_Shift:
+    /// \todo make shortcut configurable
+    QShortcut *focusToolbar = new QShortcut (Qt::Key_T, this, 0, 0, Qt::WidgetWithChildrenShortcut);
+    connect (focusToolbar, SIGNAL (activated()), this, SIGNAL (focusToolbarRequest()));
+}
 
-                mFast = false;
+SceneWidget::~SceneWidget()
+{
+    // Since we're holding on to the scene templates past the existance of this graphics context, we'll need to manually release the created objects
+    mResourceSystem->getSceneManager()->releaseGLObjects(mView->getCamera()->getGraphicsContext()->getState());
+}
 
-                if (mNavigation)
-                    mNavigation->setFastModeFactor (1);
+void SceneWidget::setLighting(Lighting *lighting)
+{
+    if (mLighting)
+        mLighting->deactivate();
 
-                break;
+    mLighting = lighting;
+    mLighting->activate (mRootNode);
 
-            default: QWidget::keyReleaseEvent (event);
-        }
-    }
+    osg::Vec4f ambient = mLighting->getAmbientColour(mHasDefaultAmbient ? &mDefaultAmbient : 0);
+    setAmbient(ambient);
 
-    void SceneWidget::wheelEvent (QWheelEvent *event)
-    {
-        if (mNavigation)
-            if (event->delta())
-                if (mNavigation->wheelMoved (event->delta()))
-                    mUpdate = true;
-    }
+    flagAsModified();
+}
 
-    void SceneWidget::leaveEvent (QEvent *event)
-    {
-        mDragging = false;
-    }
+void SceneWidget::setAmbient(const osg::Vec4f& ambient)
+{
+    osg::ref_ptr<osg::StateSet> stateset = new osg::StateSet;
+    osg::ref_ptr<osg::LightModel> lightmodel = new osg::LightModel;
+    lightmodel->setAmbientIntensity(ambient);
+    stateset->setMode(GL_LIGHTING, osg::StateAttribute::ON);
+    stateset->setMode(GL_LIGHT0, osg::StateAttribute::ON);
+    stateset->setAttributeAndModes(lightmodel, osg::StateAttribute::ON);
+    mRootNode->setStateSet(stateset);
+}
 
-    void SceneWidget::mouseMoveEvent (QMouseEvent *event)
-    {
-        if (event->buttons() & Qt::LeftButton)
-        {
-            if (mDragging)
-            {
-                QPoint diff = mOldPos-event->pos();
-                mOldPos = event->pos();
+void SceneWidget::selectLightingMode (const std::string& mode)
+{
+    if (mode=="day")
+        setLighting (&mLightingDay);
+    else if (mode=="night")
+        setLighting (&mLightingNight);
+    else if (mode=="bright")
+        setLighting (&mLightingBright);
+}
 
-                if (mNavigation)
-                    if (mNavigation->mouseMoved (diff, mMod1 ? 1 : 0))
-                        mUpdate = true;
-            }
-            else
-            {
-                mDragging = true;
-                mOldPos = event->pos();
-            }
-        }
-    }
+CSVWidget::SceneToolMode *SceneWidget::makeLightingSelector (CSVWidget::SceneToolbar *parent)
+{
+    CSVWidget::SceneToolMode *tool = new CSVWidget::SceneToolMode (parent, "Lighting Mode");
 
-    void SceneWidget::mouseReleaseEvent (QMouseEvent *event)
-    {
-        if (!(event->buttons() & Qt::LeftButton))
-            mDragging = false;
-    }
+    /// \todo replace icons
+    tool->addButton (":scenetoolbar/day", "day",
+        "Day"
+        "<ul><li>Cell specific ambient in interiors</li>"
+        "<li>Low ambient in exteriors</li>"
+        "<li>Strong directional light source</li>"
+        "<li>This mode closely resembles day time in-game</li></ul>");
+    tool->addButton (":scenetoolbar/night", "night",
+        "Night"
+        "<ul><li>Cell specific ambient in interiors</li>"
+        "<li>Low ambient in exteriors</li>"
+        "<li>Weak directional light source</li>"
+        "<li>This mode closely resembles night time in-game</li></ul>");
+    tool->addButton (":scenetoolbar/bright", "bright",
+        "Bright"
+        "<ul><li>Maximum ambient</li>"
+        "<li>Strong directional light source</li></ul>");
 
-    void SceneWidget::focusOutEvent (QFocusEvent *event)
-    {
-        mKeyForward = false;
-        mKeyBackward = false;
-        mKeyLeft = false;
-        mKeyRight = false;
-        mFast = false;
-        mMod1 = false;
+    connect (tool, SIGNAL (modeChanged (const std::string&)),
+        this, SLOT (selectLightingMode (const std::string&)));
 
-        QWidget::focusOutEvent (event);
-    }
+    return tool;
+}
 
-    void SceneWidget::update()
-    {
-        if (mNavigation)
-        {
-            int horizontal = 0;
-            int vertical = 0;
+void SceneWidget::setDefaultAmbient (const osg::Vec4f& colour)
+{
+    mDefaultAmbient = colour;
+    mHasDefaultAmbient = true;
 
-            if (mKeyForward && !mKeyBackward)
-                vertical = 1;
-            else if (!mKeyForward && mKeyBackward)
-                vertical = -1;
+    setAmbient(mLighting->getAmbientColour(&mDefaultAmbient));
+}
 
-            if (mKeyLeft && !mKeyRight)
-                horizontal = -1;
-            else if (!mKeyLeft && mKeyRight)
-                horizontal = 1;
-
-            if (horizontal || vertical)
-                if (mNavigation->handleMovementKeys (vertical, horizontal))
-                    mUpdate = true;
-
-            int roll = 0;
-
-            if (mKeyRollLeft && !mKeyRollRight)
-                roll = 1;
-            else if (!mKeyRollLeft && mKeyRollRight)
-                roll = -1;
-
-            if (roll)
-                if (mNavigation->handleRollKeys (roll))
-                    mUpdate = true;
-
-        }
-
-        if (mUpdate)
-        {
-            mUpdate = false;
-            mWindow->update();
-        }
-    }
-
-    int SceneWidget::getFastFactor() const
-    {
-        return mFast ? mFastFactor : 1;
-    }
-
-    void SceneWidget::setLighting (Lighting *lighting)
-    {
-        if (mLighting)
-            mLighting->deactivate();
-
-        mLighting = lighting;
-        mLighting->activate (mSceneMgr, mHasDefaultAmbient ? &mDefaultAmbient : 0);
-    }
-
-    void SceneWidget::selectLightingMode (const std::string& mode)
-    {
-        if (mode=="day")
-            setLighting (&mLightingDay);
-        else if (mode=="night")
-            setLighting (&mLightingNight);
-        else if (mode=="bright")
-            setLighting (&mLightingBright);
-    }
 }

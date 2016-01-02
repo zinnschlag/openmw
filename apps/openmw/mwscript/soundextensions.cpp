@@ -1,4 +1,3 @@
-
 #include "extensions.hpp"
 
 #include <components/compiler/extensions.hpp>
@@ -121,8 +120,8 @@ namespace MWScript
 
                     MWBase::Environment::get().getSoundManager()->playSound3D(ptr, sound, 1.0, 1.0,
                                                                               MWBase::SoundManager::Play_TypeSfx,
-                                                                              mLoop ? MWBase::SoundManager::Play_Loop :
-                                                                                      MWBase::SoundManager::Play_Normal);
+                                                                              mLoop ? MWBase::SoundManager::Play_LoopRemoveAtDistance
+                                                                                     : MWBase::SoundManager::Play_Normal);
                 }
         };
 
@@ -150,8 +149,8 @@ namespace MWScript
 
                     MWBase::Environment::get().getSoundManager()->playSound3D(ptr, sound, volume, pitch,
                                                                               MWBase::SoundManager::Play_TypeSfx,
-                                                                              mLoop ? MWBase::SoundManager::Play_Loop :
-                                                                                      MWBase::SoundManager::Play_Normal);
+                                                                              mLoop ? MWBase::SoundManager::Play_LoopRemoveAtDistance
+                                                                                    : MWBase::SoundManager::Play_Normal);
 
                 }
         };

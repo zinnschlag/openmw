@@ -1,21 +1,28 @@
 #include "pickpocketitemmodel.hpp"
 
-#include "../mwmechanics/npcstats.hpp"
+#include <components/misc/rng.hpp>
+#include <components/esm/loadskil.hpp>
+
 #include "../mwworld/class.hpp"
 
 namespace MWGui
 {
 
-    PickpocketItemModel::PickpocketItemModel(const MWWorld::Ptr& thief, ItemModel *sourceModel)
+    PickpocketItemModel::PickpocketItemModel(const MWWorld::Ptr& thief, ItemModel *sourceModel, bool hideItems)
     {
         mSourceModel = sourceModel;
         int chance = thief.getClass().getSkill(thief, ESM::Skill::Sneak);
 
         mSourceModel->update();
-        for (size_t i = 0; i<mSourceModel->getItemCount(); ++i)
+
+        // build list of items that player is unable to find when attempts to pickpocket.
+        if (hideItems)
         {
-            if (std::rand() / static_cast<float>(RAND_MAX) * 100 > chance)
-                mHiddenItems.push_back(mSourceModel->getItem(i));
+            for (size_t i = 0; i<mSourceModel->getItemCount(); ++i)
+            {
+                if (Misc::Rng::roll0to99() > chance)
+                    mHiddenItems.push_back(mSourceModel->getItem(i));
+            }
         }
     }
 
@@ -42,11 +49,8 @@ namespace MWGui
             const ItemStack& item = mSourceModel->getItem(i);
 
             // Bound items may not be stolen
-            if (item.mBase.getCellRef().mRefID.size() > 6
-                    && item.mBase.getCellRef().mRefID.substr(0,6) == "bound_")
-            {
+            if (item.mFlags & ItemStack::Flag_Bound)
                 continue;
-            }
 
             if (std::find(mHiddenItems.begin(), mHiddenItems.end(), item) == mHiddenItems.end()
                     && item.mType != ItemStack::Type_Equipped)
