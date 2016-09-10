@@ -1,7 +1,5 @@
 #include "fileparser.hpp"
 
-#include <iostream>
-
 #include "tokenloc.hpp"
 #include "scanner.hpp"
 
@@ -49,6 +47,12 @@ namespace Compiler
                           // that we must ignore.
                           //
                           /// \todo allow this workaround to be disabled for newer scripts
+        }
+
+        if (mState==BeginCompleteState)
+        {
+            reportWarning ("Stray string (" + name + ") after begin statement", loc);
+            return true;
         }
 
         return Parser::parseName (name, loc, scanner);

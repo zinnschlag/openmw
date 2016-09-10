@@ -1,11 +1,9 @@
 #include "companionwindow.hpp"
 
-#include <boost/lexical_cast.hpp>
+#include <MyGUI_InputManager.h>
 
 #include "../mwbase/environment.hpp"
-#include "../mwbase/dialoguemanager.hpp"
-
-#include "../mwmechanics/npcstats.hpp"
+#include "../mwbase/windowmanager.hpp"
 
 #include "../mwworld/class.hpp"
 
@@ -13,19 +11,34 @@
 #include "itemview.hpp"
 #include "sortfilteritemmodel.hpp"
 #include "companionitemmodel.hpp"
-#include "container.hpp"
+#include "draganddrop.hpp"
 #include "countdialog.hpp"
+
+namespace
+{
+
+    int getProfit(const MWWorld::Ptr& actor)
+    {
+        std::string script = actor.getClass().getScript(actor);
+        if (!script.empty())
+        {
+            return actor.getRefData().getLocals().getIntVar(script, "minimumprofit");
+        }
+        return 0;
+    }
+
+}
 
 namespace MWGui
 {
 
 CompanionWindow::CompanionWindow(DragAndDrop *dragAndDrop, MessageBoxManager* manager)
     : WindowBase("openmw_companion_window.layout")
+    , mSortModel(NULL)
+    , mModel(NULL)
+    , mSelectedItem(-1)
     , mDragAndDrop(dragAndDrop)
     , mMessageBoxManager(manager)
-    , mSelectedItem(-1)
-    , mModel(NULL)
-    , mSortModel(NULL)
 {
     getWidget(mCloseButton, "CloseButton");
     getWidget(mProfitLabel, "ProfitLabel");
@@ -50,6 +63,13 @@ void CompanionWindow::onItemSelected(int index)
 
     const ItemStack& item = mSortModel->getItem(index);
 
+    // We can't take conjured items from a companion NPC
+    if (item.mFlags & ItemStack::Flag_Bound)
+    {
+        MWBase::Environment::get().getWindowManager()->messageBox("#{sBarterDialog12}");
+        return;
+    }
+
     MWWorld::Ptr object = item.mBase;
     int count = item.mCount;
     bool shift = MyGUI::InputManager::getInstance().isShiftPressed();
@@ -61,7 +81,7 @@ void CompanionWindow::onItemSelected(int index)
     if (count > 1 && !shift)
     {
         CountDialog* dialog = MWBase::Environment::get().getWindowManager()->getCountDialog();
-        dialog->open(MWWorld::Class::get(object).getName(object), "#{sTake}", count);
+        dialog->openCountDialog(object.getClass().getName(object), "#{sTake}", count);
         dialog->eventOkClicked.clear();
         dialog->eventOkClicked += MyGUI::newDelegate(this, &CompanionWindow::dragItem);
     }
@@ -83,7 +103,7 @@ void CompanionWindow::onBackgroundSelected()
     }
 }
 
-void CompanionWindow::open(const MWWorld::Ptr& npc)
+void CompanionWindow::openCompanion(const MWWorld::Ptr& npc)
 {
     mPtr = npc;
     updateEncumbranceBar();
@@ -91,8 +111,9 @@ void CompanionWindow::open(const MWWorld::Ptr& npc)
     mModel = new CompanionItemModel(npc);
     mSortModel = new SortFilterItemModel(mModel);
     mItemView->setModel(mSortModel);
+    mItemView->resetScrollBars();
 
-    setTitle(MWWorld::Class::get(npc).getName(npc));
+    setTitle(npc.getClass().getName(npc));
 }
 
 void CompanionWindow::onFrame()
@@ -104,22 +125,26 @@ void CompanionWindow::updateEncumbranceBar()
 {
     if (mPtr.isEmpty())
         return;
-    float capacity = MWWorld::Class::get(mPtr).getCapacity(mPtr);
-    float encumbrance = MWWorld::Class::get(mPtr).getEncumbrance(mPtr);
-    mEncumbranceBar->setValue(encumbrance, capacity);
+    float capacity = mPtr.getClass().getCapacity(mPtr);
+    float encumbrance = mPtr.getClass().getEncumbrance(mPtr);
+    mEncumbranceBar->setValue(static_cast<int>(encumbrance), static_cast<int>(capacity));
 
-    if (mPtr.getTypeName() != typeid(ESM::NPC).name())
-        mProfitLabel->setCaption("");
-    else
+    if (mModel && mModel->hasProfit(mPtr))
     {
-        MWMechanics::NpcStats& stats = MWWorld::Class::get(mPtr).getNpcStats(mPtr);
-        mProfitLabel->setCaptionWithReplacing("#{sProfitValue} " + boost::lexical_cast<std::string>(stats.getProfit()));
+        mProfitLabel->setCaptionWithReplacing("#{sProfitValue} " + MyGUI::utility::toString(getProfit(mPtr)));
     }
+    else
+        mProfitLabel->setCaption("");
 }
 
 void CompanionWindow::onCloseButtonClicked(MyGUI::Widget* _sender)
 {
-    if (mPtr.getTypeName() == typeid(ESM::NPC).name() && MWWorld::Class::get(mPtr).getNpcStats(mPtr).getProfit() < 0)
+    exit();
+}
+
+void CompanionWindow::exit()
+{
+    if (mModel && mModel->hasProfit(mPtr) && getProfit(mPtr) < 0)
     {
         std::vector<std::string> buttons;
         buttons.push_back("#{sCompanionWarningButtonOne}");
@@ -135,11 +160,9 @@ void CompanionWindow::onMessageBoxButtonClicked(int button)
 {
     if (button == 0)
     {
-        mPtr.getRefData().getLocals().setVarByInt(MWWorld::Class::get(mPtr).getScript(mPtr),
-            "minimumProfit", MWWorld::Class::get(mPtr).getNpcStats(mPtr).getProfit());
-
         MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Companion);
-        MWBase::Environment::get().getDialogueManager()->startDialogue (mPtr);
+        // Important for Calvus' contract script to work properly
+        MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Dialogue);
     }
 }
 
@@ -148,6 +171,13 @@ void CompanionWindow::onReferenceUnavailable()
     MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Companion);
 }
 
+void CompanionWindow::resetReference()
+{
+    ReferenceInterface::resetReference();
+    mItemView->setModel(NULL);
+    mModel = NULL;
+    mSortModel = NULL;
+}
 
 
 }

@@ -19,15 +19,18 @@ class ESMWriter;
 struct Region
 {
     static unsigned int sRecordId;
+    /// Return a string descriptor for this record type. Currently used for debugging / error logs only.
+    static std::string getRecordType() { return "Region"; }
 
 #pragma pack(push)
 #pragma pack(1)
     struct WEATstruct
     {
-        // I guess these are probabilities
-        char mClear, mCloudy, mFoggy, mOvercast, mRain, mThunder, mAsh, mBlight,
+        // These are probabilities that add up to 100
+        unsigned char mClear, mCloudy, mFoggy, mOvercast, mRain, mThunder, mAsh, mBlight,
         // Unknown weather, probably snow and something. Only
         // present in file version 1.3.
+        // the engine uses mA as "snow" and mB as "blizard"
                 mA, mB;
     }; // 10 bytes
 
@@ -35,21 +38,21 @@ struct Region
     struct SoundRef
     {
         NAME32 mSound;
-        char mChance;
+        unsigned char mChance;
     }; // 33 bytes
 #pragma pack(pop)
 
     WEATstruct mData;
     int mMapColor; // RGBA
 
-    // sleepList refers to a eveled list of creatures you can meet if
+    // sleepList refers to a leveled list of creatures you can meet if
     // you sleep outside in this region.
     std::string mId, mName, mSleepList;
 
     std::vector<SoundRef> mSoundList;
 
-    void load(ESMReader &esm);
-    void save(ESMWriter &esm) const;
+    void load(ESMReader &esm, bool &isDeleted);
+    void save(ESMWriter &esm, bool isDeleted = false) const;
 
     void blank();
     ///< Set record to default state (does not touch the ID/index).

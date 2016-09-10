@@ -1,15 +1,18 @@
 #ifndef CSV_WORLD_CREATOR_H
 #define CSV_WORLD_CREATOR_H
 
+#include <memory>
+
 #include <QWidget>
+
+#include "../../model/doc/document.hpp"
+
+#include "../../model/world/scope.hpp"
 #include "../../model/world/universalid.hpp"
 
-class QUndoStack;
-
-namespace CSMWorld
+namespace CSMDoc
 {
-    class Data;
-    class UniversalId;
+    class Document;
 }
 
 namespace CSVWorld
@@ -32,6 +35,12 @@ namespace CSVWorld
 
             virtual void toggleWidgets(bool active = true) = 0;
 
+            /// Default implementation: Throw an exception if scope!=Scope_Content.
+            virtual void setScope (unsigned int scope);
+
+            /// Focus main input widget
+            virtual void focus() = 0;
+
         signals:
 
             void done();
@@ -48,8 +57,7 @@ namespace CSVWorld
 
             virtual ~CreatorFactoryBase();
 
-            virtual Creator *makeCreator (CSMWorld::Data& data, QUndoStack& undoStack,
-                const CSMWorld::UniversalId& id) const = 0;
+            virtual Creator *makeCreator (CSMDoc::Document& document, const CSMWorld::UniversalId& id) const = 0;
             ///< The ownership of the returned Creator is transferred to the caller.
             ///
             /// \note The function can return a 0-pointer, which means no UI for creating/deleting
@@ -61,31 +69,33 @@ namespace CSVWorld
     {
         public:
 
-            virtual Creator *makeCreator (CSMWorld::Data& data, QUndoStack& undoStack,
-                const CSMWorld::UniversalId& id) const;
+            virtual Creator *makeCreator (CSMDoc::Document& document, const CSMWorld::UniversalId& id) const;
             ///< The ownership of the returned Creator is transferred to the caller.
             ///
             /// \note The function always returns 0.
     };
 
-    template<class CreatorT>
+    template<class CreatorT, unsigned int scope = CSMWorld::Scope_Content>
     class CreatorFactory : public CreatorFactoryBase
     {
         public:
 
-            virtual Creator *makeCreator (CSMWorld::Data& data, QUndoStack& undoStack,
-                const CSMWorld::UniversalId& id) const;
+            virtual Creator *makeCreator (CSMDoc::Document& document, const CSMWorld::UniversalId& id) const;
             ///< The ownership of the returned Creator is transferred to the caller.
             ///
             /// \note The function can return a 0-pointer, which means no UI for creating/deleting
             /// records should be provided.
     };
 
-    template<class CreatorT>
-    Creator *CreatorFactory<CreatorT>::makeCreator (CSMWorld::Data& data, QUndoStack& undoStack,
-        const CSMWorld::UniversalId& id) const
+    template<class CreatorT, unsigned int scope>
+    Creator *CreatorFactory<CreatorT, scope>::makeCreator (CSMDoc::Document& document,
+                                                           const CSMWorld::UniversalId& id) const
     {
-        return new CreatorT (data, undoStack, id);
+        std::auto_ptr<CreatorT> creator (new CreatorT (document.getData(), document.getUndoStack(), id));
+
+        creator->setScope (scope);
+
+        return creator.release();
     }
 }
 

@@ -11,6 +11,11 @@
 
 #include "../../model/world/scriptcontext.hpp"
 
+namespace CSMPrefs
+{
+    class Setting;
+}
+
 namespace CSVWorld
 {
     class ScriptHighlighter : public QSyntaxHighlighter, private Compiler::Parser
@@ -19,13 +24,20 @@ namespace CSVWorld
 
             enum Type
             {
-                Type_Int,
-                Type_Float,
-                Type_Name,
-                Type_Keyword,
-                Type_Special,
-                Type_Comment,
-                Type_Id
+                Type_Int = 0,
+                Type_Float = 1,
+                Type_Name = 2,
+                Type_Keyword = 3,
+                Type_Special = 4,
+                Type_Comment = 5,
+                Type_Id = 6
+            };
+
+            enum Mode
+            {
+                Mode_General,
+                Mode_Console,
+                Mode_Dialogue
             };
 
         private:
@@ -34,6 +46,7 @@ namespace CSVWorld
             Compiler::Extensions mExtensions;
             CSMWorld::ScriptContext mContext;
             std::map<Type, QTextCharFormat> mScheme;
+            Mode mMode;
 
         private:
 
@@ -74,11 +87,13 @@ namespace CSVWorld
 
         public:
 
-            ScriptHighlighter (const CSMWorld::Data& data, QTextDocument *parent);
+            ScriptHighlighter (const CSMWorld::Data& data, Mode mode, QTextDocument *parent);
 
             virtual void highlightBlock (const QString& text);
 
             void invalidateIds();
+
+            bool settingChanged (const CSMPrefs::Setting *setting);
     };
 }
 

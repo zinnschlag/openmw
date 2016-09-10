@@ -1,27 +1,30 @@
-
 #include "viewmanager.hpp"
 
+#include <vector>
 #include <map>
 
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QMessageBox>
+#include <QPushButton>
 
 #include "../../model/doc/documentmanager.hpp"
 #include "../../model/doc/document.hpp"
 #include "../../model/world/columns.hpp"
+#include "../../model/world/universalid.hpp"
+#include "../../model/world/idcompletionmanager.hpp"
+
+#include "../../model/prefs/state.hpp"
 
 #include "../world/util.hpp"
 #include "../world/enumdelegate.hpp"
 #include "../world/vartypedelegate.hpp"
 #include "../world/recordstatusdelegate.hpp"
 #include "../world/idtypedelegate.hpp"
-#include "../settings/usersettingsdialog.hpp"
+#include "../world/idcompletiondelegate.hpp"
+#include "../world/colordelegate.hpp"
 
 #include "view.hpp"
-
-#include <QMessageBox>
-#include <QPushButton>
-#include <QtGui/QApplication>
 
 void CSVDoc::ViewManager::updateIndices()
 {
@@ -58,6 +61,17 @@ CSVDoc::ViewManager::ViewManager (CSMDoc::DocumentManager& documentManager)
     mDelegateFactories->add (CSMWorld::ColumnBase::Display_RefRecordType,
         new CSVWorld::IdTypeDelegateFactory());
 
+    mDelegateFactories->add (CSMWorld::ColumnBase::Display_Colour,
+        new CSVWorld::ColorDelegateFactory());
+
+    std::vector<CSMWorld::ColumnBase::Display> idCompletionColumns = CSMWorld::IdCompletionManager::getDisplayTypes();
+    for (std::vector<CSMWorld::ColumnBase::Display>::const_iterator current = idCompletionColumns.begin();
+         current != idCompletionColumns.end();
+         ++current)
+    {
+        mDelegateFactories->add(*current, new CSVWorld::IdCompletionDelegateFactory());
+    }
+
     struct Mapping
     {
         CSMWorld::ColumnBase::Display mDisplay;
@@ -77,15 +91,54 @@ CSVDoc::ViewManager::ViewManager (CSMDoc::DocumentManager& documentManager)
         { CSMWorld::ColumnBase::Display_WeaponType, CSMWorld::Columns::ColumnId_WeaponType, false },
         { CSMWorld::ColumnBase::Display_DialogueType, CSMWorld::Columns::ColumnId_DialogueType, false },
         { CSMWorld::ColumnBase::Display_QuestStatusType, CSMWorld::Columns::ColumnId_QuestStatusType, false },
-        { CSMWorld::ColumnBase::Display_Gender, CSMWorld::Columns::ColumnId_Gender, true }
+        { CSMWorld::ColumnBase::Display_EnchantmentType, CSMWorld::Columns::ColumnId_EnchantmentType, false },
+        { CSMWorld::ColumnBase::Display_BodyPartType, CSMWorld::Columns::ColumnId_BodyPartType, false },
+        { CSMWorld::ColumnBase::Display_MeshType, CSMWorld::Columns::ColumnId_MeshType, false },
+        { CSMWorld::ColumnBase::Display_Gender, CSMWorld::Columns::ColumnId_Gender, true },
+        { CSMWorld::ColumnBase::Display_SoundGeneratorType, CSMWorld::Columns::ColumnId_SoundGeneratorType, false },
+        { CSMWorld::ColumnBase::Display_School, CSMWorld::Columns::ColumnId_School, false },
+        { CSMWorld::ColumnBase::Display_SkillId, CSMWorld::Columns::ColumnId_Skill, true },
+        { CSMWorld::ColumnBase::Display_EffectRange, CSMWorld::Columns::ColumnId_EffectRange, false },
+        { CSMWorld::ColumnBase::Display_EffectId, CSMWorld::Columns::ColumnId_EffectId, false },
+        { CSMWorld::ColumnBase::Display_PartRefType, CSMWorld::Columns::ColumnId_PartRefType, false },
+        { CSMWorld::ColumnBase::Display_AiPackageType, CSMWorld::Columns::ColumnId_AiPackageType, false },
+        { CSMWorld::ColumnBase::Display_InfoCondFunc, CSMWorld::Columns::ColumnId_InfoCondFunc, false },
+        { CSMWorld::ColumnBase::Display_InfoCondComp, CSMWorld::Columns::ColumnId_InfoCondComp, false },
+        { CSMWorld::ColumnBase::Display_IngredEffectId, CSMWorld::Columns::ColumnId_EffectId, true },
+        { CSMWorld::ColumnBase::Display_EffectSkill, CSMWorld::Columns::ColumnId_Skill, false },
+        { CSMWorld::ColumnBase::Display_EffectAttribute, CSMWorld::Columns::ColumnId_Attribute, false },
     };
 
     for (std::size_t i=0; i<sizeof (sMapping)/sizeof (Mapping); ++i)
         mDelegateFactories->add (sMapping[i].mDisplay, new CSVWorld::EnumDelegateFactory (
             CSMWorld::Columns::getEnums (sMapping[i].mColumnId), sMapping[i].mAllowNone));
 
-    connect (&CSMSettings::UserSettings::instance(), SIGNAL (signalUpdateEditorSetting (const QString &, const QString &)),
-        this, SLOT (slotUpdateEditorSetting (const QString &, const QString &)));
+    connect (&mDocumentManager, SIGNAL (loadRequest (CSMDoc::Document *)),
+        &mLoader, SLOT (add (CSMDoc::Document *)));
+
+    connect (
+        &mDocumentManager, SIGNAL (loadingStopped (CSMDoc::Document *, bool, const std::string&)),
+        &mLoader, SLOT (loadingStopped (CSMDoc::Document *, bool, const std::string&)));
+
+    connect (
+        &mDocumentManager, SIGNAL (nextStage (CSMDoc::Document *, const std::string&, int)),
+        &mLoader, SLOT (nextStage (CSMDoc::Document *, const std::string&, int)));
+
+    connect (
+        &mDocumentManager, SIGNAL (nextRecord (CSMDoc::Document *, int)),
+        &mLoader, SLOT (nextRecord (CSMDoc::Document *, int)));
+
+    connect (
+        &mDocumentManager, SIGNAL (loadMessage (CSMDoc::Document *, const std::string&)),
+        &mLoader, SLOT (loadMessage (CSMDoc::Document *, const std::string&)));
+
+    connect (
+        &mLoader, SIGNAL (cancel (CSMDoc::Document *)),
+        &mDocumentManager, SIGNAL (cancelLoading (CSMDoc::Document *)));
+
+    connect (
+        &mLoader, SIGNAL (close (CSMDoc::Document *)),
+        &mDocumentManager, SLOT (removeDocument (CSMDoc::Document *)));
 }
 
 CSVDoc::ViewManager::~ViewManager()
@@ -112,14 +165,24 @@ CSVDoc::View *CSVDoc::ViewManager::addView (CSMDoc::Document *document)
 
     mViews.push_back (view);
 
+    view->toggleStatusBar (CSMPrefs::get()["Windows"]["show-statusbar"].isTrue());
     view->show();
 
     connect (view, SIGNAL (newGameRequest ()), this, SIGNAL (newGameRequest()));
     connect (view, SIGNAL (newAddonRequest ()), this, SIGNAL (newAddonRequest()));
     connect (view, SIGNAL (loadDocumentRequest ()), this, SIGNAL (loadDocumentRequest()));
     connect (view, SIGNAL (editSettingsRequest()), this, SIGNAL (editSettingsRequest()));
+    connect (view, SIGNAL (mergeDocument (CSMDoc::Document *)), this, SIGNAL (mergeDocument (CSMDoc::Document *)));
 
     updateIndices();
+
+    return view;
+}
+
+CSVDoc::View *CSVDoc::ViewManager::addView (CSMDoc::Document *document, const CSMWorld::UniversalId& id, const std::string& hint)
+{
+    View* view = addView(document);
+    view->addSubView(id, hint);
 
     return view;
 }
@@ -139,7 +202,7 @@ bool CSVDoc::ViewManager::closeRequest (View *view)
 {
     std::vector<View *>::iterator iter = std::find (mViews.begin(), mViews.end(), view);
 
-    bool continueWithClose = true;
+    bool continueWithClose = false;
 
     if (iter!=mViews.end())
     {
@@ -157,6 +220,24 @@ bool CSVDoc::ViewManager::closeRequest (View *view)
     }
 
     return continueWithClose;
+}
+
+// NOTE: This method assumes that it is called only if the last document
+void CSVDoc::ViewManager::removeDocAndView (CSMDoc::Document *document)
+{
+    for (std::vector<View *>::iterator iter (mViews.begin()); iter!=mViews.end(); ++iter)
+    {
+        // the first match should also be the only match
+        if((*iter)->getDocument() == document)
+        {
+            mDocumentManager.removeDocument(document);
+            (*iter)->deleteLater();
+            mViews.erase (iter);
+
+            updateIndices();
+            return;
+        }
+    }
 }
 
 bool CSVDoc::ViewManager::notifySaveOnClose (CSVDoc::View *view)
@@ -177,13 +258,19 @@ bool CSVDoc::ViewManager::notifySaveOnClose (CSVDoc::View *view)
 
 bool CSVDoc::ViewManager::showModifiedDocumentMessageBox (CSVDoc::View *view)
 {
-    QMessageBox messageBox;
+    emit closeMessageBox();
+
+    QMessageBox messageBox(view);
     CSMDoc::Document *document = view->getDocument();
 
+    messageBox.setWindowTitle (QString::fromUtf8(document->getSavePath().filename().string().c_str()));
     messageBox.setText ("The document has been modified.");
     messageBox.setInformativeText ("Do you want to save your changes?");
     messageBox.setStandardButtons (QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     messageBox.setDefaultButton (QMessageBox::Save);
+    messageBox.setWindowModality (Qt::NonModal);
+    messageBox.hide();
+    messageBox.show();
 
     bool retVal = true;
 
@@ -308,14 +395,40 @@ void CSVDoc::ViewManager::onExitWarningHandler (int state, CSMDoc::Document *doc
     }
 }
 
-void CSVDoc::ViewManager::exitApplication (CSVDoc::View *view)
+bool CSVDoc::ViewManager::removeDocument (CSVDoc::View *view)
 {
-    if (notifySaveOnClose (view))
-        QApplication::instance()->exit();
+    if(!notifySaveOnClose(view))
+        return false;
+    else
+    {
+        // don't bother closing views or updating indicies, but remove from mViews
+        CSMDoc::Document * document = view->getDocument();
+        std::vector<View *> remainingViews;
+        std::vector<View *>::const_iterator iter = mViews.begin();
+        for (; iter!=mViews.end(); ++iter)
+        {
+            if(document == (*iter)->getDocument())
+                (*iter)->setVisible(false);
+            else
+                remainingViews.push_back(*iter);
+        }
+        mDocumentManager.removeDocument(document);
+        mViews = remainingViews;
+    }
+    return true;
 }
 
-void CSVDoc::ViewManager::slotUpdateEditorSetting (const QString &settingName, const QString &settingValue)
+void CSVDoc::ViewManager::exitApplication (CSVDoc::View *view)
 {
-    foreach (CSVDoc::View *view, mViews)
-        view->updateEditorSetting (settingName, settingValue);
+    if(!removeDocument(view)) // close the current document first
+        return;
+
+    while(!mViews.empty()) // attempt to close all other documents
+    {
+        mViews.back()->activateWindow();
+        mViews.back()->raise(); // raise the window to alert the user
+        if(!removeDocument(mViews.back()))
+            return;
+    }
+    // Editor exits (via a signal) when the last document is deleted
 }

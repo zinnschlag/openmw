@@ -1,4 +1,3 @@
-
 #include "saving.hpp"
 
 #include "../world/data.hpp"
@@ -8,15 +7,23 @@
 #include "savingstages.hpp"
 #include "document.hpp"
 
-CSMDoc::Saving::Saving (Document& document, const boost::filesystem::path& projectPath)
-: Operation (State_Saving, true, true), mDocument (document), mState (*this, projectPath)
+CSMDoc::Saving::Saving (Document& document, const boost::filesystem::path& projectPath,
+    ToUTF8::FromType encoding)
+: Operation (State_Saving, true, true), mDocument (document), mState (*this, projectPath, encoding)
 {
     // save project file
     appendStage (new OpenSaveStage (mDocument, mState, true));
 
     appendStage (new WriteHeaderStage (mDocument, mState, true));
 
-    appendStage (new WriteFilterStage (mDocument, mState, CSMFilter::Filter::Scope_Project));
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::Filter> > (
+        mDocument.getData().getFilters(), mState, CSMWorld::Scope_Project));
+
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::DebugProfile> > (
+        mDocument.getData().getDebugProfiles(), mState, CSMWorld::Scope_Project));
+
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::Script> > (
+        mDocument.getData().getScripts(), mState, CSMWorld::Scope_Project));
 
     appendStage (new CloseSaveStage (mState));
 
@@ -58,13 +65,41 @@ CSMDoc::Saving::Saving (Document& document, const boost::filesystem::path& proje
     appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::Spell> >
         (mDocument.getData().getSpells(), mState));
 
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::Enchantment> >
+        (mDocument.getData().getEnchantments(), mState));
+
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::BodyPart> >
+        (mDocument.getData().getBodyParts(), mState));
+
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::SoundGenerator> >
+        (mDocument.getData().getSoundGens(), mState));
+
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::MagicEffect> >
+        (mDocument.getData().getMagicEffects(), mState));
+
+    appendStage (new WriteCollectionStage<CSMWorld::IdCollection<ESM::StartScript> >
+        (mDocument.getData().getStartScripts(), mState));
+
+    appendStage (new WriteRefIdCollectionStage (mDocument, mState));
+
+    appendStage (new CollectionReferencesStage (mDocument, mState));
+
+    appendStage (new WriteCellCollectionStage (mDocument, mState));
+
+    // Dialogue can reference objects and cells so must be written after these records for vanilla-compatible files
+
     appendStage (new WriteDialogueCollectionStage (mDocument, mState, false));
 
     appendStage (new WriteDialogueCollectionStage (mDocument, mState, true));
 
-    appendStage (new WriteRefIdCollectionStage (mDocument, mState));
+    appendStage (new WritePathgridCollectionStage (mDocument, mState));
 
+    appendStage (new WriteLandTextureCollectionStage (mDocument, mState));
 
+    // references Land Textures
+    appendStage (new WriteLandCollectionStage (mDocument, mState));
+
+    // close file and clean up
     appendStage (new CloseSaveStage (mState));
 
     appendStage (new FinalSavingStage (mDocument, mState));

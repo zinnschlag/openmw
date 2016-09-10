@@ -1,4 +1,3 @@
-
 #ifndef TABLEMIMEDATA_H
 #define TABLEMIMEDATA_H
 
@@ -22,7 +21,7 @@ namespace CSMWorld
 ///
 /// This class provides way to construct mimedata object holding the universalid copy
 /// Universalid is used in the majority of the tables to store type, id, argument types.
-/// This way universalid grants a way to retrive record from the concrete table.
+/// This way universalid grants a way to retrieve record from the concrete table.
 /// Please note, that tablemimedata object can hold multiple universalIds in the vector.
 
     class TableMimeData : public QMimeData
@@ -33,7 +32,7 @@ namespace CSMWorld
         public:
             TableMimeData(UniversalId id, const CSMDoc::Document& document);
 
-            TableMimeData(std::vector<UniversalId>& id, const CSMDoc::Document& document);
+            TableMimeData(const std::vector<UniversalId>& id, const CSMDoc::Document& document);
 
             ~TableMimeData();
 
@@ -56,10 +55,11 @@ namespace CSMWorld
             UniversalId returnMatching(CSMWorld::ColumnBase::Display type) const;
 
             static CSMWorld::UniversalId::Type convertEnums(CSMWorld::ColumnBase::Display type);
+
             static CSMWorld::ColumnBase::Display convertEnums(CSMWorld::UniversalId::Type type);
 
+            static bool isReferencable(CSMWorld::UniversalId::Type type);
         private:
-            bool isReferencable(CSMWorld::UniversalId::Type type) const;
             bool isReferencable(CSMWorld::ColumnBase::Display type) const;
 
     };

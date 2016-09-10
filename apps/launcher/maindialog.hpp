@@ -2,16 +2,26 @@
 #define MAINDIALOG_H
 
 #include <QMainWindow>
+#include <QProcess>
+
 #ifndef Q_MOC_RUN
 #include <components/files/configurationmanager.hpp>
 #endif
-#include "settings/gamesettings.hpp"
-#include "settings/graphicssettings.hpp"
-#include "settings/launchersettings.hpp"
+
+#include <components/process/processinvoker.hpp>
+
+#include <components/config/gamesettings.hpp>
+#include <components/config/launchersettings.hpp>
+
+#include <components/settings/settings.hpp>
 
 #include "ui_mainwindow.h"
 
 class QListWidgetItem;
+class QStackedWidget;
+class QStringList;
+class QStringListModel;
+class QString;
 
 namespace Launcher
 {
@@ -19,6 +29,14 @@ namespace Launcher
     class GraphicsPage;
     class DataFilesPage;
     class UnshieldThread;
+    class SettingsPage;
+
+    enum FirstRunDialogResult
+    {
+        FirstRunDialogResultFailure,
+        FirstRunDialogResultContinue,
+        FirstRunDialogResultWizard
+    };
 
 #ifndef WIN32
     bool expansions(Launcher::UnshieldThread& cd);
@@ -30,14 +48,24 @@ namespace Launcher
 
     public:
         explicit MainDialog(QWidget *parent = 0);
-        bool setup();
-        bool showFirstRunDialog();
+        ~MainDialog();
+
+        FirstRunDialogResult showFirstRunDialog();
+
+        bool reloadSettings();
+        bool writeSettings();
 
     public slots:
         void changePage(QListWidgetItem *current, QListWidgetItem *previous);
         void play();
 
+    private slots:
+        void wizardStarted();
+        void wizardFinished(int exitCode, QProcess::ExitStatus exitStatus);
+
     private:
+        bool setup();
+
         void createIcons();
         void createPages();
 
@@ -45,9 +73,10 @@ namespace Launcher
         bool setupGameSettings();
         bool setupGraphicsSettings();
 
+        void setVersionLabel();
+
         void loadSettings();
         void saveSettings();
-        bool writeSettings();
 
         inline bool startProgram(const QString &name, bool detached = false) { return startProgram(name, QStringList(), detached); }
         bool startProgram(const QString &name, const QStringList &arguments, bool detached = false);
@@ -57,12 +86,16 @@ namespace Launcher
         PlayPage *mPlayPage;
         GraphicsPage *mGraphicsPage;
         DataFilesPage *mDataFilesPage;
+        SettingsPage *mSettingsPage;
+
+        Process::ProcessInvoker *mGameInvoker;
+        Process::ProcessInvoker *mWizardInvoker;
 
         Files::ConfigurationManager mCfgMgr;
 
-        GameSettings mGameSettings;
-        GraphicsSettings mGraphicsSettings;
-        LauncherSettings mLauncherSettings;
+        Config::GameSettings mGameSettings;
+        Settings::Manager mEngineSettings;
+        Config::LauncherSettings mLauncherSettings;
 
     };
 }

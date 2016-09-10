@@ -3,14 +3,18 @@
 
 #include <vector>
 
-#include "../mwmechanics/alchemy.hpp"
-
 #include "widgets.hpp"
 #include "windowbase.hpp"
+
+namespace MWMechanics
+{
+    class Alchemy;
+}
 
 namespace MWGui
 {
     class ItemView;
+    class ItemWidget;
     class SortFilterItemModel;
 
     class AlchemyWindow : public WindowBase
@@ -19,8 +23,11 @@ namespace MWGui
         AlchemyWindow();
 
         virtual void open();
+        virtual void exit();
 
     private:
+        std::string mSuggestedPotionName;
+
         ItemView* mItemView;
         SortFilterItemModel* mSortModel;
 
@@ -41,10 +48,10 @@ namespace MWGui
 
         void update();
 
-        MWMechanics::Alchemy mAlchemy;
+        std::auto_ptr<MWMechanics::Alchemy> mAlchemy;
 
-        std::vector<MyGUI::ImageBox *> mApparatus;
-        std::vector<MyGUI::ImageBox *> mIngredients;
+        std::vector<ItemWidget*> mApparatus;
+        std::vector<ItemWidget*> mIngredients;
     };
 }
 

@@ -1,12 +1,14 @@
 #include "linuxpath.hpp"
 
-#if defined(__linux__) || defined(__FreeBSD__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__)
 
 #include <cstdlib>
 #include <cstring>
 #include <pwd.h>
 #include <unistd.h>
 #include <boost/filesystem/fstream.hpp>
+
+#include <components/misc/stringops.hpp>
 
 
 namespace
@@ -69,7 +71,7 @@ boost::filesystem::path LinuxPath::getCachePath() const
 
 boost::filesystem::path LinuxPath::getGlobalConfigPath() const
 {
-    boost::filesystem::path globalPath("/etc/");
+    boost::filesystem::path globalPath(GLOBAL_CONFIG_PATH);
     return globalPath / mName;
 }
 
@@ -80,7 +82,7 @@ boost::filesystem::path LinuxPath::getLocalPath() const
 
 boost::filesystem::path LinuxPath::getGlobalDataPath() const
 {
-    boost::filesystem::path globalDataPath("/usr/share/games/");
+    boost::filesystem::path globalDataPath(GLOBAL_DATA_PATH);
     return globalDataPath / mName;
 }
 
@@ -139,7 +141,7 @@ boost::filesystem::path LinuxPath::getInstallPath() const
             {
                 // Change drive letter to lowercase, so we could use
                 // ~/.wine/dosdevices symlinks
-                mwpath[0] = tolower(mwpath[0]);
+                mwpath[0] = Misc::StringUtils::toLower(mwpath[0]);
                 installPath /= homePath;
                 installPath /= ".wine/dosdevices/";
                 installPath /= mwpath;
@@ -157,4 +159,4 @@ boost::filesystem::path LinuxPath::getInstallPath() const
 
 } /* namespace Files */
 
-#endif /* defined(__linux__) || defined(__FreeBSD__) */
+#endif /* defined(__linux__) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__OpenBSD__) */

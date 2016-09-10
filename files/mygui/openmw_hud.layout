@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Layout">
-    <Widget type="Widget" layer="HUD" position="0 0 300 200" name="_Main">
+    <Widget type="Widget" layer="HUD" position="0 0 300 200" name="_Main" align="Stretch">
         <!-- Energy bars -->
-        <Widget type="Widget" skin="" position="13 131 65 12" align="Left Bottom" name="EnemyHealthFrame">
-            <Widget type="ProgressBar" skin="MW_EnergyBar_Yellow" position="0 0 65 12" align="Left Bottom" name="EnemyHealth">
-                <Property key="Visible" value="false"/>
-            </Widget>
+        <Widget type="ProgressBar" skin="MW_EnergyBar_Yellow" position="13 131 65 12" align="Left Bottom" name="EnemyHealth">
+            <Property key="Visible" value="false"/>
         </Widget>
         <Widget type="Button" skin="" position="13 146 65 12" align="Left Bottom" name="HealthFrame">
             <UserString key="ToolTipType" value="Layout"/>
@@ -42,7 +40,7 @@
                 <Property key="TextShadow" value="true"/>
                 <Property key="TextShadowColour" value="0 0 0"/>
             </Widget>
-            <Widget type="ProgressBar" skin="MW_Progress_Loading" position="12 36 196 8" align="Center Top" name="Drowning">
+            <Widget type="ProgressBar" skin="MW_Progress_LightBlue" position="12 36 196 8" align="Center Top" name="Drowning">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
             <Widget type="Widget" skin="MW_Progress_Drowning" position="14 38 192 4" align="Center Top" name="Flash"/>
@@ -54,17 +52,18 @@
             <Property key="TextAlign" value="Left"/>
             <Property key="TextShadow" value="true"/>
             <Property key="TextShadowColour" value="0 0 0"/>
+            <Property key="NeedMouse" value="false"/>
         </Widget>
 
         <!-- Equipped weapon box -->
         <Widget type="Button" skin="" position="82 146 36 41" align="Left Bottom" name="WeapBox">
             <Widget type="Widget" skin="HUD_Box" position="0 0 36 36">
                 <Property key="NeedMouse" value="false"/>
-                <Widget type="ImageBox" skin="ImageBox" position="2 2 32 32" align="Left Top" name="WeapImage">
+                <Widget type="ItemWidget" skin="MW_ItemIcon" position="-3 -3 42 42" align="Left Top" name="WeapImage">
                     <Property key="NeedMouse" value="false"/>
                 </Widget>
             </Widget>
-            <Widget type="ProgressBar" skin="MW_EnergyBar_Red" position="0 36 36 6" align="Left Bottom" name="WeapStatus">
+            <Widget type="ProgressBar" skin="MW_EnergyBar_Weapon" position="0 36 36 6" align="Left Bottom" name="WeapStatus">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
@@ -72,10 +71,10 @@
         <!-- Selected spell box -->
         <Widget type="Button" position="122 146 36 41" align="Left Bottom" name="SpellBox">
             <Widget type="Widget" skin="HUD_Box" position="0 0 36 36">
-                <Widget type="ImageBox" skin="ImageBox" position="2 2 32 32" align="Left Top" name="SpellImage"/>
+                <Widget type="ItemWidget" skin="MW_ItemIcon" position="-3 -3 42 42" align="Left Top" name="SpellImage"/>
                 <Property key="NeedMouse" value="false"/>
             </Widget>
-            <Widget type="ProgressBar" skin="MW_EnergyBar_Red" position="0 36 36 6" align="Left Bottom" name="SpellStatus">
+            <Widget type="ProgressBar" skin="MW_EnergyBar_Magic" position="0 36 36 6" align="Left Bottom" name="SpellStatus">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
@@ -101,6 +100,7 @@
             <Property key="TextAlign" value="Right"/>
             <Property key="TextShadow" value="true"/>
             <Property key="TextShadowColour" value="0 0 0"/>
+            <Property key="NeedMouse" value="false"/>
         </Widget>
 
         <!-- Map box -->
@@ -108,13 +108,12 @@
             <Widget type="Widget" skin="HUD_Box" position="0 0 65 65" align="Center">
 
                 <Widget type="ScrollView" skin="MW_MapView" position="2 2 61 61" align="Left Bottom" name="MiniMap">
-                    <Property key="CanvasSize" value="1536 1536"/>
-
                     <Widget type="ImageBox" skin="RotatingSkin" position="0 0 32 32" align="Bottom Left" name="Compass">
                         <Property key="ImageTexture" value="textures\compass.dds"/>
                     </Widget>
 
-                    <Widget type="Button" skin="" position="0 0 1536 1536" name="MiniMapButton" align="Right Bottom">
+                    <Widget type="Button" skin="" position_real="0 0 1 1" name="MiniMapButton" align="Stretch">
+                        <Property key="Depth" value="10"/>
                     </Widget>
 
                 </Widget>
@@ -123,55 +122,7 @@
         </Widget>
 
         <!-- Crosshair -->
-        <Widget type="ImageBox" skin="ImageBox" position="0 0 32 32" align="Center Center" name="Crosshair">
-            <Property key="ImageTexture" value="textures\target.dds"/>
-        </Widget>
-
-        <!-- Basic FPSCounter box -->
-        <Widget type="Widget" skin="HUD_Box" position="12 12 32 26" align="Left Top" name="FPSBox">
-            <Property key="Visible" value="false"/>
-            <Widget type="TextBox" skin="NumFPS" position="3 3 25 17" align="Center" name="FPSCounter"/>
-        </Widget>
-
-        <!-- Advanced FPSCounter box -->
-        <Widget type="Widget" skin="HUD_Box" position="12 12 165 64" align="Left Top" name="FPSBoxAdv">
-            <Property key="Visible" value="false"/>
-
-            <Widget type="Widget" skin="" position="0 0 110 60" align="Left Top">
-
-                <Widget type="TextBox" skin="NumFPS" position="0 0 110 32" align="Left Top">
-                    <Property key="Caption" value="FPS: "/>
-                    <Property key="TextAlign" value="Right"/>
-                </Widget>
-
-                <Widget type="TextBox" skin="NumFPS" position="0 16 110 32" align="Left Top">
-                    <Property key="Caption" value="Tri Count: "/>
-                    <Property key="TextAlign" value="Right"/>
-                </Widget>
-
-                <Widget type="TextBox" skin="NumFPS" position="0 32 110 32" align="Left Top">
-                    <Property key="Caption" value="Batch Count: "/>
-                    <Property key="TextAlign" value="Right"/>
-                </Widget>
-
-            </Widget>
-
-            <Widget type="Widget" skin="" position="110 0 55 60" align="Left Top">
-
-                <Widget type="TextBox" skin="NumFPS" position="0 0 55 32" align="Left Top" name="FPSCounterAdv">
-                    <Property key="TextAlign" value="Left"/>
-                </Widget>
-
-                <Widget type="TextBox" skin="NumFPS" position="0 16 55 32" align="Left Top" name="TriangleCounter">
-                    <Property key="TextAlign" value="Left"/>
-                </Widget>
-
-                <Widget type="TextBox" skin="NumFPS" position="0 32 55 32" align="Left Top" name="BatchCounter">
-                    <Property key="TextAlign" value="Left"/>
-                </Widget>
-
-            </Widget>
-
+        <Widget type="ImageBox" skin="HUD_Crosshair" position="0 0 32 32" align="Center Center" name="Crosshair">
         </Widget>
 
     </Widget>

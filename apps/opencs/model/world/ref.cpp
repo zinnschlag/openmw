@@ -1,12 +1,18 @@
-
 #include "ref.hpp"
 
-#include "cell.hpp"
+#include <cmath>
 
-void CSMWorld::CellRef::load (ESM::ESMReader &esm, Cell& cell, const std::string& id)
+#include <sstream>
+
+#include "cellcoordinates.hpp"
+
+CSMWorld::CellRef::CellRef() : mNew (true)
 {
-    mId = id;
-    mCell = cell.mId;
+    mRefNum.mIndex = 0;
+    mRefNum.mContentFile = 0;
+}
 
-    cell.addRef (mId);
+std::pair<int, int> CSMWorld::CellRef::getCellIndex() const
+{
+    return CellCoordinates::coordinatesToCellIndex (mPos.pos[0], mPos.pos[1]);
 }

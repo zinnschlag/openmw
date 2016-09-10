@@ -1,7 +1,14 @@
 #ifndef OPENMW_GAME_MWGUI_ITEMSELECTION_H
 #define OPENMW_GAME_MWGUI_ITEMSELECTION_H
 
-#include "container.hpp"
+#include <MyGUI_Delegate.h>
+
+#include "windowbase.hpp"
+
+namespace MWWorld
+{
+    class Ptr;
+}
 
 namespace MWGui
 {
@@ -13,6 +20,8 @@ namespace MWGui
     {
     public:
         ItemSelectionDialog(const std::string& label);
+
+        virtual void exit();
 
         typedef MyGUI::delegates::CMultiDelegate0 EventHandle_Void;
         typedef MyGUI::delegates::CMultiDelegate1<MWWorld::Ptr> EventHandle_Item;

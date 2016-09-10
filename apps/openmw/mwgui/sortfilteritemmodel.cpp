@@ -1,5 +1,7 @@
 #include "sortfilteritemmodel.hpp"
 
+#include <components/misc/stringops.hpp>
+
 #include <components/esm/loadalch.hpp>
 #include <components/esm/loadappa.hpp>
 #include <components/esm/loadarmo.hpp>
@@ -14,6 +16,7 @@
 #include <components/esm/loadweap.hpp>
 
 #include "../mwworld/class.hpp"
+#include "../mwworld/nullaction.hpp"
 
 namespace
 {
@@ -40,20 +43,26 @@ namespace
         return std::find(mapping.begin(), mapping.end(), type1) < std::find(mapping.begin(), mapping.end(), type2);
     }
 
-    bool compare (const MWGui::ItemStack& left, const MWGui::ItemStack& right)
+    struct Compare
     {
-        if (left.mType != right.mType)
-            return left.mType < right.mType;
-
-        if (left.mBase.getTypeName() == right.mBase.getTypeName())
+        bool mSortByType;
+        Compare() : mSortByType(true) {}
+        bool operator() (const MWGui::ItemStack& left, const MWGui::ItemStack& right)
         {
-            int cmp = MWWorld::Class::get(left.mBase).getName(left.mBase).compare(
-                        MWWorld::Class::get(right.mBase).getName(right.mBase));
-            return cmp < 0;
+            if (mSortByType && left.mType != right.mType)
+                return left.mType < right.mType;
+
+            if (left.mBase.getTypeName() == right.mBase.getTypeName())
+            {
+                std::string leftName = Misc::StringUtils::lowerCase(left.mBase.getClass().getName(left.mBase));
+                std::string rightName = Misc::StringUtils::lowerCase(right.mBase.getClass().getName(right.mBase));
+
+                return leftName.compare(rightName) < 0;
+            }
+            else
+                return compareType(left.mBase.getTypeName(), right.mBase.getTypeName());
         }
-        else
-            return compareType(left.mBase.getTypeName(), right.mBase.getTypeName());
-    }
+    };
 }
 
 namespace MWGui
@@ -61,8 +70,8 @@ namespace MWGui
 
     SortFilterItemModel::SortFilterItemModel(ItemModel *sourceModel)
         : mCategory(Category_All)
-        , mShowEquipped(true)
         , mFilter(0)
+        , mSortByType(true)
     {
         mSourceModel = sourceModel;
     }
@@ -80,9 +89,6 @@ namespace MWGui
     bool SortFilterItemModel::filterAccepts (const ItemStack& item)
     {
         MWWorld::Ptr base = item.mBase;
-
-        if (item.mType == ItemStack::Type_Equipped && !mShowEquipped)
-            return false;
 
         int category = 0;
         if (base.getTypeName() == typeid(ESM::Armor).name()
@@ -114,7 +120,7 @@ namespace MWGui
         if ((mFilter & Filter_OnlyEnchanted) && !(item.mFlags & ItemStack::Flag_Enchanted))
             return false;
         if ((mFilter & Filter_OnlyChargedSoulstones) && (base.getTypeName() != typeid(ESM::Miscellaneous).name()
-                                                     || base.getCellRef().mSoul == ""))
+                                                     || base.getCellRef().getSoul() == ""))
             return false;
         if ((mFilter & Filter_OnlyEnchantable) && (item.mFlags & ItemStack::Flag_Enchanted
                                                || (base.getTypeName() != typeid(ESM::Armor).name()
@@ -125,6 +131,13 @@ namespace MWGui
         if ((mFilter & Filter_OnlyEnchantable) && base.getTypeName() == typeid(ESM::Book).name()
                 && !base.get<ESM::Book>()->mBase->mData.mIsScroll)
             return false;
+
+        if ((mFilter & Filter_OnlyUsableItems) && base.getClass().getScript(base).empty())
+        {
+            boost::shared_ptr<MWWorld::Action> actionOnUse = base.getClass().use(base);
+            if (!actionOnUse || actionOnUse->isNullAction())
+                return false;
+        }
 
         return true;
     }
@@ -178,7 +191,9 @@ namespace MWGui
                 mItems.push_back(item);
         }
 
-        std::sort(mItems.begin(), mItems.end(), compare);
+        Compare cmp;
+        cmp.mSortByType = mSortByType;
+        std::sort(mItems.begin(), mItems.end(), cmp);
     }
 
 }

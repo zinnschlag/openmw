@@ -1,37 +1,55 @@
 #ifndef OPENMW_GAME_MWGUI_MAINMENU_H
 #define OPENMW_GAME_MWGUI_MAINMENU_H
 
-#include <openengine/gui/layout.hpp>
+#include "layout.hpp"
 
-#include "imagebutton.hpp"
+namespace Gui
+{
+    class ImageButton;
+}
+
+namespace VFS
+{
+    class Manager;
+}
 
 namespace MWGui
 {
 
+    class BackgroundImage;
     class SaveGameDialog;
+    class VideoWidget;
 
-    class MainMenu : public OEngine::GUI::Layout
+    class MainMenu : public Layout
     {
             int mWidth;
             int mHeight;
 
+            bool mHasAnimatedMenu;
+
         public:
 
-            MainMenu(int w, int h);
+            MainMenu(int w, int h, const VFS::Manager* vfs, const std::string& versionDescription);
             ~MainMenu();
 
             void onResChange(int w, int h);
 
             virtual void setVisible (bool visible);
 
+            void update(float dt);
+
         private:
+            const VFS::Manager* mVFS;
 
             MyGUI::Widget* mButtonBox;
             MyGUI::TextBox* mVersionText;
 
-            MyGUI::ImageBox* mBackground;
+            BackgroundImage* mBackground;
 
-            std::map<std::string, MWGui::ImageButton*> mButtons;
+            MyGUI::ImageBox* mVideoBackground;
+            VideoWidget* mVideo; // For animated main menus
+
+            std::map<std::string, Gui::ImageButton*> mButtons;
 
             void onButtonClicked (MyGUI::Widget* sender);
             void onNewGameConfirmed();

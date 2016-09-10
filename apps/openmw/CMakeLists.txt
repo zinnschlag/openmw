@@ -2,8 +2,16 @@
 set(GAME
     main.cpp
     engine.cpp
+
+    ${CMAKE_SOURCE_DIR}/files/windows/openmw.rc
 )
-if(NOT WIN32)
+
+if (ANDROID)
+    set(GAME ${GAME} android_commandLine.cpp)
+    set(GAME ${GAME} android_main.c)
+endif()
+
+if(NOT WIN32 AND NOT ANDROID)
     set(GAME ${GAME} crashcatcher.cpp)
 endif()
 set(GAME_HEADER
@@ -12,10 +20,10 @@ set(GAME_HEADER
 source_group(game FILES ${GAME} ${GAME_HEADER})
 
 add_openmw_dir (mwrender
-    renderingmanager debugging sky camera animation npcanimation creatureanimation activatoranimation
-    actors objects renderinginterface localmap occlusionquery water shadows
-    characterpreview globalmap videoplayer ripplesimulation refraction
-    terrainstorage renderconst effectmanager weaponanimation
+    actors objects renderingmanager animation rotatecontroller sky npcanimation vismask
+    creatureanimation effectmanager util renderinginterface pathgrid rendermode weaponanimation
+    bulletdebugdraw globalmap characterpreview camera localmap water terrainstorage ripplesimulation
+    renderbin
     )
 
 add_openmw_dir (mwinput
@@ -23,21 +31,22 @@ add_openmw_dir (mwinput
     )
 
 add_openmw_dir (mwgui
-    textinput widgets race class birth review windowmanagerimp console dialogue
+    layout textinput widgets race class birth review windowmanagerimp console dialogue
     windowbase statswindow messagebox journalwindow charactercreation
-    mapwindow windowpinnablebase tooltips scrollwindow bookwindow list
+    mapwindow windowpinnablebase tooltips scrollwindow bookwindow
     formatting inventorywindow container hud countdialog tradewindow settingswindow
     confirmationdialog alchemywindow referenceinterface spellwindow mainmenu quickkeysmenu
     itemselection spellbuyingwindow loadingscreen levelupdialog waitdialog spellcreationdialog
-    enchantingdialog trainingwindow travelwindow imagebutton exposedwindow cursor spellicons
+    enchantingdialog trainingwindow travelwindow exposedwindow cursor spellicons
     merchantrepair repair soulgemdialog companionwindow bookpage journalviewmodel journalbooks
-    keywordsearch itemmodel containeritemmodel inventoryitemmodel sortfilteritemmodel itemview
-    tradeitemmodel companionitemmodel pickpocketitemmodel fontloader controllers savegamedialog
-    recharge mode videowidget
+    itemmodel containeritemmodel inventoryitemmodel sortfilteritemmodel itemview
+    tradeitemmodel companionitemmodel pickpocketitemmodel controllers savegamedialog
+    recharge mode videowidget backgroundimage itemwidget screenfader debugwindow spellmodel spellview
+    draganddrop timeadvancer jailscreen
     )
 
 add_openmw_dir (mwdialogue
-    dialoguemanagerimp journalimp journalentry quest topic filter selectwrapper
+    dialoguemanagerimp journalimp journalentry quest topic filter selectwrapper hypertextparser keywordsearch scripttest
     )
 
 add_openmw_dir (mwscript
@@ -48,28 +57,34 @@ add_openmw_dir (mwscript
     )
 
 add_openmw_dir (mwsound
-    soundmanagerimp openal_output audiere_decoder mpgsnd_decoder ffmpeg_decoder
+    soundmanagerimp openal_output ffmpeg_decoder sound sound_buffer sound_decoder sound_output loudness movieaudiofactory
     )
 
 add_openmw_dir (mwworld
-    refdata worldimp physicssystem scene globals class action nullaction actionteleport
-    containerstore actiontalk actiontake manualref player cellfunctors failedaction
-    cells localscripts customdata weather inventorystore ptr actionopen actionread
+    refdata worldimp scene globals class action nullaction actionteleport
+    containerstore actiontalk actiontake manualref player cellvisitors failedaction
+    cells localscripts customdata inventorystore ptr actionopen actionread
     actionequip timestamp actionalchemy cellstore actionapply actioneat
-    esmstore store recordcmp fallback actionrepair actionsoulgem livecellref actiondoor
-    contentloader esmloader omwloader actiontrap cellreflist
+    store esmstore recordcmp fallback actionrepair actionsoulgem livecellref actiondoor
+    contentloader esmloader actiontrap cellreflist cellref physicssystem weather projectilemanager
+    cellpreloader
+    )
+
+add_openmw_dir (mwphysics
+    physicssystem trace collisiontype actor convert
     )
 
 add_openmw_dir (mwclass
     classes activator creature npc weapon armor potion apparatus book clothing container door
-    ingredient creaturelevlist itemlevlist light lockpick misc probe repair static
+    ingredient creaturelevlist itemlevlist light lockpick misc probe repair static actor bodypart
     )
 
 add_openmw_dir (mwmechanics
-    mechanicsmanagerimp stat character creaturestats magiceffects movement actors objects
-    drawstate spells activespells npcstats aipackage aisequence alchemy aiwander aitravel aifollow
-    aiescort aiactivate aicombat repair enchanting pathfinding security spellsuccess spellcasting
-    disease pickpocket levelledlist combat steering
+    mechanicsmanagerimp stat creaturestats magiceffects movement actorutil
+    drawstate spells activespells npcstats aipackage aisequence aipursue alchemy aiwander aitravel aifollow aiavoiddoor
+    aiescort aiactivate aicombat repair enchanting pathfinding pathgrid security spellsuccess spellcasting
+    disease pickpocket levelledlist combat steering obstacle autocalcspell difficultyscaling aicombataction actor summoning
+    character actors objects aistate coordinateconverter trading aiface
     )
 
 add_openmw_dir (mwstate
@@ -82,52 +97,75 @@ add_openmw_dir (mwbase
     )
 
 # Main executable
-set(BOOST_COMPONENTS system filesystem program_options thread wave)
-find_package(Boost REQUIRED COMPONENTS ${BOOST_COMPONENTS})
 
-IF(OGRE_STATIC)
-ADD_DEFINITIONS(-DENABLE_PLUGIN_OctreeSceneManager -DENABLE_PLUGIN_ParticleFX -DENABLE_PLUGIN_GL)
-set(OGRE_STATIC_PLUGINS ${OGRE_Plugin_OctreeSceneManager_LIBRARIES} ${OGRE_Plugin_ParticleFX_LIBRARIES} ${OGRE_RenderSystem_GL_LIBRARIES})
-IF(WIN32)
-ADD_DEFINITIONS(-DENABLE_PLUGIN_Direct3D9)
-list (APPEND OGRE_STATIC_PLUGINS ${OGRE_RenderSystem_Direct3D9_LIBRARIES})
-ENDIF(WIN32)
-IF (Cg_FOUND)
-ADD_DEFINITIONS(-DENABLE_PLUGIN_CgProgramManager)
-list (APPEND OGRE_STATIC_PLUGINS ${OGRE_Plugin_CgProgramManager_LIBRARIES} ${Cg_LIBRARIES})
-ENDIF (Cg_FOUND)
-ENDIF(OGRE_STATIC)
-
-add_executable(openmw
-    ${OPENMW_LIBS} ${OPENMW_LIBS_HEADER}
-    ${OPENMW_FILES}
-    ${GAME} ${GAME_HEADER}
-    ${APPLE_BUNDLE_RESOURCES}
-)
+if (NOT ANDROID)
+    add_executable(openmw
+        ${OPENMW_FILES}
+        ${GAME} ${GAME_HEADER}
+        ${APPLE_BUNDLE_RESOURCES}
+    )
+else ()
+    add_library(openmw
+        SHARED
+        ${OPENMW_FILES}
+        ${GAME} ${GAME_HEADER}
+    )
+endif ()
 
 # Sound stuff - here so CMake doesn't stupidly recompile EVERYTHING
 # when we change the backend.
-include_directories(${SOUND_INPUT_INCLUDES} ${BULLET_INCLUDE_DIRS})
-add_definitions(${SOUND_DEFINE})
+include_directories(
+    ${FFmpeg_INCLUDE_DIRS}
+)
 
 target_link_libraries(openmw
-    ${OGRE_LIBRARIES}
-    ${OGRE_STATIC_PLUGINS}
-    ${SHINY_LIBRARIES}
-    ${Boost_LIBRARIES}
+    ${OSG_LIBRARIES}
+    ${OPENTHREADS_LIBRARIES}
+    ${OSGPARTICLE_LIBRARIES}
+    ${OSGUTIL_LIBRARIES}
+    ${OSGDB_LIBRARIES}
+    ${OSGVIEWER_LIBRARIES}
+    ${OSGGA_LIBRARIES}
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_THREAD_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
     ${OPENAL_LIBRARY}
-    ${SOUND_INPUT_LIBRARY}
-    ${BULLET_LIBRARIES}
-    ${MYGUI_LIBRARIES}
+    ${FFmpeg_LIBRARIES}
+    ${MyGUI_LIBRARIES}
     ${SDL2_LIBRARY}
-    ${MYGUI_PLATFORM_LIBRARIES}
+    "osg-ffmpeg-videoplayer"
     "oics"
-    "sdl4ogre"
     components
 )
 
+if (ANDROID)
+    set (OSG_PLUGINS
+        -Wl,--whole-archive
+        ${OSG_PLUGINS_DIR}/libosgdb_dds.a
+        ${OSG_PLUGINS_DIR}/libosgdb_bmp.a
+        ${OSG_PLUGINS_DIR}/libosgdb_tga.a
+        ${OSG_PLUGINS_DIR}/libosgdb_gif.a
+        ${OSG_PLUGINS_DIR}/libosgdb_jpeg.a
+        ${OSG_PLUGINS_DIR}/libosgdb_png.a
+        -Wl,--no-whole-archive
+    )
+    target_link_libraries(openmw
+        EGL
+        android
+        log
+        dl
+        z
+        ${OPENSCENEGRAPH_LIBRARIES}
+        ${OSG_PLUGINS}
+        jpeg
+        gif
+    	png
+    )
+endif (ANDROID)
+
 if (USE_SYSTEM_TINYXML)
-    target_link_libraries(openmw ${TINYXML_LIBRARIES})
+    target_link_libraries(openmw ${TinyXML_LIBRARIES})
 endif()
 
 if (NOT UNIX)
@@ -144,16 +182,12 @@ if(APPLE)
     find_library(IOKIT_FRAMEWORK IOKit)
     target_link_libraries(openmw ${COCOA_FRAMEWORK} ${IOKIT_FRAMEWORK})
 
-    if (FFMPEG_FOUND)
+    if (FFmpeg_FOUND)
         find_library(COREVIDEO_FRAMEWORK CoreVideo)
         find_library(VDA_FRAMEWORK VideoDecodeAcceleration)
         target_link_libraries(openmw ${COREVIDEO_FRAMEWORK} ${VDA_FRAMEWORK})
     endif()
 endif(APPLE)
-
-if(DPKG_PROGRAM)
-    INSTALL(TARGETS openmw RUNTIME DESTINATION games COMPONENT openmw)
-endif(DPKG_PROGRAM)
 
 if (BUILD_WITH_CODE_COVERAGE)
   add_definitions (--coverage)
@@ -165,4 +199,5 @@ if (MSVC)
     if (CMAKE_CL_64)
         set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /bigobj")
     endif (CMAKE_CL_64)
+    add_definitions("-D_USE_MATH_DEFINES")
 endif (MSVC)

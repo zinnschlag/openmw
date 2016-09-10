@@ -1,5 +1,10 @@
 #include "console.hpp"
 
+#include <MyGUI_EditBox.h>
+
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+
 #include <components/compiler/exception.hpp>
 #include <components/compiler/extensions0.hpp>
 
@@ -7,6 +12,7 @@
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/world.hpp"
 
 #include "../mwworld/esmstore.hpp"
 
@@ -58,7 +64,7 @@ namespace MWGui
         }
         catch (const std::exception& error)
         {
-            printError (std::string ("An exception has been thrown: ") + error.what());
+            printError (std::string ("Error: ") + error.what());
         }
 
         return false;
@@ -98,8 +104,20 @@ namespace MWGui
                 it->second->listIdentifier (mNames);
             }
 
+            // exterior cell names aren't technically identifiers, but since the COC function accepts them,
+            // we should list them too
+            for (MWWorld::Store<ESM::Cell>::iterator it = store.get<ESM::Cell>().extBegin();
+                 it != store.get<ESM::Cell>().extEnd(); ++it)
+            {
+                if (!it->mName.empty())
+                    mNames.push_back(it->mName);
+            }
+
             // sort
             std::sort (mNames.begin(), mNames.end());
+
+            // remove duplicates
+            mNames.erase( std::unique( mNames.begin(), mNames.end() ), mNames.end() );
         }
     }
 
@@ -137,7 +155,13 @@ namespace MWGui
     void Console::close()
     {
         // Apparently, hidden widgets can retain key focus
+        // Remove for MyGUI 3.2.2
         MWBase::Environment::get().getWindowManager()->setKeyFocusWidget(NULL);
+    }
+
+    void Console::exit()
+    {
+         MWBase::Environment::get().getWindowManager()->removeGuiMode(GM_Console);
     }
 
     void Console::setFont(const std::string &fntName)
@@ -146,30 +170,25 @@ namespace MWGui
         mCommandLine->setFontName(fntName);
     }
 
-    void Console::clearHistory()
+    void Console::print(const std::string &msg, const std::string& color)
     {
-        mHistory->setCaption("");
-    }
-
-    void Console::print(const std::string &msg)
-    {
-        mHistory->addText(msg);
+        mHistory->addText(color + MyGUI::TextIterator::toTagsString(msg));
     }
 
     void Console::printOK(const std::string &msg)
     {
-        print("#FF00FF" + msg + "\n");
+        print(msg + "\n", "#FF00FF");
     }
 
     void Console::printError(const std::string &msg)
     {
-        print("#FF2222" + msg + "\n");
+        print(msg + "\n", "#FF2222");
     }
 
     void Console::execute (const std::string& command)
     {
         // Log the command
-        print("#FFFFFF> " + command + "\n");
+        print("> " + command + "\n");
 
         Compiler::Locals locals;
         Compiler::Output output (locals);
@@ -187,14 +206,15 @@ namespace MWGui
             }
             catch (const std::exception& error)
             {
-                printError (std::string ("An exception has been thrown: ") + error.what());
+                printError (std::string ("Error: ") + error.what());
             }
         }
     }
 
     void Console::executeFile (const std::string& path)
     {
-        std::ifstream stream (path.c_str());
+        namespace bfs = boost::filesystem;
+        bfs::ifstream stream ((bfs::path(path)));
 
         if (!stream.is_open())
             printError ("failed to open file: " + path);
@@ -215,16 +235,22 @@ namespace MWGui
         {
             std::vector<std::string> matches;
             listNames();
-            mCommandLine->setCaption(complete( mCommandLine->getOnlyText(), matches ));
-#if 0
-            int i = 0;
-            for(std::vector<std::string>::iterator it=matches.begin(); it < matches.end(); ++it,++i )
+            std::string oldCaption = mCommandLine->getCaption();
+            std::string newCaption = complete( mCommandLine->getOnlyText(), matches );
+            mCommandLine->setCaption(newCaption);
+
+            // List candidates if repeatedly pressing tab
+            if (oldCaption == newCaption && !matches.empty())
             {
-                printOK( *it );
-                if( i == 50 )
-                    break;
+                int i = 0;
+                printOK("");
+                for(std::vector<std::string>::iterator it=matches.begin(); it < matches.end(); ++it,++i )
+                {
+                    printOK( *it );
+                    if( i == 50 )
+                        break;
+                }
             }
-#endif
         }
 
         if(mCommandHistory.empty()) return;
@@ -264,13 +290,17 @@ namespace MWGui
 
         // Add the command to the history, and set the current pointer to
         // the end of the list
-        mCommandHistory.push_back(cm);
+        if (mCommandHistory.empty() || mCommandHistory.back() != cm)
+            mCommandHistory.push_back(cm);
         mCurrent = mCommandHistory.end();
         mEditString.clear();
 
-        execute (cm);
-
+        // Reset the command line before the command execution.
+        // It prevents the re-triggering of the acceptCommand() event for the same command 
+        // during the actual command execution
         mCommandLine->setCaption("");
+
+        execute (cm);
     }
 
     std::string Console::complete( std::string input, std::vector<std::string> &matches )
@@ -335,7 +365,7 @@ namespace MWGui
 
             /* Is the beginning of the string different from the input string? If yes skip it. */
             for( std::string::iterator iter=tmp.begin(), iter2=(*it).begin(); iter < tmp.end();++iter, ++iter2) {
-                if( tolower(*iter) != tolower(*iter2) ) {
+                if( Misc::StringUtils::toLower(*iter) != Misc::StringUtils::toLower(*iter2) ) {
                     string_different=true;
                     break;
                 }
@@ -375,7 +405,7 @@ namespace MWGui
 
         for(std::string::iterator iter=matches.front().begin()+tmp.length(); iter < matches.front().end(); ++iter, ++i) {
             for(std::vector<std::string>::iterator it=matches.begin(); it < matches.end();++it) {
-                if( tolower((*it)[i]) != tolower(*iter) ) {
+                if( Misc::StringUtils::toLower((*it)[i]) != Misc::StringUtils::toLower(*iter) ) {
                     /* Append the longest match to the end of the output string*/
                     output.append(matches.front().substr( 0, i));
                     return output;
@@ -403,7 +433,7 @@ namespace MWGui
             }
             else
             {
-                setTitle("#{sConsoleTitle} (" + object.getCellRef().mRefID + ")");
+                setTitle("#{sConsoleTitle} (" + object.getCellRef().getRefId() + ")");
                 mPtr = object;
             }
             // User clicked on an object. Restore focus to the console command line.
@@ -418,6 +448,12 @@ namespace MWGui
 
     void Console::onReferenceUnavailable()
     {
+        setSelectedObject(MWWorld::Ptr());
+    }
+
+    void Console::resetReference()
+    {
+        ReferenceInterface::resetReference();
         setSelectedObject(MWWorld::Ptr());
     }
 }

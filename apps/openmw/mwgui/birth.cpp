@@ -1,10 +1,13 @@
 #include "birth.hpp"
 
-#include <boost/lexical_cast.hpp>
+#include <MyGUI_ListBox.h>
+#include <MyGUI_ImageBox.h>
+#include <MyGUI_Gui.h>
 
 #include "../mwbase/environment.hpp"
 #include "../mwbase/world.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwworld/esmstore.hpp"
 
 #include "widgets.hpp"
 
@@ -78,8 +81,6 @@ namespace MWGui
             if (Misc::StringUtils::ciEqual(*mBirthList->getItemDataAt<std::string>(i), birthId))
             {
                 mBirthList->setIndexSelected(i);
-                MyGUI::Button* okButton;
-                getWidget(okButton, "OKButton");
                 break;
             }
         }
@@ -113,9 +114,6 @@ namespace MWGui
     {
         if (_index == MyGUI::ITEM_NONE)
             return;
-
-        MyGUI::Button* okButton;
-        getWidget(okButton, "OKButton");
 
         const std::string *birthId = mBirthList->getItemDataAt<std::string>(_index);
         if (Misc::StringUtils::ciEqual(mCurrentBirthId, *birthId))
@@ -182,9 +180,7 @@ namespace MWGui
         const ESM::BirthSign *birth =
             store.get<ESM::BirthSign>().find(mCurrentBirthId);
 
-        std::string texturePath = std::string("textures\\") + birth->mTexture;
-        Widgets::fixTexturePath(texturePath);
-        mBirthImage->setImageTexture(texturePath);
+        mBirthImage->setImageTexture(MWBase::Environment::get().getWindowManager()->correctTexturePath(birth->mTexture));
 
         std::vector<std::string> abilities, powers, spells;
 
@@ -233,7 +229,7 @@ namespace MWGui
                 for (std::vector<std::string>::const_iterator it = categories[category].spells.begin(); it != end; ++it)
                 {
                     const std::string &spellId = *it;
-                    spellWidget = mSpellArea->createWidget<Widgets::MWSpell>("MW_StatName", coord, MyGUI::Align::Default, std::string("Spell") + boost::lexical_cast<std::string>(i));
+                    spellWidget = mSpellArea->createWidget<Widgets::MWSpell>("MW_StatName", coord, MyGUI::Align::Default, std::string("Spell") + MyGUI::utility::toString(i));
                     spellWidget->setSpellId(spellId);
 
                     mSpellItems.push_back(spellWidget);

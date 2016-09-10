@@ -1,6 +1,6 @@
-
 #include "statsextensions.hpp"
 
+#include <iostream>
 #include <cmath>
 
 #include <components/esm/loadnpc.hpp>
@@ -18,28 +18,28 @@
 #include "../mwbase/dialoguemanager.hpp"
 #include "../mwbase/mechanicsmanager.hpp"
 #include "../mwbase/windowmanager.hpp"
+#include "../mwbase/world.hpp"
 
 #include "../mwworld/class.hpp"
+#include "../mwworld/player.hpp"
 
 #include "../mwmechanics/creaturestats.hpp"
 #include "../mwmechanics/npcstats.hpp"
+#include "../mwmechanics/actorutil.hpp"
 
 #include "interpretercontext.hpp"
 #include "ref.hpp"
 
 namespace
 {
-    std::string getDialogueActorFaction()
+    std::string getDialogueActorFaction(MWWorld::ConstPtr actor)
     {
-        MWWorld::Ptr actor = MWBase::Environment::get().getDialogueManager()->getActor();
-
-        const MWMechanics::NpcStats &stats = MWWorld::Class::get (actor).getNpcStats (actor);
-
-        if (stats.getFactionRanks().empty())
+        std::string factionId = actor.getClass().getPrimaryFaction(actor);
+        if (factionId.empty())
             throw std::runtime_error (
                 "failed to determine dialogue actors faction (because actor is factionless)");
 
-        return stats.getFactionRanks().begin()->first;
+        return factionId;
     }
 }
 
@@ -57,7 +57,7 @@ namespace MWScript
                     MWWorld::Ptr ptr = R()(runtime);
 
                     Interpreter::Type_Integer value =
-                        MWWorld::Class::get (ptr)
+                        ptr.getClass()
                             .getCreatureStats (ptr)
                             .getLevel();
 
@@ -77,7 +77,7 @@ namespace MWScript
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
-                    MWWorld::Class::get (ptr)
+                    ptr.getClass()
                         .getCreatureStats (ptr)
                         .setLevel(value);
                 }
@@ -97,7 +97,7 @@ namespace MWScript
                     MWWorld::Ptr ptr = R()(runtime);
 
                     Interpreter::Type_Integer value =
-                        MWWorld::Class::get (ptr)
+                        ptr.getClass()
                             .getCreatureStats (ptr)
                             .getAttribute(mIndex)
                             .getModified();
@@ -144,7 +144,7 @@ namespace MWScript
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
-                    MWMechanics::AttributeValue attribute = MWWorld::Class::get(ptr)
+                    MWMechanics::AttributeValue attribute = ptr.getClass()
                         .getCreatureStats(ptr)
                         .getAttribute(mIndex);
 
@@ -167,13 +167,13 @@ namespace MWScript
                     MWWorld::Ptr ptr = R()(runtime);
                     Interpreter::Type_Float value;
 
-                    if (mIndex==0 && MWWorld::Class::get (ptr).hasItemHealth (ptr))
+                    if (mIndex==0 && ptr.getClass().hasItemHealth (ptr))
                     {
                         // health is a special case
-                        value = MWWorld::Class::get (ptr).getItemMaxHealth (ptr);
+                        value = static_cast<Interpreter::Type_Float>(ptr.getClass().getItemMaxHealth(ptr));
                     } else {
                         value =
-                            MWWorld::Class::get(ptr)
+                            ptr.getClass()
                                 .getCreatureStats(ptr)
                                 .getDynamic(mIndex)
                                 .getCurrent();
@@ -198,13 +198,13 @@ namespace MWScript
                     Interpreter::Type_Float value = runtime[0].mFloat;
                     runtime.pop();
 
-                    MWMechanics::DynamicStat<float> stat (MWWorld::Class::get (ptr).getCreatureStats (ptr)
+                    MWMechanics::DynamicStat<float> stat (ptr.getClass().getCreatureStats (ptr)
                         .getDynamic (mIndex));
 
                     stat.setModified (value, 0);
                     stat.setCurrent(value);
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).setDynamic (mIndex, stat);
+                    ptr.getClass().getCreatureStats (ptr).setDynamic (mIndex, stat);
                 }
         };
 
@@ -219,23 +219,40 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
+                    int peek = R::implicit ? 0 : runtime[0].mInteger;
+
                     MWWorld::Ptr ptr = R()(runtime);
 
                     Interpreter::Type_Float diff = runtime[0].mFloat;
                     runtime.pop();
 
-                    MWMechanics::CreatureStats& stats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
+                    // workaround broken endgame scripts that kill dagoth ur
+                    if (!R::implicit &&
+                        ::Misc::StringUtils::ciEqual(ptr.getCellRef().getRefId(), "dagoth_ur_1"))
+                    {
+                        runtime.push (peek);
+
+                        if (R()(runtime, false, true).isEmpty())
+                        {
+                            std::cerr
+                                << "Compensating for broken script in Morrowind.esm by "
+                                << "ignoring remote access to dagoth_ur_1" << std::endl;
+                            return;
+                        }
+                    }
+
+                    MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats (ptr);
 
                     Interpreter::Type_Float current = stats.getDynamic(mIndex).getCurrent();
 
-                    MWMechanics::DynamicStat<float> stat (MWWorld::Class::get (ptr).getCreatureStats (ptr)
+                    MWMechanics::DynamicStat<float> stat (ptr.getClass().getCreatureStats (ptr)
                         .getDynamic (mIndex));
 
                     stat.setModified (diff + stat.getModified(), 0);
 
                     stat.setCurrent (diff + current);
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).setDynamic (mIndex, stat);
+                    ptr.getClass().getCreatureStats (ptr).setDynamic (mIndex, stat);
                 }
         };
 
@@ -255,16 +272,18 @@ namespace MWScript
                     Interpreter::Type_Float diff = runtime[0].mFloat;
                     runtime.pop();
 
-                    MWMechanics::CreatureStats& stats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
+                    MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats (ptr);
 
                     Interpreter::Type_Float current = stats.getDynamic(mIndex).getCurrent();
 
-                    MWMechanics::DynamicStat<float> stat (MWWorld::Class::get (ptr).getCreatureStats (ptr)
+                    MWMechanics::DynamicStat<float> stat (ptr.getClass().getCreatureStats (ptr)
                         .getDynamic (mIndex));
 
-                    stat.setCurrent (diff + current);
+                    // for fatigue, a negative current value is allowed and means the actor will be knocked down
+                    bool allowDecreaseBelowZero = (mIndex == 2);
+                    stat.setCurrent (diff + current, allowDecreaseBelowZero);
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).setDynamic (mIndex, stat);
+                    ptr.getClass().getCreatureStats (ptr).setDynamic (mIndex, stat);
                 }
         };
 
@@ -281,7 +300,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    MWMechanics::CreatureStats& stats = MWWorld::Class::get (ptr).getCreatureStats (ptr);
+                    MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats (ptr);
 
                     Interpreter::Type_Float value = 0;
 
@@ -329,31 +348,14 @@ namespace MWScript
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
-                    MWMechanics::NpcStats& stats = MWWorld::Class::get (ptr).getNpcStats (ptr);
-
-                    MWWorld::LiveCellRef<ESM::NPC> *ref = ptr.get<ESM::NPC>();
-
-                    assert (ref);
-
-                    const ESM::Class& class_ =
-                        *MWBase::Environment::get().getWorld()->getStore().get<ESM::Class>().find (ref->mBase->mClass);
-
-                    float level = stats.getSkill(mIndex).getBase();
-                    float progress = stats.getSkill(mIndex).getProgress();
+                    MWMechanics::NpcStats& stats = ptr.getClass().getNpcStats (ptr);
 
                     int newLevel = value - (stats.getSkill(mIndex).getModified() - stats.getSkill(mIndex).getBase());
 
                     if (newLevel<0)
                         newLevel = 0;
 
-                    progress = (progress / stats.getSkillGain (mIndex, class_, -1, level))
-                        * stats.getSkillGain (mIndex, class_, -1, newLevel);
-
-                    if (progress>=1)
-                        progress = 0.999999999;
-
                     stats.getSkill (mIndex).setBase (newLevel);
-                    stats.getSkill (mIndex).setProgress(progress);
                 }
         };
 
@@ -388,7 +390,7 @@ namespace MWScript
                 {
                     MWBase::World *world = MWBase::Environment::get().getWorld();
                     MWWorld::Ptr player = world->getPlayerPtr();
-                    runtime.push (static_cast <Interpreter::Type_Float> (MWWorld::Class::get (player).getNpcStats (player).getBounty()));
+                    runtime.push (static_cast <Interpreter::Type_Float> (player.getClass().getNpcStats (player).getBounty()));
                 }
         };
 
@@ -401,8 +403,12 @@ namespace MWScript
                     MWBase::World *world = MWBase::Environment::get().getWorld();
                     MWWorld::Ptr player = world->getPlayerPtr();
 
-                    MWWorld::Class::get (player).getNpcStats (player).setBounty(runtime[0].mFloat);
+                    int bounty = static_cast<int>(runtime[0].mFloat);
                     runtime.pop();
+                    player.getClass().getNpcStats (player).setBounty(bounty);
+
+                    if (bounty == 0)
+                        MWBase::Environment::get().getWorld()->getPlayer().recordCrimeId();
                 }
         };
 
@@ -415,7 +421,7 @@ namespace MWScript
                     MWBase::World *world = MWBase::Environment::get().getWorld();
                     MWWorld::Ptr player = world->getPlayerPtr();
 
-                    MWWorld::Class::get (player).getNpcStats (player).setBounty(runtime[0].mFloat + MWWorld::Class::get (player).getNpcStats (player).getBounty());
+                    player.getClass().getNpcStats(player).setBounty(static_cast<int>(runtime[0].mFloat) + player.getClass().getNpcStats(player).getBounty());
                     runtime.pop();
                 }
         };
@@ -435,7 +441,7 @@ namespace MWScript
                     // make sure a spell with this ID actually exists.
                     MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find (id);
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getSpells().add (id);
+                    ptr.getClass().getCreatureStats (ptr).getSpells().add (id);
                 }
         };
 
@@ -451,11 +457,11 @@ namespace MWScript
                     std::string id = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getSpells().remove (id);
+                    ptr.getClass().getCreatureStats (ptr).getSpells().remove (id);
 
                     MWBase::WindowManager *wm = MWBase::Environment::get().getWindowManager();
 
-                    if (ptr == MWBase::Environment::get().getWorld()->getPlayerPtr() &&
+                    if (ptr == MWMechanics::getPlayer() &&
                         id == wm->getSelectedSpell())
                     {
                         wm->unsetSelectedSpell();
@@ -475,7 +481,7 @@ namespace MWScript
                     std::string spellid = runtime.getStringLiteral (runtime[0].mInteger);
                     runtime.pop();
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getActiveSpells().removeEffects(spellid);
+                    ptr.getClass().getCreatureStats (ptr).getActiveSpells().removeEffects(spellid);
                 }
         };
 
@@ -491,7 +497,7 @@ namespace MWScript
                     Interpreter::Type_Integer effectId = runtime[0].mInteger;
                     runtime.pop();
 
-                    MWWorld::Class::get (ptr).getCreatureStats (ptr).getActiveSpells().purgeEffect(effectId);
+                    ptr.getClass().getCreatureStats (ptr).getActiveSpells().purgeEffect(effectId);
                 }
         };
 
@@ -510,106 +516,112 @@ namespace MWScript
 
                     Interpreter::Type_Integer value = 0;
 
-                    for (MWMechanics::Spells::TIterator iter (
-                        MWWorld::Class::get (ptr).getCreatureStats (ptr).getSpells().begin());
-                        iter!=MWWorld::Class::get (ptr).getCreatureStats (ptr).getSpells().end(); ++iter)
-                        if (iter->first==id)
-                        {
-                            value = 1;
-                            break;
-                        }
+                    if (ptr.getClass().getCreatureStats(ptr).getSpells().hasSpell(id))
+                        value = 1;
 
                     runtime.push (value);
                 }
         };
 
+        template<class R>
         class OpPCJoinFaction : public Interpreter::Opcode1
         {
             public:
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr actor = R()(runtime, false);
+
                     std::string factionID = "";
 
                     if(arg0==0)
                     {
-                        factionID = getDialogueActorFaction();
+                        factionID = getDialogueActorFaction(actor);
                     }
                     else
                     {
                         factionID = runtime.getStringLiteral (runtime[0].mInteger);
                         runtime.pop();
                     }
-                    ::Misc::StringUtils::toLower(factionID);
+                    ::Misc::StringUtils::lowerCaseInPlace(factionID);
+                    // Make sure this faction exists
+                    MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(factionID);
+
                     if(factionID != "")
                     {
-                        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-                        if(MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().find(factionID) == MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().end())
-                        {
-                            MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID] = 0;
-                        }
+                        MWWorld::Ptr player = MWMechanics::getPlayer();
+                        player.getClass().getNpcStats(player).joinFaction(factionID);
                     }
                 }
         };
 
+        template<class R>
         class OpPCRaiseRank : public Interpreter::Opcode1
         {
             public:
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr actor = R()(runtime, false);
+
                     std::string factionID = "";
 
                     if(arg0==0)
                     {
-                        factionID = getDialogueActorFaction();
+                        factionID = getDialogueActorFaction(actor);
                     }
                     else
                     {
                         factionID = runtime.getStringLiteral (runtime[0].mInteger);
                         runtime.pop();
                     }
-                    ::Misc::StringUtils::toLower(factionID);
+                    ::Misc::StringUtils::lowerCaseInPlace(factionID);
+                    // Make sure this faction exists
+                    MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(factionID);
+
                     if(factionID != "")
                     {
-                        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-                        if(MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().find(factionID) == MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().end())
+                        MWWorld::Ptr player = MWMechanics::getPlayer();
+                        if(player.getClass().getNpcStats(player).getFactionRanks().find(factionID) == player.getClass().getNpcStats(player).getFactionRanks().end())
                         {
-                            MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID] = 0;
+                            player.getClass().getNpcStats(player).joinFaction(factionID);
                         }
                         else
                         {
-                            MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID] = MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID] +1;
+                            player.getClass().getNpcStats(player).raiseRank(factionID);
                         }
                     }
                 }
         };
 
+        template<class R>
         class OpPCLowerRank : public Interpreter::Opcode1
         {
             public:
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr actor = R()(runtime, false);
+
                     std::string factionID = "";
 
                     if(arg0==0)
                     {
-                        factionID = getDialogueActorFaction();
+                        factionID = getDialogueActorFaction(actor);
                     }
                     else
                     {
                         factionID = runtime.getStringLiteral (runtime[0].mInteger);
                         runtime.pop();
                     }
-                    ::Misc::StringUtils::toLower(factionID);
+                    ::Misc::StringUtils::lowerCaseInPlace(factionID);
+                    // Make sure this faction exists
+                    MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(factionID);
+
                     if(factionID != "")
                     {
-                        MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-                        if(MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().find(factionID) != MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().end())
-                        {
-                            MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID] = MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID] -1;
-                        }
+                        MWWorld::Ptr player = MWMechanics::getPlayer();
+                        player.getClass().getNpcStats(player).lowerRank(factionID);
                     }
                 }
         };
@@ -621,7 +633,7 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
-                    MWWorld::Ptr ptr = R()(runtime);
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
 
                     std::string factionID = "";
                     if(arg0 >0)
@@ -631,22 +643,18 @@ namespace MWScript
                     }
                     else
                     {
-                        if(MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().empty())
-                        {
-                            factionID = "";
-                        }
-                        else
-                        {
-                            factionID = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().begin()->first;
-                        }
+                        factionID = ptr.getClass().getPrimaryFaction(ptr);
                     }
-                    ::Misc::StringUtils::toLower(factionID);
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                    ::Misc::StringUtils::lowerCaseInPlace(factionID);
+                    // Make sure this faction exists
+                    MWBase::Environment::get().getWorld()->getStore().get<ESM::Faction>().find(factionID);
+
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
                     if(factionID!="")
                     {
-                        if(MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().find(factionID) != MWWorld::Class::get(player).getNpcStats(player).getFactionRanks().end())
+                        if(player.getClass().getNpcStats(player).getFactionRanks().find(factionID) != player.getClass().getNpcStats(player).getFactionRanks().end())
                         {
-                            runtime.push(MWWorld::Class::get(player).getNpcStats(player).getFactionRanks()[factionID]);
+                            runtime.push(player.getClass().getNpcStats(player).getFactionRanks().at(factionID));
                         }
                         else
                         {
@@ -672,8 +680,11 @@ namespace MWScript
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
-                    MWWorld::Class::get (ptr).getNpcStats (ptr).setBaseDisposition
-                        (MWWorld::Class::get (ptr).getNpcStats (ptr).getBaseDisposition() + value);
+                    if (ptr.getClass().isNpc())
+                        ptr.getClass().getNpcStats (ptr).setBaseDisposition
+                            (ptr.getClass().getNpcStats (ptr).getBaseDisposition() + value);
+
+                    // else: must not throw exception (used by an Almalexia dialogue script)
                 }
         };
 
@@ -689,7 +700,8 @@ namespace MWScript
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
-                    MWWorld::Class::get (ptr).getNpcStats (ptr).setBaseDisposition (value);
+                    if (ptr.getClass().isNpc())
+                        ptr.getClass().getNpcStats (ptr).setBaseDisposition (value);
                 }
         };
 
@@ -702,7 +714,10 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push (MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(ptr));
+                    if (!ptr.getClass().isNpc())
+                        runtime.push(0);
+                    else
+                        runtime.push (MWBase::Environment::get().getMechanicsManager()->getDerivedDisposition(ptr));
                 }
         };
 
@@ -724,6 +739,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
+
                     std::string factionId;
 
                     if (arg0==1)
@@ -733,20 +750,17 @@ namespace MWScript
                     }
                     else
                     {
-                        MWWorld::Ptr ptr = R()(runtime);
-
-                        if (!MWWorld::Class::get (ptr).getNpcStats (ptr).getFactionRanks().empty())
-                            factionId = MWWorld::Class::get (ptr).getNpcStats (ptr).getFactionRanks().begin()->first;
+                        factionId = getDialogueActorFaction(ptr);
                     }
 
                     if (factionId.empty())
                         throw std::runtime_error ("failed to determine faction");
 
-                    ::Misc::StringUtils::toLower (factionId);
+                    ::Misc::StringUtils::lowerCaseInPlace (factionId);
 
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
                     runtime.push (
-                        MWWorld::Class::get (player).getNpcStats (player).getFactionReputation (factionId));
+                        player.getClass().getNpcStats (player).getFactionReputation (factionId));
                 }
         };
 
@@ -757,6 +771,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
+
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
@@ -769,19 +785,16 @@ namespace MWScript
                     }
                     else
                     {
-                        MWWorld::Ptr ptr = R()(runtime);
-
-                        if (!MWWorld::Class::get (ptr).getNpcStats (ptr).getFactionRanks().empty())
-                            factionId = MWWorld::Class::get (ptr).getNpcStats (ptr).getFactionRanks().begin()->first;
+                        factionId = getDialogueActorFaction(ptr);
                     }
 
                     if (factionId.empty())
                         throw std::runtime_error ("failed to determine faction");
 
-                    ::Misc::StringUtils::toLower (factionId);
+                    ::Misc::StringUtils::lowerCaseInPlace (factionId);
 
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-                    MWWorld::Class::get (player).getNpcStats (player).setFactionReputation (factionId, value);
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
+                    player.getClass().getNpcStats (player).setFactionReputation (factionId, value);
                 }
         };
 
@@ -792,6 +805,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
+
                     Interpreter::Type_Integer value = runtime[0].mInteger;
                     runtime.pop();
 
@@ -804,20 +819,17 @@ namespace MWScript
                     }
                     else
                     {
-                        MWWorld::Ptr ptr = R()(runtime);
-
-                        if (!MWWorld::Class::get (ptr).getNpcStats (ptr).getFactionRanks().empty())
-                            factionId = MWWorld::Class::get (ptr).getNpcStats (ptr).getFactionRanks().begin()->first;
+                        factionId = getDialogueActorFaction(ptr);
                     }
 
                     if (factionId.empty())
                         throw std::runtime_error ("failed to determine faction");
 
-                    ::Misc::StringUtils::toLower (factionId);
+                    ::Misc::StringUtils::lowerCaseInPlace (factionId);
 
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
-                    MWWorld::Class::get (player).getNpcStats (player).setFactionReputation (factionId,
-                        MWWorld::Class::get (player).getNpcStats (player).getFactionReputation (factionId)+
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
+                    player.getClass().getNpcStats (player).setFactionReputation (factionId,
+                        player.getClass().getNpcStats (player).getFactionReputation (factionId)+
                         value);
                 }
         };
@@ -831,7 +843,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push (MWWorld::Class::get (ptr).getCreatureStats (ptr).hasCommonDisease());
+                    runtime.push (ptr.getClass().getCreatureStats (ptr).hasCommonDisease());
                 }
         };
 
@@ -844,7 +856,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    runtime.push (MWWorld::Class::get (ptr).getCreatureStats (ptr).hasBlightDisease());
+                    runtime.push (ptr.getClass().getCreatureStats (ptr).hasBlightDisease());
                 }
         };
 
@@ -855,14 +867,14 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
-                    MWWorld::Ptr ptr = R()(runtime);
+                    MWWorld::ConstPtr ptr = R()(runtime);
 
                     std::string race = runtime.getStringLiteral(runtime[0].mInteger);
-                    ::Misc::StringUtils::toLower(race);
+                    ::Misc::StringUtils::lowerCaseInPlace(race);
                     runtime.pop();
 
                     std::string npcRace = ptr.get<ESM::NPC>()->mBase->mRace;
-                    ::Misc::StringUtils::toLower(npcRace);
+                    ::Misc::StringUtils::lowerCaseInPlace(npcRace);
 
                     runtime.push (npcRace == race);
             }
@@ -876,7 +888,7 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = MWBase::Environment::get().getWorld ()->getPlayerPtr();
 
-                    runtime.push (MWWorld::Class::get(ptr).getNpcStats (ptr).getWerewolfKills ());
+                    runtime.push (ptr.getClass().getNpcStats (ptr).getWerewolfKills ());
                 }
         };
 
@@ -887,7 +899,7 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
-                    MWWorld::Ptr ptr = R()(runtime);
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
 
                     std::string factionID = "";
                     if(arg0 >0 )
@@ -897,17 +909,10 @@ namespace MWScript
                     }
                     else
                     {
-                        if(MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().empty())
-                        {
-                            factionID = "";
-                        }
-                        else
-                        {
-                            factionID = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().begin()->first;
-                        }
+                        factionID = ptr.getClass().getPrimaryFaction(ptr);
                     }
-                    ::Misc::StringUtils::toLower(factionID);
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                    ::Misc::StringUtils::lowerCaseInPlace(factionID);
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
                     if(factionID!="")
                     {
                         runtime.push(player.getClass().getNpcStats(player).getExpelled(factionID));
@@ -926,6 +931,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
+
                     std::string factionID = "";
                     if(arg0 >0 )
                     {
@@ -934,17 +941,9 @@ namespace MWScript
                     }
                     else
                     {
-                        MWWorld::Ptr ptr = R()(runtime);
-                        if(MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().empty())
-                        {
-                            factionID = "";
-                        }
-                        else
-                        {
-                            factionID = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().begin()->first;
-                        }
+                        factionID = ptr.getClass().getPrimaryFaction(ptr);
                     }
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
                     if(factionID!="")
                     {
                         player.getClass().getNpcStats(player).expell(factionID);
@@ -959,6 +958,8 @@ namespace MWScript
 
                 virtual void execute (Interpreter::Runtime& runtime, unsigned int arg0)
                 {
+                    MWWorld::ConstPtr ptr = R()(runtime, false);
+
                     std::string factionID = "";
                     if(arg0 >0 )
                     {
@@ -967,17 +968,9 @@ namespace MWScript
                     }
                     else
                     {
-                        MWWorld::Ptr ptr = R()(runtime);
-                        if(MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().empty())
-                        {
-                            factionID = "";
-                        }
-                        else
-                        {
-                            factionID = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().begin()->first;
-                        }
+                        factionID = ptr.getClass().getPrimaryFaction(ptr);
                     }
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
                     if(factionID!="")
                         player.getClass().getNpcStats(player).clearExpelled(factionID);
                 }
@@ -992,21 +985,17 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    std::string factionID = "";
-                    if(MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().empty())
+                    std::string factionID = ptr.getClass().getPrimaryFaction(ptr);
+                    if(factionID.empty())
                         return;
-                    else
-                    {
-                        factionID = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().begin()->first;
-                    }
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
 
                     // no-op when executed on the player
                     if (ptr == player)
                         return;
 
-                    std::map<std::string, int>& ranks = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks ();
-                    ranks[factionID] = ranks[factionID]+1;
+                    ptr.getClass().getNpcStats(ptr).raiseRank(factionID);
                 }
         };
 
@@ -1019,21 +1008,17 @@ namespace MWScript
                 {
                     MWWorld::Ptr ptr = R()(runtime);
 
-                    std::string factionID = "";
-                    if(MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().empty())
+                    std::string factionID = ptr.getClass().getPrimaryFaction(ptr);
+                    if(factionID.empty())
                         return;
-                    else
-                    {
-                        factionID = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks().begin()->first;
-                    }
-                    MWWorld::Ptr player = MWBase::Environment::get().getWorld()->getPlayerPtr();
+
+                    MWWorld::Ptr player = MWMechanics::getPlayer();
 
                     // no-op when executed on the player
                     if (ptr == player)
                         return;
 
-                    std::map<std::string, int>& ranks = MWWorld::Class::get(ptr).getNpcStats(ptr).getFactionRanks ();
-                    ranks[factionID] = ranks[factionID]-1;
+                    ptr.getClass().getNpcStats(ptr).lowerRank(factionID);
                 }
         };
 
@@ -1047,10 +1032,45 @@ namespace MWScript
                     MWWorld::Ptr ptr = R()(runtime);
 
                     Interpreter::Type_Integer value =
-                        MWWorld::Class::get (ptr).getCreatureStats (ptr).hasDied();
+                        ptr.getClass().getCreatureStats (ptr).hasDied();
 
                     if (value)
-                        MWWorld::Class::get (ptr).getCreatureStats (ptr).clearHasDied();
+                        ptr.getClass().getCreatureStats (ptr).clearHasDied();
+
+                    runtime.push (value);
+                }
+        };
+
+        template <class R>
+        class OpOnMurder : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+
+                    Interpreter::Type_Integer value =
+                        ptr.getClass().getCreatureStats (ptr).hasBeenMurdered();
+
+                    if (value)
+                        ptr.getClass().getCreatureStats (ptr).clearHasBeenMurdered();
+
+                    runtime.push (value);
+                }
+        };
+
+        template <class R>
+        class OpOnKnockout : public Interpreter::Opcode0
+        {
+            public:
+
+                virtual void execute (Interpreter::Runtime& runtime)
+                {
+                    MWWorld::Ptr ptr = R()(runtime);
+
+                    Interpreter::Type_Integer value =
+                        ptr.getClass().getCreatureStats (ptr).getKnockedDownOneFrame();
 
                     runtime.push (value);
                 }
@@ -1064,7 +1084,7 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     MWWorld::Ptr ptr = R()(runtime);
-                    runtime.push(MWWorld::Class::get(ptr).getNpcStats(ptr).isWerewolf());
+                    runtime.push(ptr.getClass().getNpcStats(ptr).isWerewolf());
                 }
         };
 
@@ -1076,7 +1096,7 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     MWWorld::Ptr ptr = R()(runtime);
-                    MWBase::Environment::get().getWorld()->setWerewolf(ptr, set);
+                    MWBase::Environment::get().getMechanicsManager()->setWerewolf(ptr, set);
                 }
         };
 
@@ -1088,7 +1108,7 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     MWWorld::Ptr ptr = R()(runtime);
-                    MWBase::Environment::get().getWorld()->applyWerewolfAcrobatics(ptr);
+                    MWBase::Environment::get().getMechanicsManager()->applyWerewolfAcrobatics(ptr);
                 }
         };
 
@@ -1100,8 +1120,118 @@ namespace MWScript
                 virtual void execute (Interpreter::Runtime& runtime)
                 {
                     MWWorld::Ptr ptr = R()(runtime);
-                    ptr.getClass().getCreatureStats(ptr).resurrect();
+
+                    if (ptr == MWMechanics::getPlayer())
+                        ptr.getClass().getCreatureStats(ptr).resurrect();
+                    else if (ptr.getClass().getCreatureStats(ptr).isDead())
+                    {
+                        bool wasEnabled = ptr.getRefData().isEnabled();
+                        MWBase::Environment::get().getWorld()->undeleteObject(ptr);
+                        MWBase::Environment::get().getWorld()->removeContainerScripts(ptr);
+
+                        // HACK: disable/enable object to re-add it to the scene properly (need a new Animation).
+                        MWBase::Environment::get().getWorld()->disable(ptr);
+                        // resets runtime state such as inventory, stats and AI. does not reset position in the world
+                        ptr.getRefData().setCustomData(NULL);
+                        if (wasEnabled)
+                            MWBase::Environment::get().getWorld()->enable(ptr);
+                    }
                 }
+        };
+
+        template <class R>
+        class OpGetStat : public Interpreter::Opcode0
+        {
+        public:
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                // dummy
+                runtime.push(0);
+            }
+        };
+
+        template <class R>
+        class OpGetMagicEffect : public Interpreter::Opcode0
+        {
+            int mPositiveEffect;
+            int mNegativeEffect;
+
+        public:
+            OpGetMagicEffect (int positiveEffect, int negativeEffect)
+                : mPositiveEffect(positiveEffect)
+                , mNegativeEffect(negativeEffect)
+            {
+            }
+
+            virtual void execute (Interpreter::Runtime& runtime)
+            {
+                MWWorld::Ptr ptr = R()(runtime);
+
+                const MWMechanics::MagicEffects& effects = ptr.getClass().getCreatureStats(ptr).getMagicEffects();
+                float currentValue = effects.get(mPositiveEffect).getMagnitude();
+                if (mNegativeEffect != -1)
+                    currentValue -= effects.get(mNegativeEffect).getMagnitude();
+
+                int ret = static_cast<int>(currentValue);
+                runtime.push(ret);
+            }
+        };
+
+        template <class R>
+        class OpSetMagicEffect : public Interpreter::Opcode0
+        {
+            int mPositiveEffect;
+            int mNegativeEffect;
+
+        public:
+            OpSetMagicEffect (int positiveEffect, int negativeEffect)
+                : mPositiveEffect(positiveEffect)
+                , mNegativeEffect(negativeEffect)
+            {
+            }
+
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                MWWorld::Ptr ptr = R()(runtime);
+                MWMechanics::MagicEffects& effects = ptr.getClass().getCreatureStats(ptr).getMagicEffects();
+                float currentValue = effects.get(mPositiveEffect).getMagnitude();
+                if (mNegativeEffect != -1)
+                    currentValue -= effects.get(mNegativeEffect).getMagnitude();
+
+                int arg = runtime[0].mInteger;
+                runtime.pop();
+                effects.modifyBase(mPositiveEffect, (arg - static_cast<int>(currentValue)));
+            }
+        };
+
+        template <class R>
+        class OpModMagicEffect : public Interpreter::Opcode0
+        {
+            int mPositiveEffect;
+            int mNegativeEffect;
+
+        public:
+            OpModMagicEffect (int positiveEffect, int negativeEffect)
+                : mPositiveEffect(positiveEffect)
+                , mNegativeEffect(negativeEffect)
+            {
+            }
+
+            virtual void execute(Interpreter::Runtime &runtime)
+            {
+                MWWorld::Ptr ptr = R()(runtime);
+                MWMechanics::CreatureStats& stats = ptr.getClass().getCreatureStats(ptr);
+
+                int arg = runtime[0].mInteger;
+                runtime.pop();
+                stats.getMagicEffects().modifyBase(mPositiveEffect, arg);
+            }
+        };
+
+        struct MagicEffect
+        {
+            int mPositiveEffect;
+            int mNegativeEffect;
         };
 
         void installOpcodes (Interpreter::Interpreter& interpreter)
@@ -1180,9 +1310,12 @@ namespace MWScript
             interpreter.installSegment5 (Compiler::Stats::opcodeGetSpell, new OpGetSpell<ImplicitRef>);
             interpreter.installSegment5 (Compiler::Stats::opcodeGetSpellExplicit, new OpGetSpell<ExplicitRef>);
 
-            interpreter.installSegment3(Compiler::Stats::opcodePCRaiseRank,new OpPCRaiseRank);
-            interpreter.installSegment3(Compiler::Stats::opcodePCLowerRank,new OpPCLowerRank);
-            interpreter.installSegment3(Compiler::Stats::opcodePCJoinFaction,new OpPCJoinFaction);
+            interpreter.installSegment3(Compiler::Stats::opcodePCRaiseRank,new OpPCRaiseRank<ImplicitRef>);
+            interpreter.installSegment3(Compiler::Stats::opcodePCLowerRank,new OpPCLowerRank<ImplicitRef>);
+            interpreter.installSegment3(Compiler::Stats::opcodePCJoinFaction,new OpPCJoinFaction<ImplicitRef>);
+            interpreter.installSegment3(Compiler::Stats::opcodePCRaiseRankExplicit,new OpPCRaiseRank<ExplicitRef>);
+            interpreter.installSegment3(Compiler::Stats::opcodePCLowerRankExplicit,new OpPCLowerRank<ExplicitRef>);
+            interpreter.installSegment3(Compiler::Stats::opcodePCJoinFactionExplicit,new OpPCJoinFaction<ExplicitRef>);
             interpreter.installSegment3(Compiler::Stats::opcodeGetPCRank,new OpGetPCRank<ImplicitRef>);
             interpreter.installSegment3(Compiler::Stats::opcodeGetPCRankExplicit,new OpGetPCRank<ExplicitRef>);
 
@@ -1229,6 +1362,10 @@ namespace MWScript
 
             interpreter.installSegment5 (Compiler::Stats::opcodeOnDeath, new OpOnDeath<ImplicitRef>);
             interpreter.installSegment5 (Compiler::Stats::opcodeOnDeathExplicit, new OpOnDeath<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Stats::opcodeOnMurder, new OpOnMurder<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Stats::opcodeOnMurderExplicit, new OpOnMurder<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Stats::opcodeOnKnockout, new OpOnKnockout<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Stats::opcodeOnKnockoutExplicit, new OpOnKnockout<ExplicitRef>);
 
             interpreter.installSegment5 (Compiler::Stats::opcodeIsWerewolf, new OpIsWerewolf<ImplicitRef>);
             interpreter.installSegment5 (Compiler::Stats::opcodeIsWerewolfExplicit, new OpIsWerewolf<ExplicitRef>);
@@ -1238,7 +1375,51 @@ namespace MWScript
             interpreter.installSegment5 (Compiler::Stats::opcodeUndoWerewolf, new OpSetWerewolf<ImplicitRef, false>);
             interpreter.installSegment5 (Compiler::Stats::opcodeUndoWerewolfExplicit, new OpSetWerewolf<ExplicitRef, false>);
             interpreter.installSegment5 (Compiler::Stats::opcodeSetWerewolfAcrobatics, new OpSetWerewolfAcrobatics<ImplicitRef>);
-            interpreter.installSegment5 (Compiler::Stats::opcodeSetWerewolfAcrobaticsExplicit, new OpSetWerewolfAcrobatics<ExplicitRef>);           
+            interpreter.installSegment5 (Compiler::Stats::opcodeSetWerewolfAcrobaticsExplicit, new OpSetWerewolfAcrobatics<ExplicitRef>);
+            interpreter.installSegment5 (Compiler::Stats::opcodeGetStat, new OpGetStat<ImplicitRef>);
+            interpreter.installSegment5 (Compiler::Stats::opcodeGetStatExplicit, new OpGetStat<ExplicitRef>);
+
+            static const MagicEffect sMagicEffects[] = {
+                { ESM::MagicEffect::ResistMagicka, ESM::MagicEffect::WeaknessToMagicka },
+                { ESM::MagicEffect::ResistFire, ESM::MagicEffect::WeaknessToFire },
+                { ESM::MagicEffect::ResistFrost, ESM::MagicEffect::WeaknessToFrost },
+                { ESM::MagicEffect::ResistShock, ESM::MagicEffect::WeaknessToShock },
+                { ESM::MagicEffect::ResistCommonDisease, ESM::MagicEffect::WeaknessToCommonDisease },
+                { ESM::MagicEffect::ResistBlightDisease, ESM::MagicEffect::WeaknessToBlightDisease },
+                { ESM::MagicEffect::ResistCorprusDisease, ESM::MagicEffect::WeaknessToCorprusDisease },
+                { ESM::MagicEffect::ResistPoison, ESM::MagicEffect::WeaknessToPoison },
+                { ESM::MagicEffect::ResistParalysis, -1 },
+                { ESM::MagicEffect::ResistNormalWeapons, ESM::MagicEffect::WeaknessToNormalWeapons },
+                { ESM::MagicEffect::WaterBreathing, -1 },
+                { ESM::MagicEffect::Chameleon, -1 },
+                { ESM::MagicEffect::WaterWalking, -1 },
+                { ESM::MagicEffect::SwiftSwim, -1 },
+                { ESM::MagicEffect::Jump, -1 },
+                { ESM::MagicEffect::Levitate, -1 },
+                { ESM::MagicEffect::Shield, -1 },
+                { ESM::MagicEffect::Sound, -1 },
+                { ESM::MagicEffect::Silence, -1 },
+                { ESM::MagicEffect::Blind, -1 },
+                { ESM::MagicEffect::Paralyze, -1 },
+                { ESM::MagicEffect::Invisibility, -1 },
+                { ESM::MagicEffect::FortifyAttack, -1 },
+                { ESM::MagicEffect::Sanctuary, -1 },
+            };
+
+            for (int i=0; i<24; ++i)
+            {
+                int positive = sMagicEffects[i].mPositiveEffect;
+                int negative = sMagicEffects[i].mNegativeEffect;
+
+                interpreter.installSegment5 (Compiler::Stats::opcodeGetMagicEffect+i, new OpGetMagicEffect<ImplicitRef> (positive, negative));
+                interpreter.installSegment5 (Compiler::Stats::opcodeGetMagicEffectExplicit+i, new OpGetMagicEffect<ExplicitRef> (positive, negative));
+
+                interpreter.installSegment5 (Compiler::Stats::opcodeSetMagicEffect+i, new OpSetMagicEffect<ImplicitRef> (positive, negative));
+                interpreter.installSegment5 (Compiler::Stats::opcodeSetMagicEffectExplicit+i, new OpSetMagicEffect<ExplicitRef> (positive, negative));
+
+                interpreter.installSegment5 (Compiler::Stats::opcodeModMagicEffect+i, new OpModMagicEffect<ImplicitRef> (positive, negative));
+                interpreter.installSegment5 (Compiler::Stats::opcodeModMagicEffectExplicit+i, new OpModMagicEffect<ExplicitRef> (positive, negative));
+            }
         }
     }
 }

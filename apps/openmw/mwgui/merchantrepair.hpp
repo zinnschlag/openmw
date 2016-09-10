@@ -4,8 +4,6 @@
 #include "windowbase.hpp"
 #include "../mwworld/ptr.hpp"
 
-
-
 namespace MWGui
 {
 
@@ -15,6 +13,8 @@ public:
     MerchantRepair();
 
     virtual void open();
+
+    virtual void exit();
 
     void startRepair(const MWWorld::Ptr& actor);
 

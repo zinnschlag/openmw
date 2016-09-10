@@ -10,11 +10,12 @@ namespace MWGui
     class PickpocketItemModel : public ProxyItemModel
     {
     public:
-        PickpocketItemModel (const MWWorld::Ptr& thief, ItemModel* sourceModel);
+        PickpocketItemModel (const MWWorld::Ptr& thief, ItemModel* sourceModel, bool hideItems=true);
         virtual ItemStack getItem (ModelIndex index);
         virtual size_t getItemCount();
         virtual void update();
         virtual void removeItem (const ItemStack& item, size_t count);
+        virtual bool allowedToInsertItems() const;
 
     private:
         std::vector<ItemStack> mHiddenItems;

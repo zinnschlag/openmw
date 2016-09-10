@@ -1,5 +1,8 @@
 #include "confirmationdialog.hpp"
 
+#include <MyGUI_Button.h>
+#include <MyGUI_EditBox.h>
+
 namespace MWGui
 {
     ConfirmationDialog::ConfirmationDialog() :
@@ -13,11 +16,14 @@ namespace MWGui
         mOkButton->eventMouseButtonClick += MyGUI::newDelegate(this, &ConfirmationDialog::onOkButtonClicked);
     }
 
-    void ConfirmationDialog::open(const std::string& message)
+    void ConfirmationDialog::askForConfirmation(const std::string& message, const std::string& confirmMessage, const std::string& cancelMessage)
     {
         setVisible(true);
 
         mMessage->setCaptionWithReplacing(message);
+
+        mCancelButton->setCaptionWithReplacing(cancelMessage);
+        mOkButton->setCaptionWithReplacing(confirmMessage);
 
         int height = mMessage->getTextSize().height + 72;
 
@@ -28,17 +34,22 @@ namespace MWGui
         center();
     }
 
+    void ConfirmationDialog::exit()
+    {
+        setVisible(false);
+
+        eventCancelClicked();
+    }
+
     void ConfirmationDialog::onCancelButtonClicked(MyGUI::Widget* _sender)
     {
-        eventCancelClicked();
-
-        setVisible(false);
+        exit();
     }
 
     void ConfirmationDialog::onOkButtonClicked(MyGUI::Widget* _sender)
     {
-        eventOkClicked();
-
         setVisible(false);
+
+        eventOkClicked();
     }
 }

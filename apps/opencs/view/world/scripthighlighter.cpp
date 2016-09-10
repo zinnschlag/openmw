@@ -1,10 +1,12 @@
-
 #include "scripthighlighter.hpp"
 
 #include <sstream>
 
 #include <components/compiler/scanner.hpp>
 #include <components/compiler/extensions0.hpp>
+
+#include "../../model/prefs/setting.hpp"
+#include "../../model/prefs/category.hpp"
 
 bool CSVWorld::ScriptHighlighter::parseInt (int value, const Compiler::TokenLoc& loc,
     Compiler::Scanner& scanner)
@@ -30,6 +32,16 @@ bool CSVWorld::ScriptHighlighter::parseName (const std::string& name, const Comp
 bool CSVWorld::ScriptHighlighter::parseKeyword (int keyword, const Compiler::TokenLoc& loc,
     Compiler::Scanner& scanner)
 {
+    if (((mMode==Mode_Console || mMode==Mode_Dialogue) &&
+        (keyword==Compiler::Scanner::K_begin || keyword==Compiler::Scanner::K_end ||
+        keyword==Compiler::Scanner::K_short || keyword==Compiler::Scanner::K_long ||
+        keyword==Compiler::Scanner::K_float))
+        || (mMode==Mode_Console && (keyword==Compiler::Scanner::K_if ||
+        keyword==Compiler::Scanner::K_endif || keyword==Compiler::Scanner::K_else ||
+        keyword==Compiler::Scanner::K_elseif || keyword==Compiler::Scanner::K_while ||
+        keyword==Compiler::Scanner::K_endwhile)))
+        return parseName (loc.mLiteral, loc, scanner);
+
     highlight (loc, Type_Keyword);
     return true;
 }
@@ -63,51 +75,17 @@ void CSVWorld::ScriptHighlighter::highlight (const Compiler::TokenLoc& loc, Type
     setFormat (index, length, mScheme[type]);
 }
 
-CSVWorld::ScriptHighlighter::ScriptHighlighter (const CSMWorld::Data& data, QTextDocument *parent)
-: QSyntaxHighlighter (parent), Compiler::Parser (mErrorHandler, mContext), mContext (data)
+CSVWorld::ScriptHighlighter::ScriptHighlighter (const CSMWorld::Data& data, Mode mode,
+    QTextDocument *parent)
+: QSyntaxHighlighter (parent), Compiler::Parser (mErrorHandler, mContext), mContext (data),
+  mMode (mode)
 {
-    /// \todo replace this with user settings
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::darkMagenta);
-        mScheme.insert (std::make_pair (Type_Int, format));
-    }
+    QColor color ("black");
+    QTextCharFormat format;
+    format.setForeground (color);
 
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::magenta);
-        mScheme.insert (std::make_pair (Type_Float, format));
-    }
-
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::gray);
-        mScheme.insert (std::make_pair (Type_Name, format));
-    }
-
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::red);
-        mScheme.insert (std::make_pair (Type_Keyword, format));
-    }
-
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::darkYellow);
-        mScheme.insert (std::make_pair (Type_Special, format));
-    }
-
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::green);
-        mScheme.insert (std::make_pair (Type_Comment, format));
-    }
-
-    {
-        QTextCharFormat format;
-        format.setForeground (Qt::blue);
-        mScheme.insert (std::make_pair (Type_Id, format));
-    }
+    for (int i=0; i<=Type_Id; ++i)
+        mScheme.insert (std::make_pair (static_cast<Type> (i), format));
 
     // configure compiler
     Compiler::registerExtensions (mExtensions);
@@ -130,4 +108,28 @@ void CSVWorld::ScriptHighlighter::highlightBlock (const QString& text)
 void CSVWorld::ScriptHighlighter::invalidateIds()
 {
     mContext.invalidateIds();
+}
+
+bool CSVWorld::ScriptHighlighter::settingChanged (const CSMPrefs::Setting *setting)
+{
+    if (setting->getParent()->getKey()=="Scripts")
+    {
+        static const char *const colours[Type_Id+2] =
+        {
+            "colour-int", "colour-float", "colour-name", "colour-keyword",
+            "colour-special", "colour-comment", "colour-id",
+            0
+        };
+
+        for (int i=0; colours[i]; ++i)
+            if (setting->getKey()==colours[i])
+            {
+                QTextCharFormat format;
+                format.setForeground (setting->toColor());
+                mScheme[static_cast<Type> (i)] = format;
+                return true;
+            }
+    }
+
+    return false;
 }

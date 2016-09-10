@@ -1,38 +1,69 @@
+os:
+ - linux
+ - osx
+osx_image: xcode7.2
 language: cpp
-compiler:
- - gcc
+sudo: required
+dist: trusty
 branches:
   only:
     - master
+    - coverity_scan
     - /openmw-.*$/
-before_install:
- - pwd
- - echo "yes" | sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
- - echo "yes" | sudo apt-add-repository ppa:openmw/openmw
- - sudo apt-get update -qq
- - sudo apt-get install -qq libboost-all-dev libgtest-dev google-mock
- - sudo apt-get install -qq libqt4-dev
- - sudo apt-get install -qq libopenal-dev
- - sudo apt-get install -qq libavcodec-dev libavformat-dev libavutil-dev libswscale-dev
- - sudo apt-get install -qq libbullet-dev libogre-1.9-dev libmygui-dev libsdl2-dev libunshield-dev
- - sudo mkdir /usr/src/gtest/build
- - cd /usr/src/gtest/build
- - sudo cmake .. -DBUILD_SHARED_LIBS=1
- - sudo make -j4
- - sudo ln -s /usr/src/gtest/build/libgtest.so /usr/lib/libgtest.so
- - sudo ln -s /usr/src/gtest/build/libgtest_main.so /usr/lib/libgtest_main.so
-before_script:
- - cd -
- - mkdir build
- - cd build
- - cmake .. -DBUILD_WITH_CODE_COVERAGE=1 -DBUILD_UNITTESTS=1 -DBUILD_WITH_DPKG=1
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "jybGzAdUbqt9vWR/GEnRd96BgAi/7Zd1+2HK68j/i/8+/1YH2XxLOy4Jv/DUBhBlJIkxs/Xv8dRcUlFOclZDHX1d/9Qnsqd3oUVkD7k1y7cTOWy9TBQaE/v/kZo3LpzA3xPwwthrb0BvqIbOfIELi5fS5s8ba85WFRg3AX70wWE="
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:openmw/openmw'
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
+    packages: [
+      # Dev
+      clang-3.6, libunshield-dev, libtinyxml-dev,
+      # Tests
+      libgtest-dev, google-mock,
+      # Boost
+      libboost-filesystem-dev, libboost-program-options-dev, libboost-system-dev, libboost-thread-dev,
+      # FFmpeg
+      libavcodec-dev, libavformat-dev, libavutil-dev, libswscale-dev,
+      # Audio & Video
+      libsdl2-dev, libqt4-dev, libopenal-dev,
+      # The other ones from OpenMW ppa
+      libbullet-dev, libswresample-dev, libopenscenegraph-3.4-dev, libmygui-dev
+    ]
+
+  coverity_scan:
+    project:
+      name: "OpenMW/openmw"
+      description: "<Your project description here>"
+    notification_email: scrawl@baseoftrash.de
+    build_command_prepend: "cmake . -DBUILD_UNITTESTS=FALSE"
+    build_command:   "make -j3"
+    branch_pattern: coverity_scan
+matrix:
+  include:
+    - os: linux
+      env:
+        ANALYZE="scan-build-3.6 --use-cc clang-3.6 --use-c++ clang++-3.6 "
+      compiler: clang
+  allow_failures:
+    - env: ANALYZE="scan-build-3.6 --use-cc clang-3.6 --use-c++ clang++-3.6 "
+
+before_install: ./CI/before_install.${TRAVIS_OS_NAME}.sh
+before_script: ./CI/before_script.${TRAVIS_OS_NAME}.sh
 script:
- - make -j4
-after_script:
- - ./openmw_test_suite
+ - cd ./build
+ - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ${ANALYZE}make -j3; fi
+ - if [ "$COVERITY_SCAN_BRANCH" != 1 ] && [ "${TRAVIS_OS_NAME}" = "osx" ]; then make package; fi
+ - if [ "$COVERITY_SCAN_BRANCH" != 1 ] && [ "${TRAVIS_OS_NAME}" = "linux" ]; then ./openmw_test_suite; fi
+ - if [ "$COVERITY_SCAN_BRANCH" != 1 ] && [ "${TRAVIS_OS_NAME}" = "linux" ]; then cd .. && ./CI/check_tabs.sh; fi
 notifications:
   recipients:
-    - lgromanowski+travis.ci@gmail.com
+    - corrmage+travis-ci@gmail.com
   email:
     on_success: change
     on_failure: always
@@ -41,4 +72,4 @@ notifications:
       - "chat.freenode.net#openmw"
     on_success: change
     on_failure: always
-
+    use_notice: true

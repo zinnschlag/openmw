@@ -1,21 +1,28 @@
-
 #include "util.hpp"
 
 #include <stdexcept>
+#include <climits>
+#include <cfloat>
 
 #include <QUndoStack>
 #include <QMetaProperty>
 #include <QStyledItemDelegate>
 #include <QLineEdit>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QPlainTextEdit>
 #include <QEvent>
+#include <QItemEditorFactory>
 
 #include "../../model/world/commands.hpp"
 #include "../../model/world/tablemimedata.hpp"
+#include "../../model/world/commanddispatcher.hpp"
+
+#include "../widget/coloreditor.hpp"
+#include "../widget/droplineedit.hpp"
+
+#include "dialoguespinbox.hpp"
+#include "scriptedit.hpp"
 
 CSVWorld::NastyTableModelHack::NastyTableModelHack (QAbstractItemModel& model)
 : mModel (model)
@@ -78,15 +85,15 @@ void CSVWorld::CommandDelegateFactoryCollection::add (CSMWorld::ColumnBase::Disp
 }
 
 CSVWorld::CommandDelegate *CSVWorld::CommandDelegateFactoryCollection::makeDelegate (
-    CSMWorld::ColumnBase::Display display, QUndoStack& undoStack, QObject *parent) const
+    CSMWorld::ColumnBase::Display display, CSMWorld::CommandDispatcher *dispatcher, CSMDoc::Document& document, QObject *parent) const
 {
     std::map<CSMWorld::ColumnBase::Display, CommandDelegateFactory *>::const_iterator iter =
         mFactories.find (display);
 
     if (iter!=mFactories.end())
-        return iter->second->makeDelegate (undoStack, parent);
+        return iter->second->makeDelegate (dispatcher, document, parent);
 
-    return new CommandDelegate (undoStack, parent);
+    return new CommandDelegate (dispatcher, document, parent);
 }
 
 const CSVWorld::CommandDelegateFactoryCollection& CSVWorld::CommandDelegateFactoryCollection::get()
@@ -100,19 +107,48 @@ const CSVWorld::CommandDelegateFactoryCollection& CSVWorld::CommandDelegateFacto
 
 QUndoStack& CSVWorld::CommandDelegate::getUndoStack() const
 {
-    return mUndoStack;
+    return mDocument.getUndoStack();
+}
+
+CSMDoc::Document& CSVWorld::CommandDelegate::getDocument() const
+{
+    return mDocument;
+}
+
+CSMWorld::ColumnBase::Display CSVWorld::CommandDelegate::getDisplayTypeFromIndex(const QModelIndex &index) const
+{
+    int rawDisplay = index.data(CSMWorld::ColumnBase::Role_Display).toInt();
+    return static_cast<CSMWorld::ColumnBase::Display>(rawDisplay);
 }
 
 void CSVWorld::CommandDelegate::setModelDataImp (QWidget *editor, QAbstractItemModel *model,
     const QModelIndex& index) const
 {
-    NastyTableModelHack hack (*model);
-    QStyledItemDelegate::setModelData (editor, &hack, index);
-    mUndoStack.push (new CSMWorld::ModifyCommand (*model, index, hack.getData()));
+    if (!mCommandDispatcher)
+        return;
+
+    QVariant new_;
+    // Color columns use a custom editor, so we need explicitly extract a data from it
+    CSVWidget::ColorEditor *colorEditor = qobject_cast<CSVWidget::ColorEditor *>(editor);
+    if (colorEditor != NULL)
+    {
+        new_ = colorEditor->color();
+    }
+    else
+    {
+        NastyTableModelHack hack (*model);
+        QStyledItemDelegate::setModelData (editor, &hack, index);
+        new_ = hack.getData();
+    }
+
+    if ((model->data (index)!=new_) && (model->flags(index) & Qt::ItemIsEditable))
+        mCommandDispatcher->executeModify (model, index, new_);
 }
 
-CSVWorld::CommandDelegate::CommandDelegate (QUndoStack& undoStack, QObject *parent)
-: QStyledItemDelegate (parent), mUndoStack (undoStack), mEditLock (false)
+CSVWorld::CommandDelegate::CommandDelegate (CSMWorld::CommandDispatcher *commandDispatcher,
+    CSMDoc::Document& document, QObject *parent)
+: QStyledItemDelegate (parent), mEditLock (false),
+  mCommandDispatcher (commandDispatcher), mDocument (document)
 {}
 
 void CSVWorld::CommandDelegate::setModelData (QWidget *editor, QAbstractItemModel *model,
@@ -124,6 +160,28 @@ void CSVWorld::CommandDelegate::setModelData (QWidget *editor, QAbstractItemMode
     }
 
     ///< \todo provide some kind of feedback to the user, indicating that editing is currently not possible.
+}
+
+QWidget *CSVWorld::CommandDelegate::createEditor (QWidget *parent, const QStyleOptionViewItem& option,
+    const QModelIndex& index) const
+{
+    CSMWorld::ColumnBase::Display display = getDisplayTypeFromIndex(index);
+
+    // This createEditor() method is called implicitly from tables.
+    // For boolean values in tables use the default editor (combobox).
+    // Checkboxes is looking ugly in the table view.
+    // TODO: Find a better solution?
+    if (display == CSMWorld::ColumnBase::Display_Boolean)
+    {
+        return QItemEditorFactory::defaultFactory()->createEditor(QVariant::Bool, parent);
+    }
+    // For tables the pop-up of the color editor should appear immediately after the editor creation
+    // (the third parameter of ColorEditor's constructor)
+    else if (display == CSMWorld::ColumnBase::Display_Colour)
+    {
+        return new CSVWidget::ColorEditor(index.data().value<QColor>(), parent, true);
+    }
+    return createEditor (parent, option, index, display);
 }
 
 QWidget *CSVWorld::CommandDelegate::createEditor (QWidget *parent, const QStyleOptionViewItem& option,
@@ -139,48 +197,82 @@ QWidget *CSVWorld::CommandDelegate::createEditor (QWidget *parent, const QStyleO
         }
     }
 
-    if (display != CSMWorld::ColumnBase::Display_None)
+    // NOTE: for each editor type (e.g. QLineEdit) there needs to be a corresponding
+    // entry in CSVWorld::DialogueDelegateDispatcher::makeEditor()
+    switch (display)
     {
-        if (variant.type() == QVariant::Color)
+        case CSMWorld::ColumnBase::Display_Colour:
+
+            return new CSVWidget::ColorEditor(index.data().value<QColor>(), parent);
+
+        case CSMWorld::ColumnBase::Display_Integer:
         {
+            DialogueSpinBox *sb = new DialogueSpinBox(parent);
+            sb->setRange(INT_MIN, INT_MAX);
+            return sb;
+        }
+
+        case CSMWorld::ColumnBase::Display_UnsignedInteger8:
+        {
+            DialogueSpinBox *sb = new DialogueSpinBox(parent);
+            sb->setRange(0, UCHAR_MAX);
+            return sb;
+        }
+
+        case CSMWorld::ColumnBase::Display_Var:
+
             return new QLineEdit(parent);
-        }
-        if (display == CSMWorld::ColumnBase::Display_Integer)
+
+        case CSMWorld::ColumnBase::Display_Float:
         {
-            return new QSpinBox(parent);
+            DialogueDoubleSpinBox *dsb = new DialogueDoubleSpinBox(parent);
+            dsb->setRange(-FLT_MAX, FLT_MAX);
+            dsb->setSingleStep(0.01f);
+            dsb->setDecimals(3);
+            return dsb;
         }
-        if (display == CSMWorld::ColumnBase::Display_Var)
+
+        case CSMWorld::ColumnBase::Display_LongString:
         {
-            return new QLineEdit(parent);
+            QPlainTextEdit *edit = new QPlainTextEdit(parent);
+            edit->setUndoRedoEnabled (false);
+            return edit;
         }
-        if (display == CSMWorld::ColumnBase::Display_Float)
+
+        case CSMWorld::ColumnBase::Display_LongString256:
         {
-            return new QDoubleSpinBox(parent);
+            /// \todo implement size limit. QPlainTextEdit does not support a size limit.
+            QPlainTextEdit *edit = new QPlainTextEdit(parent);
+            edit->setUndoRedoEnabled (false);
+            return edit;
         }
-        if (display == CSMWorld::ColumnBase::Display_LongString)
-        {
-            return new QTextEdit(parent);
-        }
-        if (display == CSMWorld::ColumnBase::Display_String ||
-            display == CSMWorld::ColumnBase::Display_Skill ||
-            display == CSMWorld::ColumnBase::Display_Script ||
-            display == CSMWorld::ColumnBase::Display_Race ||
-            display == CSMWorld::ColumnBase::Display_Class ||
-            display == CSMWorld::ColumnBase::Display_Faction ||
-            display == CSMWorld::ColumnBase::Display_Miscellaneous ||
-            display == CSMWorld::ColumnBase::Display_Sound)
-        {
-            return new DropLineEdit(parent);
-        }
-        if (display == CSMWorld::ColumnBase::Display_Boolean)
-        {
+
+        case CSMWorld::ColumnBase::Display_Boolean:
+
             return new QCheckBox(parent);
+
+        case CSMWorld::ColumnBase::Display_ScriptLines:
+
+            return new ScriptEdit (mDocument, ScriptHighlighter::Mode_Console, parent);
+
+        case CSMWorld::ColumnBase::Display_String:
+        // For other Display types (that represent record IDs) with drop support IdCompletionDelegate is used
+
+            return new CSVWidget::DropLineEdit(display, parent);
+
+        case CSMWorld::ColumnBase::Display_String32:
+        {
+        // For other Display types (that represent record IDs) with drop support IdCompletionDelegate is used
+            CSVWidget::DropLineEdit *widget = new CSVWidget::DropLineEdit(display, parent);
+            widget->setMaxLength (32);
+            return widget;
         }
+
+        default:
+
+            return QStyledItemDelegate::createEditor (parent, option, index);
     }
-
-    return QStyledItemDelegate::createEditor (parent, option, index);
 }
-
 
 void CSVWorld::CommandDelegate::setEditLock (bool locked)
 {
@@ -192,10 +284,9 @@ bool CSVWorld::CommandDelegate::isEditLocked() const
     return mEditLock;
 }
 
-bool CSVWorld::CommandDelegate::updateEditorSetting (const QString &settingName,
-    const QString &settingValue)
+void CSVWorld::CommandDelegate::setEditorData (QWidget *editor, const QModelIndex& index) const
 {
-    return false;
+    setEditorData (editor, index, false);
 }
 
 void CSVWorld::CommandDelegate::setEditorData (QWidget *editor, const QModelIndex& index, bool tryDisplay) const
@@ -221,6 +312,14 @@ void CSVWorld::CommandDelegate::setEditorData (QWidget *editor, const QModelInde
         }
     }
 
+    // Color columns use a custom editor, so we need explicitly set a data for it
+    CSVWidget::ColorEditor *colorEditor = qobject_cast<CSVWidget::ColorEditor *>(editor);
+    if (colorEditor != NULL)
+    {
+        colorEditor->setColor(index.data().value<QColor>());
+        return;
+    }
+
     QByteArray n = editor->metaObject()->userProperty().name();
 
     if (n == "dateTime") {
@@ -238,25 +337,4 @@ void CSVWorld::CommandDelegate::setEditorData (QWidget *editor, const QModelInde
 
 }
 
-CSVWorld::DropLineEdit::DropLineEdit(QWidget* parent) :
-QLineEdit(parent)
-{
-    setAcceptDrops(true);
-}
-
-void CSVWorld::DropLineEdit::dragEnterEvent(QDragEnterEvent *event)
-{
-    event->acceptProposedAction();
-}
-
-void CSVWorld::DropLineEdit::dragMoveEvent(QDragMoveEvent *event)
-{
-    event->accept();
-}
-
-void CSVWorld::DropLineEdit::dropEvent(QDropEvent *event)
-{
-    const CSMWorld::TableMimeData* data(dynamic_cast<const CSMWorld::TableMimeData*>(event->mimeData()));
-    emit tableMimeDataDropped(data->getData(), data->getDocumentPtr());
-    //WIP
-}
+void CSVWorld::CommandDelegate::settingChanged (const CSMPrefs::Setting *setting) {}

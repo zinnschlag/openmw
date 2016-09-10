@@ -1,8 +1,6 @@
 #ifndef MWGUI_RACE_H
 #define MWGUI_RACE_H
 
-#include "../mwrender/characterpreview.hpp"
-
 #include "windowbase.hpp"
 
 
@@ -11,17 +9,32 @@ namespace MWGui
     class WindowManager;
 }
 
-/*
-  This file contains the dialog for choosing a race.
-  Layout is defined by resources/mygui/openmw_chargen_race.layout.
- */
+namespace MWRender
+{
+    class RaceSelectionPreview;
+}
+
+namespace ESM
+{
+    struct NPC;
+}
+
+namespace osg
+{
+    class Group;
+}
+
+namespace Resource
+{
+    class ResourceSystem;
+}
 
 namespace MWGui
 {
     class RaceDialog : public WindowModal
     {
     public:
-        RaceDialog();
+        RaceDialog(osg::Group* parent, Resource::ResourceSystem* resourceSystem);
 
         enum Gender
         {
@@ -29,16 +42,12 @@ namespace MWGui
             GM_Female
         };
 
-        const ESM::NPC &getResult() const { return mPreview->getPrototype(); }
+        const ESM::NPC &getResult() const;
         const std::string &getRaceId() const { return mCurrentRaceId; }
         Gender getGender() const { return mGenderIndex == 0 ? GM_Male : GM_Female; }
-        // getFace()
-        // getHair()
 
         void setRaceId(const std::string &raceId);
         void setGender(Gender gender) { mGenderIndex = gender == GM_Male ? 0 : 1; }
-        // setFace()
-        // setHair()
 
         void setNextButtonShow(bool shown);
         virtual void open();
@@ -52,7 +61,10 @@ namespace MWGui
         */
         EventHandle_Void eventBack;
 
-        void doRenderUpdate();
+        /** Event : Dialog finished, OK button clicked.\n
+            signature : void method()\n
+        */
+        EventHandle_WindowBase eventDone;
 
     protected:
         void onHeadRotate(MyGUI::ScrollBar* _sender, size_t _position);
@@ -81,6 +93,9 @@ namespace MWGui
 
         void getBodyParts (int part, std::vector<std::string>& out);
 
+        osg::Group* mParent;
+        Resource::ResourceSystem* mResourceSystem;
+
         std::vector<std::string> mAvailableHeads;
         std::vector<std::string> mAvailableHairs;
 
@@ -100,7 +115,8 @@ namespace MWGui
 
         float mCurrentAngle;
 
-        MWRender::RaceSelectionPreview* mPreview;
+        std::auto_ptr<MWRender::RaceSelectionPreview> mPreview;
+        std::auto_ptr<MyGUI::ITexture> mPreviewTexture;
 
         bool mPreviewDirty;
     };

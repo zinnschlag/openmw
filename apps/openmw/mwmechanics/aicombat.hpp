@@ -3,53 +3,71 @@
 
 #include "aipackage.hpp"
 
-#include "pathfinding.hpp"
+#include <boost/shared_ptr.hpp>
 
-#include "movement.hpp"
+#include "../mwworld/cellstore.hpp" // for Doors
 
 #include "../mwbase/world.hpp"
 
+#include "pathfinding.hpp"
+#include "movement.hpp"
+#include "obstacle.hpp"
+
+namespace ESM
+{
+    namespace AiSequence
+    {
+        struct AiCombat;
+    }
+}
+
 namespace MWMechanics
 {
+    class Action;
+
+    struct AiCombatStorage;
+
+    /// \brief Causes the actor to fight another actor
     class AiCombat : public AiPackage
     {
         public:
+            ///Constructor
+            /** \param actor Actor to fight **/
             AiCombat(const MWWorld::Ptr& actor);
+
+            AiCombat (const ESM::AiSequence::AiCombat* combat);
+
+            void init();
 
             virtual AiCombat *clone() const;
 
-            virtual bool execute (const MWWorld::Ptr& actor,float duration);
-            ///< \return Package completed?
+            virtual bool execute (const MWWorld::Ptr& actor, CharacterController& characterController, AiState& state, float duration);
 
             virtual int getTypeId() const;
 
             virtual unsigned int getPriority() const;
 
-            const std::string &getTargetId() const;
+            ///Returns target ID
+            MWWorld::Ptr getTarget() const;
+
+            virtual void writeState(ESM::AiSequence::AiSequence &sequence) const;
+
+            virtual bool canCancel() const { return false; }
+            virtual bool shouldCancelPreviousAi() const { return false; }
 
         private:
-            PathFinder mPathFinder;
-            // controls duration of the actual strike
-            float mTimerAttack;
-            float mTimerReact;
-            // controls duration of the sideway & forward moves
-            // when mCombatMove is true
-            float mTimerCombatMove;
 
-            // the z rotation angle (degrees) we want to reach
-            // used every frame when mRotate is true
-            float mTargetAngle;
+            int mTargetActorId;
 
-            bool mReadyToAttack, mStrike;
-            bool mFollowTarget;
-            bool mCombatMove;
-            bool mRotate;
+            void attack(const MWWorld::Ptr& actor, const MWWorld::Ptr& target, AiCombatStorage& storage, CharacterController& characterController);
 
-            MWMechanics::Movement mMovement;
-            MWWorld::Ptr mTarget;
-
-            void buildNewPath(const MWWorld::Ptr& actor);
+            /// Transfer desired movement (from AiCombatStorage) to Actor
+            void updateActorsMovement(const MWWorld::Ptr& actor, float duration, AiCombatStorage& storage);
+            void rotateActorOnAxis(const MWWorld::Ptr& actor, int axis, 
+                MWMechanics::Movement& actorMovementSettings, MWMechanics::Movement& desiredMovement);
     };
+    
+    
 }
 
 #endif

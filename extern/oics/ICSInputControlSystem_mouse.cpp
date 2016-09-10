@@ -139,6 +139,11 @@ namespace ICS
 		mControlsMouseButtonBinderMap[ button ] = controlMouseButtonBinderItem;
 	}
 
+	bool InputControlSystem::isMouseButtonBound(unsigned int button) const
+	{
+		return mControlsMouseButtonBinderMap.find(button) != mControlsMouseButtonBinderMap.end();
+	}
+
 	// get bindings
 	InputControlSystem::NamedAxis InputControlSystem::getMouseAxisBinding(Control* control, ICS::Control::ControlChangingDirection direction)
 	{
@@ -149,7 +154,7 @@ namespace ICS
 			{
 				return (InputControlSystem::NamedAxis)(it->first);
 			}
-			it++;
+			++it;
 		}
 
 		return /*NamedAxis::*/UNASSIGNED;
@@ -179,7 +184,7 @@ namespace ICS
 			{
 				return it->first;
 			}
-			it++;
+			++it;
 		}
 
 		return ICS_MAX_DEVICE_BUTTONS;
@@ -219,11 +224,11 @@ namespace ICS
 	}
 
 	// mouse Listeners
-    void InputControlSystem::mouseMoved(const SFO::MouseMotionEvent& evt)
+    void InputControlSystem::mouseMoved(const SDL_MouseMotionEvent& evt)
 	{
 		if(mActive)
 		{
-			if(!mDetectingBindingControl)
+            if(!mDetectingBindingControl)
 			{
 				if(mXmouseAxisBinded && evt.xrel)
 				{
@@ -284,7 +289,7 @@ namespace ICS
 
 					mMouseAxisBindingInitialValues[0] += evt.xrel;
 					mMouseAxisBindingInitialValues[1] += evt.yrel;
-					mMouseAxisBindingInitialValues[2] += evt.zrel;
+                    // mMouseAxisBindingInitialValues[2] += evt.zrel;
 
 					if( abs(mMouseAxisBindingInitialValues[0]) > ICS_MOUSE_BINDING_MARGIN )
 					{
@@ -333,11 +338,6 @@ namespace ICS
 					}
 				}
 			}
-			else if(mDetectingBindingListener)
-			{
-				mDetectingBindingListener->mouseButtonBindingDetected(this,
-					mDetectingBindingControl, btn, mDetectingBindingDirection);
-			}
 		}
 	}
 
@@ -345,11 +345,19 @@ namespace ICS
 	{		
 		if(mActive)
 		{
-			ControlsButtonBinderMapType::const_iterator it = mControlsMouseButtonBinderMap.find((int)btn);
-			if(it != mControlsMouseButtonBinderMap.end())
-			{
-				it->second.control->setChangingDirection(Control::STOP);
-			}
+            if (!mDetectingBindingControl)
+            {
+                ControlsButtonBinderMapType::const_iterator it = mControlsMouseButtonBinderMap.find((int)btn);
+                if(it != mControlsMouseButtonBinderMap.end())
+                {
+                    it->second.control->setChangingDirection(Control::STOP);
+                }
+            }
+            else if(mDetectingBindingListener)
+            {
+                mDetectingBindingListener->mouseButtonBindingDetected(this,
+                    mDetectingBindingControl, btn, mDetectingBindingDirection);
+            }
 		}
 	}
 

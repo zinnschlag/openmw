@@ -6,6 +6,7 @@
 
 #include "cellref.hpp"
 #include "locals.hpp"
+#include "animationstate.hpp"
 
 namespace ESM
 {
@@ -24,10 +25,25 @@ namespace ESM
         unsigned char mEnabled;
         int mCount;
         ESM::Position mPosition;
-        float mLocalRotation[3];
+        unsigned int mFlags;
 
+        // Is there any class-specific state following the ObjectState
+        bool mHasCustomState;
+
+        unsigned int mVersion;
+
+        ESM::AnimationState mAnimationState;
+
+        ObjectState() : mHasCustomState(true), mVersion(0)
+        {}
+
+        /// @note Does not load the CellRef ID, it should already be loaded before calling this method
         virtual void load (ESMReader &esm);
+
         virtual void save (ESMWriter &esm, bool inInventory = false) const;
+
+        /// Initialize to default state
+        void blank();
 
         virtual ~ObjectState();
     };

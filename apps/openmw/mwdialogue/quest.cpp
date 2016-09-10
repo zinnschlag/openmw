@@ -1,4 +1,3 @@
-
 #include "quest.hpp"
 
 #include <components/esm/queststate.hpp>
@@ -27,7 +26,7 @@ namespace MWDialogue
         const ESM::Dialogue *dialogue =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>().find (mTopic);
 
-        for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
+        for (ESM::Dialogue::InfoContainer::const_iterator iter (dialogue->mInfo.begin());
             iter!=dialogue->mInfo.end(); ++iter)
             if (iter->mQuestStatus==ESM::DialInfo::QS_Name)
                 return iter->mResponse;
@@ -45,8 +44,7 @@ namespace MWDialogue
         const ESM::Dialogue *dialogue =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>().find (mTopic);
 
-        bool found=false;
-        for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
+        for (ESM::Dialogue::InfoContainer::const_iterator iter (dialogue->mInfo.begin());
             iter!=dialogue->mInfo.end(); ++iter)
             if (iter->mData.mDisposition==index && iter->mQuestStatus!=ESM::DialInfo::QS_Name)
             {
@@ -54,15 +52,10 @@ namespace MWDialogue
                     mFinished = true;
                 else if (iter->mQuestStatus==ESM::DialInfo::QS_Restart)
                     mFinished = false;
-
-                found = true;
-                // Don't return here. Quest status may actually be in a different info record, since we don't merge these (yet?)
             }
 
-        if (found)
-            mIndex = index;
-        else
-            throw std::runtime_error ("unknown journal index for topic " + mTopic);
+        // The index must be set even if no related journal entry was found
+        mIndex = index;
     }
 
     bool Quest::isFinished() const
@@ -77,11 +70,11 @@ namespace MWDialogue
         const ESM::Dialogue *dialogue =
             MWBase::Environment::get().getWorld()->getStore().get<ESM::Dialogue>().find (entry.mTopic);
 
-        for (std::vector<ESM::DialInfo>::const_iterator iter (dialogue->mInfo.begin());
+        for (ESM::Dialogue::InfoContainer::const_iterator iter (dialogue->mInfo.begin());
             iter!=dialogue->mInfo.end(); ++iter)
             if (iter->mId == entry.mInfoId)
             {
-                index = iter->mData.mDisposition; /// \todo cleanup info structure
+                index = iter->mData.mJournalIndex;
                 break;
             }
 

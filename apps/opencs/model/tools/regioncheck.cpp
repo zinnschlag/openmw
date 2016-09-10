@@ -1,4 +1,3 @@
-
 #include "regioncheck.hpp"
 
 #include <sstream>
@@ -17,7 +16,7 @@ int CSMTools::RegionCheckStage::setup()
     return mRegions.getSize();
 }
 
-void CSMTools::RegionCheckStage::perform (int stage, std::vector<std::string>& messages)
+void CSMTools::RegionCheckStage::perform (int stage, CSMDoc::Messages& messages)
 {
     const CSMWorld::Record<ESM::Region>& record = mRegions.getRecord (stage);
 
@@ -30,9 +29,16 @@ void CSMTools::RegionCheckStage::perform (int stage, std::vector<std::string>& m
 
     // test for empty name
     if (region.mName.empty())
-        messages.push_back (id.toString() + "|" + region.mId + " has an empty name");
+        messages.add(id, region.mId + " has an empty name", "", CSMDoc::Message::Severity_Error);
 
     /// \todo test that the ID in mSleeplist exists
+
+    // test that chances add up to 100
+    int chances = region.mData.mClear + region.mData.mCloudy + region.mData.mFoggy + region.mData.mOvercast +
+        region.mData.mRain + region.mData.mThunder + region.mData.mAsh + region.mData.mBlight +
+        region.mData.mA + region.mData.mB;
+    if (chances != 100)
+        messages.add(id, "Weather chances do not add up to 100", "", CSMDoc::Message::Severity_Error);
 
     /// \todo check data members that can't be edited in the table view
 }

@@ -1,7 +1,7 @@
 #ifndef MWGUI_WINDOW_BASE_H
 #define MWGUI_WINDOW_BASE_H
 
-#include <openengine/gui/layout.hpp>
+#include "layout.hpp"
 
 namespace MWBase
 {
@@ -13,7 +13,7 @@ namespace MWGui
     class WindowManager;
     class DragAndDrop;
 
-    class WindowBase: public OEngine::GUI::Layout
+    class WindowBase: public Layout
     {
         public:
         WindowBase(const std::string& parLayout);
@@ -21,15 +21,17 @@ namespace MWGui
         // Events
         typedef MyGUI::delegates::CMultiDelegate1<WindowBase*> EventHandle_WindowBase;
 
+        /// Notify that window has been made visible
         virtual void open() {}
+        /// Notify that window has been hidden
         virtual void close () {}
+        /// Gracefully exits the window
+        virtual void exit() {}
+        /// Sets the visibility of the window
         virtual void setVisible(bool visible);
+        /// Returns the visibility state of the window
+        bool isVisible();
         void center();
-
-        /** Event : Dialog finished, OK button clicked.\n
-            signature : void method()\n
-        */
-        EventHandle_WindowBase eventDone;
     };
 
 
@@ -42,6 +44,7 @@ namespace MWGui
         WindowModal(const std::string& parLayout);
         virtual void open();
         virtual void close();
+        virtual void exit() {}
     };
 
     /// A window that cannot be the target of a drag&drop action.
@@ -52,6 +55,7 @@ namespace MWGui
         NoDrop(DragAndDrop* drag, MyGUI::Widget* widget);
 
         void onFrame(float dt);
+        virtual void setAlpha(float alpha);
 
     private:
         MyGUI::Widget* mWidget;

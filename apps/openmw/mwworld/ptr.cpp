@@ -1,18 +1,10 @@
-
 #include "ptr.hpp"
 
 #include <cassert>
 
 #include "containerstore.hpp"
 #include "class.hpp"
-
-
-/* This shouldn't really be here. */
-MWWorld::LiveCellRefBase::LiveCellRefBase(std::string type, const ESM::CellRef &cref)
-  : mClass(&Class::get(type)), mRef(cref), mData(mRef)
-{
-}
-
+#include "livecellref.hpp"
 
 const std::string& MWWorld::Ptr::getTypeName() const
 {
@@ -29,7 +21,7 @@ MWWorld::LiveCellRefBase *MWWorld::Ptr::getBase() const
     return mRef;
 }
 
-ESM::CellRef& MWWorld::Ptr::getCellRef() const
+MWWorld::CellRef& MWWorld::Ptr::getCellRef() const
 {
     assert(mRef);
 
@@ -57,6 +49,33 @@ MWWorld::ContainerStore *MWWorld::Ptr::getContainerStore() const
 }
 
 MWWorld::Ptr::operator const void *()
+{
+    return mRef;
+}
+
+// -------------------------------------------------------------------------------
+
+const std::string &MWWorld::ConstPtr::getTypeName() const
+{
+    if(mRef != 0)
+        return mRef->mClass->getTypeName();
+    throw std::runtime_error("Can't get type name from an empty object.");
+}
+
+const MWWorld::LiveCellRefBase *MWWorld::ConstPtr::getBase() const
+{
+    if (!mRef)
+        throw std::runtime_error ("Can't access cell ref pointed to by null Ptr");
+
+    return mRef;
+}
+
+const MWWorld::ContainerStore *MWWorld::ConstPtr::getContainerStore() const
+{
+    return mContainerStore;
+}
+
+MWWorld::ConstPtr::operator const void *()
 {
     return mRef;
 }

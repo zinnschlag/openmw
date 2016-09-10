@@ -1,10 +1,16 @@
 #ifndef MWGUI_SPELLCREATION_H
 #define MWGUI_SPELLCREATION_H
 
+#include <components/esm/loadmgef.hpp>
+#include <components/esm/loadspel.hpp>
+
 #include "windowbase.hpp"
 #include "referenceinterface.hpp"
-#include "list.hpp"
-#include "widgets.hpp"
+
+namespace Gui
+{
+    class MWList;
+}
 
 namespace MWGui
 {
@@ -18,13 +24,15 @@ namespace MWGui
         EditEffectDialog();
 
         virtual void open();
+        virtual void exit();
+
+        void setConstantEffect(bool constant);
 
         void setSkill(int skill);
         void setAttribute(int attribute);
 
         void newEffect (const ESM::MagicEffect* effect);
         void editEffect (ESM::ENAMstruct effect);
-        bool constantEffect;
         typedef MyGUI::delegates::CMultiDelegate1<ESM::ENAMstruct> EventHandle_Effect;
 
         EventHandle_Effect eventEffectAdded;
@@ -78,19 +86,29 @@ namespace MWGui
         ESM::ENAMstruct mOldEffect;
 
         const ESM::MagicEffect* mMagicEffect;
+
+        bool mConstantEffect;
     };
 
 
     class EffectEditorBase
     {
     public:
-        EffectEditorBase();
+        enum Type
+        {
+            Spellmaking,
+            Enchanting
+        };
+
+        EffectEditorBase(Type type);
         virtual ~EffectEditorBase();
+
+        void setConstantEffect(bool constant);
 
     protected:
         std::map<int, short> mButtonMapping; // maps button ID to effect ID
 
-        Widgets::MWList* mAvailableEffectsList;
+        Gui::MWList* mAvailableEffectsList;
         MyGUI::ScrollView* mUsedEffectsView;
 
         EditEffectDialog mAddEffectDialog;
@@ -98,6 +116,9 @@ namespace MWGui
         SelectSkillDialog* mSelectSkillDialog;
 
         int mSelectedEffect;
+        short mSelectedKnownEffectId;
+
+        bool mConstantEffect;
 
         std::vector<ESM::ENAMstruct> mEffects;
 
@@ -116,9 +137,12 @@ namespace MWGui
         void updateEffectsView();
 
         void startEditing();
-        void setWidgets (Widgets::MWList* availableEffectsList, MyGUI::ScrollView* usedEffectsView);
+        void setWidgets (Gui::MWList* availableEffectsList, MyGUI::ScrollView* usedEffectsView);
 
         virtual void notifyEffectsChanged () {}
+
+    private:
+        Type mType;
     };
 
     class SpellCreationDialog : public WindowBase, public ReferenceInterface, public EffectEditorBase
@@ -127,6 +151,7 @@ namespace MWGui
         SpellCreationDialog();
 
         virtual void open();
+        virtual void exit();
 
         void startSpellMaking(MWWorld::Ptr actor);
 
@@ -144,8 +169,6 @@ namespace MWGui
         MyGUI::Button* mBuyButton;
         MyGUI::Button* mCancelButton;
         MyGUI::TextBox* mPriceLabel;
-
-        Widgets::MWEffectList* mUsedEffectsList;
 
         ESM::Spell mSpell;
 

@@ -29,8 +29,9 @@ namespace MWDialogue
 
             virtual void clear();
 
-            virtual void addEntry (const std::string& id, int index);
+            virtual void addEntry (const std::string& id, int index, const MWWorld::Ptr& actor);
             ///< Add a journal entry.
+            /// @param actor Used as context for replacing of escape sequences (%name, etc).
 
             virtual void setJournalIndex (const std::string& id, int index);
             ///< Set the journal index without adding an entry.
@@ -38,7 +39,12 @@ namespace MWDialogue
             virtual int getJournalIndex (const std::string& id) const;
             ///< Get the journal index.
 
-            virtual void addTopic (const std::string& topicId, const std::string& infoId, const std::string& actorName);
+            virtual void addTopic (const std::string& topicId, const std::string& infoId, const MWWorld::Ptr& actor);
+            /// \note topicId must be lowercase
+
+            virtual void removeLastAddedTopicResponse (const std::string& topicId, const std::string& actorName);
+            ///< Removes the last topic response added for the given topicId and actor name.
+            /// \note topicId must be lowercase
 
             virtual TEntryIter begin() const;
             ///< Iterator pointing to the begin of the main journal.
@@ -64,9 +70,9 @@ namespace MWDialogue
 
             virtual int countSavedGameRecords() const;
 
-            virtual void write (ESM::ESMWriter& writer) const;
+            virtual void write (ESM::ESMWriter& writer, Loading::Listener& progress) const;
 
-            virtual void readRecord (ESM::ESMReader& reader, int32_t type);
+            virtual void readRecord (ESM::ESMReader& reader, uint32_t type);
     };
 }
 

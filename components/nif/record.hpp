@@ -36,6 +36,8 @@ enum RecordType
 {
   RC_MISSING = 0,
   RC_NiNode,
+  RC_NiSwitchNode,
+  RC_NiLODNode,
   RC_NiBillboardNode,
   RC_AvoidNode,
   RC_NiTriShape,
@@ -44,6 +46,7 @@ enum RecordType
   RC_NiBSParticleNode,
   RC_NiCamera,
   RC_NiTexturingProperty,
+  RC_NiFogProperty,
   RC_NiMaterialProperty,
   RC_NiZBufferProperty,
   RC_NiAlphaProperty,
@@ -109,12 +112,6 @@ struct Record
     virtual void post(NIFFile *nif) {}
 
     virtual ~Record() {}
-
-    /*
-       Use these later if you want custom allocation of all NIF objects
-    static void* operator new(size_t size);
-    static void operator delete(void *p);
-    */
 };
 
 } // Namespace

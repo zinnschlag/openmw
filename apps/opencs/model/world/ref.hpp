@@ -1,25 +1,24 @@
 #ifndef CSM_WOLRD_REF_H
 #define CSM_WOLRD_REF_H
 
-#include <components/esm/cellref.hpp>
+#include <utility>
 
-namespace ESM
-{
-    class ESMReader;
-}
+#include <components/esm/cellref.hpp>
 
 namespace CSMWorld
 {
-    class Cell;
-
     /// \brief Wrapper for CellRef sub record
     struct CellRef : public ESM::CellRef
     {
         std::string mId;
         std::string mCell;
+        std::string mOriginalCell;
+        bool mNew; // new reference, not counted yet, ref num not assigned yet
 
-        void load (ESM::ESMReader &esm, Cell& cell, const std::string& id);
-        ///< Load cell ref and register it with \a cell.
+        CellRef();
+
+        /// Calculate cell index based on coordinates (x and y)
+        std::pair<int, int> getCellIndex() const;
     };
 }
 

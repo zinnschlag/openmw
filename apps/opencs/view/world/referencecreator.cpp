@@ -1,13 +1,17 @@
-
 #include "referencecreator.hpp"
 
 #include <QLabel>
-#include <QLineEdit>
+
+#include "../../model/doc/document.hpp"
 
 #include "../../model/world/data.hpp"
 #include "../../model/world/commands.hpp"
 #include "../../model/world/columns.hpp"
 #include "../../model/world/idtable.hpp"
+#include "../../model/world/idcompletionmanager.hpp"
+#include "../../model/world/commandmacro.hpp"
+
+#include "../widget/droplineedit.hpp"
 
 std::string CSVWorld::ReferenceCreator::getId() const
 {
@@ -16,26 +20,29 @@ std::string CSVWorld::ReferenceCreator::getId() const
 
 void CSVWorld::ReferenceCreator::configureCreateCommand (CSMWorld::CreateCommand& command) const
 {
-    int index =
+    // Set cellID
+    int cellIdColumn =
         dynamic_cast<CSMWorld::IdTable&> (*getData().getTableModel (getCollectionId())).
         findColumnIndex (CSMWorld::Columns::ColumnId_Cell);
 
-    command.addValue (index, mCell->text());
+    command.addValue (cellIdColumn, mCell->text());
 }
 
 CSVWorld::ReferenceCreator::ReferenceCreator (CSMWorld::Data& data, QUndoStack& undoStack,
-    const CSMWorld::UniversalId& id)
+    const CSMWorld::UniversalId& id, CSMWorld::IdCompletionManager &completionManager)
 : GenericCreator (data, undoStack, id)
 {
     QLabel *label = new QLabel ("Cell", this);
     insertBeforeButtons (label, false);
 
-    mCell = new QLineEdit (this);
+    mCell = new CSVWidget::DropLineEdit(CSMWorld::ColumnBase::Display_Cell, this);
+    mCell->setCompleter(completionManager.getCompleter(CSMWorld::ColumnBase::Display_Cell).get());
     insertBeforeButtons (mCell, true);
 
     setManualEditing (false);
 
     connect (mCell, SIGNAL (textChanged (const QString&)), this, SLOT (cellChanged()));
+    connect (mCell, SIGNAL (returnPressed()), this, SLOT (inputReturnPressed()));
 }
 
 void CSVWorld::ReferenceCreator::reset()
@@ -47,12 +54,9 @@ void CSVWorld::ReferenceCreator::reset()
 
 std::string CSVWorld::ReferenceCreator::getErrors() const
 {
-    std::string errors = GenericCreator::getErrors();
-
-    if (mCloneMode)
-    {
-        return errors;
-    }
+    // We are ignoring errors coming from GenericCreator here, because the ID of the new
+    // record is internal and requires neither user input nor verification.
+    std::string errors;
 
     std::string cell = mCell->text().toUtf8().constData();
 
@@ -74,20 +78,36 @@ std::string CSVWorld::ReferenceCreator::getErrors() const
     return errors;
 }
 
+void CSVWorld::ReferenceCreator::focus()
+{
+    mCell->setFocus();
+}
+
 void CSVWorld::ReferenceCreator::cellChanged()
 {
     update();
 }
 
-void CSVWorld::ReferenceCreator::toggleWidgets(bool active)
-{
-    CSVWorld::GenericCreator::toggleWidgets(active);
-    mCell->setEnabled(active);
-}
-
 void CSVWorld::ReferenceCreator::cloneMode(const std::string& originId,
                                            const CSMWorld::UniversalId::Type type)
 {
+    CSMWorld::IdTable& referenceTable = dynamic_cast<CSMWorld::IdTable&> (
+        *getData().getTableModel (CSMWorld::UniversalId::Type_References));
+
+    int cellIdColumn = referenceTable.findColumnIndex (CSMWorld::Columns::ColumnId_Cell);
+
+    mCell->setText (
+        referenceTable.data (referenceTable.getModelIndex (originId, cellIdColumn)).toString());
+
     CSVWorld::GenericCreator::cloneMode(originId, type);
     cellChanged(); //otherwise ok button will remain disabled
+}
+
+CSVWorld::Creator *CSVWorld::ReferenceCreatorFactory::makeCreator (CSMDoc::Document& document,
+                                                                   const CSMWorld::UniversalId& id) const
+{
+    return new ReferenceCreator(document.getData(),
+                                document.getUndoStack(),
+                                id,
+                                document.getIdCompletionManager());
 }

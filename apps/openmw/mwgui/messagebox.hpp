@@ -3,8 +3,6 @@
 
 #include "windowbase.hpp"
 
-#include "../mwbase/windowmanager.hpp"
-
 #undef MessageBox
 
 namespace MyGUI
@@ -30,10 +28,13 @@ namespace MWGui
             bool createInteractiveMessageBox (const std::string& message, const std::vector<std::string>& buttons);
             bool isInteractiveMessageBox ();
 
-            bool removeMessageBox (MessageBox *msgbox);
-            void setMessageBoxSpeed (int speed);
+            /// Remove all message boxes
+            void clear();
 
-            int readPressedButton ();
+            bool removeMessageBox (MessageBox *msgbox);
+
+            /// @param reset Reset the pressed button to -1 after reading it.
+            int readPressedButton (bool reset=true);
 
             typedef MyGUI::delegates::CMultiDelegate1<int> EventHandle_Int;
 
@@ -50,7 +51,7 @@ namespace MWGui
             int mLastButtonPressed;
     };
 
-    class MessageBox : public OEngine::GUI::Layout
+    class MessageBox : public Layout
     {
         public:
             MessageBox (MessageBoxManager& parMessageBoxManager, const std::string& message);
@@ -87,7 +88,6 @@ namespace MWGui
             MyGUI::Widget* mButtonsWidget;
             std::vector<MyGUI::Button*> mButtons;
 
-            int mTextButtonPadding;
             int mButtonPressed;
     };
 

@@ -16,13 +16,16 @@ namespace CSMWorld
             enum Class
             {
                 Class_None = 0,
-                Class_Record,
-                Class_RefRecord, // referenceable record
-                Class_SubRecord,
-                Class_RecordList,
-                Class_Collection, // multiple types of records combined
-                Class_Transient, // not part of the world data or the project data
-                Class_NonRecord // record like data that is not part of the world
+                Class_Record = 1,
+                Class_RefRecord = 2, // referenceable record
+                Class_SubRecord = 4,
+                Class_RecordList = 8,
+                Class_Collection = 16, // multiple types of records combined
+                Class_Transient = 32, // not part of the world data or the project data
+                Class_NonRecord = 64, // record like data that is not part of the world
+                Class_Resource = 128, ///< \attention Resource IDs are unique only within the
+                                /// respective collection
+                Class_ResourceList = 256
             };
 
             enum ArgumentType
@@ -32,6 +35,8 @@ namespace CSMWorld
                 ArgumentType_Index
             };
 
+            /// \note A record list type must always be immediately followed by the matching
+            /// record type, if this type is of class SubRecord or Record.
             enum Type
             {
                 Type_None = 0,
@@ -60,6 +65,7 @@ namespace CSMWorld
                 Type_Spell,
                 Type_Cells,
                 Type_Cell,
+                Type_Cell_Missing, //For cells that does not exist yet.
                 Type_Referenceables,
                 Type_Referenceable,
                 Type_Activator,
@@ -85,8 +91,8 @@ namespace CSMWorld
                 Type_References,
                 Type_Reference,
                 Type_RegionMap,
-                Type_Filter,
                 Type_Filters,
+                Type_Filter,
                 Type_Topics,
                 Type_Topic,
                 Type_Journals,
@@ -96,10 +102,41 @@ namespace CSMWorld
                 Type_JournalInfos,
                 Type_JournalInfo,
                 Type_Scene,
-                Type_Preview
+                Type_Preview,
+                Type_LoadErrorLog,
+                Type_Enchantments,
+                Type_Enchantment,
+                Type_BodyParts,
+                Type_BodyPart,
+                Type_Meshes,
+                Type_Mesh,
+                Type_Icons,
+                Type_Icon,
+                Type_Musics,
+                Type_Music,
+                Type_SoundsRes,
+                Type_SoundRes,
+                Type_Textures,
+                Type_Texture,
+                Type_Videos,
+                Type_Video,
+                Type_DebugProfiles,
+                Type_DebugProfile,
+                Type_SoundGens,
+                Type_SoundGen,
+                Type_MagicEffects,
+                Type_MagicEffect,
+                Type_Pathgrids,
+                Type_Pathgrid,
+                Type_StartScripts,
+                Type_StartScript,
+                Type_Search,
+                Type_MetaDatas,
+                Type_MetaData,
+                Type_RunLog
             };
 
-            enum { NumberOfTypes = Type_Scene+1 };
+            enum { NumberOfTypes = Type_RunLog+1 };
 
         private:
 
@@ -145,6 +182,13 @@ namespace CSMWorld
             ///< Will return an empty string, if no icon is available.
 
             static std::vector<Type> listReferenceableTypes();
+
+            static std::vector<Type> listTypes (int classes);
+
+            /// If \a type is a SubRecord, RefRecord or Record type return the type of the table
+            /// that contains records of type \a type.
+            /// Otherwise return Type_None.
+            static Type getParentType (Type type);
     };
 
     bool operator== (const UniversalId& left, const UniversalId& right);

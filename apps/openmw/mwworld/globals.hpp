@@ -8,12 +8,17 @@
 #include <stdint.h>
 
 #include <components/interpreter/types.hpp>
-#include <components/esm/variant.hpp>
+#include <components/esm/loadglob.hpp>
 
 namespace ESM
 {
     class ESMWriter;
     class ESMReader;
+}
+
+namespace Loading
+{
+    class Listener;
 }
 
 namespace MWWorld
@@ -24,7 +29,7 @@ namespace MWWorld
     {
         private:
 
-            typedef std::map<std::string, ESM::Variant> Collection;
+            typedef std::map<std::string, ESM::Global> Collection;
 
             Collection mVariables; // type, value
 
@@ -46,9 +51,9 @@ namespace MWWorld
 
             int countSavedGameRecords() const;
 
-            void write (ESM::ESMWriter& writer) const;
+            void write (ESM::ESMWriter& writer, Loading::Listener& progress) const;
 
-            bool readRecord (ESM::ESMReader& reader, int32_t type);
+            bool readRecord (ESM::ESMReader& reader, uint32_t type);
             ///< Records for variables that do not exist are dropped silently.
             ///
             /// \return Known type?

@@ -11,11 +11,19 @@ namespace CSMWorld
     template<typename ESXRecordT, typename IdAccessorT = IdAccessor<ESXRecordT> >
     class IdCollection : public Collection<ESXRecordT, IdAccessorT>
     {
+            virtual void loadRecord (ESXRecordT& record, ESM::ESMReader& reader, bool& isDeleted);
+
         public:
 
-            void load (ESM::ESMReader& reader, bool base);
+            /// \return Index of loaded record (-1 if no record was loaded)
+            int load (ESM::ESMReader& reader, bool base);
 
-            void load (const ESXRecordT& record, bool base);
+            /// \param index Index at which the record can be found.
+            /// Special values: -2 index unknown, -1 record does not exist yet and therefore
+            /// does not have an index
+            ///
+            /// \return index
+            int load (const ESXRecordT& record, bool base, int index = -2);
 
             bool tryDelete (const std::string& id);
             ///< Try deleting \a id. If the id does not exist or can't be deleted the call is ignored.
@@ -24,49 +32,55 @@ namespace CSMWorld
     };
 
     template<typename ESXRecordT, typename IdAccessorT>
-    void IdCollection<ESXRecordT, IdAccessorT>::load (ESM::ESMReader& reader, bool base)
+    void IdCollection<ESXRecordT, IdAccessorT>::loadRecord (ESXRecordT& record,
+                                                            ESM::ESMReader& reader,
+                                                            bool& isDeleted)
     {
-        std::string id = reader.getHNOString ("NAME");
-
-        if (reader.isNextSub ("DELE"))
-        {
-            int index = Collection<ESXRecordT, IdAccessorT>::searchId (id);
-
-            reader.skipRecord();
-
-            if (index==-1)
-            {
-                // deleting a record that does not exist
-
-                // ignore it for now
-
-                /// \todo report the problem to the user
-            }
-            else if (base)
-            {
-                Collection<ESXRecordT, IdAccessorT>::removeRows (index, 1);
-            }
-            else
-            {
-                Record<ESXRecordT> record = Collection<ESXRecordT, IdAccessorT>::getRecord (index);
-                record.mState = RecordBase::State_Deleted;
-                this->setRecord (index, record);
-            }
-        }
-        else
-        {
-            ESXRecordT record;
-            IdAccessorT().getId (record) = id;
-            record.load (reader);
-
-            load (record, base);
-        }
+        record.load (reader, isDeleted);
     }
 
     template<typename ESXRecordT, typename IdAccessorT>
-    void IdCollection<ESXRecordT, IdAccessorT>::load (const ESXRecordT& record, bool base)
+    int IdCollection<ESXRecordT, IdAccessorT>::load (ESM::ESMReader& reader, bool base)
     {
-        int index = this->searchId (IdAccessorT().getId (record));
+        ESXRecordT record;
+        bool isDeleted = false;
+
+        loadRecord (record, reader, isDeleted);
+
+        std::string id = IdAccessorT().getId (record);
+        int index = this->searchId (id);
+
+        if (isDeleted)
+        {
+            if (index==-1)
+            {
+                // deleting a record that does not exist
+                // ignore it for now
+                /// \todo report the problem to the user
+                return -1;
+            }
+
+            if (base)
+            {
+                this->removeRows (index, 1);
+                return -1;
+            }
+
+            Record<ESXRecordT> baseRecord = this->getRecord (index);
+            baseRecord.mState = RecordBase::State_Deleted;
+            this->setRecord (index, baseRecord);
+            return index;
+        }
+
+        return load (record, base, index);
+    }
+
+    template<typename ESXRecordT, typename IdAccessorT>
+    int IdCollection<ESXRecordT, IdAccessorT>::load (const ESXRecordT& record, bool base,
+        int index)
+    {
+        if (index==-2)
+            index = this->searchId (IdAccessorT().getId (record));
 
         if (index==-1)
         {
@@ -75,6 +89,7 @@ namespace CSMWorld
             record2.mState = base ? RecordBase::State_BaseOnly : RecordBase::State_ModifiedOnly;
             (base ? record2.mBase : record2.mModified) = record;
 
+            index = this->getSize();
             this->appendRecord (record2);
         }
         else
@@ -89,6 +104,8 @@ namespace CSMWorld
 
             this->setRecord (index, record2);
         }
+
+        return index;
     }
 
     template<typename ESXRecordT, typename IdAccessorT>

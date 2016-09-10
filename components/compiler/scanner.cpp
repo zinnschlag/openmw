@@ -1,4 +1,3 @@
-
 #include "scanner.hpp"
 
 #include <cassert>
@@ -27,6 +26,7 @@ namespace Compiler
 
         if (c=='\n')
         {
+            mStrictKeywords = false;
             mLoc.mColumn = 0;
             ++mLoc.mLine;
             mLoc.mLiteral.clear();
@@ -120,21 +120,21 @@ namespace Compiler
             mLoc.mLiteral.clear();
             return true;
         }
-        else if (std::isdigit (c))
-        {
-            bool cont = false;
-
-            if (scanInt (c, parser, cont))
-            {
-                mLoc.mLiteral.clear();
-                return cont;
-            }
-        }
         else if (std::isalpha (c) || c=='_' || c=='"')
         {
             bool cont = false;
 
             if (scanName (c, parser, cont))
+            {
+                mLoc.mLiteral.clear();
+                return cont;
+            }
+        }
+        else if (std::isdigit (c))
+        {
+            bool cont = false;
+
+            if (scanInt (c, parser, cont))
             {
                 mLoc.mLiteral.clear();
                 return cont;
@@ -176,10 +176,18 @@ namespace Compiler
             {
                 value += c;
             }
-            else if (std::isalpha (c) || c=='_')
-                error = true;
-            else if (c=='.' && !error)
+            else if (c!='-' && isStringCharacter (c))
             {
+                error = true;
+                value += c;
+            }
+            else if (c=='.')
+            {
+                if (error)
+                {
+                    putback (c);
+                    break;
+                }
                 return scanFloat (value, parser, cont);
             }
             else
@@ -190,7 +198,15 @@ namespace Compiler
         }
 
         if (error)
-            return false;
+        {
+            /// workaround that allows names to begin with digits
+            /// \todo disable
+            TokenLoc loc (mLoc);
+            mLoc.mLiteral.clear();
+            cont = parser.parseName (value, loc, *this);
+            return true;
+//            return false;
+        }
 
         TokenLoc loc (mLoc);
         mLoc.mLiteral.clear();
@@ -244,7 +260,7 @@ namespace Compiler
         return true;
     }
 
-    static const char *keywords[] =
+    static const char *sKeywords[] =
     {
         "begin", "end",
         "short", "long", "float",
@@ -266,8 +282,9 @@ namespace Compiler
     bool Scanner::scanName (char c, Parser& parser, bool& cont)
     {
         std::string name;
+        name += c;
 
-        if (!scanName (c, name))
+        if (!scanName (name))
             return false;
 
         TokenLoc loc (mLoc);
@@ -276,19 +293,24 @@ namespace Compiler
         if (name.size()>=2 && name[0]=='"' && name[name.size()-1]=='"')
         {
             name = name.substr (1, name.size()-2);
-            cont = parser.parseName (name, loc, *this);
-            return true;
+// allow keywords enclosed in ""
+/// \todo optionally disable
+            if (mStrictKeywords)
+            {
+                cont = parser.parseName (name, loc, *this);
+                return true;
+            }
         }
 
         int i = 0;
 
         std::string lowerCase = Misc::StringUtils::lowerCase(name);
 
-        for (; keywords[i]; ++i)
-            if (lowerCase==keywords[i])
+        for (; sKeywords[i]; ++i)
+            if (lowerCase==sKeywords[i])
                 break;
 
-        if (keywords[i])
+        if (sKeywords[i])
         {
             cont = parser.parseKeyword (i, loc, *this);
             return true;
@@ -308,14 +330,10 @@ namespace Compiler
         return true;
     }
 
-    bool Scanner::scanName (char c, std::string& name)
+    bool Scanner::scanName (std::string& name)
     {
-        bool first = false;
+        char c;
         bool error = false;
-
-        name.clear();
-
-        putback (c);
 
         while (get (c))
         {
@@ -331,34 +349,28 @@ namespace Compiler
 //                {
 //                    if (!get (c))
 //                    {
+//                        error = true;
 //                        mErrorHandler.error ("incomplete escape sequence", mLoc);
 //                        break;
 //                    }
 //                }
                 else if (c=='\n')
                 {
+                    error = true;
                     mErrorHandler.error ("incomplete string or name", mLoc);
                     break;
                 }
             }
             else if (!(c=='"' && name.empty()))
             {
-                if (!(std::isalpha (c) || std::isdigit (c) || c=='_' || c=='`' ||
-                    /// \todo add an option to disable the following hack. Also, find out who is
-                    /// responsible for allowing it in the first place and meet up with that person in
-                    /// a dark alley.
-                    (c=='-' && !name.empty() && std::isalpha (mStream.peek()))))
+                if (!isStringCharacter (c))
                 {
                     putback (c);
                     break;
                 }
-
-                if (first && std::isdigit (c))
-                    error = true;
             }
 
             name += c;
-            first = false;
         }
 
         return !error;
@@ -391,14 +403,17 @@ namespace Compiler
         {
             if (get (c))
             {
-                if (c=='=')
+                /// \todo hack to allow a space in comparison operators (add option to disable)
+                if (c==' ' && !get (c))
+                    special = S_cmpEQ;
+                else if (c=='=')
                     special = S_cmpEQ;
                 else
                 {
                     special = S_cmpEQ;
                     putback (c);
 //                    return false;
-// Allow = as synonym for ==. \todo optionally disable for post-1.0 scripting improvements.
+/// Allow = as synonym for ==. \todo optionally disable for post-1.0 scripting improvements.
                 }
             }
             else
@@ -411,6 +426,10 @@ namespace Compiler
         {
             if (get (c))
             {
+                /// \todo hack to allow a space in comparison operators (add option to disable)
+                if (c==' ' && !get (c))
+                    return false;
+
                 if (c=='=')
                     special = S_cmpNE;
                 else
@@ -437,11 +456,40 @@ namespace Compiler
             else
                 special = S_minus;
         }
+        else if (static_cast<unsigned char> (c)==0xe2)
+        {
+            /// Workaround for some translator who apparently can't keep his minus in order
+            /// \todo disable for later script formats
+            if (get (c) && static_cast<unsigned char> (c)==0x80 &&
+                get (c) && static_cast<unsigned char> (c)==0x93)
+            {
+                if (get (c))
+                {
+                    if (c=='>')
+                        special = S_ref;
+                    else
+                    {
+                        putback (c);
+                        special = S_minus;
+                    }
+                }
+                else
+                    special = S_minus;
+            }
+            else
+            {
+                mErrorHandler.error ("Invalid character", mLoc);
+                return false;
+            }
+        }
         else if (c=='<')
         {
             if (get (c))
             {
-                if (c=='=')
+                /// \todo hack to allow a space in comparison operators (add option to disable)
+                if (c==' ' && !get (c))
+                    special = S_cmpLT;
+                else if (c=='=')
                 {
                     special = S_cmpLE;
 
@@ -461,7 +509,10 @@ namespace Compiler
         {
             if (get (c))
             {
-                if (c=='=')
+                /// \todo hack to allow a space in comparison operators (add option to disable)
+                if (c==' ' && !get (c))
+                    special = S_cmpGT;
+                else if (c=='=')
                 {
                     special = S_cmpGE;
 
@@ -499,6 +550,17 @@ namespace Compiler
         return true;
     }
 
+    bool Scanner::isStringCharacter (char c, bool lookAhead)
+    {
+        return std::isalpha (c) || std::isdigit (c) || c=='_' ||
+            /// \todo disable this when doing more stricter compiling
+            c=='`' || c=='\'' ||
+            /// \todo disable this when doing more stricter compiling. Also, find out who is
+            /// responsible for allowing it in the first place and meet up with that person in
+            /// a dark alley.
+            (c=='-' && (!lookAhead || isStringCharacter (mStream.peek(), false)));
+    }
+
     bool Scanner::isWhitespace (char c)
     {
         return c==' ' || c=='\t';
@@ -509,7 +571,8 @@ namespace Compiler
     Scanner::Scanner (ErrorHandler& errorHandler, std::istream& inputStream,
         const Extensions *extensions)
     : mErrorHandler (errorHandler), mStream (inputStream), mExtensions (extensions),
-      mPutback (Putback_None), mPutbackCode(0), mPutbackInteger(0), mPutbackFloat(0)
+      mPutback (Putback_None), mPutbackCode(0), mPutbackInteger(0), mPutbackFloat(0),
+      mStrictKeywords (false)
     {
     }
 
@@ -555,10 +618,15 @@ namespace Compiler
 
     void Scanner::listKeywords (std::vector<std::string>& keywords)
     {
-        for (int i=0; Compiler::keywords[i]; ++i)
-            keywords.push_back (Compiler::keywords[i]);
+        for (int i=0; Compiler::sKeywords[i]; ++i)
+            keywords.push_back (Compiler::sKeywords[i]);
 
         if (mExtensions)
             mExtensions->listKeywords (keywords);
+    }
+
+    void Scanner::enableStrictKeywords()
+    {
+        mStrictKeywords = true;
     }
 }

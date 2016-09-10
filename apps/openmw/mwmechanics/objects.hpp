@@ -38,10 +38,11 @@ namespace MWMechanics
         void update(float duration, bool paused);
         ///< Update object animations
 
-        void playAnimationGroup(const MWWorld::Ptr& ptr, const std::string& groupName, int mode, int number);
+        bool playAnimationGroup(const MWWorld::Ptr& ptr, const std::string& groupName, int mode, int number, bool persist=false);
         void skipAnimation(const MWWorld::Ptr& ptr);
+        void persistAnimationStates();
 
-        void getObjectsInRange (const Ogre::Vector3& position, float radius, std::vector<MWWorld::Ptr>& out);
+        void getObjectsInRange (const osg::Vec3f& position, float radius, std::vector<MWWorld::Ptr>& out);
     };
 }
 

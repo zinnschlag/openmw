@@ -1,4 +1,3 @@
-
 #include "scriptcontext.hpp"
 
 #include <algorithm>
@@ -40,14 +39,12 @@ char CSMWorld::ScriptContext::getGlobalType (const std::string& name) const
 std::pair<char, bool> CSMWorld::ScriptContext::getMemberType (const std::string& name,
     const std::string& id) const
 {
-    /// \todo invalidate locals cache on change to scripts
-
     std::string id2 = Misc::StringUtils::lowerCase (id);
 
     int index = mData.getScripts().searchId (id2);
     bool reference = false;
 
-    if (index!=-1)
+    if (index==-1)
     {
         // ID is not a script ID. Search for a matching referenceable instead.
         index = mData.getReferenceables().searchId (id2);
@@ -55,19 +52,16 @@ std::pair<char, bool> CSMWorld::ScriptContext::getMemberType (const std::string&
         if (index!=-1)
         {
             // Referenceable found.
-            int columnIndex = mData.getReferenceables().searchColumnIndex (Columns::ColumnId_Script);
+            int columnIndex = mData.getReferenceables().findColumnIndex (Columns::ColumnId_Script);
 
-            if (columnIndex!=-1)
+            id2 = Misc::StringUtils::lowerCase (mData.getReferenceables().
+                getData (index, columnIndex).toString().toUtf8().constData());
+
+            if (!id2.empty())
             {
-                id2 = Misc::StringUtils::lowerCase (mData.getReferenceables().
-                    getData (index, columnIndex).toString().toUtf8().constData());
-
-                if (!id2.empty())
-                {
-                    // Referenceable has a script -> use it.
-                    index = mData.getScripts().searchId (id2);
-                    reference = true;
-                }
+                // Referenceable has a script -> use it.
+                index = mData.getScripts().searchId (id2);
+                reference = true;
             }
         }
     }
@@ -99,7 +93,7 @@ bool CSMWorld::ScriptContext::isId (const std::string& name) const
     {
         mIds = mData.getIds();
 
-        std::for_each (mIds.begin(), mIds.end(), &Misc::StringUtils::lowerCase);
+        std::for_each (mIds.begin(), mIds.end(), &Misc::StringUtils::lowerCaseInPlace);
         std::sort (mIds.begin(), mIds.end());
 
         mIdsUpdated = true;
@@ -123,4 +117,19 @@ void CSMWorld::ScriptContext::clear()
     mIds.clear();
     mIdsUpdated = false;
     mLocals.clear();
+}
+
+bool CSMWorld::ScriptContext::clearLocals (const std::string& script)
+{
+    std::map<std::string, Compiler::Locals>::iterator iter =
+        mLocals.find (Misc::StringUtils::lowerCase (script));
+
+    if (iter!=mLocals.end())
+    {
+        mLocals.erase (iter);
+        mIdsUpdated = false;
+        return true;
+    }
+
+    return false;
 }

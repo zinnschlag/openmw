@@ -14,6 +14,8 @@ class ESMWriter;
 struct Spell
 {
     static unsigned int sRecordId;
+    /// Return a string descriptor for this record type. Currently used for debugging / error logs only.
+    static std::string getRecordType() { return "Spell"; }
 
     enum SpellType
     {
@@ -27,8 +29,8 @@ struct Spell
 
     enum Flags
     {
-        F_Autocalc = 1,
-        F_PCStart = 2,
+        F_Autocalc = 1, // Can be selected by NPC spells auto-calc
+        F_PCStart = 2, // Can be selected by player spells auto-calc
         F_Always = 4 // Casting always succeeds
     };
 
@@ -43,8 +45,8 @@ struct Spell
     std::string mId, mName;
     EffectList mEffects;
 
-    void load(ESMReader &esm);
-    void save(ESMWriter &esm) const;
+    void load(ESMReader &esm, bool &isDeleted);
+    void save(ESMWriter &esm, bool isDeleted = false) const;
 
     void blank();
     ///< Set record to default state (does not touch the ID/index).
