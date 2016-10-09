@@ -614,6 +614,7 @@ if (WIN32)
         # Warnings that are thrown on standard libraries and not OpenMW
         4347 # Non-template function with same name and parameter count as template function
         4365 # Variable signed/unsigned mismatch
+        4371 # Layout may have changed (64-bit specific)
         4510 4512 # Unable to generate copy constructor/assignment operator as it's not public in the base
         4706 # Assignment in conditional expression
         4738 # Storing 32-bit float result in memory, possible loss of performance
@@ -631,6 +632,8 @@ if (WIN32)
         4127 # Conditional expression is constant
         4242 # Storing value in a variable of a smaller type, possible loss of data
         4244 # Storing value of one type in variable of another (size_t in int, for example)
+        4267 # Converting value from one type to another (64-bit specific?)
+        4302 # Truncating value, seems to be64-bit specific (Pointers?)
         4305 # Truncating value (double to float, for example)
         4309 # Variable overflow, trying to store 128 in a signed char for example
         4355 # Using 'this' in member initialization list
