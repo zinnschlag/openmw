@@ -135,7 +135,11 @@ void Actors::removeCell(MWWorld::CellStore* store)
         {
             mRendering->removeWaterRippleEmitter (iter->first);
             delete iter->second;
+#ifdef _WIN32
+            iter = mAllActors.erase(iter);
+#else
             mAllActors.erase(iter++);
+#endif
         }
         else
             ++iter;
