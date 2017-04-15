@@ -318,7 +318,7 @@ namespace MWGui
             {
                 mPersuasionDialog.setVisible(true);
             }
-            else if (topic == gmst.find("sCompanionShare")->getString())
+            else if (gmst.search("sCompanionShare") && topic == gmst.find("sCompanionShare")->getString())
             {
                 MWBase::Environment::get().getWindowManager()->pushGuiMode(GM_Companion);
                 MWBase::Environment::get().getWindowManager()->showCompanionWindow(mPtr);
